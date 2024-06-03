@@ -15,11 +15,3 @@ export const Rows = styled.div`
 
   width: 100%;
 `;
-
-export const NoticeContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  width: 100%;
-`;

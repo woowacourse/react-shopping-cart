@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import MobileLayout from './MobileLayout';
 
 const meta = {
@@ -6,10 +6,15 @@ const meta = {
   component: MobileLayout,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof MobileLayout>;
+};
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  args: {
+    children: 'hi',
+  },
+  render: (args) => <MobileLayout {...args} />,
+};

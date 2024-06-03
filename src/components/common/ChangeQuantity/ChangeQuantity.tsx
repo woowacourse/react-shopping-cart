@@ -15,14 +15,14 @@ export interface ChangeQuantityProps {
 const ChangeQuantity = ({ quantity, decreaseQuantity, increaseQuantity }: ChangeQuantityProps) => {
   return (
     <S.ChangeQuantity>
-      <Button size="s" onClick={decreaseQuantity} square={true} isDisabled={quantity === 1} aria-label="minus">
-        <img src={MINUS} />
+      <Button size="s" onClick={decreaseQuantity} isSquare={true} disabled={quantity === 1} aria-label="수량 감소">
+        <img src={MINUS} alt="" />
       </Button>
       <S.Quantity>
         <Text weight="m">{quantity}</Text>
       </S.Quantity>
-      <Button size="s" onClick={increaseQuantity} square={true} aria-label="plus">
-        <img src={PLUS} />
+      <Button size="s" onClick={increaseQuantity} isSquare={true} aria-label="수량 증가">
+        <img src={PLUS} alt="" />
       </Button>
     </S.ChangeQuantity>
   );

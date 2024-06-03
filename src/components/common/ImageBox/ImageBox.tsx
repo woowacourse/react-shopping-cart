@@ -7,12 +7,13 @@ export type ImageBoxProps = {
   height: number;
   border?: string;
   backgroundColor?: string;
+  alt?: string;
 };
 
-const ImageBox = ({ src = '', ...rest }: ImageBoxProps) => {
+const ImageBox = ({ src = '', alt, ...rest }: ImageBoxProps) => {
   return (
     <S.ImageBox {...rest}>
-      <img src={src} alt="image" />
+      <img src={src} alt={alt} />
     </S.ImageBox>
   );
 };

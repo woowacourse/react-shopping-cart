@@ -14,7 +14,6 @@ const GlobalStyles = createGlobalStyle`
   h4,
   h5,
   h6,
-  p,
   blockquote,
   pre,
   a,
@@ -82,6 +81,7 @@ const GlobalStyles = createGlobalStyle`
   mark,
   audio,
   main,
+  p,
   video {
     margin: 0;
     padding: 0;
@@ -130,6 +130,10 @@ const GlobalStyles = createGlobalStyle`
   }
   button {
     border: none;
+  }
+  #root {
+    display: flex;
+    justify-content: center;
   }
 `;
 

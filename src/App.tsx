@@ -1,36 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MobileLayout from './components/common/MobileLayout/MobileLayout';
-import CartPage from './pages/CartPage';
-import ConfirmPurchasePage from './pages/ConfirmPurchasePage';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from './components/ErrorFallback/ErrorFallback';
-import { Suspense } from 'react';
+import CartOrdersPageContainer from './pages/CartOrders/CartOrdersPageContainer';
+import StartPage from './pages/StartPage';
+import { ROUTES } from './constants/routes';
+import CartOrderFormPageContainer from './pages/CartOrderForm/CartOrderFormPageContainer';
+import CartOrderCompletePage from './pages/CartOrderComplete/CartOrderCompletePage';
 
 function App() {
   return (
     <BrowserRouter>
       <MobileLayout>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<div>suspense</div>}>
-                  <CartPage />
-                </Suspense>
-              </ErrorBoundary>
-            }
-          />
-          <Route
-            path="/confirm-purchase"
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<div>suspense</div>}>
-                  <ConfirmPurchasePage />
-                </Suspense>
-              </ErrorBoundary>
-            }
-          />
+          <Route path="/" element={<StartPage />} />
+          <Route path={ROUTES.CART_ORDERS} element={<CartOrdersPageContainer />} />
+          <Route path={ROUTES.CART_ORDER_FORM} element={<CartOrderFormPageContainer />} />
+          <Route path={ROUTES.CART_ORDER_COMPLETE} element={<CartOrderCompletePage />} />
         </Routes>
       </MobileLayout>
     </BrowserRouter>

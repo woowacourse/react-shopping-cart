@@ -11,11 +11,6 @@ const meta = {
       control: { type: 'radio' },
       options: ['s', 'm', 'l', 'custom'],
     },
-    customSize: {
-      if: { arg: 'size', eq: 'custom' },
-      description: '',
-      control: { type: 'number' },
-    },
     weight: {
       description: '',
       control: { type: 'radio' },
@@ -24,14 +19,13 @@ const meta = {
     children: {
       description: '',
       control: { type: 'text' },
-    }
+    },
   },
   args: {
     size: 'm',
-    customSize: 0,
     weight: 'm',
-    children: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-  }
+    children: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  },
 } satisfies Meta<typeof Text>;
 
 export default meta;
@@ -40,9 +34,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: ({ ...args }) => {
-    if (args.customSize) {
-      args.size = args.customSize;
-    }
     return <Text {...args}>{args.children}</Text>;
   },
 };

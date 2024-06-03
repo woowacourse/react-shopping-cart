@@ -7,25 +7,25 @@ export const Text = styled.p<TextProps>`
       case 's':
         return `
         font-size: 12px;
-        line-height: 18px;
+        line-height: 1.5;
         color: #0A0D13;
         `;
       case 'm':
         return `
         font-size: 16px;
-        line-height: 16px;
+        line-height: 1.5;
         color: #000000;
         `;
       case 'l':
         return `
         font-size: 24px;
-        line-height: 34px;
+        line-height: 1.5;
         color: #000000;
         `;
       default:
         return `
         font-size: ${size}px;
-        line-height: ${(size as number) * 1.5}px;
+        line-height: 1.5;
         color: #000000;
         `;
     }

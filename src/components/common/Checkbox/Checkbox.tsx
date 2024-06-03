@@ -1,16 +1,21 @@
+import { ReactNode } from 'react';
 import * as S from './Checkbox.style';
 
-import CHECK_TRUE from '../../../assets/check-true.svg';
-import CHECK_FALSE from '../../../assets/check-false.svg';
-
 export interface CheckboxProps {
-  state: boolean;
+  checked: boolean;
   handleClick: () => void;
-  alt: string;
+  areaLabel?: string;
+  description?: ReactNode; // Text 컴포넌트를 넣을 수 있도록
+  disabled?: boolean;
 }
 
-const Checkbox = ({ state, handleClick, alt = 'Checkbox' }: CheckboxProps) => {
-  return <S.Checkbox src={state ? CHECK_TRUE : CHECK_FALSE} onClick={handleClick} alt={alt} />;
+const Checkbox = ({ checked, handleClick, areaLabel = '선택', description, disabled }: CheckboxProps) => {
+  return (
+    <S.CheckboxWrapper>
+      <S.Checkbox checked={checked} onChange={handleClick} area-label={areaLabel} type="checkbox" disabled={disabled} />
+      {description}
+    </S.CheckboxWrapper>
+  );
 };
 
 export default Checkbox;
