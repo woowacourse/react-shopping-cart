@@ -7,6 +7,7 @@ import { BUTTON_COLORS, CART, HEADER_TYPES, PATHS } from "../../constants";
 import { useFetchCartItems } from "../../hooks/useFetchCartItems";
 import { checkedItemState, selectedCartItemsState } from "../../recoil/atoms/atoms";
 import { cartSummarySelectorState } from "../../recoil/selector/selector";
+import { syncSelectedCartItems } from "../../utils/cartFilter";
 
 export const CartPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,8 +17,7 @@ export const CartPage: React.FC = () => {
   const setSelectedCartItems = useSetRecoilState(selectedCartItemsState);
 
   const navigateToOrderConfirmationPage = () => {
-    const selectedItems = cartItems.filter((item) => checkedItems[item.id]);
-    setSelectedCartItems(selectedItems);
+    syncSelectedCartItems(cartItems, checkedItems, setSelectedCartItems);
     navigate(PATHS.ORDER_CONFIRMATION);
   };
 
