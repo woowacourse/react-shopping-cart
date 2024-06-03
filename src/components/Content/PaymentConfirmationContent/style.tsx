@@ -4,6 +4,7 @@ export const Details = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -12,16 +13,6 @@ export const Details = styled.div`
   width: 100%;
 
   text-align: center;
-`;
-
-export const Title = styled.p`
-  ${(props) => props.theme.typography.title};
-  color: ${(props) => props.theme.color.black};
-`;
-
-export const OrderSuccessMessage = styled.p`
-  ${(props) => props.theme.typography.successMessage};
-  color: ${(props) => props.theme.color.captionBlack};
 `;
 
 export const TotalPaymentAmountContainer = styled.div`

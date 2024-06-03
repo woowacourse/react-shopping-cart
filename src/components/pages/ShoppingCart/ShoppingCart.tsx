@@ -1,24 +1,21 @@
-import * as Styled from './style';
+import * as Styled from '../style';
 import { LoadingMessage } from '../../LoadingFallback/style';
 
 import { Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Header from '../../Header/Header';
-import OrderButton from '../../OrderButton/OrderButton';
+import FooterButton from '../../FooterButton/FooterButton';
 import ShoppingCartContent from '../../Content/ShoppingCartContent/ShoppingCartContent';
 
 const ShoppingCart = () => {
-  const navigator = useNavigate();
-
   return (
-    <Styled.ShoppingCart>
+    <Styled.Page>
       <Header />
       <Suspense fallback={<LoadingMessage>Loading...</LoadingMessage>}>
         <ShoppingCartContent />
-        <OrderButton onClick={() => navigator('/orderConfirmation')} />
+        <FooterButton />
       </Suspense>
-    </Styled.ShoppingCart>
+    </Styled.Page>
   );
 };
 

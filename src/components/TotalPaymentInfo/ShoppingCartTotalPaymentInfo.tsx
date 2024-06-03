@@ -1,8 +1,5 @@
 import * as Styled from './style';
 
-import PaymentInfo from './PaymentInfo';
-import CaptionEmoji from '../assets/CaptionEmoji.svg';
-
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -11,23 +8,29 @@ import {
   totalPaymentAmountSelector,
 } from '../../recoil/selectors';
 
+import PaymentInfo from './PaymentInfo';
+import Caption from '../Caption/Caption';
+import Divider from '../Divider/Divider';
+
+import CaptionEmoji from '../../assets/CaptionEmoji.svg';
+
 import MESSAGE from '../../constants/Message';
 
-const TotalPaymentInfo = () => {
+const ShoppingCartTotalPaymentInfo = () => {
   const totalOrderAmount = useRecoilValue(totalOrderAmountSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
   const totalPaymentAmount = useRecoilValue(totalPaymentAmountSelector);
 
   return (
     <Styled.TotalPaymentInfo>
-      <Styled.PaymentCaptionContainer>
+      <Caption>
         <img src={CaptionEmoji} />
-        <Styled.PaymentCaption>{MESSAGE.paymentCaption}</Styled.PaymentCaption>
-      </Styled.PaymentCaptionContainer>
-      <Styled.Divider />
+        {MESSAGE.paymentCaption}
+      </Caption>
+      <Divider />
       <PaymentInfo label={MESSAGE.paymentAmount} price={totalOrderAmount} />
       <PaymentInfo label={MESSAGE.shippingFee} price={shippingFee} />
-      <Styled.Divider />
+      <Divider />
       <PaymentInfo
         label={MESSAGE.totalPaymentAmount}
         price={totalPaymentAmount}
@@ -36,4 +39,4 @@ const TotalPaymentInfo = () => {
   );
 };
 
-export default TotalPaymentInfo;
+export default ShoppingCartTotalPaymentInfo;

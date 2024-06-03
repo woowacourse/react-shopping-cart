@@ -1,29 +1,22 @@
-import { useLocation } from 'react-router-dom';
 import * as Styled from './style';
-import MESSAGE from '../../constants/Message';
 
-interface HeaderProps {
-  onClick?: () => void;
-}
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Header = ({ onClick }: HeaderProps) => {
-  const title = () => {
-    const location = useLocation();
+import {
+  generateHeaderTitle,
+  generatePrevPageNavigatorPath,
+} from '../../utils/utils';
 
-    switch (location.pathname) {
-      case '/':
-        return MESSAGE.shop;
-      case '/orderConfirmation':
-        return MESSAGE.backSpace;
-      default:
-        return '';
-    }
-  };
+const Header = () => {
+  const page = useLocation().pathname;
+  const navigator = useNavigate();
 
   return (
     <Styled.Header>
-      <Styled.AppTitle onClick={() => onClick && onClick()}>
-        {title()}
+      <Styled.AppTitle
+        onClick={() => navigator(generatePrevPageNavigatorPath(page))}
+      >
+        {generateHeaderTitle(page)}
       </Styled.AppTitle>
     </Styled.Header>
   );

@@ -1,17 +1,13 @@
 import * as Styled from './style';
 
-interface TitleProp {
-  title: string;
-  caption?: string;
+import { ReactNode } from 'react';
+
+interface TitleProps {
+  children: ReactNode;
 }
 
-const Title = ({ title, caption }: TitleProp) => {
-  return (
-    <Styled.TitleContainer>
-      <Styled.Title>{title}</Styled.Title>
-      {caption && <Styled.Caption>{caption}</Styled.Caption>}
-    </Styled.TitleContainer>
-  );
+const Title = ({ children }: TitleProps) => {
+  return <Styled.Title>{children}</Styled.Title>;
 };
 
 export default Title;

@@ -1,9 +1,9 @@
-interface isCartItemsSelectedType {
+interface isCouponSelectedsType {
   id: number;
   boolean: boolean;
 }
 
-const mockIsCartItemsSelected: isCartItemsSelectedType[] = [
+const mockIsCouponSelecteds: isCouponSelectedsType[] = [
   {
     id: 1,
     boolean: true,
@@ -14,16 +14,12 @@ const mockIsCartItemsSelected: isCartItemsSelectedType[] = [
   },
   {
     id: 3,
-    boolean: true,
+    boolean: false,
   },
   {
     id: 4,
     boolean: false,
   },
-  {
-    id: 5,
-    boolean: false,
-  },
 ];
 
-export default mockIsCartItemsSelected;
+export default mockIsCouponSelecteds;

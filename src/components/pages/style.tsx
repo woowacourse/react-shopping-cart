@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const OrderConfirmation = styled.section`
+export const Page = styled.section`
   width: 26.875rem;
   min-height: 100vh;
   position: relative;

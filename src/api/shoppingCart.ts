@@ -1,98 +1,46 @@
-import { BASE_URL, USER_ID, USER_PASSWORD } from '.';
-import { generateBasicToken } from './auth';
+import { fetchWithPayload, fetchWithoutPayload } from './fetch';
 
+import { BASE_URL } from '.';
 import { CartItemType } from '../type';
 import MESSAGE from '../constants/Message';
 
-interface fetchProps {
-  uri: string;
-  method: string;
-  payload?: object;
-  errorMessage: string;
-}
-
-const getAuthHeadersWithPayload = () => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
-  return {
-    Authorization: token,
-    'Content-Type': 'application/json',
-  };
-};
-
-const getAuthHeadersWithoutPayload = () => {
-  const token = generateBasicToken(USER_ID, USER_PASSWORD);
-
-  return {
-    Authorization: token,
-  };
-};
-
-const fetchWithPayload = async ({
-  uri,
-  method,
-  payload,
-  errorMessage,
-}: fetchProps) => {
-  const response = await fetch(uri, {
-    method: method,
-    headers: getAuthHeadersWithPayload(),
-    body: JSON.stringify(payload),
-  });
-
-  if (!response.ok) {
-    throw new Error(errorMessage);
-  }
-
-  return response;
-};
-
-const fetchWithoutPayload = async ({
-  uri,
-  method,
-  errorMessage,
-}: fetchProps) => {
-  const response = await fetch(uri, {
-    method: method,
-    headers: getAuthHeadersWithoutPayload(),
-  });
-
-  if (!response.ok) {
-    throw new Error(errorMessage);
-  }
-
-  return response;
-};
-
-export const fetchGetCartItems = async (): Promise<CartItemType[]> => {
+export const fetchGettingCartItems = async (): Promise<CartItemType[]> => {
   const response = await fetchWithoutPayload({
-    uri: `${BASE_URL}/cart-items`,
+    url: `${BASE_URL}/cart-items`,
     method: 'GET',
-    errorMessage: MESSAGE.fetchError,
+    errorMessage: MESSAGE.error.gettingCartItems,
   });
 
   const data = await response.json();
   return data.content;
 };
 
-export const fetchRemoveCartItem = async (
+export const fetchRemovingCartItem = async (
   cartItemId: number,
 ): Promise<void> => {
-  await fetchWithoutPayload({
-    uri: `${BASE_URL}/cart-items/${cartItemId}`,
-    method: 'DELETE',
-    errorMessage: MESSAGE.removalError,
-  });
+  try {
+    await fetchWithoutPayload({
+      url: `${BASE_URL}/cart-items/${cartItemId}`,
+      method: 'DELETE',
+      errorMessage: MESSAGE.error.cartItemRemoval,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export const fetchAdjustCartItemQuantity = async (
+export const fetchAdjustingCartItemQuantity = async (
   cartItemId: number,
   quantity: number,
 ): Promise<void> => {
-  await fetchWithPayload({
-    uri: `${BASE_URL}/cart-items/${cartItemId}`,
-    method: 'PATCH',
-    payload: { quantity },
-    errorMessage: MESSAGE.quantityAdjustmentError,
-  });
+  try {
+    await fetchWithPayload({
+      url: `${BASE_URL}/cart-items/${cartItemId}`,
+      method: 'PATCH',
+      payload: { quantity },
+      errorMessage: MESSAGE.error.cartItemQuantityAdjustment,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
