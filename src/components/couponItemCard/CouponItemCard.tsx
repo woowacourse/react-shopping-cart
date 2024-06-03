@@ -16,43 +16,21 @@ import {
   StyledCouponItemCardTitle,
 } from "./CouponItemCard.styled";
 
-export interface CouponItemCardProps extends Coupon {
+export interface CouponItemCardProps {
+  coupon: Coupon;
   onApplyButtonClick: () => void;
 }
 
-export const CouponItemCard: React.FC<CouponItemCardProps> = ({
-  id,
-  code,
-  description,
-  expirationDate,
-  discountType,
-  minimumAmount,
-  buyQuantity,
-  getQuantity,
-  availableTime,
-  onApplyButtonClick,
-}) => {
+export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyButtonClick }) => {
+  const { id, description, expirationDate } = coupon;
   const { isCouponValid } = couponValidator();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
   const { orderPrice } = useRecoilValue(cartSummarySelectorState);
   const [selectedCoupons, setSelectedCoupons] = useRecoilState(selectedCouponState);
 
-  const isValid = isCouponValid({ id, code, description, expirationDate, discountType });
+  const isValid = isCouponValid(coupon);
 
-  const isApplicable = isCouponApplicable(
-    {
-      id,
-      code,
-      description,
-      expirationDate,
-      discountType,
-      minimumAmount,
-      buyQuantity,
-      getQuantity,
-      availableTime,
-    },
-    orderPrice
-  );
+  const isApplicable = isCouponApplicable(coupon, orderPrice);
 
   const isChecked = selectedCoupons.some((coupon) => coupon.id === id);
   const onCheck = () => {
@@ -60,13 +38,13 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({
 
     setSelectedCoupons((prevSelectedCoupons) => {
       if (isChecked) {
-        return prevSelectedCoupons.filter((coupon) => coupon.id !== id);
+        return prevSelectedCoupons.filter((selectedCoupon) => selectedCoupon.id !== id);
       } else if (prevSelectedCoupons.length < COUPON.MAX_SELECTABLE_COUPONS) {
-        onApplyButtonClick();
-        return [...prevSelectedCoupons, { id, code, description, expirationDate, discountType }];
+        return [...prevSelectedCoupons, coupon];
       }
       return prevSelectedCoupons;
     });
+    onApplyButtonClick(id);
   };
 
   return (
@@ -79,15 +57,7 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({
         <StyledCouponItemCardContent>
           만료일: {formatDate(expirationDate)}
         </StyledCouponItemCardContent>
-        <StyledCouponItemCardContent>
-          {getAdditionalInfo({
-            discountType,
-            minimumAmount,
-            buyQuantity,
-            getQuantity,
-            availableTime,
-          })}
-        </StyledCouponItemCardContent>
+        <StyledCouponItemCardContent>{getAdditionalInfo(coupon)}</StyledCouponItemCardContent>
       </StyledCouponItemCardContentsWrapper>
     </StyledCouponItemCard>
   );

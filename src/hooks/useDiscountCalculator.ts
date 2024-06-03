@@ -1,24 +1,34 @@
-import { Coupon } from "../types";
+import {
+  BuyXgetYDiscountCoupon,
+  Coupon,
+  DiscountType,
+  FixedDiscountCoupon,
+  PercentageDiscountCoupon,
+} from "../types";
 import { useCouponApplicabilityChecker } from "./useCouponApplicabilityChecker";
 
 export const useDiscountCalculator = () => {
   const { isCouponApplicable } = useCouponApplicabilityChecker();
 
-  const calculateFixedDiscount = (coupon: Coupon, totalAmount: number) => {
+  const calculateFixedDiscount = (coupon: FixedDiscountCoupon, totalAmount: number) => {
     if (!isCouponApplicable(coupon, totalAmount)) {
       return 0;
     }
     return coupon.discount ?? 0;
   };
 
-  const calculatePercentageDiscount = (coupon: Coupon, totalAmount: number) => {
+  const calculatePercentageDiscount = (coupon: PercentageDiscountCoupon, totalAmount: number) => {
     if (!isCouponApplicable(coupon, totalAmount)) {
       return 0;
     }
     return Math.floor((totalAmount * (coupon.discount ?? 0)) / 100);
   };
 
-  const calculateBuyXGetYDiscount = (coupon: Coupon, totalAmount: number, quantity: number) => {
+  const calculateBuyXGetYDiscount = (
+    coupon: BuyXgetYDiscountCoupon,
+    totalAmount: number,
+    quantity: number
+  ) => {
     if (!isCouponApplicable(coupon, totalAmount)) {
       return 0;
     }
@@ -46,13 +56,13 @@ export const useDiscountCalculator = () => {
     }
 
     switch (coupon.discountType) {
-      case "fixed":
+      case DiscountType.Fixed:
         return calculateFixedDiscount(coupon, totalAmount);
-      case "percentage":
+      case DiscountType.Percentage:
         return calculatePercentageDiscount(coupon, totalAmount);
-      case "buyXgetY":
+      case DiscountType.BuyXgetY:
         return calculateBuyXGetYDiscount(coupon, totalAmount, quantity);
-      case "freeShipping":
+      case DiscountType.FreeShipping:
         return calculateFreeShippingDiscount(coupon, totalAmount);
       default:
         return 0;

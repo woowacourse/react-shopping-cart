@@ -1,4 +1,4 @@
-import { Coupon } from "../types";
+import { Coupon, DiscountType } from "../types";
 import { couponValidator } from "./couponValidator";
 
 describe("couponValidator", () => {
@@ -16,8 +16,10 @@ describe("couponValidator", () => {
       id: 1,
       code: "EXPIRED_COUPON",
       description: "만료된 쿠폰",
-      discountType: "fixed",
       expirationDate: "2024-05-01",
+      discountType: DiscountType.Fixed,
+      minimumAmount: 1000,
+      discount: 500,
     };
     const { isCouponValid } = couponValidator();
     expect(isCouponValid(expiredCoupon)).toBe(false);
@@ -28,8 +30,10 @@ describe("couponValidator", () => {
       id: 2,
       code: "VALID_COUPON",
       description: "유효한 쿠폰",
-      discountType: "fixed",
-      expirationDate: "2024-05-31",
+      expirationDate: "2024-06-31",
+      discountType: DiscountType.Fixed,
+      minimumAmount: 1000,
+      discount: 500,
     };
     const { isCouponValid } = couponValidator();
     expect(isCouponValid(validCoupon)).toBe(true);

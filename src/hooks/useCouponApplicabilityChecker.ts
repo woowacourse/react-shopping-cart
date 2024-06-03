@@ -1,4 +1,10 @@
-import { Coupon } from "../types";
+import {
+  Coupon,
+  DiscountType,
+  FixedDiscountCoupon,
+  FreeShippingCoupon,
+  PercentageDiscountCoupon,
+} from "../types";
 import { couponValidator } from "../utils/couponValidator";
 import { useCouponFinder } from "./useCouponFinder";
 
@@ -6,15 +12,31 @@ export const useCouponApplicabilityChecker = () => {
   const { findCouponByCode } = useCouponFinder();
   const { isCouponValid } = couponValidator();
 
+  const isFixedDiscountCoupon = (coupon: Coupon): coupon is FixedDiscountCoupon => {
+    return coupon.discountType === DiscountType.Fixed;
+  };
+
+  const isFreeShippingCoupon = (coupon: Coupon): coupon is FreeShippingCoupon => {
+    return coupon.discountType === DiscountType.FreeShipping;
+  };
+
+  const isPercentageDiscountCoupon = (coupon: Coupon): coupon is PercentageDiscountCoupon => {
+    return coupon.discountType === DiscountType.Percentage;
+  };
+
   const isCouponApplicable = (coupon: Coupon, totalAmount: number, now: Date = new Date()) => {
     const targetCoupon = findCouponByCode(coupon.code);
     if (!targetCoupon || !isCouponValid(targetCoupon)) return false;
 
-    if (targetCoupon.minimumAmount && totalAmount < targetCoupon.minimumAmount) {
+    if (
+      (isFixedDiscountCoupon(targetCoupon) || isFreeShippingCoupon(targetCoupon)) &&
+      targetCoupon.minimumAmount &&
+      totalAmount < targetCoupon.minimumAmount
+    ) {
       return false;
     }
 
-    if (targetCoupon.availableTime) {
+    if (isPercentageDiscountCoupon(targetCoupon) && targetCoupon.availableTime) {
       const [startHour, startMinute, startSecond] = targetCoupon.availableTime.start
         .split(":")
         .map(Number);

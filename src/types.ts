@@ -24,17 +24,59 @@ export interface CartSummary {
   uniqueItemCount: number;
   totalItemCount: number;
 }
-export interface Coupon {
+
+export enum DiscountType {
+  Fixed = "fixed",
+  Percentage = "percentage",
+  BuyXgetY = "buyXgetY",
+  FreeShipping = "freeShipping",
+}
+
+export interface BaseCoupon {
   id: number;
   code: string;
   description: string;
   expirationDate: string;
-  discount?: number;
-  discountType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
-  minimumAmount?: number;
-  buyQuantity?: number;
-  getQuantity?: number;
-  availableTime?: {
+}
+
+export interface FixedDiscountCoupon extends BaseCoupon {
+  discountType: DiscountType.Fixed;
+  minimumAmount: number;
+  discount: number;
+}
+
+export interface PercentageDiscountCoupon extends BaseCoupon {
+  discountType: DiscountType.Percentage;
+  discount: number;
+  availableTime: {
+    start: string;
+    end: string;
+  };
+}
+
+export interface BuyXgetYDiscountCoupon extends BaseCoupon {
+  discountType: DiscountType.BuyXgetY;
+  buyQuantity: number;
+  getQuantity: number;
+}
+
+export interface FreeShippingCoupon extends BaseCoupon {
+  discountType: DiscountType.FreeShipping;
+  minimumAmount: number;
+}
+
+export type Coupon =
+  | FixedDiscountCoupon
+  | PercentageDiscountCoupon
+  | BuyXgetYDiscountCoupon
+  | FreeShippingCoupon;
+
+export interface AdditionalInfoProps {
+  discountType: DiscountType;
+  minimumAmount: number;
+  buyQuantity: number;
+  getQuantity: number;
+  availableTime: {
     start: string;
     end: string;
   };

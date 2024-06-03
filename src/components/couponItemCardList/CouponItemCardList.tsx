@@ -12,7 +12,7 @@ export const CouponItemCardList: React.FC<CouponItemCardListProps> = ({ onApplyB
   return (
     <StyledCouponItemCardList>
       {coupons.map((coupon) => (
-        <CouponItemCard key={coupon.id} {...coupon} onApplyButtonClick={onApplyButtonClick} />
+        <CouponItemCard key={coupon.id} coupon={coupon} onApplyButtonClick={onApplyButtonClick} />
       ))}
     </StyledCouponItemCardList>
   );

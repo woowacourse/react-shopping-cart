@@ -1,25 +1,31 @@
-import { Coupon } from "../types";
+import {
+  Coupon,
+  DiscountType,
+  FixedDiscountCoupon,
+  PercentageDiscountCoupon,
+  BuyXgetYDiscountCoupon,
+  FreeShippingCoupon,
+} from "../types";
 import { formatTime } from "./formatTime";
 
-export const getAdditionalInfo = ({
-  discountType,
-  minimumAmount,
-  buyQuantity,
-  getQuantity,
-  availableTime,
-}: Pick<
-  Coupon,
-  "discountType" | "minimumAmount" | "buyQuantity" | "getQuantity" | "availableTime"
->): string => {
-  switch (discountType) {
-    case "fixed":
-      return `최소 주문 금액: ${minimumAmount?.toLocaleString()}원`;
-    case "buyXgetY":
-      return `${buyQuantity}개 구매 시 ${getQuantity}개 추가 증정`;
-    case "freeShipping":
-      return `최소 주문 금액: ${minimumAmount?.toLocaleString()}원`;
-    case "percentage":
-      return `사용 가능 시간: ${formatTime(availableTime?.start || "")}부터 ${formatTime(availableTime?.end || "")}까지`;
+export const getAdditionalInfo = (coupon: Coupon): string => {
+  switch (coupon.discountType) {
+    case DiscountType.Fixed: {
+      const fixedCoupon = coupon as FixedDiscountCoupon;
+      return `최소 주문 금액: ${fixedCoupon.minimumAmount?.toLocaleString()}원`;
+    }
+    case DiscountType.BuyXgetY: {
+      const buyXgetYCoupon = coupon as BuyXgetYDiscountCoupon;
+      return `${buyXgetYCoupon.buyQuantity}개 구매 시 ${buyXgetYCoupon.getQuantity}개 추가 증정`;
+    }
+    case DiscountType.FreeShipping: {
+      const freeShippingCoupon = coupon as FreeShippingCoupon;
+      return `최소 주문 금액: ${freeShippingCoupon.minimumAmount.toLocaleString()}원`;
+    }
+    case DiscountType.Percentage: {
+      const percentageCoupon = coupon as PercentageDiscountCoupon;
+      return `사용 가능 시간: ${formatTime(percentageCoupon.availableTime?.start || "")}부터 ${formatTime(percentageCoupon.availableTime?.end || "")}까지`;
+    }
     default:
       return "";
   }
