@@ -5,15 +5,16 @@ import styled from "@emotion/styled";
 interface Props {
   id: string;
   isSelected: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }
 
-const CheckBox = ({ id, isSelected, onClick }: Props) => {
+const CheckBox = ({ id, isSelected, onClick, disabled = false }: Props) => {
   return (
-    <label htmlFor={id}>
+    <StyledLabel htmlFor={id} disabled={disabled}>
       <img src={isSelected ? CHECKED : UNCHECKED} alt="checkbox" />
       <StyledInput id={id} type="checkbox" onClick={onClick} />
-    </label>
+    </StyledLabel>
   );
 };
 
@@ -21,4 +22,8 @@ export default CheckBox;
 
 const StyledInput = styled.input`
   display: none;
+`;
+
+const StyledLabel = styled.label<{ disabled: boolean }>`
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;

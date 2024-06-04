@@ -1,19 +1,15 @@
 import { FlexRow, WhiteSpace } from "@/style/common.style";
-import { useRecoilState, useRecoilValue } from "recoil";
 
 import CartItem from "@/components/Cart/CartItem";
 import CheckBox from "@/components/common/CheckBox";
-import { allSelectedState } from "@/store/selectors/allSelectedSelector";
-import { cartListState } from "@/store/atoms";
+import { cartListState } from "@/store/atoms/atoms";
 import styled from "@emotion/styled";
+import useAllSelected from "@/hooks/useAllSelected";
+import { useRecoilValue } from "recoil";
 
 const CartList = () => {
   const cartList = useRecoilValue(cartListState);
-  const [isAllSelected, setIsAllSelected] = useRecoilState(allSelectedState);
-
-  const handleAllSelect = () => {
-    setIsAllSelected(!isAllSelected);
-  };
+  const { isAllSelected, handleAllSelect } = useAllSelected();
 
   return (
     <StyledListWrapper>

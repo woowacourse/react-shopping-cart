@@ -1,11 +1,11 @@
 import { FREE_SHIPPING_CONDITION, SHIPPING_FEE } from "@/constants/system";
-import { OrderedItemType, RecipeType } from "@/types/recipe.type";
-import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { OrderedItemType, SummaryType } from "@/types/order.type";
+import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 import { selector } from "recoil";
 
-export const recipeState = selector<RecipeType>({
-  key: "recipeState",
+export const cartSummaryState = selector<SummaryType>({
+  key: "cartSummaryState",
   get: ({ get }) => {
     const cartList = get(cartListState);
     const cartItemStates = cartList.map((state) =>
@@ -19,7 +19,8 @@ export const recipeState = selector<RecipeType>({
       return acc;
     }, 0);
 
-    const shippingFee = orderPrice > FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
+    const shippingFee =
+      orderPrice >= FREE_SHIPPING_CONDITION ? 0 : SHIPPING_FEE;
     const totalPrice = orderPrice + shippingFee;
 
     return {

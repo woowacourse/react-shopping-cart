@@ -1,18 +1,18 @@
-import { CART_MESSAGE } from "@/constants/message";
 import { WhiteSpace } from "@/style/common.style";
-import { cartListState } from "@/store/atoms";
 import styled from "@emotion/styled";
-import { useRecoilValue } from "recoil";
 
-const CartTitle = () => {
-  const cartItemCount = useRecoilValue(cartListState);
+interface Props {
+  title: string;
+  details: string[];
+}
 
+const CartTitle = ({ title, details }: Props) => {
   return (
     <StyledTitleWrapper>
-      <StyledTitle>장바구니</StyledTitle>
-      <StyledDetail>
-        {CART_MESSAGE.totalProducts(cartItemCount.length)}
-      </StyledDetail>
+      <StyledTitle>{title}</StyledTitle>
+      {details.map((detail, idx) => (
+        <StyledDetail key={idx}>{detail}</StyledDetail>
+      ))}
     </StyledTitleWrapper>
   );
 };

@@ -3,13 +3,13 @@ import {
   MOCK_FILTERED_CART_LIST_NEED_SHIPPING_FEE,
 } from "@/constants/_mock/mockFilteredCartList";
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
-import { cartListState, filteredCartItemState } from "@/store/atoms";
+import { cartListState, filteredCartItemState } from "@/store/atoms/atoms";
 
 import MOCK_CART_LIST from "@/constants/_mock/mockCartList";
-import { recipeState } from "@/store/selectors/recipeSelector";
+import { cartSummaryState } from "@/store/selectors/summarySelector/cartSummarySelector";
 import { renderHook } from "@testing-library/react";
 
-jest.mock("../../api/config", () => ({
+jest.mock("../../../api/config", () => ({
   config: {
     apiUrl: "http://localhost:mock",
   },
@@ -30,7 +30,7 @@ describe("cartTotalPriceState", () => {
         });
 
         const { orderPrice, shippingFee, totalPrice } =
-          useRecoilValue(recipeState);
+          useRecoilValue(cartSummaryState);
 
         return { orderPrice, shippingFee, totalPrice };
       },
@@ -58,7 +58,7 @@ describe("cartTotalPriceState", () => {
         });
 
         const { orderPrice, shippingFee, totalPrice } =
-          useRecoilValue(recipeState);
+          useRecoilValue(cartSummaryState);
 
         return { orderPrice, shippingFee, totalPrice };
       },
