@@ -18,10 +18,9 @@ import {
 
 export interface CouponItemCardProps {
   coupon: Coupon;
-  onApplyButtonClick: (id: number) => void;
 }
 
-export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyButtonClick }) => {
+export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon }) => {
   const { id, description, expirationDate } = coupon;
   const { isCouponValid } = couponValidator();
   const { isCouponApplicable } = useCouponApplicabilityChecker();
@@ -33,7 +32,6 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyB
   const isChecked = selectedCoupons.some((coupon) => coupon.id === id);
   const onChangeCouponCheck = () => {
     if (!isApplicable) return;
-
     setSelectedCoupons((prevSelectedCoupons) => {
       if (isChecked) {
         return prevSelectedCoupons.filter((selectedCoupon) => selectedCoupon.id !== id);
@@ -42,7 +40,6 @@ export const CouponItemCard: React.FC<CouponItemCardProps> = ({ coupon, onApplyB
       }
       return prevSelectedCoupons;
     });
-    onApplyButtonClick(id);
   };
 
   return (
