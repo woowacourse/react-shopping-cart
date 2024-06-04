@@ -1,17 +1,16 @@
 import { css } from "@emotion/css";
-import CartItem from "./CartItem";
+import CartItemComponent from "./CartItem";
 import Button from "../default/Button";
 import Splitter from "../default/Splitter";
 import CheckIcon from "../../assets/CheckIcon.svg?react";
 
-import { deleteCartItem } from "../../api/cartItem";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { cartItemCheckedIdsAtom, cartItemsAtom } from "../../recoil/atom/atom";
-import { isAllCheckedSelector } from "../../recoil/selector/selector";
+import { deleteCartItem as deleteRequestCartItem } from "../../api/cartItem";
+import { useRecoilState } from "recoil";
+import { cartItemListAtom } from "../../recoil/cart/cartItemState";
+import { isAllCheckedSelector } from "../../recoil/cart/checkedState";
 
 const CartItems = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartItemsAtom);
-  const setCheckedIds = useSetRecoilState(cartItemCheckedIdsAtom);
+  const [cartItems, setCartItems] = useRecoilState(cartItemListAtom);
   const [isAllChecked, setIsAllChecked] = useRecoilState(isAllCheckedSelector);
 
   const handleAllChecked = () => {
@@ -19,9 +18,8 @@ const CartItems = () => {
   };
 
   const handleDelete = (id: number) => {
-    deleteCartItem(id);
+    deleteRequestCartItem(id);
     setCartItems((prev) => prev.filter((cartItem) => id !== cartItem.id));
-    setCheckedIds((prev) => prev.filter((itemId) => id !== itemId));
   };
 
   return (
@@ -36,7 +34,7 @@ const CartItems = () => {
         {cartItems.map((item) => (
           <div key={item.id}>
             <Splitter />
-            <CartItem product={item} handleDelete={() => handleDelete(item.id)} />
+            <CartItemComponent product={item} handleDelete={() => handleDelete(item.id)} />
           </div>
         ))}
       </div>

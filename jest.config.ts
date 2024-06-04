@@ -1,10 +1,9 @@
 export default {
-  testEnvironment: "jsdom",
+  testEnvironment: "node",
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
   moduleNameMapper: {
-    "^.+\\.svg$": "jest-svg-transformer",
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
   },
 };

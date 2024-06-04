@@ -1,84 +1,111 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import CartTitle from "../components/CartPage/CartTitle";
+import OrderSummary from "../components/CartPage/OrderSummary";
+import CartLayout from "../components/layout";
+
+import { checkedIdSetSelector } from "../recoil/cart/checkedState";
+import CouponModal from "../components/CouponModal";
+import { useModalState } from "lv2-modal-component";
 import { css } from "@emotion/css";
-import { useRecoilValue } from "recoil";
-import { cartItemCheckedIdsAtom } from "../recoil/atom/atom";
-import { totalCountSelector, totalPriceSelector } from "../recoil/selector/selector";
-import { formatCurrency } from "../utils/formatCurrency";
-import LeftArrow from "../assets/LeftArrow.svg?react";
-import { CartLayout, Header, Content, Footer } from "../components/layout";
+import OrderItemList from "../components/OrderConfirmationPage/OrderItemList";
+import { cartItemCountSelector } from "../recoil/cart/cartItemState";
+import { isRuralAtom, totalCountSelector } from "../recoil/cart/orderSummaryState";
+import Button from "../components/default/Button";
+import CheckIcon from "../assets/CheckIcon.svg?react";
+import { Orders, postOrders } from "../api/orders";
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate();
-  const cartItemCheckedIds = useRecoilValue(cartItemCheckedIdsAtom);
-  const cartTotalPrice = useRecoilValue(totalPriceSelector);
-  const cartTotalCount = useRecoilValue(totalCountSelector);
-
-  const text = `총 ${cartItemCheckedIds.length}종류의 상품 ${cartTotalCount}개를 주문합니다.
-  최종 결제 금액을 확인해 주세요.`;
+  const cartItemCheckedIds = useRecoilValue(checkedIdSetSelector);
+  const itemSpecies = useRecoilValue(cartItemCountSelector);
+  const totalCount = useRecoilValue(totalCountSelector);
 
   const handleClick = () => {
-    navigate(-1);
+    const orders: Orders = { cartItemIds: [...cartItemCheckedIds] };
+    postOrders(orders);
+    navigate("/paymentConfirmation");
   };
 
+  const { isOpen, closeModal, openModal, confirmModal } = useModalState(false, {
+    onOpen: () => {},
+    onConfirm: () => {},
+  });
+  const [isRural, setIsRural] = useRecoilState(isRuralAtom);
+  const handleButtonClick = () => setIsRural(!isRural);
+
+  const subTitleString = `총 ${itemSpecies}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`;
   return (
-    <CartLayout>
-      <Header>
-        <LeftArrow className={leftArrowBtnCSS} onClick={handleClick} />
-      </Header>
-      <Content>
-        <div className={confirmTextCSS}>
-          <div className={headerCSS}>주문 확인</div>
-          <div className={textCSS}>{text}</div>
-          <div className={totalPriceTitleCSS}> 총 결제 금액</div>
-          <div className={totalPriceCSS}> {formatCurrency(cartTotalPrice)}</div>
-        </div>
-      </Content>
-      <Footer text="결제하기" isActive={false} />
-    </CartLayout>
+    <>
+      <CartLayout>
+        <CartLayout.Header>SHOP</CartLayout.Header>
+        <CartLayout.Content>
+          <CartTitle mainText="주문 확인" subText={subTitleString} />
+          <OrderItemList />
+          <button className={buttonCSS} onClick={openModal}>
+            쿠폰 적용
+          </button>
+          <div className={shippingInfoCSS}>
+            <h3>배송 정보</h3>
+            <div className={shippingRowCSS}>
+              <Button variant={isRural ? "primary" : "secondary"} onClick={handleButtonClick}>
+                <CheckIcon fill={isRural ? "#ffffff" : "#0000001A"} />
+              </Button>
+              <p>제주도 및 도서 산간 지역</p>
+            </div>
+          </div>
+          <OrderSummary />
+        </CartLayout.Content>
+        <CartLayout.Footer text="결제하기" isActive={cartItemCheckedIds.size > 0} onClick={handleClick} />
+      </CartLayout>
+      <CouponModal isOpen={isOpen} closeModal={closeModal} confirmModal={confirmModal} />
+    </>
   );
 };
 
 export default OrderConfirmationPage;
 
-const leftArrowBtnCSS = css`
-  cursor: pointer;
-`;
-
-const confirmTextCSS = css`
+const buttonCSS = css`
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  padding: 10px 0;
   align-items: center;
-  row-gap: 24px;
-  height: 100%;
-`;
+  width: 100%;
+  height: 48px !important;
+  box-sizing: border-box;
+  border: 1px solid #33333340;
+  border-radius: 5px;
 
-const headerCSS = css`
+  background: transparent;
+
   font-family: Noto Sans KR;
-  font-size: 24px;
+  font-size: 15px;
   font-weight: 700;
-  line-height: 34.75px;
-`;
-
-const textCSS = css`
-  white-space: pre-line;
-  font-family: Noto Sans;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
+  line-height: 21.72px;
   text-align: center;
 `;
 
-const totalPriceTitleCSS = css`
+const shippingInfoCSS = css`
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+
   font-family: Noto Sans;
   font-size: 16px;
   font-weight: 700;
   line-height: 16px;
+  text-align: left;
 `;
 
-const totalPriceCSS = css`
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 34.75px;
+const shippingRowCSS = css`
+  display: flex;
+
+  align-items: center;
+  column-gap: 8px;
+
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: left;
 `;

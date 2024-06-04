@@ -2,13 +2,15 @@ import { css } from "@emotion/css";
 import { useRecoilValue } from "recoil";
 import Splitter from "../default/Splitter";
 import LabelValue from "./LabelValue";
-import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/selector/selector";
 import { formatCurrency } from "../../utils/formatCurrency";
 import InfoIcon from "../../assets/InfoIcon.svg?react";
+import { orderPriceSelector, shippingFeeSelector, totalPriceSelector } from "../../recoil/cart/orderSummaryState";
+import { selectedCouponDiscountPriceSelector } from "../../recoil/coupon/couponState";
 
 const OrderSummary = () => {
   const orderPrice = useRecoilValue(orderPriceSelector);
   const shippingFee = useRecoilValue(shippingFeeSelector);
+  const discountPrice = useRecoilValue(selectedCouponDiscountPriceSelector);
   const totalPrice = useRecoilValue(totalPriceSelector);
 
   return (
@@ -19,6 +21,7 @@ const OrderSummary = () => {
       </div>
       <Splitter />
       <LabelValue label="주문 금액" value={formatCurrency(orderPrice)} />
+      <LabelValue label="쿠폰 할인 금액" value={"-" + formatCurrency(discountPrice)} />
       <LabelValue label="배송비" value={formatCurrency(shippingFee)} />
       <Splitter />
       <LabelValue label="총 결제금액" value={formatCurrency(totalPrice)} />

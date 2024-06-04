@@ -1,50 +1,19 @@
 import { css } from "@emotion/css";
-import Button from "../default/Button";
-import CheckIcon from "../../assets/CheckIcon.svg?react";
-import MinusIcon from "../../assets/MinusIcon.svg?react";
-import PlusIcon from "../../assets/PlusIcon.svg?react";
-import { useRecoilState } from "recoil";
-import { CartItem as ICartItem } from "../../types/types";
+import { useRecoilValue } from "recoil";
+import { CartItem } from "../../types/types";
 
-import { patchCartItemQuantity } from "../../api/cartItem";
 import { formatCurrency } from "../../utils/formatCurrency";
-import { isCheckedSelectorFamily } from "../../recoil/cart/checkedState";
 import { quantitySelectorFamily } from "../../recoil/cart/cartItemState";
 
 interface CardItemProps {
-  product: ICartItem;
-  handleDelete: () => void;
+  product: CartItem;
 }
 
-const CartItem = ({ product, handleDelete }: CardItemProps) => {
-  const [quantity, setQuantity] = useRecoilState(quantitySelectorFamily(product.id));
-
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedSelectorFamily(product.id));
-
-  const handleChecked = () => {
-    setIsChecked(!isChecked);
-  };
-
-  const handleIncrement = () => {
-    const increasedQuantity = quantity + 1;
-    setQuantity(increasedQuantity);
-    patchCartItemQuantity(product.id, increasedQuantity);
-  };
-
-  const handleDecrement = () => {
-    const decreasedQuantity = Math.max(quantity - 1, 1);
-    setQuantity(decreasedQuantity);
-    patchCartItemQuantity(product.id, decreasedQuantity);
-  };
+const OrderItem = ({ product }: CardItemProps) => {
+  const quantity = useRecoilValue(quantitySelectorFamily(product.id));
 
   return (
     <div className={ItemCSS}>
-      <div className={ItemHeaderCSS}>
-        <Button variant={isChecked ? "primary" : "secondary"} onClick={handleChecked}>
-          <CheckIcon fill={isChecked ? "#ffffff" : "#0000001A"} />
-        </Button>
-        <Button onClick={handleDelete}>삭제</Button>
-      </div>
       <div className={ItemContentCSS}>
         <img src={product.product.imageUrl} className={ItemImageCSS} />
         <div className={ItemInfoWithCountCSS}>
@@ -53,13 +22,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
             <div className={ItemPriceCSS}>{formatCurrency(product.product.price)}</div>
           </div>
           <div className={ItemCountCSS}>
-            <Button variant="secondary" onClick={handleDecrement}>
-              <MinusIcon />
-            </Button>
             <p>{quantity}</p>
-            <Button variant="secondary" onClick={handleIncrement}>
-              <PlusIcon />
-            </Button>
           </div>
         </div>
       </div>
@@ -67,7 +30,7 @@ const CartItem = ({ product, handleDelete }: CardItemProps) => {
   );
 };
 
-export default CartItem;
+export default OrderItem;
 
 const ItemCSS = css`
   display: flex;
