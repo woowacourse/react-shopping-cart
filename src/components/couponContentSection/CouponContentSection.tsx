@@ -7,13 +7,7 @@ import {
   StyledCouponItemCardList,
 } from "./CouponContentSection.styled";
 
-export interface CouponContentSectionProps {
-  onApplyButtonClick: (id: number) => void;
-}
-
-export const CouponContentSection: React.FC<CouponContentSectionProps> = ({
-  onApplyButtonClick,
-}) => {
+export const CouponContentSection: React.FC = () => {
   const coupons = useFetchCoupons();
 
   return (
@@ -21,7 +15,7 @@ export const CouponContentSection: React.FC<CouponContentSectionProps> = ({
       <InfoDescription text={INFO_MESSAGES.COUPON_USAGE_LIMIT} />
       <StyledCouponItemCardList>
         {coupons.map((coupon) => (
-          <CouponItemCard key={coupon.id} coupon={coupon} onApplyButtonClick={onApplyButtonClick} />
+          <CouponItemCard key={coupon.id} coupon={coupon} />
         ))}
       </StyledCouponItemCardList>
     </StyledCouponContentSection>

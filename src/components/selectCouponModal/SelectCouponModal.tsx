@@ -13,10 +13,6 @@ export const SelectCouponModal: React.FC<SelectCouponModalProps> = ({ isOpen, on
   const formattedTotalDiscountPrice = formatPriceWithZero(totalDiscountPrice);
   const buttonText = `총 ${formattedTotalDiscountPrice}원 할인 쿠폰 사용하기`;
 
-  const handleApplyButtonClick = () => {
-    onClose();
-  };
-
   return (
     <Modal
       modalPosition="center"
@@ -28,7 +24,7 @@ export const SelectCouponModal: React.FC<SelectCouponModalProps> = ({ isOpen, on
       size="small"
       buttonText={buttonText}
     >
-      <CouponContentSection onApplyButtonClick={handleApplyButtonClick} />
+      <CouponContentSection />
     </Modal>
   );
 };
