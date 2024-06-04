@@ -9,15 +9,16 @@ export const OrderSummary: React.FC = () => {
     useRecoilValue(cartSummarySelectorState);
   const totalDiscountPrice = useTotalDiscount();
   const formattedTotalDiscountPrice = formatPriceWithZero(totalDiscountPrice);
+  const orderTotalPriceFinal = orderTotalPrice - totalDiscountPrice;
 
   return (
     <div style={{ width: "100%" }}>
       <BaseSummary
         showCouponDiscount={true}
-        couponDiscountPrice={Number(formattedTotalDiscountPrice)}
+        couponDiscountPrice={formattedTotalDiscountPrice}
         orderPrice={orderPrice}
         deliveryPrice={orderDeliveryPrice}
-        totalPrice={orderTotalPrice}
+        totalPrice={orderTotalPriceFinal}
       />
     </div>
   );

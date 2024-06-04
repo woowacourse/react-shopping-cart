@@ -13,7 +13,7 @@ interface BaseSummaryProps {
   deliveryPrice: number;
   totalPrice: number;
   showCouponDiscount?: boolean;
-  couponDiscountPrice?: number;
+  couponDiscountPrice?: string;
 }
 
 const BaseSummary: React.FC<BaseSummaryProps> = ({

@@ -10,10 +10,13 @@ import {
   StyledConfirmationPageSubTitle,
   StyledConfirmationPageTitle,
 } from "./PaymentsSummary.styled";
+import { useTotalDiscount } from "../../hooks/useTotalDiscount";
 
 export const PaymentsSummary: React.FC = () => {
   const { orderTotalPrice, uniqueItemCount, totalItemCount } =
     useRecoilValue(cartSummarySelectorState);
+  const totalDiscountPrice = useTotalDiscount();
+  const orderTotalPriceFinal = orderTotalPrice - totalDiscountPrice;
 
   return (
     <StyledConfirmationPage>
@@ -26,7 +29,9 @@ export const PaymentsSummary: React.FC = () => {
       </StyledConfirmationPageDescription>
       <StyledConfirmationPagePriceContainer>
         <StyledConfirmationPageSubTitle>총 결제 금액</StyledConfirmationPageSubTitle>
-        <StyledConfirmationPagePrice>{formatPrice(orderTotalPrice)}원</StyledConfirmationPagePrice>
+        <StyledConfirmationPagePrice>
+          {formatPrice(orderTotalPriceFinal)}원
+        </StyledConfirmationPagePrice>
       </StyledConfirmationPagePriceContainer>
     </StyledConfirmationPage>
   );
