@@ -1,5 +1,9 @@
 ## STEP1 기능 구현 목록
 
+<details>
+<summary>목록 접기/펼치기</summary>
+<div markdown="1">
+
 - 장바구니 API 연동
   - [x] 장바구니 목록 조회
   - [x] 장바구니 아이템 추가
@@ -49,3 +53,40 @@
   - [x] 배송비 계산: 결제 금액에 따라 배송비가 정상적으로 계산되는지 (10만원 이상 무료) 테스트
   - [x] 수량 변경 기능: 상품의 수량을 변경할 때 올바르게 반영되는지 테스트
   - [ ] 상품 제거 기능: 장바구니에서 상품을 제거할 때 정상적으로 동작하는지 테스트
+
+</div>
+</details>
+
+## STEP2 기능 구현 목록
+
+<details>
+<summary>목록 접기/펼치기</summary>
+<div markdown="1">
+
+- 쿠폰 API 연동
+
+  - [x] 쿠폰 목록 조회
+
+- Recoil로 장바구니 상태 관리
+  - [x] 쿠폰 리스트
+  - [ ] 선택된 쿠폰
+  - [ ] 쿠폰을 통한 할인 금액
+  - [x] 배송비
+  - [ ] 최종 결제 금액
+- UI 컴포넌트 작업
+
+  - [x] ApplyCouponButton
+  - [x] ShippingInfo
+  - [ ] CouponSelectionModal
+  - [x] CouponDescription
+  - [x] CouponList
+  - [x] CouponItem
+  - [ ] SubmitCouponButton
+
+- UI 페이지 작업
+  - [x] OrderConfirmation
+  - [x] PaymentsConfirmation
+- RTL
+
+</div>
+</details>

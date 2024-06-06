@@ -1,5 +1,6 @@
 import React from "react";
-import { StyledDeleteButton, StyledDeleteButtonText } from "./DeleteButton.styled";
+import { StyledDeleteButtonText } from "./DeleteButton.styled";
+import BaseButton from "../baseButton/baseButton";
 
 interface DeleteButtonProps {
   onDelete: () => void;
@@ -8,8 +9,8 @@ interface DeleteButtonProps {
 
 export const DeleteButton: React.FC<DeleteButtonProps> = ({ onDelete, disabled }) => {
   return (
-    <StyledDeleteButton onClick={onDelete} disabled={disabled}>
+    <BaseButton onClick={onDelete} disabled={disabled}>
       <StyledDeleteButtonText>삭제</StyledDeleteButtonText>
-    </StyledDeleteButton>
+    </BaseButton>
   );
 };

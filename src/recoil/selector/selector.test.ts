@@ -27,7 +27,7 @@ describe("mockData를 이용한 테스트", () => {
     const expectedTotalPrice = expectedOrderPrice + expectedDeliveryPrice;
 
     expect(result.current.cartSummary.orderPrice).toBe(expectedOrderPrice);
-    expect(result.current.cartSummary.deliveryPrice).toBe(expectedDeliveryPrice);
-    expect(result.current.cartSummary.totalPrice).toBe(expectedTotalPrice);
+    expect(result.current.cartSummary.orderDeliveryPrice).toBe(expectedDeliveryPrice);
+    expect(result.current.cartSummary.orderTotalPrice).toBe(expectedTotalPrice);
   });
 });

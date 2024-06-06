@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledCartHeaderWrapper = styled.div`
+export const StyledContentHeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -8,7 +8,7 @@ export const StyledCartHeaderWrapper = styled.div`
   width: 100%;
 `;
 
-export const StyledCartHeaderTitle = styled.span`
+export const StyledContentHeaderTitle = styled.span`
   font-family: Noto Sans KR;
   font-size: 24px;
   font-weight: 700;
@@ -17,8 +17,8 @@ export const StyledCartHeaderTitle = styled.span`
   color: rgba(0, 0, 0, 1);
 `;
 
-export const StyledCartHeaderDescription = styled.span`
-  height: 15px;
+export const StyledContentHeaderDescription = styled.span`
+  height: 36px;
 
   font-family: Noto Sans;
   font-size: 12px;
@@ -26,4 +26,5 @@ export const StyledCartHeaderDescription = styled.span`
   line-height: 15px;
   text-align: left;
   color: rgba(10, 13, 19, 1);
+  white-space: pre-line;
 `;

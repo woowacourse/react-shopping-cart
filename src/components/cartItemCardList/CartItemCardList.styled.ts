@@ -5,7 +5,7 @@ export const StyledCartItemCardList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 36px;
+  margin-top: 20px;
   margin-bottom: 52px;
 `;
 

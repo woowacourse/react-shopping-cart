@@ -1,8 +1,8 @@
 import { COUNTER_BUTTON_TYPES } from "../../constants";
-import { useDecreaseCartItemQuantity } from "../../hooks/useDecreaseCartItemQuantity";
+import { useChangeCartItemQuantity } from "../../hooks/useChangeCartItemQuantity";
 import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
-import { useIncreaseCartItemQuantity } from "../../hooks/useIncreaseCartItemQuantity";
 import { CartItem } from "../../types";
+import { formatPrice } from "../../utils/formatPrice";
 import { CheckboxButton, CounterButton, DeleteButton } from "../button";
 import {
   StyledCartItemCard,
@@ -29,8 +29,7 @@ export const CartItemCard: React.FC<CartItemProps> = ({
   const { name, price, imageUrl } = product;
 
   const handleItemDelete = useDeleteCartItem();
-  const handleItemCountPlus = useIncreaseCartItemQuantity();
-  const handleItemCountMinus = useDecreaseCartItemQuantity();
+  const { incrementQuantity, decrementQuantity } = useChangeCartItemQuantity();
 
   return (
     <StyledCartItemCard>
@@ -42,16 +41,16 @@ export const CartItemCard: React.FC<CartItemProps> = ({
         <StyledProductImg src={imageUrl} alt="" />
         <StyledProductInfo>
           <StyledProductName>{name}</StyledProductName>
-          <StyledProductPrice>{price.toLocaleString()}원</StyledProductPrice>
+          <StyledProductPrice>{formatPrice(price)}원</StyledProductPrice>
           <StyledProductQuantityContainer>
             <CounterButton
               type={COUNTER_BUTTON_TYPES.DECREMENT}
-              onClick={() => handleItemCountMinus({ id, quantity })}
+              onClick={() => decrementQuantity({ id, quantity })}
             />
             <StyledProductQuantityText>{quantity}</StyledProductQuantityText>
             <CounterButton
               type={COUNTER_BUTTON_TYPES.INCREMENT}
-              onClick={() => handleItemCountPlus({ id, quantity })}
+              onClick={() => incrementQuantity({ id, quantity })}
             />
           </StyledProductQuantityContainer>
         </StyledProductInfo>
