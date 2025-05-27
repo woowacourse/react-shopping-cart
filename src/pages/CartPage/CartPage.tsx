@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
@@ -7,22 +8,19 @@ import Title from "../../components/Title/Title";
 import TotalSelector from "../../components/TotalSelector/TotalSelector";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
-
-const data = {
-  id: 1,
-  quantity: 2, // 담긴 수량
-  product: {
-    id: 7,
-    name: "유기농 우유 1L",
-    price: 3900,
-    imageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/250px-Milk_glass.jpg",
-    category: "식료품",
-    stock: 3, // 재고
-  },
-};
+import { CartItemContent } from "../../types/response";
+import { getCartItems } from "../../apis/cartItems/getCartItems";
 
 const CartPage = () => {
+  const [data, setData] = useState<CartItemContent[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const cartItemsData = await getCartItems();
+      setData(cartItemsData);
+    })();
+  }, []);
+
   return (
     <>
       <Header>
@@ -36,13 +34,15 @@ const CartPage = () => {
         <S.CartContainer>
           <TotalSelector checked={true} />
           <S.CartItemsContainer>
+            {data.map((cartItem) => (
+              <CartItem cartItem={cartItem} />
+            ))}
+            {/* <CartItem cartItem={data} />
             <CartItem cartItem={data} />
             <CartItem cartItem={data} />
             <CartItem cartItem={data} />
             <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
+            <CartItem cartItem={data} /> */}
           </S.CartItemsContainer>
         </S.CartContainer>
         <S.InfoContainer>
