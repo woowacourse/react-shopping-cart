@@ -1,10 +1,13 @@
-import "./App.css";
+import * as S from './App.styled';
+import Navbar from './widgets/navbar/ui/Navbar';
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <S.AppContainer>
+      <Navbar />
+      <div>ㅁㄴㅇㄹ</div>
+      <div>ㅁㄴㅇㄹ</div>
+    </S.AppContainer>
   );
 }
 
