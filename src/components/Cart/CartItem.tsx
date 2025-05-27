@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ProductPrice,
   ProductTitle,
@@ -10,13 +11,25 @@ import {
   CartProductImage,
   ProductRow,
   CartContent,
+  CheckboxContainer,
+  HiddenCheckbox,
+  StyledCheckbox,
 } from './Cart.styles';
 
 function CartItem() {
+  const [isChecked, setIsChecked] = useState(true);
+
   return (
     <CartItemContainer>
       <ModifyRow>
-        <input type="checkbox" />
+        <CheckboxContainer>
+          <HiddenCheckbox
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
+          />
+          <StyledCheckbox checked={isChecked} />
+        </CheckboxContainer>
         <DeleteButton>삭제</DeleteButton>
       </ModifyRow>
 

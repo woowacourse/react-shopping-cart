@@ -1,10 +1,19 @@
 import styled from '@emotion/styled';
 import CartList from '../components/Cart/CartList';
 import Header from '../components/Header/Header';
-import { infoIcon } from '../assets';
 import CartPrice from '../components/Cart/CartPrice';
+import { infoIcon } from '../assets';
+import {
+  CheckboxContainer,
+  HiddenCheckbox,
+  ModifyRow,
+  StyledCheckbox,
+} from '../components/Cart/Cart.styles';
+import { useState } from 'react';
 
 function CartPage() {
+  const [isChecked, setIsChecked] = useState(true);
+
   return (
     <>
       <Header title="SHOP" />
@@ -14,8 +23,17 @@ function CartPage() {
           <Description>현재 2종류의 상품이 담겨있습니다.</Description>
         </CartHeader>
         <CartSelectAll>
-          <input type="checkbox" />
-          <span>전체 선택</span>
+          <ModifyRow>
+            <CheckboxContainer>
+              <HiddenCheckbox
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              />
+              <StyledCheckbox checked={isChecked} />
+            </CheckboxContainer>
+            <span>전체 선택</span>
+          </ModifyRow>
         </CartSelectAll>
         <CartList />
 
@@ -39,6 +57,7 @@ export default CartPage;
 
 const Container = styled.div`
   padding: 0 24px;
+  overflow-y: auto;
 `;
 
 const CartHeader = styled.div`
@@ -99,8 +118,8 @@ const InfoIconImage = styled.img`
 `;
 
 export const CloseButton = styled.div`
-  position: absolute;
-  bottom: 0;
+  /* position: absolute; */
+  /* bottom: 0; */
   display: flex;
   flex-direction: row;
   justify-content: center;
