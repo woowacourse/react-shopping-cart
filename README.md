@@ -7,22 +7,23 @@
 - [] Header
   - [x] Logo
   - [] BackButton
-- [] ShoppingCartPage
-  - [] Header
-    - [] Title
+- [] Body
+  - [] ShoppingCartPage
+    - [x] Header
+      - [x] Title
+      - [x] Description
+    - [] ItemList
+      - [] Item
+        - [] CheckBox
+        - [] DeleteButton
+        - [] ItemInfo
+    - [] Receipt
     - [] Description
-  - [] ItemList
-    - [] Item
-      - [] CheckBox
-      - [] DeleteButton
-      - [] ItemInfo
-  - [] Receipt
-  - [] Description
-  - [] OrderPrice
-  - [] ShippingFee
-  - [] TotalPrice
-- [] CompletedPage
-  - [] OrderInfo
+    - [] OrderPrice
+    - [] ShippingFee
+    - [] TotalPrice
+  - [] CompletedPage
+    - [] OrderInfo
 - [] Footer
   - [] OrderCheckButton
   - [] PayCheckButton
