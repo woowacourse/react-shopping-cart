@@ -10,7 +10,7 @@
 - [] COMMON
 
   - [] Button
-  - [] Checkbox
+  - [x] Checkbox
 
 - [] cart-items API를 호출하여 장바구니 상품 데이터를 불러온다.
 - [] 불러온 데이터를 기반으로 클라이언트 상태를 구성하고 관리한다.
