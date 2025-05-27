@@ -4,9 +4,16 @@ import { Product } from '../types';
 type ItemCardProps = {
   product: Product;
   quantity: number;
+  increaseCartItemQuantity?: () => void;
+  decreaseCartItemQuantity?: () => void;
 };
 
-const ItemCard = ({ product, quantity }: ItemCardProps) => {
+const ItemCard = ({
+  product,
+  quantity,
+  increaseCartItemQuantity,
+  decreaseCartItemQuantity,
+}: ItemCardProps) => {
   return (
     <S.Container>
       <S.ButtonBox>
@@ -21,9 +28,9 @@ const ItemCard = ({ product, quantity }: ItemCardProps) => {
             <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
-            <button>-</button>
+            <button onClick={decreaseCartItemQuantity}>-</button>
             <p>{quantity}</p>
-            <button>+</button>
+            <button onClick={increaseCartItemQuantity}>+</button>
           </S.Stepper>
         </S.ItemInfoBox>
       </S.ItemBox>
