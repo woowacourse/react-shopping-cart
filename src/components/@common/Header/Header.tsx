@@ -5,7 +5,7 @@ interface HeaderProps {
   onLeadingClick?: () => void;
 }
 
-const Header = ({ leading = "./logo.png", onLeadingClick }: HeaderProps) => {
+const Header = ({ leading = "./logo.svg", onLeadingClick }: HeaderProps) => {
   return (
     <div className={HeaderStyle}>
       <img className={Leading} src={leading} onClick={onLeadingClick} />
