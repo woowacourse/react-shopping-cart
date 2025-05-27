@@ -2,7 +2,7 @@
 
 ### UI
 
-- [] Navbar
+- [x] Navbar
 - [] CartSection
   - [] Header
   - [] CartProducts

@@ -1,9 +1,10 @@
 import "./App.css";
+import NavBar from "./components/layout/NavBar/NavBar";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <NavBar />
     </>
   );
 }
