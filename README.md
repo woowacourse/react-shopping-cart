@@ -17,11 +17,11 @@
         - [x] CheckBox
         - [x] DeleteButton
         - [x] ItemInfo
-    - [] Receipt
-      - [] Description
-      - [] OrderPrice
-      - [] ShippingFee
-      - [] TotalPrice
+    - [x] Receipt
+      - [x] Description
+      - [x] OrderPrice
+      - [x] ShippingFee
+      - [x] TotalPrice
   - [] CompletedPage
     - [] OrderInfo
 - [] Footer
