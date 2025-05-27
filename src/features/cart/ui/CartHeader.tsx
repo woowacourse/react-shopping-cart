@@ -1,4 +1,4 @@
-import * as S from './CartHeader.styled';
+import * as S from './CartHeader.styles';
 
 interface CartHeaderProps {
   cartTypeQuantity: number;
