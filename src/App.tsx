@@ -1,13 +1,48 @@
+import { css } from "@emotion/react";
 import Header from "./components/layout/Header/Header";
+import Main from "./components/layout/Main/Main";
+
+const titleStyle = css`
+  font-weight: 700;
+  font-size: 24px;
+`;
+
+const subTitleStyle = css`
+  font-weight: 500;
+  font-size: 12px;
+`;
+
+const titleBox = css`
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+`;
 
 function App() {
   return (
-    <>
-      <Header>
-        <p>SHOP</p>
-      </Header>
-      <h1>react-shopping-cart</h1>
-    </>
+    <div
+      css={css`
+        display: flex;
+        justify-content: center;
+      `}
+    >
+      <div
+        css={css`
+          position: relative;
+          width: 430px;
+        `}
+      >
+        <Header>
+          <p>SHOP</p>
+        </Header>
+        <Main>
+          <div css={titleBox}>
+            <p css={titleStyle}>장바구니</p>
+            <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
+          </div>
+        </Main>
+      </div>
+    </div>
   );
 }
 
