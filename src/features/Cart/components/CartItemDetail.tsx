@@ -8,8 +8,23 @@ import { QuantitySelector } from './QuantitySelector';
 
 import { CartItem } from '../types/Cart.types';
 import { CheckBox } from '@/shared/components/CheckBox';
+import { deleteCartItem } from '@/api/cart';
 
-export const CartItemDetail = ({ id, quantity, product }: CartItem) => {
+type CartItemDetailProps = {
+  isChecked: boolean;
+  onToggle: (id: number) => void;
+  onRemove: (id: number) => void;
+} & CartItem;
+
+export const CartItemDetail = ({
+  id,
+  isChecked,
+  quantity,
+  product,
+  onToggle,
+  onRemove,
+}: CartItemDetailProps) => {
+  console.log('isChecked', isChecked);
   return (
     <Flex
       direction="column"
@@ -29,7 +44,7 @@ export const CartItemDetail = ({ id, quantity, product }: CartItem) => {
         gap="0"
         margin="10px 0 0 0 "
       >
-        <CheckBox />
+        <CheckBox checked={isChecked} onClick={() => onToggle(id)} />
         <Button
           variant="outlined"
           size="xs"
@@ -38,7 +53,7 @@ export const CartItemDetail = ({ id, quantity, product }: CartItem) => {
           css={css`
             margin-top: 8px;
           `}
-          // onClick={removeCartItem}
+          onClick={() => onRemove(id)}
         >
           삭제
         </Button>
