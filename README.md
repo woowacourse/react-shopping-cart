@@ -21,7 +21,7 @@
 - [x] CartItemList
 - [x] Text
 - [x] Flex
-- [ ] Checkbox
+- [x] Checkbox
 - [x] Button
 - [ ] PriceSummary
 - [x] QuantityController
