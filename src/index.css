@@ -14,3 +14,7 @@ button {
   border: none;
   cursor: pointer;
 }
+
+div {
+  margin: 0;
+}

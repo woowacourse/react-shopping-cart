@@ -21,4 +21,5 @@ const PriceRowStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 12px 0;
 `;
