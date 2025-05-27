@@ -17,13 +17,13 @@
 
 - [x] AppLayout
 - [x] Header
-- [ ] CartItem
+- [x] CartItem
 - [x] CartItemList
 - [x] Text
 - [x] Flex
 - [x] Checkbox
 - [x] Button
-- [ ] PriceSummary
+- [x] PriceSummary
 - [x] QuantityController
 
 **테스트**
