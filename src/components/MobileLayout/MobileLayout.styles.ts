@@ -23,11 +23,12 @@ export const SidePanelText = styled.span`
 `;
 
 export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 0 0 500px;
   background-color: #fff;
   overflow-y: auto;
   height: 100vh;
-
   &::-webkit-scrollbar {
     width: 0;
   }
