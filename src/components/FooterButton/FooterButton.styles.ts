@@ -10,6 +10,6 @@ export const FooterButton = styled.button`
   align-items: center;
   padding: 0 24px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   color: #fff;
 `;
