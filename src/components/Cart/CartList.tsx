@@ -6,6 +6,9 @@ function CartList() {
     <>
       <Container>
         <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
       </Container>
     </>
   );
