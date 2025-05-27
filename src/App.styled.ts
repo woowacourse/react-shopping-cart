@@ -7,3 +7,11 @@ export const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export const AppContent = styled.main`
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
