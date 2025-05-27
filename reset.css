@@ -131,3 +131,9 @@ button {
   border: none;
   background: none;
 }
+
+button,
+div,
+header {
+  box-sizing: border-box;
+}

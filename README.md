@@ -2,6 +2,8 @@
 
 ## 페이지 구현
 
+- [ ] 전체 레이아웃
+
 - [] Header
   - [x] Logo
   - [] BackButton
