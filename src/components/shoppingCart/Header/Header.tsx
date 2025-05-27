@@ -1,3 +1,4 @@
+import * as S from "./Header.styles";
 interface HeaderProps {
   title: string;
   description?: string;
@@ -5,9 +6,9 @@ interface HeaderProps {
 
 export default function Header({ title, description }: HeaderProps) {
   return (
-    <section>
-      <h1>{title}</h1>
-      <p>{description}</p>
-    </section>
+    <S.Section>
+      <S.Title>{title}</S.Title>
+      <S.Description>{description}</S.Description>
+    </S.Section>
   );
 }
