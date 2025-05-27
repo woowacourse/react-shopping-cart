@@ -1,9 +1,10 @@
-import "./App.css";
+import "./reset.css";
+import Header from "./components/common/header/Header";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <Header title="SHOP" showBackButton={true} />
     </>
   );
 }
