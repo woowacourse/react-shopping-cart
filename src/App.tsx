@@ -1,15 +1,21 @@
+import { BrowserRouter, Route, Routes } from 'react-router';
 import { Global } from '@emotion/react';
-import GlobalStyle from './styles/globalStyle';
 import Layout from './components/Layout/Layout';
-import Header from './components/Header/Header';
+import CartPage from './pages/CartPage';
+import GlobalStyle from './styles/globalStyle';
+import OrderConfirmPage from './pages/OrderConfirmPage';
 
 function App() {
   return (
     <>
       <Global styles={GlobalStyle} />
       <Layout>
-        <Header title="SHOP" />
-        <h1>react-shopping-cart</h1>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<CartPage />} />
+            <Route path="/orderConfirm" element={<OrderConfirmPage />} />
+          </Routes>
+        </BrowserRouter>
       </Layout>
     </>
   );
