@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const Container = css`
-  margin-top: 36px;
+  margin-bottom: 36px;
 `;
 
 export const Title = css`

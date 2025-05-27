@@ -1,8 +1,8 @@
-import { InfoText, Table } from "./Receipt.styles";
+import { Container, InfoText, Table } from "./Receipt.styles";
 
 function Receipt() {
   return (
-    <>
+    <div css={Container}>
       <div css={InfoText}>
         <img src="public/info.svg" alt="info 아이콘" />
         <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
@@ -23,7 +23,7 @@ function Receipt() {
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 
