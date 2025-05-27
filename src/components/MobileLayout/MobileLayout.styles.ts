@@ -13,7 +13,7 @@ export const SidePanel = styled.aside`
   justify-content: center;
   font-weight: 600;
   font-size: 1.75rem;
-  background-color: #e8eeff;
+  background-color: rgb(235, 236, 255);
 `;
 
 export const SidePanelText = styled.span`
@@ -25,7 +25,6 @@ export const SidePanelText = styled.span`
 export const Content = styled.div`
   flex: 0 0 500px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
   height: 100vh;
 

@@ -1,11 +1,7 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import * as S from "./MobileLayout.styles";
 
-interface MobileLayoutProps {
-  children: ReactNode;
-}
-
-function MobileLayout({ children }: MobileLayoutProps) {
+function MobileLayout({ children }: PropsWithChildren) {
   return (
     <S.Container>
       <S.SidePanel>
