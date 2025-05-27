@@ -1,10 +1,12 @@
 import "./reset.css";
 import "./App.css";
+import logo from "/public/logo.svg";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <Header icon={logo} handleIconClick={() => alert("클릭")} />
     </>
   );
 }
