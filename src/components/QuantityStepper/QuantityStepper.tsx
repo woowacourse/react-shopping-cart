@@ -4,14 +4,20 @@ import Text from "../@common/Text/Text";
 
 interface QuantityStepperProps {
   quantity: number;
+  onDecrease: () => void;
+  onIncrease: () => void;
 }
 
-const QuantityStepper = ({ quantity }: QuantityStepperProps) => {
+const QuantityStepper = ({
+  quantity,
+  onDecrease,
+  onIncrease,
+}: QuantityStepperProps) => {
   return (
     <div className={QuantityStepperStyle}>
-      <StepperButton type="decrease" onClick={() => {}} />
+      <StepperButton type="decrease" onClick={onDecrease} />
       <Text text={quantity.toString()} />
-      <StepperButton type="increase" onClick={() => {}} />
+      <StepperButton type="increase" onClick={onIncrease} />
     </div>
   );
 };
@@ -21,5 +27,5 @@ export default QuantityStepper;
 const QuantityStepperStyle = css`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 `;
