@@ -38,7 +38,7 @@ const CartItemCard = ({
           />
           <div className={CartItemDetails}>
             <Text text={name} />
-            <Text text={price.toString() + "원"} type="large" />
+            <Text text={price.toLocaleString() + "원"} type="large" />
             <div className={QuantityStepperWrapper}>
               <QuantityStepper
                 quantity={quantity}
@@ -59,6 +59,7 @@ const CartItemStyled = css`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-bottom: 20px;
 `;
 
 const Divider = css`
