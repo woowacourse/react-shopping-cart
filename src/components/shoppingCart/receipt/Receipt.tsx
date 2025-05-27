@@ -4,13 +4,17 @@ import Hr from "../../common/Hr/Hr";
 import Price from "../Price/Price";
 import DetailPrice from "../DetailPrice/DetailPrice";
 
+import * as S from "./Receipt.styles";
+
 export default function Receipt() {
   return (
     <div>
-      <div>
-        <img src={Vector} />
-        <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
-      </div>
+      <S.DescriptionContent>
+        <S.Img src={Vector} />
+        <S.Description>
+          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+        </S.Description>
+      </S.DescriptionContent>
       <Hr />
       <DetailPrice />
       <Hr />
