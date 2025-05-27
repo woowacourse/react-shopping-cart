@@ -2,8 +2,6 @@ import { ComponentProps, ReactNode } from 'react';
 
 import { StyledButton } from './Button.styled';
 
-import { Loading } from '../Loading';
-
 export type ButtonProps = {
   /**
    * The size of the button
@@ -78,7 +76,6 @@ export const Button = ({
       isLoading={isLoading}
       {...props}
     >
-      {isLoading && <Loading size={size} color={fontColor} />}
       {children}
     </StyledButton>
   );
