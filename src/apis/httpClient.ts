@@ -1,15 +1,6 @@
-const getBaseUrl = () => {
-  if (import.meta.env.VITE_USE_MOCK === "true") {
-    return import.meta.env.VITE_MOCK_BASE_URL;
-  }
-  return import.meta.env.VITE_API_BASE_URL;
-};
+import { API_BASE_URL } from "./config";
 
-export const API_BASE_URL = getBaseUrl();
-export const CLIENT_BASE_PATH =
-  import.meta.env.BASE_URL || "/react-shopping-cart";
-const API_KEY = import.meta.env.VITE_API_KEY;
-export const END_POINT = "cart-items";
+export const API_KEY = import.meta.env.VITE_API_KEY;
 
 class HTTPClient {
   baseUrl = "";
@@ -69,4 +60,4 @@ class HTTPClient {
   }
 }
 
-export const httpClient = new HTTPClient(CLIENT_BASE_PATH, API_KEY);
+export const httpClient = new HTTPClient(API_BASE_URL, API_KEY);

@@ -1,6 +1,8 @@
 import { http, HttpResponse } from "msw";
-import { API_BASE_URL, END_POINT } from "../constants/config";
+import { API_BASE_URL } from "../apis/config";
 import cartItem from "./cartItems.json";
+
+const END_POINT = "/cart-items";
 
 interface PatchCartItemsRequestBody {
   id: number;

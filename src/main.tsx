@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { CLIENT_BASE_PATH } from "./apis/httpClient.ts";
+import { CLIENT_BASE_PATH } from "./apis/config.ts";
 import App from "./App.tsx";
 import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
 import "./styles/reset.css";
