@@ -7,7 +7,6 @@ export const StyledHeader = styled.header`
   padding: 0 24px;
   background-color: #000000;
   height: 64px;
-  box-sizing: border-box;
 `;
 
 export const StyledSpan = styled.span`

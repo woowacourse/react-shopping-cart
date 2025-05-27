@@ -12,11 +12,11 @@
     - [x] Header
       - [x] Title
       - [x] Description
-    - [] ItemList
-      - [] Item
-        - [] CheckBox
-        - [] DeleteButton
-        - [] ItemInfo
+    - [x] ItemList
+      - [x] Item
+        - [x] CheckBox
+        - [x] DeleteButton
+        - [x] ItemInfo
     - [] Receipt
     - [] Description
     - [] OrderPrice
