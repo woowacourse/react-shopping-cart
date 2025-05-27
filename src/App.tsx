@@ -20,6 +20,7 @@ export default App;
 
 const RoutesStyle = css({
   display: 'flex',
+  position: 'relative',
   flexDirection: 'column',
   height: '100dvh',
   width: '430px',

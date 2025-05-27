@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import Header from '../components/Header';
 import { css } from '@emotion/react';
+import Button from '../components/Button';
 
 function CartPage() {
   return (
@@ -12,6 +13,8 @@ function CartPage() {
           </Link>
         }
       />
+
+      <Button>주문 확인</Button>
     </>
   );
 }
