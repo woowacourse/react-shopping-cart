@@ -1,5 +1,6 @@
 import * as S from "./Item.styles";
 import Hr from "../../common/Hr/Hr";
+import emptyIcon from "/emptyIcon.png";
 
 interface ItemProps {
   imageUrl: string;
@@ -19,7 +20,11 @@ export default function Item({ imageUrl, name, price, quantity }: ItemProps) {
         </S.Button>
       </S.Content>
       <S.Content>
-        <S.Image src={imageUrl} />
+        <S.Image
+          src={imageUrl}
+          alt={name}
+          onError={(e) => (e.currentTarget.src = emptyIcon)}
+        />
         <S.ButtonContainer>
           <S.A>
             <S.Flex direction="column">

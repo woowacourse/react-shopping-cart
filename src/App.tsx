@@ -1,5 +1,4 @@
 import "./App.css";
-
 import Header from "./components/layout/Header/Header";
 import ShoppingCart from "./components/shoppingCart/ShoppingCart/ShoppingCart";
 import Footer from "./components/layout/Footer/Footer";
