@@ -1,11 +1,12 @@
 import "./reset.css";
 import "./App.css";
-import Cart from "./pages/Cart/Cart";
+import OrderSummary from "./pages/OrderSummary/OrderSummary";
 
 function App() {
   return (
     <>
-      <Cart />
+      {/* <Cart /> */}
+      <OrderSummary />
     </>
   );
 }

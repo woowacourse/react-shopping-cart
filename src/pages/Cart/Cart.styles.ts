@@ -1,13 +1,13 @@
 import { css } from "@emotion/react";
 
 export const Container = css`
-  min-height: 710px;
+  min-height: var(--min-height);
   padding: 36px 24px;
 `;
 
 export const NoCartItemText = css`
   height: 100%;
-  min-height: 710px;
+  min-height: var(--min-height);
 
   display: flex;
   justify-content: center;

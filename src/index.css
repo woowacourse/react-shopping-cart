@@ -11,6 +11,7 @@
   --font-weight-light: 400;
 
   --max-width: 430px;
+  --min-height: 710px;
 }
 
 #root {
