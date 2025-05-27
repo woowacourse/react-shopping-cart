@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { CLIENT_BASE_PATH } from "./apis/httpClient.ts";
 import App from "./App.tsx";
 import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
-import { BASE_URL } from "./constants/config.ts";
 import "./styles/reset.css";
 
 async function enableMocking() {
+  if (!import.meta.env.VITE_USE_MOCK) return;
+
   const { worker } = await import("./mocks/browser");
 
   return worker.start({
     serviceWorker: {
-      url: `${window.location.origin}${BASE_URL}mockServiceWorker.js`,
-      options: { scope: BASE_URL },
+      url: `${window.location.origin}${CLIENT_BASE_PATH}mockServiceWorker.js`,
+      options: { scope: CLIENT_BASE_PATH },
     },
     onUnhandledRequest: "bypass",
   });
