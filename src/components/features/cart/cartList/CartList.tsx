@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import CartItem from '../cartItem/CartItem';
 import * as S from './CartList.styles';
@@ -6,19 +5,17 @@ import { CartItemType } from '../types';
 
 interface CartListProps {
   cartItems: CartItemType[];
+  isSelectedList: boolean[];
+  toggleSelect: (index: number) => void;
   refetch: () => Promise<void>;
 }
 
-function CartList({ cartItems, refetch }: CartListProps) {
-  const [isSelectedList, setIsSelectedList] = useState([false, false]);
-
-  const toggleSelect = (toggleIndex: number) => {
-    setIsSelectedList(
-      isSelectedList.map((isSelected, index) =>
-        toggleIndex === index ? !isSelected : isSelected
-      )
-    );
-  };
+function CartList({
+  cartItems,
+  isSelectedList,
+  toggleSelect,
+  refetch,
+}: CartListProps) {
   return (
     <S.Container>
       <S.AllSelectBox>

@@ -9,13 +9,21 @@ import { CartItemType } from '../types';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [isSelectedList, setIsSelectedList] = useState([false, false]);
+
+  const toggleSelect = (toggleIndex: number) => {
+    setIsSelectedList(
+      isSelectedList.map((isSelected, index) =>
+        toggleIndex === index ? !isSelected : isSelected
+      )
+    );
+  };
 
   const fetch = useCallback(async () => {
     const data = await baseAPI<PaginationResponse<CartItemType>>({
       method: 'GET',
       path: '/cart-items?page=0&size=20',
     });
-    console.log(data);
 
     if (data) setCartItems(data.content);
   }, []);
@@ -27,7 +35,12 @@ function CartContents() {
   return (
     <S.Container>
       <CartTitle />
-      <CartList cartItems={cartItems} refetch={fetch} />
+      <CartList
+        cartItems={cartItems}
+        isSelectedList={isSelectedList}
+        toggleSelect={toggleSelect}
+        refetch={fetch}
+      />
       <CartPrice />
     </S.Container>
   );
