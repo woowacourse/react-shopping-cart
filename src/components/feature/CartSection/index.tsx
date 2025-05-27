@@ -11,7 +11,11 @@ const CartSection = () => {
     <S.Container>
       <Header />
       <CheckBox label="전체 선택" isChecked={false} onChange={() => {}} />
-      <Card />
+      <S.CartList>
+        <Card />
+        <Card /> <Card /> <Card />
+      </S.CartList>
+
       <PriceSection />
       <Button
         title="주문 확인"

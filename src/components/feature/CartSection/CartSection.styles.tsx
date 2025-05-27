@@ -1,8 +1,22 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   gap: 36px;
-  padding: 36px 24px 40px;
+  padding: 36px 24px 0;
+`;
+
+export const CartList = styled.div`
+  flex: 1;
+  overflow: scroll;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  // &:-webkit-scrollbar {
+  //   display: none;
+  // }
 `;

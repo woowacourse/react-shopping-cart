@@ -8,8 +8,8 @@ type Props = {
 
 const CheckBox = ({ isChecked, onChange, label }: Props) => {
   return (
-    <S.Container htmlFor="checkBox">
-      <S.HiddenCheckBox id="checkBox" type="CheckBox" onChange={onChange} />
+    <S.Container htmlFor="checkBox" onClick={onChange}>
+      <S.HiddenCheckBox id="checkBox" type="CheckBox" />
       <S.CheckBox
         src={isChecked ? "./checked-icon.svg" : "./unchecked-icon.svg"}
       />
