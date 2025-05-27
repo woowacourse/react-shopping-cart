@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const HeaderStyle = css`
   background: #000000;
@@ -14,4 +14,8 @@ export const HeaderStyle = css`
 export const HeaderButtonStyle = css`
   width: auto;
   height: auto;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 `;
