@@ -2,6 +2,7 @@ import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import { Header } from "../../components/Header/Header.styles";
+import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import Title from "../../components/Title/Title";
 import TotalSelector from "../../components/TotalSelector/TotalSelector";
 import * as S from "./CartPage.styles";
@@ -50,6 +51,16 @@ const CartPage = () => {
             총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
           </Description>
         </S.InfoContainer>
+
+        <S.PriceSummary>
+          <S.PriceInfoWrapper>
+            <PriceInfo label="주문 금액" price={70000} />
+            <PriceInfo label="배송비" price={3000} />
+          </S.PriceInfoWrapper>
+          <S.PriceInfoWrapper>
+            <PriceInfo label="총 결제 금액" price={73000} />
+          </S.PriceInfoWrapper>
+        </S.PriceSummary>
       </S.Main>
       <FooterButton>주문 확인</FooterButton>
     </>
