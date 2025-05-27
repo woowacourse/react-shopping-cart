@@ -4,7 +4,7 @@
 
 - [x] Navbar
 - [] CartSection
-  - [] Header
+  - [x] Header
   - [] CartProducts
   - [] PriceSection
 - [] COMMON

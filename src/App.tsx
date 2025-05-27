@@ -1,10 +1,12 @@
 import "./App.css";
-import NavBar from "./components/layout/NavBar/NavBar";
+import NavBar from "./components/layout/NavBar";
+import CartSection from "./components/feature/CartSection";
 
 function App() {
   return (
     <>
       <NavBar />
+      <CartSection />
     </>
   );
 }
