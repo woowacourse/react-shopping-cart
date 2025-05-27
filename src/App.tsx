@@ -5,7 +5,7 @@ import { Logo } from './assets';
 import globalStyles from './styles/global.styles';
 import { Global } from '@emotion/react';
 import ContainerLayout from './components/common/ContainerLayout/ContainerLayout';
-import Text from './components/common/Text/Text';
+import CartListTitle from './components/CartListTitle/CartListTitle';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <HeaderButton src={Logo} onClick={() => {}} />
       </Header>
       <ContainerLayout>
-        <Text varient="title">react-shopping-cart</Text>
+        <CartListTitle />
       </ContainerLayout>
     </>
   );
