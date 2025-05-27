@@ -14,4 +14,5 @@ export const AppContent = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 48px 24px;
 `;
