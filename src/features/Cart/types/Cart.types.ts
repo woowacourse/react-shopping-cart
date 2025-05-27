@@ -17,5 +17,6 @@ export type CartResponse = {
 export type CartItem = {
   id: number;
   quantity: number;
+  isChecked?: boolean;
   product: Product;
 };
