@@ -1,25 +1,19 @@
-import { useState } from "react";
 import * as S from "./CheckBox.styles";
 
 type Props = {
   isChecked: boolean;
   onChange: () => void;
+  label?: string;
 };
 
-const CheckBox = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
+const CheckBox = ({ isChecked, onChange, label }: Props) => {
   return (
     <S.Container htmlFor="checkBox">
-      <S.HiddenCheckBox
-        id="checkBox"
-        type="CheckBox"
-        onChange={() => setIsChecked(!isChecked)}
-      />
+      <S.HiddenCheckBox id="checkBox" type="CheckBox" onChange={onChange} />
       <S.CheckBox
         src={isChecked ? "./checked-icon.svg" : "./unchecked-icon.svg"}
       />
-      <S.Label>전체 선택</S.Label>
+      {label && <S.Label>{label}</S.Label>}
     </S.Container>
   );
 };

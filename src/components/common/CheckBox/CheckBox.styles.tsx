@@ -4,6 +4,7 @@ export const Container = styled.label`
   display: flex;
   gap: 8px;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const HiddenCheckBox = styled.input`
