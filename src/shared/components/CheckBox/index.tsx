@@ -1,14 +1,23 @@
+import { ComponentProps } from 'react';
+
 export type CheckBoxProps = {
   /**
    * Determines if the checkbox is checked.
    * @default false
    */
   checked?: boolean;
-};
+} & ComponentProps<'svg'>;
 
-export const CheckBox = ({ checked = true }: CheckBoxProps) => {
+export const CheckBox = ({ checked = true, ...props }: CheckBoxProps) => {
   return (
-    <svg width="23" height="23" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="23"
+      height="23"
+      viewBox="0 0 25 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <rect
         x="0.615723"
         y="0.5"
