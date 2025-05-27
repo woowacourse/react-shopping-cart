@@ -1,5 +1,6 @@
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const PriceSummary = () => {
@@ -56,6 +57,8 @@ export const PriceSummary = () => {
 
 const StyledSpacing = styled.hr`
   width: 100%;
-  height: 2px;
-  color: rgb(244, 244, 244);
+  height: 1px;
+  background-color: rgb(218, 218, 218);
+  border: none;
+  margin: 0;
 `;
