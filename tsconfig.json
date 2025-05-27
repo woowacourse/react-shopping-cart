@@ -5,6 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "jsxImportSource": "@emotion/react",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -23,7 +24,7 @@
     "types": ["jest", "@testing-library/jest-dom"],
     "esModuleInterop": true,
 
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]
