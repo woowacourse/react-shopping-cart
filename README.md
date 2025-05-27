@@ -15,16 +15,16 @@
 
 **컴포넌트**
 
-- [ ] AppLayout
-- [ ] Header
+- [x] AppLayout
+- [x] Header
 - [ ] CartItem
-- [ ] CartItemList
-- [ ] Text
-- [ ] Flex
+- [x] CartItemList
+- [x] Text
+- [x] Flex
 - [ ] Checkbox
-- [ ] Button
+- [x] Button
 - [ ] PriceSummary
-- [ ] QuantityController
+- [x] QuantityController
 
 **테스트**
 
