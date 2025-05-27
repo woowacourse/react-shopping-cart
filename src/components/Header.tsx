@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { ReactNode } from 'react';
 
-export default function Header({ left, right }: { left: ReactNode; right: ReactNode }) {
+export default function Header({ left, right }: { left: ReactNode; right?: ReactNode }) {
   return (
     <header css={headerCss}>
       {left}
