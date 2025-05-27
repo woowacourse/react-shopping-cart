@@ -63,7 +63,7 @@ export const CloseButton = styled.div`
   align-items: center;
   width: 100%;
   color: white;
-  height: 44px;
+  height: 64px;
   background: #bebebe;
   font-weight: 700;
   font-size: 15px;
