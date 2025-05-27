@@ -16,6 +16,9 @@ const Header = ({ leading = "./logo.png", onLeadingClick }: HeaderProps) => {
 export default Header;
 
 const HeaderContainer = css`
+  positon: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 64px;
   background-color: #000000;
