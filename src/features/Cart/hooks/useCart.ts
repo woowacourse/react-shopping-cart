@@ -1,29 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CartItem } from '../types/Cart.types';
-import { getCartItemList } from '@/api/cart';
+import { deleteCartItem, getCartItemList } from '@/api/cart';
+import { useFetchData } from '@/shared/hooks/useFetchData';
 
 export const useCart = () => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const cart = useFetchData<CartItem[]>({
+    autoFetch: getCartItemList,
+  });
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   // true인 아이템들의 id를 저장하는 Set
 
-  console.log(cart);
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const data = await getCartItemList();
-        setCart(data);
-        setCheckedItems(new Set(data.map((item) => item.id)));
-        // cart에 존재하는 아이템들을 다 체크된 상태로 초기화
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-      }
-    };
-
-    fetchCart();
-  }, []);
-
-  const cartItems = cart.map((item) => ({
+  const cartItems = cart.data?.map((item) => ({
     ...item,
     isChecked: checkedItems.has(item.id),
   }));
@@ -44,14 +31,27 @@ export const useCart = () => {
   const toggleAllCheck = () => {
     setCheckedItems((prev) => {
       const newSet = new Set<number>();
-      if (prev.size === cart.length) {
+      if (prev.size === cart.data?.length) {
         return newSet;
       }
 
-      cart.forEach((item) => newSet.add(item.id));
+      cart.data?.forEach((item) => newSet.add(item.id));
       return newSet;
     });
   };
 
-  return { cartItems, toggleCheck, toggleAllCheck };
+  const removeCartItem = async (id: number) => {
+    try {
+      await cart.mutate(() => deleteCartItem(id), getCartItemList);
+      setCheckedItems((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
+    } catch (error) {
+      console.error('Failed to remove cart item:', error);
+    }
+  };
+
+  return { cartItems, toggleCheck, toggleAllCheck, removeCartItem };
 };
