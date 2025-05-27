@@ -1,6 +1,7 @@
 import * as S from "./CartPage.styled";
 import CartItem from "./components/CartItem/CartItem";
 import Header from "./components/Header/Header";
+import TitleSection from "./components/TitleSection/TitleSection";
 function CartPage() {
   const dummyItem = {
     id: 1,
@@ -15,11 +16,15 @@ function CartPage() {
       quantity: 1,
     },
   };
+
   return (
     <S.Root>
       <S.CartPageWrapper>
         <Header />
-        <CartItem cart={dummyItem} />
+        <S.Content>
+          <TitleSection />
+          <CartItem cart={dummyItem} />
+        </S.Content>
       </S.CartPageWrapper>
     </S.Root>
   );

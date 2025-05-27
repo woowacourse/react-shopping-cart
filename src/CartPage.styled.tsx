@@ -11,3 +11,7 @@ export const CartPageWrapper = styled.div`
   background-color: #ffffff;
   margin: 0 auto;
 `;
+
+export const Content = styled.div`
+  padding: 36px 24px;
+`;
