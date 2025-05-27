@@ -12,11 +12,11 @@ function IconButton({
   return (
     <S.Container {...props}>
       {actionType === 'plus' ? (
-        <img src="./assets/plus.svg" />
+        <img src="./assets/Plus.svg" />
       ) : actionType === 'minus' ? (
-        <img src="./assets/minus.svg" />
+        <img src="./assets/Minus.svg" />
       ) : (
-        <img src="./assets/deleteCart.svg" width={12} />
+        <img src="./assets/DeleteCart.svg" width={12} />
       )}
     </S.Container>
   );

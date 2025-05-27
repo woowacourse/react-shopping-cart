@@ -8,7 +8,7 @@ export const Container = styled.button<{ isSelected: boolean }>`
   align-items: center;
 
   background-color: ${({ isSelected }) => (isSelected ? 'black' : 'white')};
-  border: 1px solid ${({ isSelected }) => (isSelected ? 'black' : '#0000001A')};
+  border: 1px solid ${({ isSelected }) => (isSelected ? 'black' : '#0000002a')};
 
   border-radius: 8px;
 `;

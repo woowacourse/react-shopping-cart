@@ -1,10 +1,12 @@
 import IconButton from '../../../common/iconButton/IconButton';
 import SelectBox from '../../../common/selectBox/SelectBox';
+import Separator from '../../../common/separator/Separator';
 import * as S from './CartItem.styles';
 
 function CartItem() {
   return (
     <S.Container>
+      <Separator />
       <S.ActionContainer>
         <SelectBox isSelected={false} />
         <S.DeleteButton>

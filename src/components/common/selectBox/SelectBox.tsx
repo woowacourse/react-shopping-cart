@@ -1,12 +1,16 @@
+import { ComponentProps } from 'react';
 import * as S from './SelectBox.styles';
 
 interface SelectBoxProps {
   isSelected: boolean;
 }
 
-function SelectBox({ isSelected }: SelectBoxProps) {
+function SelectBox({
+  isSelected,
+  ...props
+}: SelectBoxProps & ComponentProps<'button'>) {
   return (
-    <S.Container isSelected={false}>
+    <S.Container isSelected={isSelected} {...props}>
       {isSelected ? (
         <img src="./assets/Check.svg" />
       ) : (
