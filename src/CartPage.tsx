@@ -23,6 +23,7 @@ function CartPage() {
         <Header />
         <S.Content>
           <TitleSection />
+          <hr />
           <CartItem cart={dummyItem} />
         </S.Content>
       </S.CartPageWrapper>

@@ -1,4 +1,4 @@
-import { ProductDTOType } from "./ProductDTOType";
+import { ProductDTOType } from "./productDTOType";
 
 export type CartDataType = {
   id: number;
