@@ -4,10 +4,14 @@ import Text from "../../Text/Text";
 interface ConfirmButtonProps {
   text: string;
   onClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
-const ConfirmButton = ({ text, onClick, disabled }: ConfirmButtonProps) => {
+const ConfirmButton = ({
+  text,
+  onClick,
+  disabled = false,
+}: ConfirmButtonProps) => {
   return (
     <button
       className={ConfirmButtonStyle}
