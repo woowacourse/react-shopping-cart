@@ -3,10 +3,10 @@
 ### UI
 
 - [x] Navbar
-- [] CartSection
+- [x] CartSection
   - [x] Header
-  - [] CartProducts
-  - [] PriceSection
+  - [x] CartProducts
+  - [x] PriceSection
 - [] COMMON
 
   - [] Button

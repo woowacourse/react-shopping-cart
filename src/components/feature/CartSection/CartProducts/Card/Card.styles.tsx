@@ -47,7 +47,3 @@ export const ProductPrice = styled.p`
   font-size: 24px;
   font-weight: 700;
 `;
-
-export const Line = styled.div`
-  border: 1px solid #0000001a;
-`;

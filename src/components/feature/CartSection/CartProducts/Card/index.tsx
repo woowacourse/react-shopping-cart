@@ -3,6 +3,7 @@ import { useState } from "react";
 import CartCount from "./CartCount";
 import Button from "../../../../common/Button";
 import CheckBox from "../../../../common/CheckBox";
+import Line from "../../../../common/Line";
 
 const product = { name: "모자", price: "1000원", imageUrl: "d" };
 
@@ -41,7 +42,7 @@ const Card = () => {
           </S.ProductInfoSection>
         </S.CardInfoSection>
       </S.CardContainer>
-      <S.Line />
+      <Line />
     </>
   );
 };

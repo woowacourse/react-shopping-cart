@@ -10,8 +10,6 @@ type Props = {
 
 const CartCount = ({ count, onPlusCount, onMinusCount }: Props) => {
   const className = css`
-    background-color: #fff;
-    border: 1px solid #d5d5d5;
     border-radius: 10px;
     padding: 5px 5px;
   `;
