@@ -1,8 +1,10 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const cartItemWrapper = css`
   width: 100%;
   border-top: 1px solid var(--color-light-grey);
+  box-sizing: border-box;
+  padding: 1.5rem;
 `;
 
 export const cartItemController = css`
@@ -24,7 +26,6 @@ export const cartItemStyle = css`
   width: 100%;
   display: flex;
   gap: 2.4rem;
-  padding: 1.5rem;
   box-sizing: border-box;
 
   img {
