@@ -9,7 +9,8 @@ function CartPage() {
       id: 1,
       name: "test",
       price: 1000,
-      imageUrl: "test",
+      imageUrl:
+        "https://cdn.jsdelivr.net/gh/bunju20/bunju-blog-images@main/images/CleanShot%202025-05-27%20at%2017.25.21%402x.webp",
       category: "test",
       quantity: 1,
     },
