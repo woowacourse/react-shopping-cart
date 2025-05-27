@@ -118,8 +118,6 @@ const InfoIconImage = styled.img`
 `;
 
 export const CloseButton = styled.div`
-  /* position: absolute; */
-  /* bottom: 0; */
   display: flex;
   flex-direction: row;
   justify-content: center;
