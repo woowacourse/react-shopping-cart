@@ -5,6 +5,7 @@ import { Header } from "../../components/Header/Header.styles";
 import Title from "../../components/Title/Title";
 import TotalSelector from "../../components/TotalSelector/TotalSelector";
 import * as S from "./CartPage.styles";
+import InfoIcon from "/info.svg";
 
 const data = {
   id: 1,
@@ -43,6 +44,12 @@ const CartPage = () => {
             <CartItem cartItem={data} />
           </S.CartItemsContainer>
         </S.CartContainer>
+        <S.InfoContainer>
+          <img src={InfoIcon} alt="info" />
+          <Description>
+            총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          </Description>
+        </S.InfoContainer>
       </S.Main>
       <FooterButton>주문 확인</FooterButton>
     </>

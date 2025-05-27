@@ -34,3 +34,9 @@ export const CartItemsContainer = styled.div`
   overflow-y: auto;
   max-height: 400px;
 `;
+
+export const InfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
