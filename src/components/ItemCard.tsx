@@ -1,6 +1,12 @@
 import styled from '@emotion/styled';
+import { Product } from '../types';
 
-const ItemCard = () => {
+type ItemCardProps = {
+  product: Product;
+  quantity: number;
+};
+
+const ItemCard = ({ product, quantity }: ItemCardProps) => {
   return (
     <S.Container>
       <S.ButtonBox>
@@ -8,15 +14,15 @@ const ItemCard = () => {
         <button>삭제</button>
       </S.ButtonBox>
       <S.ItemBox>
-        <S.ItemImage />
+        <S.ItemImage src={product.imageUrl} />
         <S.ItemInfoBox>
           <div>
-            <S.ItemName>상품이름A</S.ItemName>
-            <S.ItemPrice>35,000원</S.ItemPrice>
+            <S.ItemName>{product.name}</S.ItemName>
+            <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
             <button>-</button>
-            <p>2</p>
+            <p>{quantity}</p>
             <button>+</button>
           </S.Stepper>
         </S.ItemInfoBox>
