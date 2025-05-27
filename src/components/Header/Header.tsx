@@ -2,7 +2,7 @@ import { backArrow } from '../../assets';
 import { BackArrow, Button, Container, Title } from './Header.styles';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   variant?: 'default' | 'back';
 }
 
