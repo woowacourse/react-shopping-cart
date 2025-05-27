@@ -1,46 +1,23 @@
-import { css } from "@emotion/react";
-import backButtonImage from "/assets/backButton.svg";
+import backButtonImage from '/assets/backButton.svg';
+import * as S from './Header.styles';
 
 interface HeaderProps {
   title?: string;
   showBackButton: boolean;
 }
 
-function Header({ title = "", showBackButton }: HeaderProps) {
+function Header({ title = '', showBackButton }: HeaderProps) {
   return (
-    <div css={HeaderContainer}>
+    <S.HeaderContainer>
       {showBackButton && (
-        <button css={BackButton}>
+        <S.BackButton>
           <img src={backButtonImage} />
-        </button>
+        </S.BackButton>
       )}
 
-      <h2 css={HeaderTitle}>{title}</h2>
-    </div>
+      <S.HeaderTitle>{title}</S.HeaderTitle>
+    </S.HeaderContainer>
   );
 }
-
-const HeaderContainer = css`
-  width: 100%;
-  height: 64px;
-  background-color: black;
-  display: flex;
-  align-items: center;
-  padding: 24px;
-  gap: 8px;
-`;
-
-const HeaderTitle = css`
-  font-size: 20px;
-  font-weight: 800;
-  color: white;
-`;
-
-const BackButton = css`
-  width: 32px;
-  height: 32px;
-  background-color: transparent;
-  border: none;
-`;
 
 export default Header;

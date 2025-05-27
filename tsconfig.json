@@ -23,7 +23,6 @@
     "types": ["jest", "@testing-library/jest-dom"],
     "esModuleInterop": true,
 
-    "jsxImportSource": "@emotion/react",
     "jsx": "react-jsx"
   },
   "include": ["src", "test"],
