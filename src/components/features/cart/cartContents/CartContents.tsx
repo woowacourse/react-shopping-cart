@@ -49,6 +49,8 @@ function CartContents() {
     }
   }, []);
 
+  const inActive = !isSelectedList.some((isSelected) => isSelected);
+
   useEffect(() => {
     fetch();
   }, [fetch]);
@@ -65,7 +67,7 @@ function CartContents() {
         refetch={fetch}
       />
       <CartPrice orderPrice={orderPrice} />
-      <OrderConfirmationButton />
+      <OrderConfirmationButton inActive={inActive} />
     </S.Container>
   );
 }

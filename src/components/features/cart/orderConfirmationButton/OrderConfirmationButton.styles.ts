@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.button`
+export const Container = styled.button<{ inActive: boolean }>`
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 64px;
-  background-color: black;
+  background-color: ${({ inActive }) => (inActive ? '#BEBEBE' : 'black')};
   color: white;
   font-size: 16px;
   font-weight: 700;
