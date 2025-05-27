@@ -62,7 +62,7 @@ const CartItemStyled = css`
 `;
 
 const Divider = css`
-  border: 1px solid #e0e0e0;
+  border: 0.5px solid #e0e0e0;
 `;
 const CartItemTop = css`
   display: flex;
