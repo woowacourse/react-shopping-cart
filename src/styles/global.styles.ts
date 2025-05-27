@@ -42,7 +42,6 @@ const GlobalStyle = css`
     min-height: 100dvh;
     background-color: #fff;
     margin: 0 auto;
-    padding: 0;
   }
 
   ::-webkit-scrollbar {

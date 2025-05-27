@@ -9,6 +9,11 @@ export const HeaderStyle = css`
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
+  position: fixed;
+  max-width: 43rem;
+  transform: translateX(-50%);
+  top: 0;
+  left: 50%;
 `;
 
 export const HeaderButtonStyle = css`
