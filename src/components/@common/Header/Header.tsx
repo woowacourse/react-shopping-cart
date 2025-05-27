@@ -7,7 +7,7 @@ interface HeaderProps {
 
 const Header = ({ leading = "./logo.png", onLeadingClick }: HeaderProps) => {
   return (
-    <div className={HeaderContainer}>
+    <div className={HeaderStyle}>
       <img className={Leading} src={leading} onClick={onLeadingClick} />
     </div>
   );
@@ -15,7 +15,7 @@ const Header = ({ leading = "./logo.png", onLeadingClick }: HeaderProps) => {
 
 export default Header;
 
-const HeaderContainer = css`
+const HeaderStyle = css`
   positon: fixed;
   top: 0;
   left: 0;
