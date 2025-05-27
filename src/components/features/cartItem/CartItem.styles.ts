@@ -1,34 +1,56 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
-export const cartItemStyle = css`
+export const cartItemWrapper = css`
+  /**삭제 예정 */
+  margin-top: 400px;
+
+  border-top: 1px solid var(--color-light-grey);
+`;
+
+export const cartItemController = css`
+  width: 100%;
   display: flex;
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--color-light-grey);
-
-  img {
-    width: 8rem;
-    height: 8rem;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    margin-right: 1.5rem;
-  }
-
-  div {
-    flex: 1;
-
-    h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: var(--font-size-body);
-      font-weight: var(--font-weight-body);
-    }
-
-    p {
-      margin: 0.5rem 0;
-      font-size: var(--font-size-body);
-      font-weight: var(--font-weight-body);
-    }
-  }
+  justify-content: space-between;
+  align-items: center;
 
   button {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--color-grey);
+    border-radius: 4px;
+    color: var(--color-black);
+    display: inline-flex;
   }
+`;
+
+export const cartItemStyle = css`
+  width: 100%;
+  display: flex;
+  gap: 2.4rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+
+  img {
+    width: 11.2rem;
+    height: 11.2rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    background-color: #000;
+  }
+`;
+
+export const cartInfoStyle = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+`;
+
+export const cartItemNameStyle = css`
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+`;
+
+export const cartItemPriceStyle = css`
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-subtitle);
 `;

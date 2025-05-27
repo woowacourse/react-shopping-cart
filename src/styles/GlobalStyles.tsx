@@ -1,136 +1,21 @@
-import { Global, css } from '@emotion/react';
-
-const resetCss = css`
-  html,
-  body,
-  div,
-  span,
-  object,
-  iframe,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  blockquote,
-  pre,
-  a,
-  abbr,
-  address,
-  cite,
-  code,
-  del,
-  dfn,
-  em,
-  img,
-  ins,
-  kbd,
-  q,
-  s,
-  samp,
-  small,
-  strong,
-  sub,
-  sup,
-  var,
-  b,
-  i,
-  dl,
-  dt,
-  dd,
-  ol,
-  ul,
-  li,
-  fieldset,
-  form,
-  label,
-  legend,
-  table,
-  caption,
-  tbody,
-  tfoot,
-  thead,
-  tr,
-  th,
-  td,
-  article,
-  aside,
-  canvas,
-  details,
-  embed,
-  figure,
-  figcaption,
-  footer,
-  header,
-  menu,
-  nav,
-  output,
-  ruby,
-  section,
-  summary,
-  time,
-  mark,
-  audio,
-  video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-  }
-
-  article,
-  aside,
-  details,
-  figcaption,
-  figure,
-  footer,
-  header,
-  menu,
-  nav,
-  section {
-    display: block;
-  }
-
-  body {
-    line-height: 1;
-  }
-
-  ol,
-  ul {
-    list-style: none;
-  }
-
-  blockquote,
-  q {
-    quotes: none;
-  }
-
-  blockquote::before,
-  blockquote::after,
-  q::before,
-  q::after {
-    content: '';
-    content: none;
-  }
-
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
+import { css } from "@emotion/react";
+import Reset from "./reset";
+const GlobalStyle = css`
+  ${Reset}
+  * {
+    box-sizing: border-box;
   }
 
   button {
-    background: none;
     border: none;
+    background: none;
     cursor: pointer;
   }
-`;
 
-const themeVariables = css`
   :root {
+    --min-width: 375px;
+    --max-width: 430px;
+
     --color-black: #222222;
     --color-dark-grey: #555555;
     --color-white: #ffffff;
@@ -139,7 +24,7 @@ const themeVariables = css`
     --color-red: #f54d4d;
     --color-light-red: #ffc9c9;
 
-    --font-family: 'Noto Sans KR';
+    --font-family: "Noto Sans KR";
     --font-size-title: 24px;
     --font-weight-title: 700;
 
@@ -151,18 +36,41 @@ const themeVariables = css`
 
     --font-size-body: 12px;
     --font-weight-body: 500;
-
-    --height-header: 66px;
-    --max-width-container: 430px;
-
-    --z-index-header: 3;
-    --z-index-toast: 2;
-    --z-index-select: 1;
-    --z-index-modal-background: 50;
-    --z-index-modal: 100;
+  }
+  html,
+  body {
+    font-size: 62.5%;
+    scrollbar-width: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+  }
+  a {
+    text-decoration: none;
+  }
+  select {
+    background: #fff;
+  }
+  #root {
+    width: 100%;
+    min-width: var(--min-width);
+    max-width: var(--max-width);
+    min-height: 100dvh;
+    background-color: #fff;
+    margin: 0 auto;
+  }
+  @media (min-width: 430px) {
+    #root {
+      max-width: var(--max-width);
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    }
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
-
-const GlobalStyle = () => <Global styles={[resetCss, themeVariables]} />;
-
 export default GlobalStyle;

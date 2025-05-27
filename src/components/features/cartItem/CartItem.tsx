@@ -1,4 +1,4 @@
-import { cartItemStyle } from './CartItem.styles';
+import * as S from "./CartItem.styles";
 
 interface CartItem {
   id: string;
@@ -10,21 +10,23 @@ interface CartItem {
   quantity: number;
 }
 
-const CartItem = ({ cartData }: { cartData: CartItem[] }) => {
+const CartItem = ({ cartData }: { cartData: CartItem }) => {
   return (
     <>
-      <div>
-        {cartData.map((item) => (
-          <div key={item.id} css={cartItemStyle}>
-            <img src={item.product.imageUrl} alt={item.product.name} />
-            <div>
-              <h3>{item.product.name}</h3>
-              <p>{item.product.price.toLocaleString()}원</p>
-              <p>수량: {item.quantity}개</p>
-            </div>
-            <button onClick={() => {}}>삭제</button>
+      <div css={S.cartItemWrapper}>
+        <div css={S.cartItemController}>
+          <div>체크박스 위치</div>
+          <button onClick={() => {}}>삭제</button>
+        </div>
+        <div key={cartData.id} css={S.cartItemStyle}>
+          <img src={cartData.product.imageUrl} alt={cartData.product.name} />
+          <div css={S.cartInfoStyle}>
+            <h3 css={S.cartItemNameStyle}>{cartData.product.name}</h3>
+            <p css={S.cartItemPriceStyle}>
+              {cartData.product.price.toLocaleString()}원
+            </p>
           </div>
-        ))}
+        </div>
       </div>
     </>
   );
