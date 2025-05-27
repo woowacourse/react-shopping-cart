@@ -7,7 +7,7 @@ export const CartListContainer = ({ children }: PropsWithChildren) => {
 
 const StyledCartListContainer = styled.div`
   width: 100%;
-  max-height: 300px;
+  max-height: 600px;
   overflow-y: auto;
-  padding: 0px 10px;
+  padding: 0px 20px;
 `;
