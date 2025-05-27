@@ -6,6 +6,7 @@ import Description from "./components/Description/Description";
 import CartItem from "./components/CartItem/CartItem";
 import CheckBox from "./components/CheckBox/CheckBox";
 import Receipt from "./components/Receipt/Receipt";
+import SubmitButton from "./components/SubmitButton/SubmitButton";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <CheckBox id="234" label="전체선택" />
       <CartItem />
       <Receipt />
+      <SubmitButton label="주문 확인" enabled={false} />
     </>
   );
 }
