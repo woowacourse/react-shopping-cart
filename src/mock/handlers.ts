@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { cartItems } from "./data";
+import { cartItems, products } from "./data";
 
 type PaginatedResponse<T> = {
   content: T[];
@@ -34,4 +34,79 @@ const getCartItems = http.get(CART_URL, ({}) => {
   return HttpResponse.json(response);
 });
 
-export const handlers = [getCartItems];
+const deleteCartItems = http.delete(`${CART_URL}/:id`, ({ params }) => {
+  const { id } = params;
+  const index = cartItems.findIndex((item) => item.id === Number(id));
+  if (index === -1) {
+    return new HttpResponse(null, {
+      status: 404,
+      statusText: "Cart Item Not Found",
+    });
+  }
+
+  cartItems.splice(index, 1);
+
+  return new HttpResponse(null, { status: 204 });
+});
+
+const patchCartItems = http.patch(
+  `${CART_URL}/:id`,
+  async ({ params, request }) => {
+    const { id } = params;
+    const index = cartItems.findIndex((item) => item.id === Number(id));
+
+    if (index === -1) {
+      return new HttpResponse(
+        { error: "Cart Item Not Found" },
+        { status: 404 }
+      );
+    }
+
+    const targetCartItem = cartItems[index];
+    const targetProductIndex = products.findIndex(
+      (product) => product.id === targetCartItem.product.id
+    );
+
+    if (targetProductIndex === -1) {
+      return new HttpResponse({ error: "Product Not Found" }, { status: 404 });
+    }
+
+    const updatedData = await request.json();
+    if (
+      !updatedData ||
+      typeof updatedData !== "object" ||
+      !("quantity" in updatedData)
+    ) {
+      return HttpResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
+    }
+    const { quantity } = updatedData;
+    const parsedQuantity = Number(quantity);
+    if (!Number.isInteger(parsedQuantity) || parsedQuantity < 0) {
+      return HttpResponse.json({ error: "Invalid quantity" }, { status: 400 });
+    }
+
+    if (parsedQuantity > targetCartItem.product.quantity) {
+      return new HttpResponse(
+        {
+          error: "out of stock",
+          message: "재고 수량을 초과하여 담을 수 없습니다.",
+        },
+        { status: 400 }
+      );
+    }
+
+    targetCartItem.quantity = parsedQuantity;
+    if (parsedQuantity === 0) {
+      cartItems.splice(index, 1);
+    }
+
+    targetCartItem.quantity = Number(quantity);
+
+    return new HttpResponse(null, { status: 200 });
+  }
+);
+
+export const handlers = [getCartItems, deleteCartItems, patchCartItems];
