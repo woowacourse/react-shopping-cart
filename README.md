@@ -14,7 +14,8 @@
 
 ## 컴포넌트 분리
 
-![alt text](image-1.png)
+![image](https://github.com/user-attachments/assets/e8665dcd-30e2-48f5-97a4-70e19ed69a76)
+
 
 ## 폴더 구조
 
