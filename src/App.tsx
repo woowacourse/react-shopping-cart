@@ -1,10 +1,11 @@
-import "./App.css";
+import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
+import * as S from './App.styles';
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <S.AppWrapper>
+      <ShoppingCartPage />
+    </S.AppWrapper>
   );
 }
 
