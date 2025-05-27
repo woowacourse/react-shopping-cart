@@ -1,11 +1,8 @@
+import { PropsWithChildren } from "react";
 import * as S from "./Header.styles";
 
-const Header = () => {
-  return (
-    <S.Header>
-      <S.Logo href="/">SHOP</S.Logo>
-    </S.Header>
-  );
+const Header = ({ children }: PropsWithChildren) => {
+  return <S.Header>{children}</S.Header>;
 };
 
 export default Header;
