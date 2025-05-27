@@ -2,8 +2,8 @@
 
 ## 기능 목록
 
-- [ ] 장바구니 헤더 UI
-- [ ] **`/cart-items`** API 호출
+- [x] 장바구니 헤더 UI
+- [x] **`/cart-items`** API 호출
 - [ ] CartTitle 컴포넌트 UI
 - [ ] CartItem 컴포넌트 UI
 - [ ] CartItemList 컴포넌트 UI
