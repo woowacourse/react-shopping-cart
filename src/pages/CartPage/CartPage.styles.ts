@@ -18,3 +18,19 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   gap: 15px;
 `;
+
+export const CartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 36px 0 52px;
+  flex-grow: 1;
+  gap: 20px;
+`;
+
+export const CartItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+`;
