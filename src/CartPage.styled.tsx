@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Root = styled.div`
-  background-color: #1e1e1e;
+  background-color: #a2a2a2;
   height: 100vh;
 `;
 

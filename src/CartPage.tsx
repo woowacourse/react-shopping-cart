@@ -1,10 +1,10 @@
-import * as S from './CartPage.styled';
-
+import * as S from "./CartPage.styled";
+import Header from "./components/Header/Header";
 function CartPage() {
   return (
     <S.Root>
       <S.CartPageWrapper>
-        gd
+        <Header />
       </S.CartPageWrapper>
     </S.Root>
   );
