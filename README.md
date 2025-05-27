@@ -8,7 +8,7 @@
   - [x] Logo
   - [] BackButton
 - [] Body
-  - [] ShoppingCartPage
+  - [x] ShoppingCartPage
     - [x] Header
       - [x] Title
       - [x] Description
