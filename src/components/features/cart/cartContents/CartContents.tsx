@@ -9,7 +9,15 @@ import { CartItemType } from '../types';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const [isSelectedList, setIsSelectedList] = useState([false, false]);
+  const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
+
+  const orderPrice = cartItems.reduce(
+    (acc, item, index) =>
+      isSelectedList[index] === true
+        ? acc + item.quantity * item.product.price
+        : acc,
+    0
+  );
 
   const toggleSelect = (toggleIndex: number) => {
     setIsSelectedList(
@@ -25,7 +33,12 @@ function CartContents() {
       path: '/cart-items?page=0&size=20',
     });
 
-    if (data) setCartItems(data.content);
+    if (data) {
+      setCartItems(data.content);
+      setIsSelectedList(
+        Array.from({ length: data.content.length }, () => true)
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -41,7 +54,7 @@ function CartContents() {
         toggleSelect={toggleSelect}
         refetch={fetch}
       />
-      <CartPrice />
+      <CartPrice orderPrice={orderPrice} />
     </S.Container>
   );
 }

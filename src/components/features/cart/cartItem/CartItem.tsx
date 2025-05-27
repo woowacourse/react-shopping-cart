@@ -6,6 +6,7 @@ import { deleteCartItem } from '../api/deleteCartItem';
 import { updateCartItem } from '../api/updateCartItem';
 import { CartItemType } from '../types';
 import * as S from './CartItem.styles';
+import defaultImage from '/assets/default_product.png';
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -35,7 +36,7 @@ function CartItem({
             src={
               isValidImageUrl(cartItem.product.imageUrl)
                 ? cartItem.product.imageUrl
-                : './assets/default_product.png'
+                : defaultImage
             }
             alt="상품 이미지"
           />

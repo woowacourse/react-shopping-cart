@@ -1,7 +1,13 @@
 import Separator from '../../../common/separator/Separator';
 import * as S from './CartPrice.styles';
 
-function CartPrice() {
+interface CartPriceProps {
+  orderPrice: number;
+}
+
+function CartPrice({ orderPrice }: CartPriceProps) {
+  const deliveryFee = orderPrice >= 100_000 ? 0 : 3_000;
+  const totalPrice = orderPrice + deliveryFee;
   return (
     <S.Container>
       <S.Description>
@@ -14,17 +20,17 @@ function CartPrice() {
       <S.IndividualPriceBox>
         <S.PriceRow>
           <S.PriceLabel>주문 금액</S.PriceLabel>
-          <S.PriceAmount>70,000원</S.PriceAmount>
+          <S.PriceAmount>{orderPrice.toLocaleString()}원</S.PriceAmount>
         </S.PriceRow>
         <S.PriceRow>
           <S.PriceLabel>배송비</S.PriceLabel>
-          <S.PriceAmount>3,000원</S.PriceAmount>
+          <S.PriceAmount>{deliveryFee.toLocaleString()}원</S.PriceAmount>
         </S.PriceRow>
       </S.IndividualPriceBox>
       <Separator />
       <S.PriceRow>
         <S.PriceLabel>총 결제 금액</S.PriceLabel>
-        <S.PriceAmount>73,000원</S.PriceAmount>
+        <S.PriceAmount>{totalPrice.toLocaleString()}원</S.PriceAmount>
       </S.PriceRow>
     </S.Container>
   );

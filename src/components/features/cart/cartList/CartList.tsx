@@ -24,6 +24,7 @@ function CartList({
       </S.AllSelectBox>
       {cartItems.map((cartItem, index) => (
         <CartItem
+          key={cartItem.id}
           cartItem={cartItem}
           isSelected={isSelectedList[index]}
           toggleSelect={() => toggleSelect(index)}
