@@ -6,7 +6,7 @@ const bodyLayout = css`
   padding: 36px 25px;
   box-sizing: border-box;
   gap: 28px;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
 `;
 
 export { bodyLayout };

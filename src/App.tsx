@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import Header from "./components/layout/Header/Header";
 import Main from "./components/layout/Main/Main";
+import CartProductContainer from "./components/CartProductContainer/CartProductContainer";
 
 const titleStyle = css`
   font-weight: 700;
@@ -40,6 +41,7 @@ function App() {
             <p css={titleStyle}>장바구니</p>
             <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
           </div>
+          <CartProductContainer />
         </Main>
       </div>
     </div>
