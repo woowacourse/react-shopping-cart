@@ -6,6 +6,7 @@ import * as S from './CartContents.styles';
 import { PaginationResponse } from '../../../../api/type';
 import { baseAPI } from '../../../../api/baseAPI';
 import { CartItemType } from '../types';
+import OrderConfirmationButton from '../orderConfirmationButton/OrderConfirmationButton';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -64,6 +65,7 @@ function CartContents() {
         refetch={fetch}
       />
       <CartPrice orderPrice={orderPrice} />
+      <OrderConfirmationButton />
     </S.Container>
   );
 }
