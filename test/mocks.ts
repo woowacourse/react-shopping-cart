@@ -1,40 +1,40 @@
 export const mockCartItems = [
   {
-    id: 5251,
+    id: 1,
     quantity: 2,
     product: {
       id: 24,
       name: '부리부리 원형 테이블',
-      price: 3210000,
+      price: 1000,
       imageUrl:
         'https://cafe24.poxo.com/ec01/dmswo9075/HOvhRhvOk+Cp2KY4JuusAqBst4wtnsfbyXcejHyxMmXKvNELh5kEAFzUfK9ehG6ogDMwTwYJTLHHXeYVBq809g==/_/web/product/big/202408/19deee5e9d060d80a4180e2b2ecb6ce8.jpg',
       category: '패션잡화',
     },
   },
   {
-    id: 5252,
+    id: 2,
     quantity: 1,
     product: {
       id: 25,
       name: '모던 우드 체어',
-      price: 150000,
+      price: 2000,
       imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/modern-wood-chair.jpg',
       category: '가구',
     },
   },
   {
-    id: 5253,
+    id: 3,
     quantity: 3,
     product: {
       id: 26,
       name: '심플 러그',
-      price: 80000,
+      price: 100,
       imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/simple-rug.jpg',
       category: '홈데코',
     },
   },
   {
-    id: 5254,
+    id: 4,
     quantity: 1,
     product: {
       id: 27,
@@ -46,7 +46,7 @@ export const mockCartItems = [
     },
   },
   {
-    id: 5255,
+    id: 5,
     quantity: 2,
     product: {
       id: 28,
