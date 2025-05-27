@@ -8,7 +8,7 @@
 - [x] CartItem 컴포넌트 UI
 - [x] CartItemList 컴포넌트 UI
 - [x] CartPrice 컴포넌트 UI
-- [ ] CartItem 선택 기능
+- [x] CartItem 선택 기능
 - [ ] CartItem 수량 변경 기능
 - [ ] CartItem 삭제 기능
 - [ ] CartPrice 실제 데이터 삽입

@@ -3,12 +3,17 @@ import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
 import * as S from './CartItem.styles';
 
-function CartItem() {
+interface CartItemProps {
+  isSelected: boolean;
+  toggleSelect: () => void;
+}
+
+function CartItem({ isSelected, toggleSelect }: CartItemProps) {
   return (
     <S.Container>
       <Separator />
       <S.ActionContainer>
-        <SelectBox isSelected={false} />
+        <SelectBox isSelected={isSelected} onClick={toggleSelect} />
         <S.DeleteButton>
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
         </S.DeleteButton>
