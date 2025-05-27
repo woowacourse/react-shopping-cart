@@ -21,8 +21,6 @@ const ButtonStyles = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  position: 'absolute',
-  bottom: 0,
 
   '&:disabled': {
     backgroundColor: '#BEBEBE',

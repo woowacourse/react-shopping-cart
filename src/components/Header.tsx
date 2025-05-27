@@ -11,7 +11,7 @@ export default function Header({ left, right }: { left: ReactNode; right?: React
 }
 
 const headerCss = css({
-  position: 'fixed',
+  position: 'sticky',
   top: '0%',
   height: '64px',
   width: '430px',
