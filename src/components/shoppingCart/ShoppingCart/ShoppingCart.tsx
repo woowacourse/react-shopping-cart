@@ -1,5 +1,7 @@
 import Header from "../Header/Header";
 import Item from "../Item/Item";
+import Receipt from "../receipt/Receipt";
+import Hr from "../../common/Hr/Hr";
 
 import { StyledShoppingCart } from "./ShoppingCart.styles";
 
@@ -40,6 +42,8 @@ export default function ShoppingCart() {
           quantity={item.quantity}
         />
       ))}
+      <Hr />
+      <Receipt />
     </StyledShoppingCart>
   );
 }

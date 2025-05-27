@@ -1,4 +1,4 @@
-import { StyledHeader, StyledSpan } from "./Header.styled";
+import { StyledHeader, StyledSpan } from "./Header.styles";
 
 interface HeaderProps {
   children: React.ReactNode;

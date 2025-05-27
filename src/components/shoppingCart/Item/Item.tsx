@@ -1,14 +1,11 @@
-import * as S from "./Item.styled";
+import * as S from "./Item.styles";
+import Hr from "../../common/Hr/Hr";
 
 interface ItemProps {
   imageUrl: string;
   name: string;
   price: number;
   quantity: number;
-}
-
-function Hr() {
-  return <S.Hr />;
 }
 
 export default function Item({ imageUrl, name, price, quantity }: ItemProps) {

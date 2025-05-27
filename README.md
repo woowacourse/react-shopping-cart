@@ -18,10 +18,10 @@
         - [x] DeleteButton
         - [x] ItemInfo
     - [] Receipt
-    - [] Description
-    - [] OrderPrice
-    - [] ShippingFee
-    - [] TotalPrice
+      - [] Description
+      - [] OrderPrice
+      - [] ShippingFee
+      - [] TotalPrice
   - [] CompletedPage
     - [] OrderInfo
 - [] Footer
