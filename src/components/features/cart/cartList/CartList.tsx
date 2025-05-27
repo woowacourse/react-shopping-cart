@@ -2,8 +2,13 @@ import { useState } from 'react';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import CartItem from '../cartItem/CartItem';
 import * as S from './CartList.styles';
+import { CartItemType } from '../types';
 
-function CartList() {
+interface CartListProps {
+  cartItems: CartItemType[];
+}
+
+function CartList({ cartItems }: CartListProps) {
   const [isSelectedList, setIsSelectedList] = useState([false, false]);
 
   const toggleSelect = (toggleIndex: number) => {
@@ -19,14 +24,13 @@ function CartList() {
         <SelectBox id="allSelect" isSelected={true} />
         <S.AllSelectText htmlFor="allSelect">전체선택</S.AllSelectText>
       </S.AllSelectBox>
-      <CartItem
-        isSelected={isSelectedList[0]}
-        toggleSelect={() => toggleSelect(0)}
-      />
-      <CartItem
-        isSelected={isSelectedList[1]}
-        toggleSelect={() => toggleSelect(1)}
-      />
+      {cartItems.map((cartItem, index) => (
+        <CartItem
+          cartItem={cartItem}
+          isSelected={isSelectedList[index]}
+          toggleSelect={() => toggleSelect(index)}
+        />
+      ))}
     </S.Container>
   );
 }
