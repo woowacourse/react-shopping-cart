@@ -24,16 +24,16 @@
 
 # 컴포넌트
 
-- [ ] Header
-- [ ] ConfirmButton
-- [ ] TextButton
-- [ ] QuantityStepper
-  - [ ] StepperButton
-- [ ] Text
-- [ ] ToggleButton
-- [ ] PriceRow
-- [ ] CartItemCard
-- [ ] CartItemsList
+- [x] Header
+- [x] ConfirmButton
+- [x] TextButton
+- [x] QuantityStepper
+  - [x] StepperButton
+- [x] Text
+- [x] ToggleButton
+- [x] PriceRow
+- [x] CartItemCard
+- [x] CartItemsList
 
 # ✅ 프로그래밍 요구사항
 
