@@ -1,17 +1,27 @@
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
+import CartPage from './page/CartPage';
+import { css } from '@emotion/react';
 import OrderPage from './page/OrderPage';
-import ConfirmPage from './page/ConfirmPage';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<OrderPage />} />
-        <Route path="/confirm" element={<ConfirmPage />} />
-      </Routes>
-    </Router>
+    <div css={RoutesStyle}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<CartPage />} />
+          <Route path="/order" element={<OrderPage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
 export default App;
+
+const RoutesStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100dvh',
+  width: '430px',
+  margin: '0 auto'
+});

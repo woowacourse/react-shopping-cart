@@ -1,15 +1,16 @@
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import Header from '../components/Header';
-import { css } from '@emotion/react';
 
 function OrderPage() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Header
         left={
-          <Link to="/confirm" css={logoCss}>
-            SHOP
-          </Link>
+          <button onClick={() => navigate(-1)}>
+            <img src="./assets/back.svg" />
+          </button>
         }
       />
     </>
@@ -17,9 +18,3 @@ function OrderPage() {
 }
 
 export default OrderPage;
-
-const logoCss = css({
-  color: 'white',
-  fontWeight: 800,
-  fontSize: '20px'
-});
