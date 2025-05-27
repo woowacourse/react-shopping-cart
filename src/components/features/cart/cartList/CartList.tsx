@@ -6,9 +6,10 @@ import { CartItemType } from '../types';
 
 interface CartListProps {
   cartItems: CartItemType[];
+  refetch: () => Promise<void>;
 }
 
-function CartList({ cartItems }: CartListProps) {
+function CartList({ cartItems, refetch }: CartListProps) {
   const [isSelectedList, setIsSelectedList] = useState([false, false]);
 
   const toggleSelect = (toggleIndex: number) => {
@@ -29,6 +30,7 @@ function CartList({ cartItems }: CartListProps) {
           cartItem={cartItem}
           isSelected={isSelectedList[index]}
           toggleSelect={() => toggleSelect(index)}
+          refetch={refetch}
         />
       ))}
     </S.Container>

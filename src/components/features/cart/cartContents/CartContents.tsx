@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
 import CartTitle from '../cartTitle/CartTitle';
@@ -10,23 +10,24 @@ import { CartItemType } from '../types';
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
-  useEffect(() => {
-    const getCartItems = async () => {
-      const data = await baseAPI<PaginationResponse<CartItemType>>({
-        method: 'GET',
-        path: 'cart-items?page=0&size=20',
-      });
+  const fetch = useCallback(async () => {
+    const data = await baseAPI<PaginationResponse<CartItemType>>({
+      method: 'GET',
+      path: '/cart-items?page=0&size=20',
+    });
+    console.log(data);
 
-      if (data) setCartItems(data.content);
-    };
-
-    getCartItems();
+    if (data) setCartItems(data.content);
   }, []);
+
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
 
   return (
     <S.Container>
       <CartTitle />
-      <CartList cartItems={cartItems} />
+      <CartList cartItems={cartItems} refetch={fetch} />
       <CartPrice />
     </S.Container>
   );

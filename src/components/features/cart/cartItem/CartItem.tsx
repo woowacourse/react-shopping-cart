@@ -1,6 +1,9 @@
+import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
 import IconButton from '../../../common/iconButton/IconButton';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
+import { deleteCartItem } from '../api/deleteCartItem';
+import { updateCartItem } from '../api/updateCartItem';
 import { CartItemType } from '../types';
 import * as S from './CartItem.styles';
 
@@ -8,9 +11,15 @@ interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
   toggleSelect: () => void;
+  refetch: () => Promise<void>;
 }
 
-function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
+function CartItem({
+  cartItem,
+  isSelected,
+  toggleSelect,
+  refetch,
+}: CartItemProps) {
   return (
     <S.Container>
       <Separator />
@@ -22,7 +31,14 @@ function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
       </S.ActionContainer>
       <S.InfoContainer>
         <S.PreviewBox>
-          <S.PreviewImage src={cartItem.product.imageUrl} alt="상품 이미지" />
+          <S.PreviewImage
+            src={
+              isValidImageUrl(cartItem.product.imageUrl)
+                ? cartItem.product.imageUrl
+                : './assets/default_product.png'
+            }
+            alt="상품 이미지"
+          />
         </S.PreviewBox>
         <S.InfoBox>
           <S.CartProductInfo>
@@ -34,13 +50,31 @@ function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
             </S.CartProductPrice>
           </S.CartProductInfo>
           <S.UpdateCartBox>
-            {/* {cartCount === 1 ? (
-            <IconButton actionType="delete" onClick={() => {}} />
-          ) : ( */}
-            <IconButton actionType="minus" onClick={() => {}} />
-            {/* )} */}
+            {cartItem.quantity === 1 ? (
+              <IconButton
+                actionType="delete"
+                onClick={async () => {
+                  await deleteCartItem(cartItem.id);
+                  refetch();
+                }}
+              />
+            ) : (
+              <IconButton
+                actionType="minus"
+                onClick={async () => {
+                  await updateCartItem(cartItem.id, cartItem.quantity - 1);
+                  refetch();
+                }}
+              />
+            )}
             <S.Text>{cartItem.quantity}</S.Text>
-            <IconButton actionType="plus" onClick={() => {}} />
+            <IconButton
+              actionType="plus"
+              onClick={async () => {
+                await updateCartItem(cartItem.id, cartItem.quantity + 1);
+                refetch();
+              }}
+            />
           </S.UpdateCartBox>
         </S.InfoBox>
       </S.InfoContainer>
