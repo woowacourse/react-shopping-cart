@@ -12,7 +12,7 @@
 - [x] CartItem 수량 변경 기능
 - [x] CartItem 삭제 기능
 - [x] CartPrice 실제 데이터 삽입
-- [ ] CartItemList에서 전체 선택 기능 (전체 선택이 디폴트)
+- [x] CartItemList에서 전체 선택 기능 (전체 선택이 디폴트)
 - [ ] 주문 확인 버튼 UI
 - [ ] 주문 확인 버튼 disabled 처리
 - [ ] 주문 확인 버튼 기능

@@ -10,6 +10,7 @@ import { CartItemType } from '../types';
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
+  const isAllSelected = isSelectedList.every((isSelected) => isSelected);
 
   const orderPrice = cartItems.reduce(
     (acc, item, index) =>
@@ -20,10 +21,16 @@ function CartContents() {
   );
 
   const toggleSelect = (toggleIndex: number) => {
-    setIsSelectedList(
-      isSelectedList.map((isSelected, index) =>
+    setIsSelectedList((prevSelectedList) =>
+      prevSelectedList.map((isSelected, index) =>
         toggleIndex === index ? !isSelected : isSelected
       )
+    );
+  };
+
+  const toggleAllSelect = () => {
+    setIsSelectedList((prevSelectedList) =>
+      Array.from({ length: prevSelectedList.length }, () => !isAllSelected)
     );
   };
 
@@ -51,7 +58,9 @@ function CartContents() {
       <CartList
         cartItems={cartItems}
         isSelectedList={isSelectedList}
+        isAllSelected={isAllSelected}
         toggleSelect={toggleSelect}
+        toggleAllSelect={toggleAllSelect}
         refetch={fetch}
       />
       <CartPrice orderPrice={orderPrice} />
