@@ -1,11 +1,9 @@
 import "./App.css";
 
+import Header from "./components/layout/Header/Header";
+
 function App() {
-  return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
-  );
+  return <Header>SHOP</Header>;
 }
 
 export default App;

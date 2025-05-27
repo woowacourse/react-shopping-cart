@@ -3,7 +3,7 @@
 ## 페이지 구현
 
 - [] Header
-  - [] Logo
+  - [x] Logo
   - [] BackButton
 - [] ShoppingCartPage
   - [] Header
