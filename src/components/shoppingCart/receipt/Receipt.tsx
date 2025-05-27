@@ -8,7 +8,7 @@ import * as S from "./Receipt.styles";
 
 export default function Receipt() {
   return (
-    <div>
+    <section>
       <S.DescriptionContent>
         <S.Img src={Vector} />
         <S.Description>
@@ -19,6 +19,6 @@ export default function Receipt() {
       <DetailPrice />
       <Hr />
       <Price name="총 결제 금액" price={73000} />
-    </div>
+    </section>
   );
 }

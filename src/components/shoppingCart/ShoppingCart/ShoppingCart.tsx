@@ -1,7 +1,6 @@
 import Header from "../Header/Header";
 import Item from "../Item/Item";
 import Receipt from "../receipt/Receipt";
-import Hr from "../../common/Hr/Hr";
 
 import { StyledShoppingCart } from "./ShoppingCart.styles";
 
@@ -33,16 +32,17 @@ export default function ShoppingCart() {
         title="장바구니"
         description="현재 2종류의 상품이 담겨있습니다."
       />
-      {dummy.map((item) => (
-        <Item
-          key={item.id}
-          imageUrl={item.imageUrl}
-          name={item.name}
-          price={item.price}
-          quantity={item.quantity}
-        />
-      ))}
-      <Hr />
+      <section>
+        {dummy.map((item) => (
+          <Item
+            key={item.id}
+            imageUrl={item.imageUrl}
+            name={item.name}
+            price={item.price}
+            quantity={item.quantity}
+          />
+        ))}
+      </section>
       <Receipt />
     </StyledShoppingCart>
   );
