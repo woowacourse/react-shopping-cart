@@ -9,3 +9,8 @@ body {
   margin: 0 auto;
   background-color: #f0f0f0;
 }
+
+button {
+  border: none;
+  cursor: pointer;
+}
