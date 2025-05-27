@@ -1,0 +1,95 @@
+import { css } from "@emotion/css";
+import TextButton from "../@common/Button/TextButton/TextButton";
+import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
+import Text from "../@common/Text/Text";
+import QuantityStepper from "../QuantityStepper/QuantityStepper";
+
+interface CartItemCardProps {
+  imgUrl: string;
+  name: string;
+  price: number;
+  quantity: number;
+  isSelected: boolean;
+}
+
+const CartItemCard = ({
+  imgUrl,
+  name,
+  price,
+  quantity,
+  isSelected,
+}: CartItemCardProps) => {
+  return (
+    <>
+      <div className={CartItemStyled}>
+        <hr className={Divider} />
+        <div className={CartItemTop}>
+          <ToggleButton isSelected={isSelected} />
+          <TextButton text="삭제" onClick={() => {}} />
+        </div>
+        <div className={CartItemContent}>
+          <img
+            className={CartItemImage}
+            src={imgUrl || "./default.png"}
+            alt={name}
+            onError={(e) => {
+              e.currentTarget.src = "./default.png";
+            }}
+          />
+          <div className={CartItemDetails}>
+            <Text text={name} />
+            <Text text={price.toString() + "원"} type="large" />
+            <div className={QuantityStepperWrapper}>
+              <QuantityStepper
+                quantity={quantity}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CartItemCard;
+
+const CartItemStyled = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const Divider = css`
+  border: 1px solid #e0e0e0;
+`;
+const CartItemTop = css`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+const CartItemContent = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+`;
+
+const CartItemDetails = css`
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+`;
+
+const QuantityStepperWrapper = css`
+  margin-top: 24px;
+`;
+
+const CartItemImage = css`
+  width: 112px;
+  height: 112px;
+  border: none;
+  object-fit: cover;
+`;
