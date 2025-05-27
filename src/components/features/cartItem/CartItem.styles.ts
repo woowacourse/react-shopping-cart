@@ -1,9 +1,7 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const cartItemWrapper = css`
-  /**삭제 예정 */
-  margin-top: 400px;
-
+  width: 100%;
   border-top: 1px solid var(--color-light-grey);
 `;
 
@@ -41,7 +39,8 @@ export const cartItemStyle = css`
 export const cartInfoStyle = css`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 1.2rem;
   width: 100%;
 `;
 

@@ -1,4 +1,5 @@
-import * as S from "./CartItem.styles";
+import CountButton from '../countButton/CountButton';
+import * as S from './CartItem.styles';
 
 interface CartItem {
   id: string;
@@ -25,6 +26,7 @@ const CartItem = ({ cartData }: { cartData: CartItem }) => {
             <p css={S.cartItemPriceStyle}>
               {cartData.product.price.toLocaleString()}원
             </p>
+            <CountButton />
           </div>
         </div>
       </div>
