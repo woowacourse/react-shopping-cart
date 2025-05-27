@@ -1,9 +1,10 @@
-import "./App.css";
+import GlobalStyle from "./GlobalStyles";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <GlobalStyle />
+      <div>hi</div>
     </>
   );
 }
