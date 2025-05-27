@@ -134,6 +134,7 @@ button {
 
 button,
 div,
-header {
+header,
+footer {
   box-sizing: border-box;
 }

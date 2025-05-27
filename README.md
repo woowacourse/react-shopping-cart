@@ -24,8 +24,8 @@
       - [x] TotalPrice
   - [] CompletedPage
     - [] OrderInfo
-- [] Footer
-  - [] OrderCheckButton
+- [x] Footer
+  - [x] OrderCheckButton
   - [] PayCheckButton
 
 ## 🎯 기능 요구 사항
