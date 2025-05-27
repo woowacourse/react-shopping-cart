@@ -9,10 +9,12 @@
   --font-weight-bold: 700;
   --font-weight-normal: 500;
   --font-weight-light: 400;
+
+  --max-width: 430px;
 }
 
 #root {
-  width: 430px;
+  width: var(--max-width);
   height: 100vh;
   margin: 0 auto;
 }
