@@ -1,9 +1,8 @@
-import './reset.css';
 import Header from './components/common/header/Header';
 import { useEffect, useState } from 'react';
 import { baseAPI } from './api/baseAPI';
 import { PaginationResponse } from './api/type';
-import CartContainer from './components/features/cart/cartContents/CartContents';
+import CartContents from './components/features/cart/cartContents/CartContents';
 
 interface Product {
   id: number;
@@ -38,7 +37,7 @@ function App() {
   return (
     <>
       <Header title="SHOP" showBackButton={true} />
-      <CartContainer />
+      <CartContents />
       {cartItems.map((cartItem) => (
         <div>{cartItem.id}</div>
       ))}

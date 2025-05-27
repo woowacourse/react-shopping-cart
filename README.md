@@ -5,7 +5,7 @@
 - [x] 장바구니 헤더 UI
 - [x] **`/cart-items`** API 호출
 - [x] CartTitle 컴포넌트 UI
-- [ ] CartItem 컴포넌트 UI
+- [x] CartItem 컴포넌트 UI
 - [ ] CartItemList 컴포넌트 UI
 - [ ] CartPrice 컴포넌트 UI
 - [ ] CartItem 선택 기능
