@@ -41,7 +41,7 @@ export const CartItemImage = styled.div<{ $url: string }>`
 export const CartItemInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 13px;
   justify-content: center;
 `;
 
