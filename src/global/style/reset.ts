@@ -1,7 +1,7 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 const reset = css`
-  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
   /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -124,7 +124,7 @@ const reset = css`
   blockquote:after,
   q:before,
   q:after {
-    content: '';
+    content: "";
     content: none;
   }
   table {
@@ -143,9 +143,9 @@ const reset = css`
   span,
   a,
   div {
-    font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
-      'Pretendard Variable', Pretendard, Roboto, 'Noto Sans KR', 'Segoe UI',
-      'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI",
+      "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       sans-serif;
   }
 `;
