@@ -39,7 +39,8 @@ const GlobalStyle = css`
     width: 100%;
     min-width: var(--min-width);
     max-width: var(--max-width);
-    min-height: 100dvh;
+    max-height: 100vh;
+    overflow-y: auto;
     background-color: #fff;
     margin: 0 auto;
   }

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
 export const ContainerLayoutStyle = css`
-  padding: 10rem 0;
+  margin: 10rem 0;
   width: 100%;
-  min-height: 100dvh;
+  max-height: 100vh;
   box-sizing: border-box;
 `;
