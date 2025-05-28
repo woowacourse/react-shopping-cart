@@ -1,10 +1,10 @@
+import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import { Header } from "../../components/Header/Header.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import Title from "../../components/Title/Title";
-import TotalSelector from "../../components/TotalSelector/TotalSelector";
 import useCart from "../../hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
@@ -25,7 +25,7 @@ const CartPage = () => {
           </Description>
         </S.TitleContainer>
         <S.CartContainer>
-          <TotalSelector checked={true} />
+          <AllSelector />
           <S.CartItemsContainer>
             {cartItemsData.map((cartItem) => (
               <CartItem cartItem={cartItem} />
