@@ -1,4 +1,4 @@
-import { Minus, Plus } from '../../assets';
+import { Default, Minus, Plus } from '../../assets';
 import Text from '../common/Text/Text';
 import {
   CartInfo,
@@ -36,7 +36,7 @@ function CartItem({ cartItem }: { cartItem: CartItem }) {
       <div css={CartItemBodyStyle}>
         <img
           css={ImageStyle}
-          src={cartItem.product.imageUrl ?? ''}
+          src={cartItem.product.imageUrl ?? Default}
           alt={cartItem.product.name}
         />
 

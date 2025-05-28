@@ -9,6 +9,7 @@ import CartListTitle from './components/CartListTitle/CartListTitle';
 import CartItem from './components/CartItem/CartItem';
 import useCartList from './hooks/useCartList';
 import CartList from './components/CartList/CartList';
+import CartPriceInfo from './components/CartPriceInfo/CartPriceInfo';
 
 function App() {
   const { cartList } = useCartList();
@@ -28,6 +29,7 @@ function App() {
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </CartList>
+        <CartPriceInfo />
       </ContainerLayout>
     </>
   );
