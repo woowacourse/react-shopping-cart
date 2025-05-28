@@ -5,7 +5,7 @@ import QuantityButton from "../QuantityButton/QuantityButton";
 import CheckBox from "../CheckBox/CheckBox";
 
 function CartItem({ cart }: { cart: CartDataType }) {
-  const { price, name, imageUrl, quantity } = cart.product;
+  const { price, name, imageUrl } = cart.product;
 
   return (
     <>
@@ -21,7 +21,7 @@ function CartItem({ cart }: { cart: CartDataType }) {
             <S.ItemTitle>{name}</S.ItemTitle>
             <S.ItemPrice>{price}원</S.ItemPrice>
             <QuantityButton
-              quantity={quantity}
+              quantity={cart.quantity}
               onIncrease={() => {}}
               onDecrease={() => {}}
             />

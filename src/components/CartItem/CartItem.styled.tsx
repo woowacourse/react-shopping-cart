@@ -20,6 +20,7 @@ export const ItemContent = styled.div`
   flex-direction: column;
   gap: 8px;
   justify-content: center;
+  align-items: flex-start;
 `;
 
 export const CountContainer = styled.div`
@@ -38,6 +39,10 @@ export const ProductImage = styled.img`
 export const ItemTitle = styled.div`
   font-size: 16px;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 250px;
 `;
 
 export const ItemPrice = styled.div`
