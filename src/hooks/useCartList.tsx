@@ -1,19 +1,8 @@
 import { useEffect, useState } from 'react';
-
-interface CartItem {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    imageUrl: string | null;
-    category: string;
-  };
-}
+import { CartItemProps } from '../types/cartItem';
 
 function useCartList() {
-  const [cartList, setCartList] = useState<CartItem[]>([]);
+  const [cartList, setCartList] = useState<CartItemProps[]>([]);
 
   useEffect(() => {
     fetch(`/cart-items`)

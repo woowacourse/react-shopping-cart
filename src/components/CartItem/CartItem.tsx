@@ -1,4 +1,5 @@
 import { Default, Minus, Plus } from '../../assets';
+import { CartItemProps } from '../../types/cartItem';
 import Text from '../common/Text/Text';
 import {
   CartInfo,
@@ -12,19 +13,7 @@ import {
   ListItemHeaderStyle,
 } from './CartItem.styles';
 
-interface CartItem {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    imageUrl: string | null;
-    category: string;
-  };
-}
-
-function CartItem({ cartItem }: { cartItem: CartItem }) {
+function CartItem({ cartItem }: { cartItem: CartItemProps }) {
   return (
     <li css={CartItemStyle}>
       <div css={ListItemHeaderStyle}>
