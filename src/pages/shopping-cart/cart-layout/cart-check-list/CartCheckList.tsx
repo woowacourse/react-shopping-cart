@@ -5,12 +5,15 @@ import { deleteCartItem, patchCartItem } from "../../../../api/cart";
 import CheckBox from "../../../../components/common/CheckBox";
 import Counter from "../../../../components/common/Counter";
 import Image from "../../../../components/common/Image";
-import { showToast } from "../../../../utils/toast/showToast";
 import { useOrderListContext } from "../../context/OrderListProvider";
+import { useContext } from "react";
+import { ToastContext } from "../../../../context/ToastProvider";
 
 function CartCheckList() {
   const { cartListData, cartRefetch, selectionMap, setSelectionMap } =
     useOrderListContext();
+
+  const { showToast } = useContext(ToastContext);
 
   const isCartEmpty = !cartListData || cartListData.length === 0;
 
@@ -42,7 +45,7 @@ function CartCheckList() {
       await patchCartItem(cartId, cart.quantity + 1);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니에 추가하는 데 실패했습니다.", "error");
+      showToast("장바구니에 추가하는 데 실패했습니다.");
     }
   };
 
@@ -54,12 +57,12 @@ function CartCheckList() {
       await patchCartItem(cartId, cart.quantity - 1);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니에서 뺴는 데 실패했습니다.", "error");
+      showToast("장바구니에서 뺴는 데 실패했습니다.");
     }
   };
 
   if (!cartListData) {
-    return <div>장바구니를 불러오는 중...</div>;
+    return <LodingCartItem>장바구니를 불러오는 중...</LodingCartItem>;
   }
 
   const removeItem = async (id: string) => {
@@ -132,6 +135,14 @@ export default CartCheckList;
 const Container = styled.div`
   width: 100%;
   max-width: 480px;
+`;
+
+const LodingCartItem = styled.div`
+  width: 100%;
+  height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ItemList = styled.div`

@@ -6,7 +6,7 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
-import { showToast } from "../utils/toast/showToast";
+import { ToastContext } from "./ToastProvider";
 
 type APIStateMap = Record<
   string,
@@ -42,6 +42,7 @@ export function useAPIDataContext<T>({
   name: string;
 }) {
   const { state, setState } = useContext(APIContext);
+  const { showToast } = useContext(ToastContext);
 
   const request = useCallback(async () => {
     setState((prev) => ({
@@ -60,7 +61,7 @@ export function useAPIDataContext<T>({
         ...prev,
         [name]: { data: null, loading: false, error: e },
       }));
-      showToast("데이터 요청에 실패하였습니다.", "error");
+      showToast("데이터 요청에 실패하였습니다.");
     }
   }, [name, setState]);
 
