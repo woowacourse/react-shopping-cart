@@ -7,7 +7,7 @@ interface CartItemProps {
   gap?: number;
 }
 
-const CartItem = ({ children, direction = "row", gap = 0 }: CartItemProps) => {
+const CartItem = ({ children, direction = "column", gap = 0 }: CartItemProps) => {
   return (
     <S.ListItem direction={direction} gap={gap}>
       {children}
@@ -54,7 +54,7 @@ CartItem.Image = ({ src, alt }: { src: string; alt: string }) => {
 
 CartItem.Information = ({
   children,
-  direction = "row",
+  direction = "column",
   gap = 0,
 }: {
   children: React.ReactNode;

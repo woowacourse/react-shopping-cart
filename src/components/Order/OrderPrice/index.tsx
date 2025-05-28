@@ -8,7 +8,7 @@ interface OrderPrice {
   gap?: number;
 }
 
-export const OrderPrice = ({ children, direction = "row", gap = 0 }: OrderPrice) => {
+export const OrderPrice = ({ children, direction = "column", gap = 0 }: OrderPrice) => {
   return (
     <S.OrderPrice direction={direction} gap={gap}>
       {children}
@@ -16,7 +16,7 @@ export const OrderPrice = ({ children, direction = "row", gap = 0 }: OrderPrice)
   );
 };
 
-OrderPrice.Wrap = ({ children, direction = "row", gap = 0 }: OrderPrice) => {
+OrderPrice.Wrap = ({ children, direction = "column", gap = 0 }: OrderPrice) => {
   return (
     <S.Wrap direction={direction} gap={gap}>
       {children}
