@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { CartItem } from "../types/type";
 import cartItemsApi from "../apis/cartItems";
+import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
 
 interface CartItemContext {
   cartItems: CartItem[];
@@ -9,6 +10,9 @@ interface CartItemContext {
   fetchCartItems: () => Promise<void>;
   deleteCartItem: (cartItemId: number) => Promise<void>;
   updateCartItem: (cartItemId: number, quantity: number) => Promise<void>;
+  orderPrice: number;
+  shippingFee: number;
+  totalPrice: number;
 }
 
 interface CartItemProviderProps {
@@ -55,6 +59,15 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     }
   }
 
+  const orderPrice = cartItems.reduce(
+    (acc, cartItem) => acc + cartItem.product.price * cartItem.quantity,
+    0
+  );
+
+  const shippingFee = orderPrice > FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
+
+  const totalPrice = shippingFee + orderPrice;
+
   useEffect(() => {
     const fetchData = async () => {
       await fetchCartItems();
@@ -72,6 +85,9 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         fetchCartItems,
         deleteCartItem,
         updateCartItem,
+        orderPrice,
+        shippingFee,
+        totalPrice,
       }}
     >
       {children}

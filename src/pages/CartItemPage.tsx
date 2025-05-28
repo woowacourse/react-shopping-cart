@@ -6,9 +6,11 @@ import PriceRow from "../components/PriceRow/PriceRow";
 import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
 import { useCartItemContext } from "../contexts/useCartItemContext";
+import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
 
 const CartItemPage = () => {
-  const { cartItems, isLoading } = useCartItemContext();
+  const { cartItems, isLoading, orderPrice, totalPrice, shippingFee } =
+    useCartItemContext();
 
   return (
     <>
@@ -28,14 +30,16 @@ const CartItemPage = () => {
 
                 <div className={InfoRow}>
                   <img src="./info-icon.svg" alt="info" />
-                  <Text text="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." />
+                  <Text
+                    text={`총 주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
+                  />
                 </div>
 
                 <hr className={Divider} />
-                <PriceRow title="주문 금액" price={70000} />
-                <PriceRow title="배송비" price={3000} />
+                <PriceRow title="주문 금액" price={orderPrice} />
+                <PriceRow title="배송비" price={shippingFee} />
                 <hr className={Divider} />
-                <PriceRow title="총 결제 금액" price={73000} />
+                <PriceRow title="총 결제 금액" price={totalPrice} />
               </>
             )}
           </div>
