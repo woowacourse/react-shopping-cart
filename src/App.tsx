@@ -1,12 +1,13 @@
 import { css } from "@emotion/react";
+import { useEffect, useState } from "react";
+import getShoppingCart from "./api/getShoppingCart";
+import Button from "./components/Button/Button";
+import CartProductContainer from "./components/CartProductContainer/CartProductContainer";
+
 import Header from "./components/layout/Header/Header";
 import Main from "./components/layout/Main/Main";
-import CartProductContainer from "./components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "./components/PaymentSummary/PaymentSummary";
-import Button from "./components/Button/Button";
-import useCartItem from "./components/hooks/useCartItem";
-import { useEffect } from "react";
-import getShoppingCart from "./api/getShoppingCart";
+import { CartItemTypes } from "./types/cartItem";
 
 const titleStyle = css`
   font-weight: 700;
@@ -25,18 +26,15 @@ const titleBox = css`
 `;
 
 function App() {
-  const { cartItem, dispatch } = useCartItem();
+  const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
+  const [error, setError] = useState("");
 
   const getCartItemData = async () => {
     try {
-      dispatch({ type: "update" });
       const response = await getShoppingCart();
-      dispatch({ type: "success", payload: response });
+      setCartItem(response);
     } catch (e) {
-      dispatch({
-        type: "error",
-        payload: "장바구니에 담긴 아이템을 가져오는 중 오류가 발생했습니다",
-      });
+      setError("데이터를 가져오는데 실패했습니다");
     }
   };
 
@@ -65,7 +63,7 @@ function App() {
             <p css={titleStyle}>장바구니</p>
             <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
           </div>
-          <CartProductContainer cartItem={cartItem.item} />
+          <CartProductContainer cartItem={cartItem} />
           <PaymentSummary />
           <Button onClick={() => {}} type="submit" size="full">
             주문 확인

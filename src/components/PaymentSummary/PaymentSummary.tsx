@@ -8,8 +8,6 @@ import {
 import { SummaryRow } from "../SummaryRow/SummaryRow";
 import { Line } from "../Line/Line";
 
-interface PaymentSummaryProps {}
-
 export function PaymentSummary() {
   return (
     <div css={paymentSummaryLayout}>

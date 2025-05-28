@@ -2,7 +2,6 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import { CartProduct } from "../CartProduct/CartProduct";
 import { CheckBox } from "../CheckBox/CheckBox";
-import { CartItemTypes } from "../hooks/useCartItem";
 import { Line } from "../Line/Line";
 import {
   CartItemBox,
@@ -10,6 +9,7 @@ import {
   CartProductContainerLayout,
   SelectAllLayout,
 } from "./CartProductContainer.style";
+import { CartItemTypes } from "../../types/cartItem";
 
 // const cartItem = [
 //   {
