@@ -1,8 +1,8 @@
 import { http, HttpResponse } from 'msw';
 import mockCart from './mockCart.json';
 
-const baseUrl =
-  'http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com';
+// const baseUrl =
+//   'http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com';
 
 // const cartItems: Array<{
 //   id: number;
@@ -14,7 +14,7 @@ const baseUrl =
 // const cartItemIdCounter = 1;
 
 export const handlers = [
-  http.get(`${baseUrl}/cart-items`, () => {
+  http.get(`/cart-items`, () => {
     return HttpResponse.json({
       content: mockCart,
     });

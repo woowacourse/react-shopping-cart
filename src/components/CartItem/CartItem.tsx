@@ -12,7 +12,19 @@ import {
   ListItemHeaderStyle,
 } from './CartItem.styles';
 
-function CartItem() {
+interface CartItem {
+  id: number;
+  quantity: number;
+  product: {
+    id: number;
+    name: string;
+    price: number;
+    imageUrl: string | null;
+    category: string;
+  };
+}
+
+function CartItem({ cartItem }: { cartItem: CartItem }) {
   return (
     <li css={CartItemStyle}>
       <div css={ListItemHeaderStyle}>
@@ -22,16 +34,22 @@ function CartItem() {
         </button>
       </div>
       <div css={CartItemBodyStyle}>
-        <img css={ImageStyle} src="" alt="" />
+        <img
+          css={ImageStyle}
+          src={cartItem.product.imageUrl ?? ''}
+          alt={cartItem.product.name}
+        />
 
         <div css={CartInfo}>
-          <Text varient="caption">해삐</Text>
-          <Text varient="title">10,000원</Text>
+          <Text varient="caption">{cartItem.product.name}</Text>
+          <Text varient="title">
+            {cartItem.product.price.toLocaleString()}원
+          </Text>
           <div css={ControllerBox}>
             <button css={ControllerButton}>
               <img src={Minus} alt="minus" />
             </button>
-            <Text varient="caption">1</Text>
+            <Text varient="caption">{cartItem.quantity}</Text>
             <button css={ControllerButton}>
               <img src={Plus} alt="plus" />
             </button>
