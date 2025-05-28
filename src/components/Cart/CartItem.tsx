@@ -17,13 +17,54 @@ import {
 } from './Cart.styles';
 import { CartProduct } from '../../types/cart';
 import { woowaLogo } from '../../assets/index';
+import { BASE_URL, USER_TOKEN } from '../../apis/env';
+import { getCartItems } from '../../apis/cart';
 
 interface CartItemProps {
   cartItem: CartProduct;
+  setCartItems: React.Dispatch<React.SetStateAction<CartProduct[]>>;
 }
 
-function CartItem({ cartItem }: CartItemProps) {
+function CartItem({ cartItem, setCartItems }: CartItemProps) {
   const [isChecked, setIsChecked] = useState(true);
+
+  const handleIncreaseQuantity = async () => {
+    try {
+      await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Basic ${USER_TOKEN}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          quantity: cartItem.quantity + 1,
+        }),
+      });
+      const response = await getCartItems();
+      setCartItems(response);
+    } catch (error) {
+      throw new Error('장바구니 상품 증가시 오류 발생');
+    }
+  };
+
+  const handleDecreaseQuantity = async () => {
+    try {
+      await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Basic ${USER_TOKEN}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          quantity: cartItem.quantity - 1,
+        }),
+      });
+      const response = await getCartItems();
+      setCartItems(response);
+    } catch (error) {
+      throw new Error('장바구니 상품 감소시 오류 발생');
+    }
+  };
 
   return (
     <CartItemContainer>
@@ -49,11 +90,16 @@ function CartItem({ cartItem }: CartItemProps) {
         />
         <CartContent>
           <ProductTitle>{cartItem.product.name}</ProductTitle>
-          <ProductPrice>{cartItem.product.price}원</ProductPrice>
+          <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton disabled={true}>−</StepperButton>
-            <StepperQuantity>2</StepperQuantity>
-            <StepperButton>＋</StepperButton>
+            <StepperButton
+              disabled={cartItem.quantity === 1}
+              onClick={() => handleDecreaseQuantity()}
+            >
+              −
+            </StepperButton>
+            <StepperQuantity>{cartItem.quantity}</StepperQuantity>
+            <StepperButton onClick={() => handleIncreaseQuantity()}>＋</StepperButton>
           </StepperContainer>
         </CartContent>
       </ProductRow>

@@ -10,31 +10,16 @@ import {
   StyledCheckbox,
 } from '../components/Cart/Cart.styles';
 import { useEffect, useState } from 'react';
-import { BASE_URL, USER_TOKEN } from '../apis/env';
+import { getCartItems } from '../apis/cart';
+import { CartProduct } from '../types/cart';
 
 function CartPage() {
   const [isChecked, setIsChecked] = useState(true);
-  const [cartItems, setCartItems] = useState([]);
-
-  const getFetch = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/cart-items?page=0&size=20`, {
-        headers: {
-          Authorization: `Basic ${USER_TOKEN}`,
-          'content-type': 'application/json',
-        },
-      });
-      const data = await response.json();
-
-      return data.content;
-    } catch (error) {
-      throw new Error('Fetch 중 에러 발생');
-    }
-  };
+  const [cartItems, setCartItems] = useState<CartProduct[]>([]);
 
   useEffect(() => {
     const saveState = async () => {
-      const cartList = await getFetch();
+      const cartList = await getCartItems();
       setCartItems(cartList);
     };
     saveState();
@@ -62,7 +47,7 @@ function CartPage() {
           </ModifyRow>
         </CartSelectAll>
 
-        <CartList cartItems={cartItems} />
+        <CartList cartItems={cartItems} setCartItems={setCartItems} />
 
         <CartInfo>
           <InfoIconImage src={infoIcon} alt="infoIcon" />
