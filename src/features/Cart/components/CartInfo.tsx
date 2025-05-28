@@ -16,6 +16,8 @@ import { useCart } from '../hooks/useCart';
 export const CartInfo = ({ onNext }: StepProps) => {
   const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCart();
   const allChecked = cartItems?.every((item) => item.isChecked);
+  const cartItemCount = cartItems?.length ?? 0;
+  const selectedCartItemCount = cartItems?.filter((item) => item.isChecked).length ?? 0;
 
   return (
     <>
@@ -26,45 +28,70 @@ export const CartInfo = ({ onNext }: StepProps) => {
           </Text>
         }
       />
-      <Flex
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        gap="10px"
-        width="100%"
-        padding="20px 20px 10px 20px"
-      >
-        <Text type="Heading" weight="semibold">
-          장바구니
-        </Text>
-        <Text type="Caption" weight="regular">
-          현재 2종류의 상품이 담겨있습니다.
-        </Text>
+      {cartItems?.length === 0 ? (
         <Flex
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          gap="10px"
-          margin="10px 0 0 0"
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          gap="0px"
+          width="100%"
+          height="100%"
+          padding="20px 20px 10px 20px"
         >
-          <CheckBox checked={allChecked} onClick={toggleAllCheck} />
-          <Text type="Caption" weight="regular">
-            전체선택
-          </Text>
+          <Flex
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap="0"
+            width="100%"
+            height="100%"
+          >
+            <Text type="Title">장바구니가 비어있습니다.</Text>
+          </Flex>
         </Flex>
-      </Flex>
-      <CartListContainer>
-        {cartItems?.map((item) => (
-          <CartItemDetail
-            key={item.id}
-            onToggle={toggleCheck}
-            onRemove={removeCartItem}
-            onUpdateQuantity={updateQuantity}
-            {...item}
-          />
-        ))}
-      </CartListContainer>
-      <PriceSummary cartItems={cartItems ?? []} />
+      ) : (
+        <>
+          <Flex
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            gap="10px"
+            width="100%"
+            padding="20px 20px 10px 20px"
+          >
+            <Text type="Heading" weight="semibold">
+              장바구니
+            </Text>
+            <Text type="Caption" weight="regular">
+              {`현재 ${cartItemCount}종류의 상품이 담겨있습니다.`}
+            </Text>
+            <Flex
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              gap="10px"
+              margin="10px 0 0 0"
+            >
+              <CheckBox checked={allChecked} onClick={toggleAllCheck} />
+              <Text type="Caption" weight="regular">
+                {`전체선택  (${selectedCartItemCount}/${cartItemCount})`}
+              </Text>
+            </Flex>
+          </Flex>
+          <CartListContainer>
+            {cartItems?.map((item) => (
+              <CartItemDetail
+                key={item.id}
+                onToggle={toggleCheck}
+                onRemove={removeCartItem}
+                onUpdateQuantity={updateQuantity}
+                {...item}
+              />
+            ))}
+          </CartListContainer>
+          <PriceSummary cartItems={cartItems ?? []} />
+        </>
+      )}
       <Button
         width="100%"
         size="xl"
@@ -73,6 +100,7 @@ export const CartInfo = ({ onNext }: StepProps) => {
           position: sticky;
         `}
         onClick={onNext}
+        disabled={cartItems?.length === 0}
       >
         주문 확인
       </Button>
