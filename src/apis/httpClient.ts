@@ -14,7 +14,7 @@ class HTTPClient {
   private getHeaders() {
     return {
       "Content-Type": "application/json",
-      ...(this.apiKey && { Authorization: this.apiKey }),
+      ...(this.apiKey && { Authorization: `Basic ${this.apiKey}` }),
     };
   }
 
