@@ -32,8 +32,8 @@
   - [ ] 컴포넌트 => 배송비 10만원 저장 -> 바꿔주고, 50000원 컴포넌트 탐색을 내부에서 x
     - [x] Text 컴포넌트 -> variant=title / variant = description-1 -> title -> children 장바구니
     - [x] CheckBox 컴포넌트 (props -> isCheck, onClick, children)
-    - [ ] CartList 컴포넌트 (props cart get state)
-      - [ ] 전체를 체크 박스
+    - [x] CartList 컴포넌트 (props cart get state)
+      - [x] 전체를 체크 박스
       - [x] 반복문)CartItem - 조합
     - [ ] 금액들 모아놓는 컴포넌트 -> priceComponent 조합 (children) 주문금액 컴포넌트 / 배송비 / 총 결제 금액
       - [ ] description text
