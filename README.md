@@ -9,7 +9,7 @@
 ## 기능 명세서
 
 - [x] prettier 설정
-- [ ] emotion 설정 (css/react/styled)
+- [x] emotion 설정 (css/react/styled)
 
 - [ ] msw 초기세팅 (mock 데이터 -> 장바구니 데이터[ 2~3개 ])
   - [ ] get / 장바구니 조회
