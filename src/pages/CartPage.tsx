@@ -1,3 +1,4 @@
+import AllCheckSection from '../components/AllCheckSection';
 import ItemCard from '../components/ItemCard';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 
@@ -6,6 +7,7 @@ const CartPage = () => {
 
   return (
     <>
+      <AllCheckSection />
       {cartItems.map((item) => (
         <ItemCard
           id={item.id}

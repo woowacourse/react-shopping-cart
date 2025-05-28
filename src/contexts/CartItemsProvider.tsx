@@ -18,6 +18,14 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
     init(cartItems);
   }, [cartItems, init]);
 
+  const isAllChecked =
+    cartItems.length > 0 && checkedCartIds.length === cartItems.length;
+
+  const toggleAllChecked = () => {
+    if (isAllChecked) init([]);
+    else init(cartItems);
+  };
+
   return (
     <CartItemsContext.Provider
       value={{
@@ -28,6 +36,8 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
         checkedCartIds,
         addCheckedCartItem,
         removeCheckedCartItem,
+        isAllChecked,
+        toggleAllChecked,
       }}
     >
       {children}
