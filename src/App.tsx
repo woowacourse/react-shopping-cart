@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import Header from "./components/layout/Header/Header";
 import Main from "./components/layout/Main/Main";
 import CartProductContainer from "./components/CartProductContainer/CartProductContainer";
+import { PaymentSummary } from "./components/PaymentSummary/PaymentSummary";
 
 const titleStyle = css`
   font-weight: 700;
@@ -42,6 +43,7 @@ function App() {
             <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
           </div>
           <CartProductContainer />
+          <PaymentSummary />
         </Main>
       </div>
     </div>
