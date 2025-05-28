@@ -7,10 +7,23 @@ interface CartPriceProps {
 }
 
 const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
-  const calculateTotalPrice = (
+  const calculateTotalCartItemPrice = (
     cartItemNamePrice: { name: string; price: number }[]
   ) => {
     return cartItemNamePrice.reduce((acc, curr) => acc + curr.price, 0);
+  };
+
+  const calculateTotalPrice = (
+    cartItemNamePrice: { name: string; price: number }[]
+  ) => {
+    const deliveryFee = calculateDeliveryFee(cartItemNamePrice);
+    return calculateTotalCartItemPrice(cartItemNamePrice) + deliveryFee;
+  };
+
+  const calculateDeliveryFee = (
+    cartItemNamePrice: { name: string; price: number }[]
+  ) => {
+    return calculateTotalCartItemPrice(cartItemNamePrice) > 100000 ? 0 : 3000;
   };
 
   return (
@@ -31,12 +44,23 @@ const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
           );
         })}
         <div>
-          <div css={S.CartPriceInfoContainer}>
-            <div css={S.CartPriceSubtitle}>배송비</div>
-            <div css={Title}>
-              {calculateTotalPrice(cartItemNamePrice) > 1000000 ? 0 : 3000}원
+          {calculateTotalCartItemPrice(cartItemNamePrice) !== 0 && (
+            <div css={S.CartPriceInfoContainer}>
+              <div css={S.CartPriceSubtitle}>배송비</div>
+              <div css={Title}>
+                {calculateTotalCartItemPrice(cartItemNamePrice) > 100000
+                  ? 0
+                  : (3000).toLocaleString()}
+                원
+              </div>
             </div>
-          </div>
+          )}
+        </div>
+      </div>
+      <div css={S.CartPriceInfoContainer}>
+        <div css={S.CartPriceSubtitle}>총 주문 금액</div>
+        <div css={Title}>
+          {calculateTotalPrice(cartItemNamePrice).toLocaleString()}원
         </div>
       </div>
     </div>
