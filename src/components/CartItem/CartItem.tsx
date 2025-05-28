@@ -1,3 +1,4 @@
+import { CartItemType } from "../../types/response";
 import CheckBox from "../CheckBox/CheckBox";
 import QuantityControlButton from "../QuantityControlButton/QuantityControlButton";
 import {
@@ -13,23 +14,32 @@ import {
   ProductImage,
 } from "./CartItem.styles";
 
-function CartItem() {
+interface CartItemProps {
+  cartItem: CartItemType;
+}
+
+function CartItem({ cartItem }: CartItemProps) {
+  const { id: cartId, product, quantity } = cartItem;
+
   return (
     <>
       <div css={ItemContainer}>
         <div css={ItemController}>
-          <CheckBox id="adf" />
+          <CheckBox id={String(cartId)} isSelected={true} />
           <button css={DeleteButton}>삭제</button>
         </div>
         <div css={ItemInfo}>
-          <img css={ProductImage} src={"/public/productImage.svg"}></img>
+          <img css={ProductImage} src={product.imageUrl}></img>
           <div css={ItemContent}>
             <div css={ItemDetail}>
-              <h3 css={ItemTitle}>상품이름</h3>
-              <p css={ItemPrice}>35,000원</p>
+              <h3 css={ItemTitle}>{product.name}</h3>
+              <p css={ItemPrice}>{product.price.toLocaleString()}원</p>
             </div>
             <div css={CountContainer}>
-              <QuantityControlButton />
+              <QuantityControlButton
+                initialQuantity={quantity}
+                cartId={cartId}
+              />
             </div>
           </div>
         </div>

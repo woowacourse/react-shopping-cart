@@ -1,19 +1,20 @@
 import { useCallback, useState } from "react";
 
-interface FetchDataProps<T> {
-  apiCall: () => Promise<T>;
-  onSuccess: (data: T) => void;
+interface MutationDataProps {
+  apiCall: () => Promise<void>;
+  onSuccess: () => void;
   onError: (error: Error | unknown) => void;
 }
 
-const useFetch = <T>() => {
+const useMutation = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = useCallback(
-    async ({ apiCall, onSuccess, onError }: FetchDataProps<T>) => {
+  const mutateData = useCallback(
+    async ({ apiCall, onSuccess, onError }: MutationDataProps) => {
       try {
         setIsLoading(true);
-        onSuccess(await apiCall());
+        await apiCall();
+        onSuccess();
       } catch (error) {
         onError(error);
       } finally {
@@ -24,9 +25,9 @@ const useFetch = <T>() => {
   );
 
   return {
-    fetchData,
+    mutateData,
     isLoading,
   };
 };
 
-export default useFetch;
+export default useMutation;

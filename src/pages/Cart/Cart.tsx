@@ -14,7 +14,6 @@ import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>();
-  const cartItemCount = 5;
 
   useEffect(() => {
     fetchData({
@@ -36,14 +35,14 @@ function Cart() {
     <>
       <Header icon="/public/logo.svg" handleIconClick={() => alert("클릭")} />
       <section css={Container}>
-        <Description cartItemCount={cartItemCount} />
+        <Description cartItemCount={cartItems.length} />
 
-        {cartItemCount === 0 ? (
+        {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (
           <div>
             <CheckBox id="234" label="전체선택" isSelected={true} />
-            <CartItemList />
+            <CartItemList cartItems={cartItems} />
             <Receipt />
           </div>
         )}

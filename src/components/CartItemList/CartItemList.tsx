@@ -1,10 +1,16 @@
+import { CartItemType } from "../../types/response";
 import CartItem from "../CartItem/CartItem";
 
-function CartItemList() {
+interface CartItemListProps {
+  cartItems: CartItemType[];
+}
+
+function CartItemList({ cartItems }: CartItemListProps) {
   return (
     <>
-      <CartItem />
-      <CartItem />
+      {cartItems.map((cartItem) => {
+        return <CartItem key={cartItem.id} cartItem={cartItem} />;
+      })}
     </>
   );
 }
