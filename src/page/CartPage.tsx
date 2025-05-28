@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import Header from '../components/Header';
+import Header from '../components/common/Header';
 import { css } from '@emotion/react';
 import CartItemList from '../components/CartItemList/CartItemList';
 import { useApiContext } from '../contexts/ApiContext';

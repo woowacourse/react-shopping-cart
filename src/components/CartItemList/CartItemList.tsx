@@ -1,9 +1,11 @@
 import * as styles from './CartItemList.style';
-import CheckBox from '../CheckBox';
+import CheckBox from '../common/CheckBox';
 import CartItem from '../CartItem/CartItem';
 import { CartItemType } from '../../types/cartItem';
-import Button from '../Button';
+import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
+import { useNavigate } from 'react-router';
+import PriceArea from '../PriceArea/PriceArea';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -12,12 +14,15 @@ interface CartItemListProps {
 export default function CartItemList({ cartItems }: CartItemListProps) {
   const itemIds = cartItems.map((item) => item.id);
   const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(itemIds);
+  const navigate = useNavigate();
 
-  const orderAmount = cartItems
-    .filter((item) => state[item.id])
-    .reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const checkedItems = cartItems.filter((item) => state[item.id]);
+  const orderAmount = checkedItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   const deliveryFee = orderAmount > 100000 ? 0 : 3000;
   const totalAmount = orderAmount + deliveryFee;
+
+  const countOfItemType = checkedItems.length;
+  const countOfItem = checkedItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <div css={styles.cartItemsAreaCss}>
@@ -39,29 +44,23 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
               />
             ))}
           </div>
-          <section>
-            <div css={styles.infoDeliveryFeeCss}>
-              <img src="./assets/info.svg" alt="info icon" />
-              <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
-            </div>
-            <hr css={styles.hrSss} />
-            <div css={styles.priceRowCss}>
-              <p css={styles.priceTitleCss}>주문 금액</p>
-              <p css={styles.priceCss}>{orderAmount.toLocaleString()}원</p>
-            </div>
-            <div css={styles.priceRowCss}>
-              <p css={styles.priceTitleCss}>배송비</p>
-              <p css={styles.priceCss}>{deliveryFee.toLocaleString()}원</p>
-            </div>
-            <hr css={styles.hrSss} />
-            <div css={styles.priceRowCss}>
-              <p css={styles.priceTitleCss}>총 결제 금액</p>
-              <p css={styles.priceCss}>{totalAmount.toLocaleString()}원</p>
-            </div>
-          </section>
+          <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
         </>
       )}
-      <Button disabled={!Object.values(state).some(Boolean)}>주문 확인</Button>
+      <Button
+        disabled={!Object.values(state).some(Boolean)}
+        onClick={() => {
+          navigate('/confirm', {
+            state: {
+              countOfItem,
+              countOfItemType,
+              totalAmount
+            }
+          });
+        }}
+      >
+        주문 확인
+      </Button>
     </div>
   );
 }

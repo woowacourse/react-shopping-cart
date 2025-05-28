@@ -1,12 +1,9 @@
 import { css } from '@emotion/react';
 import { ComponentProps } from 'react';
-import { useNavigate } from 'react-router';
 
-function Button({ children, ...props }: ComponentProps<'button'>) {
-  const navigate = useNavigate();
-
+function Button({ children, onClick, ...props }: ComponentProps<'button'>) {
   return (
-    <button css={ButtonStyles} {...props} onClick={() => navigate('/order')}>
+    <button css={ButtonStyles} {...props} onClick={onClick}>
       {children}
     </button>
   );

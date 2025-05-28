@@ -1,7 +1,7 @@
 import * as styles from './CartItem.style';
-import Stepper from '../Stepper';
-import { RemoveButton } from '../RemoveButton';
-import CheckBox from '../CheckBox';
+import Stepper from './Stepper';
+import { RemoveButton } from './RemoveButton';
+import CheckBox from '../common/CheckBox';
 import { CartItemType } from '../../types/cartItem';
 import patchCartItem from '../../api/patchCartItem';
 import { useApiContext } from '../../contexts/ApiContext';
