@@ -27,7 +27,7 @@ export const CheckBox = ({ checked = true, ...props }: CheckBoxProps) => {
         fill={checked ? '#000000' : '#ffffff'}
         stroke={checked ? '#000000' : '#cccccc'}
       />
-      <g clip-path="url(#clip0_6117_34)">
+      <g clipPath="url(#clip0_6117_34)">
         <path
           d="M9.11573 16.17L4.94573 12L3.52573 13.41L9.11573 19L21.1157 7L19.7057 5.59L9.11573 16.17Z"
           fill={checked ? '#ffffff' : '#cccccc'}
