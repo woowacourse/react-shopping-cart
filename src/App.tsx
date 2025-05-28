@@ -3,6 +3,7 @@ import Header from "./components/layout/Header/Header";
 import Main from "./components/layout/Main/Main";
 import CartProductContainer from "./components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "./components/PaymentSummary/PaymentSummary";
+import Button from "./components/Button/Button";
 
 const titleStyle = css`
   font-weight: 700;
@@ -45,6 +46,9 @@ function App() {
           <CartProductContainer />
           <PaymentSummary />
         </Main>
+        <Button onClick={() => {}} type="submit" size="full">
+          주문 확인
+        </Button>
       </div>
     </div>
   );
