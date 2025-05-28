@@ -35,3 +35,9 @@ export const CartBadge = Styled.div`
   font-size: 10px;
   font-weight: 700;
 `;
+
+export const HeaderIcon = Styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+`;

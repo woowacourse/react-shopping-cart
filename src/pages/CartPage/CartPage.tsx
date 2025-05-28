@@ -72,7 +72,10 @@ function CartPage() {
   return (
     <S.Root>
       <S.CartPageWrapper>
-        <Header isCartComplete={isOrderComplete} />
+        <Header
+          isOrderComplete={isOrderComplete}
+          setIsOrderComplete={setIsOrderComplete}
+        />
         {isOrderComplete ? (
           <OrderResult
             selectedCartItem={selectedCartItem}
