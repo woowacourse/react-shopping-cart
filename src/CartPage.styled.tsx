@@ -64,3 +64,9 @@ export const CartContentWrapper = styled.div`
   padding: 36px 24px;
   overflow-y: scroll;
 `;
+
+export const CartItemList = styled.ul`
+  list-style: none;
+  overflow-y: auto;
+  height: calc(100vh - 504px);
+`;

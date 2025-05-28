@@ -13,6 +13,7 @@ function CartPage() {
   const dispatch = useCartDispatch();
   const { cartItemList: cartData } = useCart();
   console.log(cartData);
+
   useEffect(() => {
     dispatch({
       type: "SET_CART",
@@ -37,9 +38,11 @@ function CartPage() {
             ) : (
               <S.Content>
                 <TitleSection />
-                {cartItemList.map((cart) => (
-                  <CartItem key={cart.product.id} cart={cart} />
-                ))}
+                <S.CartItemList>
+                  {cartItemList.map((cart) => (
+                    <CartItem key={cart.product.id} cart={cart} />
+                  ))}
+                </S.CartItemList>
                 <S.Description>
                   ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
                 </S.Description>
