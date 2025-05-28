@@ -9,7 +9,6 @@ import {
 
 import Header from "./components/layout/Header/Header";
 import BackButton from "./components/layout/Header/BackButton";
-import Footer from "./components/layout/Footer/Footer";
 
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
@@ -25,7 +24,6 @@ function Layout() {
     <CartItemListProvider>
       <Header>{isShoppingCartPage ? "SHOP" : <BackButton />}</Header>
       <Outlet />
-      <Footer text={isShoppingCartPage ? "주문 확인" : "결제하기"} />
     </CartItemListProvider>
   );
 }
