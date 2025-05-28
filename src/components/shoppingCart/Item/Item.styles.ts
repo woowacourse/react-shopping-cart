@@ -8,11 +8,13 @@ interface ButtonProps {
 interface FlexProps {
   direction: "row" | "column";
   justifyContent?: "space-between" | "space-around";
+  alignItems?: "center";
 }
 
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const Checkbox = styled.input`
@@ -48,6 +50,7 @@ export const Flex = styled.div<FlexProps>`
   display: flex;
   flex-direction: ${(props) => props.direction};
   justify-content: ${(props) => props.justifyContent};
+  align-items: ${(props) => props.alignItems};
   gap: 5px;
 `;
 
