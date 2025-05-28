@@ -3,6 +3,7 @@ import {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { getCartItems } from "../apis/cartItems/getCartItems";
@@ -46,6 +47,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     CartItemCheckType[]
   >([]);
   const [allChecked, setAllChecked] = useState(INITIAL_CHECKED);
+  const isCheckDataInitialized = useRef(false);
 
   const fetchData = useCallback(async () => {
     setCartItemsData(await getCartItems());
@@ -56,13 +58,15 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   }, [fetchData]);
 
   useEffect(() => {
-    const data = cartItemsData.map(({ id }) => ({
-      id,
-      checked: INITIAL_CHECKED,
-    }));
-    setCartItemsCheckData(data);
+    if (cartItemsData.length > 0 && !isCheckDataInitialized.current) {
+      const data = cartItemsData.map(({ id }) => ({
+        id,
+        checked: INITIAL_CHECKED,
+      }));
+      setCartItemsCheckData(data);
+      isCheckDataInitialized.current = true;
+    }
   }, [cartItemsData]);
-  // TODO: 상품 추가하면, cartItemsData가 새로 받아와져서 다시 초기화됨. 이부분 해결할 것
 
   const deleteItem = useCallback(
     async (cartId: number) => {
