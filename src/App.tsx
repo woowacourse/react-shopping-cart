@@ -1,9 +1,12 @@
 import CartPage from "./CartPage";
 import { CartProvider } from "./stores/CartContext";
+import { SelectProvider } from "./stores/SelectContext";
 function App() {
   return (
     <CartProvider>
-      <CartPage />
+      <SelectProvider>
+        <CartPage />
+      </SelectProvider>
     </CartProvider>
   );
 }

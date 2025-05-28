@@ -7,9 +7,12 @@ import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
 import { useCartDispatch } from "./stores/CartContext";
 import useCart from "./hooks/useCart";
+import { useSelectContext, useSelectDispatch } from "./stores/SelectContext";
 
 function CartPage() {
   const dispatch = useCartDispatch();
+  const selectDispatch = useSelectDispatch();
+
   const { cartItemList: cartData, isLoading } = useCart();
 
   useEffect(() => {
@@ -17,7 +20,13 @@ function CartPage() {
       type: "SET_CART",
       payload: { items: cartData },
     });
-  }, [cartData, dispatch]);
+
+    console.log(`cartData`, cartData);
+    selectDispatch({
+      type: "SET_SELECT",
+      payload: { items: cartData },
+    });
+  }, [cartData, dispatch, selectDispatch]);
 
   const isCartEmpty = cartData.length === 0;
   const isOrderComplete = false;

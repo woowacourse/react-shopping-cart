@@ -1,14 +1,36 @@
+import {
+  useSelectContext,
+  useSelectDispatch,
+} from "../../stores/SelectContext";
 import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./TitleSection.styled";
 
 function TitleSection() {
+  const selectState = useSelectContext();
+  const selectDispatch = useSelectDispatch();
+
+  const handlerSelectAll = () => {
+    if (selectState.every((item) => item.selected)) {
+      selectDispatch({
+        type: "DESELECT_ALL",
+        payload: { items: selectState },
+      });
+    } else {
+      selectDispatch({
+        type: "SELECT_ALL",
+        payload: { items: selectState },
+      });
+    }
+  };
   return (
     <div>
       <S.Description>현재 2종류의 상품이 담겨있습니다.</S.Description>
 
-      <div>
-        <CheckBox text={"전체선택"} />
-      </div>
+      <CheckBox
+        text={"전체선택"}
+        isChecked={selectState.every((item) => item.selected)}
+        onClick={handlerSelectAll}
+      />
     </div>
   );
 }
