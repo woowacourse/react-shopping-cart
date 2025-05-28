@@ -15,7 +15,7 @@ const ButtonStyles = css({
   backgroundColor: 'black',
   color: 'white',
   width: '100%',
-  height: '64px',
+  minHeight: '64px',
   fontSize: '16px',
   fontWeight: 'bold',
   display: 'flex',
