@@ -27,7 +27,6 @@ export function useData<T>({ fetcher, name }: { fetcher: () => Promise<T>; name:
   const request = useCallback(() => {
     fetcher().then((res) => {
       setData((data) => {
-        console.log(data);
         return { ...data, [name]: res };
       });
     });
