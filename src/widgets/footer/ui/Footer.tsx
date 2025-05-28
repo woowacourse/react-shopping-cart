@@ -15,12 +15,17 @@ const ButtonCSS = css`
   &:hover {
     background-color: #333;
   }
+
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
 `;
 
-export default function Footer() {
+export default function Footer({ cartItemQuantity }: { cartItemQuantity: number }) {
   return (
     <S.FooterContainer>
-      <Button title='주문 확인' css={ButtonCSS} />
+      <Button title='주문 확인' css={ButtonCSS} disabled={cartItemQuantity === 0} />
     </S.FooterContainer>
   );
 }
