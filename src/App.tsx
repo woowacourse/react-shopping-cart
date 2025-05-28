@@ -2,8 +2,6 @@ import './App.css';
 import Header from './components/common/Header/Header';
 import HeaderButton from './components/common/Header/HeaderButton';
 import { Logo } from './assets';
-import globalStyles from './styles/global.styles';
-import { Global } from '@emotion/react';
 import ContainerLayout from './components/common/ContainerLayout/ContainerLayout';
 import CartListTitle from './components/CartListTitle/CartListTitle';
 import CartItem from './components/CartItem/CartItem';
@@ -22,7 +20,6 @@ function App() {
 
   return (
     <>
-      <Global styles={globalStyles} />
       <Header>
         <HeaderButton src={Logo} onClick={() => {}} />
       </Header>
@@ -47,7 +44,7 @@ function App() {
           </>
         )}
       </ContainerLayout>
-      <OrderButton cartListLength={cartList.length} />
+      <OrderButton cartData={cartList} totalPrice={totalPrice} />
     </>
   );
 }
