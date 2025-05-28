@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
@@ -6,22 +5,12 @@ import { Header } from "../../components/Header/Header.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import Title from "../../components/Title/Title";
 import TotalSelector from "../../components/TotalSelector/TotalSelector";
+import useCart from "../../hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
-import { CartItemContent } from "../../types/response";
-import { getCartItems } from "../../apis/cartItems/getCartItems";
 
 const CartPage = () => {
-  const [data, setData] = useState<CartItemContent[]>([]);
-
-  const fetchData = async () => {
-    const cartItemsData = await getCartItems();
-    setData(cartItemsData);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data } = useCart();
 
   return (
     <>
@@ -39,7 +28,7 @@ const CartPage = () => {
           <TotalSelector checked={true} />
           <S.CartItemsContainer>
             {data.map((cartItem) => (
-              <CartItem cartItem={cartItem} fetchData={fetchData} />
+              <CartItem cartItem={cartItem} />
             ))}
           </S.CartItemsContainer>
         </S.CartContainer>
