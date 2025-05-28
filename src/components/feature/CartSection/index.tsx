@@ -9,39 +9,45 @@ import useGetCartItem from "../../../hooks/useGetCartItem";
 import { useState, useEffect, useRef } from "react";
 
 const CartSection = () => {
-  const { cartItems, refetch } = useGetCartItem();
-  const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
-  const isAllChecked = selectedProducts?.length === cartItems?.length;
   const isSetting = useRef(false);
+  const [selectedCartId, setSelectedCartId] = useState<number[]>([]);
+  const { cartItems, refetch } = useGetCartItem();
+  const isAllChecked = selectedCartId?.length === cartItems?.length;
 
   const handleAllSelected = () => {
     if (isAllChecked) {
-      setSelectedProducts([]);
+      setSelectedCartId([]);
       return;
     }
-    setSelectedProducts(cartItems?.map((item) => item.id) || []);
+    setSelectedCartId(cartItems?.map((item) => item.id) || []);
   };
 
   const isChecked = (id: number) => {
-    return selectedProducts?.some((item) => item === id);
+    return selectedCartId?.some((item) => item === id);
   };
 
   const handleToggle = (id: number) => {
-    if (!selectedProducts?.find((item) => item === id)) {
-      setSelectedProducts((prev) => [...prev, id]);
+    // 선택이 안되어 있음 -> 선택됨
+    if (!selectedCartId?.find((item) => item === id)) {
+      setSelectedCartId((prev) => [...prev, id]);
       return;
     }
+    // 선택이 되어 있음 -> 선택안됨
+    setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
+  };
 
-    setSelectedProducts(selectedProducts?.filter((cartId) => cartId !== id));
+  const handleDelete = (id: number) => {
+    if (!selectedCartId?.find((item) => item === id)) return;
+    setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
   };
 
   useEffect(() => {
     if (cartItems && !isSetting.current) {
       const cartIdList = cartItems?.map((item) => item.id);
-      setSelectedProducts(cartIdList);
+      setSelectedCartId(cartIdList);
       isSetting.current = true;
     }
-  }, [cartItems, selectedProducts]);
+  }, [cartItems]);
 
   return (
     <S.Container>
@@ -59,11 +65,12 @@ const CartSection = () => {
             onRefetch={refetch}
             isChecked={isChecked(cartItem.id)}
             onToggle={() => handleToggle(cartItem.id)}
+            onDeleteSelected={() => handleDelete(cartItem.id)}
           />
         ))}
       </S.CartList>
 
-      <PriceSection />
+      <PriceSection cartItems={cartItems} selectedProducts={selectedCartId} />
       <Button
         title="주문 확인"
         onClick={() => {}}

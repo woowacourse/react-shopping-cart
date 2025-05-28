@@ -4,13 +4,16 @@ export const Container = styled.label`
   display: flex;
   gap: 8px;
   align-items: center;
-  cursor: pointer;
 `;
 
 export const HiddenCheckBox = styled.input`
   display: none;
 `;
 
-export const CheckBox = styled.img``;
+export const CheckBox = styled.img`
+  cursor: pointer;
+`;
 
-export const Label = styled.span``;
+export const Label = styled.label`
+  cursor: pointer;
+`;

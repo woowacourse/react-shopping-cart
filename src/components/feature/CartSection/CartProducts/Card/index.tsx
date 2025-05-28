@@ -1,5 +1,4 @@
 import * as S from "./Card.styles";
-import { useState } from "react";
 import CartCount from "./CartCount";
 import Button from "../../../../common/Button";
 import CheckBox from "../../../../common/CheckBox";
@@ -7,22 +6,28 @@ import Line from "../../../../common/Line";
 import { CartProduct } from "../../../../../type/cart";
 import { deleteCartProduct } from "../../../../../api/cart/deleteCartProduct";
 import { updateCartProduct } from "../../../../../api/cart/updateCartProduct";
+import { formatPrice } from "../../../../../utils/formatPrice";
+
+type Props = {
+  cartItem: CartProduct;
+  onRefetch: () => void;
+  isChecked: boolean;
+  onToggle: () => void;
+  onDeleteSelected: () => void;
+};
 
 const Card = ({
   cartItem,
   onRefetch,
   isChecked,
-  onToggle: setIsChecked,
-}: {
-  cartItem: CartProduct;
-  onRefetch: () => void;
-  isChecked: boolean;
-  onToggle: () => void;
-}) => {
+  onToggle,
+  onDeleteSelected,
+}: Props) => {
   const { imageUrl, name, price } = cartItem.product;
 
   const handleDelete = async (id: number) => {
     await deleteCartProduct(id);
+    onDeleteSelected();
     onRefetch();
   };
 
@@ -35,7 +40,7 @@ const Card = ({
     <>
       <S.CardContainer>
         <S.ButtonSection>
-          <CheckBox isChecked={isChecked} onChange={setIsChecked} />
+          <CheckBox isChecked={isChecked} onChange={onToggle} />
           <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
         </S.ButtonSection>
 
@@ -48,7 +53,7 @@ const Card = ({
           <S.ProductInfoSection>
             <S.ProductDescription>
               <S.ProductName>{name}</S.ProductName>
-              <S.ProductPrice>{price}</S.ProductPrice>
+              <S.ProductPrice>{formatPrice(price)}</S.ProductPrice>
             </S.ProductDescription>
             <CartCount
               count={cartItem.quantity}
