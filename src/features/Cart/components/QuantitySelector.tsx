@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
-import { css } from '@emotion/react';
 
 export type QuantitySelectorProps = {
   count: number;

@@ -1,13 +1,14 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { Button } from '@/shared/components/Button';
+import { CheckBox } from '@/shared/components/CheckBox';
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
-import { Button } from '@/shared/components/Button';
+
 import { QuantitySelector } from './QuantitySelector';
 
 import { CartItem } from '../types/Cart.types';
-import { CheckBox } from '@/shared/components/CheckBox';
 
 type CartItemDetailProps = {
   isChecked: boolean;
@@ -37,9 +38,9 @@ export const CartItemDetail = ({
       `}
     >
       <Flex
-        direction={'row'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         width="100%"
         gap="0"
         margin="10px 0 0 0 "

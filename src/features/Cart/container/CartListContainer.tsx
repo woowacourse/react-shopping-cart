@@ -1,5 +1,6 @@
 import { PropsWithChildren, useRef } from 'react';
 import styled from '@emotion/styled';
+
 import { useScrollStatus } from '../hooks/useScrollStatus';
 
 export const CartListContainer = ({ children }: PropsWithChildren) => {
