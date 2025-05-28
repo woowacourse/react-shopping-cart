@@ -5,8 +5,22 @@ import Price from "../Price/Price";
 import DetailPrice from "../DetailPrice/DetailPrice";
 
 import * as S from "./Receipt.styles";
+import { CartItemCheck } from "../../../types/CartItemCheck";
 
-export default function Receipt() {
+interface ReceiptProps {
+  cartItemCheckList: CartItemCheck[];
+}
+
+export default function Receipt({ cartItemCheckList }: ReceiptProps) {
+  const selectedCartItemList = cartItemCheckList.filter(
+    (item) => item.isClicked === true
+  );
+  const allProductPrice = selectedCartItemList.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
+
   return (
     <section>
       <S.DescriptionContent>
@@ -16,9 +30,12 @@ export default function Receipt() {
         </S.Description>
       </S.DescriptionContent>
       <Hr />
-      <DetailPrice />
+      <DetailPrice
+        allProductPrice={allProductPrice}
+        shippingFee={shippingFee}
+      />
       <Hr />
-      <Price name="총 결제 금액" price={73000} />
+      <Price name="총 결제 금액" price={allProductPrice + shippingFee} />
     </section>
   );
 }

@@ -6,20 +6,15 @@ import Receipt from "../../components/shoppingCart/receipt/Receipt";
 
 import useCartItemList from "../../hooks/useCartItemList";
 
-import { StyledShoppingCart, Flex, Checkbox } from "./ShoppingCartPage.styles";
+import { CartItemCheck } from "../../types/CartItemCheck";
 
-type SelectedCartItem = {
-  id: number;
-  quantity: number;
-  price: number;
-  isClicked: boolean;
-};
+import { StyledShoppingCart, Flex, Checkbox } from "./ShoppingCartPage.styles";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
-  const [cartItemCheckList, setCartItemCheckList] = useState<
-    SelectedCartItem[]
-  >([]);
+  const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
+    []
+  );
 
   useEffect(() => {
     setCartItemCheckList(
@@ -78,7 +73,7 @@ export default function ShoppingCartPage() {
         })}
       </section>
 
-      <Receipt />
+      <Receipt cartItemCheckList={cartItemCheckList} />
     </StyledShoppingCart>
   );
 }
