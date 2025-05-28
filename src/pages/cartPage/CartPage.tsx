@@ -1,23 +1,23 @@
-import * as S from './CartPage.style';
-import { Title, Subtitle } from '../../styles/@common/title/Title.styles';
-import CartItem from '../../components/features/cartItem/CartItem';
-import CartPrice from '../../components/features/cartPrice/CartPrice';
+import * as S from "./CartPage.style";
+import { Title, Subtitle } from "../../styles/@common/title/Title.styles";
+import CartItem from "../../components/features/cartItem/CartItem";
+import CartPrice from "../../components/features/cartPrice/CartPrice";
 import {
   deleteCartItem,
   getCart,
   modifyCartItem,
-} from '../../services/cartService';
-import { useEffect, useState } from 'react';
-import Checkbox from '../../components/@common/checkbox/Checkbox';
-import type { CartItemType } from '../../types/response';
-import { getCartItemById } from '../../utils/getCartItemById';
-import Button from '../../components/@common/button/Button';
-import useEasyNavigate from '../../hooks/useEasyNavigate';
+} from "../../services/cartService";
+import { useEffect, useState } from "react";
+import Checkbox from "../../components/@common/checkbox/Checkbox";
+import type { CartItemType } from "../../types/response";
+import { getCartItemById } from "../../utils/getCartItemById";
+import Button from "../../components/@common/button/Button";
+import useEasyNavigate from "../../hooks/useEasyNavigate";
 import {
   calculateTotalPrice,
   calculateTotalProductCount,
   getCartItemNamePrice,
-} from '../../utils/calculate';
+} from "../../utils/calculate";
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
@@ -85,28 +85,38 @@ const CartPage = () => {
     <div css={S.CartPageWrapper}>
       <div css={S.CartTitleContainer}>
         <p css={Title}>장바구니</p>
-        <p css={Subtitle}>현재 {cartData.length}종류의 상품이 담겨있습니다.</p>
+
+        {cartData.length > 0 ? (
+          <>
+            <p css={Subtitle}>
+              현재 {cartData.length}종류의 상품이 담겨있습니다.
+            </p>
+            <div css={S.CartCheckboxContainer}>
+              <Checkbox checked={isAllChecked} onChange={controlAllCheckBox} />
+              <p>전체 선택</p>
+            </div>
+            {cartData.map((item) => (
+              <CartItem
+                key={item.id}
+                cartData={item}
+                updateCartItem={updateCartItem}
+                increaseCartItem={increaseCartItem}
+                justifyIsChecked={justifyIsChecked}
+                controlCheckBox={controlCheckBox}
+                removeCartItem={removeCartItem}
+              />
+            ))}
+            <CartPrice
+              cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
+            />
+          </>
+        ) : (
+          <h2>장바구니에 담은 상품이 없습니다</h2>
+        )}
       </div>
-      <div css={S.CartCheckboxContainer}>
-        <Checkbox checked={isAllChecked} onChange={controlAllCheckBox} />
-        <p>전체 선택</p>
-      </div>
-      {cartData.map((item) => (
-        <CartItem
-          key={item.id}
-          cartData={item}
-          updateCartItem={updateCartItem}
-          increaseCartItem={increaseCartItem}
-          justifyIsChecked={justifyIsChecked}
-          controlCheckBox={controlCheckBox}
-          removeCartItem={removeCartItem}
-        />
-      ))}
-      <CartPrice
-        cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
-      />
       <Button
         variant="largeBlack"
+        disabled={isCheckedArray.length === 0}
         onClick={() =>
           goOrderComplete(
             cartData.length,
