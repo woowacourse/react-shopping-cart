@@ -17,21 +17,30 @@ function CartPage() {
     quantity: index + 1,
   }));
 
+  const isCartEmpty = dummyItem.length === 0;
+
   return (
     <S.Root>
       <S.CartPageWrapper>
         <Header />
-        <S.Content>
-          <TitleSection />
-          {dummyItem.map((cart) => (
-            <CartItem key={cart.product.id} cart={cart} />
-          ))}
-          <S.Description>
-            ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-          </S.Description>
-          <S.Line />
-          <OrderPriceSection orderPrice={70000} deliveryPrice={3000} />
-        </S.Content>
+        <S.CartContentWrapper>
+          <S.HeaderTitle>장바구니</S.HeaderTitle>
+          {isCartEmpty ? (
+            <S.EmptyCart>장바구니에 담은 상품이 없습니다.</S.EmptyCart>
+          ) : (
+            <S.Content>
+              <TitleSection />
+              {dummyItem.map((cart) => (
+                <CartItem key={cart.product.id} cart={cart} />
+              ))}
+              <S.Description>
+                ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+              </S.Description>
+              <S.Line />
+              <OrderPriceSection orderPrice={70000} deliveryPrice={3000} />
+            </S.Content>
+          )}
+        </S.CartContentWrapper>
         <S.OrderButton>주문확인</S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
