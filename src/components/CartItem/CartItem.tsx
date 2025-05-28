@@ -40,12 +40,16 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
     quantity: number;
   }) => {
     try {
-      await updateCartItemApi(id, quantity + 1);
       dispatch({
         type: "ADD_ITEM_QUANTITY",
-        payload: { id, quantity: quantity },
+        payload: { id, quantity: quantity + 1 },
       });
+      await updateCartItemApi(id, quantity + 1);
     } catch (error) {
+      dispatch({
+        type: "SET_CART",
+        payload: { items: [cart] },
+      });
       console.error("Failed to update cart item:", error);
     }
   };
@@ -58,12 +62,23 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
     quantity: number;
   }) => {
     try {
+      if (quantity === 1) {
+        dispatch({
+          type: "REMOVE_ITEM",
+          payload: { id },
+        });
+      } else {
+        dispatch({
+          type: "SUB_ITEM_QUANTITY",
+          payload: { id, quantity: quantity - 1 },
+        });
+      }
       await updateCartItemApi(id, quantity - 1);
-      dispatch({
-        type: "SUB_ITEM_QUANTITY",
-        payload: { id, quantity: quantity },
-      });
     } catch (error) {
+      dispatch({
+        type: "SET_CART",
+        payload: { items: [cart] },
+      });
       console.error("Failed to update cart item:", error);
     }
   };
@@ -83,7 +98,6 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
       await updateCartItemApi(cart.id, 0);
     } catch (error) {
       console.error("Failed to delete cart item:", error);
-      // API 호출 실패 시 상태 복구
       dispatch({
         type: "SET_CART",
         payload: { items: [cart] },
