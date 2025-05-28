@@ -72,6 +72,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     async (cartId: number) => {
       await deleteCartItem(cartId);
       fetchData();
+      setCartItemsCheckData((prev) => prev.filter(({ id }) => id !== cartId));
     },
     [fetchData]
   );
