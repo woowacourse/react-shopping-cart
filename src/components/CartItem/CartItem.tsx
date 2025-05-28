@@ -10,6 +10,7 @@ import {
   useSelectDispatch,
 } from "../../stores/SelectContext";
 
+// FIXME : dispatch 구조 리팩토링
 function CartItem({ cart }: { cart: ResponseCartItem }) {
   const { price, name, imageUrl } = cart.product;
   const dispatch = useCartDispatch();

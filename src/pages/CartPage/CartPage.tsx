@@ -1,13 +1,16 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as S from "./CartPage.styled";
-import CartItem from "./components/CartItem/CartItem";
-import Header from "./components/Header/Header";
-import OrderPriceSection from "./components/OrderPriceSection/OrderPriceSection";
-import OrderResult from "./components/OrderResult/OrderResult";
-import TitleSection from "./components/TitleSection/TitleSection";
-import { useCartContext, useCartDispatch } from "./stores/CartContext";
-import { useSelectContext, useSelectDispatch } from "./stores/SelectContext";
-import useCart from "./hooks/useCart";
+import { useCartContext, useCartDispatch } from "../../stores/CartContext";
+import {
+  useSelectContext,
+  useSelectDispatch,
+} from "../../stores/SelectContext";
+import useCart from "../../hooks/useCart";
+import Header from "../../components/Header/Header";
+import OrderResult from "../../components/OrderResult/OrderResult";
+import TitleSection from "../../components/TitleSection/TitleSection";
+import CartItem from "../../components/CartItem/CartItem";
+import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 
 function CartPage() {
   const dispatch = useCartDispatch();
@@ -31,7 +34,11 @@ function CartPage() {
   }, [cartItemRes, dispatch, selectDispatch]);
 
   const isCartEmpty = cartData.length === 0;
-  const isOrderComplete = false;
+  const [isOrderComplete, setIsOrderComplete] = useState(false);
+
+  const handleOrderCheck = () => {
+    setIsOrderComplete(true);
+  };
 
   const { orderPrice, deliveryPrice } = useMemo(() => {
     const calculatedOrderPrice = selectData.reduce((total, item, idx) => {
@@ -54,6 +61,10 @@ function CartPage() {
     };
   }, [selectData, cartData]);
 
+  const selectedCartItem = useMemo(() => {
+    return cartData.filter((_, idx) => selectData[idx].selected);
+  }, [cartData, selectData]);
+
   if (isLoading || !cartData) {
     return <div>장바구니를 불러오는 중입니다...</div>;
   }
@@ -63,7 +74,10 @@ function CartPage() {
       <S.CartPageWrapper>
         <Header isCartComplete={isOrderComplete} />
         {isOrderComplete ? (
-          <OrderResult />
+          <OrderResult
+            selectedCartItem={selectedCartItem}
+            totalPrice={orderPrice + deliveryPrice}
+          />
         ) : (
           <S.CartContentWrapper>
             <S.HeaderTitle>장바구니</S.HeaderTitle>
@@ -89,7 +103,7 @@ function CartPage() {
             )}
           </S.CartContentWrapper>
         )}
-        <S.OrderButton>주문확인</S.OrderButton>
+        <S.OrderButton onClick={handleOrderCheck}>주문확인</S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
   );
