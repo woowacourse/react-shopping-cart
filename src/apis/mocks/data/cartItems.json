@@ -1,0 +1,53 @@
+{
+  "content": [
+    {
+      "id": 1629,
+      "quantity": 1,
+      "product": {
+        "id": 29,
+        "name": "19×19×19 큐브",
+        "price": 850000,
+        "imageUrl": "https://i.namu.wiki/i/kQCwKHpwjePBTPXPTIizJSE0alohKKRlsGOJSrPhAdsODckkF05KNDV27xdydVqHLEdgM7yQu6NSUL-gE0t9SZH_cmaY8tMquJnfLQv5shH_pSdvsRc87hCcO5V3WBZrTwR23NYzoJJEoQIHWqAM4Q.webp",
+        "category": "패션잡화",
+        "quantity": 10
+      }
+    },
+    {
+      "id": 1965,
+      "quantity": 1,
+      "product": {
+        "id": 4,
+        "name": "달 무드등",
+        "price": 28000,
+        "imageUrl": "https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/794f/cecbea5bdc654a11ae02d28b4d1f4bd2a03a7389eb2b8cc4a45c1c9f7d9b.jpg",
+        "category": "패션잡화",
+        "quantity": 10
+      }
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 20,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalElements": 5,
+  "totalPages": 1,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "first": true,
+  "numberOfElements": 5,
+  "empty": false
+}
