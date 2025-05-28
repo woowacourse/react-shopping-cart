@@ -1,4 +1,3 @@
-import { useState } from "react";
 import deleteShoppingCart from "../../api/deleteShoppingCart";
 import { CartItemTypes } from "../../types/cartItem";
 import Button from "../Button/Button";
@@ -16,15 +15,17 @@ interface CartProductContainerProps {
   cartItem: CartItemTypes[];
   onChange: () => void;
   onError: (message: string) => void;
+  selectedCartId: string[];
+  setSelectedCartId: (id: string[]) => void;
 }
 
 export default function CartProductContainer({
   cartItem,
   onChange,
   onError,
+  selectedCartId,
+  setSelectedCartId,
 }: CartProductContainerProps) {
-  const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
-
   const handleCheckBox = (id: string) => {
     if (id === "select-all") {
       if (selectedCartId.length === 0) {

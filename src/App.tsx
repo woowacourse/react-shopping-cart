@@ -30,6 +30,12 @@ function App() {
   const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
   const [error, setError] = useState("");
 
+  const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
+
+  useEffect(() => {
+    setSelectedCartId(cartItem.map((item) => item.id.toString()));
+  }, [cartItem]);
+
   const getCartItemData = async () => {
     try {
       const response = await getShoppingCart();
@@ -73,6 +79,8 @@ function App() {
             cartItem={cartItem}
             onChange={getCartItemData}
             onError={handleError}
+            selectedCartId={selectedCartId}
+            setSelectedCartId={setSelectedCartId}
           />
           <PaymentSummary />
           <Button onClick={() => {}} type="submit" size="full">

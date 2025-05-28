@@ -1,8 +1,6 @@
-// import { updateCartItem } from "../../apis/cartItem";
 import patchShoppingCart from "../../api/patchShoppingCart";
 import { IconButton } from "../IconButton/IconButton";
 import { QuantitySelectorLayout } from "./QuantitySelector.style";
-// import { useShoppingContext } from "../../context/useShoppingContext";
 
 interface QuantitySelectorProps {
   cartId: number;
