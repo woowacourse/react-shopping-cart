@@ -29,35 +29,38 @@ const CartPage = () => {
         <S.Logo href="/">SHOP</S.Logo>
       </Header>
       <S.Main>
-        <S.TitleContainer>
-          <Title>장바구니</Title>
+        <Title>장바구니</Title>
+        <S.ContentContainer>
           <Description>
             현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
           </Description>
-        </S.TitleContainer>
-        <S.CartContainer>
-          <AllSelector />
-          <S.CartItemsContainer>
-            {cartItemsData.map((cartItem) => (
-              <CartItem key={cartItem.id} cartItem={cartItem} />
-            ))}
-          </S.CartItemsContainer>
-        </S.CartContainer>
-        <S.InfoContainer>
-          <img src={InfoIcon} alt="info" />
-          <Description>
-            총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-          </Description>
-        </S.InfoContainer>
-        <S.PriceSummary>
-          <S.PriceInfoWrapper>
-            <PriceInfo label="주문 금액" price={orderPrice} />
-            <PriceInfo label="배송비" price={shippingFee} />
-          </S.PriceInfoWrapper>
-          <S.PriceInfoWrapper>
-            <PriceInfo label="총 결제 금액" price={orderPrice + shippingFee} />
-          </S.PriceInfoWrapper>
-        </S.PriceSummary>
+          <S.CartContainer>
+            <AllSelector />
+            <S.CartItemsContainer>
+              {cartItemsData.map((cartItem) => (
+                <CartItem key={cartItem.id} cartItem={cartItem} />
+              ))}
+            </S.CartItemsContainer>
+          </S.CartContainer>
+          <S.InfoContainer>
+            <img src={InfoIcon} alt="info" />
+            <Description>
+              총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+            </Description>
+          </S.InfoContainer>
+          <S.PriceSummary>
+            <S.PriceInfoWrapper>
+              <PriceInfo label="주문 금액" price={orderPrice} />
+              <PriceInfo label="배송비" price={shippingFee} />
+            </S.PriceInfoWrapper>
+            <S.PriceInfoWrapper>
+              <PriceInfo
+                label="총 결제 금액"
+                price={orderPrice + shippingFee}
+              />
+            </S.PriceInfoWrapper>
+          </S.PriceSummary>
+        </S.ContentContainer>
       </S.Main>
       <FooterButton>주문 확인</FooterButton>
     </>

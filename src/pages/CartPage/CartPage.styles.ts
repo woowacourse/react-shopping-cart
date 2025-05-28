@@ -14,10 +14,11 @@ export const Logo = styled.a`
   text-decoration: none;
 `;
 
-export const TitleContainer = styled.div`
+export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  margin-top: 15px;
+  flex-grow: 1;
 `;
 
 export const CartContainer = styled.div`
