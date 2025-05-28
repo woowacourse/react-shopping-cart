@@ -9,6 +9,7 @@ function CartItem({ cart }: { cart: CartDataType }) {
 
   return (
     <>
+      <S.Line />
       <S.ItemContainer>
         <S.CartItemHeader>
           <CheckBox />
@@ -27,7 +28,6 @@ function CartItem({ cart }: { cart: CartDataType }) {
           </S.ItemContent>
         </S.ItemInfo>
       </S.ItemContainer>
-      <S.Line />
     </>
   );
 }

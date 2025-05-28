@@ -23,12 +23,16 @@ function CartPage() {
         <Header />
         <S.Content>
           <TitleSection />
-          <S.Line />
           {dummyItem.map((cart) => (
             <CartItem key={cart.product.id} cart={cart} />
           ))}
+          <S.Description>
+            ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          </S.Description>
+          <S.Line />
           <OrderPriceSection orderPrice={70000} deliveryPrice={3000} />
         </S.Content>
+        <S.OrderButton>주문확인</S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
   );
