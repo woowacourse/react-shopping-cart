@@ -12,17 +12,13 @@ interface CartItemListProps {
 }
 
 export default function CartItemList({ cartItems }: CartItemListProps) {
-  const itemIds = cartItems.map((item) => item.id);
-  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(itemIds);
+  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(cartItems, (item) => item.id);
+
   const navigate = useNavigate();
-
-  const checkedItems = cartItems.filter((item) => state[item.id]);
-  const orderAmount = checkedItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  const deliveryFee = orderAmount > 100000 ? 0 : 3000;
-  const totalAmount = orderAmount + deliveryFee;
-
-  const countOfItemType = checkedItems.length;
-  const countOfItem = checkedItems.reduce((acc, item) => acc + item.quantity, 0);
+  const { orderAmount, deliveryFee, totalAmount, countOfItemType, countOfItem } = calculateSummary({
+    cartItems,
+    state
+  });
 
   return (
     <div css={styles.cartItemsAreaCss}>
@@ -39,7 +35,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
               <CartItem
                 key={item.id}
                 item={item}
-                checked={state[item.id]}
+                checked={state.get(item.id) ?? false}
                 handleCheckBoxChange={() => toggle(item.id)}
               />
             ))}
@@ -48,7 +44,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
         </>
       )}
       <Button
-        disabled={!Object.values(state).some(Boolean)}
+        disabled={!Array.from(state.values()).some(Boolean)}
         onClick={() => {
           navigate('/order', {
             state: {
@@ -64,3 +60,21 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     </div>
   );
 }
+
+const calculateSummary = ({ cartItems, state }: { cartItems: CartItemType[]; state: Map<number, boolean> }) => {
+  const checkedItems = cartItems.filter((item) => state.get(item.id));
+  const orderAmount = checkedItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const deliveryFee = orderAmount > 100000 ? 0 : 3000;
+  const totalAmount = orderAmount + deliveryFee;
+
+  const countOfItemType = checkedItems.length;
+  const countOfItem = checkedItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  return {
+    orderAmount,
+    deliveryFee,
+    totalAmount,
+    countOfItemType,
+    countOfItem
+  };
+};
