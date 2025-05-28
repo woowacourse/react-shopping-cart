@@ -24,7 +24,7 @@ export default function CartItem({ cartItem, refetchCartItems }: CartItemProps) 
   };
 
   const removeCartItem = async () => {
-    await removeCartItemMutate();
+    await removeCartItemMutate(undefined);
     refetchCartItems();
   };
 
@@ -48,7 +48,11 @@ export default function CartItem({ cartItem, refetchCartItems }: CartItemProps) 
             <S.ItemName>{name}</S.ItemName>
             <S.ItemPrice>{price.toLocaleString()}원</S.ItemPrice>
           </S.ItemDetailInfo>
-          <CartItemQuantityButton cartItemId={id} quantity={quantity} />
+          <CartItemQuantityButton
+            cartItemId={id}
+            quantity={quantity}
+            refetchCartItems={refetchCartItems}
+          />
         </S.ItemDetail>
       </S.ItemContent>
     </S.Item>
