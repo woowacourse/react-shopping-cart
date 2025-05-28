@@ -34,6 +34,7 @@ export const CartItemsContainer = styled.div`
   gap: 20px;
   overflow-y: auto;
   max-height: 400px;
+  padding-right: 12px;
 `;
 
 export const InfoContainer = styled.div`
