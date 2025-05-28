@@ -1,10 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { CLIENT_BASE_PATH } from "./apis/config.ts";
-import App from "./App.tsx";
 import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
 import { CartProvider } from "./contexts/CartContext.tsx";
 import "./styles/reset.css";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import CartPage from "./pages/CartPage/CartPage.tsx";
+
+const Layout = () => {
+  return (
+    <MobileLayout>
+      <CartProvider>
+        <Outlet />
+      </CartProvider>
+    </MobileLayout>
+  );
+};
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { path: "/", element: <CartPage /> },
+        // { path: "/order", element: <OrderPage /> },
+      ],
+    },
+  ],
+  {
+    basename: CLIENT_BASE_PATH,
+  }
+);
 
 async function enableMocking() {
   if (!import.meta.env.VITE_USE_MOCK) return;
@@ -23,11 +50,7 @@ async function enableMocking() {
 enableMocking().then(() =>
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-      <MobileLayout>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </MobileLayout>
+      <RouterProvider router={router} />
     </React.StrictMode>
   )
 );
