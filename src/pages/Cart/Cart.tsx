@@ -7,7 +7,7 @@ import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import { Container, NoCartItemText } from "./Cart.styles";
 
 function Cart() {
-  const cartItemCount = 0;
+  const cartItemCount = 5;
   return (
     <>
       <Header icon="/public/logo.svg" handleIconClick={() => alert("클릭")} />
@@ -18,7 +18,7 @@ function Cart() {
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (
           <div>
-            <CheckBox id="234" label="전체선택" />
+            <CheckBox id="234" label="전체선택" isSelected={true} />
             <CartItemList />
             <Receipt />
           </div>

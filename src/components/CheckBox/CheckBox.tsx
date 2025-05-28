@@ -1,14 +1,21 @@
-import { Container, Label } from "./\bCheckBox.styles";
+import { Button, Container, Label } from "./\bCheckBox.styles";
 
 interface CheckBoxProps {
   label?: string;
   id: string;
+  isSelected: boolean;
 }
 
-function CheckBox({ label, id }: CheckBoxProps) {
+function CheckBox({ label, id, isSelected }: CheckBoxProps) {
+  const imageSource = isSelected
+    ? "/public/enabledCheck.svg"
+    : "/public/disabledCheck.svg";
+
   return (
     <div css={Container}>
-      <input id={id} type="checkbox" checked={true} />
+      <button css={Button} id={id} type="button">
+        <img src={imageSource} alt="체크 박스" />
+      </button>
       {label && (
         <label css={Label} htmlFor={id}>
           {label}

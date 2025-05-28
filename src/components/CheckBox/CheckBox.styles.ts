@@ -9,3 +9,9 @@ export const Container = css`
 export const Label = css`
   font-size: var(--font-size-small);
 `;
+
+export const Button = css`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
