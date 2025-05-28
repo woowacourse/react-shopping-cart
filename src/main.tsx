@@ -37,7 +37,7 @@ const router = createBrowserRouter(
 async function enableMocking() {
   if (!import.meta.env.VITE_USE_MOCK) return;
 
-  const { worker } = await import("./mocks/browser");
+  const { worker } = await import("./__mocks__/browser.ts");
 
   return worker.start({
     serviceWorker: {
