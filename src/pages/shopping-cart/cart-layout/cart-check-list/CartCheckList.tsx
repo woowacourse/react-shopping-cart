@@ -10,6 +10,7 @@ import Counter from "../../../../components/common/Counter";
 import Image from "../../../../components/common/Image";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { showToast } from "../../../../utils/toast/showToast";
+import CheckBox from "../../../../components/common/CheckBox";
 
 function CartCheckList() {
   const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
@@ -59,6 +60,16 @@ function CartCheckList() {
   return (
     <Container>
       <ItemList>
+        <CheckedAll>
+          <CheckBox
+            isChecked={true}
+            onToggle={() => {
+              console.log("전체 선택 클릭");
+            }}
+          ></CheckBox>
+          <p>전체 선택</p>
+        </CheckedAll>
+
         {isCartEmpty ? (
           <EmptyCartBox>
             <EmptyCartImage src="./assets/icons/DeleteCart.svg" />
@@ -66,31 +77,39 @@ function CartCheckList() {
           </EmptyCartBox>
         ) : (
           cartListData?.map((cart) => (
-            <ItemContainer key={cart.id}>
-              <Image
-                width="80px"
-                height="80px"
-                imageSource={cart.product.imageUrl}
-                altText={`${cart.product.name} 상품 이미지`}
-              />
-
-              <ProductInfo aria-label="상품 정보" role="cart-product-info">
-                <ProductName>{cart.product.name}</ProductName>
-                <ProductPrice>{formatPrice(cart.product.price)}</ProductPrice>
-                <Counter
-                  canBeZero={false}
-                  count={cart.quantity}
-                  maxCount={cart.product.quantity}
-                  onPlusClick={() => handlePlusQuantity(cart.id)}
-                  onMinusClick={() => handleMinusQuantity(cart.id)}
-                  autoFocus={true}
+            <ItemWithCheckboxContainer key={cart.id}>
+              <CheckBox
+                isChecked={true}
+                onToggle={() => {
+                  console.log("클릭여");
+                }}
+              ></CheckBox>
+              <ItemContainer>
+                <Image
+                  width="80px"
+                  height="80px"
+                  imageSource={cart.product.imageUrl}
+                  altText={`${cart.product.name} 상품 이미지`}
                 />
-              </ProductInfo>
 
-              <DeleteButton onClick={() => removeItem(cart.id)}>
-                삭제
-              </DeleteButton>
-            </ItemContainer>
+                <ProductInfo aria-label="상품 정보" role="cart-product-info">
+                  <ProductName>{cart.product.name}</ProductName>
+                  <ProductPrice>{formatPrice(cart.product.price)}</ProductPrice>
+                  <Counter
+                    canBeZero={false}
+                    count={cart.quantity}
+                    maxCount={cart.product.quantity}
+                    onPlusClick={() => handlePlusQuantity(cart.id)}
+                    onMinusClick={() => handleMinusQuantity(cart.id)}
+                    autoFocus={true}
+                  />
+                </ProductInfo>
+
+                <DeleteButton onClick={() => removeItem(cart.id)}>
+                  삭제
+                </DeleteButton>
+              </ItemContainer>
+            </ItemWithCheckboxContainer>
           ))
         )}
       </ItemList>
@@ -115,15 +134,29 @@ const ItemList = styled.div`
   overflow-y: auto;
 `;
 
+const CheckedAll = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #bdbdbd;
+`;
+
+const ItemWithCheckboxContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
 const ItemContainer = styled.div`
   display: flex;
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid #f0f0f0;
   align-items: flex-start;
-  &:last-child {
-    border-bottom: none;
-  }
 `;
 
 const ProductInfo = styled.div`
@@ -136,7 +169,7 @@ const ProductInfo = styled.div`
 `;
 
 const ProductName = styled.p`
-  ${({ theme }) => theme.body1}
+  text-align: left;
 `;
 
 const ProductPrice = styled.p`

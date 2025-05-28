@@ -138,6 +138,17 @@ const reset = css`
     border: none;
     cursor: pointer;
     background-color: transparent;
+    padding: 0;
+    margin: 0;
+    stroke: none;
+    :focus {
+      outline: none;
+      stroke: none;
+    }
+    :hover {
+      outline: none;
+      stroke: none;
+    }
   }
   p,
   span,
