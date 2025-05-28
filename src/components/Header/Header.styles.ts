@@ -23,6 +23,7 @@ export const Button = styled.button`
   width: 32px;
   height: 32px;
   background-color: transparent;
+  cursor: pointer;
 `;
 
 export const BackArrow = styled.img`

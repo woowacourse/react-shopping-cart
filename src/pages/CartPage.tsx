@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { getCartItems } from '../apis/cart';
 import { useData } from '../context/DataContext';
 import { CartProduct } from '../types/cart';
+import { useNavigate } from 'react-router';
 
 function CartPage() {
   const { data: cartItems } = useData({
@@ -20,6 +21,7 @@ function CartPage() {
     name: 'cartItems',
   });
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (cartItems?.content) {
@@ -43,6 +45,12 @@ function CartPage() {
     ? cartItems.content
         .filter((item: CartProduct) => checkedItems.includes(item.id))
         .reduce((sum: number, item: CartProduct) => sum + item.product.price * item.quantity, 0)
+    : 0;
+
+  const totalCount = cartItems?.content
+    ? cartItems.content
+        .filter((item: CartProduct) => checkedItems.includes(item.id))
+        .reduce((sum: number, item: CartProduct) => sum + item.quantity, 0)
     : 0;
 
   const hasItems = checkedItems.length > 0;
@@ -85,12 +93,21 @@ function CartPage() {
         </CartInfo>
 
         <CartFooter>
-          <CartPrice title="주문 금액" price={price} />
-          <CartPrice title="배송비" price={shippingFee} />
-          <CartPrice title="총 결제 금액" price={totalPrice} />
+          <CartPrice title="주문 금액" price={price} variant="default" />
+          <CartPrice title="배송비" price={shippingFee} variant="shipping" />
+          <CartPrice title="총 결제 금액" price={totalPrice} variant="total" />
         </CartFooter>
       </Container>
-      <CloseButton disabled={checkedItems.length === 0}>결제하기</CloseButton>
+      <CloseButton
+        disabled={checkedItems.length === 0}
+        onClick={() =>
+          navigate('/orderConfirm', {
+            state: { price: totalPrice, count: checkedItems.length, totalCount: totalCount },
+          })
+        }
+      >
+        결제하기
+      </CloseButton>
     </>
   );
 }
@@ -150,8 +167,6 @@ const CartFooter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const InfoIconImage = styled.img`

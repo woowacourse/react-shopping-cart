@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import { backArrow } from '../../assets';
 import { BackArrow, Button, Container, Title } from './Header.styles';
 
@@ -7,7 +8,12 @@ interface HeaderProps {
 }
 
 function Header({ title, variant = 'default' }: HeaderProps) {
+  const navigate = useNavigate();
   const isDefault = variant === 'default';
+
+  const handlePageBack = () => {
+    navigate(-1);
+  };
 
   return (
     <Container>
@@ -15,7 +21,7 @@ function Header({ title, variant = 'default' }: HeaderProps) {
         <Title>{title}</Title>
       ) : (
         <Button>
-          <BackArrow src={backArrow} alt="뒤로 가기" />
+          <BackArrow src={backArrow} alt="뒤로 가기" onClick={handlePageBack} />
         </Button>
       )}
     </Container>
