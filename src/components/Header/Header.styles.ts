@@ -1,14 +1,10 @@
 import { css } from "@emotion/react";
 
-export const Wrap = css`
-  height: 64px;
-`;
-
 export const Container = css`
-  position: fixed;
+  position: sticky;
   top: 0;
   width: var(--max-width);
-  height: 64px;
+  height: 7vh;
   padding: 24px;
 
   display: flex;
