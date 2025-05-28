@@ -7,7 +7,10 @@ import {
   CartPriceInfoStyle,
 } from './CartPriceInfo.styles';
 
-function CartPriceInfo() {
+function CartPriceInfo({ totalPrice }: { totalPrice: number }) {
+  const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
+  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
+
   return (
     <div css={CartPriceInfoContainerStyle}>
       <div css={CartPriceInfoHeaderStyle}>
@@ -19,17 +22,19 @@ function CartPriceInfo() {
       <div css={CartPriceContainerStyle}>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">주문 금액</Text>
-          <Text varient="title">100,000원</Text>
+          <Text varient="title">{totalPrice.toLocaleString()}원</Text>
         </div>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">배송비</Text>
-          <Text varient="title">100,000원</Text>
+          <Text varient="title">{deliveryFee.toLocaleString()}원</Text>
         </div>
       </div>
       <div css={CartPriceContainerStyle}>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">총 결제 금액</Text>
-          <Text varient="title">100,000원</Text>
+          <Text varient="title">
+            {totalPriceWithDeliveryFee.toLocaleString()}원
+          </Text>
         </div>
       </div>
     </div>

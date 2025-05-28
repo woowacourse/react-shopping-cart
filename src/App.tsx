@@ -12,9 +12,12 @@ import CartList from './components/CartList/CartList';
 import CartPriceInfo from './components/CartPriceInfo/CartPriceInfo';
 import OrderButton from './components/OrderButton/OrderButton';
 import EmptyCart from './components/EmptyCart/EmptyCart';
+import { cartPrice } from './utils/cartPrice/cartPrice';
 
 function App() {
   const { cartList } = useCartList();
+
+  const totalPrice = cartPrice.totalPrice(cartList);
 
   return (
     <>
@@ -33,7 +36,7 @@ function App() {
                 <CartItem key={cartItem.id} cartItem={cartItem} />
               ))}
             </CartList>
-            <CartPriceInfo />
+            <CartPriceInfo totalPrice={totalPrice} />
           </>
         )}
       </ContainerLayout>
