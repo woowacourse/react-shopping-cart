@@ -32,6 +32,8 @@ interface CartContextType {
 
   getItemChecked: (cartId: number) => boolean;
   toggleItemChecked: (cartId: number) => void;
+
+  calculateOrderPrice: () => number;
 }
 
 interface CartItemCheckType {
@@ -122,6 +124,20 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     return cartItemsCheckData.find(({ id }) => id === cartId)?.checked ?? false;
   };
 
+  const calculateOrderPrice = () => {
+    const checkedItemsId = cartItemsCheckData
+      .filter(({ checked }) => checked)
+      .map(({ id }) => id);
+
+    return cartItemsData
+      .filter(({ id }) => checkedItemsId.includes(id))
+      .reduce(
+        (orderPrice, cartItem) =>
+          orderPrice + cartItem.quantity * cartItem.product.price,
+        0
+      );
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -137,6 +153,8 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
         getItemChecked,
         toggleItemChecked,
+
+        calculateOrderPrice,
       }}
     >
       {children}

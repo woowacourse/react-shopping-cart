@@ -10,7 +10,7 @@ import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
 const CartPage = () => {
-  const { cartItemsData } = useCart();
+  const { cartItemsData, calculateOrderPrice } = useCart();
 
   return (
     <>
@@ -40,7 +40,7 @@ const CartPage = () => {
         </S.InfoContainer>
         <S.PriceSummary>
           <S.PriceInfoWrapper>
-            <PriceInfo label="주문 금액" price={70000} />
+            <PriceInfo label="주문 금액" price={calculateOrderPrice()} />
             <PriceInfo label="배송비" price={3000} />
           </S.PriceInfoWrapper>
           <S.PriceInfoWrapper>
