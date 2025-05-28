@@ -1,5 +1,16 @@
 import { css } from "@emotion/react";
 
+const paymentSummaryLayout = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const summaryRowBox = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
 const imgLayout = css`
   width: 16px;
   height: 16px;
@@ -16,4 +27,10 @@ const deliveryInfoBox = css`
   gap: 4px;
 `;
 
-export { imgLayout, deliveryInfo, deliveryInfoBox };
+export {
+  paymentSummaryLayout,
+  summaryRowBox,
+  imgLayout,
+  deliveryInfo,
+  deliveryInfoBox,
+};
