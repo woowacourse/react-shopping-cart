@@ -15,8 +15,7 @@ export const allSelectCss = css({
   width: '100%',
   marginBottom: '16px'
 });
+
 export const cartItemsListCss = css({
-  width: '100%',
-  height: '100%',
-  overflow: 'scroll'
+  width: '100%'
 });

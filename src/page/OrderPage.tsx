@@ -2,11 +2,20 @@ import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { countOfItem, countOfItemType, totalAmount } = location.state ?? {};
+
+  useEffect(() => {
+    if (!countOfItem && !countOfItemType && !totalAmount) {
+      alert('비정상적인 접근입니다. 장바구니로 이동합니다.');
+      navigate('/');
+      return;
+    }
+  }, [countOfItem, countOfItemType, totalAmount, navigate]);
 
   return (
     <>
@@ -25,7 +34,7 @@ function OrderPage() {
           최종 결제 금액을 확인해 주세요.
         </p>
         <p css={priceTitleCss}>총 결제 금액</p>
-        <p css={priceCss}>{totalAmount.toLocaleString()}원</p>
+        <p css={priceCss}>{totalAmount?.toLocaleString()}원</p>
       </main>
       <Button>결제하기</Button>
     </>

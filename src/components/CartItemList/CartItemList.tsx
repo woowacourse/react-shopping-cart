@@ -50,7 +50,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
       <Button
         disabled={!Object.values(state).some(Boolean)}
         onClick={() => {
-          navigate('/confirm', {
+          navigate('/order', {
             state: {
               countOfItem,
               countOfItemType,
