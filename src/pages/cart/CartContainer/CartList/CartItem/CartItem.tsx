@@ -10,13 +10,21 @@ import useMutation from '@/shared/hooks/useMutation';
 type CartItemProps = {
   cartItem: CartItemType;
   refetchCartItems: () => Promise<void>;
+  isChecked: boolean;
+  addOrderItem: (cartItem: CartItemType) => void;
+  removeOrderItem: (id: number) => void;
 };
 
-export default function CartItem({ cartItem, refetchCartItems }: CartItemProps) {
+export default function CartItem({
+  cartItem,
+  refetchCartItems,
+  isChecked,
+  addOrderItem,
+  removeOrderItem,
+}: CartItemProps) {
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
   const { mutate: removeCartItemMutate } = useMutation(() => deleteCartItem(id));
-  const isChecked = true;
 
   const imageLoadError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
@@ -28,10 +36,19 @@ export default function CartItem({ cartItem, refetchCartItems }: CartItemProps) 
     refetchCartItems();
   };
 
+  const handleCheckBoxClick = () => {
+    if (isChecked) {
+      removeOrderItem(id);
+      return;
+    }
+
+    addOrderItem(cartItem);
+  };
+
   return (
     <S.Item>
       <S.ItemHeader>
-        <CheckBox isChecked={isChecked} />
+        <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} />
         <S.DeleteButton type="button" onClick={removeCartItem}>
           삭제
         </S.DeleteButton>
