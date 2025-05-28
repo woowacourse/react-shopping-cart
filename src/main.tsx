@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { CLIENT_BASE_PATH } from "./apis/config.ts";
 import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
 import { CartProvider } from "./contexts/CartContext.tsx";
-import "./styles/reset.css";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import CartPage from "./pages/CartPage/CartPage.tsx";
+import OrderPage from "./pages/OrderPage/OrderPage.tsx";
+import "./styles/reset.css";
 
 const Layout = () => {
   return (
@@ -24,7 +25,7 @@ const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { path: "/", element: <CartPage /> },
-        // { path: "/order", element: <OrderPage /> },
+        { path: "/order", element: <OrderPage /> },
       ],
     },
   ],
