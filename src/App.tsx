@@ -33,19 +33,22 @@ function App() {
   return (
     <S.AppContainer>
       <Navbar />
-      {cartItems.length > 0 ? (
-        <S.AppContent>
-          <CartHeader cartTypeQuantity={4} />
-          <CartList
-            cartItems={cartItems}
-            setCartItems={setCartItems}
-            addAllCartItemsInSelected={addAllCartItemsInSelected}
-          />
-          <OrderPriceSummary />
-        </S.AppContent>
-      ) : (
-        <EmptyCartItemUI />
-      )}
+      <S.AppContent>
+        <CartHeader cartTypeQuantity={cartItems.length} />
+        {cartItems.length > 0 ? (
+          <>
+            <CartList
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+              addAllCartItemsInSelected={addAllCartItemsInSelected}
+            />
+            <OrderPriceSummary />
+          </>
+        ) : (
+          <EmptyCartItemUI />
+        )}
+      </S.AppContent>
+
       <Footer cartItemQuantity={cartItems.length} />
     </S.AppContainer>
   );
