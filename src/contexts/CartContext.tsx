@@ -26,6 +26,9 @@ interface CartContextType {
 
   allChecked: boolean;
   toggleAllChecked: () => void;
+
+  getItemChecked: (cartId: number) => boolean;
+  toggleItemChecked: (cartId: number) => void;
 }
 
 interface CartItemCheckType {
@@ -96,6 +99,18 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  const toggleItemChecked = (cartId: number) => {
+    setCartItemsCheckData((prev) =>
+      prev.map((item) =>
+        item.id === cartId ? { ...item, checked: !item.checked } : item
+      )
+    );
+  };
+
+  const getItemChecked = (cartId: number) => {
+    return cartItemsCheckData.find(({ id }) => id === cartId)?.checked ?? false;
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -108,6 +123,9 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
         allChecked,
         toggleAllChecked,
+
+        getItemChecked,
+        toggleItemChecked,
       }}
     >
       {children}

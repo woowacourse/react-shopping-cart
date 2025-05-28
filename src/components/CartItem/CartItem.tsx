@@ -17,12 +17,21 @@ const CartItem = ({ cartItem }: Props) => {
     product: { name, price, imageUrl, stock: maxQuantity },
   } = cartItem;
 
-  const { deleteItem, increaseItemQuantity, decreaseItemQuantity } = useCart();
+  const {
+    deleteItem,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+    getItemChecked,
+    toggleItemChecked,
+  } = useCart();
 
   return (
     <S.CartItem>
       <S.CartItemHeader>
-        <Checkbox checked={false} />
+        <Checkbox
+          checked={getItemChecked(cartId)}
+          onClick={() => toggleItemChecked(cartId)}
+        />
         <S.DeleteButton onClick={() => deleteItem(cartId)}>삭제</S.DeleteButton>
       </S.CartItemHeader>
       <S.CartItemWrapper>
