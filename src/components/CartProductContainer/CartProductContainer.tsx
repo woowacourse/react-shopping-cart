@@ -6,6 +6,7 @@ import {
   CartItemBox,
   CartItemHeader,
   CartProductContainerLayout,
+  SelectAllLayout,
 } from "./CartProductContainer.style";
 
 const DUMMY = [
@@ -49,6 +50,10 @@ export default function CartProductContainer() {
   return (
     <>
       <div css={CartProductContainerLayout}>
+        <div css={SelectAllLayout}>
+          <CheckBox isChecked={false} id="select-all" />
+          <label htmlFor="select-all">전체 선택</label>
+        </div>
         {DUMMY.map((cartItem) => {
           return (
             <section css={CartItemBox}>
