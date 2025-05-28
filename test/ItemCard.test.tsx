@@ -24,13 +24,16 @@ describe('ItemCard 테스트', () => {
     const quantity = mockData.quantity;
 
     expect(within(firstItemCard).getByText(product.name)).toBeInTheDocument();
+
     expect(
       within(firstItemCard).getByText(product.price.toLocaleString() + '원')
     ).toBeInTheDocument();
+
     expect(within(firstItemCard).getByRole('img')).toHaveAttribute(
       'src',
       product.imageUrl
     );
+
     expect(within(firstItemCard).getByText(quantity)).toBeInTheDocument();
   });
 
@@ -68,6 +71,16 @@ describe('ItemCard 테스트', () => {
 
     await waitFor(() => {
       expect(secondItemCard).not.toBeInTheDocument();
+    });
+  });
+
+  it('삭제 버튼 클릭 시 상품이 삭제된다.', async () => {
+    const deleteButton = within(firstItemCard).getByText('삭제');
+
+    fireEvent.click(deleteButton);
+
+    await waitFor(() => {
+      expect(firstItemCard).not.toBeInTheDocument();
     });
   });
 });

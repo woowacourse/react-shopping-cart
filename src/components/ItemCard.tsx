@@ -6,6 +6,7 @@ type ItemCardProps = {
   quantity: number;
   increaseCartItemQuantity?: () => void;
   decreaseCartItemQuantity?: () => void;
+  deleteCartItem?: () => void;
 };
 
 const ItemCard = ({
@@ -13,12 +14,13 @@ const ItemCard = ({
   quantity,
   increaseCartItemQuantity,
   decreaseCartItemQuantity,
+  deleteCartItem,
 }: ItemCardProps) => {
   return (
     <S.Container data-testid="item-card">
       <S.ButtonBox>
         <input type="checkbox" />
-        <button>삭제</button>
+        <button onClick={deleteCartItem}>삭제</button>
       </S.ButtonBox>
       <S.ItemBox>
         <S.ItemImage src={product.imageUrl} />
