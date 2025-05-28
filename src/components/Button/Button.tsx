@@ -23,8 +23,8 @@ export default function Button({
   const colorVariant = {
     primary: { backgroundColor: "#000000", color: "#FFFFFF", border: "none" },
     secondary: {
-      backgroundColor: "#EAEAEA",
-      color: "#000000",
+      backgroundColor: "#BEBEBE",
+      color: "#FFFFFF",
       border: "none",
     },
     ghost: {

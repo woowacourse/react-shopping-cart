@@ -88,7 +88,17 @@ function App() {
             cartItems={cartItem}
             selectedCartId={selectedCartId}
           />
-          <Button onClick={() => {}} type="submit" size="full">
+          <Button
+            onClick={() => {}}
+            type="submit"
+            size="full"
+            style={
+              selectedCartId.length === 0 || cartItem.length === 0
+                ? "secondary"
+                : "primary"
+            }
+            disabled={selectedCartId.length === 0 || cartItem.length === 0}
+          >
             주문 확인
           </Button>
         </Main>

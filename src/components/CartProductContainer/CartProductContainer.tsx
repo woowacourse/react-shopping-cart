@@ -54,7 +54,9 @@ export default function CartProductContainer({
       <div css={CartProductContainerLayout}>
         <div css={SelectAllLayout}>
           <CheckBox
-            isChecked={selectedCartId.length === cartItem.length}
+            isChecked={
+              selectedCartId.length === cartItem.length && cartItem.length !== 0
+            }
             id="select-all"
             onChange={handleCheckBox}
           />
