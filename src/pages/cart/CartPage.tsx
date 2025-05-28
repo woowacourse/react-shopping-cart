@@ -1,4 +1,3 @@
-import Body from '../../components/common/body/Body';
 import Header from '../../components/common/header/Header';
 import CartContents from '../../components/features/cart/cartContents/CartContents';
 

@@ -8,6 +8,7 @@ import { baseAPI } from '../../../../api/baseAPI';
 import { CartItemType } from '../types';
 import OrderConfirmationButton from '../orderConfirmationButton/OrderConfirmationButton';
 import { useNavigate } from 'react-router';
+import { calculateOrderPrice } from '../utils/cartCalculations';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -19,10 +20,7 @@ function CartContents() {
     (_, index) => isSelectedList[index]
   );
 
-  const orderPrice = selectedCartItems.reduce(
-    (acc, item) => acc + item.quantity * item.product.price,
-    0
-  );
+  const orderPrice = calculateOrderPrice(selectedCartItems);
 
   const toggleSelect = (toggleIndex: number) => {
     setIsSelectedList((prevSelectedList) =>
