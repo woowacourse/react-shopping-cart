@@ -27,11 +27,6 @@ export function CartProduct({
   maxQuantity,
   onChange,
 }: CartProductProps) {
-  const handleDelete = async () => {
-    // await deleteCartItem({ id });
-    // onChange();
-  };
-
   return (
     <div
       id={`cartProduct-${id}`}

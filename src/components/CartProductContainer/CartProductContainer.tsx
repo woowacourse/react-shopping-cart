@@ -1,4 +1,6 @@
 import { useState } from "react";
+import deleteShoppingCart from "../../api/deleteShoppingCart";
+import { CartItemTypes } from "../../types/cartItem";
 import Button from "../Button/Button";
 import { CartProduct } from "../CartProduct/CartProduct";
 import { CheckBox } from "../CheckBox/CheckBox";
@@ -9,40 +11,17 @@ import {
   CartProductContainerLayout,
   SelectAllLayout,
 } from "./CartProductContainer.style";
-import { CartItemTypes } from "../../types/cartItem";
-
-// const cartItem = [
-//   {
-//     id: 7124,
-//     quantity: 2,
-//     product: {
-//       id: 25,
-//       name: "얌샘김밥",
-//       price: 5000,
-//       imageUrl:
-//         "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20171018_6%2F1508253136417Dlrjh_PNG%2FCdq22zpVpr92_XHROlHbxjJ0.png&type=sc960_832",
-//       category: "식료품",
-//     },
-//   },
-//   {
-//     id: 7161,
-//     quantity: 1,
-//     product: {
-//       id: 27,
-//       name: "아바라",
-//       price: 4800,
-//       imageUrl:
-//         "https://image.ohousecdn.com/i/bucketplace-v2-development/uploads/cards/snapshots/171653801239329270.jpeg?w=256&h=366&c=c",
-//       category: "식료품",
-//     },
-//   },
-// ];
 
 interface CartProductContainerProps {
   cartItem: CartItemTypes[];
+  onChange: () => void;
+  onError: (message: string) => void;
 }
+
 export default function CartProductContainer({
   cartItem,
+  onChange,
+  onError,
 }: CartProductContainerProps) {
   const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
 
@@ -57,6 +36,15 @@ export default function CartProductContainer({
       setSelectedCartId(selectedCartId.filter((itemId) => itemId !== id));
     } else {
       setSelectedCartId([...selectedCartId, id]);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteShoppingCart(20);
+      onChange();
+    } catch (error) {
+      onError("삭제에 실패했습니다");
     }
   };
 
@@ -81,7 +69,7 @@ export default function CartProductContainer({
                   onChange={handleCheckBox}
                   id={item.id.toString()}
                 />
-                <Button onClick={() => {}} style="ghost">
+                <Button onClick={() => handleDelete(item.id)} style="ghost">
                   삭제
                 </Button>
               </div>
@@ -92,7 +80,7 @@ export default function CartProductContainer({
                 name={item.product.name}
                 price={item.product.price}
                 quantity={item.quantity}
-                onChange={() => {}}
+                onChange={onChange}
                 maxQuantity={100000}
               />
             </section>
