@@ -138,6 +138,9 @@ const reset = css`
     border: none;
     cursor: pointer;
     background-color: transparent;
+    :disabled {
+      cursor: not-allowed;
+    }
   }
   p,
   span,
