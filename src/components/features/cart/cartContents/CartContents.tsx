@@ -62,9 +62,18 @@ function CartContents() {
     fetch();
   }, [fetch]);
 
+  if (cartItems.length === 0) {
+    return (
+      <S.Container>
+        <CartTitle />
+        <S.EmptyCart>장바구니에 담은 상품이 없습니다.</S.EmptyCart>
+      </S.Container>
+    );
+  }
+
   return (
     <S.Container>
-      <CartTitle />
+      <CartTitle cartItemsQuantity={cartItems.length} />
       <CartList
         cartItems={cartItems}
         isSelectedList={isSelectedList}

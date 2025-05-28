@@ -26,7 +26,12 @@ function CartItem({
       <Separator />
       <S.ActionContainer>
         <SelectBox isSelected={isSelected} onClick={toggleSelect} />
-        <S.DeleteButton>
+        <S.DeleteButton
+          onClick={async () => {
+            await deleteCartItem(cartItem.id);
+            refetch();
+          }}
+        >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
         </S.DeleteButton>
       </S.ActionContainer>
