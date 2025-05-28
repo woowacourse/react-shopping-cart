@@ -56,10 +56,10 @@ const patchCartItems = http.patch(
     const index = cartItems.findIndex((item) => item.id === Number(id));
 
     if (index === -1) {
-      return new HttpResponse(
-        { error: "Cart Item Not Found" },
-        { status: 404 }
-      );
+      return new HttpResponse({
+        status: 404,
+        statusText: "Cart Item Not Found",
+      });
     }
 
     const targetCartItem = cartItems[index];
@@ -68,7 +68,10 @@ const patchCartItems = http.patch(
     );
 
     if (targetProductIndex === -1) {
-      return new HttpResponse({ error: "Product Not Found" }, { status: 404 });
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: "Product not found",
+      });
     }
 
     const updatedData = await request.json();
@@ -77,25 +80,25 @@ const patchCartItems = http.patch(
       typeof updatedData !== "object" ||
       !("quantity" in updatedData)
     ) {
-      return HttpResponse.json(
-        { error: "Invalid request body" },
-        { status: 400 }
-      );
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Invalid Data",
+      });
     }
     const { quantity } = updatedData;
     const parsedQuantity = Number(quantity);
     if (!Number.isInteger(parsedQuantity) || parsedQuantity < 0) {
-      return HttpResponse.json({ error: "Invalid quantity" }, { status: 400 });
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Invalid Quantity",
+      });
     }
 
     if (parsedQuantity > targetCartItem.product.quantity) {
-      return new HttpResponse(
-        {
-          error: "out of stock",
-          message: "재고 수량을 초과하여 담을 수 없습니다.",
-        },
-        { status: 400 }
-      );
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Insufficient Stock",
+      });
     }
 
     targetCartItem.quantity = parsedQuantity;
