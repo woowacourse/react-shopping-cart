@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import * as S from "./CartPage.styled";
 import CartItem from "./components/CartItem/CartItem";
 import Header from "./components/Header/Header";
@@ -15,8 +15,6 @@ function CartPage() {
   const selectData = useSelectContext();
 
   const { cartItemList: cartData, isLoading } = useCart();
-  const orderPrice = useRef(0);
-  const deliveryPrice = useRef(3000);
 
   useEffect(() => {
     dispatch({
@@ -33,15 +31,25 @@ function CartPage() {
   const isCartEmpty = cartData.length === 0;
   const isOrderComplete = false;
 
-  useEffect(() => {
-    orderPrice.current = selectData.reduce((total, item, idx) => {
+  const { orderPrice, deliveryPrice } = useMemo(() => {
+    const calculatedOrderPrice = selectData.reduce((total, item, idx) => {
       if (item.selected) {
         return total + cartData[idx].product.price * cartData[idx].quantity;
       }
       return total;
     }, 0);
 
-    deliveryPrice.current = orderPrice.current >= 100000 ? 0 : 3000;
+    let calculatedDeliveryPrice = 0;
+    if (calculatedOrderPrice >= 100000 || calculatedOrderPrice === 0) {
+      calculatedDeliveryPrice = 0;
+    } else {
+      calculatedDeliveryPrice = 3000;
+    }
+
+    return {
+      orderPrice: calculatedOrderPrice,
+      deliveryPrice: calculatedDeliveryPrice,
+    };
   }, [selectData, cartData]);
 
   if (isLoading) {
@@ -72,8 +80,8 @@ function CartPage() {
                 </S.Description>
                 <S.Line />
                 <OrderPriceSection
-                  orderPrice={orderPrice.current}
-                  deliveryPrice={deliveryPrice.current}
+                  orderPrice={orderPrice}
+                  deliveryPrice={deliveryPrice}
                 />
               </S.Content>
             )}

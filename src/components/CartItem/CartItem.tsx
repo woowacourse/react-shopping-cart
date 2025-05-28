@@ -30,7 +30,6 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
         payload: { id },
       });
     }
-
   };
 
   const handleIncrease = async ({
@@ -44,7 +43,7 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
       await updateCartItemApi(id, quantity + 1);
       dispatch({
         type: "ADD_ITEM_QUANTITY",
-        payload: { id, quantity: quantity + 1 },
+        payload: { id, quantity: quantity },
       });
     } catch (error) {
       console.error("Failed to update cart item:", error);
@@ -62,7 +61,7 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
       await updateCartItemApi(id, quantity - 1);
       dispatch({
         type: "SUB_ITEM_QUANTITY",
-        payload: { id, quantity: quantity - 1 },
+        payload: { id, quantity: quantity },
       });
     } catch (error) {
       console.error("Failed to update cart item:", error);
