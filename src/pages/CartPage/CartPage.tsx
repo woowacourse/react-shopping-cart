@@ -103,7 +103,12 @@ function CartPage() {
             )}
           </S.CartContentWrapper>
         )}
-        <S.OrderButton onClick={handleOrderCheck}>주문확인</S.OrderButton>
+        <S.OrderButton
+          onClick={handleOrderCheck}
+          disabled={orderPrice === 0 || isOrderComplete}
+        >
+          주문확인
+        </S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
   );

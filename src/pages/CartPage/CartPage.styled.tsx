@@ -33,8 +33,9 @@ export const OrderButton = styled.button`
   border: none;
   cursor: pointer;
 
-  &:hover {
-    background-color: #333333;
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
   }
 `;
 
