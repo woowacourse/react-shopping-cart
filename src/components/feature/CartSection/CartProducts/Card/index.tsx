@@ -4,12 +4,13 @@ import CartCount from "./CartCount";
 import Button from "../../../../common/Button";
 import CheckBox from "../../../../common/CheckBox";
 import Line from "../../../../common/Line";
+import { CartProduct } from "../../../../../type/cart";
 
-const product = { name: "모자", price: "1000원", imageUrl: "d" };
-
-const Card = () => {
-  const [quantity, setQuantity] = useState(0);
+const Card = ({ cartItem }: { cartItem: CartProduct }) => {
   const [isChecked, setIsChecked] = useState(false);
+  const { imageUrl, name, price } = cartItem.product;
+  const [quantity, setQuantity] = useState(cartItem.quantity);
+
   return (
     <>
       <S.CardContainer>
@@ -23,14 +24,14 @@ const Card = () => {
 
         <S.CardInfoSection>
           <S.ImgSection
-            src={product.imageUrl}
-            alt={product.name}
+            src={imageUrl}
+            alt={name}
             onError={(e) => (e.currentTarget.src = "./null-image.png")}
           />
           <S.ProductInfoSection>
             <S.ProductDescription>
-              <S.ProductName>{product.name}</S.ProductName>
-              <S.ProductPrice>{product.price}</S.ProductPrice>
+              <S.ProductName>{name}</S.ProductName>
+              <S.ProductPrice>{price}</S.ProductPrice>
             </S.ProductDescription>
             <CartCount
               count={quantity}
