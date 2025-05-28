@@ -1,17 +1,35 @@
+import styled from '@emotion/styled';
 import { Title, TotalContainer, TotalPrice } from './Cart.styles';
 
 interface CartPriceProps {
   title: string;
   price: number;
+  variant?: 'default' | 'shipping' | 'total';
 }
 
-function CartPrice({ title, price }: CartPriceProps) {
+function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
   return (
-    <TotalContainer>
+    <StyledTotalContainer variant={variant}>
       <Title>{title}</Title>
       <TotalPrice>{price.toLocaleString()}원</TotalPrice>
-    </TotalContainer>
+    </StyledTotalContainer>
   );
 }
 
 export default CartPrice;
+
+const StyledTotalContainer = styled(TotalContainer)<{ variant?: string }>`
+  ${({ variant }) => {
+    if (variant === 'default') {
+      return `
+        border-top: 1px solid #0000001A;
+      `;
+    }
+    if (variant === 'shipping') {
+      return `
+        border-bottom: 1px solid #0000001A;
+      `;
+    }
+    return '';
+  }}
+`;
