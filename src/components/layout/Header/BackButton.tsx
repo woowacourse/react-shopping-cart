@@ -5,7 +5,7 @@ import backButton from "/backButton.png";
 export default function BackButton() {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(-1);
+    navigate("/");
   };
   return (
     <button onClick={handleClick}>
