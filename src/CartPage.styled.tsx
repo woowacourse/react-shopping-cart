@@ -62,6 +62,5 @@ export const HeaderTitle = styled.h2`
 
 export const CartContentWrapper = styled.div`
   padding: 36px 24px;
-  height: 100%;
   overflow-y: scroll;
 `;
