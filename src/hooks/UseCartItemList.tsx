@@ -1,18 +1,7 @@
 import { useState, useEffect, useReducer } from "react";
 
 import fetchCartItems from "../api/fetchCartItemList";
-
-export type CartItem = {
-  id: number;
-  quantity: number;
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    imageUrl: string;
-    category: string;
-  };
-};
+import CartItem from "../types/CartItem";
 
 const INIT_STATE = {
   isLoading: false,
