@@ -12,6 +12,8 @@ import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 
 interface CartContextType {
   cartItemsData: CartItemContent[];
+  cartItemsCheckData: CartItemCheckType[];
+
   deleteItem: (cartId: number) => Promise<void>;
   increaseItemQuantity: (
     cartId: number,
@@ -21,12 +23,24 @@ interface CartContextType {
     cartId: number,
     currentQuantity: number
   ) => Promise<void>;
+
+  allChecked: boolean;
+  toggleAllChecked: () => void;
+}
+
+interface CartItemCheckType {
+  id: number;
+  checked: boolean;
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
   const [cartItemsData, setCartItemsData] = useState<CartItemContent[]>([]);
+  const [cartItemsCheckData, setCartItemsCheckData] = useState<
+    CartItemCheckType[]
+  >([]);
+  const [allChecked, setAllChecked] = useState(false);
 
   const fetchData = useCallback(async () => {
     setCartItemsData(await getCartItems());
@@ -35,6 +49,11 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  useEffect(() => {
+    const data = cartItemsData.map(({ id }) => ({ id, checked: false }));
+    setCartItemsCheckData(data);
+  }, [cartItemsData]);
 
   const deleteItem = useCallback(
     async (cartId: number) => {
@@ -66,13 +85,29 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     [fetchData]
   );
 
+  const toggleAllChecked = () => {
+    setAllChecked((prev) => !prev);
+
+    setCartItemsCheckData((prev) => {
+      return prev.map((checkData) => ({
+        ...checkData,
+        checked: !allChecked,
+      }));
+    });
+  };
+
   return (
     <CartContext.Provider
       value={{
         cartItemsData,
+        cartItemsCheckData,
+
         deleteItem,
         increaseItemQuantity,
         decreaseItemQuantity,
+
+        allChecked,
+        toggleAllChecked,
       }}
     >
       {children}
