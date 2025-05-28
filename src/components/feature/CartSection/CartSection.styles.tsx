@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  height: calc(100vh - 100px);
+  height: calc(100vh - 170px);
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -9,7 +9,6 @@ export const Container = styled.div`
 `;
 
 export const CartList = styled.div`
-  flex: 1;
   overflow: scroll;
   height: 400px;
   display: flex;

@@ -1,0 +1,38 @@
+import * as S from "./confirm.styles";
+import { formatPrice } from "../../utils/formatPrice";
+import Button from "../../components/common/Button";
+import { css } from "@emotion/react";
+const Confirm = () => {
+  return (
+    <>
+      <S.Container>
+        <S.Title>주문 확인</S.Title>
+        <S.Description>
+          총 2종류의 상품 4개를 주문합니다.
+          <br /> 최종 결제 금액을 확인해 주세요.
+        </S.Description>
+        <S.PriceSection>
+          <S.PriceSection>총 결제 금액</S.PriceSection>
+          <S.Price>{formatPrice(10000)}</S.Price>
+        </S.PriceSection>
+      </S.Container>
+
+      <Button
+        title="결제하기"
+        onClick={() => {}}
+        css={css`
+          width: 100%;
+          padding: 24px 0;
+          background-color: #bebebe;
+          color: #fff;
+          font-weight: 700;
+          font-size: 16px;
+          position: absolute;
+          bottom: 0;
+        `}
+      />
+    </>
+  );
+};
+
+export default Confirm;
