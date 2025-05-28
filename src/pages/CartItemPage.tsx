@@ -7,10 +7,18 @@ import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
 import { useCartItemContext } from "../contexts/useCartItemContext";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
+import { useNavigate } from "react-router";
 
 const CartItemPage = () => {
-  const { cartItems, isLoading, orderPrice, totalPrice, shippingFee } =
-    useCartItemContext();
+  const {
+    cartItems,
+    selectedItem,
+    isLoading,
+    orderPrice,
+    totalPrice,
+    shippingFee,
+  } = useCartItemContext();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -44,7 +52,13 @@ const CartItemPage = () => {
             )}
           </div>
 
-          <ConfirmButton text="주문하기" onClick={() => {}} />
+          <ConfirmButton
+            text="주문하기"
+            disabled={selectedItem.size === 0}
+            onClick={() => {
+              navigate("/order-confirm");
+            }}
+          />
         </>
       )}
     </>
