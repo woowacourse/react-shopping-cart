@@ -1,26 +1,22 @@
 import styled from '@emotion/styled';
 import { Product } from '../types';
+import { useCartItemsContext } from '../contexts/CartItemsContext';
 
 type ItemCardProps = {
+  id: number;
   product: Product;
   quantity: number;
-  increaseCartItemQuantity?: () => void;
-  decreaseCartItemQuantity?: () => void;
-  deleteCartItem?: () => void;
 };
 
-const ItemCard = ({
-  product,
-  quantity,
-  increaseCartItemQuantity,
-  decreaseCartItemQuantity,
-  deleteCartItem,
-}: ItemCardProps) => {
+const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
+  const { increaseCartItemQuantity, decreaseCartItemQuantity, deleteCartItem } =
+    useCartItemsContext();
+
   return (
     <S.Container data-testid="item-card">
       <S.ButtonBox>
         <input type="checkbox" />
-        <button onClick={deleteCartItem}>삭제</button>
+        <button onClick={() => deleteCartItem(id)}>삭제</button>
       </S.ButtonBox>
       <S.ItemBox>
         <S.ItemImage src={product.imageUrl} />
@@ -30,9 +26,9 @@ const ItemCard = ({
             <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
-            <button onClick={decreaseCartItemQuantity}>-</button>
+            <button onClick={() => decreaseCartItemQuantity(id)}>-</button>
             <p>{quantity}</p>
-            <button onClick={increaseCartItemQuantity}>+</button>
+            <button onClick={() => increaseCartItemQuantity(id)}>+</button>
           </S.Stepper>
         </S.ItemInfoBox>
       </S.ItemBox>

@@ -1,23 +1,16 @@
 import ItemCard from '../components/ItemCard';
-import useCartItems from '../hooks/useCartItems';
+import { useCartItemsContext } from '../contexts/CartItemsContext';
 
 const CartPage = () => {
-  const {
-    cartItems,
-    increaseCartItemQuantity,
-    decreaseCartItemQuantity,
-    deleteCartItem,
-  } = useCartItems();
+  const { cartItems } = useCartItemsContext();
 
   return (
     <>
       {cartItems.map((item) => (
         <ItemCard
+          id={item.id}
           product={item.product}
           quantity={item.quantity}
-          increaseCartItemQuantity={() => increaseCartItemQuantity(item.id)}
-          decreaseCartItemQuantity={() => decreaseCartItemQuantity(item.id)}
-          deleteCartItem={() => deleteCartItem(item.id)}
           key={item.id}
         />
       ))}

@@ -8,12 +8,17 @@ import {
 
 import CartPage from '../src/pages/CartPage';
 import { mockCartItems } from './mocks';
+import CartItemsProvider from '../src/contexts/CartItemsProvider';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;
 
   beforeEach(async () => {
-    render(<CartPage />);
+    render(
+      <CartItemsProvider>
+        <CartPage />
+      </CartItemsProvider>
+    );
     const ItemCardList = await screen.findAllByTestId('item-card');
     firstItemCard = ItemCardList[0];
   });
