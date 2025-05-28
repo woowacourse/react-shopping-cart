@@ -38,6 +38,11 @@ export const Button = styled.button`
     background: #004aeb94;
   }
   cursor: pointer;
+
+  :disabled {
+    background: rgba(33, 33, 33, 0.2);
+    cursor: not-allowed;
+  }
 `;
 
 export const OperatorIcon = styled.img`
