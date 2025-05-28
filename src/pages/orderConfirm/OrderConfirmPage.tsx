@@ -18,13 +18,11 @@ function OrderConfirmPage() {
   return (
     <>
       <Header showBackButton={true} />
-      <Body>
-        <OrderConfirmContents
-          orderItemsQuantity={orderItemsQuantity}
-          totalProductQuantity={totalProductQuantity}
-          orderPrice={orderPrice}
-        />
-      </Body>
+      <OrderConfirmContents
+        orderItemsQuantity={orderItemsQuantity}
+        totalProductQuantity={totalProductQuantity}
+        orderPrice={orderPrice}
+      />
     </>
   );
 }
