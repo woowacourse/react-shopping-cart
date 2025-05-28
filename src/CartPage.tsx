@@ -24,7 +24,7 @@ function CartPage() {
   return (
     <S.Root>
       <S.CartPageWrapper>
-        <Header />
+        <Header isCartComplete={true} />
         {isOrderComplete ? (
           <OrderResult />
         ) : (

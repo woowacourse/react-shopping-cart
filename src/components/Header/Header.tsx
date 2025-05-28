@@ -1,12 +1,11 @@
+import BackArrow from "../Icon/BackArrow";
 import * as S from "./Header.styled";
 
-function Header() {
+function Header({ isCartComplete }: { isCartComplete?: boolean }) {
   return (
-    <>
-      <S.HeaderContainer>
-        <S.HeaderTitle>SHOP</S.HeaderTitle>
-      </S.HeaderContainer>
-    </>
+    <S.HeaderContainer>
+      <S.HeaderTitle>{isCartComplete ? <BackArrow /> : "SHOP"}</S.HeaderTitle>
+    </S.HeaderContainer>
   );
 }
 
