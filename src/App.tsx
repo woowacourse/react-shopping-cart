@@ -53,6 +53,8 @@ function App() {
     getCartItemData();
   }, []);
 
+  console.log(cartItem);
+  console.log(selectedCartId);
   return (
     <div
       css={css`
@@ -82,7 +84,10 @@ function App() {
             selectedCartId={selectedCartId}
             setSelectedCartId={setSelectedCartId}
           />
-          <PaymentSummary />
+          <PaymentSummary
+            cartItems={cartItem}
+            selectedCartId={selectedCartId}
+          />
           <Button onClick={() => {}} type="submit" size="full">
             주문 확인
           </Button>

@@ -7,8 +7,22 @@ import {
 } from "./PaymentSummary.style";
 import { SummaryRow } from "../SummaryRow/SummaryRow";
 import { Line } from "../Line/Line";
+import { CartItemTypes } from "../../types/cartItem";
 
-export function PaymentSummary() {
+interface PaymentSummaryProps {
+  cartItems: CartItemTypes[];
+  selectedCartId: string[];
+}
+
+export function PaymentSummary({
+  cartItems,
+  selectedCartId,
+}: PaymentSummaryProps) {
+  const price = cartItems
+    .filter((e) => selectedCartId.includes(e.id.toString()))
+    .reduce((a, b) => a + b.product.price * b.quantity, 0);
+  const deliveryFee = 10_0000 <= price ? 0 : 3000;
+
   return (
     <div css={paymentSummaryLayout}>
       <div css={deliveryInfoBox}>
@@ -19,10 +33,10 @@ export function PaymentSummary() {
       </div>
       <Line />
       <div css={summaryRowBox}>
-        <SummaryRow text="주문 금액" price={70000} />
-        <SummaryRow text="배송비" price={3000} />
+        <SummaryRow text="주문 금액" price={price} />
+        <SummaryRow text="배송비" price={deliveryFee} />
         <Line />
-        <SummaryRow text="총 결제 금액" price={73000} />
+        <SummaryRow text="총 결제 금액" price={price + deliveryFee} />
       </div>
     </div>
   );
