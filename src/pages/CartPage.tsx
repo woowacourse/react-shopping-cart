@@ -9,10 +9,36 @@ import {
   ModifyRow,
   StyledCheckbox,
 } from '../components/Cart/Cart.styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { BASE_URL, USER_TOKEN } from '../apis/env';
 
 function CartPage() {
   const [isChecked, setIsChecked] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
+
+  const getFetch = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/cart-items?page=0&size=20`, {
+        headers: {
+          Authorization: `Basic ${USER_TOKEN}`,
+          'content-type': 'application/json',
+        },
+      });
+      const data = await response.json();
+
+      return data.content;
+    } catch (error) {
+      throw new Error('Fetch 중 에러 발생');
+    }
+  };
+
+  useEffect(() => {
+    const saveState = async () => {
+      const cartList = await getFetch();
+      setCartItems(cartList);
+    };
+    saveState();
+  }, []);
 
   return (
     <>
@@ -20,7 +46,7 @@ function CartPage() {
       <Container>
         <CartHeader>
           <Title>장바구니</Title>
-          <Description>현재 2종류의 상품이 담겨있습니다.</Description>
+          <Description>현재 {cartItems.length}종류의 상품이 담겨있습니다.</Description>
         </CartHeader>
         <CartSelectAll>
           <ModifyRow>
@@ -35,7 +61,8 @@ function CartPage() {
             <span>전체 선택</span>
           </ModifyRow>
         </CartSelectAll>
-        <CartList />
+
+        <CartList cartItems={cartItems} />
 
         <CartInfo>
           <InfoIconImage src={infoIcon} alt="infoIcon" />
