@@ -12,7 +12,8 @@ function MobileLayout({ children }: PropsWithChildren) {
 
 const Container = styled.div`
   width: 440px;
-  min-height: 100vh;
+  min-height: fit-content;
+  max-height: 100vh;
   border: 1px solid grey;
 `;
 
