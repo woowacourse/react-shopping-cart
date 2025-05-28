@@ -15,8 +15,14 @@ import {
   HiddenCheckbox,
   StyledCheckbox,
 } from './Cart.styles';
+import { CartProduct } from '../../types/cart';
+import { woowaLogo } from '../../assets/index';
 
-function CartItem() {
+interface CartItemProps {
+  cartItem: CartProduct;
+}
+
+function CartItem({ cartItem }: CartItemProps) {
   const [isChecked, setIsChecked] = useState(true);
 
   return (
@@ -34,10 +40,16 @@ function CartItem() {
       </ModifyRow>
 
       <ProductRow>
-        <CartProductImage src={''} />
+        <CartProductImage
+          src={cartItem.product.imageUrl}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = woowaLogo;
+          }}
+        />
         <CartContent>
-          <ProductTitle>상품이름A</ProductTitle>
-          <ProductPrice>35,000원</ProductPrice>
+          <ProductTitle>{cartItem.product.name}</ProductTitle>
+          <ProductPrice>{cartItem.product.price}원</ProductPrice>
           <StepperContainer>
             <StepperButton disabled={true}>−</StepperButton>
             <StepperQuantity>2</StepperQuantity>

@@ -2,15 +2,16 @@ import CartItem from './CartItem';
 import { Container } from './Cart.styles';
 import { CartProduct } from '../../types/cart';
 
-function CartList({ cartItems }: { cartItems: CartProduct[] }) {
-  console.log(cartItems);
+interface CartListProps {
+  cartItems: CartProduct[];
+}
 
+function CartList({ cartItems }: CartListProps) {
   return (
     <Container>
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
+      {cartItems.map((item) => (
+        <CartItem key={item.id} cartItem={item} />
+      ))}
     </Container>
   );
 }
