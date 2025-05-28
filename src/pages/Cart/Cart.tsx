@@ -83,7 +83,7 @@ function Cart() {
           </div>
         )}
       </section>
-      <SubmitButton label="주문 확인" enabled={true} />
+      <SubmitButton label="주문 확인" enabled={selectedCartIds.length !== 0} />
     </>
   );
 }
