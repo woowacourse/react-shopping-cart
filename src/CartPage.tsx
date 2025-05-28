@@ -1,29 +1,26 @@
-import { useContext } from "react";
+import { useEffect } from "react";
 import * as S from "./CartPage.styled";
 import CartItem from "./components/CartItem/CartItem";
 import Header from "./components/Header/Header";
 import OrderPriceSection from "./components/OrderPriceSection/OrderPriceSection";
 import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
-import CartContext from "./stores/CartContext";
+import { useCartContext, useCartDispatch } from "./stores/CartContext";
+import useCart from "./hooks/useCart";
+
 function CartPage() {
-  const dummyItem = Array.from({ length: 3 }, (_, index) => ({
-    id: index + 1,
-    product: {
-      id: index + 1,
-      name: `상품 ${index + 1}`,
-      price: (index + 1) * 10000,
-      imageUrl: `https://cdn.jsdelivr.net/gh/bunju20/bunju-blog-images@main/images/CleanShot%202025-05-27%20at%2017.25.21%402x.webp`,
-      quantity: index + 1,
-      category: "식료품",
-    },
-    quantity: index + 1,
-  }));
+  const cartItemList = useCartContext();
+  const dispatch = useCartDispatch();
+  const { cartItemList: cartData } = useCart();
+  console.log(cartData);
+  useEffect(() => {
+    dispatch({
+      type: "SET_CART",
+      payload: { items: cartData },
+    });
+  }, [cartItemList, dispatch]);
 
-  const cart = useContext(CartContext);
-
-  console.log(cart);
-  const isCartEmpty = dummyItem.length === 0;
+  const isCartEmpty = cartItemList.length === 0;
   const isOrderComplete = false;
 
   return (
@@ -40,7 +37,7 @@ function CartPage() {
             ) : (
               <S.Content>
                 <TitleSection />
-                {dummyItem.map((cart) => (
+                {cartItemList.map((cart) => (
                   <CartItem key={cart.product.id} cart={cart} />
                 ))}
                 <S.Description>
