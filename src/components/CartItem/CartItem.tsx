@@ -43,7 +43,7 @@ const CartItem = ({ cartItem, fetchData }: Props) => {
   return (
     <S.CartItem>
       <S.CartItemHeader>
-        <Checkbox checked={true} />
+        <Checkbox checked={false} />
         <S.DeleteButton onClick={deleteCartItemByCartId}>삭제</S.DeleteButton>
       </S.CartItemHeader>
       <S.CartItemWrapper>
