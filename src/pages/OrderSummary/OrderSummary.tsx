@@ -25,7 +25,7 @@ function OrderSummary() {
   const totalCost = orderCost + getDeliveryCost(orderCost);
 
   return (
-    <div>
+    <>
       <Header
         icon="/public/backIcon.svg"
         handleIconClick={() => navigate(-1)}
@@ -42,7 +42,7 @@ function OrderSummary() {
         <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
       </section>
       <SubmitButton enabled={false} label="결제하기" />
-    </div>
+    </>
   );
 }
 export default OrderSummary;

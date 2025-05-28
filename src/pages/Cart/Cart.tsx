@@ -63,7 +63,7 @@ function Cart() {
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (
-          <div>
+          <div style={{ height: "80%" }}>
             <CheckBox
               id="234"
               label="전체선택"

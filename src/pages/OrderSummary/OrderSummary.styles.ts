@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const Container = css`
-  min-height: var(--min-height);
+  height: 86vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
