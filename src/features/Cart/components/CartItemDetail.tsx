@@ -32,6 +32,7 @@ export const CartItemDetail = ({
       justifyContent="flex-start"
       alignItems="flex-start"
       gap="0"
+      role="cart-item"
       css={css`
         border-top: 1px solid #e5e5e5;
         margin-top: 16px;
@@ -68,7 +69,7 @@ export const CartItemDetail = ({
         padding="8px 0"
         margin="12px 0 0 0"
       >
-        <StyledCartItemImg src={product.imageUrl} alt={product.imageUrl} />
+        <StyledCartItemImg src={product.imageUrl} alt={`${product.imageUrl} 상품`} />
         <Flex
           direction="column"
           justifyContent="space-between"

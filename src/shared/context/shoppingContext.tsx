@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext } from 'react';
+import { createContext, PropsWithChildren } from 'react';
 
 import { getCartItemList } from '@/api/cart';
 import { CartItem } from '@/features/Cart/types/Cart.types';
