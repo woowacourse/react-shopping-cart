@@ -8,6 +8,11 @@ import ContainerLayout from './components/common/ContainerLayout/ContainerLayout
 import CartListTitle from './components/CartListTitle/CartListTitle';
 
 function App() {
+  const response = fetch(`${import.meta.env.VITE_API_BASE_URL}/cart-items`, {
+    method: 'GET',
+  }).then((res) => res.json());
+
+  console.log(response);
   return (
     <>
       <Global styles={globalStyles} />

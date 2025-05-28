@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "quantity": 3,
+    "product": {
+      "id": 11,
+      "name": "happy",
+      "price": 100000,
+      "imageUrl": null,
+      "category": "패션잡화"
+    }
+  },
+  {
+    "id": 2,
+    "quantity": 1,
+    "product": {
+      "id": 12,
+      "name": "ohgus",
+      "price": 10000,
+      "imageUrl": null,
+      "category": "식료품"
+    }
+  }
+]
