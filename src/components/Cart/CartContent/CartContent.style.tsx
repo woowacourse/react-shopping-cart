@@ -1,0 +1,21 @@
+import styled from "@emotion/styled";
+
+export const CartContentContainer = styled.main`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  margin-top: 64px;
+  justify-content: flex-start;
+`;
+
+export const CartContentHeader = styled.h2`
+  font-weight: 700;
+  font-size: 24px;
+`;
+
+export const CartContentDescription = styled.p`
+  font-weight: 500;
+  font-size: 12px;
+`;

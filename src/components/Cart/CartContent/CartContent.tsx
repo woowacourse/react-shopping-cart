@@ -1,4 +1,5 @@
-import styled from "@emotion/styled";
+import { useEffect, useRef, useState } from "react";
+import * as Styled from "./CartContent.style";
 import useShoppingCart from "../../../hooks/useShoppingCart";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
@@ -6,19 +7,50 @@ import CartCard from "../CartCard/CartCard";
 function CartContent() {
   const {
     cartItemsData,
-    isQuantityUpdateLoading,
     handleCartItemQuantity,
-    isDeleteItemLoading,
     handleDeleteCartItem,
+    isQuantityUpdateLoading,
+    isDeleteItemLoading,
   } = useShoppingCart();
 
+  const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
+  const initialized = useRef(false);
+
+  useEffect(() => {
+    if (!initialized.current && cartItemsData.length) {
+      const allIds = cartItemsData.map((item) => item.id.toString());
+      setSelectedCartIds(allIds);
+      initialized.current = true;
+    }
+  }, [cartItemsData]);
+
+  const handleSelectCartItem = (id: string) => {
+    if (selectedCartIds.includes(id)) {
+      setSelectedCartIds((prev) => prev.filter((cartId) => cartId !== id));
+    } else {
+      setSelectedCartIds((prev) => [...prev, id]);
+    }
+  };
+
   return (
-    <CartContentContainer>
-      <CartContentHeader>장바구니</CartContentHeader>
-      <CartContentDescription>
+    <Styled.CartContentContainer>
+      <Styled.CartContentHeader>장바구니</Styled.CartContentHeader>
+      <Styled.CartContentDescription>
         현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
-      </CartContentDescription>
-      <CartList cartItemsData={cartItemsData}>
+      </Styled.CartContentDescription>
+      <div
+        onClick={() => {
+          if (selectedCartIds.length === cartItemsData.length) {
+            setSelectedCartIds([]);
+          } else {
+            const allIds = cartItemsData.map((item) => item.id.toString());
+            setSelectedCartIds(allIds);
+          }
+        }}
+      >
+        전체선택
+      </div>
+      <CartList cartItemsData={cartItemsData} selectedCartIds={selectedCartIds}>
         {cartItemsData.map((cartItem) => (
           <CartCard
             key={cartItem.id}
@@ -26,32 +58,16 @@ function CartContent() {
             handleDeleteCartItem={() =>
               handleDeleteCartItem(String(cartItem.id))
             }
+            isDeleteItemLoading={isDeleteItemLoading}
+            isQuantityUpdateLoading={isQuantityUpdateLoading}
             handleCartItemQuantity={handleCartItemQuantity}
+            handleSelectCartItem={handleSelectCartItem}
+            isSelected={selectedCartIds.includes(cartItem.id.toString())}
           />
         ))}
       </CartList>
-    </CartContentContainer>
+    </Styled.CartContentContainer>
   );
 }
 
 export default CartContent;
-
-const CartContentContainer = styled.main`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 24px;
-  margin-top: 64px;
-  justify-content: flex-start;
-`;
-
-const CartContentHeader = styled.h2`
-  font-weight: 700;
-  font-size: 24px;
-`;
-
-const CartContentDescription = styled.p`
-  font-weight: 500;
-  font-size: 12px;
-`;
