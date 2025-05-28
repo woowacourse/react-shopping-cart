@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { deleteCartItem, getCartItemList, updateCartItem } from '@/api/cart';
-import { useFetchData } from '@/shared/hooks/useFetchData';
-
-import { CartItem } from '../types/Cart.types';
+import { useCartContext } from '@/shared/context/useCartContext';
 
 export const useCart = () => {
-  const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
+  const { cart } = useCartContext();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const hasInitialized = useRef(false);
 
