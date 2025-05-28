@@ -6,6 +6,8 @@ import { APIDataProvider } from "./context/APIDataProvider";
 import reset from "./global/style/reset";
 import { theme } from "./global/style/theme";
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
+import { ToastProvider } from "./context/ToastProvider";
+import { OrderListProvider } from "./pages/shopping-cart/context/OrderListProvider";
 
 function App() {
   return (
@@ -13,9 +15,13 @@ function App() {
       <Global styles={reset} />
       <ThemeProvider theme={theme}>
         <MobileLayout>
-          <APIDataProvider>
-            <ShoppingCartPage />
-          </APIDataProvider>
+          <ToastProvider>
+            <APIDataProvider>
+              <OrderListProvider>
+                <ShoppingCartPage />
+              </OrderListProvider>
+            </APIDataProvider>
+          </ToastProvider>
         </MobileLayout>
       </ThemeProvider>
     </>

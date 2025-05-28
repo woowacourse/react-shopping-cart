@@ -1,30 +1,34 @@
 import styled from "@emotion/styled";
 import { Header } from "../../components/common";
 import CartLayout from "./cart-layout/CartLayout";
-import { OrderListProvider } from "./context/OrderListProvider";
+import { useOrderListContext } from "./context/OrderListProvider";
 
 const ShoppingCartPage = () => {
+  const { selectionMap } = useOrderListContext();
+  //   if (!cartListData) return;
+  const isDisabled = !Object.values(selectionMap).some(
+    (isSelected) => isSelected
+  );
   return (
-    <OrderListProvider>
+    <>
       <Header title="Shop" />
       <CartLayout />
-      <CheckoutButton>주문 확인</CheckoutButton>
-    </OrderListProvider>
+      <CheckoutButton isDisabled={isDisabled} disabled={isDisabled}>
+        주문 확인
+      </CheckoutButton>
+    </>
   );
 };
 
 export default ShoppingCartPage;
 
-const CheckoutButton = styled.button`
+const CheckoutButton = styled.button<{ isDisabled: boolean }>`
   position: sticky;
   bottom: 0;
   width: 100%;
   padding: 16px;
-  background-color: #333;
+  background-color: ${({ isDisabled }) => (isDisabled ? "#BDBDBD" : "#333")};
   color: white;
-  cursor: pointer;
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   border-radius: 0px;
-  &:hover {
-    background-color: #555;
-  }
 `;
