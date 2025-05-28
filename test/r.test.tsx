@@ -1,9 +1,14 @@
-import { render, screen } from "@testing-library/react";
-import App from "../src/App";
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router';
+import CartContents from '../src/components/features/cart/cartContents/CartContents';
 
-describe("RTL Test", () => {
-  it("should render", () => {
-    render(<App />);
-    expect(screen.getByText("react-shopping-cart")).toBeInTheDocument();
+describe('RTL Test', () => {
+  it('should render', () => {
+    render(
+      <BrowserRouter>
+        <CartContents />
+      </BrowserRouter>
+    );
+    expect(screen.getByText('장바구니')).toBeInTheDocument();
   });
 });
