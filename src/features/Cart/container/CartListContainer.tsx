@@ -5,7 +5,6 @@ import { useScrollStatus } from '../hooks/useScrollStatus';
 export const CartListContainer = ({ children }: PropsWithChildren) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { isScrolled } = useScrollStatus(containerRef);
-  console.log('isScrolled:', isScrolled);
 
   return (
     <StyledCartListContainer>
@@ -18,9 +17,10 @@ export const CartListContainer = ({ children }: PropsWithChildren) => {
 const StyledCartListContainer = styled.div`
   position: relative;
   width: 100%;
-  max-height: 370px;
+  min-height: 350px;
   overflow-y: auto;
   padding: 0px 20px;
+  flex: 2;
 `;
 
 const StyledGradientOverlay = styled.div<{ isScrolled: boolean }>`
