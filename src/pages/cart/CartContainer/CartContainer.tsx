@@ -3,6 +3,7 @@ import CheckBox from '@/shared/components/CheckBox/CheckBox';
 import CartList from './CartList/CartList';
 import { CartItemType } from '@/apis/cartItems/cartItem.type';
 import { useState } from 'react';
+import PriceContainer from './PriceContainer/PriceContainer';
 
 type CartContainerProps = {
   cartItems: CartItemType[];
@@ -33,6 +34,10 @@ export default function CartContainer({ cartItems, refetchCartItems }: CartConta
     setOrderList(newOrderList);
   };
 
+  const orderTotalPrice = orderList.reduce((sum, { product, quantity }) => {
+    return sum + product.price * quantity;
+  }, 0);
+
   return (
     <S.Container>
       <S.Text>현재 {cartItems.length}종류의 상품이 담겨있습니다.</S.Text>
@@ -40,13 +45,16 @@ export default function CartContainer({ cartItems, refetchCartItems }: CartConta
         <CheckBox isChecked={isAllChecked} onClick={handleAllCheckBoxClick} />
         <S.Text>전체 선택</S.Text>
       </S.AllCheckBox>
-      <CartList
-        cartItems={cartItems}
-        orderList={orderList}
-        refetchCartItems={refetchCartItems}
-        addOrderItem={addOrderItem}
-        removeOrderItem={removeOrderItem}
-      />
+      <S.ScrollContainer>
+        <CartList
+          cartItems={cartItems}
+          orderList={orderList}
+          refetchCartItems={refetchCartItems}
+          addOrderItem={addOrderItem}
+          removeOrderItem={removeOrderItem}
+        />
+        <PriceContainer orderTotalPrice={orderTotalPrice} />
+      </S.ScrollContainer>
       <S.OrderConfirmButton type="button">주문 확인</S.OrderConfirmButton>
     </S.Container>
   );

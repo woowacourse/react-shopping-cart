@@ -18,6 +18,8 @@ export const AllCheckBox = styled.div`
   align-items: center;
   gap: 8px;
   margin-top: 36px;
+  padding-bottom: 10px;
+  box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 `;
 
 export const OrderConfirmButton = styled.button`
@@ -31,4 +33,14 @@ export const OrderConfirmButton = styled.button`
   color: #fff;
   font-size: 16px;
   font-weight: 700;
+`;
+
+export const ScrollContainer = styled.div`
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 64px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 `;

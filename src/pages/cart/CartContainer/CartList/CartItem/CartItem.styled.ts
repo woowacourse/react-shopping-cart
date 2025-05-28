@@ -8,6 +8,10 @@ export const Item = styled.li`
   gap: 12px;
   border-top: 1px solid #e5e5e5;
   padding-top: 12px;
+
+  &:first-of-type {
+    border: none;
+  }
 `;
 
 export const ItemHeader = styled.div`
@@ -49,7 +53,7 @@ export const ItemDetailInfo = styled.div`
 `;
 
 export const ItemName = styled.p`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: #0a0d13;
 `;
