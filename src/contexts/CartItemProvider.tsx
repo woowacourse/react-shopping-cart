@@ -13,6 +13,8 @@ interface CartItemContext {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
+  selectedItem: Set<unknown>;
+  handleSelectedItem: (newSet: Set<unknown>) => void;
 }
 
 interface CartItemProviderProps {
@@ -25,6 +27,11 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [selectedItem, setSelectedItem] = useState(new Set());
+
+  const handleSelectedItem = (newSet: Set<unknown>) => {
+    return setSelectedItem(newSet);
+  };
 
   async function fetchCartItems() {
     try {
@@ -59,10 +66,12 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     }
   }
 
-  const orderPrice = cartItems.reduce(
-    (acc, cartItem) => acc + cartItem.product.price * cartItem.quantity,
-    0
-  );
+  const orderPrice = cartItems.reduce((acc, cartItem) => {
+    if (selectedItem.has(cartItem.id)) {
+      return acc + cartItem.product.price * cartItem.quantity;
+    }
+    return acc;
+  }, 0);
 
   const shippingFee = orderPrice > FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
 
@@ -88,6 +97,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         orderPrice,
         shippingFee,
         totalPrice,
+        selectedItem,
+        handleSelectedItem,
       }}
     >
       {children}

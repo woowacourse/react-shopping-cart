@@ -3,25 +3,21 @@ import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import CartItemCard from "../CartItemCard/CartItemCard";
 import { CartItem } from "../../types/type";
-import { useState } from "react";
+import { useCartItemContext } from "../../contexts/useCartItemContext";
 
 interface CartItemCardListProps {
   cartItems: CartItem[];
 }
 
 const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
-  const [selectedItem, setSelectedItem] = useState(new Set());
+  // const [selectedItem, setSelectedItem] = useState(new Set());
+  const { selectedItem, handleSelectedItem } = useCartItemContext();
 
   const handleToggle = (cartItemId: number) => {
-    setSelectedItem((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(cartItemId)) {
-        newSet.delete(cartItemId);
-      } else {
-        newSet.add(cartItemId);
-      }
-      return newSet;
-    });
+    const newSet = new Set(selectedItem);
+    if (newSet.has(cartItemId)) newSet.delete(cartItemId);
+    else newSet.add(cartItemId);
+    handleSelectedItem(newSet);
   };
 
   const isSelectedItem = (cartItemId: number) => {
@@ -32,10 +28,10 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
 
   const handleAllSelected = () => {
     if (allSelected) {
-      setSelectedItem(new Set());
+      handleSelectedItem(new Set());
     } else {
       const cartItemIds = cartItems.map((item) => item.id);
-      setSelectedItem(new Set(cartItemIds));
+      handleSelectedItem(new Set(cartItemIds));
     }
   };
 
