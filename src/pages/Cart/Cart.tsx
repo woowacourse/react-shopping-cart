@@ -56,7 +56,7 @@ function Cart() {
 
   return (
     <>
-      <Header icon="/public/logo.svg" handleIconClick={() => alert("클릭")} />
+      <Header icon="/public/logo.svg" handleIconClick={() => navigate("/")} />
       <section css={Container}>
         <Description cartItemCount={cartItems.length} />
 

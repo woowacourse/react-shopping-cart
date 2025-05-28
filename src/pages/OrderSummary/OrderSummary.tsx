@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import {
@@ -12,6 +12,8 @@ import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../utils/cost";
 
 function OrderSummary() {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const { state: cartItems } = location;
 
@@ -26,7 +28,7 @@ function OrderSummary() {
     <div>
       <Header
         icon="/public/backIcon.svg"
-        handleIconClick={() => alert("클릭")}
+        handleIconClick={() => navigate(-1)}
       />
       <section css={Container}>
         <h2 css={Title}>주문 확인</h2>
