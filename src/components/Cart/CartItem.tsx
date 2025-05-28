@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   ProductPrice,
   ProductTitle,
@@ -66,6 +66,26 @@ function CartItem({ cartItem, setCartItems }: CartItemProps) {
     }
   };
 
+  const handleRemoveCartItem = useCallback(async () => {
+    try {
+      await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Basic ${USER_TOKEN}`,
+          'content-type': 'application/json',
+        },
+      });
+      const response = await getCartItems();
+      setCartItems(response);
+    } catch (error) {
+      throw new Error('장바구니 상품 삭제시 오류 발생');
+    }
+  }, [cartItem, setCartItems]);
+
+  useEffect(() => {
+    cartItem.quantity === 0 && handleRemoveCartItem();
+  }, [cartItem.quantity, handleRemoveCartItem]);
+
   return (
     <CartItemContainer>
       <ModifyRow>
@@ -77,7 +97,7 @@ function CartItem({ cartItem, setCartItems }: CartItemProps) {
           />
           <StyledCheckbox checked={isChecked} />
         </CheckboxContainer>
-        <DeleteButton>삭제</DeleteButton>
+        <DeleteButton onClick={() => handleRemoveCartItem()}>삭제</DeleteButton>
       </ModifyRow>
 
       <ProductRow>
@@ -92,12 +112,7 @@ function CartItem({ cartItem, setCartItems }: CartItemProps) {
           <ProductTitle>{cartItem.product.name}</ProductTitle>
           <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton
-              disabled={cartItem.quantity === 1}
-              onClick={() => handleDecreaseQuantity()}
-            >
-              −
-            </StepperButton>
+            <StepperButton onClick={() => handleDecreaseQuantity()}>−</StepperButton>
             <StepperQuantity>{cartItem.quantity}</StepperQuantity>
             <StepperButton onClick={() => handleIncreaseQuantity()}>＋</StepperButton>
           </StepperContainer>
