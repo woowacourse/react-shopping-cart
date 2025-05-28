@@ -11,10 +11,12 @@
 - [x] prettier 설정
 - [x] emotion 설정 (css/react/styled)
 
-- [ ] msw 초기세팅 (mock 데이터 -> 장바구니 데이터[ 2~3개 ])
+- [x] msw 초기세팅 (mock 데이터 -> 장바구니 데이터[ 2~3개 ])
+
   - [ ] get / 장바구니 조회
   - [ ] patch / 장바구니 내부 품목 수량 조절
   - [ ] delete / 장바구니 내부 품목 삭제
+
 - [ ] api 세팅
 
   - [ ] get / 장바구니 조회
