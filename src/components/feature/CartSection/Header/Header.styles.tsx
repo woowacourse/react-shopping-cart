@@ -10,7 +10,3 @@ export const Title = styled.div`
   font-size: 24px;
   font-weight: 700;
 `;
-
-export const Description = styled.div`
-  font-size: 12px;
-`;

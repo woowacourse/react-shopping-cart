@@ -12,6 +12,11 @@ export const Button = styled.button<{ css?: SerializedStyles }>`
   border-radius: 4px;
   cursor: pointer;
   ${({ css }) => css}
+
+  &:disabled {
+    background-color: #bebebebe;
+    cursor: not-allowed;
+  }
 `;
 
 export const ButtonIcon = styled.img`
