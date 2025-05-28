@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CartItem } from '../types/Cart.types';
-import { deleteCartItem, getCartItemList } from '@/api/cart';
+import { deleteCartItem, getCartItemList, updateCartItem } from '@/api/cart';
 import { useFetchData } from '@/shared/hooks/useFetchData';
 
 export const useCart = () => {
@@ -8,7 +8,6 @@ export const useCart = () => {
     autoFetch: getCartItemList,
   });
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
-  // true인 아이템들의 id를 저장하는 Set
 
   const cartItems = cart.data?.map((item) => ({
     ...item,
@@ -20,8 +19,7 @@ export const useCart = () => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
-      }
-      if (!newSet.has(id)) {
+      } else {
         newSet.add(id);
       }
       return newSet;
@@ -40,6 +38,18 @@ export const useCart = () => {
     });
   };
 
+  const updateQuantity = async (cartId: number, newQuantity: number) => {
+    try {
+      await cart.mutate(
+        () => updateCartItem({ cartId: cartId, newQuantity: newQuantity }),
+        getCartItemList
+      );
+    } catch (error) {
+      const errorResponse = (error as Error)?.message;
+      console.error(errorResponse);
+    }
+  };
+
   const removeCartItem = async (id: number) => {
     try {
       await cart.mutate(() => deleteCartItem(id), getCartItemList);
@@ -53,5 +63,5 @@ export const useCart = () => {
     }
   };
 
-  return { cartItems, toggleCheck, toggleAllCheck, removeCartItem };
+  return { cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem };
 };
