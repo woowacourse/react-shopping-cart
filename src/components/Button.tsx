@@ -6,7 +6,7 @@ function Button({ children, ...props }: ComponentProps<'button'>) {
   const navigate = useNavigate();
 
   return (
-    <button css={ButtonStyles} {...props} onClick={() => navigate('/confirm')}>
+    <button css={ButtonStyles} {...props} onClick={() => navigate('/order')}>
       {children}
     </button>
   );
@@ -23,7 +23,7 @@ const ButtonStyles = css({
   fontWeight: 'bold',
   padding: '24px 0',
   textAlign: 'center',
-  position: 'absolute',
+  position: 'sticky',
   bottom: 0,
 
   '&:disabled': {

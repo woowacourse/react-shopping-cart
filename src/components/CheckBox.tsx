@@ -8,5 +8,7 @@ export default function CheckBox(props: ComponentProps<'input'>) {
 const checkboxCss = css({
   width: '24px',
   height: '24px',
-  borderRadius: '8px'
+  borderRadius: '8px',
+  accentColor: 'black',
+  cursor: 'pointer'
 });
