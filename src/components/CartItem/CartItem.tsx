@@ -2,6 +2,7 @@ import * as S from "./CartItem.styled";
 
 import { CartDataType } from "../../types/cartDataType";
 import QuantityButton from "../QuantityButton/QuantityButton";
+import CheckBox from "../CheckBox/CheckBox";
 
 function CartItem({ cart }: { cart: CartDataType }) {
   const { price, name, imageUrl, quantity } = cart.product;
@@ -9,6 +10,10 @@ function CartItem({ cart }: { cart: CartDataType }) {
   return (
     <>
       <S.ItemContainer>
+        <S.CartItemHeader>
+          <CheckBox />
+          <S.DeleteButton>삭제</S.DeleteButton>
+        </S.CartItemHeader>
         <S.ItemInfo>
           <S.ProductImage src={imageUrl}></S.ProductImage>
           <S.ItemContent>
@@ -21,9 +26,8 @@ function CartItem({ cart }: { cart: CartDataType }) {
             />
           </S.ItemContent>
         </S.ItemInfo>
-        <S.DeleteButton>삭제</S.DeleteButton>
       </S.ItemContainer>
-      <hr />
+      <S.Line />
     </>
   );
 }

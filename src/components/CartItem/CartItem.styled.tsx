@@ -2,10 +2,12 @@ import styled from "@emotion/styled";
 
 export const ItemContainer = styled.div`
   width: 100%;
-  height: 90px;
+  // height: 90px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
+  padding-bottom: 20px;
 `;
 
 export const ItemInfo = styled.div`
@@ -58,4 +60,16 @@ export const DeleteButton = styled.button`
   border-radius: 4px;
   background-color: white;
   cursor: pointer;
+`;
+
+export const CartItemHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Line = styled.hr`
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0;
 `;

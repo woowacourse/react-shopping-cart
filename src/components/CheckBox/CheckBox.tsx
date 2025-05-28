@@ -1,10 +1,10 @@
 import * as S from "./CheckBox.styled";
 
-function CheckBox({ isChecked }: { isChecked: boolean }) {
+function CheckBox({ isChecked, text }: { isChecked: boolean; text?: string }) {
   return (
     <S.CheckBoxWrapper>
       <S.Input checked={isChecked} type="checkbox" id="select-all" />
-      <S.Label htmlFor="select-all">전체 선택</S.Label>
+      {text && <S.Label htmlFor="select-all">{text}</S.Label>}
     </S.CheckBoxWrapper>
   );
 }

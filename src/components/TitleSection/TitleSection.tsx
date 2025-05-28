@@ -8,7 +8,7 @@ function TitleSection() {
       <S.Description>현재 2종류의 상품이 담겨있습니다.</S.Description>
 
       <div>
-        <CheckBox />
+        <CheckBox text={"전체선택"} />
       </div>
     </div>
   );
