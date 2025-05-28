@@ -65,7 +65,7 @@ export const ErrorToastContextProvider = ({
   );
 };
 
-export const useErrorToastContext = () => {
+export const useErrorToast = () => {
   const errorContext = useContext(ErrorToastContext);
   if (errorContext === undefined) {
     throw new Error("useErrorContext는 프로바이더 안쪽에 위치를 해야 합니다.");
