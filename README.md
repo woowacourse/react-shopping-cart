@@ -35,13 +35,14 @@
     - [x] CartList 컴포넌트 (props cart get state)
       - [x] 전체를 체크 박스
       - [x] 반복문)CartItem - 조합
-    - [ ] 금액들 모아놓는 컴포넌트 -> priceComponent 조합 (children) 주문금액 컴포넌트 / 배송비 / 총 결제 금액
+    - [x] 금액들 모아놓는 컴포넌트 -> priceComponent 조합 (children) 주문금액 컴포넌트 / 배송비 / 총 결제 금액
       - [x] description text
       - [x] 주문금액
       - [x] 배송비
       - [x] 총결제 금액
     - [x] 버튼 (버튼 true/false -> useCart() -> state.filter (check))
     - [x] 수량 조절기 컴포넌트
+    - [x] 장바구니 없는 페이지
 
 1. 페이지 라우팅을 안할시
    1. 상위에서 현재 페이지가 어떤 곳에서 속해있는지 상태를 가지고 있어여한다.

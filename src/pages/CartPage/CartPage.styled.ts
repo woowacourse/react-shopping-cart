@@ -4,14 +4,21 @@ export const Container = styled.div`
   height: calc(100% - 150px);
   display: flex;
   flex-direction: column;
-  gap: 46px;
   padding: 36px 24px 0;
+  gap: 12px;
 `;
 
-export const Introduce = styled.div`
+export const Information = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 46px;
+`;
+
+export const NoInformation = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ButtonWrap = styled.div`
