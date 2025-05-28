@@ -1,11 +1,8 @@
 import "./App.css";
+import Cart from "./page/Cart";
 
 function App() {
-  return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
-  );
+  return <Cart />;
 }
 
 export default App;
