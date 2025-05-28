@@ -11,7 +11,7 @@ export const List = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 340px;
+  height: 330px;
   overflow-y: scroll;
   & li:last-of-type {
     border-bottom: 1px solid #0000001a;
