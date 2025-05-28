@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+import Route from './routes';
+import { Global } from '@emotion/react';
+import globalStyles from './styles/global.styles';
 import './index.css';
 
 async function enableMocking() {
@@ -18,7 +20,8 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <App />
+      <Global styles={globalStyles} />
+      <Route />
     </React.StrictMode>
   );
 });
