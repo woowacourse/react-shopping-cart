@@ -28,7 +28,7 @@ const CartPage = () => {
           <AllSelector />
           <S.CartItemsContainer>
             {cartItemsData.map((cartItem) => (
-              <CartItem cartItem={cartItem} />
+              <CartItem key={cartItem.id} cartItem={cartItem} />
             ))}
           </S.CartItemsContainer>
         </S.CartContainer>
