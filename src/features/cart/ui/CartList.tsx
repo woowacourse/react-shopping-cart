@@ -1,39 +1,33 @@
+import { useEffect, useState } from 'react';
 import SelectInput from '../../../shared/ui/SelectInput';
 import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
+import { httpClient } from '../../../shared/api/httpClient';
+import { CartItem } from '../../../shared/type/cart';
 
-const cartItems = [
-  {
-    id: 1,
-    name: '상품명',
-    price: 10000,
-    imageUrl: 'https://example.com/image.jpg',
-    category: '카테고리',
-  },
-  {
-    id: 2,
-    name: '상품명2',
-    price: 20000,
-    imageUrl: 'https://example.com/image2.jpg',
-    category: '카테고리2',
-  },
-  {
-    id: 3,
-    name: '상품명3',
-    price: 30000,
-    imageUrl: 'https://example.com/image3.jpg',
-    category: '카테고리3',
-  },
-  {
-    id: 4,
-    name: '상품명4',
-    price: 40000,
-    imageUrl: 'https://example.com/image4.jpg',
-    category: '카테고리4',
-  },
-];
+interface CartItemsResponse {
+  content: CartItem[];
+}
 
 export default function CartList() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const response = await httpClient.get<CartItemsResponse>('/cart-items');
+        if (!response) return;
+
+        setCartItems(response.content);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error('Failed to fetch cart items:', error.message);
+        }
+      }
+    };
+    fetchCartItems();
+  }, []);
+
   return (
     <S.CartListContainer>
       <S.AllSelectContainer>
@@ -42,7 +36,7 @@ export default function CartList() {
       </S.AllSelectContainer>
       <S.CartItemCardContainer>
         {cartItems.map((cartItem) => (
-          <CartItemCard key={cartItem.id} cartItem={cartItem} />
+          <CartItemCard key={cartItem.id} cartItem={cartItem.product} />
         ))}
       </S.CartItemCardContainer>
     </S.CartListContainer>

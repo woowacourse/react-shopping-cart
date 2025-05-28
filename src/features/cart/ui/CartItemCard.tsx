@@ -5,14 +5,7 @@ import Button from '../../../shared/ui/Button';
 import SelectInput from '../../../shared/ui/SelectInput';
 import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  category: string;
-}
+import { Product } from '../../../shared/type/cart';
 
 const deleteButtonCSS = css`
   width: 40px;
@@ -29,7 +22,7 @@ const deleteButtonCSS = css`
   }
 `;
 
-export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
+export default function CartItemCard({ cartItem }: { cartItem: Product }) {
   return (
     <S.CartItemContainer>
       <S.CartItemHeader>
