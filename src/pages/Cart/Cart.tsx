@@ -5,7 +5,7 @@ import Description from "../../components/Description/Description";
 import Header from "../../components/Header/Header";
 import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import { Container, NoCartItemText } from "./Cart.styles";
+import { Container, NoCartItemText, Wrap } from "./Cart.styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/useFetch";
 import { getCartItems } from "../../api/cartItem";
@@ -63,7 +63,7 @@ function Cart() {
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (
-          <div style={{ height: "80%" }}>
+          <div css={Wrap}>
             <CheckBox
               id="234"
               label="전체선택"

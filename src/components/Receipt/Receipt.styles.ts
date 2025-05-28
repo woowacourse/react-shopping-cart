@@ -22,12 +22,9 @@ export const Table = css`
   border-collapse: collapse;
 
   & tr td {
-    padding: 8px 0;
   }
 
   & tr td:first-child {
-    padding-top: 19px;
-
     font-size: var(--font-size-medium);
     font-weight: var(--font-weight-normal);
   }
@@ -39,8 +36,6 @@ export const Table = css`
   }
 
   & tr:nth-child(3) td {
-    padding: 19px 0;
-
     border-top: 1px solid var(--color-gray);
   }
 `;
