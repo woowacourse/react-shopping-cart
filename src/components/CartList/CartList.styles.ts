@@ -17,6 +17,7 @@ export const CartListCheckboxStyle = css`
   width: 2.4rem;
   height: 2.4rem;
   cursor: pointer;
+  accent-color: #000000;
 `;
 
 export const CartListStyle = css`

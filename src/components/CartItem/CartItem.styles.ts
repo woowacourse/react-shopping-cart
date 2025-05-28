@@ -20,6 +20,7 @@ export const CheckboxStyle = css`
   border-radius: 8px;
   background-color: #fff;
   cursor: pointer;
+  accent-color: #000000;
 `;
 
 export const DeleteButtonStyle = css`
