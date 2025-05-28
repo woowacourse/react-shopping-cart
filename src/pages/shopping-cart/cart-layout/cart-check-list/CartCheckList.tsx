@@ -11,6 +11,7 @@ import Image from "../../../../components/common/Image";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { showToast } from "../../../../utils/toast/showToast";
 import CheckBox from "../../../../components/common/CheckBox";
+import { useEffect, useState } from "react";
 
 function CartCheckList() {
   const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
@@ -18,7 +19,41 @@ function CartCheckList() {
     name: "cart",
   });
 
+  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (!cartListData) return;
+
+    setSelectionMap((prev) => {
+      const nextMap: Record<string, boolean> = {};
+      for (const cart of cartListData) {
+        nextMap[cart.id] = prev[cart.id] ?? true;
+      }
+      return nextMap;
+    });
+  }, [cartListData]);
+
   const isCartEmpty = !cartListData || cartListData.length === 0;
+
+  const isSelectAll = !Object.values(selectionMap).some(
+    (isSelected) => !isSelected
+  );
+  const handleSelectAll = () => {
+    setSelectionMap(() => {
+      const nextMap: Record<string, boolean> = {};
+      for (const cart of cartListData ?? []) {
+        nextMap[cart.id] = !isSelectAll;
+      }
+      return nextMap;
+    });
+  };
+
+  const handleToggleSelection = (cartId: string) => {
+    setSelectionMap((prev) => ({
+      ...prev,
+      [cartId]: !prev[cartId],
+    }));
+  };
 
   const handlePlusQuantity = async (cartId: string) => {
     try {
@@ -59,17 +94,14 @@ function CartCheckList() {
 
   return (
     <Container>
+      <CheckedAll>
+        <CheckBox
+          isChecked={isSelectAll}
+          onToggle={() => handleSelectAll()}
+        ></CheckBox>
+        <p>전체 선택</p>
+      </CheckedAll>
       <ItemList>
-        <CheckedAll>
-          <CheckBox
-            isChecked={true}
-            onToggle={() => {
-              console.log("전체 선택 클릭");
-            }}
-          ></CheckBox>
-          <p>전체 선택</p>
-        </CheckedAll>
-
         {isCartEmpty ? (
           <EmptyCartBox>
             <EmptyCartImage src="./assets/icons/DeleteCart.svg" />
@@ -79,10 +111,8 @@ function CartCheckList() {
           cartListData?.map((cart) => (
             <ItemWithCheckboxContainer key={cart.id}>
               <CheckBox
-                isChecked={true}
-                onToggle={() => {
-                  console.log("클릭여");
-                }}
+                isChecked={selectionMap[cart.id]}
+                onToggle={() => handleToggleSelection(cart.id)}
               ></CheckBox>
               <ItemContainer>
                 <Image
@@ -130,6 +160,7 @@ const ItemList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding-top: 16px;
   margin-bottom: 32px;
   overflow-y: auto;
 `;
