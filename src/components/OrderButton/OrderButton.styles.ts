@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-export const ButtonStyle = css`
-  background: #000000;
+export const ButtonStyle = (canOrderNow: boolean) => css`
+  background: ${canOrderNow ? '#000000' : '#D9D9D9'};
   color: #ffffff;
   width: 100%;
   height: 6.4rem;
@@ -15,6 +15,7 @@ export const ButtonStyle = css`
   transform: translateX(-50%);
   bottom: 0;
   left: 50%;
+  cursor: ${canOrderNow ? 'pointer' : 'not-allowed'};
 
   border: none;
   border-radius: 0;

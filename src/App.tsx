@@ -47,7 +47,7 @@ function App() {
           </>
         )}
       </ContainerLayout>
-      <OrderButton />
+      <OrderButton cartListLength={cartList.length} />
     </>
   );
 }

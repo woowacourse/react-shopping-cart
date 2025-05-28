@@ -1,9 +1,16 @@
 import Text from '../common/Text/Text';
 import { ButtonStyle } from './OrderButton.styles';
 
-function OrderButton() {
+function OrderButton({ cartListLength }: { cartListLength: number }) {
+  const canOrderNow = cartListLength !== 0;
+  // const currentButtonStyle = canOrderNow ? ButtonStyle : ButtonStyle;
+
   return (
-    <button css={ButtonStyle}>
+    <button
+      css={ButtonStyle(canOrderNow)}
+      disabled={!canOrderNow}
+      onClick={() => console.log('click')}
+    >
       <Text varient="body">주문 확인</Text>
     </button>
   );
