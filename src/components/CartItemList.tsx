@@ -1,11 +1,17 @@
 import { css } from '@emotion/react';
 import CheckBox from './CheckBox';
 import CartItem from './CartItem';
-import { useCheckList } from '../hooks/useCheckList';
 import { CartItemType } from '../types/cartItem';
+import Button from './Button';
+import { useCheckList } from '../hooks/useCheckList';
 
-export default function CartItemList({ cartItems }: { cartItems: CartItemType[] }) {
-  const { state, isAllChecked, checkAll, uncheckAll, toggle } = useCheckList(cartItems.map((item) => item.id));
+interface CartItemListProps {
+  cartItems: CartItemType[];
+}
+
+export default function CartItemList({ cartItems }: CartItemListProps) {
+  const itemIds = cartItems?.map((item) => item.id);
+  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(itemIds);
 
   return (
     <div css={cartItemsAreaCss}>
@@ -29,6 +35,7 @@ export default function CartItemList({ cartItems }: { cartItems: CartItemType[] 
           </div>
         </>
       )}
+      <Button disabled={!Object.values(state).some(Boolean)}>주문 확인</Button>
     </div>
   );
 }

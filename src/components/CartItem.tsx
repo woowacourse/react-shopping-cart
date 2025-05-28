@@ -53,7 +53,7 @@ export default function CartItem({ item, handleCheckBoxChange, checked }: CartIt
         />
         <div>
           <p>{name}</p>
-          <p>{price}</p>
+          <p css={cartItemPriceCss}>{(price * cartQuantity).toLocaleString()}원</p>
           <Stepper value={cartQuantity} onDecrement={handleMinus} onIncrement={handlePlus} />
         </div>
       </div>
@@ -93,4 +93,9 @@ const cartItemImgCss = css({
   height: '112px',
   borderRadius: '8px',
   objectFit: 'cover'
+});
+
+const cartItemPriceCss = css({
+  fontSize: '24px',
+  fontWeight: 'bold'
 });
