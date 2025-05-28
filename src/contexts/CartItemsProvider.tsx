@@ -40,8 +40,12 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleClickDecrease = (id: number) => {
+    if (cartItems.find((item) => item.id === id)?.quantity === 1) {
+      handleClickDelete(id);
+      return;
+    }
+
     decreaseCartItemQuantity(id);
-    removeCheckedCartItem(id);
   };
 
   return (

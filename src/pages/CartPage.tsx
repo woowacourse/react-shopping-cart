@@ -1,5 +1,6 @@
 import AllCheckSection from '../components/AllCheckSection';
 import ItemCard from '../components/ItemCard';
+import PriceSection from '../components/priceSection/PriceSection';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 
 const CartPage = () => {
@@ -16,6 +17,7 @@ const CartPage = () => {
           key={item.id}
         />
       ))}
+      <PriceSection />
     </>
   );
 };
