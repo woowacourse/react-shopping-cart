@@ -20,5 +20,93 @@
       "imageUrl": null,
       "category": "식료품"
     }
+  },
+  {
+    "id": 3,
+    "quantity": 2,
+    "product": {
+      "id": 13,
+      "name": "무선 이어폰",
+      "price": 89000,
+      "imageUrl": null,
+      "category": "전자제품"
+    }
+  },
+  {
+    "id": 4,
+    "quantity": 1,
+    "product": {
+      "id": 14,
+      "name": "스마트워치",
+      "price": 250000,
+      "imageUrl": null,
+      "category": "전자제품"
+    }
+  },
+  {
+    "id": 5,
+    "quantity": 4,
+    "product": {
+      "id": 15,
+      "name": "프리미엄 티셔츠",
+      "price": 45000,
+      "imageUrl": null,
+      "category": "의류"
+    }
+  },
+  {
+    "id": 6,
+    "quantity": 2,
+    "product": {
+      "id": 16,
+      "name": "유기농 견과류",
+      "price": 15000,
+      "imageUrl": null,
+      "category": "식료품"
+    }
+  },
+  {
+    "id": 7,
+    "quantity": 1,
+    "product": {
+      "id": 17,
+      "name": "북유럽 스타일 머그컵",
+      "price": 25000,
+      "imageUrl": null,
+      "category": "생활용품"
+    }
+  },
+  {
+    "id": 8,
+    "quantity": 3,
+    "product": {
+      "id": 18,
+      "name": "프리미엄 노트북",
+      "price": 1200000,
+      "imageUrl": null,
+      "category": "전자제품"
+    }
+  },
+  {
+    "id": 9,
+    "quantity": 2,
+    "product": {
+      "id": 19,
+      "name": "가죽 지갑",
+      "price": 120000,
+      "imageUrl": null,
+      "category": "패션잡화"
+    }
+  },
+  {
+    "id": 10,
+    "quantity": 1,
+    "product": {
+      "id": 20,
+      "name": "아로마 캔들 세트",
+      "price": 35000,
+      "imageUrl": null,
+      "category": "생활용품"
+    }
   }
 ]
