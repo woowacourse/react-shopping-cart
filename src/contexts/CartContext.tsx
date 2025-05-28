@@ -13,6 +13,9 @@ import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 
 const INITIAL_CHECKED = true;
 
+const FREE_SHIPPING_THRESHOLD = 100_000;
+const DEFAULT_SHIPPING_FEE = 3_000;
+
 interface CartContextType {
   cartItemsData: CartItemContent[];
   cartItemsCheckData: CartItemCheckType[];
@@ -29,12 +32,18 @@ interface CartContextType {
 
   allChecked: boolean;
   toggleAllChecked: () => void;
+  hasCheckedItem: () => boolean;
 
   getItemChecked: (cartId: number) => boolean;
   toggleItemChecked: (cartId: number) => void;
 
-  calculateOrderPrice: () => number;
-  hasCheckedItem: () => boolean;
+  cartItemCount: number;
+  orderItemCount: number;
+
+  orderQuantity: number;
+  orderPrice: number;
+  shippingFee: number;
+  totalPrice: number;
 }
 
 interface CartItemCheckType {
@@ -113,6 +122,14 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  const hasCheckedItem = () => {
+    return cartItemsCheckData.some(({ checked }) => checked);
+  };
+
+  const getItemChecked = (cartId: number) => {
+    return cartItemsCheckData.find(({ id }) => id === cartId)?.checked ?? false;
+  };
+
   const toggleItemChecked = (cartId: number) => {
     setCartItemsCheckData((prev) =>
       prev.map((item) =>
@@ -121,15 +138,20 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     );
   };
 
-  const getItemChecked = (cartId: number) => {
-    return cartItemsCheckData.find(({ id }) => id === cartId)?.checked ?? false;
+  const checkedItemsId = cartItemsCheckData
+    .filter(({ checked }) => checked)
+    .map(({ id }) => id);
+
+  const calculateOrderQuantity = () => {
+    return cartItemsData
+      .filter(({ id }) => checkedItemsId.includes(id))
+      .reduce(
+        (orderQuantity, cartItem) => orderQuantity + cartItem.quantity,
+        0
+      );
   };
 
   const calculateOrderPrice = () => {
-    const checkedItemsId = cartItemsCheckData
-      .filter(({ checked }) => checked)
-      .map(({ id }) => id);
-
     return cartItemsData
       .filter(({ id }) => checkedItemsId.includes(id))
       .reduce(
@@ -139,8 +161,10 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       );
   };
 
-  const hasCheckedItem = () => {
-    return cartItemsCheckData.some(({ checked }) => checked);
+  const calculateShippingFee = () => {
+    const orderPrice = calculateOrderPrice();
+    if (orderPrice === 0) return 0;
+    return orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
   };
 
   return (
@@ -155,12 +179,18 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
         allChecked,
         toggleAllChecked,
+        hasCheckedItem,
 
         getItemChecked,
         toggleItemChecked,
 
-        calculateOrderPrice,
-        hasCheckedItem,
+        cartItemCount: cartItemsData.length,
+        orderItemCount: checkedItemsId.length,
+
+        orderQuantity: calculateOrderQuantity(),
+        orderPrice: calculateOrderPrice(),
+        shippingFee: calculateShippingFee(),
+        totalPrice: calculateOrderPrice() + calculateShippingFee(),
       }}
     >
       {children}

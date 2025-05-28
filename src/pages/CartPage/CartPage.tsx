@@ -10,19 +10,15 @@ import useCart from "../../hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
-const FREE_SHIPPING_THRESHOLD = 100_000;
-const DEFAULT_SHIPPING_FEE = 3_000;
-
-const calculateShippingFee = (orderPrice: number) => {
-  if (orderPrice === 0) return 0;
-  return orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
-};
-
 const CartPage = () => {
-  const { cartItemsData, calculateOrderPrice, hasCheckedItem } = useCart();
-
-  const orderPrice = calculateOrderPrice();
-  const shippingFee = calculateShippingFee(orderPrice);
+  const {
+    cartItemsData,
+    hasCheckedItem,
+    cartItemCount,
+    orderPrice,
+    shippingFee,
+    totalPrice,
+  } = useCart();
 
   return (
     <>
@@ -31,10 +27,10 @@ const CartPage = () => {
       </Header>
       <S.Main>
         <Title>장바구니</Title>
-        {cartItemsData.length > 0 ? (
+        {cartItemCount > 0 ? (
           <S.ContentContainer>
             <Description>
-              현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
+              현재 {cartItemCount}종류의 상품이 담겨있습니다.
             </Description>
             <S.CartContainer>
               <AllSelector />
@@ -56,10 +52,7 @@ const CartPage = () => {
                 <PriceInfo label="배송비" price={shippingFee} />
               </S.PriceInfoWrapper>
               <S.PriceInfoWrapper>
-                <PriceInfo
-                  label="총 결제 금액"
-                  price={orderPrice + shippingFee}
-                />
+                <PriceInfo label="총 결제 금액" price={totalPrice} />
               </S.PriceInfoWrapper>
             </S.PriceSummary>
           </S.ContentContainer>
@@ -67,7 +60,7 @@ const CartPage = () => {
           <EmptyFallback />
         )}
       </S.Main>
-      <FooterButton disabled={cartItemsData.length === 0 || !hasCheckedItem()}>
+      <FooterButton disabled={cartItemCount === 0 || !hasCheckedItem()}>
         주문 확인
       </FooterButton>
     </>
