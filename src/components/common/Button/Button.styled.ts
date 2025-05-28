@@ -24,6 +24,7 @@ const selectVariant = (variant: ButtonStyleProps["variant"]) => {
       return `
         background-color: #BEBEBE;
         color: #fff;
+        cursor:not-allowed;
       `;
   }
 };
