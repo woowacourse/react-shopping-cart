@@ -11,6 +11,7 @@ import useFetch from "../../hooks/useFetch";
 import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/useCheckboxHandler";
+import { useNavigate } from "react-router-dom";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -29,6 +30,7 @@ function Cart() {
     isAllSelected,
     isSelected,
   } = useCheckboxHandler(cartItems);
+  const navigate = useNavigate();
 
   const fetchCartItem = useCallback(
     () =>
@@ -83,7 +85,15 @@ function Cart() {
           </div>
         )}
       </section>
-      <SubmitButton label="주문 확인" enabled={selectedCartIds.length !== 0} />
+      <SubmitButton
+        label="주문 확인"
+        enabled={selectedCartIds.length !== 0}
+        onClick={() =>
+          navigate("/summary", {
+            state: getSelectedCartItems(cartItems, selectedCartIds),
+          })
+        }
+      />
     </>
   );
 }

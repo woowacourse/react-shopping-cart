@@ -1,19 +1,14 @@
 import { CartItemType } from "../../types/response";
+import { getDeliveryCost, getOrderCost } from "../../utils/cost";
 import { Container, InfoText, Table } from "./Receipt.styles";
 
 interface ReceiptProps {
   selectedCartItems: CartItemType[];
 }
 
-const getOrderCost = (selectedCartItems: CartItemType[]) => {
-  return selectedCartItems.reduce((acc, cur) => {
-    return acc + cur.quantity * cur.product.price;
-  }, 0);
-};
-
 function Receipt({ selectedCartItems }: ReceiptProps) {
   const orderCost = getOrderCost(selectedCartItems);
-  const deliveryCost = orderCost > 100000 || orderCost === 0 ? 0 : 3000;
+  const deliveryCost = getDeliveryCost(orderCost);
 
   return (
     <div css={Container}>
