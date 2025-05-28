@@ -9,21 +9,21 @@ import {
   ModifyRow,
   StyledCheckbox,
 } from '../components/Cart/Cart.styles';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getCartItems } from '../apis/cart';
-import { CartProduct } from '../types/cart';
+import { useData } from '../context/DataContext';
 
 function CartPage() {
   const [isChecked, setIsChecked] = useState(true);
-  const [cartItems, setCartItems] = useState<CartProduct[]>([]);
 
-  useEffect(() => {
-    const saveState = async () => {
-      const cartList = await getCartItems();
-      setCartItems(cartList);
-    };
-    saveState();
-  }, []);
+  const { data: cartItems } = useData({
+    fetcher: getCartItems,
+    name: 'cartItems',
+  });
+
+  if (!cartItems) {
+    return null;
+  }
 
   return (
     <>
@@ -31,7 +31,7 @@ function CartPage() {
       <Container>
         <CartHeader>
           <Title>장바구니</Title>
-          <Description>현재 {cartItems.length}종류의 상품이 담겨있습니다.</Description>
+          <Description>현재 {cartItems.content.length}종류의 상품이 담겨있습니다.</Description>
         </CartHeader>
         <CartSelectAll>
           <ModifyRow>
@@ -47,7 +47,7 @@ function CartPage() {
           </ModifyRow>
         </CartSelectAll>
 
-        <CartList cartItems={cartItems} setCartItems={setCartItems} />
+        <CartList />
 
         <CartInfo>
           <InfoIconImage src={infoIcon} alt="infoIcon" />

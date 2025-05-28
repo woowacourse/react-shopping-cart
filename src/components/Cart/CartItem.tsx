@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   ProductPrice,
   ProductTitle,
@@ -17,74 +17,24 @@ import {
 } from './Cart.styles';
 import { CartProduct } from '../../types/cart';
 import { woowaLogo } from '../../assets/index';
-import { BASE_URL, USER_TOKEN } from '../../apis/env';
-import { getCartItems } from '../../apis/cart';
+import {
+  getCartItems,
+  patchDecreaseQuantity,
+  patchIncreaseQuantity,
+  removeCartItem,
+} from '../../apis/cart';
+import { useData } from '../../context/DataContext';
 
 interface CartItemProps {
   cartItem: CartProduct;
-  setCartItems: React.Dispatch<React.SetStateAction<CartProduct[]>>;
 }
 
-function CartItem({ cartItem, setCartItems }: CartItemProps) {
+function CartItem({ cartItem }: CartItemProps) {
   const [isChecked, setIsChecked] = useState(true);
-
-  const handleIncreaseQuantity = async () => {
-    try {
-      await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Basic ${USER_TOKEN}`,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantity: cartItem.quantity + 1,
-        }),
-      });
-      const response = await getCartItems();
-      setCartItems(response);
-    } catch (error) {
-      throw new Error('장바구니 상품 증가시 오류 발생');
-    }
-  };
-
-  const handleDecreaseQuantity = async () => {
-    try {
-      await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Basic ${USER_TOKEN}`,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantity: cartItem.quantity - 1,
-        }),
-      });
-      const response = await getCartItems();
-      setCartItems(response);
-    } catch (error) {
-      throw new Error('장바구니 상품 감소시 오류 발생');
-    }
-  };
-
-  const handleRemoveCartItem = useCallback(async () => {
-    try {
-      await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Basic ${USER_TOKEN}`,
-          'content-type': 'application/json',
-        },
-      });
-      const response = await getCartItems();
-      setCartItems(response);
-    } catch (error) {
-      throw new Error('장바구니 상품 삭제시 오류 발생');
-    }
-  }, [cartItem, setCartItems]);
-
-  useEffect(() => {
-    cartItem.quantity === 0 && handleRemoveCartItem();
-  }, [cartItem.quantity, handleRemoveCartItem]);
+  const { refetch } = useData({
+    fetcher: getCartItems,
+    name: 'cartItems',
+  });
 
   return (
     <CartItemContainer>
@@ -97,7 +47,14 @@ function CartItem({ cartItem, setCartItems }: CartItemProps) {
           />
           <StyledCheckbox checked={isChecked} />
         </CheckboxContainer>
-        <DeleteButton onClick={() => handleRemoveCartItem()}>삭제</DeleteButton>
+        <DeleteButton
+          onClick={async () => {
+            await removeCartItem(cartItem);
+            refetch();
+          }}
+        >
+          삭제
+        </DeleteButton>
       </ModifyRow>
 
       <ProductRow>
@@ -112,9 +69,9 @@ function CartItem({ cartItem, setCartItems }: CartItemProps) {
           <ProductTitle>{cartItem.product.name}</ProductTitle>
           <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton onClick={() => handleDecreaseQuantity()}>−</StepperButton>
+            <StepperButton onClick={() => patchDecreaseQuantity(cartItem)}>−</StepperButton>
             <StepperQuantity>{cartItem.quantity}</StepperQuantity>
-            <StepperButton onClick={() => handleIncreaseQuantity()}>＋</StepperButton>
+            <StepperButton onClick={() => patchIncreaseQuantity(cartItem)}>＋</StepperButton>
           </StepperContainer>
         </CartContent>
       </ProductRow>
