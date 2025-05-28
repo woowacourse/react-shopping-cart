@@ -15,7 +15,7 @@ import EmptyCart from './components/EmptyCart/EmptyCart';
 import { cartPrice } from './utils/cartPrice/cartPrice';
 
 function App() {
-  const { cartList } = useCartList();
+  const { cartList, increaseCartItem, decreaseCartItem } = useCartList();
 
   const totalPrice = cartPrice.totalPrice(cartList);
 
@@ -33,7 +33,12 @@ function App() {
           <>
             <CartList>
               {cartList.map((cartItem) => (
-                <CartItem key={cartItem.id} cartItem={cartItem} />
+                <CartItem
+                  key={cartItem.id}
+                  cartItem={cartItem}
+                  increaseCartItem={increaseCartItem}
+                  decreaseCartItem={decreaseCartItem}
+                />
               ))}
             </CartList>
             <CartPriceInfo totalPrice={totalPrice} />

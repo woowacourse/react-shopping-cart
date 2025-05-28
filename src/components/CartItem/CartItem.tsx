@@ -13,7 +13,15 @@ import {
   ListItemHeaderStyle,
 } from './CartItem.styles';
 
-function CartItem({ cartItem }: { cartItem: CartItemProps }) {
+function CartItem({
+  cartItem,
+  increaseCartItem,
+  decreaseCartItem,
+}: {
+  cartItem: CartItemProps;
+  increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+}) {
   return (
     <li css={CartItemStyle}>
       <div css={ListItemHeaderStyle}>
@@ -35,11 +43,17 @@ function CartItem({ cartItem }: { cartItem: CartItemProps }) {
             {cartItem.product.price.toLocaleString()}원
           </Text>
           <div css={ControllerBox}>
-            <button css={ControllerButton}>
+            <button
+              css={ControllerButton}
+              onClick={() => decreaseCartItem(cartItem)}
+            >
               <img src={Minus} alt="minus" />
             </button>
             <Text varient="caption">{cartItem.quantity}</Text>
-            <button css={ControllerButton}>
+            <button
+              css={ControllerButton}
+              onClick={() => increaseCartItem(cartItem)}
+            >
               <img src={Plus} alt="plus" />
             </button>
           </div>

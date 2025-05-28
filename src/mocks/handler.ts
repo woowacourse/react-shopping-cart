@@ -74,31 +74,28 @@ export const handlers = [
   //   }
   // ),
 
-  // http.patch(
-  //   `${import.meta.env.VITE_API_BASE_URL}/cart-items/:cartItemId`,
-  //   async ({ params, request }) => {
-  //     const cartItemId = parseInt(params.cartItemId as string);
-  //     const body = (await request.json()) as { quantity: number };
+  http.patch(`/cart-items/:cartItemId`, async ({ params, request }) => {
+    const cartItemId = parseInt(params.cartItemId as string);
+    const body = (await request.json()) as { quantity: number };
 
-  //     const itemIndex = cartItems.findIndex((item) => item.id === cartItemId);
+    const itemIndex = mockCart.findIndex((item) => item.id === cartItemId);
 
-  //     if (itemIndex === -1) {
-  //       return new HttpResponse(null, { status: 404 });
-  //     }
+    if (itemIndex === -1) {
+      return new HttpResponse(null, { status: 404 });
+    }
 
-  //     if (body.quantity <= 0) {
-  //       cartItems.splice(itemIndex, 1);
-  //       return new HttpResponse(null, { status: 204 });
-  //     }
+    if (body.quantity <= 0) {
+      mockCart.splice(itemIndex, 1);
+      return new HttpResponse(null, { status: 204 });
+    }
 
-  //     const item = cartItems[itemIndex];
-  //     item.quantity = body.quantity;
-  //     const product = mockProducts.find((p) => p.id === item.productId);
+    const item = mockCart[itemIndex];
+    item.quantity = body.quantity;
+    const product = mockCart.find((p) => p.id === item.product.id);
 
-  //     return HttpResponse.json({
-  //       ...item,
-  //       product: product || null,
-  //     });
-  //   }
-  // ),
+    return HttpResponse.json({
+      ...item,
+      product: product || null,
+    });
+  }),
 ];
