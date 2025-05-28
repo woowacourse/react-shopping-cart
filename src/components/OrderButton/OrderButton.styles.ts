@@ -7,7 +7,7 @@ export const ButtonStyle = css`
   height: 6.4rem;
   padding: 2.4rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   position: fixed;
@@ -15,4 +15,7 @@ export const ButtonStyle = css`
   transform: translateX(-50%);
   bottom: 0;
   left: 50%;
+
+  border: none;
+  border-radius: 0;
 `;

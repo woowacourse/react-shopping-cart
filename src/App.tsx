@@ -15,8 +15,6 @@ import OrderButton from './components/OrderButton/OrderButton';
 function App() {
   const { cartList } = useCartList();
 
-  console.log(cartList);
-
   return (
     <>
       <Global styles={globalStyles} />
@@ -32,7 +30,7 @@ function App() {
         </CartList>
         <CartPriceInfo />
       </ContainerLayout>
-      {/* <OrderButton /> */}
+      <OrderButton />
     </>
   );
 }
