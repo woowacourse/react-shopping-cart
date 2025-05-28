@@ -4,7 +4,6 @@ interface FetchDataProps<T> {
   apiCall: () => Promise<T | void>;
   onSuccess: (data?: T | void) => void;
   onError: (error: Error | unknown) => void;
-  setIsLoading: (isLoading: boolean, dataName: string) => void;
 }
 
 const useFetch = <T>() => {

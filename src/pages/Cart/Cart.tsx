@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import CartItemList from "../../components/CartItemList/CartItemList";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import Description from "../../components/Description/Description";
@@ -5,9 +6,32 @@ import Header from "../../components/Header/Header";
 import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import { Container, NoCartItemText } from "./Cart.styles";
+import { CartItemType } from "../../types/response";
+import useFetch from "../../hooks/useFetch";
+import { getCartItems } from "../../api/cartItem";
+import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 
 function Cart() {
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const { fetchData } = useFetch<CartItemType[]>();
   const cartItemCount = 5;
+
+  useEffect(() => {
+    fetchData({
+      apiCall: getCartItems,
+      onSuccess: (data) => {
+        if (data) {
+          setCartItems(data);
+        }
+      },
+      onError: (error) => {
+        const errorMessage =
+          error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
+        alert(errorMessage);
+      },
+    });
+  }, [fetchData]);
+
   return (
     <>
       <Header icon="/public/logo.svg" handleIconClick={() => alert("클릭")} />
