@@ -1,23 +1,26 @@
+import { deleteCartItem } from '../../../services/cartService';
+import Checkbox from '../../@common/checkbox/Checkbox';
 import CountButton from '../countButton/CountButton';
 import * as S from './CartItem.styles';
+import { CartItemType } from '../../../types/response';
 
-interface CartItem {
-  id: string;
-  product: {
-    imageUrl: string;
-    name: string;
-    price: number;
-  };
-  quantity: number;
+interface CartItemProps {
+  cartData: CartItemType;
+  updateCartItem: (cartId: number) => void;
+  increaseCartItem: (cartId: number, quantity: number) => void;
 }
 
-const CartItem = ({ cartData }: { cartData: CartItem }) => {
+const CartItem = ({
+  cartData,
+  updateCartItem,
+  increaseCartItem,
+}: CartItemProps) => {
   return (
     <>
       <div css={S.cartItemWrapper}>
         <div css={S.cartItemController}>
-          <div>체크박스 위치</div>
-          <button onClick={() => {}}>삭제</button>
+          <Checkbox checked={false} />
+          <button onClick={() => deleteCartItem(cartData.id)}>삭제</button>
         </div>
         <div key={cartData.id} css={S.cartItemStyle}>
           <img src={cartData.product.imageUrl} alt={cartData.product.name} />
@@ -26,7 +29,14 @@ const CartItem = ({ cartData }: { cartData: CartItem }) => {
             <p css={S.cartItemPriceStyle}>
               {cartData.product.price.toLocaleString()}원
             </p>
-            <CountButton />
+            <CountButton
+              updateCartItem={() => {
+                updateCartItem(cartData.id);
+              }}
+              quantity={cartData.quantity}
+              cartId={cartData.id}
+              increaseCartItem={increaseCartItem}
+            />
           </div>
         </div>
       </div>

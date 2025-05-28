@@ -1,13 +1,31 @@
 import * as S from './CountButton.styles';
 
-const CountButton = () => {
+interface CountButtonProps {
+  updateCartItem: (cartId: number) => void;
+  quantity: number;
+  cartId: number;
+  increaseCartItem: (cartId: number, quantity: number) => void;
+}
+
+const CountButton = ({
+  updateCartItem,
+  quantity,
+  cartId,
+  increaseCartItem,
+}: CountButtonProps) => {
   return (
     <div css={S.countButtonContainer}>
-      <button css={S.countButtonButtonStyle} onClick={() => {}}>
+      <button
+        css={S.countButtonButtonStyle}
+        onClick={() => updateCartItem(cartId)}
+      >
         -
       </button>
-      <span>1</span>
-      <button css={S.countButtonButtonStyle} onClick={() => {}}>
+      <span>{quantity}</span>
+      <button
+        css={S.countButtonButtonStyle}
+        onClick={() => increaseCartItem(cartId, quantity + 1)}
+      >
         +
       </button>
     </div>
