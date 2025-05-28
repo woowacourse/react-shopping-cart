@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import MinusIcon from "../Icon/MinusIcon";
 import PlusIcon from "../Icon/PlusIcon";
 import * as S from "./QuantityButton.styled";

@@ -26,13 +26,13 @@ export const cartReducer = (state: ResponseCartItem[], action: CartAction) => {
     case "ADD_ITEM_QUANTITY":
       return state.map((item) =>
         item.id === action.payload.id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: item.quantity }
           : item
       );
     case "SUB_ITEM_QUANTITY":
       return state.map((item) =>
         item.id === action.payload.id
-          ? { ...item, quantity: item.quantity - 1 }
+          ? { ...item, quantity: item.quantity }
           : item
       );
     default:

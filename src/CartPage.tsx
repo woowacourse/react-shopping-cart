@@ -5,24 +5,26 @@ import Header from "./components/Header/Header";
 import OrderPriceSection from "./components/OrderPriceSection/OrderPriceSection";
 import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
-import { useCartContext, useCartDispatch } from "./stores/CartContext";
+import { useCartDispatch } from "./stores/CartContext";
 import useCart from "./hooks/useCart";
 
 function CartPage() {
-  const cartItemList = useCartContext();
   const dispatch = useCartDispatch();
-  const { cartItemList: cartData } = useCart();
-  console.log(cartData);
+  const { cartItemList: cartData, isLoading } = useCart();
 
   useEffect(() => {
     dispatch({
       type: "SET_CART",
       payload: { items: cartData },
     });
-  }, [cartItemList, dispatch]);
+  }, [cartData, dispatch]);
 
-  const isCartEmpty = cartItemList.length === 0;
+  const isCartEmpty = cartData.length === 0;
   const isOrderComplete = false;
+
+  if (isLoading) {
+    return <div>장바구니를 불러오는 중입니다...</div>;
+  }
 
   return (
     <S.Root>
@@ -39,7 +41,7 @@ function CartPage() {
               <S.Content>
                 <TitleSection />
                 <S.CartItemList>
-                  {cartItemList.map((cart) => (
+                  {cartData.map((cart) => (
                     <CartItem key={cart.product.id} cart={cart} />
                   ))}
                 </S.CartItemList>
