@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Product } from '../types';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
+import CheckBox from './CheckBox';
 
 type ItemCardProps = {
   id: number;
@@ -9,17 +10,34 @@ type ItemCardProps = {
 };
 
 const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
-  const { increaseCartItemQuantity, decreaseCartItemQuantity, deleteCartItem } =
-    useCartItemsContext();
+  const {
+    increaseCartItemQuantity,
+    decreaseCartItemQuantity,
+    deleteCartItem,
+    checkedCartIds,
+    addCheckedCartItem,
+    removeCheckedCartItem,
+  } = useCartItemsContext();
+
+  const isChecked = checkedCartIds.includes(id);
+
+  const handleCheckBoxClick = () => {
+    if (isChecked) {
+      removeCheckedCartItem(id);
+      return;
+    }
+
+    addCheckedCartItem(id);
+  };
 
   return (
     <S.Container data-testid="item-card">
       <S.ButtonBox>
-        <input type="checkbox" />
+        <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} />
         <button onClick={() => deleteCartItem(id)}>삭제</button>
       </S.ButtonBox>
       <S.ItemBox>
-        <S.ItemImage src={product.imageUrl} />
+        <S.ItemImage src={product.imageUrl} alt="product-image" />
         <S.ItemInfoBox>
           <div>
             <S.ItemName>{product.name}</S.ItemName>

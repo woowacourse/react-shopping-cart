@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import { CartItem } from '../types';
+import { useCallback, useState } from 'react';
 import getIdsFromCartItems from '../utils/getIdsFromCartItems';
+import { CartItem } from '../types';
 
-const useCheckedCartItems = (cartItems: CartItem[]) => {
-  const [checkedCartIds, setCheckedCartIds] = useState<number[]>(
-    getIdsFromCartItems(cartItems)
-  );
+const useCheckedCartItems = () => {
+  const [checkedCartIds, setCheckedCartIds] = useState<number[]>([]);
 
   const addCheckedCartItem = (id: number) => {
     setCheckedCartIds((prev) => [...prev, id]);
@@ -15,10 +13,15 @@ const useCheckedCartItems = (cartItems: CartItem[]) => {
     setCheckedCartIds((prev) => prev.filter((itemId) => itemId !== id));
   };
 
+  const init = useCallback((cartItems: CartItem[]) => {
+    setCheckedCartIds(getIdsFromCartItems(cartItems));
+  }, []);
+
   return {
     checkedCartIds,
     addCheckedCartItem,
     removeCheckedCartItem,
+    init,
   };
 };
 

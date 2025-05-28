@@ -34,7 +34,7 @@ describe('ItemCard 테스트', () => {
       within(firstItemCard).getByText(product.price.toLocaleString() + '원')
     ).toBeInTheDocument();
 
-    expect(within(firstItemCard).getByRole('img')).toHaveAttribute(
+    expect(within(firstItemCard).getByAltText('product-image')).toHaveAttribute(
       'src',
       product.imageUrl
     );
@@ -42,40 +42,42 @@ describe('ItemCard 테스트', () => {
     expect(within(firstItemCard).getByText(quantity)).toBeInTheDocument();
   });
 
-  it('+ 버튼 클릭 시 수량이 증가한다.', async () => {
-    const plusButton = within(firstItemCard).getByText('+');
-    const currentQuantity = mockCartItems[0].quantity;
+  describe('상품 수량 조절 Stepper 테스트', () => {
+    it('+ 버튼 클릭 시 수량이 증가한다.', async () => {
+      const plusButton = within(firstItemCard).getByText('+');
+      const currentQuantity = mockCartItems[0].quantity;
 
-    fireEvent.click(plusButton);
+      fireEvent.click(plusButton);
 
-    await waitFor(() => {
-      expect(
-        within(firstItemCard).getByText(currentQuantity + 1)
-      ).toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          within(firstItemCard).getByText(currentQuantity + 1)
+        ).toBeInTheDocument();
+      });
     });
-  });
 
-  it('- 버튼 클릭 시 수량이 감소한다.', async () => {
-    const minusButton = within(firstItemCard).getByText('-');
-    const currentQuantity = mockCartItems[0].quantity;
+    it('- 버튼 클릭 시 수량이 감소한다.', async () => {
+      const minusButton = within(firstItemCard).getByText('-');
+      const currentQuantity = mockCartItems[0].quantity;
 
-    fireEvent.click(minusButton);
+      fireEvent.click(minusButton);
 
-    await waitFor(() => {
-      expect(
-        within(firstItemCard).getByText(currentQuantity - 1)
-      ).toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          within(firstItemCard).getByText(currentQuantity - 1)
+        ).toBeInTheDocument();
+      });
     });
-  });
 
-  it("수량이 1일 때 '-' 버튼 클릭 시 상품이 삭제된다.", async () => {
-    const secondItemCard = screen.getAllByTestId('item-card')[1];
-    const minusButton = within(secondItemCard).getByText('-');
+    it("수량이 1일 때 '-' 버튼 클릭 시 상품이 삭제된다.", async () => {
+      const secondItemCard = screen.getAllByTestId('item-card')[1];
+      const minusButton = within(secondItemCard).getByText('-');
 
-    fireEvent.click(minusButton);
+      fireEvent.click(minusButton);
 
-    await waitFor(() => {
-      expect(secondItemCard).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(secondItemCard).not.toBeInTheDocument();
+      });
     });
   });
 
@@ -86,6 +88,45 @@ describe('ItemCard 테스트', () => {
 
     await waitFor(() => {
       expect(firstItemCard).not.toBeInTheDocument();
+    });
+  });
+
+  describe('선택 기능 테스트', () => {
+    it('초기 상태는 버튼이 다 체크되어 있다.', async () => {
+      const checkBoxes = screen.getAllByTestId('checkBox');
+      checkBoxes.forEach((checkBox) => {
+        expect(checkBox).toHaveAttribute('alt', 'checkedBox');
+      });
+    });
+
+    it('선택된 상툼의 선택 버튼 체크 시 해당 상품이 해제된다.', async () => {
+      within(firstItemCard).getByTestId('checkBox').click();
+
+      await waitFor(() => {
+        expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
+          'alt',
+          'unCheckedBox'
+        );
+      });
+    });
+
+    it('선택되지 않은 상품의 선택 버튼 체크 시 해당 상품이 선택된다.', async () => {
+      within(firstItemCard).getByTestId('checkBox').click();
+
+      await waitFor(() => {
+        expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
+          'alt',
+          'unCheckedBox'
+        );
+      });
+
+      within(firstItemCard).getByTestId('checkBox').click();
+      await waitFor(() => {
+        expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
+          'alt',
+          'checkedBox'
+        );
+      });
     });
   });
 });
