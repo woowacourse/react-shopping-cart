@@ -11,11 +11,14 @@ import { updateCartProduct } from "../../../../../api/cart/updateCartProduct";
 const Card = ({
   cartItem,
   onRefetch,
+  isChecked,
+  onToggle: setIsChecked,
 }: {
   cartItem: CartProduct;
   onRefetch: () => void;
+  isChecked: boolean;
+  onToggle: () => void;
 }) => {
-  const [isChecked, setIsChecked] = useState(false);
   const { imageUrl, name, price } = cartItem.product;
 
   const handleDelete = async (id: number) => {
@@ -32,10 +35,7 @@ const Card = ({
     <>
       <S.CardContainer>
         <S.ButtonSection>
-          <CheckBox
-            isChecked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-          />
+          <CheckBox isChecked={isChecked} onChange={setIsChecked} />
           <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
         </S.ButtonSection>
 
