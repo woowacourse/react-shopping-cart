@@ -5,22 +5,16 @@ import Price from "../Price/Price";
 import DetailPrice from "../DetailPrice/DetailPrice";
 
 import * as S from "./Receipt.styles";
-import { CartItemCheck } from "../../../types/CartItemCheck";
 
 interface ReceiptProps {
-  cartItemCheckList: CartItemCheck[];
+  allProductPrice: number;
+  shippingFee: number;
 }
 
-export default function Receipt({ cartItemCheckList }: ReceiptProps) {
-  const selectedCartItemList = cartItemCheckList.filter(
-    (item) => item.isClicked === true
-  );
-  const allProductPrice = selectedCartItemList.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-  const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
-
+export default function Receipt({
+  allProductPrice,
+  shippingFee,
+}: ReceiptProps) {
   return (
     <section>
       <S.DescriptionContent>

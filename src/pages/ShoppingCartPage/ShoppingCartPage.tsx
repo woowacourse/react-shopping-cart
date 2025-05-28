@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 import Header from "../../components/shoppingCart/Header/Header";
 import Item from "../../components/shoppingCart/Item/Item";
@@ -67,7 +68,32 @@ export default function ShoppingCartPage() {
     (item) => item.isClicked
   ).length;
 
+  const cartItemCheckListTotalQuantity = cartItemCheckList
+    .filter((item) => item.isClicked)
+    .reduce((acc, item) => acc + item.quantity, 0);
+
   const cartItemListLength = cartItemList.length;
+
+  const selectedCartItemList = cartItemCheckList.filter(
+    (item) => item.isClicked === true
+  );
+  const allProductPrice = selectedCartItemList.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
+  const totalPrice = allProductPrice + shippingFee;
+
+  const navigate = useNavigate();
+  const handleOrderCheckButtonClick = () => {
+    navigate("/order-check", {
+      state: {
+        checkedProductsLength,
+        cartItemCheckListTotalQuantity,
+        totalPrice,
+      },
+    });
+  };
 
   return (
     <>
@@ -110,13 +136,20 @@ export default function ShoppingCartPage() {
                 );
               })}
             </section>
-            <Receipt cartItemCheckList={cartItemCheckList} />
+            <Receipt
+              allProductPrice={allProductPrice}
+              shippingFee={shippingFee}
+            />
           </>
         ) : (
           <EmptyText>장바구니에 담은 상품이 없습니다.</EmptyText>
         )}
       </StyledShoppingCart>
-      <Footer text="주문 확인" active={cartItemListLength ? "true" : "false"} />
+      <Footer
+        text="주문 확인"
+        active={cartItemListLength ? "true" : "false"}
+        handleClick={handleOrderCheckButtonClick}
+      />
     </>
   );
 }
