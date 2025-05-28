@@ -15,18 +15,29 @@ export const UlContainer = styled.ul`
 `;
 
 export const TotalPriceContainer = styled.div`
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  gap: 16px;
 `;
 
 export const TotalPriceTitle = styled.p`
-  font-size: 16px;
-  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const TotalPrice = styled.p`
-  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const TitleText = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+`;
+export const PriceText = styled.span`
+  font-size: 20px;
   font-weight: 700;
 `;
 
@@ -44,4 +55,10 @@ export const Button = styled.button`
   &:hover {
     background-color: #000000;
   }
+`;
+
+export const ShippingFee = styled.p`
+  display: flex;
+  justify-content: space-between;
+  color: #333333;
 `;
