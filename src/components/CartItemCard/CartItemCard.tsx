@@ -12,6 +12,7 @@ interface CartItemCardProps {
   price: number;
   quantity: number;
   isSelected: boolean;
+  handleToggle: (cartItemId: number) => void;
 }
 
 const CartItemCard = ({
@@ -21,6 +22,7 @@ const CartItemCard = ({
   price,
   quantity,
   isSelected,
+  handleToggle,
 }: CartItemCardProps) => {
   const { deleteCartItem, updateCartItem } = useCartItemContext();
 
@@ -29,7 +31,10 @@ const CartItemCard = ({
       <div className={CartItemStyled}>
         <hr className={Divider} />
         <div className={CartItemTop}>
-          <ToggleButton isSelected={isSelected} />
+          <ToggleButton
+            isSelected={isSelected}
+            onClick={() => handleToggle(cartItemId)}
+          />
           <TextButton
             text="삭제"
             onClick={() => {

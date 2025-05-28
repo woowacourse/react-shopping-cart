@@ -26,7 +26,7 @@ const CartItemPage = () => {
               <Text text="장바구니에 담은 상품이 없습니다." />
             ) : (
               <>
-                <CartItemCardList isAllSelected={true} cartItems={cartItems} />
+                <CartItemCardList cartItems={cartItems} />
 
                 <div className={InfoRow}>
                   <img src="./info-icon.svg" alt="info" />
