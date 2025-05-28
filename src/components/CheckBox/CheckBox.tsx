@@ -2,9 +2,18 @@ import { CheckBoxLayout } from "./CheckBox.style";
 
 interface CheckBoxProps {
   isChecked: boolean;
-  id?: string;
+  onChange: (id: string) => void;
+  id: string;
 }
 
-export function CheckBox({ isChecked = false, id }: CheckBoxProps) {
-  return <input type="checkbox" css={CheckBoxLayout} id={id} />;
+export function CheckBox({ isChecked = false, id, onChange }: CheckBoxProps) {
+  return (
+    <input
+      type="checkbox"
+      css={CheckBoxLayout}
+      id={id}
+      checked={isChecked}
+      onChange={() => onChange(id)}
+    />
+  );
 }

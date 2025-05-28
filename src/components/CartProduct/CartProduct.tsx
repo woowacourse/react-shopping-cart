@@ -1,9 +1,7 @@
-import Button from "../Button/Button";
 import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 
 import {
   CartProductLayout,
-  deleteButton,
   ProductImg,
   ProductName,
   ProductPrice,

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "../Button/Button";
 import { CartProduct } from "../CartProduct/CartProduct";
 import { CheckBox } from "../CheckBox/CheckBox";
@@ -37,21 +38,31 @@ const DUMMY = [
 ];
 
 export default function CartProductContainer() {
-  // const { cart, product, dispatch } = useShoppingContext();
-  // const cart = { item: [], id: 1 };
+  const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
 
-  // if (cart.item.length === 0)
-  //   return (
-  //     <div>
-  //       장바구니에 추가된 목록이 없습니다. <br /> 상품을 먼저 추가해주세요
-  //     </div>
-  //   );
+  const handleCheckBox = (id: string) => {
+    if (id === "select-all") {
+      if (selectedCartId.length === 0) {
+        setSelectedCartId(DUMMY.map((item) => item.id.toString()));
+      } else setSelectedCartId([]);
+      return;
+    }
+    if (selectedCartId.includes(id)) {
+      setSelectedCartId(selectedCartId.filter((itemId) => itemId !== id));
+    } else {
+      setSelectedCartId([...selectedCartId, id]);
+    }
+  };
 
   return (
     <>
       <div css={CartProductContainerLayout}>
         <div css={SelectAllLayout}>
-          <CheckBox isChecked={false} id="select-all" />
+          <CheckBox
+            isChecked={selectedCartId.length === DUMMY.length}
+            id="select-all"
+            onChange={handleCheckBox}
+          />
           <label htmlFor="select-all">전체 선택</label>
         </div>
         {DUMMY.map((cartItem) => {
@@ -59,7 +70,11 @@ export default function CartProductContainer() {
             <section css={CartItemBox}>
               <Line />
               <div css={CartItemHeader}>
-                <CheckBox isChecked={false} />
+                <CheckBox
+                  isChecked={selectedCartId.includes(cartItem.id.toString())}
+                  onChange={handleCheckBox}
+                  id={cartItem.id.toString()}
+                />
                 <Button onClick={() => {}} style="ghost">
                   삭제
                 </Button>
