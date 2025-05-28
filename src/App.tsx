@@ -45,10 +45,10 @@ function App() {
           </div>
           <CartProductContainer />
           <PaymentSummary />
+          <Button onClick={() => {}} type="submit" size="full">
+            주문 확인
+          </Button>
         </Main>
-        <Button onClick={() => {}} type="submit" size="full">
-          주문 확인
-        </Button>
       </div>
     </div>
   );
