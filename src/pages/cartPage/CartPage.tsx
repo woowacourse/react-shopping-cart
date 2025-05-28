@@ -1,21 +1,28 @@
-import * as S from "./CartPage.style";
-import { Title, Subtitle } from "../../styles/@common/title/Title.styles";
-import CartItem from "../../components/features/cartItem/CartItem";
-import CartPrice from "../../components/features/cartPrice/CartPrice";
+import * as S from './CartPage.style';
+import { Title, Subtitle } from '../../styles/@common/title/Title.styles';
+import CartItem from '../../components/features/cartItem/CartItem';
+import CartPrice from '../../components/features/cartPrice/CartPrice';
 import {
   deleteCartItem,
   getCart,
   modifyCartItem,
-} from "../../services/cartService";
-import { useEffect, useState } from "react";
-import Checkbox from "../../components/@common/checkbox/Checkbox";
-import type { CartItemType } from "../../types/response";
-import { getCartItemById } from "../../utils/getCartItemById";
-import Button from "../../components/@common/button/Button";
+} from '../../services/cartService';
+import { useEffect, useState } from 'react';
+import Checkbox from '../../components/@common/checkbox/Checkbox';
+import type { CartItemType } from '../../types/response';
+import { getCartItemById } from '../../utils/getCartItemById';
+import Button from '../../components/@common/button/Button';
+import useEasyNavigate from '../../hooks/useEasyNavigate';
+import {
+  calculateTotalPrice,
+  calculateTotalProductCount,
+  getCartItemNamePrice,
+} from '../../utils/calculate';
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
   const [isCheckedArray, setIsCheckedArray] = useState<number[]>([]);
+  const { goOrderComplete } = useEasyNavigate();
 
   const isAllChecked = isCheckedArray.length === cartData.length;
 
@@ -65,21 +72,6 @@ const CartPage = () => {
     setCartData(cartData);
   };
 
-  const getCartItemNamePrice = (): { name: string; price: number }[] => {
-    const results = isCheckedArray
-      .map((id) => {
-        const cartItem = getCartItemById(cartData, id);
-        if (!cartItem || cartItem === undefined) {
-          return;
-        }
-        return { name: cartItem.product.name, price: cartItem.product.price };
-      })
-      .filter(
-        (item): item is { name: string; price: number } => item !== undefined
-      );
-    return results;
-  };
-
   useEffect(() => {
     const fetchCartData = async () => {
       const cartData = await getCart();
@@ -110,8 +102,21 @@ const CartPage = () => {
           removeCartItem={removeCartItem}
         />
       ))}
-      <CartPrice cartItemNamePrice={getCartItemNamePrice()} />
-      <Button variant="largeBlack">주문 확인</Button>
+      <CartPrice
+        cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
+      />
+      <Button
+        variant="largeBlack"
+        onClick={() =>
+          goOrderComplete(
+            cartData.length,
+            calculateTotalPrice(getCartItemNamePrice(isCheckedArray, cartData)),
+            calculateTotalProductCount(cartData, isCheckedArray)
+          )
+        }
+      >
+        주문 확인
+      </Button>
     </div>
   );
 };
