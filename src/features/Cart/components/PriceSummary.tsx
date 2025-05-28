@@ -1,7 +1,8 @@
+import styled from '@emotion/styled';
+
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
-import styled from '@emotion/styled';
 import { CartItem } from '../types/Cart.types';
 
 type PriceSummaryProps = {
@@ -20,21 +21,21 @@ export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
 
   return (
     <Flex
-      direction={'column'}
-      justifyContent={'flex-start'}
-      alignItems={'flex-start'}
-      gap={'10px'}
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+      gap="10px"
       width="100%"
       padding="20px"
     >
-      <Text type={'Caption'} weight="regular">
+      <Text type="Caption" weight="regular">
         🛍️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
       </Text>
       <StyledSpacing />
       <Flex
-        direction={'row'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         gap="0"
         width="100%"
         padding="0 10px"
@@ -43,9 +44,9 @@ export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
         <Text type="Heading">{orderPrice.toLocaleString()}원</Text>
       </Flex>
       <Flex
-        direction={'row'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         gap="0"
         width="100%"
         padding="0 10px"
@@ -55,9 +56,9 @@ export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
       </Flex>
       <StyledSpacing />
       <Flex
-        direction={'row'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         gap="0"
         width="100%"
         padding="0 10px"
