@@ -1,18 +1,21 @@
-import { useState } from 'react';
-import { CartItem } from '../types/Cart.types';
+import { useEffect, useRef, useState } from 'react';
+
 import { deleteCartItem, getCartItemList, updateCartItem } from '@/api/cart';
 import { useFetchData } from '@/shared/hooks/useFetchData';
 
-export const useCart = () => {
-  const cart = useFetchData<CartItem[]>({
-    autoFetch: getCartItemList,
-  });
-  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+import { CartItem } from '../types/Cart.types';
 
-  const cartItems = cart.data?.map((item) => ({
-    ...item,
-    isChecked: checkedItems.has(item.id),
-  }));
+export const useCart = () => {
+  const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+  const hasInitialized = useRef(false);
+
+  useEffect(() => {
+    if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
+      setCheckedItems(new Set(cart.data.map((item) => item.id)));
+      hasInitialized.current = true;
+    }
+  }, [cart.data, checkedItems.size]);
 
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
@@ -28,11 +31,11 @@ export const useCart = () => {
 
   const toggleAllCheck = () => {
     setCheckedItems((prev) => {
-      const newSet = new Set<number>();
       if (prev.size === cart.data?.length) {
-        return newSet;
+        return new Set<number>();
       }
 
+      const newSet = new Set<number>();
       cart.data?.forEach((item) => newSet.add(item.id));
       return newSet;
     });
@@ -63,5 +66,10 @@ export const useCart = () => {
     }
   };
 
-  return { cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem };
+  const cartItems = cart.data?.map((item) => ({
+    ...item,
+    isChecked: checkedItems.has(item.id),
+  }));
+
+  return { cartItems: cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem };
 };
