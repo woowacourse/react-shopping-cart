@@ -11,8 +11,7 @@ import { CartItemContent } from "../types/response";
 import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 
 interface CartContextType {
-  data: CartItemContent[];
-  fetchData: () => void;
+  cartItemsData: CartItemContent[];
   deleteItem: (cartId: number) => Promise<void>;
   increaseItemQuantity: (
     cartId: number,
@@ -27,11 +26,10 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [data, setData] = useState<CartItemContent[]>([]);
+  const [cartItemsData, setCartItemsData] = useState<CartItemContent[]>([]);
 
   const fetchData = useCallback(async () => {
-    const cartItemsData = await getCartItems();
-    setData(cartItemsData);
+    setCartItemsData(await getCartItems());
   }, []);
 
   useEffect(() => {
@@ -71,8 +69,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   return (
     <CartContext.Provider
       value={{
-        data,
-        fetchData,
+        cartItemsData,
         deleteItem,
         increaseItemQuantity,
         decreaseItemQuantity,

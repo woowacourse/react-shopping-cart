@@ -10,7 +10,7 @@ import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
 const CartPage = () => {
-  const { data } = useCart();
+  const { cartItemsData } = useCart();
 
   return (
     <>
@@ -21,13 +21,13 @@ const CartPage = () => {
         <S.TitleContainer>
           <Title>장바구니</Title>
           <Description>
-            현재 {data.length}종류의 상품이 담겨있습니다.
+            현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
           </Description>
         </S.TitleContainer>
         <S.CartContainer>
           <TotalSelector checked={true} />
           <S.CartItemsContainer>
-            {data.map((cartItem) => (
+            {cartItemsData.map((cartItem) => (
               <CartItem cartItem={cartItem} />
             ))}
           </S.CartItemsContainer>
