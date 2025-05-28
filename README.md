@@ -14,7 +14,7 @@
 ### 1. 장바구니 조회
 
 - [x] `cart-items` API를 호출하여 장바구니 상품 데이터를 불러온다.
-- [ ] 불러온 데이터를 기반으로 클라이언트 상태를 구성하고 관리한다.
+- [x] 불러온 데이터를 기반으로 클라이언트 상태를 구성하고 관리한다.
 - [ ] 진입 시, 전체 선택 되어 있는 것이 디폴트이다.
 
 ### 2. 상품 선택/해제
@@ -41,11 +41,11 @@
 ## [Step1] 🎨 1단계
 
 - State Management
-    - [ ] React의 상태 관리 훅(useState, useReducer)을 사용하여 상태를 구성하고, 필요 시에 Context API 등을 활용해 해당 상태가 필요한 컴포넌트 트리에 상태를 전달한다.
+    - [x] React의 상태 관리 훅(useState, useReducer)을 사용하여 상태를 구성하고, 필요 시에 Context API 등을 활용해 해당 상태가 필요한 컴포넌트 트리에 상태를 전달한다.
     - [ ] 결제 금액, 배송비 등의 파생 상태(Derived State)를 동적으로 계산한다.
 
 - API
-    - [ ] /cart-items API를 호출하여 장바구니 데이터를 받아오고 수정한다. API 명세(Swagger)를 참고한다.
+    - [x] /cart-items API를 호출하여 장바구니 데이터를 받아오고 수정한다. API 명세(Swagger)를 참고한다.
     - 관리자 페이지에서 상품 추가 및 삭제가 가능하다.
     - 계정 정보
         - email: github username, password: 'password'
