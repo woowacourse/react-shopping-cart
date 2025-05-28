@@ -7,17 +7,20 @@ import { PaginationResponse } from '../../../../api/type';
 import { baseAPI } from '../../../../api/baseAPI';
 import { CartItemType } from '../types';
 import OrderConfirmationButton from '../orderConfirmationButton/OrderConfirmationButton';
+import { useNavigate } from 'react-router';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
   const isAllSelected = isSelectedList.every((isSelected) => isSelected);
+  const navigate = useNavigate();
 
-  const orderPrice = cartItems.reduce(
-    (acc, item, index) =>
-      isSelectedList[index] === true
-        ? acc + item.quantity * item.product.price
-        : acc,
+  const selectedCartItems = cartItems.filter(
+    (_, index) => isSelectedList[index]
+  );
+
+  const orderPrice = selectedCartItems.reduce(
+    (acc, item) => acc + item.quantity * item.product.price,
     0
   );
 
@@ -51,6 +54,12 @@ function CartContents() {
 
   const inActive = !isSelectedList.some((isSelected) => isSelected);
 
+  const onOrderConfirm = () => {
+    navigate('/order-confirmation', {
+      state: { orderProducts: selectedCartItems },
+    });
+  };
+
   useEffect(() => {
     fetch();
   }, [fetch]);
@@ -67,7 +76,7 @@ function CartContents() {
         refetch={fetch}
       />
       <CartPrice orderPrice={orderPrice} />
-      <OrderConfirmationButton inActive={inActive} />
+      <OrderConfirmationButton inActive={inActive} onClick={onOrderConfirm} />
     </S.Container>
   );
 }
