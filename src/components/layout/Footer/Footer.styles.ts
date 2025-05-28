@@ -5,10 +5,14 @@ export const StyledFooter = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 24px;
   background-color: #000000;
   height: 64px;
   cursor: pointer;
+`;
+
+export const StyledButton = styled.button`
+  width: 100%;
+  height: 100%;
 `;
 
 export const StyledSpan = styled.span`
