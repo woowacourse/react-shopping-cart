@@ -1,14 +1,12 @@
-import Header from "../Header/Header";
-import Item from "../Item/Item";
-import Receipt from "../receipt/Receipt";
-import useCartItemList from "../../../hooks/UseCartItemList";
+import Header from "../../components/shoppingCart/Header/Header";
+import Item from "../../components/shoppingCart/Item/Item";
+import Receipt from "../../components/shoppingCart/receipt/Receipt";
+import useCartItemList from "../../hooks/UseCartItemList";
 
-import { StyledShoppingCart } from "./ShoppingCart.styles";
+import { StyledShoppingCart } from "./ShoppingCartPage.styles";
 
 export default function ShoppingCart() {
   const { state, cartItemList } = useCartItemList();
-  console.log("state:", state);
-  console.log("cartItemList:", cartItemList);
 
   return (
     <StyledShoppingCart>
