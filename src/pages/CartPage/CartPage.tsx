@@ -31,7 +31,9 @@ const CartPage = () => {
       <S.Main>
         <S.TitleContainer>
           <Title>장바구니</Title>
-          <Description>현재 2종류의 상품이 담겨있습니다.</Description>
+          <Description>
+            현재 {data.length}종류의 상품이 담겨있습니다.
+          </Description>
         </S.TitleContainer>
         <S.CartContainer>
           <TotalSelector checked={true} />
