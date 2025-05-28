@@ -30,7 +30,7 @@ export default function ShoppingCartPage() {
         isClicked: true,
       }))
     );
-  }, [cartItemList]);
+  }, [state.isLoading]);
 
   const handleSelectedCartItem = (id: number) => {
     setCartItemCheckList((prev) =>
