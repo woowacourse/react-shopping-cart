@@ -19,3 +19,13 @@ export const CartPageWrapper = css`
   width: 100%;
   gap: 3.6rem;
 `;
+
+export const CartCheckboxContainer = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+
+  width: 100%;
+  gap: 0.45rem;
+`;
