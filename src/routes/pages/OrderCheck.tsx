@@ -4,7 +4,7 @@ import HeaderButton from '../../components/common/Header/HeaderButton';
 import { Back } from '../../assets';
 import ContainerLayout from '../../components/common/ContainerLayout/ContainerLayout';
 import Text from '../../components/common/Text/Text';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import {
   OrderCheckContainerStyle,
   orderPriceContainerStyle,
@@ -12,6 +12,7 @@ import {
 import PayButton from '../../components/PayButton/PayButton';
 
 function OrderCheck() {
+  const navigate = useNavigate();
   const { cartData, totalPrice } = useLocation().state as {
     cartData: CartItemProps[];
     totalPrice: number;
@@ -24,7 +25,7 @@ function OrderCheck() {
   return (
     <>
       <Header>
-        <HeaderButton src={Back} onClick={() => {}} />
+        <HeaderButton src={Back} onClick={() => navigate(-1)} />
       </Header>
       <ContainerLayout>
         <div css={OrderCheckContainerStyle}>
