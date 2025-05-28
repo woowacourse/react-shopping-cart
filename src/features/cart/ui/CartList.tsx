@@ -4,12 +4,14 @@ import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
 import { httpClient } from '../../../shared/api/httpClient';
 import { CartItem } from '../../../shared/type/cart';
+import { useSelectedCartContext } from '../../../shared/context/useCartContext';
 
 interface CartItemsResponse {
   content: CartItem[];
 }
 
 export default function CartList() {
+  const { addAllCartItemsInSelected } = useSelectedCartContext();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
@@ -28,15 +30,24 @@ export default function CartList() {
     fetchCartItems();
   }, []);
 
+  const handleAllCartItemsInSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    if (!isChecked) {
+      addAllCartItemsInSelected([]);
+      return;
+    }
+    addAllCartItemsInSelected(cartItems);
+  };
+
   return (
     <S.CartListContainer>
       <S.AllSelectContainer>
-        <SelectInput type='checkbox' />
+        <SelectInput type='checkbox' onChange={handleAllCartItemsInSelected} />
         <span>전체 선택</span>
       </S.AllSelectContainer>
       <S.CartItemCardContainer>
         {cartItems.map((cartItem) => (
-          <CartItemCard key={cartItem.id} cartItem={cartItem.product} />
+          <CartItemCard key={cartItem.id} cartItem={cartItem} />
         ))}
       </S.CartItemCardContainer>
     </S.CartListContainer>

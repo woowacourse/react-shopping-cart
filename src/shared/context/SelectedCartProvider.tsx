@@ -3,8 +3,9 @@ import { CartItem } from '../type/cart';
 
 interface SelectedCartContextType {
   selectedCartItems: CartItem[];
-  updateSelectedCartItems: (item: CartItem) => void;
-  checkIfSelectedCartItem: (item: CartItem) => boolean;
+  updateSelectedCartItem: (item: CartItem) => void;
+  addAllCartItemsInSelected: (items: CartItem[]) => void;
+  removeSelectedCartItem: (item: CartItem) => void;
 }
 
 export const SelectedCartContext = createContext<SelectedCartContextType | undefined>(undefined);
@@ -16,7 +17,7 @@ interface SelectedCartProviderProps {
 export const SelectedCartProvider = ({ children }: SelectedCartProviderProps) => {
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
 
-  const updateSelectedCartItems = (cartItem: CartItem) => {
+  const updateSelectedCartItem = (cartItem: CartItem) => {
     setSelectedCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex((item) => item.id === cartItem.id);
 
@@ -30,12 +31,20 @@ export const SelectedCartProvider = ({ children }: SelectedCartProviderProps) =>
     });
   };
 
-  const checkIfSelectedCartItem = (cartItem: CartItem) => {
-    return selectedCartItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
+  const removeSelectedCartItem = (cartItem: CartItem) => {
+    setSelectedCartItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== cartItem.id);
+    });
+  };
+
+  const addAllCartItemsInSelected = (cartItems: CartItem[]) => {
+    setSelectedCartItems(cartItems);
   };
 
   return (
-    <SelectedCartContext.Provider value={{ selectedCartItems, updateSelectedCartItems, checkIfSelectedCartItem }}>
+    <SelectedCartContext.Provider
+      value={{ selectedCartItems, updateSelectedCartItem, addAllCartItemsInSelected, removeSelectedCartItem }}
+    >
       {children}
     </SelectedCartContext.Provider>
   );

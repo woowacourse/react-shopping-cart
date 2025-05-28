@@ -1,5 +1,12 @@
+import { useSelectedCartContext } from '../../../shared/context/useCartContext';
 import * as S from './OrderPriceSummary.styles';
 export default function OrderPriceSummary() {
+  const { selectedCartItems } = useSelectedCartContext();
+
+  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
+  const totalPurchasePrice = totalPrice + deliveryFee;
+
   return (
     <S.OrderPriceSummaryContainer>
       <S.DeliveryFeeLabel>
@@ -8,15 +15,15 @@ export default function OrderPriceSummary() {
       </S.DeliveryFeeLabel>
       <S.TotalOrderPrice>
         주문 금액
-        <S.PriceBox>70,000원</S.PriceBox>
+        <S.PriceBox>{totalPrice.toLocaleString()}원</S.PriceBox>
       </S.TotalOrderPrice>
       <S.DeliveryFee>
         배송비
-        <S.PriceBox>3,000원</S.PriceBox>
+        <S.PriceBox>{deliveryFee.toLocaleString()}원</S.PriceBox>
       </S.DeliveryFee>
       <S.TotalPurchasePrice>
         총 결제 금액
-        <S.PriceBox>73,000원</S.PriceBox>
+        <S.PriceBox>{totalPurchasePrice.toLocaleString()}원</S.PriceBox>
       </S.TotalPurchasePrice>
     </S.OrderPriceSummaryContainer>
   );
