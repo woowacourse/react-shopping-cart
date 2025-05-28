@@ -1,20 +1,25 @@
-import { API_TOKEN } from "./apiConfig";
+import { API_TOKEN, baseUrl } from "./apiConfig";
 
 type MethodType = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
 interface apiClientProps {
-  url: string;
-  requestBody: string;
+  endpoint: string;
+  requestBody?: object;
   method: MethodType;
 }
 
-export async function apiClient({ url, requestBody, method }: apiClientProps) {
+export async function apiClient({
+  endpoint,
+  requestBody,
+  method,
+}: apiClientProps) {
   try {
+    const url = `${baseUrl}${endpoint}`;
     const response = await fetch(url, {
       method,
       headers: {
         ...(["POST", "PATCH", "PUT"].includes(method)
-          ? { ContentType: "application/json" }
+          ? { "Content-Type": "application/json" }
           : {}),
         Authorization: `Basic ${API_TOKEN}`,
       },
@@ -25,8 +30,10 @@ export async function apiClient({ url, requestBody, method }: apiClientProps) {
       throw new Error(`Network error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    return data;
+    if (method === "GET") {
+      const data = await response.json();
+      return data.content;
+    }
   } catch (error) {
     console.error("API request failed:", error);
     throw error;
