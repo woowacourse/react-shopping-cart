@@ -7,4 +7,5 @@ export const Layout = styled.div`
   position: relative;
   margin: 0 auto;
   border-radius: 16px;
+  overflow: hidden;
 `;
