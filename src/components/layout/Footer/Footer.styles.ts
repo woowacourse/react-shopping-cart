@@ -8,6 +8,7 @@ export const StyledFooter = styled.footer`
   padding: 0 24px;
   background-color: #000000;
   height: 64px;
+  cursor: pointer;
 `;
 
 export const StyledSpan = styled.span`

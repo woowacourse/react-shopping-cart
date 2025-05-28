@@ -1,18 +1,31 @@
 import "./App.css";
 
-import { RouterProvider, createBrowserRouter, Outlet } from "react-router";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Outlet,
+  useLocation,
+} from "react-router";
 
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
 
+import backButton from "/backButton.png";
+
 function Layout() {
+  const location = useLocation();
+
+  const isshoppingCartPage = location.pathname === "/";
+
   return (
     <>
-      <Header>SHOP</Header>
+      <Header>
+        {isshoppingCartPage ? "SHOP" : <img src={backButton}></img>}
+      </Header>
       <Outlet />
-      <Footer text="주문 확인" />
+      <Footer text={isshoppingCartPage ? "주문 확인" : "결제하기"} />
     </>
   );
 }

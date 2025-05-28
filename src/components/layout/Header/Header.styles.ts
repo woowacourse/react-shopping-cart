@@ -12,4 +12,5 @@ export const StyledHeader = styled.header`
 export const StyledSpan = styled.span`
   color: #ffffff;
   font-weight: 800;
+  cursor: pointer;
 `;
