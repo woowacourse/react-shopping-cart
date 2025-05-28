@@ -18,15 +18,15 @@ export const getCartItems = async () => {
   return data.content;
 };
 
-export const addCartItems = async (cartItem: AddCartItemsProps) => {
+export const addCartItem = async (cartItem: AddCartItemsProps) => {
   await apiClient({ method: "POST", URI: "/cart-items", body: cartItem });
 };
 
-export const removeCartItems = async (id: number) => {
+export const removeCartItem = async (id: number) => {
   await apiClient({ method: "DELETE", URI: `/cart-items/${id}` });
 };
 
-export const increaseCartItems = async (id: number, quantity: number) => {
+export const increaseCartItem = async (id: number, quantity: number) => {
   await apiClient({
     method: "PATCH",
     URI: `/cart-items/${id}`,
@@ -34,7 +34,7 @@ export const increaseCartItems = async (id: number, quantity: number) => {
   });
 };
 
-export const decreaseCartItems = async (id: number, quantity: number) => {
+export const decreaseCartItem = async (id: number, quantity: number) => {
   await apiClient({
     method: "PATCH",
     URI: `/cart-items/${id}`,

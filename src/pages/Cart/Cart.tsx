@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CartItemList from "../../components/CartItemList/CartItemList";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import Description from "../../components/Description/Description";
@@ -15,21 +15,27 @@ function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>();
 
+  const fetchCartItem = useCallback(
+    () =>
+      fetchData({
+        apiCall: getCartItems,
+        onSuccess: (data) => {
+          if (data) {
+            setCartItems(data);
+          }
+        },
+        onError: (error) => {
+          const errorMessage =
+            error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
+          alert(errorMessage);
+        },
+      }),
+    [fetchData]
+  );
+
   useEffect(() => {
-    fetchData({
-      apiCall: getCartItems,
-      onSuccess: (data) => {
-        if (data) {
-          setCartItems(data);
-        }
-      },
-      onError: (error) => {
-        const errorMessage =
-          error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
-        alert(errorMessage);
-      },
-    });
-  }, [fetchData]);
+    fetchCartItem();
+  }, [fetchCartItem]);
 
   return (
     <>
@@ -42,7 +48,7 @@ function Cart() {
         ) : (
           <div>
             <CheckBox id="234" label="전체선택" isSelected={true} />
-            <CartItemList cartItems={cartItems} />
+            <CartItemList fetchCartItem={fetchCartItem} cartItems={cartItems} />
             <Receipt />
           </div>
         )}

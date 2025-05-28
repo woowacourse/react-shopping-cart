@@ -1,12 +1,21 @@
 import { useState } from "react";
 import useMutation from "./useMutation";
-import { decreaseCartItems, increaseCartItems } from "../api/cartItem";
+import {
+  decreaseCartItem,
+  increaseCartItem,
+  removeCartItem,
+} from "../api/cartItem";
+import { DEFAULT_ERROR_MESSAGE } from "../constants/errorMessage";
 
 interface UseQuantityControlProps {
   initialQuantity: number;
+  refetchCartItem: () => void;
 }
 
-const useQuantityControl = ({ initialQuantity }: UseQuantityControlProps) => {
+const useQuantityControl = ({
+  initialQuantity,
+  refetchCartItem,
+}: UseQuantityControlProps) => {
   const { mutateData } = useMutation();
   const [quantity, setQuantity] = useState(initialQuantity);
 
@@ -14,8 +23,8 @@ const useQuantityControl = ({ initialQuantity }: UseQuantityControlProps) => {
     setQuantity((prev) => prev + 1);
 
     await mutateData({
-      apiCall: () => increaseCartItems(cartId, quantity),
-      onSuccess: () => {},
+      apiCall: () => increaseCartItem(cartId, quantity),
+      onSuccess: refetchCartItem,
       onError: () => {
         setQuantity((prev) => prev - 1);
       },
@@ -26,10 +35,22 @@ const useQuantityControl = ({ initialQuantity }: UseQuantityControlProps) => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
 
     await mutateData({
-      apiCall: () => decreaseCartItems(cartId, quantity),
-      onSuccess: () => {},
+      apiCall: () => decreaseCartItem(cartId, quantity),
+      onSuccess: refetchCartItem,
       onError: () => {
         setQuantity((prev) => prev + 1);
+      },
+    });
+  };
+
+  const deleteCartItem = async (cartId: number) => {
+    await mutateData({
+      apiCall: () => removeCartItem(cartId),
+      onSuccess: refetchCartItem,
+      onError: (error) => {
+        const errorMessage =
+          error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
+        alert(errorMessage);
       },
     });
   };
@@ -37,6 +58,7 @@ const useQuantityControl = ({ initialQuantity }: UseQuantityControlProps) => {
   return {
     increaseQuantity,
     decreaseQuantity,
+    deleteCartItem,
     quantity,
   };
 };

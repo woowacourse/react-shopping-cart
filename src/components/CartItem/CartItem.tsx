@@ -1,3 +1,4 @@
+import useQuantityControl from "../../hooks/useQuantityControl";
 import { CartItemType } from "../../types/response";
 import CheckBox from "../CheckBox/CheckBox";
 import QuantityControlButton from "../QuantityControlButton/QuantityControlButton";
@@ -16,17 +17,25 @@ import {
 
 interface CartItemProps {
   cartItem: CartItemType;
+  fetchCartItem: () => void;
 }
 
-function CartItem({ cartItem }: CartItemProps) {
-  const { id: cartId, product, quantity } = cartItem;
+function CartItem({ cartItem, fetchCartItem }: CartItemProps) {
+  const { id: cartId, product, quantity: initialQuantity } = cartItem;
+  const { decreaseQuantity, increaseQuantity, deleteCartItem, quantity } =
+    useQuantityControl({
+      initialQuantity,
+      refetchCartItem: fetchCartItem,
+    });
 
   return (
     <>
       <div css={ItemContainer}>
         <div css={ItemController}>
           <CheckBox id={String(cartId)} isSelected={true} />
-          <button css={DeleteButton}>삭제</button>
+          <button css={DeleteButton} onClick={() => deleteCartItem(cartId)}>
+            삭제
+          </button>
         </div>
         <div css={ItemInfo}>
           <img css={ProductImage} src={product.imageUrl}></img>
@@ -37,8 +46,9 @@ function CartItem({ cartItem }: CartItemProps) {
             </div>
             <div css={CountContainer}>
               <QuantityControlButton
-                initialQuantity={quantity}
-                cartId={cartId}
+                quantity={quantity}
+                decreaseQuantity={() => decreaseQuantity(cartId)}
+                increaseQuantity={() => increaseQuantity(cartId)}
               />
             </div>
           </div>

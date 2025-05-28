@@ -1,26 +1,23 @@
-import useQuantityControl from "../../hooks/useQuantityControl";
 import { Button, Container, Text } from "./QuantityControlButton.styles";
 
 interface QuantityControlButtonProps {
-  initialQuantity: number;
-  cartId: number;
+  quantity: number;
+  decreaseQuantity: () => void;
+  increaseQuantity: () => void;
 }
 
 function QuantityControlButton({
-  initialQuantity,
-  cartId,
+  quantity,
+  decreaseQuantity,
+  increaseQuantity,
 }: QuantityControlButtonProps) {
-  const { quantity, increaseQuantity, decreaseQuantity } = useQuantityControl({
-    initialQuantity,
-  });
-
   return (
     <div css={Container}>
-      <button css={Button} onClick={() => decreaseQuantity(cartId)}>
+      <button css={Button} onClick={decreaseQuantity}>
         -
       </button>
       <p css={Text}>{quantity}</p>
-      <button css={Button} onClick={() => increaseQuantity(cartId)}>
+      <button css={Button} onClick={increaseQuantity}>
         +
       </button>
     </div>
