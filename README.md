@@ -36,10 +36,10 @@
       - [x] 전체를 체크 박스
       - [x] 반복문)CartItem - 조합
     - [ ] 금액들 모아놓는 컴포넌트 -> priceComponent 조합 (children) 주문금액 컴포넌트 / 배송비 / 총 결제 금액
-      - [ ] description text
-      - [ ] 주문금액
-      - [ ] 배송비
-      - [ ] 총결제 금액
+      - [x] description text
+      - [x] 주문금액
+      - [x] 배송비
+      - [x] 총결제 금액
     - [x] 버튼 (버튼 true/false -> useCart() -> state.filter (check))
     - [x] 수량 조절기 컴포넌트
 
