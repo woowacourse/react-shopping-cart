@@ -9,17 +9,47 @@ import {
   ModifyRow,
   StyledCheckbox,
 } from '../components/Cart/Cart.styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getCartItems } from '../apis/cart';
 import { useData } from '../context/DataContext';
+import { CartProduct } from '../types/cart';
 
 function CartPage() {
-  const [isChecked, setIsChecked] = useState(true);
-
   const { data: cartItems } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
   });
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (cartItems?.content) {
+      const itemIds = cartItems.content.map((item: CartProduct) => item.id);
+      setCheckedItems(itemIds);
+    }
+  }, [cartItems]);
+
+  const isAllChecked = cartItems?.content && checkedItems.length === cartItems.content.length;
+
+  const handleAllCheck = (checked: boolean) => {
+    if (checked) {
+      setCheckedItems([]);
+    } else {
+      const allIds = cartItems.content.map((item: CartProduct) => item.id);
+      setCheckedItems(allIds);
+    }
+  };
+
+  const price = cartItems?.content
+    ? cartItems.content
+        .filter((item: CartProduct) => checkedItems.includes(item.id))
+        .reduce((sum: number, item: CartProduct) => sum + item.product.price * item.quantity, 0)
+    : 0;
+
+  const hasItems = checkedItems.length > 0;
+  const needsShippingFee = price < 100000;
+  const shippingFee = hasItems && needsShippingFee ? 3000 : 0;
+
+  const totalPrice = price + shippingFee;
 
   if (!cartItems) {
     return null;
@@ -38,16 +68,16 @@ function CartPage() {
             <CheckboxContainer>
               <HiddenCheckbox
                 type="checkbox"
-                checked={isChecked}
-                onChange={(e) => setIsChecked(e.target.checked)}
+                checked={isAllChecked}
+                onChange={() => handleAllCheck(isAllChecked)}
               />
-              <StyledCheckbox checked={isChecked} />
+              <StyledCheckbox checked={isAllChecked} />
             </CheckboxContainer>
             <span>전체 선택</span>
           </ModifyRow>
         </CartSelectAll>
 
-        <CartList />
+        <CartList checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
 
         <CartInfo>
           <InfoIconImage src={infoIcon} alt="infoIcon" />
@@ -55,12 +85,12 @@ function CartPage() {
         </CartInfo>
 
         <CartFooter>
-          <CartPrice title="주문 금액" price={70000} />
-          <CartPrice title="배송비" price={70000} />
-          <CartPrice title="총 결제 금액" price={70000} />
+          <CartPrice title="주문 금액" price={price} />
+          <CartPrice title="배송비" price={shippingFee} />
+          <CartPrice title="총 결제 금액" price={totalPrice} />
         </CartFooter>
       </Container>
-      <CloseButton>결제하기</CloseButton>
+      <CloseButton disabled={checkedItems.length === 0}>결제하기</CloseButton>
     </>
   );
 }
@@ -129,7 +159,7 @@ const InfoIconImage = styled.img`
   height: 13px;
 `;
 
-export const CloseButton = styled.div`
+export const CloseButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -138,9 +168,15 @@ export const CloseButton = styled.div`
   color: white;
   height: 64px;
   background: #000000;
+  border: none;
   font-weight: 700;
   font-size: 15px;
   line-height: 100%;
   text-align: center;
   cursor: pointer;
+
+  :disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
 `;
