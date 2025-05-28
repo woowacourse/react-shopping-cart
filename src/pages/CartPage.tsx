@@ -1,4 +1,5 @@
 import AllCheckSection from '../components/AllCheckSection';
+import CartItemCountMessage from '../components/CartItemCountMessage';
 import ConfirmButton from '../components/ConfirmButton';
 import ItemCard from '../components/ItemCard';
 import PriceSection from '../components/priceSection/PriceSection';
@@ -9,6 +10,7 @@ const CartPage = () => {
 
   return (
     <>
+      <CartItemCountMessage />
       <AllCheckSection />
       {cartItems.map((item) => (
         <ItemCard
