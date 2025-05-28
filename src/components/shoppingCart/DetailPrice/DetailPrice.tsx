@@ -10,7 +10,6 @@ export default function DetailPrice({
   allProductPrice,
   shippingFee,
 }: DetailPriceProps) {
-  console.log(allProductPrice, shippingFee);
   return (
     <S.DetailPrice>
       <Price name="주문 금액" price={allProductPrice} />

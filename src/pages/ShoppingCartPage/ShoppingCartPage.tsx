@@ -27,6 +27,20 @@ export default function ShoppingCartPage() {
     );
   }, [state.isLoading]);
 
+  useEffect(() => {
+    setCartItemCheckList((prev) =>
+      cartItemList.map((item) => {
+        const prevItem = prev.find((p) => p.id === item.id);
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          price: item.product.price,
+          isClicked: prevItem?.isClicked ?? true,
+        };
+      })
+    );
+  }, [cartItemList]);
+
   const handleSelectedCartItem = (id: number) => {
     setCartItemCheckList((prev) =>
       prev.map((item) =>
@@ -43,11 +57,15 @@ export default function ShoppingCartPage() {
     );
   };
 
+  const checkedProductsLength = cartItemCheckList.filter(
+    (item) => item.isClicked
+  ).length;
+
   return (
     <StyledShoppingCart>
       <Header
         title="장바구니"
-        description={`현재 ${cartItemList.length}종류의 상품이 담겨있습니다.`}
+        description={`현재 ${checkedProductsLength}종류의 상품이 담겨있습니다.`}
       />
 
       <section>
