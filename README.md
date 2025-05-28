@@ -2,12 +2,12 @@
 
 ## 페이지 구현
 
-- [ ] 전체 레이아웃
+- [x] 전체 레이아웃
 
-- [] Header
+- [x] Header
   - [x] Logo
-  - [] BackButton
-- [] Body
+  - [x] BackButton
+- [x] Body
   - [x] ShoppingCartPage
     - [x] Header
       - [x] Title
@@ -22,11 +22,11 @@
       - [x] OrderPrice
       - [x] ShippingFee
       - [x] TotalPrice
-  - [] CompletedPage
-    - [] OrderInfo
+  - [x] CompletedPage
+    - [x] OrderInfo
 - [x] Footer
   - [x] OrderCheckButton
-  - [] PayCheckButton
+  - [x] PayCheckButton
 
 ## 🎯 기능 요구 사항
 
