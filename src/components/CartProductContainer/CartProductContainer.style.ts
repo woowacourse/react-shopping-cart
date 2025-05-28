@@ -6,6 +6,16 @@ const CartProductContainerLayout = css`
   gap: 24px;
   overflow-y: auto;
 `;
+const CartItemBox = css`
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+`;
+const CartItemHeader = css`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const PaymentsLayout = css`
   display: flex;
   justify-content: space-between;
@@ -23,6 +33,8 @@ const PaymentsValue = css`
 
 export {
   CartProductContainerLayout,
+  CartItemBox,
+  CartItemHeader,
   PaymentsLayout,
   PaymentsLabel,
   PaymentsValue,

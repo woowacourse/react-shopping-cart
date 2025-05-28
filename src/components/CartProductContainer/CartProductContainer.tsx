@@ -1,5 +1,12 @@
+import Button from "../Button/Button";
 import { CartProduct } from "../CartProduct/CartProduct";
-import { CartProductContainerLayout } from "./CartProductContainer.style";
+import { CheckBox } from "../CheckBox/CheckBox";
+import { Line } from "../Line/Line";
+import {
+  CartItemBox,
+  CartItemHeader,
+  CartProductContainerLayout,
+} from "./CartProductContainer.style";
 
 const DUMMY = [
   {
@@ -44,16 +51,25 @@ export default function CartProductContainer() {
       <div css={CartProductContainerLayout}>
         {DUMMY.map((cartItem) => {
           return (
-            <CartProduct
-              key={cartItem.id}
-              id={cartItem.id}
-              imageUrl={cartItem.product.imageUrl}
-              name={cartItem.product.name}
-              price={cartItem.product.price}
-              quantity={cartItem.quantity}
-              onChange={() => {}}
-              maxQuantity={100000}
-            />
+            <section css={CartItemBox}>
+              <Line />
+              <div css={CartItemHeader}>
+                <CheckBox isChecked={false} />
+                <Button onClick={() => {}} style="ghost">
+                  삭제
+                </Button>
+              </div>
+              <CartProduct
+                key={cartItem.id}
+                id={cartItem.id}
+                imageUrl={cartItem.product.imageUrl}
+                name={cartItem.product.name}
+                price={cartItem.product.price}
+                quantity={cartItem.quantity}
+                onChange={() => {}}
+                maxQuantity={100000}
+              />
+            </section>
           );
         })}
       </div>

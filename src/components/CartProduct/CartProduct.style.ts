@@ -2,32 +2,36 @@ import { css } from "@emotion/react";
 
 const CartProductLayout = css`
   display: flex;
-  gap: 16px;
+  gap: 0px 24px;
   width: 100%;
-  padding-top: 8px;
-  border-top: 1px solid #0000001a;
+  height: 112px;
 `;
 
-const ProductImg = css`
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-`;
+const ProductImg = (imageUrl: string) => {
+  return css`
+    width: 112px;
+    border-radius: 8px;
+    background-image: ${`url(${imageUrl})`},
+      url("https:lh3.googleusercontent.com/proxy/3Fqjhno28S6v1khXPS44ukHF-8y2Kue7oKfnyqCR4_vX7ze7O20WFu7CzZTq_KQaLwDrpMUNFhUD345MdmKB9ZzzejPJCfHmRAf2rMIzQhkFy9n9kMPPAf4hi7wIZm0cmjLSnTkiaj3g9mAA");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  `;
+};
 
 const TitleLayout = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-  width: 100%;
 `;
 
-const ProductName = css`
+const ProductPrice = css`
   font-weight: 700;
   font-size: 16px;
 `;
 
-const ProductPrice = css`
+const ProductName = css`
   font-weight: 500;
   font-size: 12px;
 `;
