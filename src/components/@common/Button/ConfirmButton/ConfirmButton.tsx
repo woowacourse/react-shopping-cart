@@ -26,8 +26,14 @@ const ConfirmButton = ({
 export default ConfirmButton;
 
 const ConfirmButtonStyle = css`
+  position: sticky;
+  bottom: 0;
   width: 100%;
   height: 64px;
   color: white;
   background-color: #000000;
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
 `;
