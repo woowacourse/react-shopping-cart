@@ -9,37 +9,20 @@ import {
   ModifyRow,
   StyledCheckbox,
 } from '../components/Cart/Cart.styles';
-import { useEffect, useState } from 'react';
 import { getCartItems } from '../apis/cart';
 import { useData } from '../context/DataContext';
 import { CartProduct } from '../types/cart';
 import { useNavigate } from 'react-router';
+import { useCartSelection } from '../hooks/useCartSelection';
 
 function CartPage() {
   const { data: cartItems } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
   });
-  const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (cartItems?.content) {
-      const itemIds = cartItems.content.map((item: CartProduct) => item.id);
-      setCheckedItems(itemIds);
-    }
-  }, [cartItems]);
-
-  const isAllChecked = cartItems?.content && checkedItems.length === cartItems.content.length;
-
-  const handleAllCheck = (checked: boolean) => {
-    if (checked) {
-      setCheckedItems([]);
-    } else {
-      const allIds = cartItems.content.map((item: CartProduct) => item.id);
-      setCheckedItems(allIds);
-    }
-  };
+  const { checkedItems, setCheckedItems, isAllChecked, handleAllCheck } =
+    useCartSelection(cartItems);
 
   const price = cartItems?.content
     ? cartItems.content
