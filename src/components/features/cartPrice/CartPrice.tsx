@@ -34,7 +34,7 @@ const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
           <div css={S.CartPriceInfoContainer}>
             <div css={S.CartPriceSubtitle}>배송비</div>
             <div css={Title}>
-              {calculateTotalPrice(cartItemNamePrice) > 1000000 ? 3000 : 0}원
+              {calculateTotalPrice(cartItemNamePrice) > 1000000 ? 0 : 3000}원
             </div>
           </div>
         </div>
