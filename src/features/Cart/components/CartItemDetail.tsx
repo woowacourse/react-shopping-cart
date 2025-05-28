@@ -8,12 +8,12 @@ import { QuantitySelector } from './QuantitySelector';
 
 import { CartItem } from '../types/Cart.types';
 import { CheckBox } from '@/shared/components/CheckBox';
-import { deleteCartItem } from '@/api/cart';
 
 type CartItemDetailProps = {
   isChecked: boolean;
   onToggle: (id: number) => void;
   onRemove: (id: number) => void;
+  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
 } & CartItem;
 
 export const CartItemDetail = ({
@@ -23,8 +23,8 @@ export const CartItemDetail = ({
   product,
   onToggle,
   onRemove,
+  onUpdateQuantity,
 }: CartItemDetailProps) => {
-  console.log('isChecked', isChecked);
   return (
     <Flex
       direction="column"
@@ -79,13 +79,17 @@ export const CartItemDetail = ({
         >
           <Flex direction="column" justifyContent="flex-start" alignItems="flex-start" gap="0">
             <Text type="Caption" weight="regular">
-              상품이름
+              {product.name}
             </Text>
             <Text type="Heading" weight="semibold">
-              0원
+              {product.price.toLocaleString()}원
             </Text>
           </Flex>
-          <QuantitySelector count={123} onIncrease={() => {}} onDecrease={() => {}} />
+          <QuantitySelector
+            count={quantity}
+            onIncrease={() => onUpdateQuantity(id, quantity + 1)}
+            onDecrease={() => onUpdateQuantity(id, quantity - 1)}
+          />
         </Flex>
       </Flex>
     </Flex>

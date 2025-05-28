@@ -5,16 +5,15 @@ import { Header } from '@/shared/components/Header';
 import { Text } from '@/shared/components/Text';
 import { CartListContainer } from '../container/CartListContainer';
 import { CartItemDetail } from '../components/CartItemDetail';
-import { cartData } from '@/shared/mock/cart.data';
 import { PriceSummary } from '../components/PriceSummary';
 import { Button } from '@/shared/components/Button';
 import { css } from '@emotion/react';
 import { useCart } from '../hooks/useCart';
 
 export const CartPage = () => {
-  const mockCartItem = cartData.content[0].product;
-  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem } = useCart();
+  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCart();
   const allChecked = cartItems?.every((item) => item.isChecked);
+  // const productItems = cartItems?.map((item) => item.product);
 
   return (
     <AppLayout>
@@ -58,19 +57,18 @@ export const CartPage = () => {
             key={item.id}
             onToggle={toggleCheck}
             onRemove={removeCartItem}
+            onUpdateQuantity={updateQuantity}
             {...item}
           />
         ))}
       </CartListContainer>
-      <PriceSummary />
+      <PriceSummary cartItems={cartItems ?? []} />
       <Button
         width="100%"
         size="xl"
         shape="square"
         css={css`
-          position: fixed;
-          bottom: 0;
-          max-width: 425px;
+          position: sticky;
         `}
       >
         주문 확인

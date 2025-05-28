@@ -1,9 +1,23 @@
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 
-export const PriceSummary = () => {
+import styled from '@emotion/styled';
+import { CartItem } from '../types/Cart.types';
+
+type PriceSummaryProps = {
+  cartItems: CartItem[];
+};
+
+export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
+  const orderPrice = cartItems
+    .filter((item) => item.quantity > 0 && item.isChecked)
+    .reduce((acc, cart) => {
+      return acc + Number(cart.product.price) * Number(cart.quantity);
+    }, 0);
+
+  const deliveryFee = orderPrice >= 100000 ? 0 : 3000;
+  const totalPrice = orderPrice + deliveryFee;
+
   return (
     <Flex
       direction={'column'}
@@ -26,7 +40,7 @@ export const PriceSummary = () => {
         padding="0 10px"
       >
         <Text type="Body">주문 금액</Text>
-        <Text type="Heading">70,000원</Text>
+        <Text type="Heading">{orderPrice.toLocaleString()}원</Text>
       </Flex>
       <Flex
         direction={'row'}
@@ -37,7 +51,7 @@ export const PriceSummary = () => {
         padding="0 10px"
       >
         <Text type="Body">배송비</Text>
-        <Text type="Heading">3,000원</Text>
+        <Text type="Heading">{deliveryFee.toLocaleString()}원</Text>
       </Flex>
       <StyledSpacing />
       <Flex
@@ -49,7 +63,7 @@ export const PriceSummary = () => {
         padding="0 10px"
       >
         <Text type="Body">총 결제 금액</Text>
-        <Text type="Heading">73,000원</Text>
+        <Text type="Heading">{totalPrice.toLocaleString()}원</Text>
       </Flex>
     </Flex>
   );
