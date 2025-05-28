@@ -14,6 +14,7 @@ import { useData } from '../context/DataContext';
 import { CartProduct } from '../types/cart';
 import { useNavigate } from 'react-router';
 import { useCartSelection } from '../hooks/useCartSelection';
+import Button from '../components/Button/Button';
 
 function CartPage() {
   const { data: cartItems } = useData({
@@ -81,7 +82,7 @@ function CartPage() {
           <CartPrice title="총 결제 금액" price={totalPrice} variant="total" />
         </CartFooter>
       </Container>
-      <CloseButton
+      <Button
         disabled={checkedItems.length === 0}
         onClick={() =>
           navigate('/orderConfirm', {
@@ -89,8 +90,8 @@ function CartPage() {
           })
         }
       >
-        결제하기
-      </CloseButton>
+        주문확인
+      </Button>
     </>
   );
 }
@@ -99,6 +100,7 @@ export default CartPage;
 
 const Container = styled.div`
   padding: 0 24px;
+  height: 100%;
   overflow-y: auto;
 `;
 
@@ -155,26 +157,4 @@ const CartFooter = styled.div`
 const InfoIconImage = styled.img`
   width: 13px;
   height: 13px;
-`;
-
-export const CloseButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  color: white;
-  height: 64px;
-  background: #000000;
-  border: none;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 100%;
-  text-align: center;
-  cursor: pointer;
-
-  :disabled {
-    background-color: #bebebe;
-    cursor: not-allowed;
-  }
 `;

@@ -48,23 +48,6 @@ export const TotalPrice = styled.h1`
   text-align: right;
 `;
 
-export const CloseButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  color: white;
-  height: 44px;
-  border-radius: 5px;
-  background-color: #333333;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 100%;
-  text-align: center;
-  cursor: pointer;
-`;
-
 export const StepperContainer = styled.div`
   display: flex;
   align-items: center;

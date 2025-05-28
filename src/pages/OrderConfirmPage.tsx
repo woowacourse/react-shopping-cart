@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router';
 import Header from '../components/Header/Header';
 import styled from '@emotion/styled';
+import Button from '../components/Button/Button';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -18,7 +19,7 @@ function OrderConfirmPage() {
         <SubTitle>총 결제 금액</SubTitle>
         <Title>{price.toLocaleString()}원</Title>
       </Container>
-      <CloseButton>결제하기</CloseButton>
+      <Button disabled={true}>결제하기</Button>
     </>
   );
 }
@@ -27,13 +28,10 @@ export default OrderConfirmPage;
 
 const Container = styled.div`
   display: flex;
-  position: absolute;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
 `;
 
 const Title = styled.h2`
@@ -56,22 +54,4 @@ const SubTitle = styled.h3`
   font-size: 16px;
   font-weight: 700;
   color: #0a0d13;
-`;
-
-export const CloseButton = styled.div`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  color: white;
-  height: 64px;
-  background: #bebebe;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 100%;
-  text-align: center;
-  cursor: pointer;
 `;
