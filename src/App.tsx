@@ -15,7 +15,8 @@ import EmptyCart from './components/EmptyCart/EmptyCart';
 import { cartPrice } from './utils/cartPrice/cartPrice';
 
 function App() {
-  const { cartList, increaseCartItem, decreaseCartItem } = useCartList();
+  const { cartList, increaseCartItem, decreaseCartItem, deleteCartItem } =
+    useCartList();
 
   const totalPrice = cartPrice.totalPrice(cartList);
 
@@ -38,6 +39,7 @@ function App() {
                   cartItem={cartItem}
                   increaseCartItem={increaseCartItem}
                   decreaseCartItem={decreaseCartItem}
+                  deleteCartItem={deleteCartItem}
                 />
               ))}
             </CartList>

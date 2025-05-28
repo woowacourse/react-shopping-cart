@@ -44,7 +44,16 @@ function useCartList() {
     await loadCartList();
   };
 
-  return { cartList, increaseCartItem, decreaseCartItem };
+  const deleteCartItem = async (cartItemId: number) => {
+    await apiRequest({
+      url: `/cart-items/${cartItemId}`,
+      method: 'DELETE',
+    });
+
+    await loadCartList();
+  };
+
+  return { cartList, increaseCartItem, decreaseCartItem, deleteCartItem };
 }
 
 export default useCartList;

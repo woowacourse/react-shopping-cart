@@ -17,16 +17,21 @@ function CartItem({
   cartItem,
   increaseCartItem,
   decreaseCartItem,
+  deleteCartItem,
 }: {
   cartItem: CartItemProps;
   increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  deleteCartItem: (cartItemId: number) => Promise<void>;
 }) {
   return (
     <li css={CartItemStyle}>
       <div css={ListItemHeaderStyle}>
         <input type="checkbox" name="" id="" css={CheckboxStyle} />
-        <button css={DeleteButtonStyle}>
+        <button
+          css={DeleteButtonStyle}
+          onClick={() => deleteCartItem(cartItem.id)}
+        >
           <Text varient="caption">삭제</Text>
         </button>
       </div>

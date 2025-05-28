@@ -57,22 +57,19 @@ export const handlers = [
   //   }
   // ),
 
-  // http.delete(
-  //   `${import.meta.env.VITE_API_BASE_URL}/cart-items/:cartItemId`,
-  //   ({ params }) => {
-  //     const cartItemId = parseInt(params.cartItemId as string);
+  http.delete(`/cart-items/:cartItemId`, ({ params }) => {
+    const cartItemId = parseInt(params.cartItemId as string);
 
-  //     const itemIndex = cartItems.findIndex((item) => item.id === cartItemId);
+    const itemIndex = mockCart.findIndex((item) => item.id === cartItemId);
 
-  //     if (itemIndex === -1) {
-  //       return new HttpResponse(null, { status: 404 });
-  //     }
+    if (itemIndex === -1) {
+      return new HttpResponse(null, { status: 404 });
+    }
 
-  //     cartItems.splice(itemIndex, 1);
+    mockCart.splice(itemIndex, 1);
 
-  //     return new HttpResponse(null, { status: 204 });
-  //   }
-  // ),
+    return new HttpResponse(null, { status: 204 });
+  }),
 
   http.patch(`/cart-items/:cartItemId`, async ({ params, request }) => {
     const cartItemId = parseInt(params.cartItemId as string);
