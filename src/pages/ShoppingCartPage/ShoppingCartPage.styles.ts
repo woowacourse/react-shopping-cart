@@ -24,3 +24,13 @@ export const Checkbox = styled.input`
   height: 24px;
   accent-color: black;
 `;
+
+export const EmptyText = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 750px;
+  font-size: 16px;
+  font-weight: 400;
+`;

@@ -4,7 +4,7 @@ interface HeaderProps {
   description?: string;
 }
 
-export default function Header({ title, description }: HeaderProps) {
+export default function Header({ title, description = "" }: HeaderProps) {
   return (
     <S.Section>
       <S.Title>{title}</S.Title>
