@@ -41,7 +41,7 @@ export default function CartProductContainer({
 
   const handleDelete = async (id: number) => {
     try {
-      await deleteShoppingCart(20);
+      await deleteShoppingCart(id);
       onChange();
     } catch (error) {
       onError("삭제에 실패했습니다");
