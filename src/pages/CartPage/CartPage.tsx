@@ -19,7 +19,7 @@ const calculateShippingFee = (orderPrice: number) => {
 };
 
 const CartPage = () => {
-  const { cartItemsData, calculateOrderPrice } = useCart();
+  const { cartItemsData, calculateOrderPrice, hasCheckedItem } = useCart();
 
   const orderPrice = calculateOrderPrice();
   const shippingFee = calculateShippingFee(orderPrice);
@@ -67,7 +67,7 @@ const CartPage = () => {
           <EmptyFallback />
         )}
       </S.Main>
-      <FooterButton disabled={cartItemsData.length === 0}>
+      <FooterButton disabled={cartItemsData.length === 0 || !hasCheckedItem()}>
         주문 확인
       </FooterButton>
     </>

@@ -34,6 +34,7 @@ interface CartContextType {
   toggleItemChecked: (cartId: number) => void;
 
   calculateOrderPrice: () => number;
+  hasCheckedItem: () => boolean;
 }
 
 interface CartItemCheckType {
@@ -138,6 +139,10 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       );
   };
 
+  const hasCheckedItem = () => {
+    return cartItemsCheckData.some(({ checked }) => checked);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -155,6 +160,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         toggleItemChecked,
 
         calculateOrderPrice,
+        hasCheckedItem,
       }}
     >
       {children}
