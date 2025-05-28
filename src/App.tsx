@@ -10,6 +10,7 @@ import CartItem from './components/CartItem/CartItem';
 import useCartList from './hooks/useCartList';
 import CartList from './components/CartList/CartList';
 import CartPriceInfo from './components/CartPriceInfo/CartPriceInfo';
+import OrderButton from './components/OrderButton/OrderButton';
 
 function App() {
   const { cartList } = useCartList();
@@ -31,6 +32,7 @@ function App() {
         </CartList>
         <CartPriceInfo />
       </ContainerLayout>
+      {/* <OrderButton /> */}
     </>
   );
 }
