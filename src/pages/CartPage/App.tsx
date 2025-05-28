@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import * as S from './App.styles';
-import { CartHeader, CartList, OrderPriceSummary } from './features/cart/ui';
-import Footer from './widgets/footer/ui/Footer';
-import Navbar from './widgets/navbar/ui/Navbar';
-import { getCartItems } from './features/cart/api/getCartItems';
-import { useSelectedCartContext } from './shared/context/useCartContext';
-import { CartItem } from './shared/type/cart';
-import EmptyCartItemUI from './features/cart/ui/EmptyCartItemUI';
+import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui';
+import Navbar from '../../shared/ui/Navbar';
+import CartPageFooter from '../../features/cart/ui/CartPageFooter';
+import { getCartItems } from '../../features/cart/api/getCartItems';
+import { useSelectedCartContext } from '../../shared/context/useCartContext';
+import { CartItem } from '../../shared/type/cart';
+import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
+import { ROUTES } from '../../shared/constants/routeConstants';
 
 function App() {
   const { addAllCartItemsInSelected, selectedCartItems } = useSelectedCartContext();
@@ -32,7 +33,7 @@ function App() {
 
   return (
     <S.AppContainer>
-      <Navbar />
+      <Navbar title={'SHOP'} url={ROUTES.ROOT} />
       <S.AppContent>
         <CartHeader cartTypeQuantity={cartItems.length} />
         {cartItems.length > 0 ? (
@@ -49,7 +50,7 @@ function App() {
         )}
       </S.AppContent>
 
-      <Footer cartItemQuantity={cartItems.length} />
+      <CartPageFooter cartItemQuantity={cartItems.length} />
     </S.AppContainer>
   );
 }
