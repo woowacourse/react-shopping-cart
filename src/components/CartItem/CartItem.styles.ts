@@ -1,5 +1,13 @@
 import styled from "@emotion/styled";
 
+const DEFAULT_IMAGE_URL = "./planet-default-image.png";
+
+const isValidUrl = (url: string): boolean =>
+  Boolean(url && (url.startsWith("http://") || url.startsWith("https://")));
+
+export const getImageUrl = (url: string): string =>
+  isValidUrl(url) ? url : DEFAULT_IMAGE_URL;
+
 export const CartItem = styled.div`
   width: 100%;
   padding-top: 12px;
@@ -25,7 +33,7 @@ export const CartItemWrapper = styled.div`
 export const CartItemImage = styled.div<{ $url: string }>`
   width: 112px;
   height: 112px;
-  background: no-repeat url(${({ $url }) => $url});
+  background: no-repeat url(${({ $url }) => getImageUrl($url)});
   background-size: cover;
   border-radius: 8px;
 `;
