@@ -26,7 +26,7 @@
 
 - [ ] ui 퍼블리싱
 
-  - [ ] Header 컴포넌트
+  - [x] Header 컴포넌트
   - [ ] CartPage 컴포넌트 -> useCart() -> fetch get -> 데이터를 context / data -> state 가공하는 함수들이
   - const money = state.filter (check) / const boundary = 1000000원 -> 훅에서 관리
   - [ ] 컴포넌트 => 배송비 10만원 저장 -> 바꿔주고, 50000원 컴포넌트 탐색을 내부에서 x
