@@ -21,6 +21,7 @@ const CartItemCardList = ({
       </div>
       {cartItems.map((item) => (
         <CartItemCard
+          cartItemId={item.id}
           key={item.id}
           imgUrl={item.product.imageUrl}
           name={item.product.name}

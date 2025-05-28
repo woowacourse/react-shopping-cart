@@ -1,30 +1,14 @@
 import { css } from "@emotion/css";
-import { useEffect, useState } from "react";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import CartItemCardList from "../components/CartItemList/CartItemList";
 import CartPageTitle from "../components/CartPageTitle/CartPageTitle";
 import PriceRow from "../components/PriceRow/PriceRow";
 import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
-import cartItemsApi from "../apis/cartItems";
-import { CartItem } from "../types/type";
+import { useCartItemContext } from "../contexts/useCartItemContext";
 
 const CartItemPage = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      const response = await cartItemsApi.get();
-      response.forEach((cartItem) => {
-        cartItem.isSelected = true;
-      });
-      setCartItems(response);
-      setIsLoading(false);
-    };
-
-    fetchCartItems();
-  }, []);
+  const { cartItems, isLoading } = useCartItemContext();
 
   return (
     <>

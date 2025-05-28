@@ -3,8 +3,10 @@ import TextButton from "../@common/Button/TextButton/TextButton";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import QuantityStepper from "../QuantityStepper/QuantityStepper";
+import cartItemsApi from "../../apis/cartItems";
 
 interface CartItemCardProps {
+  cartItemId: number;
   imgUrl: string;
   name: string;
   price: number;
@@ -13,6 +15,7 @@ interface CartItemCardProps {
 }
 
 const CartItemCard = ({
+  cartItemId,
   imgUrl,
   name,
   price,
@@ -25,7 +28,13 @@ const CartItemCard = ({
         <hr className={Divider} />
         <div className={CartItemTop}>
           <ToggleButton isSelected={isSelected} />
-          <TextButton text="삭제" onClick={() => {}} />
+          <TextButton
+            text="삭제"
+            onClick={() => {
+              cartItemsApi.delete(cartItemId);
+              cartItemsApi.get();
+            }}
+          />
         </div>
         <div className={CartItemContent}>
           <img
