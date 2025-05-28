@@ -1,6 +1,9 @@
 import * as S from "./Item.styles";
+
 import Hr from "../../common/Hr/Hr";
+
 import emptyIcon from "/emptyIcon.png";
+
 import useCartItemList from "../../../hooks/useCartItemList";
 
 interface ItemProps {
@@ -9,6 +12,8 @@ interface ItemProps {
   name: string;
   price: number;
   quantity: number;
+  isChecked: boolean;
+  handleSelectedCartItem: (id: number) => void;
 }
 
 export default function Item({
@@ -17,34 +22,30 @@ export default function Item({
   name,
   price,
   quantity,
+  isChecked,
+  handleSelectedCartItem,
 }: ItemProps) {
   const { patchCartItem, removeCartItem } = useCartItemList();
 
-  const handleClickAddItem = (id: number, quantity: number) => {
-    patchCartItem(id, quantity + 1);
-  };
-
-  const handleClickAbstractItem = (id: number, quantity: number) => {
-    patchCartItem(id, quantity - 1);
-  };
-
-  const handleClickRemoveItem = (id: number) => {
-    removeCartItem(id);
-  };
+  const onIncrease = () => patchCartItem(id, quantity + 1);
+  const onDecrease = () => patchCartItem(id, quantity - 1);
+  const onRemove = () => removeCartItem(id);
 
   return (
     <div>
       <Hr />
+
       <S.Content>
-        <S.Checkbox type="checkbox" />
-        <S.Button
-          width="40"
-          height="24"
-          onClick={() => handleClickRemoveItem(id)}
-        >
+        <S.Checkbox
+          type="checkbox"
+          checked={isChecked}
+          onChange={() => handleSelectedCartItem(id)}
+        />
+        <S.Button width="40" height="24" onClick={onRemove}>
           삭제
         </S.Button>
       </S.Content>
+
       <S.Content>
         <S.Image
           src={imageUrl}
@@ -59,19 +60,11 @@ export default function Item({
             </S.Flex>
 
             <S.Flex direction="row">
-              <S.Button
-                width="24"
-                height="24"
-                onClick={() => handleClickAbstractItem(id, quantity)}
-              >
+              <S.Button width="24" height="24" onClick={onDecrease}>
                 -
               </S.Button>
               <S.Quantity>{quantity}</S.Quantity>
-              <S.Button
-                width="24"
-                height="24"
-                onClick={() => handleClickAddItem(id, quantity)}
-              >
+              <S.Button width="24" height="24" onClick={onIncrease}>
                 +
               </S.Button>
             </S.Flex>
