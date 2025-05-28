@@ -1,4 +1,5 @@
 import { deleteCartItem } from "../../apis/cartItems/deleteCartItems";
+import { patchCartItems } from "../../apis/cartItems/patchCartItems";
 import { CartItemContent } from "../../types/response";
 import Checkbox from "../Checkbox/Checkbox";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";
@@ -9,22 +10,34 @@ interface Props {
   fetchData: () => void;
 }
 
+const MIN_QUANTITY = 1;
+
 const CartItem = ({ cartItem, fetchData }: Props) => {
   const {
     id: cartId,
     quantity: currentQuantity,
-    product: {
-      // id: productId,
-      name,
-      price,
-      imageUrl,
-      stock: maxQuantity,
-    },
+    product: { name, price, imageUrl, stock: maxQuantity },
   } = cartItem;
 
   const deleteCartItemByCartId = async () => {
     await deleteCartItem(cartId);
-    await fetchData();
+    fetchData();
+  };
+
+  const increaseCartItemQuantity = async () => {
+    await patchCartItems({
+      cartId,
+      quantity: currentQuantity + 1,
+    });
+    fetchData();
+  };
+
+  const decreaseCartItemQuantity = async () => {
+    await patchCartItems({
+      cartId,
+      quantity: currentQuantity - 1,
+    });
+    fetchData();
   };
 
   return (
@@ -40,9 +53,10 @@ const CartItem = ({ cartItem, fetchData }: Props) => {
           <S.CartItemPrice>{price.toLocaleString()}원</S.CartItemPrice>
           <QuantityCounter
             quantity={currentQuantity}
-            onIncrease={() => {}}
-            onDecrease={() => {}}
+            onIncrease={increaseCartItemQuantity}
+            onDecrease={decreaseCartItemQuantity}
             increaseDisabled={currentQuantity >= maxQuantity}
+            decreaseDisabled={currentQuantity <= MIN_QUANTITY}
           />
         </S.CartItemInfo>
       </S.CartItemWrapper>
