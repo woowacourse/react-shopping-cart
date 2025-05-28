@@ -20,6 +20,7 @@ export default function CartList() {
       } catch (error) {
         if (error instanceof Error) {
           console.error('Failed to fetch cart items:', error.message);
+          alert('장바구니 아이템을 불러오는 데 실패했습니다. 다시 시도해주세요.');
         }
       }
     };
@@ -43,7 +44,7 @@ export default function CartList() {
       </S.AllSelectContainer>
       <S.CartItemCardContainer>
         {cartItems.map((cartItem) => (
-          <CartItemCard key={cartItem.id} cartItem={cartItem} />
+          <CartItemCard key={cartItem.id} cartItem={cartItem} setCartItems={setCartItems} />
         ))}
       </S.CartItemCardContainer>
     </S.CartListContainer>

@@ -3,7 +3,7 @@ import { CartItem } from '../type/cart';
 
 interface SelectedCartContextType {
   selectedCartItems: CartItem[];
-  updateSelectedCartItem: (item: CartItem) => void;
+  updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
 }
@@ -17,13 +17,13 @@ interface SelectedCartProviderProps {
 export const SelectedCartProvider = ({ children }: SelectedCartProviderProps) => {
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
 
-  const updateSelectedCartItem = (cartItem: CartItem) => {
+  const updateSelectedCartItem = (cartItem: CartItem, quantity?: number) => {
     setSelectedCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex((item) => item.id === cartItem.id);
 
       if (existingItemIndex > -1) {
         const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity += 1;
+        updatedItems[existingItemIndex].quantity = quantity ?? 1;
         return updatedItems;
       }
 

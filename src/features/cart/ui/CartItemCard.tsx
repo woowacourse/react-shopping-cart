@@ -24,7 +24,12 @@ const deleteButtonCSS = css`
   }
 `;
 
-export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
+interface CartItemCardProps {
+  cartItem: CartItem;
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+}
+
+export default function CartItemCard({ cartItem, setCartItems }: CartItemCardProps) {
   const { selectedCartItems, updateSelectedCartItem, removeSelectedCartItem } = useSelectedCartContext();
   const handleSelectedCartItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
@@ -32,7 +37,7 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
       removeSelectedCartItem(cartItem);
       return;
     }
-    updateSelectedCartItem(cartItem);
+    updateSelectedCartItem(cartItem, cartItem.quantity);
   };
 
   const isSelected = selectedCartItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
@@ -44,6 +49,7 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
     } catch (error) {
       if (error instanceof Error) {
         console.error('장바구니 아이템 삭제 실패:', error.message);
+        alert('장바구니 아이템 삭제에 실패했습니다. 다시 시도해주세요.');
       }
     }
   };
@@ -70,7 +76,13 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
             <S.CartItemInfoPrice>{cartItem.product.price.toLocaleString()}원</S.CartItemInfoPrice>
           </S.CartItemInfoDetails>
 
-          <CartItemQuantitySelector quantity={cartItem.quantity} />
+          <CartItemQuantitySelector
+            quantity={cartItem.quantity}
+            cartItem={cartItem}
+            isSelected={isSelected}
+            updateSelectedCartItem={updateSelectedCartItem}
+            setCartItems={setCartItems}
+          />
         </S.CartItemInfo>
       </S.CartItemContent>
     </S.CartItemContainer>
