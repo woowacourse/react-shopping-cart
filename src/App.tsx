@@ -14,17 +14,19 @@ import Footer from "./components/layout/Footer/Footer";
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
 
+import { CartItemListProvider } from "./contexts/CartItemListContext";
+
 function Layout() {
   const location = useLocation();
 
-  const isshoppingCartPage = location.pathname === "/";
+  const isShoppingCartPage = location.pathname === "/";
 
   return (
-    <>
-      <Header>{isshoppingCartPage ? "SHOP" : <BackButton />}</Header>
+    <CartItemListProvider>
+      <Header>{isShoppingCartPage ? "SHOP" : <BackButton />}</Header>
       <Outlet />
-      <Footer text={isshoppingCartPage ? "주문 확인" : "결제하기"} />
-    </>
+      <Footer text={isShoppingCartPage ? "주문 확인" : "결제하기"} />
+    </CartItemListProvider>
   );
 }
 

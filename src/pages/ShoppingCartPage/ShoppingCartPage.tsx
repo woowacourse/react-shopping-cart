@@ -1,11 +1,11 @@
 import Header from "../../components/shoppingCart/Header/Header";
 import Item from "../../components/shoppingCart/Item/Item";
 import Receipt from "../../components/shoppingCart/receipt/Receipt";
-import useCartItemList from "../../hooks/UseCartItemList";
+import useCartItemList from "../../hooks/useCartItemList";
 
 import { StyledShoppingCart } from "./ShoppingCartPage.styles";
 
-export default function ShoppingCart() {
+export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
 
   return (
@@ -18,6 +18,7 @@ export default function ShoppingCart() {
         {cartItemList?.map((item) => (
           <Item
             key={item.id}
+            id={item.id}
             imageUrl={item.product.imageUrl}
             name={item.product.name}
             price={item.product.price}

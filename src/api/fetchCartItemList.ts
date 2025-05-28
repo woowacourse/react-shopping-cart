@@ -1,5 +1,3 @@
-import.meta.env.VITE_BASE_URL;
-
 import { HttpMethod } from "../types/HttpMethod";
 import { FetchCartItemListResult } from "../types/FetchCartItemListResult";
 
