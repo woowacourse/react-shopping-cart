@@ -1,15 +1,15 @@
-import * as S from "./CartPage.style";
-import { Title, Subtitle } from "../../styles/@common/title/Title.styles";
-import CartItem from "../../components/features/cartItem/CartItem";
-import CartPrice from "../../components/features/cartPrice/CartPrice";
+import * as S from './CartPage.style';
+import { Title, Subtitle } from '../../styles/@common/title/Title.styles';
+import CartItem from '../../components/features/cartItem/CartItem';
+import CartPrice from '../../components/features/cartPrice/CartPrice';
 import {
   deleteCartItem,
   getCart,
   modifyCartItem,
-} from "../../services/cartService";
-import { useEffect, useState } from "react";
-import Checkbox from "../../components/@common/checkbox/Checkbox";
-import type { CartItemType } from "../../types/response";
+} from '../../services/cartService';
+import { useEffect, useState } from 'react';
+import Checkbox from '../../components/@common/checkbox/Checkbox';
+import type { CartItemType } from '../../types/response';
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
@@ -90,6 +90,7 @@ const CartPage = () => {
           increaseCartItem={increaseCartItem}
           justifyIsChecked={justifyIsChecked}
           controlCheckBox={controlCheckBox}
+          removeCartItem={removeCartItem}
         />
       ))}
       <CartPrice />
