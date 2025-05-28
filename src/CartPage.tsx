@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import * as S from "./CartPage.styled";
 import CartItem from "./components/CartItem/CartItem";
 import Header from "./components/Header/Header";
 import OrderPriceSection from "./components/OrderPriceSection/OrderPriceSection";
 import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
+import CartContext from "./stores/CartContext";
 function CartPage() {
-  const dummyItem = Array.from({ length: 0 }, (_, index) => ({
+  const dummyItem = Array.from({ length: 3 }, (_, index) => ({
     id: index + 1,
     product: {
       id: index + 1,
@@ -18,13 +20,16 @@ function CartPage() {
     quantity: index + 1,
   }));
 
+  const cart = useContext(CartContext);
+
+  console.log(cart);
   const isCartEmpty = dummyItem.length === 0;
-  const isOrderComplete = true;
+  const isOrderComplete = false;
 
   return (
     <S.Root>
       <S.CartPageWrapper>
-        <Header isCartComplete={true} />
+        <Header isCartComplete={isOrderComplete} />
         {isOrderComplete ? (
           <OrderResult />
         ) : (
