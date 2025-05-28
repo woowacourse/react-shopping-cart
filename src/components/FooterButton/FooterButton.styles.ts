@@ -21,5 +21,6 @@ export const FooterButton = styled.button`
 
   &:disabled {
     background-color: rgb(208, 208, 208);
+    cursor: default;
   }
 `;

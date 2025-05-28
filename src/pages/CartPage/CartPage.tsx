@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/Description/Description";
@@ -19,6 +20,12 @@ const CartPage = () => {
     shippingFee,
     totalPrice,
   } = useCart();
+
+  const navigate = useNavigate();
+
+  const navigateToOrderPage = () => {
+    navigate("/order");
+  };
 
   return (
     <>
@@ -60,7 +67,11 @@ const CartPage = () => {
           <EmptyFallback />
         )}
       </S.Main>
-      <FooterButton disabled={cartItemCount === 0 || !hasCheckedItem()}>
+      <FooterButton
+        disabled={cartItemCount === 0 || !hasCheckedItem()}
+        onClick={navigateToOrderPage}
+        tabIndex={0}
+      >
         주문 확인
       </FooterButton>
     </>

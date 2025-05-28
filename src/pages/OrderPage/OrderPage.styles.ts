@@ -8,13 +8,10 @@ export const Main = styled.div`
   align-items: center;
 `;
 
-export const Back = styled.a`
-  text-decoration: none;
-`;
-
 export const BackIcon = styled.img`
   width: 20px;
   height: 20px;
+  cursor: pointer;
 `;
 
 export const DescriptionContainer = styled.div`

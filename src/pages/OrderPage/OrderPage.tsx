@@ -5,16 +5,27 @@ import * as S from "./OrderPage.styles";
 import Title from "../../components/Title/Title";
 import Description from "../../components/Description/Description";
 import useCart from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 const OrderPage = () => {
   const { orderItemCount, orderQuantity, totalPrice } = useCart();
 
+  const navigate = useNavigate();
+
+  const navigateToBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <Header>
-        <S.Back href="/">
-          <S.BackIcon src={BackIcon} alt="back-icon" />
-        </S.Back>
+        <S.BackIcon
+          role="button"
+          src={BackIcon}
+          alt="back-icon"
+          onClick={navigateToBack}
+          tabIndex={0}
+        />
       </Header>
       <S.Main>
         <Title>주문 확인</Title>
