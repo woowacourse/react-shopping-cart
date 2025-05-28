@@ -18,9 +18,16 @@ import {
 interface CartItemProps {
   cartItem: CartItemType;
   fetchCartItem: () => void;
+  isSelected: boolean;
+  toggleSelect: () => void;
 }
 
-function CartItem({ cartItem, fetchCartItem }: CartItemProps) {
+function CartItem({
+  cartItem,
+  fetchCartItem,
+  isSelected,
+  toggleSelect,
+}: CartItemProps) {
   const { id: cartId, product, quantity: initialQuantity } = cartItem;
   const { decreaseQuantity, increaseQuantity, deleteCartItem, quantity } =
     useQuantityControl({
@@ -32,7 +39,11 @@ function CartItem({ cartItem, fetchCartItem }: CartItemProps) {
     <>
       <div css={ItemContainer}>
         <div css={ItemController}>
-          <CheckBox id={String(cartId)} isSelected={true} />
+          <CheckBox
+            id={String(cartId)}
+            isSelected={isSelected}
+            onClick={toggleSelect}
+          />
           <button css={DeleteButton} onClick={() => deleteCartItem(cartId)}>
             삭제
           </button>

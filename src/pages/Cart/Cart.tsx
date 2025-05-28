@@ -10,10 +10,13 @@ import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/useFetch";
 import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
+import useCheckboxHandler from "../../hooks/useCheckboxHandler";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>();
+  const { toggleAllSelect, toggleSelect, isAllSelected, isSelected } =
+    useCheckboxHandler(cartItems);
 
   const fetchCartItem = useCallback(
     () =>
@@ -47,8 +50,18 @@ function Cart() {
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (
           <div>
-            <CheckBox id="234" label="전체선택" isSelected={true} />
-            <CartItemList fetchCartItem={fetchCartItem} cartItems={cartItems} />
+            <CheckBox
+              id="234"
+              label="전체선택"
+              isSelected={isAllSelected()}
+              onClick={toggleAllSelect}
+            />
+            <CartItemList
+              fetchCartItem={fetchCartItem}
+              cartItems={cartItems}
+              isSelected={isSelected}
+              toggleSelect={toggleSelect}
+            />
             <Receipt />
           </div>
         )}
