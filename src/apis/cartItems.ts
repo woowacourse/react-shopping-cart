@@ -1,7 +1,8 @@
+import { CartItem } from "../types/type";
 import { apiClient } from "./apiClient";
 
 const cartItemsApi = {
-  get: async () => {
+  get: async (): Promise<CartItem[]> => {
     try {
       const params = {
         page: 0,

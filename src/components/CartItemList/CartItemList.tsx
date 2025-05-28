@@ -22,9 +22,9 @@ const CartItemCardList = ({
       {cartItems.map((item) => (
         <CartItemCard
           key={item.id}
-          imgUrl={item.imgUrl}
-          name={item.name}
-          price={item.price}
+          imgUrl={item.product.imageUrl}
+          name={item.product.name}
+          price={item.product.price}
           quantity={item.quantity}
           isSelected={item.isSelected}
         />
