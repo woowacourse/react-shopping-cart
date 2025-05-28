@@ -7,7 +7,7 @@ import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
 import { useCartDispatch } from "./stores/CartContext";
 import useCart from "./hooks/useCart";
-import { useSelectContext, useSelectDispatch } from "./stores/SelectContext";
+import { useSelectDispatch } from "./stores/SelectContext";
 
 function CartPage() {
   const dispatch = useCartDispatch();

@@ -72,6 +72,23 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await updateCartItemApi(cart.id, 0);
+      dispatch({
+        type: "REMOVE_ITEM",
+        payload: { id: cart.id },
+      });
+
+      selectDispatch({
+        type: "REMOVE_SELECT",
+        payload: { id: cart.id },
+      });
+    } catch (error) {
+      console.error("Failed to delete cart item:", error);
+    }
+  };
+
   return (
     <>
       <S.Line />
@@ -83,7 +100,7 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
             }
             onClick={() => handleSelect(cart.id)}
           />
-          <S.DeleteButton>삭제</S.DeleteButton>
+          <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
         </S.CartItemHeader>
         <S.ItemInfo>
           <S.ProductImage src={imageUrl}></S.ProductImage>
