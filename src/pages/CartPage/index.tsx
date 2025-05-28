@@ -3,8 +3,14 @@ import CartItemList from "../../components/Cart/CartItemList";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
 import { OrderPrice } from "../../components/Order/OrderPrice";
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/order-confirm");
+  };
+
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>
@@ -26,7 +32,7 @@ const CartPage = () => {
         <Text variant="body-3">장바구니에 담은 상품이 없습니다.</Text>
       </S.NoInformation> */}
       <S.ButtonWrap>
-        <Button onClick={() => {}}>주문 확인</Button>
+        <Button onClick={handleNavigate}>주문 확인</Button>
       </S.ButtonWrap>
     </S.Container>
   );
