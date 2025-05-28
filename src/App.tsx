@@ -1,13 +1,11 @@
 import "./reset.css";
 import "./App.css";
-import OrderSummary from "./pages/OrderSummary/OrderSummary";
-import Cart from "./pages/Cart/Cart";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Cart />
-      {/* <OrderSummary /> */}
+      <Outlet />
     </>
   );
 }
