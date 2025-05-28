@@ -4,8 +4,8 @@ import { CartItem } from '../types';
 interface CartItemContext {
   cartItems: CartItem[];
   increaseCartItemQuantity: (id: number) => void;
-  decreaseCartItemQuantity: (id: number) => void;
-  deleteCartItem: (id: number) => void;
+  handleClickDecrease: (id: number) => void;
+  handleClickDelete: (id: number) => void;
   checkedCartIds: number[];
   addCheckedCartItem: (id: number) => void;
   removeCheckedCartItem: (id: number) => void;

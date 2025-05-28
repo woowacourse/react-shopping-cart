@@ -1,9 +1,11 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { CartItemsContext } from './CartItemsContext';
 import useCartItems from '../hooks/useCartItems';
 import useCheckedCartItems from '../hooks/useCheckedCartItems';
 
 const CartItemsProvider = ({ children }: { children: ReactNode }) => {
+  const [isFirstLoading, setIsFirstLoading] = useState(true);
+
   const {
     cartItems,
     increaseCartItemQuantity,
@@ -15,8 +17,14 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
     useCheckedCartItems();
 
   useEffect(() => {
+    if (!isFirstLoading) return;
+
+    if (cartItems.length !== 0) {
+      setIsFirstLoading(false);
+    }
+
     init(cartItems);
-  }, [cartItems, init]);
+  }, [cartItems, init, isFirstLoading]);
 
   const isAllChecked =
     cartItems.length > 0 && checkedCartIds.length === cartItems.length;
@@ -26,13 +34,23 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
     else init(cartItems);
   };
 
+  const handleClickDelete = (id: number) => {
+    deleteCartItem(id);
+    removeCheckedCartItem(id);
+  };
+
+  const handleClickDecrease = (id: number) => {
+    decreaseCartItemQuantity(id);
+    removeCheckedCartItem(id);
+  };
+
   return (
     <CartItemsContext.Provider
       value={{
         cartItems,
         increaseCartItemQuantity,
-        decreaseCartItemQuantity,
-        deleteCartItem,
+        handleClickDecrease,
+        handleClickDelete,
         checkedCartIds,
         addCheckedCartItem,
         removeCheckedCartItem,

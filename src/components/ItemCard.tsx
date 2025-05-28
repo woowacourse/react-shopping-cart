@@ -12,8 +12,8 @@ type ItemCardProps = {
 const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
   const {
     increaseCartItemQuantity,
-    decreaseCartItemQuantity,
-    deleteCartItem,
+    handleClickDecrease,
+    handleClickDelete,
     checkedCartIds,
     addCheckedCartItem,
     removeCheckedCartItem,
@@ -34,7 +34,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
     <S.Container data-testid="item-card">
       <S.ButtonBox>
         <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} />
-        <button onClick={() => deleteCartItem(id)}>삭제</button>
+        <button onClick={() => handleClickDelete(id)}>삭제</button>
       </S.ButtonBox>
       <S.ItemBox>
         <S.ItemImage src={product.imageUrl} alt="product-image" />
@@ -44,7 +44,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
             <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
-            <button onClick={() => decreaseCartItemQuantity(id)}>-</button>
+            <button onClick={() => handleClickDecrease(id)}>-</button>
             <p>{quantity}</p>
             <button onClick={() => increaseCartItemQuantity(id)}>+</button>
           </S.Stepper>
