@@ -1,4 +1,5 @@
 import AllCheckSection from '../components/AllCheckSection';
+import ConfirmButton from '../components/ConfirmButton';
 import ItemCard from '../components/ItemCard';
 import PriceSection from '../components/priceSection/PriceSection';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
@@ -18,6 +19,7 @@ const CartPage = () => {
         />
       ))}
       <PriceSection />
+      <ConfirmButton />
     </>
   );
 };
