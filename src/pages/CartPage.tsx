@@ -1,11 +1,5 @@
-import Header from "../components/header";
-
 const CartPage = () => {
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <>\</>;
 };
 
 export default CartPage;
