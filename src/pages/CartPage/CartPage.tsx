@@ -67,7 +67,9 @@ const CartPage = () => {
           <EmptyFallback />
         )}
       </S.Main>
-      <FooterButton>주문 확인</FooterButton>
+      <FooterButton disabled={cartItemsData.length === 0}>
+        주문 확인
+      </FooterButton>
     </>
   );
 };

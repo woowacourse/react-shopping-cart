@@ -12,4 +12,14 @@ export const FooterButton = styled.button`
   font-weight: 700;
   font-size: 18px;
   color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    transition: scale(0.99);
+    background-color: rgb(35, 35, 35);
+  }
+
+  &:disabled {
+    background-color: rgb(208, 208, 208);
+  }
 `;
