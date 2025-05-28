@@ -11,7 +11,7 @@ import Image from "../../../../components/common/Image";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { showToast } from "../../../../utils/toast/showToast";
 
-function CartCheckList({ onCloseClick }: { onCloseClick: () => void }) {
+function CartCheckList() {
   const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
     fetcher: getShoppingCartData,
     name: "cart",
@@ -52,11 +52,6 @@ function CartCheckList({ onCloseClick }: { onCloseClick: () => void }) {
     await cartRefetch();
   };
 
-  const totalAmount = cartListData.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
-
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()}원`;
   };
@@ -77,7 +72,6 @@ function CartCheckList({ onCloseClick }: { onCloseClick: () => void }) {
                 height="80px"
                 imageSource={cart.product.imageUrl}
                 altText={`${cart.product.name} 상품 이미지`}
-                isSoldOut={cart.product.quantity === 0}
               />
 
               <ProductInfo aria-label="상품 정보" role="cart-product-info">
@@ -100,17 +94,6 @@ function CartCheckList({ onCloseClick }: { onCloseClick: () => void }) {
           ))
         )}
       </ItemList>
-
-      <TotalSection>
-        <TotalLabel>총 결제 금액</TotalLabel>
-        <TotalAmount aria-label={`총 결제 금액은 ${totalAmount}원 입니다`}>
-          {formatPrice(totalAmount)}
-        </TotalAmount>
-      </TotalSection>
-
-      <CheckoutButton onClick={onCloseClick} autoFocus={isCartEmpty}>
-        주문 확인
-      </CheckoutButton>
     </Container>
   );
 }
@@ -123,7 +106,8 @@ const Container = styled.div`
 `;
 
 const ItemList = styled.div`
-  max-height: 320px;
+  height: 100%;
+  max-height: 380px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -133,11 +117,10 @@ const ItemList = styled.div`
 
 const ItemContainer = styled.div`
   display: flex;
-  align-items: center;
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid #f0f0f0;
-
+  align-items: flex-start;
   &:last-child {
     border-bottom: none;
   }
@@ -148,6 +131,8 @@ const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  align-items: flex-start;
 `;
 
 const ProductName = styled.p`
@@ -169,38 +154,6 @@ const DeleteButton = styled.button`
 
   &:hover {
     background-color: #f5f5f5;
-  }
-`;
-
-const TotalSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
-  border-top: 1px solid #f0f0f0;
-  margin-bottom: 24px;
-`;
-
-const TotalLabel = styled.span`
-  ${({ theme }) => theme.subheading}
-`;
-
-const TotalAmount = styled.span`
-  ${({ theme }) => theme.subheading}
-`;
-
-const CheckoutButton = styled.button`
-  width: 100%;
-  padding: 16px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  ${({ theme }) => theme.title}
-  cursor: pointer;
-
-  &:hover {
-    background-color: #555;
   }
 `;
 
