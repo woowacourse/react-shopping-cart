@@ -1,8 +1,11 @@
 import { css } from '@emotion/react';
 import CheckBox from './CheckBox';
 import CartItem from './CartItem';
+import { useCheckList } from '../hooks/useCheckList';
 
 export default function CartItemList({ cartItems }: { cartItem: CartItem[] }) {
+  const { state, isAllChecked, checkAll, uncheckAll, toggle } = useCheckList(cartItems.map((item) => item.id));
+
   return (
     <div css={cartItemsAreaCss}>
       {cartItems.length === 0 ? (
@@ -10,12 +13,17 @@ export default function CartItemList({ cartItems }: { cartItem: CartItem[] }) {
       ) : (
         <>
           <div css={allSelectCss}>
-            <CheckBox />
+            <CheckBox checked={isAllChecked} onChange={isAllChecked ? uncheckAll : checkAll} />
             <p>전체 선택</p>
           </div>
           <div css={cartItemsListCss}>
             {cartItems.map((item) => (
-              <CartItem item={item} />
+              <CartItem
+                key={item.id}
+                item={item}
+                checked={state[item.id]}
+                handleCheckBoxChange={() => toggle(item.id)}
+              />
             ))}
           </div>
         </>

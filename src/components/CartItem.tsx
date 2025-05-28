@@ -3,19 +3,27 @@ import Stepper from './Stepper';
 import { RemoveButton } from './RemoveButton';
 import CheckBox from './CheckBox';
 
-export default function CartItem({ item }: { item: CartItem }) {
+interface CartItemProps {
+  item: CartItem;
+  handleCheckBoxChange: () => void;
+  checked: boolean;
+}
+
+export default function CartItem({ item, handleCheckBoxChange, checked }: CartItemProps) {
+  const { id, name, price, imageUrl, quantity } = item;
+
   return (
-    <div key={item.id} css={cartItemFrameCss}>
+    <div key={id} css={cartItemFrameCss}>
       <div css={cartItemHeaderCss}>
-        <CheckBox />
+        <CheckBox onChange={handleCheckBoxChange} checked={checked} />
         <RemoveButton />
       </div>
       <div css={cartItemInfoCss}>
-        <img css={cartItemImgCss} src={item.imageUrl} alt={item.name} />
+        <img css={cartItemImgCss} src={imageUrl} alt={name} />
         <div>
-          <p>{item.name}</p>
-          <p>{item.price}</p>
-          <Stepper value={item.quantity} onDecrement={() => {}} onIncrement={() => {}} />
+          <p>{name}</p>
+          <p>{price}</p>
+          <Stepper value={quantity} onDecrement={() => {}} onIncrement={() => {}} />
         </div>
       </div>
     </div>
