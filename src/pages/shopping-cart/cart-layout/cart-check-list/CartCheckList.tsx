@@ -1,37 +1,16 @@
 "use client";
 
 import styled from "@emotion/styled";
-import {
-  deleteCartItem,
-  getShoppingCartData,
-  patchCartItem,
-} from "../../../../api/cart";
+import { deleteCartItem, patchCartItem } from "../../../../api/cart";
+import CheckBox from "../../../../components/common/CheckBox";
 import Counter from "../../../../components/common/Counter";
 import Image from "../../../../components/common/Image";
-import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { showToast } from "../../../../utils/toast/showToast";
-import CheckBox from "../../../../components/common/CheckBox";
-import { useEffect, useState } from "react";
+import { useOrderListContext } from "../../context/OrderListProvider";
 
 function CartCheckList() {
-  const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
-    fetcher: getShoppingCartData,
-    name: "cart",
-  });
-
-  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
-
-  useEffect(() => {
-    if (!cartListData) return;
-
-    setSelectionMap((prev) => {
-      const nextMap: Record<string, boolean> = {};
-      for (const cart of cartListData) {
-        nextMap[cart.id] = prev[cart.id] ?? true;
-      }
-      return nextMap;
-    });
-  }, [cartListData]);
+  const { cartListData, cartRefetch, selectionMap, setSelectionMap } =
+    useOrderListContext();
 
   const isCartEmpty = !cartListData || cartListData.length === 0;
 
@@ -92,6 +71,7 @@ function CartCheckList() {
     return `${price.toLocaleString()}원`;
   };
 
+  console.log(selectionMap);
   return (
     <Container>
       <CheckedAll>
