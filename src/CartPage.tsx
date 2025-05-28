@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as S from "./CartPage.styled";
 import CartItem from "./components/CartItem/CartItem";
 import Header from "./components/Header/Header";
@@ -7,13 +7,16 @@ import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
 import { useCartDispatch } from "./stores/CartContext";
 import useCart from "./hooks/useCart";
-import { useSelectDispatch } from "./stores/SelectContext";
+import { useSelectContext, useSelectDispatch } from "./stores/SelectContext";
 
 function CartPage() {
   const dispatch = useCartDispatch();
   const selectDispatch = useSelectDispatch();
+  const selectData = useSelectContext();
 
   const { cartItemList: cartData, isLoading } = useCart();
+  const orderPrice = useRef(0);
+  const deliveryPrice = useRef(3000);
 
   useEffect(() => {
     dispatch({
@@ -21,7 +24,6 @@ function CartPage() {
       payload: { items: cartData },
     });
 
-    console.log(`cartData`, cartData);
     selectDispatch({
       type: "SET_SELECT",
       payload: { items: cartData },
@@ -30,6 +32,17 @@ function CartPage() {
 
   const isCartEmpty = cartData.length === 0;
   const isOrderComplete = false;
+
+  useEffect(() => {
+    orderPrice.current = selectData.reduce((total, item, idx) => {
+      if (item.selected) {
+        return total + cartData[idx].product.price * cartData[idx].quantity;
+      }
+      return total;
+    }, 0);
+
+    deliveryPrice.current = orderPrice.current >= 100000 ? 0 : 3000;
+  }, [selectData, cartData]);
 
   if (isLoading) {
     return <div>장바구니를 불러오는 중입니다...</div>;
@@ -58,7 +71,10 @@ function CartPage() {
                   ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
                 </S.Description>
                 <S.Line />
-                <OrderPriceSection orderPrice={70000} deliveryPrice={3000} />
+                <OrderPriceSection
+                  orderPrice={orderPrice.current}
+                  deliveryPrice={deliveryPrice.current}
+                />
               </S.Content>
             )}
           </S.CartContentWrapper>

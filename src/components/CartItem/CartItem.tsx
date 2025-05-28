@@ -19,21 +19,18 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
   const handleSelect = (id: number) => {
     const isSelected = selectState.find((item) => item.id === id)?.selected;
 
-    console.log(`isSelected`, selectState, id, isSelected);
     if (isSelected) {
       selectDispatch({
         type: "REMOVE_SELECT",
         payload: { id },
       });
     } else {
-      console.log(`add`, id);
       selectDispatch({
         type: "ADD_SELECT",
         payload: { id },
       });
     }
 
-    console.log(`selectState`, selectState);
   };
 
   const handleIncrease = async ({

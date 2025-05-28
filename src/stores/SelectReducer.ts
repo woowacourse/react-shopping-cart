@@ -23,7 +23,6 @@ export interface SelectAction {
 }
 
 export const selectReducer = (state: SelectState[], action: SelectAction) => {
-  console.log(`state`, state);
   switch (action.type) {
     case "SET_SELECT":
       return action.payload.items?.length
