@@ -51,7 +51,7 @@ const CartSection = () => {
 
   return (
     <S.Container>
-      <Header />
+      <Header selectedCartItemCount={selectedCartId?.length} />
       <CheckBox
         label="전체 선택"
         isChecked={isAllChecked}
