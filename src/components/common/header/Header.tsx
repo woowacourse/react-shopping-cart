@@ -4,13 +4,18 @@ import * as S from './Header.styles';
 interface HeaderProps {
   title?: string;
   showBackButton?: boolean;
+  onBackButtonClick?: () => void;
 }
 
-function Header({ title = '', showBackButton = false }: HeaderProps) {
+function Header({
+  title = '',
+  showBackButton = false,
+  onBackButtonClick,
+}: HeaderProps) {
   return (
     <S.HeaderContainer>
       {showBackButton && (
-        <S.BackButton>
+        <S.BackButton onClick={onBackButtonClick}>
           <img src={backButtonImage} />
         </S.BackButton>
       )}
