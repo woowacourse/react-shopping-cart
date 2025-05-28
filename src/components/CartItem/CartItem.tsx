@@ -4,42 +4,40 @@ import { css } from '@emotion/react';
 import * as S from './CartItem.styles';
 import Button from '../Button/Button';
 import PlusMinusButton from '../PlusMinusButton/PlusMinusButton';
+import Checkbox from '../Checkbox/Checkbox';
+import useCartQuantity from '../../hooks/useCartQuantity';
+import { deleteCartItem } from '../../apis/cartItem';
 
 interface CartItemProps {
   cartItem: any;
-  refetchCartItems: () => Promise<void>;
+  isSelected: boolean;
+  handleCheckboxClick: () => void;
 }
 
-export default function CartItem() {
+export default function CartItem({ cartItem, isSelected, handleCheckboxClick }: CartItemProps) {
   const {
     product: { imageUrl, price, name },
     quantity,
-  } = {
-    product: {
-      imageUrl: 'https://example.com/image.jpg',
-      price: 10000,
-      name: 'Sample Product',
-    },
-    quantity: 2,
-  };
+  } = cartItem;
 
-  //   const { increaseCartItem, decreaseCartItem, deleteCartItem } = useCartItem();
+  const { handleIncrease, handleDecrease } = useCartQuantity({
+    stock: 100,
+    selectedCartItem: cartItem,
+    onChange: () => {
+      console.log('Cart item updated');
+    },
+    productId: cartItem.product.id,
+  });
 
   return (
     <S.ProductCardCartItemWrapper>
-      <S.CartItemImageWrapper>
-        <S.CartItemImage src={'/images/Star.png'} alt={name} />
-      </S.CartItemImageWrapper>
-      <S.CartItemInfoWrapper>
-        <S.CartItemName>{name}</S.CartItemName>
-        <S.CartItemPrice>{price.toLocaleString()}원</S.CartItemPrice>
-        <PlusMinusButton quantity={quantity} onAddButtonClick={() => {}} onMinusButtonClick={() => {}} />
+      <S.ButtonWrapper>
+        <Checkbox checked={isSelected} onClick={handleCheckboxClick} />
+
         <Button
-          onClick={async () => {}}
+          onClick={deleteCartItem.bind(null, cartItem.id)}
           css={css`
-            position: absolute;
-            right: 0;
-            top: 8px;
+            position: ;
             background-color: #fff;
             width: fit-content;
             border: 1px solid #e5e5e5;
@@ -50,7 +48,17 @@ export default function CartItem() {
         >
           삭제
         </Button>
-      </S.CartItemInfoWrapper>
+      </S.ButtonWrapper>
+      <S.CartItemWrapper>
+        <S.CartItemImageWrapper>
+          <S.CartItemImage src={imageUrl} alt={name} />
+        </S.CartItemImageWrapper>
+        <S.CartItemInfoWrapper>
+          <S.CartItemName>{name}</S.CartItemName>
+          <S.CartItemPrice>{price.toLocaleString()}원</S.CartItemPrice>
+          <PlusMinusButton quantity={quantity} onAddButtonClick={handleIncrease} onMinusButtonClick={handleDecrease} />
+        </S.CartItemInfoWrapper>
+      </S.CartItemWrapper>
     </S.ProductCardCartItemWrapper>
   );
 }

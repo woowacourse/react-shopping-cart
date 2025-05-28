@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 
-export const ProductCardCartItemWrapper = styled.div`
+export const CartItemWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-  border-top: 1px solid #e5e5e5;
   padding: 8px 0;
   position: relative;
 `;
@@ -63,4 +62,15 @@ export const CartItemDeleteButton = styled.button`
   position: absolute;
   right: 0;
   top: 0;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ProductCardCartItemWrapper = styled.div`
+  border-top: 1px solid #e5e5e5;
+  padding: 12px 0;
 `;
