@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import getCartItems from '../api/getCartItems';
 import { CartItem } from '../types';
 import patchCartItems from '../api/patchCartItems';
+import deleteCartItems from '../api/deleteCartItems';
 
 const useCartItems = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -18,6 +19,7 @@ const useCartItems = () => {
   const increaseCartItemQuantity = async (id: number) => {
     const targetCartItem = cartItems.find((item) => item.id === id);
     if (!targetCartItem) return;
+
     await patchCartItems(id, targetCartItem.quantity + 1);
     await fetchData();
   };
@@ -25,11 +27,31 @@ const useCartItems = () => {
   const decreaseCartItemQuantity = async (id: number) => {
     const targetCartItem = cartItems.find((item) => item.id === id);
     if (!targetCartItem) return;
-    await patchCartItems(id, targetCartItem.quantity - 1);
+
+    if (targetCartItem.quantity === 1) {
+      console.log('수량이 1인 아이템은 삭제합니다.');
+      await deleteCartItems(id);
+    } else {
+      await patchCartItems(id, targetCartItem.quantity - 1);
+    }
+
     await fetchData();
   };
 
-  return { cartItems, increaseCartItemQuantity, decreaseCartItemQuantity };
+  const deleteCartItem = async (id: number) => {
+    const targetCartItem = cartItems.find((item) => item.id === id);
+    if (!targetCartItem) return;
+
+    await deleteCartItems(id);
+    await fetchData();
+  };
+
+  return {
+    cartItems,
+    increaseCartItemQuantity,
+    decreaseCartItemQuantity,
+    deleteCartItem,
+  };
 };
 
 export default useCartItems;

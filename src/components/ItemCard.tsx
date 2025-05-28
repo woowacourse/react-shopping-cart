@@ -15,7 +15,7 @@ const ItemCard = ({
   decreaseCartItemQuantity,
 }: ItemCardProps) => {
   return (
-    <S.Container>
+    <S.Container data-testid="item-card">
       <S.ButtonBox>
         <input type="checkbox" />
         <button>삭제</button>

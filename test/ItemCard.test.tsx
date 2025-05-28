@@ -1,147 +1,73 @@
 import {
   fireEvent,
   render,
-  renderHook,
   screen,
   waitFor,
+  within,
 } from '@testing-library/react';
-import ItemCard from '../src/components/ItemCard';
-import useCartItems from '../src/hooks/useCartItems';
-import { CartItem, Product } from '../src/types';
+
+import CartPage from '../src/pages/CartPage';
+import { mockCartItems } from './mocks';
 
 describe('ItemCard 테스트', () => {
-  let product: Product, quantity: number, cartItem: CartItem;
+  let firstItemCard: HTMLElement;
+
+  beforeEach(async () => {
+    render(<CartPage />);
+    const ItemCardList = await screen.findAllByTestId('item-card');
+    firstItemCard = ItemCardList[0];
+  });
 
   it('받아온 아이템에 대한 정보를 렌더링 한다 ', async () => {
-    const { result } = renderHook(() => useCartItems());
+    const mockData = mockCartItems[0];
+    const product = mockData.product;
+    const quantity = mockData.quantity;
 
-    await waitFor(() => {
-      const cartItems = result.current.cartItems;
-      cartItem = cartItems[0];
-      product = cartItem.product;
-      quantity = cartItem.quantity;
-    });
-
-    render(
-      <ItemCard
-        product={product}
-        quantity={quantity}
-        increaseCartItemQuantity={() =>
-          result.current.increaseCartItemQuantity(cartItem.id)
-        }
-        decreaseCartItemQuantity={() =>
-          result.current.decreaseCartItemQuantity(cartItem.id)
-        }
-      />
-    );
-
-    expect(screen.getByText(product.name)).toBeInTheDocument();
+    expect(within(firstItemCard).getByText(product.name)).toBeInTheDocument();
     expect(
-      screen.getByText(product.price.toLocaleString() + '원')
+      within(firstItemCard).getByText(product.price.toLocaleString() + '원')
     ).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveAttribute('src', product.imageUrl);
-    expect(screen.getByText(quantity)).toBeInTheDocument();
+    expect(within(firstItemCard).getByRole('img')).toHaveAttribute(
+      'src',
+      product.imageUrl
+    );
+    expect(within(firstItemCard).getByText(quantity)).toBeInTheDocument();
   });
 
   it('+ 버튼 클릭 시 수량이 증가한다.', async () => {
-    const { result } = renderHook(() => useCartItems());
-
-    await waitFor(() => {
-      expect(result.current.cartItems.length).toBeGreaterThan(0);
-    });
-
-    cartItem = result.current.cartItems[0];
-    product = cartItem.product;
-
-    const { rerender } = render(
-      <ItemCard
-        product={product}
-        quantity={cartItem.quantity}
-        increaseCartItemQuantity={() =>
-          result.current.increaseCartItemQuantity(cartItem.id)
-        }
-        decreaseCartItemQuantity={() =>
-          result.current.decreaseCartItemQuantity(cartItem.id)
-        }
-      />
-    );
-
-    const currentQuantity = cartItem.quantity;
-    const plusButton = screen.getByText('+');
+    const plusButton = within(firstItemCard).getByText('+');
+    const currentQuantity = mockCartItems[0].quantity;
 
     fireEvent.click(plusButton);
 
     await waitFor(() => {
-      const updatedItem = result.current.cartItems.find(
-        (item) => item.id === cartItem.id
-      )!;
-      expect(updatedItem.quantity).toBe(currentQuantity + 1);
-
-      rerender(
-        <ItemCard
-          product={product}
-          quantity={updatedItem.quantity}
-          increaseCartItemQuantity={() =>
-            result.current.increaseCartItemQuantity(cartItem.id)
-          }
-          decreaseCartItemQuantity={() =>
-            result.current.decreaseCartItemQuantity(cartItem.id)
-          }
-        />
-      );
+      expect(
+        within(firstItemCard).getByText(currentQuantity + 1)
+      ).toBeInTheDocument();
     });
-
-    expect(screen.getByText(currentQuantity + 1)).toBeInTheDocument();
   });
 
   it('- 버튼 클릭 시 수량이 감소한다.', async () => {
-    const { result } = renderHook(() => useCartItems());
-
-    await waitFor(() => {
-      expect(result.current.cartItems.length).toBeGreaterThan(0);
-    });
-
-    cartItem = result.current.cartItems[0];
-    product = cartItem.product;
-
-    const { rerender } = render(
-      <ItemCard
-        product={product}
-        quantity={cartItem.quantity}
-        increaseCartItemQuantity={() =>
-          result.current.increaseCartItemQuantity(cartItem.id)
-        }
-        decreaseCartItemQuantity={() =>
-          result.current.decreaseCartItemQuantity(cartItem.id)
-        }
-      />
-    );
-
-    const currentQuantity = cartItem.quantity;
-    const minusButton = screen.getByText('-');
+    const minusButton = within(firstItemCard).getByText('-');
+    const currentQuantity = mockCartItems[0].quantity;
 
     fireEvent.click(minusButton);
 
     await waitFor(() => {
-      const updatedItem = result.current.cartItems.find(
-        (item) => item.id === cartItem.id
-      )!;
-      expect(updatedItem.quantity).toBe(currentQuantity - 1);
-
-      rerender(
-        <ItemCard
-          product={product}
-          quantity={updatedItem.quantity}
-          increaseCartItemQuantity={() =>
-            result.current.increaseCartItemQuantity(cartItem.id)
-          }
-          decreaseCartItemQuantity={() =>
-            result.current.decreaseCartItemQuantity(cartItem.id)
-          }
-        />
-      );
+      expect(
+        within(firstItemCard).getByText(currentQuantity - 1)
+      ).toBeInTheDocument();
     });
+  });
 
-    expect(screen.getByText(currentQuantity - 1)).toBeInTheDocument();
+  it("수량이 1일 때 '-' 버튼 클릭 시 상품이 삭제된다.", async () => {
+    const secondItemCard = screen.getAllByTestId('item-card')[1];
+    const minusButton = within(secondItemCard).getByText('-');
+
+    fireEvent.click(minusButton);
+
+    await waitFor(() => {
+      expect(secondItemCard).not.toBeInTheDocument();
+    });
   });
 });
