@@ -3,10 +3,10 @@ import * as S from './Header.styles';
 
 interface HeaderProps {
   title?: string;
-  showBackButton: boolean;
+  showBackButton?: boolean;
 }
 
-function Header({ title = '', showBackButton }: HeaderProps) {
+function Header({ title = '', showBackButton = false }: HeaderProps) {
   return (
     <S.HeaderContainer>
       {showBackButton && (

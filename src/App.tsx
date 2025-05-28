@@ -1,12 +1,13 @@
-import Header from './components/common/header/Header';
-import CartContents from './components/features/cart/cartContents/CartContents';
+import { BrowserRouter, Route, Routes } from 'react-router';
+import CartPage from './pages/cart/CartPage';
 
 function App() {
   return (
-    <>
-      <Header title="SHOP" showBackButton={true} />
-      <CartContents />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<CartPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
