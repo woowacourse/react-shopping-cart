@@ -6,4 +6,7 @@ export const StyledShoppingCart = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;
+  overflow: scroll;
+  height: 686px;
+  margin-top: 64px;
 `;
