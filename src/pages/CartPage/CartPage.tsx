@@ -12,12 +12,16 @@ import InfoIcon from "/info.svg";
 const FREE_SHIPPING_THRESHOLD = 100_000;
 const DEFAULT_SHIPPING_FEE = 3_000;
 
+const calculateShippingFee = (orderPrice: number) => {
+  if (orderPrice === 0) return 0;
+  return orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
+};
+
 const CartPage = () => {
   const { cartItemsData, calculateOrderPrice } = useCart();
 
   const orderPrice = calculateOrderPrice();
-  const shippingFee =
-    orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
+  const shippingFee = calculateShippingFee(orderPrice);
 
   return (
     <>
@@ -51,7 +55,7 @@ const CartPage = () => {
             <PriceInfo label="배송비" price={shippingFee} />
           </S.PriceInfoWrapper>
           <S.PriceInfoWrapper>
-            <PriceInfo label="총 결제 금액" price={73000} />
+            <PriceInfo label="총 결제 금액" price={orderPrice + shippingFee} />
           </S.PriceInfoWrapper>
         </S.PriceSummary>
       </S.Main>
