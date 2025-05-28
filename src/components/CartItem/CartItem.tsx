@@ -49,7 +49,13 @@ function CartItem({
           </button>
         </div>
         <div css={ItemInfo}>
-          <img css={ProductImage} src={product.imageUrl}></img>
+          <img
+            css={ProductImage}
+            src={product.imageUrl}
+            onError={(error) => {
+              error.currentTarget.src = "/public/default-cartItem.png";
+            }}
+          ></img>
           <div css={ItemContent}>
             <div css={ItemDetail}>
               <h3 css={ItemTitle}>{product.name}</h3>

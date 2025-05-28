@@ -47,7 +47,7 @@ export const ProductImage = css`
   width: 112px;
   height: 112px;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: fill;
 `;
 
 export const ItemTitle = css`
