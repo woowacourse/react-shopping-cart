@@ -62,10 +62,10 @@ function CartPage() {
   }, [selectData, cartData]);
 
   const selectedCartItem = useMemo(() => {
-    return cartData.filter((_, idx) => selectData[idx].selected);
+    return cartData?.filter((_, idx) => selectData[idx]?.selected);
   }, [cartData, selectData]);
 
-  if (isLoading || !cartData) {
+  if (isLoading || !cartData || !selectData) {
     return <div>장바구니를 불러오는 중입니다...</div>;
   }
 

@@ -115,7 +115,10 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
             isChecked={
               selectState.find((item) => item.id === cart.id)?.selected || false
             }
-            onClick={() => handleSelect(cart.id)}
+            onClick={() => {
+              handleSelect(cart.id);
+              console.log(selectState);
+            }}
           />
           <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
         </S.CartItemHeader>
