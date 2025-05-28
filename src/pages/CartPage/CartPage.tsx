@@ -9,8 +9,15 @@ import useCart from "../../hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
+const FREE_SHIPPING_THRESHOLD = 100_000;
+const DEFAULT_SHIPPING_FEE = 3_000;
+
 const CartPage = () => {
   const { cartItemsData, calculateOrderPrice } = useCart();
+
+  const orderPrice = calculateOrderPrice();
+  const shippingFee =
+    orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
 
   return (
     <>
@@ -40,8 +47,8 @@ const CartPage = () => {
         </S.InfoContainer>
         <S.PriceSummary>
           <S.PriceInfoWrapper>
-            <PriceInfo label="주문 금액" price={calculateOrderPrice()} />
-            <PriceInfo label="배송비" price={3000} />
+            <PriceInfo label="주문 금액" price={orderPrice} />
+            <PriceInfo label="배송비" price={shippingFee} />
           </S.PriceInfoWrapper>
           <S.PriceInfoWrapper>
             <PriceInfo label="총 결제 금액" price={73000} />
