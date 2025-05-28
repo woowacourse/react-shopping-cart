@@ -32,6 +32,7 @@ export function useFetch({
     const options = {
       method: fetchOptions.method,
       headers: {
+        ...fetchOptions.headers,
         accept: "application/json",
         ...(useToken && { Authorization: `Basic ${TOKEN}` }),
       },
@@ -60,5 +61,6 @@ export function useFetch({
       setIsLoading(false);
     }
   }, [endpoint, useToken]);
+
   return { fetcher, error, isLoading };
 }
