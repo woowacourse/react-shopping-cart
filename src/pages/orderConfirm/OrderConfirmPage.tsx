@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router';
 import Header from '../../components/common/header/Header';
+import OrderConfirmContents from './components/orderConfirmContents/OrderConfirmContents';
+import Body from '../../components/common/body/Body';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -9,7 +11,9 @@ function OrderConfirmPage() {
   return (
     <>
       <Header showBackButton={true} />
-      <div>주문 확인 페이지</div>
+      <Body>
+        <OrderConfirmContents />
+      </Body>
     </>
   );
 }
