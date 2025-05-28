@@ -1,3 +1,4 @@
+import FooterButton from '../../../../components/common/footerButton/FooterButton';
 import * as S from './OrderConfirmContents.styles';
 
 interface OrderConfirmContentsProps {
@@ -24,6 +25,9 @@ function OrderConfirmContents({
         <S.PriceText>총 결제 금액</S.PriceText>
         <S.Price>{orderPrice.toLocaleString()}원</S.Price>
       </S.PriceBox>
+      <FooterButton disabled onClick={() => {}}>
+        결제하기
+      </FooterButton>
     </S.Container>
   );
 }

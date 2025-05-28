@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { baseAPI } from '../../../../api/baseAPI';
+import { PaginationResponse } from '../../../../api/type';
+import FooterButton from '../../../common/footerButton/FooterButton';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
 import CartTitle from '../cartTitle/CartTitle';
-import * as S from './CartContents.styles';
-import { PaginationResponse } from '../../../../api/type';
-import { baseAPI } from '../../../../api/baseAPI';
 import { CartItemType } from '../types';
-import OrderConfirmationButton from '../orderConfirmationButton/OrderConfirmationButton';
-import { useNavigate } from 'react-router';
 import { calculateOrderPrice } from '../utils/cartCalculations';
+import * as S from './CartContents.styles';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -50,7 +50,7 @@ function CartContents() {
     }
   }, []);
 
-  const inActive = !isSelectedList.some((isSelected) => isSelected);
+  const disabled = !isSelectedList.some((isSelected) => isSelected);
 
   const onOrderConfirm = () => {
     navigate('/order-confirmation', {
@@ -74,7 +74,9 @@ function CartContents() {
         refetch={fetch}
       />
       <CartPrice orderPrice={orderPrice} />
-      <OrderConfirmationButton inActive={inActive} onClick={onOrderConfirm} />
+      <FooterButton disabled={disabled} onClick={onOrderConfirm}>
+        주문 확인
+      </FooterButton>
     </S.Container>
   );
 }
