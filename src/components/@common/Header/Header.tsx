@@ -16,15 +16,15 @@ const Header = ({ leading = "./logo.svg", onLeadingClick }: HeaderProps) => {
 export default Header;
 
 const HeaderStyle = css`
-  positon: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
   width: 100%;
   height: 64px;
   background-color: #000000;
   display: flex;
   align-items: center;
   padding: 0 24px;
+  z-index: 2;
 `;
 
 const Leading = css`
