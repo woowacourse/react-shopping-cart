@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import * as S from './MobileLayout.styled';
 
-interface MobileLayoutProps {
+type MobileLayoutProps = {
   children: ReactNode;
-}
+};
 
 function MobileLayout({ children }: MobileLayoutProps) {
   return (

@@ -1,9 +1,10 @@
 import RemoveCartItemIcon from '@assets/icons/remove-cart-item.svg';
 import * as S from './RemoveCartItemButton.styled';
 
-interface RemoveCartItemButtonProps {
+type RemoveCartItemButtonProps = {
   cartItemId: number;
 }
+};
 
 function RemoveCartItemButton({ cartItemId }: RemoveCartItemButtonProps) {
   return (

@@ -3,11 +3,12 @@ import PlusIcon from '@assets/icons/plus.svg';
 import MinusIcon from '@assets/icons/minus.svg';
 import RemoveCartItemButton from '../Remove/RemoveCartItemButton';
 
-interface CartItemQuantityButtonProps {
+type CartItemQuantityButtonProps = {
   cartItemId: number;
   quantity: number;
 }
 function CartItemQuantityButton({ cartItemId, quantity }: CartItemQuantityButtonProps) {
+};
   return (
     <S.ButtonWrapper>
       {quantity === 1 ? (
