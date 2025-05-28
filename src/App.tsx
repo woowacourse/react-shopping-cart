@@ -11,6 +11,7 @@ import useCartList from './hooks/useCartList';
 import CartList from './components/CartList/CartList';
 import CartPriceInfo from './components/CartPriceInfo/CartPriceInfo';
 import OrderButton from './components/OrderButton/OrderButton';
+import EmptyCart from './components/EmptyCart/EmptyCart';
 
 function App() {
   const { cartList } = useCartList();
@@ -22,13 +23,19 @@ function App() {
         <HeaderButton src={Logo} onClick={() => {}} />
       </Header>
       <ContainerLayout>
-        <CartListTitle />
-        <CartList>
-          {cartList.map((cartItem) => (
-            <CartItem key={cartItem.id} cartItem={cartItem} />
-          ))}
-        </CartList>
-        <CartPriceInfo />
+        <CartListTitle cartListLength={cartList.length} />
+        {cartList.length === 0 ? (
+          <EmptyCart />
+        ) : (
+          <>
+            <CartList>
+              {cartList.map((cartItem) => (
+                <CartItem key={cartItem.id} cartItem={cartItem} />
+              ))}
+            </CartList>
+            <CartPriceInfo />
+          </>
+        )}
       </ContainerLayout>
       <OrderButton />
     </>
