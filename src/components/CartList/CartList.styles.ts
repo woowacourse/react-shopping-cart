@@ -22,7 +22,7 @@ export const CartListCheckboxStyle = css`
 export const CartListStyle = css`
   display: flex;
   flex-direction: column;
-  max-height: 40rem;
+  max-height: 39rem;
   overflow-y: auto;
   gap: 2rem;
 `;
