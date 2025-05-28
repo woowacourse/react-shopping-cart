@@ -3,8 +3,6 @@ import Card from "./CartProducts/Card";
 import Header from "./Header";
 import CheckBox from "../../common/CheckBox";
 import PriceSection from "./PriceSection";
-import Button from "../../common/Button";
-import { css } from "@emotion/react";
 import useGetCartItem from "../../../hooks/useGetCartItem";
 import { useState, useEffect, useRef } from "react";
 
@@ -50,42 +48,28 @@ const CartSection = () => {
   }, [cartItems]);
 
   return (
-    <>
-      <S.Container>
-        <Header selectedCartItemCount={selectedCartId?.length} />
-        <CheckBox
-          label="전체 선택"
-          isChecked={isAllChecked}
-          onChange={handleAllSelected}
-        />
-        <S.CartList>
-          {cartItems?.map((cartItem) => (
-            <Card
-              cartItem={cartItem}
-              key={cartItem.id}
-              onRefetch={refetch}
-              isChecked={isChecked(cartItem.id)}
-              onToggle={() => handleToggle(cartItem.id)}
-              onDeleteSelected={() => handleDelete(cartItem.id)}
-            />
-          ))}
-        </S.CartList>
-
-        <PriceSection cartItems={cartItems} selectedCartId={selectedCartId} />
-      </S.Container>
-      <Button
-        title="주문 확인"
-        onClick={() => {}}
-        css={css`
-          width: 100%;
-          padding: 24px 0;
-          background-color: #000;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-        `}
+    <S.Container>
+      <Header selectedCartItemCount={selectedCartId?.length} />
+      <CheckBox
+        label="전체 선택"
+        isChecked={isAllChecked}
+        onChange={handleAllSelected}
       />
-    </>
+      <S.CartList>
+        {cartItems?.map((cartItem) => (
+          <Card
+            cartItem={cartItem}
+            key={cartItem.id}
+            onRefetch={refetch}
+            isChecked={isChecked(cartItem.id)}
+            onToggle={() => handleToggle(cartItem.id)}
+            onDeleteSelected={() => handleDelete(cartItem.id)}
+          />
+        ))}
+      </S.CartList>
+
+      <PriceSection cartItems={cartItems} selectedCartId={selectedCartId} />
+    </S.Container>
   );
 };
 
