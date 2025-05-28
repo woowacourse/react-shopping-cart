@@ -4,6 +4,9 @@ import Main from "./components/layout/Main/Main";
 import CartProductContainer from "./components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "./components/PaymentSummary/PaymentSummary";
 import Button from "./components/Button/Button";
+import useCartItem from "./components/hooks/useCartItem";
+import { useEffect } from "react";
+import getShoppingCart from "./api/getShoppingCart";
 
 const titleStyle = css`
   font-weight: 700;
@@ -22,6 +25,25 @@ const titleBox = css`
 `;
 
 function App() {
+  const { cartItem, dispatch } = useCartItem();
+
+  const getCartItemData = async () => {
+    try {
+      dispatch({ type: "update" });
+      const response = await getShoppingCart();
+      dispatch({ type: "success", payload: response });
+    } catch (e) {
+      dispatch({
+        type: "error",
+        payload: "장바구니에 담긴 아이템을 가져오는 중 오류가 발생했습니다",
+      });
+    }
+  };
+
+  useEffect(() => {
+    getCartItemData();
+  }, []);
+
   return (
     <div
       css={css`
@@ -43,7 +65,7 @@ function App() {
             <p css={titleStyle}>장바구니</p>
             <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
           </div>
-          <CartProductContainer />
+          <CartProductContainer cartItem={cartItem.item} />
           <PaymentSummary />
           <Button onClick={() => {}} type="submit" size="full">
             주문 확인
