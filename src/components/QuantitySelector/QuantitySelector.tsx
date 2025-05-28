@@ -1,4 +1,5 @@
 // import { updateCartItem } from "../../apis/cartItem";
+import patchShoppingCart from "../../api/patchShoppingCart";
 import { IconButton } from "../IconButton/IconButton";
 import { QuantitySelectorLayout } from "./QuantitySelector.style";
 // import { useShoppingContext } from "../../context/useShoppingContext";
@@ -6,34 +7,25 @@ import { QuantitySelectorLayout } from "./QuantitySelector.style";
 interface QuantitySelectorProps {
   cartId: number;
   quantity: number;
-  maxQuantity: number;
   onChange: () => void;
 }
 
 export function QuantitySelector({
   cartId,
   quantity,
-  maxQuantity,
   onChange,
 }: QuantitySelectorProps) {
-  // const { dispatch } = useShoppingContext();
-
   const handleAddCount = async () => {
-    // if (quantity === maxQuantity) {
-    //   dispatch({
-    //     type: "error",
-    //     queryKey: "cart",
-    //     payload: `재고 수량을 초과하여 담을 수 없습니다.`,
-    //   });
-    //   return;
-    // }
-    // await updateCartItem({ id: cartId, quantity: quantity + 1 });
+    await patchShoppingCart(cartId, quantity + 1);
     onChange();
   };
 
   const handleMinusCount = async () => {
     if (quantity < 0) return;
-    // await updateCartItem({ id: cartId, quantity: quantity - 1 });
+    if (quantity === 1 && !window.confirm("장바구니에서 삭제하시겠습니까?"))
+      return;
+    await patchShoppingCart(cartId, quantity - 1);
+
     onChange();
   };
 

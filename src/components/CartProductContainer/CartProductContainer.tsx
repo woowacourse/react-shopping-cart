@@ -81,7 +81,6 @@ export default function CartProductContainer({
                 price={item.product.price}
                 quantity={item.quantity}
                 onChange={onChange}
-                maxQuantity={100000}
               />
             </section>
           );
