@@ -2,7 +2,17 @@ import { Subtitle, Title } from '../../../styles/@common/title/Title.styles';
 import * as S from './CartPrice.styles';
 import infoIcon from '/public/icon/ic_info.svg';
 
-const CartPrice = () => {
+interface CartPriceProps {
+  cartItemNamePrice: { name: string; price: number }[];
+}
+
+const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
+  const calculateTotalPrice = (
+    cartItemNamePrice: { name: string; price: number }[]
+  ) => {
+    return cartItemNamePrice.reduce((acc, curr) => acc + curr.price, 0);
+  };
+
   return (
     <div css={S.CartPriceWrapper}>
       <div css={S.InfoMessageContainer}>
@@ -12,18 +22,22 @@ const CartPrice = () => {
         </p>
       </div>
       <div css={S.CartPriceDetailContainer}>
-        <div css={S.CartPriceInfoContainer}>
-          <div css={S.CartPriceSubtitle}>CartPrice</div>
-          <div css={Title}>CartPrice원</div>
+        {cartItemNamePrice.map((item) => {
+          return (
+            <div css={S.CartPriceInfoContainer}>
+              <div css={S.CartPriceSubtitle}>{item.name}</div>
+              <div css={Title}>{item.price.toLocaleString()}원</div>
+            </div>
+          );
+        })}
+        <div>
+          <div css={S.CartPriceInfoContainer}>
+            <div css={S.CartPriceSubtitle}>배송비</div>
+            <div css={Title}>
+              {calculateTotalPrice(cartItemNamePrice) > 1000000 ? 3000 : 0}원
+            </div>
+          </div>
         </div>
-        <div css={S.CartPriceInfoContainer}>
-          <div css={S.CartPriceSubtitle}>CartPrice</div>
-          <div css={Title}>CartPrice원</div>
-        </div>
-      </div>
-      <div css={S.CartPriceInfoContainer}>
-        <div css={S.CartPriceSubtitle}>CartPrice</div>
-        <div css={Title}>CartPrice원</div>
       </div>
     </div>
   );

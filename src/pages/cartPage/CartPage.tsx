@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import Checkbox from '../../components/@common/checkbox/Checkbox';
 import type { CartItemType } from '../../types/response';
+import { getCartItemById } from '../../utils/getCartItemById';
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
@@ -40,7 +41,7 @@ const CartPage = () => {
   };
 
   const updateCartItem = async (cartId: number) => {
-    const cartItem = cartData.find((item) => item.id === cartId);
+    const cartItem = getCartItemById(cartData, cartId);
     if (!cartItem) {
       return;
     }
@@ -61,6 +62,21 @@ const CartPage = () => {
     await deleteCartItem(cartItemId);
     const cartData = await getCart();
     setCartData(cartData);
+  };
+
+  const getCartItemNamePrice = (): { name: string; price: number }[] => {
+    const results = isCheckedArray
+      .map((id) => {
+        const cartItem = getCartItemById(cartData, id);
+        if (!cartItem || cartItem === undefined) {
+          return;
+        }
+        return { name: cartItem.product.name, price: cartItem.product.price };
+      })
+      .filter(
+        (item): item is { name: string; price: number } => item !== undefined
+      );
+    return results;
   };
 
   useEffect(() => {
@@ -93,7 +109,7 @@ const CartPage = () => {
           removeCartItem={removeCartItem}
         />
       ))}
-      <CartPrice />
+      <CartPrice cartItemNamePrice={getCartItemNamePrice()} />
     </div>
   );
 };
