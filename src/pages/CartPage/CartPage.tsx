@@ -37,12 +37,6 @@ const CartPage = () => {
             {data.map((cartItem) => (
               <CartItem cartItem={cartItem} />
             ))}
-            {/* <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
-            <CartItem cartItem={data} />
-            <CartItem cartItem={data} /> */}
           </S.CartItemsContainer>
         </S.CartContainer>
         <S.InfoContainer>
@@ -51,7 +45,6 @@ const CartPage = () => {
             총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
           </Description>
         </S.InfoContainer>
-
         <S.PriceSummary>
           <S.PriceInfoWrapper>
             <PriceInfo label="주문 금액" price={70000} />
