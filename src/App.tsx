@@ -1,11 +1,7 @@
-import "./App.css";
+import * as S from "./styles/Layout.styled";
 
 function App() {
-  return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
-  );
+  return <S.Layout></S.Layout>;
 }
 
 export default App;
