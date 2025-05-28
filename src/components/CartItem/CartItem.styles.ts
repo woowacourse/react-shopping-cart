@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const DEFAULT_IMAGE_URL = "./planet-default-image.png";
+const DEFAULT_IMAGE_URL = "./planet-default-image.svg";
 
 const isValidUrl = (url: string): boolean =>
   Boolean(url && (url.startsWith("http://") || url.startsWith("https://")));

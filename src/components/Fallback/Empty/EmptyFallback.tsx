@@ -1,5 +1,5 @@
 import Description from "../../Description/Description";
-import EmptyCart from "/planet-empty-cart.png";
+import EmptyCart from "/planet-empty-cart.svg";
 import * as S from "./EmptyFallback.styles";
 
 const EmptyFallback = () => {
