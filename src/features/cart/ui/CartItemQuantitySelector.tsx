@@ -1,10 +1,10 @@
 import * as S from './CartItemQuantitySelector.styles';
 
-export default function CartItemQuantitySelector() {
+export default function CartItemQuantitySelector({ quantity }: { quantity: number }) {
   return (
     <S.CartItemQuantityContainer>
       <S.CartItemQuantitySelectorButton>-</S.CartItemQuantitySelectorButton>
-      <S.CartItemQuantityNumber>1</S.CartItemQuantityNumber>
+      <S.CartItemQuantityNumber>{quantity}</S.CartItemQuantityNumber>
       <S.CartItemQuantitySelectorButton>+</S.CartItemQuantitySelectorButton>
     </S.CartItemQuantityContainer>
   );

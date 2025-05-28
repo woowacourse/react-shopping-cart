@@ -2,22 +2,18 @@ import { useEffect, useState } from 'react';
 import SelectInput from '../../../shared/ui/SelectInput';
 import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
-import { httpClient } from '../../../shared/api/httpClient';
 import { CartItem } from '../../../shared/type/cart';
 import { useSelectedCartContext } from '../../../shared/context/useCartContext';
-
-interface CartItemsResponse {
-  content: CartItem[];
-}
+import { getCartItems } from '../api/getCartItems';
 
 export default function CartList() {
-  const { addAllCartItemsInSelected } = useSelectedCartContext();
+  const { addAllCartItemsInSelected, selectedCartItems } = useSelectedCartContext();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await httpClient.get<CartItemsResponse>('/cart-items');
+        const response = await getCartItems();
         if (!response) return;
 
         setCartItems(response.content);
@@ -28,7 +24,7 @@ export default function CartList() {
       }
     };
     fetchCartItems();
-  }, []);
+  }, [selectedCartItems]);
 
   const handleAllCartItemsInSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;

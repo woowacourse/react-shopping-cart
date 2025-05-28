@@ -7,6 +7,7 @@ import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
 import { CartItem } from '../../../shared/type/cart';
 import { useSelectedCartContext } from '../../../shared/context/useCartContext';
+import { deleteCartItem } from '../api/deleteCartItem';
 
 const deleteButtonCSS = css`
   width: 40px;
@@ -36,11 +37,22 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
 
   const isSelected = selectedCartItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
 
+  const handleCartItemDelete = async () => {
+    try {
+      await deleteCartItem(cartItem.id);
+      removeSelectedCartItem(cartItem);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('장바구니 아이템 삭제 실패:', error.message);
+      }
+    }
+  };
+
   return (
     <S.CartItemContainer>
       <S.CartItemHeader>
         <SelectInput type='checkbox' onChange={handleSelectedCartItemUpdate} checked={isSelected} />
-        <Button title='삭제' css={deleteButtonCSS} />
+        <Button title='삭제' css={deleteButtonCSS} onClick={handleCartItemDelete} />
       </S.CartItemHeader>
       <S.CartItemContent>
         <S.CartItemImage
@@ -58,7 +70,7 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
             <S.CartItemInfoPrice>{cartItem.product.price.toLocaleString()}원</S.CartItemInfoPrice>
           </S.CartItemInfoDetails>
 
-          <CartItemQuantitySelector />
+          <CartItemQuantitySelector quantity={cartItem.quantity} />
         </S.CartItemInfo>
       </S.CartItemContent>
     </S.CartItemContainer>
