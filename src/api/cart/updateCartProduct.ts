@@ -1,4 +1,4 @@
-import { apiClient } from "../../../shared/utils/requestApi";
+import { apiClient } from "../apiClient";
 
 export const updateCartProduct = (cartId: number, quantity: number) =>
   apiClient.update({

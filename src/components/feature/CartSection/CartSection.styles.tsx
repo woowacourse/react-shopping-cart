@@ -16,7 +16,10 @@ export const CartList = styled.div`
   flex-direction: column;
   gap: 15px;
 
-  // &:-webkit-scrollbar {
-  //   display: none;
-  // }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
 `;

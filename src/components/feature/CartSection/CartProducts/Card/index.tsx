@@ -5,11 +5,28 @@ import Button from "../../../../common/Button";
 import CheckBox from "../../../../common/CheckBox";
 import Line from "../../../../common/Line";
 import { CartProduct } from "../../../../../type/cart";
+import { deleteCartProduct } from "../../../../../api/cart/deleteCartProduct";
+import { updateCartProduct } from "../../../../../api/cart/updateCartProduct";
 
-const Card = ({ cartItem }: { cartItem: CartProduct }) => {
+const Card = ({
+  cartItem,
+  onRefetch,
+}: {
+  cartItem: CartProduct;
+  onRefetch: () => void;
+}) => {
   const [isChecked, setIsChecked] = useState(false);
   const { imageUrl, name, price } = cartItem.product;
-  const [quantity, setQuantity] = useState(cartItem.quantity);
+
+  const handleDelete = async (id: number) => {
+    await deleteCartProduct(id);
+    onRefetch();
+  };
+
+  const handleUpdate = async (id: number, updatedQuantity: number) => {
+    await updateCartProduct(id, updatedQuantity);
+    onRefetch();
+  };
 
   return (
     <>
@@ -19,7 +36,7 @@ const Card = ({ cartItem }: { cartItem: CartProduct }) => {
             isChecked={isChecked}
             onChange={() => setIsChecked(!isChecked)}
           />
-          <Button onClick={() => {}} title="삭제" />
+          <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
         </S.ButtonSection>
 
         <S.CardInfoSection>
@@ -34,11 +51,13 @@ const Card = ({ cartItem }: { cartItem: CartProduct }) => {
               <S.ProductPrice>{price}</S.ProductPrice>
             </S.ProductDescription>
             <CartCount
-              count={quantity}
-              onPlusCount={() => setQuantity((prev) => prev + 1)}
-              onMinusCount={() => {
-                quantity > 0 && setQuantity((prev) => prev - 1);
-              }}
+              count={cartItem.quantity}
+              onPlusCount={() =>
+                handleUpdate(cartItem.id, cartItem.quantity + 1)
+              }
+              onMinusCount={() =>
+                handleUpdate(cartItem.id, cartItem.quantity - 1)
+              }
             />
           </S.ProductInfoSection>
         </S.CardInfoSection>

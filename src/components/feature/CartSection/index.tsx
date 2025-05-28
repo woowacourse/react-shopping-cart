@@ -5,20 +5,10 @@ import CheckBox from "../../common/CheckBox";
 import PriceSection from "./PriceSection";
 import Button from "../../common/Button";
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
-import { CartProduct } from "../../../type/cart";
-import { getCartProduct } from "../../../api/cart/getCartProduct";
+import useGetCartItem from "../../../hooks/useGetCartItem";
 
 const CartSection = () => {
-  const [cartItems, setCartItems] = useState<CartProduct[]>();
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      const data = await getCartProduct();
-      setCartItems(data.content);
-    };
-    fetchCartItems();
-  }, []);
+  const { cartItems, refetch } = useGetCartItem();
 
   return (
     <S.Container>
@@ -26,7 +16,7 @@ const CartSection = () => {
       <CheckBox label="전체 선택" isChecked={false} onChange={() => {}} />
       <S.CartList>
         {cartItems?.map((cartItem) => (
-          <Card cartItem={cartItem} key={cartItem.id} />
+          <Card cartItem={cartItem} key={cartItem.id} onRefetch={refetch} />
         ))}
       </S.CartList>
 
