@@ -1,7 +1,31 @@
 import * as S from "./PriceSection.styles";
 import Line from "../../../common/Line";
+import { CartProduct } from "../../../../type/cart";
+import { formatPrice } from "../../../../utils/formatPrice";
 
-const PriceSection = () => {
+type Props = {
+  cartItems: CartProduct[] | undefined;
+  selectedCartId: number[];
+};
+
+const PriceSection = ({ cartItems, selectedCartId }: Props) => {
+  const getOrderPrice = () => {
+    const selectedItem = cartItems?.filter(
+      (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
+    );
+    return (
+      selectedItem?.reduce(
+        (total: number, current: CartProduct) =>
+          current.product.price * current.quantity + total,
+        0
+      ) ?? 0
+    );
+  };
+
+  const orderPrice = getOrderPrice();
+  const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
+  const totalPrice = orderPrice + deliveryPrice;
+
   return (
     <S.Container>
       <S.Description>
@@ -11,18 +35,18 @@ const PriceSection = () => {
 
       <S.PriceInfo>
         <S.Label>주문 금액</S.Label>
-        <S.Price>7,000원</S.Price>
+        <S.Price>{formatPrice(orderPrice)}</S.Price>
       </S.PriceInfo>
 
       <S.PriceInfo>
         <S.Label>배송비</S.Label>
-        <S.Price>3,000원</S.Price>
+        <S.Price>{formatPrice(deliveryPrice)}</S.Price>
       </S.PriceInfo>
       <Line />
 
       <S.PriceInfo>
         <S.Label>총 결제 금액</S.Label>
-        <S.Price>10,000원</S.Price>
+        <S.Price>{formatPrice(totalPrice)}</S.Price>
       </S.PriceInfo>
     </S.Container>
   );

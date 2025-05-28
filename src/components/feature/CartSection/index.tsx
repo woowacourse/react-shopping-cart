@@ -70,7 +70,7 @@ const CartSection = () => {
         ))}
       </S.CartList>
 
-      <PriceSection cartItems={cartItems} selectedProducts={selectedCartId} />
+      <PriceSection cartItems={cartItems} selectedCartId={selectedCartId} />
       <Button
         title="주문 확인"
         onClick={() => {}}
