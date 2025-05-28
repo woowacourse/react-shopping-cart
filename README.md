@@ -7,12 +7,12 @@
   - [x] Header
   - [x] CartProducts
   - [x] PriceSection
-- [] COMMON
+- [x] COMMON
 
-  - [] Button
+  - [x] Button
   - [x] Checkbox
 
-- [] cart-items API를 호출하여 장바구니 상품 데이터를 불러온다.
+- [x] cart-items API를 호출하여 장바구니 상품 데이터를 불러온다.
 - [] 불러온 데이터를 기반으로 클라이언트 상태를 구성하고 관리한다.
 - [] 개별 상품의 선택 여부, 결제 금액, 배송비 등의 상태를 관리한다.
 - [] 상품 선택에 따른 결제 금액, 배송비 등의 동적인 변경 사항을 처리한다.
