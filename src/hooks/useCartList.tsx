@@ -5,12 +5,17 @@ function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
 
   useEffect(() => {
-    fetch(`/cart-items`)
-      .then((res) => res.json())
-      .then((data) => setCartList(data.content));
+    loadCartList();
   }, []);
 
-  return { cartList };
+  const loadCartList = async () => {
+    const response = await apiRequest({
+      url: '/cart-items',
+      method: 'GET',
+    });
+
+    setCartList(response.content);
+  };
 }
 
 export default useCartList;
