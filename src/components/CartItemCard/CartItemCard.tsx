@@ -3,7 +3,7 @@ import TextButton from "../@common/Button/TextButton/TextButton";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import QuantityStepper from "../QuantityStepper/QuantityStepper";
-import cartItemsApi from "../../apis/cartItems";
+import { useCartItemContext } from "../../contexts/useCartItemContext";
 
 interface CartItemCardProps {
   cartItemId: number;
@@ -22,6 +22,8 @@ const CartItemCard = ({
   quantity,
   isSelected,
 }: CartItemCardProps) => {
+  const { deleteCartItem, updateCartItem } = useCartItemContext();
+
   return (
     <>
       <div className={CartItemStyled}>
@@ -31,8 +33,7 @@ const CartItemCard = ({
           <TextButton
             text="삭제"
             onClick={() => {
-              cartItemsApi.delete(cartItemId);
-              cartItemsApi.get();
+              deleteCartItem(cartItemId);
             }}
           />
         </div>
@@ -51,8 +52,12 @@ const CartItemCard = ({
             <div className={QuantityStepperWrapper}>
               <QuantityStepper
                 quantity={quantity}
-                onDecrease={() => {}}
-                onIncrease={() => {}}
+                onDecrease={() => {
+                  updateCartItem(cartItemId, quantity - 1);
+                }}
+                onIncrease={() => {
+                  updateCartItem(cartItemId, quantity + 1);
+                }}
               />
             </div>
           </div>

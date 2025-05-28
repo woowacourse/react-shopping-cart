@@ -6,7 +6,9 @@ interface CartItemContext {
   cartItems: CartItem[];
   isLoading: boolean;
   errorMessage: string;
-  fetchCartItem: () => Promise<void>;
+  fetchCartItems: () => Promise<void>;
+  deleteCartItem: (cartItemId: number) => Promise<void>;
+  updateCartItem: (cartItemId: number, quantity: number) => Promise<void>;
 }
 
 interface CartItemProviderProps {
@@ -20,7 +22,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  async function fetchCartItem() {
+  async function fetchCartItems() {
     try {
       setIsLoading(true);
       const data = await cartItemsApi.get();
@@ -31,9 +33,31 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     }
   }
 
+  async function deleteCartItem(cartItemId: number) {
+    try {
+      setIsLoading(true);
+      await cartItemsApi.delete(cartItemId);
+      await fetchCartItems();
+      setIsLoading(false);
+    } catch (error) {
+      setErrorMessage("Fail to Delete Error");
+    }
+  }
+
+  async function updateCartItem(cartItemId: number, quantity: number) {
+    try {
+      setIsLoading(true);
+      await cartItemsApi.patch(cartItemId, quantity);
+      await fetchCartItems();
+      setIsLoading(false);
+    } catch (error) {
+      setErrorMessage("Fail to Update Error");
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
-      await fetchCartItem();
+      await fetchCartItems();
     };
 
     fetchData();
@@ -41,7 +65,14 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   return (
     <CartItemContext.Provider
-      value={{ cartItems, isLoading, errorMessage, fetchCartItem }}
+      value={{
+        cartItems,
+        isLoading,
+        errorMessage,
+        fetchCartItems,
+        deleteCartItem,
+        updateCartItem,
+      }}
     >
       {children}
     </CartItemContext.Provider>
