@@ -7,9 +7,7 @@ import { useNavigate } from "react-router";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate("/order-confirm");
-  };
+  const handleNavigate = () => navigate("/order-confirm");
 
   return (
     <S.Container>

@@ -7,8 +7,8 @@ import OrderConfirmPage from "./pages/OrderConfirmPage";
 function App() {
   return (
     <S.Layout>
-      <Header />
       <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <Header />
         <Routes>
           <Route path="/" element={<CartPage />} />
           <Route path="/order-confirm" element={<OrderConfirmPage />} />
