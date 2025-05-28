@@ -1,14 +1,15 @@
 import EmptyCheckbox from "/empty-check.svg";
 import FilledCheckbox from "/filled-check.svg";
 import * as S from "./Checkbox.styles";
+import { ComponentProps } from "react";
 
-interface Props {
+interface Props extends ComponentProps<"div"> {
   checked: boolean;
 }
 
-const Checkbox = ({ checked }: Props) => {
+const Checkbox = ({ checked, onClick, ...props }: Props) => {
   return (
-    <S.Checkbox>
+    <S.Checkbox onClick={onClick} {...props}>
       {checked ? (
         <img src={FilledCheckbox} alt="filled-checkbox" />
       ) : (
