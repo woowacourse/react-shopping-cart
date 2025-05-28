@@ -70,7 +70,6 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
 
   const handleDelete = async () => {
     try {
-      await updateCartItemApi(cart.id, 0);
       dispatch({
         type: "REMOVE_ITEM",
         payload: { id: cart.id },
@@ -80,8 +79,15 @@ function CartItem({ cart }: { cart: ResponseCartItem }) {
         type: "REMOVE_SELECT",
         payload: { id: cart.id },
       });
+
+      await updateCartItemApi(cart.id, 0);
     } catch (error) {
       console.error("Failed to delete cart item:", error);
+      // API 호출 실패 시 상태 복구
+      dispatch({
+        type: "SET_CART",
+        payload: { items: [cart] },
+      });
     }
   };
 

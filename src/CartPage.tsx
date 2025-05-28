@@ -5,28 +5,30 @@ import Header from "./components/Header/Header";
 import OrderPriceSection from "./components/OrderPriceSection/OrderPriceSection";
 import OrderResult from "./components/OrderResult/OrderResult";
 import TitleSection from "./components/TitleSection/TitleSection";
-import { useCartDispatch } from "./stores/CartContext";
-import useCart from "./hooks/useCart";
+import { useCartContext, useCartDispatch } from "./stores/CartContext";
 import { useSelectContext, useSelectDispatch } from "./stores/SelectContext";
+import useCart from "./hooks/useCart";
 
 function CartPage() {
   const dispatch = useCartDispatch();
   const selectDispatch = useSelectDispatch();
   const selectData = useSelectContext();
-
-  const { cartItemList: cartData, isLoading } = useCart();
+  const cartData = useCartContext();
+  const { cartItemList: cartItemRes, isLoading } = useCart();
 
   useEffect(() => {
-    dispatch({
-      type: "SET_CART",
-      payload: { items: cartData },
-    });
+    if (cartItemRes.length > 0) {
+      dispatch({
+        type: "SET_CART",
+        payload: { items: cartItemRes },
+      });
 
-    selectDispatch({
-      type: "SET_SELECT",
-      payload: { items: cartData },
-    });
-  }, [cartData, dispatch, selectDispatch]);
+      selectDispatch({
+        type: "SET_SELECT",
+        payload: { items: cartItemRes },
+      });
+    }
+  }, [cartItemRes, dispatch, selectDispatch]);
 
   const isCartEmpty = cartData.length === 0;
   const isOrderComplete = false;
@@ -52,7 +54,7 @@ function CartPage() {
     };
   }, [selectData, cartData]);
 
-  if (isLoading) {
+  if (isLoading || !cartData) {
     return <div>장바구니를 불러오는 중입니다...</div>;
   }
 

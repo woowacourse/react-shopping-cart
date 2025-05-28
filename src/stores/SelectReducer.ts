@@ -36,9 +36,7 @@ export const selectReducer = (state: SelectState[], action: SelectAction) => {
         item.id === action.payload.id ? { ...item, selected: true } : item
       );
     case "REMOVE_SELECT":
-      return state.map((item) =>
-        item.id === action.payload.id ? { ...item, selected: false } : item
-      );
+      return state.filter((item) => item.id !== action.payload.id);
     case "SELECT_ALL":
       return state.map((item) => ({ ...item, selected: true }));
     case "DESELECT_ALL":
