@@ -14,11 +14,13 @@ import { getCartItems } from "../../apis/cartItems/getCartItems";
 const CartPage = () => {
   const [data, setData] = useState<CartItemContent[]>([]);
 
+  const fetchData = async () => {
+    const cartItemsData = await getCartItems();
+    setData(cartItemsData);
+  };
+
   useEffect(() => {
-    (async () => {
-      const cartItemsData = await getCartItems();
-      setData(cartItemsData);
-    })();
+    fetchData();
   }, []);
 
   return (
@@ -35,7 +37,7 @@ const CartPage = () => {
           <TotalSelector checked={true} />
           <S.CartItemsContainer>
             {data.map((cartItem) => (
-              <CartItem cartItem={cartItem} />
+              <CartItem cartItem={cartItem} fetchData={fetchData} />
             ))}
           </S.CartItemsContainer>
         </S.CartContainer>
