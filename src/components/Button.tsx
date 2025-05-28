@@ -18,9 +18,8 @@ const ButtonStyles = css({
   minHeight: '64px',
   fontSize: '16px',
   fontWeight: 'bold',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  padding: '24px 0',
+  textAlign: 'center',
 
   '&:disabled': {
     backgroundColor: '#BEBEBE',
