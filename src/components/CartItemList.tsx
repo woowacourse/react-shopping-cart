@@ -2,8 +2,9 @@ import { css } from '@emotion/react';
 import CheckBox from './CheckBox';
 import CartItem from './CartItem';
 import { useCheckList } from '../hooks/useCheckList';
+import { CartItemType } from '../types/cartItem';
 
-export default function CartItemList({ cartItems }: { cartItem: CartItem[] }) {
+export default function CartItemList({ cartItems }: { cartItems: CartItemType[] }) {
   const { state, isAllChecked, checkAll, uncheckAll, toggle } = useCheckList(cartItems.map((item) => item.id));
 
   return (
