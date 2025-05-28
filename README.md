@@ -30,8 +30,7 @@
   - [ ] CartPage 컴포넌트 -> useCart() -> fetch get -> 데이터를 context / data -> state 가공하는 함수들이
   - const money = state.filter (check) / const boundary = 1000000원 -> 훅에서 관리
   - [ ] 컴포넌트 => 배송비 10만원 저장 -> 바꿔주고, 50000원 컴포넌트 탐색을 내부에서 x
-    - [ ] Text 컴포넌트 -> variant=title / variant = description-1 -> title -> children 장바구니
-    - [ ] Text 컴포넌트
+    - [x] Text 컴포넌트 -> variant=title / variant = description-1 -> title -> children 장바구니
     - [ ] CartList 컴포넌트 (props cart get state)
       - [ ] 전체를 체크 박스
       - [ ] 반복문)CartItem - 조합
