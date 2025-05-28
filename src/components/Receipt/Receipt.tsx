@@ -1,6 +1,20 @@
+import { CartItemType } from "../../types/response";
 import { Container, InfoText, Table } from "./Receipt.styles";
 
-function Receipt() {
+interface ReceiptProps {
+  selectedCartItems: CartItemType[];
+}
+
+const getOrderCost = (selectedCartItems: CartItemType[]) => {
+  return selectedCartItems.reduce((acc, cur) => {
+    return acc + cur.quantity * cur.product.price;
+  }, 0);
+};
+
+function Receipt({ selectedCartItems }: ReceiptProps) {
+  const orderCost = getOrderCost(selectedCartItems);
+  const deliveryCost = orderCost > 100000 || orderCost === 0 ? 0 : 3000;
+
   return (
     <div css={Container}>
       <div css={InfoText}>
@@ -11,15 +25,15 @@ function Receipt() {
         <tbody>
           <tr>
             <td>주문 금액</td>
-            <td>70,000원</td>
+            <td>{orderCost.toLocaleString()}원</td>
           </tr>
           <tr>
             <td>배송비</td>
-            <td>3,000원</td>
+            <td>{deliveryCost.toLocaleString()}원</td>
           </tr>
           <tr>
             <td>총 결제 금액</td>
-            <td>73,000원</td>
+            <td>{(orderCost + deliveryCost).toLocaleString()}원</td>
           </tr>
         </tbody>
       </table>

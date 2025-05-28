@@ -12,11 +12,23 @@ import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/useCheckboxHandler";
 
+const getSelectedCartItems = (
+  cartItems: CartItemType[],
+  selectedCartIds: number[]
+) => {
+  return cartItems.filter((cartItem) => selectedCartIds.includes(cartItem.id));
+};
+
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>();
-  const { toggleAllSelect, toggleSelect, isAllSelected, isSelected } =
-    useCheckboxHandler(cartItems);
+  const {
+    selectedCartIds,
+    toggleAllSelect,
+    toggleSelect,
+    isAllSelected,
+    isSelected,
+  } = useCheckboxHandler(cartItems);
 
   const fetchCartItem = useCallback(
     () =>
@@ -62,7 +74,12 @@ function Cart() {
               isSelected={isSelected}
               toggleSelect={toggleSelect}
             />
-            <Receipt />
+            <Receipt
+              selectedCartItems={getSelectedCartItems(
+                cartItems,
+                selectedCartIds
+              )}
+            />
           </div>
         )}
       </section>
