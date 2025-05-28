@@ -1,31 +1,16 @@
 import { Subtitle, Title } from '../../../styles/@common/title/Title.styles';
+import {
+  calculateTotalCartItemPrice,
+  calculateTotalPrice,
+} from '../../../utils/calculate';
 import * as S from './CartPrice.styles';
 import infoIcon from '/public/icon/ic_info.svg';
 
 interface CartPriceProps {
-  cartItemNamePrice: { name: string; price: number }[];
+  cartItemNamePrice: { name: string; price: number; quantity: number }[];
 }
 
 const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
-  const calculateTotalCartItemPrice = (
-    cartItemNamePrice: { name: string; price: number }[]
-  ) => {
-    return cartItemNamePrice.reduce((acc, curr) => acc + curr.price, 0);
-  };
-
-  const calculateTotalPrice = (
-    cartItemNamePrice: { name: string; price: number }[]
-  ) => {
-    const deliveryFee = calculateDeliveryFee(cartItemNamePrice);
-    return calculateTotalCartItemPrice(cartItemNamePrice) + deliveryFee;
-  };
-
-  const calculateDeliveryFee = (
-    cartItemNamePrice: { name: string; price: number }[]
-  ) => {
-    return calculateTotalCartItemPrice(cartItemNamePrice) > 100000 ? 0 : 3000;
-  };
-
   return (
     <div css={S.CartPriceWrapper}>
       <div css={S.InfoMessageContainer}>
@@ -39,7 +24,9 @@ const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
           return (
             <div css={S.CartPriceInfoContainer}>
               <div css={S.CartPriceSubtitle}>{item.name}</div>
-              <div css={Title}>{item.price.toLocaleString()}원</div>
+              <div css={Title}>
+                {(item.price * item.quantity).toLocaleString()}원
+              </div>
             </div>
           );
         })}
@@ -59,9 +46,11 @@ const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
       </div>
       <div css={S.CartPriceInfoContainer}>
         <div css={S.CartPriceSubtitle}>총 주문 금액</div>
-        <div css={Title}>
-          {calculateTotalPrice(cartItemNamePrice).toLocaleString()}원
-        </div>
+        {calculateTotalCartItemPrice(cartItemNamePrice) !== 0 && (
+          <div css={Title}>
+            {calculateTotalPrice(cartItemNamePrice).toLocaleString()}원
+          </div>
+        )}
       </div>
     </div>
   );
