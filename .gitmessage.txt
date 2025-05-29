@@ -1,6 +1,0 @@
-# 커밋 제목을 한 줄로 요약하세요
-#
-# (선택) 상세 설명을 여러 줄로 쓰고 싶으면 여기에
-#
-
-Co-authored-by: 신종욱 <66900221+dlsxjzld@users.noreply.github.com>
