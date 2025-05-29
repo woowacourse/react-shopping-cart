@@ -1,3 +1,4 @@
+import { ResponseCartItem } from "../src/types/types";
 import {
   calculateTotalPrice,
   calculateShippingFee,
@@ -36,23 +37,18 @@ describe("가격 계산 유틸리티 테스트", () => {
           },
           quantity: 1,
         },
-        {
-          id: 3,
-          product: {
-            id: 3,
-            name: "상품3",
-            price: 15000,
-            imageUrl: "image3",
-            category: "category2",
-          },
-          quantity: 3,
-        },
       ];
 
       expect(calculateTotalPrice(items)).toBe(40000);
     });
 
     it("선택된 상품이 없을 경우 0을 반환한다", () => {
+      const items: ResponseCartItem[] = [];
+
+      expect(calculateTotalPrice(items)).toBe(0);
+    });
+
+    it("모든 상품이 선택된 경우 전체 총합을 계산한다", () => {
       const items = [
         {
           id: 1,
@@ -64,6 +60,7 @@ describe("가격 계산 유틸리티 테스트", () => {
             category: "category1",
           },
           quantity: 2,
+          selected: true,
         },
         {
           id: 2,
@@ -75,10 +72,23 @@ describe("가격 계산 유틸리티 테스트", () => {
             category: "category2",
           },
           quantity: 1,
+          selected: true,
+        },
+        {
+          id: 3,
+          product: {
+            id: 3,
+            name: "상품3",
+            price: 15000,
+            imageUrl: "image3",
+            category: "category2",
+          },
+          quantity: 3,
+          selected: true,
         },
       ];
 
-      expect(calculateTotalPrice(items)).toBe(0);
+      expect(calculateTotalPrice(items)).toBe(85000);
     });
   });
 

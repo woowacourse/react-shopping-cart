@@ -13,12 +13,12 @@ function TitleSection() {
     if (selectState.every((item) => item.selected)) {
       selectDispatch({
         type: "DESELECT_ALL",
-        payload: { items: selectState },
+        payload: {},
       });
     } else {
       selectDispatch({
         type: "SELECT_ALL",
-        payload: { items: selectState },
+        payload: {},
       });
     }
   };
