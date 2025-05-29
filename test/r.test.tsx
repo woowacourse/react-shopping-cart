@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import App from "../src/App";
+import { ShoppingCart } from "../src/pages/shoppingCart/shoppingCart";
 
 describe("RTL Test", () => {
   it("should render", () => {
-    render(<App />);
+    render(<ShoppingCart />);
     expect(screen.getByText("react-shopping-cart")).toBeInTheDocument();
   });
 });
