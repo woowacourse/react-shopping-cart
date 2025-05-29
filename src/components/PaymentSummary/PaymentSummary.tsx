@@ -1,26 +1,18 @@
+import { Line } from "../Line/Line";
+import { SummaryRow } from "../SummaryRow/SummaryRow";
 import {
-  paymentSummaryLayout,
   deliveryInfo,
   deliveryInfoBox,
   imgLayout,
+  paymentSummaryLayout,
   summaryRowBox,
 } from "./PaymentSummary.style";
-import { SummaryRow } from "../SummaryRow/SummaryRow";
-import { Line } from "../Line/Line";
-import { CartItemTypes } from "../../types/cartItem";
 
 interface PaymentSummaryProps {
-  cartItems: CartItemTypes[];
-  selectedCartId: string[];
+  price: number;
 }
 
-export function PaymentSummary({
-  cartItems,
-  selectedCartId,
-}: PaymentSummaryProps) {
-  const price = cartItems
-    .filter((e) => selectedCartId.includes(e.id.toString()))
-    .reduce((a, b) => a + b.product.price * b.quantity, 0);
+export function PaymentSummary({ price }: PaymentSummaryProps) {
   const deliveryFee = 10_0000 <= price ? 0 : 3000;
 
   return (
