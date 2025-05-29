@@ -1,19 +1,19 @@
-import * as S from "./CartSection.styles";
-import Card from "./CartProducts/Card";
-import Header from "./Header";
-import CheckBox from "../../common/CheckBox";
-import PriceSection from "./PriceSection";
-import useGetCartItem from "../../../hooks/useGetCartItem";
-import { CartProduct } from "../../../type/cart";
-import Button from "../../common/Button";
-import { useNavigate } from "react-router";
-import { css } from "@emotion/react";
-import { useSelectedCart } from "../../../hooks/useSelectedCart";
+import * as S from './CartSection.styles';
+import Card from './CartProducts/Card';
+import Header from './Header';
+import CheckBox from '../../common/CheckBox';
+import PriceSection from './PriceSection';
+import useGetCartItem from '../../../hooks/useGetCartItem';
+import {CartProduct} from '../../../type/cart';
+import Button from '../../common/Button';
+import {useNavigate} from 'react-router';
+import {css} from '@emotion/react';
+import {useSelectedCart} from '../../../hooks/useSelectedCart';
 
 const CartSection = () => {
   const navigate = useNavigate();
-  const { cartItems, refetch } = useGetCartItem();
-  const { selectedCartId, handleAllSelected, handleToggle, handleDelete } =
+  const {cartItems, refetch} = useGetCartItem();
+  const {selectedCartId, handleAllSelected, handleToggle, handleDelete} =
     useSelectedCart(cartItems);
 
   const isChecked = (id: number) => {
@@ -86,9 +86,9 @@ const CartSection = () => {
       <Button
         testId="order-confirm-button"
         title="주문 확인"
-        disabled={cartItems?.length === 0}
+        disabled={selectedCartId?.length === 0}
         onClick={() =>
-          navigate("/confirm", {
+          navigate('/confirm', {
             state: {
               sort: selectedCartId.length,
               totalAmount: totalAmount,
