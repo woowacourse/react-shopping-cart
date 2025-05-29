@@ -44,8 +44,16 @@ const CartItemPage = () => {
                 </div>
 
                 <hr className={Divider} />
-                <PriceRow title="주문 금액" price={orderPrice} />
-                <PriceRow title="배송비" price={shippingFee} />
+                <PriceRow
+                  title="주문 금액"
+                  price={orderPrice}
+                  testId="order-price"
+                />
+                <PriceRow
+                  title="배송비"
+                  price={shippingFee}
+                  testId="shipping-fee"
+                />
                 <hr className={Divider} />
                 <PriceRow title="총 결제 금액" price={totalPrice} />
               </>

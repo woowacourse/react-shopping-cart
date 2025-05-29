@@ -43,7 +43,11 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   return (
     <>
       <div className={AllSelectContainer}>
-        <ToggleButton isSelected={allSelected} onClick={handleAllSelected} />
+        <ToggleButton
+          isSelected={allSelected}
+          onClick={handleAllSelected}
+          testId="all-select-toggle"
+        />
         <Text text="전체선택" />
       </div>
       {cartItems.map((item) => (

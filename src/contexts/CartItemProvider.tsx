@@ -26,7 +26,7 @@ export const CartItemContext = createContext<CartItemContext | null>(null);
 export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [_isFetching, setIsFetching] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [selectedItem, setSelectedItem] = useState(new Set());
 

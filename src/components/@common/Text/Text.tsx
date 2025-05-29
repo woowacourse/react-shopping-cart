@@ -5,9 +5,14 @@ type TextType = "small" | "medium" | "large";
 interface TextProps {
   text: string;
   type?: TextType;
+  testId?: string;
 }
-const Text = ({ text, type = "small" }: TextProps) => {
-  return <div className={TextStyle(type)}>{text}</div>;
+const Text = ({ text, type = "small", testId }: TextProps) => {
+  return (
+    <div className={TextStyle(type)} data-testid={testId}>
+      {text}
+    </div>
+  );
 };
 
 export default Text;

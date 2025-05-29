@@ -4,13 +4,14 @@ import Text from "../@common/Text/Text";
 interface PriceRowProps {
   title: string;
   price: number;
+  testId?: string;
 }
 
-const PriceRow = ({ title, price }: PriceRowProps) => {
+const PriceRow = ({ title, price, testId }: PriceRowProps) => {
   return (
     <div className={PriceRowStyle}>
       <Text text={title} type="medium" />
-      <Text text={price.toLocaleString() + "원"} type="large" />
+      <Text text={price.toLocaleString() + "원"} type="large" testId={testId} />
     </div>
   );
 };

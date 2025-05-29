@@ -3,11 +3,16 @@ import { css } from "@emotion/css";
 interface ToggleButtonProps {
   isSelected: boolean;
   onClick?: () => void;
+  testId?: string;
 }
 
-const ToggleButton = ({ isSelected, onClick }: ToggleButtonProps) => {
+const ToggleButton = ({ isSelected, onClick, testId }: ToggleButtonProps) => {
   return (
-    <button onClick={onClick} className={ToggleButtonStyle(isSelected)}>
+    <button
+      onClick={onClick}
+      className={ToggleButtonStyle(isSelected)}
+      data-testid={testId}
+    >
       <img src={isSelected ? "./checked-icon.svg" : "./unchecked-icon.svg"} />
     </button>
   );

@@ -34,6 +34,7 @@ const CartItemCard = ({
           <ToggleButton
             isSelected={isSelected}
             onClick={() => handleToggle(cartItemId)}
+            testId="item-toggle"
           />
           <TextButton
             text="삭제"
