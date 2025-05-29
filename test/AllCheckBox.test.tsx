@@ -54,13 +54,13 @@ describe("Cart 전체선택 동기화", () => {
   it("초기 렌더링 시 전체선택 버튼과 모든 아이템 체크박스가 체크된 상태여야 한다", async () => {
     const allBtn = screen.getByLabelText("전체선택");
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", "/public/enabledCheck.svg");
+    expect(allImg).toHaveAttribute("src", "enabledCheck.svg");
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
 
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", "/public/enabledCheck.svg");
+      expect(img).toHaveAttribute("src", "enabledCheck.svg");
     });
   });
 
@@ -70,12 +70,12 @@ describe("Cart 전체선택 동기화", () => {
     await user.click(allBtn);
 
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", "/public/disabledCheck.svg");
+    expect(allImg).toHaveAttribute("src", "disabledCheck.svg");
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", "/public/disabledCheck.svg");
+      expect(img).toHaveAttribute("src", "disabledCheck.svg");
     });
   });
 
@@ -86,12 +86,12 @@ describe("Cart 전체선택 동기화", () => {
     await user.click(allBtn);
 
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", "/public/enabledCheck.svg");
+    expect(allImg).toHaveAttribute("src", "enabledCheck.svg");
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", "/public/enabledCheck.svg");
+      expect(img).toHaveAttribute("src", "enabledCheck.svg");
     });
   });
 });

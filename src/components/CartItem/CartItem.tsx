@@ -53,7 +53,7 @@ function CartItem({
             css={ProductImage}
             src={product.imageUrl}
             onError={(error) => {
-              error.currentTarget.src = "/public/default-cartItem.png";
+              error.currentTarget.src = "default-cartItem.png";
             }}
           ></img>
           <div css={ItemContent}>

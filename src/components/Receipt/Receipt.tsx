@@ -13,7 +13,7 @@ function Receipt({ selectedCartItems }: ReceiptProps) {
   return (
     <div css={Container}>
       <div css={InfoText}>
-        <img src="/public/info.svg" alt="info 아이콘" />
+        <img src="info.svg" alt="info 아이콘" />
         <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
       </div>
       <table css={Table}>

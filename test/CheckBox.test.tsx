@@ -19,7 +19,7 @@ describe("<CheckBox />", () => {
     render(<CheckBoxWrapper />);
 
     const img = screen.getByAltText("체크 박스") as HTMLImageElement;
-    expect(img.src).toContain("/public/enabledCheck.svg");
+    expect(img.src).toContain("/enabledCheck.svg");
   });
 
   it("버튼을 클릭하면 이미지가 활성에서 비활성으로 토글된다", () => {
@@ -29,9 +29,9 @@ describe("<CheckBox />", () => {
     const img = screen.getByAltText("체크 박스") as HTMLImageElement;
 
     fireEvent.click(button);
-    expect(img.src).toContain("/public/disabledCheck.svg");
+    expect(img.src).toContain("/disabledCheck.svg");
 
     fireEvent.click(button);
-    expect(img.src).toContain("/public/enabledCheck.svg");
+    expect(img.src).toContain("/enabledCheck.svg");
   });
 });
