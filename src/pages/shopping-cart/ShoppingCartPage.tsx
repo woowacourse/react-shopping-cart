@@ -5,7 +5,6 @@ import { useOrderListContext } from "./context/OrderListProvider";
 
 const ShoppingCartPage = () => {
   const { selectionMap } = useOrderListContext();
-  //   if (!cartListData) return;
   const isDisabled = !Object.values(selectionMap).some(
     (isSelected) => isSelected
   );
