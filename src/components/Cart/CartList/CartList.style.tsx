@@ -10,7 +10,6 @@ export const UlContainer = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 24px;
   border-bottom: 1px solid #0000001a;
 `;
 
@@ -25,6 +24,34 @@ export const TotalPriceContainer = styled.div`
 export const TotalPriceTitle = styled.p`
   display: flex;
   justify-content: space-between;
+`;
+
+export const Notice = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 4px;
+  align-items: center;
+`;
+
+export const NoticeIcon = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+export const FreeShippingText = styled.p`
+  height: 16px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+export const PriceWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #0000001a;
+  border-bottom: 1px solid #0000001a;
 `;
 
 export const TotalPrice = styled.p`
