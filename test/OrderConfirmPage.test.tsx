@@ -9,7 +9,7 @@ describe('OrderConfirmPage 테스트', () => {
     resetCartItems();
 
     render(
-      <MemoryRouter initialEntries={['/']} basename="/react-shopping-cart">
+      <MemoryRouter initialEntries={['/']}>
         <Routes>
           <Route path="/" element={<CartPage />} />
           <Route path="/order-confirmation" element={<OrderConfirmPage />} />

@@ -14,7 +14,7 @@ describe('CartContents 테스트', () => {
     resetCartItems();
 
     render(
-      <BrowserRouter basename="/react-shopping-cart">
+      <BrowserRouter>
         <CartContents />
       </BrowserRouter>
     );
