@@ -47,11 +47,11 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
           </div>
           <S.Stepper>
             <button onClick={() => handleClickDecrease(id)}>
-              <img src="/minus-button.svg" alt="minus-button" />
+              <img src="./minus-button.svg" alt="minus-button" />
             </button>
             <p>{quantity}</p>
             <button onClick={() => increaseCartItemQuantity(id)}>
-              <img src="/plus-button.svg" alt="plus-button" />
+              <img src="./plus-button.svg" alt="plus-button" />
             </button>
           </S.Stepper>
         </S.ItemInfoBox>

@@ -8,7 +8,7 @@ const Header = () => {
       <S.title>SHOP</S.title>
     ) : (
       <button>
-        <img src="/go-back.svg" alt="goBack" onClick={() => setPage('cart')} />
+        <img src="./go-back.svg" alt="goBack" onClick={() => setPage('cart')} />
       </button>
     );
 

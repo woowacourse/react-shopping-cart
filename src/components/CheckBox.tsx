@@ -9,7 +9,7 @@ const CheckBox = ({ isChecked, ...rest }: CheckBoxProps) => {
   return isChecked ? (
     <S.CheckBox
       isChecked={isChecked}
-      src="/checked-box.svg"
+      src="./checked-box.svg"
       alt="checkedBox"
       data-testid="checkBox"
       {...rest}
@@ -17,7 +17,7 @@ const CheckBox = ({ isChecked, ...rest }: CheckBoxProps) => {
   ) : (
     <S.CheckBox
       isChecked={isChecked}
-      src="/unchecked-box.svg"
+      src="./unchecked-box.svg"
       alt="unCheckedBox"
       data-testid="checkBox"
       {...rest}

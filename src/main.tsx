@@ -6,7 +6,7 @@ import './index.css';
 const start = async () => {
   const { worker } = await import('./mocks/browser');
   await worker.start({
-    serviceWorker: { url: '/mockServiceWorker.js' },
+    serviceWorker: { url: '/react-shopping-cart/mockServiceWorker.js' },
     onUnhandledRequest: 'bypass',
   });
 };
