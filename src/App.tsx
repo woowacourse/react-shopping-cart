@@ -5,12 +5,15 @@ import OrderPage from './page/OrderPage';
 import { ApiProvider } from './contexts/ApiContext';
 import { ErrorContextProvider } from './contexts/ErrorContext';
 
+const isTest = import.meta.env.MODE === 'test';
+const basename = isTest ? '' : '/react-shopping-cart';
+
 function App() {
   return (
     <ErrorContextProvider>
       <ApiProvider>
         <div css={RoutesStyle}>
-          <Router basename="/react-shopping-cart/">
+          <Router basename={basename}>
             <Routes>
               <Route path="/" element={<CartPage />} />
               <Route path="/order" element={<OrderPage />} />
