@@ -38,6 +38,10 @@ function CartContent() {
     }
   };
 
+  const isAllSelected =
+    cartItemsData.length > 0 &&
+    cartItemsData.every((item) => selectedCartIds.includes(item.id.toString()));
+
   const handleOrderConfirm = () => {
     const state: OrderConfirmationLocationState = {
       selectedCartItemsLength: selectedCartIds.length,
@@ -73,13 +77,7 @@ function CartContent() {
                 }
               }}
             >
-              <Styled.SelectIcon
-                src={
-                  cartItemsData.length === selectedCartIds.length
-                    ? checked
-                    : unChecked
-                }
-              />
+              <Styled.SelectIcon src={isAllSelected ? checked : unChecked} />
             </Styled.SelectButton>
             <p>전체선택</p>
           </Styled.AllSelectWrapper>
@@ -91,9 +89,7 @@ function CartContent() {
               <CartCard
                 key={cartItem.id}
                 cartItem={cartItem}
-                handleDeleteCartItem={() =>
-                  handleDeleteCartItem(String(cartItem.id))
-                }
+                handleDeleteCartItem={handleDeleteCartItem}
                 isDeleteItemLoading={isDeleteItemLoading}
                 isQuantityUpdateLoading={isQuantityUpdateLoading}
                 handleCartItemQuantity={handleCartItemQuantity}

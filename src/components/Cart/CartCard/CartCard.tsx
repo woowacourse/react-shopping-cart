@@ -36,7 +36,7 @@ function CartCard({
           </Styled.SelectButton>
           <Styled.DeleteButton
             disabled={isDeleteItemLoading}
-            onClick={() => handleDeleteCartItem(product.id.toString())}
+            onClick={() => handleDeleteCartItem(id.toString())}
           >
             삭제
           </Styled.DeleteButton>
