@@ -12,6 +12,10 @@ import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
 import { act } from 'react';
 import PageProvider from '../src/contexts/PageProvider';
 import PageController from '../src/pages/PageController';
+import {
+  DELIVERY_PRICE,
+  DELIVERY_PRICE_THRESHOLD,
+} from '../src/constants/config';
 
 describe('PriceSection 컴포넌트 테스트', () => {
   beforeEach(async () => {
@@ -54,7 +58,7 @@ describe('PriceSection 컴포넌트 테스트', () => {
   });
 
   describe('DeliveryPrice 컴포넌트', () => {
-    it('주문 금액이 100,000 이상일 경우 0원이다', async () => {
+    it(`주문 금액이 ${DELIVERY_PRICE_THRESHOLD.toLocaleString()} 이상일 경우 0원이다`, async () => {
       const deliveryPriceElement = screen.getByTestId('배송비');
 
       await waitFor(() => {
@@ -62,14 +66,16 @@ describe('PriceSection 컴포넌트 테스트', () => {
       });
     });
 
-    it('주문 금액이 100,000 미만일 경우 3,000원이다', async () => {
+    it(`주문 금액이 ${DELIVERY_PRICE_THRESHOLD.toLocaleString()} 미만일 경우 ${DELIVERY_PRICE.toLocaleString()}원이다`, async () => {
       const deliveryPriceElement = screen.getByTestId('배송비');
       const itemCards = await screen.findAllByTestId('item-card');
       const firstItemCheckBox = within(itemCards[0]).getByTestId('checkBox');
       fireEvent.click(firstItemCheckBox);
 
       await waitFor(() => {
-        expect(deliveryPriceElement).toHaveTextContent('3,000원');
+        expect(deliveryPriceElement).toHaveTextContent(
+          `${DELIVERY_PRICE.toLocaleString()}원`
+        );
       });
     });
 

@@ -4,6 +4,7 @@ import ConfirmButton from '../components/ConfirmButton';
 import ItemCard from '../components/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
+import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import { usePageContext } from '../contexts/PageContext';
 import styled from '@emotion/styled';
@@ -34,7 +35,9 @@ const CartPage = () => {
             </S.itemCardList>
             <S.infoContainer>
               <img src="/info.svg" />
-              <p>총 주문 금액이 100,000 이상인 경우 무료 배송됩니다.</p>
+              <p>
+                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()} 이상인 경우 무료 배송됩니다.
+              </p>
             </S.infoContainer>
             <PriceSection />
           </>

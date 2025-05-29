@@ -2,11 +2,13 @@ import styled from '@emotion/styled';
 import BottomButton from '../components/BottomButton';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import getOrderPrice from '../utils/getOrderPrice';
+import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 
 const OrderConfirmPage = () => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
-  const deliveryPrice = orderPrice >= 100000 ? 0 : 3000;
+  const deliveryPrice =
+    orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;
   const totalPrice = orderPrice + deliveryPrice;
   const totalQuantity = cartItems
     .filter(({ id }) => checkedCartIds.includes(id))
