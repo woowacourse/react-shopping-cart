@@ -37,47 +37,63 @@ function CartContent() {
   return (
     <Styled.CartContentContainer>
       <Styled.CartContentHeader>장바구니</Styled.CartContentHeader>
-      <Styled.CartContentDescription>
-        현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
-      </Styled.CartContentDescription>
-      <Styled.AllSelectWrapper>
-        <Styled.SelectButton
-          onClick={() => {
-            if (selectedCartIds.length === cartItemsData.length) {
-              setSelectedCartIds([]);
-            } else {
-              const allIds = cartItemsData.map((item) => item.id.toString());
-              setSelectedCartIds(allIds);
-            }
-          }}
-        >
-          <Styled.SelectIcon
-            src={
-              cartItemsData.length === selectedCartIds.length
-                ? checked
-                : unChecked
-            }
-          />
-        </Styled.SelectButton>
-        <p>전체선택</p>
-      </Styled.AllSelectWrapper>
 
-      <CartList cartItemsData={cartItemsData} selectedCartIds={selectedCartIds}>
-        {cartItemsData.map((cartItem) => (
-          <CartCard
-            key={cartItem.id}
-            cartItem={cartItem}
-            handleDeleteCartItem={() =>
-              handleDeleteCartItem(String(cartItem.id))
-            }
-            isDeleteItemLoading={isDeleteItemLoading}
-            isQuantityUpdateLoading={isQuantityUpdateLoading}
-            handleCartItemQuantity={handleCartItemQuantity}
-            handleSelectCartItem={handleSelectCartItem}
-            isSelected={selectedCartIds.includes(cartItem.id.toString())}
-          />
-        ))}
-      </CartList>
+      {cartItemsData.length !== 0 ? (
+        <>
+          <Styled.CartContentDescription>
+            현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
+          </Styled.CartContentDescription>
+          <Styled.AllSelectWrapper>
+            <Styled.SelectButton
+              onClick={() => {
+                if (selectedCartIds.length === cartItemsData.length) {
+                  setSelectedCartIds([]);
+                } else {
+                  const allIds = cartItemsData.map((item) =>
+                    item.id.toString()
+                  );
+                  setSelectedCartIds(allIds);
+                }
+              }}
+            >
+              <Styled.SelectIcon
+                src={
+                  cartItemsData.length === selectedCartIds.length
+                    ? checked
+                    : unChecked
+                }
+              />
+            </Styled.SelectButton>
+            <p>전체선택</p>
+          </Styled.AllSelectWrapper>
+          <CartList
+            cartItemsData={cartItemsData}
+            selectedCartIds={selectedCartIds}
+          >
+            {cartItemsData.map((cartItem) => (
+              <CartCard
+                key={cartItem.id}
+                cartItem={cartItem}
+                handleDeleteCartItem={() =>
+                  handleDeleteCartItem(String(cartItem.id))
+                }
+                isDeleteItemLoading={isDeleteItemLoading}
+                isQuantityUpdateLoading={isQuantityUpdateLoading}
+                handleCartItemQuantity={handleCartItemQuantity}
+                handleSelectCartItem={handleSelectCartItem}
+                isSelected={selectedCartIds.includes(cartItem.id.toString())}
+              />
+            ))}
+          </CartList>
+        </>
+      ) : (
+        <Styled.EmptyCartMessage>
+          장바구니에 담긴 상품이 없습니다.
+        </Styled.EmptyCartMessage>
+      )}
+      <Styled.OrderConfirmButton disabled={selectedCartIds.length === 0}>
+        주문 확인
+      </Styled.OrderConfirmButton>
     </Styled.CartContentContainer>
   );
 }

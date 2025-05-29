@@ -68,12 +68,12 @@ export const ProductInfo = styled.div`
 `;
 
 export const ProductName = styled.p`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 500;
 `;
 
 export const Price = styled.p`
-  font-weight: 500;
-  font-size: 12px;
+  font-weight: 700;
+  font-size: 16px;
   margin-bottom: 8px;
 `;
