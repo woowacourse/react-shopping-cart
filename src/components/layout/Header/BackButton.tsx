@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-import backButton from "/backButton.png";
+import backButton from "../../../assets/backButton.png";
 
 export default function BackButton() {
   const navigate = useNavigate();

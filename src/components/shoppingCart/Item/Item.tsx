@@ -2,7 +2,7 @@ import * as S from "./Item.styles";
 
 import Hr from "../../common/Hr/Hr";
 
-import emptyIcon from "/emptyIcon.png";
+import emptyIcon from "../../../assets/emptyIcon.png";
 
 import useCartItemList from "../../../hooks/useCartItemList";
 
