@@ -5,13 +5,14 @@ import CheckBox from "../../../../common/CheckBox";
 import Line from "../../../../common/Line";
 import { CartProduct } from "../../../../../type/cart";
 import { deleteCartProduct } from "../../../../../api/cart/deleteCartProduct";
-import { updateCartProduct } from "../../../../../api/cart/updateCartProduct";
 import { formatPrice } from "../../../../../utils/formatPrice";
+import { useShowError } from "../../../../../provider/errorProvider";
+import { updateCartProduct } from "../../../../../api/cart/updateCartProduct";
 
 type Props = {
   cartItem: CartProduct;
-  onRefetch: () => void;
   isChecked: boolean;
+  onRefetch: () => void;
   onToggle: () => void;
   onDeleteSelected: () => void;
 };
@@ -24,16 +25,25 @@ const Card = ({
   onDeleteSelected,
 }: Props) => {
   const { imageUrl, name, price } = cartItem.product;
+  const showError = useShowError();
 
   const handleDelete = async (id: number) => {
-    await deleteCartProduct(id);
-    onDeleteSelected();
-    onRefetch();
+    try {
+      await deleteCartProduct(id);
+      onDeleteSelected();
+      onRefetch();
+    } catch (e) {
+      showError?.("데이터를 삭제하는 중 문제가 발생했습니다.");
+    }
   };
 
   const handleUpdate = async (id: number, updatedQuantity: number) => {
-    await updateCartProduct(id, updatedQuantity);
-    onRefetch();
+    try {
+      await updateCartProduct(id, updatedQuantity);
+      onRefetch();
+    } catch (e) {
+      showError?.("상품을 추가/삭제하는 중 문제가 발생했습니다.");
+    }
   };
 
   return (

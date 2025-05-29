@@ -95,9 +95,6 @@ const CartSection = () => {
           })
         }
         css={css`
-          // position: fixed;
-          // bottom: 0;
-          // left: 0;
           width: 100%;
           padding: 24px 0;
           background-color: #000;
