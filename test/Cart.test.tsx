@@ -42,12 +42,10 @@ describe('장바구니 목록을 렌더링 한다.', () => {
     });
 
     renderCartPage();
-    const cartButton = await screen.findAllByRole('button', {
-      name: /삭제$/,
-    });
+    const cartButton = await screen.findAllByRole('cart-item');
 
     // Then: cartButton의 개수가 1개 이상이어야 한다.
-    expect(cartButton.length).toBeGreaterThan(1);
+    expect(cartButton.length).toBe(currentCartItems.length);
   });
 
   it('장바구니 페이지에 진입했을 때, 상품이 존재하지 않는다면 빈 장바구니 메시지를 보여준다.', async () => {
