@@ -74,7 +74,12 @@ function App() {
           </>
         )}
       </ContainerLayout>
-      <OrderButton cartData={cartList} totalPrice={totalPrice} />
+      <OrderButton
+        selectedCartData={cartList.filter((item) =>
+          seletedItems.includes(item.id)
+        )}
+        totalPrice={totalPrice}
+      />
     </>
   );
 }

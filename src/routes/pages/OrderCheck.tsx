@@ -13,11 +13,11 @@ import PayButton from '../../components/PayButton/PayButton';
 
 function OrderCheck() {
   const navigate = useNavigate();
-  const { cartData, totalPrice } = useLocation().state as {
-    cartData: CartItemProps[];
+  const { selectedCartData, totalPrice } = useLocation().state as {
+    selectedCartData: CartItemProps[];
     totalPrice: number;
   };
-  const totalProductQuantity = cartData.reduce(
+  const totalProductQuantity = selectedCartData.reduce(
     (acc, curr) => acc + curr.quantity,
     0
   );
@@ -32,7 +32,7 @@ function OrderCheck() {
           <Text varient="title">주문 확인</Text>
           <div>
             <Text varient="caption">
-              총 {cartData.length}종류의 상품 {totalProductQuantity}개를
+              총 {selectedCartData.length}종류의 상품 {totalProductQuantity}개를
               주문합니다.
             </Text>
             <Text varient="caption">최종 결제 금액을 확인해 주세요.</Text>

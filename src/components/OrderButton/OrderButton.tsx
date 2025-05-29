@@ -4,21 +4,21 @@ import { CartItemProps } from '../../types/cartItem';
 import { ButtonStyle } from './OrderButton.styles';
 
 function OrderButton({
-  cartData,
+  selectedCartData,
   totalPrice,
 }: {
-  cartData: CartItemProps[];
+  selectedCartData: CartItemProps[];
   totalPrice: number;
 }) {
   const navigate = useNavigate();
-  const canOrderNow = cartData.length !== 0;
+  const canOrderNow = selectedCartData.length !== 0;
 
   return (
     <button
       css={ButtonStyle(canOrderNow)}
       disabled={!canOrderNow}
       onClick={() =>
-        navigate('/order-check', { state: { cartData, totalPrice } })
+        navigate('/order-check', { state: { selectedCartData, totalPrice } })
       }
     >
       <Text varient="body">주문 확인</Text>
