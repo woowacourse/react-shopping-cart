@@ -1,5 +1,4 @@
 import { STEPS } from '@/shared/constants/setStep';
-import { ShoppingContext } from '@/shared/context/shoppingContext';
 
 import { useFunnel } from '../../../shared/hooks/useFunnel';
 import { CartInfo } from '../components/CartInfo';
