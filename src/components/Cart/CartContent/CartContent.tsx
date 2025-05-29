@@ -3,6 +3,8 @@ import * as Styled from "./CartContent.style";
 import useShoppingCart from "../../../hooks/useShoppingCart";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
+import checked from "/checked.svg";
+import unChecked from "/unChecked.svg";
 
 function CartContent() {
   const {
@@ -38,18 +40,28 @@ function CartContent() {
       <Styled.CartContentDescription>
         현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
       </Styled.CartContentDescription>
-      <div
-        onClick={() => {
-          if (selectedCartIds.length === cartItemsData.length) {
-            setSelectedCartIds([]);
-          } else {
-            const allIds = cartItemsData.map((item) => item.id.toString());
-            setSelectedCartIds(allIds);
-          }
-        }}
-      >
-        전체선택
-      </div>
+      <Styled.AllSelectWrapper>
+        <Styled.SelectButton
+          onClick={() => {
+            if (selectedCartIds.length === cartItemsData.length) {
+              setSelectedCartIds([]);
+            } else {
+              const allIds = cartItemsData.map((item) => item.id.toString());
+              setSelectedCartIds(allIds);
+            }
+          }}
+        >
+          <Styled.SelectIcon
+            src={
+              cartItemsData.length === selectedCartIds.length
+                ? checked
+                : unChecked
+            }
+          />
+        </Styled.SelectButton>
+        <p>전체선택</p>
+      </Styled.AllSelectWrapper>
+
       <CartList cartItemsData={cartItemsData} selectedCartIds={selectedCartIds}>
         {cartItemsData.map((cartItem) => (
           <CartCard
