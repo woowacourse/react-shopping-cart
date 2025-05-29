@@ -5,6 +5,7 @@ import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import { CartProvider } from "../contexts/CartContext";
 import useCart from "../hooks/useCart";
+import { ToastProvider } from "../contexts/ToastContext";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -42,7 +43,9 @@ const mockCartItems = [
 
 const wrapper = ({ children }: React.PropsWithChildren) => (
   <MemoryRouter>
-    <CartProvider>{children}</CartProvider>
+    <ToastProvider>
+      <CartProvider>{children}</CartProvider>
+    </ToastProvider>
   </MemoryRouter>
 );
 

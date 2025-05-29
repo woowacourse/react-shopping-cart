@@ -2,6 +2,7 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { getCartItems } from "../apis/cartItems/getCartItems";
 import { CartProvider } from "../contexts/CartContext";
+import { ToastProvider } from "../contexts/ToastContext";
 import CartPage from "../pages/CartPage/CartPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 
@@ -54,17 +55,21 @@ describe("router 테스트", () => {
       {
         path: "/",
         element: (
-          <CartProvider>
-            <CartPage />
-          </CartProvider>
+          <ToastProvider>
+            <CartProvider>
+              <CartPage />
+            </CartProvider>
+          </ToastProvider>
         ),
       },
       {
         path: "/order",
         element: (
-          <CartProvider>
-            <OrderPage />
-          </CartProvider>
+          <ToastProvider>
+            <CartProvider>
+              <OrderPage />
+            </CartProvider>
+          </ToastProvider>
         ),
       },
     ];
@@ -114,17 +119,21 @@ describe("router 테스트", () => {
       {
         path: "/",
         element: (
-          <CartProvider>
-            <CartPage />
-          </CartProvider>
+          <ToastProvider>
+            <CartProvider>
+              <CartPage />
+            </CartProvider>
+          </ToastProvider>
         ),
       },
       {
         path: "/order",
         element: (
-          <CartProvider>
-            <OrderPage />
-          </CartProvider>
+          <ToastProvider>
+            <CartProvider>
+              <OrderPage />
+            </CartProvider>
+          </ToastProvider>
         ),
       },
     ];
