@@ -179,12 +179,12 @@ export const cartItems: CartItem[] = [
   {
     id: 1,
     quantity: 2,
-    product: products[0],
+    product: products[10],
   },
   {
     id: 2,
     quantity: 2,
-    product: products[2],
+    product: products[8],
   },
   {
     id: 3,
