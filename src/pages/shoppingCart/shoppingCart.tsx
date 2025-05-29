@@ -1,15 +1,16 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
-import getShoppingCart from "../api/getShoppingCart";
-import Button from "../components/Button/Button";
-import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
-import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
-import Header from "../components/layout/Header/Header";
-import Main from "../components/layout/Main/Main";
-import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
-import Toast from "../components/Toast/Toast";
-import { CartItemTypes } from "../types/cartItem";
+
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
+import { CartItemTypes } from "../../types/cartItem";
+import getShoppingCart from "../../api/getShoppingCart";
+import Header from "../../components/layout/Header/Header";
+import Toast from "../../components/Toast/Toast";
+import Main from "../../components/layout/Main/Main";
+import { EmptyShoppingCart } from "../../components/EmptyShoppingCart/EmptyShoppingCart";
+import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
+import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
+import Button from "../../components/Button/Button";
 
 export function ShoppingCart() {
   const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
