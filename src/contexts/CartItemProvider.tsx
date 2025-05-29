@@ -74,7 +74,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     return acc;
   }, 0);
 
-  const shippingFee = orderPrice > FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
+  const shippingFee = orderPrice >= FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
 
   const totalPrice = shippingFee + orderPrice;
 
