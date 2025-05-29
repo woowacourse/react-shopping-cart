@@ -1,0 +1,244 @@
+{
+  "content": [
+    {
+      "id": 101,
+      "quantity": 1,
+      "product": {
+        "id": 1,
+        "name": "유기농 바나나",
+        "price": 4500,
+        "imageUrl": "https://i.namu.wiki/i/Mj0aArUbJiq5_c500MqmbYyDPWnSiDBCsxbesdkR0XTOtDvwrjj2ponJvctbYgQ7zPE_LvjsJHAl786rZu0tkw.webp",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 102,
+      "quantity": 1,
+      "product": {
+        "id": 2,
+        "name": "신선한 사과 1kg",
+        "price": 7900,
+        "imageUrl": "https://i.namu.wiki/i/QHZlaOvDdhvtLDYrA6IRvUZdddgwY9q5d0rMBywEIh7dbcNTCzTmE2CDM05JA9GRuXWqp5LsxE_T8BvGNOJhVA.webp",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 103,
+      "quantity": 1,
+      "product": {
+        "id": 3,
+        "name": "무항생제 닭가슴살 500g",
+        "price": 8900,
+        "imageUrl": "https://health.chosun.com/site/data/img_dir/2021/11/04/2021110401776_0.jpg",
+        "category": "식료품",
+        "stock": 0
+      }
+    },
+    {
+      "id": 104,
+      "quantity": 1,
+      "product": {
+        "id": 4,
+        "name": "유기농 현미 4kg",
+        "price": 16000,
+        "imageUrl": "",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 105,
+      "quantity": 1,
+      "product": {
+        "id": 5,
+        "name": "친환경 양배추",
+        "price": 3200,
+        "imageUrl": "https://i.namu.wiki/i/5ISYTfYvAdrL8uIoYVlMZ0sJCQWOgRHTdcerXSErt2gVgaxEzXAcUhcgJVpVwKFccpD5N8cg_M656GL0O3O2jw.webp",
+        "category": "식료품",
+        "stock": 1
+      }
+    },
+    {
+      "id": 106,
+      "quantity": 1,
+      "product": {
+        "id": 6,
+        "name": "신선한 연어 300g",
+        "price": 15000,
+        "imageUrl": "",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 107,
+      "quantity": 1,
+      "product": {
+        "id": 7,
+        "name": "유기농 우유 1L",
+        "price": 3900,
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/250px-Milk_glass.jpg",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 108,
+      "quantity": 1,
+      "product": {
+        "id": 8,
+        "name": "통밀 식빵",
+        "price": 4800,
+        "imageUrl": "https://i.namu.wiki/i/Ppbu45jiME3PCSgCzo6Ljs1ogkayv_wGLSkbHRfBmRypZUt8s7j6Gxq0kFe0ScEzHHeE7NNkY2CFjVQ_BZXAgQ.webp",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 109,
+      "quantity": 1,
+      "product": {
+        "id": 9,
+        "name": "한우 불고기용 300g",
+        "price": 22000,
+        "imageUrl": "",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 110,
+      "quantity": 1,
+      "product": {
+        "id": 10,
+        "name": "유기농 딸기 500g",
+        "price": 9800,
+        "imageUrl": "",
+        "category": "식료품",
+        "stock": 3
+      }
+    },
+    {
+      "id": 111,
+      "quantity": 1,
+      "product": {
+        "id": 11,
+        "name": "가죽 크로스백",
+        "price": 59000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 112,
+      "quantity": 1,
+      "product": {
+        "id": 12,
+        "name": "캐주얼 볼캡",
+        "price": 24000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 0
+      }
+    },
+    {
+      "id": 113,
+      "quantity": 1,
+      "product": {
+        "id": 13,
+        "name": "베이직 니트 머플러",
+        "price": 18000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 114,
+      "quantity": 1,
+      "product": {
+        "id": 14,
+        "name": "패션 양말 3세트",
+        "price": 12000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 0
+      }
+    },
+    {
+      "id": 115,
+      "quantity": 1,
+      "product": {
+        "id": 15,
+        "name": "가죽 장갑",
+        "price": 28000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 116,
+      "quantity": 1,
+      "product": {
+        "id": 16,
+        "name": "캐주얼 벨트",
+        "price": 25000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 117,
+      "quantity": 1,
+      "product": {
+        "id": 17,
+        "name": "빈티지 스카프",
+        "price": 21000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 118,
+      "quantity": 1,
+      "product": {
+        "id": 18,
+        "name": "여성용 손목시계",
+        "price": 45000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 119,
+      "quantity": 1,
+      "product": {
+        "id": 19,
+        "name": "선글라스",
+        "price": 37000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    },
+    {
+      "id": 120,
+      "quantity": 1,
+      "product": {
+        "id": 20,
+        "name": "미니멀 백팩",
+        "price": 67000,
+        "imageUrl": "",
+        "category": "패션잡화",
+        "stock": 3
+      }
+    }
+  ]
+}
