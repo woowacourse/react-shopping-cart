@@ -25,17 +25,24 @@ function CartCard({
 }: CartCardProps) {
   const { product, quantity, id } = cartItem;
   const { name, price, imageUrl } = product;
-
-  console.log("id", id);
-  console.log("isSelected", isSelected);
   return (
     <li>
       <Styled.Container>
-        <button onClick={() => handleSelectCartItem(id.toString())}>
-          <img src={isSelected ? checked : unChecked} />
-        </button>
-        <Styled.Image src={imageUrl} alt={name} />
+        <Styled.ButtonWrapper>
+          <Styled.SelectButton
+            onClick={() => handleSelectCartItem(id.toString())}
+          >
+            <Styled.SelectIcon src={isSelected ? checked : unChecked} />
+          </Styled.SelectButton>
+          <Styled.DeleteButton
+            disabled={isDeleteItemLoading}
+            onClick={() => handleDeleteCartItem(product.id.toString())}
+          >
+            삭제
+          </Styled.DeleteButton>
+        </Styled.ButtonWrapper>
         <Styled.Wrapper>
+          <Styled.Image src={imageUrl} alt={name} />
           <Styled.ProductInfo>
             <Styled.ProductName>{name}</Styled.ProductName>
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
@@ -56,12 +63,6 @@ function CartCard({
               isQuantityUpdateLoading={isQuantityUpdateLoading}
             />
           </Styled.ProductInfo>
-          <Styled.DeleteButton
-            disabled={isDeleteItemLoading}
-            onClick={() => handleDeleteCartItem(product.id.toString())}
-          >
-            삭제
-          </Styled.DeleteButton>
         </Styled.Wrapper>
       </Styled.Container>
     </li>

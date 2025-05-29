@@ -4,8 +4,47 @@ export const Container = styled.div`
   width: 100%;
   padding: 12px 0;
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
   border-top: 1px solid #0000001a;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SelectButton = styled.button`
+  border: none;
+
+  width: 24px;
+  height: 24px;
+`;
+
+export const SelectIcon = styled.img`
+  width: auto;
+  height: auto;
+`;
+
+export const DeleteButton = styled.button`
+  width: 40px;
+  height: 24px;
+
+  color: #000000;
+  background-color: transparent;
+  border: 1px solid #0000001a;
+  border-radius: 4px;
+  font-size: 12px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover,
+  &:focus {
+    background-color: #000000;
+    color: #ffffff;
+  }
 `;
 
 export const Image = styled.img`
@@ -17,15 +56,15 @@ export const Image = styled.img`
 
 export const Wrapper = styled.div`
   width: 100%;
-
-  position: relative;
+  display: flex;
+  gap: 16px;
 `;
 
 export const ProductInfo = styled.div`
   width: 106px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: space-evenly;
 `;
 
 export const ProductName = styled.p`
@@ -36,24 +75,5 @@ export const ProductName = styled.p`
 export const Price = styled.p`
   font-weight: 500;
   font-size: 12px;
-`;
-
-export const DeleteButton = styled.button`
-  padding: 6px 8px;
-  color: #000000;
-  background-color: transparent;
-  border: 1px solid #0000001a;
-  border-radius: 4px;
-
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  &:hover,
-  &:focus {
-    background-color: #000000;
-    color: #ffffff;
-  }
+  margin-bottom: 8px;
 `;
