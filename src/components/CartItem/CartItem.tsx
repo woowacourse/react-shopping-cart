@@ -78,7 +78,7 @@ export default function CartItem({
             onError={(e) => {
               const target = e.currentTarget;
               target.onerror = null;
-              target.src = "/images/default-img.png";
+              target.src = "images/default-img.png";
             }}
           />
         </S.CartItemImageWrapper>

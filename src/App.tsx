@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createHashRouter, RouterProvider } from "react-router";
 import * as S from "./App.styles";
 import { APIProvider } from "./context/APIContext";
 import OrderCompletePage from "./pages/OrderCompletedPage/OrderCompletedPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <ShoppingCartPage />,
