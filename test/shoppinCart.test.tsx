@@ -35,7 +35,7 @@ describe("장바구니 페이지 테스트", () => {
     });
   });
 
-  it("장바구니에 담긴 아이템의 수량을 변경하면 주문 금액이 변경된다.", async () => {
+  it("장바구니에 담긴 아이템의 수량을 감소시키면 주문 금액이 감소한다.", async () => {
     render(
       <MemoryRouter>
         <ShoppingCart />
@@ -48,8 +48,8 @@ describe("장바구니 페이지 테스트", () => {
       selectedCartId: selectedId,
     });
 
+    const orderPrice = await screen.findByTestId("orderPrice");
     await waitFor(() => {
-      const orderPrice = screen.getByTestId("orderPrice");
       expect(orderPrice.textContent).toBe(
         `${prevTotalPrice.toLocaleString("ko")}원`
       );
@@ -58,6 +58,48 @@ describe("장바구니 페이지 테스트", () => {
     await waitFor(() => {
       const minusButtons = screen.getAllByTestId("quantity-minus-button");
       fireEvent.click(minusButtons[0]);
+
+      const currentOrderPrice = screen.getByTestId("orderPrice");
+      const currentTotalPrice =
+        prevTotalPrice - shoppingCart.content[0].product.price;
+
+      expect(currentOrderPrice.textContent).toBe(
+        `${currentTotalPrice.toLocaleString("ko")}원`
+      );
+    });
+  });
+
+  it("장바구니에 담긴 아이템의 수량을 증가시키면 주문 금액이 증가한다.", async () => {
+    render(
+      <MemoryRouter>
+        <ShoppingCart />
+      </MemoryRouter>
+    );
+
+    const selectedId = shoppingCart.content.map((e) => e.id.toString());
+    const prevTotalPrice = getTotalPrice({
+      cartItems: shoppingCart.content as CartItemTypes[],
+      selectedCartId: selectedId,
+    });
+
+    const orderPrice = await screen.findByTestId("orderPrice");
+    await waitFor(() => {
+      expect(orderPrice.textContent).toBe(
+        `${prevTotalPrice.toLocaleString("ko")}원`
+      );
+    });
+
+    await waitFor(() => {
+      const plusButtons = screen.getAllByTestId("quantity-plus-button");
+      fireEvent.click(plusButtons[0]);
+
+      const currentOrderPrice = screen.getByTestId("orderPrice");
+      const currentTotalPrice =
+        prevTotalPrice + shoppingCart.content[0].product.price;
+
+      expect(currentOrderPrice.textContent).toBe(
+        `${currentTotalPrice.toLocaleString("ko")}원`
+      );
     });
   });
 });
