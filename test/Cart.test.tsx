@@ -108,4 +108,18 @@ describe('장바구니 목록을 렌더링 한다.', () => {
     // 업데이트된 수량이 화면에 표시되는지 확인
     expect(screen.getByText((initialQuantity + 1).toString())).toBeInTheDocument();
   });
+
+  it('페이지에 첫 렌더링 후 전체 선책 체크박스 클릭시 해당 상품이 모두 해제되며 구매 금액은 0원이 된다.', async () => {
+    mockCartApi.getCartItemList.mockImplementation(async () => {
+      return Promise.resolve([...cartItems]);
+    });
+
+    renderCartPage();
+
+    const allButtons = await screen.findAllByRole('all-check');
+
+    await user.click(allButtons[0]);
+
+    expect(screen.getByText('0원')).toBeInTheDocument();
+  });
 });
