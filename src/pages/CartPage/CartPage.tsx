@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { CLIENT_BASE_PATH } from "../../apis/config";
+import Description from "../../components/@common/Description/Description";
+import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
+import { Header } from "../../components/@common/Header/Header.styles";
+import Title from "../../components/@common/Title/Title";
+import { TOAST_TYPES } from "../../components/@common/Toast/type";
 import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
-import Description from "../../components/@common/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import { Header } from "../../components/@common/Header/Header.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
-import Title from "../../components/@common/Title/Title";
 import useCart from "../../hooks/useCart";
 import useToast from "../../hooks/useToast";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
-import { TOAST_TYPES } from "../../components/@common/Toast/type";
-import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 
 const CartPage = () => {
   const {
@@ -40,7 +41,7 @@ const CartPage = () => {
   return (
     <>
       <Header>
-        <S.Logo href="/">SHOP</S.Logo>
+        <S.Logo href={CLIENT_BASE_PATH}>SHOP</S.Logo>
       </Header>
       <S.Main>
         <Title>장바구니</Title>
