@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { isError } from '../utils/isError';
+
 type DataState<T> = {
   data: T | null;
   isLoading: boolean;
@@ -23,7 +25,9 @@ export const useFetchData = <T>(options?: UseFetchDataOptions<T>) => {
       const result = await apiCall();
       setData({ data: result, isLoading: false, error: null });
     } catch (e) {
-      setData((prev) => ({ ...prev, error: e as Error }));
+      if (isError(e)) {
+        setData((prev) => ({ ...prev, error: e }));
+      }
       throw e;
     }
   }, []);
