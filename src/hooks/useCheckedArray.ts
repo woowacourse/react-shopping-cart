@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CartItemType } from "../types/response";
 
 const useCheckedArray = (cartData: CartItemType[]) => {
   const [isCheckedArray, setIsCheckedArray] = useState<number[]>([]);
-  console.log(isCheckedArray);
+
+  useEffect(() => {
+    initIsCheckedArray(cartData);
+  }, [cartData]);
 
   const justifyIsChecked = (cartId: number) => {
     const isChecked = isCheckedArray.includes(cartId);
