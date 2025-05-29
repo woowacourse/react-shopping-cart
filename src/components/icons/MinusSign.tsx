@@ -4,9 +4,9 @@ const MinusSign = (props: React.SVGProps<SVGSVGElement>) => {
       <path
         d="M1.11719 1.5C5.80348 1.5 8.4309 1.5 13.1172 1.5"
         stroke="#363636"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
