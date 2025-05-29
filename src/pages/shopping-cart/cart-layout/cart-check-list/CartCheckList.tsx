@@ -194,9 +194,7 @@ const ProductName = styled.p`
   text-align: left;
 `;
 
-const ProductPrice = styled.p`
-  ${({ theme }) => theme.body2}
-`;
+const ProductPrice = styled.p``;
 
 const DeleteButton = styled.button`
   padding: 8px 16px;
@@ -204,7 +202,6 @@ const DeleteButton = styled.button`
   border-radius: 6px;
   background-color: #fff;
   color: #666;
-  ${({ theme }) => theme.body2}
   cursor: pointer;
 
   &:hover {
@@ -232,5 +229,4 @@ const EmptyCartImage = styled.img`
 const EmptyCartText = styled.p`
   width: 100%;
   color: grey;
-  ${({ theme }) => theme.body2}
 `;
