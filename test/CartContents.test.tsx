@@ -74,4 +74,18 @@ describe('CartContents 테스트', () => {
       expect(updatedCartItems.length).toBe(3);
     });
   });
+
+  it('CartItem의 삭제 버튼을 누르면 상품이 삭제된다.', async () => {
+    const cartItems = await screen.findAllByTestId(/CartItem/);
+    const firstItem = cartItems[0];
+    const buttons = within(firstItem).getAllByRole('button');
+    const deleteButton = buttons[1];
+
+    fireEvent.click(deleteButton);
+
+    await waitFor(async () => {
+      const updatedCartItems = await screen.findAllByTestId(/CartItem/);
+      expect(updatedCartItems.length).toBe(3);
+    });
+  });
 });
