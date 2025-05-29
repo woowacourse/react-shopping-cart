@@ -24,6 +24,7 @@ const ShoppingCartPage = () => {
         isDisabled={isDisabled}
         disabled={isDisabled}
         onClick={handleCheckout}
+        role="order-button"
       >
         주문 확인
       </CheckoutButton>

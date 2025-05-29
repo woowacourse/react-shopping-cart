@@ -81,6 +81,8 @@ function CartCheckList() {
         <CheckBox
           isChecked={isSelectAll}
           onToggle={() => handleSelectAll()}
+          role={"cart-item-all-checkbox"}
+          aria-checked={isSelectAll}
         ></CheckBox>
         <p>전체 선택</p>
       </CheckedAll>
@@ -96,6 +98,8 @@ function CartCheckList() {
               <CheckBox
                 isChecked={selectionMap[cart.id]}
                 onToggle={() => handleToggleSelection(cart.id)}
+                role={"cart-item-checkbox"}
+                aria-checked={selectionMap[cart.id]}
               ></CheckBox>
               <ItemContainer>
                 <Image

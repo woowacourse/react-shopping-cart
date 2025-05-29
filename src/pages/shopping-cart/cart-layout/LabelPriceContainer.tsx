@@ -25,7 +25,11 @@ const LabelPriceContainer = () => {
       </InfoBox>
       <PriceWrapper>
         <LabelPrice label="주문 금액" price={orderPrice} />
-        <LabelPrice label="배송비" price={shippingFee} />
+        <LabelPrice
+          ariaLabel="shipping-fee"
+          label="배송비"
+          price={shippingFee}
+        />
       </PriceWrapper>
 
       <LabelPrice label="총 결제 금액" price={totalPrice} />

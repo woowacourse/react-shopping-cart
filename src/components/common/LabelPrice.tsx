@@ -4,13 +4,16 @@ import Flex from "./Flex";
 interface LabelPriceProps {
   label: string;
   price: number;
+  ariaLabel?: string;
 }
 
-const LabelPrice = ({ label, price }: LabelPriceProps) => {
+const LabelPrice = ({ label, price, ariaLabel }: LabelPriceProps) => {
   return (
     <TotalSection>
       <TotalLabel>{label}</TotalLabel>
-      <TotalAmount>{price.toLocaleString()}원</TotalAmount>
+      <TotalAmount aria-label={ariaLabel}>
+        {price.toLocaleString()}원
+      </TotalAmount>
     </TotalSection>
   );
 };

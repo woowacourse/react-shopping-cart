@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
+import { ButtonHTMLAttributes } from "react";
 
-interface CheckBoxProps {
+interface CheckBoxProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isChecked: boolean;
   onToggle: () => void;
 }
 
-const CheckBox = ({ isChecked, onToggle }: CheckBoxProps) => {
+const CheckBox = ({ isChecked, onToggle, ...props }: CheckBoxProps) => {
   return (
-    <CheckButton isChecked={isChecked} onClick={onToggle}>
+    <CheckButton isChecked={isChecked} onClick={onToggle} {...props}>
       <svg
         width="12"
         height="10"
