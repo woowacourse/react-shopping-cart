@@ -2,22 +2,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import Header from "../../components/shoppingCart/Header/Header";
-import Item from "../../components/shoppingCart/Item/Item";
 import Receipt from "../../components/shoppingCart/receipt/Receipt";
 import Footer from "../../components/layout/Footer/Footer";
 import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
 
 import useCartItemList from "../../hooks/useCartItemList";
 
-import { CartItemCheck } from "../../types/CartItemCheck";
+import CartItemCheck from "../../types/CartItemCheck";
 
-import {
-  StyledShoppingCart,
-  Flex,
-  Checkbox,
-  EmptyText,
-} from "./ShoppingCartPage.styles";
+import { StyledShoppingCart, EmptyText } from "./ShoppingCartPage.styles";
 import { useErrorContext } from "../../contexts/ErrorContext";
+import ShoppingCartList from "../../components/shoppingCart/ShoppingCartList/ShoppingCartList";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
@@ -112,34 +107,13 @@ export default function ShoppingCartPage() {
         />
         {cartItemListLength ? (
           <>
-            <section>
-              <Flex>
-                <Checkbox
-                  type="checkbox"
-                  checked={allChecked}
-                  onChange={toggleAll}
-                />
-                <label>전체 선택</label>
-              </Flex>
-
-              {cartItemList.map((cart) => {
-                const selected = cartItemCheckList.find(
-                  (s) => s.id === cart.id
-                );
-                return (
-                  <Item
-                    key={cart.id}
-                    id={cart.id}
-                    isChecked={!!selected?.isClicked}
-                    handleSelectedCartItem={handleSelectedCartItem}
-                    imageUrl={cart.product.imageUrl}
-                    name={cart.product.name}
-                    price={cart.product.price}
-                    quantity={cart.quantity}
-                  />
-                );
-              })}
-            </section>
+            <ShoppingCartList
+              cartItemList={cartItemList}
+              cartItemCheckList={cartItemCheckList}
+              allChecked={allChecked}
+              toggleAll={toggleAll}
+              handleSelectedCartItem={handleSelectedCartItem}
+            />
             <Receipt
               allProductPrice={allProductPrice}
               shippingFee={shippingFee}
