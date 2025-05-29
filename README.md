@@ -6,6 +6,9 @@
 2. 주문확인 페이지에서 새로고침시, 장바구니 페이지로 이동 (하나의 로직이기 때문에, 결제창 x)
 3. 상태 -> 가공한다. (isChecked를 get으로 받아온 데이터와 조합)
 
+- 1. 가공을 했을 경우 => {id:1, quantity:1, isChecked:false}
+- 2. 가공을 안 하고 상태로 만들 경우 => id[1,2,3,4]
+
 ## 기능 명세서
 
 - [x] prettier 설정
@@ -27,9 +30,10 @@
 - [ ] ui 퍼블리싱
 
   - [x] Header 컴포넌트
-  - [ ] CartPage 컴포넌트 -> useCart() -> fetch get -> 데이터를 context / data -> state 가공하는 함수들이
+  - [x] CartPage 컴포넌트 -> useCart() -> fetch get -> 데이터를 context / data -> state 가공하는 함수들이
   - const money = state.filter (check) / const boundary = 1000000원 -> 훅에서 관리
-  - [ ] 컴포넌트 => 배송비 10만원 저장 -> 바꿔주고, 50000원 컴포넌트 탐색을 내부에서 x
+  - [x] 컴포넌트 => 배송비 10만원 저장 -> 바꿔주고, 50000원 컴포넌트 탐색을 내부에서 x
+  - [x] useCart 훅 구현 (api 요청, 이벤트 핸들러, 파생값 계산, 타입 지정)
     - [x] Text 컴포넌트 -> variant=title / variant = description-1 -> title -> children 장바구니
     - [x] CheckBox 컴포넌트 (props -> isCheck, onClick, children)
     - [x] CartList 컴포넌트 (props cart get state)
