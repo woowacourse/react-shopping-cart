@@ -1,14 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { cartItems, products } from "./data";
 
-type PaginatedResponse<T> = {
-  content: T[];
-};
-const paginatedResponse = <T>(items: T[]): PaginatedResponse<T> => {
-  return {
-    content: items,
-  };
-};
 export const testStateStore = {
   shouldFailCart: false,
   customCartError: null as string | null,
