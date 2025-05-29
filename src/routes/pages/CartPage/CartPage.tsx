@@ -15,10 +15,17 @@ import { cartPrice } from '../../../utils/cartPrice/cartPrice';
 
 import useCartList from '../../../hooks/useCartList';
 import useSelect from '../../../hooks/useSelect';
+import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
 
 function CartPage() {
-  const { cartList, increaseCartItem, decreaseCartItem, deleteCartItem } =
-    useCartList();
+  const {
+    cartList,
+    isError,
+    isLoading,
+    increaseCartItem,
+    decreaseCartItem,
+    deleteCartItem,
+  } = useCartList();
 
   const {
     selectedItems,
@@ -27,7 +34,35 @@ function CartPage() {
     handleSelectAllItems,
   } = useSelect(cartList);
 
+  console.log('isLoading', isLoading);
+
   const totalPrice = cartPrice.totalPrice(cartList, selectedItems);
+
+  const renderCartList = () => {
+    return cartList.length === 0 ? (
+      <EmptyCart />
+    ) : (
+      <>
+        <CartList
+          isAllSelected={isAllSelected}
+          handleSelectedAllItems={handleSelectAllItems}
+        >
+          {cartList.map((cartItem) => (
+            <CartItem
+              key={cartItem.id}
+              cartItem={cartItem}
+              isSelected={selectedItems.includes(cartItem.id)}
+              handleSelectItem={handleSelectItem}
+              increaseCartItem={increaseCartItem}
+              decreaseCartItem={decreaseCartItem}
+              deleteCartItem={deleteCartItem}
+            />
+          ))}
+        </CartList>
+        <CartPriceInfo totalPrice={totalPrice} />
+      </>
+    );
+  };
 
   return (
     <>
@@ -36,29 +71,7 @@ function CartPage() {
       </Header>
       <ContainerLayout>
         <CartListTitle cartListLength={cartList.length} />
-        {cartList.length === 0 ? (
-          <EmptyCart />
-        ) : (
-          <>
-            <CartList
-              isAllSelected={isAllSelected}
-              handleSelectedAllItems={handleSelectAllItems}
-            >
-              {cartList.map((cartItem) => (
-                <CartItem
-                  key={cartItem.id}
-                  cartItem={cartItem}
-                  isSelected={selectedItems.includes(cartItem.id)}
-                  handleSelectItem={handleSelectItem}
-                  increaseCartItem={increaseCartItem}
-                  decreaseCartItem={decreaseCartItem}
-                  deleteCartItem={deleteCartItem}
-                />
-              ))}
-            </CartList>
-            <CartPriceInfo totalPrice={totalPrice} />
-          </>
-        )}
+        {isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton
         selectedCartData={cartList.filter((item) =>
