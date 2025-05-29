@@ -93,7 +93,7 @@ export const CartInfo = ({
               justifyContent="center"
               alignItems="center"
             >
-              {remainingForFreeShipping < 0 ? (
+              {remainingForFreeShipping > 0 ? (
                 <Text type="Caption" color="#666">
                   {`${remainingForFreeShipping.toLocaleString()}원 더 구매하면 배송비 무료!`}
                 </Text>
