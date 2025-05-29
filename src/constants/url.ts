@@ -1,4 +1,4 @@
-const BASE_URL = 'http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const URLS = {
   CART_ITEMS: `${BASE_URL}/cart-items`,
