@@ -21,8 +21,13 @@ export default function ShoppingCartList({
   return (
     <section>
       <Flex>
-        <Checkbox type="checkbox" checked={allChecked} onChange={toggleAll} />
-        <label>전체 선택</label>
+        <Checkbox
+          id="check-all"
+          type="checkbox"
+          checked={allChecked}
+          onChange={toggleAll}
+        />
+        <label htmlFor="check-all">전체 선택</label>
       </Flex>
 
       {cartItemList.map((cart) => {
