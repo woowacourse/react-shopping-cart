@@ -20,11 +20,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest", "@testing-library/jest-dom"],
     "esModuleInterop": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
 
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
   "include": ["src", "test"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "vitest.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
