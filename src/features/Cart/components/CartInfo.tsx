@@ -4,6 +4,7 @@ import { Button } from '@/shared/components/Button';
 import { CheckBox } from '@/shared/components/CheckBox';
 import { Flex } from '@/shared/components/Flex';
 import { Header } from '@/shared/components/Header';
+import { Progress } from '@/shared/components/Progress';
 import { Text } from '@/shared/components/Text';
 
 import { CartItemDetail } from './CartItemDetail';
@@ -11,13 +12,35 @@ import { PriceSummary } from './PriceSummary';
 
 import { StepProps } from '../../../shared/types/funnel';
 import { CartListContainer } from '../container/CartListContainer';
-import { useCart } from '../hooks/useCart';
+import { CartItem } from '../types/Cart.types';
 
-export const CartInfo = ({ onNext }: StepProps) => {
-  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCart();
+type CartInfoProps = {
+  cartItems: CartItem[];
+  onToggle: (id: number) => void;
+  onToggleAll: VoidFunction;
+  onRemove: (id: number) => void;
+  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
+} & StepProps;
+export const CartInfo = ({
+  cartItems,
+  onNext,
+  onToggle,
+  onToggleAll,
+  onRemove,
+  onUpdateQuantity,
+}: CartInfoProps) => {
   const allChecked = cartItems?.every((item) => item.isChecked);
   const cartItemCount = cartItems?.length ?? 0;
   const selectedCartItemCount = cartItems?.filter((item) => item.isChecked).length ?? 0;
+
+  const selectedTotalAmount =
+    cartItems
+      ?.filter((item) => item.isChecked)
+      .reduce((total, item) => total + item.product.price * item.quantity, 0) ?? 0;
+
+  const FREE_SHIPPING_THRESHOLD = 100000;
+  const progressValue = Math.min((selectedTotalAmount / FREE_SHIPPING_THRESHOLD) * 100, 100);
+  const remainingForFreeShipping = Math.max(FREE_SHIPPING_THRESHOLD - selectedTotalAmount, 0);
 
   return (
     <>
@@ -62,9 +85,28 @@ export const CartInfo = ({ onNext }: StepProps) => {
             <Text type="Heading" weight="semibold">
               장바구니
             </Text>
-            <Text type="Caption" weight="regular">
-              {`현재 ${cartItemCount}종류의 상품이 담겨있습니다.`}
-            </Text>
+            <Flex
+              direction="column"
+              gap="10px"
+              width="100%"
+              margin="10px 0 0 0"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {remainingForFreeShipping < 0 ? (
+                <Text type="Caption" color="#666">
+                  {`${remainingForFreeShipping.toLocaleString()}원 더 구매하면 배송비 무료!`}
+                </Text>
+              ) : (
+                <Text type="Caption" color="black" weight="semibold">
+                  🎉🎉 무료 배송이 가능합니다 🎉🎉
+                </Text>
+              )}
+              <Progress
+                value={progressValue}
+                color={remainingForFreeShipping > 0 ? '#333333' : '#333333'}
+              />
+            </Flex>
             <Flex
               direction="row"
               justifyContent="center"
@@ -72,7 +114,7 @@ export const CartInfo = ({ onNext }: StepProps) => {
               gap="10px"
               margin="10px 0 0 0"
             >
-              <CheckBox checked={allChecked} onClick={toggleAllCheck} />
+              <CheckBox checked={allChecked} onClick={onToggleAll} role="all-check" />
               <Text type="Caption" weight="regular">
                 {`전체선택  (${selectedCartItemCount}/${cartItemCount})`}
               </Text>
@@ -82,9 +124,9 @@ export const CartInfo = ({ onNext }: StepProps) => {
             {cartItems?.map((item) => (
               <CartItemDetail
                 key={item.id}
-                onToggle={toggleCheck}
-                onRemove={removeCartItem}
-                onUpdateQuantity={updateQuantity}
+                onToggle={onToggle}
+                onRemove={onRemove}
+                onUpdateQuantity={onUpdateQuantity}
                 {...item}
               />
             ))}
@@ -102,7 +144,7 @@ export const CartInfo = ({ onNext }: StepProps) => {
         onClick={onNext}
         disabled={cartItems?.length === 0}
       >
-        주문 확인
+        주문확인
       </Button>
     </>
   );

@@ -69,5 +69,5 @@ export const useCart = () => {
     isChecked: checkedItems.has(item.id),
   }));
 
-  return { cartItems: cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem };
+  return { cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem };
 };

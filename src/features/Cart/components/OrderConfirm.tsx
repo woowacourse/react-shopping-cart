@@ -7,10 +7,13 @@ import { Text } from '@/shared/components/Text';
 
 import Back from '../../../../public/Back.png';
 import { StepProps } from '../../../shared/types/funnel';
-import { useCart } from '../hooks/useCart';
+import { CartItem } from '../types/Cart.types';
 
-export const OrderConfirm = ({ onPrev }: StepProps) => {
-  const { cartItems } = useCart();
+type OrderConfirmProps = {
+  cartItems: CartItem[];
+} & StepProps;
+
+export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const hasCheckCartLength = cartItems?.filter((item) => item.isChecked).length;
   const totalQuantity = cartItems?.reduce(
     (acc, item) => acc + (item.isChecked ? item.quantity : 0),
@@ -20,6 +23,9 @@ export const OrderConfirm = ({ onPrev }: StepProps) => {
     (acc, item) => acc + (item.isChecked ? item.product.price * item.quantity : 0),
     0
   );
+
+  console.log('hasCheckCartLength', hasCheckCartLength);
+  console.log('totalQuantity', totalQuantity);
 
   return (
     <>
