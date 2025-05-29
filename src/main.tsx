@@ -8,7 +8,10 @@ import reset from './global/reset.ts';
 async function enableMocking() {
   const { worker } = await import('./mocks/browser');
 
-  return worker.start({
+  await worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
     onUnhandledRequest: 'bypass',
   });
 }
