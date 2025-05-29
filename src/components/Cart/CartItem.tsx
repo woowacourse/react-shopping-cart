@@ -33,7 +33,7 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
   };
 
   const handleDecreaseQuantity = async () => {
-    if (cartItem.quantity === 0) {
+    if (cartItem.quantity === 1) {
       handleRemoveCartItem();
       return;
     }
