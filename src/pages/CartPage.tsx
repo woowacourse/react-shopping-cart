@@ -1,7 +1,6 @@
 import AllCheckSection from '../components/AllCheckSection';
 import CartItemCountMessage from '../components/CartItemCountMessage';
 import ConfirmButton from '../components/ConfirmButton';
-import Header from '../components/Header';
 import ItemCard from '../components/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
@@ -14,8 +13,7 @@ const CartPage = () => {
   const { setPage } = usePageContext();
 
   return (
-    <S.container>
-      <Header />
+    <>
       <S.content>
         <S.title>장바구니</S.title>
         {cartItems.length === 0 ? (
@@ -46,25 +44,17 @@ const CartPage = () => {
         title="주문 확인"
         onClick={() => setPage('orderConfirm')}
       />
-    </S.container>
+    </>
   );
 };
 
 export default CartPage;
 
 const S = {
-  container: styled.div`
-    height: 100vh;
-  `,
   title: styled.p`
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 12px;
-  `,
-
-  itemCardList: styled.ul`
-    /* height: 400px; */
-    overflow-y: auto;
   `,
 
   content: styled.div`
@@ -72,6 +62,10 @@ const S = {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 64px - 64px);
+  `,
+
+  itemCardList: styled.ul`
+    overflow-y: auto;
   `,
 
   infoContainer: styled.div`

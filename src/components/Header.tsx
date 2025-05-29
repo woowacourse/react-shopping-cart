@@ -7,7 +7,9 @@ const Header = () => {
     page === 'cart' ? (
       <S.title>SHOP</S.title>
     ) : (
-      <img src="" alt="goBack" onClick={() => setPage('cart')} />
+      <button>
+        <img src="/go-back.svg" alt="goBack" onClick={() => setPage('cart')} />
+      </button>
     );
 
   return <S.container>{headerContent}</S.container>;
