@@ -15,3 +15,7 @@ export const headerLayout = styled.header`
   font-size: 20px;
   font-weight: 800;
 `;
+
+export const Title = styled.div`
+  cursor: pointer;
+`;

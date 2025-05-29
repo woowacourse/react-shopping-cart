@@ -2,14 +2,13 @@ import * as S from './Header.styles';
 
 interface HeaderProps {
   title: string;
-  children?: React.ReactNode;
+  handleTitleClick?: () => void;
 }
 
-export default function Header({ title, children }: HeaderProps) {
+export default function Header({ title, handleTitleClick }: HeaderProps) {
   return (
     <S.headerLayout>
-      {title}
-      {children}
+      <S.Title onClick={handleTitleClick}>{title}</S.Title>
     </S.headerLayout>
   );
 }

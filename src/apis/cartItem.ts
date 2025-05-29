@@ -1,6 +1,6 @@
 export const CART_URL = `${import.meta.env.VITE_BASE_URL}/cart-items`;
 
-export async function getCartItem({ sortBy }: { sortBy: string }) {
+export async function getCartItem() {
   const options = {
     method: 'GET',
     headers: {
@@ -12,7 +12,6 @@ export async function getCartItem({ sortBy }: { sortBy: string }) {
   const params = new URLSearchParams({
     page: '0',
     size: '50',
-    sort: sortBy,
   });
 
   return fetch(`${CART_URL}?${params.toString()}`, options).then((res) => res.json());
