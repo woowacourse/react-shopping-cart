@@ -122,4 +122,24 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     expect(screen.getByText('0원')).toBeInTheDocument();
   });
+
+  it('체크박스 클릭시 해당 상품의 선택 상태가 변경된다.', async () => {
+    mockCartApi.getCartItemList.mockImplementation(async () => {
+      return Promise.resolve([...currentCartItems]);
+    });
+
+    renderCartPage();
+
+    // 첫 번째 cart-item 찾기
+    const cartItems = await screen.findAllByRole('cart-item');
+    const firstCartItem = cartItems[0];
+
+    // 해당 cart-item 내의 체크박스 찾기
+    const checkbox = within(firstCartItem).getByRole('checkbox');
+    const initialCheckedState = currentCartItems[0].isChecked; // true
+
+    await user.click(checkbox);
+
+    expect(!initialCheckedState).toBeFalsy();
+  });
 });
