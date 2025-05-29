@@ -1,5 +1,5 @@
-import { CartItemType } from '../types/response';
-import { getCartItemById } from './getCartItemById';
+import type { CartItemType } from "../types/response";
+import { getCartItemById } from "./getCartItemById";
 
 export const getCartItemNamePrice = (
   isCheckedArray: number[],
