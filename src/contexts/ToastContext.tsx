@@ -1,4 +1,5 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
+import Portal from "../components/Portal/Portal";
 import Toast from "../components/Toast/Toast";
 import { TOAST_TYPES, ToastType } from "../components/Toast/type";
 
@@ -28,29 +29,36 @@ export const ToastProvider = ({ children }: React.PropsWithChildren) => {
     };
   }, []);
 
-  const showToast = ({
-    message,
-    type = TOAST_TYPES.SUCCESS,
-    duration = 4000,
-  }: ShowToastProps) => {
-    if (toastTimer.current) {
-      clearTimeout(toastTimer.current);
-      toastTimer.current = null;
-    }
+  const showToast = useCallback(
+    ({
+      message,
+      type = TOAST_TYPES.SUCCESS,
+      duration = 4000,
+    }: ShowToastProps) => {
+      if (toastTimer.current) {
+        clearTimeout(toastTimer.current);
+        toastTimer.current = null;
+      }
 
-    setType(type);
-    setMessage(message);
+      setType(type);
+      setMessage(message);
 
-    toastTimer.current = setTimeout(() => {
-      setMessage("");
-      toastTimer.current = null;
-    }, duration);
-  };
+      toastTimer.current = setTimeout(() => {
+        setMessage("");
+        toastTimer.current = null;
+      }, duration);
+    },
+    []
+  );
 
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {!!message && <Toast message={message} type={type} />}
+      {!!message && (
+        <Portal>
+          <Toast message={message} type={type} />
+        </Portal>
+      )}
     </ToastContext.Provider>
   );
 };

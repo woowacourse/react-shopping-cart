@@ -23,6 +23,7 @@ export const SidePanelText = styled.span`
 `;
 
 export const Content = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 0 0 500px;

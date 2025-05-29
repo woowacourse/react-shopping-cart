@@ -7,7 +7,7 @@ function MobileLayout({ children }: PropsWithChildren) {
       <S.SidePanel>
         <S.SidePanelText>장바구니 🛒</S.SidePanelText>
       </S.SidePanel>
-      <S.Content>{children}</S.Content>
+      <S.Content id="custom-root">{children}</S.Content>
       <S.SidePanel>
         <S.SidePanelText>메이토 & 니야</S.SidePanelText>
       </S.SidePanel>
