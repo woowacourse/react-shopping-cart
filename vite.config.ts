@@ -7,4 +7,5 @@ export default defineConfig({
       jsxImportSource: "@emotion/react",
     }),
   ],
+  base: "/react-shopping-cart",
 });

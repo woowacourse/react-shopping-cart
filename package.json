@@ -40,5 +40,10 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vitest": "^3.1.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
