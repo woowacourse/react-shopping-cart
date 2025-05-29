@@ -10,7 +10,6 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   const buttonStyle = buttonStyles[variant];
-  console.log(props.disabled);
   return (
     <button css={buttonStyle} {...props}>
       {children}

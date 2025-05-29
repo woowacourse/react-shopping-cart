@@ -22,6 +22,7 @@ import {
 const CartPage = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
   const [isCheckedArray, setIsCheckedArray] = useState<number[]>([]);
+
   const { goOrderComplete } = useEasyNavigate();
 
   const isAllChecked = isCheckedArray.length === cartData.length;
@@ -76,6 +77,7 @@ const CartPage = () => {
     const fetchCartData = async () => {
       const cartData = await getCart();
       setCartData(cartData);
+      setIsCheckedArray(cartData.map((item: CartItemType) => item.id));
     };
 
     fetchCartData();
