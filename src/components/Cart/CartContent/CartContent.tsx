@@ -1,13 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import * as Styled from "./CartContent.style";
-import useShoppingCart from "../../../hooks/useShoppingCart";
-import CartList from "../CartList/CartList";
-import CartCard from "../CartCard/CartCard";
-import checked from "/checked.svg";
-import unChecked from "/unChecked.svg";
-import { useNavigate } from "react-router";
-import { PAGE_URL } from "../../../constants/PageUrl";
-import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation";
+import { useEffect, useRef, useState } from "react"
+import * as Styled from "./CartContent.style"
+import useShoppingCart from "../../../hooks/useShoppingCart"
+import CartList from "../CartList/CartList"
+import CartCard from "../CartCard/CartCard"
+import checked from "/checked.svg"
+import unChecked from "/unChecked.svg"
+import { useNavigate } from "react-router"
+import { PAGE_URL } from "../../../constants/PageUrl"
+import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation"
+import {
+  FREE_SHIPPING_OVER,
+  SHIPPING_FEE,
+} from "../../../constants/priceSetting"
 
 function CartContent() {
   const {
@@ -16,44 +20,54 @@ function CartContent() {
     handleDeleteCartItem,
     isQuantityUpdateLoading,
     isDeleteItemLoading,
-  } = useShoppingCart();
+  } = useShoppingCart()
 
-  const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
-  const initialized = useRef(false);
-  const navigate = useNavigate();
+  const [selectedCartIds, setSelectedCartIds] = useState<string[]>([])
+  const initialized = useRef(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!initialized.current && cartItemsData.length) {
-      const allIds = cartItemsData.map((item) => item.id.toString());
-      setSelectedCartIds(allIds);
-      initialized.current = true;
+      const allIds = cartItemsData.map((item) => item.id.toString())
+      setSelectedCartIds(allIds)
+      initialized.current = true
     }
-  }, [cartItemsData]);
+  }, [cartItemsData])
 
   const handleSelectCartItem = (id: string) => {
     if (selectedCartIds.includes(id)) {
-      setSelectedCartIds((prev) => prev.filter((cartId) => cartId !== id));
+      setSelectedCartIds((prev) => prev.filter((cartId) => cartId !== id))
     } else {
-      setSelectedCartIds((prev) => [...prev, id]);
+      setSelectedCartIds((prev) => [...prev, id])
     }
-  };
+  }
 
   const isAllSelected =
     cartItemsData.length > 0 &&
-    cartItemsData.every((item) => selectedCartIds.includes(item.id.toString()));
+    cartItemsData.every((item) => selectedCartIds.includes(item.id.toString()))
 
   const handleOrderConfirm = () => {
+    const selectedCartItems = cartItemsData.filter((cartItem) =>
+      selectedCartIds.includes(cartItem.id.toString()),
+    )
+    const totalPrice = selectedCartItems.reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0,
+    )
+
+    const shippingFee = totalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE
+    const totalPriceWithShipping = totalPrice + shippingFee
+
     const state: OrderConfirmationLocationState = {
       selectedCartItemsLength: selectedCartIds.length,
-      selectedCartItemsCount: cartItemsData
-        .filter((cartItem) => selectedCartIds.includes(cartItem.id.toString()))
-        .reduce((totalCount, item) => totalCount + item.quantity, 0),
-      totalPrice: cartItemsData
-        .filter((item) => selectedCartIds.includes(item.id.toString()))
-        .reduce((total, item) => total + item.product.price * item.quantity, 0),
-    };
-    navigate(PAGE_URL.ORDER_CONFIRMATION, { state });
-  };
+      selectedCartItemsCount: selectedCartItems.reduce(
+        (totalCount, item) => totalCount + item.quantity,
+        0,
+      ),
+      totalPrice: totalPriceWithShipping,
+    }
+    navigate(PAGE_URL.ORDER_CONFIRMATION, { state })
+  }
 
   return (
     <Styled.CartContentContainer>
@@ -68,12 +82,10 @@ function CartContent() {
             <Styled.SelectButton
               onClick={() => {
                 if (selectedCartIds.length === cartItemsData.length) {
-                  setSelectedCartIds([]);
+                  setSelectedCartIds([])
                 } else {
-                  const allIds = cartItemsData.map((item) =>
-                    item.id.toString()
-                  );
-                  setSelectedCartIds(allIds);
+                  const allIds = cartItemsData.map((item) => item.id.toString())
+                  setSelectedCartIds(allIds)
                 }
               }}
             >
@@ -111,7 +123,7 @@ function CartContent() {
         주문 확인
       </Styled.OrderConfirmButton>
     </Styled.CartContentContainer>
-  );
+  )
 }
 
-export default CartContent;
+export default CartContent
