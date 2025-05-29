@@ -1,51 +1,7 @@
 import "./App.css";
+import router from "./router";
 
-import {
-  RouterProvider,
-  createBrowserRouter,
-  Outlet,
-  useLocation,
-} from "react-router";
-
-import Header from "./components/layout/Header/Header";
-import BackButton from "./components/layout/Header/BackButton";
-
-import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
-import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
-
-import { CartItemListProvider } from "./contexts/CartItemListContext";
-import { ErrorProvider } from "./contexts/ErrorContext";
-
-function Layout() {
-  const location = useLocation();
-
-  const isShoppingCartPage = location.pathname === "/";
-
-  return (
-    <ErrorProvider>
-      <CartItemListProvider>
-        <Header>{isShoppingCartPage ? "SHOP" : <BackButton />}</Header>
-        <Outlet />
-      </CartItemListProvider>
-    </ErrorProvider>
-  );
-}
-
-const router = createBrowserRouter([
-  {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <ShoppingCartPage />,
-      },
-      {
-        path: "/order-check",
-        element: <OrderCheckPage />,
-      },
-    ],
-  },
-]);
+import { RouterProvider } from "react-router";
 
 function App() {
   return <RouterProvider router={router} />;
