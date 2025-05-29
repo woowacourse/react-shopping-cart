@@ -6,14 +6,20 @@ import useMutation from '@/shared/hooks/useMutation';
 type RemoveCartItemButtonProps = {
   cartItemId: number;
   refetchCartItems: () => Promise<void>;
+  removeOrderItem: (id: number) => void;
 };
 
-function RemoveCartItemButton({ cartItemId, refetchCartItems }: RemoveCartItemButtonProps) {
+function RemoveCartItemButton({
+  cartItemId,
+  refetchCartItems,
+  removeOrderItem,
+}: RemoveCartItemButtonProps) {
   const { mutate: removeCartItemMutate } = useMutation(() => deleteCartItem(cartItemId));
 
   const removeCartItem = async () => {
     await removeCartItemMutate(undefined);
     refetchCartItems();
+    removeOrderItem(cartItemId);
   };
 
   return (

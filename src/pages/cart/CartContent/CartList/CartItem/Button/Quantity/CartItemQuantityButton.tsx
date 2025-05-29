@@ -9,11 +9,16 @@ type CartItemQuantityButtonProps = {
   cartItemId: number;
   quantity: number;
   refetchCartItems: () => Promise<void>;
+  removeOrderItem: (id: number) => void;
+  updateOrderItem: (id: number, quantity: number) => void;
 };
+
 function CartItemQuantityButton({
   cartItemId,
   quantity,
   refetchCartItems,
+  removeOrderItem,
+  updateOrderItem,
 }: CartItemQuantityButtonProps) {
   const { mutate: updateCartItemMutate } = useMutation(updateCartItemQuantity);
 
@@ -23,11 +28,17 @@ function CartItemQuantityButton({
       quantity: updateQuantity,
     });
     refetchCartItems();
+    updateOrderItem(cartItemId, updateQuantity);
   };
+
   return (
     <S.ButtonWrapper>
       {quantity === 1 ? (
-        <RemoveCartItemButton cartItemId={cartItemId} refetchCartItems={refetchCartItems} />
+        <RemoveCartItemButton
+          cartItemId={cartItemId}
+          refetchCartItems={refetchCartItems}
+          removeOrderItem={removeOrderItem}
+        />
       ) : (
         <S.Button type="button" onClick={() => updateCartItem(quantity - 1)}>
           <img src={MinusIcon} alt="수량 1개 빼기" />

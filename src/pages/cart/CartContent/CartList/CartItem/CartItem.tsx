@@ -13,6 +13,7 @@ type CartItemProps = {
   isChecked: boolean;
   addOrderItem: (cartItem: CartItemType) => void;
   removeOrderItem: (id: number) => void;
+  updateOrderItem: (id: number, quantity: number) => void;
 };
 
 export default function CartItem({
@@ -21,6 +22,7 @@ export default function CartItem({
   isChecked,
   addOrderItem,
   removeOrderItem,
+  updateOrderItem,
 }: CartItemProps) {
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
@@ -69,6 +71,8 @@ export default function CartItem({
             cartItemId={id}
             quantity={quantity}
             refetchCartItems={refetchCartItems}
+            removeOrderItem={removeOrderItem}
+            updateOrderItem={updateOrderItem}
           />
         </S.ItemDetail>
       </S.ItemContent>

@@ -45,6 +45,17 @@ export const useCartItem = () => {
     setOrderList(newOrderList);
   };
 
+  const updateOrderItem = (id: number, quantity: number) => {
+    const updateOrderList = orderList.map((order) => {
+      if (order.id === id) {
+        return { ...order, quantity };
+      }
+
+      return order;
+    });
+    setOrderList(updateOrderList);
+  };
+
   return {
     cartItems,
     isLoading,
@@ -56,5 +67,6 @@ export const useCartItem = () => {
     toggleAllCheckBox,
     addOrderItem,
     removeOrderItem,
+    updateOrderItem,
   };
 };

@@ -19,6 +19,7 @@ export default function CartContent() {
     toggleAllCheckBox,
     addOrderItem,
     removeOrderItem,
+    updateOrderItem,
   } = useCartItem();
   const navigate = useNavigate();
 
@@ -57,6 +58,7 @@ export default function CartContent() {
           refetchCartItems={refetchCartItems}
           addOrderItem={addOrderItem}
           removeOrderItem={removeOrderItem}
+          updateOrderItem={updateOrderItem}
         />
         <PriceContainer orderTotalPrice={orderTotalPrice} />
       </S.ScrollContainer>

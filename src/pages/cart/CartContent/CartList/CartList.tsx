@@ -8,6 +8,7 @@ type CartListProps = {
   refetchCartItems: () => Promise<void>;
   addOrderItem: (cartItem: CartItemType) => void;
   removeOrderItem: (id: number) => void;
+  updateOrderItem: (id: number, quantity: number) => void;
 };
 
 export default function CartList({
@@ -16,6 +17,7 @@ export default function CartList({
   refetchCartItems,
   addOrderItem,
   removeOrderItem,
+  updateOrderItem,
 }: CartListProps) {
   return (
     <S.List>
@@ -29,6 +31,7 @@ export default function CartList({
             isChecked={isChecked}
             addOrderItem={addOrderItem}
             removeOrderItem={removeOrderItem}
+            updateOrderItem={updateOrderItem}
           />
         );
       })}
