@@ -1,5 +1,5 @@
-export interface PaginatedResponse<T> {
-  content: T[];
+export interface CartItems {
+  content: CartItemContent[];
   totalElements: number;
   totalPages: number;
   size: number;
@@ -12,7 +12,13 @@ export interface PaginatedResponse<T> {
   empty: boolean;
 }
 
-export interface BaseProduct {
+export interface CartItemContent {
+  id: number;
+  quantity: number;
+  product: Product;
+}
+
+interface Product {
   id: number;
   name: string;
   price: number;
@@ -21,7 +27,7 @@ export interface BaseProduct {
   stock: number;
 }
 
-export interface Pageable {
+interface Pageable {
   offset: number;
   sort: Sort;
   paged: boolean;
@@ -30,16 +36,8 @@ export interface Pageable {
   unpaged: boolean;
 }
 
-export interface Sort {
+interface Sort {
   empty: boolean;
   sorted: boolean;
   unsorted: boolean;
 }
-
-export interface CartItemContent {
-  id: number;
-  quantity: number;
-  product: BaseProduct;
-}
-
-export type CartItems = PaginatedResponse<CartItemContent>;
