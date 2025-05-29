@@ -21,9 +21,11 @@
 
     /* Testing */
     "esModuleInterop": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
 
     "jsx": "react-jsx"
   },
   "include": ["src", "test"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "vitest.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
