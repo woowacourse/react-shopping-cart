@@ -30,13 +30,13 @@ export function QuantitySelector({
   return (
     <div css={QuantitySelectorLayout}>
       <IconButton
-        imgUrl="./minus.png"
+        imgUrl="./react-shopping-cart/minus.png"
         onClick={handleMinusCount}
         dataTestid="quantity-minus-button"
       />
       <p data-testid="quantity-value">{quantity}</p>
       <IconButton
-        imgUrl="./plus.png"
+        imgUrl="./react-shopping-cart/plus.png"
         onClick={handleAddCount}
         dataTestid="quantity-plus-button"
       />
