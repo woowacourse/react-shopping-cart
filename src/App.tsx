@@ -4,7 +4,7 @@ import { ShoppingCart } from "./pages/shoppingCart/shoppingCart";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/react-shopping-cart">
       <Routes>
         <Route path="/" element={<ShoppingCart />}></Route>
         <Route path="/confirm" element={<OrderConfirm />}></Route>
