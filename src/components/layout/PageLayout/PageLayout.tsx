@@ -7,12 +7,14 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
       css={css`
         display: flex;
         justify-content: center;
+        background-color: aliceblue;
       `}
     >
       <div
         css={css`
           position: relative;
           width: 430px;
+          background-color: white;
         `}
       >
         {children}
