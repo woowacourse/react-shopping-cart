@@ -6,4 +6,4 @@ export default defineConfig({
   plugins: [react({ jsxImportSource: '@emotion/react' })],
   publicDir: 'public',
   base: 'https://jaeyoung-kwon.github.io/react-shopping-cart/',
-})
+});
