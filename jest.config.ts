@@ -8,4 +8,12 @@ export default {
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  globals: {
+    "import.meta": {
+      env: {
+        VITE_BASE_URL: process.env.VITE_BASE_URL,
+        VITE_USER_TOKEN: process.env.VITE_USER_TOKEN,
+      },
+    },
+  },
 };

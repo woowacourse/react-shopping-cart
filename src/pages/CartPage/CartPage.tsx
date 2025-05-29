@@ -11,6 +11,7 @@ import OrderResult from "../../components/OrderResult/OrderResult";
 import TitleSection from "../../components/TitleSection/TitleSection";
 import CartItem from "../../components/CartItem/CartItem";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
+import { calculateTotalPrice, calculateShippingFee } from "../../utils/price";
 
 function CartPage() {
   const dispatch = useCartDispatch();
@@ -41,19 +42,11 @@ function CartPage() {
   };
 
   const { orderPrice, deliveryPrice } = useMemo(() => {
-    const calculatedOrderPrice = selectData.reduce((total, item, idx) => {
-      if (item.selected) {
-        return total + cartData[idx].product.price * cartData[idx].quantity;
-      }
-      return total;
-    }, 0);
-
-    let calculatedDeliveryPrice = 0;
-    if (calculatedOrderPrice >= 100000 || calculatedOrderPrice === 0) {
-      calculatedDeliveryPrice = 0;
-    } else {
-      calculatedDeliveryPrice = 3000;
-    }
+    const selectedCartData = cartData.filter(
+      (_, idx) => selectData[idx]?.selected
+    );
+    const calculatedOrderPrice = calculateTotalPrice(selectedCartData);
+    const calculatedDeliveryPrice = calculateShippingFee(calculatedOrderPrice);
 
     return {
       orderPrice: calculatedOrderPrice,
