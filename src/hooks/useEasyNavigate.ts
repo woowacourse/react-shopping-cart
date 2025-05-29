@@ -1,10 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../constants/systemConstants";
 
 const useEasyNavigate = () => {
   const navigate = useNavigate();
 
   const goHome = () => {
-    navigate('/');
+    navigate(ROUTE.CART);
   };
 
   const goOrderComplete = (
@@ -12,7 +13,7 @@ const useEasyNavigate = () => {
     totalPrice: number,
     totalProductCount: number
   ) => {
-    navigate('/order-complete', {
+    navigate(ROUTE.ORDER_COMPLETE, {
       state: { productTypeCount, totalPrice, totalProductCount },
     });
   };
