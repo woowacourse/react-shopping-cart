@@ -10,7 +10,7 @@ function App() {
     <ErrorContextProvider>
       <ApiProvider>
         <div css={RoutesStyle}>
-          <Router>
+          <Router basename="/react-shopping-cart/">
             <Routes>
               <Route path="/" element={<CartPage />} />
               <Route path="/order" element={<OrderPage />} />
