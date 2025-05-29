@@ -4,46 +4,23 @@ import Header from "./Header";
 import CheckBox from "../../common/CheckBox";
 import PriceSection from "./PriceSection";
 import useGetCartItem from "../../../hooks/useGetCartItem";
-import { useState, useEffect, useRef } from "react";
 import { CartProduct } from "../../../type/cart";
 import Button from "../../common/Button";
 import { useNavigate } from "react-router";
 import { css } from "@emotion/react";
+import { useSelectedCart } from "../../../hooks/useSelectedCart";
 
 const CartSection = () => {
   const navigate = useNavigate();
-  const isSetting = useRef(false);
-  const [selectedCartId, setSelectedCartId] = useState<number[]>([]);
   const { cartItems, refetch } = useGetCartItem();
-  const isAllChecked = selectedCartId?.length === cartItems?.length;
-
-  const handleAllSelected = () => {
-    if (isAllChecked) {
-      setSelectedCartId([]);
-      return;
-    }
-    setSelectedCartId(cartItems?.map((item) => item.id) || []);
-  };
+  const { selectedCartId, handleAllSelected, handleToggle, handleDelete } =
+    useSelectedCart(cartItems);
 
   const isChecked = (id: number) => {
     return selectedCartId?.some((item) => item === id);
   };
 
-  const handleToggle = (id: number) => {
-    // 선택이 안되어 있음 -> 선택됨
-    if (!selectedCartId?.find((item) => item === id)) {
-      setSelectedCartId((prev) => [...prev, id]);
-      return;
-    }
-    // 선택이 되어 있음 -> 선택안됨
-    setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
-  };
-
-  const handleDelete = (id: number) => {
-    if (!selectedCartId?.find((item) => item === id)) return;
-    setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
-  };
-
+  const isAllChecked = selectedCartId?.length === cartItems?.length;
   const selectedItem = cartItems?.filter(
     (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
   );
@@ -66,14 +43,6 @@ const CartSection = () => {
   const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
   const totalPrice = orderPrice + deliveryPrice;
 
-  useEffect(() => {
-    if (cartItems && !isSetting.current) {
-      const cartIdList = cartItems?.map((item) => item.id);
-      setSelectedCartId(cartIdList);
-      isSetting.current = true;
-    }
-  }, [cartItems]);
-
   return (
     <S.Container>
       <S.Wrapper>
@@ -95,8 +64,8 @@ const CartSection = () => {
             <S.CartList>
               {cartItems?.map((cartItem) => (
                 <Card
-                  cartItem={cartItem}
                   key={cartItem.id}
+                  cartItem={cartItem}
                   onRefetch={refetch}
                   isChecked={isChecked(cartItem.id)}
                   onToggle={() => handleToggle(cartItem.id)}
