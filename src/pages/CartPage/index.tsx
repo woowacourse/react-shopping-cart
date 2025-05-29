@@ -11,7 +11,6 @@ const CartPage = () => {
 
   const navigate = useNavigate();
   const handleNavigate = () => navigate("/order-confirm", { state: orderResult });
-  console.log(cartItemsInfo.cartItemsCheckedCount);
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>
