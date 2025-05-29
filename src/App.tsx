@@ -24,6 +24,10 @@ function App() {
                   <Routes>
                     <Route path="/" element={<ShoppingCartPage />} />
                     <Route
+                      path="/order-confirm"
+                      element={<OrderConfirmPage />}
+                    />
+                    <Route
                       path="*"
                       element={
                         <div>
