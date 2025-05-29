@@ -33,6 +33,10 @@ export const OrderConfirmButton = styled.button`
   color: #fff;
   font-size: 16px;
   font-weight: 700;
+
+  &:disabled {
+    background-color: #bebebe;
+  }
 `;
 
 export const ScrollContainer = styled.div`
