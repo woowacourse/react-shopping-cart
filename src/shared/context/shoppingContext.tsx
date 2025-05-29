@@ -22,6 +22,7 @@ type DataContextType = {
 };
 
 export const CartContext = createContext<DataContextType | null>(null);
+
 export const ShoppingContext = ({ children }: PropsWithChildren) => {
   const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
 

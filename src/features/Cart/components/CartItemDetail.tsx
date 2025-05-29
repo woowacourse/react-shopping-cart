@@ -46,7 +46,7 @@ export const CartItemDetail = ({
         gap="0"
         margin="10px 0 0 0 "
       >
-        <CheckBox checked={isChecked} onClick={() => onToggle(id)} />
+        <CheckBox role="checkbox" checked={isChecked} onClick={() => onToggle(id)} />
         <Button
           variant="outlined"
           size="xs"

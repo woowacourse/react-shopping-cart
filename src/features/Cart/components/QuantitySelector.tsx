@@ -12,7 +12,7 @@ export type QuantitySelectorProps = {
 export const QuantitySelector = ({ count, onIncrease, onDecrease }: QuantitySelectorProps) => {
   return (
     <Flex direction="row" justifyContent="initial" alignItems="center" gap="8px">
-      <StyledOutlineButton disabled={count === 1} onClick={onDecrease}>
+      <StyledOutlineButton disabled={count === 1} onClick={onDecrease} role="minus-button">
         -
       </StyledOutlineButton>
       <Text
@@ -25,7 +25,9 @@ export const QuantitySelector = ({ count, onIncrease, onDecrease }: QuantitySele
       >
         {count}
       </Text>
-      <StyledOutlineButton onClick={onIncrease}>+</StyledOutlineButton>
+      <StyledOutlineButton onClick={onIncrease} role="plus-button">
+        +
+      </StyledOutlineButton>
     </Flex>
   );
 };
