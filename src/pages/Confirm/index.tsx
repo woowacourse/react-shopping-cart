@@ -9,7 +9,7 @@ const Confirm = () => {
   const { sort, totalAmount, totalPrice } = location.state;
   return (
     <>
-      <S.Container>
+      <S.Container data-testid="order-confirm-description">
         <S.Title>주문 확인</S.Title>
         <S.Description>
           총 {sort}종류의 상품 {totalAmount}개를 주문합니다.

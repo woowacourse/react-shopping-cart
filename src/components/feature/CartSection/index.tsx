@@ -48,7 +48,7 @@ const CartSection = () => {
       <S.Wrapper>
         <Header />
         {cartItems?.length === 0 ? (
-          <S.EmptyCartContainer>
+          <S.EmptyCartContainer data-testid="empty-page">
             장바구니에 담은 상품이 없습니다.
           </S.EmptyCartContainer>
         ) : (
@@ -84,6 +84,7 @@ const CartSection = () => {
         )}
       </S.Wrapper>
       <Button
+        testId="order-confirm-button"
         title="주문 확인"
         disabled={cartItems?.length === 0}
         onClick={() =>
