@@ -15,25 +15,30 @@ const CartPage = () => {
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>
-      <S.Information>
-        <Text variant="body-3">현재 {cartItemsInfo.count}종류의 상품이 담겨있습니다.</Text>
-        <CartItemList cartItemListProps={cartItemListProps} />
-        <OrderPrice gap={12}>
-          <OrderPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
-          <OrderPrice.Wrap gap={8}>
-            <OrderPrice.LabelWithPrice label="주문 금액" price={cartItemsInfo.orderPrice} />
-            <OrderPrice.LabelWithPrice label="배송비" price={cartItemsInfo.deliveryPrice} />
-          </OrderPrice.Wrap>
-          <OrderPrice.Wrap>
-            <OrderPrice.LabelWithPrice label="총 결제 금액" price={cartItemsInfo.totalPrice} />
-          </OrderPrice.Wrap>
-        </OrderPrice>
-      </S.Information>
-      {/* <S.NoInformation>
-        <Text variant="body-3">장바구니에 담은 상품이 없습니다.</Text>
-      </S.NoInformation> */}
+      {cartItemsInfo.count > 0 ? (
+        <S.Information>
+          <Text variant="body-3">현재 {cartItemsInfo.count}종류의 상품이 담겨있습니다.</Text>
+          <CartItemList cartItemListProps={cartItemListProps} />
+          <OrderPrice gap={12}>
+            <OrderPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
+            <OrderPrice.Wrap gap={8}>
+              <OrderPrice.LabelWithPrice label="주문 금액" price={cartItemsInfo.orderPrice} />
+              <OrderPrice.LabelWithPrice label="배송비" price={cartItemsInfo.deliveryPrice} />
+            </OrderPrice.Wrap>
+            <OrderPrice.Wrap>
+              <OrderPrice.LabelWithPrice label="총 결제 금액" price={cartItemsInfo.totalPrice} />
+            </OrderPrice.Wrap>
+          </OrderPrice>
+        </S.Information>
+      ) : (
+        <S.NoInformation>
+          <Text variant="body-3">장바구니에 담은 상품이 없습니다.</Text>
+        </S.NoInformation>
+      )}
       <S.ButtonWrap>
-        <Button onClick={handleNavigate}>주문 확인</Button>
+        <Button variant={cartItemsInfo.count > 0 ? "primary" : "disabled"} onClick={handleNavigate}>
+          주문 확인
+        </Button>
       </S.ButtonWrap>
     </S.Container>
   );
