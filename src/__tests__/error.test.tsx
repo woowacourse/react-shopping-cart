@@ -11,6 +11,10 @@ import MobileLayout from "../components/MobileLayout/MobileLayout";
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
 }));
+jest.mock("../apis/config", () => ({
+  API_BASE_URL: "http://mock-api-url.com",
+  CLIENT_BASE_PATH: "/react-shopping-cart",
+}));
 jest.mock("../apis/cartItems/getCartItems");
 jest.mock("../apis/cartItems/deleteCartItem");
 jest.mock("../apis/cartItems/patchCartItem");
