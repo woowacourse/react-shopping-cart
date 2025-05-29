@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { CartItemType } from '../types/response';
+import { useState } from "react";
+import type { CartItemType } from "../types/response";
 
 const useCheckedArray = (cartData: CartItemType[]) => {
   const [isCheckedArray, setIsCheckedArray] = useState<number[]>([]);
+  console.log(isCheckedArray);
 
   const justifyIsChecked = (cartId: number) => {
     const isChecked = isCheckedArray.includes(cartId);

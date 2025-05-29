@@ -9,6 +9,7 @@ const Button = ({
   children,
   ...props
 }: ButtonProps) => {
+  console.log(props.disabled);
   const buttonStyle = buttonStyles[variant];
   return (
     <button css={buttonStyle} {...props}>

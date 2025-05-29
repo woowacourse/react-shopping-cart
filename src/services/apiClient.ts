@@ -1,7 +1,7 @@
 import {
   FETCH_ERROR_MESSAGE,
   DEFAULT_ERROR_MESSAGE,
-} from "../constants/errorMessage";
+} from "../constants/errorMessages";
 
 interface ApiClientProps<T = unknown> {
   method: "GET" | "POST" | "PATCH" | "DELETE";
