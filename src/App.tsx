@@ -9,6 +9,7 @@ import Main from "./components/layout/Main/Main";
 import { PaymentSummary } from "./components/PaymentSummary/PaymentSummary";
 import { CartItemTypes } from "./types/cartItem";
 import Toast from "./components/Toast/Toast";
+import { EmptyShoppingCart } from "./components/EmptyShoppingCart/EmptyShoppingCart";
 
 const titleStyle = css`
   font-weight: 700;
@@ -77,19 +78,27 @@ function App() {
         <Main>
           <div css={titleBox}>
             <p css={titleStyle}>장바구니</p>
-            <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
+            {cartItem.length !== 0 && (
+              <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
+            )}
           </div>
-          <CartProductContainer
-            cartItem={cartItem}
-            onChange={getCartItemData}
-            onError={handleError}
-            selectedCartId={selectedCartId}
-            setSelectedCartId={setSelectedCartId}
-          />
-          <PaymentSummary
-            cartItems={cartItem}
-            selectedCartId={selectedCartId}
-          />
+          {cartItem.length === 0 ? (
+            <EmptyShoppingCart />
+          ) : (
+            <>
+              <CartProductContainer
+                cartItem={cartItem}
+                onChange={getCartItemData}
+                onError={handleError}
+                selectedCartId={selectedCartId}
+                setSelectedCartId={setSelectedCartId}
+              />
+              <PaymentSummary
+                cartItems={cartItem}
+                selectedCartId={selectedCartId}
+              />
+            </>
+          )}
           <Button
             onClick={() => {}}
             type="submit"
