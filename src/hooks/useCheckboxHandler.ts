@@ -10,7 +10,7 @@ const useCheckboxHandler = (cartItems: CartItemType[]) => {
   const [selectedCartIds, setSelectedCartIds] = useState<number[]>([]);
 
   useEffect(() => {
-    if (initialRef.current < 3) {
+    if (initialRef.current < 2) {
       setSelectedCartIds(allCartIds);
       initialRef.current += 1;
     }
