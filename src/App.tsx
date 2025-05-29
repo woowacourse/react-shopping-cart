@@ -29,16 +29,14 @@ const titleBox = css`
 function App() {
   const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
   const [error, setError] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
-
-  useEffect(() => {
-    setSelectedCartId(cartItem.map((item) => item.id.toString()));
-  }, [cartItem]);
 
   const getCartItemData = async () => {
     try {
+      setIsLoading(true);
       const response = await getShoppingCart();
+      if (cartItem.length === 0) setIsLoading(false);
       setCartItem(response);
     } catch (e) {
       setError("데이터를 가져오는데 실패했습니다");
@@ -53,8 +51,12 @@ function App() {
     getCartItemData();
   }, []);
 
-  console.log(cartItem);
-  console.log(selectedCartId);
+  useEffect(() => {
+    if (!isLoading && cartItem) {
+      setSelectedCartId(cartItem.map((item) => item.id.toString()));
+    }
+  }, [isLoading, cartItem]);
+
   return (
     <div
       css={css`
