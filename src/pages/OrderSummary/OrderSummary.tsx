@@ -26,10 +26,7 @@ function OrderSummary() {
 
   return (
     <>
-      <Header
-        icon="/public/backIcon.svg"
-        handleIconClick={() => navigate(-1)}
-      />
+      <Header icon="backIcon.svg" handleIconClick={() => navigate(-1)} />
       <section css={Container}>
         <h2 css={Title}>주문 확인</h2>
         <p css={Summary}>

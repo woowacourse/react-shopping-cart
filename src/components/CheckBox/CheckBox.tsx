@@ -8,9 +8,7 @@ interface CheckBoxProps {
 }
 
 function CheckBox({ label, id, isSelected, onClick }: CheckBoxProps) {
-  const imageSource = isSelected
-    ? "/public/enabledCheck.svg"
-    : "/public/disabledCheck.svg";
+  const imageSource = isSelected ? "enabledCheck.svg" : "disabledCheck.svg";
 
   return (
     <div css={Container}>
