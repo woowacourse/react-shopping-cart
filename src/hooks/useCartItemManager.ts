@@ -15,12 +15,15 @@ interface UseCartItemManagerReturn {
   handleDelete: () => Promise<void>;
 }
 
-function useCartItemManager({ cart }: UseCartItemManagerProps): UseCartItemManagerReturn {
+function useCartItemManager({
+  cart,
+}: UseCartItemManagerProps): UseCartItemManagerReturn {
   const dispatch = useCartDispatch();
   const selectState = useSelectContext();
   const selectDispatch = useSelectDispatch();
 
-  const isSelected = selectState.find((item) => item.id === cart.id)?.selected || false;
+  const isSelected =
+    selectState.find((item) => item.id === cart.id)?.selected || false;
 
   const handleSelect = (): void => {
     if (isSelected) {
@@ -38,7 +41,7 @@ function useCartItemManager({ cart }: UseCartItemManagerProps): UseCartItemManag
 
   const handleIncrease = async (): Promise<void> => {
     const newQuantity = cart.quantity + 1;
-    
+
     try {
       dispatch({
         type: "ADD_ITEM_QUANTITY",
@@ -46,7 +49,6 @@ function useCartItemManager({ cart }: UseCartItemManagerProps): UseCartItemManag
       });
       await updateCartItemApi(cart.id, newQuantity);
     } catch (error) {
-      // 실패 시 원래 상태로 롤백
       dispatch({
         type: "SET_CART",
         payload: { items: [cart] },
@@ -57,7 +59,7 @@ function useCartItemManager({ cart }: UseCartItemManagerProps): UseCartItemManag
 
   const handleDecrease = async (): Promise<void> => {
     const newQuantity = cart.quantity - 1;
-    
+
     try {
       if (cart.quantity === 1) {
         dispatch({
@@ -72,7 +74,6 @@ function useCartItemManager({ cart }: UseCartItemManagerProps): UseCartItemManag
       }
       await updateCartItemApi(cart.id, newQuantity);
     } catch (error) {
-      // 실패 시 원래 상태로 롤백
       dispatch({
         type: "SET_CART",
         payload: { items: [cart] },
@@ -96,7 +97,6 @@ function useCartItemManager({ cart }: UseCartItemManagerProps): UseCartItemManag
       await updateCartItemApi(cart.id, 0);
     } catch (error) {
       console.error("Failed to delete cart item:", error);
-      // 실패 시 원래 상태로 롤백
       dispatch({
         type: "SET_CART",
         payload: { items: [cart] },
