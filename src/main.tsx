@@ -12,7 +12,7 @@ async function enableMocking() {
     serviceWorker: {
       url: import.meta.env.DEV
         ? '/mockServiceWorker.js'
-        : '/react-shopping-products/mockServiceWorker.js',
+        : '/react-shopping-cart/mockServiceWorker.js',
     },
   });
 }
