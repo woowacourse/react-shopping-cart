@@ -8,13 +8,16 @@ import {
 
 import CartPage from '../src/pages/CartPage';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
+import { act } from 'react';
 
 describe('전체 선택 테스트', () => {
   beforeEach(async () => {
-    render(
-      <CartItemsProvider>
-        <CartPage />
-      </CartItemsProvider>
+    await act(() =>
+      render(
+        <CartItemsProvider>
+          <CartPage />
+        </CartItemsProvider>
+      )
     );
   });
 
@@ -83,7 +86,8 @@ describe('전체 선택 테스트', () => {
     });
 
     const checkedBoxes = await screen.findAllByTestId('checkBox');
-    checkedBoxes.forEach((box) => {
+    const itemCheckBoxes = checkedBoxes.slice(1);
+    itemCheckBoxes.forEach((box) => {
       fireEvent.click(box);
     });
 

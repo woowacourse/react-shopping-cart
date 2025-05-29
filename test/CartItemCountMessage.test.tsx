@@ -2,13 +2,16 @@ import { render, screen, waitFor } from '@testing-library/react';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import CartPage from '../src/pages/CartPage';
 import { mockCartItems } from './mocks';
+import { act } from 'react';
 
 describe('CartItemCountMessage 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    render(
-      <CartItemsProvider>
-        <CartPage />
-      </CartItemsProvider>
+    await act(() =>
+      render(
+        <CartItemsProvider>
+          <CartPage />
+        </CartItemsProvider>
+      )
     );
   });
 

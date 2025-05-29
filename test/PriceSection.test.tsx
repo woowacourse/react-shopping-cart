@@ -10,13 +10,16 @@ import CartPage from '../src/pages/CartPage';
 import { mockCartItems } from './mocks';
 import getOrderPrice from '../src/utils/getOrderPrice';
 import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
+import { act } from 'react';
 
 describe('PriceSection 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    render(
-      <CartItemsProvider>
-        <CartPage />
-      </CartItemsProvider>
+    await act(() =>
+      render(
+        <CartItemsProvider>
+          <CartPage />
+        </CartItemsProvider>
+      )
     );
   });
 

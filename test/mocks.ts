@@ -58,6 +58,12 @@ export const mockCartItems = [
   },
 ];
 
-export const fetchedData = {
-  content: mockCartItems,
+export let fetchedData = {
+  content: [...mockCartItems],
+};
+
+export const initFetchedData = () => {
+  fetchedData = {
+    content: [...mockCartItems],
+  };
 };

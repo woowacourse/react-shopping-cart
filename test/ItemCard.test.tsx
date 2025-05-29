@@ -9,17 +9,20 @@ import {
 import CartPage from '../src/pages/CartPage';
 import { mockCartItems } from './mocks';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
+import { act } from 'react';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;
 
   beforeEach(async () => {
-    render(
-      <CartItemsProvider>
-        <CartPage />
-      </CartItemsProvider>
+    await act(() =>
+      render(
+        <CartItemsProvider>
+          <CartPage />
+        </CartItemsProvider>
+      )
     );
-    const ItemCardList = await screen.findAllByTestId('item-card');
+    const ItemCardList = screen.getAllByTestId('item-card');
     firstItemCard = ItemCardList[0];
   });
 
@@ -99,8 +102,11 @@ describe('ItemCard 테스트', () => {
       });
     });
 
-    it('선택된 상툼의 선택 버튼 체크 시 해당 상품이 해제된다.', async () => {
-      within(firstItemCard).getByTestId('checkBox').click();
+    it('선택된 상품의 선택 버튼 체크 시 해당 상품이 해제된다.', async () => {
+      const firstItemCardCheckBox =
+        within(firstItemCard).getByTestId('checkBox');
+
+      fireEvent.click(firstItemCardCheckBox);
 
       await waitFor(() => {
         expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
@@ -111,7 +117,10 @@ describe('ItemCard 테스트', () => {
     });
 
     it('선택되지 않은 상품의 선택 버튼 체크 시 해당 상품이 선택된다.', async () => {
-      within(firstItemCard).getByTestId('checkBox').click();
+      const firstItemCardCheckBox =
+        within(firstItemCard).getByTestId('checkBox');
+
+      fireEvent.click(firstItemCardCheckBox);
 
       await waitFor(() => {
         expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
@@ -120,7 +129,8 @@ describe('ItemCard 테스트', () => {
         );
       });
 
-      within(firstItemCard).getByTestId('checkBox').click();
+      fireEvent.click(firstItemCardCheckBox);
+
       await waitFor(() => {
         expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
           'alt',
