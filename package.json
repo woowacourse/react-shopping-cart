@@ -9,9 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
-    "homepage": "https://shuyeon.github.io/https://github.com/shuyeon/react-shopping-cart",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "vite build --base=/react-shopping-products/ --minify=false && npx gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
