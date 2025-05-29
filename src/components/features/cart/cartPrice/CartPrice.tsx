@@ -18,17 +18,17 @@ function CartPrice({ orderPrice }: CartPriceProps) {
       </S.Description>
       <Separator />
       <S.IndividualPriceBox>
-        <S.PriceRow>
+        <S.PriceRow data-testid="price-row">
           <S.PriceLabel>주문 금액</S.PriceLabel>
           <S.PriceAmount>{orderPrice.toLocaleString()}원</S.PriceAmount>
         </S.PriceRow>
-        <S.PriceRow>
+        <S.PriceRow data-testid="price-row">
           <S.PriceLabel>배송비</S.PriceLabel>
           <S.PriceAmount>{deliveryFee.toLocaleString()}원</S.PriceAmount>
         </S.PriceRow>
       </S.IndividualPriceBox>
       <Separator />
-      <S.PriceRow>
+      <S.PriceRow data-testid="price-row">
         <S.PriceLabel>총 결제 금액</S.PriceLabel>
         <S.PriceAmount>{totalPrice.toLocaleString()}원</S.PriceAmount>
       </S.PriceRow>

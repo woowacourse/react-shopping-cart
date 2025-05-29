@@ -101,4 +101,24 @@ describe('CartContents 테스트', () => {
       expect(buttons[0]).toHaveAttribute('aria-checked', 'false');
     });
   });
+
+  it('선택된 상품의 가격이 10만원 이상이면 배송비가 0원이다.', async () => {
+    const priceRows = await screen.findAllByTestId('price-row');
+    const deliveryFee = priceRows[1];
+    expect(deliveryFee).toHaveTextContent('0원');
+  });
+
+  it('선택된 상품의 가격이 10만원 미만이면 배송비가 3,000원이다.', async () => {
+    const cartItems = await screen.findAllByTestId(/CartItem/);
+    const firstItem = cartItems[0];
+    const buttons = within(firstItem).getAllByRole('button');
+    const checkBoxButton = buttons[0];
+
+    fireEvent.click(checkBoxButton);
+
+    const priceRows = await screen.findAllByTestId('price-row');
+    const deliveryFee = priceRows[1];
+
+    expect(deliveryFee).toHaveTextContent('3,000원');
+  });
 });
