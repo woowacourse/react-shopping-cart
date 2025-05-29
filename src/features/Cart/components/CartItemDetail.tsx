@@ -8,6 +8,7 @@ import { Text } from '@/shared/components/Text';
 
 import { QuantitySelector } from './QuantitySelector';
 
+import NoImage from '../../../../public/NoImage.svg';
 import { CartItem } from '../types/Cart.types';
 
 type CartItemDetailProps = {
@@ -26,6 +27,11 @@ export const CartItemDetail = ({
   onRemove,
   onUpdateQuantity,
 }: CartItemDetailProps) => {
+  const imgUrl =
+    !product.imageUrl || product.imageUrl === '' || product.imageUrl.includes('kream')
+      ? NoImage
+      : product.imageUrl;
+
   return (
     <Flex
       direction="column"
@@ -69,7 +75,7 @@ export const CartItemDetail = ({
         padding="8px 0"
         margin="12px 0 0 0"
       >
-        <StyledCartItemImg src={product.imageUrl} alt={`${product.imageUrl} 상품`} />
+        <StyledCartItemImg src={imgUrl} alt={`${imgUrl} 상품`} />
         <Flex
           direction="column"
           justifyContent="space-between"
