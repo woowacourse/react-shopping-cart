@@ -3,6 +3,7 @@ import { Flex, Header } from "../../components/common";
 import BackArrowButton from "../../components/common/BackArrowButton";
 import { useNavigate } from "react-router-dom";
 import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
+import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -22,8 +23,9 @@ const OrderConfirmPage = () => {
   const shippingFee =
     totalCartPrice >= 100000 || totalCartPrice === 0 ? 0 : 3000;
   const totalPrice = totalCartPrice + shippingFee;
+
   return (
-    <>
+    <ErrorBoundary>
       <Header left={<BackArrowButton onClick={handleBackClick} />} />
       <Container>
         <Flex justifyContent="center" alignItems="center" gap="lg">
@@ -41,7 +43,7 @@ const OrderConfirmPage = () => {
       <PayButton isDisabled={true} disabled>
         결제하기
       </PayButton>
-    </>
+    </ErrorBoundary>
   );
 };
 

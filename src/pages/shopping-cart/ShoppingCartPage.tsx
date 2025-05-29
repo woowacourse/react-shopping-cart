@@ -3,6 +3,7 @@ import { Header } from "../../components/common";
 import CartLayout from "./cart-layout/CartLayout";
 import { useOrderListContext } from "./context/OrderListProvider";
 import { useNavigate } from "react-router-dom";
+import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
 
 const ShoppingCartPage = () => {
   const { selectionMap } = useOrderListContext();
@@ -16,7 +17,7 @@ const ShoppingCartPage = () => {
     }
   };
   return (
-    <>
+    <ErrorBoundary>
       <Header left="SHOP" />
       <CartLayout />
       <CheckoutButton
@@ -26,7 +27,7 @@ const ShoppingCartPage = () => {
       >
         주문 확인
       </CheckoutButton>
-    </>
+    </ErrorBoundary>
   );
 };
 

@@ -7,6 +7,7 @@ import { useOrderListContext } from "../context/OrderListProvider";
 
 const CartLayout = () => {
   const { cartListData } = useOrderListContext();
+
   return (
     <Container>
       <CartTitle />
