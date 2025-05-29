@@ -1,8 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, it, expect, vi } from "vitest";
+
 import { CartItemListProvider } from "../../../contexts/CartItemListContext";
 import { ErrorProvider } from "../../../contexts/ErrorContext";
+
+import TestProvider from "../../../utils/TestProvider";
 
 function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -173,7 +176,7 @@ describe("ShoppingCartList 컴포넌트는", () => {
 
   it("체크박스 클릭 시, 해당하는 상품의 체크 박스가 해제된다.", () => {
     render(
-      <Provider>
+      <TestProvider>
         <ShoppingCartList
           cartItemList={cartItemList}
           cartItemCheckList={cartItemCheckList}
@@ -181,7 +184,7 @@ describe("ShoppingCartList 컴포넌트는", () => {
           toggleAll={toggleAll}
           handleSelectedCartItem={handleSelectedCartItem}
         />
-      </Provider>
+      </TestProvider>
     );
 
     const checkboxes = screen.getAllByRole("checkbox");
