@@ -12,7 +12,7 @@ const CartPageTitle = ({ cartItemsTypeCount }: CartPageTitleProps) => {
       {cartItemsTypeCount === 0 ? (
         ""
       ) : (
-        <Text text={`현재 ${cartItemsTypeCount}종류의 상품이 담겨있습니다.`} />
+        <Text text={`현재 ${cartItemsTypeCount}개의 상품이 담겨있습니다.`} />
       )}
     </div>
   );
