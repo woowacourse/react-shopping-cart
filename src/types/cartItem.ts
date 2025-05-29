@@ -8,6 +8,6 @@ type ProductTypes = {
 
 export type CartItemTypes = {
   id: number;
-  quantity: 1;
+  quantity: number;
   product: ProductTypes;
 };
