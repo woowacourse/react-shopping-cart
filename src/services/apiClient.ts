@@ -33,7 +33,6 @@ export const apiClient = async <T = unknown>({
     if (response.headers.get('content-length') === '0') return;
     return response.json();
   }
-  console.log(response);
 
   if (response.status in FETCH_ERROR_MESSAGE) {
     throw new Error(FETCH_ERROR_MESSAGE[response.status]);
