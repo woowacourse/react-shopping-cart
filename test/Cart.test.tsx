@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi, beforeEach } from 'vitest';
 
@@ -7,6 +7,13 @@ import { CartPage } from '@/features/Cart/pages/CartPage';
 import { ShoppingContext } from '@/shared/context/shoppingContext';
 
 import { cartItems } from './Cart.data';
+
+export const createTestCartItems = (): ReadonlyArray<Readonly<(typeof cartItems)[0]>> => {
+  return cartItems.map((item) => ({
+    ...item,
+    product: { ...item.product },
+  })) as ReadonlyArray<Readonly<(typeof cartItems)[0]>>;
+};
 
 export const renderCartPage = () =>
   render(
@@ -25,7 +32,7 @@ describe('장바구니 목록을 렌더링 한다.', () => {
   beforeEach(() => {
     user = userEvent.setup();
     vi.clearAllMocks();
-    currentCartItems = [...cartItems];
+    currentCartItems = createTestCartItems();
   });
   it('장바구니 페이지에 진입했을 때, 상품이 존재한다면 목록을 보여준다.', async () => {
     // Given: 장바구니 페이지를 렌더링한다.
@@ -87,8 +94,8 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     mockCartApi.updateCartItem.mockImplementation(async ({ cartId, newQuantity }) => {
       currentCartItems = currentCartItems.map((item) =>
-        item.id === cartId ? { ...item, quantity: newQuantity } : item
-      );
+        item.id === cartId ? Object.freeze({ ...item, quantity: newQuantity }) : item
+      ) as ReadonlyArray<(typeof currentCartItems)[0]>;
       return Promise.resolve();
     });
 
@@ -107,6 +114,36 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     // 업데이트된 수량이 화면에 표시되는지 확인
     expect(screen.getByText((initialQuantity + 1).toString())).toBeInTheDocument();
+  });
+
+  it('장바구니 상품의 - 버튼을 통해 수량을 감소시킬 수 있다.', async () => {
+    mockCartApi.getCartItemList.mockImplementation(async () => {
+      return Promise.resolve([...currentCartItems]);
+    });
+
+    mockCartApi.updateCartItem.mockImplementation(async ({ cartId, newQuantity }) => {
+      currentCartItems = currentCartItems.map((item) =>
+        item.id === cartId ? Object.freeze({ ...item, quantity: newQuantity }) : item
+      ) as ReadonlyArray<(typeof currentCartItems)[0]>;
+      return Promise.resolve();
+    });
+
+    renderCartPage();
+
+    const checkButton = await screen.findAllByRole('minus-button');
+    const cartItemQuantity = await screen.findAllByRole('cart-item-quantity');
+    const initialQuantity = currentCartItems[0].quantity;
+
+    expect(cartItemQuantity[0]).toBeInTheDocument();
+
+    await user.click(checkButton[0]);
+
+    expect(mockCartApi.updateCartItem).toHaveBeenCalledWith({
+      cartId: currentCartItems[0].id,
+      newQuantity: initialQuantity - 1,
+    });
+
+    expect(cartItemQuantity[0]).toHaveTextContent((initialQuantity - 1).toString());
   });
 
   it('페이지에 첫 렌더링 후 전체 선책 체크박스 클릭시 해당 상품이 모두 해제되며 구매 금액은 0원이 된다.', async () => {
@@ -143,8 +180,6 @@ describe('장바구니 목록을 렌더링 한다.', () => {
     expect(!initialCheckedState).toBeFalsy();
   });
 
-  // it('페이지에 첫 렌더링 후 - 버튼 클릭시 해당 상품이 해체되며 구매 금액은 20000원이 된다.', async () => {});
-
   it('삭제 버튼 클릭 시 장바구니에서 해당 상품이 삭제된다.', async () => {
     mockCartApi.getCartItemList.mockImplementation(async () => {
       return Promise.resolve([...currentCartItems]);
@@ -168,5 +203,31 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     // 삭제된 상품이 화면에서 사라졌는지 확인
     expect(screen.queryByText(firstItemName)).not.toBeInTheDocument();
+  });
+
+  it('주문 확인 버튼을 클릭했을 때, 정보를 집약해서 보여준다.', async () => {
+    renderCartPage();
+    mockCartApi.getCartItemList.mockImplementation(async () => {
+      return Promise.resolve([...currentCartItems]);
+    });
+
+    const orderButton = await screen.findByRole('button', { name: /주문확인/ });
+    const cartItemLength = currentCartItems.filter((item) => item.isChecked).length;
+
+    const totalQuantity = currentCartItems.reduce(
+      (acc, item) => acc + (item.isChecked ? item.quantity : 0),
+      0
+    );
+
+    await user.click(orderButton);
+
+    expect(screen.getByText('결제하기')).toBeInTheDocument();
+
+    expect(
+      screen.getByText(
+        `총 ${cartItemLength}종류의 상품 ${totalQuantity}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText(`총 결제 금액 50,000원`)).toBeInTheDocument();
   });
 });

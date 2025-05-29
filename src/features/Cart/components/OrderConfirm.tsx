@@ -24,9 +24,6 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
     0
   );
 
-  console.log('hasCheckCartLength', hasCheckCartLength);
-  console.log('totalQuantity', totalQuantity);
-
   return (
     <>
       <Header
