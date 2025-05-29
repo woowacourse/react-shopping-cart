@@ -142,7 +142,7 @@ export const CartInfo = ({
           position: sticky;
         `}
         onClick={onNext}
-        disabled={cartItems?.length === 0}
+        disabled={cartItems?.length === 0 || selectedCartItemCount === 0}
       >
         주문확인
       </Button>
