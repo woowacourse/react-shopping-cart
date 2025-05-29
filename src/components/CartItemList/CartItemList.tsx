@@ -13,12 +13,14 @@ interface CartItemListProps {
 
 export default function CartItemList({ cartItems }: CartItemListProps) {
   const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(cartItems, (item) => item.id);
-
   const navigate = useNavigate();
-  const { orderAmount, deliveryFee, totalAmount, countOfItemType, countOfItem } = calculateSummary({
-    cartItems,
-    state
-  });
+
+  const checkedItems = getCheckedItems(cartItems, state);
+  const orderAmount = calculateOrderAmount(checkedItems);
+  const deliveryFee = calculateDeliveryFee(orderAmount);
+  const totalAmount = orderAmount + deliveryFee;
+  const countOfItemType = checkedItems.length;
+  const countOfItem = calculateTotalQuantity(checkedItems);
 
   return (
     <div css={styles.cartItemsAreaCss}>
@@ -61,20 +63,18 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   );
 }
 
-const calculateSummary = ({ cartItems, state }: { cartItems: CartItemType[]; state: Map<number, boolean> }) => {
-  const checkedItems = cartItems.filter((item) => state.get(item.id));
-  const orderAmount = checkedItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  const deliveryFee = orderAmount > 100000 ? 0 : 3000;
-  const totalAmount = orderAmount + deliveryFee;
+const getCheckedItems = (cartItems: CartItemType[], state: Map<number, boolean>): CartItemType[] => {
+  return cartItems.filter((item) => state.get(item.id));
+};
 
-  const countOfItemType = checkedItems.length;
-  const countOfItem = checkedItems.reduce((acc, item) => acc + item.quantity, 0);
+const calculateOrderAmount = (items: CartItemType[]): number => {
+  return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+};
 
-  return {
-    orderAmount,
-    deliveryFee,
-    totalAmount,
-    countOfItemType,
-    countOfItem
-  };
+const calculateDeliveryFee = (orderAmount: number): number => {
+  return orderAmount > 100000 ? 0 : 3000;
+};
+
+const calculateTotalQuantity = (items: CartItemType[]): number => {
+  return items.reduce((acc, item) => acc + item.quantity, 0);
 };
