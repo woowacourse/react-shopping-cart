@@ -22,17 +22,17 @@ export default function PriceContainer({ orderTotalPrice }: PriceContainerProps)
       <S.PriceBox>
         <S.PriceTextBox>
           <S.PriceTitle>주문 금액</S.PriceTitle>
-          <S.PriceText>{orderTotalPrice.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="order-price">{orderTotalPrice.toLocaleString()}원</S.PriceText>
         </S.PriceTextBox>
         <S.PriceTextBox>
           <S.PriceTitle>배송비</S.PriceTitle>
-          <S.PriceText>{deliveryPrice.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="delivery-price">{deliveryPrice.toLocaleString()}원</S.PriceText>
         </S.PriceTextBox>
       </S.PriceBox>
       <S.TotalPriceBox>
         <S.PriceTextBox>
           <S.PriceTitle>총 결제 금액</S.PriceTitle>
-          <S.PriceText>{paymentPrice.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="payment-price">{paymentPrice.toLocaleString()}원</S.PriceText>
         </S.PriceTextBox>
       </S.TotalPriceBox>
     </S.Container>
