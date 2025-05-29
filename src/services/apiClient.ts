@@ -1,10 +1,10 @@
 import {
   FETCH_ERROR_MESSAGE,
   DEFAULT_ERROR_MESSAGE,
-} from '../constants/errorMessages';
+} from "../constants/errorMessages";
 
 interface ApiClientProps<T = unknown> {
-  method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  method: "GET" | "POST" | "PATCH" | "DELETE";
   URI: string;
   body?: T;
 }
@@ -23,14 +23,14 @@ export const apiClient = async <T = unknown>({
     method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
       Authorization: `Basic ${basicToken}`,
     },
   });
 
   if (response.status === 204 || response.status === 201) return;
   if (response.ok) {
-    if (response.headers.get('content-length') === '0') return;
+    if (response.headers.get("content-length") === "0") return;
     return response.json();
   }
 

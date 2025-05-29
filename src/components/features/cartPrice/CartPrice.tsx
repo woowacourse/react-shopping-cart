@@ -1,12 +1,12 @@
-import { Subtitle, Title } from '../../../styles/@common/title/Title.styles';
+import { Subtitle, Title } from "../../../styles/@common/title/Title.styles";
 import {
   calculateTotalCartItemPrice,
   calculateTotalPrice,
-} from '../../../utils/calculate';
-import * as S from './CartPrice.styles';
-import infoIcon from '/public/icon/ic_info.svg';
-import { FREE_DELIVERY_MESSAGE } from '../../../constants/systemMessages';
-import { FEE } from '../../../constants/systemConstants';
+} from "../../../utils/calculate";
+import * as S from "./CartPrice.styles";
+import infoIcon from "/public/icon/ic_info.svg";
+import { FREE_DELIVERY_MESSAGE } from "../../../constants/systemMessages";
+import { FEE } from "../../../constants/systemConstants";
 interface CartPriceProps {
   cartItemNamePrice: { name: string; price: number; quantity: number }[];
 }
