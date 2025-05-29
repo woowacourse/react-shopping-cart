@@ -1,9 +1,10 @@
 import "./App.css";
+import CartSection from "./components/feature/CartSection";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <CartSection />
     </>
   );
 }
