@@ -50,7 +50,7 @@ describe('ItemCard 테스트', () => {
 
   describe('상품 수량 조절 Stepper 테스트', () => {
     it('+ 버튼 클릭 시 수량이 증가한다.', async () => {
-      const plusButton = within(firstItemCard).getByText('+');
+      const plusButton = within(firstItemCard).getByAltText('plus-button');
       const currentQuantity = mockCartItems[0].quantity;
 
       fireEvent.click(plusButton);
@@ -63,7 +63,7 @@ describe('ItemCard 테스트', () => {
     });
 
     it('- 버튼 클릭 시 수량이 감소한다.', async () => {
-      const minusButton = within(firstItemCard).getByText('-');
+      const minusButton = within(firstItemCard).getByAltText('minus-button');
       const currentQuantity = mockCartItems[0].quantity;
 
       fireEvent.click(minusButton);
@@ -77,7 +77,7 @@ describe('ItemCard 테스트', () => {
 
     it("수량이 1일 때 '-' 버튼 클릭 시 상품이 삭제된다.", async () => {
       const secondItemCard = screen.getAllByTestId('item-card')[1];
-      const minusButton = within(secondItemCard).getByText('-');
+      const minusButton = within(secondItemCard).getByAltText('minus-button');
 
       fireEvent.click(minusButton);
 

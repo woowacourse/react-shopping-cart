@@ -7,9 +7,9 @@ type PriceRowProps = {
 
 const PriceRow = ({ title, price }: PriceRowProps) => {
   return (
-    <S.Container >
-      <p>{title}</p>
-      <p data-testid={title}>{`${price.toLocaleString()}원`}</p>
+    <S.Container>
+      <S.title>{title}</S.title>
+      <S.price data-testid={title}>{`${price.toLocaleString()}원`}</S.price>
     </S.Container>
   );
 };
@@ -21,5 +21,15 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  `,
+
+  title: styled.p`
+    font-size: 16px;
+    font-weight: 700;
+  `,
+
+  price: styled.p`
+    font-size: 24px;
+    font-weight: 700;
   `,
 };

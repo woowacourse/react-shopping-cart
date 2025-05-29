@@ -34,7 +34,9 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
     <S.Container data-testid="item-card">
       <S.ButtonBox>
         <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} />
-        <button onClick={() => handleClickDelete(id)}>삭제</button>
+        <S.deleteButton onClick={() => handleClickDelete(id)}>
+          삭제
+        </S.deleteButton>
       </S.ButtonBox>
       <S.ItemBox>
         <S.ItemImage src={product.imageUrl} alt="product-image" />
@@ -44,9 +46,13 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
             <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
-            <button onClick={() => handleClickDecrease(id)}>-</button>
+            <button onClick={() => handleClickDecrease(id)}>
+              <img src="/minus-button.svg" alt="minus-button" />
+            </button>
             <p>{quantity}</p>
-            <button onClick={() => increaseCartItemQuantity(id)}>+</button>
+            <button onClick={() => increaseCartItemQuantity(id)}>
+              <img src="/plus-button.svg" alt="plus-button" />
+            </button>
           </S.Stepper>
         </S.ItemInfoBox>
       </S.ItemBox>
@@ -58,7 +64,9 @@ export default ItemCard;
 
 const S = {
   Container: styled.div`
+    border-top: 1px solid #e0e0e0;
     height: 160px;
+    margin-bottom: 20px;
   `,
 
   ButtonBox: styled.div`
@@ -92,6 +100,7 @@ const S = {
   ItemName: styled.p`
     font-size: 12px;
     font-weight: 500;
+    margin-bottom: 4px;
   `,
 
   ItemPrice: styled.p`
@@ -104,5 +113,13 @@ const S = {
     justify-content: space-between;
     align-items: center;
     gap: 4px;
+    width: 80px;
+  `,
+
+  deleteButton: styled.button`
+    background-color: white;
+    border: 2px solid #e6e6e6;
+    border-radius: 8px;
+    padding: 4px 8px;
   `,
 };

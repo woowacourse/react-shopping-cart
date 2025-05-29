@@ -32,5 +32,8 @@ const S = {
     cursor: pointer;
     background-color: ${({ isChecked }) =>
       isChecked ? '#000000' : 'transparent'};
+    border: ${({ isChecked }) =>
+      isChecked ? '2px solid #000000' : `2px solid #e6e6e6`};
+    border-radius: 8px;
   `,
 };
