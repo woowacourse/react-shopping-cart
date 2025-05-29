@@ -23,7 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     /* Testing */
     "types": [
-      "jest",
+      "vitest/globals",
       "@testing-library/jest-dom"
     ],
     "esModuleInterop": true,
