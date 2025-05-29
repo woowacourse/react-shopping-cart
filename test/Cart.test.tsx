@@ -79,4 +79,33 @@ describe('장바구니 목록을 렌더링 한다.', () => {
     const deliveryFee = await screen.findByText('0원');
     expect(deliveryFee).toBeInTheDocument();
   });
+
+  it('장바구니 상품의 + 버튼을 통해 수량을 증가시킬 수 있다.', async () => {
+    mockCartApi.getCartItemList.mockImplementation(async () => {
+      return Promise.resolve([...currentCartItems]);
+    });
+
+    mockCartApi.updateCartItem.mockImplementation(async ({ cartId, newQuantity }) => {
+      currentCartItems = currentCartItems.map((item) =>
+        item.id === cartId ? { ...item, quantity: newQuantity } : item
+      );
+      return Promise.resolve();
+    });
+
+    renderCartPage();
+
+    const plusButton = await screen.findAllByRole('plus-button');
+    const initialQuantity = currentCartItems[0].quantity;
+
+    await user.click(plusButton[0]);
+
+    // API가 올바르게 호출되었는지 확인
+    expect(mockCartApi.updateCartItem).toHaveBeenCalledWith({
+      cartId: currentCartItems[0].id,
+      newQuantity: initialQuantity + 1,
+    });
+
+    // 업데이트된 수량이 화면에 표시되는지 확인
+    expect(screen.getByText((initialQuantity + 1).toString())).toBeInTheDocument();
+  });
 });
