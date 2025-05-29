@@ -54,7 +54,7 @@ const CartSection = () => {
         ) : (
           <>
             <S.Description>
-              현재 {selectedCartId.length}종류의 상품이 담겨있습니다.
+              현재 {cartItems?.length}종류의 상품이 담겨있습니다.
             </S.Description>
             <CheckBox
               label="전체 선택"
