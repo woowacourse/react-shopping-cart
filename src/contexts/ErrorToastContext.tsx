@@ -7,9 +7,10 @@ import {
   useRef,
 } from "react";
 import ErrorToast from "../components/ErrorToast";
+import { ApiError } from "../constants/ApiError";
 
 interface ErrorToastContextType {
-  showError: (error: Error | string | null) => void;
+  showError: (error: ApiError | Error | null) => void;
 }
 
 const ErrorToastContext = createContext<ErrorToastContextType | undefined>(
@@ -28,7 +29,7 @@ export const ErrorToastContextProvider = ({
 
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const showError = useCallback((err: Error | string | null) => {
+  const showError = useCallback((err: ApiError | Error | null) => {
     if (timer.current) {
       clearTimeout(timer.current);
       timer.current = null;
@@ -39,7 +40,7 @@ export const ErrorToastContextProvider = ({
       return;
     }
 
-    const message = err instanceof Error ? err.message : err;
+    const message = err.message;
     const timestamp = Date.now();
 
     setError({ message, timestamp });
