@@ -8,6 +8,10 @@ import unChecked from "/unChecked.svg";
 import { useNavigate } from "react-router";
 import { PAGE_URL } from "../../../constants/PageUrl";
 import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation";
+import {
+  FREE_SHIPPING_OVER,
+  SHIPPING_FEE,
+} from "../../../constants/priceSetting";
 
 function CartContent() {
   const {
@@ -43,14 +47,17 @@ function CartContent() {
     cartItemsData.every((item) => selectedCartIds.includes(item.id.toString()));
 
   const handleOrderConfirm = () => {
+    const orderTotal = cartItemsData
+      .filter((item) => selectedCartIds.includes(item.id.toString()))
+      .reduce((total, item) => total + item.product.price * item.quantity, 0);
+    const totalPrice =
+      orderTotal >= FREE_SHIPPING_OVER ? orderTotal : orderTotal + SHIPPING_FEE;
     const state: OrderConfirmationLocationState = {
       selectedCartItemsLength: selectedCartIds.length,
       selectedCartItemsCount: cartItemsData
         .filter((cartItem) => selectedCartIds.includes(cartItem.id.toString()))
         .reduce((totalCount, item) => totalCount + item.quantity, 0),
-      totalPrice: cartItemsData
-        .filter((item) => selectedCartIds.includes(item.id.toString()))
-        .reduce((total, item) => total + item.product.price * item.quantity, 0),
+      totalPrice,
     };
     navigate(PAGE_URL.ORDER_CONFIRMATION, { state });
   };
