@@ -26,10 +26,14 @@ const cartItems: CartItemType[] = Array.from({ length: 3 }, (_, index) => ({
   product: MOCK_PRODUCTS[index],
 }));
 
+type FetchDataProps = {
+  onSuccess: (data: CartItemType[]) => void;
+};
+
 vi.mock("../src/hooks/useFetch", () => {
   return {
     default: () => ({
-      fetchData: async ({ onSuccess }: any) => {
+      fetchData: async ({ onSuccess }: FetchDataProps) => {
         onSuccess(cartItems);
       },
       isLoading: false,
