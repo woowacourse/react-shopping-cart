@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
@@ -8,8 +9,10 @@ import { Header } from "../../components/Header/Header.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import Title from "../../components/Title/Title";
 import useCart from "../../hooks/useCart";
+import useToast from "../../hooks/useToast";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
+import { TOAST_TYPES } from "../../components/Toast/type";
 
 const CartPage = () => {
   const {
@@ -19,7 +22,14 @@ const CartPage = () => {
     orderPrice,
     shippingFee,
     totalPrice,
+    errorMessage,
   } = useCart();
+
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    showToast({ message: errorMessage, type: TOAST_TYPES.ERROR });
+  }, [errorMessage, showToast]);
 
   const navigate = useNavigate();
 

@@ -44,6 +44,8 @@ interface CartContextType {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
+
+  errorMessage: string;
 }
 
 interface CartItemCheckType {
@@ -60,9 +62,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   >([]);
   const [allChecked, setAllChecked] = useState(INITIAL_CHECKED);
   const isCheckDataInitialized = useRef(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchData = useCallback(async () => {
-    setCartItemsData(await getCartItems());
+    try {
+      setCartItemsData(await getCartItems());
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -191,6 +200,8 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         orderPrice: calculateOrderPrice(),
         shippingFee: calculateShippingFee(),
         totalPrice: calculateOrderPrice() + calculateShippingFee(),
+
+        errorMessage,
       }}
     >
       {children}
