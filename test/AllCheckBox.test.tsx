@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
+import "@testing-library/jest-dom";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Cart from "../src/pages/Cart/Cart";
 import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
 import { CartItemType, ProductItemType } from "../src/types/response";
 
 const MOCK_PRODUCTS: ProductItemType[] = Array.from(
