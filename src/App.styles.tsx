@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const AppWrapper = styled.div`
   position: relative;
@@ -9,5 +9,6 @@ export const AppWrapper = styled.div`
   height: 100vh;
   box-sizing: border-box;
   background-color: #f0f0f0;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
+  color: #000000;
 `;

@@ -1,22 +1,27 @@
 // import { GetCartItemsResponse } from '@/types';
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 // import { useCartItem } from '../../hooks';
-import * as S from './CartItem.styles';
-import Button from '../Button/Button';
-import PlusMinusButton from '../PlusMinusButton/PlusMinusButton';
-import Checkbox from '../Checkbox/Checkbox';
-import useCartQuantity from '../../hooks/useCartQuantity';
-import { deleteCartItem } from '../../apis/cartItem';
-import { CartItemsResponse } from '../../types/cartItems';
+import * as S from "./CartItem.styles";
+import Button from "../Button/Button";
+import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
+import Checkbox from "../Checkbox/Checkbox";
+import useCartQuantity from "../../hooks/useCartQuantity";
+import { deleteCartItem } from "../../apis/cartItem";
+import { CartItemsResponse } from "../../types/cartItems";
 
 interface CartItemProps {
-  cartItem: CartItemsResponse['content'][number];
+  cartItem: CartItemsResponse["content"][number];
   isSelected: boolean;
   handleCheckboxClick: () => void;
   refetch: () => void;
 }
 
-export default function CartItem({ cartItem, isSelected, handleCheckboxClick, refetch }: CartItemProps) {
+export default function CartItem({
+  cartItem,
+  isSelected,
+  handleCheckboxClick,
+  refetch,
+}: CartItemProps) {
   const {
     product: { imageUrl, price, name },
     quantity,
@@ -26,7 +31,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
     stock: 100,
     selectedCartItem: cartItem,
     onChange: () => {
-      console.log('Cart item updated');
+      console.log("Cart item updated");
     },
     productId: cartItem.product.id,
   });
@@ -54,7 +59,6 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
         <Button
           onClick={() => handleDeleteClick(cartItem.id)}
           css={css`
-            position: ;
             background-color: #fff;
             width: fit-content;
             border: 1px solid #e5e5e5;
@@ -74,7 +78,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
             onError={(e) => {
               const target = e.currentTarget;
               target.onerror = null;
-              target.src = '/images/default-img.png';
+              target.src = "/images/default-img.png";
             }}
           />
         </S.CartItemImageWrapper>
