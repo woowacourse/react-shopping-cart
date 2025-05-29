@@ -86,7 +86,7 @@ const CartSection = () => {
       <Button
         testId="order-confirm-button"
         title="주문 확인"
-        disabled={cartItems?.length === 0}
+        disabled={selectedCartId.length === 0}
         onClick={() =>
           navigate("/confirm", {
             state: {
