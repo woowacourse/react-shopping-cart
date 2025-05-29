@@ -4,9 +4,15 @@ interface CheckBoxProps {
   isChecked: boolean;
   onChange: (id: string) => void;
   id: string;
+  dataTestId: string;
 }
 
-export function CheckBox({ isChecked = false, id, onChange }: CheckBoxProps) {
+export function CheckBox({
+  isChecked = false,
+  id,
+  onChange,
+  dataTestId,
+}: CheckBoxProps) {
   return (
     <input
       type="checkbox"
@@ -14,6 +20,7 @@ export function CheckBox({ isChecked = false, id, onChange }: CheckBoxProps) {
       id={id}
       checked={isChecked}
       onChange={() => onChange(id)}
+      data-testid={dataTestId}
     />
   );
 }

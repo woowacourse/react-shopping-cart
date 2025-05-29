@@ -102,4 +102,73 @@ describe("장바구니 페이지 테스트", () => {
       );
     });
   });
+
+  it("첫 렌더링시 전체 선택이 활성화 되어있고, 주문 금액이 모든 상품에 대한 주문금액이다.", async () => {
+    render(
+      <MemoryRouter>
+        <ShoppingCart />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const allSelect = screen.getByTestId("select-all") as HTMLInputElement;
+      expect(allSelect.checked).toEqual(true);
+    });
+
+    const selectedId = shoppingCart.content.map((e) => e.id.toString());
+    const prevTotalPrice = getTotalPrice({
+      cartItems: shoppingCart.content as CartItemTypes[],
+      selectedCartId: selectedId,
+    });
+
+    const orderPrice = await screen.findByTestId("orderPrice");
+    await waitFor(() => {
+      expect(orderPrice.textContent).toBe(
+        `${prevTotalPrice.toLocaleString("ko")}원`
+      );
+    });
+  });
+
+  it("체크박스 선택해제시, 주문 금액에서 해당 아이템의 금액이 차감된다.", async () => {
+    render(
+      <MemoryRouter>
+        <ShoppingCart />
+      </MemoryRouter>
+    );
+
+    const checkbox = (await screen.findByTestId(
+      `select-all`
+    )) as HTMLInputElement;
+    screen.debug(checkbox);
+
+    await waitFor(() => {
+      expect(checkbox).toBeChecked();
+    });
+
+    const item = shoppingCart.content[0];
+    const itemCheckbox = screen.getByTestId(
+      `select-${item.id}`
+    ) as HTMLInputElement;
+
+    fireEvent.click(itemCheckbox);
+    await waitFor(() => {
+      expect(itemCheckbox).not.toBeChecked();
+    });
+
+    const selectedId = shoppingCart.content
+      .map((e) => e.id.toString())
+      .filter((e) => e !== item.id.toString());
+
+    const prevTotalPrice = getTotalPrice({
+      cartItems: shoppingCart.content as CartItemTypes[],
+      selectedCartId: selectedId,
+    });
+
+    await waitFor(() => {
+      const orderPrice = screen.getByTestId("orderPrice");
+      expect(orderPrice.textContent).toBe(
+        `${prevTotalPrice.toLocaleString("ko")}원`
+      );
+    });
+  });
 });

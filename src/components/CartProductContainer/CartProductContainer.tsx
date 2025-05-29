@@ -58,6 +58,7 @@ export default function CartProductContainer({
             isChecked={
               selectedCartId.length === cartItem.length && cartItem.length !== 0
             }
+            dataTestId="select-all"
             id="select-all"
             onChange={handleCheckBox}
           />
@@ -70,6 +71,7 @@ export default function CartProductContainer({
                 <Line />
                 <div css={CartItemHeader}>
                   <CheckBox
+                    dataTestId={`select-${item.id}`}
                     isChecked={selectedCartId.includes(item.id.toString())}
                     onChange={handleCheckBox}
                     id={item.id.toString()}
