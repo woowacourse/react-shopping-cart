@@ -8,6 +8,7 @@ import {
   CartItemBox,
   CartItemHeader,
   CartProductContainerLayout,
+  CartProductList,
   SelectAllLayout,
 } from "./CartProductContainer.style";
 
@@ -62,32 +63,34 @@ export default function CartProductContainer({
           />
           <label htmlFor="select-all">전체 선택</label>
         </div>
-        {cartItem.map((item) => {
-          return (
-            <section css={CartItemBox}>
-              <Line />
-              <div css={CartItemHeader}>
-                <CheckBox
-                  isChecked={selectedCartId.includes(item.id.toString())}
-                  onChange={handleCheckBox}
-                  id={item.id.toString()}
+        <section css={CartProductList}>
+          {cartItem.map((item) => {
+            return (
+              <div css={CartItemBox}>
+                <Line />
+                <div css={CartItemHeader}>
+                  <CheckBox
+                    isChecked={selectedCartId.includes(item.id.toString())}
+                    onChange={handleCheckBox}
+                    id={item.id.toString()}
+                  />
+                  <Button onClick={() => handleDelete(item.id)} style="ghost">
+                    삭제
+                  </Button>
+                </div>
+                <CartProduct
+                  key={item.id}
+                  id={item.id}
+                  imageUrl={item.product.imageUrl}
+                  name={item.product.name}
+                  price={item.product.price}
+                  quantity={item.quantity}
+                  onChange={onChange}
                 />
-                <Button onClick={() => handleDelete(item.id)} style="ghost">
-                  삭제
-                </Button>
               </div>
-              <CartProduct
-                key={item.id}
-                id={item.id}
-                imageUrl={item.product.imageUrl}
-                name={item.product.name}
-                price={item.product.price}
-                quantity={item.quantity}
-                onChange={onChange}
-              />
-            </section>
-          );
-        })}
+            );
+          })}
+        </section>
       </div>
     </>
   );

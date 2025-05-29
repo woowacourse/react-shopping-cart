@@ -13,6 +13,7 @@ import Toast from "../../components/Toast/Toast";
 import { CartItemTypes } from "../../types/cartItem";
 import { getTotalPrice } from "../../utils/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
+import { Footer } from "../../components/layout/Footer/Footer";
 
 export function ShoppingCart() {
   const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
@@ -92,6 +93,8 @@ export function ShoppingCart() {
             <PaymentSummary price={totalPrice} />
           </>
         )}
+      </Main>
+      <Footer>
         <Button
           onClick={handleConfirm}
           type="submit"
@@ -105,7 +108,7 @@ export function ShoppingCart() {
         >
           주문 확인
         </Button>
-      </Main>
+      </Footer>
     </PageLayout>
   );
 }

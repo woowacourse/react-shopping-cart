@@ -7,6 +7,14 @@ const CartProductContainerLayout = css`
   overflow-y: auto;
 `;
 
+const CartProductList = css`
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  overflow: auto;
+  gap: 24px;
+`;
+
 const SelectAllLayout = css`
   display: flex;
   align-items: center;
@@ -41,6 +49,7 @@ const PaymentsValue = css`
 export {
   CartProductContainerLayout,
   SelectAllLayout,
+  CartProductList,
   CartItemBox,
   CartItemHeader,
   PaymentsLayout,
