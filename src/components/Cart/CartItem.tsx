@@ -4,15 +4,10 @@ import {
   StepperContainer,
   StepperButton,
   StepperQuantity,
-  ModifyRow,
-  DeleteButton,
   CartItemContainer,
   CartProductImage,
   ProductRow,
   CartContent,
-  CheckboxContainer,
-  HiddenCheckbox,
-  StyledCheckbox,
 } from './Cart.styles';
 import { CartProduct } from '../../types/cart';
 import { woowaLogo } from '../../assets/index';
@@ -23,6 +18,7 @@ import {
   removeCartItem,
 } from '../../apis/cart';
 import { useData } from '../../context/DataContext';
+import SelectBox from '../SelectBox/SelectBox';
 
 interface CartItemProps {
   cartItem: CartProduct;
@@ -58,24 +54,12 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
 
   return (
     <CartItemContainer>
-      <ModifyRow>
-        <CheckboxContainer>
-          <HiddenCheckbox
-            data-id={cartItem.id}
-            type="checkbox"
-            onChange={() => {
-              setCheckedItems((prev) =>
-                prev.includes(cartItem.id)
-                  ? prev.filter((id) => id !== cartItem.id)
-                  : [...prev, cartItem.id],
-              );
-            }}
-          />
-          <StyledCheckbox checked={checkedItems.includes(cartItem.id)} />
-        </CheckboxContainer>
-        <DeleteButton onClick={handleRemoveCartItem}>삭제</DeleteButton>
-      </ModifyRow>
-
+      <SelectBox
+        cartItem={cartItem}
+        checkedItems={checkedItems}
+        setCheckedItems={setCheckedItems}
+        onRemove={handleRemoveCartItem}
+      />
       <ProductRow>
         <CartProductImage
           src={cartItem.product.imageUrl}

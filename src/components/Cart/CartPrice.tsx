@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { Title, TotalContainer, TotalPrice } from './Cart.styles';
 
+export type CartPriceVariant = 'default' | 'shipping' | 'total';
 interface CartPriceProps {
   title: string;
   price: number;
-  variant?: 'default' | 'shipping' | 'total';
+  variant: CartPriceVariant;
 }
 
 function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
