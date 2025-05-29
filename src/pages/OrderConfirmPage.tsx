@@ -1,11 +1,10 @@
 import BottomButton from '../components/BottomButton';
+import Header from '../components/Header';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
-import { usePageContext } from '../contexts/PageContext';
 import getOrderPrice from '../utils/getOrderPrice';
 
 const OrderConfirmPage = () => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
-  const { setPage } = usePageContext();
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
   const deliveryPrice = orderPrice >= 100000 ? 0 : 3000;
   const totalPrice = orderPrice + deliveryPrice;
@@ -15,9 +14,7 @@ const OrderConfirmPage = () => {
 
   return (
     <>
-      <div>
-        <img src="" alt="goBack" onClick={() => setPage('cart')} />
-      </div>
+      <Header />
       <div data-testid="orderConfirmPage">
         <p>주문 확인</p>
         <p>

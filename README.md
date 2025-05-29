@@ -18,8 +18,8 @@
 
 ## 컴포넌트
 
-- [ ] Header
-  - [ ] Header에 SHOP이 표시된다.
+- [x] Header
+  - [x] Header에 알맞은 콘텐츠가 표시된다.
 - [x] Title
   - [x] 현재 몇 종류의 상품이 담겨있는지 표시한다.
 - [x] 상품 card

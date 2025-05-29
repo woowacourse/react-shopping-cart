@@ -1,6 +1,7 @@
 import AllCheckSection from '../components/AllCheckSection';
 import CartItemCountMessage from '../components/CartItemCountMessage';
 import ConfirmButton from '../components/ConfirmButton';
+import Header from '../components/Header';
 import ItemCard from '../components/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
@@ -13,6 +14,7 @@ const CartPage = () => {
 
   return (
     <>
+      <Header />
       <p>장바구니</p>
       {cartItems.length === 0 ? (
         <NoCartItems />
