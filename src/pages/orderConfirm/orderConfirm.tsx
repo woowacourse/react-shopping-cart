@@ -28,7 +28,7 @@ export function OrderConfirm() {
           <div css={totalPriceBox}>
             <p css={subtitleText}>총 결제금액</p>
             <p css={titleText}>
-              {Number(state.totalPrice).toLocaleString("ko")}
+              {Number(state.totalPrice).toLocaleString("ko")}원
             </p>
           </div>
         </div>
