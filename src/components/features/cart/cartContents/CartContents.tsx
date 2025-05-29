@@ -9,32 +9,23 @@ import CartTitle from '../cartTitle/CartTitle';
 import { CartItemType } from '../types';
 import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
+import useCartSelection from '../hooks/useCartSelection';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
-  const isAllSelected = isSelectedList.every((isSelected) => isSelected);
+  const {
+    isSelectedList,
+    isAllSelected,
+    setIsSelectedList,
+    getSelectedCartItems,
+    toggleSelect,
+    toggleAllSelect,
+  } = useCartSelection();
+
   const navigate = useNavigate();
 
-  const selectedCartItems = cartItems.filter(
-    (_, index) => isSelectedList[index]
-  );
-
-  const orderPrice = calculateOrderPrice(selectedCartItems);
-
-  const toggleSelect = (toggleIndex: number) => {
-    setIsSelectedList((prevSelectedList) =>
-      prevSelectedList.map((isSelected, index) =>
-        toggleIndex === index ? !isSelected : isSelected
-      )
-    );
-  };
-
-  const toggleAllSelect = () => {
-    setIsSelectedList((prevSelectedList) =>
-      Array.from({ length: prevSelectedList.length }, () => !isAllSelected)
-    );
-  };
+  const selectCartItems = getSelectedCartItems(cartItems);
+  const orderPrice = calculateOrderPrice(selectCartItems);
 
   const fetch = useCallback(async () => {
     const data = await baseAPI<PaginationResponse<CartItemType>>({
@@ -48,13 +39,13 @@ function CartContents() {
         Array.from({ length: data.content.length }, () => true)
       );
     }
-  }, []);
+  }, [setCartItems, setIsSelectedList]);
 
   const disabled = !isSelectedList.some((isSelected) => isSelected);
 
   const onOrderConfirm = () => {
     navigate('/order-confirmation', {
-      state: { orderProducts: selectedCartItems },
+      state: { orderProducts: selectCartItems },
     });
   };
 
