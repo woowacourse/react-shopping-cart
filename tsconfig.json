@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["vi", "@testing-library/jest-dom", "node"],
+    "types": ["vitest/globals", "node"],
     "esModuleInterop": true,
 
     "jsx": "react-jsx"
