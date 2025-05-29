@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
-import Description from "../../components/Description/Description";
-import EmptyFallback from "../../components/Fallback/Empty/EmptyFallback";
+import Description from "../../components/@common/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import { Header } from "../../components/Header/Header.styles";
+import { Header } from "../../components/@common/Header/Header.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
-import Title from "../../components/Title/Title";
+import Title from "../../components/@common/Title/Title";
 import useCart from "../../hooks/useCart";
 import useToast from "../../hooks/useToast";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
-import { TOAST_TYPES } from "../../components/Toast/type";
+import { TOAST_TYPES } from "../../components/@common/Toast/type";
+import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 
 const CartPage = () => {
   const {

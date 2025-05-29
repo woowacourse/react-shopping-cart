@@ -1,6 +1,6 @@
 import useCart from "../../hooks/useCart";
 import { CartItemContent } from "../../types/response";
-import Checkbox from "../Checkbox/Checkbox";
+import Checkbox from "../@common/Checkbox/Checkbox";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";
 import * as S from "./CartItem.styles";
 

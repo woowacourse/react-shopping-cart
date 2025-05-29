@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useRef, useState } from "react";
-import Portal from "../components/Portal/Portal";
-import Toast from "../components/Toast/Toast";
-import { TOAST_TYPES, ToastType } from "../components/Toast/type";
+import Portal from "../components/@common/Portal/Portal";
+import Toast from "../components/@common/Toast/Toast";
+import { TOAST_TYPES, ToastType } from "../components/@common/Toast/type";
 
 interface ToastContextType {
   showToast: ({ message, type, duration }: ShowToastProps) => void;

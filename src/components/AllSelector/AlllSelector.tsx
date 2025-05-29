@@ -1,6 +1,6 @@
 import useCart from "../../hooks/useCart";
-import Checkbox from "../Checkbox/Checkbox";
-import Description from "../Description/Description";
+import Checkbox from "../@common/Checkbox/Checkbox";
+import Description from "../@common/Description/Description";
 import * as S from "./AllSelector.styles";
 
 const AllSelector = () => {

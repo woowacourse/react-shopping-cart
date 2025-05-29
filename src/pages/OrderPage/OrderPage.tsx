@@ -1,9 +1,9 @@
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import Header from "../../components/Header/Header";
+import Header from "../../components/@common/Header/Header";
 import BackIcon from "/left-arrow.svg";
 import * as S from "./OrderPage.styles";
-import Title from "../../components/Title/Title";
-import Description from "../../components/Description/Description";
+import Title from "../../components/@common/Title/Title";
+import Description from "../../components/@common/Description/Description";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 
