@@ -10,7 +10,6 @@ interface Props {
 }
 
 const Button = ({ iconUrl, title, onClick, css, disabled }: Props) => {
-  console.log(disabled);
   return (
     <S.Button onClick={onClick} css={css} disabled={disabled}>
       {iconUrl && <S.ButtonIcon src={iconUrl} />}

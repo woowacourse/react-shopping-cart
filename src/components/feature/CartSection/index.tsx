@@ -76,41 +76,43 @@ const CartSection = () => {
 
   return (
     <S.Container>
-      <Header />
-      {cartItems?.length === 0 ? (
-        <S.EmptyCartContainer>
-          장바구니에 담은 상품이 없습니다.
-        </S.EmptyCartContainer>
-      ) : (
-        <>
-          <S.Description>
-            현재 {selectedCartId.length}종류의 상품이 담겨있습니다.
-          </S.Description>
-          <CheckBox
-            label="전체 선택"
-            isChecked={isAllChecked}
-            onChange={handleAllSelected}
-          />
-          <S.CartList>
-            {cartItems?.map((cartItem) => (
-              <Card
-                cartItem={cartItem}
-                key={cartItem.id}
-                onRefetch={refetch}
-                isChecked={isChecked(cartItem.id)}
-                onToggle={() => handleToggle(cartItem.id)}
-                onDeleteSelected={() => handleDelete(cartItem.id)}
-              />
-            ))}
-          </S.CartList>
+      <S.Wrapper>
+        <Header />
+        {cartItems?.length === 0 ? (
+          <S.EmptyCartContainer>
+            장바구니에 담은 상품이 없습니다.
+          </S.EmptyCartContainer>
+        ) : (
+          <>
+            <S.Description>
+              현재 {selectedCartId.length}종류의 상품이 담겨있습니다.
+            </S.Description>
+            <CheckBox
+              label="전체 선택"
+              isChecked={isAllChecked}
+              onChange={handleAllSelected}
+            />
+            <S.CartList>
+              {cartItems?.map((cartItem) => (
+                <Card
+                  cartItem={cartItem}
+                  key={cartItem.id}
+                  onRefetch={refetch}
+                  isChecked={isChecked(cartItem.id)}
+                  onToggle={() => handleToggle(cartItem.id)}
+                  onDeleteSelected={() => handleDelete(cartItem.id)}
+                />
+              ))}
+            </S.CartList>
 
-          <PriceSection
-            orderPrice={orderPrice}
-            deliveryPrice={deliveryPrice}
-            totalPrice={totalPrice}
-          />
-        </>
-      )}
+            <PriceSection
+              orderPrice={orderPrice}
+              deliveryPrice={deliveryPrice}
+              totalPrice={totalPrice}
+            />
+          </>
+        )}
+      </S.Wrapper>
       <Button
         title="주문 확인"
         disabled={cartItems?.length === 0}
@@ -124,6 +126,9 @@ const CartSection = () => {
           })
         }
         css={css`
+          // position: fixed;
+          // bottom: 0;
+          // left: 0;
           width: 100%;
           padding: 24px 0;
           background-color: #000;

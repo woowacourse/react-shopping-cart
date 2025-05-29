@@ -1,11 +1,18 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  height: calc(100vh - 170px);
+  height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  position: relative;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 36px 24px 0;
+  gap: 15px;
 `;
 
 export const Description = styled.div`
