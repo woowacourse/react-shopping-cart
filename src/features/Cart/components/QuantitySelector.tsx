@@ -15,14 +15,7 @@ export const QuantitySelector = ({ count, onIncrease, onDecrease }: QuantitySele
       <StyledOutlineButton disabled={count === 1} onClick={onDecrease} role="minus-button">
         -
       </StyledOutlineButton>
-      <Text
-        type="Body"
-        weight="regular"
-        // css={css`
-        //   width: 14px;
-        //   text-align: center;
-        // `}
-      >
+      <Text type="Body" weight="regular" role="cart-item-quantity">
         {count}
       </Text>
       <StyledOutlineButton onClick={onIncrease} role="plus-button">
