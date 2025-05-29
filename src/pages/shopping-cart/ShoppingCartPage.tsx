@@ -2,17 +2,28 @@ import styled from "@emotion/styled";
 import { Header } from "../../components/common";
 import CartLayout from "./cart-layout/CartLayout";
 import { useOrderListContext } from "./context/OrderListProvider";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCartPage = () => {
   const { selectionMap } = useOrderListContext();
   const isDisabled = !Object.values(selectionMap).some(
     (isSelected) => isSelected
   );
+  const navigate = useNavigate();
+  const handleCheckout = () => {
+    if (!isDisabled) {
+      navigate("/order-confirm");
+    }
+  };
   return (
     <>
       <Header left="SHOP" />
       <CartLayout />
-      <CheckoutButton isDisabled={isDisabled} disabled={isDisabled}>
+      <CheckoutButton
+        isDisabled={isDisabled}
+        disabled={isDisabled}
+        onClick={handleCheckout}
+      >
         주문 확인
       </CheckoutButton>
     </>
