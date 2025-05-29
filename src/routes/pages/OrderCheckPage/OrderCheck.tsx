@@ -1,15 +1,15 @@
-import { CartItemProps } from '../../types/cartItem';
-import Header from '../../components/common/Header/Header';
-import HeaderButton from '../../components/common/Header/HeaderButton';
-import { Back } from '../../assets';
-import ContainerLayout from '../../components/common/ContainerLayout/ContainerLayout';
-import Text from '../../components/common/Text/Text';
+import { CartItemProps } from '../../../types/cartItem';
+import Header from '../../../components/common/Header/Header';
+import HeaderButton from '../../../components/common/Header/HeaderButton';
+import { Back } from '../../../assets';
+import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
+import Text from '../../../components/common/Text/Text';
 import { useLocation, useNavigate } from 'react-router';
 import {
   OrderCheckContainerStyle,
   orderPriceContainerStyle,
 } from './OrderCheck.styles';
-import PayButton from '../../components/PayButton/PayButton';
+import PayButton from '../../../components/PayButton/PayButton';
 
 function OrderCheck() {
   const navigate = useNavigate();

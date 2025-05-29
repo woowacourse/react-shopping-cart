@@ -1,19 +1,19 @@
-import './App.css';
-import Header from './components/common/Header/Header';
-import HeaderButton from './components/common/Header/HeaderButton';
-import { Logo } from './assets';
-import ContainerLayout from './components/common/ContainerLayout/ContainerLayout';
-import CartListTitle from './components/CartListTitle/CartListTitle';
-import CartItem from './components/CartItem/CartItem';
-import useCartList from './hooks/useCartList';
-import CartList from './components/CartList/CartList';
-import CartPriceInfo from './components/CartPriceInfo/CartPriceInfo';
-import OrderButton from './components/OrderButton/OrderButton';
-import EmptyCart from './components/EmptyCart/EmptyCart';
-import { cartPrice } from './utils/cartPrice/cartPrice';
+import '../../../App.css';
+import Header from '../../../components/common/Header/Header';
+import HeaderButton from '../../../components/common/Header/HeaderButton';
+import { Logo } from '../../../assets';
+import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
+import CartListTitle from '../../../components/CartListTitle/CartListTitle';
+import CartItem from '../../../components/CartItem/CartItem';
+import useCartList from '../../../hooks/useCartList';
+import CartList from '../../../components/CartList/CartList';
+import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
+import OrderButton from '../../../components/OrderButton/OrderButton';
+import EmptyCart from '../../../components/EmptyCart/EmptyCart';
+import { cartPrice } from '../../../utils/cartPrice/cartPrice';
 import { useEffect, useState } from 'react';
 
-function App() {
+function CartPage() {
   const { cartList, increaseCartItem, decreaseCartItem, deleteCartItem } =
     useCartList();
 
@@ -84,4 +84,4 @@ function App() {
   );
 }
 
-export default App;
+export default CartPage;
