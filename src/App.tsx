@@ -41,7 +41,7 @@ function App() {
     setSeletedItems(cartList.map((cartItem) => cartItem.id));
   }, [cartList]);
 
-  const totalPrice = cartPrice.totalPrice(cartList);
+  const totalPrice = cartPrice.totalPrice(cartList, seletedItems);
 
   return (
     <>
