@@ -13,7 +13,7 @@ const NavBar = () => {
   return (
     <>
       <S.Container>
-        {pathname === "/" ? (
+        {pathname === PATH.MAIN ? (
           <S.Logo>SHOP</S.Logo>
         ) : (
           <S.BackIcon
