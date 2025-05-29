@@ -138,12 +138,36 @@ describe('CartPage', () => {
   });
 
   it('주문확인 버튼 클릭 시 올바른 state와 함께 orderConfirm 페이지로 이동한다.', async () => {
+    const mockCartItems = {
+      content: [
+        {
+          id: 1,
+          quantity: 1,
+          product: { id: 101, name: '상품1', price: 100000, imageUrl: '', category: '패션잡화' },
+        },
+        {
+          id: 2,
+          quantity: 2,
+          product: { id: 102, name: '상품2', price: 15000, imageUrl: '', category: '식료품' },
+        },
+      ],
+    };
+
+    vi.mock('../context/DataContext', () => ({
+      useData: () => ({
+        data: mockCartItems,
+      }),
+    }));
+
     renderComponent();
 
     await waitFor(() => {
       const orderButton = screen.getByText('주문확인');
-      fireEvent.click(orderButton);
+      expect(orderButton).toBeInTheDocument();
     });
+
+    const orderButton = screen.getByText('주문확인');
+    fireEvent.click(orderButton);
 
     expect(mockNavigate).toHaveBeenCalledWith('/orderConfirm', {
       state: {
