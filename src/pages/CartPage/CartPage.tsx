@@ -1,64 +1,29 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import * as S from "./CartPage.styled";
-import { useCartContext, useCartDispatch } from "../../stores/CartContext";
-import {
-  useSelectContext,
-  useSelectDispatch,
-} from "../../stores/SelectContext";
-import useCart from "../../hooks/useCart";
+import useCartManager from "../../hooks/useCartManager";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
 import TitleSection from "../../components/TitleSection/TitleSection";
 import CartItem from "../../components/CartItem/CartItem";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
-import { calculateTotalPrice, calculateShippingFee } from "../../utils/price";
 
-function CartPage() {
-  const dispatch = useCartDispatch();
-  const selectDispatch = useSelectDispatch();
-  const selectData = useSelectContext();
-  const cartData = useCartContext();
-  const { cartItemList: cartItemRes, isLoading } = useCart();
+const CartPage = () => {
+  const {
+    cartData,
+    selectedCartItem,
+    orderPrice,
+    deliveryPrice,
+    isCartEmpty,
+    isLoading,
+  } = useCartManager();
 
-  useEffect(() => {
-    if (cartItemRes.length > 0) {
-      dispatch({
-        type: "SET_CART",
-        payload: { items: cartItemRes },
-      });
+  const [isOrderComplete, setIsOrderComplete] = useState<boolean>(false);
 
-      selectDispatch({
-        type: "SET_SELECT",
-        payload: { items: cartItemRes },
-      });
-    }
-  }, [cartItemRes, dispatch, selectDispatch]);
-
-  const isCartEmpty = cartData.length === 0;
-  const [isOrderComplete, setIsOrderComplete] = useState(false);
-
-  const handleOrderCheck = () => {
+  const handleOrderCheck = (): void => {
     setIsOrderComplete(true);
   };
 
-  const { orderPrice, deliveryPrice } = useMemo(() => {
-    const selectedCartData = cartData.filter(
-      (_, idx) => selectData[idx]?.selected
-    );
-    const calculatedOrderPrice = calculateTotalPrice(selectedCartData);
-    const calculatedDeliveryPrice = calculateShippingFee(calculatedOrderPrice);
-
-    return {
-      orderPrice: calculatedOrderPrice,
-      deliveryPrice: calculatedDeliveryPrice,
-    };
-  }, [selectData, cartData]);
-
-  const selectedCartItem = useMemo(() => {
-    return cartData?.filter((_, idx) => selectData[idx]?.selected);
-  }, [cartData, selectData]);
-
-  if (isLoading || !cartData || !selectData) {
+  if (isLoading || !cartData) {
     return <div>장바구니를 불러오는 중입니다...</div>;
   }
 
@@ -103,11 +68,11 @@ function CartPage() {
           onClick={handleOrderCheck}
           disabled={orderPrice === 0 || isOrderComplete}
         >
-          주문확인
+          {isOrderComplete ? "결제하기" : "주문 확인"}
         </S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
   );
-}
+};
 
 export default CartPage;
