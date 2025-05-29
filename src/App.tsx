@@ -1,14 +1,17 @@
 import './App.css';
 import CartItemsProvider from './contexts/CartItemsProvider';
-import CartPage from './pages/CartPage';
+import PageProvider from './contexts/PageProvider';
+import PageController from './pages/PageController';
 
 function App() {
   return (
     <>
       <h1>react-shopping-cart</h1>
-      <CartItemsProvider>
-        <CartPage />
-      </CartItemsProvider>
+      <PageProvider>
+        <CartItemsProvider>
+          <PageController />
+        </CartItemsProvider>
+      </PageProvider>
     </>
   );
 }

@@ -5,12 +5,15 @@ import ItemCard from '../components/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
+import { usePageContext } from '../contexts/PageContext';
 
 const CartPage = () => {
   const { cartItems } = useCartItemsContext();
+  const { setPage } = usePageContext();
 
   return (
     <>
+      <p>장바구니</p>
       {cartItems.length === 0 ? (
         <NoCartItems />
       ) : (
@@ -29,7 +32,10 @@ const CartPage = () => {
         </>
       )}
 
-      <ConfirmButton />
+      <ConfirmButton
+        title="주문 확인"
+        onClick={() => setPage('orderConfirm')}
+      />
     </>
   );
 };
