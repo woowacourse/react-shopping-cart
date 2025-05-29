@@ -12,7 +12,7 @@ function App() {
       <Global styles={GlobalStyle} />
       <Layout>
         <DataProvider>
-          <BrowserRouter>
+          <BrowserRouter basename="/react-shopping-cart">
             <Routes>
               <Route path="/" element={<CartPage />} />
               <Route path="/orderConfirm" element={<OrderConfirmPage />} />
