@@ -7,13 +7,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "deploy": "vite build --base=/react-shopping-cart && npx gh-pages -d dist",
     "preview": "vite preview",
     "test": "vitest"
   },
+  "homepage": "https://spoyodevelop.github.io/react-shopping-cart",
   "dependencies": {
     "@emotion/styled": "^11.14.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router": "^7.6.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
