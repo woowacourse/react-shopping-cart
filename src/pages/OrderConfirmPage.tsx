@@ -8,6 +8,7 @@ import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmBut
 const OrderConfirmPage = () => {
   const { selectedItem, totalPrice } = useCartItemContext();
   const navigate = useNavigate();
+
   return (
     <>
       <div className={OrderConfirmPageStyles}>
