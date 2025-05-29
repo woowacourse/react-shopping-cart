@@ -51,8 +51,8 @@
         - email: github username, password: 'password'
 
 - Test
-    - [ ] Jest, React Testing Library를 사용하여 주요 기능에 대한 테스트 케이스를 작성한다.
-    - [ ] 주요 기능을 명확히 정의하고, 그것을 어떻게 테스트할 지 스스로 판단한다.
+    - [x] Jest, React Testing Library를 사용하여 주요 기능에 대한 테스트 케이스를 작성한다.
+    - [x] 주요 기능을 명확히 정의하고, 그것을 어떻게 테스트할 지 스스로 판단한다.
 
 - Routing
     - [x] react-router를 이용하여 페이지를 관리한다.
