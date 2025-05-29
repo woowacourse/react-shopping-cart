@@ -3,13 +3,13 @@ import { ReactNode } from "react";
 import Flex from "./Flex";
 
 interface HeaderProps {
-  title: string;
+  left: ReactNode;
   right?: ReactNode;
 }
-function Header({ title, right }: HeaderProps) {
+function Header({ left, right }: HeaderProps) {
   return (
     <HeaderContainer>
-      <Logo>{title}</Logo>
+      <Logo>{left}</Logo>
       <RightWrapper>{right}</RightWrapper>
     </HeaderContainer>
   );

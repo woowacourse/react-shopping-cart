@@ -10,7 +10,7 @@ const ShoppingCartPage = () => {
   );
   return (
     <>
-      <Header title="Shop" />
+      <Header left="SHOP" />
       <CartLayout />
       <CheckoutButton isDisabled={isDisabled} disabled={isDisabled}>
         주문 확인
