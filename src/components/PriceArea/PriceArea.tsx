@@ -16,7 +16,9 @@ function PriceArea({ orderAmount, deliveryFee, totalAmount }: PriceAreaProps) {
       <hr css={styles.hrSss} />
       <div css={styles.priceRowCss}>
         <p css={styles.priceTitleCss}>주문 금액</p>
-        <p css={styles.priceCss}>{orderAmount.toLocaleString()}원</p>
+        <p css={styles.priceCss} data-testid="order-amount">
+          {orderAmount.toLocaleString()}원
+        </p>
       </div>
       <div css={styles.priceRowCss}>
         <p css={styles.priceTitleCss}>배송비</p>
@@ -25,7 +27,9 @@ function PriceArea({ orderAmount, deliveryFee, totalAmount }: PriceAreaProps) {
       <hr css={styles.hrSss} />
       <div css={styles.priceRowCss}>
         <p css={styles.priceTitleCss}>총 결제 금액</p>
-        <p css={styles.priceCss}>{totalAmount.toLocaleString()}원</p>
+        <p css={styles.priceCss} data-testid="total-amount">
+          {totalAmount.toLocaleString()}원
+        </p>
       </div>
     </section>
   );

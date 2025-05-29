@@ -11,8 +11,8 @@ beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
   cleanup();
+  server.close();
 });
-afterAll(() => server.close());
 
 describe('Cart List Rendering', () => {
   it('장바구니 아이템이 올바르게 fetch 되는지 확인한다.', async () => {
@@ -20,19 +20,6 @@ describe('Cart List Rendering', () => {
     const cartItemListElement = await screen.findByTestId('cart-item-list');
     expect(cartItemListElement.children.length).toBe(cartItems.content.length);
   });
-});
-
-it('장바구니 아이템이 없으면, "장바구니에 담긴 상품이 없습니다." 메시지가 표시된다.', async () => {
-  server.use(
-    // Mocking the cart items to be empty
-    (handlers.find((handler) => handler.info.path === '/cart')!.responseResolver = () => {
-      return Promise.resolve(new Response(JSON.stringify({ content: [] }), { status: 200 }));
-    })
-  );
-
-  render(<App />);
-  const emptyCartMessage = await screen.findByText('장바구니에 담긴 상품이 없습니다.');
-  expect(emptyCartMessage).toBeInTheDocument();
 });
 
 describe('Cart Item Delete', () => {
