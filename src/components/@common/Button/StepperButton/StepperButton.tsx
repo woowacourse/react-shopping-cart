@@ -1,13 +1,18 @@
 import { css } from "@emotion/css";
 
 interface StepperButtonProps {
+  testId: string;
   type: "increase" | "decrease";
   onClick: () => void;
 }
 
-const StepperButton = ({ type, onClick }: StepperButtonProps) => {
+const StepperButton = ({ testId, type, onClick }: StepperButtonProps) => {
   return (
-    <button onClick={onClick} className={StepperButtonStyle}>
+    <button
+      data-testid={testId}
+      onClick={onClick}
+      className={StepperButtonStyle}
+    >
       {type === "decrease" ? (
         <img src="./decrease.svg" />
       ) : (

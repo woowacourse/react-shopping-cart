@@ -15,9 +15,17 @@ const QuantityStepper = ({
 }: QuantityStepperProps) => {
   return (
     <div className={QuantityStepperStyle}>
-      <StepperButton type="decrease" onClick={onDecrease} />
+      <StepperButton
+        testId="decrease-button"
+        type="decrease"
+        onClick={onDecrease}
+      />
       <Text text={quantity.toString()} />
-      <StepperButton type="increase" onClick={onIncrease} />
+      <StepperButton
+        testId="increase-button"
+        type="increase"
+        onClick={onIncrease}
+      />
     </div>
   );
 };
