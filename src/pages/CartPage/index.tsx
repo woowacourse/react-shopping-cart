@@ -2,15 +2,15 @@ import * as S from "./CartPage.styled";
 import CartItemList from "../../components/Cart/CartItemList";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
+import useCart from "../../hooks/useCart";
 import { OrderPrice } from "../../components/Order/OrderPrice";
 import { useNavigate } from "react-router";
-import useCart from "../../hooks/useCart";
 
 const CartPage = () => {
-  const { cartItemsInfo, cartItemListProps } = useCart();
+  const { cartItemsInfo, cartItemListProps, orderResult } = useCart();
 
   const navigate = useNavigate();
-  const handleNavigate = () => navigate("/order-confirm");
+  const handleNavigate = () => navigate("/order-confirm", { state: orderResult });
 
   return (
     <S.Container>

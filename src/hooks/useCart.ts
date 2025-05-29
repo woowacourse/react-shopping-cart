@@ -26,11 +26,17 @@ export interface UseCartReturnType {
     handleCheckChange: HandleCheckChangeType;
     isAllChecked: boolean;
   };
+  orderResult: Record<"cartItemsTotalQuantity" | "cartItemsCheckedCount" | "totalPrice", number>;
 }
 
 const useCart = (): UseCartReturnType => {
   const [cartItems, setCartItems] = useState<CartItemsType[]>([]);
   const cartItemsCount = cartItems.length;
+  const cartItemsCheckedCount = cartItems.filter((item) => item.isChecked).length;
+  const cartItemsTotalQuantity = cartItems.reduce((acc, item) => {
+    if (item.isChecked) acc += item.quantity;
+    return acc;
+  }, 0);
   const isAllChecked = cartItems.every((item) => item.isChecked);
   const orderPrice = cartItems.reduce((acc, item) => {
     if (item.isChecked) acc += item.quantity * item.product.price;
@@ -110,6 +116,7 @@ const useCart = (): UseCartReturnType => {
   return {
     cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, count: cartItemsCount },
     cartItemListProps: { cartItems, handleCartItemChange, handleCheckChange, isAllChecked },
+    orderResult: { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice },
   };
 };
 
