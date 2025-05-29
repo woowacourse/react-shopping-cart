@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    {
+      "source": "/mockServiceWorker.js",
+      "destination": "/mockServiceWorker.js"
+    },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
