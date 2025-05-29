@@ -6,11 +6,24 @@ import {
   CartListStyle,
 } from './CartList.styles';
 
-function CartList({ children }: { children: React.ReactNode }) {
+function CartList({
+  children,
+  isAllSelected,
+  handleSelecedAllItems,
+}: {
+  children: React.ReactNode;
+  isAllSelected: boolean;
+  handleSelecedAllItems: () => void;
+}) {
   return (
     <div css={CartListContainerStyle}>
       <div css={CartListHeaderStyle}>
-        <input css={CartListCheckboxStyle} type="checkbox" />
+        <input
+          css={CartListCheckboxStyle}
+          type="checkbox"
+          checked={isAllSelected}
+          onChange={handleSelecedAllItems}
+        />
         <Text varient="caption">전체 선택</Text>
       </div>
       <ul css={CartListStyle}>{children}</ul>

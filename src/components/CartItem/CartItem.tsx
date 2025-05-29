@@ -15,11 +15,15 @@ import {
 
 function CartItem({
   cartItem,
+  isSelected,
+  handleSelectItem,
   increaseCartItem,
   decreaseCartItem,
   deleteCartItem,
 }: {
   cartItem: CartItemProps;
+  isSelected: boolean;
+  handleSelectItem: (cartItemId: number) => void;
   increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   deleteCartItem: (cartItemId: number) => Promise<void>;
@@ -27,7 +31,12 @@ function CartItem({
   return (
     <li css={CartItemStyle}>
       <div css={ListItemHeaderStyle}>
-        <input type="checkbox" name="" id="" css={CheckboxStyle} />
+        <input
+          type="checkbox"
+          css={CheckboxStyle}
+          checked={isSelected}
+          onChange={() => handleSelectItem(cartItem.id)}
+        />
         <button
           css={DeleteButtonStyle}
           onClick={() => deleteCartItem(cartItem.id)}
