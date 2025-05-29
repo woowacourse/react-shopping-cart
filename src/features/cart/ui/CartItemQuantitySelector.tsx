@@ -58,7 +58,7 @@ export default function CartItemQuantitySelector({
   return (
     <S.CartItemQuantityContainer>
       <S.CartItemQuantitySelectorButton onClick={handleQuantityMinus}>-</S.CartItemQuantitySelectorButton>
-      <S.CartItemQuantityNumber>{cartQuantity}</S.CartItemQuantityNumber>
+      <S.CartItemQuantityNumber data-testid='card-item-quantity'>{cartQuantity}</S.CartItemQuantityNumber>
       <S.CartItemQuantitySelectorButton onClick={handleQuantityPlus}>+</S.CartItemQuantitySelectorButton>
     </S.CartItemQuantityContainer>
   );

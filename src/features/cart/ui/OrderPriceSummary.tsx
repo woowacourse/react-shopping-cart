@@ -17,11 +17,11 @@ export default function OrderPriceSummary() {
         주문 금액
         <S.PriceBox>{totalPrice.toLocaleString()}원</S.PriceBox>
       </S.TotalOrderPrice>
-      <S.DeliveryFee>
+      <S.DeliveryFee data-testid='delivery-fee'>
         배송비
         <S.PriceBox>{deliveryFee.toLocaleString()}원</S.PriceBox>
       </S.DeliveryFee>
-      <S.TotalPurchasePrice>
+      <S.TotalPurchasePrice data-testid='total-purchase-price'>
         총 결제 금액
         <S.PriceBox>{totalPurchasePrice.toLocaleString()}원</S.PriceBox>
       </S.TotalPurchasePrice>

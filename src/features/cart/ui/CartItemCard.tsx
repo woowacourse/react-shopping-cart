@@ -72,8 +72,10 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
         />
         <S.CartItemInfo>
           <S.CartItemInfoDetails>
-            <S.CartItemInfoName>{cartItem.product.name}</S.CartItemInfoName>
-            <S.CartItemInfoPrice>{cartItem.product.price.toLocaleString()}원</S.CartItemInfoPrice>
+            <S.CartItemInfoName data-testid='cart-item-name'>{cartItem.product.name}</S.CartItemInfoName>
+            <S.CartItemInfoPrice data-testid='card-item-price'>
+              {cartItem.product.price.toLocaleString()}원
+            </S.CartItemInfoPrice>
           </S.CartItemInfoDetails>
 
           <CartItemQuantitySelector
