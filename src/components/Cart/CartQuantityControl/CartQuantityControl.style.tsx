@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
+  width: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 4px;
 
   border: none;
 `;
