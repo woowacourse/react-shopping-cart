@@ -30,7 +30,7 @@ describe("useCart 훅 테스트", () => {
     it("장바구니 상품 개수를 올바르게 계산한다.", async () => {
       const { result } = renderHook(() => useCart());
       await waitFor(() => {
-        expect(result.current.cartItemsInfo.count).toBe(MOCKING_CART_ITEMS_DATA.content.length);
+        expect(result.current.cartItemsInfo.cartItemsCount).toBe(MOCKING_CART_ITEMS_DATA.content.length);
       });
     });
   });
