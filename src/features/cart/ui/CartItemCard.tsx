@@ -5,7 +5,7 @@ import Button from '../../../shared/ui/Button';
 import SelectInput from '../../../shared/ui/SelectInput';
 import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
-import { CartItem } from '../../../shared/type/cart';
+import { CartItem } from '../../../shared/types/cart';
 import { useSelectedCartContext } from '../../../shared/context/useCartContext';
 import { deleteCartItem } from '../api/deleteCartItem';
 

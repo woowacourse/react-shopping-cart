@@ -1,7 +1,7 @@
 import SelectInput from '../../../shared/ui/SelectInput';
 import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
-import { CartItem } from '../../../shared/type/cart';
+import { CartItem } from '../../../shared/types/cart';
 
 interface CartListProps {
   cartItems: CartItem[];

@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { CartItem } from '../type/cart';
+import { CartItem } from '../types/cart';
 
 interface SelectedCartContextType {
   selectedCartItems: CartItem[];

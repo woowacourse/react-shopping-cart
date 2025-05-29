@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as S from './CartItemQuantitySelector.styles';
-import { CartItem } from '../../../shared/type/cart';
+import { CartItem } from '../../../shared/types/cart';
 import { updateCartItem } from '../api/updateCartItem';
 
 interface CartItemQuantitySelectorProps {
