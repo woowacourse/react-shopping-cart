@@ -79,7 +79,7 @@ export default CartItemPage;
 
 const CartItemPageStyles = css`
   padding: 24px;
-  min-height: 100dvh;
+  min-height: calc(100vh - 64px);
   justify-content: center;
 `;
 
