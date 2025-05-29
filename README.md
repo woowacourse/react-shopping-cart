@@ -31,7 +31,7 @@ RTL - 컴포넌트 테스트
   - [x] CartItem에서 - 버튼 상품 수량 감소 기능
   - [x] CartItem에서 - 버튼 상품 수량 삭제 기능
   - [x] CartItem에서 상품 삭제 기능
-  - [ ] CartItemList에서 전체 선택 기능
+  - [x] CartItemList에서 전체 선택 기능
   - [ ] CartPrice에서 주문 금액, 배송비, 총 결제 금액
     - [ ] 10만원 미만
     - [ ] 10만원 이상

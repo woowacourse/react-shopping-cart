@@ -88,4 +88,17 @@ describe('CartContents 테스트', () => {
       expect(updatedCartItems.length).toBe(3);
     });
   });
+
+  it('전체 선택 버튼을 누르면 모든 상품의 선택이 해제된다.', async () => {
+    const buttons = await screen.findAllByRole('button');
+    const allSelectButton = buttons[0];
+
+    fireEvent.click(allSelectButton);
+
+    const cartItems = await screen.findAllByTestId(/CartItem/);
+    cartItems.forEach((item) => {
+      const buttons = within(item).getAllByRole('button');
+      expect(buttons[0]).toHaveAttribute('aria-checked', 'false');
+    });
+  });
 });
