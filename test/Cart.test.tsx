@@ -142,4 +142,31 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     expect(!initialCheckedState).toBeFalsy();
   });
+
+  // it('페이지에 첫 렌더링 후 - 버튼 클릭시 해당 상품이 해체되며 구매 금액은 20000원이 된다.', async () => {});
+
+  it('삭제 버튼 클릭 시 장바구니에서 해당 상품이 삭제된다.', async () => {
+    mockCartApi.getCartItemList.mockImplementation(async () => {
+      return Promise.resolve([...currentCartItems]);
+    });
+
+    mockCartApi.deleteCartItem.mockImplementation(async (cartId) => {
+      currentCartItems = currentCartItems.filter((item) => item.id !== cartId);
+      return Promise.resolve();
+    });
+
+    renderCartPage();
+
+    const deleteButtons = await screen.findAllByRole('button', { name: /삭제$/ });
+    const firstDeleteButton = deleteButtons[0];
+    const firstItemId = currentCartItems[0].id;
+    const firstItemName = currentCartItems[0].product.name;
+
+    await user.click(firstDeleteButton);
+
+    expect(mockCartApi.deleteCartItem).toHaveBeenCalledWith(firstItemId);
+
+    // 삭제된 상품이 화면에서 사라졌는지 확인
+    expect(screen.queryByText(firstItemName)).not.toBeInTheDocument();
+  });
 });
