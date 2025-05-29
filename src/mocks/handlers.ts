@@ -1,5 +1,5 @@
-import { http } from "msw";
-import { mockCartData } from "./mockData";
+import { http } from 'msw';
+import { mockCartData } from './mockData';
 
 interface CartItemProps {
   productId: number;
@@ -11,30 +11,30 @@ const getRequestURL = (url: string) => {
 };
 
 export const handlers = [
-  http.get(getRequestURL("/cart-items"), async () => {
+  http.get(getRequestURL('/cart-items'), async () => {
     return new Response(JSON.stringify({ content: [...mockCartData] }), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }),
 
-  http.patch(getRequestURL("/cart-items/:id"), async ({ params, request }) => {
+  http.patch(getRequestURL('/cart-items/:id'), async ({ params, request }) => {
     const { id } = params;
 
     const updateItem = (await request.json()) as CartItemProps;
     const { quantity } = updateItem;
 
     const cartIndex = mockCartData.findIndex(
-      (cartItem) => cartItem.product.id === Number(id)
+      (cartItem) => cartItem.id === Number(id)
     );
 
     if (cartIndex === -1) {
       return new Response(
         JSON.stringify({
-          errorCode: "NOT_FOUND",
-          message: "상품이 존재하지 않습니다.",
+          errorCode: 'NOT_FOUND',
+          message: '상품이 존재하지 않습니다.',
         }),
-        { status: 404, headers: { "Content-Type": "application/json" } }
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -42,11 +42,11 @@ export const handlers = [
 
     return new Response(null, {
       status: 204,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }),
 
-  http.delete(getRequestURL("/cart-items/:id"), async ({ params }) => {
+  http.delete(getRequestURL('/cart-items/:id'), async ({ params }) => {
     const { id } = params;
     const cartIndex = mockCartData.findIndex(
       (cartItem) => cartItem.id === Number(id)
@@ -55,10 +55,10 @@ export const handlers = [
     if (cartIndex === -1) {
       return new Response(
         JSON.stringify({
-          errorCode: "NOT_FOUND",
-          message: "상품이 존재하지 않습니다.",
+          errorCode: 'NOT_FOUND',
+          message: '상품이 존재하지 않습니다.',
         }),
-        { status: 404, headers: { "Content-Type": "application/json" } }
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -66,7 +66,7 @@ export const handlers = [
 
     return new Response(null, {
       status: 204,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }),
 ];

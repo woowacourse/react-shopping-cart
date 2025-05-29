@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import Reset from "./reset";
+import { css } from '@emotion/react';
+import Reset from './reset';
 const GlobalStyle = css`
   ${Reset}
   * {
@@ -23,8 +23,10 @@ const GlobalStyle = css`
     --color-grey: #d7d7d7;
     --color-red: #f54d4d;
     --color-light-red: #ffc9c9;
+    --color-green: #00c853;
+    --color-pink: #ff4d4f;
 
-    --font-family: "Noto Sans KR";
+    --font-family: 'Noto Sans KR';
     --font-size-title: 24px;
     --font-weight-title: 700;
 

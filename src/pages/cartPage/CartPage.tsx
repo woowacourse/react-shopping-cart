@@ -1,23 +1,25 @@
-import * as S from "./CartPage.style";
-import { Title, Subtitle } from "../../styles/@common/title/Title.styles";
-import CartItem from "../../components/features/cartItem/CartItem";
-import CartPrice from "../../components/features/cartPrice/CartPrice";
-import { getCart } from "../../services/cartService";
-import { useEffect } from "react";
-import Checkbox from "../../components/@common/checkbox/Checkbox";
-import Button from "../../components/@common/button/Button";
-import useEasyNavigate from "../../hooks/useEasyNavigate";
+import * as S from './CartPage.style';
+import { Title, Subtitle } from '../../styles/@common/title/Title.styles';
+import CartItem from '../../components/features/cartItem/CartItem';
+import CartPrice from '../../components/features/cartPrice/CartPrice';
+import { getCart } from '../../services/cartService';
+import { useEffect } from 'react';
+import Checkbox from '../../components/@common/checkbox/Checkbox';
+import Button from '../../components/@common/button/Button';
+import useEasyNavigate from '../../hooks/useEasyNavigate';
 import {
   calculateTotalPrice,
   calculateTotalProductCount,
   getCartItemNamePrice,
-} from "../../utils/calculate";
-import useCartData from "../../hooks/useCartData";
-import useCheckedArray from "../../hooks/useCheckedArray";
+} from '../../utils/calculate';
+import useCartData from '../../hooks/useCartData';
+import useCheckedArray from '../../hooks/useCheckedArray';
 import {
   NO_ITEM_IN_CART,
   CART_ITEM_TYPE_COUNT,
-} from "../../constants/systemMessages";
+} from '../../constants/systemMessages';
+import tryApiCall from '../../utils/tryApiCall';
+import { useToast } from '../../contexts/ToastContext';
 
 const CartPage = () => {
   const {
@@ -36,15 +38,18 @@ const CartPage = () => {
     initIsCheckedArray,
     isAllChecked,
   } = useCheckedArray(cartData);
+  const { openToast } = useToast();
 
   useEffect(() => {
-    const fetchCartData = async () => {
-      const cartData = await getCart();
-      initCartData(cartData);
-      initIsCheckedArray(cartData);
-    };
-
-    fetchCartData();
+    tryApiCall(
+      async () => {
+        const cartData = await getCart();
+        initCartData(cartData);
+      },
+      openToast,
+      '장바구니 데이터를 불러왔습니다.'
+    );
+    initIsCheckedArray(cartData);
   }, []);
 
   return (

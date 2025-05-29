@@ -6,9 +6,12 @@ import {
   getCart,
   modifyCartItem,
 } from '../services/cartService';
+import tryApiCall from '../utils/tryApiCall';
+import { useToast } from '../contexts/ToastContext';
 
 const useCartData = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
+  const { openToast } = useToast();
 
   const updateCartItem = async (cartId: number) => {
     const cartItem = getCartItemById(cartData, cartId);
@@ -23,15 +26,27 @@ const useCartData = () => {
   };
 
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
-    await modifyCartItem(cartItemId, quantity);
-    const cartData = await getCart();
-    setCartData(cartData);
+    tryApiCall(
+      async () => {
+        await modifyCartItem(cartItemId, quantity);
+        const cartData = await getCart();
+        setCartData(cartData);
+      },
+      openToast,
+      '장바구니 수량을 변경했습니다.'
+    );
   };
 
   const removeCartItem = async (cartItemId: number) => {
-    await deleteCartItem(cartItemId);
-    const cartData = await getCart();
-    setCartData(cartData);
+    tryApiCall(
+      async () => {
+        await deleteCartItem(cartItemId);
+        const cartData = await getCart();
+        setCartData(cartData);
+      },
+      openToast,
+      '장바구니 상품을 삭제했습니다.'
+    );
   };
 
   const initCartData = (updateData: CartItemType[]) => {
