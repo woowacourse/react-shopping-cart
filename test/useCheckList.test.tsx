@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { useCheckList } from '../src/hooks/useCheckList';
 import mockData from './data';
+import { describe, it, expect } from 'vitest';
 
 describe('useCheckList Test', () => {
   it('페이지 진입 시 모든 상품이 선택된 상태여야 한다.', () => {

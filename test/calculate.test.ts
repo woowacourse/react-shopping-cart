@@ -4,6 +4,7 @@ import {
   calculateTotalQuantity
 } from '../src/components/CartItemList/calculate';
 import mockData from './data';
+import { describe, it, expect } from 'vitest';
 
 describe('주문 금액·배송비·결제 금액 계산 test', () => {
   it('상품 금액을 합산한 총 주문 금액을 계산한다.', () => {

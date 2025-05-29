@@ -33,7 +33,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
             <CheckBox checked={isAllChecked} onChange={isAllChecked ? uncheckAll : checkAll} />
             <p>전체 선택</p>
           </div>
-          <div css={styles.cartItemsListCss}>
+          <div css={styles.cartItemsListCss} data-testid="cart-item-list">
             {cartItems.map((item) => (
               <CartItem
                 key={item.id}
