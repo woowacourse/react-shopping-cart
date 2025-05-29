@@ -74,7 +74,6 @@ function CartCheckList() {
     return `${price.toLocaleString()}원`;
   };
 
-  console.log(selectionMap);
   return (
     <Container>
       <CheckedAll>
