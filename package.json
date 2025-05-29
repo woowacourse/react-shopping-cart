@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ohgus.github.io/react-shopping-cart",
   "name": "react-shopping-cart",
   "private": true,
   "version": "0.0.0",
@@ -8,11 +9,13 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
     "@emotion/react": "^11.14.0",
+    "gh-pages": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.6.1",
