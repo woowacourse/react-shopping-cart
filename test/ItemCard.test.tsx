@@ -6,10 +6,11 @@ import {
   within,
 } from '@testing-library/react';
 
-import CartPage from '../src/pages/CartPage';
 import { mockCartItems } from './mocks';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
+import PageProvider from '../src/contexts/PageProvider';
+import PageController from '../src/pages/PageController';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;
@@ -17,9 +18,11 @@ describe('ItemCard 테스트', () => {
   beforeEach(async () => {
     await act(() =>
       render(
-        <CartItemsProvider>
-          <CartPage />
-        </CartItemsProvider>
+        <PageProvider>
+          <CartItemsProvider>
+            <PageController />
+          </CartItemsProvider>
+        </PageProvider>
       )
     );
     const ItemCardList = screen.getAllByTestId('item-card');

@@ -5,18 +5,20 @@ import {
   waitFor,
   within,
 } from '@testing-library/react';
-
-import CartPage from '../src/pages/CartPage';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
+import PageProvider from '../src/contexts/PageProvider';
+import PageController from '../src/pages/PageController';
 
 describe('전체 선택 테스트', () => {
   beforeEach(async () => {
     await act(() =>
       render(
-        <CartItemsProvider>
-          <CartPage />
-        </CartItemsProvider>
+        <PageProvider>
+          <CartItemsProvider>
+            <PageController />
+          </CartItemsProvider>
+        </PageProvider>
       )
     );
   });
