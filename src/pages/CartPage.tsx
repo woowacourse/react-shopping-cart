@@ -1,16 +1,13 @@
 import Button from '../components/Button/Button';
 import Header from '../components/Header/Header';
 import CartHeader from '../components/Cart/CartHeader';
-import CartList from '../components/Cart/CartList';
-import CartFooter from '../components/Cart/CartFooter';
-import SelectAllBox from '../components/SelectBox/SelectAllBox';
 import { useNavigate } from 'react-router';
-import { infoIcon } from '../assets';
 import { getCartItems } from '../apis/cart';
 import { useData } from '../context/DataContext';
 import { CartProduct } from '../types/cart';
 import { useCartSelection } from '../hooks/useCartSelection';
 import styled from '@emotion/styled';
+import CartMain from '../components/Cart/CartMain';
 
 function CartPage() {
   const { data: cartItems } = useData({
@@ -43,23 +40,38 @@ function CartPage() {
     return null;
   }
 
+  const descriptionMessage = () => {
+    if (cartItems.content.length > 0) {
+      return `현재 ${cartItems.content.length}종류의 상품이 담겨있습니다.`;
+    }
+  };
+
+  const isDisabled = checkedItems.length === 0;
+
   return (
     <>
       <Header title="SHOP" />
       <Container>
-        <CartHeader />
-        <SelectAllBox isAllChecked={isAllChecked} handleAllCheck={handleAllCheck} />
-        <CartList checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
+        <CartHeader description={descriptionMessage()} />
 
-        <CartInfo>
-          <InfoIconImage src={infoIcon} alt="infoIcon" />
-          <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
-        </CartInfo>
-
-        <CartFooter price={price} shippingFee={shippingFee} totalPrice={totalPrice} />
+        {cartItems.content.length > 0 ? (
+          <>
+            <CartMain
+              isAllChecked={isAllChecked}
+              checkedItems={checkedItems}
+              setCheckedItems={setCheckedItems}
+              price={price}
+              shippingFee={shippingFee}
+              totalPrice={totalPrice}
+              handleAllCheck={handleAllCheck}
+            />
+          </>
+        ) : (
+          <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>
+        )}
       </Container>
       <Button
-        disabled={checkedItems.length === 0}
+        disabled={isDisabled}
         onClick={() =>
           navigate('/orderConfirm', {
             state: { price: totalPrice, count: checkedItems.length, totalCount: totalCount },
@@ -80,15 +92,13 @@ const Container = styled.div`
   overflow-y: auto;
 `;
 
-const CartInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 4px;
-  margin: 52px 0 13px 0;
-`;
-
-const InfoIconImage = styled.img`
-  width: 13px;
-  height: 13px;
+const EmptyCart = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  color: #0a0d13;
 `;
