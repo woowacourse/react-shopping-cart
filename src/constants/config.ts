@@ -1,0 +1,2 @@
+export const DELIVERY_PRICE_THRESHOLD = 100_000;
+export const DELIVERY_PRICE = 3_000;
