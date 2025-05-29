@@ -77,7 +77,8 @@ export default CartItemPage;
 
 const CartItemPageStyles = css`
   padding: 24px;
-  position: relative;
+  min-height: 100dvh;
+  justify-content: center;
 `;
 
 const Divider = css`
