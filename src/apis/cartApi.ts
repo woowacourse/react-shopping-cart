@@ -1,3 +1,4 @@
+import { GetCartItemsResponse } from "../types/cartItem";
 import apiClient from "./apiClient";
 
 interface GetCartItemsParams {
@@ -16,7 +17,7 @@ interface DeleteCartItemsParams {
 }
 
 const cartApi = {
-  get: async (params: GetCartItemsParams) => {
+  get: async (params: GetCartItemsParams): Promise<GetCartItemsResponse> => {
     return apiClient({ params, url: `/cart-items`, options: { method: "GET" } });
   },
 
