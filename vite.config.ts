@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react({ jsxImportSource: '@emotion/react' })],
   publicDir: 'public',
-  base: 'https://keemsebin.github.io/react-shopping-products/',
+  base: 'https://Beomtae.github.io/react-shopping-cart/',
 });
