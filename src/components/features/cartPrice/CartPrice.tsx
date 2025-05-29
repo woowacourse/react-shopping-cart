@@ -1,11 +1,12 @@
-import { Subtitle, Title } from "../../../styles/@common/title/Title.styles";
+import { Subtitle, Title } from '../../../styles/@common/title/Title.styles';
 import {
   calculateTotalCartItemPrice,
   calculateTotalPrice,
-} from "../../../utils/calculate";
-import * as S from "./CartPrice.styles";
-import infoIcon from "/public/icon/ic_info.svg";
-import { FREE_DELIVERY_MESSAGE } from "../../../constants/systemMessages";
+} from '../../../utils/calculate';
+import * as S from './CartPrice.styles';
+import infoIcon from '/public/icon/ic_info.svg';
+import { FREE_DELIVERY_MESSAGE } from '../../../constants/systemMessages';
+import { FEE } from '../../../constants/systemConstants';
 interface CartPriceProps {
   cartItemNamePrice: { name: string; price: number; quantity: number }[];
 }
@@ -32,11 +33,14 @@ const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
           );
         })}
         <div>
-          {totalCartItemPrice !== 0 && (
+          {totalCartItemPrice !== FEE.DELIVERY_FEE_FREE && (
             <div css={S.CartPriceInfoContainer}>
               <div css={S.CartPriceSubtitle}>배송비</div>
               <div css={Title}>
-                {totalCartItemPrice > 100000 ? 0 : (3000).toLocaleString()}원
+                {totalCartItemPrice > FEE.DELIVERY_FEE_STANDARD
+                  ? FEE.DELIVERY_FEE_FREE
+                  : FEE.DELIVERY_FEE.toLocaleString()}
+                원
               </div>
             </div>
           )}
