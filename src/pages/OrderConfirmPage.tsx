@@ -12,7 +12,7 @@ const OrderConfirmPage = () => {
     <>
       <div className={OrderConfirmPageStyles}>
         <Header
-          leading="./back-icon.png"
+          leading="./back-icon.svg"
           onLeadingClick={() => {
             navigate("/");
           }}
