@@ -60,8 +60,9 @@ const CartSection = () => {
               label="전체 선택"
               isChecked={isAllChecked}
               onChange={handleAllSelected}
+              testId="all-selected"
             />
-            <S.CartList>
+            <S.CartList data-testid="cart-list">
               {cartItems?.map((cartItem) => (
                 <Card
                   key={cartItem.id}

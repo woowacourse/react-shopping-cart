@@ -47,38 +47,34 @@ const Card = ({
   };
 
   return (
-    <>
-      <S.CardContainer>
-        <S.ButtonSection>
-          <CheckBox isChecked={isChecked} onChange={onToggle} />
-          <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
-        </S.ButtonSection>
+    <S.CardContainer>
+      <S.ButtonSection>
+        <CheckBox isChecked={isChecked} onChange={onToggle} />
+        <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
+      </S.ButtonSection>
 
-        <S.CardInfoSection>
-          <S.ImgSection
-            src={imageUrl}
-            alt={name}
-            onError={(e) => (e.currentTarget.src = "./null-image.png")}
+      <S.CardInfoSection>
+        <S.ImgSection
+          src={imageUrl}
+          alt={name}
+          onError={(e) => (e.currentTarget.src = "./null-image.png")}
+        />
+        <S.ProductInfoSection>
+          <S.ProductDescription>
+            <S.ProductName>{name}</S.ProductName>
+            <S.ProductPrice>{formatPrice(price)}</S.ProductPrice>
+          </S.ProductDescription>
+          <CartCount
+            count={cartItem.quantity}
+            onPlusCount={() => handleUpdate(cartItem.id, cartItem.quantity + 1)}
+            onMinusCount={() =>
+              handleUpdate(cartItem.id, cartItem.quantity - 1)
+            }
           />
-          <S.ProductInfoSection>
-            <S.ProductDescription>
-              <S.ProductName>{name}</S.ProductName>
-              <S.ProductPrice>{formatPrice(price)}</S.ProductPrice>
-            </S.ProductDescription>
-            <CartCount
-              count={cartItem.quantity}
-              onPlusCount={() =>
-                handleUpdate(cartItem.id, cartItem.quantity + 1)
-              }
-              onMinusCount={() =>
-                handleUpdate(cartItem.id, cartItem.quantity - 1)
-              }
-            />
-          </S.ProductInfoSection>
-        </S.CardInfoSection>
-      </S.CardContainer>
+        </S.ProductInfoSection>
+      </S.CardInfoSection>
       <Line />
-    </>
+    </S.CardContainer>
   );
 };
 

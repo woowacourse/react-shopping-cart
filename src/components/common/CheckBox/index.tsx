@@ -4,9 +4,10 @@ type Props = {
   isChecked: boolean;
   onChange: () => void;
   label?: string;
+  testId?: string;
 };
 
-const CheckBox = ({ isChecked, onChange, label }: Props) => {
+const CheckBox = ({ isChecked, onChange, label, testId }: Props) => {
   return (
     <S.Container>
       <S.HiddenCheckBox
@@ -14,6 +15,7 @@ const CheckBox = ({ isChecked, onChange, label }: Props) => {
         checked={isChecked}
         onChange={onChange}
         id="checkbox"
+        data-testid={testId}
       />
       <S.CheckBox
         src={isChecked ? "./checked-icon.svg" : "./unchecked-icon.svg"}
