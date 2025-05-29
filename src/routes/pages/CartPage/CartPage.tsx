@@ -20,7 +20,6 @@ import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpi
 function CartPage() {
   const {
     cartList,
-    isError,
     isLoading,
     increaseCartItem,
     decreaseCartItem,
@@ -33,8 +32,6 @@ function CartPage() {
     handleSelectItem,
     handleSelectAllItems,
   } = useSelect(cartList);
-
-  console.log('isLoading', isLoading);
 
   const totalPrice = cartPrice.totalPrice(cartList, selectedItems);
 
