@@ -4,6 +4,7 @@ import App from "./App.tsx";
 
 import { ApiProvider } from "./contexts/ApiContext.tsx";
 import { ErrorToastContextProvider } from "./contexts/ErrorToastContext.tsx";
+import { BrowserRouter } from "react-router";
 
 async function enableMocking() {
   const { worker } = await import("./mock/browser.ts");
@@ -23,11 +24,13 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-      <ErrorToastContextProvider>
-        <ApiProvider>
-          <App />
-        </ApiProvider>
-      </ErrorToastContextProvider>
+      <BrowserRouter basename={import.meta.env.VITE_BASE_NAME}>
+        <ErrorToastContextProvider>
+          <ApiProvider>
+            <App />
+          </ApiProvider>
+        </ErrorToastContextProvider>
+      </BrowserRouter>
     </React.StrictMode>
   );
 });
