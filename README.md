@@ -24,7 +24,7 @@
 
 RTL - 컴포넌트 테스트
 
-- [ ] CartContainer
+- [x] CartContainer
   - [x] CartTitle 수량 확인
   - [x] CartItem에서 상품 선택 기능
   - [x] CartItem에서 + 버튼 상품 수량 증가 기능
@@ -35,4 +35,4 @@ RTL - 컴포넌트 테스트
   - [x] CartPrice에서 주문 금액, 배송비, 총 결제 금액
     - [x] 10만원 미만
     - [x] 10만원 이상
-  - [ ] OrderConfirmationButton disabled
+  - [x] OrderConfirmationButton disabled

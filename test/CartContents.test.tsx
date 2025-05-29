@@ -121,4 +121,15 @@ describe('CartContents 테스트', () => {
 
     expect(deliveryFee).toHaveTextContent('3,000원');
   });
+
+  it('선택된 상품이 없을 때 하단 주문 확인 버튼이 비활성화된다.', async () => {
+    const buttons = await screen.findAllByRole('button');
+    const allSelectButton = buttons[0];
+
+    fireEvent.click(allSelectButton);
+
+    const orderConfirmButton = buttons[buttons.length - 1];
+
+    expect(orderConfirmButton).toBeDisabled();
+  });
 });

@@ -60,7 +60,6 @@ function CartItem({
               <IconButton
                 actionType="delete"
                 onClick={async () => {
-                  console.log('delete button click');
                   await deleteCartItem(cartItem.id);
                   refetch();
                 }}
