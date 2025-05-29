@@ -22,7 +22,7 @@ function CartItem({
   refetch,
 }: CartItemProps) {
   return (
-    <S.Container>
+    <S.Container data-testid={`CartItem-${cartItem.id}`}>
       <Separator />
       <S.ActionContainer>
         <SelectBox isSelected={isSelected} onClick={toggleSelect} />

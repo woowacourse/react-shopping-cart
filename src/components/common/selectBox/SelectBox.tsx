@@ -10,7 +10,7 @@ function SelectBox({
   ...props
 }: SelectBoxProps & ComponentProps<'button'>) {
   return (
-    <S.Container isSelected={isSelected} {...props}>
+    <S.Container aria-checked={isSelected} isSelected={isSelected} {...props}>
       {isSelected ? (
         <img src="./assets/Check.svg" />
       ) : (
