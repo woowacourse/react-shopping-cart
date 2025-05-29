@@ -13,6 +13,7 @@ import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 import { TOAST_TYPES } from "../../components/@common/Toast/type";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
+import { CLIENT_BASE_PATH } from "../../apis/config";
 
 const CartPage = () => {
   const {
@@ -40,7 +41,7 @@ const CartPage = () => {
   return (
     <>
       <Header>
-        <S.Logo href="/">SHOP</S.Logo>
+        <S.Logo href={CLIENT_BASE_PATH}>SHOP</S.Logo>
       </Header>
       <S.Main>
         <Title>장바구니</Title>
