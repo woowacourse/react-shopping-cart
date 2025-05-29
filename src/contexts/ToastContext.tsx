@@ -1,4 +1,11 @@
-import { createContext, useCallback, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Portal from "../components/@common/Portal/Portal";
 import Toast from "../components/@common/Toast/Toast";
 import { TOAST_TYPES, ToastType } from "../components/@common/Toast/type";
@@ -15,7 +22,7 @@ interface ShowToastProps {
 
 export const ToastContext = createContext<ToastContextType | null>(null);
 
-export const ToastProvider = ({ children }: React.PropsWithChildren) => {
+export const ToastProvider = ({ children }: PropsWithChildren) => {
   const [message, setMessage] = useState("");
   const [type, setType] = useState<ToastType>(TOAST_TYPES.SUCCESS);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);

@@ -1,11 +1,12 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
+import { PropsWithChildren } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import { CartProvider } from "../contexts/CartContext";
-import useCart from "../hooks/useCart";
 import { ToastProvider } from "../contexts/ToastContext";
+import useCart from "../hooks/useCart";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -41,7 +42,7 @@ const mockCartItems = [
   },
 ];
 
-const wrapper = ({ children }: React.PropsWithChildren) => (
+const wrapper = ({ children }: PropsWithChildren) => (
   <MemoryRouter>
     <ToastProvider>
       <CartProvider>{children}</CartProvider>

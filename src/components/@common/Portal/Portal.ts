@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-type Props = React.PropsWithChildren<{
+type Props = PropsWithChildren<{
   containerId?: string;
 }>;
 
