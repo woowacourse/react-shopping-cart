@@ -82,8 +82,8 @@ describe("Cart 전체선택 동기화", () => {
   it("다시 클릭하면 모두 선택으로 돌아와야 한다", async () => {
     const user = userEvent.setup();
     const allBtn = screen.getByLabelText("전체선택");
-    await user.click(allBtn); // 해제
-    await user.click(allBtn); // 재선택
+    await user.click(allBtn);
+    await user.click(allBtn);
 
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
     expect(allImg).toHaveAttribute("src", "/public/enabledCheck.svg");

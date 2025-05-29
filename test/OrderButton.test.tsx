@@ -7,7 +7,6 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { CartItemType, ProductItemType } from "../src/types/response";
 
-// Cart.test.tsx와 동일한 방식의 모킹
 const MOCK_PRODUCTS: ProductItemType[] = Array.from(
   { length: 3 },
   (_, index) => ({
@@ -59,7 +58,7 @@ describe("Cart 주문확인 버튼", () => {
 
   it("선택된 장바구니 아이템이 없을 때, 주문확인 버튼이 비활성화 된다", async () => {
     const user = userEvent.setup();
-    // 전체선택 버튼을 눌러서 모두 해제
+
     const allBtn = screen.getByLabelText("전체선택");
     await user.click(allBtn);
     const orderBtn = screen.getByRole("button", { name: "주문 확인" });
@@ -70,14 +69,7 @@ describe("Cart 주문확인 버튼", () => {
     const user = userEvent.setup();
     const orderBtn = screen.getByRole("button", { name: "주문 확인" });
     await user.click(orderBtn);
-    // 주문확인 페이지로 이동했는지 확인 (url 또는 페이지 텍스트 등)
-    // 예시: 주문확인 페이지에 특정 텍스트가 있다고 가정
-    // 실제 구현에 따라 아래를 수정하세요
-    // await screen.findByText("주문서 확인");
-    // 또는 location.pathname 검사
-    // 아래는 location.pathname을 검사하는 예시
-    // (테스트용 컴포넌트로 감싸서 location을 노출해야 함)
-    // 여기서는 간단히 버튼 클릭 후 disabled 상태가 아닌지만 체크
+
     expect(orderBtn).toBeEnabled();
   });
 });
