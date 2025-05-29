@@ -5,6 +5,7 @@ import Header from "../../components/shoppingCart/Header/Header";
 import Item from "../../components/shoppingCart/Item/Item";
 import Receipt from "../../components/shoppingCart/receipt/Receipt";
 import Footer from "../../components/layout/Footer/Footer";
+import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
 
 import useCartItemList from "../../hooks/useCartItemList";
 
@@ -16,12 +17,14 @@ import {
   Checkbox,
   EmptyText,
 } from "./ShoppingCartPage.styles";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
   const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
     []
   );
+  const { errorMessage } = useErrorContext();
 
   useEffect(() => {
     setCartItemCheckList(
@@ -98,6 +101,7 @@ export default function ShoppingCartPage() {
   return (
     <>
       <StyledShoppingCart>
+        {errorMessage && <ErrorBox />}
         <Header
           title="장바구니"
           description={

@@ -14,6 +14,7 @@ import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
 
 import { CartItemListProvider } from "./contexts/CartItemListContext";
+import { ErrorProvider } from "./contexts/ErrorContext";
 
 function Layout() {
   const location = useLocation();
@@ -21,10 +22,12 @@ function Layout() {
   const isShoppingCartPage = location.pathname === "/";
 
   return (
-    <CartItemListProvider>
-      <Header>{isShoppingCartPage ? "SHOP" : <BackButton />}</Header>
-      <Outlet />
-    </CartItemListProvider>
+    <ErrorProvider>
+      <CartItemListProvider>
+        <Header>{isShoppingCartPage ? "SHOP" : <BackButton />}</Header>
+        <Outlet />
+      </CartItemListProvider>
+    </ErrorProvider>
   );
 }
 
