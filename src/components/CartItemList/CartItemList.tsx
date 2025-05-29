@@ -6,6 +6,7 @@ import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
+import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from './calculate';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -65,16 +66,4 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
 
 const getCheckedItems = (cartItems: CartItemType[], state: Map<number, boolean>): CartItemType[] => {
   return cartItems.filter((item) => state.get(item.id));
-};
-
-const calculateOrderAmount = (items: CartItemType[]): number => {
-  return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-};
-
-const calculateDeliveryFee = (orderAmount: number): number => {
-  return orderAmount > 100000 ? 0 : 3000;
-};
-
-const calculateTotalQuantity = (items: CartItemType[]): number => {
-  return items.reduce((acc, item) => acc + item.quantity, 0);
 };
