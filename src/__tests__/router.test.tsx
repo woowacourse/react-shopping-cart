@@ -12,6 +12,7 @@ jest.mock("../apis/httpClient", () => ({
 jest.mock("../apis/cartItems/getCartItems");
 jest.mock("../apis/cartItems/deleteCartItem");
 jest.mock("../apis/cartItems/patchCartItem");
+jest.mock("../apis/config", () => ({}));
 
 const mockCartItems = [
   {
