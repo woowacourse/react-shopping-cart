@@ -1,11 +1,14 @@
-import "./App.css";
+import './index.css';
+import { CartPage } from './features/Cart/pages/CartPage';
+import { AppLayout } from './shared/components/AppLayout';
+import { ToastProvider } from './shared/context/ToastProvider';
 
-function App() {
+export const App = () => {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <AppLayout>
+      <ToastProvider>
+        <CartPage />
+      </ToastProvider>
+    </AppLayout>
   );
-}
-
-export default App;
+};
