@@ -46,8 +46,14 @@ describe('상품 금액 계산', () => {
       },
     ];
 
-    const result = cartPrice.totalPrice(cartList);
-    const expectedPrice = cartList.reduce(
+    const selected = cartList.map((cartItem) => cartItem.id);
+
+    const result = cartPrice.totalPrice(cartList, selected);
+
+    const filtered = cartList.filter((cartItem) =>
+      selected.includes(cartItem.id)
+    );
+    const expectedPrice = filtered.reduce(
       (acc, curr) => acc + curr.product.price * curr.quantity,
       0
     );
