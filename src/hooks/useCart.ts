@@ -19,7 +19,10 @@ type HandleCartItemChangeType = ({
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
 export interface UseCartReturnType {
-  cartItemsInfo: Record<"count" | "orderPrice" | "deliveryPrice" | "totalPrice", number>;
+  cartItemsInfo: Record<
+    "cartItemsCount" | "orderPrice" | "deliveryPrice" | "totalPrice" | "cartItemsCheckedCount",
+    number
+  >;
   cartItemListProps: {
     cartItems: CartItemsType[];
     handleCartItemChange: HandleCartItemChangeType;
@@ -114,7 +117,7 @@ const useCart = (): UseCartReturnType => {
   }, []);
 
   return {
-    cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, count: cartItemsCount },
+    cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
     cartItemListProps: { cartItems, handleCartItemChange, handleCheckChange, isAllChecked },
     orderResult: { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice },
   };

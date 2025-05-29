@@ -11,13 +11,13 @@ const CartPage = () => {
 
   const navigate = useNavigate();
   const handleNavigate = () => navigate("/order-confirm", { state: orderResult });
-
+  console.log(cartItemsInfo.cartItemsCheckedCount);
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>
-      {cartItemsInfo.count > 0 ? (
+      {cartItemsInfo.cartItemsCount > 0 ? (
         <S.Information>
-          <Text variant="body-3">현재 {cartItemsInfo.count}종류의 상품이 담겨있습니다.</Text>
+          <Text variant="body-3">현재 {cartItemsInfo.cartItemsCount}종류의 상품이 담겨있습니다.</Text>
           <CartItemList cartItemListProps={cartItemListProps} />
           <OrderPrice gap={12}>
             <OrderPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
@@ -36,7 +36,10 @@ const CartPage = () => {
         </S.NoInformation>
       )}
       <S.ButtonWrap>
-        <Button variant={cartItemsInfo.count > 0 ? "primary" : "disabled"} onClick={handleNavigate}>
+        <Button
+          variant={cartItemsInfo.cartItemsCount > 0 && cartItemsInfo.cartItemsCheckedCount > 0 ? "primary" : "disabled"}
+          onClick={handleNavigate}
+        >
           주문 확인
         </Button>
       </S.ButtonWrap>
