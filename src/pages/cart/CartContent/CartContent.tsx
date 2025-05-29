@@ -4,6 +4,8 @@ import CartList from './CartList/CartList';
 import CheckBox from '@/shared/components/CheckBox/CheckBox';
 import * as S from './CartContent.styled';
 import { useCartItem } from '../hooks/useCartItem';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/shared/config/routes';
 
 export default function CartContent() {
   const {
@@ -18,6 +20,7 @@ export default function CartContent() {
     addOrderItem,
     removeOrderItem,
   } = useCartItem();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div>로딩중</div>;
@@ -30,6 +33,15 @@ export default function CartContent() {
   if (!cartItems?.length) {
     return <EmptyCartContainer />;
   }
+
+  const handleOrderConfirmButtonClick = () => {
+    navigate(ROUTES.ORDER_SUCCESS, {
+      state: {
+        orderList,
+        orderTotalPrice,
+      },
+    });
+  };
 
   return (
     <S.Container>
@@ -48,7 +60,11 @@ export default function CartContent() {
         />
         <PriceContainer orderTotalPrice={orderTotalPrice} />
       </S.ScrollContainer>
-      <S.OrderConfirmButton disabled={!orderList.length} type="button">
+      <S.OrderConfirmButton
+        disabled={!orderList.length}
+        type="button"
+        onClick={handleOrderConfirmButtonClick}
+      >
         주문 확인
       </S.OrderConfirmButton>
     </S.Container>
