@@ -48,7 +48,7 @@ export default function CartItem({
   return (
     <S.Item>
       <S.ItemHeader>
-        <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} />
+        <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} aria-label="상품 선택" />
         <S.DeleteButton type="button" onClick={removeCartItem}>
           삭제
         </S.DeleteButton>

@@ -47,7 +47,7 @@ export default function CartContent() {
     <S.Container>
       <S.Text>현재 {cartItems.length}종류의 상품이 담겨있습니다.</S.Text>
       <S.AllCheckBox>
-        <CheckBox isChecked={isAllChecked} onClick={toggleAllCheckBox} />
+        <CheckBox isChecked={isAllChecked} onClick={toggleAllCheckBox} aria-label="전체 선택" />
         <S.Text>전체 선택</S.Text>
       </S.AllCheckBox>
       <S.ScrollContainer>

@@ -21,7 +21,7 @@ export default function CheckBox({ isChecked, ...rest }: CheckBoxProps) {
   const checked = isChecked ? 'checked' : 'unchecked';
 
   return (
-    <button type="button" {...rest}>
+    <button type="button" {...rest} name={checked}>
       <svg
         width="24"
         height="24"
