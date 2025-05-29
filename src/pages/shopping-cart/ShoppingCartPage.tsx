@@ -35,8 +35,6 @@ const ShoppingCartPage = () => {
 export default ShoppingCartPage;
 
 const CheckoutButton = styled.button<{ isDisabled: boolean }>`
-  position: sticky;
-  bottom: 0;
   width: 100%;
   padding: 16px;
   background-color: ${({ isDisabled }) => (isDisabled ? "#BDBDBD" : "#333")};
