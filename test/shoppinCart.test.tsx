@@ -2,12 +2,20 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { ShoppingCart } from "../src/pages/shoppingCart/shoppingCart";
 import { MemoryRouter } from "react-router-dom";
 import { server } from "../src/mocks/server";
+import shoppingCart from "../src/mocks/shoppingCart.json";
+import { getTotalPrice } from "../src/utils/getTotalPrice";
+import { CartItemTypes } from "../src/types/cartItem";
+import { resetCartItems } from "../src/mocks/handlers";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 describe("장바구니 페이지 테스트", () => {
+  beforeEach(() => {
+    resetCartItems();
+  });
+
   it("장바구니 삭제 버튼을 누르면 해당 제품이 삭제된다.", async () => {
     render(
       <MemoryRouter>
@@ -24,6 +32,32 @@ describe("장바구니 페이지 테스트", () => {
     await waitFor(() => {
       const currentDeleteButtons = screen.getAllByText("삭제");
       expect(currentDeleteButtons.length).toBe(2);
+    });
+  });
+
+  it("장바구니에 담긴 아이템의 수량을 변경하면 주문 금액이 변경된다.", async () => {
+    render(
+      <MemoryRouter>
+        <ShoppingCart />
+      </MemoryRouter>
+    );
+
+    const selectedId = shoppingCart.content.map((e) => e.id.toString());
+    const prevTotalPrice = getTotalPrice({
+      cartItems: shoppingCart.content as CartItemTypes[],
+      selectedCartId: selectedId,
+    });
+
+    await waitFor(() => {
+      const orderPrice = screen.getByTestId("orderPrice");
+      expect(orderPrice.textContent).toBe(
+        `${prevTotalPrice.toLocaleString("ko")}원`
+      );
+    });
+
+    await waitFor(() => {
+      const minusButtons = screen.getAllByTestId("quantity-minus-button");
+      fireEvent.click(minusButtons[0]);
     });
   });
 });

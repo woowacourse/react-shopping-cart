@@ -25,10 +25,18 @@ export function PaymentSummary({ price }: PaymentSummaryProps) {
       </div>
       <Line />
       <div css={summaryRowBox}>
-        <SummaryRow text="주문 금액" price={price} />
-        <SummaryRow text="배송비" price={deliveryFee} />
+        <SummaryRow text="주문 금액" price={price} dataTestId="orderPrice" />
+        <SummaryRow
+          text="배송비"
+          price={deliveryFee}
+          dataTestId="deliveryFee"
+        />
         <Line />
-        <SummaryRow text="총 결제 금액" price={price + deliveryFee} />
+        <SummaryRow
+          text="총 결제 금액"
+          price={price + deliveryFee}
+          dataTestId="totalPrice"
+        />
       </div>
     </div>
   );
