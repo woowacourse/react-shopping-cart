@@ -2,11 +2,13 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 import { deleteCartItem, getCartItemList, updateCartItem } from '@/api/cart';
 import { ToastContext } from '@/shared/context/ToastProvider';
-import { useCartContext } from '@/shared/context/useCartContext';
+import { useFetchData } from '@/shared/hooks/useFetchData';
 import { isError } from '@/shared/utils/isError';
 
+import { CartItem } from '../types/Cart.types';
+
 export const useCart = () => {
-  const { cart } = useCartContext();
+  const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
   const { showToast } = useContext(ToastContext);
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const hasInitialized = useRef(false);

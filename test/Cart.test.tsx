@@ -4,7 +4,6 @@ import { vi, beforeEach } from 'vitest';
 
 import * as cartApi from '@/api/cart';
 import { CartPage } from '@/features/Cart/pages/CartPage';
-import { ShoppingContext } from '@/shared/context/shoppingContext';
 
 import { cartItems } from './Cart.data';
 
@@ -15,12 +14,7 @@ export const createTestCartItems = (): ReadonlyArray<Readonly<(typeof cartItems)
   })) as ReadonlyArray<Readonly<(typeof cartItems)[0]>>;
 };
 
-export const renderCartPage = () =>
-  render(
-    <ShoppingContext>
-      <CartPage />
-    </ShoppingContext>
-  );
+export const renderCartPage = () => render(<CartPage />);
 
 vi.mock('@/api/cart');
 const mockCartApi = vi.mocked(cartApi);
