@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { API_BASE_URL } from "../apis/config";
-import cartItem from "./cartItems.json";
+import cartItems from "./cartItems.json";
 
 const END_POINT = "/cart-items";
 
@@ -9,7 +9,7 @@ interface PatchCartItemsRequestBody {
   quantity: number;
 }
 
-const currentCartItems = { ...cartItem };
+const currentCartItems = { ...cartItems };
 
 export const handlers = [
   /**
