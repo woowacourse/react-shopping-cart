@@ -4,7 +4,7 @@ import OrderConfirmPage from './pages/orderConfirm/OrderConfirmPage';
 
 function App() {
   return (
-    <BrowserRouter basename="/react-shopping-products">
+    <BrowserRouter basename="/react-shopping-cart">
       <Routes>
         <Route path="/" element={<CartPage />} />
         <Route path="/order-confirmation" element={<OrderConfirmPage />} />
