@@ -3,12 +3,17 @@ import { BrowserRouter } from 'react-router';
 import CartContents from '../src/components/features/cart/cartContents/CartContents';
 
 describe('RTL Test', () => {
-  it('should render', () => {
+  beforeEach(() => {
     render(
       <BrowserRouter>
         <CartContents />
       </BrowserRouter>
     );
-    expect(screen.getByText('장바구니')).toBeInTheDocument();
+  });
+
+  it('should render', async () => {
+    const text = await screen.findByText('현재 4종류의 상품이 담겨있습니다.');
+
+    expect(text).toBeInTheDocument();
   });
 });

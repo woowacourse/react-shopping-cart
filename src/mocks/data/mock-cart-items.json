@@ -1,0 +1,46 @@
+[
+  {
+    "id": 8014,
+    "quantity": 1,
+    "product": {
+      "id": 1,
+      "name": "에어포스1",
+      "price": 100000,
+      "imageUrl": "https://kream-phinf.pstatic.net/MjAyNTA1MTNfMjI5/MDAxNzQ3MTA4MjUzOTg4.106G0-WfVU8g8ziNKgKJjc1_UXvF-2IatsA-Cz5mG1og.etXRFVPYqcs5J9HAfXpaHFPFHorGnZU4Nl7k4368rfog.PNG/a_090d2310040b4f9ca922f2498ae8ae3a.png?type=l",
+      "category": "패션잡화"
+    }
+  },
+  {
+    "id": 8078,
+    "quantity": 1,
+    "product": {
+      "id": 2,
+      "name": "에어포스2",
+      "price": 100000,
+      "imageUrl": "https://kream-phinf.pstatic.net/MjAyNTA1MTNfMjI5/MDAxNzQ3MTA4MjUzOTg4.106G0-WfVU8g8ziNKgKJjc1_UXvF-2IatsA-Cz5mG1og.etXRFVPYqcs5J9HAfXpaHFPFHorGnZU4Nl7k4368rfog.PNG/a_090d2310040b4f9ca922f2498ae8ae3a.png?type=l",
+      "category": "패션잡화"
+    }
+  },
+  {
+    "id": 8079,
+    "quantity": 1,
+    "product": {
+      "id": 3,
+      "name": "에어포스3",
+      "price": 100000,
+      "imageUrl": "https://kream-phinf.pstatic.net/MjAyNTA1MTNfMjI5/MDAxNzQ3MTA4MjUzOTg4.106G0-WfVU8g8ziNKgKJjc1_UXvF-2IatsA-Cz5mG1og.etXRFVPYqcs5J9HAfXpaHFPFHorGnZU4Nl7k4368rfog.PNG/a_090d2310040b4f9ca922f2498ae8ae3a.png?type=l",
+      "category": "패션잡화"
+    }
+  },
+  {
+    "id": 8080,
+    "quantity": 1,
+    "product": {
+      "id": 4,
+      "name": "달 무드등",
+      "price": 28000,
+      "imageUrl": "https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/794f/cecbea5bdc654a11ae02d28b4d1f4bd2a03a7389eb2b8cc4a45c1c9f7d9b.jpg",
+      "category": "패션잡화"
+    }
+  }
+]
