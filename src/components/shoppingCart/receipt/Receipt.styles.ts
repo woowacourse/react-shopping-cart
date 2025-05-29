@@ -1,0 +1,19 @@
+import styled from "@emotion/styled";
+
+export const DescriptionContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+`;
+
+export const Description = styled.p`
+  font-size: 12px;
+  font-weight: 500;
+  color: #0a0d13;
+`;
+
+export const Img = styled.img`
+  width: 16px;
+  height: 16px;
+`;
