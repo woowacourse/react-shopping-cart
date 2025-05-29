@@ -91,7 +91,13 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const deleteItem = useCallback(
     async (cartId: number) => {
-      await deleteCartItem(cartId);
+      try {
+        await deleteCartItem(cartId);
+      } catch (error) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        }
+      }
       fetchData();
       setCartItemsCheckData((prev) => prev.filter(({ id }) => id !== cartId));
     },
@@ -100,10 +106,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const increaseItemQuantity = useCallback(
     async (cartId: number, currentQuantity: number) => {
-      await patchCartItem({
-        cartId,
-        quantity: currentQuantity + 1,
-      });
+      try {
+        await patchCartItem({
+          cartId,
+          quantity: currentQuantity + 1,
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        }
+      }
       fetchData();
     },
     [fetchData]
@@ -111,10 +123,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const decreaseItemQuantity = useCallback(
     async (cartId: number, currentQuantity: number) => {
-      await patchCartItem({
-        cartId,
-        quantity: currentQuantity - 1,
-      });
+      try {
+        await patchCartItem({
+          cartId,
+          quantity: currentQuantity - 1,
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        }
+      }
       fetchData();
     },
     [fetchData]
