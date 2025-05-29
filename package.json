@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest"
   },
-  "homepage": "https://spoyodevelop.github.io/react-shopping-cart",
+  "homepage": "https://dlsxjzld.github.io/react-shopping-cart",
   "dependencies": {
     "@emotion/styled": "^11.14.0",
     "react": "^18.2.0",
