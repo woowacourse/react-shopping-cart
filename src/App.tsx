@@ -1,9 +1,13 @@
-import "./App.css";
+import GlobalStyle from "./styles/GlobalStyles";
+import { Global } from "@emotion/react";
+import { RouterProvider } from "react-router-dom";
+import router from "./router/routes";
 
 function App() {
   return (
     <>
-      <h1>react-shopping-cart</h1>
+      <Global styles={GlobalStyle} />
+      <RouterProvider router={router} />
     </>
   );
 }
