@@ -5,6 +5,9 @@ import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
 import checked from "/checked.svg";
 import unChecked from "/unChecked.svg";
+import { useNavigate } from "react-router";
+import { PAGE_URL } from "../../../constants/PageUrl";
+import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation";
 
 function CartContent() {
   const {
@@ -17,6 +20,7 @@ function CartContent() {
 
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
   const initialized = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!initialized.current && cartItemsData.length) {
@@ -32,6 +36,19 @@ function CartContent() {
     } else {
       setSelectedCartIds((prev) => [...prev, id]);
     }
+  };
+
+  const handleOrderConfirm = () => {
+    const state: OrderConfirmationLocationState = {
+      selectedCartItemsLength: selectedCartIds.length,
+      selectedCartItemsCount: cartItemsData
+        .filter((cartItem) => selectedCartIds.includes(cartItem.id.toString()))
+        .reduce((totalCount, item) => totalCount + item.quantity, 0),
+      totalPrice: cartItemsData
+        .filter((item) => selectedCartIds.includes(item.id.toString()))
+        .reduce((total, item) => total + item.product.price * item.quantity, 0),
+    };
+    navigate(PAGE_URL.ORDER_CONFIRMATION, { state });
   };
 
   return (
@@ -91,7 +108,10 @@ function CartContent() {
           장바구니에 담긴 상품이 없습니다.
         </Styled.EmptyCartMessage>
       )}
-      <Styled.OrderConfirmButton disabled={selectedCartIds.length === 0}>
+      <Styled.OrderConfirmButton
+        disabled={selectedCartIds.length === 0}
+        onClick={handleOrderConfirm}
+      >
         주문 확인
       </Styled.OrderConfirmButton>
     </Styled.CartContentContainer>
