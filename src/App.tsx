@@ -1,10 +1,14 @@
-import "./App.css";
+import CartPage from "./pages/CartPage/CartPage";
+import { CartProvider } from "./stores/CartContext";
+import { SelectProvider } from "./stores/SelectContext";
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <CartProvider>
+      <SelectProvider>
+        <CartPage />
+      </SelectProvider>
+    </CartProvider>
   );
 }
 
