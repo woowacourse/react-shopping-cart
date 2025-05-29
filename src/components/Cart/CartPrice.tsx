@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Title, TotalContainer, TotalPrice } from './Cart.styles';
 
 export type CartPriceVariant = 'default' | 'shipping' | 'total';
 interface CartPriceProps {
@@ -19,6 +18,22 @@ function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
 
 export default CartPrice;
 
+export const Title = styled.h2`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+`;
+
+export const TotalContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+  padding: 8px 0;
+`;
+
 const StyledTotalContainer = styled(TotalContainer)<{ variant?: string }>`
   ${({ variant }) => {
     if (variant === 'default') {
@@ -33,4 +48,11 @@ const StyledTotalContainer = styled(TotalContainer)<{ variant?: string }>`
     }
     return '';
   }}
+`;
+
+export const TotalPrice = styled.h1`
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  text-align: right;
 `;

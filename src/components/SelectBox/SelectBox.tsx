@@ -1,11 +1,6 @@
+import styled from '@emotion/styled';
 import { CartProduct } from '../../types/cart';
-import {
-  CheckboxContainer,
-  DeleteButton,
-  HiddenCheckbox,
-  ModifyRow,
-  StyledCheckbox,
-} from '../Cart/Cart.styles';
+import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './SelectBox.styles';
 
 interface SelectBoxProps {
   cartItem: CartProduct;
@@ -37,3 +32,17 @@ function SelectBox({ cartItem, checkedItems, setCheckedItems, onRemove }: Select
 }
 
 export default SelectBox;
+
+export const DeleteButton = styled.button`
+  width: 40px;
+  height: 24px;
+  font-size: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+`;

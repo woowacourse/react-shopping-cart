@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from '../Cart/Cart.styles';
+import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './SelectBox.styles';
 
 interface SelectBoxProps {
   isAllChecked: boolean;
@@ -8,7 +8,7 @@ interface SelectBoxProps {
 
 function SelectAllBox({ isAllChecked, handleAllCheck }: SelectBoxProps) {
   return (
-    <CartSelectAll>
+    <Container>
       <ModifyRow>
         <CheckboxContainer>
           <HiddenCheckbox
@@ -20,13 +20,13 @@ function SelectAllBox({ isAllChecked, handleAllCheck }: SelectBoxProps) {
         </CheckboxContainer>
         <span>전체 선택</span>
       </ModifyRow>
-    </CartSelectAll>
+    </Container>
   );
 }
 
 export default SelectAllBox;
 
-const CartSelectAll = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
