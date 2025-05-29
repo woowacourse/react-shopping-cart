@@ -60,13 +60,15 @@ const CartItemPage = () => {
             )}
           </div>
 
-          <ConfirmButton
-            text="주문하기"
-            disabled={selectedItem.size === 0}
-            onClick={() => {
-              navigate("/order-confirm");
-            }}
-          />
+          {cartItems.length > 0 && (
+            <ConfirmButton
+              text="주문하기"
+              disabled={selectedItem.size === 0}
+              onClick={() => {
+                navigate("/order-confirm");
+              }}
+            />
+          )}
         </>
       )}
     </>
@@ -77,7 +79,7 @@ export default CartItemPage;
 
 const CartItemPageStyles = css`
   padding: 24px;
-  position: relative;
+  justify-content: center;
 `;
 
 const Divider = css`
