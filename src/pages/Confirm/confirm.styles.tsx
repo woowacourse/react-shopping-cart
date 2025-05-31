@@ -1,4 +1,11 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
+
+export const ErrorDescription = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+`;
 
 export const Container = styled.div`
   display: flex;

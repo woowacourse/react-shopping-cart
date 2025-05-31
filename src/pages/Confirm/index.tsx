@@ -1,12 +1,33 @@
-import * as S from "./confirm.styles";
-import { formatPrice } from "../../utils/formatPrice";
-import Button from "../../components/common/Button";
-import { css } from "@emotion/react";
-import { useLocation } from "react-router";
+import * as S from './confirm.styles';
+import {formatPrice} from '../../utils/formatPrice';
+import Button from '../../components/common/Button';
+import {css} from '@emotion/react';
+import {useLocation} from 'react-router';
+
+const buttonStyle = css`
+  width: 100%;
+  padding: 24px 0;
+  background-color: #bebebe;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  position: absolute;
+  bottom: 0;
+`;
 
 const Confirm = () => {
   const location = useLocation();
-  const { sort, totalAmount, totalPrice } = location.state;
+  if (!location.state)
+    return (
+      <S.ErrorDescription>
+        잘못된 경로로 들어왔습니다.
+        <br />
+        뒤로가기 버튼을 눌러주세요!
+      </S.ErrorDescription>
+    );
+
+  const {sort, totalAmount, totalPrice} = location.state;
+
   return (
     <>
       <S.Container data-testid="order-confirm-description">
@@ -21,20 +42,7 @@ const Confirm = () => {
         </S.PriceSection>
       </S.Container>
 
-      <Button
-        title="결제하기"
-        onClick={() => {}}
-        css={css`
-          width: 100%;
-          padding: 24px 0;
-          background-color: #bebebe;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-          position: absolute;
-          bottom: 0;
-        `}
-      />
+      <Button title="결제하기" onClick={() => {}} css={buttonStyle} />
     </>
   );
 };
