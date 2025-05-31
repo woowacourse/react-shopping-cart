@@ -19,12 +19,22 @@ export async function baseAPI<T>({
     body: body ? JSON.stringify(body) : null,
   });
   if (!result.ok) {
-    const resultString = await result.text();
-    const parsedResult = JSON.parse(resultString);
+    let errorMessage = '알 수 없는 에러가 발생했습니다.';
+    try {
+      const json = await result.clone().json();
+      errorMessage = json.message ?? errorMessage;
+    } catch {
+      const text = await result.text();
+      errorMessage = text || errorMessage;
+    }
 
-    throw new Error(parsedResult.message);
+    throw new Error(errorMessage);
   }
 
-  if (method === 'GET') return result.json();
+  const contentType = result.headers.get('Content-Type');
+  if (contentType?.includes('application/json')) {
+    return result.json();
+  }
+
   return null;
 }

@@ -70,6 +70,6 @@ export const handlers = [
       String(item.id) === String(id) ? { ...item, quantity } : item
     );
 
-    return HttpResponse.json(null, { status: 200 });
+    return new HttpResponse(null, { status: 200 });
   }),
 ];
