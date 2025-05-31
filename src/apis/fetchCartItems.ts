@@ -28,17 +28,20 @@ const fetchCartItems = async ({
   };
 
   const response = await fetch(url, options);
-  if (!response.ok) {
-    const errorType = getErrorTypeByStatus(response.status);
-    throw new ApiError(
-      response.status,
-      response.statusText,
-      getErrorMessage(response.statusText, response.status),
-      errorType
-    );
+  try {
+    if (!response.ok) {
+      const errorType = getErrorTypeByStatus(response.status);
+      throw new ApiError(
+        response.status,
+        response.statusText,
+        getErrorMessage(response.statusText, response.status),
+        errorType
+      );
+    }
+    return response.json();
+  } catch (error) {
+    throw error;
   }
-
-  return response.json();
 };
 
 export default fetchCartItems;
