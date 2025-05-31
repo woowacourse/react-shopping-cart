@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Flex from '../../../components/common/Flex';
 import LabelPrice from '../../../components/common/LabelPrice';
 import { useOrderListContext } from '../context/OrderListProvider';
+import { calculateShippingFee } from '@/utils/calculateShippingFee';
 
 const LabelPriceContainer = () => {
   const { cartListData, selectionMap } = useOrderListContext();
@@ -12,7 +13,7 @@ const LabelPriceContainer = () => {
     (total, item) => total + item.product.price * item.quantity,
     0
   );
-  const shippingFee = orderPrice >= 100000 || orderPrice === 0 ? 0 : 3000;
+  const shippingFee = calculateShippingFee(orderPrice);
   const totalPrice = orderPrice + shippingFee;
 
   return (
