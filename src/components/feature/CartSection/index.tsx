@@ -14,7 +14,7 @@ import {ROUTE_PATHS} from '../../../route/path';
 
 const FREE_ORDER_PRICE = 100_000;
 const ORDER_PRICE = 3_000;
-const btnClassName = css`
+const styleButton = css`
   width: 100%;
   padding: 24px 0;
   background-color: #000;
@@ -110,7 +110,7 @@ const CartSection = () => {
             },
           })
         }
-        css={btnClassName}
+        css={styleButton}
       />
     </S.Container>
   );

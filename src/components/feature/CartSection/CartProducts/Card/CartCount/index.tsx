@@ -8,7 +8,7 @@ type Props = {
   onMinusCount: () => void;
 };
 
-const className = css`
+const styleButton = css`
   border-radius: 10px;
   padding: 5px 5px;
 `;
@@ -19,10 +19,14 @@ const CartCount = ({count, onPlusCount, onMinusCount}: Props) => {
       <Button
         onClick={onMinusCount}
         iconUrl="./minus-icon.svg"
-        css={className}
+        css={styleButton}
       />
       {count}
-      <Button onClick={onPlusCount} iconUrl="./plus-icon.svg" css={className} />
+      <Button
+        onClick={onPlusCount}
+        iconUrl="./plus-icon.svg"
+        css={styleButton}
+      />
     </CartCountSection>
   );
 };
