@@ -68,8 +68,12 @@ function CartCheckList() {
   }
 
   const removeItem = async (id: string) => {
-    await deleteCartItem(id);
-    await cartRefetch();
+    try {
+      await deleteCartItem(id);
+      await cartRefetch();
+    } catch (e) {
+      showToast('장바구니 삭제에 실패했습니다.');
+    }
   };
 
   const formatPrice = (price: number) => {
