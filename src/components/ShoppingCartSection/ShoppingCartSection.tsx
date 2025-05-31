@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { CartItemsResponse } from "../../types/cartItems";
+import { CartItemsResponse, Content } from "../../types/cartItems";
 import CartItem from "../CartItem/CartItem";
 import Checkbox from "../Checkbox/Checkbox";
 import InfoIcon from "../icons/Info";
@@ -25,13 +25,16 @@ export default function ShoppingCartSection({
     selectedItemIds.length === shopppingCartItems.content.length;
 
   const orderPrice =
-    shopppingCartItems?.content.reduce(
-      (total, item) =>
-        selectedItemIds.includes(item.id)
-          ? total + item.product.price * item.quantity
-          : total,
-      0
-    ) || 0;
+    shopppingCartItems?.content.reduce((total, item) => {
+      const calculateItemPrice = (item: Content) => {
+        if (selectedItemIds.includes(item.id)) {
+          return item.product.price * item.quantity;
+        }
+        return 0;
+      };
+
+      return total + calculateItemPrice(item);
+    }, 0) || 0;
   const shippingFee = orderPrice >= 100000 ? 0 : 3000;
   const totalPrice = orderPrice + shippingFee;
 
