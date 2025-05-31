@@ -42,7 +42,7 @@ function CartCheckList() {
       if (!cartListData) return;
       const cart = cartListData.find((cart) => cart.id === cartId);
       if (!cart) throw new Error("장바구니에 해당 아이템이 없습니다.");
-      await patchCartItem(cartId, cart.quantity + 1);
+      await patchCartItem(cartId, cart.quantity + 1, cartListData);
       await cartRefetch();
     } catch (e) {
       showToast("장바구니에 추가하는 데 실패했습니다.");
@@ -54,7 +54,7 @@ function CartCheckList() {
       if (!cartListData || cartListData.length >= 50) return;
       const cart = cartListData.find((cart) => cart.id === cartId);
       if (!cart) throw new Error("장바구니에 해당 아이템이 없습니다.");
-      await patchCartItem(cartId, cart.quantity - 1);
+      await patchCartItem(cartId, cart.quantity - 1, cartListData);
       await cartRefetch();
     } catch (e) {
       showToast("장바구니에서 뺴는 데 실패했습니다.");

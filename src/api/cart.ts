@@ -91,16 +91,15 @@ export async function postCartItem(id: string) {
   });
 }
 
-export async function patchCartItem(cartId: string, quantity: number) {
-  const cartList = await getShoppingCartData();
+export async function patchCartItem(
+  cartId: string,
+  quantity: number,
+  cartList: Cart[]
+) {
   const cart = cartList.find((item) => item.id === cartId);
   if (!cart) {
     throw new Error("장바구니에 해당 아이템이 없습니다.");
   }
-  // const maxQuantity = cart.product.quantity;
-  // if (quantity < 1 || quantity > maxQuantity) {
-  //   throw new Error(`재고와 수량이 맞지 않습니다. 현재 재고: ${maxQuantity}`);
-  // }
 
   return baseAPI({
     method: "PATCH",
