@@ -1,0 +1,1 @@
+export const FREE_DELIVERY_LIMIT = 100_000;
