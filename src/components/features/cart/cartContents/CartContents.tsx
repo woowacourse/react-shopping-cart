@@ -9,6 +9,7 @@ import useCartSelection from '../hooks/useCartSelection';
 import { CartItemType } from '../types';
 import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
+import CartEmptyContent from './CartEmptyContent';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -49,12 +50,7 @@ function CartContents() {
   }, [fetch]);
 
   if (cartItems.length === 0) {
-    return (
-      <S.Container>
-        <CartTitle />
-        <S.EmptyCart>장바구니에 담은 상품이 없습니다.</S.EmptyCart>
-      </S.Container>
-    );
+    return <CartEmptyContent />;
   }
 
   return (
