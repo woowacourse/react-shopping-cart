@@ -24,7 +24,7 @@ const ShoppingCartPage = () => {
         isDisabled={isDisabled}
         disabled={isDisabled}
         onClick={handleCheckout}
-        role="order-button"
+        aria-label="주문 확인"
       >
         주문 확인
       </CheckoutButton>

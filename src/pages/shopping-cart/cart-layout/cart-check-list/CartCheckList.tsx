@@ -80,7 +80,7 @@ function CartCheckList() {
         <CheckBox
           isChecked={isSelectAll}
           onToggle={() => handleSelectAll()}
-          role={"cart-item-all-checkbox"}
+          aria-label={"전체 선택 체크박스"}
           aria-checked={isSelectAll}
         ></CheckBox>
         <p>전체 선택</p>
@@ -97,7 +97,7 @@ function CartCheckList() {
               <CheckBox
                 isChecked={selectionMap[cart.id]}
                 onToggle={() => handleToggleSelection(cart.id)}
-                role={"cart-item-checkbox"}
+                aria-label={"상품 선택 체크박스"}
                 aria-checked={selectionMap[cart.id]}
               ></CheckBox>
               <ItemContainer>
@@ -108,7 +108,7 @@ function CartCheckList() {
                   altText={`${cart.product.name} 상품 이미지`}
                 />
 
-                <ProductInfo aria-label="상품 정보" role="cart-product-info">
+                <ProductInfo aria-label="상품 정보">
                   <ProductName>{cart.product.name}</ProductName>
                   <ProductPrice>{formatPrice(cart.product.price)}</ProductPrice>
                   <Counter
