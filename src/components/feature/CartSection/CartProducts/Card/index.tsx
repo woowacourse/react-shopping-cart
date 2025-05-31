@@ -14,23 +14,17 @@ type Props = {
   isChecked: boolean;
   onRefetch: () => void;
   onToggle: () => void;
-  onDeleteSelected: () => void;
+  onRemove: () => void;
 };
 
-const Card = ({
-  cartItem,
-  onRefetch,
-  isChecked,
-  onToggle,
-  onDeleteSelected,
-}: Props) => {
+const Card = ({cartItem, onRefetch, isChecked, onToggle, onRemove}: Props) => {
   const {imageUrl, name, price} = cartItem.product;
   const showError = useShowError();
 
   const handleDelete = async (id: number) => {
     try {
       await deleteCartProduct(id);
-      onDeleteSelected();
+      onRemove();
       onRefetch();
     } catch (e) {
       showError?.('데이터를 삭제하는 중 문제가 발생했습니다.');

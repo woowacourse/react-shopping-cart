@@ -1,12 +1,17 @@
-import { useState, useEffect, useRef } from "react";
-import { CartProduct } from "../type/cart";
+import {useState, useEffect, useRef} from 'react';
+import {CartProduct} from '../type/cart';
 
 export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
   const [selectedCartId, setSelectedCartId] = useState<number[]>([]);
   const isSetting = useRef(false);
 
+  const isChecked = (id: number) => {
+    return selectedCartId?.some((item) => item === id);
+  };
+
+  const isAllChecked = selectedCartId?.length === cartItems?.length;
+
   const handleAllSelected = () => {
-    const isAllChecked = selectedCartId?.length === cartItems?.length;
     if (isAllChecked) {
       setSelectedCartId([]);
       return;
@@ -24,7 +29,7 @@ export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
     setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
   };
 
-  const handleDelete = (id: number) => {
+  const handleRemove = (id: number) => {
     if (!selectedCartId?.find((item) => item === id)) return;
     setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
   };
@@ -39,8 +44,10 @@ export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
 
   return {
     selectedCartId,
+    isAllChecked,
+    isChecked,
     handleAllSelected,
     handleToggle,
-    handleDelete,
+    handleRemove,
   };
 };

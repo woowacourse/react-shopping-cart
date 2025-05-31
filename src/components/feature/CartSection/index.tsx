@@ -9,6 +9,8 @@ import Button from '../../common/Button';
 import {useNavigate} from 'react-router';
 import {css} from '@emotion/react';
 import {useSelectedCart} from '../../../hooks/useSelectedCart';
+import {useCallback} from 'react';
+import {ROUTE_PATHS} from '../../../route/path';
 
 const FREE_ORDER_PRICE = 100_000;
 const ORDER_PRICE = 3_000;
@@ -24,19 +26,20 @@ const btnClassName = css`
 const CartSection = () => {
   const navigate = useNavigate();
   const {cartItems, refetch} = useGetCartItem();
-  const {selectedCartId, handleAllSelected, handleToggle, handleDelete} =
-    useSelectedCart(cartItems);
+  const {
+    selectedCartId,
+    isAllChecked,
+    isChecked,
+    handleAllSelected,
+    handleToggle,
+    handleRemove,
+  } = useSelectedCart(cartItems);
 
-  const isChecked = (id: number) => {
-    return selectedCartId?.some((item) => item === id);
-  };
-
-  const isAllChecked = selectedCartId?.length === cartItems?.length;
   const selectedItem = cartItems?.filter(
     (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
   );
 
-  const getOrderPrice = () => {
+  const getOrderPrice = useCallback(() => {
     return (
       selectedItem?.reduce(
         (total: number, current: CartProduct) =>
@@ -44,7 +47,7 @@ const CartSection = () => {
         0
       ) ?? 0
     );
-  };
+  }, [selectedItem]);
 
   const totalAmount = selectedItem?.reduce(
     (total: number, current: CartProduct) => total + current.quantity,
@@ -81,7 +84,7 @@ const CartSection = () => {
                   onRefetch={refetch}
                   isChecked={isChecked(cartItem.id)}
                   onToggle={() => handleToggle(cartItem.id)}
-                  onDeleteSelected={() => handleDelete(cartItem.id)}
+                  onRemove={() => handleRemove(cartItem.id)}
                 />
               ))}
             </S.CartList>
@@ -99,7 +102,7 @@ const CartSection = () => {
         title="주문 확인"
         disabled={selectedCartId?.length === 0}
         onClick={() =>
-          navigate('/confirm', {
+          navigate(ROUTE_PATHS.CONFIRM, {
             state: {
               sort: selectedCartId.length,
               totalAmount: totalAmount,
