@@ -1,13 +1,13 @@
 import backButtonImage from '/assets/backButton.svg';
 import * as S from './BackButton.styles';
+import { useNavigate } from 'react-router';
 
-interface BackButtonProps {
-  onClick: () => void;
-}
+function BackButton() {
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
 
-function BackButton({ onClick }: BackButtonProps) {
   return (
-    <S.BackButton onClick={onClick}>
+    <S.BackButton onClick={goBack}>
       <img src={backButtonImage} alt="뒤로가기" />
     </S.BackButton>
   );

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 import Header from '../../components/common/header/Header';
 import {
   calculateOrderPrice,
@@ -8,7 +8,6 @@ import OrderConfirmContents from './components/orderConfirmContents/OrderConfirm
 import BackButton from '../../components/common/backButton/BackButton';
 
 function OrderConfirmPage() {
-  const navigate = useNavigate();
   const location = useLocation();
   const orderProducts = location.state.orderProducts;
 
@@ -16,11 +15,9 @@ function OrderConfirmPage() {
   const totalProductQuantity = calculateTotalProductQuantity(orderProducts);
   const orderPrice = calculateOrderPrice(orderProducts);
 
-  const goBack = () => navigate(-1);
-
   return (
     <>
-      <Header leftArea={<BackButton onClick={goBack} />} />
+      <Header leftArea={<BackButton />} />
       <OrderConfirmContents
         orderItemsQuantity={orderItemsQuantity}
         totalProductQuantity={totalProductQuantity}
