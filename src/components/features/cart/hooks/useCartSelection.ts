@@ -2,45 +2,48 @@ import { useCallback, useState } from 'react';
 import { CartItemType } from '../types';
 
 function useCartSelection(cartItems: CartItemType[]) {
-  const [isSelectedList, setIsSelectedList] = useState<boolean[]>(() =>
-    Array.from({ length: cartItems.length }, () => true)
+  const [selectedCartItemIds, setSelectedCartItemIds] = useState<Set<number>>(
+    () => new Set(cartItems.map((item) => item.id))
   );
 
-  const isAllItemSelected = isSelectedList.every((isSelected) => isSelected);
-  const isSomeItemSelected = isSelectedList.some((isSelected) => isSelected);
-
-  const resetIsSelectedList = useCallback((length: number) => {
-    setIsSelectedList(Array.from({ length }, () => true));
-  }, []);
+  const isAllItemSelected = selectedCartItemIds.size === cartItems.length;
+  const isSomeItemSelected = selectedCartItemIds.size > 0;
 
   const getSelectedCartItems = useCallback(
-    (cartItems: CartItemType[]) =>
-      cartItems.filter((_, index) => isSelectedList[index]),
-    [isSelectedList]
+    (items: CartItemType[]) =>
+      items.filter((item) => selectedCartItemIds.has(item.id)),
+    [selectedCartItemIds]
   );
 
-  const toggleSelect = useCallback((toggleIndex: number) => {
-    setIsSelectedList((prevSelectedList) =>
-      prevSelectedList.map((isSelected, index) =>
-        toggleIndex === index ? !isSelected : isSelected
-      )
-    );
+  const toggleSelect = useCallback((targetId: number) => {
+    setSelectedCartItemIds((prevSelected) => {
+      const newSelected = new Set(prevSelected);
+      if (newSelected.has(targetId)) {
+        newSelected.delete(targetId);
+      } else {
+        newSelected.add(targetId);
+      }
+      return newSelected;
+    });
   }, []);
 
   const toggleAllSelect = useCallback(() => {
-    setIsSelectedList((prevSelectedList) =>
-      Array.from({ length: prevSelectedList.length }, () => !isAllItemSelected)
-    );
-  }, [isAllItemSelected]);
+    setSelectedCartItemIds(() => {
+      if (isAllItemSelected) {
+        return new Set([]);
+      } else {
+        return new Set(cartItems.map((item) => item.id));
+      }
+    });
+  }, [cartItems, isAllItemSelected]);
 
   return {
     states: {
-      isSelectedList,
+      selectedItemIds: [...selectedCartItemIds],
       isAllItemSelected,
       isSomeItemSelected,
     },
     actions: {
-      reset: resetIsSelectedList,
       toggle: toggleSelect,
       toggleAll: toggleAllSelect,
     },

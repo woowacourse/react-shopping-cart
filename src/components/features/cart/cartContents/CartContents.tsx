@@ -40,7 +40,7 @@ function CartContents({
       <CartTitle cartItemsQuantity={cartItems.length} />
       <CartList
         cartItems={cartItems}
-        isSelectedList={cartSelection.states.isSelectedList}
+        selectedCartItemIds={cartSelection.states.selectedItemIds}
         isAllItemSelected={cartSelection.states.isAllItemSelected}
         toggleSelect={cartSelection.actions.toggle}
         toggleAllSelect={cartSelection.actions.toggleAll}
