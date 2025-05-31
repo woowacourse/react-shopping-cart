@@ -10,6 +10,9 @@ import {useNavigate} from 'react-router';
 import {css} from '@emotion/react';
 import {useSelectedCart} from '../../../hooks/useSelectedCart';
 
+const FREE_ORDER_PRICE = 100_000;
+const ORDER_PRICE = 3_000;
+
 const CartSection = () => {
   const navigate = useNavigate();
   const {cartItems, refetch} = useGetCartItem();
@@ -40,7 +43,7 @@ const CartSection = () => {
     0
   );
   const orderPrice = getOrderPrice();
-  const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
+  const deliveryPrice = orderPrice >= FREE_ORDER_PRICE ? 0 : ORDER_PRICE;
   const totalPrice = orderPrice + deliveryPrice;
 
   return (
