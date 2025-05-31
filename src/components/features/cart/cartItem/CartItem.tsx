@@ -1,3 +1,4 @@
+import { showErrorToast } from '@/services/toastStore';
 import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
@@ -5,6 +6,7 @@ import { deleteCartItem } from '../api/deleteCartItem';
 import { updateCartItem } from '../api/updateCartItem';
 import CartQuantityControlButton from '../cartQuantityControlButton/CartQuantityControlButton';
 import { CartItemType } from '../types';
+import { handleCartActions } from '../utils/handleCartActions';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
 
@@ -27,9 +29,13 @@ function CartItem({
       <S.ActionContainer>
         <SelectBox isSelected={isSelected} onClick={toggleSelect} />
         <S.DeleteButton
-          onClick={async () => {
-            await deleteCartItem(cartItem.id);
-            refetch();
+          onClick={() => {
+            handleCartActions(
+              () => deleteCartItem(cartItem.id),
+              refetch,
+              () =>
+                showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.')
+            );
           }}
         >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
@@ -59,26 +65,38 @@ function CartItem({
             {cartItem.quantity === 1 ? (
               <CartQuantityControlButton
                 actionType="delete"
-                onClick={async () => {
-                  await deleteCartItem(cartItem.id);
-                  refetch();
+                onClick={() => {
+                  handleCartActions(
+                    () => deleteCartItem(cartItem.id),
+                    refetch,
+                    () =>
+                      showErrorToast(
+                        '상품 삭제에 실패했습니다. 다시 시도해주세요.'
+                      )
+                  );
                 }}
               />
             ) : (
               <CartQuantityControlButton
                 actionType="minus"
-                onClick={async () => {
-                  await updateCartItem(cartItem.id, cartItem.quantity - 1);
-                  refetch();
+                onClick={() => {
+                  handleCartActions(
+                    () => updateCartItem(cartItem.id, cartItem.quantity - 1),
+                    refetch,
+                    () => showErrorToast('상품 수량을 줄이는 데 실패했습니다.')
+                  );
                 }}
               />
             )}
             <S.Text>{cartItem.quantity}</S.Text>
             <CartQuantityControlButton
               actionType="plus"
-              onClick={async () => {
-                await updateCartItem(cartItem.id, cartItem.quantity + 1);
-                refetch();
+              onClick={() => {
+                handleCartActions(
+                  () => updateCartItem(cartItem.id, cartItem.quantity + 1),
+                  refetch,
+                  () => showErrorToast('상품 수량을 늘리는 데 실패했습니다.')
+                );
               }}
             />
           </S.UpdateCartBox>

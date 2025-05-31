@@ -1,6 +1,6 @@
+import { ErrorToastMessage, FooterButton } from '@/components/common';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import FooterButton from '../../../common/footerButton/FooterButton';
 import { getCartItems } from '../api/getCartItems';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
@@ -68,6 +68,7 @@ function CartContents() {
       <FooterButton disabled={disabled} onClick={onOrderConfirm}>
         주문 확인
       </FooterButton>
+      <ErrorToastMessage />
     </S.Container>
   );
 }
