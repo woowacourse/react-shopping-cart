@@ -4,9 +4,9 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { useAPIDataContext } from "../../../context/APIDataProvider";
-import { Cart, getShoppingCartData } from "../../../api/cart";
+} from 'react';
+import { useAPIDataContext } from '../../../context/APIDataProvider';
+import { Cart, getShoppingCartData } from '../../../api/cart';
 
 const OrderListContext = createContext<{
   selectionMap: Record<string, boolean>;
@@ -25,7 +25,7 @@ const OrderListContext = createContext<{
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
   const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
     fetcher: getShoppingCartData,
-    name: "cart",
+    name: 'cart',
   });
   const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
 
@@ -39,13 +39,15 @@ export const OrderListProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const useOrderListContext = () => {
-  const { selectionMap, setSelectionMap, cartListData, cartRefetch } =
-    useContext(OrderListContext);
-  if (!selectionMap) {
+  const context = useContext(OrderListContext);
+
+  if (!context) {
     throw new Error(
-      "useOrderListContext must be used within an OrderListProvider"
+      'useOrderListContext must be used within an OrderListProvider'
     );
   }
+
+  const { selectionMap, setSelectionMap, cartListData, cartRefetch } = context;
 
   useEffect(() => {
     if (!cartListData) return;
