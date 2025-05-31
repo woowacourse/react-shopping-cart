@@ -35,11 +35,16 @@ function CartCheckList() {
     }));
   };
 
+  const getCartItemById = (cartId: string) => {
+    const cart = cartListData?.find((cart) => cart.id === cartId);
+    if (!cart) throw new Error('장바구니에 해당 아이템이 없습니다.');
+    return cart;
+  };
+
   const handlePlusQuantity = async (cartId: string) => {
     try {
       if (!cartListData) return;
-      const cart = cartListData.find((cart) => cart.id === cartId);
-      if (!cart) throw new Error('장바구니에 해당 아이템이 없습니다.');
+      const cart = getCartItemById(cartId);
       await patchCartItem(cartId, cart.quantity + 1, cartListData);
       await cartRefetch();
     } catch (e) {
@@ -49,13 +54,12 @@ function CartCheckList() {
 
   const handleMinusQuantity = async (cartId: string) => {
     try {
-      if (!cartListData || cartListData.length >= 50) return;
-      const cart = cartListData.find((cart) => cart.id === cartId);
-      if (!cart) throw new Error('장바구니에 해당 아이템이 없습니다.');
+      if (!cartListData) return;
+      const cart = getCartItemById(cartId);
       await patchCartItem(cartId, cart.quantity - 1, cartListData);
       await cartRefetch();
     } catch (e) {
-      showToast('장바구니에서 뺴는 데 실패했습니다.');
+      showToast('장바구니에서 빼는 데 실패했습니다.');
     }
   };
 
