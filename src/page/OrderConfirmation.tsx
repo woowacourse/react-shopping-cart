@@ -23,10 +23,10 @@ function OrderConfirmation() {
     return (
       typeof typedState.selectedCartItemsLength === "number" &&
       typeof typedState.selectedCartItemsCount === "number" &&
-      typeof typedState.totalPrice === "number" &&
+      typeof typedState.finalPrice === "number" &&
       typedState.selectedCartItemsLength >= 0 &&
       typedState.selectedCartItemsCount >= 0 &&
-      typedState.totalPrice >= 0 &&
+      typedState.finalPrice >= 0 &&
       Number.isInteger(typedState.selectedCartItemsLength) &&
       Number.isInteger(typedState.selectedCartItemsCount)
     );
