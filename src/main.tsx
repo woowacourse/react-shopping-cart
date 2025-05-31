@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 
-import { ApiProvider } from "./contexts/ApiContext.tsx";
 import { ErrorToastContextProvider } from "./contexts/ErrorToastContext.tsx";
 import { BrowserRouter } from "react-router";
 
@@ -26,9 +25,7 @@ enableMocking().then(() => {
     <React.StrictMode>
       <BrowserRouter basename={import.meta.env.VITE_BASE_NAME}>
         <ErrorToastContextProvider>
-          <ApiProvider>
-            <App />
-          </ApiProvider>
+          <App />
         </ErrorToastContextProvider>
       </BrowserRouter>
     </React.StrictMode>
