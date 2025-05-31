@@ -3,7 +3,7 @@ export async function baseAPI<T>({
   path,
   body,
 }: {
-  method: string;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   path: string;
   body?: Record<string, unknown>;
 }): Promise<T | null> {
