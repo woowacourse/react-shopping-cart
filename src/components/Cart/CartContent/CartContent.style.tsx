@@ -81,3 +81,17 @@ export const EmptyCartMessage = styled.div`
   font-size: 16px;
   font-weight: 500;
 `;
+
+export const CartContentLoading = styled.div`
+  width: 100%;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 500;
+`;

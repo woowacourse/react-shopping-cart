@@ -33,6 +33,13 @@ export const Notice = styled.div`
   gap: 4px;
   align-items: center;
 `;
+export const FreeShippingEligibilityNoticeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+`;
 
 export const NoticeIcon = styled.img`
   width: 16px;
@@ -45,7 +52,11 @@ export const FreeShippingText = styled.p`
   font-size: 12px;
   font-weight: 600;
 `;
-
+export const FreeShippingEligibilityNotice = styled.p`
+  color: #333333;
+  font-size: 1.25rem;
+  font-weight: 700;
+`;
 export const PriceWrapper = styled.div`
   display: flex;
   flex-direction: column;
