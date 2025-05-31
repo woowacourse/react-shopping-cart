@@ -1,28 +1,50 @@
-import BackButton from '@/shared/components/BackButton/BackButton';
-import * as S from './OrderSuccessPage.styled';
-import Header from '@/shared/components/Header/Header';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { ROUTES } from '@/shared/config/routes';
-import { CartItemType } from '@/apis/cartItems/cartItem.type';
+import BackButton from "@/shared/components/BackButton/BackButton";
+import * as S from "./OrderSuccessPage.styled";
+import Header from "@/shared/components/Header/Header";
+import { ROUTES } from "@/shared/config/routes";
+import { CartItemType } from "@/apis/cartItems/cartItem.type";
+import useValidateLocationState from "../../shared/hooks/useValidateLocationState";
 
-type OrderSuccessState = {
+export type OrderSuccessState = {
   orderList: CartItemType[];
   orderTotalPrice: number;
 };
 
-export default function OrderSuccessPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { orderList, orderTotalPrice } = location.state as OrderSuccessState;
-  const orderListType = orderList.length;
-  const orderQuantity = orderList.reduce((acc, { quantity }) => (acc += quantity), 0);
+const isOrderSuccessState = (state: any): state is OrderSuccessState => {
+  if (!state) {
+    return false;
+  }
 
-  useEffect(() => {
-    if (!location.state) {
-      navigate(ROUTES.CART);
-    }
-  }, []);
+  if (typeof state !== "object") {
+    return false;
+  }
+
+  if (
+    !Array.isArray(state.orderList) ||
+    typeof state.orderTotalPrice !== "number"
+  ) {
+    return false;
+  }
+
+  return true;
+};
+
+export default function OrderSuccessPage() {
+  const { validatedState, isValidating } = useValidateLocationState({
+    validationFn: isOrderSuccessState,
+    redirectPath: ROUTES.CART,
+  });
+
+  if (isValidating || !validatedState) {
+    return <div>로딩 중...</div>;
+  }
+
+  const { orderList, orderTotalPrice } = validatedState;
+  const orderListType = orderList.length;
+  const orderQuantity = orderList.reduce(
+    (acc, { quantity }) => (acc += quantity),
+    0
+  );
 
   return (
     <>
@@ -39,7 +61,9 @@ export default function OrderSuccessPage() {
           </S.OrderText>
           <S.OrderPriceContainer>
             <S.OrderPriceTitle>총 결제 금액</S.OrderPriceTitle>
-            <S.OrderPriceText>{orderTotalPrice.toLocaleString()}원</S.OrderPriceText>
+            <S.OrderPriceText>
+              {orderTotalPrice.toLocaleString()}원
+            </S.OrderPriceText>
           </S.OrderPriceContainer>
         </S.OrderContainer>
         <S.PayConfirmButton disabled={true} type="button">
