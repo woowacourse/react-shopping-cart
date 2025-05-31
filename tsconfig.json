@@ -20,11 +20,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest", "@testing-library/jest-dom"],
+    "types": ["vitest", "@testing-library/jest-dom", "node"],
     "esModuleInterop": true,
 
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react"
   },
-  "include": ["src", "test"],
+  "include": ["src", "setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
