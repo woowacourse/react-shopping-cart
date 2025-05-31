@@ -11,4 +11,5 @@ export const AppWrapper = styled.div`
   background-color: #f0f0f0;
   font-family: "Noto Sans", sans-serif;
   color: #000000;
+  margin: 0 auto;
 `;
