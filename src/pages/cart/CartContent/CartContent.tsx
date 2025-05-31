@@ -4,7 +4,7 @@ import CartList from "./CartList/CartList";
 import CheckBox from "@/shared/components/CheckBox/CheckBox";
 import * as S from "./CartContent.styled";
 import { useOrderList } from "../hooks/useCartItem";
-import OrderConfirmButton from "./CartList/OrderConfirmButton/OrderConfirmButton";
+import OrderConfirmButton from "./OrderConfirmButton/OrderConfirmButton";
 
 export default function CartContent() {
   const {
