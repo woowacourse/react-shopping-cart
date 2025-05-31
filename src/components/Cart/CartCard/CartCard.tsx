@@ -7,7 +7,7 @@ import checked from "/checked.svg";
 interface CartCardProps {
   cartItem: CartItem;
   handleDeleteCartItem: (id: string) => void;
-  handleCartItemQuantity: (params: { id: string; quantity: string }) => void;
+  handleCartItemQuantity: (params: { id: string; quantity: number }) => void;
   handleSelectCartItem: (id: string) => void;
   isDeleteItemLoading: boolean;
   isQuantityUpdateLoading: boolean;
@@ -24,19 +24,18 @@ function CartCard({
   isSelected,
 }: CartCardProps) {
   const { product, quantity, id } = cartItem;
+
   const { name, price, imageUrl } = product;
   return (
     <li>
       <Styled.Container>
         <Styled.ButtonWrapper>
-          <Styled.SelectButton
-            onClick={() => handleSelectCartItem(id.toString())}
-          >
+          <Styled.SelectButton onClick={() => handleSelectCartItem(id)}>
             <Styled.SelectIcon src={isSelected ? checked : unChecked} />
           </Styled.SelectButton>
           <Styled.DeleteButton
             disabled={isDeleteItemLoading}
-            onClick={() => handleDeleteCartItem(id.toString())}
+            onClick={() => handleDeleteCartItem(id)}
           >
             삭제
           </Styled.DeleteButton>
@@ -50,14 +49,14 @@ function CartCard({
               quantity={quantity}
               handleIncreaseCartItemQuantity={() =>
                 handleCartItemQuantity({
-                  id: cartItem.id.toString(),
-                  quantity: (quantity + 1).toString(),
+                  id: cartItem.id,
+                  quantity: quantity + 1,
                 })
               }
               handleDecreaseCartItemQuantity={() =>
                 handleCartItemQuantity({
-                  id: cartItem.id.toString(),
-                  quantity: (quantity - 1).toString(),
+                  id: cartItem.id,
+                  quantity: quantity - 1,
                 })
               }
               isQuantityUpdateLoading={isQuantityUpdateLoading}
