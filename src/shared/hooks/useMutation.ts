@@ -1,30 +1,44 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
-const useMutation = <TVariables>(
-  mutationFn: (variables: TVariables) => Promise<void>
+interface MutateOptions<_, TData> {
+  onSuccess?: (result: TData) => void;
+  onError?: (error: Error) => void;
+}
+
+const useMutation = <TVariables, TData>(
+  mutationFn: (variables: TVariables) => Promise<TData>
 ) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-  const mutate = useCallback(
-    async (variables: TVariables) => {
-      setIsLoading(true);
-      setErrorMessage(null);
+  const mutate = async (
+    variables: TVariables,
+    options?: MutateOptions<TVariables, TData>
+  ) => {
+    setIsLoading(true);
 
-      try {
-        await mutationFn(variables);
-      } catch (error) {
-        if (error instanceof Error) {
-          setErrorMessage(error.message);
-        }
-      } finally {
-        setIsLoading(false);
+    try {
+      const result = await mutationFn(variables);
+
+      if (options?.onSuccess) {
+        options.onSuccess(result);
       }
-    },
-    [mutationFn]
-  );
 
-  return { mutate, isLoading, errorMessage };
+      return result;
+    } catch (error) {
+      setError(error as Error);
+
+      if (options?.onError) {
+        options.onError(error as Error);
+      }
+
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { mutate, isLoading, error };
 };
 
 export default useMutation;

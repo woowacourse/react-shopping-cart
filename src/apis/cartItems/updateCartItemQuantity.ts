@@ -7,8 +7,7 @@ export const updateCartItemQuantity = async ({
 }: UpdateCartItemQuantity) => {
   const response = await httpClient.patch(`/cart-items/${id}`, { quantity });
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message);
+  if (response.ok) {
+    throw new Error("장바구니 아이템 수량 업데이트에 실패했습니다.");
   }
 };

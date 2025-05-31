@@ -2,6 +2,7 @@ import CartItem from "./CartItem/CartItem";
 import * as S from "./CartList.styled";
 import useCartItemMutation from "../../../hooks/useCartItemMutation";
 import { useCartItemContext } from "@/pages/cart/contexts/CartItemProvider";
+import useToast from "@/shared/hooks/useToast";
 
 type CartListProps = {
   getIsSelected: (id: number) => boolean;
@@ -15,8 +16,16 @@ export default function CartList({
   removeSelectedItem,
 }: CartListProps) {
   const { cartItems, refetchCartItems } = useCartItemContext();
-  const { updateCartItem, removeCartItem } =
-    useCartItemMutation(refetchCartItems);
+  const { addToast } = useToast();
+  const { updateCartItem, removeCartItem } = useCartItemMutation({
+    onSuccess: refetchCartItems,
+    onError: (error) => {
+      addToast({
+        type: "error",
+        message: error.message,
+      });
+    },
+  });
 
   const removeSelectedCartItem = async (id: number) => {
     await removeCartItem(id);

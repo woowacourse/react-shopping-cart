@@ -3,27 +3,42 @@ import { updateCartItemQuantity } from "@/apis/cartItems/updateCartItemQuantity"
 import useMutation from "@/shared/hooks/useMutation";
 import { useCallback } from "react";
 
-const useCartItemMutation = (refetchCartItems: () => Promise<void>) => {
+type useCartItemMutationParams = {
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
+};
+
+const useCartItemMutation = ({
+  onSuccess,
+  onError,
+}: useCartItemMutationParams) => {
   const { mutate: removeCartItemMutate } = useMutation(deleteCartItem);
   const { mutate: updateCartItemMutate } = useMutation(updateCartItemQuantity);
 
   const updateCartItem = useCallback(
     async (id: number, quantity: number) => {
-      await updateCartItemMutate({
-        id,
-        quantity,
-      });
-      refetchCartItems();
+      await updateCartItemMutate(
+        {
+          id,
+          quantity,
+        },
+        {
+          onSuccess,
+          onError,
+        }
+      );
     },
-    [refetchCartItems, updateCartItemMutate]
+    [updateCartItemMutate, onSuccess]
   );
 
   const removeCartItem = useCallback(
     async (id: number) => {
-      await removeCartItemMutate(id);
-      refetchCartItems();
+      await removeCartItemMutate(id, {
+        onSuccess,
+        onError,
+      });
     },
-    [refetchCartItems, removeCartItemMutate]
+    [removeCartItemMutate, onSuccess]
   );
 
   return {
