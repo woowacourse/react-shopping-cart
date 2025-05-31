@@ -4,6 +4,7 @@ import { SelectedCartProvider } from '../src/shared/context/SelectedCartProvider
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
+import AppWithEmptySelectedItems from './AppWithEmptySelectedItems';
 
 function renderApp() {
   return render(
@@ -15,15 +16,27 @@ function renderApp() {
   );
 }
 
+function renderAppWithEmptySelectedItems() {
+  return render(
+    <MemoryRouter initialEntries={['/']}>
+      <SelectedCartProvider>
+        <AppWithEmptySelectedItems />
+      </SelectedCartProvider>
+    </MemoryRouter>
+  );
+}
+
+describe('빈 장바구니 테스트', async () => {
+  it('장바구니에 상품이 하나도 없을 때 EmptyCartItemUI가 잘 보이는지', async () => {
+    renderAppWithEmptySelectedItems();
+    const emptyMessage = await screen.findByText('장바구니에 담은 상품이 없습니다.');
+    expect(emptyMessage).toBeInTheDocument();
+  });
+});
+
 describe('RTL Test', () => {
   beforeEach(() => {
     renderApp();
-  });
-  it('장바구니에 상품이 하나도 없을 때 EmptyCartItemUI가 잘 보이는지', async () => {
-    const cartItemCards = await screen.findAllByTestId('cart-item-card');
-    if (cartItemCards.length !== 0) return;
-    const emptyMessage = await screen.findByText('장바구니에 담은 상품이 없습니다.');
-    expect(emptyMessage).toBeInTheDocument();
   });
 
   it('장바구니에서 체크박스를 누르면 배송비를 고려하여 해당 금액이 반영된다.', async () => {
