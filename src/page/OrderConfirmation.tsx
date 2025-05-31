@@ -3,6 +3,7 @@ import { PAGE_URL } from "../constants/PageUrl";
 import * as Styled from "./OrderConfirmation.style";
 import OrderConfirmationHeader from "../components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 import type { OrderConfirmationLocationState } from "../type/OrderConfirmation";
+import ErrorPage from "./ErrorPage";
 
 function OrderConfirmation() {
   const location = useLocation();
@@ -33,12 +34,7 @@ function OrderConfirmation() {
   };
 
   if (!location.state || !isValidOrderConfirmationState(location.state)) {
-    return (
-      <div>
-        <h1>잘못된 접근입니다.</h1>
-        <button onClick={() => navigate(PAGE_URL.HOME)}>홈으로</button>
-      </div>
-    );
+    return <ErrorPage />;
   }
 
   const { selectedCartItemsLength, selectedCartItemsCount, finalPrice } =
