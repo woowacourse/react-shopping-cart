@@ -11,8 +11,28 @@ function OrderConfirmation() {
   const handleGoBackToHomeButton = () => {
     navigate(PAGE_URL.HOME);
   };
+  const isValidOrderConfirmationState = (
+    state: unknown
+  ): state is OrderConfirmationLocationState => {
+    if (!state || typeof state !== "object") {
+      return false;
+    }
 
-  if (!location.state) {
+    const typedState = state as Record<string, unknown>;
+
+    return (
+      typeof typedState.selectedCartItemsLength === "number" &&
+      typeof typedState.selectedCartItemsCount === "number" &&
+      typeof typedState.totalPrice === "number" &&
+      typedState.selectedCartItemsLength >= 0 &&
+      typedState.selectedCartItemsCount >= 0 &&
+      typedState.totalPrice >= 0 &&
+      Number.isInteger(typedState.selectedCartItemsLength) &&
+      Number.isInteger(typedState.selectedCartItemsCount)
+    );
+  };
+
+  if (!location.state || !isValidOrderConfirmationState(location.state)) {
     return (
       <div>
         <h1>잘못된 접근입니다.</h1>
@@ -22,7 +42,7 @@ function OrderConfirmation() {
   }
 
   const { selectedCartItemsLength, selectedCartItemsCount, totalPrice } =
-    location.state as OrderConfirmationLocationState;
+    location.state;
 
   return (
     <Styled.Container>
