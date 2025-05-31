@@ -5,8 +5,8 @@ import {
   useEffect,
   useState,
   type PropsWithChildren,
-} from "react";
-import { ToastContext } from "./ToastProvider";
+} from 'react';
+import { ToastContext } from './ToastProvider';
 
 type APIStateMap = Record<
   string,
@@ -61,9 +61,9 @@ export function useAPIDataContext<T>({
         ...prev,
         [name]: { data: null, loading: false, error: e },
       }));
-      showToast("데이터 요청에 실패하였습니다.");
+      showToast('데이터 요청에 실패하였습니다.');
     }
-  }, [name, setState]);
+  }, [name, setState, fetcher, showToast]);
 
   useEffect(() => {
     if (!state[name]) request();
