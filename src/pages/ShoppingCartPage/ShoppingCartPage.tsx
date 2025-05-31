@@ -7,7 +7,7 @@ import ShoppingCartSection from "../../components/ShoppingCartSection/ShoppingCa
 import { useAPI } from "../../context/APIContext";
 import * as S from "./ShoppingCartPage.styles";
 import { useState } from "react";
-import { CartItemsResponse } from "../../types/cartItems";
+import { CartItemsResponse, Content } from "../../types/cartItems";
 
 export default function ShoppingCartPage() {
   const { data, refetch } = useAPI<CartItemsResponse>({
@@ -35,27 +35,32 @@ export default function ShoppingCartPage() {
     }
   };
 
+  const orderPrice =
+    data?.content.reduce((total, item) => {
+      const calculateItemPrice = (item: Content) => {
+        if (selectedItemIds.includes(item.id)) {
+          return item.product.price * item.quantity;
+        }
+        return 0;
+      };
+
+      return total + calculateItemPrice(item);
+    }, 0) || 0;
+  const shippingFee = orderPrice >= 100000 ? 0 : 3000;
+  const totalPrice = orderPrice + shippingFee;
+
+  const totalQuantity = selectedItemIds.reduce((prev, cur) => {
+    const currentCartItem = data?.content.find((it) => it.id === cur);
+    if (!currentCartItem) return cur;
+    return prev + currentCartItem.quantity;
+  }, 0);
 
   const handleNavigateClick = () => {
-    const getCurrentCartItem = (id: number) => {
-      return data?.content.find((it) => it.id === id);
-    };
-
     navigate("/completed", {
       state: {
         kind: selectedItemIds.length,
-        quantity: selectedItemIds.reduce((prev, cur) => {
-          const currentCartItem = getCurrentCartItem(cur);
-          if (!currentCartItem) return cur;
-          return prev + currentCartItem.quantity;
-        }, 0),
-        totalPrice: selectedItemIds.reduce((prev, cur) => {
-          const currentCartItem = getCurrentCartItem(cur);
-          if (!currentCartItem) return cur;
-          return (
-            prev + currentCartItem.product.price * currentCartItem.quantity
-          );
-        }, 0),
+        quantity: totalQuantity,
+        totalPrice,
       },
     });
   };
@@ -70,6 +75,9 @@ export default function ShoppingCartPage() {
         selectedItemIds={selectedItemIds}
         onSelectItem={handleSelectItem}
         onSelectAll={handleSelectAll}
+        orderPrice={orderPrice}
+        shippingFee={shippingFee}
+        totalPrice={totalPrice}
       />
       <S.ButtonWrapper>
         <Button
