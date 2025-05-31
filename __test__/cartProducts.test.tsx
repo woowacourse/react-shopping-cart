@@ -9,11 +9,13 @@ import Confirm from '../src/pages/Confirm';
 import NavBar from '../src/components/layout/NavBar';
 import {ROUTE_PATHS} from '../src/route/path';
 import {formatPrice} from '../src/utils/formatPrice';
+import {CartProduct} from '../src/type/cart';
+import {ProductsResponse} from '../src/type/products';
 
 vi.mock('../src/api/cart/getCartProduct', () => ({
   getCartProduct: vi.fn(),
 }));
-const mockCartItems = {
+const mockCartItems: Pick<ProductsResponse<CartProduct>, 'content'> = {
   content: [
     {
       id: 1234,
