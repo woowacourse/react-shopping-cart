@@ -23,6 +23,11 @@
     "types": ["jest", "@testing-library/jest-dom", "node"],
     "esModuleInterop": true,
 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
     "jsx": "react-jsx"
   },
   "include": ["src", "test"],
