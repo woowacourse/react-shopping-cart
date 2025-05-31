@@ -46,7 +46,7 @@ export default function ShoppingCartPage() {
     <>
       <Header title="SHOP" />
       <ShoppingCartSection
-        items={data}
+        shopppingCartItems={data}
         refetch={refetch}
         selectedItemIds={selectedItemIds}
         setSelectedItemIds={setSelectedItemIds}
