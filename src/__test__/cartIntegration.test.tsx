@@ -70,7 +70,7 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
     expect(await screen.findByText(PRODUCT_NAME_1)).toBeInTheDocument();
     expect(screen.getByText(PRODUCT_NAME_2)).toBeInTheDocument();
 
-    const checkboxes = screen.getAllByRole("cart-item-checkbox");
+    const checkboxes = await screen.findAllByLabelText('상품 선택 체크박스');
     checkboxes.forEach((cb) => expectChecked(cb, true));
 
     expect(screen.getByText(/총 결제 금액/)).toBeInTheDocument();
@@ -79,7 +79,7 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
 
   it("2. 상품 선택을 해제하면 결제 금액이 감소한다", async () => {
     render(<App />);
-    const checkboxes = await screen.findAllByRole("cart-item-checkbox");
+    const checkboxes = await screen.findAllByLabelText('상품 선택 체크박스');
     fireEvent.click(checkboxes[0]);
 
     expectChecked(checkboxes[0], false);
@@ -136,7 +136,7 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
     let deleteButtons = await screen.findAllByRole("button", { name: /삭제/i });
     fireEvent.click(deleteButtons[0]);
     await waitFor(async () => {
-      const items = await screen.findAllByRole("cart-item-checkbox");
+      const items = await screen.findAllByLabelText('상품 선택 체크박스');
       expect(items.length).toBe(1);
     });
 
@@ -149,10 +149,10 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
 
   it("8. 전체 선택 버튼을 누르면 모두 해제되고, 주문금액/배송비 0, 주문확인 비활성화", async () => {
     render(<App />);
-    const allCheckbox = await screen.findByRole("cart-item-all-checkbox");
+    const allCheckbox = await screen.findByLabelText('전체 선택 체크박스');
     fireEvent.click(allCheckbox);
 
-    const checkboxes = await screen.findAllByRole("cart-item-checkbox");
+    const checkboxes = await screen.findAllByLabelText('상품 선택 체크박스');
     checkboxes.forEach((cb) =>
       expect(cb).toHaveAttribute("aria-checked", "false")
     );
@@ -167,34 +167,34 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
       );
     });
 
-    const orderConfirmButton = screen.getByRole("order-button");
+    const orderConfirmButton = screen.getByLabelText('주문 확인');
     expect(orderConfirmButton).toBeDisabled();
   });
 
   it("9. 개별 체크 해제하면 전체 선택도 해제된다", async () => {
     render(<App />);
-    const checkboxes = await screen.findAllByRole("cart-item-checkbox");
+    const checkboxes = await screen.findAllByLabelText('상품 선택 체크박스');
     fireEvent.click(checkboxes[0]);
-    const allCheckbox = await screen.findByRole("cart-item-all-checkbox");
-    expect(allCheckbox).toHaveAttribute("aria-checked", "false");
+    const allCheckbox = await screen.findByLabelText('전체 선택 체크박스');
+    expect(allCheckbox).toHaveAttribute('aria-checked', 'false');
   });
 
   it("10. 개별 체크 해제 상태에서 전체 선택 버튼 누르면 모두 다시 선택된다", async () => {
     render(<App />);
-    const checkboxes = await screen.findAllByRole("cart-item-checkbox");
+    const checkboxes = await screen.findAllByLabelText('상품 선택 체크박스');
     fireEvent.click(checkboxes[0]);
-    expect(checkboxes[0]).toHaveAttribute("aria-checked", "false");
-    const allCheckbox = await screen.findByRole("cart-item-all-checkbox");
+    expect(checkboxes[0]).toHaveAttribute('aria-checked', 'false');
+    const allCheckbox = await screen.findByLabelText('전체 선택 체크박스');
     fireEvent.click(allCheckbox);
     expect(allCheckbox).toHaveAttribute("aria-checked", "true");
   });
 
   it('11. "주문하기" 버튼은 선택된 상품이 없으면 비활성화된다', async () => {
     render(<App />);
-    const orderConfirmButton = screen.getByRole("order-button");
+    const orderConfirmButton = screen.getByLabelText('주문 확인');
     expect(orderConfirmButton).toBeDisabled();
 
-    const checkboxes = await screen.findAllByRole("cart-item-checkbox");
+    const checkboxes = await screen.findAllByLabelText('상품 선택 체크박스');
     fireEvent.click(checkboxes[0]);
     expect(orderConfirmButton).toBeEnabled();
   });
@@ -202,7 +202,7 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
     render(<App />);
     await screen.findByText(PRODUCT_NAME_1);
 
-    const orderConfirmButton = screen.getByRole("order-button");
+    const orderConfirmButton = screen.getByLabelText('주문 확인');
     expect(orderConfirmButton).not.toBeDisabled();
 
     fireEvent.click(orderConfirmButton);
