@@ -1,20 +1,21 @@
 import {describe, it, vi, beforeEach, Mock} from 'vitest';
 import {screen, render, waitFor} from '@testing-library/react';
-import App from '../src/App';
-import * as cartAPI from '../src/api/cart/getCartProduct';
 import {createMemoryRouter, MemoryRouter, RouterProvider} from 'react-router';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import Confirm from '../src/pages/Confirm';
-import NavBar from '../src/components/layout/NavBar';
-import {ROUTE_PATHS} from '../src/route/path';
-import {formatPrice} from '../src/utils/formatPrice';
-import {CartProduct} from '../src/type/cart';
-import {ProductsResponse} from '../src/type/products';
+import {ProductsResponse} from '../type/products';
+import {CartProduct} from '../type/cart';
+import App from '../App';
+import NavBar from '../components/layout/NavBar';
+import {ROUTE_PATHS} from '../route/path';
+import Confirm from '../pages/Confirm';
+import {formatPrice} from '../utils/formatPrice';
+import * as cartAPI from '../api/cart/getCartProduct';
 
-vi.mock('../src/api/cart/getCartProduct', () => ({
+vi.mock('../api/cart/getCartProduct', () => ({
   getCartProduct: vi.fn(),
 }));
+
 const mockCartItems: Pick<ProductsResponse<CartProduct>, 'content'> = {
   content: [
     {
