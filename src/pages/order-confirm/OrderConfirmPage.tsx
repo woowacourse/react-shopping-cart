@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
 import { calculateShippingFee } from '../../utils/calculateShippingFee';
+import { calculateTotalCartItemPrice } from '../../utils/calculateTotalCartItemPrice';
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -17,10 +18,7 @@ const OrderConfirmPage = () => {
   );
   const typeCount = orderList.length;
   const totalCount = orderList.reduce((acc, cart) => acc + cart.quantity, 0);
-  const totalCartPrice = orderList.reduce(
-    (acc, cart) => acc + cart.product.price * cart.quantity,
-    0
-  );
+  const totalCartPrice = calculateTotalCartItemPrice(orderList);
   const shippingFee = calculateShippingFee(totalCartPrice);
   const totalPrice = totalCartPrice + shippingFee;
 
