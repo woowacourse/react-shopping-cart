@@ -3,14 +3,15 @@ import * as S from "./App.styles";
 import { APIProvider } from "./context/APIContext";
 import OrderCompletePage from "./pages/OrderCompletedPage/OrderCompletedPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
+import { PATH } from "./constants/path";
 
 const router = createHashRouter([
   {
-    path: "/",
+    path: PATH.CART,
     element: <ShoppingCartPage />,
   },
   {
-    path: "/completed",
+    path: PATH.ORDER_COMPLETE,
     element: <OrderCompletePage />,
   },
 ]);
