@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { deleteCartItem, patchCartItem } from "../../../../api/cart";
-import CheckBox from "../../../../components/common/CheckBox";
-import Counter from "../../../../components/common/Counter";
-import Image from "../../../../components/common/Image";
-import { useOrderListContext } from "../../context/OrderListProvider";
-import { useContext } from "react";
-import { ToastContext } from "../../../../context/ToastProvider";
+import styled from '@emotion/styled';
+import { deleteCartItem, patchCartItem } from '../../../../api/cart';
+import CheckBox from '../../../../components/common/CheckBox';
+import Counter from '../../../../components/common/Counter';
+import Image from '../../../../components/common/Image';
+import { useOrderListContext } from '../../context/OrderListProvider';
+import { useContext } from 'react';
+import { ToastContext } from '../../../../context/ToastProvider';
 
 function CartCheckList() {
   const { cartListData, cartRefetch, selectionMap, setSelectionMap } =
@@ -41,11 +41,11 @@ function CartCheckList() {
     try {
       if (!cartListData) return;
       const cart = cartListData.find((cart) => cart.id === cartId);
-      if (!cart) throw new Error("장바구니에 해당 아이템이 없습니다.");
+      if (!cart) throw new Error('장바구니에 해당 아이템이 없습니다.');
       await patchCartItem(cartId, cart.quantity + 1, cartListData);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니에 추가하는 데 실패했습니다.");
+      showToast('장바구니에 추가하는 데 실패했습니다.');
     }
   };
 
@@ -53,11 +53,11 @@ function CartCheckList() {
     try {
       if (!cartListData || cartListData.length >= 50) return;
       const cart = cartListData.find((cart) => cart.id === cartId);
-      if (!cart) throw new Error("장바구니에 해당 아이템이 없습니다.");
+      if (!cart) throw new Error('장바구니에 해당 아이템이 없습니다.');
       await patchCartItem(cartId, cart.quantity - 1, cartListData);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니에서 뺴는 데 실패했습니다.");
+      showToast('장바구니에서 뺴는 데 실패했습니다.');
     }
   };
 
@@ -80,7 +80,7 @@ function CartCheckList() {
         <CheckBox
           isChecked={isSelectAll}
           onToggle={() => handleSelectAll()}
-          aria-label={"전체 선택 체크박스"}
+          aria-label={'전체 선택 체크박스'}
           aria-checked={isSelectAll}
         ></CheckBox>
         <p>전체 선택</p>
@@ -88,7 +88,7 @@ function CartCheckList() {
       <ItemList>
         {isCartEmpty ? (
           <EmptyCartBox>
-            <EmptyCartImage src="./assets/icons/DeleteCart.svg" />
+            <EmptyCartImage src='./assets/icons/DeleteCart.svg' />
             <EmptyCartText>장바구니에 담긴 상품이 없습니다.</EmptyCartText>
           </EmptyCartBox>
         ) : (
@@ -97,18 +97,18 @@ function CartCheckList() {
               <CheckBox
                 isChecked={selectionMap[cart.id]}
                 onToggle={() => handleToggleSelection(cart.id)}
-                aria-label={"상품 선택 체크박스"}
+                aria-label={'상품 선택 체크박스'}
                 aria-checked={selectionMap[cart.id]}
               ></CheckBox>
               <ItemContainer>
                 <Image
-                  width="80px"
-                  height="80px"
+                  width='80px'
+                  height='80px'
                   imageSource={cart.product.imageUrl}
                   altText={`${cart.product.name} 상품 이미지`}
                 />
 
-                <ProductInfo aria-label="상품 정보">
+                <ProductInfo aria-label='상품 정보'>
                   <ProductName>{cart.product.name}</ProductName>
                   <ProductPrice>{formatPrice(cart.product.price)}</ProductPrice>
                   <Counter

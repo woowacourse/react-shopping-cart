@@ -1,5 +1,5 @@
-import { baseAPI } from "./baseAPI";
-import { APIResponse } from "./type";
+import { baseAPI } from './baseAPI';
+import { APIResponse } from './type';
 
 export type CartResponse = APIResponse<CartContent>;
 
@@ -24,11 +24,11 @@ export interface CartContent {
 }
 
 export enum Category {
-  식료품 = "식료품",
-  패션잡화 = "패션잡화",
+  식료품 = '식료품',
+  패션잡화 = '패션잡화',
 }
 
-export type ProductCategoryType = "전체" | Category;
+export type ProductCategoryType = '전체' | Category;
 export interface Product {
   id: string;
   name: string;
@@ -47,11 +47,11 @@ const convertResponseToProduct = ({
   category,
 }: ProductContent): Product => ({
   id: id.toString(),
-  name: name ?? "",
+  name: name ?? '',
   price,
-  imageUrl: imageUrl ?? "defaultImage",
+  imageUrl: imageUrl ?? 'defaultImage',
   quantity: quantity ?? 0,
-  category: (category ?? "전체") as ProductCategoryType,
+  category: (category ?? '전체') as ProductCategoryType,
 });
 
 export const convertResponseToCart = ({
@@ -66,12 +66,12 @@ export const convertResponseToCart = ({
 
 export async function getShoppingCartData() {
   const params = new URLSearchParams();
-  params.set("page", "0");
-  params.set("size", "50");
+  params.set('page', '0');
+  params.set('size', '50');
   const basePath = `/cart-items?${params.toString()}`;
 
   const data = await baseAPI<CartResponse>({
-    method: "GET",
+    method: 'GET',
     path: basePath,
   });
 
@@ -82,7 +82,7 @@ export async function getShoppingCartData() {
 
 export async function postCartItem(id: string) {
   return baseAPI({
-    method: "POST",
+    method: 'POST',
     path: `/cart-items`,
     body: {
       productId: Number(id),
@@ -98,11 +98,11 @@ export async function patchCartItem(
 ) {
   const cart = cartList.find((item) => item.id === cartId);
   if (!cart) {
-    throw new Error("장바구니에 해당 아이템이 없습니다.");
+    throw new Error('장바구니에 해당 아이템이 없습니다.');
   }
 
   return baseAPI({
-    method: "PATCH",
+    method: 'PATCH',
     path: `/cart-items/${cartId}`,
     body: {
       quantity,
@@ -112,7 +112,7 @@ export async function patchCartItem(
 
 export async function deleteCartItem(cartId: string) {
   await baseAPI({
-    method: "DELETE",
+    method: 'DELETE',
     path: `/cart-items/${cartId}`,
   });
 }
