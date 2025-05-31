@@ -1,19 +1,14 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { renderHook, waitFor, act } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import useShoppingCart from "../src/hooks/useShoppingCart";
-import { ApiProvider } from "../src/contexts/ApiContext";
 import { ErrorToastContextProvider } from "../src/contexts/ErrorToastContext";
 import { testStateStore } from "../src/mock/handlers";
 import { cartItems } from "../src/mock/data";
 
 // 테스트용 래퍼 컴포넌트
 function TestWrapper({ children }: { children: ReactNode }) {
-  return (
-    <ErrorToastContextProvider>
-      <ApiProvider>{children}</ApiProvider>
-    </ErrorToastContextProvider>
-  );
+  return <ErrorToastContextProvider>{children}</ErrorToastContextProvider>;
 }
 
 describe("useShoppingCart는", () => {
@@ -111,20 +106,20 @@ describe("useShoppingCart는", () => {
 
     // quantity 업데이트 실행
     await act(() =>
-      result.current.handleCartItemQuantity({ id: "1", quantity: "2" })
+      result.current.handleCartItemQuantity({ id: "1", quantity: 2 })
     );
 
     // 로딩 상태가 정상적으로 처리되는지 확인
     await waitFor(() => {
       expect(result.current.isQuantityUpdateLoading).toBe(false);
       const updatedItem = result.current.cartItemsData.find(
-        (item) => item.id === 1
+        (item) => item.id === "1"
       );
       expect(updatedItem?.quantity).toBe(2);
     });
 
     await act(async () => {
-      await result.current.handleCartItemQuantity({ id: "2", quantity: "1" });
+      await result.current.handleCartItemQuantity({ id: "2", quantity: 1 });
     });
 
     await waitFor(() => {
@@ -133,7 +128,7 @@ describe("useShoppingCart는", () => {
     await waitFor(() => {
       expect(result.current.isQuantityUpdateLoading).toBe(false);
       const updatedItem = result.current.cartItemsData.find(
-        (item) => item.id === 2
+        (item) => item.id === "2"
       );
 
       expect(updatedItem?.quantity).toBe(1);
@@ -164,10 +159,10 @@ describe("useShoppingCart는", () => {
     });
     // 삭제된 아이템이 cartItemsData에서 제거되었는지 확인
     const deletedItem = result.current.cartItemsData.find(
-      (item) => item.id === 1
+      (item) => item.id === "1"
     );
     const existingItems = result.current.cartItemsData.filter(
-      (item) => item.id !== 1
+      (item) => item.id !== "1"
     );
     expect(existingItems.length).toBe(initialCartItemLength - 1);
     expect(deletedItem).toBeUndefined();
