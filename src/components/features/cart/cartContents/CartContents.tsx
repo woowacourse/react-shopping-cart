@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { baseAPI } from '../../../../api/baseAPI';
-import { PaginationResponse } from '../../../../api/type';
 import FooterButton from '../../../common/footerButton/FooterButton';
+import { getCartItems } from '../api/getCartItems';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
 import CartTitle from '../cartTitle/CartTitle';
+import useCartSelection from '../hooks/useCartSelection';
 import { CartItemType } from '../types';
 import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
-import useCartSelection from '../hooks/useCartSelection';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -17,7 +16,7 @@ function CartContents() {
     isSelectedList,
     isAllItemSelected,
     isSomeItemSelected,
-    setIsSelectedList,
+    resetIsSelectedList,
     getSelectedCartItems,
     toggleSelect,
     toggleAllSelect,
@@ -29,18 +28,13 @@ function CartContents() {
   const orderPrice = calculateOrderPrice(selectCartItems);
 
   const fetch = useCallback(async () => {
-    const data = await baseAPI<PaginationResponse<CartItemType>>({
-      method: 'GET',
-      path: '/cart-items?page=0&size=20',
-    });
+    const cartItems = await getCartItems();
 
-    if (data) {
-      setCartItems(data.content);
-      setIsSelectedList(
-        Array.from({ length: data.content.length }, () => true)
-      );
+    if (cartItems) {
+      setCartItems(cartItems);
+      resetIsSelectedList(cartItems.length);
     }
-  }, [setCartItems, setIsSelectedList]);
+  }, [setCartItems, resetIsSelectedList]);
 
   const disabled = !isSomeItemSelected;
 
