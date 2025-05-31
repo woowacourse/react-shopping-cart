@@ -1,8 +1,10 @@
 import { useCallback, useState } from 'react';
 import { CartItemType } from '../types';
 
-function useCartSelection() {
-  const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
+function useCartSelection(cartItems: CartItemType[]) {
+  const [isSelectedList, setIsSelectedList] = useState<boolean[]>(() =>
+    Array.from({ length: cartItems.length }, () => true)
+  );
 
   const isAllItemSelected = isSelectedList.every((isSelected) => isSelected);
   const isSomeItemSelected = isSelectedList.some((isSelected) => isSelected);

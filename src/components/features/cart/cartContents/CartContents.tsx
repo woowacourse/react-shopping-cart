@@ -1,7 +1,5 @@
 import { ErrorToastMessage, FooterButton } from '@/components/common';
-import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { getCartItems } from '../api/getCartItems';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
 import CartTitle from '../cartTitle/CartTitle';
@@ -11,22 +9,19 @@ import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
 import CartEmptyContent from './CartEmptyContent';
 
-function CartContents() {
-  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const cartSelection = useCartSelection();
+function CartContents({
+  resource,
+  refetch,
+}: {
+  resource: { read: () => CartItemType[] };
+  refetch: () => void;
+}) {
+  const cartItems = resource.read();
+  const cartSelection = useCartSelection(cartItems);
   const navigate = useNavigate();
 
   const selectCartItems = cartSelection.utils.getSelectedItems(cartItems);
   const orderPrice = calculateOrderPrice(selectCartItems);
-
-  const fetch = useCallback(async () => {
-    const cartItems = await getCartItems();
-
-    if (cartItems) {
-      setCartItems(cartItems);
-      cartSelection.actions.reset(cartItems.length);
-    }
-  }, [cartSelection.actions]);
 
   const disabled = !cartSelection.states.isSomeItemSelected;
 
@@ -35,10 +30,6 @@ function CartContents() {
       state: { orderProducts: selectCartItems },
     });
   };
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
 
   if (cartItems.length === 0) {
     return <CartEmptyContent />;
@@ -53,7 +44,7 @@ function CartContents() {
         isAllItemSelected={cartSelection.states.isAllItemSelected}
         toggleSelect={cartSelection.actions.toggle}
         toggleAllSelect={cartSelection.actions.toggleAll}
-        refetch={fetch}
+        refetch={refetch}
       />
       <CartPrice orderPrice={orderPrice} />
       <FooterButton disabled={disabled} onClick={onOrderConfirm}>

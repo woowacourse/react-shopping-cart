@@ -2,12 +2,12 @@ import { showErrorToast } from '@/services/toastStore';
 
 export const handleCartActions = async <T>(
   action: () => Promise<T>,
-  refetch?: () => Promise<void>,
+  refetch?: () => void,
   onError?: () => void
 ) => {
   try {
     await action();
-    await refetch?.();
+    refetch?.();
   } catch (e) {
     console.error('[Cart Error]', e);
     if (onError) {

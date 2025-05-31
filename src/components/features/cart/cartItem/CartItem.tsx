@@ -14,7 +14,7 @@ interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
   toggleSelect: () => void;
-  refetch: () => Promise<void>;
+  refetch: () => void;
 }
 
 function CartItem({

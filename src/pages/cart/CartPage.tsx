@@ -1,11 +1,24 @@
+import { getCartItems } from '@/components/features/cart/api/getCartItems';
+import CartContents from '@/components/features/cart/cartContents/CartContents';
+import { createResource } from '@/components/features/cart/utils/createResource';
+import { Suspense, useState } from 'react';
 import Header from '../../components/common/header/Header';
-import CartContents from '../../components/features/cart/cartContents/CartContents';
 
 function CartPage() {
+  const [resource, setResource] = useState(() =>
+    createResource(getCartItems())
+  );
+
+  const refetch = () => {
+    setResource(createResource(getCartItems()));
+  };
+
   return (
     <>
       <Header title="SHOP" />
-      <CartContents />
+      <Suspense fallback={<div>loading...</div>}>
+        <CartContents resource={resource} refetch={refetch} />
+      </Suspense>
     </>
   );
 }

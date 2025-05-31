@@ -9,7 +9,7 @@ interface CartListProps {
   isAllItemSelected: boolean;
   toggleSelect: (index: number) => void;
   toggleAllSelect: () => void;
-  refetch: () => Promise<void>;
+  refetch: () => void;
 }
 
 function CartList({
