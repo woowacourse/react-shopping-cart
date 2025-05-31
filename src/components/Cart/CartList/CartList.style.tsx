@@ -101,3 +101,11 @@ export const ShippingFee = styled.p`
   justify-content: space-between;
   color: #333333;
 `;
+
+export const EmptyCartMessage = styled.p`
+  color: #333333;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 12px;
+`;

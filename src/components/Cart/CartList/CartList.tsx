@@ -14,7 +14,14 @@ interface CartListProps extends PropsWithChildren {
 function CartList({ children, subtotalPrice }: CartListProps) {
   const shippingFee = subtotalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE;
   const totalPriceWithShipping = subtotalPrice + shippingFee;
-
+  if (subtotalPrice === 0) {
+    return (
+      <Styled.Container>
+        <Styled.UlContainer>{children}</Styled.UlContainer>
+        <Styled.EmptyCartMessage>물건을 선택해 주세용!</Styled.EmptyCartMessage>
+      </Styled.Container>
+    );
+  }
   return (
     <Styled.Container>
       <Styled.UlContainer>{children}</Styled.UlContainer>
