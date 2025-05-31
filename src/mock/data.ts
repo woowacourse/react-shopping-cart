@@ -3,7 +3,7 @@ import type { ProductWithQuantity } from "../type/Product";
 
 export const products: ProductWithQuantity[] = [
   {
-    id: 1,
+    id: "1",
     name: "에어포스1",
     price: 100000,
     imageUrl:
@@ -12,7 +12,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 2,
+    id: "2",
     name: "에어포스2",
     price: 100000,
     imageUrl:
@@ -21,7 +21,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 3,
+    id: "3",
     name: "에어포스3",
     price: 100000,
     imageUrl:
@@ -30,7 +30,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 4,
+    id: "4",
     name: "달 무드등",
     price: 28000,
     imageUrl:
@@ -39,7 +39,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 5,
+    id: "5",
     name: "동물 양말",
     price: 20000,
     imageUrl:
@@ -49,7 +49,7 @@ export const products: ProductWithQuantity[] = [
   },
 
   {
-    id: 7,
+    id: "7",
     name: "메이통통이",
     price: 11100000,
     imageUrl:
@@ -58,7 +58,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 8,
+    id: "8",
     name: "앵그리버드",
     price: 50000,
     imageUrl:
@@ -67,7 +67,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 9,
+    id: "9",
     name: "너에게난~ 해질녘 노을처럼~",
     price: 200000,
     imageUrl:
@@ -76,7 +76,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 22,
+    id: "22",
     name: "앵버잠옷",
     price: 200000,
     imageUrl:
@@ -85,7 +85,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 23,
+    id: "23",
     name: "리바이 아커만",
     price: 60000000,
     imageUrl:
@@ -94,7 +94,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 24,
+    id: "24",
     name: "부리부리 원형 테이블",
     price: 3210000,
     imageUrl:
@@ -103,7 +103,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 25,
+    id: "25",
     name: "얌샘김밥",
     price: 5000,
     imageUrl:
@@ -112,7 +112,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 26,
+    id: "26",
     name: "기세",
     price: 100,
     imageUrl: "https://media.makeameme.org/created/2300-aura-i.jpg",
@@ -120,7 +120,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 27,
+    id: "27",
     name: "아바라",
     price: 4800,
     imageUrl:
@@ -129,7 +129,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 28,
+    id: "28",
     name: "아샷추",
     price: 3800,
     imageUrl:
@@ -138,7 +138,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 29,
+    id: "29",
     name: "19×19×19 큐브",
     price: 850000,
     imageUrl:
@@ -147,7 +147,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 30,
+    id: "30",
     name: "민초 피자",
     price: 48000,
     imageUrl:
@@ -156,7 +156,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 31,
+    id: "31",
     name: "민초 치킨",
     price: 47000,
     imageUrl:
@@ -165,7 +165,7 @@ export const products: ProductWithQuantity[] = [
     quantity: 10,
   },
   {
-    id: 32,
+    id: "32",
     name: "튀김 신발",
     price: 800000,
     imageUrl:
@@ -177,23 +177,18 @@ export const products: ProductWithQuantity[] = [
 
 export const cartItems: CartItem[] = [
   {
-    id: 1,
-    quantity: 2,
-    product: products[10],
+    id: "1",
+    quantity: 1,
+    product: products[6], // 인덱스 6 → "앵그리버드" (50,000원)
   },
   {
-    id: 2,
+    id: "2",
     quantity: 2,
-    product: products[8],
+    product: products[3], // 인덱스 3 → "달 무드등" (28,000원) × 2 = 56,000원
   },
   {
-    id: 3,
-    quantity: 2,
-    product: products[3],
-  },
-  {
-    id: 4,
-    quantity: 2,
-    product: products[4],
+    id: "3",
+    quantity: 1,
+    product: products[4], // 인덱스 4 → "동물 양말" (20,000원)
   },
 ];
