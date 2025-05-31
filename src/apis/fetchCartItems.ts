@@ -1,47 +1,18 @@
-import { ApiError } from "../constants/ApiError";
-import { getErrorMessage } from "../util/getErrorMessage";
-import { getErrorTypeByStatus } from "../util/getErrorTypeByStatus";
+import { apiGet } from "../util/apiRequest";
 
 type fetchCartItemsParams = {
   params?: {
     page: string;
     size: string;
   };
+  signal?: AbortSignal;
 };
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const TOKEN = import.meta.env.VITE_TOKEN;
 
 const fetchCartItems = async ({
   params = { page: "0", size: "50" },
+  signal,
 }: fetchCartItemsParams) => {
-  const url = new URL(`${BASE_URL}/cart-items`);
-  url.search = new URLSearchParams(params).toString();
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Basic ${TOKEN}`,
-    },
-  };
-
-  const response = await fetch(url, options);
-  try {
-    if (!response.ok) {
-      const errorType = getErrorTypeByStatus(response.status);
-      throw new ApiError(
-        response.status,
-        response.statusText,
-        getErrorMessage(response.statusText, response.status),
-        errorType
-      );
-    }
-    return response.json();
-  } catch (error) {
-    throw error;
-  }
+  return apiGet("/cart-items", params, { signal });
 };
 
 export default fetchCartItems;
