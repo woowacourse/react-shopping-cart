@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import Button from "../../../../../common/Button";
+import styled from '@emotion/styled';
+import {css} from '@emotion/react';
+import Button from '../../../../../common/Button';
 
 type Props = {
   count: number;
@@ -8,12 +8,12 @@ type Props = {
   onMinusCount: () => void;
 };
 
-const CartCount = ({ count, onPlusCount, onMinusCount }: Props) => {
-  const className = css`
-    border-radius: 10px;
-    padding: 5px 5px;
-  `;
+const className = css`
+  border-radius: 10px;
+  padding: 5px 5px;
+`;
 
+const CartCount = ({count, onPlusCount, onMinusCount}: Props) => {
   return (
     <CartCountSection>
       <Button

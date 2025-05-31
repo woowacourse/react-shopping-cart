@@ -12,6 +12,14 @@ import {useSelectedCart} from '../../../hooks/useSelectedCart';
 
 const FREE_ORDER_PRICE = 100_000;
 const ORDER_PRICE = 3_000;
+const btnClassName = css`
+  width: 100%;
+  padding: 24px 0;
+  background-color: #000;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+`;
 
 const CartSection = () => {
   const navigate = useNavigate();
@@ -99,14 +107,7 @@ const CartSection = () => {
             },
           })
         }
-        css={css`
-          width: 100%;
-          padding: 24px 0;
-          background-color: #000;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-        `}
+        css={btnClassName}
       />
     </S.Container>
   );
