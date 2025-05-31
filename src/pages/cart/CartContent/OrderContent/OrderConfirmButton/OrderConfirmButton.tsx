@@ -2,6 +2,7 @@ import * as S from "./OrderConfirmButton.styled";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/shared/config/routes";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
+import { getDeliveryPrice } from "@/pages/cart/utils/getDeliveryPrice";
 
 type OrderConfirmButton = {
   orderList: CartItemType[];
@@ -17,7 +18,7 @@ export default function OrderConfirmButton({
     navigate(ROUTES.ORDER_SUCCESS, {
       state: {
         orderList,
-        orderTotalPrice,
+        paymentPrice: orderTotalPrice + getDeliveryPrice(orderTotalPrice),
       },
     });
   };

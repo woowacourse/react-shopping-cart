@@ -7,7 +7,7 @@ import useValidateLocationState from "../../shared/hooks/useValidateLocationStat
 
 export type OrderSuccessState = {
   orderList: CartItemType[];
-  orderTotalPrice: number;
+  paymentPrice: number;
 };
 
 const isOrderSuccessState = (state: any): state is OrderSuccessState => {
@@ -21,7 +21,7 @@ const isOrderSuccessState = (state: any): state is OrderSuccessState => {
 
   if (
     !Array.isArray(state.orderList) ||
-    typeof state.orderTotalPrice !== "number"
+    typeof state.paymentPrice !== "number"
   ) {
     return false;
   }
@@ -39,7 +39,7 @@ export default function OrderSuccessPage() {
     return <div>로딩 중...</div>;
   }
 
-  const { orderList, orderTotalPrice } = validatedState;
+  const { orderList, paymentPrice } = validatedState;
   const orderListType = orderList.length;
   const orderQuantity = orderList.reduce(
     (acc, { quantity }) => (acc += quantity),
@@ -62,7 +62,7 @@ export default function OrderSuccessPage() {
           <S.OrderPriceContainer>
             <S.OrderPriceTitle>총 결제 금액</S.OrderPriceTitle>
             <S.OrderPriceText>
-              {orderTotalPrice.toLocaleString()}원
+              {paymentPrice.toLocaleString()}원
             </S.OrderPriceText>
           </S.OrderPriceContainer>
         </S.OrderContainer>
