@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import Flex from "./Flex";
+import styled from '@emotion/styled';
+import Flex from './Flex';
 
 interface LabelPriceProps {
   label: string;
@@ -7,13 +7,11 @@ interface LabelPriceProps {
   ariaLabel?: string;
 }
 
-const LabelPrice = ({ label, price, ariaLabel }: LabelPriceProps) => {
+const LabelPrice = ({ label, price }: LabelPriceProps) => {
   return (
     <TotalSection>
       <TotalLabel>{label}</TotalLabel>
-      <TotalAmount aria-label={ariaLabel}>
-        {price.toLocaleString()}원
-      </TotalAmount>
+      <TotalAmount aria-label={label}>{price.toLocaleString()}원</TotalAmount>
     </TotalSection>
   );
 };
