@@ -1,17 +1,11 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CartItemType } from '../types';
 
 function useCartSelection() {
   const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
-  const isAllItemSelected = useMemo(
-    () => isSelectedList.every((isSelected) => isSelected),
-    [isSelectedList]
-  );
 
-  const isSomeItemSelected = useMemo(
-    () => isSelectedList.some((isSelected) => isSelected),
-    [isSelectedList]
-  );
+  const isAllItemSelected = isSelectedList.every((isSelected) => isSelected);
+  const isSomeItemSelected = isSelectedList.some((isSelected) => isSelected);
 
   const getSelectedCartItems = useCallback(
     (cartItems: CartItemType[]) =>
