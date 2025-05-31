@@ -1,7 +1,7 @@
-import RemoveCartItemIcon from '@assets/icons/remove-cart-item.svg';
-import * as S from './RemoveCartItemButton.styled';
-import { deleteCartItem } from '@/apis/cartItems/deleteCartItem';
-import useMutation from '@/shared/hooks/useMutation';
+import RemoveCartItemIcon from "@assets/icons/remove-cart-item.svg";
+import * as S from "./RemoveCartItemButton.styled";
+import { deleteCartItem } from "@/apis/cartItems/deleteCartItem";
+import useMutation from "@/shared/hooks/useMutation";
 
 type RemoveCartItemButtonProps = {
   cartItemId: number;
@@ -14,7 +14,9 @@ function RemoveCartItemButton({
   refetchCartItems,
   removeOrderItem,
 }: RemoveCartItemButtonProps) {
-  const { mutate: removeCartItemMutate } = useMutation(() => deleteCartItem(cartItemId));
+  const { mutate: removeCartItemMutate } = useMutation(() =>
+    deleteCartItem(cartItemId)
+  );
 
   const removeCartItem = async () => {
     await removeCartItemMutate(undefined);

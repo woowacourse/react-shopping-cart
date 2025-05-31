@@ -1,11 +1,11 @@
-import EmptyCartContainer from './EmptyCartContainer/EmptyCartContainer';
-import PriceContainer from './PriceContainer/PriceContainer';
-import CartList from './CartList/CartList';
-import CheckBox from '@/shared/components/CheckBox/CheckBox';
-import * as S from './CartContent.styled';
-import { useCartItem } from '../hooks/useCartItem';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/shared/config/routes';
+import EmptyCartContainer from "./EmptyCartContainer/EmptyCartContainer";
+import PriceContainer from "./PriceContainer/PriceContainer";
+import CartList from "./CartList/CartList";
+import CheckBox from "@/shared/components/CheckBox/CheckBox";
+import * as S from "./CartContent.styled";
+import { useOrderList } from "../hooks/useCartItem";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/shared/config/routes";
 
 export default function CartContent() {
   const {
@@ -14,13 +14,12 @@ export default function CartContent() {
     errorMessage,
     refetchCartItems,
     orderList,
-    isAllChecked,
     orderTotalPrice,
-    toggleAllCheckBox,
-    addOrderItem,
-    removeOrderItem,
-    updateOrderItem,
-  } = useCartItem();
+    isAllSelected,
+    toggleAllSelection,
+    addSelectedItem,
+    removeSelectedItem,
+  } = useOrderList();
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -48,7 +47,11 @@ export default function CartContent() {
     <S.Container>
       <S.Text>현재 {cartItems.length}종류의 상품이 담겨있습니다.</S.Text>
       <S.AllCheckBox>
-        <CheckBox isChecked={isAllChecked} onClick={toggleAllCheckBox} aria-label="전체 선택" />
+        <CheckBox
+          isChecked={isAllSelected}
+          onClick={toggleAllSelection}
+          aria-label="전체 선택"
+        />
         <S.Text>전체 선택</S.Text>
       </S.AllCheckBox>
       <S.ScrollContainer>
@@ -56,9 +59,8 @@ export default function CartContent() {
           cartItems={cartItems}
           orderList={orderList}
           refetchCartItems={refetchCartItems}
-          addOrderItem={addOrderItem}
-          removeOrderItem={removeOrderItem}
-          updateOrderItem={updateOrderItem}
+          addSelectedItem={addSelectedItem}
+          removeSelectedItem={removeSelectedItem}
         />
         <PriceContainer orderTotalPrice={orderTotalPrice} />
       </S.ScrollContainer>

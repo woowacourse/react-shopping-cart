@@ -1,24 +1,22 @@
-import * as S from './CartItemQuantityButton.styled';
-import PlusIcon from '@assets/icons/plus.svg';
-import MinusIcon from '@assets/icons/minus.svg';
-import RemoveCartItemButton from '../Remove/RemoveCartItemButton';
-import useMutation from '@/shared/hooks/useMutation';
-import { updateCartItemQuantity } from '@/apis/cartItems/updateCartItemQuantity';
+import * as S from "./CartItemQuantityButton.styled";
+import PlusIcon from "@assets/icons/plus.svg";
+import MinusIcon from "@assets/icons/minus.svg";
+import RemoveCartItemButton from "../Remove/RemoveCartItemButton";
+import useMutation from "@/shared/hooks/useMutation";
+import { updateCartItemQuantity } from "@/apis/cartItems/updateCartItemQuantity";
 
 type CartItemQuantityButtonProps = {
   cartItemId: number;
   quantity: number;
   refetchCartItems: () => Promise<void>;
-  removeOrderItem: (id: number) => void;
-  updateOrderItem: (id: number, quantity: number) => void;
+  removeSelectedItem: (id: number) => void;
 };
 
 function CartItemQuantityButton({
   cartItemId,
   quantity,
   refetchCartItems,
-  removeOrderItem,
-  updateOrderItem,
+  removeSelectedItem,
 }: CartItemQuantityButtonProps) {
   const { mutate: updateCartItemMutate } = useMutation(updateCartItemQuantity);
 
@@ -28,7 +26,6 @@ function CartItemQuantityButton({
       quantity: updateQuantity,
     });
     refetchCartItems();
-    updateOrderItem(cartItemId, updateQuantity);
   };
 
   return (
@@ -37,14 +34,16 @@ function CartItemQuantityButton({
         <RemoveCartItemButton
           cartItemId={cartItemId}
           refetchCartItems={refetchCartItems}
-          removeOrderItem={removeOrderItem}
+          removeOrderItem={removeSelectedItem}
         />
       ) : (
         <S.Button type="button" onClick={() => updateCartItem(quantity - 1)}>
           <img src={MinusIcon} alt="수량 1개 빼기" />
         </S.Button>
       )}
-      <S.QuantityText data-testid="current-cart-item-quantity">{quantity}</S.QuantityText>
+      <S.QuantityText data-testid="current-cart-item-quantity">
+        {quantity}
+      </S.QuantityText>
       <S.Button type="button" onClick={() => updateCartItem(quantity + 1)}>
         <img src={PlusIcon} alt="수량 1개 추가" />
       </S.Button>
