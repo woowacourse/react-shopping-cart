@@ -1,12 +1,13 @@
 import {Outlet} from 'react-router';
 import * as S from './NavBar.styles';
-import ErrorToast from '../../common/ErrorToast';
-import {useErrorToast} from '../../../provider/errorProvider.tsx';
+
+import {useError} from '../../../provider/errorProvider.tsx';
 import {useLocation, useNavigate} from 'react-router';
 import {ROUTE_PATHS} from '../../../route/path.ts';
+import Toast from '../../common/Toast/index.tsx';
 
 const NavBar = () => {
-  const error = useErrorToast();
+  const error = useError();
   const navigate = useNavigate();
   const {pathname} = useLocation();
 
@@ -22,7 +23,7 @@ const NavBar = () => {
           />
         )}
       </S.Container>
-      {error && <ErrorToast errorMessage={error} />}
+      {error && <Toast message={error} status="error" />}
       <Outlet />
     </>
   );
