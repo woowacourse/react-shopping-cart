@@ -1,7 +1,14 @@
 import { createContext, ReactNode, useContext } from "react";
 import useCartItem from "../hooks/useCartItem";
+import { CartItemType } from "@/apis/cartItems/cartItem.type";
 
-type CartItemContextType = ReturnType<typeof useCartItem>;
+type CartItemContextType = Exclude<
+  ReturnType<typeof useCartItem>,
+  "cartItems"
+> & {
+  cartItems: CartItemType[];
+};
+
 const CartItemContext = createContext<CartItemContextType>({
   cartItems: [],
   refetchCartItems: async () => {},
@@ -17,11 +24,12 @@ interface CartItemProviderProps {
 export function CartItemProvider({ children }: CartItemProviderProps) {
   const { cartItems, refetchCartItems, isLoading, isFetching, errorMessage } =
     useCartItem();
+  const safeCartItems = cartItems ?? [];
 
   return (
     <CartItemContext.Provider
       value={{
-        cartItems,
+        cartItems: safeCartItems,
         refetchCartItems,
         isLoading,
         isFetching,

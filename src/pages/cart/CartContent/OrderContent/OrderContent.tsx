@@ -16,7 +16,7 @@ export default function OrderContent() {
     addSelectedItem,
     removeSelectedItem,
     getIsSelected,
-  } = useOrderList(cartItems!);
+  } = useOrderList(cartItems);
 
   return (
     <>

@@ -34,7 +34,7 @@ export default function CartList({
 
   return (
     <S.List>
-      {cartItems?.map((cartItem) => (
+      {cartItems.map((cartItem) => (
         <CartItem
           key={cartItem.id}
           cartItem={cartItem}
