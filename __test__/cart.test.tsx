@@ -1,26 +1,26 @@
 import { MemoryRouter } from 'react-router';
-import App from '../src/pages/CartPage/App';
+import CartPage from '../src/pages/CartPage/CartPage';
 import { SelectedCartProvider } from '../src/shared/context/SelectedCartProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
-import AppWithEmptySelectedItems from './AppWithEmptySelectedItems';
+import CartPageWithEmptySelectedItems from './CartPageWithEmptySelectedItems';
 
-function renderApp() {
+function renderCartPage() {
   return render(
     <MemoryRouter initialEntries={['/']}>
       <SelectedCartProvider>
-        <App />
+        <CartPage />
       </SelectedCartProvider>
     </MemoryRouter>
   );
 }
 
-function renderAppWithEmptySelectedItems() {
+function renderCartPageWithEmptySelectedItems() {
   return render(
     <MemoryRouter initialEntries={['/']}>
       <SelectedCartProvider>
-        <AppWithEmptySelectedItems />
+        <CartPageWithEmptySelectedItems />
       </SelectedCartProvider>
     </MemoryRouter>
   );
@@ -28,7 +28,7 @@ function renderAppWithEmptySelectedItems() {
 
 describe('빈 장바구니 테스트', async () => {
   it('장바구니에 상품이 하나도 없을 때 EmptyCartItemUI가 잘 보이는지', async () => {
-    renderAppWithEmptySelectedItems();
+    renderCartPageWithEmptySelectedItems();
     const emptyMessage = await screen.findByText('장바구니에 담은 상품이 없습니다.');
     expect(emptyMessage).toBeInTheDocument();
   });
@@ -36,7 +36,7 @@ describe('빈 장바구니 테스트', async () => {
 
 describe('RTL Test', () => {
   beforeEach(() => {
-    renderApp();
+    renderCartPage();
   });
 
   it('장바구니에서 체크박스를 누르면 배송비를 고려하여 해당 금액이 반영된다.', async () => {

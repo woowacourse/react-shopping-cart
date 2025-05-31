@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import * as S from './App.styles';
+import * as S from './CartPage.styles';
 import { CartHeader } from '../../features/cart/ui';
 import Navbar from '../../shared/ui/Navbar';
 import CartPageFooter from '../../features/cart/ui/CartPageFooter';
@@ -13,7 +13,7 @@ const CartList = React.lazy(() => import('../../features/cart/ui/CartList'));
 const OrderPriceSummary = React.lazy(() => import('../../features/cart/ui/OrderPriceSummary'));
 import CartListSkeleton from '../../features/cart/ui/CartListSkeleton';
 
-function App() {
+function CartPage() {
   const { selectedCartItems } = useSelectedCartContext();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,9 +38,9 @@ function App() {
   }, [selectedCartItems]);
 
   return (
-    <S.AppContainer>
+    <S.CartPageContainer>
       <Navbar title={'SHOP'} url={ROUTES.ROOT} />
-      <S.AppContent>
+      <S.CartPageContent>
         <CartHeader cartTypeQuantity={cartItems.length} />
         {loading ? (
           <CartListSkeleton />
@@ -52,10 +52,10 @@ function App() {
         ) : (
           <EmptyCartItemUI />
         )}
-      </S.AppContent>
+      </S.CartPageContent>
       <CartPageFooter cartItemQuantity={cartItems.length} />
-    </S.AppContainer>
+    </S.CartPageContainer>
   );
 }
 
-export default App;
+export default CartPage;
