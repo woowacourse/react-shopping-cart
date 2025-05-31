@@ -1,10 +1,10 @@
 import EmptyCartContainer from "./EmptyCartContainer/EmptyCartContainer";
 import PriceContainer from "./PriceContainer/PriceContainer";
 import CartList from "./CartList/CartList";
-import CheckBox from "@/shared/components/CheckBox/CheckBox";
 import * as S from "./CartContent.styled";
 import { useOrderList } from "../hooks/useCartItem";
 import OrderConfirmButton from "./OrderConfirmButton/OrderConfirmButton";
+import AllCheckBox from "@shared/components/AllCheckBox/AllCheckBox";
 
 export default function CartContent() {
   const {
@@ -35,14 +35,10 @@ export default function CartContent() {
   return (
     <S.Container>
       <S.Text>현재 {cartItems.length}종류의 상품이 담겨있습니다.</S.Text>
-      <S.AllCheckBox>
-        <CheckBox
-          isChecked={isAllSelected}
-          onClick={toggleAllSelection}
-          aria-label="전체 선택"
-        />
-        <S.Text>전체 선택</S.Text>
-      </S.AllCheckBox>
+      <AllCheckBox
+        isAllSelected={isAllSelected}
+        toggleAllSelection={toggleAllSelection}
+      />
       <S.ScrollContainer>
         <CartList
           cartItems={cartItems}
