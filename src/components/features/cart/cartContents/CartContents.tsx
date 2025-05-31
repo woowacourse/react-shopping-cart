@@ -15,7 +15,8 @@ function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const {
     isSelectedList,
-    isAllSelected,
+    isAllItemSelected,
+    isSomeItemSelected,
     setIsSelectedList,
     getSelectedCartItems,
     toggleSelect,
@@ -41,7 +42,7 @@ function CartContents() {
     }
   }, [setCartItems, setIsSelectedList]);
 
-  const disabled = !isSelectedList.some((isSelected) => isSelected);
+  const disabled = !isSomeItemSelected;
 
   const onOrderConfirm = () => {
     navigate('/order-confirmation', {
@@ -68,7 +69,7 @@ function CartContents() {
       <CartList
         cartItems={cartItems}
         isSelectedList={isSelectedList}
-        isAllSelected={isAllSelected}
+        isAllItemSelected={isAllItemSelected}
         toggleSelect={toggleSelect}
         toggleAllSelect={toggleAllSelect}
         refetch={fetch}

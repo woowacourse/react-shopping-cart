@@ -3,8 +3,13 @@ import { CartItemType } from '../types';
 
 function useCartSelection() {
   const [isSelectedList, setIsSelectedList] = useState<boolean[]>([]);
-  const isAllSelected = useMemo(
+  const isAllItemSelected = useMemo(
     () => isSelectedList.every((isSelected) => isSelected),
+    [isSelectedList]
+  );
+
+  const isSomeItemSelected = useMemo(
+    () => isSelectedList.some((isSelected) => isSelected),
     [isSelectedList]
   );
 
@@ -24,13 +29,14 @@ function useCartSelection() {
 
   const toggleAllSelect = useCallback(() => {
     setIsSelectedList((prevSelectedList) =>
-      Array.from({ length: prevSelectedList.length }, () => !isAllSelected)
+      Array.from({ length: prevSelectedList.length }, () => !isAllItemSelected)
     );
-  }, [isAllSelected]);
+  }, [isAllItemSelected]);
 
   return {
     isSelectedList,
-    isAllSelected,
+    isAllItemSelected,
+    isSomeItemSelected,
     setIsSelectedList,
     getSelectedCartItems,
     toggleSelect,
