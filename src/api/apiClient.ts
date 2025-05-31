@@ -1,4 +1,4 @@
-type Method = "GET" | "POST" | "DELETE" | "PATCH";
+type Method = 'GET' | 'POST' | 'DELETE' | 'PATCH';
 
 interface ApiClientProps {
   endPoint: string;
@@ -7,14 +7,14 @@ interface ApiClientProps {
 }
 
 export const apiClient = {
-  get: async ({ endPoint, headers }: ApiClientProps) =>
-    (await requestApi("GET", endPoint, headers)).json(),
-  post: ({ endPoint, headers, body }: ApiClientProps) =>
-    requestApi("POST", endPoint, headers, body),
-  delete: ({ endPoint, headers }: ApiClientProps) =>
-    requestApi("DELETE", endPoint, headers),
-  update: ({ endPoint, headers, body }: ApiClientProps) =>
-    requestApi("PATCH", endPoint, headers, body),
+  get: async ({endPoint, headers}: ApiClientProps) =>
+    (await requestApi('GET', endPoint, headers)).json(),
+  post: ({endPoint, headers, body}: ApiClientProps) =>
+    requestApi('POST', endPoint, headers, body),
+  delete: ({endPoint, headers}: ApiClientProps) =>
+    requestApi('DELETE', endPoint, headers),
+  patch: ({endPoint, headers, body}: ApiClientProps) =>
+    requestApi('PATCH', endPoint, headers, body),
 };
 
 const requestApi = async (
@@ -29,14 +29,14 @@ const requestApi = async (
     method: method,
     headers: {
       Authorization: `Basic ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       ...headers,
     },
     body: body,
   });
 
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error('Network response was not ok');
   }
   return response;
 };

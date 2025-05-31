@@ -1,13 +1,13 @@
-import * as S from "./Card.styles";
-import CartCount from "./CartCount";
-import Button from "../../../../common/Button";
-import CheckBox from "../../../../common/CheckBox";
-import Line from "../../../../common/Line";
-import { CartProduct } from "../../../../../type/cart";
-import { deleteCartProduct } from "../../../../../api/cart/deleteCartProduct";
-import { formatPrice } from "../../../../../utils/formatPrice";
-import { useShowError } from "../../../../../provider/errorProvider";
-import { updateCartProduct } from "../../../../../api/cart/updateCartProduct";
+import * as S from './Card.styles';
+import CartCount from './CartCount';
+import Button from '../../../../common/Button';
+import CheckBox from '../../../../common/CheckBox';
+import Line from '../../../../common/Line';
+import {CartProduct} from '../../../../../type/cart';
+import {deleteCartProduct} from '../../../../../api/cart/deleteCartProduct';
+import {formatPrice} from '../../../../../utils/formatPrice';
+import {useShowError} from '../../../../../provider/errorProvider';
+import {patchCartProduct} from '../../../../../api/cart/patchCartProduct';
 
 type Props = {
   cartItem: CartProduct;
@@ -24,7 +24,7 @@ const Card = ({
   onToggle,
   onDeleteSelected,
 }: Props) => {
-  const { imageUrl, name, price } = cartItem.product;
+  const {imageUrl, name, price} = cartItem.product;
   const showError = useShowError();
 
   const handleDelete = async (id: number) => {
@@ -33,16 +33,16 @@ const Card = ({
       onDeleteSelected();
       onRefetch();
     } catch (e) {
-      showError?.("데이터를 삭제하는 중 문제가 발생했습니다.");
+      showError?.('데이터를 삭제하는 중 문제가 발생했습니다.');
     }
   };
 
   const handleUpdate = async (id: number, updatedQuantity: number) => {
     try {
-      await updateCartProduct(id, updatedQuantity);
+      await patchCartProduct(id, updatedQuantity);
       onRefetch();
     } catch (e) {
-      showError?.("상품을 추가/삭제하는 중 문제가 발생했습니다.");
+      showError?.('상품을 추가/삭제하는 중 문제가 발생했습니다.');
     }
   };
 
@@ -57,7 +57,7 @@ const Card = ({
         <S.ImgSection
           src={imageUrl}
           alt={name}
-          onError={(e) => (e.currentTarget.src = "./null-image.png")}
+          onError={(e) => (e.currentTarget.src = './null-image.png')}
         />
         <S.ProductInfoSection>
           <S.ProductDescription>
