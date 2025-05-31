@@ -7,10 +7,11 @@ type UseFetchDataParam<T> = {
 const useFetchData = <T>({ fetchFn }: UseFetchDataParam<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
-    setIsLoading(true);
+    setIsFetching(true);
     setErrorMessage(null);
 
     try {
@@ -21,15 +22,23 @@ const useFetchData = <T>({ fetchFn }: UseFetchDataParam<T>) => {
         setErrorMessage(error.message);
       }
     } finally {
-      setIsLoading(false);
+      setIsFetching(false);
     }
   }, [fetchFn]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchData();
+    setIsLoading(false);
   }, [fetchData]);
 
-  return { data, isLoading, errorMessage, setErrorMessage, refetch: fetchData };
+  return {
+    data,
+    refetch: fetchData,
+    isLoading,
+    isFetching,
+    errorMessage,
+  };
 };
 
 export default useFetchData;

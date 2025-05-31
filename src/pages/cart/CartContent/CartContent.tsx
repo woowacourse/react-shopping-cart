@@ -1,31 +1,17 @@
-import EmptyCartContainer from "./EmptyCartContainer/EmptyCartContainer";
-import PriceContainer from "./PriceContainer/PriceContainer";
-import CartList from "./CartList/CartList";
+import EmptyCartContainer from "./OrderContent/EmptyCartContainer/EmptyCartContainer";
 import * as S from "./CartContent.styled";
-import { useOrderList } from "../hooks/useOrderList";
-import OrderConfirmButton from "./OrderConfirmButton/OrderConfirmButton";
-import AllCheckBox from "@shared/components/AllCheckBox/AllCheckBox";
-import useCartItem from "../hooks/useCartItem";
+import OrderContent from "./OrderContent/OrderContent";
+import { useCartItemContext } from "../contexts/CartItemProvider";
 
 export default function CartContent() {
-  const { cartItems, isLoading, errorMessage, refetchCartItems } =
-    useCartItem();
-  const {
-    orderList,
-    orderTotalPrice,
-    isAllSelected,
-    toggleAllSelection,
-    addSelectedItem,
-    removeSelectedItem,
-    getIsSelected,
-  } = useOrderList(cartItems);
+  const { cartItems, isLoading, errorMessage } = useCartItemContext();
 
   if (isLoading) {
     return <div>로딩중</div>;
   }
 
   if (errorMessage) {
-    return <div>에러남</div>;
+    return <div>{errorMessage}</div>;
   }
 
   if (!cartItems?.length) {
@@ -35,24 +21,7 @@ export default function CartContent() {
   return (
     <S.Container>
       <S.Text>현재 {cartItems.length}종류의 상품이 담겨있습니다.</S.Text>
-      <AllCheckBox
-        isAllSelected={isAllSelected}
-        toggleAllSelection={toggleAllSelection}
-      />
-      <S.ScrollContainer>
-        <CartList
-          cartItems={cartItems}
-          getIsSelected={getIsSelected}
-          refetchCartItems={refetchCartItems}
-          addSelectedItem={addSelectedItem}
-          removeSelectedItem={removeSelectedItem}
-        />
-        <PriceContainer orderTotalPrice={orderTotalPrice} />
-      </S.ScrollContainer>
-      <OrderConfirmButton
-        orderList={orderList}
-        orderTotalPrice={orderTotalPrice}
-      />
+      <OrderContent />
     </S.Container>
   );
 }

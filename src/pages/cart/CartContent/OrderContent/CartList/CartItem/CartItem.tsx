@@ -4,48 +4,28 @@ import DefaultItemIcon from "@assets/icons/default-item.svg";
 import CartItemQuantityButton from "./Button/Quantity/CartItemQuantityButton";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { SyntheticEvent } from "react";
-import { deleteCartItem } from "@/apis/cartItems/deleteCartItem";
-import useMutation from "@/shared/hooks/useMutation";
 
 type CartItemProps = {
   cartItem: CartItemType;
-  refetchCartItems: () => Promise<void>;
   isChecked: boolean;
-  addSelectedItem: (id: number) => void;
-  removeSelectedItem: (id: number) => void;
+  onCheckBoxClick: (id: number, isChecked: boolean) => void;
+  updateCartItem: (id: number, quantity: number) => Promise<void>;
+  removeCartItem: (id: number) => Promise<void>;
 };
 
 export default function CartItem({
   cartItem,
-  refetchCartItems,
   isChecked,
-  addSelectedItem,
-  removeSelectedItem,
+  updateCartItem,
+  removeCartItem,
+  onCheckBoxClick,
 }: CartItemProps) {
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
-  const { mutate: removeCartItemMutate } = useMutation(() =>
-    deleteCartItem(id)
-  );
 
   const imageLoadError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
     target.src = DefaultItemIcon;
-  };
-
-  const removeCartItem = async () => {
-    await removeCartItemMutate(undefined);
-    refetchCartItems();
-    removeSelectedItem(id);
-  };
-
-  const handleCheckBoxClick = () => {
-    if (isChecked) {
-      removeSelectedItem(id);
-      return;
-    }
-
-    addSelectedItem(id);
   };
 
   return (
@@ -53,10 +33,10 @@ export default function CartItem({
       <S.ItemHeader>
         <CheckBox
           isChecked={isChecked}
-          onClick={handleCheckBoxClick}
+          onClick={() => onCheckBoxClick(id, isChecked)}
           aria-label="상품 선택"
         />
-        <S.DeleteButton type="button" onClick={removeCartItem}>
+        <S.DeleteButton type="button" onClick={() => removeCartItem(id)}>
           삭제
         </S.DeleteButton>
       </S.ItemHeader>
@@ -73,10 +53,10 @@ export default function CartItem({
             <S.ItemPrice>{price.toLocaleString()}원</S.ItemPrice>
           </S.ItemDetailInfo>
           <CartItemQuantityButton
-            cartItemId={id}
+            id={id}
             quantity={quantity}
-            refetchCartItems={refetchCartItems}
-            removeSelectedItem={removeSelectedItem}
+            updateCartItem={updateCartItem}
+            removeCartItem={removeCartItem}
           />
         </S.ItemDetail>
       </S.ItemContent>

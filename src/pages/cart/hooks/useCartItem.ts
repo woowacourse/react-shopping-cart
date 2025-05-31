@@ -4,16 +4,18 @@ import useFetchData from "@/shared/hooks/useFetchData";
 const useCartItem = () => {
   const {
     data: cartItems,
-    isLoading,
-    errorMessage,
     refetch: refetchCartItems,
+    isLoading,
+    isFetching,
+    errorMessage,
   } = useFetchData({ fetchFn: getCartItems });
 
   return {
     cartItems,
-    isLoading,
-    errorMessage,
     refetchCartItems,
+    isLoading,
+    isFetching,
+    errorMessage,
   };
 };
 

@@ -1,21 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
-const useSelectedItem = <T extends { id: number }>(items: T[] | null) => {
+const useSelectedItem = <T extends { id: number }>(items: T[]) => {
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(
-    new Set()
+    new Set(items.map((item) => item.id))
   );
-  const isFirstLoad = useRef(true);
-
-  useEffect(() => {
-    if (items && isFirstLoad.current) {
-      const allIds = new Set(items.map((item) => item.id));
-      setSelectedItemIds(allIds);
-      isFirstLoad.current = false;
-    }
-  }, [items]);
 
   const isAllSelected =
-    items?.every((item) => selectedItemIds.has(item.id)) ?? false;
+    items.every((item) => selectedItemIds.has(item.id)) ?? false;
 
   const toggleAllSelection = useCallback(() => {
     if (isAllSelected) {
@@ -23,7 +14,7 @@ const useSelectedItem = <T extends { id: number }>(items: T[] | null) => {
       return;
     }
 
-    const allIds = new Set(items?.map((item) => item.id));
+    const allIds = new Set(items.map((item) => item.id));
     setSelectedItemIds(allIds);
   }, [items, isAllSelected]);
 
