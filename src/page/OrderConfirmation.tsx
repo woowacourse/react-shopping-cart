@@ -41,7 +41,7 @@ function OrderConfirmation() {
     );
   }
 
-  const { selectedCartItemsLength, selectedCartItemsCount, totalPrice } =
+  const { selectedCartItemsLength, selectedCartItemsCount, finalPrice } =
     location.state;
 
   return (
@@ -65,7 +65,7 @@ function OrderConfirmation() {
         <Styled.PriceSection>
           <Styled.PriceLabel>총 결제 금액</Styled.PriceLabel>
           <Styled.PriceAmount>
-            {totalPrice.toLocaleString()}원
+            {finalPrice.toLocaleString()}원
           </Styled.PriceAmount>
         </Styled.PriceSection>
       </Styled.Wrapper>
