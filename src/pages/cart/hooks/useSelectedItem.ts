@@ -39,12 +39,17 @@ const useSelectedItem = <T extends { id: number }>(items: T[] | null) => {
     });
   }, []);
 
+  const getIsSelected = useCallback(
+    (id: number) => selectedItemIds.has(id),
+    [selectedItemIds]
+  );
+
   return {
-    selectedItemIds,
     isAllSelected,
     toggleAllSelection,
     addSelectedItem,
     removeSelectedItem,
+    getIsSelected,
   };
 };
 

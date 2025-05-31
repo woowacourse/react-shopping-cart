@@ -1,37 +1,26 @@
-import { getCartItems } from "@/apis/cartItems/getCartItems";
-import useFetchData from "@/shared/hooks/useFetchData";
 import useSelectedItem from "./useSelectedItem";
+import { CartItemType } from "@/apis/cartItems/cartItem.type";
 
-export const useOrderList = () => {
+export const useOrderList = (cartItems: CartItemType[] | null) => {
   const {
-    data: cartItems,
-    isLoading,
-    errorMessage,
-    refetch: refetchCartItems,
-  } = useFetchData({ fetchFn: getCartItems });
-  const {
-    selectedItemIds,
     isAllSelected,
     toggleAllSelection,
     addSelectedItem,
     removeSelectedItem,
+    getIsSelected,
   } = useSelectedItem(cartItems);
 
-  const orderList =
-    cartItems?.filter(({ id }) => selectedItemIds.has(id)) ?? [];
+  const orderList = cartItems?.filter(({ id }) => getIsSelected(id)) ?? [];
   const orderTotalPrice = orderList.reduce((sum, { product, quantity }) => {
     return sum + product.price * quantity;
   }, 0);
 
   return {
-    cartItems,
-    isLoading,
-    errorMessage,
-    refetchCartItems,
     isAllSelected,
     toggleAllSelection,
     addSelectedItem,
     removeSelectedItem,
+    getIsSelected,
     orderList,
     orderTotalPrice,
   };

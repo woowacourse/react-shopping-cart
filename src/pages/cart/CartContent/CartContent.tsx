@@ -5,20 +5,20 @@ import * as S from "./CartContent.styled";
 import { useOrderList } from "../hooks/useOrderList";
 import OrderConfirmButton from "./OrderConfirmButton/OrderConfirmButton";
 import AllCheckBox from "@shared/components/AllCheckBox/AllCheckBox";
+import useCartItem from "../hooks/useCartItem";
 
 export default function CartContent() {
+  const { cartItems, isLoading, errorMessage, refetchCartItems } =
+    useCartItem();
   const {
-    cartItems,
-    isLoading,
-    errorMessage,
-    refetchCartItems,
     orderList,
     orderTotalPrice,
     isAllSelected,
     toggleAllSelection,
     addSelectedItem,
     removeSelectedItem,
-  } = useOrderList();
+    getIsSelected,
+  } = useOrderList(cartItems);
 
   if (isLoading) {
     return <div>로딩중</div>;
@@ -42,7 +42,7 @@ export default function CartContent() {
       <S.ScrollContainer>
         <CartList
           cartItems={cartItems}
-          orderList={orderList}
+          getIsSelected={getIsSelected}
           refetchCartItems={refetchCartItems}
           addSelectedItem={addSelectedItem}
           removeSelectedItem={removeSelectedItem}
