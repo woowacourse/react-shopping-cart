@@ -12,9 +12,9 @@ function SelectBox({
   return (
     <S.Container aria-checked={isSelected} isSelected={isSelected} {...props}>
       {isSelected ? (
-        <img src="./assets/Check.svg" />
+        <img src="./assets/Check.svg" alt="선택됨" />
       ) : (
-        <img src="./assets/Uncheck.svg" />
+        <img src="./assets/Uncheck.svg" alt="선택되지 않음" />
       )}
     </S.Container>
   );
