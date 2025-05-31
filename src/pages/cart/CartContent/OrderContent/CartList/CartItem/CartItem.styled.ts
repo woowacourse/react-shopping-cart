@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export const Item = styled.li`
   width: 100%;
@@ -27,16 +27,6 @@ export const ItemContent = styled.div`
   justify-content: left;
   align-items: center;
   gap: 16px;
-`;
-
-export const ItemImage = styled.img`
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  flex-shrink: 0;
 `;
 
 export const ItemDetail = styled.div`
