@@ -14,7 +14,7 @@ const OrderPriceSummary = React.lazy(() => import('../../features/cart/ui/OrderP
 import CartListSkeleton from '../../features/cart/ui/CartListSkeleton';
 
 function App() {
-  const { addAllCartItemsInSelected, selectedCartItems } = useSelectedCartContext();
+  const { selectedCartItems } = useSelectedCartContext();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,11 +46,7 @@ function App() {
           <CartListSkeleton />
         ) : cartItems.length > 0 ? (
           <Suspense fallback={<CartListSkeleton />}>
-            <CartList
-              cartItems={cartItems}
-              setCartItems={setCartItems}
-              addAllCartItemsInSelected={addAllCartItemsInSelected}
-            />
+            <CartList cartItems={cartItems} setCartItems={setCartItems} />
             <OrderPriceSummary />
           </Suspense>
         ) : (
