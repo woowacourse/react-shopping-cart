@@ -1,8 +1,7 @@
 import { CartItem } from "../../../type/CartItem";
 import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
-import unChecked from "/unChecked.svg";
-import checked from "/checked.svg";
+import CheckBox from "../../common/CheckBox";
 
 interface CartCardProps {
   cartItem: CartItem;
@@ -30,12 +29,18 @@ function CartCard({
     <li>
       <Styled.Container>
         <Styled.ButtonWrapper>
-          <Styled.SelectButton onClick={() => handleSelectCartItem(id)}>
-            <Styled.SelectIcon src={isSelected ? checked : unChecked} />
-          </Styled.SelectButton>
+          <CheckBox
+            id={`select-checkbox-${name}-${id}`}
+            checked={isSelected}
+            onChange={() => handleSelectCartItem(id)}
+            label={name}
+            boxSize="small"
+            hidden={true}
+          />
           <Styled.DeleteButton
-            disabled={isDeleteItemLoading}
+            disabled={isDeleteItemLoading || isQuantityUpdateLoading}
             onClick={() => handleDeleteCartItem(id)}
+            data-testid={`delete-button-${id}`}
           >
             삭제
           </Styled.DeleteButton>

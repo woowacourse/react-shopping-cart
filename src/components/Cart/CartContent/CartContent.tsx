@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Styled from "./CartContent.style";
 import useShoppingCart from "../../../hooks/useShoppingCart";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
-import checked from "/checked.svg";
-import unChecked from "/unChecked.svg";
 import { useNavigate } from "react-router";
 import { PAGE_URL } from "../../../constants/PageUrl";
 import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation";
 
 import Spinner from "../Spinner/Spinner";
 import { useCalculateOrder } from "../../../hooks/useCalculateOrder";
+import CheckBox from "../../common/CheckBox";
 
 function CartContent() {
   const {
@@ -26,15 +25,17 @@ function CartContent() {
     new Set()
   );
 
+  const isInitialLoad = useRef(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!cartItemsData.length) return;
 
-    setSelectedCartIds((prev) => {
-      if (prev.size) return prev;
-      return new Set(cartItemsData.map((item) => item.id));
-    });
+    if (isInitialLoad.current) {
+      setSelectedCartIds(new Set(cartItemsData.map((item) => item.id)));
+      isInitialLoad.current = false;
+    }
   }, [cartItemsData]);
 
   const handleSelectCartItem = (id: string) => {
@@ -92,10 +93,13 @@ function CartContent() {
               현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
             </Styled.CartContentDescription>
             <Styled.AllSelectWrapper>
-              <Styled.SelectButton onClick={handleSelectAllCartItems}>
-                <Styled.SelectIcon src={isAllSelected ? checked : unChecked} />
-              </Styled.SelectButton>
-              <p>전체선택</p>
+              <CheckBox
+                id="select-all-checkbox"
+                checked={isAllSelected}
+                onChange={handleSelectAllCartItems}
+                label="전체선택"
+                boxSize="medium"
+              />
             </Styled.AllSelectWrapper>
             <CartList subtotalPrice={subtotalPrice}>
               {cartItemsData.length > 0 &&
@@ -119,7 +123,7 @@ function CartContent() {
           </Styled.EmptyCartMessage>
         )}
         <Styled.OrderConfirmButton
-          disabled={selectedCartItemsLength === 0 || subtotalPrice === 0}
+          disabled={selectedCartItemsLength === 0}
           onClick={handleOrderConfirm}
         >
           주문 확인

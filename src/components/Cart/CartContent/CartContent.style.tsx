@@ -78,7 +78,7 @@ export const EmptyCartMessage = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-size: 16px;
+  font-size: 1.2rem;
   font-weight: 500;
 `;
 
