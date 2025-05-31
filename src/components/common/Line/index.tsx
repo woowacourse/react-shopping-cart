@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 const Line = () => {
-  return <LineContainer />;
+  return <StyledLine />;
 };
 
 export default Line;
 
-const LineContainer = styled.div`
+const StyledLine = styled.div`
   border: 1px solid #0000001a;
 `;
