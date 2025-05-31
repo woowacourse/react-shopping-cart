@@ -1,5 +1,3 @@
-'use client';
-
 import styled from '@emotion/styled';
 import { deleteCartItem, patchCartItem } from '../../../../api/cart';
 import CheckBox from '../../../../components/common/CheckBox';
