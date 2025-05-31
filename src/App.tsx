@@ -1,9 +1,9 @@
 import { createHashRouter, RouterProvider } from "react-router";
 import * as S from "./App.styles";
-import { APIProvider } from "./context/APIContext";
+import { PATH } from "./constants/path";
+import { QueryProvider } from "./modules";
 import OrderCompletePage from "./pages/OrderCompletedPage/OrderCompletedPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
-import { PATH } from "./constants/path";
 
 const router = createHashRouter([
   {
@@ -18,11 +18,11 @@ const router = createHashRouter([
 
 function App() {
   return (
-    <APIProvider>
+    <QueryProvider>
       <S.AppWrapper>
         <RouterProvider router={router} />
       </S.AppWrapper>
-    </APIProvider>
+    </QueryProvider>
   );
 }
 

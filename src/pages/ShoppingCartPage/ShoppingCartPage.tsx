@@ -4,15 +4,15 @@ import { getCartItem } from "../../apis/cartItem";
 import Button from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import ShoppingCartSection from "../../components/ShoppingCartSection/ShoppingCartSection";
-import { useAPI } from "../../context/APIContext";
 import * as S from "./ShoppingCartPage.styles";
 import { useState } from "react";
 import { CartItemsResponse, Content } from "../../types/cartItems";
+import { useQuery } from "../../modules";
 
 export default function ShoppingCartPage() {
-  const { data, refetch } = useAPI<CartItemsResponse>({
-    fetcher: () => getCartItem({ page: 0, size: 50 }),
-    name: "cartItem",
+  const { data, refetch } = useQuery<CartItemsResponse>({
+    queryKey: "cartItem",
+    queryFn: () => getCartItem({ page: 0, size: 50 }),
   });
   const navigate = useNavigate();
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
