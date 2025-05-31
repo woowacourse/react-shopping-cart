@@ -7,6 +7,10 @@ function useCartSelection() {
   const isAllItemSelected = isSelectedList.every((isSelected) => isSelected);
   const isSomeItemSelected = isSelectedList.some((isSelected) => isSelected);
 
+  const resetIsSelectedList = useCallback((length: number) => {
+    setIsSelectedList(Array.from({ length }, () => true));
+  }, []);
+
   const getSelectedCartItems = useCallback(
     (cartItems: CartItemType[]) =>
       cartItems.filter((_, index) => isSelectedList[index]),
@@ -31,7 +35,7 @@ function useCartSelection() {
     isSelectedList,
     isAllItemSelected,
     isSomeItemSelected,
-    setIsSelectedList,
+    resetIsSelectedList,
     getSelectedCartItems,
     toggleSelect,
     toggleAllSelect,
