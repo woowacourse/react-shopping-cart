@@ -95,7 +95,7 @@ describe('장바구니 주요 통합 기능 (커스텀 체크박스)', () => {
     }
 
     await waitFor(() => {
-      const shippingLabel = screen.getByLabelText('shipping-fee');
+      const shippingLabel = screen.getByLabelText('배송비');
       expect(shippingLabel).toHaveTextContent('0원');
     });
   });
@@ -104,7 +104,7 @@ describe('장바구니 주요 통합 기능 (커스텀 체크박스)', () => {
     render(<App />);
 
     await waitFor(() => {
-      const shippingLabel = screen.getByLabelText('shipping-fee');
+      const shippingLabel = screen.getByLabelText('배송비');
       expect(shippingLabel).toHaveTextContent('3,000원');
     });
   });
@@ -161,10 +161,8 @@ describe('장바구니 주요 통합 기능 (커스텀 체크박스)', () => {
       expect(screen.getByText('주문 금액').nextSibling).toHaveTextContent(
         '0원'
       );
-      expect(screen.getByLabelText('shipping-fee')).toHaveTextContent('0원');
-      expect(screen.getByText('총 결제 금액').nextSibling).toHaveTextContent(
-        '0원'
-      );
+      expect(screen.getByLabelText('배송비')).toHaveTextContent('0원');
+      expect(screen.getByLabelText('총 결제 금액')).toHaveTextContent('0원');
     });
 
     const orderConfirmButton = screen.getByLabelText('주문 확인');
