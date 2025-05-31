@@ -3,6 +3,7 @@ import CartContents from '@/components/features/cart/cartContents/CartContents';
 import { createResource } from '@/components/features/cart/utils/createResource';
 import { Suspense, useState } from 'react';
 import Header from '../../components/common/header/Header';
+import LoadingContents from './components/loadingContents/LoadingContents';
 
 function CartPage() {
   const [resource, setResource] = useState(() =>
@@ -16,7 +17,7 @@ function CartPage() {
   return (
     <>
       <Header title="SHOP" />
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<LoadingContents />}>
         <CartContents resource={resource} refetch={refetch} />
       </Suspense>
     </>
