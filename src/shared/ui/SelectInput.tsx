@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
+import React from 'react';
 
-export default function SelectInput({ ...rest }) {
+type SelectInputProps = React.ComponentPropsWithoutRef<'input'>;
+
+export default function SelectInput({ ...rest }: SelectInputProps) {
   return <SelectInputBox {...rest} />;
 }
 
