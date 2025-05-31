@@ -46,7 +46,7 @@ const OrderConfirmPage = () => {
           </InfoTitle>
         </Flex>
       </Container>
-      <PayButton isDisabled={true} disabled>
+      <PayButton $isDisabled={true} disabled>
         결제하기
       </PayButton>
     </ErrorBoundary>
@@ -74,13 +74,13 @@ const Description = styled.p`
   font-size: 12px;
 `;
 
-const PayButton = styled.button<{ isDisabled: boolean }>`
+const PayButton = styled.button<{ $isDisabled: boolean }>`
   position: sticky;
   bottom: 0;
   width: 100%;
   padding: 16px;
-  background-color: ${({ isDisabled }) => (isDisabled ? '#BDBDBD' : '#333')};
+  background-color: ${({ $isDisabled }) => ($isDisabled ? '#BDBDBD' : '#333')};
   color: white;
-  cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ $isDisabled }) => ($isDisabled ? 'not-allowed' : 'pointer')};
   border-radius: 0px;
 `;
