@@ -7,7 +7,7 @@ interface BackArrowButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const BackArrowButton = ({ onClick, ...props }: BackArrowButtonProps) => {
   return (
     <button onClick={onClick} {...props}>
-      <img src={`${import.meta.env.BASE_URL}/assets/icons/BackArrow.svg`} />
+      <img src='../../../public/assets/icons/BackArrow.svg' />
     </button>
   );
 };

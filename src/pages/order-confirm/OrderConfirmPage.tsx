@@ -4,7 +4,7 @@ import BackArrowButton from '../../components/common/BackArrowButton';
 import { useNavigate } from 'react-router-dom';
 import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
-import { calculateShippingFee } from '@/utils/calculateShippingFee';
+import { calculateShippingFee } from '../../utils/calculateShippingFee';
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();

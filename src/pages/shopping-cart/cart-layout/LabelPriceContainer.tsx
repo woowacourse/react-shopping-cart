@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Flex from '../../../components/common/Flex';
 import LabelPrice from '../../../components/common/LabelPrice';
 import { useOrderListContext } from '../context/OrderListProvider';
-import { calculateShippingFee } from '@/utils/calculateShippingFee';
+import { calculateShippingFee } from '../../../utils/calculateShippingFee';
 
 const LabelPriceContainer = () => {
   const { cartListData, selectionMap } = useOrderListContext();
@@ -20,7 +20,7 @@ const LabelPriceContainer = () => {
     <Container>
       <InfoBox>
         <InfoIcon
-          src={`${import.meta.env.BASE_URL}/assets/icons/Info.svg`}
+          src='../../../../public/assets/icons/Info.svg'
           alt='info 아이콘'
         />
         <InfoMessage>
