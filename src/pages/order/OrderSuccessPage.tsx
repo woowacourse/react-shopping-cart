@@ -4,6 +4,7 @@ import Header from "@/shared/components/Header/Header";
 import { ROUTES } from "@/shared/config/routes";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import useValidateLocationState from "../../shared/hooks/useValidateLocationState";
+import Fallback from "@/shared/components/Fallback";
 
 export type OrderSuccessState = {
   orderList: CartItemType[];
@@ -36,7 +37,9 @@ export default function OrderSuccessPage() {
   });
 
   if (isValidating || !validatedState) {
-    return <div>로딩 중...</div>;
+    return (
+      <Fallback type="loading" message="주문 확인 페이지로 이동 중입니다.." />
+    );
   }
 
   const { orderList, paymentPrice } = validatedState;
