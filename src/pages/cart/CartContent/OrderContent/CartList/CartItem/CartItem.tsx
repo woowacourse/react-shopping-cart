@@ -1,9 +1,8 @@
 import * as S from "./CartItem.styled";
 import CheckBox from "@/shared/components/CheckBox/CheckBox";
-import DefaultItemIcon from "@assets/icons/default-item.svg";
 import CartItemQuantityButton from "./Button/Quantity/CartItemQuantityButton";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { SyntheticEvent } from "react";
+import ProductImage from "./ProductImage/ProductImage";
 
 type CartItemProps = {
   cartItem: CartItemType;
@@ -23,11 +22,6 @@ export default function CartItem({
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
 
-  const imageLoadError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-    const target = e.currentTarget;
-    target.src = DefaultItemIcon;
-  };
-
   return (
     <S.Item>
       <S.ItemHeader>
@@ -42,11 +36,7 @@ export default function CartItem({
       </S.ItemHeader>
 
       <S.ItemContent>
-        <S.ItemImage
-          src={imageUrl ?? DefaultItemIcon}
-          alt={`${name} 상품`}
-          onError={imageLoadError}
-        />
+        <ProductImage imageUrl={imageUrl} name={name} />
         <S.ItemDetail>
           <S.ItemDetailInfo>
             <S.ItemName>{name}</S.ItemName>
