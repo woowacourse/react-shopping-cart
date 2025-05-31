@@ -2,7 +2,7 @@ import EmptyCartContainer from "./EmptyCartContainer/EmptyCartContainer";
 import PriceContainer from "./PriceContainer/PriceContainer";
 import CartList from "./CartList/CartList";
 import * as S from "./CartContent.styled";
-import { useOrderList } from "../hooks/useCartItem";
+import { useOrderList } from "../hooks/useOrderList";
 import OrderConfirmButton from "./OrderConfirmButton/OrderConfirmButton";
 import AllCheckBox from "@shared/components/AllCheckBox/AllCheckBox";
 
