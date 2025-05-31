@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { Flex, Header } from "../../components/common";
-import BackArrowButton from "../../components/common/BackArrowButton";
-import { useNavigate } from "react-router-dom";
-import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
-import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
+import styled from '@emotion/styled';
+import { Flex, Header } from '../../components/common';
+import BackArrowButton from '../../components/common/BackArrowButton';
+import { useNavigate } from 'react-router-dom';
+import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
+import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const OrderConfirmPage = () => {
     <ErrorBoundary>
       <Header left={<BackArrowButton onClick={handleBackClick} />} />
       <Container>
-        <Flex justifyContent="center" alignItems="center" gap="lg">
+        <Flex justifyContent='center' alignItems='center' gap='lg'>
           <InfoTitle>주문 확인</InfoTitle>
           <div>
             <Description
@@ -79,8 +79,8 @@ const PayButton = styled.button<{ isDisabled: boolean }>`
   bottom: 0;
   width: 100%;
   padding: 16px;
-  background-color: ${({ isDisabled }) => (isDisabled ? "#BDBDBD" : "#333")};
+  background-color: ${({ isDisabled }) => (isDisabled ? '#BDBDBD' : '#333')};
   color: white;
-  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
+  cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   border-radius: 0px;
 `;
