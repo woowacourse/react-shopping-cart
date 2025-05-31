@@ -1,4 +1,4 @@
-import {PATH} from './path';
+import {ROUTE_PATHS} from './path';
 import {createBrowserRouter, RouterProvider} from 'react-router';
 import App from '../App';
 import NavBar from '../components/layout/NavBar';
@@ -10,11 +10,11 @@ const router = createBrowserRouter(
       element: <NavBar />,
       children: [
         {
-          path: PATH.MAIN,
+          path: ROUTE_PATHS.MAIN,
           element: <App />,
         },
         {
-          path: PATH.CONFIRM,
+          path: ROUTE_PATHS.CONFIRM,
           element: <Confirm />,
         },
       ],

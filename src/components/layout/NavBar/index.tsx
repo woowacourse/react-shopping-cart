@@ -3,7 +3,7 @@ import * as S from './NavBar.styles';
 import ErrorToast from '../../common/ErrorToast';
 import {useErrorToast} from '../../../provider/errorProvider.tsx';
 import {useLocation, useNavigate} from 'react-router';
-import {PATH} from '../../../route/path.ts';
+import {ROUTE_PATHS} from '../../../route/path.ts';
 
 const NavBar = () => {
   const error = useErrorToast();
@@ -13,12 +13,12 @@ const NavBar = () => {
   return (
     <>
       <S.Container>
-        {pathname === PATH.MAIN ? (
+        {pathname === ROUTE_PATHS.MAIN ? (
           <S.Logo>SHOP</S.Logo>
         ) : (
           <S.BackIcon
             src="./back-icon.svg"
-            onClick={() => navigate(PATH.MAIN)}
+            onClick={() => navigate(ROUTE_PATHS.MAIN)}
           />
         )}
       </S.Container>

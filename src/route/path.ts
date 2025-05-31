@@ -1,4 +1,4 @@
-export const PATH = {
-  MAIN: "/",
-  CONFIRM: "/confirm",
+export const ROUTE_PATHS = {
+  MAIN: '/',
+  CONFIRM: '/confirm',
 };
