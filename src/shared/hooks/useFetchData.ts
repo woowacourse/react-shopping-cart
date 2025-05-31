@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 type UseFetchDataParam<T> = {
   fetchFn: () => Promise<T>;
@@ -23,7 +23,7 @@ const useFetchData = <T>({ fetchFn }: UseFetchDataParam<T>) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [fetchFn]);
 
   useEffect(() => {
     fetchData();
