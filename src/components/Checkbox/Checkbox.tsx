@@ -8,8 +8,14 @@ interface CheckboxProps {
 
 export default function Checkbox({ checked, onClick }: CheckboxProps) {
   return (
-    <S.CheckboxWrapper checked={checked} onClick={onClick}>
-      <Uncheck />
+    <S.CheckboxWrapper checked={checked}>
+      <S.CheckboxInput
+        type="checkbox"
+        checked={checked}
+        onChange={onClick}
+        aria-checked={checked}
+      />
+      {checked ? <Uncheck /> : null}
     </S.CheckboxWrapper>
   );
 }
