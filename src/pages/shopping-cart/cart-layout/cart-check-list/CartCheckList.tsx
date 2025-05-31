@@ -64,7 +64,7 @@ function CartCheckList() {
   };
 
   if (!cartListData) {
-    return <LodingCartItem>장바구니를 불러오는 중...</LodingCartItem>;
+    return <LoadingCartItem>장바구니를 불러오는 중...</LoadingCartItem>;
   }
 
   const removeItem = async (id: string) => {
@@ -141,7 +141,7 @@ const Container = styled.div`
   max-width: 480px;
 `;
 
-const LodingCartItem = styled.div`
+const LoadingCartItem = styled.div`
   width: 100%;
   height: 380px;
   display: flex;
