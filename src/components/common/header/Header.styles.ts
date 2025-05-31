@@ -15,10 +15,3 @@ export const HeaderTitle = styled.h2`
   font-weight: 800;
   color: white;
 `;
-
-export const BackButton = styled.button`
-  width: 32px;
-  height: 32px;
-  background-color: transparent;
-  border: none;
-`;

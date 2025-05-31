@@ -5,6 +5,7 @@ import {
   calculateTotalProductQuantity,
 } from '../../components/features/cart/utils/cartCalculations';
 import OrderConfirmContents from './components/orderConfirmContents/OrderConfirmContents';
+import BackButton from '../../components/common/backButton/BackButton';
 
 function OrderConfirmPage() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function OrderConfirmPage() {
 
   return (
     <>
-      <Header showBackButton={true} onBackButtonClick={goBack} />
+      <Header leftArea={<BackButton onClick={goBack} />} />
       <OrderConfirmContents
         orderItemsQuantity={orderItemsQuantity}
         totalProductQuantity={totalProductQuantity}

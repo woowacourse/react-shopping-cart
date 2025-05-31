@@ -1,25 +1,14 @@
-import backButtonImage from '/assets/backButton.svg';
 import * as S from './Header.styles';
 
 interface HeaderProps {
   title?: string;
-  showBackButton?: boolean;
-  onBackButtonClick?: () => void;
+  leftArea?: React.ReactNode;
 }
 
-function Header({
-  title = '',
-  showBackButton = false,
-  onBackButtonClick,
-}: HeaderProps) {
+function Header({ title = '', leftArea }: HeaderProps) {
   return (
     <S.HeaderContainer>
-      {showBackButton && (
-        <S.BackButton onClick={onBackButtonClick}>
-          <img src={backButtonImage} />
-        </S.BackButton>
-      )}
-
+      {leftArea}
       <S.HeaderTitle>{title}</S.HeaderTitle>
     </S.HeaderContainer>
   );
