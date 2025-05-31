@@ -11,14 +11,16 @@ interface ShoppingCartSectionProps {
   shopppingCartItems: CartItemsResponse;
   refetch: () => void;
   selectedItemIds: number[];
-  setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
+  onSelectItem: (itemId: number) => void;
+  onSelectAll: () => void;
 }
 
 export default function ShoppingCartSection({
   shopppingCartItems,
   refetch,
   selectedItemIds,
-  setSelectedItemIds,
+  onSelectItem,
+  onSelectAll,
 }: ShoppingCartSectionProps) {
   const isAllSelected =
     shopppingCartItems?.content.length > 0 &&
@@ -38,25 +40,6 @@ export default function ShoppingCartSection({
   const shippingFee = orderPrice >= 100000 ? 0 : 3000;
   const totalPrice = orderPrice + shippingFee;
 
-  useEffect(() => {
-    if (!shopppingCartItems) return;
-    setSelectedItemIds(() => shopppingCartItems.content.map((item) => item.id));
-  }, [shopppingCartItems, setSelectedItemIds]);
-
-  const handleCheckboxClick = (itemId: number) => {
-    setSelectedItemIds((prev) =>
-      prev.includes(itemId)
-        ? prev.filter((id) => id !== itemId)
-        : [...prev, itemId]
-    );
-  };
-  const handleAllCheckBox = () => {
-    if (isAllSelected) {
-      setSelectedItemIds([]);
-    } else {
-      setSelectedItemIds(shopppingCartItems.content.map((item) => item.id));
-    }
-  };
 
   return (
     <S.ShoppingCartSection>
@@ -73,7 +56,7 @@ export default function ShoppingCartSection({
           <Spacing size={32} />
 
           <S.CheckboxWrapper>
-            <Checkbox checked={isAllSelected} onClick={handleAllCheckBox} />
+            <Checkbox checked={isAllSelected} onClick={onSelectAll} />
             <Spacing size={8} />
             <Text variant="body-3">전체 선택</Text>
           </S.CheckboxWrapper>
@@ -84,7 +67,7 @@ export default function ShoppingCartSection({
                 key={item.id}
                 cartItem={item}
                 isSelected={selectedItemIds.includes(item.id)}
-                handleCheckboxClick={() => handleCheckboxClick(item.id)}
+                handleCheckboxClick={() => onSelectItem(item.id)}
                 refetch={refetch}
               />
             ))}

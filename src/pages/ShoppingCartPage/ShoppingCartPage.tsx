@@ -17,6 +17,25 @@ export default function ShoppingCartPage() {
   const navigate = useNavigate();
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
 
+  // 개별 아이템 선택/해제
+  const handleSelectItem = (itemId: number) => {
+    setSelectedItemIds((prev) =>
+      prev.includes(itemId)
+        ? prev.filter((id) => id !== itemId)
+        : [...prev, itemId]
+    );
+  };
+
+  // 전체 선택/해제
+  const handleSelectAll = () => {
+    if (data?.content.length === selectedItemIds.length) {
+      setSelectedItemIds([]);
+    } else {
+      setSelectedItemIds(data?.content.map((item) => item.id) ?? []);
+    }
+  };
+
+
   const handleNavigateClick = () => {
     const getCurrentCartItem = (id: number) => {
       return data?.content.find((it) => it.id === id);
@@ -49,7 +68,8 @@ export default function ShoppingCartPage() {
         shopppingCartItems={data}
         refetch={refetch}
         selectedItemIds={selectedItemIds}
-        setSelectedItemIds={setSelectedItemIds}
+        onSelectItem={handleSelectItem}
+        onSelectAll={handleSelectAll}
       />
       <S.ButtonWrapper>
         <Button
