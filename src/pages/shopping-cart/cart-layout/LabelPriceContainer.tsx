@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import Flex from "../../../components/common/Flex";
-import LabelPrice from "../../../components/common/LabelPrice";
-import { useOrderListContext } from "../context/OrderListProvider";
+import styled from '@emotion/styled';
+import Flex from '../../../components/common/Flex';
+import LabelPrice from '../../../components/common/LabelPrice';
+import { useOrderListContext } from '../context/OrderListProvider';
 
 const LabelPriceContainer = () => {
   const { cartListData, selectionMap } = useOrderListContext();
@@ -18,20 +18,20 @@ const LabelPriceContainer = () => {
   return (
     <Container>
       <InfoBox>
-        <InfoIcon src="./assets/icons/Info.svg" alt="info 아이콘" />
+        <InfoIcon
+          src={`${import.meta.env.BASE_URL}/assets/icons/Info.svg`}
+          alt='info 아이콘'
+        />
         <InfoMessage>
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </InfoMessage>
       </InfoBox>
       <PriceWrapper>
-        <LabelPrice label="주문 금액" price={orderPrice} />
-        <LabelPrice
-          label="배송비"
-          price={shippingFee}
-        />
+        <LabelPrice label='주문 금액' price={orderPrice} />
+        <LabelPrice label='배송비' price={shippingFee} />
       </PriceWrapper>
 
-      <LabelPrice label="총 결제 금액" price={totalPrice} />
+      <LabelPrice label='총 결제 금액' price={totalPrice} />
     </Container>
   );
 };

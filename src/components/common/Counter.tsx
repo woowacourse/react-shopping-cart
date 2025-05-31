@@ -29,12 +29,18 @@ function Counter({
         aria-label={showTrash ? '삭제' : '수량 감소'}
         autoFocus={autoFocus}
       >
-        {showTrash ? <TrashIcon src="./assets/icons/Trash.svg" /> : '−'}
+        {showTrash ? (
+          <TrashIcon
+            src={`${import.meta.env.BASE_URL}/assets/icons/Trash.svg`}
+          />
+        ) : (
+          '−'
+        )}
       </QuantityButton>
-      <QuantityDisplay aria-label="수량">{count}</QuantityDisplay>
+      <QuantityDisplay aria-label='수량'>{count}</QuantityDisplay>
       <QuantityButton
         onClick={onPlusClick}
-        aria-label="수량 증가"
+        aria-label='수량 증가'
         disabled={isMaxCountReached}
       >
         +
