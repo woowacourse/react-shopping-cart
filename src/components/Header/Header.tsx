@@ -1,4 +1,4 @@
-import * as S from './Header.styles';
+import * as S from "./Header.styles";
 
 interface HeaderProps {
   title: string;

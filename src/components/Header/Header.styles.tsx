@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const headerLayout = styled.header`
   position: relative;
@@ -11,7 +11,7 @@ export const headerLayout = styled.header`
   height: 64px;
   background-color: black;
   color: #fff;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-size: 20px;
   font-weight: 800;
 `;

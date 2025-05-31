@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { patchCartItem, deleteCartItem } from '../apis/cartItem';
-import { Content } from '../types/cartItems';
+import { useEffect, useState } from "react";
+import { patchCartItem, deleteCartItem } from "../apis/cartItem";
+import { Content } from "../types/cartItems";
 
 interface UseCartQuantityProps {
   productId: number;
@@ -9,7 +9,11 @@ interface UseCartQuantityProps {
   onChange: () => void;
 }
 
-export default function useCartQuantity({ stock, selectedCartItem, onChange }: UseCartQuantityProps) {
+export default function useCartQuantity({
+  stock,
+  selectedCartItem,
+  onChange,
+}: UseCartQuantityProps) {
   const [quantity, setQuantity] = useState(selectedCartItem?.quantity ?? 0);
   const [showToast, setShowToast] = useState(false);
 

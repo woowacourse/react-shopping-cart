@@ -9,6 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --watch",
+    "format": "prettier --write .",
     "deploy": "vite build --base=/react-shopping-cart/ --minify=false && npx gh-pages -d dist"
   },
   "dependencies": {

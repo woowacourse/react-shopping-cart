@@ -20,7 +20,7 @@ export async function getCartItem({ page = 0, size = 50 }: GetCartItemParams) {
   });
 
   return fetch(`${CART_URL}?${params.toString()}`, options).then((res) =>
-    res.json()
+    res.json(),
   );
 }
 

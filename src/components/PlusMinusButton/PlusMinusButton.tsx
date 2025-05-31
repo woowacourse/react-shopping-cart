@@ -1,5 +1,5 @@
-import Button from '../Button/Button';
-import * as S from './PlusMinusButton.styles';
+import Button from "../Button/Button";
+import * as S from "./PlusMinusButton.styles";
 
 interface PlusMinusButtonProps {
   onAddButtonClick: () => void;
@@ -7,7 +7,11 @@ interface PlusMinusButtonProps {
   quantity: number;
 }
 
-export default function PlusMinusButton({ onAddButtonClick, onMinusButtonClick, quantity }: PlusMinusButtonProps) {
+export default function PlusMinusButton({
+  onAddButtonClick,
+  onMinusButtonClick,
+  quantity,
+}: PlusMinusButtonProps) {
   return (
     <S.ButtonWrapper>
       <Button css={S.controlButton} onClick={onMinusButtonClick}>

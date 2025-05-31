@@ -1,4 +1,11 @@
-import { createContext, useCallback, useContext, useEffect, useState, type PropsWithChildren } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type PropsWithChildren,
+} from "react";
 
 type APIState = {
   data: Record<string, unknown>;
@@ -24,14 +31,23 @@ export function APIProvider({ children }: PropsWithChildren) {
   const [error, setError] = useState({});
 
   return (
-    <APIContext.Provider value={{ data, loading, error, setData, setLoading, setError }}>
+    <APIContext.Provider
+      value={{ data, loading, error, setData, setLoading, setError }}
+    >
       {children}
     </APIContext.Provider>
   );
 }
 
-export function useAPI<T>({ name, fetcher }: { name: string; fetcher: () => Promise<T> }) {
-  const { data, loading, error, setData, setLoading, setError } = useContext(APIContext);
+export function useAPI<T>({
+  name,
+  fetcher,
+}: {
+  name: string;
+  fetcher: () => Promise<T>;
+}) {
+  const { data, loading, error, setData, setLoading, setError } =
+    useContext(APIContext);
 
   const request = useCallback(() => {
     setLoading((prev) => ({ ...prev, [name]: true }));

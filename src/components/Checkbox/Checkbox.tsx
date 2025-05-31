@@ -1,5 +1,5 @@
-import Uncheck from '../icons/Uncheck';
-import * as S from './Checkbox.styles';
+import Uncheck from "../icons/Uncheck";
+import * as S from "./Checkbox.styles";
 
 interface CheckboxProps {
   checked: boolean;

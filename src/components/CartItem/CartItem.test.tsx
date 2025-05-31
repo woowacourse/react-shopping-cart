@@ -28,7 +28,7 @@ describe("CartItem", () => {
         isSelected={false}
         handleCheckboxClick={() => {}}
         refetch={refetch}
-      />
+      />,
     );
 
     // 수량이 2로 표시되는지 확인
@@ -60,7 +60,7 @@ describe("CartItem", () => {
         isSelected={false}
         handleCheckboxClick={() => {}}
         refetch={refetch}
-      />
+      />,
     );
 
     const plusButton = screen
