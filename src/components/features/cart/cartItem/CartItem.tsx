@@ -1,9 +1,9 @@
 import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
-import IconButton from '../../../common/iconButton/IconButton';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
 import { deleteCartItem } from '../api/deleteCartItem';
 import { updateCartItem } from '../api/updateCartItem';
+import CartQuantityControlButton from '../cartQuantityControlButton/CartQuantityControlButton';
 import { CartItemType } from '../types';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
@@ -57,7 +57,7 @@ function CartItem({
           </S.CartProductInfo>
           <S.UpdateCartBox>
             {cartItem.quantity === 1 ? (
-              <IconButton
+              <CartQuantityControlButton
                 actionType="delete"
                 onClick={async () => {
                   await deleteCartItem(cartItem.id);
@@ -65,7 +65,7 @@ function CartItem({
                 }}
               />
             ) : (
-              <IconButton
+              <CartQuantityControlButton
                 actionType="minus"
                 onClick={async () => {
                   await updateCartItem(cartItem.id, cartItem.quantity - 1);
@@ -74,7 +74,7 @@ function CartItem({
               />
             )}
             <S.Text>{cartItem.quantity}</S.Text>
-            <IconButton
+            <CartQuantityControlButton
               actionType="plus"
               onClick={async () => {
                 await updateCartItem(cartItem.id, cartItem.quantity + 1);
