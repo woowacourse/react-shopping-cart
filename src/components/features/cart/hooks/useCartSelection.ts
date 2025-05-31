@@ -32,13 +32,19 @@ function useCartSelection() {
   }, [isAllItemSelected]);
 
   return {
-    isSelectedList,
-    isAllItemSelected,
-    isSomeItemSelected,
-    resetIsSelectedList,
-    getSelectedCartItems,
-    toggleSelect,
-    toggleAllSelect,
+    states: {
+      isSelectedList,
+      isAllItemSelected,
+      isSomeItemSelected,
+    },
+    actions: {
+      reset: resetIsSelectedList,
+      toggle: toggleSelect,
+      toggleAll: toggleAllSelect,
+    },
+    utils: {
+      getSelectedItems: getSelectedCartItems,
+    },
   };
 }
 export default useCartSelection;

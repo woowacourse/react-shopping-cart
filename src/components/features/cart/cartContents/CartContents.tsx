@@ -13,19 +13,10 @@ import CartEmptyContent from './CartEmptyContent';
 
 function CartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const {
-    isSelectedList,
-    isAllItemSelected,
-    isSomeItemSelected,
-    resetIsSelectedList,
-    getSelectedCartItems,
-    toggleSelect,
-    toggleAllSelect,
-  } = useCartSelection();
-
+  const cartSelection = useCartSelection();
   const navigate = useNavigate();
 
-  const selectCartItems = getSelectedCartItems(cartItems);
+  const selectCartItems = cartSelection.utils.getSelectedItems(cartItems);
   const orderPrice = calculateOrderPrice(selectCartItems);
 
   const fetch = useCallback(async () => {
@@ -33,11 +24,11 @@ function CartContents() {
 
     if (cartItems) {
       setCartItems(cartItems);
-      resetIsSelectedList(cartItems.length);
+      cartSelection.actions.reset(cartItems.length);
     }
-  }, [setCartItems, resetIsSelectedList]);
+  }, [cartSelection.actions]);
 
-  const disabled = !isSomeItemSelected;
+  const disabled = !cartSelection.states.isSomeItemSelected;
 
   const onOrderConfirm = () => {
     navigate('/order-confirmation', {
@@ -58,10 +49,10 @@ function CartContents() {
       <CartTitle cartItemsQuantity={cartItems.length} />
       <CartList
         cartItems={cartItems}
-        isSelectedList={isSelectedList}
-        isAllItemSelected={isAllItemSelected}
-        toggleSelect={toggleSelect}
-        toggleAllSelect={toggleAllSelect}
+        isSelectedList={cartSelection.states.isSelectedList}
+        isAllItemSelected={cartSelection.states.isAllItemSelected}
+        toggleSelect={cartSelection.actions.toggle}
+        toggleAllSelect={cartSelection.actions.toggleAll}
         refetch={fetch}
       />
       <CartPrice orderPrice={orderPrice} />
