@@ -11,7 +11,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest",
-    "deploy": "vite build --base=/react-shopping-cart/ --minify=false && npx gh-pages -d dist"
+    "deploy": "vite build --base=/react-shopping-cart/ --minify=false && npx gh-pages -d dist",
+    "deploy:mock": "vite build --mode mock --base=/react-shopping-cart/ --minify=false && npx gh-pages -d dist"
   },
   "homepage": "https://sooyeoniya.github.io/react-shopping-cart",
   "dependencies": {
