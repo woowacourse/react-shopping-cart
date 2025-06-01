@@ -1,0 +1,1 @@
+export { default as useCartQuantity } from './useCartQuantity';
