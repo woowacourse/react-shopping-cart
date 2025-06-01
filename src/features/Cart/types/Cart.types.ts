@@ -20,3 +20,7 @@ export type CartItem = {
   isChecked: boolean;
   product: Product;
 };
+
+export type CartItemList = {
+  cartItems: CartItem[];
+};
