@@ -3,7 +3,7 @@ import { apiRequest } from './apiRequest';
 
 const cart = {
   getCartList: async () => {
-    const response = await apiRequest({
+    const response = await apiRequest<{ content: CartItemProps[] }>({
       url: '/cart-items',
       method: 'GET',
     });
