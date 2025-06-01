@@ -7,6 +7,20 @@ import * as S from "./OrderCheckPage.styles";
 
 export default function OrderCheckPage() {
   const location = useLocation();
+
+  if (!location.state) {
+    return (
+      <S.Container>
+        <S.Title>잘못된 접근입니다.</S.Title>
+        <S.Description>
+          <p>
+            장바구니에서 상품을 선택한 후에만 주문 확인 페이지를 볼 수 있습니다.
+          </p>
+        </S.Description>
+      </S.Container>
+    );
+  }
+
   const { checkedProductsLength, cartItemCheckListTotalQuantity, totalPrice } =
     location.state;
 
