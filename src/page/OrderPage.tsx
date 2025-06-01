@@ -17,6 +17,7 @@ function OrderPage() {
       }
       return;
     }
+    // totalQuantity, countOfItemType, totalAmount가 모두 불변값이므로 useEffect의 의존성 배열에 포함하지 않음
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
