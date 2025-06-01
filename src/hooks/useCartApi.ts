@@ -8,19 +8,6 @@ export const useCartApi = () => {
   const [cartItems, setCartItems] = useState<CartItemContent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getInitializeCartItems = async () => {
-    setIsLoading(true);
-    try {
-      const data = await cartApi.get({ page: 0, size: 20 });
-      // const mappedCartItems = data.content.map((item) => ({ ...item, isChecked: true }));
-      setCartItems(data.content);
-    } catch (e) {
-      if (e instanceof Error) showError(e.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const getCartItems = async () => {
     setIsLoading(true);
     try {
@@ -54,7 +41,6 @@ export const useCartApi = () => {
   return {
     cartItems,
     isLoading,
-    getInitializeCartItems,
     getCartItems,
     patchCartItem,
     deleteCartItem,

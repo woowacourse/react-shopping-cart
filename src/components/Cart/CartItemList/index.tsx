@@ -1,18 +1,11 @@
 import * as S from "./CartItemList.styled";
-import { UseCartReturnType } from "../../../hooks/useCart";
 import Button from "../../common/Button";
 import CheckBox from "../../common/CheckBox";
 import QuantityRegulator from "../../QuantityRegulator";
 import CartItem from "../CartItem/index";
-import LoadingSpinner from "../../icons/LoadingSpinner";
+import { UseCartReturnType } from "../../../types/cartItem";
 
-const CartItemList = ({
-  isLoading,
-  cartItemListProps,
-}: {
-  isLoading: boolean;
-  cartItemListProps: UseCartReturnType["cartItemListProps"];
-}) => {
+const CartItemList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnType["cartItemListProps"] }) => {
   const { cartItems, handleCartItemChange, isAllChecked, handleCheckChange } = cartItemListProps;
 
   return (
@@ -20,7 +13,7 @@ const CartItemList = ({
       <CheckBox isChecked={isAllChecked} onClick={() => handleCheckChange({ action: "all" })}>
         전체선택
       </CheckBox>
-      {isLoading && <LoadingSpinner />}
+
       <S.List>
         {cartItems.map((item) => {
           const { id, isChecked, quantity, product } = item;

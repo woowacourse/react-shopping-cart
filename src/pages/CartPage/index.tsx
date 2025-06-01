@@ -5,6 +5,7 @@ import Text from "../../components/common/Text";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router";
 import OrderList from "../../components/Order/OrderList";
+import LoadingSpinner from "../../components/icons/LoadingSpinner";
 
 const CartPage = () => {
   const { isLoading, cartItemsInfo, cartItemListProps, orderResult } = useCart();
@@ -14,10 +15,11 @@ const CartPage = () => {
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>
+      {isLoading && <LoadingSpinner />}
       {cartItemsInfo.cartItemsCount > 0 ? (
         <S.Information>
           <Text variant="body-3">현재 {cartItemsInfo.cartItemsCount}종류의 상품이 담겨있습니다.</Text>
-          <CartItemList isLoading={isLoading} cartItemListProps={cartItemListProps} />
+          <CartItemList cartItemListProps={cartItemListProps} />
           <OrderList cartItemsInfo={cartItemsInfo} />
         </S.Information>
       ) : (

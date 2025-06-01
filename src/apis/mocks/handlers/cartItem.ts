@@ -1,12 +1,12 @@
 import { http, HttpResponse } from "msw";
 import MOCKING_CART_ITEMS_DATA from "../data/cartItems.json";
-import { Content, GetCartItemsResponse } from "../../../types/cartItem";
+import { CartItemContent, GetCartItemsResponse } from "../../../types/cartItem";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-const cartItems: GetCartItemsResponse = { ...MOCKING_CART_ITEMS_DATA }; // 초기 데이터 복사
+const cartItems: GetCartItemsResponse = { ...MOCKING_CART_ITEMS_DATA };
 
-const getCartItems = http.get(`${BASE_URL}/cart-items`, () => {
+const getCartItems = http.get(`${BASE_URL}/cart-items`, async () => {
   return HttpResponse.json(cartItems);
 });
 
@@ -28,7 +28,7 @@ const patchCartItems = http.patch(`${BASE_URL}/cart-items/:id`, async ({ params,
       acc.push(item);
     }
     return acc;
-  }, [] as Content[]);
+  }, [] as CartItemContent[]);
 
   return HttpResponse.json({ message: "Patch" }, { status: 200 });
 });

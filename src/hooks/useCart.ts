@@ -5,7 +5,7 @@ import { useCartApi } from "./useCartApi";
 import { useCartSelection } from "./useCartSelection";
 
 const useCart = (): UseCartReturnType => {
-  const { cartItems, isLoading, getInitializeCartItems, patchCartItem, deleteCartItem } = useCartApi();
+  const { cartItems, isLoading, getCartItems, patchCartItem, deleteCartItem } = useCartApi();
   const { cartItemsWithCheck, handleCheckChange, isAllChecked } = useCartSelection(cartItems);
   const { cartItemsCount, cartItemsCheckedCount, cartItemsTotalQuantity } = getCartStats(cartItemsWithCheck);
   const { orderPrice, deliveryPrice, totalPrice } = calculatePrices(cartItemsWithCheck);
@@ -16,7 +16,7 @@ const useCart = (): UseCartReturnType => {
   };
 
   useEffect(() => {
-    getInitializeCartItems();
+    getCartItems();
   }, []);
 
   return {
