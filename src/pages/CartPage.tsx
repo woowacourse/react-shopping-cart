@@ -8,6 +8,7 @@ import PriceSection from '../components/priceSection/PriceSection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import styled from '@emotion/styled';
+import { BASE_URL, URL_LOCATION } from '../constants/url';
 
 const CartPage = () => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
@@ -47,7 +48,7 @@ const CartPage = () => {
       <ConfirmButton
         title="주문 확인"
         onClick={() =>
-          navigate('/react-shopping-cart/confirm', {
+          navigate(BASE_URL + URL_LOCATION.CONFIRM, {
             state: {
               cartItems,
               checkedCartIds,

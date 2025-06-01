@@ -3,14 +3,15 @@ import CartItemsProvider from '../contexts/CartItemsProvider';
 import Header from '../components/Header';
 import CartPage from '../pages/CartPage';
 import OrderConfirmPage from '../pages/OrderConfirmPage';
+import { BASE_URL, URL_LOCATION } from '../constants/url';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/react-shopping-cart/" />,
+    element: <Navigate to={BASE_URL + URL_LOCATION.BASE} />,
   },
   {
-    path: '/react-shopping-cart/',
+    path: BASE_URL + URL_LOCATION.BASE,
     element: (
       <CartItemsProvider>
         <Header />
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/react-shopping-cart/confirm',
+    path: BASE_URL + URL_LOCATION.CONFIRM,
     element: (
       <>
         <Header />

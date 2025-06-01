@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { BASE_URL, URL_LOCATION } from '../constants/url';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -10,7 +11,11 @@ const Header = () => {
       <S.title>SHOP</S.title>
     ) : (
       <button>
-        <img src="./go-back.svg" alt="goBack" onClick={() => navigate('/react-shopping-cart/')} />
+        <img
+          src="./go-back.svg"
+          alt="goBack"
+          onClick={() => navigate(BASE_URL + URL_LOCATION.BASE)}
+        />
       </button>
     );
 
