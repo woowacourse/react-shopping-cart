@@ -2,13 +2,23 @@ import FooterButton from '../../../common/footerButton/FooterButton';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
 import CartTitle from '../cartTitle/CartTitle';
+import { useCartContext } from '../contexts/CartContext';
+import { useCartSelectionContext } from '../contexts/CartSelectionContext';
 import * as S from './CartContents.styles';
-import useCartContents from '../hooks/useCartContents';
+import { useNavigate } from 'react-router';
 
 function CartContents() {
-  const cart = useCartContents();
+  const { cartItems, fetch } = useCartContext();
+  const selection = useCartSelectionContext();
+  const navigate = useNavigate();
 
-  if (cart.cartItems.length === 0) {
+  const moveToOrderConfirm = () => {
+    navigate('/order-confirmation', {
+      state: { orderProducts: selection.selectCartItems },
+    });
+  };
+
+  if (cartItems.length === 0) {
     return (
       <S.Container>
         <CartTitle />
@@ -19,20 +29,17 @@ function CartContents() {
 
   return (
     <S.Container>
-      <CartTitle quantity={cart.cartItems.length} />
+      <CartTitle quantity={cartItems.length} />
       <CartList
-        cartItems={cart.cartItems}
-        selectedList={cart.selection.selectedList}
-        allSelected={cart.selection.allSelected}
-        toggle={cart.selection.toggle}
-        toggleAll={cart.selection.toggleAll}
-        refetch={cart.fetch}
+        cartItems={cartItems}
+        selectedList={selection.selectedList}
+        allSelected={selection.allSelected}
+        toggle={selection.toggle}
+        toggleAll={selection.toggleAll}
+        refetch={fetch}
       />
-      <CartPrice value={cart.selection.orderPrice} />
-      <FooterButton
-        disabled={cart.selection.disabled}
-        onClick={cart.moveToOrderConfirm}
-      >
+      <CartPrice value={selection.orderPrice} />
+      <FooterButton disabled={selection.disabled} onClick={moveToOrderConfirm}>
         주문 확인
       </FooterButton>
     </S.Container>
