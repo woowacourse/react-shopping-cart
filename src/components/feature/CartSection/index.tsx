@@ -1,12 +1,12 @@
 import * as S from "./CartSection.styles";
 import Header from "./Header";
 import PriceSection from "./PriceSection";
-import useGetCartItem from "../../../hooks/useGetCartItem";
 import { useSelectedCart } from "../../../hooks/useSelectedCart";
 import CartList from "./CartList";
+import useGetCartItems from "../../../hooks/useGetCartItems";
 
 const CartSection = () => {
-  const { cartItems, refetch } = useGetCartItem();
+  const { cartItems, refetch } = useGetCartItems();
   const { selectedCartIds, setSelectedCartIds } = useSelectedCart(cartItems);
 
   return (

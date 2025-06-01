@@ -3,7 +3,7 @@ import { CartProduct } from "../type/cart";
 import { getCartProduct } from "../api/cart/getCartProduct";
 import { useShowError } from "../provider/errorProvider";
 
-const useGetCartItem = () => {
+const useGetCartItems = () => {
   const [cartItems, setCartItems] = useState<CartProduct[]>();
   const showError = useShowError();
 
@@ -23,4 +23,4 @@ const useGetCartItem = () => {
   return { cartItems, refetch: getProducts };
 };
 
-export default useGetCartItem;
+export default useGetCartItems;
