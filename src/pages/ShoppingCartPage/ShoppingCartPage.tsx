@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import Header from "../../components/shoppingCart/Header/Header";
+import Header from "../../components/layout/Header/Header";
+import ShoppingCartHeader from "../../components/shoppingCart/ShoppingCartHeader/ShoppingCartHeader";
 import Receipt from "../../components/shoppingCart/receipt/Receipt";
 import Footer from "../../components/layout/Footer/Footer";
 import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
@@ -95,9 +96,10 @@ export default function ShoppingCartPage() {
 
   return (
     <>
+      <Header>SHOP</Header>
       <StyledShoppingCart>
         {errorMessage && <ErrorBox />}
-        <Header
+        <ShoppingCartHeader
           title="장바구니"
           description={
             cartItemListLength

@@ -1,5 +1,7 @@
 import { useLocation } from "react-router";
 
+import Header from "../../components/layout/Header/Header";
+import BackButton from "../../components/layout/Header/BackButton";
 import Footer from "../../components/layout/Footer/Footer";
 import * as S from "./OrderCheckPage.styles";
 
@@ -10,6 +12,9 @@ export default function OrderCheckPage() {
 
   return (
     <>
+      <Header>
+        <BackButton />
+      </Header>
       <S.Container>
         <S.Title>주문 확인</S.Title>
         <S.Description>
