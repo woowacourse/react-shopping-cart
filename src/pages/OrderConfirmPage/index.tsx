@@ -1,19 +1,32 @@
+import * as S from "./OrderConfirmPage.styled";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
 import Header from "../../components/Header";
 import PrevArrow from "../../components/icons/PrevArrow";
-import * as S from "./OrderConfirmPage.styled";
 import { useLocation, useNavigate } from "react-router";
 
 const OrderConfirmPage = () => {
-  const { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice } = useLocation().state;
+  const location = useLocation();
   const navigate = useNavigate();
-  const handleNavigate = () => navigate(-1);
+
+  if (!location.state)
+    return (
+      <S.Container>
+        <S.Information>
+          <Text variant="title-1">잘못된 접근입니다.</Text>
+          <Button variant="secondary" size="full" onClick={() => navigate("/")}>
+            돌아가기
+          </Button>
+        </S.Information>
+      </S.Container>
+    );
+
+  const { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice } = location.state;
 
   return (
     <>
       <Header>
-        <PrevArrow onClick={handleNavigate} style={{ cursor: "pointer" }} />
+        <PrevArrow onClick={() => navigate(-1)} style={{ cursor: "pointer" }} />
       </Header>
       <S.Container>
         <S.Information>
