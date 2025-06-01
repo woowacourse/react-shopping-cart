@@ -8,7 +8,7 @@ interface TextButtonProps {
 
 const TextButton = ({ text, onClick }: TextButtonProps) => {
   return (
-    <button onClick={onClick} className={TextButtonStyle}>
+    <button type="button" onClick={onClick} className={TextButtonStyle}>
       <Text text={text}></Text>
     </button>
   );
