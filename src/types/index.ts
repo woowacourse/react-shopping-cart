@@ -1,2 +1,2 @@
 export * from "./strict";
-export * from "./cartItems";
+export * from "./response";

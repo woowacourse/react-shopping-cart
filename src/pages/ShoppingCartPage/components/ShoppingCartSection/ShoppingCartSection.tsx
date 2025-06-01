@@ -1,9 +1,9 @@
-import { CartItemsResponse } from "@/types/cartItems";
+import { GetCartItemsResponse } from "@/types";
 import { CartItem, Checkbox, Info, Spacing, Text } from "@/components";
 import * as S from "./ShoppingCartSection.styles";
 
 interface ShoppingCartSectionProps {
-  shopppingCartItems: CartItemsResponse;
+  shopppingCartItems: GetCartItemsResponse;
   refetch: () => void;
   selectedItemIds: number[];
   onSelectItem: (itemId: number) => void;

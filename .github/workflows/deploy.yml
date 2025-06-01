@@ -25,7 +25,7 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "VITE_TOKEN=${{ secrets.VITE_TOKEN }}" >> .env
-          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
       - name: Use Cache
         uses: actions/cache@v3
         id: cache

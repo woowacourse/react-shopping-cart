@@ -1,21 +1,15 @@
-export interface CartItemsResponse {
-  content: Content[];
+export interface GetProductResponse {
+  content: Product[];
   pageable: Pageable;
-  last: boolean;
   totalElements: number;
   totalPages: number;
+  last: boolean;
   size: number;
   number: number;
   sort: Sort;
-  first: boolean;
   numberOfElements: number;
+  first: boolean;
   empty: boolean;
-}
-
-export interface Content {
-  id: number;
-  quantity: number;
-  product: Product;
 }
 
 export interface Product {
@@ -24,9 +18,10 @@ export interface Product {
   price: number;
   imageUrl: string;
   category: string;
+  stock: number;
 }
 
-export interface Pageable {
+interface Pageable {
   pageNumber: number;
   pageSize: number;
   sort: Sort;
@@ -35,7 +30,7 @@ export interface Pageable {
   unpaged: boolean;
 }
 
-export interface Sort {
+interface Sort {
   empty: boolean;
   sorted: boolean;
   unsorted: boolean;
