@@ -3,28 +3,32 @@ import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
 import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
-import { useEffect } from "react";
 
 const OrderConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (
-      !location.state ||
-      !location.state.selectedItemCount ||
-      !location.state.totalPrice
-    ) {
-      navigate("/", { replace: true });
-    }
-  }, [location.state, navigate]);
-
-  if (
+  const isInvalidAccess =
     !location.state ||
     !location.state.selectedItemCount ||
-    !location.state.totalPrice
-  ) {
-    return null;
+    !location.state.totalPrice;
+
+  if (isInvalidAccess) {
+    return (
+      <div className={OrderConfirmPageStyles}>
+        <Header
+          leading="./back-icon.svg"
+          onLeadingClick={() => {
+            navigate("/");
+          }}
+        />
+        <section className={ContentStyle}>
+          <Text text="잘못된 접근입니다" type="large" />
+          <Text text="장바구니에서 다시 주문해 주세요." />
+        </section>
+        <ConfirmButton text="장바구니로 이동" onClick={() => navigate("/")} />
+      </div>
+    );
   }
 
   const { selectedItemCount, totalPrice } = location.state;
