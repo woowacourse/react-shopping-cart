@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
+import { PatchCartItemProps } from '../types/cartApi';
 
 function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
@@ -27,15 +28,16 @@ function useCartList() {
     }
   };
 
-  const increaseCartItem = async (cartItem: CartItemProps) => {
+  const increaseCartItem = async ({
+    cartItemId,
+    quantity,
+  }: PatchCartItemProps) => {
     try {
-      await cart.increaseCartItem(cartItem);
+      await cart.increaseCartItem({ cartItemId, quantity });
 
       setCartList((prev) => {
         return prev.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+          item.id === cartItemId ? { ...item, quantity: quantity } : item
         );
       });
     } catch (error) {
@@ -47,18 +49,19 @@ function useCartList() {
     }
   };
 
-  const decreaseCartItem = async (cartItem: CartItemProps) => {
+  const decreaseCartItem = async ({
+    cartItemId,
+    quantity,
+  }: PatchCartItemProps) => {
     try {
-      if (cartItem.quantity === 1) {
-        await deleteCartItem(cartItem.id);
+      if (quantity === 0) {
+        await deleteCartItem(cartItemId);
       } else {
-        await cart.decreaseCartItem(cartItem);
+        await cart.decreaseCartItem({ cartItemId, quantity });
 
         setCartList((prev) => {
           return prev.map((item) =>
-            item.id === cartItem.id
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
+            item.id === cartItemId ? { ...item, quantity: quantity } : item
           );
         });
       }

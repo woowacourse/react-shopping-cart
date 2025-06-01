@@ -1,5 +1,6 @@
 import { CartItemProps } from '../types/cartItem';
 import { apiRequest } from './apiRequest';
+import { PatchCartItemProps } from '../types/cartApi';
 
 const cart = {
   getCartList: async () => {
@@ -11,24 +12,24 @@ const cart = {
     return response.content;
   },
 
-  increaseCartItem: async (cartItem: CartItemProps) => {
+  increaseCartItem: async ({ cartItemId, quantity }: PatchCartItemProps) => {
     await apiRequest({
-      url: `/cart-items/${cartItem.id}`,
+      url: `/cart-items/${cartItemId}`,
       method: 'PATCH',
       body: JSON.stringify({
-        id: cartItem.id,
-        quantity: cartItem.quantity + 1,
+        id: cartItemId,
+        quantity: quantity,
       }),
     });
   },
 
-  decreaseCartItem: async (cartItem: CartItemProps) => {
+  decreaseCartItem: async ({ cartItemId, quantity }: PatchCartItemProps) => {
     await apiRequest({
-      url: `/cart-items/${cartItem.id}`,
+      url: `/cart-items/${cartItemId}`,
       method: 'PATCH',
       body: JSON.stringify({
-        id: cartItem.id,
-        quantity: cartItem.quantity - 1,
+        id: cartItemId,
+        quantity: quantity,
       }),
     });
   },

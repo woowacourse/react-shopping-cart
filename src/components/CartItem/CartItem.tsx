@@ -1,4 +1,5 @@
 import { Default, Minus, Plus } from '../../assets';
+import { PatchCartItemProps } from '../../types/cartApi';
 import { CartItemProps } from '../../types/cartItem';
 import Text from '../common/Text/Text';
 import {
@@ -24,8 +25,14 @@ function CartItem({
   cartItem: CartItemProps;
   isSelected: boolean;
   handleSelectItem: (cartItemId: number) => void;
-  increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  increaseCartItem: ({
+    cartItemId,
+    quantity,
+  }: PatchCartItemProps) => Promise<void>;
+  decreaseCartItem: ({
+    cartItemId,
+    quantity,
+  }: PatchCartItemProps) => Promise<void>;
   deleteCartItem: (cartItemId: number) => Promise<void>;
 }) {
   return (
@@ -59,14 +66,24 @@ function CartItem({
           <div css={ControllerBox}>
             <button
               css={ControllerButton}
-              onClick={() => decreaseCartItem(cartItem)}
+              onClick={() =>
+                decreaseCartItem({
+                  cartItemId: cartItem.id,
+                  quantity: cartItem.quantity - 1,
+                })
+              }
             >
               <img src={Minus} alt="minus" />
             </button>
             <Text varient="caption">{cartItem.quantity}</Text>
             <button
               css={ControllerButton}
-              onClick={() => increaseCartItem(cartItem)}
+              onClick={() =>
+                increaseCartItem({
+                  cartItemId: cartItem.id,
+                  quantity: cartItem.quantity + 1,
+                })
+              }
             >
               <img src={Plus} alt="plus" />
             </button>
