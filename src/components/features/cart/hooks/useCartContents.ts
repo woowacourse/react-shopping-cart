@@ -10,15 +10,15 @@ function useCartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const navigate = useNavigate();
   const {
-    isSelectedList,
-    isAllSelected,
-    setIsSelectedList,
-    getSelectedCartItems,
-    toggleSelect,
-    toggleAllSelect,
+    selectedList,
+    allSelected,
+    setSelectedList,
+    getItems,
+    toggle,
+    toggleAll,
   } = useCartSelection();
 
-  const selectCartItems = getSelectedCartItems(cartItems);
+  const selectCartItems = getItems(cartItems);
   const orderPrice = calculateOrderPrice(selectCartItems);
 
   const fetch = useCallback(async () => {
@@ -29,17 +29,15 @@ function useCartContents() {
 
     if (data) {
       setCartItems(data.content);
-      setIsSelectedList(
-        Array.from({ length: data.content.length }, () => true)
-      );
+      setSelectedList(Array.from({ length: data.content.length }, () => true));
     }
-  }, [setIsSelectedList]);
+  }, [setSelectedList]);
 
   useEffect(() => {
     fetch();
   }, [fetch]);
 
-  const disabled = !isSelectedList.some((isSelected) => isSelected);
+  const disabled = !selectedList.some((isSelected) => isSelected);
 
   const moveToOrderConfirm = () => {
     navigate('/order-confirmation', {
@@ -49,10 +47,11 @@ function useCartContents() {
 
   return {
     cartItems,
-    isSelectedList,
-    isAllSelected,
-    toggleSelect,
-    toggleAllSelect,
+    selectedList,
+    allSelected,
+
+    toggle,
+    toggleAll,
     fetch,
     orderPrice,
     disabled,
