@@ -7,7 +7,7 @@ import CartList from "./CartList";
 
 const CartSection = () => {
   const { cartItems, refetch } = useGetCartItem();
-  const { selectedCartId, setSelectedCartId } = useSelectedCart(cartItems);
+  const { selectedCartIds, setSelectedCartIds } = useSelectedCart(cartItems);
 
   return (
     <S.Container>
@@ -25,14 +25,14 @@ const CartSection = () => {
 
             <CartList
               cartItems={cartItems}
-              selectedCartId={selectedCartId}
-              setSelectedCartId={setSelectedCartId}
+              selectedCartIds={selectedCartIds}
+              setSelectedCartIds={setSelectedCartIds}
               refetch={refetch}
             />
 
             <PriceSection
               cartItems={cartItems}
-              selectedCartId={selectedCartId}
+              selectedCartIds={selectedCartIds}
             />
           </>
         )}

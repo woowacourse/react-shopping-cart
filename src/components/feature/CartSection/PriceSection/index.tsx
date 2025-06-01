@@ -8,13 +8,13 @@ import { useNavigate } from "react-router";
 
 type Props = {
   cartItems: CartProduct[] | undefined;
-  selectedCartId: number[];
+  selectedCartIds: number[];
 };
 
-const PriceSection = ({ cartItems, selectedCartId }: Props) => {
+const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
   const navigate = useNavigate();
   const selectedItem = cartItems?.filter(
-    (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
+    (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
   );
 
   const getOrderPrice = () => {
@@ -62,11 +62,11 @@ const PriceSection = ({ cartItems, selectedCartId }: Props) => {
       <Button
         testId="order-confirm-button"
         title="주문 확인"
-        disabled={selectedCartId.length === 0}
+        disabled={selectedCartIds.length === 0}
         onClick={() =>
           navigate("/confirm", {
             state: {
-              sort: selectedCartId.length,
+              sort: selectedCartIds.length,
               totalAmount: totalAmount,
               totalPrice: totalPrice,
             },
