@@ -64,7 +64,7 @@ function CartContents() {
 
   return (
     <S.Container>
-      <CartTitle cartItemsQuantity={cartItems.length} />
+      <CartTitle quantity={cartItems.length} />
       <CartList
         cartItems={cartItems}
         isSelectedList={isSelectedList}
