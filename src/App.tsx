@@ -6,11 +6,11 @@ import { OrderCompletedPage, ShoppingCartPage } from "./pages";
 
 const router = createHashRouter([
   {
-    path: PATH.CART,
+    path: PATH.cart,
     element: <ShoppingCartPage />,
   },
   {
-    path: PATH.ORDER_COMPLETE,
+    path: PATH.orderCompleted,
     element: <OrderCompletedPage />,
   },
 ]);

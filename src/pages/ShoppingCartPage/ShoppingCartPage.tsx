@@ -42,7 +42,7 @@ export default function ShoppingCartPage() {
   }, 0);
 
   const handleOrderCompleteClick = () => {
-    navigate(PATH.ORDER_COMPLETE, {
+    navigate(PATH.orderCompleted, {
       state: {
         kind: selectedItemIds.length,
         quantity: totalQuantity,
