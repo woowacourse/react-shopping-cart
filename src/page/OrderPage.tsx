@@ -10,12 +10,15 @@ function OrderPage() {
   const { totalQuantity, countOfItemType, totalAmount } = location.state ?? {};
 
   useEffect(() => {
-    if (!totalQuantity && !countOfItemType && !totalAmount) {
-      alert('비정상적인 접근입니다. 장바구니로 이동합니다.');
-      navigate('/');
+    if (!totalQuantity || !countOfItemType || !totalAmount) {
+      const isConfirmed = confirm('비정상적인 접근입니다. 장바구니로 이동하시겠습니까?');
+      if (isConfirmed) {
+        navigate('/');
+      }
       return;
     }
-  }, [totalQuantity, countOfItemType, totalAmount, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
   return (
     <>
