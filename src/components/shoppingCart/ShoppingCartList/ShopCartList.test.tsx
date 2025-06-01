@@ -1,3 +1,6 @@
+import "@testing-library/jest-dom";
+import React from "react";
+
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, it, expect, vi } from "vitest";
@@ -6,6 +9,17 @@ import { CartItemListProvider } from "../../../contexts/CartItemListContext";
 import { ErrorProvider } from "../../../contexts/ErrorContext";
 
 import TestProvider from "../../../utils/TestProvider";
+
+import ShoppingCartList from "./ShoppingCartList";
+
+import CartItem from "../../../types/CartItem";
+
+interface CartItemCheck {
+  id: number;
+  quantity: number;
+  price: number;
+  isClicked: boolean;
+}
 
 function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -17,9 +31,7 @@ function Provider({ children }: { children: React.ReactNode }) {
   );
 }
 
-import ShoppingCartList from "./ShoppingCartList";
-
-const cartItemList = [
+const cartItemList: CartItem[] = [
   {
     id: 9704,
     quantity: 3,
@@ -29,7 +41,7 @@ const cartItemList = [
       price: 1000000,
       imageUrl:
         "https://i.namu.wiki/i/uwHGKFJAZTgXlnja_ul4Z-myJ1KUyA32HL9mOw69w9c3-KRKwb6S0Sk5EtuE_cRWoES5QIUORWgXHH6oJleBMA.webp",
-      category: "나만몰랐나",
+      category: "패션잡화",
       quantity: 10,
     },
   },
@@ -42,7 +54,7 @@ const cartItemList = [
       price: 10,
       imageUrl:
         "https://resources.chimhaha.net/article/1731064511423-9dwgapocg1d.png",
-      category: "나는알았는데",
+      category: "패션잡화",
       quantity: 2,
     },
   },
@@ -54,7 +66,7 @@ const cartItemList = [
       name: "11",
       price: 11,
       imageUrl: "11",
-      category: "11",
+      category: "식료품",
       quantity: 4,
     },
   },
@@ -66,7 +78,7 @@ const cartItemList = [
       name: "12",
       price: 12,
       imageUrl: "12",
-      category: "12",
+      category: "패션잡화",
       quantity: 5,
     },
   },
@@ -79,13 +91,13 @@ const cartItemList = [
       price: 1,
       imageUrl:
         "https://image.istarbucks.co.kr/upload/store/skuimg/2025/04/[9200000003276]_20250410084448397.jpg",
-      category: "음식",
+      category: "식료품",
       quantity: 0,
     },
   },
 ];
 
-const cartItemCheckList = [
+const cartItemCheckList: CartItemCheck[] = [
   {
     id: 9704,
     quantity: 3,
