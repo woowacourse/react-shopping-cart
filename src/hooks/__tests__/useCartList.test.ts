@@ -57,15 +57,25 @@ describe('useCartList 훅 테스트', () => {
   });
 
   it('원하는 상품을 제거할 수 있다.', async () => {
-    const targetItem = mockCart.find((item) => item.id === targetId);
-
     const { result } = renderHook(() => useCartList());
+
+    await act(async () => null);
+
+    const targetItem = result.current.cartList.find(
+      (item) => item.id === targetId
+    );
+
+    expect(targetItem).toBeDefined();
 
     await act(async () => {
       await result.current.handleDeleteCartItem(targetId);
     });
 
-    expect(result.current.cartList).not.toContain(targetItem);
+    const deletedItem = result.current.cartList.find(
+      (item) => item.id === targetId
+    );
+
+    expect(deletedItem).toBeUndefined();
     expect(result.current.isError).toBe('');
     expect(result.current.isLoading).toBe(false);
   });
