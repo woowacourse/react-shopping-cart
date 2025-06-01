@@ -30,7 +30,14 @@ function useCartList() {
   const increaseCartItem = async (cartItem: CartItemProps) => {
     try {
       await cart.increaseCartItem(cartItem);
-      await loadCartList();
+
+      setCartList((prev) => {
+        return prev.map((item) =>
+          item.id === cartItem.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      });
     } catch (error) {
       if (error instanceof Error) {
         setIsError(error.message);
@@ -43,7 +50,14 @@ function useCartList() {
   const decreaseCartItem = async (cartItem: CartItemProps) => {
     try {
       await cart.decreaseCartItem(cartItem);
-      await loadCartList();
+
+      setCartList((prev) => {
+        return prev.map((item) =>
+          item.id === cartItem.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      });
     } catch (error) {
       if (error instanceof Error) {
         setIsError(error.message);
@@ -56,7 +70,10 @@ function useCartList() {
   const deleteCartItem = async (cartItemId: number) => {
     try {
       await cart.deleteCartItem(cartItemId);
-      await loadCartList();
+
+      setCartList((prev) => {
+        return prev.filter((item) => item.id !== cartItemId);
+      });
     } catch (error) {
       if (error instanceof Error) {
         setIsError(error.message);
