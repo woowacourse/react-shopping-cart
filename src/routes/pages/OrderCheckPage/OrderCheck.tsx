@@ -21,6 +21,8 @@ function OrderCheck() {
     (acc, curr) => acc + curr.quantity,
     0
   );
+  const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
+  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
 
   return (
     <>
@@ -39,7 +41,9 @@ function OrderCheck() {
           </div>
           <div css={orderPriceContainerStyle}>
             <Text varient="body">총 결제 금액</Text>
-            <Text varient="title">{totalPrice.toLocaleString()}원</Text>
+            <Text varient="title">
+              {totalPriceWithDeliveryFee.toLocaleString()}원
+            </Text>
           </div>
         </div>
       </ContainerLayout>
