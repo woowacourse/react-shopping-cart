@@ -12,7 +12,7 @@ interface QuantityRegulatorProps {
 const QuantityRegulator = ({ quantity, handleIncrease, handleDecrease }: QuantityRegulatorProps) => {
   return (
     <S.Container>
-      <S.Button onClick={handleDecrease}>
+      <S.Button onClick={handleDecrease} disabled={quantity < 2}>
         <MinusSign />
       </S.Button>
       <Text variant="body-3">{quantity}</Text>
