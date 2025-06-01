@@ -1,0 +1,125 @@
+import { http, HttpResponse } from "msw";
+import { cartItems, products } from "./data";
+import { CartItem } from "../type/CartItem";
+
+export const testStateStore = {
+  shouldFailCart: false,
+  customCartError: null as string | null,
+  mockCartData: cartItems,
+  setCartItems(items: CartItem[]) {
+    if (
+      !Array.isArray(items) ||
+      !items.every(
+        (item) =>
+          item &&
+          typeof item.id === "string" &&
+          typeof item.quantity === "number" &&
+          item.product
+      )
+    ) {
+      throw new Error("올바른 형식의 카트 아이템 배열이 아닙니다.");
+    }
+    this.mockCartData = items;
+  },
+  reset() {
+    this.shouldFailCart = false;
+    this.customCartError = null;
+    this.mockCartData = cartItems;
+  },
+};
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const CART_URL = `${BASE_URL}/cart-items`;
+const getCartItems = http.get(CART_URL, () => {
+  const response = {
+    content: testStateStore.mockCartData,
+  };
+  if (testStateStore.shouldFailCart) {
+    return new HttpResponse(null, {
+      status: 500,
+      statusText: "Cart Item fetch Failed",
+    });
+  }
+
+  return HttpResponse.json(response);
+});
+
+const deleteCartItems = http.delete(`${CART_URL}/:id`, ({ params }) => {
+  const { id } = params;
+  const index = testStateStore.mockCartData.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return new HttpResponse(null, {
+      status: 404,
+      statusText: "Cart Item Not Found",
+    });
+  }
+
+  testStateStore.mockCartData.splice(index, 1);
+
+  return new HttpResponse(null, { status: 204 });
+});
+
+const patchCartItems = http.patch(
+  `${CART_URL}/:id`,
+  async ({ params, request }) => {
+    const { id } = params;
+    const index = testStateStore.mockCartData.findIndex(
+      (item) => item.id === id
+    );
+
+    if (index === -1) {
+      return new HttpResponse({
+        status: 404,
+        statusText: "Cart Item Not Found",
+      });
+    }
+
+    const targetCartItem = testStateStore.mockCartData[index];
+    const targetProductIndex = products.findIndex(
+      (product) => product.id === targetCartItem.product.id
+    );
+
+    if (targetProductIndex === -1) {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: "Product not found",
+      });
+    }
+
+    const updatedData = await request.json();
+    if (
+      !updatedData ||
+      typeof updatedData !== "object" ||
+      !("quantity" in updatedData)
+    ) {
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Invalid Data",
+      });
+    }
+    const { quantity } = updatedData;
+    const parsedQuantity = Number(quantity);
+    if (!Number.isInteger(parsedQuantity) || parsedQuantity < 0) {
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Invalid Quantity",
+      });
+    }
+
+    if (parsedQuantity > targetCartItem.product.quantity) {
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Insufficient Stock",
+      });
+    }
+
+    targetCartItem.quantity = parsedQuantity;
+    if (parsedQuantity === 0) {
+      testStateStore.mockCartData.splice(index, 1);
+    }
+
+    return new HttpResponse(null, { status: 200 });
+  }
+);
+
+export const handlers = [getCartItems, deleteCartItems, patchCartItems];
