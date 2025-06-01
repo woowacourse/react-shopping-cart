@@ -1,13 +1,12 @@
 import { describe, it, vi, beforeEach, Mock } from "vitest";
 import { screen, render, waitFor } from "@testing-library/react";
-import App from "../src/App";
 import * as cartAPI from "../src/api/cart/getCartProduct";
 import { createMemoryRouter, MemoryRouter, RouterProvider } from "react-router";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import Confirm from "../src/pages/Confirm";
 import NavBar from "../src/components/layout/NavBar";
-import { PATH } from "../src/route/path";
+import Main from "../src/pages/Main";
 import { formatPrice } from "../src/utils/formatPrice";
 import { CartProduct } from "../src/type/cart";
 
@@ -53,7 +52,7 @@ describe("장바구니 페이지 로딩 테스트", () => {
   it("장바구니 데이터를 불러오면 장바구니 리스트를 보여준다.", async () => {
     render(
       <MemoryRouter>
-        <App />
+        <Main />
       </MemoryRouter>
     );
     await waitFor(() => {
@@ -65,7 +64,7 @@ describe("장바구니 페이지 로딩 테스트", () => {
   it("진입 시, 전체 선택이 되어 있다.", async () => {
     render(
       <MemoryRouter>
-        <App />
+        <Main />
       </MemoryRouter>
     );
 
@@ -82,7 +81,7 @@ describe("장바구니가 비었을 때 페이지 전환 테스트", () => {
 
     render(
       <MemoryRouter>
-        <App />
+        <Main />
       </MemoryRouter>
     );
     await waitFor(() => {
@@ -118,16 +117,11 @@ describe("주문확인 페이지 로딩 테스트", () => {
 
     const routes = [
       {
+        path: "/",
         element: <NavBar />,
         children: [
-          {
-            path: PATH.MAIN,
-            element: <App />,
-          },
-          {
-            path: PATH.CONFIRM,
-            element: <Confirm />,
-          },
+          { path: "", element: <Main /> },
+          { path: "confirm", element: <Confirm /> },
         ],
       },
     ];

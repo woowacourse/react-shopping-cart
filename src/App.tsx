@@ -1,12 +1,17 @@
-import "./App.css";
-import CartSection from "./components/feature/CartSection";
-import useGetCartItems from "./hooks/useGetCartItems";
+import { Routes, Route } from "react-router-dom";
+import NavBar from "./components/layout/NavBar";
+import Main from "./pages/Main";
+import Confirm from "./pages/Confirm";
 
 function App() {
-  const { cartItems, refetch } = useGetCartItems();
-
   return (
-    <>{cartItems && <CartSection cartItems={cartItems} refetch={refetch} />}</>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/confirm" element={<Confirm />} />
+      </Routes>
+    </>
   );
 }
 
