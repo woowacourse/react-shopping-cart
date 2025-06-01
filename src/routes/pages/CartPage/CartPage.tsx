@@ -48,7 +48,7 @@ function CartPage() {
             <CartItem
               key={cartItem.id}
               cartItem={cartItem}
-              isSelected={selectedItems.includes(cartItem.id)}
+              isSelected={selectedItems.has(cartItem.id)}
               handleSelectItem={handleSelectItem}
               onIncreaseCartItemClick={handleIncreaseCartItem}
               onDecreaseCartItemClick={handleDecreaseCartItem}
@@ -71,9 +71,7 @@ function CartPage() {
         {isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton
-        selectedCartData={cartList.filter((item) =>
-          selectedItems.includes(item.id)
-        )}
+        selectedCartData={cartList.filter((item) => selectedItems.has(item.id))}
         totalPrice={totalPrice}
       />
     </>

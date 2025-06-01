@@ -2,36 +2,41 @@ import { useEffect, useState, useRef } from 'react';
 import { CartItemProps } from '../types/cartItem';
 
 function useSelect(cartList: CartItemProps[]) {
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const isAllSelected = selectedItems.length === cartList.length;
+  const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
+  const isAllSelected = selectedItems.size === cartList.length;
   const initialLoadRef = useRef(true);
 
   useEffect(() => {
     if (cartList.length > 0 && initialLoadRef.current) {
-      setSelectedItems(cartList.map((cartItem) => cartItem.id));
+      setSelectedItems(new Set(cartList.map((cartItem) => cartItem.id)));
       initialLoadRef.current = false;
     } else {
       const currentCartItemIds = cartList.map((item) => item.id);
-      setSelectedItems((prev) =>
-        prev.filter((selectedId) => currentCartItemIds.includes(selectedId))
+      setSelectedItems(
+        new Set(
+          Array.from(selectedItems).filter((selectedId) =>
+            currentCartItemIds.includes(selectedId)
+          )
+        )
       );
     }
-  }, [cartList]);
+  }, [cartList, selectedItems]);
 
   const handleSelectItem = (cartItemId: number) => {
-    if (selectedItems.includes(cartItemId)) {
-      const filtered = selectedItems.filter((item) => item !== cartItemId);
-      setSelectedItems(filtered);
+    if (selectedItems.has(cartItemId)) {
+      selectedItems.delete(cartItemId);
+      setSelectedItems(new Set(selectedItems));
     } else {
-      setSelectedItems((prev) => [...prev, cartItemId]);
+      selectedItems.add(cartItemId);
+      setSelectedItems(new Set(selectedItems));
     }
   };
 
   const handleSelectAllItems = () => {
     if (isAllSelected) {
-      setSelectedItems([]);
+      setSelectedItems(new Set());
     } else {
-      setSelectedItems(cartList.map((cartItem) => cartItem.id));
+      setSelectedItems(new Set(cartList.map((cartItem) => cartItem.id)));
     }
   };
 
