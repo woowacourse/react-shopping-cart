@@ -1,5 +1,5 @@
 import { getCartItem } from "@/apis";
-import { Button, Header, ShoppingCartSection, Text } from "@/components";
+import { Button, Header, Text } from "@/components";
 import { PATH } from "@/constants";
 import { useQuery } from "@/modules";
 import { CartItemsResponse } from "@/types";
@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import * as S from "./ShoppingCartPage.styles";
+import { ShoppingCartSection } from "./components";
 
 export default function ShoppingCartPage() {
   const { data: cartItems, refetch } = useQuery<CartItemsResponse>({
