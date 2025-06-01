@@ -9,8 +9,27 @@ import { BrowserRouter } from "react-router";
 import App from "../src/App";
 
 import "@testing-library/jest-dom";
+import { CartItem } from "../src/type/CartItem";
+import { products } from "../src/mock/data";
 
-// 테스트용 래퍼 컴포넌트
+const mockingCartItems: CartItem[] = [
+  {
+    id: "1",
+    quantity: 1,
+    product: products[6], // 인덱스 6 → "앵그리버드" (50,000원)
+  },
+  {
+    id: "2",
+    quantity: 2,
+    product: products[3], // 인덱스 3 → "달 무드등" (28,000원) × 2 = 56,000원
+  },
+  {
+    id: "3",
+    quantity: 1,
+    product: products[4], // 인덱스 4 → "동물 양말" (20,000원)
+  },
+];
+
 function TestWrapper({ children }: { children: ReactNode }) {
   return (
     <ErrorToastContextProvider>
@@ -20,7 +39,7 @@ function TestWrapper({ children }: { children: ReactNode }) {
 }
 
 // 가격 계산 헬퍼 함수
-const calculateSubtotal = (cartItems: typeof testStateStore.mockCartData) => {
+const calculateSubtotal = (cartItems: CartItem[]) => {
   return cartItems.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0
@@ -37,6 +56,7 @@ const formatPrice = (price: number) => `${price.toLocaleString()}원`;
 describe("app은", () => {
   beforeEach(() => {
     testStateStore.reset();
+    testStateStore.setCartItems(mockingCartItems);
   });
 
   afterEach(() => {
@@ -239,7 +259,9 @@ describe("app은", () => {
 
     // 앵그리버드 삭제
     fireEvent.click(screen.getByTestId("delete-button-1"));
+
     await waitFor(() => {
+      screen.debug();
       expect(screen.getByTestId("subtotal-price")).toHaveTextContent(
         formatPrice(subtotalOnlyAnimalSocks)
       );
