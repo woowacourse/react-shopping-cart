@@ -49,15 +49,19 @@ function useCartList() {
 
   const decreaseCartItem = async (cartItem: CartItemProps) => {
     try {
-      await cart.decreaseCartItem(cartItem);
+      if (cartItem.quantity === 1) {
+        await deleteCartItem(cartItem.id);
+      } else {
+        await cart.decreaseCartItem(cartItem);
 
-      setCartList((prev) => {
-        return prev.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-      });
+        setCartList((prev) => {
+          return prev.map((item) =>
+            item.id === cartItem.id
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          );
+        });
+      }
     } catch (error) {
       if (error instanceof Error) {
         setIsError(error.message);
