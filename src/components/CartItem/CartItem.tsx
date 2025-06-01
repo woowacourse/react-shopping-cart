@@ -46,9 +46,9 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
             background-color: #fff;
             width: fit-content;
             border: 1px solid #e5e5e5;
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 4px 8px;
-            color: #000000;
+            color: black;
           `}
         >
           삭제

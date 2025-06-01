@@ -1,2 +1,3 @@
 export { default as Info } from "./Info";
-export { default as Uncheck } from "./Uncheck";
+export { default as CheckIcon } from "./CheckIcon";
+export { default as ArrowBackIcon } from "./ArrowBackIcon";

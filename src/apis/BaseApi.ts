@@ -25,8 +25,6 @@ export default class BaseApi {
       ...options,
     });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-
-    return response.json();
   }
 
   protected static async put(path: string, options?: RequestInit) {
@@ -36,8 +34,6 @@ export default class BaseApi {
       ...options,
     });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-
-    return response.json();
   }
 
   protected static async patch(path: string, options?: RequestInit) {
@@ -47,8 +43,6 @@ export default class BaseApi {
       ...options,
     });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-
-    return response.json();
   }
 
   protected static async delete(path: string, options?: RequestInit) {
@@ -58,7 +52,5 @@ export default class BaseApi {
       ...options,
     });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-
-    return response.json();
   }
 }

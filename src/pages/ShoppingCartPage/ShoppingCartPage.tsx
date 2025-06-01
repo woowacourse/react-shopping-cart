@@ -1,5 +1,5 @@
 import { CartItemApi } from "@/apis";
-import { Button, Header, Text } from "@/components";
+import { Button, CartItem, Checkbox, Header, Info, Spacing, Text } from "@/components";
 import { PATH, QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
 import { GetCartItemsResponse } from "@/types";
@@ -7,7 +7,6 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import * as S from "./ShoppingCartPage.styles";
-import { ShoppingCartSection } from "./components";
 
 export default function ShoppingCartPage() {
   const { data: cartItems, refetch } = useQuery<GetCartItemsResponse>({
@@ -52,6 +51,8 @@ export default function ShoppingCartPage() {
     });
   };
 
+  const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
+
   if (!cartItems) return null;
   return (
     <>
@@ -60,25 +61,81 @@ export default function ShoppingCartPage() {
           SHOP
         </Text>
       </Header>
-      <ShoppingCartSection
-        shopppingCartItems={cartItems}
-        refetch={refetch}
-        selectedItemIds={selectedItemIds}
-        onSelectItem={handleSelectItem}
-        onSelectAll={handleSelectAll}
-        orderPrice={orderPrice}
-        deliveryFee={deliveryFee}
-        totalPrice={totalPrice}
-      />
+
+      <S.ShoppingCartSection>
+        <Text variant="title-1">장바구니</Text>
+
+        {cartItems?.content.length === 0 ? (
+          <S.EmptyCartWrapper>
+            <Text variant="body-1">장바구니에 담은 상품이 없습니다.</Text>
+          </S.EmptyCartWrapper>
+        ) : (
+          <>
+            <Spacing size={8} />
+            <Text variant="body-2">현재 {2}종류의 상품이 담겨있습니다.</Text>
+            <Spacing size={32} />
+
+            <S.CheckboxWrapper>
+              <Checkbox checked={isAllSelected} onClick={handleSelectAll} />
+
+              <Text variant="body-2">전체 선택</Text>
+            </S.CheckboxWrapper>
+
+            <Spacing size={16} />
+
+            <S.CartItemList>
+              {cartItems?.content.map((item) => (
+                <CartItem
+                  key={item.id}
+                  cartItem={item}
+                  isSelected={selectedItemIds.includes(item.id)}
+                  handleCheckboxClick={() => handleSelectItem(item.id)}
+                  refetch={refetch}
+                />
+              ))}
+            </S.CartItemList>
+
+            <Text
+              variant="body-1"
+              css={css`
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              `}
+            >
+              <Info /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+            </Text>
+            <Spacing size={16} />
+
+            <hr />
+            <S.ReceiptTextWrapper>
+              <Text variant="title-2">주문 금액</Text>
+              <Text variant="title-1">{orderPrice.toLocaleString()}원</Text>
+            </S.ReceiptTextWrapper>
+            <S.ReceiptTextWrapper>
+              <Text variant="title-2">배송비</Text>
+              <Text variant="title-1">{deliveryFee.toLocaleString()}원</Text>
+            </S.ReceiptTextWrapper>
+            <S.ReceiptTextWrapper>
+              <Text variant="title-2">총 결제 금액</Text>
+              <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
+            </S.ReceiptTextWrapper>
+          </>
+        )}
+        <Spacing size={12} />
+      </S.ShoppingCartSection>
+
       <S.ButtonWrapper>
         <Button
           css={css`
-            height: 48px;
+            width: 100%;
           `}
-          isDisabled={cartItems?.content.length === 0}
           onClick={handleOrderCompleteClick}
+          disabled={cartItems.content.length === 0}
         >
-          주문 확인
+          <Text variant="title-3" color="white">
+            주문 확인
+          </Text>
         </Button>
       </S.ButtonWrapper>
     </>

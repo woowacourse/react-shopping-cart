@@ -10,7 +10,7 @@ export const Text = styled.p<{ variant: TextVariant; color: string }>`
       case "title-1":
         return `font-size: 24px; font-weight: 700;`;
       case "title-2":
-        return `font-size: 14px; font-weight: 700;`;
+        return `font-size:16px; font-weight: 700;`;
       case "title-3":
         return `font-size: 12px; font-weight: 700;`;
       case "body-0":

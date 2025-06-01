@@ -1,19 +1,14 @@
+import { HTMLAttributes } from "react";
 import * as S from "./Button.styles";
 
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  onClick?: () => void;
-  isDisabled?: boolean;
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
-export default function Button({
-  onClick,
-  children,
-  isDisabled = false,
-  ...props
-}: ButtonProps) {
+export default function Button({ children, disabled = false, ...props }: ButtonProps) {
   return (
-    <S.Button onClick={onClick} isDisabled={isDisabled} {...props}>
+    <S.Button disabled={disabled} {...props}>
       {children}
     </S.Button>
   );
