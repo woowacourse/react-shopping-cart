@@ -35,32 +35,6 @@ function CartPage() {
 
   const totalPrice = cartPrice.totalPrice(cartList, selectedItems);
 
-  const renderCartList = () => {
-    return cartList.length === 0 ? (
-      <EmptyCart />
-    ) : (
-      <>
-        <CartList
-          isAllSelected={isAllSelected}
-          handleSelectedAllItems={handleSelectAllItems}
-        >
-          {cartList.map((cartItem) => (
-            <CartItem
-              key={cartItem.id}
-              cartItem={cartItem}
-              isSelected={selectedItems.has(cartItem.id)}
-              handleSelectItem={handleSelectItem}
-              onIncreaseCartItemClick={handleIncreaseCartItem}
-              onDecreaseCartItemClick={handleDecreaseCartItem}
-              onDeleteCartItemClick={handleDeleteCartItem}
-            />
-          ))}
-        </CartList>
-        <CartPriceInfo totalPrice={totalPrice} />
-      </>
-    );
-  };
-
   return (
     <>
       <Header>
@@ -68,7 +42,29 @@ function CartPage() {
       </Header>
       <ContainerLayout>
         <CartListTitle cartListLength={cartList.length} />
-        {isLoading ? <LoadingSpinner /> : renderCartList()}
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && cartList.length === 0 && <EmptyCart />}
+        {!isLoading && cartList.length > 0 && (
+          <>
+            <CartList
+              isAllSelected={isAllSelected}
+              handleSelectedAllItems={handleSelectAllItems}
+            >
+              {cartList.map((cartItem) => (
+                <CartItem
+                  key={cartItem.id}
+                  cartItem={cartItem}
+                  isSelected={selectedItems.has(cartItem.id)}
+                  handleSelectItem={handleSelectItem}
+                  onIncreaseCartItemClick={handleIncreaseCartItem}
+                  onDecreaseCartItemClick={handleDecreaseCartItem}
+                  onDeleteCartItemClick={handleDeleteCartItem}
+                />
+              ))}
+            </CartList>
+            <CartPriceInfo totalPrice={totalPrice} />
+          </>
+        )}
       </ContainerLayout>
       <OrderButton
         selectedCartData={cartList.filter((item) => selectedItems.has(item.id))}
