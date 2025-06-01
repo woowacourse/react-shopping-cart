@@ -2,9 +2,9 @@ import Vector from "../../../assets/Vector.svg";
 import Hr from "../../common/Hr/Hr";
 
 import Price from "../Price/Price";
-import DetailPrice from "../DetailPrice/DetailPrice";
+import SubPrice from "../SubPrice/SubPrice";
 
-import * as S from "./Receipt.styles";
+import * as Styled from "./Receipt.styles";
 
 interface ReceiptProps {
   allProductPrice: number;
@@ -17,17 +17,13 @@ export default function Receipt({
 }: ReceiptProps) {
   return (
     <section>
-      <S.DescriptionContent>
-        <S.Img src={Vector} />
-        <S.Description>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </S.Description>
-      </S.DescriptionContent>
+      <Styled.Container>
+        <Styled.WarningIcon src={Vector} />
+        <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
+      </Styled.Container>
       <Hr />
-      <DetailPrice
-        allProductPrice={allProductPrice}
-        shippingFee={shippingFee}
-      />
+      <SubPrice allProductPrice={allProductPrice} shippingFee={shippingFee} />
+
       <Hr />
       <Price name="총 결제 금액" price={allProductPrice + shippingFee} />
     </section>

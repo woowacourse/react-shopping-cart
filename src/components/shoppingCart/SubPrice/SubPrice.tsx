@@ -1,19 +1,20 @@
 import Price from "../Price/Price";
 
-import * as S from "./DetailPrice.styles";
-interface DetailPriceProps {
+import * as Styled from "./SubPrice.styles";
+
+interface SubPriceProps {
   allProductPrice: number;
   shippingFee: number;
 }
 
-export default function DetailPrice({
+export default function SubPrice({
   allProductPrice,
   shippingFee,
-}: DetailPriceProps) {
+}: SubPriceProps) {
   return (
-    <S.DetailPrice>
+    <Styled.Container>
       <Price name="주문 금액" price={allProductPrice} />
       <Price name="배송비" price={shippingFee} />
-    </S.DetailPrice>
+    </Styled.Container>
   );
 }
