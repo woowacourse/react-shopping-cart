@@ -12,6 +12,7 @@ import { PriceSummary } from './PriceSummary';
 
 import { StepProps } from '../../../shared/types/funnel';
 import { CartListContainer } from '../container/CartListContainer';
+import { useShippingProgress } from '../hooks/useShippingProgress';
 import { CartItem } from '../types/Cart.types';
 
 type CartInfoProps = {
@@ -33,14 +34,7 @@ export const CartInfo = ({
   const cartItemCount = cartItems?.length ?? 0;
   const selectedCartItemCount = cartItems?.filter((item) => item.isChecked).length ?? 0;
 
-  const selectedTotalAmount =
-    cartItems
-      ?.filter((item) => item.isChecked)
-      .reduce((total, item) => total + item.product.price * item.quantity, 0) ?? 0;
-
-  const FREE_SHIPPING_THRESHOLD = 100000;
-  const progressValue = Math.min((selectedTotalAmount / FREE_SHIPPING_THRESHOLD) * 100, 100);
-  const remainingForFreeShipping = Math.max(FREE_SHIPPING_THRESHOLD - selectedTotalAmount, 0);
+  const { progressValue, remainingForFreeShipping } = useShippingProgress({ cartItems });
 
   return (
     <>
