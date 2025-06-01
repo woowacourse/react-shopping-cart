@@ -26,28 +26,25 @@ const CartPage = () => {
             <S.itemCardList>
               {cartItems.map((item) => (
                 <ItemCard
+                  key={item.id}
                   id={item.id}
                   product={item.product}
                   quantity={item.quantity}
-                  key={item.id}
                 />
               ))}
             </S.itemCardList>
             <S.infoContainer>
               <img src="./info.svg" />
               <p>
-                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()}{' '}
-                이상인 경우 무료 배송됩니다.
+                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()} 이상인 경우 무료
+                배송됩니다.
               </p>
             </S.infoContainer>
             <PriceSection />
           </>
         )}
       </S.content>
-      <ConfirmButton
-        title="주문 확인"
-        onClick={() => setPage('orderConfirm')}
-      />
+      <ConfirmButton title="주문 확인" onClick={() => setPage('orderConfirm')} />
     </>
   );
 };
