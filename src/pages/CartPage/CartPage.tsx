@@ -10,6 +10,7 @@ import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
+import { ROUTES } from "../../constants/routes";
 import useCart from "../../hooks/useCart";
 import useToast from "../../hooks/useToast";
 import * as S from "./CartPage.styles";
@@ -35,7 +36,7 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   const navigateToOrderPage = () => {
-    navigate("/order");
+    navigate(ROUTES.ORDER);
   };
 
   return (

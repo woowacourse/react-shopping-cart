@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { CLIENT_BASE_PATH } from "./apis/config.ts";
 import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
+import { ROUTES } from "./constants/routes.ts";
 import { CartProvider } from "./contexts/CartContext.tsx";
 import { ToastProvider } from "./contexts/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
@@ -21,11 +22,11 @@ const Layout = () => {
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path: ROUTES.HOME,
       element: <Layout />,
       children: [
-        { path: "/", element: <CartPage /> },
-        { path: "/order", element: <OrderPage /> },
+        { path: ROUTES.HOME, element: <CartPage /> },
+        { path: ROUTES.ORDER, element: <OrderPage /> },
       ],
     },
   ],

@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { getCartItems } from "../apis/cartItems/getCartItems";
+import { ROUTES } from "../constants/routes";
 import { CartProvider } from "../contexts/CartContext";
 import { ToastProvider } from "../contexts/ToastContext";
 import CartPage from "../pages/CartPage/CartPage";
@@ -57,7 +58,7 @@ describe("router 테스트", () => {
 
     const routes = [
       {
-        path: "/",
+        path: ROUTES.HOME,
         element: (
           <ToastProvider>
             <CartProvider>
@@ -67,7 +68,7 @@ describe("router 테스트", () => {
         ),
       },
       {
-        path: "/order",
+        path: ROUTES.ORDER,
         element: (
           <ToastProvider>
             <CartProvider>
@@ -79,7 +80,7 @@ describe("router 테스트", () => {
     ];
 
     const router = createMemoryRouter(routes, {
-      initialEntries: ["/"],
+      initialEntries: [ROUTES.HOME],
     });
 
     render(<RouterProvider router={router} />);
@@ -121,7 +122,7 @@ describe("router 테스트", () => {
   it("주문 페이지에서 뒤로 가기 버튼을 누르면 장바구니 페이지로 이동하고, 기존 장바구니 정보가 유지된다.", async () => {
     const routes = [
       {
-        path: "/",
+        path: ROUTES.HOME,
         element: (
           <ToastProvider>
             <CartProvider>
@@ -131,7 +132,7 @@ describe("router 테스트", () => {
         ),
       },
       {
-        path: "/order",
+        path: ROUTES.ORDER,
         element: (
           <ToastProvider>
             <CartProvider>
@@ -143,7 +144,7 @@ describe("router 테스트", () => {
     ];
 
     const router = createMemoryRouter(routes, {
-      initialEntries: ["/", "/order"],
+      initialEntries: [ROUTES.HOME, ROUTES.ORDER],
       initialIndex: 1,
     });
 
