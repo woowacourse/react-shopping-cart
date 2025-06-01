@@ -4,7 +4,7 @@ import { PATH, QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
 import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as S from "./ShoppingCartPage.styles";
 
@@ -53,6 +53,10 @@ export default function ShoppingCartPage() {
 
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
 
+  useEffect(() => {
+    setSelectedItemIds(cartItems?.content.map((item) => item.id) ?? []);
+  }, [cartItems]);
+
   if (!cartItems) return null;
   return (
     <>
@@ -72,7 +76,7 @@ export default function ShoppingCartPage() {
         ) : (
           <>
             <Spacing size={8} />
-            <Text variant="body-2">현재 {2}종류의 상품이 담겨있습니다.</Text>
+            <Text variant="body-2">현재 {cartItems.content.length}종류의 상품이 담겨있습니다.</Text>
             <Spacing size={32} />
 
             <S.CheckboxWrapper>
