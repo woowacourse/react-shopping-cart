@@ -21,27 +21,23 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
 
   return (
     <div css={styles.cartItemsAreaCss}>
-      {cartItems.length === 0 ? (
-        <p>장바구니에 담은 상품이 없습니다.</p>
-      ) : (
-        <>
-          <div css={styles.allSelectCss}>
-            <CheckBox checked={isAllChecked} onChange={isAllChecked ? uncheckAll : checkAll} />
-            <p>전체 선택</p>
-          </div>
-          <div css={styles.cartItemsListCss} data-testid="cart-item-list">
-            {cartItems.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                checked={state.get(item.id) ?? false}
-                handleCheckBoxChange={() => toggle(item.id)}
-              />
-            ))}
-          </div>
-          <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
-        </>
-      )}
+      <>
+        <div css={styles.allSelectCss}>
+          <CheckBox checked={isAllChecked} onChange={isAllChecked ? uncheckAll : checkAll} />
+          <p>전체 선택</p>
+        </div>
+        <div css={styles.cartItemsListCss} data-testid="cart-item-list">
+          {cartItems.map((item) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              checked={state.get(item.id) ?? false}
+              handleCheckBoxChange={() => toggle(item.id)}
+            />
+          ))}
+        </div>
+        <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
+      </>
       <Button
         disabled={!Array.from(state.values()).some(Boolean)}
         onClick={() => {

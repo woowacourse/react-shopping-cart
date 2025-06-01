@@ -19,10 +19,14 @@ function CartPage() {
       />
       <main css={layoutCss}>
         <h1 css={titleCss}>장바구니</h1>
-        {cartItems?.content.length !== 0 && (
-          <p css={countCss}>총 {cartItems?.content.length}개의 상품이 담겨 있습니다.</p>
+        {cartItems?.content && cartItems.content.length > 0 ? (
+          <>
+            <p css={countCss}>총 {cartItems?.content.length}개의 상품이 담겨 있습니다.</p>
+            <CartItemList cartItems={cartItems?.content} />
+          </>
+        ) : (
+          <p>장바구니에 담은 상품이 없습니다.</p>
         )}
-        {cartItems?.content && <CartItemList cartItems={cartItems.content} />}
       </main>
     </>
   );
