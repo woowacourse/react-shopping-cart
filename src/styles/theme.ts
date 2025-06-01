@@ -26,7 +26,7 @@ export const colors = {
   warning: "#F44336",
 
   // 오버레이
-  overlay: "rgba(0, 0, 0, 0.5)",
+  overlay: "rgba(0, 0, 0, 0.3)",
   overlayLight: "rgba(0, 0, 0, 0.1)",
 };
 
