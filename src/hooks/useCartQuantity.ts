@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { patchCartItem, deleteCartItem } from "@/apis/cartItem";
-import { Content } from "@/types/cartItems";
+import { patchCartItem, deleteCartItem } from "@/apis";
+import { Content } from "@/types";
 
 interface UseCartQuantityProps {
   productId: number;

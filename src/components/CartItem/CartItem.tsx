@@ -1,11 +1,9 @@
 import { css } from "@emotion/react";
 import * as S from "./CartItem.styles";
-import Button from "@/components/Button/Button";
-import PlusMinusButton from "@/components/PlusMinusButton/PlusMinusButton";
-import Checkbox from "@/components/Checkbox/Checkbox";
-import useCartQuantity from "@/hooks/useCartQuantity";
+import { Button, Checkbox, PlusMinusButton } from "@/components";
 import { deleteCartItem } from "@/apis/cartItem";
 import { CartItemsResponse } from "@/types/cartItems";
+import useCartQuantity from "@/hooks/useCartQuantity";
 
 interface CartItemProps {
   cartItem: CartItemsResponse["content"][number];

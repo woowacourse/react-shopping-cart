@@ -1,9 +1,8 @@
 import { createHashRouter, RouterProvider } from "react-router";
 import * as S from "./App.styles";
-import { PATH } from "./constants/path";
+import { PATH } from "./constants";
 import { QueryProvider } from "./modules";
-import OrderCompletePage from "./pages/OrderCompletedPage/OrderCompletedPage";
-import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
+import { OrderCompletedPage, ShoppingCartPage } from "./pages";
 
 const router = createHashRouter([
   {
@@ -12,7 +11,7 @@ const router = createHashRouter([
   },
   {
     path: PATH.ORDER_COMPLETE,
-    element: <OrderCompletePage />,
+    element: <OrderCompletedPage />,
   },
 ]);
 

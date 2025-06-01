@@ -1,11 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
-import Button from "@/components/Button/Button";
-import Header from "@/components/Header/Header";
-import Spacing from "@/components/Spacing/Spacing";
-import Text from "@/components/Text/Text";
+import { Button, Header, Spacing, Text } from "@/components";
 import * as S from "./OrderCompletedPage.styles";
 
-export default function OrderCompletePage() {
+export default function OrderCompletedPage() {
   const navigate = useNavigate();
   const location = useLocation();
 

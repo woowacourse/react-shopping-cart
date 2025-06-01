@@ -1,9 +1,5 @@
 import { CartItemsResponse } from "@/types/cartItems";
-import CartItem from "@/components/CartItem/CartItem";
-import Checkbox from "@/components/Checkbox/Checkbox";
-import InfoIcon from "@/components/icons/Info";
-import Spacing from "@/components/Spacing/Spacing";
-import Text from "@/components/Text/Text";
+import { CartItem, Checkbox, Info, Spacing, Text } from "@/components";
 import * as S from "./ShoppingCartSection.styles";
 
 interface ShoppingCartSectionProps {
@@ -13,7 +9,7 @@ interface ShoppingCartSectionProps {
   onSelectItem: (itemId: number) => void;
   onSelectAll: () => void;
   orderPrice: number;
-  shippingFee: number;
+  deliveryFee: number;
   totalPrice: number;
 }
 
@@ -24,7 +20,7 @@ export default function ShoppingCartSection({
   onSelectItem,
   onSelectAll,
   orderPrice,
-  shippingFee,
+  deliveryFee,
   totalPrice,
 }: ShoppingCartSectionProps) {
   const isAllSelected =
@@ -64,20 +60,20 @@ export default function ShoppingCartSection({
           </S.CartItemList>
 
           <p>
-            <InfoIcon /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+            <Info /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
           </p>
           <hr />
           <S.ReceiptTextWrapper>
             <Text variant="title-2">주문 금액</Text>
-            <Text variant="title-1">{orderPrice}원</Text>
+            <Text variant="title-1">{orderPrice.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">배송비</Text>
-            <Text variant="title-1">{shippingFee}원</Text>
+            <Text variant="title-1">{deliveryFee.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">총 결제 금액</Text>
-            <Text variant="title-1">{totalPrice}원</Text>
+            <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
         </>
       )}
