@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import * as Styled from "./CartContent.style";
 import useShoppingCart from "../../../hooks/useShoppingCart";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
-import { useNavigate } from "react-router";
+
 import { PAGE_URL } from "../../../constants/PageUrl";
 import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation";
 
 import Spinner from "../Spinner/Spinner";
 import { useCalculateOrder } from "../../../hooks/useCalculateOrder";
 import CheckBox from "../../common/CheckBox";
+import useLocalStorage from "../../../hooks/useLocalStorage";
+import { useNavigate } from "react-router";
 
 function CartContent() {
   const {
@@ -24,19 +26,8 @@ function CartContent() {
   const [selectedCartIds, setSelectedCartIds] = useState<Set<string>>(
     new Set()
   );
-
-  const isInitialLoad = useRef(true);
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!cartItemsData.length) return;
-
-    if (isInitialLoad.current) {
-      setSelectedCartIds(new Set(cartItemsData.map((item) => item.id)));
-      isInitialLoad.current = false;
-    }
-  }, [cartItemsData]);
+  useLocalStorage({ cartItemsData, selectedCartIds, setSelectedCartIds });
 
   const handleSelectCartItem = (id: string) => {
     if (selectedCartIds.has(id)) {
