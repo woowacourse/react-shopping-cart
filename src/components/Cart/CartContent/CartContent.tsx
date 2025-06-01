@@ -72,7 +72,7 @@ function CartContent() {
       selectedCartItemsCount,
       finalPrice,
     };
-    navigate(PAGE_URL.ORDER_CONFIRMATION, { state });
+    navigate(PAGE_URL.ORDER_COMPLETE, { state });
   };
   if (cartFetchLoading) {
     return (
