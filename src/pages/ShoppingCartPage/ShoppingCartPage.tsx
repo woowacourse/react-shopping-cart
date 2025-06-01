@@ -8,6 +8,8 @@ import * as S from "./ShoppingCartPage.styles";
 import { useState } from "react";
 import { CartItemsResponse, Content } from "../../types/cartItems";
 import { useQuery } from "../../modules";
+import { PATH } from "../../constants/path";
+import Text from "../../components/Text/Text";
 
 export default function ShoppingCartPage() {
   const { data, refetch } = useQuery<CartItemsResponse>({
@@ -56,7 +58,7 @@ export default function ShoppingCartPage() {
   }, 0);
 
   const handleNavigateClick = () => {
-    navigate("/completed", {
+    navigate(PATH.ORDER_COMPLETE, {
       state: {
         kind: selectedItemIds.length,
         quantity: totalQuantity,
@@ -68,7 +70,11 @@ export default function ShoppingCartPage() {
   if (!data) return null;
   return (
     <>
-      <Header title="SHOP" />
+      <Header>
+        <Text variant="title-1" color="white">
+          SHOP
+        </Text>
+      </Header>
       <ShoppingCartSection
         shopppingCartItems={data}
         refetch={refetch}

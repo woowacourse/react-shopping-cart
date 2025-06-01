@@ -1,14 +1,9 @@
 import * as S from "./Header.styles";
 
-interface HeaderProps {
-  title: string;
-  handleTitleClick?: () => void;
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
 }
 
-export default function Header({ title, handleTitleClick }: HeaderProps) {
-  return (
-    <S.headerLayout>
-      <S.Title onClick={handleTitleClick}>{title}</S.Title>
-    </S.headerLayout>
-  );
+export default function Header({ children, ...props }: HeaderProps) {
+  return <S.headerLayout {...props}>{children}</S.headerLayout>;
 }

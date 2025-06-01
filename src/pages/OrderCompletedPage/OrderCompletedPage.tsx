@@ -15,7 +15,11 @@ export default function OrderCompletePage() {
 
   return (
     <>
-      <Header title="🔙" handleTitleClick={onTitleClick} />
+      <Header onClick={onTitleClick}>
+        <Text variant="title-1" color="white">
+          🔙
+        </Text>
+      </Header>
 
       <S.OrderCompletedSection>
         <Text variant="title-1">주문 확인</Text>
