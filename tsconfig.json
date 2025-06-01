@@ -24,7 +24,12 @@
     "types": ["jest", "@testing-library/jest-dom"],
     "esModuleInterop": true,
 
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router";
-import { getCartItem } from "../../apis/cartItem";
-import Button from "../../components/Button/Button";
-import Header from "../../components/Header/Header";
-import ShoppingCartSection from "../../components/ShoppingCartSection/ShoppingCartSection";
+import { getCartItem } from "@/apis/cartItem";
+import Button from "@/components/Button/Button";
+import Header from "@/components/Header/Header";
+import ShoppingCartSection from "@/components/ShoppingCartSection/ShoppingCartSection";
 import * as S from "./ShoppingCartPage.styles";
 import { useState } from "react";
-import { CartItemsResponse, Content } from "../../types/cartItems";
-import { useQuery } from "../../modules";
-import { PATH } from "../../constants/path";
-import Text from "../../components/Text/Text";
+import { CartItemsResponse, Content } from "@/types/cartItems";
+import { useQuery } from "@/modules";
+import { PATH } from "@/constants/path";
+import Text from "@/components/Text/Text";
 
 export default function ShoppingCartPage() {
   const { data, refetch } = useQuery<CartItemsResponse>({

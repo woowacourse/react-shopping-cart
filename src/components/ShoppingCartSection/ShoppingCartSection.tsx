@@ -1,9 +1,9 @@
-import { CartItemsResponse } from "../../types/cartItems";
-import CartItem from "../CartItem/CartItem";
-import Checkbox from "../Checkbox/Checkbox";
-import InfoIcon from "../icons/Info";
-import Spacing from "../Spacing/Spacing";
-import Text from "../Text/Text";
+import { CartItemsResponse } from "@/types/cartItems";
+import CartItem from "@/components/CartItem/CartItem";
+import Checkbox from "@/components/Checkbox/Checkbox";
+import InfoIcon from "@/components/icons/Info";
+import Spacing from "@/components/Spacing/Spacing";
+import Text from "@/components/Text/Text";
 import * as S from "./ShoppingCartSection.styles";
 
 interface ShoppingCartSectionProps {

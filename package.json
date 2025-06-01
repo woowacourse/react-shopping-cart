@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "jest --watch",
     "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
     "deploy": "vite build --base=/react-shopping-cart/ --minify=false && npx gh-pages -d dist"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import Button from "../Button/Button";
+import Button from "@/components/Button/Button";
 import * as S from "./PlusMinusButton.styles";
 
 interface PlusMinusButtonProps {

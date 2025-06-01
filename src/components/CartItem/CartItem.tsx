@@ -1,13 +1,11 @@
-// import { GetCartItemsResponse } from '@/types';
 import { css } from "@emotion/react";
-// import { useCartItem } from '../../hooks';
 import * as S from "./CartItem.styles";
-import Button from "../Button/Button";
-import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
-import Checkbox from "../Checkbox/Checkbox";
-import useCartQuantity from "../../hooks/useCartQuantity";
-import { deleteCartItem } from "../../apis/cartItem";
-import { CartItemsResponse } from "../../types/cartItems";
+import Button from "@/components/Button/Button";
+import PlusMinusButton from "@/components/PlusMinusButton/PlusMinusButton";
+import Checkbox from "@/components/Checkbox/Checkbox";
+import useCartQuantity from "@/hooks/useCartQuantity";
+import { deleteCartItem } from "@/apis/cartItem";
+import { CartItemsResponse } from "@/types/cartItems";
 
 interface CartItemProps {
   cartItem: CartItemsResponse["content"][number];

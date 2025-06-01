@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import CartItem from "./CartItem";
-import { CartItemsResponse } from "../../types/cartItems";
+import { CartItemsResponse } from "@/types/cartItems";
 
-jest.mock("../../apis/cartItem", () => ({
+jest.mock("@/apis/cartItem", () => ({
   patchCartItem: jest.fn(() => Promise.resolve()),
   deleteCartItem: jest.fn(() => Promise.resolve()),
 }));
@@ -28,7 +28,7 @@ describe("CartItem", () => {
         isSelected={false}
         handleCheckboxClick={() => {}}
         refetch={refetch}
-      />,
+      />
     );
 
     // 수량이 2로 표시되는지 확인
@@ -60,7 +60,7 @@ describe("CartItem", () => {
         isSelected={false}
         handleCheckboxClick={() => {}}
         refetch={refetch}
-      />,
+      />
     );
 
     const plusButton = screen
