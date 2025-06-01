@@ -33,6 +33,7 @@ const CartItemList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnT
                   </CartItem.Information>
                   <QuantityRegulator
                     quantity={quantity}
+                    maxStock={product.quantity!}
                     handleDecrease={() => handleCartItemChange({ id, action: "patch", quantity: quantity - 1 })}
                     handleIncrease={() => handleCartItemChange({ id, action: "patch", quantity: quantity + 1 })}
                   />
