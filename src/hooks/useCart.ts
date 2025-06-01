@@ -1,8 +1,8 @@
 import cartApi from "../apis/cartApi";
 import { useEffect, useState } from "react";
-import { Content } from "../types/cartItem";
+import { CartItem } from "../types/cartItem";
 
-interface CartItemsType extends Content {
+interface CartItemsType extends CartItem {
   isChecked: boolean;
 }
 

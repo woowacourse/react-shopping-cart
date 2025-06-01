@@ -2,7 +2,7 @@ export interface GetCartItemsResponse {
   totalElements: number;
   totalPages: number;
   size: number;
-  content: Content[];
+  content: CartItem[];
   number: number;
   sort: Sort;
   pageable: Pageable;
@@ -11,7 +11,7 @@ export interface GetCartItemsResponse {
   last: boolean;
   empty: boolean;
 }
-export interface Content {
+export interface CartItem {
   id: number;
   quantity: number;
   product: Product;

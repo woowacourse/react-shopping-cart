@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import MOCKING_CART_ITEMS_DATA from "../data/cartItems.json";
-import { Content, GetCartItemsResponse } from "../../../types/cartItem";
+import { CartItem, GetCartItemsResponse } from "../../../types/cartItem";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -28,7 +28,7 @@ const patchCartItems = http.patch(`${BASE_URL}/cart-items/:id`, async ({ params,
       acc.push(item);
     }
     return acc;
-  }, [] as Content[]);
+  }, [] as CartItem[]);
 
   return HttpResponse.json({ message: "Patch" }, { status: 200 });
 });
