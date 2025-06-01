@@ -1,3 +1,4 @@
+import { DELIVERY } from '../../constants/delivery';
 import { CartItemType } from '../../types/cartItem';
 
 export const calculateOrderAmount = (items: CartItemType[]): number => {
@@ -5,7 +6,7 @@ export const calculateOrderAmount = (items: CartItemType[]): number => {
 };
 
 export const calculateDeliveryFee = (orderAmount: number): number => {
-  return orderAmount > 100000 ? 0 : 3000;
+  return orderAmount > DELIVERY.THRESHOLD ? DELIVERY.FREE : DELIVERY.FEE;
 };
 
 export const calculateTotalQuantity = (items: CartItemType[]): number => {
