@@ -1,11 +1,13 @@
-import CartItem from "../../../types/CartItem";
-import CartItemCheck from "../../../types/CartItemCheck";
-import { Flex, Checkbox } from "./ShoppingCartList.styles";
 import Item from "../Item/Item";
+
+import { Flex, Checkbox } from "./ShoppingCartList.styles";
+
+import CartItem from "../../../types/CartItem";
+import { CheckedMap } from "../../../types/CheckMap";
 
 interface ShoppingCartListProps {
   cartItemList: CartItem[];
-  cartItemCheckList: CartItemCheck[];
+  checkedMap: CheckedMap;
   allChecked: boolean;
   toggleAll: () => void;
   handleSelectedCartItem: (id: number) => void;
@@ -13,7 +15,7 @@ interface ShoppingCartListProps {
 
 export default function ShoppingCartList({
   cartItemList,
-  cartItemCheckList,
+  checkedMap,
   allChecked,
   toggleAll,
   handleSelectedCartItem,
@@ -31,12 +33,13 @@ export default function ShoppingCartList({
       </Flex>
 
       {cartItemList.map((cart) => {
-        const selected = cartItemCheckList.find((s) => s.id === cart.id);
+        const isChecked = checkedMap.get(cart.id) ?? true;
+
         return (
           <Item
             key={cart.id}
             id={cart.id}
-            isChecked={!!selected?.isClicked}
+            isChecked={isChecked}
             handleSelectedCartItem={handleSelectedCartItem}
             imageUrl={cart.product.imageUrl}
             name={cart.product.name}

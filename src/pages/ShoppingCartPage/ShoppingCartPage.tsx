@@ -7,82 +7,69 @@ import Footer from "../../components/layout/Footer/Footer";
 import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
 
 import useCartItemList from "../../hooks/useCartItemList";
-
-import CartItemCheck from "../../types/CartItemCheck";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 import { StyledShoppingCart, EmptyText } from "./ShoppingCartPage.styles";
-import { useErrorContext } from "../../contexts/ErrorContext";
 import ShoppingCartList from "../../components/shoppingCart/ShoppingCartList/ShoppingCartList";
+import { CheckedMap } from "../../types/CheckMap";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
-  const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
-    []
-  );
+  const [checkedMap, setCheckedMap] = useState<CheckedMap>(new Map());
   const { errorMessage } = useErrorContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setCartItemCheckList(
-      cartItemList.map((item) => ({
-        id: item.id,
-        quantity: item.quantity,
-        price: item.product.price,
-        isClicked: true,
-      }))
-    );
-  }, [state.isLoading]);
-
-  useEffect(() => {
-    setCartItemCheckList((prev) =>
-      cartItemList.map((item) => {
-        const prevItem = prev.find((p) => p.id === item.id);
-        return {
-          id: item.id,
-          quantity: item.quantity,
-          price: item.product.price,
-          isClicked: prevItem?.isClicked ?? true,
-        };
-      })
-    );
-  }, [cartItemList]);
+    setCheckedMap((prevMap) => {
+      const newMap = new Map<number, boolean>();
+      cartItemList.forEach((item) => {
+        const prev = prevMap.get(item.id);
+        newMap.set(item.id, prev ?? true);
+      });
+      return newMap;
+    });
+  }, [cartItemList.map((item) => item.id).join(",")]);
 
   const handleSelectedCartItem = (id: number) => {
-    setCartItemCheckList((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, isClicked: !item.isClicked } : item
-      )
-    );
+    setCheckedMap((prevMap) => {
+      const newMap = new Map(prevMap);
+      const prev = newMap.get(id) ?? true;
+      newMap.set(id, !prev);
+      return newMap;
+    });
   };
 
-  const allChecked = cartItemCheckList.every((item) => item.isClicked);
+  const allChecked =
+    cartItemList.length > 0 &&
+    cartItemList.every((item) => checkedMap.get(item.id) ?? true);
 
   const toggleAll = () => {
-    setCartItemCheckList((prev) =>
-      prev.map((item) => ({ ...item, isClicked: !allChecked }))
-    );
+    setCheckedMap((prevMap) => {
+      const newMap = new Map(prevMap);
+      cartItemList.forEach((item) => {
+        newMap.set(item.id, !allChecked);
+      });
+      return newMap;
+    });
   };
 
-  const checkedProductsLength = cartItemCheckList.filter(
-    (item) => item.isClicked
+  const checkedProductsLength = cartItemList.filter((item) =>
+    checkedMap.get(item.id)
   ).length;
 
-  const cartItemCheckListTotalQuantity = cartItemCheckList
-    .filter((item) => item.isClicked)
-    .reduce((acc, item) => acc + item.quantity, 0);
+  const cartItemCheckListTotalQuantity = cartItemList.reduce((acc, item) => {
+    return checkedMap.get(item.id) ? acc + item.quantity : acc;
+  }, 0);
 
-  const cartItemListLength = cartItemList.length;
+  const allProductPrice = cartItemList.reduce((acc, item) => {
+    return checkedMap.get(item.id)
+      ? acc + item.product.price * item.quantity
+      : acc;
+  }, 0);
 
-  const selectedCartItemList = cartItemCheckList.filter(
-    (item) => item.isClicked === true
-  );
-  const allProductPrice = selectedCartItemList.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
   const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
   const totalPrice = allProductPrice + shippingFee;
 
-  const navigate = useNavigate();
   const handleOrderCheckButtonClick = () => {
     navigate("/order-check", {
       state: {
@@ -93,6 +80,10 @@ export default function ShoppingCartPage() {
     });
   };
 
+  if (state.isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
   return (
     <>
       <StyledShoppingCart>
@@ -100,16 +91,16 @@ export default function ShoppingCartPage() {
         <Header
           title="장바구니"
           description={
-            cartItemListLength
+            cartItemList.length
               ? `현재 ${checkedProductsLength}종류의 상품이 담겨있습니다.`
               : ""
           }
         />
-        {cartItemListLength ? (
+        {cartItemList.length ? (
           <>
             <ShoppingCartList
               cartItemList={cartItemList}
-              cartItemCheckList={cartItemCheckList}
+              checkedMap={checkedMap}
               allChecked={allChecked}
               toggleAll={toggleAll}
               handleSelectedCartItem={handleSelectedCartItem}
@@ -125,7 +116,7 @@ export default function ShoppingCartPage() {
       </StyledShoppingCart>
       <Footer
         text="주문 확인"
-        active={cartItemListLength ? "true" : "false"}
+        active={cartItemList.length ? "true" : "false"}
         handleClick={handleOrderCheckButtonClick}
       />
     </>
