@@ -15,7 +15,8 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/react-shopping-cart',
+    basename:
+      process.env.NODE_ENV === 'production' ? '/react-shopping-cart' : '',
   }
 );
 
