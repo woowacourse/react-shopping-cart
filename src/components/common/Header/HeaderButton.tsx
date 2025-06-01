@@ -1,8 +1,8 @@
-import { HeaderButtonStyle } from "./Header.styles";
+import { HeaderButtonStyle } from './Header.styles';
 
 interface HeaderButtonProps {
   src: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function HeaderButton({ src, onClick }: HeaderButtonProps) {

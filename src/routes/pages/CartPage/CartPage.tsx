@@ -64,7 +64,7 @@ function CartPage() {
   return (
     <>
       <Header>
-        <HeaderButton src={Logo} onClick={() => {}} />
+        <HeaderButton src={Logo} />
       </Header>
       <ContainerLayout>
         <CartListTitle cartListLength={cartList.length} />
