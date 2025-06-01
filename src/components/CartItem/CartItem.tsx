@@ -73,7 +73,7 @@ function CartItem({
                 })
               }
             >
-              <img src={Minus} alt="minus" />
+              <img src={Minus} alt="수량 줄이기 버튼" />
             </button>
             <Text varient="caption">{cartItem.quantity}</Text>
             <button
@@ -85,7 +85,7 @@ function CartItem({
                 })
               }
             >
-              <img src={Plus} alt="plus" />
+              <img src={Plus} alt="수량 늘리기 버튼" />
             </button>
           </div>
         </div>

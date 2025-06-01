@@ -14,7 +14,7 @@ function CartPriceInfo({ totalPrice }: { totalPrice: number }) {
   return (
     <div css={CartPriceInfoContainerStyle}>
       <div css={CartPriceInfoHeaderStyle}>
-        <img src={Info} alt="info" />
+        <img src={Info} alt="정보 아이콘" />
         <Text varient="caption">
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </Text>
