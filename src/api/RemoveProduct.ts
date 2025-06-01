@@ -1,17 +1,14 @@
 import { HttpMethod } from "../types/HttpMethod";
 import { BASE_URL, TOKEN } from "./config";
 
-type fetchRemoveProductParams = {
+type RemoveProductParams = {
   method: HttpMethod;
   params: {
     productId: number;
   };
 };
 
-const fetchRemoveProduct = async ({
-  method,
-  params,
-}: fetchRemoveProductParams) => {
+const RemoveProduct = async ({ method, params }: RemoveProductParams) => {
   const url = new URL(`${BASE_URL}/${params.productId}`);
 
   const options = {
@@ -28,4 +25,4 @@ const fetchRemoveProduct = async ({
   }
 };
 
-export default fetchRemoveProduct;
+export default RemoveProduct;

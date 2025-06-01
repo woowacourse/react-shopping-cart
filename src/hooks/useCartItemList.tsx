@@ -1,8 +1,8 @@
 import { useEffect, useReducer } from "react";
 
-import fetchCartItems from "../api/fetchCartItemList";
-import fetchPatchProduct from "../api/fetchPatchProduct";
-import fetchRemoveProduct from "../api/fetchRemoveProduct";
+import CartItems from "../api/CartItemList";
+import PatchProduct from "../api/PatchProduct";
+import RemoveProduct from "../api/RemoveProduct";
 
 import { useCartItemListContext } from "../contexts/CartItemListContext";
 import { useErrorContext } from "../contexts/ErrorContext";
@@ -77,7 +77,7 @@ const useCartItemList = (): useCartItemListReturn => {
 
   const fetchData = async () => {
     try {
-      const { content } = await fetchCartItems({
+      const { content } = await CartItems({
         method: "GET",
         params: {
           page: "0",
@@ -102,7 +102,7 @@ const useCartItemList = (): useCartItemListReturn => {
 
     try {
       dispatch({ type: ACTION_TYPE.FETCH_FETCHING });
-      await fetchPatchProduct({
+      await PatchProduct({
         method: "PATCH",
         params: {
           productId: id,
@@ -130,7 +130,7 @@ const useCartItemList = (): useCartItemListReturn => {
     try {
       dispatch({ type: ACTION_TYPE.FETCH_FETCHING });
 
-      await fetchRemoveProduct({
+      await RemoveProduct({
         method: "DELETE",
         params: {
           productId: id,

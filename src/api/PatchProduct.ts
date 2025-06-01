@@ -1,7 +1,7 @@
 import { HttpMethod } from "../types/HttpMethod";
 import { BASE_URL, TOKEN } from "./config";
 
-type fetchAddProductParams = {
+type AddProductParams = {
   method: HttpMethod;
   params: {
     productId: number;
@@ -9,7 +9,7 @@ type fetchAddProductParams = {
   };
 };
 
-const fetchPatchProduct = async ({ method, params }: fetchAddProductParams) => {
+const PatchProduct = async ({ method, params }: AddProductParams) => {
   const url = new URL(BASE_URL + "/" + params.productId);
 
   const options = {
@@ -27,4 +27,4 @@ const fetchPatchProduct = async ({ method, params }: fetchAddProductParams) => {
   }
 };
 
-export default fetchPatchProduct;
+export default PatchProduct;

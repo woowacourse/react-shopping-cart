@@ -2,7 +2,7 @@ import { HttpMethod } from "../types/HttpMethod";
 import { FetchCartItemListResult } from "../types/FetchCartItemListResult";
 import { BASE_URL, TOKEN } from "./config";
 
-type fetchCartItemsParams = {
+type CartItemsParams = {
   method: HttpMethod;
   params?: {
     page: string;
@@ -10,10 +10,10 @@ type fetchCartItemsParams = {
   };
 };
 
-const fetchCartItems = async ({
+const CartItems = async ({
   method,
   params = { page: "0", size: "50" },
-}: fetchCartItemsParams): Promise<FetchCartItemListResult> => {
+}: CartItemsParams): Promise<FetchCartItemListResult> => {
   const url = new URL(BASE_URL);
 
   url.search = new URLSearchParams(params).toString();
@@ -36,4 +36,4 @@ const fetchCartItems = async ({
   return data;
 };
 
-export default fetchCartItems;
+export default CartItems;
