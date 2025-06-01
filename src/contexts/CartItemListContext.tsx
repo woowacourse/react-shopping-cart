@@ -10,7 +10,7 @@ import CartItem from "../types/CartItem";
 
 type CartItemsContextType = {
   cartItemList: CartItem[];
-  handleCartItemList: (value: CartItem[]) => void;
+  updateCartItemList: (value: CartItem[]) => void;
 };
 
 export const CartItemListContext = createContext<
@@ -20,12 +20,12 @@ export const CartItemListContext = createContext<
 export const CartItemListProvider = ({ children }: { children: ReactNode }) => {
   const [cartItemList, setCartItemList] = useState<CartItem[]>([]);
 
-  const handleCartItemList = useCallback((cartItemList: CartItem[]) => {
+  const updateCartItemList = useCallback((cartItemList: CartItem[]) => {
     setCartItemList(cartItemList);
   }, []);
 
   return (
-    <CartItemListContext.Provider value={{ cartItemList, handleCartItemList }}>
+    <CartItemListContext.Provider value={{ cartItemList, updateCartItemList }}>
       {children}
     </CartItemListContext.Provider>
   );
