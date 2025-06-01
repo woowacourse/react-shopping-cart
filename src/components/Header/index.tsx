@@ -1,18 +1,13 @@
 import * as S from "./Header.styled";
-import Logo from "../icons/Logo";
-import PrevArrow from "../icons/PrevArrow";
 import { useLocation, useNavigate } from "react-router";
+import { HEADER_CONFIG } from "./constants";
 
 const Header = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const handleNavigate = () => navigate(-1);
+  const HeaderContent = HEADER_CONFIG[pathname] || HEADER_CONFIG["/"];
 
-  return (
-    <S.Header>
-      {pathname === "/order-confirm" ? <PrevArrow onClick={handleNavigate} style={{ cursor: "pointer" }} /> : <Logo />}
-    </S.Header>
-  );
+  return <S.Header>{HeaderContent(navigate)}</S.Header>;
 };
 
 export default Header;
