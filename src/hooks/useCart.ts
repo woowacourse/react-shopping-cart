@@ -1,6 +1,7 @@
 import cartApi from "../apis/cartApi";
 import { useEffect, useState } from "react";
 import { Content } from "../types/cartItem";
+import { useError } from "../contexts/ErrorContext";
 
 interface CartItemsType extends Content {
   isChecked: boolean;
@@ -33,6 +34,7 @@ export interface UseCartReturnType {
 }
 
 const useCart = (): UseCartReturnType => {
+  const { showError } = useError();
   const [cartItems, setCartItems] = useState<CartItemsType[]>([]);
   const cartItemsCount = cartItems.length;
   const cartItemsCheckedCount = cartItems.filter((item) => item.isChecked).length;
@@ -67,7 +69,7 @@ const useCart = (): UseCartReturnType => {
       });
       setCartItems(mappedCartItems);
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) showError(e.message);
     }
   };
 
@@ -76,7 +78,7 @@ const useCart = (): UseCartReturnType => {
       await cartApi.patch({ id, quantity });
       getCartItems();
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) showError(e.message);
     }
   };
 
@@ -85,7 +87,7 @@ const useCart = (): UseCartReturnType => {
       await cartApi.delete({ id });
       getCartItems();
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) showError(e.message);
     }
   };
 
