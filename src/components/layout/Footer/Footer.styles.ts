@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { FooterProps } from "./Footer.types";
 
-export const StyledFooter = styled.footer<FooterProps>`
+export const Footer = styled.footer<FooterProps>`
   width: 450px;
   display: flex;
   align-items: center;
@@ -15,12 +15,12 @@ export const StyledFooter = styled.footer<FooterProps>`
   position: fixed;
 `;
 
-export const StyledButton = styled.button`
+export const Button = styled.button`
   width: 100%;
   height: 100%;
 `;
 
-export const StyledSpan = styled.span`
+export const Span = styled.span`
   color: #ffffff;
   font-weight: 700;
   font-size: 16px;

@@ -11,7 +11,7 @@ import useCartItemList from "../../hooks/useCartItemList";
 
 import CartItemCheck from "../../types/CartItemCheck";
 
-import { StyledShoppingCart, EmptyText } from "./ShoppingCartPage.styles";
+import * as S from "./ShoppingCartPage.styles";
 import { useErrorContext } from "../../contexts/ErrorContext";
 import ShoppingCartList from "../../components/shoppingCart/ShoppingCartList/ShoppingCartList";
 
@@ -97,7 +97,7 @@ export default function ShoppingCartPage() {
   return (
     <>
       <Header>SHOP</Header>
-      <StyledShoppingCart>
+      <S.ShoppingCart>
         {errorMessage && <ErrorBox />}
         <ShoppingCartHeader
           title="장바구니"
@@ -122,9 +122,9 @@ export default function ShoppingCartPage() {
             />
           </>
         ) : (
-          <EmptyText>장바구니에 담은 상품이 없습니다.</EmptyText>
+          <S.EmptyText>장바구니에 담은 상품이 없습니다.</S.EmptyText>
         )}
-      </StyledShoppingCart>
+      </S.ShoppingCart>
       <Footer
         text="주문 확인"
         active={cartItemListLength ? "true" : "false"}

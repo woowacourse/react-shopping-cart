@@ -1,6 +1,6 @@
 import CartItem from "../../../types/CartItem";
 import CartItemCheck from "../../../types/CartItemCheck";
-import { Flex, Checkbox } from "./ShoppingCartList.styles";
+import * as S from "./ShoppingCartList.styles";
 import Item from "../Item/Item";
 
 interface ShoppingCartListProps {
@@ -20,15 +20,15 @@ export default function ShoppingCartList({
 }: ShoppingCartListProps) {
   return (
     <section>
-      <Flex>
-        <Checkbox
+      <S.Flex>
+        <S.Checkbox
           id="check-all"
           type="checkbox"
           checked={allChecked}
           onChange={toggleAll}
         />
         <label htmlFor="check-all">전체 선택</label>
-      </Flex>
+      </S.Flex>
 
       {cartItemList.map((cart) => {
         const selected = cartItemCheckList.find((s) => s.id === cart.id);

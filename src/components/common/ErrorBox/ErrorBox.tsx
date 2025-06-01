@@ -1,6 +1,6 @@
 import { useErrorContext } from "../../../contexts/ErrorContext";
 
-import { StyledDiv, StyledSpan } from "./ErrorBox.styles";
+import * as S from "./ErrorBox.styles";
 
 export default function ErrorBox() {
   const { errorMessage } = useErrorContext();
@@ -10,8 +10,8 @@ export default function ErrorBox() {
   }
 
   return (
-    <StyledDiv>
-      <StyledSpan>{errorMessage}</StyledSpan>
-    </StyledDiv>
+    <S.Div>
+      <S.Span>{errorMessage}</S.Span>
+    </S.Div>
   );
 }
