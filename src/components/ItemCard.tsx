@@ -44,13 +44,13 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
             <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
-            <button onClick={() => handleClickDecrease(id)}>
+            <S.StepButton onClick={() => handleClickDecrease(id)}>
               <img src="./minus-button.svg" alt="minus-button" />
-            </button>
+            </S.StepButton>
             <p>{quantity}</p>
-            <button onClick={() => increaseCartItemQuantity(id)}>
+            <S.StepButton onClick={() => increaseCartItemQuantity(id)}>
               <img src="./plus-button.svg" alt="plus-button" />
-            </button>
+            </S.StepButton>
           </S.Stepper>
         </S.ItemInfoBox>
       </S.ItemBox>
@@ -119,5 +119,9 @@ const S = {
     border: 2px solid #e6e6e6;
     border-radius: 8px;
     padding: 4px 8px;
+  `,
+
+  StepButton: styled.button`
+    height: 24px;
   `,
 };
