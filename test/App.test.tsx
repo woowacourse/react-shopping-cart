@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 
 import { ErrorToastContextProvider } from "../src/contexts/ErrorToastContext";
 import { testStateStore } from "../src/mock/handlers";
@@ -37,6 +37,11 @@ const formatPrice = (price: number) => `${price.toLocaleString()}원`;
 describe("app은", () => {
   beforeEach(() => {
     testStateStore.reset();
+  });
+
+  afterEach(() => {
+    localStorage.clear();
+    vi.restoreAllMocks();
   });
 
   it("초기 상태가 올바르게 설정되어야 한다", async () => {
