@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../Cart/Spinner/Spinner";
 import fallbackPng from "/fallback_image.png";
 
 type ImageStatus = "loading" | "loaded" | "error";
 
-export default function CartCardImage({ imageUrl }: { imageUrl: string }) {
+export default function CustomImage({ imageUrl }: { imageUrl: string }) {
   const [imageStatus, setImageStatus] = useState<ImageStatus>("loading");
   const [finalImageUrl, setFinalImageUrl] = useState<string>(imageUrl);
   const isValidImageUrl = (url: string | null): boolean => {

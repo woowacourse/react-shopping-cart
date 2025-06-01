@@ -2,7 +2,7 @@ import { CartItem } from "../../../type/CartItem";
 import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
 import CheckBox from "../../common/CheckBox";
-import CartCardImage from "./CartCardImage";
+import CartCardImage from "../../common/CustomImage";
 
 interface CartCardProps {
   cartItem: CartItem;
