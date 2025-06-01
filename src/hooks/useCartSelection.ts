@@ -4,15 +4,12 @@ import { CartItemContent, CartItemWithCheck } from "../types/cartItem";
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
 export const useCartSelection = (cartItems: CartItemContent[]) => {
-  const [checkedIds, setCheckedIds] = useState<Set<number>>(
-    () => new Set(cartItems.map((item) => item.id)), // 초기값: 모두 체크
-  );
+  const [checkedIds, setCheckedIds] = useState<Set<number>>(() => new Set(cartItems.map((item) => item.id)));
 
   const cartItemsWithCheck: CartItemWithCheck[] = cartItems.map((item) => ({
     ...item,
     isChecked: checkedIds.has(item.id),
   }));
-
   const handleCheckChange: HandleCheckChangeType = ({ action, id }) => {
     if (action === "all") {
       const isAllChecked = cartItems.every((item) => checkedIds.has(item.id));
