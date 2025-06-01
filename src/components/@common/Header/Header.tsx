@@ -11,7 +11,12 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <header className={HeaderStyle}>
-      <img className={Leading} src={leadingIcon} onClick={onLeadingClick} />
+      <img
+        data-testid={"header-leading"}
+        className={Leading}
+        src={leadingIcon}
+        onClick={onLeadingClick}
+      />
     </header>
   );
 };
