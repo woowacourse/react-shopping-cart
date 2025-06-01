@@ -1,31 +1,45 @@
-import styled from '@emotion/styled';
-import { ImgHTMLAttributes, useState } from 'react';
+import styled from "@emotion/styled";
+import { ImgHTMLAttributes, useEffect, useState } from "react";
 
-interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-  imageSource: string;
+interface ImageProps
+  extends Omit<ImgHTMLAttributes<HTMLImageElement>, "onError"> {
+  src: string;
   altText?: string;
   isSoldOut?: boolean;
   width?: string;
   height?: string;
-  position?: 'absolute' | 'relative' | 'static' | 'fixed' | 'sticky';
+  position?: "absolute" | "relative" | "static" | "fixed" | "sticky";
+  onError?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 function Image({
-  imageSource,
-  altText = '이미지',
+  src,
+  altText = "이미지",
   isSoldOut = false,
+  onError,
   ...props
 }: ImageProps) {
-  const [imageUrl, setImageUrl] = useState(imageSource);
+  const [imageUrl, setImageUrl] = useState(src);
+
+  useEffect(() => {
+    setImageUrl(src);
+  }, [src]);
+
+  const handleError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    setImageUrl("./assets/images/DefaultImage.jpg");
+    if (onError) {
+      onError(event);
+    }
+  };
 
   return (
     <ImageContainer
       src={imageUrl}
       alt={altText}
       isSoldout={isSoldOut}
-      onError={() => {
-        setImageUrl('./assets/images/DefaultImage.jpg');
-      }}
+      onError={handleError}
       {...props}
     />
   );
@@ -35,10 +49,10 @@ const ImageContainer = styled.img<{
   isSoldout: boolean;
   width?: string;
   height?: string;
-  position?: 'absolute' | 'relative' | 'static' | 'fixed' | 'sticky';
+  position?: "absolute" | "relative" | "static" | "fixed" | "sticky";
 }>`
-  width: ${({ width }) => width || '100%'};
-  height: ${({ height }) => height || '100%'};
+  width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || "100%"};
   object-fit: cover;
   ${({ isSoldout }) => isSoldout && `filter: grayscale(100%) brightness(0.5);`}
   ${({ position }) => position && `position: ${position};`}
