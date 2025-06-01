@@ -5,6 +5,7 @@ export const Main = styled.div`
   flex-direction: column;
   padding: 32px 24px 36px;
   flex-grow: 1;
+  height: calc(100vh - 128px);
 `;
 
 export const Logo = styled.a`
@@ -19,6 +20,7 @@ export const ContentContainer = styled.div`
   flex-direction: column;
   margin-top: 15px;
   flex-grow: 1;
+  overflow: hidden;
 `;
 
 export const CartContainer = styled.div`
@@ -27,6 +29,7 @@ export const CartContainer = styled.div`
   padding: 32px 0;
   flex-grow: 1;
   gap: 20px;
+  min-height: 0;
 `;
 
 export const CartItemsContainer = styled.div`
@@ -34,7 +37,6 @@ export const CartItemsContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   overflow-y: auto;
-  max-height: 400px;
   padding-right: 12px;
 `;
 
