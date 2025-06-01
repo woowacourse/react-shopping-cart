@@ -12,7 +12,7 @@ import { useNavigate } from "react-router";
 const CartItemPage = () => {
   const {
     cartItems,
-    selectedItem,
+    selectedItemIds,
     loadingStatus,
     orderPrice,
     totalPrice,
@@ -63,7 +63,7 @@ const CartItemPage = () => {
           {cartItems.length > 0 && (
             <ConfirmButton
               text="주문하기"
-              disabled={selectedItem.size === 0}
+              disabled={selectedItemIds.size === 0}
               onClick={() => {
                 navigate("/order-confirm");
               }}

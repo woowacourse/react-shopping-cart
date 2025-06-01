@@ -15,8 +15,8 @@ interface CartItemContext {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
-  selectedItem: Set<unknown>;
-  handleSelectedItem: (newSet: Set<unknown>) => void;
+  selectedItemIds: Set<number>;
+  handleSelectedItemIds: (newSet: Set<number>) => void;
 }
 
 interface CartItemProviderProps {
@@ -29,10 +29,12 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [selectedItem, setSelectedItem] = useState(new Set());
+  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(
+    new Set()
+  );
 
-  const handleSelectedItem = (newSet: Set<unknown>) => {
-    return setSelectedItem(newSet);
+  const handleSelectedItemIds = (newSet: Set<number>) => {
+    return setSelectedItemIds(newSet);
   };
 
   async function fetchCartItems() {
@@ -72,7 +74,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   }
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {
-    if (selectedItem.has(cartItem.id)) {
+    if (selectedItemIds.has(cartItem.id)) {
       return acc + cartItem.product.price * cartItem.quantity;
     }
     return acc;
@@ -102,8 +104,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         orderPrice,
         shippingFee,
         totalPrice,
-        selectedItem,
-        handleSelectedItem,
+        selectedItemIds,
+        handleSelectedItemIds,
       }}
     >
       {children}
