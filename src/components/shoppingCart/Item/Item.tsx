@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import * as S from "./Item.styles";
 
 import Hr from "../../common/Hr/Hr";
@@ -27,9 +29,47 @@ export default function Item({
 }: ItemProps) {
   const { patchCartItem, removeCartItem } = useCartItemList();
 
-  const onIncrease = () => patchCartItem(id, quantity + 1);
-  const onDecrease = () => patchCartItem(id, quantity - 1);
-  const onRemove = () => removeCartItem(id);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
+
+  const onIncrease = async () => {
+    if (isUpdating) return;
+
+    try {
+      setIsUpdating(true);
+      await patchCartItem(id, quantity + 1);
+    } catch (error) {
+      console.log("수량 증가 실패:", error);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const onDecrease = async () => {
+    if (isUpdating) return;
+
+    try {
+      setIsUpdating(true);
+      await patchCartItem(id, quantity - 1);
+    } catch (error) {
+      console.log("수량 감소 실패:", error);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const onRemove = async () => {
+    if (isRemoving) return;
+
+    try {
+      setIsRemoving(true);
+      await removeCartItem(id);
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    } finally {
+      setIsRemoving(false);
+    }
+  };
 
   return (
     <div>
