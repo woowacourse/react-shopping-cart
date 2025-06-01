@@ -1,20 +1,11 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
+import { RouterProvider } from 'react-router-dom';
+import router from '../src/router/router';
 
 describe('ConfirmButton 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<RouterProvider router={router} />));
   });
 
   it('장바구니에 하나라도 상품이 선택된 경우, 버튼이 활성화된다.', async () => {

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import AllCheckSection from '../components/AllCheckSection';
 import CartItemCountMessage from '../components/CartItemCountMessage';
 import ConfirmButton from '../components/ConfirmButton';
@@ -6,12 +7,11 @@ import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
-import { usePageContext } from '../contexts/PageContext';
 import styled from '@emotion/styled';
 
 const CartPage = () => {
-  const { cartItems } = useCartItemsContext();
-  const { setPage } = usePageContext();
+  const { cartItems, checkedCartIds } = useCartItemsContext();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -44,7 +44,17 @@ const CartPage = () => {
           </>
         )}
       </S.content>
-      <ConfirmButton title="주문 확인" onClick={() => setPage('orderConfirm')} />
+      <ConfirmButton
+        title="주문 확인"
+        onClick={() =>
+          navigate('/react-shopping-cart/confirm', {
+            state: {
+              cartItems,
+              checkedCartIds,
+            },
+          })
+        }
+      />
     </>
   );
 };

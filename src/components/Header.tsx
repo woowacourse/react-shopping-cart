@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
-import { usePageContext } from '../contexts/PageContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { page, setPage } = usePageContext();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const headerContent =
-    page === 'cart' ? (
+    pathname === '/react-shopping-cart/' ? (
       <S.title>SHOP</S.title>
     ) : (
       <button>
-        <img src="./go-back.svg" alt="goBack" onClick={() => setPage('cart')} />
+        <img src="./go-back.svg" alt="goBack" onClick={() => navigate('/react-shopping-cart/')} />
       </button>
     );
 

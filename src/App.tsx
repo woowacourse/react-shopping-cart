@@ -1,16 +1,11 @@
 import styled from '@emotion/styled';
-import CartItemsProvider from './contexts/CartItemsProvider';
-import PageProvider from './contexts/PageProvider';
-import PageController from './pages/PageController';
+import { RouterProvider } from 'react-router-dom';
+import router from './router/router';
 
 function App() {
   return (
     <S.layout>
-      <PageProvider>
-        <CartItemsProvider>
-          <PageController />
-        </CartItemsProvider>
-      </PageProvider>
+      <RouterProvider router={router} />
     </S.layout>
   );
 }

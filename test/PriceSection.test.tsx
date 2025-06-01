@@ -1,46 +1,23 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { mockCartItems } from './mocks';
 import getOrderPrice from '../src/utils/getOrderPrice';
 import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
 import { act } from 'react';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
-import {
-  DELIVERY_PRICE,
-  DELIVERY_PRICE_THRESHOLD,
-} from '../src/constants/config';
+import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../src/constants/config';
+import { RouterProvider } from 'react-router-dom';
+import router from '../src/router/router';
 
 describe('PriceSection 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<RouterProvider router={router} />));
   });
 
   describe('OrderPrice 컴포넌트', () => {
     it('현재 장바구니 목록을 바탕으로 주문금액을 표시한다', async () => {
-      const totalPrice = getOrderPrice(
-        mockCartItems,
-        getIdsFromCartItems(mockCartItems)
-      );
+      const totalPrice = getOrderPrice(mockCartItems, getIdsFromCartItems(mockCartItems));
       const orderPriceElement = screen.getByTestId('주문 금액');
       await waitFor(() => {
-        expect(orderPriceElement).toHaveTextContent(
-          totalPrice.toLocaleString() + '원'
-        );
+        expect(orderPriceElement).toHaveTextContent(totalPrice.toLocaleString() + '원');
       });
     });
 
@@ -73,9 +50,7 @@ describe('PriceSection 컴포넌트 테스트', () => {
       fireEvent.click(firstItemCheckBox);
 
       await waitFor(() => {
-        expect(deliveryPriceElement).toHaveTextContent(
-          `${DELIVERY_PRICE.toLocaleString()}원`
-        );
+        expect(deliveryPriceElement).toHaveTextContent(`${DELIVERY_PRICE.toLocaleString()}원`);
       });
     });
 
@@ -96,9 +71,7 @@ describe('PriceSection 컴포넌트 테스트', () => {
       const orderPriceElement = screen.getByTestId('주문 금액');
       const deliveryPriceElement = screen.getByTestId('배송비');
 
-      const orderPrice = parseInt(
-        orderPriceElement.textContent?.replace(/[^0-9]/g, '') ?? '0'
-      );
+      const orderPrice = parseInt(orderPriceElement.textContent?.replace(/[^0-9]/g, '') ?? '0');
       const deliveryPrice = parseInt(
         deliveryPriceElement.textContent?.replace(/[^0-9]/g, '') ?? '0'
       );
