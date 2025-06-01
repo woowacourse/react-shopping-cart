@@ -3,6 +3,7 @@ import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
 import { CartItem } from '../../../shared/types/cart';
 import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useEffect } from 'react';
 
 interface CartListProps {
   cartItems: CartItem[];
@@ -11,6 +12,12 @@ interface CartListProps {
 
 export default function CartList({ cartItems, setCartItems }: CartListProps) {
   const { selectedCartItems, addAllCartItemsInSelected } = useSelectedCartContext();
+
+  useEffect(() => {
+    if (cartItems.length === 0) return;
+
+    addAllCartItemsInSelected(cartItems);
+  }, []);
 
   const selectedIds = new Set(selectedCartItems.map((item) => item.id));
   const isAllSelected = cartItems.length > 0 && cartItems.every((cartItem) => selectedIds.has(cartItem.id));
@@ -23,8 +30,8 @@ export default function CartList({ cartItems, setCartItems }: CartListProps) {
   return (
     <S.CartListContainer>
       <S.AllSelectContainer>
-        <SelectInput type='checkbox' onChange={handleAllCartItemsInSelected} checked={isAllSelected} />
-        <span>전체 선택</span>
+        <SelectInput id='select-all' type='checkbox' onChange={handleAllCartItemsInSelected} checked={isAllSelected} />
+        <label htmlFor='select-all'>전체 선택</label>
       </S.AllSelectContainer>
       <S.CartItemCardContainer>
         {cartItems.map((cartItem) => (

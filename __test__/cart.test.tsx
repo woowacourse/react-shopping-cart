@@ -45,6 +45,10 @@ describe('RTL Test', () => {
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
     expect(cartItemCards.length).toBeGreaterThan(0);
 
+    const allSelectCheckbox = screen.getByLabelText('전체 선택');
+
+    await user.click(allSelectCheckbox);
+
     const firstCard = cartItemCards[0];
     const checkbox = within(firstCard).getByRole('checkbox');
 
