@@ -14,7 +14,5 @@ export const patchCartItem = async ({ cartId, quantity }: Props) => {
     quantity,
   });
 
-  if (!response.ok) {
-    throw new Error(ERROR_MESSAGE);
-  }
+  if (!response.ok) throw new Error(ERROR_MESSAGE);
 };
