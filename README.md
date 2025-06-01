@@ -57,3 +57,15 @@
    3. 새로고침시, 상태가 초기화된다. -> 로컬 스토리지를 이용해서 현재 데이터 값을 저장을 해놔야한다. (그리고 재요청)
       1. 값이 없으면 다시 페이지 리턴
    4. 새로고침x -> 페이지 간의 상태가 공유되어야하기 때문에, 쿼리스트링 / 로컬스토리지 / provider 데이터 전달
+
+### 리팩토링 수정사항
+
+- [ ] 에러 ui 추가
+- [ ] 1에서 수량 차감시 아이템 사라지기 막기 -> 1일 때 차감 버튼 비활성화 (더 이상 수량을 줄일 수 없습니다. 에러 띄우기)
+- [ ] apiClient params falsy값 수정
+- [ ] header 컴포넌트 합성 컴포넌트 방식으로 수정 -> 각페이지에서 관리
+- [ ] Button 컴포넌트 props 네이밍 변경 (styles X)
+- [ ] cartItem type 명 변경
+- [ ] normalize.css 사용해보기
+- [ ] orderConfirmPage location.state 처리
+- [ ] useCart 훅 return 값 useMemo 처리하기
