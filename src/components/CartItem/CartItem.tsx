@@ -26,7 +26,6 @@ export default function CartItem({ item, handleCheckBoxChange, checked }: CartIt
   };
 
   const handlePlus = async () => {
-    // if (cartQuantity >= productQuantity) return;
     await patchCartItem(cartItemId, cartQuantity + 1);
     await refetchCart();
   };

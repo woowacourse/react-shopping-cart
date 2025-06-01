@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 export const toastCss = css({
   background: '#FFC9C9',
   width: '382px',
