@@ -1,4 +1,5 @@
 import { HttpMethod } from "../types/HttpMethod";
+import { BASE_URL, TOKEN } from "./config";
 
 type fetchRemoveProductParams = {
   method: HttpMethod;
@@ -6,9 +7,6 @@ type fetchRemoveProductParams = {
     productId: number;
   };
 };
-
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/cart-items`;
-const TOKEN = import.meta.env.VITE_TOKEN;
 
 const fetchRemoveProduct = async ({
   method,

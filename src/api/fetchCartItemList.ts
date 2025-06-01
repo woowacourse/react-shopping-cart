@@ -1,5 +1,6 @@
 import { HttpMethod } from "../types/HttpMethod";
 import { FetchCartItemListResult } from "../types/FetchCartItemListResult";
+import { BASE_URL, TOKEN } from "./config";
 
 type fetchCartItemsParams = {
   method: HttpMethod;
@@ -8,9 +9,6 @@ type fetchCartItemsParams = {
     size: string;
   };
 };
-
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/cart-items`;
-const TOKEN = import.meta.env.VITE_TOKEN;
 
 const fetchCartItems = async ({
   method,
