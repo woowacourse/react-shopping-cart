@@ -7,11 +7,10 @@ export const CART_ITEMS_DATA: GetCartItemsResponse = {
       quantity: 1,
       product: {
         id: 24,
-        name: "부리부리 원형 테이블",
-        price: 3210000,
-        imageUrl:
-          "https://cafe24.poxo.com/ec01/dmswo9075/HOvhRhvOk+Cp2KY4JuusAqBst4wtnsfbyXcejHyxMmXKvNELh5kEAFzUfK9ehG6ogDMwTwYJTLHHXeYVBq809g==/_/web/product/big/202408/19deee5e9d060d80a4180e2b2ecb6ce8.jpg",
-        category: "패션잡화",
+        name: "스파이더맨",
+        price: 80000,
+        imageUrl: "/images/spiderman.png",
+        category: "굿즈",
         stock: 10,
       },
     },
