@@ -5,7 +5,7 @@ import { PatchCartItemProps } from '../types/cartApi';
 
 function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
-  const [isError, setIsError] = useState('');
+  const [isError, setIsError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
