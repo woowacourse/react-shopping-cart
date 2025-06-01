@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 import { CartItemType } from '../types';
+import { calculateOrderPrice } from '../utils/cartCalculations';
 
-function useCartSelection() {
+function useCartSelection(cartItems: CartItemType[]) {
   const [selectedList, setSelectedList] = useState<boolean[]>([]);
   const allSelected = useMemo(
     () => selectedList.every((isSelected) => isSelected),
@@ -28,9 +29,16 @@ function useCartSelection() {
     );
   }, [allSelected]);
 
+  const selectCartItems = getItems(cartItems);
+  const orderPrice = calculateOrderPrice(selectCartItems);
+  const disabled = !selectedList.some((isSelected) => isSelected);
+
   return {
     selectedList,
     allSelected,
+    selectCartItems,
+    disabled,
+    orderPrice,
     setSelectedList,
     getItems,
     toggle,

@@ -28,8 +28,11 @@ function CartContents() {
         toggleAllSelect={cart.selection.toggleAll}
         refetch={cart.fetch}
       />
-      <CartPrice value={cart.orderPrice} />
-      <FooterButton disabled={cart.disabled} onClick={cart.moveToOrderConfirm}>
+      <CartPrice value={cart.selection.orderPrice} />
+      <FooterButton
+        disabled={cart.selection.disabled}
+        onClick={cart.moveToOrderConfirm}
+      >
         주문 확인
       </FooterButton>
     </S.Container>
