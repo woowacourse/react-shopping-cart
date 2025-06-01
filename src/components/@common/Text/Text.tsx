@@ -6,12 +6,13 @@ interface TextProps {
   text: string;
   type?: TextType;
   testId?: string;
+  styled?: React.CSSProperties;
 }
-const Text = ({ text, type = "small", testId }: TextProps) => {
+const Text = ({ text, type = "small", testId, styled }: TextProps) => {
   return (
-    <div className={TextStyle(type)} data-testid={testId}>
+    <p className={TextStyle(type)} data-testid={testId} style={styled}>
       {text}
-    </div>
+    </p>
   );
 };
 
@@ -20,5 +21,5 @@ export default Text;
 const TextStyle = (type: TextType) => css`
   font-weight: ${type === "small" ? 500 : 700};
   font-size: ${type === "large" ? "24px" : type === "medium" ? "16px" : "12px"};
-  color = ${type === "small" ? "#0A0D13" : "#000000"};
+  color: ${type === "small" ? "#0A0D13" : "#000000"};
 `;
