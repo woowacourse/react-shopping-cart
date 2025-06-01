@@ -1,9 +1,6 @@
-import { CartItem } from '../types/Cart.types';
+import { CartItemList } from '../types/Cart.types';
 
-type OrderConfirmProps = {
-  cartItems: CartItem[];
-};
-export const useOrderConfirm = ({ cartItems }: OrderConfirmProps) => {
+export const useOrderConfirm = ({ cartItems }: CartItemList) => {
   const hasCheckCartLength = cartItems?.filter((item) => item.isChecked).length;
   const totalQuantity = cartItems?.reduce(
     (acc, item) => acc + (item.isChecked ? item.quantity : 0),
