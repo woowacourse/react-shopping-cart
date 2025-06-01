@@ -28,7 +28,7 @@ function useCartList() {
     }
   };
 
-  const increaseCartItem = async ({
+  const handleIncreaseCartItem = async ({
     cartItemId,
     quantity,
   }: PatchCartItemProps) => {
@@ -49,13 +49,13 @@ function useCartList() {
     }
   };
 
-  const decreaseCartItem = async ({
+  const handleDecreaseCartItem = async ({
     cartItemId,
     quantity,
   }: PatchCartItemProps) => {
     try {
       if (quantity === 0) {
-        await deleteCartItem(cartItemId);
+        await handleDeleteCartItem(cartItemId);
       } else {
         await cart.decreaseCartItem({ cartItemId, quantity });
 
@@ -74,7 +74,7 @@ function useCartList() {
     }
   };
 
-  const deleteCartItem = async (cartItemId: number) => {
+  const handleDeleteCartItem = async (cartItemId: number) => {
     try {
       await cart.deleteCartItem(cartItemId);
 
@@ -94,9 +94,9 @@ function useCartList() {
     cartList,
     isError,
     isLoading,
-    increaseCartItem,
-    decreaseCartItem,
-    deleteCartItem,
+    handleIncreaseCartItem,
+    handleDecreaseCartItem,
+    handleDeleteCartItem,
   };
 }
 

@@ -18,22 +18,22 @@ function CartItem({
   cartItem,
   isSelected,
   handleSelectItem,
-  increaseCartItem,
-  decreaseCartItem,
-  deleteCartItem,
+  onIncreaseCartItemClick,
+  onDecreaseCartItemClick,
+  onDeleteCartItemClick,
 }: {
   cartItem: CartItemProps;
   isSelected: boolean;
   handleSelectItem: (cartItemId: number) => void;
-  increaseCartItem: ({
+  onIncreaseCartItemClick: ({
     cartItemId,
     quantity,
   }: PatchCartItemProps) => Promise<void>;
-  decreaseCartItem: ({
+  onDecreaseCartItemClick: ({
     cartItemId,
     quantity,
   }: PatchCartItemProps) => Promise<void>;
-  deleteCartItem: (cartItemId: number) => Promise<void>;
+  onDeleteCartItemClick: (cartItemId: number) => Promise<void>;
 }) {
   return (
     <li css={CartItemStyle}>
@@ -46,7 +46,7 @@ function CartItem({
         />
         <button
           css={DeleteButtonStyle}
-          onClick={() => deleteCartItem(cartItem.id)}
+          onClick={() => onDeleteCartItemClick(cartItem.id)}
         >
           <Text varient="caption">삭제</Text>
         </button>
@@ -67,7 +67,7 @@ function CartItem({
             <button
               css={ControllerButton}
               onClick={() =>
-                decreaseCartItem({
+                onDecreaseCartItemClick({
                   cartItemId: cartItem.id,
                   quantity: cartItem.quantity - 1,
                 })
@@ -79,7 +79,7 @@ function CartItem({
             <button
               css={ControllerButton}
               onClick={() =>
-                increaseCartItem({
+                onIncreaseCartItemClick({
                   cartItemId: cartItem.id,
                   quantity: cartItem.quantity + 1,
                 })

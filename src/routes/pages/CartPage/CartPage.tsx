@@ -21,9 +21,9 @@ function CartPage() {
   const {
     cartList,
     isLoading,
-    increaseCartItem,
-    decreaseCartItem,
-    deleteCartItem,
+    handleIncreaseCartItem,
+    handleDecreaseCartItem,
+    handleDeleteCartItem,
   } = useCartList();
 
   const {
@@ -50,9 +50,9 @@ function CartPage() {
               cartItem={cartItem}
               isSelected={selectedItems.includes(cartItem.id)}
               handleSelectItem={handleSelectItem}
-              increaseCartItem={increaseCartItem}
-              decreaseCartItem={decreaseCartItem}
-              deleteCartItem={deleteCartItem}
+              onIncreaseCartItemClick={handleIncreaseCartItem}
+              onDecreaseCartItemClick={handleDecreaseCartItem}
+              onDeleteCartItemClick={handleDeleteCartItem}
             />
           ))}
         </CartList>
