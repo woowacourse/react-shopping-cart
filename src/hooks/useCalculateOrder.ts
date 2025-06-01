@@ -4,7 +4,7 @@ import { CartItem } from "../type/CartItem";
 
 export function useCalculateOrder(
   cartItems: CartItem[],
-  selectedIds: Set<string>
+  selectedIds: Set<string> | undefined
 ) {
   const summary = useMemo(
     () => summarizeOrder(cartItems, selectedIds),

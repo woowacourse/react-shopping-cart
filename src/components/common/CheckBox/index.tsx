@@ -26,7 +26,7 @@ const CheckBox = ({
       <HiddenCheckbox
         id={id}
         type="checkbox"
-        checked={checked}
+        checked={checked || false}
         onChange={onChange}
         aria-labelledby={`${id}-label`}
       />

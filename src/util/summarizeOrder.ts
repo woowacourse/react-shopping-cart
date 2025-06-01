@@ -1,8 +1,11 @@
 import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "../constants/priceSetting";
 import { CartItem } from "../type/CartItem";
 
-export function summarizeOrder(items: CartItem[], selected: Set<string>) {
-  const selectedItems = items.filter((item) => selected.has(item.id));
+export function summarizeOrder(
+  items: CartItem[],
+  selected: Set<string> | undefined
+) {
+  const selectedItems = items.filter((item) => selected?.has(item.id));
 
   const { price, count } = selectedItems.reduce(
     (acc, { product, quantity }) => ({
@@ -12,7 +15,7 @@ export function summarizeOrder(items: CartItem[], selected: Set<string>) {
     { price: 0, count: 0 }
   );
 
-  const isAll = items.length > 0 && items.every((i) => selected.has(i.id));
+  const isAll = items.length > 0 && items.every((i) => selected?.has(i.id));
   const shipping = price >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE;
 
   return {

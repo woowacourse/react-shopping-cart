@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { CartItem } from "../type/CartItem";
 
 interface useLocalStorageProps {
   cartItemsData: CartItem[];
-  selectedCartIds: Set<string>;
-  setSelectedCartIds: React.Dispatch<React.SetStateAction<Set<string>>>;
+  selectedCartIds: Set<string> | undefined;
+  setSelectedCartIds: React.Dispatch<
+    React.SetStateAction<Set<string> | undefined>
+  >;
 }
 
 export default function useLocalStorage({
@@ -12,11 +14,8 @@ export default function useLocalStorage({
   selectedCartIds,
   setSelectedCartIds,
 }: useLocalStorageProps) {
-  const initializedRef = useRef(false);
-
   useEffect(() => {
-    if (initializedRef.current) return;
-
+    if (!setSelectedCartIds) return;
     if (cartItemsData.length === 0) return;
 
     const stored = localStorage.getItem("selectedCartIds");
@@ -30,11 +29,10 @@ export default function useLocalStorage({
     } else {
       setSelectedCartIds(new Set(cartItemsData.map((item) => item.id)));
     }
-    initializedRef.current = true;
   }, [cartItemsData]);
 
   useEffect(() => {
-    if (!initializedRef.current) return;
+    if (!selectedCartIds) return;
     const arr = Array.from(selectedCartIds);
     localStorage.setItem("selectedCartIds", JSON.stringify(arr));
   }, [selectedCartIds]);
