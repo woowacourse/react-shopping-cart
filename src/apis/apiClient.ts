@@ -1,3 +1,5 @@
+import { API_ERROR_MESSAGES, DEFAULT_ERROR_MESSAGE, NETWORK_ERROR_MESSAGE } from "./constants";
+
 const BASE_URL = import.meta.env.VITE_API_URL;
 const TOKEN = import.meta.env.VITE_TOKEN;
 
@@ -20,12 +22,15 @@ const apiClient = async <T, P>({ url, options, params }: ApiClientParams<P>): Pr
 
     if (!response.ok) {
       const errorBody = await response.json();
-      throw new Error(errorBody.message || "오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      throw new Error(errorBody.message || API_ERROR_MESSAGES[response.status] || DEFAULT_ERROR_MESSAGE);
     }
     return options?.method === "GET" ? response.json() : (undefined as T);
   } catch (e) {
-    if (e instanceof Error) throw new Error(e.message || "오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-    return undefined as T;
+    if (e instanceof TypeError && e.message.includes("fetch")) {
+      throw new Error(NETWORK_ERROR_MESSAGE);
+    }
+    if (e instanceof Error) throw new Error(e.message || DEFAULT_ERROR_MESSAGE);
+    throw new Error(DEFAULT_ERROR_MESSAGE);
   }
 };
 

@@ -20,6 +20,7 @@ type HandleCartItemChangeType = ({
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
 export interface UseCartReturnType {
+  isLoading: boolean;
   cartItemsInfo: Record<
     "cartItemsCount" | "orderPrice" | "deliveryPrice" | "totalPrice" | "cartItemsCheckedCount",
     number
@@ -34,6 +35,7 @@ export interface UseCartReturnType {
 }
 
 const useCart = (): UseCartReturnType => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { showError } = useError();
   const [cartItems, setCartItems] = useState<CartItemsType[]>([]);
   const cartItemsCount = cartItems.length;
@@ -51,16 +53,20 @@ const useCart = (): UseCartReturnType => {
   const totalPrice = orderPrice + deliveryPrice;
 
   const getInitializeCartItems = async () => {
+    setIsLoading(true);
     try {
       const data = await cartApi.get({ page: 0, size: 20 });
       const mappedCartItems = data.content.map((item) => ({ ...item, isChecked: true }));
       setCartItems(mappedCartItems);
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) showError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const getCartItems = async () => {
+    setIsLoading(true);
     try {
       const data = await cartApi.get({ page: 0, size: 20 });
       const mappedCartItems = data.content.map((item) => {
@@ -70,6 +76,8 @@ const useCart = (): UseCartReturnType => {
       setCartItems(mappedCartItems);
     } catch (e) {
       if (e instanceof Error) showError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -119,6 +127,7 @@ const useCart = (): UseCartReturnType => {
   }, []);
 
   return {
+    isLoading,
     cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
     cartItemListProps: { cartItems, handleCartItemChange, handleCheckChange, isAllChecked },
     orderResult: { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice },
