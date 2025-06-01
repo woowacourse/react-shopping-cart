@@ -38,17 +38,19 @@ const router = createBrowserRouter(
 );
 
 async function enableMocking() {
-  if (!import.meta.env.VITE_USE_MOCK) return;
+  if (import.meta.env.MODE === "mock") {
+    const { worker } = await import("./__mocks__/browser.ts");
 
-  const { worker } = await import("./__mocks__/browser.ts");
+    return worker.start({
+      serviceWorker: {
+        url: `${window.location.origin}${CLIENT_BASE_PATH}mockServiceWorker.js`,
+        options: { scope: CLIENT_BASE_PATH },
+      },
+      onUnhandledRequest: "bypass",
+    });
+  }
 
-  return worker.start({
-    serviceWorker: {
-      url: `${window.location.origin}${CLIENT_BASE_PATH}mockServiceWorker.js`,
-      options: { scope: CLIENT_BASE_PATH },
-    },
-    onUnhandledRequest: "bypass",
-  });
+  return Promise.resolve();
 }
 
 enableMocking().then(() =>
