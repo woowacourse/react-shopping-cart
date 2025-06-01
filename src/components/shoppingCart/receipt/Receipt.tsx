@@ -1,4 +1,4 @@
-import Vector from "../../../assets/Vector.png";
+import Vector from "../../../assets/Vector.svg";
 import Hr from "../../common/Hr/Hr";
 
 import Price from "../Price/Price";
