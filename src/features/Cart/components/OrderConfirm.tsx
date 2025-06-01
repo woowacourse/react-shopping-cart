@@ -8,13 +8,9 @@ import { Text } from '@/shared/components/Text';
 import Back from '../../../../public/Back.png';
 import { StepProps } from '../../../shared/types/funnel';
 import { useOrderConfirm } from '../hooks/useOrderConfirm';
-import { CartItem } from '../types/Cart.types';
+import { CartItemList } from '../types/Cart.types';
 
-type OrderConfirmProps = {
-  cartItems: CartItem[];
-} & StepProps;
-
-export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
+export const OrderConfirm = ({ cartItems, onPrev }: CartItemList & StepProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderConfirm({ cartItems });
   return (
     <>
