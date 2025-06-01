@@ -1,24 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Spinner from "../Spinner/Spinner";
+import fallbackPng from "/fallback_image.png";
 
 type ImageStatus = "loading" | "loaded" | "error";
 
 export default function CartCardImage({ imageUrl }: { imageUrl: string }) {
   const [imageStatus, setImageStatus] = useState<ImageStatus>("loading");
   const [finalImageUrl, setFinalImageUrl] = useState<string>(imageUrl);
-
-  const basePath = useMemo(() => {
-    const isGitHubPages = window.location.hostname.includes("github.io");
-    return isGitHubPages ? "/react-shopping-carts/" : "";
-  }, []);
-
   const isValidImageUrl = (url: string | null): boolean => {
     if (!url) return false;
     return url.startsWith("http://") || url.startsWith("https://");
   };
 
-  const fallbackImagePath = `${basePath}fallback_image.png`;
+  const fallbackImagePath = fallbackPng;
 
   useEffect(() => {
     if (!isValidImageUrl(imageUrl)) {
