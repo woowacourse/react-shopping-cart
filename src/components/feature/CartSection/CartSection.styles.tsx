@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding: 36px 24px 0;
   gap: 15px;
+  position: relative;
 `;
 
 export const Description = styled.div`

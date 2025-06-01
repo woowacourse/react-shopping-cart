@@ -4,14 +4,9 @@ import Header from "./Header";
 import CheckBox from "../../common/CheckBox";
 import PriceSection from "./PriceSection";
 import useGetCartItem from "../../../hooks/useGetCartItem";
-import { CartProduct } from "../../../type/cart";
-import Button from "../../common/Button";
-import { useNavigate } from "react-router";
-import { css } from "@emotion/react";
 import { useSelectedCart } from "../../../hooks/useSelectedCart";
 
 const CartSection = () => {
-  const navigate = useNavigate();
   const { cartItems, refetch } = useGetCartItem();
   const { selectedCartId, handleAllSelected, handleToggle, handleDelete } =
     useSelectedCart(cartItems);
@@ -19,29 +14,7 @@ const CartSection = () => {
   const isChecked = (id: number) => {
     return selectedCartId?.some((item) => item === id);
   };
-
   const isAllChecked = selectedCartId?.length === cartItems?.length;
-  const selectedItem = cartItems?.filter(
-    (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
-  );
-
-  const getOrderPrice = () => {
-    return (
-      selectedItem?.reduce(
-        (total: number, current: CartProduct) =>
-          current.product.price * current.quantity + total,
-        0
-      ) ?? 0
-    );
-  };
-
-  const totalAmount = selectedItem?.reduce(
-    (total: number, current: CartProduct) => total + current.quantity,
-    0
-  );
-  const orderPrice = getOrderPrice();
-  const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
-  const totalPrice = orderPrice + deliveryPrice;
 
   return (
     <S.Container>
@@ -76,35 +49,12 @@ const CartSection = () => {
             </S.CartList>
 
             <PriceSection
-              orderPrice={orderPrice}
-              deliveryPrice={deliveryPrice}
-              totalPrice={totalPrice}
+              cartItems={cartItems}
+              selectedCartId={selectedCartId}
             />
           </>
         )}
       </S.Wrapper>
-      <Button
-        testId="order-confirm-button"
-        title="주문 확인"
-        disabled={selectedCartId.length === 0}
-        onClick={() =>
-          navigate("/confirm", {
-            state: {
-              sort: selectedCartId.length,
-              totalAmount: totalAmount,
-              totalPrice: totalPrice,
-            },
-          })
-        }
-        css={css`
-          width: 100%;
-          padding: 24px 0;
-          background-color: #000;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-        `}
-      />
     </S.Container>
   );
 };
