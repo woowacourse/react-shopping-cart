@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 type UseValidateLocationStateParams<T> = {
@@ -16,19 +16,22 @@ const useValidateLocationState = <T>({
 }: UseValidateLocationStateParams<T>): UseValidateLocationStateResult<T> => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isValidating, setIsValidating] = useState(true);
 
   const state = location.state;
+  const isValid = validationFn(state);
   useEffect(() => {
-    if (!validationFn(state)) {
+    if (!isValid) {
       navigate(redirectPath);
       return;
     }
+  }, [isValid, navigate, redirectPath]);
 
-    setIsValidating(false);
-  }, [navigate, state, validationFn, redirectPath]);
+  const isValidating = !isValid;
+  const validationState = isValidating
+    ? { isValidating, state: null }
+    : { isValidating, state };
 
-  return { state, isValidating };
+  return validationState;
 };
 
 export default useValidateLocationState;
