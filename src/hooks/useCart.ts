@@ -1,6 +1,7 @@
 import cartApi from "../apis/cartApi";
 import { useEffect, useState } from "react";
 import { CartItem } from "../types/cartItem";
+import { useErrorMessage } from "../contexts/ErrorContext";
 
 interface CartItemsType extends CartItem {
   isChecked: boolean;
@@ -33,6 +34,8 @@ export interface UseCartReturnType {
 }
 
 const useCart = (): UseCartReturnType => {
+  const { setErrorMessage } = useErrorMessage();
+
   const [cartItems, setCartItems] = useState<CartItemsType[]>([]);
   const cartItemsCount = cartItems.length;
   const cartItemsCheckedCount = cartItems.filter((item) => item.isChecked).length;
@@ -54,7 +57,7 @@ const useCart = (): UseCartReturnType => {
       const mappedCartItems = data.content.map((item) => ({ ...item, isChecked: true }));
       setCartItems(mappedCartItems);
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
   };
 
@@ -67,7 +70,7 @@ const useCart = (): UseCartReturnType => {
       });
       setCartItems(mappedCartItems);
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
   };
 
@@ -76,7 +79,7 @@ const useCart = (): UseCartReturnType => {
       await cartApi.patch({ id, quantity });
       getCartItems();
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
   };
 
@@ -85,7 +88,7 @@ const useCart = (): UseCartReturnType => {
       await cartApi.delete({ id });
       getCartItems();
     } catch (e) {
-      if (e instanceof Error) console.error(e);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
   };
 

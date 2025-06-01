@@ -69,4 +69,4 @@
 - [x] cartItem type 명 변경
 - [x] orderConfirmPage location.state 처리
 - [ ] useCart 훅 return 값 useMemo 처리하기
-- [ ] useCart 훅 비동기 처리 로직 -> 에러 추가
+- [x] useCart 훅 비동기 처리 로직 -> 에러 추가
