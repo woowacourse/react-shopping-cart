@@ -12,14 +12,14 @@ interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
   toggleSelect: () => void;
-  refetch: () => Promise<void>;
+  onUpdate: () => Promise<void>;
 }
 
 function CartItem({
   cartItem,
   isSelected,
   toggleSelect,
-  refetch,
+  onUpdate,
 }: CartItemProps) {
   return (
     <S.Container data-testid={`CartItem-${cartItem.id}`}>
@@ -29,7 +29,7 @@ function CartItem({
         <S.DeleteButton
           onClick={async () => {
             await deleteCartItem(cartItem.id);
-            refetch();
+            onUpdate();
           }}
         >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
@@ -61,7 +61,7 @@ function CartItem({
                 actionType="delete"
                 onClick={async () => {
                   await deleteCartItem(cartItem.id);
-                  refetch();
+                  onUpdate();
                 }}
               />
             ) : (
@@ -69,7 +69,7 @@ function CartItem({
                 actionType="minus"
                 onClick={async () => {
                   await updateCartItem(cartItem.id, cartItem.quantity - 1);
-                  refetch();
+                  onUpdate();
                 }}
               />
             )}
@@ -78,7 +78,7 @@ function CartItem({
               actionType="plus"
               onClick={async () => {
                 await updateCartItem(cartItem.id, cartItem.quantity + 1);
-                refetch();
+                onUpdate();
               }}
             />
           </S.UpdateCartBox>

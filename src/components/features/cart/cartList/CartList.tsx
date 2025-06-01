@@ -36,7 +36,7 @@ function CartList({
           cartItem={cartItem}
           isSelected={isSelectedList[index]}
           toggleSelect={() => toggleSelect(index)}
-          refetch={refetch}
+          onUpdate={refetch}
         />
       ))}
     </S.Container>
