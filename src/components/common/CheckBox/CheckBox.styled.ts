@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 
 export const Label = styled.label`
+  position: relative;
+  width: fit-content;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -8,7 +10,6 @@ export const Label = styled.label`
 `;
 
 export const CheckBox = styled.div<{ isChecked: boolean }>`
-  position: relative;
   width: 24px;
   aspect-ratio: 1/1;
   border-radius: 8px;
@@ -26,4 +27,5 @@ export const Input = styled.input`
   width: 100%;
   height: 100%;
   cursor: pointer;
+  left: 0;
 `;

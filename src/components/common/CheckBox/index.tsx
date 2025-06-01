@@ -8,8 +8,13 @@ interface CheckboxProps {
 }
 
 const CheckBox = ({ children, isChecked, onClick }: CheckboxProps) => {
+  function handleEnterKeyPress(event: React.KeyboardEvent) {
+    if (event.key === "Enter") {
+      onClick();
+    }
+  }
   return (
-    <S.Label onClick={onClick}>
+    <S.Label onClick={onClick} onKeyDown={handleEnterKeyPress}>
       <S.CheckBox isChecked={isChecked}>
         <S.Input type="checkbox" />
         <Check color={isChecked ? "#fff" : "#0000001a"} />
