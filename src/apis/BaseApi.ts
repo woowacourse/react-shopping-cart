@@ -1,9 +1,11 @@
+import { CONFIG } from "@/constants";
+
 export default class BaseApi {
-  private static baseUrl = import.meta.env.VITE_API_URL;
+  private static baseUrl = CONFIG.baseUrl;
 
   protected static getHeaders() {
     return {
-      Authorization: `Basic ${import.meta.env.VITE_TOKEN}`,
+      Authorization: `Basic ${CONFIG.token}`,
       "Content-Type": "application/json",
     };
   }
