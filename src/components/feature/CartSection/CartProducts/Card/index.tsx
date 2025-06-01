@@ -15,7 +15,6 @@ type Props = {
   onRefetch: () => void;
   onToggle: () => void;
   onDeleteSelected: () => void;
-  testId: string;
 };
 
 const Card = ({
@@ -24,7 +23,6 @@ const Card = ({
   isChecked,
   onToggle,
   onDeleteSelected,
-  testId,
 }: Props) => {
   const { imageUrl, name, price } = cartItem.product;
   const showError = useShowError();
@@ -43,6 +41,7 @@ const Card = ({
     try {
       await updateCartProduct(id, updatedQuantity);
       onRefetch();
+      console.log(cartItem.quantity);
     } catch (e) {
       showError?.("상품을 추가/삭제하는 중 문제가 발생했습니다.");
     }
@@ -51,7 +50,11 @@ const Card = ({
   return (
     <S.CardContainer>
       <S.ButtonSection>
-        <CheckBox isChecked={isChecked} onChange={onToggle} testId={testId} />
+        <CheckBox
+          isChecked={isChecked}
+          onChange={onToggle}
+          testId={`check-box${cartItem.id}`}
+        />
         <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
       </S.ButtonSection>
 
@@ -72,6 +75,7 @@ const Card = ({
             onMinusCount={() =>
               handleUpdate(cartItem.id, cartItem.quantity - 1)
             }
+            testId={`count${cartItem.id}`}
           />
         </S.ProductInfoSection>
       </S.CardInfoSection>

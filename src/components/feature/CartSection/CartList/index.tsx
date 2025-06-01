@@ -62,7 +62,6 @@ const CartList = ({
             isChecked={isChecked(cartItem.id)}
             onToggle={() => handleToggle(cartItem.id)}
             onDeleteSelected={() => handleDelete(cartItem.id)}
-            testId={`check-box${cartItem.id}`}
           />
         ))}
       </CardList>

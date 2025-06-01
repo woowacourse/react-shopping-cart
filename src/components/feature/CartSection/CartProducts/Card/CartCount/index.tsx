@@ -6,23 +6,31 @@ type Props = {
   count: number;
   onPlusCount: () => void;
   onMinusCount: () => void;
+  testId: string;
 };
 
-const CartCount = ({ count, onPlusCount, onMinusCount }: Props) => {
+const CartCount = ({ count, onPlusCount, onMinusCount, testId }: Props) => {
   const className = css`
     border-radius: 10px;
     padding: 5px 5px;
   `;
+  console.log(count);
 
   return (
-    <CartCountSection>
+    <CartCountSection data-testid={testId}>
       <Button
         onClick={onMinusCount}
         iconUrl="./minus-icon.svg"
         css={className}
+        testId={`minus-${testId}`}
       />
       {count}
-      <Button onClick={onPlusCount} iconUrl="./plus-icon.svg" css={className} />
+      <Button
+        onClick={onPlusCount}
+        iconUrl="./plus-icon.svg"
+        css={className}
+        testId={`plus-${testId}`}
+      />
     </CartCountSection>
   );
 };

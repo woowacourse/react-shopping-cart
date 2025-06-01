@@ -1,6 +1,7 @@
 import { describe, it, vi, beforeEach, Mock } from "vitest";
 import { screen, render, waitFor } from "@testing-library/react";
 import * as cartAPI from "../src/api/cart/getCartProduct";
+import * as cartUpdateAPI from "../src/api/cart/updateCartProduct";
 import { createMemoryRouter, MemoryRouter, RouterProvider } from "react-router";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -8,12 +9,16 @@ import Confirm from "../src/pages/Confirm";
 import NavBar from "../src/components/layout/NavBar";
 import Main from "../src/pages/Main";
 import { formatPrice } from "../src/utils/formatPrice";
-import { CartProduct } from "../src/type/cart";
 import { getPrice } from "../src/components/feature/CartSection/PriceSection";
 
 vi.mock("../src/api/cart/getCartProduct", () => ({
   getCartProduct: vi.fn(),
 }));
+
+vi.mock("../src/api/cart/updateCartProduct", () => ({
+  updateCartProduct: vi.fn(),
+}));
+
 const mockCartItems = {
   content: [
     {
@@ -56,7 +61,7 @@ describe("장바구니 페이지 로딩 테스트", () => {
         <Main />
       </MemoryRouter>
     );
-    await waitFor(() => {
+    waitFor(() => {
       const cartList = screen.getByTestId("cart-list");
       expect(cartList.children.length).toBe(2);
     });
@@ -69,7 +74,7 @@ describe("장바구니 페이지 로딩 테스트", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => {
+    waitFor(() => {
       const allSelected = screen.getByTestId("all-selected");
       expect(allSelected).toBeChecked();
     });
@@ -92,7 +97,7 @@ describe("장바구니 구매 상품 선택 테스트", () => {
     );
     await userEvent.click(checkboxes);
 
-    await waitFor(() => {
+    waitFor(() => {
       const allSelected = screen.getByTestId("all-selected");
       expect(allSelected).not.toBeChecked();
     });
@@ -113,7 +118,7 @@ describe("장바구니 구매 상품 선택 테스트", () => {
       await userEvent.click(checkbox);
     }
 
-    await waitFor(() => {
+    waitFor(() => {
       const allSelected = screen.getByTestId("all-selected");
       expect(allSelected).toBeChecked();
     });
@@ -136,7 +141,7 @@ describe("장바구니 구매 상품 선택 테스트", () => {
 
     const price = getPrice([mockCartItems.content[1]]);
 
-    await waitFor(() => {
+    waitFor(() => {
       const totalPriceEl = screen.getByTestId("total-amount");
       expect(totalPriceEl?.textContent).toBe(
         `${price.totalPrice?.toLocaleString()}원`
@@ -154,7 +159,7 @@ describe("장바구니가 비었을 때 페이지 전환 테스트", () => {
         <Main />
       </MemoryRouter>
     );
-    await waitFor(() => {
+    waitFor(() => {
       const emptyPage = screen.getByTestId("empty-page");
       expect(emptyPage).toHaveTextContent("장바구니에 담은 상품이 없습니다.");
     });
@@ -188,12 +193,62 @@ describe("주문확인 페이지 로딩 테스트", () => {
     const orderConfirmBtn = await screen.findByTestId("order-confirm-button");
     await userEvent.click(orderConfirmBtn);
 
-    await waitFor(() => {
+    waitFor(() => {
       const description = screen.getByTestId("order-confirm-description");
       expect(description).toHaveTextContent(
         `총 ${sort}종류의 상품 ${price.totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
       );
       expect(description).toHaveTextContent(formatPrice(price.totalPrice));
+    });
+  });
+});
+
+describe("장바구니 상품 개수 빼기/더하기 테스트", () => {
+  beforeEach(() => {
+    (cartAPI.getCartProduct as Mock).mockResolvedValue(mockCartItems);
+    (cartUpdateAPI.updateCartProduct as Mock).mockImplementation(
+      async (cartId: number, quantity: number) => {
+        const item = mockCartItems.content.find((c) => c.id === cartId);
+        if (item) {
+          item.quantity = quantity;
+        }
+        return {};
+      }
+    );
+  });
+
+  it("- 버튼 클릭 시 상품을 뺄 수 있다.", async () => {
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
+
+    const item = mockCartItems.content[0];
+    const minusButton = await screen.findByTestId(`minus-count${item.id}`);
+    await userEvent.click(minusButton);
+
+    waitFor(() => {
+      const count = screen.getByTestId(`count${item.id}`);
+
+      expect(count.textContent).toBe(`${item.quantity}`);
+    });
+  });
+
+  it("+ 버튼 클릭 시 상품을 더할 수 있다.", async () => {
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
+
+    const item = mockCartItems.content[0];
+    const plusButton = await screen.findByTestId(`plus-count${item.id}`);
+    await userEvent.click(plusButton);
+
+    waitFor(() => {
+      const count = screen.getByTestId(`count${item.id}`);
+      expect(count.textContent).toBe(`${item.quantity}`);
     });
   });
 });
