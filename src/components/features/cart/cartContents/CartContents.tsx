@@ -22,10 +22,10 @@ function CartContents() {
       <CartTitle quantity={cart.cartItems.length} />
       <CartList
         cartItems={cart.cartItems}
-        isSelectedList={cart.selection.selectedList}
-        isAllSelected={cart.selection.allSelected}
-        toggleSelect={cart.selection.toggle}
-        toggleAllSelect={cart.selection.toggleAll}
+        selectedList={cart.selection.selectedList}
+        allSelected={cart.selection.allSelected}
+        toggle={cart.selection.toggle}
+        toggleAll={cart.selection.toggleAll}
         refetch={cart.fetch}
       />
       <CartPrice value={cart.selection.orderPrice} />

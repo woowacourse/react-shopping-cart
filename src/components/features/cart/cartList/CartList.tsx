@@ -5,37 +5,33 @@ import { CartItemType } from '../types';
 
 interface CartListProps {
   cartItems: CartItemType[];
-  isSelectedList: boolean[];
-  isAllSelected: boolean;
-  toggleSelect: (index: number) => void;
-  toggleAllSelect: () => void;
+  selectedList: boolean[];
+  allSelected: boolean;
+  toggle: (index: number) => void;
+  toggleAll: () => void;
   refetch: () => Promise<void>;
 }
 
 function CartList({
   cartItems,
-  isSelectedList,
-  isAllSelected,
-  toggleSelect,
-  toggleAllSelect,
+  selectedList,
+  allSelected,
+  toggle,
+  toggleAll,
   refetch,
 }: CartListProps) {
   return (
     <S.Container>
       <S.AllSelectBox>
-        <SelectBox
-          id="allSelect"
-          isSelected={isAllSelected}
-          onClick={toggleAllSelect}
-        />
+        <SelectBox id="allSelect" selected={allSelected} onClick={toggleAll} />
         <S.AllSelectText htmlFor="allSelect">전체선택</S.AllSelectText>
       </S.AllSelectBox>
       {cartItems.map((cartItem, index) => (
         <CartItem
           key={cartItem.id}
           cartItem={cartItem}
-          isSelected={isSelectedList[index]}
-          toggleSelect={() => toggleSelect(index)}
+          selected={selectedList[index]}
+          toggle={() => toggle(index)}
           onUpdate={refetch}
         />
       ))}

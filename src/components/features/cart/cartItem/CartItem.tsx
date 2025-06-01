@@ -10,22 +10,17 @@ import defaultImage from '/assets/default_product.png';
 
 interface CartItemProps {
   cartItem: CartItemType;
-  isSelected: boolean;
-  toggleSelect: () => void;
+  selected: boolean;
+  toggle: () => void;
   onUpdate: () => Promise<void>;
 }
 
-function CartItem({
-  cartItem,
-  isSelected,
-  toggleSelect,
-  onUpdate,
-}: CartItemProps) {
+function CartItem({ cartItem, selected, toggle, onUpdate }: CartItemProps) {
   return (
     <S.Container data-testid={`CartItem-${cartItem.id}`}>
       <Separator />
       <S.ActionContainer>
-        <SelectBox isSelected={isSelected} onClick={toggleSelect} />
+        <SelectBox selected={selected} onClick={toggle} />
         <S.DeleteButton
           onClick={async () => {
             await deleteCartItem(cartItem.id);
