@@ -1,5 +1,5 @@
-import { CartItem } from '../src/types';
-import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
+import { CartItem } from '../../src/types';
+import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 
 describe('getIdsFromCartItems 유틸 함수 테스트', () => {
   it('장바구니 아이템 배열이 주어지면 아이템의 id 배열을 반환한다.', () => {

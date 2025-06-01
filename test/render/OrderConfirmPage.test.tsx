@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import { mockCartItems } from './mocks';
-import getOrderPrice from '../src/utils/getOrderPrice';
-import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
+import { mockCartItems } from '../mocks';
+import getOrderPrice from '../../src/utils/getOrderPrice';
+import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 import { RouterProvider } from 'react-router-dom';
-import router from '../src/router/router';
+import router from '../../src/router/router';
 
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(async () => {

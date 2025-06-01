@@ -1,17 +1,15 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { mockCartItems } from './mocks';
-import useCheckedCartItems from '../src/hooks/useCheckedCartItems';
+import { mockCartItems } from '../mocks';
+import useCheckedCartItems from '../../src/hooks/useCheckedCartItems';
 import { act } from 'react';
-import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
+import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 
 describe('선택된 요소 상태 관리 훅 테스트', () => {
   it('장바구니 배열이 주어지면 초기 상태로 장바구니 상품의 id 배열을 담는다.', async () => {
     const { result } = renderHook(() => useCheckedCartItems());
     act(() => result.current.init(mockCartItems));
     await waitFor(() => {
-      expect(result.current.checkedCartIds).toEqual(
-        getIdsFromCartItems(mockCartItems)
-      );
+      expect(result.current.checkedCartIds).toEqual(getIdsFromCartItems(mockCartItems));
     });
   });
 

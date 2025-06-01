@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { act } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import router from '../src/router/router';
+import router from '../../src/router/router';
 
 describe('전체 선택 테스트', () => {
   beforeEach(async () => {

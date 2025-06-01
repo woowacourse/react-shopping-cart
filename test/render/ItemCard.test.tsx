@@ -1,9 +1,9 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 
-import { mockCartItems } from './mocks';
+import { mockCartItems } from '../mocks';
 import { act } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import router from '../src/router/router';
+import router from '../../src/router/router';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;

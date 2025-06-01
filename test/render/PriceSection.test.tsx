@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import { mockCartItems } from './mocks';
-import getOrderPrice from '../src/utils/getOrderPrice';
-import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
+import { mockCartItems } from '../mocks';
+import getOrderPrice from '../../src/utils/getOrderPrice';
+import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 import { act } from 'react';
-import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../src/constants/config';
+import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../../src/constants/config';
 import { RouterProvider } from 'react-router-dom';
-import router from '../src/router/router';
+import router from '../../src/router/router';
 
 describe('PriceSection 컴포넌트 테스트', () => {
   beforeEach(async () => {

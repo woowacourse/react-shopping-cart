@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { mockCartItems } from './mocks';
+import { mockCartItems } from '../mocks';
 import { act } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import router from '../src/router/router';
+import router from '../../src/router/router';
 
 describe('CartItemCountMessage 컴포넌트 테스트', () => {
   beforeEach(async () => {
