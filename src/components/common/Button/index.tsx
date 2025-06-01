@@ -1,14 +1,16 @@
 import * as S from "./Button.styled";
-import { ButtonStyleProps } from "./type";
+import { ButtonSize, ButtonVariant } from "./type";
 
-interface ButtonProps extends ButtonStyleProps {
+interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
 }
 
 const Button = ({ variant = "primary", size = "full", onClick, children }: ButtonProps) => {
   return (
-    <S.Button styles={{ variant, size }} onClick={onClick} disabled={variant === "disabled"}>
+    <S.Button variant={variant} size={size} onClick={onClick} disabled={variant === "disabled"}>
       {children}
     </S.Button>
   );

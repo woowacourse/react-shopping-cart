@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { ButtonStyleProps } from "./type";
+import { ButtonSize, ButtonVariant } from "./type";
 
-export const Button = styled.button<{ styles: ButtonStyleProps }>`
-  ${(props) => selectVariant(props.styles.variant)}
-  ${(props) => selectSize(props.styles.size)}
+export const Button = styled.button<{ variant: ButtonVariant; size: ButtonSize }>`
+  ${(props) => selectVariant(props.variant)}
+  ${(props) => selectSize(props.size)}
 `;
 
-const selectVariant = (variant: ButtonStyleProps["variant"]) => {
+const selectVariant = (variant: ButtonVariant) => {
   switch (variant) {
     case "primary":
       return `
@@ -29,7 +29,7 @@ const selectVariant = (variant: ButtonStyleProps["variant"]) => {
   }
 };
 
-const selectSize = (size: ButtonStyleProps["size"]) => {
+const selectSize = (size: ButtonSize) => {
   switch (size) {
     case "full":
       return `

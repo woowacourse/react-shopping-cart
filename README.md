@@ -65,7 +65,7 @@
 - [x] 1에서 수량 차감시 아이템 사라지기 막기 -> 1일 때 차감 버튼 비활성화
 - [x] apiClient params falsy값 수정
 - [x] header 컴포넌트 합성 컴포넌트 방식으로 수정 -> 각페이지에서 관리
-- [ ] Button 컴포넌트 props 네이밍 변경 (styles X)
+- [x] Button 컴포넌트 props 네이밍 변경 (styles X)
 - [ ] cartItem type 명 변경
 - [ ] normalize.css 사용해보기
 - [ ] orderConfirmPage location.state 처리
