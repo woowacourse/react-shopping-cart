@@ -20,21 +20,6 @@ export const Description = styled.div`
   font-size: 12px;
 `;
 
-export const CartList = styled.div`
-  overflow: scroll;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  scrollbar-width: none;
-  scrollbar-color: transparent transparent;
-`;
-
 export const EmptyCartContainer = styled.div`
   text-size: 16px;
   flex: 1;
