@@ -8,9 +8,9 @@ interface ApiClientParams<P> {
 }
 
 const apiClient = async <T, P>({ url, options, params }: ApiClientParams<P>): Promise<T> => {
-  const newParams = params && new URLSearchParams(params);
+  const searchParams = params ? new URLSearchParams(params).toString() : "";
   try {
-    const response = await fetch(`${BASE_URL}${url}?${newParams?.toString()}`, {
+    const response = await fetch(`${BASE_URL}${url}?${searchParams}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Basic ${TOKEN}`,
