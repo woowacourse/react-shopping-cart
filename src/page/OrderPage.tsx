@@ -7,15 +7,15 @@ import { useEffect } from 'react';
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { countOfItem, countOfItemType, totalAmount } = location.state ?? {};
+  const { totalQuantity, countOfItemType, totalAmount } = location.state ?? {};
 
   useEffect(() => {
-    if (!countOfItem && !countOfItemType && !totalAmount) {
+    if (!totalQuantity && !countOfItemType && !totalAmount) {
       alert('비정상적인 접근입니다. 장바구니로 이동합니다.');
       navigate('/');
       return;
     }
-  }, [countOfItem, countOfItemType, totalAmount, navigate]);
+  }, [totalQuantity, countOfItemType, totalAmount, navigate]);
 
   return (
     <>
@@ -29,7 +29,7 @@ function OrderPage() {
       <main css={layoutCss}>
         <h1 css={titleCss}>주문 확인</h1>
         <p css={descriptionCss}>
-          총 {countOfItemType}종류의 상품 {countOfItem}개를 주문합니다.
+          총 {countOfItemType}종류의 상품 {totalQuantity}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </p>

@@ -6,22 +6,18 @@ import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
-import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from './calculate';
+import { useCartSummary } from './useCartSummary';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
 }
 
 export default function CartItemList({ cartItems }: CartItemListProps) {
-  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(cartItems, (item) => item.id);
   const navigate = useNavigate();
+  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(cartItems, (item) => item.id);
 
-  const checkedItems = getCheckedItems(cartItems, state);
-  const orderAmount = calculateOrderAmount(checkedItems);
-  const deliveryFee = calculateDeliveryFee(orderAmount);
-  const totalAmount = orderAmount + deliveryFee;
-  const countOfItemType = checkedItems.length;
-  const countOfItem = calculateTotalQuantity(checkedItems);
+  const checkedItems = cartItems.filter((item) => state.get(item.id));
+  const { orderAmount, deliveryFee, totalQuantity, totalAmount, countOfItemType } = useCartSummary(checkedItems);
 
   return (
     <div css={styles.cartItemsAreaCss}>
@@ -51,7 +47,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
         onClick={() => {
           navigate('/order', {
             state: {
-              countOfItem,
+              totalQuantity,
               countOfItemType,
               totalAmount
             }
@@ -63,7 +59,3 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     </div>
   );
 }
-
-const getCheckedItems = (cartItems: CartItemType[], state: Map<number, boolean>): CartItemType[] => {
-  return cartItems.filter((item) => state.get(item.id));
-};
