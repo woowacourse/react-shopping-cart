@@ -21,7 +21,7 @@ const mockCartItems = {
         category: "식료품",
         id: 1,
         name: "이름",
-        price: 1000,
+        price: 100_000,
         quantity: 50,
         imageUrl: `/image.png`,
       },
@@ -86,12 +86,35 @@ describe("장바구니 구매 상품 선택 테스트", () => {
         <Main />
       </MemoryRouter>
     );
-    const checkboxes = await screen.findByTestId("check-box1234");
+    const checkboxes = await screen.findByTestId(
+      `check-box${mockCartItems.content[0].id}`
+    );
     await userEvent.click(checkboxes);
 
     await waitFor(() => {
       const allSelected = screen.getByTestId("all-selected");
       expect(allSelected).not.toBeChecked();
+    });
+  });
+
+  it("모든 상품 선택 시 전체 선택도 선택된다.", async () => {
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
+
+    const allSelected = await screen.findByTestId("all-selected");
+    await userEvent.click(allSelected);
+
+    for (const item of mockCartItems.content) {
+      const checkbox = await screen.findByTestId(`check-box${item.id}`);
+      await userEvent.click(checkbox);
+    }
+
+    await waitFor(() => {
+      const allSelected = screen.getByTestId("all-selected");
+      expect(allSelected).toBeChecked();
     });
   });
 });
