@@ -28,7 +28,7 @@ const useCartItemMutation = ({
         }
       );
     },
-    [updateCartItemMutate, onSuccess]
+    [updateCartItemMutate, onSuccess, onError]
   );
 
   const removeCartItem = useCallback(
@@ -38,7 +38,7 @@ const useCartItemMutation = ({
         onError,
       });
     },
-    [removeCartItemMutate, onSuccess]
+    [removeCartItemMutate, onSuccess, onError]
   );
 
   return {
