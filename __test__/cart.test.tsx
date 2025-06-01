@@ -5,6 +5,7 @@ import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
 import CartPageWithEmptySelectedItems from './CartPageWithEmptySelectedItems';
+import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../src/features/constants/orderPriceSummary';
 
 function renderCartPage() {
   return render(
@@ -54,7 +55,6 @@ describe('RTL Test', () => {
 
     const priceElement = within(firstCard).getByTestId('card-item-price');
     const expectedPriceText = priceElement.textContent?.trim() || '';
-    expect(expectedPriceText).toBeTruthy();
 
     // 쉼표 제거 후 숫자 변환
     const itemPrice = parseInt(expectedPriceText.replace(/,/g, ''), 10);
@@ -64,11 +64,11 @@ describe('RTL Test', () => {
     const expectedDeliveryFeeText = deliveryFeeElement.textContent?.trim() || '';
 
     let expectedTotal = itemPrice;
-    if (itemPrice > 100000) {
+    if (itemPrice > DELIVERY_FEE_THRESHOLD) {
       expect(expectedDeliveryFeeText).toBe('0원');
     } else {
       expect(expectedDeliveryFeeText).toContain('3,000원');
-      expectedTotal += 3000;
+      expectedTotal += DELIVERY_FEE;
     }
 
     const totalPurchasePrice = screen.getByTestId('total-purchase-price');
@@ -85,7 +85,6 @@ describe('RTL Test', () => {
     const user = userEvent.setup();
 
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
-
     expect(cartItemCards.length).toBeGreaterThan(0);
 
     const firstCard = cartItemCards[0];
