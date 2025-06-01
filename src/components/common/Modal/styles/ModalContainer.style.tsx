@@ -2,15 +2,6 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { colors, radius } from "../../../../styles/theme";
 
-const slideIn = keyframes`
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-`;
-
 const zoomIn = keyframes`
   from {
     transform: scale(0.95);
