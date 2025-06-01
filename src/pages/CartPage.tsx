@@ -84,7 +84,7 @@ const S = {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding-bottom: 12px;
+    padding: 12px 0px;
     border-bottom: 2px solid #e6e6e6;
   `,
 };
