@@ -12,7 +12,7 @@ const OrderConfirmPage = () => {
   useEffect(() => {
     if (
       !location.state ||
-      !location.state.selectedItem ||
+      !location.state.selectedItemCount ||
       !location.state.totalPrice
     ) {
       navigate("/", { replace: true });
@@ -21,7 +21,7 @@ const OrderConfirmPage = () => {
 
   if (
     !location.state ||
-    !location.state.selectedItem ||
+    !location.state.selectedItemCount ||
     !location.state.totalPrice
   ) {
     return null;
@@ -47,8 +47,8 @@ const OrderConfirmPage = () => {
           <Text text="총 결제 금액" type="medium" />
           <Text text={`${totalPrice.toLocaleString()}원`} type="large" />
         </section>
-        <ConfirmButton text="주문하기" onClick={() => {}} disabled={true} />
       </div>
+      <ConfirmButton text="주문하기" onClick={() => {}} disabled={true} />
     </>
   );
 };
@@ -58,9 +58,6 @@ export default OrderConfirmPage;
 const OrderConfirmPageStyles = css`
   min-height: 100dvh;
   background-color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
 `;
 
 const ContentStyle = css`
@@ -68,6 +65,8 @@ const ContentStyle = css`
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 128px);
 `;
 
 const Description = css`
