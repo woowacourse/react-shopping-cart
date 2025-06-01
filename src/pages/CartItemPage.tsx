@@ -8,6 +8,7 @@ import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
 import { useCartItemContext } from "../contexts/useCartItemContext";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 const CartItemPage = () => {
   const {
@@ -17,17 +18,28 @@ const CartItemPage = () => {
     orderPrice,
     totalPrice,
     shippingFee,
+    fetchCartItems,
+    handleLoadingStatus,
   } = useCartItemContext();
   const navigate = useNavigate();
 
-  if (loadingStatus === "loading" || cartItems === undefined)
+  useEffect(() => {
+    handleLoadingStatus("loading");
+    const fetchData = async () => {
+      await fetchCartItems();
+    };
+    fetchData();
+  }, []);
+
+  if (loadingStatus === "loading" || cartItems === undefined) {
     return (
       <div className={OrbitSpinnerWrapper}>
         <OrbitSpinner />
       </div>
     );
+  }
 
-  if (cartItems.length === 0) {
+  if (loadingStatus === "success" && cartItems.length === 0) {
     return (
       <div className={CartItemPageStyles}>
         <CartPageTitle cartItemsTypeCount={0} />
@@ -38,32 +50,44 @@ const CartItemPage = () => {
 
   return (
     <>
-      <div className={CartItemPageStyles}>
-        <CartPageTitle cartItemsTypeCount={cartItems.length} />
-        <CartItemCardList cartItems={cartItems} />
+      {loadingStatus === "success" && (
+        <>
+          <div className={CartItemPageStyles}>
+            <CartPageTitle cartItemsTypeCount={cartItems.length} />
+            <CartItemCardList cartItems={cartItems} />
 
-        <div className={InfoRow}>
-          <img src="./info-icon.svg" alt="info" />
-          <Text
-            text={`총 주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
-          />
-        </div>
+            <div className={InfoRow}>
+              <img src="./info-icon.svg" alt="info" />
+              <Text
+                text={`총 주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
+              />
+            </div>
 
-        <hr className={Divider} />
-        <PriceRow title="주문 금액" price={orderPrice} testId="order-price" />
-        <PriceRow title="배송비" price={shippingFee} testId="shipping-fee" />
-        <hr className={Divider} />
-        <PriceRow title="총 결제 금액" price={totalPrice} />
-      </div>
+            <hr className={Divider} />
+            <PriceRow
+              title="주문 금액"
+              price={orderPrice}
+              testId="order-price"
+            />
+            <PriceRow
+              title="배송비"
+              price={shippingFee}
+              testId="shipping-fee"
+            />
+            <hr className={Divider} />
+            <PriceRow title="총 결제 금액" price={totalPrice} />
+          </div>
 
-      {cartItems.length > 0 && (
-        <ConfirmButton
-          text="주문하기"
-          disabled={selectedItemIds.size === 0}
-          onClick={() => {
-            navigate("/order-confirm");
-          }}
-        />
+          {cartItems.length > 0 && (
+            <ConfirmButton
+              text="주문하기"
+              disabled={selectedItemIds.size === 0}
+              onClick={() => {
+                navigate("/order-confirm");
+              }}
+            />
+          )}
+        </>
       )}
     </>
   );

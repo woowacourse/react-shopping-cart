@@ -1,9 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { CartItem } from "../types/type";
 import cartItemsApi from "../apis/cartItems";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
 
-type LoadingStatus = "idle" | "loading" | "fetching" | "success" | "error";
+type LoadingStatus = "loading" | "fetching" | "success" | "error";
 
 interface CartItemContext {
   cartItems: CartItem[];
@@ -18,6 +18,7 @@ interface CartItemContext {
   selectedItemIds: Set<number>;
   toggleSelectedItemId: (id: number) => void;
   replaceSelectedItemIds: (ids: number[]) => void;
+  handleLoadingStatus: (status: LoadingStatus) => void;
 }
 
 interface CartItemProviderProps {
@@ -28,7 +29,7 @@ export const CartItemContext = createContext<CartItemContext | null>(null);
 
 export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("idle");
+  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("loading");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(
     new Set()
@@ -44,12 +45,17 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     setSelectedItemIds(new Set(ids));
   };
 
+  const handleLoadingStatus = (status: LoadingStatus) => {
+    setLoadingStatus(status);
+  };
+
   async function fetchCartItems() {
     try {
       setLoadingStatus("fetching");
       const data = await cartItemsApi.get();
       setCartItems(data);
       setLoadingStatus("success");
+      setErrorMessage("");
     } catch (error) {
       setLoadingStatus("error");
       setErrorMessage("Fail to Fetch Error");
@@ -62,6 +68,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
       await cartItemsApi.delete(cartItemId);
       await fetchCartItems();
       setLoadingStatus("success");
+      setErrorMessage("");
     } catch (error) {
       setLoadingStatus("error");
       setErrorMessage("Fail to Delete Error");
@@ -74,6 +81,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
       await cartItemsApi.patch(cartItemId, quantity);
       await fetchCartItems();
       setLoadingStatus("success");
+      setErrorMessage("");
     } catch (error) {
       setLoadingStatus("error");
       setErrorMessage("Fail to Update Error");
@@ -91,14 +99,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   const totalPrice = shippingFee + orderPrice;
 
-  useEffect(() => {
-    setLoadingStatus("loading");
-    const fetchData = async () => {
-      await fetchCartItems();
-    };
-    fetchData();
-  }, []);
-
   return (
     <CartItemContext.Provider
       value={{
@@ -114,6 +114,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         selectedItemIds,
         toggleSelectedItemId,
         replaceSelectedItemIds,
+        handleLoadingStatus,
       }}
     >
       {children}
