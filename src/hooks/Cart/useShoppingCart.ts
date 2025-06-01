@@ -1,6 +1,6 @@
-import { CartItem } from "../type/CartItem";
-import { useFetch } from "./useFetch";
-import fetchCartItems from "../apis/fetchCartItems";
+import fetchCartItems from "@/apis/fetchCartItems";
+import { CartItem } from "@/type/CartItem";
+import { useFetch } from "../useFetch";
 import useHandleCartItemQuantity from "./useHandleCartItemQuantity";
 import useHandleDeleteCartItem from "./useHandleDeleteCartItem";
 

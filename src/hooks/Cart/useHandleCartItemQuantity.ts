@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
-import { useErrorToast } from "../contexts/ErrorToastContext";
-import updateCartItemQuantity from "../apis/updateCartItemQuantity";
-import { ApiError } from "../constants/ApiError";
+import { useErrorToast } from "../../contexts/ErrorToastContext";
+import updateCartItemQuantity from "../../apis/updateCartItemQuantity";
+import { ApiError } from "../../constants/ApiError";
 
 const useHandleCartItemQuantity = (refetchCartItems: () => Promise<void>) => {
   const [isLoading, setIsLoading] = useState(false);

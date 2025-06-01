@@ -1,5 +1,5 @@
+import { CartItem } from "@/type/CartItem";
 import { useEffect } from "react";
-import { CartItem } from "../type/CartItem";
 
 interface useLocalStorageProps {
   cartItemsData: CartItem[];
