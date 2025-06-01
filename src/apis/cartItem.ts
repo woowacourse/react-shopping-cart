@@ -10,7 +10,7 @@ export async function getCartItem({ page = 0, size = 50 }: GetCartItemParams) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Basic ${import.meta.env.VITE_USER_TOKEN}`,
+      Authorization: `Basic ${import.meta.env.VITE_TOKEN}`,
     },
   };
 
@@ -20,7 +20,7 @@ export async function getCartItem({ page = 0, size = 50 }: GetCartItemParams) {
   });
 
   return fetch(`${CART_URL}?${params.toString()}`, options).then((res) =>
-    res.json(),
+    res.json()
   );
 }
 
@@ -28,7 +28,7 @@ export async function deleteCartItem(id: number) {
   const options = {
     method: "DELETE",
     headers: {
-      Authorization: `Basic ${import.meta.env.VITE_USER_TOKEN}`,
+      Authorization: `Basic ${import.meta.env.VITE_TOKEN}`,
     },
   };
 
@@ -46,7 +46,7 @@ export async function patchCartItem({
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Basic ${import.meta.env.VITE_USER_TOKEN}`,
+      Authorization: `Basic ${import.meta.env.VITE_TOKEN}`,
     },
     body: JSON.stringify({
       quantity,
