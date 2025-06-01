@@ -15,6 +15,7 @@ type Props = {
   onRefetch: () => void;
   onToggle: () => void;
   onDeleteSelected: () => void;
+  testId: string;
 };
 
 const Card = ({
@@ -23,9 +24,11 @@ const Card = ({
   isChecked,
   onToggle,
   onDeleteSelected,
+  testId,
 }: Props) => {
   const { imageUrl, name, price } = cartItem.product;
   const showError = useShowError();
+  console.log(testId);
 
   const handleDelete = async (id: number) => {
     try {
@@ -49,7 +52,7 @@ const Card = ({
   return (
     <S.CardContainer>
       <S.ButtonSection>
-        <CheckBox isChecked={isChecked} onChange={onToggle} />
+        <CheckBox isChecked={isChecked} onChange={onToggle} testId={testId} />
         <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
       </S.ButtonSection>
 

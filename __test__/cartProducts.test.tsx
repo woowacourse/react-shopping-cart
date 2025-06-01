@@ -75,6 +75,27 @@ describe("장바구니 페이지 로딩 테스트", () => {
   });
 });
 
+describe("장바구니 구매 상품 선택 테스트", () => {
+  beforeEach(() => {
+    (cartAPI.getCartProduct as Mock).mockResolvedValue(mockCartItems);
+  });
+
+  it("하나의 상품 선택 해제 시 전체 선택도 해제된다.", async () => {
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
+    const checkboxes = await screen.findByTestId("check-box1234");
+    await userEvent.click(checkboxes);
+
+    await waitFor(() => {
+      const allSelected = screen.getByTestId("all-selected");
+      expect(allSelected).not.toBeChecked();
+    });
+  });
+});
+
 describe("장바구니가 비었을 때 페이지 전환 테스트", () => {
   it("장바구니에 담긴 데이터가 없으면 상품 없음 페이지를 보여준다.", async () => {
     (cartAPI.getCartProduct as Mock).mockResolvedValue(mockEmpty);
