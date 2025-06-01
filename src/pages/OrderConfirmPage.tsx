@@ -6,14 +6,14 @@ import { useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 
 const OrderConfirmPage = () => {
-  const { selectedItem, totalPrice } = useCartItemContext();
+  const { selectedItemIds, totalPrice } = useCartItemContext();
   const navigate = useNavigate();
 
   return (
     <>
       <div className={OrderConfirmPageStyles}>
         <Header
-          leading="./back-icon.svg"
+          leadingIcon="./back-icon.svg"
           onLeadingClick={() => {
             navigate("/");
           }}
@@ -21,7 +21,7 @@ const OrderConfirmPage = () => {
         <section className={ContentStyle}>
           <Text text="주문 확인" type="large" />
           <section className={Description}>
-            <Text text={`총 ${selectedItem.size}개의 상품을 주문합니다.`} />
+            <Text text={`총 ${selectedItemIds.size}개의 상품을 주문합니다.`} />
             <Text text="최종 결제 금액을 확인해 주세요." />
           </section>
           <Text text="총 결제 금액" type="medium" />

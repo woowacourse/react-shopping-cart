@@ -18,7 +18,7 @@ const ConfirmButton = ({
       onClick={onClick}
       disabled={disabled}
     >
-      <Text text={text} type="medium" />
+      <Text text={text} type="medium" styled={{ color: "white" }} />
     </button>
   );
 };

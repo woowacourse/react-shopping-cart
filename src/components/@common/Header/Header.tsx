@@ -1,15 +1,18 @@
 import { css } from "@emotion/css";
 
 interface HeaderProps {
-  leading?: string;
+  leadingIcon?: string;
   onLeadingClick?: () => void;
 }
 
-const Header = ({ leading = "./logo.svg", onLeadingClick }: HeaderProps) => {
+const Header = ({
+  leadingIcon = "./logo.svg",
+  onLeadingClick,
+}: HeaderProps) => {
   return (
-    <div className={HeaderStyle}>
-      <img className={Leading} src={leading} onClick={onLeadingClick} />
-    </div>
+    <header className={HeaderStyle}>
+      <img className={Leading} src={leadingIcon} onClick={onLeadingClick} />
+    </header>
   );
 };
 
