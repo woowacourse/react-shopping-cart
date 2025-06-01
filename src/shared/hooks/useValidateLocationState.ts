@@ -6,10 +6,14 @@ type UseValidateLocationStateParams<T> = {
   redirectPath: string;
 };
 
+type UseValidateLocationStateResult<T> =
+  | { isValidating: true; state: null }
+  | { isValidating: false; state: T };
+
 const useValidateLocationState = <T>({
   validationFn,
   redirectPath,
-}: UseValidateLocationStateParams<T>) => {
+}: UseValidateLocationStateParams<T>): UseValidateLocationStateResult<T> => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isValidating, setIsValidating] = useState(true);
@@ -24,7 +28,7 @@ const useValidateLocationState = <T>({
     setIsValidating(false);
   }, [navigate, state, validationFn, redirectPath]);
 
-  return { state: validationFn(state) ? state : null, isValidating };
+  return { state, isValidating };
 };
 
 export default useValidateLocationState;

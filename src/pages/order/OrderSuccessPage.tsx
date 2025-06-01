@@ -36,7 +36,7 @@ export default function OrderSuccessPage() {
     redirectPath: ROUTES.CART,
   });
 
-  if (isValidating || !state) {
+  if (isValidating) {
     return (
       <Fallback type="loading" message="주문 확인 페이지로 이동 중입니다.." />
     );
