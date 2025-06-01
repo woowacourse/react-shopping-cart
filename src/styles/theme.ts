@@ -45,5 +45,3 @@ export const theme = {
 export const zIndex = {
   toast: 100000,
 } as const;
-
-export default theme;
