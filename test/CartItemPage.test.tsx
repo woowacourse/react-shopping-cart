@@ -200,6 +200,6 @@ describe("장바구니 페이지 테스트", () => {
     );
 
     const shippingFee = await screen.findByTestId("shipping-fee");
-    expect(shippingFee.textContent).toBe("3,000원");
+    expect(shippingFee.textContent).toBe(`${SHIPPING_FEE.toLocaleString()}원`);
   });
 });
