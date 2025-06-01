@@ -3,10 +3,14 @@ import Header from "./Header";
 import PriceSection from "./PriceSection";
 import { useSelectedCart } from "../../../hooks/useSelectedCart";
 import CartList from "./CartList";
-import useGetCartItems from "../../../hooks/useGetCartItems";
+import { CartProduct } from "../../../type/cart";
 
-const CartSection = () => {
-  const { cartItems, refetch } = useGetCartItems();
+type Props = {
+  cartItems: CartProduct[];
+  refetch: () => void;
+};
+
+const CartSection = ({ cartItems, refetch }: Props) => {
   const { selectedCartIds, setSelectedCartIds } = useSelectedCart(cartItems);
 
   return (
