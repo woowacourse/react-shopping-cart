@@ -67,6 +67,6 @@
 - [x] header 컴포넌트 합성 컴포넌트 방식으로 수정 -> 각페이지에서 관리
 - [x] Button 컴포넌트 props 네이밍 변경 (styles X)
 - [x] cartItem type 명 변경
-- [ ] normalize.css 사용해보기
 - [ ] orderConfirmPage location.state 처리
 - [ ] useCart 훅 return 값 useMemo 처리하기
+- [ ] useCart 훅 비동기 처리 로직 -> 에러 추가
