@@ -9,16 +9,9 @@ import useCartSelection from './useCartSelection';
 function useCartContents() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const navigate = useNavigate();
-  const {
-    selectedList,
-    allSelected,
-    setSelectedList,
-    getItems,
-    toggle,
-    toggleAll,
-  } = useCartSelection();
+  const selection = useCartSelection();
 
-  const selectCartItems = getItems(cartItems);
+  const selectCartItems = selection.getItems(cartItems);
   const orderPrice = calculateOrderPrice(selectCartItems);
 
   const fetch = useCallback(async () => {
@@ -29,15 +22,17 @@ function useCartContents() {
 
     if (data) {
       setCartItems(data.content);
-      setSelectedList(Array.from({ length: data.content.length }, () => true));
+      selection.setSelectedList(
+        Array.from({ length: data.content.length }, () => true)
+      );
     }
-  }, [setSelectedList]);
+  }, []);
 
   useEffect(() => {
     fetch();
   }, [fetch]);
 
-  const disabled = !selectedList.some((isSelected) => isSelected);
+  const disabled = !selection.selectedList.some((isSelected) => isSelected);
 
   const moveToOrderConfirm = () => {
     navigate('/order-confirmation', {
@@ -46,12 +41,8 @@ function useCartContents() {
   };
 
   return {
+    selection,
     cartItems,
-    selectedList,
-    allSelected,
-
-    toggle,
-    toggleAll,
     fetch,
     orderPrice,
     disabled,

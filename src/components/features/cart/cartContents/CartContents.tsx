@@ -6,19 +6,9 @@ import * as S from './CartContents.styles';
 import useCartContents from '../hooks/useCartContents';
 
 function CartContents() {
-  const {
-    cartItems,
-    isSelectedList,
-    isAllSelected,
-    toggleSelect,
-    toggleAllSelect,
-    fetch,
-    orderPrice,
-    disabled,
-    moveToOrderConfirm,
-  } = useCartContents();
+  const cart = useCartContents();
 
-  if (cartItems.length === 0) {
+  if (cart.cartItems.length === 0) {
     return (
       <S.Container>
         <CartTitle />
@@ -29,17 +19,17 @@ function CartContents() {
 
   return (
     <S.Container>
-      <CartTitle quantity={cartItems.length} />
+      <CartTitle quantity={cart.cartItems.length} />
       <CartList
-        cartItems={cartItems}
-        isSelectedList={isSelectedList}
-        isAllSelected={isAllSelected}
-        toggleSelect={toggleSelect}
-        toggleAllSelect={toggleAllSelect}
-        refetch={fetch}
+        cartItems={cart.cartItems}
+        isSelectedList={cart.selection.selectedList}
+        isAllSelected={cart.selection.allSelected}
+        toggleSelect={cart.selection.toggle}
+        toggleAllSelect={cart.selection.toggleAll}
+        refetch={cart.fetch}
       />
-      <CartPrice value={orderPrice} />
-      <FooterButton disabled={disabled} onClick={moveToOrderConfirm}>
+      <CartPrice value={cart.orderPrice} />
+      <FooterButton disabled={cart.disabled} onClick={cart.moveToOrderConfirm}>
         주문 확인
       </FooterButton>
     </S.Container>
