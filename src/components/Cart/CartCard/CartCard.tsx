@@ -2,6 +2,7 @@ import { CartItem } from "../../../type/CartItem";
 import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
 import CheckBox from "../../common/CheckBox";
+import CartCardImage from "./CartCardImage";
 
 interface CartCardProps {
   cartItem: CartItem;
@@ -46,7 +47,7 @@ function CartCard({
           </Styled.DeleteButton>
         </Styled.ButtonWrapper>
         <Styled.Wrapper>
-          <Styled.Image src={imageUrl} alt={name} />
+          <CartCardImage imageUrl={imageUrl} />
           <Styled.ProductInfo>
             <Styled.ProductName>{name}</Styled.ProductName>
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
