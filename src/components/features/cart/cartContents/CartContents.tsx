@@ -39,7 +39,7 @@ function CartContents() {
         Array.from({ length: data.content.length }, () => true)
       );
     }
-  }, [setCartItems, setIsSelectedList]);
+  }, [setIsSelectedList]);
 
   const disabled = !isSelectedList.some((isSelected) => isSelected);
 
