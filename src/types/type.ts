@@ -5,11 +5,11 @@ export interface CartItem {
   isSelected: boolean;
 }
 
-type CATEGORY = "패션잡화" | "식료품";
+type Category = "패션잡화" | "식료품";
 
 export interface Product {
   id: number;
-  category: CATEGORY;
+  category: Category;
   imageUrl: string;
   name: string;
   price: number;
