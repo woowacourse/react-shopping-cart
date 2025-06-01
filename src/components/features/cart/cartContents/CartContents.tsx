@@ -73,7 +73,7 @@ function CartContents() {
         toggleAllSelect={toggleAllSelect}
         refetch={fetch}
       />
-      <CartPrice orderPrice={orderPrice} />
+      <CartPrice value={orderPrice} />
       <FooterButton disabled={disabled} onClick={onOrderConfirm}>
         주문 확인
       </FooterButton>
