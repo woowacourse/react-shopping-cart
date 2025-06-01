@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
 import PageProvider from '../src/contexts/PageProvider';
@@ -27,7 +21,7 @@ describe('전체 선택 테스트', () => {
     const allCheckSection = screen.getByTestId('allCheckSection');
     const allCheckBox = within(allCheckSection).getByTestId('checkBox');
     await waitFor(() => {
-      expect(allCheckBox).toHaveAttribute('alt', 'checkedBox');
+      expect(allCheckBox).toBeChecked();
     });
   });
 
@@ -40,7 +34,7 @@ describe('전체 선택 테스트', () => {
     fireEvent.click(firstItemCheckBox);
 
     await waitFor(() => {
-      expect(allCheckBox).toHaveAttribute('alt', 'unCheckedBox');
+      expect(allCheckBox).not.toBeChecked();
     });
   });
 
@@ -53,7 +47,7 @@ describe('전체 선택 테스트', () => {
 
     await waitFor(() => {
       checkedBoxes.forEach((box) => {
-        expect(box).toHaveAttribute('alt', 'unCheckedBox');
+        expect(box).not.toBeChecked();
       });
     });
   });
@@ -64,7 +58,7 @@ describe('전체 선택 테스트', () => {
     fireEvent.click(allCheckBox);
 
     await waitFor(() => {
-      expect(allCheckBox).toHaveAttribute('alt', 'unCheckedBox');
+      expect(allCheckBox).not.toBeChecked();
     });
 
     fireEvent.click(allCheckBox);
@@ -73,7 +67,7 @@ describe('전체 선택 테스트', () => {
 
     await waitFor(() => {
       checkedBoxes.forEach((box) => {
-        expect(box).toHaveAttribute('alt', 'checkedBox');
+        expect(box).toBeChecked();
       });
     });
   });
@@ -84,7 +78,7 @@ describe('전체 선택 테스트', () => {
     fireEvent.click(allCheckBox);
 
     await waitFor(() => {
-      expect(allCheckBox).toHaveAttribute('alt', 'unCheckedBox');
+      expect(allCheckBox).not.toBeChecked();
     });
 
     const checkedBoxes = await screen.findAllByTestId('checkBox');
@@ -94,7 +88,7 @@ describe('전체 선택 테스트', () => {
     });
 
     await waitFor(() => {
-      expect(allCheckBox).toHaveAttribute('alt', 'checkedBox');
+      expect(allCheckBox).toBeChecked();
     });
   });
 });

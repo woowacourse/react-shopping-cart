@@ -7,7 +7,7 @@ const AllCheckSection = () => {
 
   return (
     <S.Container data-testid="allCheckSection">
-      <CheckBox isChecked={isAllChecked} onClick={toggleAllChecked} />
+      <CheckBox checked={isAllChecked} onChange={toggleAllChecked} />
       <p>전체 선택</p>
     </S.Container>
   );

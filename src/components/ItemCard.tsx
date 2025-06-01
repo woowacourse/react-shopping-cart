@@ -33,10 +33,8 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
   return (
     <S.Container data-testid="item-card">
       <S.ButtonBox>
-        <CheckBox isChecked={isChecked} onClick={handleCheckBoxClick} />
-        <S.deleteButton onClick={() => handleClickDelete(id)}>
-          삭제
-        </S.deleteButton>
+        <CheckBox checked={isChecked} onChange={handleCheckBoxClick} />
+        <S.deleteButton onClick={() => handleClickDelete(id)}>삭제</S.deleteButton>
       </S.ButtonBox>
       <S.ItemBox>
         <S.ItemImage src={product.imageUrl} alt="product-image" />

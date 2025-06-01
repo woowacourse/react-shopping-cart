@@ -1,39 +1,17 @@
 import styled from '@emotion/styled';
-import { ImgHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 
-interface CheckBoxProps extends ImgHTMLAttributes<HTMLImageElement> {
-  isChecked: boolean;
-}
-
-const CheckBox = ({ isChecked, ...rest }: CheckBoxProps) => {
-  return isChecked ? (
-    <S.CheckBox
-      isChecked={isChecked}
-      src="./checked-box.svg"
-      alt="checkedBox"
-      data-testid="checkBox"
-      {...rest}
-    />
-  ) : (
-    <S.CheckBox
-      isChecked={isChecked}
-      src="./unchecked-box.svg"
-      alt="unCheckedBox"
-      data-testid="checkBox"
-      {...rest}
-    />
-  );
+const CheckBox = ({ ...rest }: InputHTMLAttributes<HTMLInputElement>) => {
+  return <S.CheckBox data-testid="checkBox" type="checkbox" {...rest} />;
 };
 
 export default CheckBox;
 
 const S = {
-  CheckBox: styled.img<CheckBoxProps>`
+  CheckBox: styled.input<InputHTMLAttributes<HTMLInputElement>>`
     cursor: pointer;
-    background-color: ${({ isChecked }) =>
-      isChecked ? '#000000' : 'transparent'};
-    border: ${({ isChecked }) =>
-      isChecked ? '2px solid #000000' : `2px solid #e6e6e6`};
+    background-color: ${({ checked }) => (checked ? '#000000' : 'transparent')};
+    border: ${({ checked }) => (checked ? '2px solid #000000' : `2px solid #e6e6e6`)};
     border-radius: 8px;
   `,
 };

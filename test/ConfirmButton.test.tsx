@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
 import PageProvider from '../src/contexts/PageProvider';

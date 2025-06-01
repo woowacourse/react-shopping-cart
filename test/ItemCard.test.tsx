@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 
 import { mockCartItems } from './mocks';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
@@ -56,9 +50,7 @@ describe('ItemCard 테스트', () => {
       fireEvent.click(plusButton);
 
       await waitFor(() => {
-        expect(
-          within(firstItemCard).getByText(currentQuantity + 1)
-        ).toBeInTheDocument();
+        expect(within(firstItemCard).getByText(currentQuantity + 1)).toBeInTheDocument();
       });
     });
 
@@ -69,9 +61,7 @@ describe('ItemCard 테스트', () => {
       fireEvent.click(minusButton);
 
       await waitFor(() => {
-        expect(
-          within(firstItemCard).getByText(currentQuantity - 1)
-        ).toBeInTheDocument();
+        expect(within(firstItemCard).getByText(currentQuantity - 1)).toBeInTheDocument();
       });
     });
 
@@ -101,44 +91,33 @@ describe('ItemCard 테스트', () => {
     it('초기 상태는 버튼이 다 체크되어 있다.', async () => {
       const checkBoxes = screen.getAllByTestId('checkBox');
       checkBoxes.forEach((checkBox) => {
-        expect(checkBox).toHaveAttribute('alt', 'checkedBox');
+        expect(checkBox).toBeChecked();
       });
     });
 
     it('선택된 상품의 선택 버튼 체크 시 해당 상품이 해제된다.', async () => {
-      const firstItemCardCheckBox =
-        within(firstItemCard).getByTestId('checkBox');
+      const firstItemCardCheckBox = within(firstItemCard).getByTestId('checkBox');
 
       fireEvent.click(firstItemCardCheckBox);
 
       await waitFor(() => {
-        expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
-          'alt',
-          'unCheckedBox'
-        );
+        expect(within(firstItemCard).getByTestId('checkBox')).not.toBeChecked();
       });
     });
 
     it('선택되지 않은 상품의 선택 버튼 체크 시 해당 상품이 선택된다.', async () => {
-      const firstItemCardCheckBox =
-        within(firstItemCard).getByTestId('checkBox');
+      const firstItemCardCheckBox = within(firstItemCard).getByTestId('checkBox');
 
       fireEvent.click(firstItemCardCheckBox);
 
       await waitFor(() => {
-        expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
-          'alt',
-          'unCheckedBox'
-        );
+        expect(within(firstItemCard).getByTestId('checkBox')).not.toBeChecked();
       });
 
       fireEvent.click(firstItemCardCheckBox);
 
       await waitFor(() => {
-        expect(within(firstItemCard).getByTestId('checkBox')).toHaveAttribute(
-          'alt',
-          'checkedBox'
-        );
+        expect(within(firstItemCard).getByTestId('checkBox')).toBeChecked();
       });
     });
   });
