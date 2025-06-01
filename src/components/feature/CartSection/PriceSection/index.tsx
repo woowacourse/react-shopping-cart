@@ -11,15 +11,10 @@ type Props = {
   selectedCartIds: number[];
 };
 
-const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
-  const navigate = useNavigate();
-  const selectedItem = cartItems?.filter(
-    (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
-  );
-
+export const getPrice = (items: CartProduct[] | undefined) => {
   const getOrderPrice = () => {
     return (
-      selectedItem?.reduce(
+      items?.reduce(
         (total: number, current: CartProduct) =>
           current.product.price * current.quantity + total,
         0
@@ -30,10 +25,21 @@ const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
   const orderPrice = getOrderPrice();
   const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
   const totalPrice = orderPrice + deliveryPrice;
-  const totalAmount = selectedItem?.reduce(
+  const totalAmount = items?.reduce(
     (total: number, current: CartProduct) => total + current.quantity,
     0
   );
+
+  return { orderPrice, deliveryPrice, totalPrice, totalAmount };
+};
+
+const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
+  const navigate = useNavigate();
+  const selectedItems = cartItems?.filter(
+    (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
+  );
+
+  const price = getPrice(selectedItems);
 
   return (
     <>
@@ -45,18 +51,20 @@ const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
 
         <S.PriceInfo>
           <S.Label>주문 금액</S.Label>
-          <S.Price>{formatPrice(orderPrice)}</S.Price>
+          <S.Price>{formatPrice(price.orderPrice)}</S.Price>
         </S.PriceInfo>
 
         <S.PriceInfo>
           <S.Label>배송비</S.Label>
-          <S.Price>{formatPrice(deliveryPrice)}</S.Price>
+          <S.Price>{formatPrice(price.deliveryPrice)}</S.Price>
         </S.PriceInfo>
         <Line />
 
         <S.PriceInfo>
           <S.Label>총 결제 금액</S.Label>
-          <S.Price>{formatPrice(totalPrice)}</S.Price>
+          <S.Price data-testid={"total-amount"}>
+            {formatPrice(price.totalPrice)}
+          </S.Price>
         </S.PriceInfo>
       </S.Container>
       <Button
@@ -67,8 +75,8 @@ const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
           navigate("/confirm", {
             state: {
               sort: selectedCartIds.length,
-              totalAmount: totalAmount,
-              totalPrice: totalPrice,
+              totalAmount: price.totalAmount,
+              totalPrice: price.totalPrice,
             },
           })
         }

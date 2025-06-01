@@ -28,7 +28,6 @@ const Card = ({
 }: Props) => {
   const { imageUrl, name, price } = cartItem.product;
   const showError = useShowError();
-  console.log(testId);
 
   const handleDelete = async (id: number) => {
     try {

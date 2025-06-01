@@ -9,6 +9,7 @@ import NavBar from "../src/components/layout/NavBar";
 import Main from "../src/pages/Main";
 import { formatPrice } from "../src/utils/formatPrice";
 import { CartProduct } from "../src/type/cart";
+import { getPrice } from "../src/components/feature/CartSection/PriceSection";
 
 vi.mock("../src/api/cart/getCartProduct", () => ({
   getCartProduct: vi.fn(),
@@ -117,6 +118,31 @@ describe("장바구니 구매 상품 선택 테스트", () => {
       expect(allSelected).toBeChecked();
     });
   });
+
+  it("주문 금액이 선택된 카트 아이템으로만 계산된다.", async () => {
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
+
+    const allSelected = await screen.findByTestId("all-selected");
+    await userEvent.click(allSelected);
+
+    const checkbox = await screen.findByTestId(
+      `check-box${mockCartItems.content[1].id}`
+    );
+    await userEvent.click(checkbox);
+
+    const price = getPrice([mockCartItems.content[1]]);
+
+    await waitFor(() => {
+      const totalPriceEl = screen.getByTestId("total-amount");
+      expect(totalPriceEl?.textContent).toBe(
+        `${price.totalPrice?.toLocaleString()}원`
+      );
+    });
+  });
 });
 
 describe("장바구니가 비었을 때 페이지 전환 테스트", () => {
@@ -142,22 +168,7 @@ describe("주문확인 페이지 로딩 테스트", () => {
 
   it("주문 확인 버튼 클릭 후 설명 문구 표시", async () => {
     const sort = mockCartItems.content.length;
-    const getOrderPrice = () => {
-      return (
-        mockCartItems.content?.reduce(
-          (total: number, current: CartProduct) =>
-            current.product.price * current.quantity + total,
-          0
-        ) ?? 0
-      );
-    };
-    const orderPrice = getOrderPrice();
-    const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
-    const totalPrice = orderPrice + deliveryPrice;
-    const totalAmount = mockCartItems.content.reduce(
-      (total: number, current: CartProduct) => total + current.quantity,
-      0
-    );
+    const price = getPrice(mockCartItems.content);
 
     const routes = [
       {
@@ -180,9 +191,9 @@ describe("주문확인 페이지 로딩 테스트", () => {
     await waitFor(() => {
       const description = screen.getByTestId("order-confirm-description");
       expect(description).toHaveTextContent(
-        `총 ${sort}종류의 상품 ${totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
+        `총 ${sort}종류의 상품 ${price.totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
       );
-      expect(description).toHaveTextContent(formatPrice(totalPrice));
+      expect(description).toHaveTextContent(formatPrice(price.totalPrice));
     });
   });
 });
