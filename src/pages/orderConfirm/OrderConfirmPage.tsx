@@ -4,7 +4,7 @@ import {
   calculateOrderPrice,
   calculateTotalProductQuantity,
 } from '../../components/features/cart/utils/cartCalculations';
-import OrderConfirmContents from './components/orderConfirmContents/OrderConfirmContents';
+import OrderConfirmContents from '../../components/features/orderConfirm/OrderConfirmContents';
 import BackButton from '../../components/common/backButton/BackButton';
 
 function OrderConfirmPage() {

@@ -1,4 +1,4 @@
-import FooterButton from '../../../../components/common/footerButton/FooterButton';
+import FooterButton from '../../common/footerButton/FooterButton';
 import * as S from './OrderConfirmContents.styles';
 
 interface OrderConfirmContentsProps {
