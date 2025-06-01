@@ -54,7 +54,7 @@ const deleteCartItems = http.delete(`${CART_URL}/:id`, ({ params }) => {
     });
   }
 
-  cartItems.splice(index, 1);
+  testStateStore.mockCartData.splice(index, 1);
 
   return new HttpResponse(null, { status: 204 });
 });
@@ -115,7 +115,7 @@ const patchCartItems = http.patch(
 
     targetCartItem.quantity = parsedQuantity;
     if (parsedQuantity === 0) {
-      cartItems.splice(index, 1);
+      testStateStore.mockCartData.splice(index, 1);
     }
 
     return new HttpResponse(null, { status: 200 });
