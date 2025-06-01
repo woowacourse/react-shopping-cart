@@ -30,14 +30,7 @@ function CartContents() {
   return (
     <S.Container>
       <CartTitle quantity={cartItems.length} />
-      <CartList
-        cartItems={cartItems}
-        selectedList={selection.selectedList}
-        allSelected={selection.allSelected}
-        toggle={selection.toggle}
-        toggleAll={selection.toggleAll}
-        refetch={fetch}
-      />
+      <CartList cartItems={cartItems} refetch={fetch} />
       <CartPrice value={selection.orderPrice} />
       <FooterButton disabled={selection.disabled} onClick={moveToOrderConfirm}>
         주문 확인

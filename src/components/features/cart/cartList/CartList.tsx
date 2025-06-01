@@ -2,36 +2,31 @@ import SelectBox from '../../../common/selectBox/SelectBox';
 import CartItem from '../cartItem/CartItem';
 import * as S from './CartList.styles';
 import { CartItemType } from '../types';
+import { useCartSelectionContext } from '../contexts/CartSelectionContext';
 
 interface CartListProps {
   cartItems: CartItemType[];
-  selectedList: boolean[];
-  allSelected: boolean;
-  toggle: (index: number) => void;
-  toggleAll: () => void;
   refetch: () => Promise<void>;
 }
 
-function CartList({
-  cartItems,
-  selectedList,
-  allSelected,
-  toggle,
-  toggleAll,
-  refetch,
-}: CartListProps) {
+function CartList({ cartItems, refetch }: CartListProps) {
+  const selection = useCartSelectionContext();
   return (
     <S.Container>
       <S.AllSelectBox>
-        <SelectBox id="allSelect" selected={allSelected} onClick={toggleAll} />
+        <SelectBox
+          id="allSelect"
+          selected={selection.allSelected}
+          onClick={selection.toggleAll}
+        />
         <S.AllSelectText htmlFor="allSelect">전체선택</S.AllSelectText>
       </S.AllSelectBox>
       {cartItems.map((cartItem, index) => (
         <CartItem
           key={cartItem.id}
           cartItem={cartItem}
-          selected={selectedList[index]}
-          toggle={() => toggle(index)}
+          selected={selection.selectedList[index]}
+          toggle={() => selection.toggle(index)}
           onUpdate={refetch}
         />
       ))}
