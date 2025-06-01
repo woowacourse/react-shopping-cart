@@ -13,7 +13,7 @@ const CartItemPage = () => {
   const {
     cartItems,
     selectedItem,
-    isLoading,
+    loadingStatus,
     orderPrice,
     totalPrice,
     shippingFee,
@@ -22,7 +22,7 @@ const CartItemPage = () => {
 
   return (
     <>
-      {isLoading || cartItems === undefined ? (
+      {loadingStatus === "loading" || cartItems === undefined ? (
         <div className={OrbitSpinnerWrapper}>
           <OrbitSpinner />
         </div>
