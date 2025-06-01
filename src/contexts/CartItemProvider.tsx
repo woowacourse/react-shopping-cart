@@ -16,7 +16,8 @@ interface CartItemContext {
   shippingFee: number;
   totalPrice: number;
   selectedItemIds: Set<number>;
-  handleSelectedItemIds: (newSet: Set<number>) => void;
+  toggleSelectedItemId: (id: number) => void;
+  replaceSelectedItemIds: (ids: number[]) => void;
 }
 
 interface CartItemProviderProps {
@@ -33,8 +34,14 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     new Set()
   );
 
-  const handleSelectedItemIds = (newSet: Set<number>) => {
-    return setSelectedItemIds(newSet);
+  const toggleSelectedItemId = (id: number) => {
+    const newSet = new Set(selectedItemIds);
+    newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+    setSelectedItemIds(newSet);
+  };
+
+  const replaceSelectedItemIds = (ids: number[]) => {
+    setSelectedItemIds(new Set(ids));
   };
 
   async function fetchCartItems() {
@@ -105,7 +112,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         shippingFee,
         totalPrice,
         selectedItemIds,
-        handleSelectedItemIds,
+        toggleSelectedItemId,
+        replaceSelectedItemIds,
       }}
     >
       {children}

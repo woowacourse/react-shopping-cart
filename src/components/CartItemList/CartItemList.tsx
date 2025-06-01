@@ -11,14 +11,8 @@ interface CartItemCardListProps {
 }
 
 const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
-  const { selectedItemIds, handleSelectedItemIds } = useCartItemContext();
-
-  const handleToggle = (cartItemId: number) => {
-    const newSet = new Set(selectedItemIds);
-    if (newSet.has(cartItemId)) newSet.delete(cartItemId);
-    else newSet.add(cartItemId);
-    handleSelectedItemIds(newSet);
-  };
+  const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
+    useCartItemContext();
 
   const isSelectedItem = (cartItemId: number) => {
     return selectedItemIds.has(cartItemId);
@@ -26,18 +20,16 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
 
   const allSelected = selectedItemIds.size === cartItems.length;
 
+  const handleToggle = (cartItemId: number) => {
+    toggleSelectedItemId(cartItemId);
+  };
+
   const handleAllSelected = () => {
-    if (allSelected) {
-      handleSelectedItemIds(new Set());
-    } else {
-      const cartItemIds = cartItems.map((item) => item.id);
-      handleSelectedItemIds(new Set(cartItemIds));
-    }
+    replaceSelectedItemIds(allSelected ? [] : cartItems.map((item) => item.id));
   };
 
   useEffect(() => {
-    const cartItemIds = cartItems.map((item) => item.id);
-    handleSelectedItemIds(new Set(cartItemIds));
+    handleAllSelected();
   }, []);
 
   return (
