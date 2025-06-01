@@ -18,7 +18,8 @@ export const mockCartItems = [
       id: 25,
       name: '모던 우드 체어',
       price: 2000,
-      imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/modern-wood-chair.jpg',
+      imageUrl:
+        'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQeMsjn-bl-bsreQfbsyA2l4EFwO5tsVDTYqUJY8GEctU6S1FkPyt7SxuALsS-9LZn2zXMvubxe5e0n_bEXY_JpTT_MsTfkQ1_MZuCD_FaFFzM5gM-YSxm3u246nBAM32NdyosLnQ&usqp=CAc',
       category: '가구',
     },
   },
@@ -29,7 +30,7 @@ export const mockCartItems = [
       id: 26,
       name: '심플 러그',
       price: 100,
-      imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/simple-rug.jpg',
+      imageUrl: 'https://media.bunjang.co.kr/product/223522208_%7Bcnt%7D_1683581287_w%7Bres%7D.jpg',
       category: '홈데코',
     },
   },
@@ -41,7 +42,7 @@ export const mockCartItems = [
       name: '빈티지 스탠드 조명',
       price: 1200,
       imageUrl:
-        'https://cafe24.poxo.com/ec01/dmswo9075/vintage-stand-light.jpg',
+        'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/794f/cecbea5bdc654a11ae02d28b4d1f4bd2a03a7389eb2b8cc4a45c1c9f7d9b.jpg',
       category: '조명',
     },
   },
@@ -52,7 +53,8 @@ export const mockCartItems = [
       id: 28,
       name: '아트 포스터',
       price: 350,
-      imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/art-poster.jpg',
+      imageUrl:
+        'https://velog.velcdn.com/images/minsungje/post/c27c57cb-fcbb-4641-b72d-0e2030739ae7/image.jpg',
       category: '인테리어소품',
     },
   },
