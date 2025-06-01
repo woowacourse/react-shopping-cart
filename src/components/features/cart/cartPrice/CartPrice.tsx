@@ -1,3 +1,4 @@
+import { DELIVERY_FEE } from '../../../../global/constants';
 import Separator from '../../../common/separator/Separator';
 import * as S from './CartPrice.styles';
 
@@ -6,7 +7,8 @@ interface CartPriceProps {
 }
 
 function CartPrice({ value }: CartPriceProps) {
-  const deliveryFee = value >= 100_000 ? 0 : 3_000;
+  const deliveryFee =
+    value >= DELIVERY_FEE.MINIMUM ? DELIVERY_FEE.FREE : DELIVERY_FEE.STANDARD;
   const totalPrice = value + deliveryFee;
   return (
     <S.Container>
