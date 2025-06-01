@@ -9,7 +9,7 @@ import {
 
 type ErrorContextType = {
   error: string;
-  showError: (msg: string) => void;
+  displayTemporaryError: (msg: string) => void;
 };
 
 const ErrorContext = createContext<ErrorContextType | undefined>(undefined);
@@ -18,7 +18,7 @@ export function ErrorProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState("");
   const timerRef = useRef<number | null>(null);
 
-  const showError = useCallback((errorMessage: string) => {
+  const displayTemporaryError = useCallback((errorMessage: string) => {
     setError(errorMessage);
 
     if (timerRef.current) {
@@ -32,7 +32,7 @@ export function ErrorProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ErrorContext.Provider value={{ error, showError }}>
+    <ErrorContext.Provider value={{ error, displayTemporaryError }}>
       {children}
     </ErrorContext.Provider>
   );
@@ -45,5 +45,5 @@ export const useErrorToast = () => {
 
 export const useShowError = () => {
   const error = useContext(ErrorContext);
-  return error?.showError;
+  return error?.displayTemporaryError;
 };
