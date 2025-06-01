@@ -124,7 +124,7 @@ export default function useCartItem() {
         onMutate: (queryClient) => {
           const prevCartItems = queryClient.getQueryData("cartItems") as GetCartItemsResponse;
 
-          const newCartContent = [...prevCartItems.content];
+          const newCartContent = [...(prevCartItems?.content ?? [])];
 
           queryClient.setQueryData("cartItems", {
             ...prevCartItems,

@@ -1,9 +1,8 @@
+import { Button, Checkbox, PlusMinusButton } from "@/components";
+import { useCartItem } from "@/hooks";
+import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
 import * as S from "./CartItem.styles";
-import { Button, Checkbox, PlusMinusButton } from "@/components";
-import { CartItemApi } from "@/apis";
-import { GetCartItemsResponse } from "@/types";
-import { useCartItem } from "@/hooks";
 
 interface CartItemProps {
   cartItem: GetCartItemsResponse["content"][number];
@@ -18,7 +17,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
     quantity,
   } = cartItem;
 
-  const { increaseCartItem, decreaseCartItem } = useCartItem();
+  const { increaseCartItem, decreaseCartItem, deleteCartItem } = useCartItem();
 
   const handleAddButtonClick = async () => {
     await increaseCartItem(cartItem.product.id);
@@ -31,7 +30,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
   };
 
   const handleDeleteClick = async (id: number) => {
-    await CartItemApi.deleteCartItems({ cartItemId: id });
+    await deleteCartItem(id);
     refetch();
   };
 
