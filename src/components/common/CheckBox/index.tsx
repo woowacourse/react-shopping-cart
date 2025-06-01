@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 import styled from "@emotion/styled";
-import { visuallyHidden } from "../../../util/style/visuallyHidden";
+import { visuallyHidden } from "@/util/style/visuallyHidden";
 
 type Size = "small" | "medium";
 

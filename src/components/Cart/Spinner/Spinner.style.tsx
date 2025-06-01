@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { colors, radius } from "../../../styles/theme";
+import { colors, radius } from "@/styles/theme";
 
 const spin = keyframes`
   0% {

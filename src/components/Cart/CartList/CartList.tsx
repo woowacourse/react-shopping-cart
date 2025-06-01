@@ -1,10 +1,7 @@
 import * as Styled from "./CartList.style";
 
 import { PropsWithChildren } from "react";
-import {
-  FREE_SHIPPING_OVER,
-  SHIPPING_FEE,
-} from "../../../constants/priceSetting";
+import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "@/constants/priceSetting";
 import notice from "/notice.svg";
 
 interface CartListProps extends PropsWithChildren {

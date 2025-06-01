@@ -1,6 +1,6 @@
 import goBack from "/goBack.svg";
 import * as Styled from "./OrderConfirmationHeader.style";
-import Header from "../../common/Header/Header";
+import Header from "@/components/common/Header/Header";
 
 function OrderConfirmationHeader({
   handleGoBackToHomeButton,

@@ -1,17 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import * as Styled from "./CartContent.style";
-import useShoppingCart from "../../../hooks/useShoppingCart";
+import useShoppingCart from "@/hooks/useShoppingCart";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
 
-import { PAGE_URL } from "../../../constants/PageUrl";
-import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation";
+import { PAGE_URL } from "@/constants/PageUrl";
+import type { OrderConfirmationLocationState } from "@/type/OrderConfirmation";
 
 import Spinner from "../Spinner/Spinner";
-import { useCalculateOrder } from "../../../hooks/useCalculateOrder";
-import CheckBox from "../../common/CheckBox";
-import useLocalStorage from "../../../hooks/useLocalStorage";
-import { useNavigate } from "react-router";
+import { useCalculateOrder } from "@/hooks/useCalculateOrder";
+import CheckBox from "@/components/common/CheckBox";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 function CartContent() {
   const {

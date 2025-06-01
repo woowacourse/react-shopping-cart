@@ -1,8 +1,8 @@
-import { CartItem } from "../../../type/CartItem";
+import { CartItem } from "@/type/CartItem";
 import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
-import CheckBox from "../../common/CheckBox";
-import CartCardImage from "../../common/CustomImage";
+import CheckBox from "@/components/common/CheckBox";
+import CartCardImage from "@/components/common/CustomImage";
 
 interface CartCardProps {
   cartItem: CartItem;
