@@ -5,8 +5,8 @@ type StepProps<T> = {
   children: React.ReactNode;
 };
 
-export const useFunnel = <T extends string>(stepNames: T) => {
-  const [step, setStep] = useState<T>(stepNames);
+export const useFunnel = <T extends string>(initialStep: T) => {
+  const [step, setStep] = useState<T>(initialStep);
 
   const StepComponent = useCallback(
     ({ children }: { children: ReactElement<StepProps<T>>[] }) => {
