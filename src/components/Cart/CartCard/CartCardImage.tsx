@@ -18,7 +18,7 @@ export default function CartCardImage({ imageUrl }: { imageUrl: string }) {
     return url.startsWith("http://") || url.startsWith("https://");
   };
 
-  const fallbackImagePath = `${basePath}/fallback_image.png`;
+  const fallbackImagePath = `${basePath}fallback_image.png`;
 
   useEffect(() => {
     if (!isValidImageUrl(imageUrl)) {
@@ -41,7 +41,7 @@ export default function CartCardImage({ imageUrl }: { imageUrl: string }) {
   }, [imageUrl, fallbackImagePath]);
 
   if (imageStatus === "loading") {
-    return <Spinner size="medium" />;
+    return <Spinner size="small" />;
   }
   if (imageStatus === "error") {
     return <StyledImage src={fallbackImagePath} alt="Fallback Image" />;
