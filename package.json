@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ohgus.github.io/react-shopping-cart",
   "name": "react-shopping-cart",
   "private": true,
   "version": "0.0.0",
@@ -8,21 +9,25 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "vitest run",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@emotion/css": "^11.13.5",
+    "@emotion/react": "^11.14.0",
+    "gh-pages": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-error-boundary": "^4.0.13",
-    "recoil": "^0.7.7",
-    "styled-components": "^6.1.11"
+    "react-router": "^7.6.1",
+    "react-router-dom": "^7.6.1",
+    "styled-components": "^6.1.11",
+    "vitest": "^3.1.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
-    "@types/jest": "^29.5.12",
     "@types/node": "^20.12.11",
-    "@types/react": "^18.2.66",
+    "@types/react": "^18.3.22",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
@@ -31,10 +36,14 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "identity-obj-proxy": "^3.0.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-jest": "^29.1.2",
+    "msw": "^2.8.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
