@@ -57,7 +57,7 @@ describe("useCart 훅 테스트", () => {
   });
 
   describe("초기 렌더링했을 때", () => {
-    it("전체 장바구니 상품 데이터가 불러와지고, 원본 상태와 파생 상태가 초기화된다.", async () => {
+    it("전체 장바구니 상품 데이터가 불러와지고, 원본 상태가 초기화된다.", async () => {
       const { result } = renderHook(() => useCart(), { wrapper });
 
       await waitFor(() => {
@@ -68,6 +68,27 @@ describe("useCart 훅 테스트", () => {
       expect(result.current.cartItemsCheckData).toHaveLength(
         mockCartItems.length
       );
+      expect(result.current.allChecked).toBeTruthy();
+    });
+
+    it("파생 상태가 원본 상태에 따라 올바르게 계산되어 초기화된다.", async () => {
+      const { result } = renderHook(() => useCart(), { wrapper });
+
+      await waitFor(() => {
+        expect(getCartItems).toHaveBeenCalled();
+      });
+
+      expect(result.current.cartItemCount).toBe(mockCartItems.length);
+      expect(result.current.orderItemCount).toBe(mockCartItems.length);
+      expect(result.current.totalPrice).toBeGreaterThan(0);
+
+      if (result.current.orderPrice >= 100_000) {
+        expect(result.current.shippingFee).toBe(0);
+      } else if (result.current.orderPrice > 0) {
+        expect(result.current.shippingFee).toBe(3_000);
+      } else {
+        expect(result.current.shippingFee).toBe(0);
+      }
     });
 
     it("전체 상품이 선택된다.", async () => {
