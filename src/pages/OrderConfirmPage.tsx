@@ -7,12 +7,13 @@ import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 const OrderConfirmPage = () => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
-  const deliveryPrice =
-    orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;
+  const deliveryPrice = orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;
   const totalPrice = orderPrice + deliveryPrice;
-  const totalQuantity = cartItems
-    .filter(({ id }) => checkedCartIds.includes(id))
-    .reduce((acc, item) => acc + item.quantity, 0);
+  const checkedSet = new Set(checkedCartIds);
+  const totalQuantity = cartItems.reduce(
+    (acc, item) => (checkedSet.has(item.id) ? acc + item.quantity : acc),
+    0
+  );
 
   return (
     <>
@@ -20,8 +21,7 @@ const OrderConfirmPage = () => {
         <S.title>주문 확인</S.title>
         <S.middleContainer>
           <p>
-            총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를
-            주문합니다.
+            총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를 주문합니다.
           </p>
           <p>최종 결제 금액을 확인해 주세요.</p>
         </S.middleContainer>
