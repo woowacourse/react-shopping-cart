@@ -9,6 +9,7 @@ import Confirm from "../src/pages/Confirm";
 import NavBar from "../src/components/layout/NavBar";
 import { PATH } from "../src/route/path";
 import { formatPrice } from "../src/utils/formatPrice";
+import { CartProduct } from "../src/type/cart";
 
 vi.mock("../src/api/cart/getCartProduct", () => ({
   getCartProduct: vi.fn(),
@@ -97,9 +98,23 @@ describe("주문확인 페이지 로딩 테스트", () => {
   });
 
   it("주문 확인 버튼 클릭 후 설명 문구 표시", async () => {
-    const totalAmount = 8;
-    const sort = 2;
-    const totalPrice = 16000;
+    const sort = mockCartItems.content.length;
+    const getOrderPrice = () => {
+      return (
+        mockCartItems.content?.reduce(
+          (total: number, current: CartProduct) =>
+            current.product.price * current.quantity + total,
+          0
+        ) ?? 0
+      );
+    };
+    const orderPrice = getOrderPrice();
+    const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
+    const totalPrice = orderPrice + deliveryPrice;
+    const totalAmount = mockCartItems.content.reduce(
+      (total: number, current: CartProduct) => total + current.quantity,
+      0
+    );
 
     const routes = [
       {
