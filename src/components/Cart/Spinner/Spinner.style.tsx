@@ -17,12 +17,10 @@ export const Container = styled.div`
   align-items: center;
   padding: 20px;
 `;
-
 export const SpinnerElement = styled.div<{
   size: "small" | "medium" | "large";
 }>`
   border-radius: ${radius.circle};
-  border-top-color: ${colors.blue};
   animation: ${spin} 0.8s linear infinite;
 
   ${({ size }) => {
@@ -53,4 +51,6 @@ export const SpinnerElement = styled.div<{
         `;
     }
   }}
+
+  border-top-color: ${colors.blue};
 `;
