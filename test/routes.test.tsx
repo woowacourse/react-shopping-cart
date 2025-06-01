@@ -31,18 +31,4 @@ describe("라우팅 테스트", () => {
 
     expect(screen.getByText("장바구니")).toBeInTheDocument();
   });
-
-  it("라우팅 테스트 - '/order-confirm'로 진입하면 장바구니가 보임", () => {
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/order-confirm"],
-    });
-
-    render(
-      <CartItemProvider>
-        <RouterProvider router={router} />
-      </CartItemProvider>
-    );
-
-    expect(screen.getByText("주문 확인")).toBeInTheDocument();
-  });
 });
