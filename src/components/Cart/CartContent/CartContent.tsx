@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import * as Styled from "./CartContent.style";
-import useShoppingCart from "@/hooks/Cart/useShoppingCart";
+
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
 
@@ -11,6 +11,7 @@ import type { OrderConfirmationLocationState } from "@/type/OrderConfirmation";
 import Spinner from "../Spinner/Spinner";
 import { useCalculateOrder } from "@/hooks/useCalculateOrder";
 import CheckBox from "@/components/common/CheckBox";
+import useShoppingCart from "@/hooks/Cart/useShoppingCart";
 import useLocalStorage from "@/hooks/Cart/useLocalStorage";
 
 function CartContent() {
@@ -74,23 +75,53 @@ function CartContent() {
     };
     navigate(PAGE_URL.ORDER_COMPLETE, { state });
   };
-  if (cartFetchLoading) {
-    return (
-      <Styled.CartContentContainer>
-        <Styled.CartContentHeader>장바구니</Styled.CartContentHeader>
+
+  return (
+    <>
+      {cartFetchLoading && (
         <Styled.CartContentLoading>
           <Spinner size="large" />
         </Styled.CartContentLoading>
-      </Styled.CartContentContainer>
-    );
-  }
-  if (cartItemsData.length === 0) {
-    return (
+      )}
       <Styled.CartContentContainer>
         <Styled.CartContentHeader>장바구니</Styled.CartContentHeader>
-        <Styled.EmptyCartMessage>
-          장바구니에 담긴 상품이 없습니다.
-        </Styled.EmptyCartMessage>
+
+        {cartItemsData.length !== 0 ? (
+          <>
+            <Styled.CartContentDescription>
+              현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
+            </Styled.CartContentDescription>
+            <Styled.AllSelectWrapper>
+              <CheckBox
+                id="select-all-checkbox"
+                checked={isAllSelected}
+                onChange={handleSelectAllCartItems}
+                label="전체선택"
+                boxSize="medium"
+              />
+            </Styled.AllSelectWrapper>
+            <CartList subtotalPrice={subtotalPrice}>
+              {cartItemsData &&
+                cartItemsData.length > 0 &&
+                cartItemsData.map((cartItem) => (
+                  <CartCard
+                    key={cartItem.id}
+                    cartItem={cartItem}
+                    handleDeleteCartItem={handleDeleteCartItem}
+                    isDeleteItemLoading={isDeleteItemLoading}
+                    isQuantityUpdateLoading={isQuantityUpdateLoading}
+                    handleCartItemQuantity={handleCartItemQuantity}
+                    handleSelectCartItem={handleSelectCartItem}
+                    isSelected={selectedCartIds?.has(cartItem.id) || false}
+                  />
+                ))}
+            </CartList>
+          </>
+        ) : (
+          <Styled.EmptyCartMessage>
+            장바구니에 담긴 상품이 없습니다.
+          </Styled.EmptyCartMessage>
+        )}
         <Styled.OrderConfirmButton
           disabled={selectedCartItemsLength === 0}
           onClick={handleOrderConfirm}
@@ -98,46 +129,7 @@ function CartContent() {
           주문 확인
         </Styled.OrderConfirmButton>
       </Styled.CartContentContainer>
-    );
-  }
-
-  return (
-    <Styled.CartContentContainer>
-      <Styled.CartContentHeader>장바구니</Styled.CartContentHeader>
-      <Styled.CartContentDescription>
-        현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
-      </Styled.CartContentDescription>
-      <Styled.AllSelectWrapper>
-        <CheckBox
-          id="select-all-checkbox"
-          checked={isAllSelected}
-          onChange={handleSelectAllCartItems}
-          label="전체선택"
-          boxSize="medium"
-        />
-      </Styled.AllSelectWrapper>
-      <CartList subtotalPrice={subtotalPrice}>
-        {cartItemsData.length > 0 &&
-          cartItemsData.map((cartItem) => (
-            <CartCard
-              key={cartItem.id}
-              cartItem={cartItem}
-              handleDeleteCartItem={handleDeleteCartItem}
-              isDeleteItemLoading={isDeleteItemLoading}
-              isQuantityUpdateLoading={isQuantityUpdateLoading}
-              handleCartItemQuantity={handleCartItemQuantity}
-              handleSelectCartItem={handleSelectCartItem}
-              isSelected={selectedCartIds?.has(cartItem.id) || false}
-            />
-          ))}
-      </CartList>
-      <Styled.OrderConfirmButton
-        disabled={selectedCartItemsLength === 0}
-        onClick={handleOrderConfirm}
-      >
-        주문 확인
-      </Styled.OrderConfirmButton>
-    </Styled.CartContentContainer>
+    </>
   );
 }
 
