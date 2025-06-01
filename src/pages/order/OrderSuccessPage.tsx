@@ -31,18 +31,18 @@ const isOrderSuccessState = (state: any): state is OrderSuccessState => {
 };
 
 export default function OrderSuccessPage() {
-  const { validatedState, isValidating } = useValidateLocationState({
+  const { state, isValidating } = useValidateLocationState({
     validationFn: isOrderSuccessState,
     redirectPath: ROUTES.CART,
   });
 
-  if (isValidating || !validatedState) {
+  if (isValidating || !state) {
     return (
       <Fallback type="loading" message="주문 확인 페이지로 이동 중입니다.." />
     );
   }
 
-  const { orderList, paymentPrice } = validatedState;
+  const { orderList, paymentPrice } = state;
   const orderListType = orderList.length;
   const orderQuantity = orderList.reduce(
     (acc, { quantity }) => (acc += quantity),

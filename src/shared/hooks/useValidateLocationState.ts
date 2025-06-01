@@ -12,21 +12,19 @@ const useValidateLocationState = <T>({
 }: UseValidateLocationStateParams<T>) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [validatedState, setValidatedState] = useState<T | null>(null);
   const [isValidating, setIsValidating] = useState(true);
 
+  const state = location.state;
   useEffect(() => {
-    const state = location.state;
     if (!validationFn(state)) {
       navigate(redirectPath);
       return;
     }
 
-    setValidatedState(state);
     setIsValidating(false);
-  }, [navigate, location.state, validationFn, redirectPath]);
+  }, [navigate, state, validationFn, redirectPath]);
 
-  return { validatedState, isValidating };
+  return { state: validationFn(state) ? state : null, isValidating };
 };
 
 export default useValidateLocationState;
