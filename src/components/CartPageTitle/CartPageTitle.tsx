@@ -9,9 +9,7 @@ const CartPageTitle = ({ cartItemsTypeCount }: CartPageTitleProps) => {
   return (
     <div className={CartPageTitleStyle}>
       <Text text="장바구니" type="large" />
-      {cartItemsTypeCount === 0 ? (
-        ""
-      ) : (
+      {cartItemsTypeCount && (
         <Text text={`현재 ${cartItemsTypeCount}개의 상품이 담겨있습니다.`} />
       )}
     </div>
