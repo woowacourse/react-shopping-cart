@@ -1,17 +1,11 @@
 import SelectInput from '../../../shared/ui/SelectInput';
 import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
-import { CartItem } from '../../../shared/types/cart';
-import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useCartContext } from '../../../shared/context/useCartContext';
 import { useEffect } from 'react';
 
-interface CartListProps {
-  cartItems: CartItem[];
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
-}
-
-export default function CartList({ cartItems, setCartItems }: CartListProps) {
-  const { selectedCartItems, addAllCartItemsInSelected } = useSelectedCartContext();
+export default function CartList() {
+  const { cartItems, selectedCartItems, addAllCartItemsInSelected } = useCartContext();
 
   useEffect(() => {
     if (cartItems.length === 0) return;
@@ -35,7 +29,7 @@ export default function CartList({ cartItems, setCartItems }: CartListProps) {
       </S.AllSelectContainer>
       <S.CartItemCardContainer>
         {cartItems.map((cartItem) => (
-          <CartItemCard key={cartItem.id} cartItem={cartItem} setCartItems={setCartItems} />
+          <CartItemCard key={cartItem.id} cartItem={cartItem} />
         ))}
       </S.CartItemCardContainer>
     </S.CartListContainer>

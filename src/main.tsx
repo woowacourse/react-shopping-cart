@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { SelectedCartProvider } from './shared/context/SelectedCartProvider.tsx';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
+import { CartProvider } from './shared/context/CartProvider.tsx';
 
 async function enableMocking() {
   // if (process.env.NODE_ENV === 'development') {
@@ -23,9 +23,9 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <SelectedCartProvider>
+      <CartProvider>
         <RouterProvider router={router} />
-      </SelectedCartProvider>
+      </CartProvider>
     </React.StrictMode>
   );
 });

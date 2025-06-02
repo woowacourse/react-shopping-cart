@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import Button from '../../../shared/ui/Button';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../../shared/constants/routeConstants';
-import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useCartContext } from '../../../shared/context/useCartContext';
 import styled from '@emotion/styled';
 
 const ButtonCSS = css`
@@ -26,7 +26,7 @@ const ButtonCSS = css`
 `;
 
 export default function Footer({ cartItemQuantity }: { cartItemQuantity: number }) {
-  const { selectedCartItems } = useSelectedCartContext();
+  const { selectedCartItems } = useCartContext();
 
   const navigate = useNavigate();
 

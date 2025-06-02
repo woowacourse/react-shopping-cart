@@ -6,7 +6,7 @@ import SelectInput from '../../../shared/ui/SelectInput';
 import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
 import { CartItem } from '../../../shared/types/cart';
-import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useCartContext } from '../../../shared/context/useCartContext';
 import { deleteCartItem } from '../api/deleteCartItem';
 
 const deleteButtonCSS = css`
@@ -26,11 +26,10 @@ const deleteButtonCSS = css`
 
 interface CartItemCardProps {
   cartItem: CartItem;
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
 }
 
-export default function CartItemCard({ cartItem, setCartItems }: CartItemCardProps) {
-  const { selectedCartItems, updateSelectedCartItem, removeSelectedCartItem } = useSelectedCartContext();
+export default function CartItemCard({ cartItem }: CartItemCardProps) {
+  const { selectedCartItems, updateSelectedCartItem, removeSelectedCartItem } = useCartContext();
   const handleSelectedCartItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     if (!isChecked) {
@@ -78,13 +77,7 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
             </S.CartItemInfoPrice>
           </S.CartItemInfoDetails>
 
-          <CartItemQuantitySelector
-            quantity={cartItem.quantity}
-            cartItem={cartItem}
-            isSelected={isSelected}
-            updateSelectedCartItem={updateSelectedCartItem}
-            setCartItems={setCartItems}
-          />
+          <CartItemQuantitySelector quantity={cartItem.quantity} cartItem={cartItem} isSelected={isSelected} />
         </S.CartItemInfo>
       </S.CartItemContent>
     </S.CartItemContainer>

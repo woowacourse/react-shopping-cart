@@ -4,18 +4,16 @@ import { CartHeader } from '../../features/cart/ui';
 import Navbar from '../../shared/ui/Navbar';
 import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import { getCartItems } from '../../features/cart/api/getCartItems';
-import { useSelectedCartContext } from '../../shared/context/useSelectedCartContext';
-import { CartItem } from '../../shared/types/cart';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
 
 const CartList = React.lazy(() => import('../../features/cart/ui/CartList'));
 const OrderPriceSummary = React.lazy(() => import('../../features/cart/ui/OrderPriceSummary'));
 import CartListSkeleton from '../../features/cart/ui/CartListSkeleton';
+import { useCartContext } from '../../shared/context/useCartContext';
 
 function CartPage() {
-  const { selectedCartItems } = useSelectedCartContext();
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { cartItems, updateCartItems, selectedCartItems } = useCartContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,8 +21,8 @@ function CartPage() {
       try {
         const response = await getCartItems();
         if (!response) return;
-
-        setCartItems(response.content);
+        console.log('Fetched cart items:', response.content);
+        updateCartItems(response.content);
       } catch (error) {
         if (error instanceof Error) {
           console.error('Failed to fetch cart items:', error.message);
@@ -46,7 +44,7 @@ function CartPage() {
           <CartListSkeleton />
         ) : cartItems.length > 0 ? (
           <Suspense fallback={<CartListSkeleton />}>
-            <CartList cartItems={cartItems} setCartItems={setCartItems} />
+            <CartList />
             <OrderPriceSummary />
           </Suspense>
         ) : (

@@ -1,8 +1,8 @@
-import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useCartContext } from '../../../shared/context/useCartContext';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
 export default function OrderPriceSummary() {
-  const { selectedCartItems } = useSelectedCartContext();
+  const { selectedCartItems } = useCartContext();
 
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   const deliveryFee = totalPrice >= DELIVERY_FEE_THRESHOLD ? 0 : DELIVERY_FEE;

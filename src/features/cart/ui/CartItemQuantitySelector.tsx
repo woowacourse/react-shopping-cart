@@ -2,30 +2,20 @@ import { useEffect, useState } from 'react';
 import * as S from './CartItemQuantitySelector.styles';
 import { CartItem } from '../../../shared/types/cart';
 import { updateCartItem } from '../api/updateCartItem';
+import { useCartContext } from '../../../shared/context/useCartContext';
 
 interface CartItemQuantitySelectorProps {
   cartItem: CartItem;
   quantity: number;
   isSelected: boolean;
-  updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
 }
 
-export default function CartItemQuantitySelector({
-  isSelected,
-  updateSelectedCartItem,
-  cartItem,
-  quantity,
-  setCartItems,
-}: CartItemQuantitySelectorProps) {
+export default function CartItemQuantitySelector({ isSelected, cartItem, quantity }: CartItemQuantitySelectorProps) {
+  const { updateCartItemQuantity, updateSelectedCartItem } = useCartContext();
   const [cartQuantity, setCartQuantity] = useState<number>(quantity);
 
   useEffect(() => {
-    updateToRecentCartItems({
-      setCartItems,
-      cartItem,
-      cartQuantity,
-    });
+    updateCartItemQuantity(cartItem, cartQuantity);
 
     if (isSelected) {
       updateSelectedCartItem(cartItem, cartQuantity);
@@ -62,24 +52,4 @@ export default function CartItemQuantitySelector({
       <S.CartItemQuantitySelectorButton onClick={handleQuantityPlus}>+</S.CartItemQuantitySelectorButton>
     </S.CartItemQuantityContainer>
   );
-}
-
-function updateToRecentCartItems({
-  setCartItems,
-  cartItem,
-  cartQuantity,
-}: {
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
-  cartItem: CartItem;
-  cartQuantity: number;
-}) {
-  setCartItems((prevItems) => {
-    const existingItemIndex = prevItems.findIndex((item) => item.id === cartItem.id);
-    if (existingItemIndex > -1) {
-      const updatedItems = [...prevItems];
-      updatedItems[existingItemIndex].quantity = cartQuantity;
-      return updatedItems;
-    }
-    return [...prevItems, { ...cartItem, quantity: cartQuantity }];
-  });
 }

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react';
-import { useSelectedCartContext } from '../../shared/context/useSelectedCartContext';
 import Button from '../../shared/ui/Button';
 import Navbar from '../../shared/ui/Navbar';
 import * as S from './ConfirmationPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import { useNavigate } from 'react-router';
+import { useCartContext } from '../../shared/context/useCartContext';
 
 const ButtonCSS = css`
   width: 100%;
@@ -27,7 +27,7 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { selectedCartItems } = useSelectedCartContext();
+  const { selectedCartItems } = useCartContext();
 
   const navigate = useNavigate();
   const handleClick = () => {

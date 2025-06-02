@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router';
 import CartPage from '../src/pages/CartPage/CartPage';
-import { SelectedCartProvider } from '../src/shared/context/SelectedCartProvider';
+import { CartProvider } from '../src/shared/context/CartProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
@@ -10,9 +10,9 @@ import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../src/features/constants/
 function renderCartPage() {
   return render(
     <MemoryRouter initialEntries={['/']}>
-      <SelectedCartProvider>
+      <CartProvider>
         <CartPage />
-      </SelectedCartProvider>
+      </CartProvider>
     </MemoryRouter>
   );
 }
@@ -20,9 +20,9 @@ function renderCartPage() {
 function renderCartPageWithEmptySelectedItems() {
   return render(
     <MemoryRouter initialEntries={['/']}>
-      <SelectedCartProvider>
+      <CartProvider>
         <CartPageWithEmptySelectedItems />
-      </SelectedCartProvider>
+      </CartProvider>
     </MemoryRouter>
   );
 }
