@@ -5,7 +5,6 @@ import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/@common/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import { Header } from "../../components/@common/Header/Header.styles";
-import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import Title from "../../components/@common/Title/Title";
 import useCart from "../../hooks/useCart";
 import useToast from "../../hooks/useToast";
@@ -14,17 +13,11 @@ import InfoIcon from "/info.svg";
 import { TOAST_TYPES } from "../../components/@common/Toast/type";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 import { CLIENT_BASE_PATH } from "../../apis/config";
+import PriceSummary from "../../components/PriceSummary/PriceSummary";
 
 const CartPage = () => {
-  const {
-    cartItemsData,
-    hasCheckedItem,
-    cartItemCount,
-    orderPrice,
-    shippingFee,
-    totalPrice,
-    errorMessage,
-  } = useCart();
+  const { cartItemsData, hasCheckedItem, cartItemCount, errorMessage } =
+    useCart();
 
   const { showToast } = useToast();
 
@@ -64,15 +57,7 @@ const CartPage = () => {
                 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
               </Description>
             </S.InfoContainer>
-            <S.PriceSummary>
-              <S.PriceInfoWrapper>
-                <PriceInfo label="주문 금액" price={orderPrice} />
-                <PriceInfo label="배송비" price={shippingFee} />
-              </S.PriceInfoWrapper>
-              <S.PriceInfoWrapper>
-                <PriceInfo label="총 결제 금액" price={totalPrice} />
-              </S.PriceInfoWrapper>
-            </S.PriceSummary>
+            <PriceSummary />
           </S.ContentContainer>
         ) : (
           <EmptyFallback />
