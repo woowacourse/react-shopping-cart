@@ -22,7 +22,7 @@ function OrderConfirmationPreviewCard({
           <Styled.ProductInfo>
             <Styled.ProductName>{name}</Styled.ProductName>
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
-            {`${quantity}개`}
+            <Styled.Quantity>{quantity}개</Styled.Quantity>
           </Styled.ProductInfo>
         </Styled.Wrapper>
       </Styled.Container>
