@@ -1,16 +1,13 @@
 import {
   createContext,
   PropsWithChildren,
-  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import { getCartItems } from "../apis/cartItems/getCartItems";
-import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import { CartItemContent } from "../types/response";
-import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
+import useCartAPI from "../hooks/useCartAPI";
 
 const INITIAL_CHECKED = true;
 
@@ -64,15 +61,14 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       cartItemsCheckData.every(({ checked }) => checked),
     [cartItemsCheckData]
   );
-  const fetchData = useCallback(async () => {
-    try {
-      setCartItemsData(await getCartItems());
-    } catch (error) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      }
-    }
-  }, []);
+
+  const { fetchData, deleteItem, increaseItemQuantity, decreaseItemQuantity } =
+    useCartAPI({
+      setCartItemsData,
+      setCartItemsCheckData,
+      setErrorMessage,
+      isCheckDataInitialized,
+    });
 
   useEffect(() => {
     fetchData();
@@ -88,55 +84,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       isCheckDataInitialized.current = true;
     }
   }, [cartItemsData]);
-
-  const deleteItem = useCallback(
-    async (cartId: number) => {
-      try {
-        await deleteCartItem(cartId);
-      } catch (error) {
-        if (error instanceof Error) {
-          setErrorMessage(error.message);
-        }
-      }
-      await fetchData();
-      setCartItemsCheckData((prev) => prev.filter(({ id }) => id !== cartId));
-    },
-    [fetchData]
-  );
-
-  const increaseItemQuantity = useCallback(
-    async (cartId: number, currentQuantity: number) => {
-      try {
-        await patchCartItem({
-          cartId,
-          quantity: currentQuantity + 1,
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          setErrorMessage(error.message);
-        }
-      }
-      await fetchData();
-    },
-    [fetchData]
-  );
-
-  const decreaseItemQuantity = useCallback(
-    async (cartId: number, currentQuantity: number) => {
-      try {
-        await patchCartItem({
-          cartId,
-          quantity: currentQuantity - 1,
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          setErrorMessage(error.message);
-        }
-      }
-      await fetchData();
-    },
-    [fetchData]
-  );
 
   const toggleAllChecked = () => {
     setCartItemsCheckData((prev) =>
