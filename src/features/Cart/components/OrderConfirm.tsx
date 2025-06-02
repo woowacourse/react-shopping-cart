@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 
-import { Button } from '@/shared/components/Button';
-import { Flex } from '@/shared/components/Flex';
-import { Header } from '@/shared/components/Header';
-import { Text } from '@/shared/components/Text';
+import { Button } from '@/shared/components/Button/Button';
+import { Flex } from '@/shared/components/Flex/Flex';
+import { Header } from '@/shared/components/Header/Header';
+import { Text } from '@/shared/components/Text/Test';
 
 import Back from '../../../../public/Back.png';
 import { StepProps } from '../../../shared/types/funnel';

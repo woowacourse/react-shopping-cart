@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Props } from '.';
+import { Props } from './Flex';
 
 export const StyledFlexBox = styled.div<Props>`
   display: flex;

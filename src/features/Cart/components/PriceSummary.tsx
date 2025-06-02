@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import { Flex } from '@/shared/components/Flex';
-import { Text } from '@/shared/components/Text';
+import { Flex } from '@/shared/components/Flex/Flex';
+import { Text } from '@/shared/components/Text/Test';
 
 import { CartItem } from '../types/Cart.types';
 import { usePriceInfo } from '../hooks/usePriceInfo';

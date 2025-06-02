@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { Button } from '@/shared/components/Button';
-import { CheckBox } from '@/shared/components/CheckBox';
-import { Flex } from '@/shared/components/Flex';
-import { Text } from '@/shared/components/Text';
+import { Button } from '@/shared/components/Button/Button';
+import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
+import { Flex } from '@/shared/components/Flex/Flex';
+import { Text } from '@/shared/components/Text/Test';
 
 import { QuantitySelector } from './QuantitySelector';
 

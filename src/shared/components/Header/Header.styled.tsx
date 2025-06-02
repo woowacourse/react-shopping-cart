@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { HeaderProps } from '.';
+import { HeaderProps } from './Header';
 
 export const StyledHeader = styled.header<Pick<HeaderProps, 'right'>>`
   position: sticky;

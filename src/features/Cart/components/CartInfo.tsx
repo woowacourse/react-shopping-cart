@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 
-import { Button } from '@/shared/components/Button';
-import { CheckBox } from '@/shared/components/CheckBox';
-import { Flex } from '@/shared/components/Flex';
-import { Header } from '@/shared/components/Header';
-import { Progress } from '@/shared/components/Progress';
-import { Text } from '@/shared/components/Text';
+import { Button } from '@/shared/components/Button/Button';
+import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
+import { Flex } from '@/shared/components/Flex/Flex';
+import { Header } from '@/shared/components/Header/Header';
+import { Progress } from '@/shared/components/Progress/Progress';
+import { Text } from '@/shared/components/Text/Test';
 
 import { CartItemDetail } from './CartItemDetail';
 import { PriceSummary } from './PriceSummary';

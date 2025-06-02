@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { Props } from '.';
+import { Props } from './Test';
 
 const variants = {
   Heading: css`

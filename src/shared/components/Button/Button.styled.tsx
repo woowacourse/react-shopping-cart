@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { ButtonProps } from '.';
+import { ButtonProps } from './Button';
 
 const sizeStyles = {
   xs: css`

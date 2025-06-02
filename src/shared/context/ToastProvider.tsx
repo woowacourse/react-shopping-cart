@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useRef, useState } from 'react';
 
-import { Toast } from '../components/Toast';
+import { Toast } from '../components/Toast/Toast';
 
 export const ToastContext = createContext({ showToast(_message: string) {} });
 
