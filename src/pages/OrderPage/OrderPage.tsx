@@ -6,9 +6,11 @@ import Title from "../../components/@common/Title/Title";
 import Description from "../../components/@common/Description/Description";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import useCartCalculations from "../../hooks/useCartCaculations";
 
 const OrderPage = () => {
-  const { orderItemCount, orderQuantity, totalPrice } = useCart();
+  const { orderItemCount } = useCart();
+  const { orderQuantity, totalPrice } = useCartCalculations();
 
   const navigate = useNavigate();
 

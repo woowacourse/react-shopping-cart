@@ -1,9 +1,10 @@
-import useCart from "../../hooks/useCart";
+// import useCart from "../../hooks/useCart";
+import useCartCalculations from "../../hooks/useCartCaculations";
 import PriceInfo from "../PriceInfo/PriceInfo";
 import * as S from "./PriceSummary.styles";
 
 const PriceSummary = () => {
-  const { orderPrice, shippingFee, totalPrice } = useCart();
+  const { orderPrice, shippingFee, totalPrice } = useCartCalculations();
   return (
     <S.PriceSummary>
       <S.PriceInfoWrapper>

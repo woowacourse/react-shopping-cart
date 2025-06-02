@@ -14,9 +14,6 @@ import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 
 const INITIAL_CHECKED = true;
 
-const FREE_SHIPPING_THRESHOLD = 100_000;
-const DEFAULT_SHIPPING_FEE = 3_000;
-
 interface CartContextType {
   cartItemsData: CartItemContent[];
   cartItemsCheckData: CartItemCheckType[];
@@ -31,20 +28,17 @@ interface CartContextType {
     currentQuantity: number
   ) => Promise<void>;
 
-  allChecked: boolean;
+  isAllChecked: boolean;
   toggleAllChecked: () => void;
   hasCheckedItem: () => boolean;
+
+  checkedItemsId: number[];
 
   getItemChecked: (cartId: number) => boolean;
   toggleItemChecked: (cartId: number) => void;
 
   cartItemCount: number;
   orderItemCount: number;
-
-  orderQuantity: number;
-  orderPrice: number;
-  shippingFee: number;
-  totalPrice: number;
 
   errorMessage: string;
 }
@@ -61,10 +55,15 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const [cartItemsCheckData, setCartItemsCheckData] = useState<
     CartItemCheckType[]
   >([]);
-  const [allChecked, setAllChecked] = useState(INITIAL_CHECKED);
   const isCheckDataInitialized = useRef(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const isAllChecked = useMemo(
+    () =>
+      cartItemsCheckData.length > 0 &&
+      cartItemsCheckData.every(({ checked }) => checked),
+    [cartItemsCheckData]
+  );
   const fetchData = useCallback(async () => {
     try {
       setCartItemsData(await getCartItems());
@@ -140,14 +139,12 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   );
 
   const toggleAllChecked = () => {
-    setAllChecked((prev) => !prev);
-
-    setCartItemsCheckData((prev) => {
-      return prev.map((checkData) => ({
-        ...checkData,
-        checked: !allChecked,
-      }));
-    });
+    setCartItemsCheckData((prev) =>
+      prev.map((item) => ({
+        ...item,
+        checked: !isAllChecked,
+      }))
+    );
   };
 
   const hasCheckedItem = () => {
@@ -170,27 +167,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     .filter(({ checked }) => checked)
     .map(({ id }) => id);
 
-  const orderQuantity = useMemo(() => {
-    return cartItemsData
-      .filter(({ id }) => checkedItemsId.includes(id))
-      .reduce((sum, item) => sum + item.quantity, 0);
-  }, [cartItemsData, checkedItemsId]);
-
-  const orderPrice = useMemo(() => {
-    return cartItemsData
-      .filter(({ id }) => checkedItemsId.includes(id))
-      .reduce((sum, item) => sum + item.quantity * item.product.price, 0);
-  }, [cartItemsData, checkedItemsId]);
-
-  const shippingFee = useMemo(() => {
-    if (orderPrice === 0) return 0;
-    return orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
-  }, [orderPrice]);
-
-  const totalPrice = useMemo(() => {
-    return orderPrice + shippingFee;
-  }, [orderPrice, shippingFee]);
-
   return (
     <CartContext.Provider
       value={{
@@ -201,7 +177,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         increaseItemQuantity,
         decreaseItemQuantity,
 
-        allChecked,
+        isAllChecked,
         toggleAllChecked,
         hasCheckedItem,
 
@@ -211,11 +187,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         cartItemCount: cartItemsData.length,
         orderItemCount: checkedItemsId.length,
 
-        orderQuantity,
-        orderPrice,
-        shippingFee,
-        totalPrice,
-
+        checkedItemsId,
         errorMessage,
       }}
     >
