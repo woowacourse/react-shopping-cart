@@ -48,19 +48,101 @@ export const CouponButton = styled.button`
   background-color: #ffffff;
   color: #222222;
   border: 1px solid #aaaaaa;
+  margin: 16px 0;
 `;
+
 export const Header = styled.header`
   width: 100%;
   margin-bottom: 20px;
 `;
+
 export const HeaderTitle = styled.h2`
   font-weight: 700;
   font-size: 24px;
 `;
+
 export const HeaderDescription = styled.p`
   font-weight: 500;
   font-size: 12px;
   span {
     display: block;
   }
+`;
+
+// OrderTotal 관련 스타일들
+export const OrderTotal = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px 0;
+  border-top: 1px solid #0000001a;
+`;
+
+export const OrderTotalTitle = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+`;
+
+export const OrderTotalPrice = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+  color: #333333;
+`;
+
+export const DiscountTotal = styled.p`
+  display: flex;
+  justify-content: space-between;
+  color: #333333;
+`;
+
+export const DiscountTotalTitle = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+`;
+
+export const DiscountTotalPrice = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+export const FinalTotal = styled.p`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid #0000001a;
+  border-bottom: 1px solid #0000001a;
+`;
+
+export const FinalTotalTitle = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+`;
+
+export const FinalTotalPrice = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+  color: #333333;
+`;
+export const OrderPriceDetails = styled.ul`
+  border-top: 1px solid #0000001a;
+
+  border-bottom: 1px solid #0000001a;
+  padding: 16px 0;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+`;
+
+export const OrderWrapper = styled.li`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
