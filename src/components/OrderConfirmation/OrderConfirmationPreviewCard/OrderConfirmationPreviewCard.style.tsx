@@ -47,7 +47,7 @@ export const Price = styled.p`
   margin-bottom: 8px;
 `;
 
-export const Quantity = styled.p`
+export const CartItemQuantity = styled.p`
   font-size: 0.75rem;
   font-weight: 500;
 `;

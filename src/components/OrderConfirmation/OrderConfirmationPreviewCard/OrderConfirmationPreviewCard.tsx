@@ -2,7 +2,7 @@ import { CartItem } from "@/type/CartItem";
 
 import * as Styled from "./OrderConfirmationPreviewCard.style";
 
-import CartCardImage from "@/components/common/CustomImage";
+import CustomImage from "@/components/common/CustomImage";
 
 interface OrderConfirmationPreviewCardProps {
   cartItem: CartItem;
@@ -18,11 +18,11 @@ function OrderConfirmationPreviewCard({
     <li key={id}>
       <Styled.Container>
         <Styled.Wrapper>
-          <CartCardImage imageUrl={imageUrl} />
+          <CustomImage imageUrl={imageUrl} />
           <Styled.ProductInfo>
             <Styled.ProductName>{name}</Styled.ProductName>
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
-            <Styled.Quantity>{quantity}개</Styled.Quantity>
+            <Styled.CartItemQuantity>{quantity}개</Styled.CartItemQuantity>
           </Styled.ProductInfo>
         </Styled.Wrapper>
       </Styled.Container>
