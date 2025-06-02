@@ -1,23 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CartItemType } from "../types/response";
 
 const useCheckboxHandler = (cartItems: CartItemType[]) => {
-  const allCartIds = useMemo(
-    () => [...cartItems].map((item) => item.id),
-    [cartItems]
-  );
-  const initialRef = useRef(0);
   const [selectedCartIds, setSelectedCartIds] = useState<number[]>([]);
 
   useEffect(() => {
-    if (initialRef.current < 3) {
-      setSelectedCartIds(allCartIds);
-      initialRef.current += 1;
-    }
-  }, [allCartIds]);
+    const allCartIds = cartItems.map((item) => item.id);
+    setSelectedCartIds(allCartIds);
+  }, [cartItems]);
 
   const toggleAllSelect = () => {
     setSelectedCartIds((prevCartIds) => {
+      const allCartIds = cartItems.map((item) => item.id);
       return prevCartIds.length === allCartIds.length ? [] : allCartIds;
     });
   };
