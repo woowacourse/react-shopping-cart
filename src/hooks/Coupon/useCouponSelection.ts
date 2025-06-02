@@ -1,10 +1,13 @@
 import { MAX_COUPON_COUNT } from "@/constants/priceSetting";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function useCouponSelection() {
-  const [selectedCouponIds, setSelectedCouponIds] = useState<Set<string>>(
-    new Set()
-  );
+function useCouponSelection(initialSelectedIds: Set<string> = new Set()) {
+  const [selectedCouponIds, setSelectedCouponIds] =
+    useState<Set<string>>(initialSelectedIds);
+
+  useEffect(() => {
+    setSelectedCouponIds(initialSelectedIds);
+  }, [initialSelectedIds]);
 
   const handleSelectCoupon = (id: string) => {
     setSelectedCouponIds((prev) => {
@@ -25,4 +28,5 @@ function useCouponSelection() {
     isSelectedToLimit,
   };
 }
+
 export default useCouponSelection;
