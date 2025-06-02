@@ -4,17 +4,14 @@ import { createPortal } from 'react-dom';
 import { StyledModalContainer, StyledModalContent } from './Toast.styled';
 
 export type ModalProps = {
-  /**
-   * The message to be displayed in the toast.
-   */
-  message: string;
+  children: React.ReactNode;
 } & ComponentProps<'div'>;
 
-export const Toast = ({ message, ...props }: ModalProps) => {
+export const Toast = ({ children, ...props }: ModalProps) => {
   return createPortal(
     <StyledModalContainer>
       <StyledModalContent role="dialog" aria-modal="true" {...props}>
-        {message}
+        {children}
       </StyledModalContent>
     </StyledModalContainer>,
     document.body
