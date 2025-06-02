@@ -31,7 +31,7 @@ const isMinAmount = (coupon: Coupon, items: CartItem[]) => {
   );
   return coupon.minimumAmount && orderTotal < coupon.minimumAmount;
 };
-const isNoEffect = (items: CartItem[]) => {
+const hasNoShippingBenefit = (items: CartItem[]) => {
   const orderTotal = items.reduce(
     (acc, item) => acc + item.product.price * item.quantity,
     0
@@ -53,7 +53,7 @@ export const validateCoupon = (
 
   if (coupon.discountType === "buyXgetY" && !isBogoable(coupon, items))
     return { isValid: false, invalidReason: "bogoQty" };
-  if (coupon.discountType === "freeShipping" && isNoEffect(items)) {
+  if (coupon.discountType === "freeShipping" && hasNoShippingBenefit(items)) {
     return { isValid: false, invalidReason: "noEffect" };
   }
   return { isValid: true };
