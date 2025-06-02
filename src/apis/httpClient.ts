@@ -67,7 +67,9 @@ class HTTPClient {
     });
     await this.handleHttpError(response);
 
-    return response.json();
+    const text = await response.text();
+
+    return text ? JSON.parse(text) : null;
   }
 
   setApiKey(apiKey: string) {
