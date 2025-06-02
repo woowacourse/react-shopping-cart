@@ -9,41 +9,42 @@ import CouponItem from "@/components/Coupon/CouponItem/CouponItem";
 
 import { useMemo, useState } from "react";
 import Modal from "@/components/common/Modal/Modal";
-import useCouponSelection from "../../hooks/Coupon/useCouponSelection";
-import useCouponApply from "@/hooks/Coupon/useCouponApply";
-import { validateCoupon } from "@/util/validateCoupon";
+
 import { Coupon } from "@/type/Coupon";
+import { CouponApplyResult } from "@/hooks/Coupon/useCouponApply";
+import { validateCoupon } from "@/util/coupon/validateCoupon";
+
+interface CouponSelection {
+  handleSelectCoupon: (id: string) => void;
+  selectedCouponIds: Set<string>;
+  isSelectedToLimit: boolean;
+}
 
 interface OrderConfirmationProps {
   onPrev: () => void;
   selectedCartItems: CartItem[];
-  result: ReturnType<typeof useCouponApply>;
   couponsData: Coupon[] | null;
+  result: CouponApplyResult;
+  couponSelection: CouponSelection;
 }
 
 function OrderConfirmation({
   selectedCartItems,
   onPrev,
-  result,
   couponsData,
+  result,
+  couponSelection,
 }: OrderConfirmationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const initialIds = useMemo(
-    () => new Set(result.appliedCoupons.map((c) => c.coupon.id)),
-    [result.appliedCoupons]
-  );
+  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
+    couponSelection;
+
   const invalidCoupons = useMemo(
     () =>
-      couponsData?.filter(
-        (c) => !validateCoupon(c, selectedCartItems, result.orderTotal).isValid
-      ),
+      couponsData?.filter((c) => !validateCoupon(c, selectedCartItems).isValid),
     [couponsData, selectedCartItems, result.orderTotal]
   );
-
-  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
-    useCouponSelection(initialIds);
-
   return (
     <>
       <OrderConfirmationHeader handleGoBackToHomeButton={onPrev} />
@@ -70,18 +71,23 @@ function OrderConfirmation({
               <Modal.Header>쿠폰을 선택해 주세요.</Modal.Header>
               <Modal.Content>
                 <CouponList>
-                  {couponsData?.map((coupon) => (
-                    <CouponItem
-                      key={coupon.id}
-                      coupon={coupon}
-                      onSelect={handleSelectCoupon}
-                      isSelected={selectedCouponIds.has(coupon.id)}
-                      isLimitReached={isSelectedToLimit}
-                      isInvalid={invalidCoupons?.some(
-                        (c) => c.id === coupon.id
-                      )}
-                    />
-                  ))}
+                  {couponsData?.map((coupon) => {
+                    const isSelected = selectedCouponIds.has(coupon.id);
+                    const isDisabledByLimit = !isSelected && isSelectedToLimit;
+
+                    return (
+                      <CouponItem
+                        key={coupon.id}
+                        coupon={coupon}
+                        onSelect={handleSelectCoupon}
+                        isSelected={isSelected}
+                        isLimitReached={isDisabledByLimit}
+                        isInvalid={invalidCoupons?.some(
+                          (invalidCoupon) => invalidCoupon.id === coupon.id
+                        )}
+                      />
+                    );
+                  })}
                 </CouponList>
                 <Styled.CouponButton
                   disabled={result.discountTotal === 0}
@@ -126,7 +132,7 @@ function OrderConfirmation({
           <Styled.OrderWrapper>
             <Styled.FinalTotalTitle>총 결제 금액</Styled.FinalTotalTitle>
             <Styled.FinalTotalPrice>
-              {(result.orderTotal - result.discountTotal).toLocaleString()}원
+              {result.finalTotal.toLocaleString()}원
             </Styled.FinalTotalPrice>
           </Styled.OrderWrapper>
         </Styled.OrderPriceDetails>

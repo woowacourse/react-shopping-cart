@@ -9,7 +9,9 @@ import { STEP_NAME, StepName } from "@/constants/steps";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
 import * as Styled from "./OrderPage.style";
 import useCouponFetch from "@/hooks/Coupon/useCouponFetch";
-import useCouponApply from "@/hooks/Coupon/useCouponApply";
+import { useCouponApply } from "@/hooks/Coupon/useCouponApply";
+import useCouponSelection from "@/hooks/Coupon/useCouponSelection";
+import { useMemo } from "react";
 
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
@@ -28,10 +30,35 @@ function OrderPage({
 }: ProfileSetupInterface) {
   const { selectedCartItems } = useCartContext();
   const { couponsData } = useCouponFetch();
-  const result = useCouponApply({
+
+  // 모든 쿠폰으로 초기 계산하여 최적의 쿠폰들 찾기
+  const allCouponsResult = useCouponApply({
     coupons: couponsData || [],
     selectedShoppingCartItems: selectedCartItems,
   });
+
+  // 초기에 가장 좋은 쿠폰들을 자동으로 적용
+  const initialOptimalCoupons = useMemo(() => {
+    return new Set(allCouponsResult.appliedCoupons.map((c) => c.id));
+  }, [allCouponsResult.appliedCoupons]);
+
+  // 쿠폰 선택 상태 관리 (초기값으로 최적 쿠폰들 설정)
+  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
+    useCouponSelection(initialOptimalCoupons);
+
+  // 선택된 쿠폰만 필터링
+  const selectedCoupons = useMemo(
+    () =>
+      couponsData?.filter((coupon) => selectedCouponIds.has(coupon.id)) || [],
+    [couponsData, selectedCouponIds]
+  );
+
+  // 선택된 쿠폰들로 실시간 계산
+  const result = useCouponApply({
+    coupons: selectedCoupons,
+    selectedShoppingCartItems: selectedCartItems,
+  });
+
   return (
     <CartLayout>
       <Funnel>
@@ -47,8 +74,13 @@ function OrderPage({
           <OrderConfirmation
             selectedCartItems={selectedCartItems}
             onPrev={() => prevClickHandler("구매품 선택")}
-            result={result}
             couponsData={couponsData}
+            result={result}
+            couponSelection={{
+              handleSelectCoupon,
+              selectedCouponIds,
+              isSelectedToLimit,
+            }}
           />
         </Step>
       </Funnel>
@@ -63,7 +95,7 @@ function OrderPage({
       {currentStep === STEP_NAME.APPLY_COUPON_AND_PAYMENT && (
         <OrderConfirmationActions
           selectedCartItems={selectedCartItems}
-          finalPrice={result.orderTotal - result.discountTotal}
+          finalPrice={result.finalTotal}
         />
       )}
     </CartLayout>
