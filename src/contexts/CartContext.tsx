@@ -99,7 +99,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
           setErrorMessage(error.message);
         }
       }
-      fetchData();
+      await fetchData();
       setCartItemsCheckData((prev) => prev.filter(({ id }) => id !== cartId));
     },
     [fetchData]
@@ -117,7 +117,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
           setErrorMessage(error.message);
         }
       }
-      fetchData();
+      await fetchData();
     },
     [fetchData]
   );
@@ -134,7 +134,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
           setErrorMessage(error.message);
         }
       }
-      fetchData();
+      await fetchData();
     },
     [fetchData]
   );
