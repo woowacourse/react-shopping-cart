@@ -1,6 +1,6 @@
 import Item from "../Item/Item";
 
-import { Flex, Checkbox } from "./ShoppingCartList.styles";
+import * as Styled from "./ShoppingCartList.styles";
 
 import CartItem from "../../../types/CartItem";
 import { CheckedMap } from "../../../types/CheckMap";
@@ -22,15 +22,15 @@ export default function ShoppingCartList({
 }: ShoppingCartListProps) {
   return (
     <section>
-      <Flex>
-        <Checkbox
+      <Styled.Checkbox>
+        <Styled.Input
           id="check-all"
           type="checkbox"
           checked={allChecked}
           onChange={toggleAll}
         />
         <label htmlFor="check-all">전체 선택</label>
-      </Flex>
+      </Styled.Checkbox>
 
       {cartItemList.map((cart) => {
         const isChecked = checkedMap.get(cart.id) ?? true;

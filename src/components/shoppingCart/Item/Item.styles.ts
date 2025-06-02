@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 interface ButtonProps {
   width: string;
@@ -11,13 +12,25 @@ interface FlexProps {
   alignItems?: "center";
 }
 
-export const Content = styled.div`
+export const wrapper = css`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 `;
 
-export const Checkbox = styled.input`
+const flex = (props: FlexProps) => css`
+  display: flex;
+  flex-direction: ${props.direction};
+  justify-content: ${props.justifyContent};
+  align-items: ${props.alignItems};
+  gap: 5px;
+`;
+
+export const ButtonContainer = styled.div`
+  ${wrapper}
+`;
+
+export const Input = styled.input`
   width: 24px;
   height: 24px;
   accent-color: black;
@@ -33,38 +46,37 @@ export const Button = styled.button<ButtonProps>`
   background-color: transparent;
 `;
 
+export const ItemContainer = styled.div`
+  ${wrapper}
+  width: 60%;
+`;
+
 export const Image = styled.img`
   width: 112px;
   height: 112px;
   border-radius: 4px;
 `;
 
-export const A = styled.div`
-  display: flex;
+export const InfoContainer = styled.div<FlexProps>`
+  ${(props) => flex(props)}
   height: 100%;
-  flex-direction: column;
-  justify-content: space-around;
 `;
 
-export const Flex = styled.div<FlexProps>`
-  display: flex;
-  flex-direction: ${(props) => props.direction};
-  justify-content: ${(props) => props.justifyContent};
-  align-items: ${(props) => props.alignItems};
-  gap: 5px;
-`;
-
-export const ItemName = styled.p`
+export const Name = styled.p`
   font-size: 12px;
 `;
 
-export const ItemPrice = styled.p`
+export const Price = styled.p`
   font-size: 24px;
   font-weight: 700;
 `;
 
-export const ButtonContainer = styled.div`
-  width: 60%;
+export const PriceContainer = styled.div<FlexProps>`
+  ${(props) => flex(props)}
+`;
+
+export const QuantityButtonContainer = styled.div<FlexProps>`
+  ${(props) => flex(props)}
 `;
 
 export const Quantity = styled.p`

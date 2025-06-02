@@ -10,7 +10,7 @@ const ButtonVariants = {
   },
 };
 
-export const StyledFooter = styled.footer<FooterProps>`
+export const Footer = styled.footer<FooterProps>`
   width: 450px;
   display: flex;
   align-items: center;
@@ -19,15 +19,15 @@ export const StyledFooter = styled.footer<FooterProps>`
   height: 64px;
   cursor: pointer;
   position: fixed;
+
+  span {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+  }
 `;
 
-export const StyledButton = styled.button`
+export const Button = styled.button`
   width: 100%;
   height: 100%;
-`;
-
-export const StyledSpan = styled.span`
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 16px;
 `;

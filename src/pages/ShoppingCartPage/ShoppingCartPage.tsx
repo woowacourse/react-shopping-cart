@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
+import ShoppingCartList from "../../components/shoppingCart/ShoppingCartList/ShoppingCartList";
 import Header from "../../components/shoppingCart/Header/Header";
 import Receipt from "../../components/shoppingCart/receipt/Receipt";
 import Footer from "../../components/layout/Footer/Footer";
@@ -9,9 +10,9 @@ import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
 import useCartItemList from "../../hooks/useCartItemList";
 import { useErrorContext } from "../../contexts/ErrorContext";
 
-import { StyledShoppingCart, EmptyText } from "./ShoppingCartPage.styles";
-import ShoppingCartList from "../../components/shoppingCart/ShoppingCartList/ShoppingCartList";
 import { CheckedMap } from "../../types/CheckMap";
+
+import * as Styled from "./ShoppingCartPage.styles";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
@@ -86,7 +87,7 @@ export default function ShoppingCartPage() {
 
   return (
     <>
-      <StyledShoppingCart>
+      <Styled.ShoppingCart>
         {errorMessage && <ErrorBox />}
         <Header
           title="장바구니"
@@ -111,9 +112,9 @@ export default function ShoppingCartPage() {
             />
           </>
         ) : (
-          <EmptyText>장바구니에 담은 상품이 없습니다.</EmptyText>
+          <Styled.EmptyText>장바구니에 담은 상품이 없습니다.</Styled.EmptyText>
         )}
-      </StyledShoppingCart>
+      </Styled.ShoppingCart>
       <Footer
         text="주문 확인"
         active={cartItemList.length ? "true" : "false"}

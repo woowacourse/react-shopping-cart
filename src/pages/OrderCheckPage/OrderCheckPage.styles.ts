@@ -7,15 +7,15 @@ export const Container = styled.div`
   flex-direction: column;
   height: 750px;
   gap: 12px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+  }
 `;
 
-export const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 700;
-  color: #000000;
-`;
-
-export const Description = styled.h1`
+export const OrderSummary = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

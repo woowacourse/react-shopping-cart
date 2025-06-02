@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const StyledHeader = styled.header`
+export const Header = styled.header`
   width: 450px;
   display: flex;
   align-items: center;
@@ -8,10 +8,10 @@ export const StyledHeader = styled.header`
   background-color: #000000;
   height: 64px;
   position: fixed;
-`;
 
-export const StyledSpan = styled.span`
-  color: #ffffff;
-  font-weight: 800;
-  cursor: pointer;
+  span {
+    color: #ffffff;
+    font-weight: 800;
+    cursor: pointer;
+  }
 `;

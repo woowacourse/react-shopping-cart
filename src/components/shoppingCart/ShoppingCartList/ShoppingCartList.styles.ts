@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Flex = styled.div`
+export const Checkbox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -8,7 +8,7 @@ export const Flex = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Checkbox = styled.input`
+export const Input = styled.input`
   width: 24px;
   height: 24px;
   accent-color: black;

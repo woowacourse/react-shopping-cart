@@ -1,10 +1,10 @@
-import * as S from "./Item.styles";
-
 import Hr from "../../common/Hr/Hr";
 
-import emptyIcon from "../../../assets/emptyIcon.png";
-
 import useCartItemList from "../../../hooks/useCartItemList";
+
+import * as Styled from "./Item.styles";
+
+import emptyIcon from "../../../assets/emptyIcon.png";
 
 interface ItemProps {
   id: number;
@@ -34,43 +34,40 @@ export default function Item({
   return (
     <div>
       <Hr />
-
-      <S.Content>
-        <S.Checkbox
+      <Styled.ButtonContainer>
+        <Styled.Input
           type="checkbox"
           checked={isChecked}
           onChange={() => handleSelectedCartItem(id)}
         />
-        <S.Button width="40" height="24" onClick={onRemove}>
+        <Styled.Button width="40" height="24" onClick={onRemove}>
           삭제
-        </S.Button>
-      </S.Content>
+        </Styled.Button>
+      </Styled.ButtonContainer>
 
-      <S.Content>
-        <S.Image
+      <Styled.ItemContainer>
+        <Styled.Image
           src={imageUrl}
           alt={name}
           onError={(e) => (e.currentTarget.src = emptyIcon)}
         />
-        <S.ButtonContainer>
-          <S.A>
-            <S.Flex direction="column">
-              <S.ItemName>{name}</S.ItemName>
-              <S.ItemPrice>{price.toLocaleString()}원</S.ItemPrice>
-            </S.Flex>
+        <Styled.InfoContainer direction="column" justifyContent="space-around">
+          <Styled.PriceContainer direction="column">
+            <Styled.Name>{name}</Styled.Name>
+            <Styled.Price>{price.toLocaleString()}원</Styled.Price>
+          </Styled.PriceContainer>
 
-            <S.Flex direction="row">
-              <S.Button width="24" height="24" onClick={onDecrease}>
-                -
-              </S.Button>
-              <S.Quantity>{quantity}</S.Quantity>
-              <S.Button width="24" height="24" onClick={onIncrease}>
-                +
-              </S.Button>
-            </S.Flex>
-          </S.A>
-        </S.ButtonContainer>
-      </S.Content>
+          <Styled.QuantityButtonContainer direction="row">
+            <Styled.Button width="24" height="24" onClick={onDecrease}>
+              -
+            </Styled.Button>
+            <Styled.Quantity>{quantity}</Styled.Quantity>
+            <Styled.Button width="24" height="24" onClick={onIncrease}>
+              +
+            </Styled.Button>
+          </Styled.QuantityButtonContainer>
+        </Styled.InfoContainer>
+      </Styled.ItemContainer>
     </div>
   );
 }
