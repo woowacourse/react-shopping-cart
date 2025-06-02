@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import { deleteCartItem, getCartItemList, updateCartItem } from '@/api/cart';
+import { deleteCartItem, getCartItemList, updateCartItem } from '@/features/Cart/api/cart';
 import { ToastContext } from '@/shared/context/ToastProvider';
 import { isError } from '@/shared/utils/isError';
 import { useFetchData } from '@/shared/hooks/useFetchData';

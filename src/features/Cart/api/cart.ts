@@ -1,7 +1,7 @@
 import { CartResponse } from '@/features/Cart/types/Cart.types';
 import { ProductQuery, UpdateCartItem } from '@/features/Cart/types/Product.types';
 
-import { fetcher } from './fetcher';
+import { fetcher } from '@/api/fetcher';
 
 export const updateCartItem = async ({ cartId, newQuantity }: UpdateCartItem) => {
   await fetcher.patch({
