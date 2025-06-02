@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { keyframes, css } from "@emotion/react";
 import { colors, radius } from "../../../../styles/theme";
 
 const zoomIn = keyframes`
@@ -16,34 +16,34 @@ const zoomIn = keyframes`
 const getSizeStyles = (size?: "small" | "medium" | "large" | "full") => {
   switch (size) {
     case "full":
-      return `
+      return css`
         width: 100%;
         animation: ${zoomIn} 0.3s ease-in-out;
       `;
     case "small":
-      return `
+      return css`
         min-width: min(430px, 95vw);
         animation: ${zoomIn} 0.3s ease-in-out;
       `;
     case "medium":
-      return `
+      return css`
         min-width: min(550px, 95vw);
         animation: ${zoomIn} 0.3s ease-in-out;
       `;
     case "large":
-      return `
+      return css`
         min-width: min(800px, 95vw);
         animation: ${zoomIn} 0.3s ease-in-out;
       `;
     default:
-      return "";
+      return null;
   }
 };
 
 export const ModalContainer = styled.div<{
   size?: "small" | "medium" | "large" | "full";
 }>`
-  padding: 32px 32px;
+  padding: 32px;
   background: ${colors.white};
   color: ${colors.black};
   border-radius: ${radius.md};
@@ -52,9 +52,14 @@ export const ModalContainer = styled.div<{
   flex-direction: column;
   gap: 16px;
   align-items: flex-start;
+
+  /* 기본 애니메이션 */
   animation: ${zoomIn} 0.3s ease-in-out;
+
+  /* size별 추가 스타일 */
   ${(props) => getSizeStyles(props.size)}
 `;
+
 export const CloseButton = styled.img`
   position: absolute;
   top: 20px;
@@ -63,6 +68,7 @@ export const CloseButton = styled.img`
   height: 16px;
   cursor: pointer;
   transition: transform 0.2s ease;
+
   &:hover {
     transform: scale(1.1);
   }
