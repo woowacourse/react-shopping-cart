@@ -5,11 +5,11 @@ const cartItemsApi = {
   get: async (): Promise<CartItem[]> => {
     try {
       const params = {
-        page: 0,
-        size: 20,
+        page: "0",
+        size: "20",
       };
 
-      const query = new URLSearchParams(params.toString()).toString();
+      const query = new URLSearchParams(params);
 
       const response = await apiClient({
         endpoint: `/cart-items?${query}`,
