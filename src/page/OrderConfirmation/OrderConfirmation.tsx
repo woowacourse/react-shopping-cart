@@ -18,7 +18,7 @@ interface OrderConfirmationProps {
   onPrev: () => void;
   selectedCartItems: CartItem[];
   result: ReturnType<typeof useCouponApply>;
-  couponsData: Coupon[] | undefined;
+  couponsData: Coupon[] | null;
 }
 
 function OrderConfirmation({

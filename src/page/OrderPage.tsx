@@ -29,7 +29,7 @@ function OrderPage({
   const { selectedCartItems } = useCartContext();
   const { couponsData } = useCouponFetch();
   const result = useCouponApply({
-    coupons: couponsData,
+    coupons: couponsData || [],
     selectedShoppingCartItems: selectedCartItems,
   });
   return (
