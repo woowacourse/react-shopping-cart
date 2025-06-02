@@ -4,12 +4,11 @@ import getOrderPrice from '../../src/utils/getOrderPrice';
 import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 import { act } from 'react';
 import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../../src/constants/config';
-import { RouterProvider } from 'react-router-dom';
-import router from '../../src/router/router';
+import App from '../../src/App';
 
 describe('PriceSection 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    await act(() => render(<RouterProvider router={router} />));
+    await act(() => render(<App />));
   });
 
   describe('OrderPrice 컴포넌트', () => {

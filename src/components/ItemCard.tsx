@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Product } from '../types';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import CheckBox from './CheckBox';
+import { useErrorContext } from '../contexts/ToastContext';
 
 type ItemCardProps = {
   id: number;
@@ -18,6 +19,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
     addCheckedCartItem,
     removeCheckedCartItem,
   } = useCartItemsContext();
+  const { showToast } = useErrorContext();
 
   const isChecked = checkedCartIds.includes(id);
 
@@ -44,7 +46,11 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
             <S.ItemPrice>{`${product.price.toLocaleString()}원`}</S.ItemPrice>
           </div>
           <S.Stepper>
-            <S.StepButton onClick={() => handleClickDecrease(id)}>
+            <S.StepButton
+              onClick={() => {
+                if (quantity === 1) showToast('수량이 1인 아이템은 삭제됩니다.');
+                handleClickDecrease(id);
+              }}>
               <img src="./minus-button.svg" alt="minus-button" />
             </S.StepButton>
             <p>{quantity}</p>

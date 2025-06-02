@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import { RouterProvider } from 'react-router-dom';
 import router from '../../src/router/router';
+import App from '../../src/App';
 
 describe('에러 페이지 테스트', () => {
   beforeEach(async () => {
-    await act(() => render(<RouterProvider router={router} />));
+    await act(() => render(<App />));
   });
 
   it('잘못된 URL 접근 시 에러 이미지가 보여야 한다.', async () => {

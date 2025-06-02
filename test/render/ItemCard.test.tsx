@@ -2,14 +2,13 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 
 import { mockCartItems } from '../mocks';
 import { act } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import router from '../../src/router/router';
+import App from '../../src/App';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;
 
   beforeEach(async () => {
-    await act(() => render(<RouterProvider router={router} />));
+    await act(() => render(<App />));
     const ItemCardList = screen.getAllByTestId('item-card');
     firstItemCard = ItemCardList[0];
   });
@@ -64,6 +63,7 @@ describe('ItemCard 테스트', () => {
 
       await waitFor(() => {
         expect(secondItemCard).not.toBeInTheDocument();
+        expect(screen.getByText('수량이 1인 아이템은 삭제됩니다.')).toBeInTheDocument();
       });
     });
   });

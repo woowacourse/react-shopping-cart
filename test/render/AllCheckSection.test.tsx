@@ -1,11 +1,10 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { act } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import router from '../../src/router/router';
+import App from '../../src/App';
 
 describe('전체 선택 테스트', () => {
   beforeEach(async () => {
-    await act(() => render(<RouterProvider router={router} />));
+    await act(() => render(<App />));
   });
 
   it('초기 상태는 전체 선택이 체크되어있다.', async () => {
