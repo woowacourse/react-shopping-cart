@@ -15,7 +15,7 @@ function CartPrice({ orderPrice }: CartPriceProps) {
   return (
     <S.Container>
       <S.Description>
-        <img src="./assets/Notification.svg" />
+        <img src="./assets/Notification.svg" alt="알림" />
         <S.DescriptionText>
           총 주문 금액이 {CART_RULE.FREE_DELIVERY_THRESHOLD.toLocaleString()}원
           이상일 경우 무료 배송됩니다.

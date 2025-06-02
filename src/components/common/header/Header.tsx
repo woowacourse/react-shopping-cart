@@ -21,7 +21,7 @@ function Header({
     <S.HeaderContainer>
       {showBackButton && (
         <S.BackButton onClick={onBackButtonClick ?? goBack}>
-          <img src={backButtonImage} />
+          <img src={backButtonImage} alt="뒤로가기 버튼" />
         </S.BackButton>
       )}
 
