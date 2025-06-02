@@ -18,6 +18,5 @@ export function useCalculateOrder(
     subtotalPrice: summary.subtotal,
     shippingFee: summary.shipping,
     finalPrice: summary.final,
-    selectedCartItems: summary.items,
   };
 }
