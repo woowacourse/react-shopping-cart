@@ -21,7 +21,6 @@ const ShoppingCartPage = () => {
       <Header left="SHOP" />
       <CartLayout />
       <CheckoutButton
-        isDisabled={isDisabled}
         disabled={isDisabled}
         onClick={handleCheckout}
         role="order-button"
@@ -34,11 +33,15 @@ const ShoppingCartPage = () => {
 
 export default ShoppingCartPage;
 
-const CheckoutButton = styled.button<{ isDisabled: boolean }>`
+const CheckoutButton = styled.button`
   width: 100%;
   padding: 16px;
-  background-color: ${({ isDisabled }) => (isDisabled ? "#BDBDBD" : "#333")};
+  background-color: #333333;
   color: white;
-  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
+  cursor: pointer;
   border-radius: 0px;
+  &:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+  }
 `;
