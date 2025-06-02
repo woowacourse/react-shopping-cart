@@ -19,20 +19,17 @@ function useShoppingCart() {
     refetch: refetchCartItems,
   } = useFetch<CartItem[]>(getCartItems);
 
-  const { isLoading: isQuantityUpdateLoading, handleCartItemQuantity } =
+  const { handleCartItemQuantity } =
     useHandleCartItemQuantity(refetchCartItems);
 
-  const { isLoading: isDeleteItemLoading, handleDeleteCartItem } =
-    useHandleDeleteCartItem(refetchCartItems);
+  const { handleDeleteCartItem } = useHandleDeleteCartItem(refetchCartItems);
 
   return {
     cartItemsData: cartItemsData || [],
     cartItemsFetchError,
     cartFetchLoading,
     refetchCartItems,
-    isQuantityUpdateLoading,
     handleCartItemQuantity,
-    isDeleteItemLoading,
     handleDeleteCartItem,
   };
 }
