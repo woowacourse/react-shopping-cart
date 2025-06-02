@@ -1,22 +1,12 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-  align-items: center;
-  padding: 24px;
-`;
-
 export const OrderConfirmButton = styled.button`
   width: 100%;
   max-width: 430px;
+  position: fixed;
+  bottom: 0;
   background-color: #000000;
   color: #ffffff;
-
-  bottom: 0;
 
   height: 64px;
   display: flex;
@@ -24,8 +14,6 @@ export const OrderConfirmButton = styled.button`
   align-items: center;
   padding-left: 24px;
   padding-right: 24px;
-  position: fixed;
-  z-index: 1000;
 
   font-size: 16px;
   font-weight: 700;
@@ -33,8 +21,6 @@ export const OrderConfirmButton = styled.button`
   a {
     text-decoration: none;
   }
-  transform: translateX(-50%);
-  left: 50%;
 
   &:disabled {
     background-color: rgb(105, 105, 105);
