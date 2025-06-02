@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { cartMockData } from "../__mocks__/cartData";
 import { productListMockData } from "../__mocks__/productListMockData";
 import App from "../App";
+import { formatKRWString } from "../utils/formatKRWString";
 
 let currentCart = [...cartMockData];
 
@@ -221,7 +222,7 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
       expect(screen.getByText("총 결제 금액")).toBeInTheDocument();
 
       const totalPrice = 10000 + 2100 + 3000;
-      const totalPriceText = `${totalPrice.toLocaleString()}원`;
+      const totalPriceText = formatKRWString(totalPrice);
 
       expect(
         screen.getByLabelText(`총 결제 금액은 ${totalPriceText} 입니다.`)

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Flex from "./Flex";
+import { formatKRWString } from "../../utils/formatKRWString";
 
 interface LabelPriceProps {
   label: string;
@@ -12,7 +13,7 @@ const LabelPrice = ({ label, price, ariaLabel }: LabelPriceProps) => {
     <TotalSection>
       <TotalLabel>{label}</TotalLabel>
       <TotalAmount aria-label={ariaLabel}>
-        {price.toLocaleString()}원
+        {formatKRWString(price)}원
       </TotalAmount>
     </TotalSection>
   );

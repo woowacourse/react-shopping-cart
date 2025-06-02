@@ -8,6 +8,7 @@ import Image from "../../../../components/common/Image";
 import { useOrderListContext } from "../../context/OrderListProvider";
 import { useContext } from "react";
 import { ToastContext } from "../../../../context/ToastProvider";
+import { formatKRWString } from "../../../../utils/formatKRWString";
 
 function CartCheckList() {
   const { cartListData, cartRefetch, selectionMap, setSelectionMap } =
@@ -70,10 +71,6 @@ function CartCheckList() {
     await cartRefetch();
   };
 
-  const formatPrice = (price: number) => {
-    return `${price.toLocaleString()}원`;
-  };
-
   return (
     <Container>
       <CheckedAll>
@@ -110,7 +107,9 @@ function CartCheckList() {
 
                 <ProductInfo aria-label="상품 정보" role="cart-product-info">
                   <ProductName>{cart.product.name}</ProductName>
-                  <ProductPrice>{formatPrice(cart.product.price)}</ProductPrice>
+                  <ProductPrice>
+                    {formatKRWString(cart.product.price)}
+                  </ProductPrice>
                   <Counter
                     canBeZero={false}
                     count={cart.quantity}

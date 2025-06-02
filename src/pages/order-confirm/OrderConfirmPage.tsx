@@ -4,6 +4,7 @@ import BackArrowButton from "../../components/common/BackArrowButton";
 import { useNavigate } from "react-router-dom";
 import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
 import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
+import { formatKRWString } from "../../utils/formatKRWString";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -40,9 +41,9 @@ const OrderConfirmPage = () => {
           </div>
           <Subtitle>총 결제 금액</Subtitle>
           <InfoTitle
-            aria-label={`총 결제 금액은 ${totalPrice.toLocaleString()}원 입니다.`}
+            aria-label={`총 결제 금액은 ${formatKRWString(totalPrice)} 입니다.`}
           >
-            {totalPrice.toLocaleString()}원
+            {formatKRWString(totalPrice)}
           </InfoTitle>
         </Flex>
       </Container>
