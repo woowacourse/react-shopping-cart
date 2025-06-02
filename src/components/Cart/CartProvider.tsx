@@ -7,7 +7,7 @@ import useLocalStorage from "@/hooks/Cart/useLocalStorage";
 
 interface CartProviderProps {
   children: ReactNode;
-  onNext: () => void;
+  onNext?: () => void;
 }
 
 export const CartProvider = ({ children, onNext }: CartProviderProps) => {
@@ -44,7 +44,7 @@ export const CartProvider = ({ children, onNext }: CartProviderProps) => {
     isAllSelected,
     selectedCartItems,
     subtotalPrice,
-    onNext,
+    onNext: onNext ?? (() => {}),
   };
 
   return <BaseCartProvider value={contextValue}>{children}</BaseCartProvider>;
