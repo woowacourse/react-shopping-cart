@@ -6,7 +6,6 @@ import CartCard from "../CartCard/CartCard";
 import CheckBox from "@/components/common/CheckBox";
 import Spinner from "@/components/common/Spinner";
 
-// Root Component - props 없이 단순히 container 역할
 interface CartContentRootProps {
   children: ReactNode;
 }
@@ -75,7 +74,6 @@ const CartContentItems = () => {
   );
 };
 
-// Items List Component
 const CartContentItemsList = () => {
   const {
     cartItemsData,
@@ -101,8 +99,8 @@ const CartContentItemsList = () => {
   );
 };
 
-const CartContentActions = () => {
-  const { selectedCartItemsLength, onNext } = useCartContext();
+const CartContentActions = ({ onNext }: { onNext: () => void }) => {
+  const { selectedCartItemsLength } = useCartContext();
 
   return (
     <Styled.OrderConfirmButton
@@ -120,7 +118,6 @@ function CartContent() {
       <CartContentLoading />
       <CartContentHeader />
       <CartContentItems />
-      <CartContentActions />
     </CartContentRoot>
   );
 }
