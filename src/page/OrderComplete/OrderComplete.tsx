@@ -1,17 +1,23 @@
 import { useLocation, useNavigate } from "react-router";
-import { PAGE_URL } from "../constants/PageUrl";
-import * as Styled from "./OrderConfirmation.style";
-import OrderConfirmationHeader from "../components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
-import type { OrderConfirmationLocationState } from "../type/OrderConfirmation";
-import ErrorPage from "./ErrorPage";
+import * as Styled from "./OrderComplete.style.tsx";
+import { OrderConfirmationLocationState } from "@/type/OrderConfirmation";
+import { PAGE_URL } from "@/constants/PageUrl";
+import ErrorPage from "../Error/ErrorPage";
+import Header from "@/components/common/Header/Header.tsx";
 
-function OrderConfirmation() {
+interface OrderCompleteProps {
+  onReset: () => void;
+}
+
+function OrderComplete({ onReset }: OrderCompleteProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleGoBackToHomeButton = () => {
+  const handleOrderConfirm = () => {
     navigate(PAGE_URL.HOME);
+    onReset();
   };
+
   const isValidOrderConfirmationState = (
     state: unknown
   ): state is OrderConfirmationLocationState => {
@@ -42,16 +48,14 @@ function OrderConfirmation() {
 
   return (
     <Styled.Container>
-      <OrderConfirmationHeader
-        handleGoBackToHomeButton={handleGoBackToHomeButton}
-      />
+      <Header />
 
       <Styled.Wrapper>
         <Styled.ContentSection>
           <Styled.Title>주문 확인</Styled.Title>
           <Styled.Description>
-            총 {selectedCartItemsLength}종류의 상품 {selectedCartItemsCount}개를
-            주문합니다.
+            총 {selectedCartItemsLength}종류의 상품
+            {selectedCartItemsCount}개를 주문합니다.
           </Styled.Description>
           <Styled.Description>
             최종 결제 금액을 확인해 주세요.
@@ -66,11 +70,11 @@ function OrderConfirmation() {
         </Styled.PriceSection>
       </Styled.Wrapper>
 
-      <Styled.OrderConfirmButton disabled={true}>
+      <Styled.OrderConfirmButton onClick={handleOrderConfirm}>
         결제하기
       </Styled.OrderConfirmButton>
     </Styled.Container>
   );
 }
 
-export default OrderConfirmation;
+export default OrderComplete;
