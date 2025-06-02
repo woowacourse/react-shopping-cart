@@ -29,7 +29,7 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   };
 
   useEffect(() => {
-    handleAllSelected();
+    replaceSelectedItemIds(cartItems.map((item) => item.id));
   }, []);
 
   return (
