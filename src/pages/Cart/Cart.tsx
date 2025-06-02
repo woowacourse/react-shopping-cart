@@ -12,6 +12,7 @@ import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
+import useQuantityControl from "../../hooks/useQuantityControl";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -22,7 +23,7 @@ const getSelectedCartItems = (
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const { fetchData } = useFetch<CartItemType[]>();
+  const { fetchData } = useFetch<CartItemType[]>("cartItems");
   const {
     selectedCartIds,
     toggleAllSelect,
@@ -64,6 +65,13 @@ function Cart() {
     fetchCartItem();
   }, [fetchCartItem]);
 
+  const { decreaseQuantity, increaseQuantity, deleteCartItem } =
+    useQuantityControl({
+      cartItems,
+      updateCartItem,
+      refetchCartItem: fetchCartItem,
+    });
+
   return (
     <>
       <Header icon="logo.svg" handleIconClick={() => navigate("/")} />
@@ -82,9 +90,11 @@ function Cart() {
             />
             <CartItemList
               cartItems={cartItems}
-              updateCartItem={updateCartItem}
               isSelected={isSelected}
               toggleSelect={toggleSelect}
+              increaseQuantity={increaseQuantity}
+              decreaseQuantity={decreaseQuantity}
+              deleteCartItem={deleteCartItem}
             />
             <Receipt
               selectedCartItems={getSelectedCartItems(

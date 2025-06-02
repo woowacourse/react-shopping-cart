@@ -4,16 +4,20 @@ import { Container } from "./CartItemList.styles";
 
 interface CartItemListProps {
   cartItems: CartItemType[];
-  updateCartItem: (cartId: number, cartItem: CartItemType) => void;
   isSelected: (cartId: number) => boolean;
   toggleSelect: (cartId: number) => void;
+  increaseQuantity: (cartId: number) => Promise<void>;
+  decreaseQuantity: (cartId: number) => Promise<void>;
+  deleteCartItem: (cartId: number) => Promise<void>;
 }
 
 function CartItemList({
   cartItems,
-  updateCartItem,
   isSelected,
   toggleSelect,
+  increaseQuantity,
+  decreaseQuantity,
+  deleteCartItem,
 }: CartItemListProps) {
   return (
     <section css={Container}>
@@ -22,9 +26,11 @@ function CartItemList({
           <CartItem
             key={cartItem.id}
             cartItem={cartItem}
-            updateCartItem={updateCartItem}
             isSelected={isSelected(cartItem.id)}
             toggleSelect={() => toggleSelect(cartItem.id)}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+            deleteCartItem={deleteCartItem}
           />
         );
       })}

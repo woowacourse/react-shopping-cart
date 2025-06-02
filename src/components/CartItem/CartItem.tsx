@@ -1,4 +1,3 @@
-import useQuantityControl from "../../hooks/useQuantityControl";
 import { CartItemType } from "../../types/response";
 import CheckBox from "../CheckBox/CheckBox";
 import QuantityControlButton from "../QuantityControlButton/QuantityControlButton";
@@ -17,30 +16,22 @@ import {
 
 interface CartItemProps {
   cartItem: CartItemType;
-  updateCartItem: (cartId: number, cartItem: CartItemType) => void;
   isSelected: boolean;
   toggleSelect: () => void;
+  increaseQuantity: (cartId: number) => Promise<void>;
+  decreaseQuantity: (cartId: number) => Promise<void>;
+  deleteCartItem: (cartId: number) => Promise<void>;
 }
 
 function CartItem({
   cartItem,
-  updateCartItem,
   isSelected,
   toggleSelect,
+  increaseQuantity,
+  decreaseQuantity,
+  deleteCartItem,
 }: CartItemProps) {
   const { id: cartId, product, quantity } = cartItem;
-
-  const handleQuantity = (updateQuantity: (prev: number) => number) => {
-    const newQuantity = updateQuantity(quantity);
-    const newCartItem = { id: cartId, product, quantity: newQuantity };
-    updateCartItem(cartId, newCartItem);
-  };
-
-  const { decreaseQuantity, increaseQuantity, deleteCartItem } =
-    useQuantityControl({
-      quantity,
-      handleQuantity,
-    });
 
   return (
     <>
