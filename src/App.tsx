@@ -5,9 +5,10 @@ import { Route, Routes } from "react-router";
 import OrderComplete from "./page/OrderComplete/OrderComplete";
 import OrderPage from "./page/OrderPage";
 import { useFunnel } from "./hooks/Funnel/useFunnel";
+import { CartProvider } from "./components/Cart/CartProvider";
 
 function App() {
-  const { Funnel, Step, setStep } = useFunnel(steps[0]);
+  const { Funnel, Step, setStep, currentStep } = useFunnel(steps[0]);
 
   const nextClickHandler = (nextStep: string) => {
     setStep(nextStep);
@@ -24,12 +25,15 @@ function App() {
       <Route
         path={PAGE_URL.HOME}
         element={
-          <OrderPage
-            nextClickHandler={nextClickHandler}
-            prevClickHandler={prevClickHandler}
-            Funnel={Funnel}
-            Step={Step}
-          />
+          <CartProvider>
+            <OrderPage
+              nextClickHandler={nextClickHandler}
+              prevClickHandler={prevClickHandler}
+              Funnel={Funnel}
+              Step={Step}
+              currentStep={currentStep}
+            />
+          </CartProvider>
         }
       />
       <Route
