@@ -18,12 +18,23 @@ class HTTPClient {
     };
   }
 
+  private async handleHttpError(response: Response) {
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(
+        `HTTP error! status: ${response.status}, body: ${errText}`
+      );
+    }
+    return response;
+  }
+
   async get(url: string) {
     const response = await fetch(this.baseUrl + url, {
       headers: this.getHeaders(),
     });
+    await this.handleHttpError(response);
 
-    return response;
+    return response.json();
   }
 
   async post<T>(url: string, data: T) {
@@ -33,7 +44,9 @@ class HTTPClient {
       body: JSON.stringify(data),
     });
 
-    return response;
+    await this.handleHttpError(response);
+
+    return response.json();
   }
 
   async patch<T>(url: string, data: T) {
@@ -42,8 +55,9 @@ class HTTPClient {
       headers: this.getHeaders(),
       body: JSON.stringify(data),
     });
+    await this.handleHttpError(response);
 
-    return response;
+    return response.json();
   }
 
   async delete(url: string) {
@@ -51,8 +65,9 @@ class HTTPClient {
       method: "DELETE",
       headers: this.getHeaders(),
     });
+    await this.handleHttpError(response);
 
-    return response;
+    return response.json();
   }
 
   setApiKey(apiKey: string) {
