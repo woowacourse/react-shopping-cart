@@ -4,7 +4,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { BrowserRouter } from "react-router";
 import "@testing-library/jest-dom";
 
-import OrderConfirmation from "../src/page/OrderConfirmation";
+import OrderComplete from "../src/page/OrderComplete";
+
 import type { OrderConfirmationLocationState } from "../src/type/OrderConfirmation";
 
 const mockNavigate = vi.fn();
@@ -30,7 +31,7 @@ vi.mock("../src/page/ErrorPage", () => ({
 }));
 
 vi.mock(
-  "../src/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader",
+  "../src/components/OrderComplete/OrderCompleteHeader/OrderCompleteHeader",
   () => ({
     default: ({
       handleGoBackToHomeButton,
@@ -62,7 +63,7 @@ describe("OrderConfirmation 컴포넌트는", () => {
 
     render(
       <TestWrapper>
-        <OrderConfirmation />
+        <OrderComplete onReset={() => {}} />
       </TestWrapper>
     );
 
