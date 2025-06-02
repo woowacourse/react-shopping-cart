@@ -6,10 +6,12 @@ import { PAGE_URL } from "@/constants/PageUrl";
 
 interface OrderConfirmationActionsProps {
   selectedCartItems: CartItem[];
+  finalPrice: number;
 }
 
 export default function OrderConfirmationActions({
   selectedCartItems,
+  finalPrice,
 }: OrderConfirmationActionsProps) {
   const navigate = useNavigate();
 
@@ -21,10 +23,7 @@ export default function OrderConfirmationActions({
           (acc, item) => acc + item.quantity,
           0
         ),
-        finalPrice: selectedCartItems.reduce(
-          (acc, item) => acc + item.product.price * item.quantity,
-          0
-        ),
+        finalPrice,
       },
     });
   };

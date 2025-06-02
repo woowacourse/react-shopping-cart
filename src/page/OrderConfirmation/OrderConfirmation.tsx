@@ -3,28 +3,47 @@ import OrderConfirmationList from "@/components/OrderConfirmation/OrderConfirmat
 import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 import OrderConfirmationPreviewCard from "@/components/OrderConfirmation/OrderConfirmationPreviewCard/OrderConfirmationPreviewCard";
 import * as Styled from "./OrderConfirmation.style";
-import useCouponFetch from "@/hooks/Coupon/useCouponFetch";
+
 import CouponList from "@/components/Coupon/CouponList/CouponList";
 import CouponItem from "@/components/Coupon/CouponItem/CouponItem";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Modal from "@/components/common/Modal/Modal";
 import useCouponSelection from "../../hooks/Coupon/useCouponSelection";
+import useCouponApply from "@/hooks/Coupon/useCouponApply";
+import { validateCoupon } from "@/util/validateCoupon";
+import { Coupon } from "@/type/Coupon";
 
 interface OrderConfirmationProps {
   onPrev: () => void;
   selectedCartItems: CartItem[];
+  result: ReturnType<typeof useCouponApply>;
+  couponsData: Coupon[] | undefined;
 }
 
 function OrderConfirmation({
   selectedCartItems,
   onPrev,
+  result,
+  couponsData,
 }: OrderConfirmationProps) {
-  const { couponsData } = useCouponFetch();
   const [isOpen, setIsOpen] = useState(false);
 
+  const initialIds = useMemo(
+    () => new Set(result.appliedCoupons.map((c) => c.coupon.id)),
+    [result.appliedCoupons]
+  );
+  const invalidCoupons = useMemo(
+    () =>
+      couponsData?.filter(
+        (c) => !validateCoupon(c, selectedCartItems, result.orderTotal).isValid
+      ),
+    [couponsData, selectedCartItems, result.orderTotal]
+  );
+
   const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
-    useCouponSelection();
+    useCouponSelection(initialIds);
+
   return (
     <>
       <OrderConfirmationHeader handleGoBackToHomeButton={onPrev} />
@@ -56,13 +75,19 @@ function OrderConfirmation({
                       key={coupon.id}
                       coupon={coupon}
                       onSelect={handleSelectCoupon}
-                      isSelected={selectedCouponIds.has(coupon.code)}
+                      isSelected={selectedCouponIds.has(coupon.id)}
                       isLimitReached={isSelectedToLimit}
+                      isInvalid={invalidCoupons?.some(
+                        (c) => c.id === coupon.id
+                      )}
                     />
                   ))}
                 </CouponList>
-                <Styled.CouponButton>
-                  총 0,000원 할인쿠폰 사용하기
+                <Styled.CouponButton
+                  disabled={result.discountTotal === 0}
+                  onClick={() => setIsOpen(false)}
+                >
+                  총 {result.discountTotal.toLocaleString()}원 할인쿠폰 사용하기
                 </Styled.CouponButton>
               </Modal.Content>
             </Modal.Container>
@@ -82,6 +107,29 @@ function OrderConfirmation({
         <Styled.CouponButton onClick={() => setIsOpen(true)}>
           쿠폰 적용
         </Styled.CouponButton>
+        <Styled.OrderPriceDetails>
+          <Styled.OrderWrapper>
+            <Styled.OrderTotalTitle>총 결제 금액</Styled.OrderTotalTitle>
+            <Styled.OrderTotalPrice>
+              {result.orderTotal.toLocaleString()}원
+            </Styled.OrderTotalPrice>
+          </Styled.OrderWrapper>
+          <Styled.OrderWrapper>
+            <Styled.DiscountTotalTitle>
+              쿠폰 할인 금액
+            </Styled.DiscountTotalTitle>
+            <Styled.DiscountTotalPrice>
+              -{result.discountTotal.toLocaleString()}원
+            </Styled.DiscountTotalPrice>
+          </Styled.OrderWrapper>
+
+          <Styled.OrderWrapper>
+            <Styled.FinalTotalTitle>총 결제 금액</Styled.FinalTotalTitle>
+            <Styled.FinalTotalPrice>
+              {(result.orderTotal - result.discountTotal).toLocaleString()}원
+            </Styled.FinalTotalPrice>
+          </Styled.OrderWrapper>
+        </Styled.OrderPriceDetails>
       </Styled.Container>
     </>
   );
