@@ -60,14 +60,14 @@ const request = async <T>({
   const url = new URL(ENV.BASE_URL + path);
   url.search = buildQueryParams(query).toString();
 
-  const headers = {
+  const DEFAULT_HEADER = {
     'Content-Type': 'application/json',
     Authorization: `Basic ${ENV.TOKEN}`,
   };
 
   const config: RequestInit = {
     method,
-    headers,
+    headers: DEFAULT_HEADER,
   };
 
   if (body && ['POST', 'PATCH'].includes(method)) {
