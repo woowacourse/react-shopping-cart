@@ -4,20 +4,14 @@ import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
 import { CartItem } from '../types/Cart.types';
+import { usePriceInfo } from '../hooks/usePriceInfo';
 
 type PriceSummaryProps = {
   cartItems: CartItem[];
 };
 
 export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
-  const orderPrice = cartItems
-    .filter((item) => item.quantity > 0 && item.isChecked)
-    .reduce((acc, cart) => {
-      return acc + Number(cart.product.price) * Number(cart.quantity);
-    }, 0);
-
-  const deliveryFee = orderPrice >= 100000 ? 0 : 3000;
-  const totalPrice = orderPrice + deliveryFee;
+  const { orderPrice, deliveryFee, totalPrice } = usePriceInfo(cartItems);
 
   return (
     <Flex
