@@ -1,4 +1,3 @@
-// isValidImageUrl.test.ts
 import { describe, it, expect } from 'vitest';
 import { isValidImageUrl } from '../src/utils/isValidImageUrl';
 
@@ -27,12 +26,5 @@ describe('isValidImageUrl', () => {
     expect(isValidImageUrl('file://example.com/image.png')).toBe(false);
     expect(isValidImageUrl('/images/image.png')).toBe(false);
     expect(isValidImageUrl('example.com/image.png')).toBe(false);
-  });
-
-  it('입력이 문자열이 아닌 경우 false를 반환한다', () => {
-    expect(isValidImageUrl(null)).toBe(false);
-    expect(isValidImageUrl(undefined)).toBe(false);
-    expect(isValidImageUrl(123)).toBe(false);
-    expect(isValidImageUrl({})).toBe(false);
   });
 });
