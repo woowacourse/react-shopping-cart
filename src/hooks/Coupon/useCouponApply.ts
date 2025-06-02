@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { CartItem } from "@/type/CartItem";
 import { Coupon } from "@/type/Coupon";
+import { partitionCoupons } from "@/util/coupon/partitionCoupons";
 import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "@/constants/priceSetting";
 
 export interface CouponApplied {
@@ -14,7 +15,8 @@ export interface CouponApplyResult {
   shippingFee: number;
   discountTotal: number;
   finalTotal: number;
-  appliedCoupons: CouponApplied[];
+  appliedCoupons: Coupon[];
+  invalidCoupons: Array<Coupon & { invalidReason: string | undefined }>;
 }
 
 interface Props {
@@ -23,130 +25,106 @@ interface Props {
   isIsland?: boolean; // 제주·도서산간 여부 (추가 배송비 3,000원)
 }
 
-const getCartTotal = (items: CartItem[]) =>
-  items.reduce((t, i) => t + i.product.price * i.quantity, 0);
-
-const getBaseShipping = (orderTotal: number, isIsland = false) => {
-  let fee = orderTotal >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE;
-  if (isIsland) fee += 3000;
-  return fee;
+const getBaseShipping = (subtotal: number, isIsland: boolean): number => {
+  if (subtotal >= FREE_SHIPPING_OVER) return 0;
+  return SHIPPING_FEE + (isIsland ? 3000 : 0);
 };
+export const useCouponApply = ({
+  coupons = [],
+  selectedShoppingCartItems,
+  isIsland = false,
+}: Props): CouponApplyResult => {
+  /* 1. 주문 총액 */
+  const orderTotal = useMemo(
+    () =>
+      selectedShoppingCartItems.reduce(
+        (sum, item) => sum + item.product.price * item.quantity,
+        0
+      ),
+    [selectedShoppingCartItems]
+  );
 
-const inTimeRange = (now: Date, range: { start: string; end: string }) => {
-  const toMin = (t: string) => {
-    const [h, m] = t.split(":").map(Number);
-    return h * 60 + m;
-  };
-  const cur = now.getHours() * 60 + now.getMinutes();
-  return cur >= toMin(range.start) && cur <= toMin(range.end);
-};
+  /* 2. (쿠폰 유효성 필터링) */
+  const { validCoupons, invalidCoupons } = useMemo(
+    () => partitionCoupons(coupons, selectedShoppingCartItems),
+    [coupons, selectedShoppingCartItems]
+  );
 
-const bogoDiscount = (coupon: Coupon, items: CartItem[]) => {
-  const buy = coupon.buyQuantity ?? 0;
-  const get = coupon.getQuantity ?? 0;
-  if (!buy || !get) return 0;
-  let best = 0;
-  // "동일 상품 N개 구매 시 M개 무료" → N개마다 M개 할인
-  for (const it of items) {
-    const groups = Math.floor(it.quantity / buy); // 3개마다 1개 무료라면 buy=3
-    const discount = groups * get * it.product.price;
-    if (discount > best) best = discount; // 단가가 가장 높은 상품만 적용
-  }
-  return best;
-};
+  const seekMostExpensiveBOGOItem = useCallback(
+    (buyQty: number) => {
+      return (
+        selectedShoppingCartItems
+          .filter((item) => item.quantity >= buyQty)
+          .reduce((max, item) => Math.max(max, item.product.price), 0) || 0
+      );
+    },
+    [selectedShoppingCartItems]
+  );
 
-const calcDiscount = (
-  coupon: Coupon,
-  items: CartItem[],
-  orderTotal: number,
-  shipFee: number,
-  now = new Date()
-) => {
-  if (coupon.expirationDate && now > coupon.expirationDate) return null;
-  if (coupon.minimumAmount && orderTotal < coupon.minimumAmount) return null;
-  if (coupon.availableTime && !inTimeRange(now, coupon.availableTime))
-    return null;
+  /* 4. 쿠폰별 할인 계산 + 큰 할인순 정렬 */
+  const applyingCoupons = useMemo(() => {
+    const list = validCoupons
+      .map((c) => {
+        let item = 0,
+          shippingFee = 0;
+        switch (c.discountType) {
+          case "fixed":
+            item = c.discount ?? 0;
+            break;
+          case "freeShipping":
+            shippingFee = 0;
+            break;
+          case "percentage":
+            item = (orderTotal * (c.discount ?? 0)) / 100;
+            break;
+          case "buyXgetY": {
+            const maxPrice = seekMostExpensiveBOGOItem(c.buyQuantity ?? 0);
 
-  let item = 0;
-  let shipping = 0;
-  if (coupon.discountType === "fixed") item = coupon.discount ?? 0;
-  if (coupon.discountType === "percentage")
-    item = Math.floor(orderTotal * ((coupon.discount ?? 0) / 100));
-  if (coupon.discountType === "buyXgetY") item = bogoDiscount(coupon, items);
-  if (coupon.discountType === "freeShipping") shipping = shipFee; // 전체 배송비 면제(도서산간 포함)
+            if (maxPrice) item = maxPrice * (c.getQuantity ?? 0);
+            break;
+          }
+          default:
+            // 잘못된 쿠폰 타입 처리
+            console.warn(`Unknown coupon type: ${c.discountType}`);
+            break;
+        }
+        return { coupon: c, discountItem: item, discountShipping: shippingFee };
+      })
+      .sort(
+        (a, b) =>
+          b.discountItem +
+          b.discountShipping -
+          (a.discountItem + a.discountShipping)
+      );
 
-  if (!item && !shipping) return null;
-  return {
-    coupon,
-    discountItem: item,
-    discountShipping: shipping,
-  } as CouponApplied;
-};
+    return list.slice(0, 2); // 그리디하게 가장 큰 할인 2개만 적용
+  }, [validCoupons, orderTotal, isIsland, seekMostExpensiveBOGOItem]);
 
-const chooseBestCombo = (
-  candidates: CouponApplied[],
-  shipFee: number,
-  orderTotal: number
-) => {
-  let best: CouponApplied[] = [];
-  let maxSave = 0;
+  /* 5. 할인 합계와 배송비 ― 분리해서 계산 */
+  const { itemDisc, shipDisc } = useMemo(() => {
+    let itemDisc = 0,
+      shipDisc = 0;
+    applyingCoupons.forEach((c) => {
+      itemDisc += c.discountItem;
+      shipDisc += c.discountShipping;
+    });
+    return { itemDisc, shipDisc };
+  }, [applyingCoupons]);
 
-  for (let i = 0; i < candidates.length; i++) {
-    const c1 = candidates[i];
-    // 단일 쿠폰
-    const saveSingle = c1.discountItem + c1.discountShipping;
-    if (saveSingle > maxSave) {
-      maxSave = saveSingle;
-      best = [c1];
-    }
-    // 두 장 조합
-    for (let j = i + 1; j < candidates.length; j++) {
-      const c2 = candidates[j];
-      const save = saveSingle + c2.discountItem + c2.discountShipping;
-      if (save > maxSave) {
-        maxSave = save;
-        best = [c1, c2];
-      }
-    }
-  }
+  const appliedCoupons = applyingCoupons.map((c) => c.coupon);
+  const baseShipping = getBaseShipping(orderTotal, isIsland);
+  const shippingFee = Math.max(0, baseShipping - shipDisc);
 
-  const discountItems = best.reduce((s, c) => s + c.discountItem, 0);
-  const discountShip = best.reduce((s, c) => s + c.discountShipping, 0);
-  const finalShip = Math.max(0, shipFee - discountShip);
-  const finalTotal = Math.max(0, orderTotal - discountItems) + finalShip;
+  /* 6. 최종 금액 */
+  const discountTotal = itemDisc + shipDisc;
+  const finalTotal = orderTotal + shippingFee - itemDisc; // 배송비 할인은 이미 반영됨
+
   return {
     orderTotal,
-    shippingFee: finalShip,
-    discountTotal: discountItems + discountShip,
+    shippingFee,
+    discountTotal,
     finalTotal,
-    appliedCoupons: best,
-  } as CouponApplyResult;
+    appliedCoupons,
+    invalidCoupons,
+  };
 };
-
-export default function useCouponApply({
-  coupons = [],
-  selectedShoppingCartItems = [],
-  isIsland = false,
-}: Props) {
-  const result = useMemo(() => {
-    const now = new Date();
-    const orderTotal = getCartTotal(selectedShoppingCartItems);
-    const shipFee = getBaseShipping(orderTotal, isIsland);
-
-    const candidates: CouponApplied[] = [];
-    for (const c of coupons) {
-      const valid = calcDiscount(
-        c,
-        selectedShoppingCartItems,
-        orderTotal,
-        shipFee,
-        now
-      );
-      if (valid) candidates.push(valid);
-    }
-
-    return chooseBestCombo(candidates, shipFee, orderTotal);
-  }, [coupons, selectedShoppingCartItems, isIsland]);
-
-  return result;
-}
