@@ -59,7 +59,11 @@ function CartItem({
           <div css={ControllerBox}>
             <button
               css={ControllerButton}
-              onClick={() => decreaseCartItem(cartItem)}
+              onClick={
+                cartItem.quantity === 1
+                  ? () => deleteCartItem(cartItem.id)
+                  : () => decreaseCartItem(cartItem)
+              }
             >
               <img src={Minus} alt="minus" />
             </button>
