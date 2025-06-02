@@ -25,7 +25,7 @@ function CartList({
       <S.AllSelectBox>
         <SelectBox
           id="allSelect"
-          isSelected={isAllItemSelected}
+          selected={isAllItemSelected}
           onClick={toggleAllSelect}
         />
         <S.AllSelectText htmlFor="allSelect">전체선택</S.AllSelectText>

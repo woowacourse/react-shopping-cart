@@ -27,7 +27,7 @@ function CartItem({
     <S.Container data-testid={`CartItem-${cartItem.id}`}>
       <Separator />
       <S.ActionContainer>
-        <SelectBox isSelected={isSelected} onClick={toggleSelect} />
+        <SelectBox selected={isSelected} onClick={toggleSelect} />
         <S.DeleteButton
           onClick={() => {
             handleCartActions(
