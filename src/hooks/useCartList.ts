@@ -1,0 +1,103 @@
+import { useEffect, useState } from 'react';
+import { CartItemProps } from '../types/cartItem';
+import cart from '../apis/cart';
+import { PatchCartItemProps } from '../types/cartApi';
+
+function useCartList() {
+  const [cartList, setCartList] = useState<CartItemProps[]>([]);
+  const [isError, setIsError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    loadCartList();
+  }, []);
+
+  const loadCartList = async () => {
+    setIsLoading(true);
+    try {
+      const response = await cart.getCartList();
+      setCartList(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        setIsError(error.message);
+      } else {
+        setIsError('카드 정보를 불어오는 데 문제가 발생했습니다.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleIncreaseCartItem = async ({
+    cartItemId,
+    quantity,
+  }: PatchCartItemProps) => {
+    try {
+      await cart.patchCartItem({ cartItemId, quantity });
+
+      setCartList((prev) => {
+        return prev.map((item) =>
+          item.id === cartItemId ? { ...item, quantity: quantity } : item
+        );
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        setIsError(error.message);
+      } else {
+        setIsError('상품의 수량을 증가시키는 데 문제가 발생했습니다.');
+      }
+    }
+  };
+
+  const handleDecreaseCartItem = async ({
+    cartItemId,
+    quantity,
+  }: PatchCartItemProps) => {
+    try {
+      if (quantity === 0) {
+        await handleDeleteCartItem(cartItemId);
+      } else {
+        await cart.patchCartItem({ cartItemId, quantity });
+
+        setCartList((prev) => {
+          return prev.map((item) =>
+            item.id === cartItemId ? { ...item, quantity: quantity } : item
+          );
+        });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setIsError(error.message);
+      } else {
+        setIsError('상품의 수량을 감소시키는 데 문제가 발생했습니다.');
+      }
+    }
+  };
+
+  const handleDeleteCartItem = async (cartItemId: number) => {
+    try {
+      await cart.deleteCartItem(cartItemId);
+
+      setCartList((prev) => {
+        return prev.filter((item) => item.id !== cartItemId);
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        setIsError(error.message);
+      } else {
+        setIsError('상품을 삭제하는 데 문제가 발생했습니다.');
+      }
+    }
+  };
+
+  return {
+    cartList,
+    isError,
+    isLoading,
+    handleIncreaseCartItem,
+    handleDecreaseCartItem,
+    handleDeleteCartItem,
+  };
+}
+
+export default useCartList;
