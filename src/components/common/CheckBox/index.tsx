@@ -44,7 +44,8 @@ const CheckBox = ({
 export default CheckBox;
 
 const CheckboxWrapper = styled.div`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: relative;
 
   input:focus-visible + label > span:first-of-type {
