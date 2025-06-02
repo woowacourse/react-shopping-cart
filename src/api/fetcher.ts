@@ -1,5 +1,6 @@
 import { buildQueryParams } from '@/shared/utils/url';
 import { ENV } from './env';
+import { HttpError } from '@/shared/errors/HttpError';
 
 type FetcherOptions<T> = {
   path: string;
@@ -77,9 +78,8 @@ const request = async <T>({
   const response = await fetch(url, config);
 
   if (!response.ok) {
-    // const errorData = await response.json().catch(() => null);
-    // throw new HttpError(response.status, errorData);
-    throw new Error();
+    const errorData = await response.json().catch(() => null);
+    throw new HttpError(response.status, errorData);
   }
 
   if (response.status === 204 || response.headers.get('content-length') === '0') {
