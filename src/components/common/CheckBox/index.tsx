@@ -11,6 +11,7 @@ interface CheckboxProps extends ComponentProps<"input"> {
   label: string;
   boxSize?: Size;
   hidden?: boolean;
+  disabled?: boolean;
 }
 
 const CheckBox = ({
@@ -20,6 +21,7 @@ const CheckBox = ({
   label,
   boxSize = "medium",
   hidden = false,
+  disabled = false,
 }: CheckboxProps) => {
   return (
     <CheckboxWrapper>
@@ -29,6 +31,7 @@ const CheckBox = ({
         checked={checked || false}
         onChange={onChange}
         aria-labelledby={`${id}-label`}
+        disabled={disabled}
       />
 
       <StyledLabel htmlFor={id} id={`${id}-label`}>
