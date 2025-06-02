@@ -104,7 +104,7 @@ function CartCheckList() {
                 <Image
                   width="80px"
                   height="80px"
-                  imageSource={cart.product.imageUrl}
+                  src={cart.product.imageUrl}
                   altText={`${cart.product.name} 상품 이미지`}
                 />
 
