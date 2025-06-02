@@ -1,9 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin-top: 64px;
   width: 100%;
   min-height: 100vh;
   align-items: center;
@@ -39,5 +37,30 @@ export const OrderConfirmButton = styled.button`
   &:disabled {
     background-color: rgb(105, 105, 105);
     cursor: not-allowed;
+  }
+`;
+
+export const CouponButton = styled.button`
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  max-width: 430px;
+  background-color: #ffffff;
+  color: #222222;
+  border: 1px solid #aaaaaa;
+`;
+export const Header = styled.header`
+  width: 100%;
+  margin-bottom: 20px;
+`;
+export const HeaderTitle = styled.h2`
+  font-weight: 700;
+  font-size: 24px;
+`;
+export const HeaderDescription = styled.p`
+  font-weight: 500;
+  font-size: 12px;
+  span {
+    display: block;
   }
 `;
