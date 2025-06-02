@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import { Header } from "../../components/@common/Header/Header.styles";
+import FooterButton from "../../components/FooterButton/FooterButton";
+import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
 import useCart from "../../hooks/useCart";
 import useToast from "../../hooks/useToast";
