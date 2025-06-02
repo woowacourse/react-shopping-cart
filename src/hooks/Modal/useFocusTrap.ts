@@ -25,6 +25,7 @@ export function useFocusTrap<T extends HTMLElement>(
       modalEl.focus();
       return;
     }
+    first.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Tab" && e.shiftKey && document.activeElement === first) {
