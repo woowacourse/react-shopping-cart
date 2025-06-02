@@ -1,4 +1,4 @@
-import { CartItemProps } from '../../types/cartItem';
+import { CartItemProps } from '../types/cartItem';
 
 export const cartPrice = {
   itemPrice: (cartItem: CartItemProps) => {

@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router';
 import {
   OrderCheckContainerStyle,
   orderPriceContainerStyle,
-} from './OrderCheck.styles';
+} from './OrderCheckPage.styles';
 import PayButton from '../../../components/PayButton/PayButton';
 
 function OrderCheck() {

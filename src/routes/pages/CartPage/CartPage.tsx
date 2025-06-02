@@ -11,11 +11,11 @@ import OrderButton from '../../../components/OrderButton/OrderButton';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
 
 import { Logo } from '../../../assets';
-import { cartPrice } from '../../../utils/cartPrice/cartPrice';
 
 import useCartList from '../../../hooks/useCartList';
 import useSelect from '../../../hooks/useSelect';
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
+import { cartPrice } from '../../../utils/cartPrice';
 
 function CartPage() {
   const {
