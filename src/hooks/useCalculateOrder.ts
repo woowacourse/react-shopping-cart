@@ -4,7 +4,7 @@ import { CartItem } from "../type/CartItem";
 
 export function useCalculateOrder(
   cartItems: CartItem[],
-  selectedIds: Set<string> | undefined
+  selectedIds: Set<string>
 ) {
   const summary = useMemo(
     () => summarizeOrder(cartItems, selectedIds),
@@ -18,5 +18,6 @@ export function useCalculateOrder(
     subtotalPrice: summary.subtotal,
     shippingFee: summary.shipping,
     finalPrice: summary.final,
+    selectedCartItems: summary.items,
   };
 }
