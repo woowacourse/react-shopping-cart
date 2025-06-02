@@ -12,6 +12,7 @@ const ToggleButton = ({ isSelected, onClick, testId }: ToggleButtonProps) => {
       onClick={onClick}
       className={ToggleButtonStyle(isSelected)}
       data-testid={testId}
+      aria-pressed={isSelected}
     >
       <img src={isSelected ? "./checked-icon.svg" : "./unchecked-icon.svg"} />
     </button>

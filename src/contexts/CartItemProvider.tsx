@@ -3,7 +3,7 @@ import { CartItem } from "../types/type";
 import cartItemsApi from "../apis/cartItems";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
 
-type LoadingStatus = "loading" | "fetching" | "success" | "error";
+type LoadingStatus = "idle" | "loading" | "fetching" | "success" | "error";
 
 interface CartItemContext {
   cartItems: CartItem[];
