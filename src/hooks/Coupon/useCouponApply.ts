@@ -63,6 +63,8 @@ export const useCouponApply = ({
 
   /* 4. 쿠폰별 할인 계산 + 큰 할인순 정렬 */
   const applyingCoupons = useMemo(() => {
+    const baseShipping = getBaseShipping(orderTotal, isIsland);
+
     const list = validCoupons
       .map((c) => {
         let item = 0,
@@ -72,7 +74,7 @@ export const useCouponApply = ({
             item = c.discount ?? 0;
             break;
           case "freeShipping":
-            shippingFee = 0;
+            shippingFee = baseShipping; // 기본 배송비 전체를 할인
             break;
           case "percentage":
             item = (orderTotal * (c.discount ?? 0)) / 100;
@@ -117,7 +119,7 @@ export const useCouponApply = ({
 
   /* 6. 최종 금액 */
   const discountTotal = itemDisc + shipDisc;
-  const finalTotal = orderTotal + shippingFee - itemDisc; // 배송비 할인은 이미 반영됨
+  const finalTotal = orderTotal + shippingFee - itemDisc;
 
   return {
     orderTotal,
