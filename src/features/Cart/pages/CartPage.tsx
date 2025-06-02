@@ -1,8 +1,9 @@
-import { STEPS } from '@/shared/constants/setStep';
 import { useFunnel } from '../../../shared/hooks/useFunnel';
 import { CartInfo } from '../components/CartInfo';
 import { OrderConfirm } from '../components/OrderConfirm';
 import { useCart } from '../hooks/useCart';
+
+type STEPS = '장바구니' | '주문정보';
 
 export const CartPage = () => {
   const { Funnel, setStep } = useFunnel<STEPS>('장바구니');
