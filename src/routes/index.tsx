@@ -14,7 +14,10 @@ const router = createBrowserRouter(
       element: <OrderCheckPage />,
     },
   ],
-  { basename: '/react-shopping-cart' }
+  {
+    basename:
+      import.meta.env.MODE === 'production' ? '/react-shopping-cart' : '/',
+  }
 );
 
 export default function Route() {
