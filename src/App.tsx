@@ -1,10 +1,23 @@
-import "./App.css";
+import * as S from "./styles/Layout.styled";
+import { BrowserRouter, Route, Routes } from "react-router";
+import CartPage from "./pages/CartPage";
+import OrderConfirmPage from "./pages/OrderConfirmPage";
+import { ErrorProvider } from "./contexts/ErrorContext";
+import ErrorPopup from "./components/common/Error/Popup";
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <ErrorProvider>
+      <S.Layout>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <ErrorPopup />
+          <Routes>
+            <Route path="/" element={<CartPage />} />
+            <Route path="/order-confirm" element={<OrderConfirmPage />} />
+          </Routes>
+        </BrowserRouter>
+      </S.Layout>
+    </ErrorProvider>
   );
 }
 
