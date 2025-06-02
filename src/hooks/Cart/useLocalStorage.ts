@@ -3,10 +3,8 @@ import { useEffect } from "react";
 
 interface useLocalStorageProps {
   cartItemsData: CartItem[];
-  selectedCartIds: Set<string> | undefined;
-  setSelectedCartIds: React.Dispatch<
-    React.SetStateAction<Set<string> | undefined>
-  >;
+  selectedCartIds: Set<string>;
+  setSelectedCartIds: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
 export default function useLocalStorage({
@@ -32,7 +30,7 @@ export default function useLocalStorage({
   }, [cartItemsData]);
 
   useEffect(() => {
-    if (!selectedCartIds) return;
+    if (selectedCartIds.size === 0) return;
     const arr = Array.from(selectedCartIds);
     localStorage.setItem("selectedCartIds", JSON.stringify(arr));
   }, [selectedCartIds]);
