@@ -94,4 +94,45 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
     expect(result.current.isSelected(2)).toBe(true);
     expect(result.current.isSelected(3)).toBe(true);
   });
+
+  it("전체선택된 상태에서 아이템을 삭제해도 전체선택이 유지되고, 해당 아이템만 선택 목록에서 제거된다.", () => {
+    const { result, rerender } = renderHook(
+      ({ items }) => useCheckboxHandler(items),
+      {
+        initialProps: { items: MOCK_CART_ITEMS },
+      }
+    );
+
+    expect(result.current.isAllSelected()).toBe(true);
+    expect(result.current.selectedCartIds).toEqual([1, 2, 3]);
+
+    const updatedItems = MOCK_CART_ITEMS.filter((item) => item.id !== 2);
+    rerender({ items: updatedItems });
+
+    expect(result.current.isAllSelected()).toBe(true);
+    expect(result.current.selectedCartIds).toEqual([1, 3]);
+    expect(result.current.selectedCartIds).not.toContain(2);
+  });
+
+  it("일부 아이템이 선택된 상태에서 선택되지 않은 아이템을 삭제하면 전체선택이 활성화된다.", () => {
+    const { result, rerender } = renderHook(
+      ({ items }) => useCheckboxHandler(items),
+      {
+        initialProps: { items: MOCK_CART_ITEMS },
+      }
+    );
+
+    act(() => {
+      result.current.toggleSelect(2);
+    });
+
+    expect(result.current.selectedCartIds).toEqual([1, 3]);
+    expect(result.current.isAllSelected()).toBe(false);
+
+    const updatedItems = MOCK_CART_ITEMS.filter((item) => item.id !== 2);
+    rerender({ items: updatedItems });
+
+    expect(result.current.selectedCartIds).toEqual([1, 3]);
+    expect(result.current.isAllSelected()).toBe(true);
+  });
 });
