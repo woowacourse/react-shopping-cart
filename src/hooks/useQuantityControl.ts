@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useMutation from "./useMutation";
 import {
   decreaseCartItem,
@@ -8,37 +7,38 @@ import {
 import { DEFAULT_ERROR_MESSAGE } from "../constants/errorMessage";
 
 interface UseQuantityControlProps {
-  initialQuantity: number;
-  refetchCartItem: () => void;
+  quantity: number;
+  handleQuantity: (updateQuantity: (prev: number) => number) => void;
 }
 
 const useQuantityControl = ({
-  initialQuantity,
-  refetchCartItem,
+  quantity,
+  handleQuantity,
 }: UseQuantityControlProps) => {
   const { mutateData } = useMutation();
-  const [quantity, setQuantity] = useState(initialQuantity);
 
   const increaseQuantity = async (cartId: number) => {
-    setQuantity((prev) => prev + 1);
+    const newQuantity = quantity + 1;
+    handleQuantity((prev) => prev + 1);
 
     await mutateData({
-      apiCall: () => increaseCartItem(cartId, quantity),
-      onSuccess: refetchCartItem,
+      apiCall: () => increaseCartItem(cartId, newQuantity),
+      onSuccess: () => {},
       onError: () => {
-        setQuantity((prev) => prev - 1);
+        handleQuantity((prev) => prev - 1);
       },
     });
   };
 
   const decreaseQuantity = async (cartId: number) => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+    const newQuantity = quantity > 1 ? quantity - 1 : 1;
+    handleQuantity((prev) => (prev > 1 ? prev - 1 : prev));
 
     await mutateData({
-      apiCall: () => decreaseCartItem(cartId, quantity),
-      onSuccess: refetchCartItem,
+      apiCall: () => decreaseCartItem(cartId, newQuantity),
+      onSuccess: () => {},
       onError: () => {
-        setQuantity((prev) => prev + 1);
+        handleQuantity((prev) => prev + 1);
       },
     });
   };
@@ -46,7 +46,7 @@ const useQuantityControl = ({
   const deleteCartItem = async (cartId: number) => {
     await mutateData({
       apiCall: () => removeCartItem(cartId),
-      onSuccess: refetchCartItem,
+      onSuccess: () => {},
       onError: (error) => {
         const errorMessage =
           error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
@@ -59,7 +59,6 @@ const useQuantityControl = ({
     increaseQuantity,
     decreaseQuantity,
     deleteCartItem,
-    quantity,
   };
 };
 

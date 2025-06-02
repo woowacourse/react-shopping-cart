@@ -17,22 +17,29 @@ import {
 
 interface CartItemProps {
   cartItem: CartItemType;
-  fetchCartItem: () => void;
+  handleCartItem: (cartId: number, cartItem: CartItemType) => void;
   isSelected: boolean;
   toggleSelect: () => void;
 }
 
 function CartItem({
   cartItem,
-  fetchCartItem,
+  handleCartItem,
   isSelected,
   toggleSelect,
 }: CartItemProps) {
-  const { id: cartId, product, quantity: initialQuantity } = cartItem;
-  const { decreaseQuantity, increaseQuantity, deleteCartItem, quantity } =
+  const { id: cartId, product, quantity } = cartItem;
+
+  const handleQuantity = (updateQuantity: (prev: number) => number) => {
+    const newQuantity = updateQuantity(quantity);
+    const newCartItem = { id: cartId, product, quantity: newQuantity };
+    handleCartItem(cartId, newCartItem);
+  };
+
+  const { decreaseQuantity, increaseQuantity, deleteCartItem } =
     useQuantityControl({
-      initialQuantity,
-      refetchCartItem: fetchCartItem,
+      quantity,
+      handleQuantity,
     });
 
   return (

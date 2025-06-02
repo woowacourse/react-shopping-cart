@@ -71,8 +71,8 @@ function Cart() {
               onClick={toggleAllSelect}
             />
             <CartItemList
-              fetchCartItem={fetchCartItem}
               cartItems={cartItems}
+              setCartItems={setCartItems}
               isSelected={isSelected}
               toggleSelect={toggleSelect}
             />
