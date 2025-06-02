@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AllSelector from "../../components/AllSelector/AlllSelector";
-import CartItem from "../../components/CartItem/CartItem";
 import Description from "../../components/@common/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import { Header } from "../../components/@common/Header/Header.styles";
@@ -14,10 +12,10 @@ import { TOAST_TYPES } from "../../components/@common/Toast/type";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 import { CLIENT_BASE_PATH } from "../../apis/config";
 import PriceSummary from "../../components/PriceSummary/PriceSummary";
+import CartContainer from "../../components/CartContainer/CartContainer";
 
 const CartPage = () => {
-  const { cartItemsData, hasCheckedItem, cartItemCount, errorMessage } =
-    useCart();
+  const { hasCheckedItem, cartItemCount, errorMessage } = useCart();
 
   const { showToast } = useToast();
 
@@ -43,14 +41,7 @@ const CartPage = () => {
             <Description>
               현재 {cartItemCount}종류의 상품이 담겨있습니다.
             </Description>
-            <S.CartContainer>
-              <AllSelector />
-              <S.CartItemsContainer>
-                {cartItemsData.map((cartItem) => (
-                  <CartItem key={cartItem.id} cartItem={cartItem} />
-                ))}
-              </S.CartItemsContainer>
-            </S.CartContainer>
+            <CartContainer />
             <S.InfoContainer>
               <img src={InfoIcon} alt="info" />
               <Description>
