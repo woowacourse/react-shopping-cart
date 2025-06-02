@@ -1,14 +1,16 @@
-import { PropsWithChildren } from "react";
-import CartHeader from "../components/Cart/CartHeader/CartHeader";
+import { PropsWithChildren, ReactNode } from "react";
+
 import * as Styled from "./CartLayout.style";
 
-function CartLayout({ children }: PropsWithChildren) {
+interface CartLayoutProps extends PropsWithChildren {
+  footer?: ReactNode;
+}
+
+function CartLayout({ children, footer }: CartLayoutProps) {
   return (
     <Styled.Container>
-      <Styled.Wrapper>
-        <CartHeader />
-        {children}
-      </Styled.Wrapper>
+      <Styled.Wrapper>{children}</Styled.Wrapper>
+      {footer && <div className="fixed-footer">{footer}</div>}
     </Styled.Container>
   );
 }
