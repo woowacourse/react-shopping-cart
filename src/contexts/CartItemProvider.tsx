@@ -1,9 +1,7 @@
 import { createContext, useState } from "react";
 import { CartItem } from "../types/type";
-import cartItemsApi from "../apis/cartItems";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
-
-type LoadingStatus = "idle" | "loading" | "fetching" | "success" | "error";
+import { LoadingStatus, useCartItems } from "../hooks/useCartItems";
 
 interface CartItemContext {
   cartItems: CartItem[];
@@ -28,9 +26,15 @@ interface CartItemProviderProps {
 export const CartItemContext = createContext<CartItemContext | null>(null);
 
 export const CartItemProvider = ({ children }: CartItemProviderProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("loading");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const {
+    cartItems,
+    fetchCartItems,
+    deleteCartItem,
+    updateCartItem,
+    loadingStatus,
+    errorMessage,
+    handleLoadingStatus,
+  } = useCartItems();
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(
     new Set()
   );
@@ -44,49 +48,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const replaceSelectedItemIds = (ids: number[]) => {
     setSelectedItemIds(new Set(ids));
   };
-
-  const handleLoadingStatus = (status: LoadingStatus) => {
-    setLoadingStatus(status);
-  };
-
-  async function fetchCartItems() {
-    try {
-      setLoadingStatus("fetching");
-      const data = await cartItemsApi.get();
-      setCartItems(data);
-      setLoadingStatus("success");
-      setErrorMessage("");
-    } catch (error) {
-      setLoadingStatus("error");
-      setErrorMessage("Fail to Fetch Error");
-    }
-  }
-
-  async function deleteCartItem(cartItemId: number) {
-    try {
-      setLoadingStatus("fetching");
-      await cartItemsApi.delete(cartItemId);
-      await fetchCartItems();
-      setLoadingStatus("success");
-      setErrorMessage("");
-    } catch (error) {
-      setLoadingStatus("error");
-      setErrorMessage("Fail to Delete Error");
-    }
-  }
-
-  async function updateCartItem(cartItemId: number, quantity: number) {
-    try {
-      setLoadingStatus("fetching");
-      await cartItemsApi.patch(cartItemId, quantity);
-      await fetchCartItems();
-      setLoadingStatus("success");
-      setErrorMessage("");
-    } catch (error) {
-      setLoadingStatus("error");
-      setErrorMessage("Fail to Update Error");
-    }
-  }
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {
     if (selectedItemIds.has(cartItem.id)) {
