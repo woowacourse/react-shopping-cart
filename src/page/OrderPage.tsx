@@ -8,6 +8,8 @@ import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmat
 import { STEP_NAME, StepName } from "@/constants/steps";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
 import * as Styled from "./OrderPage.style";
+import useCouponFetch from "@/hooks/Coupon/useCouponFetch";
+import useCouponApply from "@/hooks/Coupon/useCouponApply";
 
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
@@ -25,7 +27,11 @@ function OrderPage({
   currentStep,
 }: ProfileSetupInterface) {
   const { selectedCartItems } = useCartContext();
-
+  const { couponsData } = useCouponFetch();
+  const result = useCouponApply({
+    coupons: couponsData,
+    selectedShoppingCartItems: selectedCartItems,
+  });
   return (
     <CartLayout>
       <Funnel>
@@ -41,6 +47,8 @@ function OrderPage({
           <OrderConfirmation
             selectedCartItems={selectedCartItems}
             onPrev={() => prevClickHandler("구매품 선택")}
+            result={result}
+            couponsData={couponsData}
           />
         </Step>
       </Funnel>
@@ -53,7 +61,10 @@ function OrderPage({
         </Styled.FixedFooter>
       )}
       {currentStep === STEP_NAME.APPLY_COUPON_AND_PAYMENT && (
-        <OrderConfirmationActions selectedCartItems={selectedCartItems} />
+        <OrderConfirmationActions
+          selectedCartItems={selectedCartItems}
+          finalPrice={result.orderTotal - result.discountTotal}
+        />
       )}
     </CartLayout>
   );
