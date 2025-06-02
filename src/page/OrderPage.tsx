@@ -1,5 +1,4 @@
 import CartContent from "@/components/Cart/CartContent/CartContent";
-import { CartProvider } from "@/components/Cart/CartProvider";
 import { FunnelProps, StepProps } from "@/hooks/Funnel/useFunnel";
 import OrderConfirmation from "./OrderConfirmation/OrderConfirmation";
 
@@ -8,6 +7,7 @@ import CartLayout from "@/layout/CartLayout";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
 import { STEP_NAME, StepName } from "@/constants/steps";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
+import * as Styled from "./OrderPage.style";
 
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
@@ -38,26 +38,22 @@ function OrderPage({
           </CartContent.Root>
         </Step>
         <Step name="쿠폰 적용 및 결제">
-          <CartProvider>
-            <OrderConfirmation
-              selectedCartItems={selectedCartItems}
-              onPrev={() => prevClickHandler("구매품 선택")}
-            />
-          </CartProvider>
+          <OrderConfirmation
+            selectedCartItems={selectedCartItems}
+            onPrev={() => prevClickHandler("구매품 선택")}
+          />
         </Step>
       </Funnel>
 
       {currentStep === STEP_NAME.SELECT_PRODUCT && (
-        <div className="fixed-footer">
-          <CartProvider onNext={() => nextClickHandler("쿠폰 적용 및 결제")}>
-            <CartContent.Actions />
-          </CartProvider>
-        </div>
+        <Styled.FixedFooter>
+          <CartContent.Actions
+            onNext={() => nextClickHandler("쿠폰 적용 및 결제")}
+          />
+        </Styled.FixedFooter>
       )}
       {currentStep === STEP_NAME.APPLY_COUPON_AND_PAYMENT && (
-        <div className="fixed-footer">
-          <OrderConfirmationActions selectedCartItems={selectedCartItems} />
-        </div>
+        <OrderConfirmationActions selectedCartItems={selectedCartItems} />
       )}
     </CartLayout>
   );

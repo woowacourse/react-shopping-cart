@@ -31,3 +31,12 @@ export const OrderConfirmButton = styled.button`
     cursor: not-allowed;
   }
 `;
+
+export const FixedFooter = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 430px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
