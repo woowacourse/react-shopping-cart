@@ -3,6 +3,7 @@ import {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -169,30 +170,26 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     .filter(({ checked }) => checked)
     .map(({ id }) => id);
 
-  const calculateOrderQuantity = () => {
+  const orderQuantity = useMemo(() => {
     return cartItemsData
       .filter(({ id }) => checkedItemsId.includes(id))
-      .reduce(
-        (orderQuantity, cartItem) => orderQuantity + cartItem.quantity,
-        0
-      );
-  };
+      .reduce((sum, item) => sum + item.quantity, 0);
+  }, [cartItemsData, checkedItemsId]);
 
-  const calculateOrderPrice = () => {
+  const orderPrice = useMemo(() => {
     return cartItemsData
       .filter(({ id }) => checkedItemsId.includes(id))
-      .reduce(
-        (orderPrice, cartItem) =>
-          orderPrice + cartItem.quantity * cartItem.product.price,
-        0
-      );
-  };
+      .reduce((sum, item) => sum + item.quantity * item.product.price, 0);
+  }, [cartItemsData, checkedItemsId]);
 
-  const calculateShippingFee = () => {
-    const orderPrice = calculateOrderPrice();
+  const shippingFee = useMemo(() => {
     if (orderPrice === 0) return 0;
     return orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
-  };
+  }, [orderPrice]);
+
+  const totalPrice = useMemo(() => {
+    return orderPrice + shippingFee;
+  }, [orderPrice, shippingFee]);
 
   return (
     <CartContext.Provider
@@ -214,10 +211,10 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         cartItemCount: cartItemsData.length,
         orderItemCount: checkedItemsId.length,
 
-        orderQuantity: calculateOrderQuantity(),
-        orderPrice: calculateOrderPrice(),
-        shippingFee: calculateShippingFee(),
-        totalPrice: calculateOrderPrice() + calculateShippingFee(),
+        orderQuantity,
+        orderPrice,
+        shippingFee,
+        totalPrice,
 
         errorMessage,
       }}
