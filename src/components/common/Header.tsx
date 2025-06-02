@@ -28,7 +28,7 @@ const HeaderContainer = styled.header`
   z-index: 999;
 `;
 
-const Logo = styled.h1`
+const Logo = styled.div`
   font-size: 24px;
   font-weight: 800;
   color: white;
