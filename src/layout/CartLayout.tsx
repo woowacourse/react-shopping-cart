@@ -1,16 +1,16 @@
-import CartContent from "../components/Cart/CartContent/CartContent";
+import { PropsWithChildren } from "react";
 import CartHeader from "../components/Cart/CartHeader/CartHeader";
-import * as Styled from "./Cart.style";
+import * as Styled from "./CartLayout.style";
 
-function Cart() {
+function CartLayout({ children }: PropsWithChildren) {
   return (
     <Styled.Container>
       <Styled.Wrapper>
         <CartHeader />
-        <CartContent />
+        {children}
       </Styled.Wrapper>
     </Styled.Container>
   );
 }
 
-export default Cart;
+export default CartLayout;

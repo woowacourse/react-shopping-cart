@@ -3,29 +3,45 @@ import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
 import CheckBox from "@/components/common/CheckBox";
 import CartCardImage from "@/components/common/CustomImage";
+import { useState } from "react";
 
 interface CartCardProps {
   cartItem: CartItem;
-  handleDeleteCartItem: (id: string) => void;
-  handleCartItemQuantity: (params: { id: string; quantity: number }) => void;
-  handleSelectCartItem: (id: string) => void;
-  isDeleteItemLoading: boolean;
-  isQuantityUpdateLoading: boolean;
   isSelected: boolean;
+  handleDeleteCartItem: (id: string) => void;
+  handleCartItemQuantity: (params: {
+    id: string;
+    quantity: number;
+  }) => Promise<void>;
+  handleSelectCartItem: (id: string) => void;
 }
 
 function CartCard({
   cartItem,
+  isSelected,
   handleDeleteCartItem,
   handleCartItemQuantity,
   handleSelectCartItem,
-  isDeleteItemLoading,
-  isQuantityUpdateLoading,
-  isSelected,
 }: CartCardProps) {
   const { product, quantity, id } = cartItem;
 
   const { name, price, imageUrl } = product;
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleIncreaseCartItemQuantity = () => {
+    setIsLoading(true);
+    handleCartItemQuantity({ id, quantity: quantity + 1 }).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  const handleDecreaseCartItemQuantity = () => {
+    setIsLoading(true);
+    handleCartItemQuantity({ id, quantity: quantity - 1 }).finally(() => {
+      setIsLoading(false);
+    });
+  };
+
   return (
     <li>
       <Styled.Container>
@@ -39,7 +55,7 @@ function CartCard({
             hidden={true}
           />
           <Styled.DeleteButton
-            disabled={isDeleteItemLoading || isQuantityUpdateLoading}
+            disabled={isLoading}
             onClick={() => handleDeleteCartItem(id)}
             data-testid={`delete-button-${id}`}
           >
@@ -53,19 +69,9 @@ function CartCard({
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
             <ProductQuantityControl
               quantity={quantity}
-              handleIncreaseCartItemQuantity={() =>
-                handleCartItemQuantity({
-                  id: cartItem.id,
-                  quantity: quantity + 1,
-                })
-              }
-              handleDecreaseCartItemQuantity={() =>
-                handleCartItemQuantity({
-                  id: cartItem.id,
-                  quantity: quantity - 1,
-                })
-              }
-              isQuantityUpdateLoading={isQuantityUpdateLoading}
+              handleIncreaseCartItemQuantity={handleIncreaseCartItemQuantity}
+              handleDecreaseCartItemQuantity={handleDecreaseCartItemQuantity}
+              isQuantityUpdateLoading={isLoading}
             />
           </Styled.ProductInfo>
         </Styled.Wrapper>
