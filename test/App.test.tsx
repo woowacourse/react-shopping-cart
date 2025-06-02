@@ -11,6 +11,7 @@ import App from "../src/App";
 import "@testing-library/jest-dom";
 import { CartItem } from "../src/type/CartItem";
 import { products } from "../src/mock/data";
+import { CartProvider } from "../src/components/Cart/CartProvider";
 
 const mockingCartItems: CartItem[] = [
   {
@@ -33,7 +34,9 @@ const mockingCartItems: CartItem[] = [
 function TestWrapper({ children }: { children: ReactNode }) {
   return (
     <ErrorToastContextProvider>
-      <BrowserRouter>{children}</BrowserRouter>
+      <BrowserRouter>
+        <CartProvider>{children}</CartProvider>
+      </BrowserRouter>
     </ErrorToastContextProvider>
   );
 }
