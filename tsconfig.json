@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "jsxImportSource": "@emotion/react",
 
     /* Linting */
     "strict": true,
@@ -24,7 +25,12 @@
     "esModuleInterop": true,
 
     "jsx": "react-jsx",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "__test__"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
