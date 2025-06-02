@@ -9,6 +9,7 @@ import CouponItem from "@/components/Coupon/CouponItem/CouponItem";
 
 import { useState } from "react";
 import Modal from "@/components/common/Modal/Modal";
+import useCouponSelection from "../../hooks/Coupon/useCouponSelection";
 
 interface OrderConfirmationProps {
   onPrev: () => void;
@@ -22,6 +23,8 @@ function OrderConfirmation({
   const { couponsData } = useCouponFetch();
   const [isOpen, setIsOpen] = useState(false);
 
+  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
+    useCouponSelection();
   return (
     <>
       <OrderConfirmationHeader handleGoBackToHomeButton={onPrev} />
@@ -49,7 +52,13 @@ function OrderConfirmation({
               <Modal.Content>
                 <CouponList>
                   {couponsData?.map((coupon) => (
-                    <CouponItem key={coupon.id} coupon={coupon} />
+                    <CouponItem
+                      key={coupon.id}
+                      coupon={coupon}
+                      onSelect={handleSelectCoupon}
+                      isSelected={selectedCouponIds.has(coupon.code)}
+                      isLimitReached={isSelectedToLimit}
+                    />
                   ))}
                 </CouponList>
                 <Styled.CouponButton>

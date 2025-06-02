@@ -5,9 +5,17 @@ import { Coupon } from "@/type/Coupon";
 
 interface CouponItemProps {
   coupon: Coupon;
+  onSelect: (couponId: string) => void;
+  isSelected: boolean;
+  isLimitReached: boolean;
 }
 
-function CouponItem({ coupon }: CouponItemProps) {
+function CouponItem({
+  coupon,
+  onSelect,
+  isSelected,
+  isLimitReached,
+}: CouponItemProps) {
   const { code, expirationDate, description } = coupon;
   const startDate = new Date();
   const endDate = new Date();
@@ -19,13 +27,34 @@ function CouponItem({ coupon }: CouponItemProps) {
     endDate.setHours(endHour, 0, 0, 0);
     period = startDate.getHours() < 12 ? "오전" : "오후";
   }
+  if (isLimitReached && !isSelected) {
+    return (
+      <Styled.Container>
+        <Styled.CouponHeaderWrapper>
+          <CheckBox
+            id={`select-checkbox-coupon-${code}`}
+            checked={isSelected}
+            onChange={() => onSelect(code)}
+            label={`${code} 쿠폰 선택`}
+            boxSize="medium"
+            hidden={true}
+            disabled={true}
+          />
+          <Styled.CouponDescription>
+            {description} (최대 선택 가능 쿠폰 수 초과)
+          </Styled.CouponDescription>
+        </Styled.CouponHeaderWrapper>
+      </Styled.Container>
+    );
+  }
+
   return (
     <Styled.Container>
       <Styled.CouponHeaderWrapper>
         <CheckBox
           id={`select-checkbox-coupon-${code}`}
-          checked={false}
-          onChange={() => {}}
+          checked={isSelected}
+          onChange={() => onSelect(code)}
           label={`${code} 쿠폰 선택`}
           boxSize="medium"
           hidden={true}
