@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Spinner from "../Cart/Spinner/Spinner";
+import Spinner from "./Spinner";
 import fallbackPng from "/fallback_image.png";
 
 type ImageStatus = "loading" | "loaded" | "error";

@@ -4,7 +4,7 @@ import * as Styled from "./CartContent.style";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
 import CheckBox from "@/components/common/CheckBox";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "@/components/common/Spinner";
 
 // Root Component - props 없이 단순히 container 역할
 interface CartContentRootProps {
