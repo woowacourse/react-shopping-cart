@@ -1,17 +1,20 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.li`
+export const Container = styled.div<{ disabled?: boolean }>`
+  width: 100%;
+  padding: 12px 0;
   display: flex;
   flex-direction: column;
-  min-height: 82px;
-  gap: 6px;
-  border-bottom: 1px solid #0000001a;
-  &:last-of-type {
-    border-bottom: none;
-  }
-  &:first-of-type {
-    margin-top: 16px;
-  }
+  gap: 8px;
+  border-top: 1px solid #0000001a;
+
+  /* disabled prop이 true일 때 필터 적용 */
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.4;
+    pointer-events: none;
+  `}
 `;
 
 export const CouponHeaderWrapper = styled.div`

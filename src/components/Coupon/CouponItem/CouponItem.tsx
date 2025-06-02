@@ -27,29 +27,9 @@ function CouponItem({
     endDate.setHours(endHour, 0, 0, 0);
     period = startDate.getHours() < 12 ? "오전" : "오후";
   }
-  if (isLimitReached && !isSelected) {
-    return (
-      <Styled.Container>
-        <Styled.CouponHeaderWrapper>
-          <CheckBox
-            id={`select-checkbox-coupon-${code}`}
-            checked={isSelected}
-            onChange={() => onSelect(code)}
-            label={`${code} 쿠폰 선택`}
-            boxSize="medium"
-            hidden={true}
-            disabled={true}
-          />
-          <Styled.CouponDescription>
-            {description} (최대 선택 가능 쿠폰 수 초과)
-          </Styled.CouponDescription>
-        </Styled.CouponHeaderWrapper>
-      </Styled.Container>
-    );
-  }
 
   return (
-    <Styled.Container>
+    <Styled.Container disabled={isLimitReached && !isSelected}>
       <Styled.CouponHeaderWrapper>
         <CheckBox
           id={`select-checkbox-coupon-${code}`}
@@ -58,6 +38,7 @@ function CouponItem({
           label={`${code} 쿠폰 선택`}
           boxSize="medium"
           hidden={true}
+          disabled={isLimitReached && !isSelected}
         />
         <Styled.CouponDescription>{description}</Styled.CouponDescription>
       </Styled.CouponHeaderWrapper>
