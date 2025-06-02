@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi, beforeEach } from 'vitest';
 
-import * as cartApi from '@/api/cart';
+import * as cartApi from '@/features/Cart/api/cart';
 import { CartPage } from '@/features/Cart/pages/CartPage';
 
 import { cartItems } from './Cart.data';
@@ -14,12 +14,9 @@ export const createTestCartItems = (): ReadonlyArray<Readonly<(typeof cartItems)
   })) as ReadonlyArray<Readonly<(typeof cartItems)[0]>>;
 };
 
-export const renderCartPage = () =>
-  render(
-      <CartPage />
-  );
+export const renderCartPage = () => render(<CartPage />);
 
-vi.mock('@/api/cart');
+vi.mock('@/features/Cart/api/cart');
 const mockCartApi = vi.mocked(cartApi);
 
 describe('장바구니 목록을 렌더링 한다.', () => {

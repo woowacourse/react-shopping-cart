@@ -1,3 +1,4 @@
+import { buildQueryParams } from '@/shared/utils/url';
 import { ENV } from './env';
 
 type FetcherOptions<T> = {
@@ -57,11 +58,7 @@ const request = async <T>({
   returnOriginalOnNoContent,
 }: RequestOptions<T>): Promise<T> => {
   const url = new URL(ENV.BASE_URL + path);
-  Object.entries(query || {}).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && String(value)) {
-      url.searchParams.append(key, String(value));
-    }
-  });
+  url.search = buildQueryParams(query).toString();
 
   const headers = {
     'Content-Type': 'application/json',
