@@ -74,7 +74,7 @@ export const OrderConfirmButton = styled.button`
   padding-left: 24px;
   padding-right: 24px;
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
 
   font-size: 16px;
   font-weight: 700;
