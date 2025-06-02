@@ -24,8 +24,6 @@ describe("useShoppingCart는", () => {
     expect(result.current.cartFetchLoading).toBe(true);
     expect(result.current.cartItemsData).toEqual([]);
     expect(result.current.cartItemsFetchError).toBeUndefined();
-    expect(result.current.isQuantityUpdateLoading).toBe(false);
-    expect(result.current.isDeleteItemLoading).toBe(false);
 
     // 함수들이 정의되어 있는지 확인
     expect(typeof result.current.refetchCartItems).toBe("function");
@@ -101,9 +99,6 @@ describe("useShoppingCart는", () => {
       expect(result.current.cartFetchLoading).toBe(false);
     });
 
-    const initialLoading = result.current.isQuantityUpdateLoading;
-    expect(initialLoading).toBe(false);
-
     // quantity 업데이트 실행
     await act(() =>
       result.current.handleCartItemQuantity({ id: "1", quantity: 2 })
@@ -111,7 +106,6 @@ describe("useShoppingCart는", () => {
 
     // 로딩 상태가 정상적으로 처리되는지 확인
     await waitFor(() => {
-      expect(result.current.isQuantityUpdateLoading).toBe(false);
       const updatedItem = result.current.cartItemsData.find(
         (item) => item.id === "1"
       );
@@ -126,7 +120,6 @@ describe("useShoppingCart는", () => {
       expect(result.current.cartFetchLoading).toBe(false);
     });
     await waitFor(() => {
-      expect(result.current.isQuantityUpdateLoading).toBe(false);
       const updatedItem = result.current.cartItemsData.find(
         (item) => item.id === "2"
       );
@@ -145,8 +138,6 @@ describe("useShoppingCart는", () => {
       expect(result.current.cartFetchLoading).toBe(false);
     });
     const initialCartItemLength = result.current.cartItemsData.length;
-    const initialLoading = result.current.isDeleteItemLoading;
-    expect(initialLoading).toBe(false);
 
     // 아이템 삭제 실행
     await act(async () => {
@@ -155,16 +146,15 @@ describe("useShoppingCart는", () => {
 
     // 로딩 상태가 정상적으로 처리되는지 확인
     await waitFor(() => {
-      expect(result.current.isDeleteItemLoading).toBe(false);
+      const deletedItem = result.current.cartItemsData.find(
+        (item) => item.id === "1"
+      );
+      const existingItems = result.current.cartItemsData.filter(
+        (item) => item.id !== "1"
+      );
+      expect(existingItems.length).toBe(initialCartItemLength - 1);
+      expect(deletedItem).toBeUndefined();
     });
     // 삭제된 아이템이 cartItemsData에서 제거되었는지 확인
-    const deletedItem = result.current.cartItemsData.find(
-      (item) => item.id === "1"
-    );
-    const existingItems = result.current.cartItemsData.filter(
-      (item) => item.id !== "1"
-    );
-    expect(existingItems.length).toBe(initialCartItemLength - 1);
-    expect(deletedItem).toBeUndefined();
   });
 });
