@@ -4,11 +4,11 @@ import Description from "../@common/Description/Description";
 import * as S from "./AllSelector.styles";
 
 const AllSelector = () => {
-  const { allChecked, toggleAllChecked } = useCart();
+  const { isAllChecked, toggleAllChecked } = useCart();
 
   return (
     <S.AllSelector>
-      <Checkbox checked={allChecked} onClick={toggleAllChecked} />
+      <Checkbox checked={isAllChecked} onClick={toggleAllChecked} />
       <Description>전체 선택</Description>
     </S.AllSelector>
   );
