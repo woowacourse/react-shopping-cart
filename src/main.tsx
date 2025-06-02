@@ -4,6 +4,7 @@ import Route from './routes';
 import { Global } from '@emotion/react';
 import globalStyles from './styles/global.styles';
 import './index.css';
+import { ToastProvider } from './context/ToastContext';
 
 async function enableMocking() {
   const { worker } = await import('./mocks/browser');
@@ -21,7 +22,9 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <Global styles={globalStyles} />
-      <Route />
+      <ToastProvider>
+        <Route />
+      </ToastProvider>
     </React.StrictMode>
   );
 });

@@ -4,7 +4,7 @@ import cart from '../apis/cart';
 
 function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
-  const [isError, setIsError] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -17,11 +17,7 @@ function useCartList() {
       const response = await cart.getCartList();
       setCartList(response);
     } catch (error) {
-      if (error instanceof Error) {
-        setIsError(error.message);
-      } else {
-        setIsError('카드 정보를 불어오는 데 문제가 발생했습니다.');
-      }
+      setError('카드 정보를 불어오는 데 문제가 발생했습니다.');
     } finally {
       setIsLoading(false);
     }
@@ -38,11 +34,7 @@ function useCartList() {
         )
       );
     } catch (error) {
-      if (error instanceof Error) {
-        setIsError(error.message);
-      } else {
-        setIsError('상품의 수량을 증가시키는 데 문제가 발생했습니다.');
-      }
+      setError('상품의 수량을 증가시키는 데 문제가 발생했습니다.');
     }
   };
 
@@ -57,11 +49,7 @@ function useCartList() {
         )
       );
     } catch (error) {
-      if (error instanceof Error) {
-        setIsError(error.message);
-      } else {
-        setIsError('상품의 수량을 감소시키는 데 문제가 발생했습니다.');
-      }
+      setError('상품의 수량을 감소시키는 데 문제가 발생했습니다.');
     }
   };
 
@@ -70,17 +58,13 @@ function useCartList() {
       await cart.deleteCartItem(cartItemId);
       setCartList(cartList.filter((item) => item.id !== cartItemId));
     } catch (error) {
-      if (error instanceof Error) {
-        setIsError(error.message);
-      } else {
-        setIsError('상품을 삭제하는 데 문제가 발생했습니다.');
-      }
+      setError('상품을 삭제하는 데 문제가 발생했습니다.');
     }
   };
 
   return {
     cartList,
-    isError,
+    error,
     isLoading,
     increaseCartItem,
     decreaseCartItem,
