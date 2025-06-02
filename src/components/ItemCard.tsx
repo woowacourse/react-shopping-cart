@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { Product } from '../types';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
 import CheckBox from './CheckBox';
 import { useErrorContext } from '../contexts/ToastContext';
+import useCartItemActions from '../hooks/useCartItemActions';
 
 type ItemCardProps = {
   id: number;
@@ -12,25 +12,13 @@ type ItemCardProps = {
 
 const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
   const {
-    increaseCartItemQuantity,
+    isChecked,
+    handleCheckBoxClick,
+    handleClickIncrease,
     handleClickDecrease,
     handleClickDelete,
-    checkedCartIds,
-    addCheckedCartItem,
-    removeCheckedCartItem,
-  } = useCartItemsContext();
+  } = useCartItemActions(id);
   const { showToast } = useErrorContext();
-
-  const isChecked = checkedCartIds.includes(id);
-
-  const handleCheckBoxClick = () => {
-    if (isChecked) {
-      removeCheckedCartItem(id);
-      return;
-    }
-
-    addCheckedCartItem(id);
-  };
 
   return (
     <S.Container data-testid="item-card">
@@ -54,7 +42,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
               <img src="./minus-button.svg" alt="minus-button" />
             </S.StepButton>
             <p>{quantity}</p>
-            <S.StepButton onClick={() => increaseCartItemQuantity(id)}>
+            <S.StepButton onClick={() => handleClickIncrease(id)}>
               <img src="./plus-button.svg" alt="plus-button" />
             </S.StepButton>
           </S.Stepper>
