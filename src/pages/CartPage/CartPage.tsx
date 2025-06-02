@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Description from "../../components/@common/Description/Description";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import { Header } from "../../components/@common/Header/Header.styles";
 import Title from "../../components/@common/Title/Title";
@@ -13,6 +12,7 @@ import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback
 import { CLIENT_BASE_PATH } from "../../apis/config";
 import PriceSummary from "../../components/PriceSummary/PriceSummary";
 import CartContainer from "../../components/CartContainer/CartContainer";
+import InfoMessage from "../../components/InfoMessage/InfoMessage";
 
 const CartPage = () => {
   const { hasCheckedItem, cartItemCount, errorMessage } = useCart();
@@ -38,16 +38,15 @@ const CartPage = () => {
         <Title>장바구니</Title>
         {cartItemCount > 0 ? (
           <S.ContentContainer>
-            <Description>
-              현재 {cartItemCount}종류의 상품이 담겨있습니다.
-            </Description>
+            <InfoMessage
+              message={`현재 ${cartItemCount}종류의 상품이 담겨있습니다.`}
+            />
             <CartContainer />
-            <S.InfoContainer>
-              <img src={InfoIcon} alt="info" />
-              <Description>
-                총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-              </Description>
-            </S.InfoContainer>
+            <InfoMessage
+              message={`총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.`}
+              imageSrc={InfoIcon}
+              imageAlt="info"
+            />
             <PriceSummary />
           </S.ContentContainer>
         ) : (
