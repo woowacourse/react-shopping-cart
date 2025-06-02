@@ -17,8 +17,8 @@ function CartCheckList() {
 
   const isCartEmpty = !cartListData || cartListData.length === 0;
 
-  const isSelectAll = !Object.values(selectionMap).some(
-    (isSelected) => !isSelected
+  const isSelectAll = Object.values(selectionMap).every(
+    (isSelected) => isSelected
   );
   const handleSelectAll = () => {
     setSelectionMap(() => {
