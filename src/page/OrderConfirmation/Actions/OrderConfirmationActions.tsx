@@ -17,7 +17,10 @@ export default function OrderConfirmationActions({
     navigate(PAGE_URL.ORDER_COMPLETE, {
       state: {
         selectedCartItemsLength: selectedCartItems.length,
-        selectedCartItemsCount: selectedCartItems.length,
+        selectedCartItemsCount: selectedCartItems.reduce(
+          (acc, item) => acc + item.quantity,
+          0
+        ),
         finalPrice: selectedCartItems.reduce(
           (acc, item) => acc + item.product.price * item.quantity,
           0

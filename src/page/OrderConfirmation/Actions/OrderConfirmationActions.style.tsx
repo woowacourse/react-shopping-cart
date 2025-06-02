@@ -5,8 +5,11 @@ export const OrderConfirmButton = styled.button`
   max-width: 430px;
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #000000;
   color: #ffffff;
+  z-index: 1000;
 
   height: 64px;
   display: flex;
@@ -17,6 +20,8 @@ export const OrderConfirmButton = styled.button`
 
   font-size: 16px;
   font-weight: 700;
+  border: none;
+  cursor: pointer;
 
   a {
     text-decoration: none;
