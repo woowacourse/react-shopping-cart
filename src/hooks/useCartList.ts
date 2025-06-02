@@ -33,7 +33,7 @@ function useCartList() {
     quantity,
   }: PatchCartItemProps) => {
     try {
-      await cart.increaseCartItem({ cartItemId, quantity });
+      await cart.patchCartItem({ cartItemId, quantity });
 
       setCartList((prev) => {
         return prev.map((item) =>
@@ -57,7 +57,7 @@ function useCartList() {
       if (quantity === 0) {
         await handleDeleteCartItem(cartItemId);
       } else {
-        await cart.decreaseCartItem({ cartItemId, quantity });
+        await cart.patchCartItem({ cartItemId, quantity });
 
         setCartList((prev) => {
           return prev.map((item) =>

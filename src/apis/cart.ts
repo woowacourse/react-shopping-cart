@@ -12,25 +12,11 @@ const cart = {
     return response.content;
   },
 
-  increaseCartItem: async ({ cartItemId, quantity }: PatchCartItemProps) => {
+  patchCartItem: async ({ cartItemId, quantity }: PatchCartItemProps) => {
     await apiRequest({
       url: `/cart-items/${cartItemId}`,
       method: 'PATCH',
-      body: JSON.stringify({
-        id: cartItemId,
-        quantity: quantity,
-      }),
-    });
-  },
-
-  decreaseCartItem: async ({ cartItemId, quantity }: PatchCartItemProps) => {
-    await apiRequest({
-      url: `/cart-items/${cartItemId}`,
-      method: 'PATCH',
-      body: JSON.stringify({
-        id: cartItemId,
-        quantity: quantity,
-      }),
+      body: JSON.stringify({ quantity }),
     });
   },
 
