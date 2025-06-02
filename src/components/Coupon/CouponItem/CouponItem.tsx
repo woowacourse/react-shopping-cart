@@ -8,6 +8,7 @@ interface CouponItemProps {
   onSelect: (couponId: string) => void;
   isSelected: boolean;
   isLimitReached: boolean;
+  isInvalid: boolean | undefined;
 }
 
 function CouponItem({
@@ -15,8 +16,9 @@ function CouponItem({
   onSelect,
   isSelected,
   isLimitReached,
+  isInvalid,
 }: CouponItemProps) {
-  const { code, expirationDate, description } = coupon;
+  const { expirationDate, description } = coupon;
   const startDate = new Date();
   const endDate = new Date();
   let period = "";
@@ -29,16 +31,16 @@ function CouponItem({
   }
 
   return (
-    <Styled.Container disabled={isLimitReached && !isSelected}>
+    <Styled.Container disabled={(isLimitReached && !isSelected) || isInvalid}>
       <Styled.CouponHeaderWrapper>
         <CheckBox
-          id={`select-checkbox-coupon-${code}`}
+          id={`select-checkbox-coupon-${coupon.id}`}
           checked={isSelected}
-          onChange={() => onSelect(code)}
-          label={`${code} 쿠폰 선택`}
+          onChange={() => onSelect(coupon.id)}
+          label={`${coupon.code} 쿠폰 선택`}
           boxSize="medium"
           hidden={true}
-          disabled={isLimitReached && !isSelected}
+          disabled={(isLimitReached && !isSelected) || isInvalid}
         />
         <Styled.CouponDescription>{description}</Styled.CouponDescription>
       </Styled.CouponHeaderWrapper>
