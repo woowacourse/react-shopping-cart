@@ -32,6 +32,16 @@ function Cart() {
   } = useCheckboxHandler(cartItems);
   const navigate = useNavigate();
 
+  const updateCartItem = (cartId: number, newItem: CartItemType) => {
+    setCartItems((prevItems) => {
+      const targetIndex = prevItems.findIndex((item) => item.id === cartId);
+      const newCartItems = [...prevItems];
+      newCartItems[targetIndex] = newItem;
+
+      return newCartItems;
+    });
+  };
+
   const fetchCartItem = useCallback(
     () =>
       fetchData({
@@ -72,7 +82,7 @@ function Cart() {
             />
             <CartItemList
               cartItems={cartItems}
-              setCartItems={setCartItems}
+              updateCartItem={updateCartItem}
               isSelected={isSelected}
               toggleSelect={toggleSelect}
             />

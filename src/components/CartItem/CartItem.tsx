@@ -17,14 +17,14 @@ import {
 
 interface CartItemProps {
   cartItem: CartItemType;
-  handleCartItem: (cartId: number, cartItem: CartItemType) => void;
+  updateCartItem: (cartId: number, cartItem: CartItemType) => void;
   isSelected: boolean;
   toggleSelect: () => void;
 }
 
 function CartItem({
   cartItem,
-  handleCartItem,
+  updateCartItem,
   isSelected,
   toggleSelect,
 }: CartItemProps) {
@@ -33,7 +33,7 @@ function CartItem({
   const handleQuantity = (updateQuantity: (prev: number) => number) => {
     const newQuantity = updateQuantity(quantity);
     const newCartItem = { id: cartId, product, quantity: newQuantity };
-    handleCartItem(cartId, newCartItem);
+    updateCartItem(cartId, newCartItem);
   };
 
   const { decreaseQuantity, increaseQuantity, deleteCartItem } =
