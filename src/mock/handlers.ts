@@ -1,10 +1,10 @@
 import { http, HttpResponse } from "msw";
-import { cartItems, products } from "./data";
+import { cartItems, mockCouponData, products } from "./data";
 import { CartItem } from "../type/CartItem";
 
 export const testStateStore = {
   shouldFailCart: false,
-  customCartError: null as string | null,
+  shouldFailCoupons: false,
   mockCartData: cartItems,
   setCartItems(items: CartItem[]) {
     if (
@@ -23,7 +23,7 @@ export const testStateStore = {
   },
   reset() {
     this.shouldFailCart = false;
-    this.customCartError = null;
+    this.shouldFailCoupons = false;
     this.mockCartData = cartItems;
   },
 };
@@ -41,6 +41,16 @@ const getCartItems = http.get(CART_URL, () => {
     });
   }
 
+  return HttpResponse.json(response);
+});
+const getCoupons = http.get(`${BASE_URL}/coupons`, () => {
+  const response = { content: mockCouponData };
+  if (testStateStore.shouldFailCoupons) {
+    return new HttpResponse(null, {
+      status: 500,
+      statusText: "Coupons fetch Failed",
+    });
+  }
   return HttpResponse.json(response);
 });
 
@@ -122,4 +132,9 @@ const patchCartItems = http.patch(
   }
 );
 
-export const handlers = [getCartItems, deleteCartItems, patchCartItems];
+export const handlers = [
+  getCartItems,
+  deleteCartItems,
+  patchCartItems,
+  getCoupons,
+];
