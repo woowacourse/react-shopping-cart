@@ -37,7 +37,7 @@ function CartContents({
 
   return (
     <S.Container>
-      <CartTitle cartItemsQuantity={cartItems.length} />
+      <CartTitle quantity={cartItems.length} />
       <CartList
         cartItems={cartItems}
         selectedCartItemIds={cartSelection.states.selectedItemIds}
@@ -46,7 +46,7 @@ function CartContents({
         toggleAllSelect={cartSelection.actions.toggleAll}
         refetch={refetch}
       />
-      <CartPrice orderPrice={orderPrice} />
+      <CartPrice value={orderPrice} />
       <FooterButton disabled={disabled} onClick={moveToOrderCheck}>
         주문 확인
       </FooterButton>

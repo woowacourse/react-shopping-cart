@@ -3,15 +3,15 @@ import { CART_RULE } from '../constants/cartRule';
 import * as S from './CartPrice.styles';
 
 interface CartPriceProps {
-  orderPrice: number;
+  value: number;
 }
 
-function CartPrice({ orderPrice }: CartPriceProps) {
+function CartPrice({ value }: CartPriceProps) {
   const deliveryFee =
-    orderPrice >= CART_RULE.FREE_DELIVERY_THRESHOLD
+    value >= CART_RULE.FREE_DELIVERY_THRESHOLD
       ? 0
       : CART_RULE.DEFAULT_DELIVERY_FEE;
-  const totalPrice = orderPrice + deliveryFee;
+  const totalPrice = value + deliveryFee;
   return (
     <S.Container>
       <S.Description>
@@ -25,7 +25,7 @@ function CartPrice({ orderPrice }: CartPriceProps) {
       <S.IndividualPriceBox>
         <S.PriceRow data-testid="price-row">
           <S.PriceLabel>주문 금액</S.PriceLabel>
-          <S.PriceAmount>{orderPrice.toLocaleString()}원</S.PriceAmount>
+          <S.PriceAmount>{value.toLocaleString()}원</S.PriceAmount>
         </S.PriceRow>
         <S.PriceRow data-testid="price-row">
           <S.PriceLabel>배송비</S.PriceLabel>
