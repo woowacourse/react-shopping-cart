@@ -6,22 +6,31 @@ interface MutationDataProps {
   onError: (error: Error | unknown) => void;
 }
 
-const useMutation = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const useMutation = (key: string) => {
+  const [isLoading, setIsLoading] = useState<Map<string, boolean>>(new Map());
+
+  const handleLoading = useCallback(
+    (loadingState: boolean) => {
+      setIsLoading((prev) => {
+        return new Map(prev).set(key, loadingState);
+      });
+    },
+    [key]
+  );
 
   const mutateData = useCallback(
     async ({ apiCall, onSuccess, onError }: MutationDataProps) => {
       try {
-        setIsLoading(true);
+        handleLoading(true);
         await apiCall();
         onSuccess();
       } catch (error) {
         onError(error);
       } finally {
-        setIsLoading(false);
+        handleLoading(false);
       }
     },
-    []
+    [handleLoading]
   );
 
   return {

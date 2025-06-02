@@ -6,21 +6,30 @@ interface FetchDataProps<T> {
   onError: (error: Error | unknown) => void;
 }
 
-const useFetch = <T>() => {
-  const [isLoading, setIsLoading] = useState(false);
+const useFetch = <T>(key: string) => {
+  const [isLoading, setIsLoading] = useState<Map<string, boolean>>(new Map());
+
+  const handleLoading = useCallback(
+    (loadingState: boolean) => {
+      setIsLoading((prev) => {
+        return new Map(prev).set(key, loadingState);
+      });
+    },
+    [key]
+  );
 
   const fetchData = useCallback(
     async ({ apiCall, onSuccess, onError }: FetchDataProps<T>) => {
       try {
-        setIsLoading(true);
+        handleLoading(true);
         onSuccess(await apiCall());
       } catch (error) {
         onError(error);
       } finally {
-        setIsLoading(false);
+        handleLoading(false);
       }
     },
-    []
+    [handleLoading]
   );
 
   return {
