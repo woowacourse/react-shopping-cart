@@ -2,9 +2,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { resetCartItems } from '../src/mocks/handlers';
 import CartPage from '../src/pages/cart/CartPage';
-import OrderConfirmPage from '../src/pages/orderConfirm/OrderConfirmPage';
+import OrderCheckPage from '@/pages/orderCheck/OrderCheckPage';
 
-describe('OrderConfirmPage 테스트', () => {
+describe('OrderCheckPage 테스트', () => {
   beforeEach(() => {
     resetCartItems();
 
@@ -12,7 +12,7 @@ describe('OrderConfirmPage 테스트', () => {
       <MemoryRouter initialEntries={['/']}>
         <Routes>
           <Route path="/" element={<CartPage />} />
-          <Route path="/order-confirmation" element={<OrderConfirmPage />} />
+          <Route path="/order-check" element={<OrderCheckPage />} />
         </Routes>
       </MemoryRouter>
     );
@@ -20,9 +20,9 @@ describe('OrderConfirmPage 테스트', () => {
 
   it('CartTitle이 현재 장바구니에 담겨있는 수량으로 나타난다.', async () => {
     const buttons = await screen.findAllByRole('button');
-    const orderConfirmButton = buttons[buttons.length - 1];
+    const orderCheckButton = buttons[buttons.length - 1];
 
-    fireEvent.click(orderConfirmButton);
+    fireEvent.click(orderCheckButton);
 
     expect(
       screen.getByText((content) =>

@@ -1,12 +1,12 @@
-import { useLocation } from 'react-router';
-import Header from '../../components/common/header/Header';
+import { Header } from '@/components/common';
 import {
   calculateOrderPrice,
   calculateTotalProductQuantity,
-} from '../../components/features/cart/utils/cartCalculations';
-import OrderConfirmContents from './components/orderConfirmContents/OrderConfirmContents';
+} from '@/components/features/cart/utils/cartCalculations';
+import { useLocation } from 'react-router';
+import OrderCheckContents from './components/orderCheckContents/OrderCheckContents';
 
-function OrderConfirmPage() {
+function OrderCheckPage() {
   const location = useLocation();
   const orderProducts = location.state.orderProducts;
 
@@ -17,7 +17,7 @@ function OrderConfirmPage() {
   return (
     <>
       <Header showBackButton={true} />
-      <OrderConfirmContents
+      <OrderCheckContents
         orderItemsQuantity={orderItemsQuantity}
         totalProductQuantity={totalProductQuantity}
         orderPrice={orderPrice}
@@ -26,4 +26,4 @@ function OrderConfirmPage() {
   );
 }
 
-export default OrderConfirmPage;
+export default OrderCheckPage;

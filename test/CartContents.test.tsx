@@ -1,3 +1,4 @@
+import CartPage from '@/pages/cart/CartPage';
 import {
   fireEvent,
   render,
@@ -6,7 +7,6 @@ import {
   within,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
-import CartContents from '../src/components/features/cart/cartContents/CartContents';
 import { resetCartItems } from '../src/mocks/handlers';
 
 describe('CartContents 테스트', () => {
@@ -15,7 +15,7 @@ describe('CartContents 테스트', () => {
 
     render(
       <BrowserRouter>
-        <CartContents />
+        <CartPage />
       </BrowserRouter>
     );
   });
@@ -128,8 +128,8 @@ describe('CartContents 테스트', () => {
 
     fireEvent.click(allSelectButton);
 
-    const orderConfirmButton = buttons[buttons.length - 1];
+    const orderCheckButton = buttons[buttons.length - 1];
 
-    expect(orderConfirmButton).toBeDisabled();
+    expect(orderCheckButton).toBeDisabled();
   });
 });

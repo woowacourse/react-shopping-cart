@@ -25,8 +25,8 @@ function CartContents({
 
   const disabled = !cartSelection.states.isSomeItemSelected;
 
-  const onOrderConfirm = () => {
-    navigate('/order-confirmation', {
+  const moveToOrderCheck = () => {
+    navigate('/order-check', {
       state: { orderProducts: selectCartItems },
     });
   };
@@ -47,7 +47,7 @@ function CartContents({
         refetch={refetch}
       />
       <CartPrice orderPrice={orderPrice} />
-      <FooterButton disabled={disabled} onClick={onOrderConfirm}>
+      <FooterButton disabled={disabled} onClick={moveToOrderCheck}>
         주문 확인
       </FooterButton>
       <ErrorToastMessage />

@@ -1,17 +1,17 @@
-import FooterButton from '../../../../components/common/footerButton/FooterButton';
-import * as S from './OrderConfirmContents.styles';
+import { FooterButton } from '@/components/common';
+import * as S from './OrderCheckContents.styles';
 
-interface OrderConfirmContentsProps {
+interface OrderCheckContentsProps {
   orderItemsQuantity: number;
   totalProductQuantity: number;
   orderPrice: number;
 }
 
-function OrderConfirmContents({
+function OrderCheckContents({
   orderItemsQuantity,
   totalProductQuantity,
   orderPrice,
-}: OrderConfirmContentsProps) {
+}: OrderCheckContentsProps) {
   return (
     <S.Container>
       <S.InfoBox>
@@ -34,4 +34,4 @@ function OrderConfirmContents({
   );
 }
 
-export default OrderConfirmContents;
+export default OrderCheckContents;
