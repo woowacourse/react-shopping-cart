@@ -1,4 +1,4 @@
-import { PAGE_URL } from "../constants/PageUrl";
+import { PAGE_URL } from "../../constants/PageUrl.ts";
 import { useNavigate } from "react-router";
 import * as Styled from "./ErrorPage.style.tsx";
 
