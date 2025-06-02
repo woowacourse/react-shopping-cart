@@ -3,6 +3,8 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 import { resetCartItems } from '../src/mocks/handlers';
 import CartPage from '../src/pages/cart/CartPage';
 import OrderConfirmPage from '../src/pages/orderConfirm/OrderConfirmPage';
+import { CartProvider } from '../src/components/features/cart/contexts/CartContext';
+import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
 
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(() => {
@@ -10,10 +12,17 @@ describe('OrderConfirmPage 테스트', () => {
 
     render(
       <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<CartPage />} />
-          <Route path="/order-confirmation" element={<OrderConfirmPage />} />
-        </Routes>
+        <CartProvider>
+          <CartSelectionProvider>
+            <Routes>
+              <Route path="/" element={<CartPage />} />
+              <Route
+                path="/order-confirmation"
+                element={<OrderConfirmPage />}
+              />
+            </Routes>
+          </CartSelectionProvider>
+        </CartProvider>
       </MemoryRouter>
     );
   });
@@ -25,7 +34,7 @@ describe('OrderConfirmPage 테스트', () => {
     fireEvent.click(orderConfirmButton);
 
     expect(
-      screen.getByText((content) =>
+      await screen.findByText((content) =>
         content.includes('총 4종류의 상품 5개를 주문합니다.')
       )
     ).toBeInTheDocument();

@@ -8,6 +8,8 @@ import {
 import { BrowserRouter } from 'react-router';
 import CartContents from '../src/components/features/cart/cartContents/CartContents';
 import { resetCartItems } from '../src/mocks/handlers';
+import { CartProvider } from '../src/components/features/cart/contexts/CartContext';
+import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
 
 describe('CartContents 테스트', () => {
   beforeEach(() => {
@@ -15,7 +17,11 @@ describe('CartContents 테스트', () => {
 
     render(
       <BrowserRouter>
-        <CartContents />
+        <CartProvider>
+          <CartSelectionProvider>
+            <CartContents />
+          </CartSelectionProvider>
+        </CartProvider>
       </BrowserRouter>
     );
   });
