@@ -44,24 +44,46 @@ describe("CartItemCardList 컴포넌트", () => {
 
   it("전체선택 버튼을 클릭하면 handleSelectedItem이 호출된다", () => {
     const mockHandleSelectedItem = vi.fn();
+    const mockSetCartItems = vi.fn();
+    const mockSelectedItem = new Set([1, 2]);
+
+    const mockedUseCartItemContext = vi.mocked(useCartItemContext);
+    mockedUseCartItemContext.mockReturnValue({
+      cartItems: mockCartItems,
+      setCartItems: mockSetCartItems,
+      selectedItem: mockSelectedItem,
+      handleSelectedItem: mockHandleSelectedItem,
+      isLoading: false,
+      fetchError: "",
+    });
+
+    render(<CartItemCardList />);
+
+    vi.clearAllMocks();
+
+    fireEvent.click(screen.getByTestId("all-select-toggle"));
+
+    expect(mockHandleSelectedItem).toHaveBeenCalledTimes(1);
+    expect(mockHandleSelectedItem).toHaveBeenCalledWith(new Set());
+  });
+
+  it("아무것도 선택되지 않은 상태에서 전체선택 버튼을 클릭하면 모든 아이템이 선택된다", () => {
+    const mockHandleSelectedItem = vi.fn();
+    const mockSetCartItems = vi.fn();
     const mockSelectedItem = new Set();
 
     const mockedUseCartItemContext = vi.mocked(useCartItemContext);
     mockedUseCartItemContext.mockReturnValue({
-      cartItems: [],
-      isLoading: false,
-      errorMessage: "",
-      fetchCartItems: vi.fn(),
-      deleteCartItem: vi.fn(),
-      updateCartItem: vi.fn(),
-      orderPrice: 0,
-      shippingFee: 0,
-      totalPrice: 0,
+      cartItems: mockCartItems,
+      setCartItems: mockSetCartItems,
       selectedItem: mockSelectedItem,
       handleSelectedItem: mockHandleSelectedItem,
+      isLoading: false,
+      fetchError: "",
     });
 
-    render(<CartItemCardList cartItems={mockCartItems} />);
+    render(<CartItemCardList />);
+
     vi.clearAllMocks();
 
     fireEvent.click(screen.getByTestId("all-select-toggle"));
@@ -71,19 +93,17 @@ describe("CartItemCardList 컴포넌트", () => {
   });
 
   it("주문금액이 10만원 미만이면 배송비는 3000원이여야 한다.", () => {
+    const mockHandleSelectedItem = vi.fn();
+    const mockSetCartItems = vi.fn();
+
     const mockedUseCartItemContext = vi.mocked(useCartItemContext);
     mockedUseCartItemContext.mockReturnValue({
       cartItems: mockCartItems,
-      isLoading: false,
-      errorMessage: "",
-      fetchCartItems: vi.fn(),
-      deleteCartItem: vi.fn(),
-      updateCartItem: vi.fn(),
-      orderPrice: 6000,
-      shippingFee: 3000,
-      totalPrice: 9000,
+      setCartItems: mockSetCartItems,
       selectedItem: new Set([1, 2]),
-      handleSelectedItem: vi.fn(),
+      handleSelectedItem: mockHandleSelectedItem,
+      isLoading: false,
+      fetchError: "",
     });
 
     render(
@@ -91,7 +111,7 @@ describe("CartItemCardList 컴포넌트", () => {
         <CartItemPage />
       </MemoryRouter>
     );
-    fireEvent.click(screen.getByTestId("all-select-toggle"));
+
     expect(screen.getByTestId("shipping-fee").textContent).toBe("3,000원");
   });
 });

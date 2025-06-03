@@ -1,10 +1,13 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import App from "../src/App";
 import OrderConfirmPage from "../src/pages/OrderConfirmPage";
 import { CartItemProvider } from "../src/contexts/CartItemProvider";
 import { createMemoryRouter, RouterProvider } from "react-router";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import cartItemsApi from "../src/apis/cartItems";
+
+vi.mock("../src/apis/cartItems");
 
 const routes = [
   {
@@ -18,7 +21,12 @@ const routes = [
 ];
 
 describe("라우팅 테스트", () => {
-  it("라우팅 테스트 - '/'로 진입하면 장바구니가 보임", () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+    (cartItemsApi.get as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+  });
+
+  it("라우팅 테스트 - '/'로 진입하면 장바구니가 보임", async () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/"],
     });
@@ -29,6 +37,8 @@ describe("라우팅 테스트", () => {
       </CartItemProvider>
     );
 
-    expect(screen.getByText("장바구니")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("장바구니")).toBeInTheDocument();
+    });
   });
 });
