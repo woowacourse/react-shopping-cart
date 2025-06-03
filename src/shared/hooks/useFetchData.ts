@@ -4,7 +4,8 @@ import { isError } from '../utils/isError';
 
 type DataState<T> = {
   data: T | null;
-  isLoading: boolean;
+  isInitialLoading: boolean;
+  isFetching: boolean;
   error: Error | null;
 };
 
@@ -15,15 +16,21 @@ type UseFetchDataOptions<T> = {
 export const useFetchData = <T>(options?: UseFetchDataOptions<T>) => {
   const [data, setData] = useState<DataState<T>>({
     data: null,
-    isLoading: false,
+    isInitialLoading: true,
+    isFetching: false,
     error: null,
   });
 
   const fetch = useCallback(async (apiCall: () => Promise<T>) => {
-    setData((prev) => ({ ...prev, isLoading: true, error: null }));
+    setData((prev) => ({
+      ...prev,
+      isInitialLoading: prev.data === null,
+      isFetching: true,
+      error: null,
+    }));
     try {
       const result = await apiCall();
-      setData({ data: result, isLoading: false, error: null });
+      setData({ data: result, isInitialLoading: false, isFetching: false, error: null });
     } catch (e) {
       if (isError(e)) {
         setData((prev) => ({ ...prev, error: e }));
