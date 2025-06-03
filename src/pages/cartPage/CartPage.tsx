@@ -41,14 +41,20 @@ const CartPage = () => {
   const { openToast } = useToast();
 
   useEffect(() => {
-    tryApiCall(
-      async () => {
+    const fetchCartData = async () => {
+      const { error } = await tryApiCall(async () => {
         const cartData = await getCart();
         initCartData(cartData);
-      },
-      openToast,
-      '장바구니 데이터를 불러왔습니다.'
-    );
+      });
+
+      if (error) {
+        openToast(error, false);
+      } else {
+        openToast('장바구니 데이터를 불러왔습니다.', true);
+      }
+    };
+
+    fetchCartData();
     initIsCheckedArray(cartData);
   }, []);
 

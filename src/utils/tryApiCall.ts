@@ -1,17 +1,12 @@
-const tryApiCall = async <T>(
-  apiCall: () => Promise<T>,
-  openToast: (message: string, isSuccess: boolean) => void,
-  successMessage: string
-) => {
+const tryApiCall = async <T>(apiCall: () => Promise<T>) => {
   try {
     const data = await apiCall();
-    openToast(successMessage, true);
-    return data;
+    return { data, error: null };
   } catch (error) {
-    if (error instanceof Error) {
-      openToast(error.message, false);
-    }
-    return undefined;
+    return {
+      data: undefined,
+      error: error instanceof Error && error.message,
+    };
   }
 };
 

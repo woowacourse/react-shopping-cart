@@ -26,27 +26,31 @@ const useCartData = () => {
   };
 
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
-    tryApiCall(
-      async () => {
-        await modifyCartItem(cartItemId, quantity);
-        const cartData = await getCart();
-        setCartData(cartData);
-      },
-      openToast,
-      '장바구니 수량을 변경했습니다.'
-    );
+    const { error } = await tryApiCall(async () => {
+      await modifyCartItem(cartItemId, quantity);
+      const cartData = await getCart();
+      setCartData(cartData);
+    });
+
+    if (error) {
+      openToast(error, false);
+    } else {
+      openToast('장바구니 수량을 변경했습니다.', true);
+    }
   };
 
   const removeCartItem = async (cartItemId: number) => {
-    tryApiCall(
-      async () => {
-        await deleteCartItem(cartItemId);
-        const cartData = await getCart();
-        setCartData(cartData);
-      },
-      openToast,
-      '장바구니 상품을 삭제했습니다.'
-    );
+    const { error } = await tryApiCall(async () => {
+      await deleteCartItem(cartItemId);
+      const cartData = await getCart();
+      setCartData(cartData);
+    });
+
+    if (error) {
+      openToast(error, false);
+    } else {
+      openToast('장바구니 상품을 삭제했습니다.', true);
+    }
   };
 
   const initCartData = (updateData: CartItemType[]) => {
