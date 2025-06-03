@@ -1,8 +1,10 @@
-import { createContext, PropsWithChildren, useRef, useState } from 'react';
+import { createContext, PropsWithChildren, useMemo, useRef, useState } from 'react';
 
 import { Toast } from '../components/Toast/Toast';
 
-export const ToastContext = createContext({ showToast(_message: string, _duration: number = 3000) {} });
+export const ToastContext = createContext({
+  showToast(_message: string, _duration: number = 3000) {},
+});
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
   const [toast, setToast] = useState('');
@@ -21,10 +23,12 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
     }, duration);
   };
 
+  const contextValue = useMemo(() => ({ showToast }), [showToast]);
+
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext.Provider value={contextValue}>
       {children}
-      {toast && <Toast children={toast} />}
+      {toast && <Toast>{toast}</Toast>}
     </ToastContext.Provider>
   );
 };
