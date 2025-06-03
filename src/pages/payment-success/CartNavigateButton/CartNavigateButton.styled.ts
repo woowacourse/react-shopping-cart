@@ -12,4 +12,7 @@ export const CartNavigateButton = styled(Link)`
   color: #fff;
   font-size: 16px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
