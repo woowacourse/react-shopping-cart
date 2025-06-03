@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../components/layout/Header/Header';
 import Main from '../../components/layout/Main/Main';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
@@ -9,9 +9,16 @@ import {
   titleText,
   totalPriceBox,
 } from './OrderConfirm.style';
+import Button from '../../components/Button/Button';
+import { css } from '@emotion/react';
 
 export function OrderConfirm() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate('/');
+  };
 
   return (
     <PageLayout>
@@ -20,17 +27,33 @@ export function OrderConfirm() {
       </Header>
       <Main>
         <div css={confirmLayout}>
-          <p css={titleText}>주문확인</p>
-          <p css={bodyText}>
-            총 {state.selectedCartType}종류의 상품 {state.selectedCartItem}개를
-            주문합니다. 최종 결제 금액을 확인해 주세요.
-          </p>
-          <div css={totalPriceBox}>
-            <p css={subtitleText}>총 결제금액</p>
-            <p css={titleText}>
-              {Number(state.totalPrice).toLocaleString('ko')}원
-            </p>
-          </div>
+          {state ? (
+            <>
+              <p css={titleText}>주문확인</p>
+              <p css={bodyText}>
+                총 {state.selectedCartType}종류의 상품 {state.selectedCartItem}
+                개를 주문합니다. 최종 결제 금액을 확인해 주세요.
+              </p>
+              <div css={totalPriceBox}>
+                <p css={subtitleText}>총 결제금액</p>
+                <p css={titleText}>
+                  {Number(state.totalPrice).toLocaleString('ko')}원
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <p>잘못된 접근입니다.</p>
+              <Button
+                onClick={handleBackClick}
+                customCss={css`
+                  padding: 10px;
+                `}
+              >
+                장바구니 페이지로 돌아가기
+              </Button>
+            </>
+          )}
         </div>
       </Main>
     </PageLayout>
