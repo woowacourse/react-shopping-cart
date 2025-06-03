@@ -3,10 +3,7 @@ import Stepper from './Stepper';
 import { RemoveButton } from './RemoveButton';
 import CheckBox from '../common/CheckBox';
 import { CartItemType } from '../../types/cartItem';
-import patchCartItem from '../../api/patchCartItem';
-import { useApiContext } from '../../contexts/ApiContext';
-import getCartItems from '../../api/getCartItem';
-import { deleteCartItem } from '../../api/deleteCartItem';
+import { useCartActions } from '../../hooks/useCartActions';
 
 interface CartItemProps {
   item: CartItemType;
@@ -19,22 +16,19 @@ export default function CartItem({ item, handleCheckBoxChange, checked, handleDe
   const { id: cartItemId, product, quantity: cartQuantity } = item;
   const { name, price, imageUrl } = product;
 
-  const { fetcher: refetchCart } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });
+  const { updateQuantity, removeItem } = useCartActions();
 
   const handleMinus = async () => {
-    await patchCartItem(cartItemId, cartQuantity - 1);
-    await refetchCart();
+    updateQuantity.mutate({ cartItemId, newQuantity: cartQuantity - 1 });
   };
 
   const handlePlus = async () => {
-    await patchCartItem(cartItemId, cartQuantity + 1);
-    await refetchCart();
+    updateQuantity.mutate({ cartItemId, newQuantity: cartQuantity + 1 });
   };
 
   const handleDeleteCartItem = async () => {
-    await deleteCartItem(cartItemId);
+    removeItem.mutate({ cartItemId });
     handleDeleteCart();
-    await refetchCart();
   };
 
   return (
