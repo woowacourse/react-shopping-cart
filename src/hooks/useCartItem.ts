@@ -5,6 +5,7 @@ import { CartItemApi, ProductApi } from "@/apis";
 import { PostCartItemsParams } from "@/apis/CartItemApi";
 import { useMutation, useQuery } from "@/modules";
 import { GetCartItemsResponse } from "@/types";
+import { getQueryData, setQueryData } from "@/modules/Query";
 
 export default function useCartItem() {
   const { data: products, status: productsStatus } = useQuery({
@@ -47,8 +48,8 @@ export default function useCartItem() {
           quantity: cartItem.quantity + 1,
         },
         {
-          onMutate: (queryClient) => {
-            const prevCartItems = queryClient.getQueryData("cartItems") as GetCartItemsResponse;
+          onMutate: () => {
+            const prevCartItems = getQueryData("cartItems") as GetCartItemsResponse;
 
             const currentCartItemIndex = prevCartItems.content.findIndex((item) => item.product.id === productId);
 
@@ -58,7 +59,7 @@ export default function useCartItem() {
               quantity: cartItem.quantity + 1,
             };
 
-            queryClient.setQueryData("cartItems", {
+            setQueryData("cartItems", {
               ...prevCartItems,
               content: newCartContent,
             });
@@ -77,12 +78,12 @@ export default function useCartItem() {
       await mutateDeleteCartItem(
         { cartItemId: cartItem.id },
         {
-          onMutate: (queryClient) => {
-            const prevCartItems = queryClient.getQueryData("cartItems") as GetCartItemsResponse;
+          onMutate: () => {
+            const prevCartItems = getQueryData("cartItems") as GetCartItemsResponse;
 
             const newCartContent = [...prevCartItems.content];
 
-            queryClient.setQueryData("cartItems", {
+            setQueryData("cartItems", {
               ...prevCartItems,
               content: newCartContent.filter((item) => item.product.id !== productId),
             });
@@ -96,8 +97,8 @@ export default function useCartItem() {
           quantity: cartItem.quantity - 1,
         },
         {
-          onMutate: (queryClient) => {
-            const prevCartItems = queryClient.getQueryData("cartItems") as GetCartItemsResponse;
+          onMutate: () => {
+            const prevCartItems = getQueryData("cartItems") as GetCartItemsResponse;
 
             const currentCartItemIndex = prevCartItems.content.findIndex((item) => item.product.id === productId);
 
@@ -107,7 +108,7 @@ export default function useCartItem() {
               quantity: cartItem.quantity - 1,
             };
 
-            queryClient.setQueryData("cartItems", {
+            setQueryData("cartItems", {
               ...prevCartItems,
               content: newCartContent,
             });
@@ -121,12 +122,12 @@ export default function useCartItem() {
     await mutateDeleteCartItem(
       { cartItemId },
       {
-        onMutate: (queryClient) => {
-          const prevCartItems = queryClient.getQueryData("cartItems") as GetCartItemsResponse;
+        onMutate: () => {
+          const prevCartItems = getQueryData("cartItems") as GetCartItemsResponse;
 
           const newCartContent = [...(prevCartItems?.content ?? [])];
 
-          queryClient.setQueryData("cartItems", {
+          setQueryData("cartItems", {
             ...prevCartItems,
             content: newCartContent.filter((item) => item.id !== cartItemId),
           });

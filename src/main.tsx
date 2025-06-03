@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import "./reset.css";
+import "./styles/main.css";
 
 async function enableMocking() {
   const { worker } = await import("./mocks/browser");

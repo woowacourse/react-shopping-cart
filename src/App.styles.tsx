@@ -8,7 +8,7 @@ export const AppWrapper = styled.div`
   width: 432px;
   height: 100vh;
   box-sizing: border-box;
-  background-color: #f0f0f0;
+  background-color: white;
   font-family: "Noto Sans", sans-serif;
   color: #000000;
   margin: 0 auto;
