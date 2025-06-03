@@ -4,8 +4,11 @@ import { CartProvider } from '../src/shared/context/CartProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
-import CartPageWithEmptySelectedItems from './CartPageWithEmptySelectedItems';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../src/features/constants/orderPriceSummary';
+import { server } from '../src/mocks/server';
+import { http, HttpResponse } from 'msw';
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function renderCartPage() {
   return render(
@@ -17,25 +20,22 @@ function renderCartPage() {
   );
 }
 
-function renderCartPageWithEmptySelectedItems() {
-  return render(
-    <MemoryRouter initialEntries={['/']}>
-      <CartProvider>
-        <CartPageWithEmptySelectedItems />
-      </CartProvider>
-    </MemoryRouter>
-  );
-}
+describe('빈 장바구니 테스트', () => {
+  it('장바구니에 상품이 없으면 EmptyCartItemUI가 보인다', async () => {
+    server.use(
+      http.get(`${BASE_URL}/cart-items*`, () => {
+        return HttpResponse.json({ content: [] });
+      })
+    );
 
-describe('빈 장바구니 테스트', async () => {
-  it('장바구니에 상품이 하나도 없을 때 EmptyCartItemUI가 잘 보이는지', async () => {
-    renderCartPageWithEmptySelectedItems();
+    renderCartPage();
+
     const emptyMessage = await screen.findByText('장바구니에 담은 상품이 없습니다.');
     expect(emptyMessage).toBeInTheDocument();
   });
 });
 
-describe('RTL Test', () => {
+describe('장바구니에 상품이 1개 이상일 때의 Vitest + RTL 테스트', () => {
   beforeEach(() => {
     renderCartPage();
   });
