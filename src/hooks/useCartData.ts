@@ -28,19 +28,10 @@ const useCartData = () => {
     }
   };
 
-  const updateCartItem = async (cartId: number) => {
-    const cartItem = getCartItemById(cartData, cartId);
-    if (!cartItem) {
-      return;
-    }
-    if (cartItem.quantity === 1) {
-      await removeCartItem(cartItem.id);
-      return;
-    }
-    await increaseCartItem(cartItem.id, cartItem.quantity - 1);
-  };
-
-  const increaseCartItem = async (cartItemId: number, quantity: number) => {
+  const updateCartItemQuantity = async (
+    cartItemId: number,
+    quantity: number
+  ) => {
     const { error } = await tryApiCall(async () => {
       await modifyCartItem(cartItemId, quantity);
       await fetchCartData();
@@ -51,6 +42,26 @@ const useCartData = () => {
     } else {
       openToast('장바구니 수량을 변경했습니다.', true);
     }
+  };
+
+  const decreaseCartItemQuantity = async (cartId: number) => {
+    const cartItem = getCartItemById(cartData, cartId);
+    if (!cartItem) {
+      return;
+    }
+    if (cartItem.quantity === 1) {
+      await removeCartItem(cartItem.id);
+      return;
+    }
+    await updateCartItemQuantity(cartItem.id, cartItem.quantity - 1);
+  };
+
+  const increaseCartItemQuantity = async (cartId: number) => {
+    const cartItem = getCartItemById(cartData, cartId);
+    if (!cartItem) {
+      return;
+    }
+    await updateCartItemQuantity(cartItem.id, cartItem.quantity + 1);
   };
 
   const removeCartItem = async (cartItemId: number) => {
@@ -72,11 +83,14 @@ const useCartData = () => {
 
   return {
     cartData,
-    updateCartItem,
-    increaseCartItem,
+    updateCartItem: decreaseCartItemQuantity,
+    increaseCartItem: updateCartItemQuantity,
     removeCartItem,
     initCartData,
     fetchCartData,
+    updateCartItemQuantity,
+    decreaseCartItemQuantity,
+    increaseCartItemQuantity,
   };
 };
 
