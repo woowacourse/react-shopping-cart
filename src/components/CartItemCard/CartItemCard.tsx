@@ -1,10 +1,10 @@
 import { css } from "@emotion/css";
 import TextButton from "../@common/Button/TextButton/TextButton";
-import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import QuantityStepper from "../QuantityStepper/QuantityStepper";
 import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
 import { useUpdateCartItem } from "../../hooks/useUpdateCartItem";
+import CartItemCheckbox from "../CartItemCheckbox/CartItemCheckbox";
 
 interface CartItemCardProps {
   cartItemId: number;
@@ -13,7 +13,7 @@ interface CartItemCardProps {
   price: number;
   quantity: number;
   isSelected: boolean;
-  handleToggle: (cartItemId: number) => void;
+  toggleCartItemChecked: (cartItemId: number) => void;
 }
 
 const CartItemCard = ({
@@ -23,7 +23,7 @@ const CartItemCard = ({
   price,
   quantity,
   isSelected,
-  handleToggle,
+  toggleCartItemChecked,
 }: CartItemCardProps) => {
   const { deleteCartItem } = useDeleteCartItem();
   const { updateCartItem } = useUpdateCartItem();
@@ -33,9 +33,9 @@ const CartItemCard = ({
       <div className={CartItemStyled}>
         <hr className={Divider} />
         <div className={CartItemTop}>
-          <ToggleButton
+          <CartItemCheckbox
             isSelected={isSelected}
-            onClick={() => handleToggle(cartItemId)}
+            onClick={() => toggleCartItemChecked(cartItemId)}
             testId="item-toggle"
           />
           <TextButton

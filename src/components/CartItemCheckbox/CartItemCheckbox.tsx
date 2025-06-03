@@ -1,16 +1,20 @@
 import { css } from "@emotion/css";
 
-interface ToggleButtonProps {
+interface CartItemCheckboxProps {
   isSelected: boolean;
   onClick?: () => void;
   testId?: string;
 }
 
-const ToggleButton = ({ isSelected, onClick, testId }: ToggleButtonProps) => {
+const CartItemCheckbox = ({
+  isSelected,
+  onClick,
+  testId,
+}: CartItemCheckboxProps) => {
   return (
     <button
       onClick={onClick}
-      className={ToggleButtonStyle(isSelected)}
+      className={CartItemCheckboxStyle(isSelected)}
       data-testid={testId}
     >
       <img src={isSelected ? "./checked-icon.svg" : "./unchecked-icon.svg"} />
@@ -18,9 +22,9 @@ const ToggleButton = ({ isSelected, onClick, testId }: ToggleButtonProps) => {
   );
 };
 
-export default ToggleButton;
+export default CartItemCheckbox;
 
-const ToggleButtonStyle = (isSelected: boolean) => css`
+const CartItemCheckboxStyle = (isSelected: boolean) => css`
   width: 24px;
   height: 24px;
   background-color: ${isSelected ? "#000000" : "#ffffff"};

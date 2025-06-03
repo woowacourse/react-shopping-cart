@@ -1,10 +1,10 @@
 import { css } from "@emotion/css";
-import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import CartItemCard from "../CartItemCard/CartItemCard";
 import { CartItem } from "../../types/type";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
 import { useEffect } from "react";
+import CartItemCheckbox from "../CartItemCheckbox/CartItemCheckbox";
 
 interface CartItemCardListProps {
   cartItems: CartItem[];
@@ -13,7 +13,7 @@ interface CartItemCardListProps {
 const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   const { selectedItem, handleSelectedItem } = useCartItemContext();
 
-  const handleToggle = (cartItemId: number) => {
+  const toggleCartItemChecked = (cartItemId: number) => {
     const newSet = new Set(selectedItem);
     if (newSet.has(cartItemId)) newSet.delete(cartItemId);
     else newSet.add(cartItemId);
@@ -43,7 +43,7 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   return (
     <>
       <div className={AllSelectContainer}>
-        <ToggleButton
+        <CartItemCheckbox
           isSelected={allSelected}
           onClick={handleAllSelected}
           testId="all-select-toggle"
@@ -59,7 +59,7 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
           price={item.product.price}
           quantity={item.quantity}
           isSelected={isSelectedItem(item.id)}
-          handleToggle={handleToggle}
+          toggleCartItemChecked={toggleCartItemChecked}
         />
       ))}
     </>
