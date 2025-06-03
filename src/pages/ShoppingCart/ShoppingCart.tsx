@@ -9,31 +9,28 @@ import Main from '../../components/layout/Main/Main';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
 import Toast from '../../components/Toast/Toast';
-import { getTotalPrice } from '../../utils/getTotalPrice';
 import { subTitleStyle, titleBox, titleStyle } from './ShoppingCart.style';
 import { Footer } from '../../components/layout/Footer/Footer';
 import useFetchCartItems from '../../hooks/useFetchCartItems';
+import { getCartItemSummary } from '../../utils/getCartItemSummary';
 
 export function ShoppingCart() {
+  const navigate = useNavigate();
+
   const { cartItems, error, isLoading, getCartItemData, setError } =
     useFetchCartItems();
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
-  const navigate = useNavigate();
-  const totalPrice = getTotalPrice({ cartItems, selectedCartIds });
-
-  const calculateCartItemQuantity = () => {
-    return cartItems.reduce((a, b) => {
-      if (selectedCartIds.includes(b.id.toString())) return a + b.quantity;
-      return a;
-    }, 0);
-  };
+  const { totalPrice, totalQuantity } = getCartItemSummary(
+    cartItems,
+    selectedCartIds
+  );
 
   const handleConfirm = () => {
     navigate('/confirm', {
       state: {
         selectedItemGroupCount: selectedCartIds.length,
-        selectedCartItem: calculateCartItemQuantity(),
+        selectedCartItem: totalQuantity,
         totalPrice,
       },
     });
