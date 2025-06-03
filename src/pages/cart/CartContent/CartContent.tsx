@@ -7,6 +7,8 @@ import { useCartItem } from '../hooks/useCartItem';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/shared/config/routes';
 import { calculatePaymentAmount } from '@/shared/utils/orderPricing';
+import LoadingContainer from '@/shared/components/LoadingContainer/LoadingContainer';
+import ErrorContainer from '@/shared/components/ErrorContainer/ErrorContainer';
 
 export default function CartContent() {
   const {
@@ -24,11 +26,11 @@ export default function CartContent() {
   const navigate = useNavigate();
 
   if (isLoading && !cartItems?.length) {
-    return <div>로딩중</div>;
+    return <LoadingContainer />;
   }
 
   if (errorMessage) {
-    return <div>에러남</div>;
+    return <ErrorContainer errorMessage={errorMessage} />;
   }
 
   if (!cartItems?.length) {
