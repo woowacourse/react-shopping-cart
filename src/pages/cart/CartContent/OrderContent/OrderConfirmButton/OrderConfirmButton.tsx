@@ -15,7 +15,7 @@ export default function OrderConfirmButton({
 }: OrderConfirmButton) {
   const navigate = useNavigate();
   const handleOrderConfirmButtonClick = () => {
-    navigate(ROUTES.PAYMENT_SUCCESS, {
+    navigate(ROUTES.ORDER_CONFIRM, {
       state: {
         orderList,
         paymentPrice: orderTotalPrice + getDeliveryPrice(orderTotalPrice),
