@@ -43,7 +43,7 @@ export default function ShoppingCartPage() {
   }, 0);
 
   const handleOrderCompleteClick = () => {
-    navigate(PATH.orderCompleted, {
+    navigate(PATH.orderConfirm, {
       state: {
         kind: selectedItemIds.length,
         quantity: totalQuantity,
@@ -114,15 +114,15 @@ export default function ShoppingCartPage() {
 
             <hr />
             <S.ReceiptTextWrapper>
-              <Text variant="title-2">주문 금액</Text>
+              <Text variant="title-3">주문 금액</Text>
               <Text variant="title-1">{orderPrice.toLocaleString()}원</Text>
             </S.ReceiptTextWrapper>
             <S.ReceiptTextWrapper>
-              <Text variant="title-2">배송비</Text>
+              <Text variant="title-3">배송비</Text>
               <Text variant="title-1">{deliveryFee.toLocaleString()}원</Text>
             </S.ReceiptTextWrapper>
             <S.ReceiptTextWrapper>
-              <Text variant="title-2">총 결제 금액</Text>
+              <Text variant="title-3">총 결제 금액</Text>
               <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
             </S.ReceiptTextWrapper>
           </>

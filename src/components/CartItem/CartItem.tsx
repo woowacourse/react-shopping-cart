@@ -3,6 +3,7 @@ import { useCartItem } from "@/hooks";
 import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
 import * as S from "./CartItem.styles";
+import Card from "../Card/Card";
 
 interface CartItemProps {
   cartItem: GetCartItemsResponse["content"][number];
@@ -53,28 +54,19 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
           삭제
         </Button>
       </S.ButtonWrapper>
-      <S.CartItemWrapper>
-        <S.CartItemImageWrapper>
-          <S.CartItemImage
-            src={imageUrl}
-            alt={name}
-            onError={(e) => {
-              const target = e.currentTarget;
-              target.onerror = null;
-              target.src = "images/default-img.png";
-            }}
-          />
-        </S.CartItemImageWrapper>
-        <S.CartItemInfoWrapper>
-          <S.CartItemName>{name}</S.CartItemName>
-          <S.CartItemPrice>{price.toLocaleString()}원</S.CartItemPrice>
+
+      <Card>
+        <Card.Image src={imageUrl} alt={name} />
+        <Card.Info>
+          <Card.Name>{name}</Card.Name>
+          <Card.Description>{price.toLocaleString()}원</Card.Description>
           <PlusMinusButton
             quantity={quantity}
             onAddButtonClick={handleAddButtonClick}
             onMinusButtonClick={handleMinusButtonClick}
           />
-        </S.CartItemInfoWrapper>
-      </S.CartItemWrapper>
+        </Card.Info>
+      </Card>
     </S.ProductCardCartItemWrapper>
   );
 }
