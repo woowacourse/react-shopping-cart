@@ -4,6 +4,8 @@ import { RemoveButton } from './RemoveButton';
 import CheckBox from '../common/CheckBox';
 import { CartItemType } from '../../types/cartItem';
 import { useCartActions } from '../../hooks/useCartActions';
+import { useToast } from '../../hooks/useToast';
+import { useEffect } from 'react';
 
 interface CartItemProps {
   item: CartItemType;
@@ -30,6 +32,20 @@ export default function CartItem({ item, handleCheckBoxChange, checked, handleDe
     removeItem.mutate({ cartItemId });
     handleDeleteCart();
   };
+
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    if (updateQuantity.error) {
+      addToast({ message: '수량 변경 중 오류가 발생했습니다.', type: 'error' });
+    }
+  }, [updateQuantity.error, addToast]);
+
+  useEffect(() => {
+    if (removeItem.error) {
+      addToast({ message: '상품 삭제 중 오류가 발생했습니다.', type: 'error' });
+    }
+  }, [removeItem.error, addToast]);
 
   return (
     <div key={cartItemId} css={styles.cartItemFrameCss}>

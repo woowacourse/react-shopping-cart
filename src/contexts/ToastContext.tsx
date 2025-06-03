@@ -1,34 +1,37 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import { createContext, useState, ReactNode, useCallback } from 'react';
 import Toast from '../components/Toast/Toast';
 
-interface ToastContextType {
+export interface ToastMessage {
+  id: number;
+  message: string;
   type: 'error' | 'success';
-  showToast: (message: string, type: 'error' | 'success') => void;
 }
 
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
+interface ToastContextType {
+  addToast: (opts: Omit<ToastMessage, 'id'>) => void;
+}
 
-export const ToastContextProvider = ({ children }: { children: ReactNode }) => {
-  const [message, setMessage] = useState<string | null>(null);
-  const [type, setType] = useState<'error' | 'success'>('success');
+export const ToastContext = createContext<ToastContextType | null>(null);
 
-  const showToast = useCallback((message: string, type: 'error' | 'success') => {
-    setMessage(message);
-    setType(type);
+export function ToastProvider({ children }: { children: ReactNode }) {
+  const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  const addToast = useCallback((opts: Omit<ToastMessage, 'id'>) => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, ...opts }]);
+  }, []);
+
+  const removeToast = useCallback((id: number) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
   return (
-    <ToastContext.Provider value={{ showToast, type }}>
+    <ToastContext.Provider value={{ addToast }}>
       {children}
-      {message && <Toast message={message} type={type} />}
+
+      {toasts.map((toast) => (
+        <Toast key={toast.id} message={toast.message} type={toast.type} onClose={() => removeToast(toast.id)} />
+      ))}
     </ToastContext.Provider>
   );
-};
-
-export const useToastContext = () => {
-  const toastContext = useContext(ToastContext);
-  if (toastContext === undefined) {
-    throw new Error('useToastContext는 프로바이더 안쪽에 위치를 해야 합니다.');
-  }
-  return toastContext;
-};
+}

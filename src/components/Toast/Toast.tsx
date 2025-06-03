@@ -4,24 +4,26 @@ import * as styles from './Toast.style';
 interface ToastProps {
   message: string;
   type: 'error' | 'success';
-  duration?: number;
+  onClose?: () => void;
 }
 
-export default function Toast({ message, type, duration = 2000 }: ToastProps) {
+function Toast({ message, type, onClose }: ToastProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-    }, duration);
+      onClose?.();
+    }, 3000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [duration]);
+  }, [onClose]);
 
   const handleClose = () => {
     setVisible(false);
+    onClose?.();
   };
 
   if (!visible) return null;
@@ -35,3 +37,5 @@ export default function Toast({ message, type, duration = 2000 }: ToastProps) {
     </div>
   );
 }
+
+export default Toast;

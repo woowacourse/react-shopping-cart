@@ -3,7 +3,7 @@ import CartPage from './page/CartPage';
 import { css } from '@emotion/react';
 import OrderPage from './page/OrderPage';
 import { ApiProvider } from './contexts/ApiContext';
-import { ToastContextProvider } from './contexts/ToastContext';
+import { ToastProvider } from './contexts/ToastContext';
 
 const isTest = import.meta.env.MODE === 'test';
 const basename = isTest ? '' : '/react-shopping-cart';
@@ -11,7 +11,7 @@ const basename = isTest ? '' : '/react-shopping-cart';
 function App() {
   return (
     <ApiProvider>
-      <ToastContextProvider>
+      <ToastProvider>
         <div css={RoutesStyle}>
           <Router basename={basename}>
             <Routes>
@@ -20,7 +20,7 @@ function App() {
             </Routes>
           </Router>
         </div>
-      </ToastContextProvider>
+      </ToastProvider>
     </ApiProvider>
   );
 }
