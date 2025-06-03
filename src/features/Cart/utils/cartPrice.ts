@@ -1,6 +1,6 @@
 import { CartItemList } from '../types/Cart.types';
 
-export const useCartPrice = ({ cartItems }: CartItemList) => {
+export const cartPrice = ({ cartItems }: CartItemList) => {
   const orderPrice = cartItems
     .filter((item) => item.quantity > 0 && item.isChecked)
     .reduce((acc, cart) => {

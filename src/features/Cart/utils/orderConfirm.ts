@@ -1,6 +1,6 @@
 import { CartItemList } from '../types/Cart.types';
 
-export const useOrderConfirm = ({ cartItems }: CartItemList) => {
+export const orderConfirm = ({ cartItems }: CartItemList) => {
   const hasCheckCartLength = cartItems?.filter((item) => item.isChecked).length;
   const totalQuantity = cartItems?.reduce(
     (acc, item) => acc + (item.isChecked ? item.quantity : 0),

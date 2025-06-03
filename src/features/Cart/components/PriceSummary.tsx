@@ -3,15 +3,15 @@ import styled from '@emotion/styled';
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
-import { useCartPrice } from '../hooks/useCartPrice';
 import { CartItem } from '../types/Cart.types';
+import { cartPrice } from '../utils/cartPrice';
 
 type PriceSummaryProps = {
   cartItems: CartItem[];
 };
 
 export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
-  const { orderPrice, deliveryFee, totalPrice } = useCartPrice({ cartItems });
+  const { orderPrice, deliveryFee, totalPrice } = cartPrice({ cartItems });
 
   return (
     <Flex

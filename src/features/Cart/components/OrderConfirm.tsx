@@ -7,11 +7,11 @@ import { Text } from '@/shared/components/Text';
 
 import Back from '../../../../public/Back.png';
 import { StepProps } from '../../../shared/types/funnel';
-import { useOrderConfirm } from '../hooks/useOrderConfirm';
 import { CartItemList } from '../types/Cart.types';
+import { orderConfirm } from '../utils/orderConfirm';
 
 export const OrderConfirm = ({ cartItems, onPrev }: CartItemList & StepProps) => {
-  const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderConfirm({ cartItems });
+  const { hasCheckCartLength, totalQuantity, totalPrice } = orderConfirm({ cartItems });
   return (
     <>
       <Header

@@ -2,7 +2,7 @@ import { CartItemList } from '../types/Cart.types';
 
 const FREE_SHIPPING_THRESHOLD = 100000 as const;
 
-export const useShippingProgress = ({ cartItems }: CartItemList) => {
+export const shippingProgress = ({ cartItems }: CartItemList) => {
   const selectedTotalAmount =
     cartItems
       ?.filter((item) => item.isChecked)

@@ -12,9 +12,9 @@ import { PriceSummary } from './PriceSummary';
 
 import { StepProps } from '../../../shared/types/funnel';
 import { CartListContainer } from '../container/CartListContainer';
-import { useCartChecked } from '../hooks/useCartChecked';
-import { useShippingProgress } from '../hooks/useShippingProgress';
 import { CartItem } from '../types/Cart.types';
+import { cartChecked } from '../utils/cartChecked';
+import { shippingProgress } from '../utils/shippingProgress';
 
 type CartInfoProps = {
   cartItems: CartItem[];
@@ -32,8 +32,8 @@ export const CartInfo = ({
   onRemove,
   onUpdateQuantity,
 }: CartInfoProps) => {
-  const { allChecked, cartItemCount, selectedCartItemCount } = useCartChecked({ cartItems });
-  const { progressValue, remainingForFreeShipping } = useShippingProgress({ cartItems });
+  const { allChecked, cartItemCount, selectedCartItemCount } = cartChecked({ cartItems });
+  const { progressValue, remainingForFreeShipping } = shippingProgress({ cartItems });
 
   return (
     <>
