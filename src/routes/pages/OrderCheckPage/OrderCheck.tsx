@@ -6,14 +6,11 @@ import Text from '../../../components/@common/Text/Text';
 import PayButton from '../../../components/PayButton/PayButton';
 import PageTitle from '../../../components/PageTitle/PageTitle';
 import OrderItem from '../../../components/ListItem/OrderItem/OrderItem';
+import CouponButton from '../../../components/CouponButton/CouponButton';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
 import { useLocation, useNavigate } from 'react-router';
-// import {
-//   OrderCheckContainerStyle,
-//   orderPriceContainerStyle,
-// } from './OrderCheck.styles';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -46,6 +43,7 @@ function OrderCheck() {
             <OrderItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </OrderList>
+        <CouponButton />
       </ContainerLayout>
       <PayButton />
     </>
