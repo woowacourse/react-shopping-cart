@@ -1,4 +1,4 @@
-import { CartItem } from '../types/Cart.types';
+import { CartItem } from '@/features/Cart/types/Cart.types';
 
 export const usePriceInfo = (cartItems: CartItem[] = []) => {
   const orderPrice = cartItems

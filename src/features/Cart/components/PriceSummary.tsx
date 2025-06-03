@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
 import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Test';
+import { Text } from '@/shared/components/Text/Text';
 
-import { CartItem } from '../types/Cart.types';
-import { usePriceInfo } from '../hooks/usePriceInfo';
+import { CartItem } from '@/features/Cart/types/Cart.types';
+import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
 
 type PriceSummaryProps = {
   cartItems: CartItem[];

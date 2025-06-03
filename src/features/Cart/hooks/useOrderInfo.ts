@@ -1,4 +1,4 @@
-import { CartItem } from '../types/Cart.types';
+import { CartItem } from '@/features/Cart/types/Cart.types';
 
 export const useOrderInfo = (cartItems: CartItem[] = []) => {
   const hasCheckCartLength = cartItems.filter((item) => item.isChecked).length;

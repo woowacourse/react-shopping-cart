@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Test';
+import { Text } from '@/shared/components/Text/Text';
 
 export type QuantitySelectorProps = {
   count: number;

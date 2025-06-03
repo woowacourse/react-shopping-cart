@@ -1,7 +1,7 @@
-import { useFunnel } from '../../../shared/hooks/useFunnel';
-import { CartInfo } from '../components/CartInfo';
-import { OrderConfirm } from '../components/OrderConfirm';
-import { useCartContext } from '../context/CartProvider';
+import { useFunnel } from '@/shared/hooks/useFunnel';
+import { CartInfo } from '@/features/Cart/components/CartInfo';
+import { OrderConfirm } from '@/features/Cart/components/OrderConfirm';
+import { useCartContext } from '@/features/Cart/context/CartProvider';
 
 type STEPS = '장바구니' | '주문정보';
 

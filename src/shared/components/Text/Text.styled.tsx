@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { Props } from './Test';
+import { Props } from '@/shared/components/Text/Text';
 
 const variants = {
   Heading: css`

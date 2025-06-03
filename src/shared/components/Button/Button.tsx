@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 
-import { StyledButton } from './Button.styled';
+import { StyledButton } from '@/shared/components/Button/Button.styled';
 
 export type ButtonProps = {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';

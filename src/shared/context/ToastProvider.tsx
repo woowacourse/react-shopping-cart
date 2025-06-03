@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useMemo, useRef, useState } from 'react';
 
-import { Toast } from '../components/Toast/Toast';
+import { Toast } from '@/shared/components/Toast/Toast';
 
 export const ToastContext = createContext({
   showToast(_message: string, _duration: number = 3000) {},

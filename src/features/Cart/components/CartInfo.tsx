@@ -5,15 +5,15 @@ import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
 import { Flex } from '@/shared/components/Flex/Flex';
 import { Header } from '@/shared/components/Header/Header';
 import { Progress } from '@/shared/components/Progress/Progress';
-import { Text } from '@/shared/components/Text/Test';
+import { Text } from '@/shared/components/Text/Text';
 
-import { CartItemDetail } from './CartItemDetail';
-import { PriceSummary } from './PriceSummary';
+import { CartItemDetail } from '@/features/Cart/components/CartItemDetail';
+import { PriceSummary } from '@/features/Cart/components/PriceSummary';
 
-import { StepProps } from '../../../shared/types/funnel';
-import { CartListContainer } from '../container/CartListContainer';
-import { CartItem } from '../types/Cart.types';
-import { useCartInfo } from '../hooks/useCartInfo';
+import { StepProps } from '@/shared/types/funnel';
+import { CartListContainer } from '@/features/Cart/container/CartListContainer';
+import { CartItem } from '@/features/Cart/types/Cart.types';
+import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 
 type CartInfoProps = {
   cartItems: CartItem[];

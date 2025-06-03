@@ -4,12 +4,12 @@ import styled from '@emotion/styled';
 import { Button } from '@/shared/components/Button/Button';
 import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
 import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Test';
+import { Text } from '@/shared/components/Text/Text';
 
-import { QuantitySelector } from './QuantitySelector';
+import { QuantitySelector } from '@/features/Cart/components/QuantitySelector';
 
 import NoImage from '../../../../public/NoImage.svg';
-import { CartItem } from '../types/Cart.types';
+import { CartItem } from '@/features/Cart/types/Cart.types';
 
 type CartItemDetailProps = {
   isChecked: boolean;

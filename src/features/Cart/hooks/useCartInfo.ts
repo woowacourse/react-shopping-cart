@@ -1,4 +1,4 @@
-import { CartItem } from '../types/Cart.types';
+import { CartItem } from '@/features/Cart/types/Cart.types';
 
 export const useCartInfo = (cartItems: CartItem[]) => {
   const FREE_SHIPPING_THRESHOLD = 100000;

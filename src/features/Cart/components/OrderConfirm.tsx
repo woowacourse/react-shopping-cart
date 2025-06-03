@@ -3,12 +3,12 @@ import { css } from '@emotion/react';
 import { Button } from '@/shared/components/Button/Button';
 import { Flex } from '@/shared/components/Flex/Flex';
 import { Header } from '@/shared/components/Header/Header';
-import { Text } from '@/shared/components/Text/Test';
+import { Text } from '@/shared/components/Text/Text';
 
 import Back from '../../../../public/Back.png';
-import { StepProps } from '../../../shared/types/funnel';
-import { CartItem } from '../types/Cart.types';
-import { useOrderInfo } from '../hooks/useOrderInfo';
+import { StepProps } from '@/shared/types/funnel';
+import { CartItem } from '@/features/Cart/types/Cart.types';
+import { useOrderInfo } from '@/features/Cart/hooks/useOrderInfo';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
