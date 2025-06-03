@@ -5,5 +5,7 @@ export { default as Header } from "./Header/Header";
 export { default as PlusMinusButton } from "./PlusMinusButton/PlusMinusButton";
 export { default as Spacing } from "./Spacing/Spacing";
 export { default as Text } from "./Text/Text";
+export { default as Funnel } from "./Funnel/Funnel";
+export * from "./Funnel/Funnel";
 
 export * from "./icons";
