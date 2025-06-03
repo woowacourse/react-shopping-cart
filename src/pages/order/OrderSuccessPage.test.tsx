@@ -39,7 +39,7 @@ const mockState = {
 vi.mock("@/shared/hooks/useValidateLocationState", () => ({
   __esModule: true,
   default: () => ({
-    validatedState: mockState,
+    state: mockState,
     isValidating: false,
   }),
 }));
@@ -53,7 +53,9 @@ describe("OrderSuccessPage", () => {
     await act(async () => {
       render(
         <MemoryRouter
-          initialEntries={[{ pathname: "/order-success", state: mockState }]}
+          initialEntries={[
+            { pathname: ROUTES.ORDER_SUCCESS, state: mockState },
+          ]}
         >
           <OrderSuccessPage />
         </MemoryRouter>
