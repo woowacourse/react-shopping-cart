@@ -1,15 +1,14 @@
 import { URLS } from '../constants/url';
+import { headers } from './headers';
 
 export const deleteCartItem = async (cartItemId: number | undefined) => {
   if (cartItemId === undefined) {
     throw new Error('cartItemId가 정의되지 않았습니다.');
   }
+
   const res = await fetch(`${URLS.CART_ITEMS}/${cartItemId}`, {
     method: 'DELETE',
-    headers: {
-      Authorization: `Basic ${btoa(`${import.meta.env.VITE_USER_ID}:${import.meta.env.VITE_PASSWORD}`)}`,
-      'Content-Type': 'application/json'
-    }
+    headers
   });
 
   if (!res.ok) {

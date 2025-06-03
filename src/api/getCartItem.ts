@@ -1,12 +1,10 @@
 import { CartItemResponse } from '../types/response';
 import { URLS } from '../constants/url';
+import { headers } from './headers';
 
 const getCartItems = async (): Promise<CartItemResponse> => {
   const res = await fetch(URLS.CART_ITEMS, {
-    headers: {
-      Authorization: `Basic ${btoa(`${import.meta.env.VITE_USER_ID}:${import.meta.env.VITE_PASSWORD}`)}`,
-      'Content-Type': 'application/json'
-    }
+    headers
   });
 
   if (!res.ok) {

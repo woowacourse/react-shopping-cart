@@ -1,4 +1,5 @@
 import { URLS } from '../constants/url';
+import { headers } from './headers';
 
 export const patchCartItem = async (cartItemId: number | undefined, quantity: number) => {
   if (cartItemId === undefined) {
@@ -6,10 +7,7 @@ export const patchCartItem = async (cartItemId: number | undefined, quantity: nu
   }
   const result = await fetch(`${URLS.CART_ITEMS}/${cartItemId}`, {
     method: 'PATCH',
-    headers: {
-      Authorization: `Basic ${btoa(`${import.meta.env.VITE_USER_ID}:${import.meta.env.VITE_PASSWORD}`)}`,
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify({
       quantity
     })
