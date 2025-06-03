@@ -13,6 +13,7 @@ import { useErrorContext } from "../../contexts/ErrorContext";
 import { CheckedMap } from "../../types/CheckMap";
 
 import * as Styled from "./ShoppingCartPage.styles";
+import { DEFAULT_SHIPPING_FEE, FREE_SHIPPING_FEE, MIN_PRICE_FOR_FREE_SHIPPING } from "../../constants/shipping";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
@@ -68,7 +69,7 @@ export default function ShoppingCartPage() {
       : acc;
   }, 0);
 
-  const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
+  const shippingFee = allProductPrice >= MIN_PRICE_FOR_FREE_SHIPPING ? FREE_SHIPPING_FEE : DEFAULT_SHIPPING_FEE;
   const totalPrice = allProductPrice + shippingFee;
 
   const handleOrderCheckButtonClick = () => {
