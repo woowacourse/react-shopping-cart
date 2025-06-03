@@ -66,8 +66,8 @@ const useCartData = () => {
     }
   };
 
-  const initCartData = (updateData: CartItemType[]) => {
-    setCartData(updateData);
+  const initCartData = (updatedCartData: CartItemType[]) => {
+    setCartData(updatedCartData);
   };
 
   return {
