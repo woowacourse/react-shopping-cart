@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from '../App';
 import { cartMockData } from '../__mocks__/cartData';
@@ -5,13 +6,13 @@ import { productListMockData } from '../__mocks__/productListMockData';
 
 let currentCart = [...cartMockData];
 
-jest.mock('../utils/getBrowserBaseUrl', () => ({
-  getBrowserBaseUrl: jest.fn(() => '/'),
+vi.mock('../utils/getBrowserBaseUrl', () => ({
+  getBrowserBaseUrl: vi.fn(() => '/'),
 }));
 
-jest.mock('../api/cart', () => ({
-  getShoppingCartData: jest.fn(() => Promise.resolve(currentCart)),
-  patchCartItem: jest.fn((cartId: string, quantity: number) => {
+vi.mock('../api/cart', () => ({
+  getShoppingCartData: vi.fn(() => Promise.resolve(currentCart)),
+  patchCartItem: vi.fn((cartId: string, quantity: number) => {
     const cartItem = currentCart.find((item) => item.id === cartId);
     if (!cartItem) {
       throw new Error(`${cartId} id를 가진 Cart가 존재하지 않습니다.`);
@@ -23,13 +24,13 @@ jest.mock('../api/cart', () => ({
     cartItem.quantity = quantity;
     return Promise.resolve();
   }),
-  deleteCartItem: jest.fn(() => {
+  deleteCartItem: vi.fn(() => {
     throw new Error();
   }),
 }));
 
-jest.mock('../api/baseAPI', () => ({
-  baseAPI: jest.fn(() => Promise.resolve(productListMockData)),
+vi.mock('../api/baseAPI', () => ({
+  baseAPI: vi.fn(() => Promise.resolve(productListMockData)),
 }));
 
 describe('Cart 예외 처리 테스트', () => {
@@ -43,7 +44,7 @@ describe('Cart 예외 처리 테스트', () => {
   });
 
   afterEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
   it('수량 증가 시 에러가 발생하면 토스트 메시지를 보여준다', async () => {

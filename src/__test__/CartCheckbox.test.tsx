@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { cartMockData } from '../__mocks__/cartData';
 import { productListMockData } from '../__mocks__/productListMockData';
@@ -5,15 +6,15 @@ import App from '../App';
 
 let currentCart = [...cartMockData];
 
-jest.mock('../utils/getBrowserBaseUrl', () => {
+vi.mock('../utils/getBrowserBaseUrl', () => {
   return {
-    getBrowserBaseUrl: jest.fn(() => '/'),
+    getBrowserBaseUrl: vi.fn(() => '/'),
   };
 });
 
-jest.mock('../api/cart', () => ({
-  getShoppingCartData: jest.fn(() => Promise.resolve(currentCart)),
-  addCartItem: jest.fn((productId: string) => {
+vi.mock('../api/cart', () => ({
+  getShoppingCartData: vi.fn(() => Promise.resolve(currentCart)),
+  addCartItem: vi.fn((productId: string) => {
     const foundProduct = productListMockData.find((p) => p.id === productId);
     if (!foundProduct) {
       throw new Error(`${productId} id를 가진 Product가 존재하지 않습니다.`);
@@ -25,11 +26,11 @@ jest.mock('../api/cart', () => ({
     });
     return Promise.resolve();
   }),
-  deleteCartItem: jest.fn((cartId: string) => {
+  deleteCartItem: vi.fn((cartId: string) => {
     currentCart = currentCart.filter((item) => item.id.toString() !== cartId);
     return Promise.resolve();
   }),
-  patchCartItem: jest.fn((cartId: string, quantity: number) => {
+  patchCartItem: vi.fn((cartId: string, quantity: number) => {
     const cartItem = currentCart.find((item) => item.id === cartId);
     if (!cartItem) {
       throw new Error(`${cartId} id를 가진 Cart가 존재하지 않습니다.`);
@@ -39,8 +40,8 @@ jest.mock('../api/cart', () => ({
   }),
 }));
 
-jest.mock('../api/baseAPI', () => ({
-  baseAPI: jest.fn(() => Promise.resolve(productListMockData)),
+vi.mock('../api/baseAPI', () => ({
+  baseAPI: vi.fn(() => Promise.resolve(productListMockData)),
 }));
 
 function expectChecked(button: HTMLElement, checked: boolean) {
@@ -59,7 +60,7 @@ describe('Cart 체크박스 선택/해제 기능', () => {
 
   afterEach(() => {
     currentCart = [...cartMockData];
-    jest.resetModules();
+    vi.resetModules();
   });
 
   it('1. 상품 선택을 해제하면 결제 금액이 감소한다', async () => {
