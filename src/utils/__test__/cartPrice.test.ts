@@ -1,4 +1,4 @@
-import { cartPrice } from './cartPrice';
+import { cartPrice } from '../../utils/cartPrice';
 
 describe('상품 금액 계산', () => {
   it('개별 상품의 금액을 계산한다.', () => {
