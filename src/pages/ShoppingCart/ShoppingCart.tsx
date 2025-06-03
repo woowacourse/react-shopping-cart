@@ -12,7 +12,7 @@ import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
 import Toast from '../../components/Toast/Toast';
 import { CartItemTypes } from '../../types/cartItem';
 import { getTotalPrice } from '../../utils/getTotalPrice';
-import { subTitleStyle, titleBox, titleStyle } from './shoppingCart.style';
+import { subTitleStyle, titleBox, titleStyle } from './ShoppingCart.style';
 import { Footer } from '../../components/layout/Footer/Footer';
 
 export function ShoppingCart() {

@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { OrderConfirm } from "./pages/orderConfirm/orderConfirm";
-import { ShoppingCart } from "./pages/shoppingCart/shoppingCart";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { OrderConfirm } from './pages/OrderConfirm/OrderConfirm';
+import { ShoppingCart } from './pages/ShoppingCart/ShoppingCart';
 
 function App() {
   return (

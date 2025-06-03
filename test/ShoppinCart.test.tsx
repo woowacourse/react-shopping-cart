@@ -1,22 +1,22 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { ShoppingCart } from "../src/pages/shoppingCart/shoppingCart";
-import { MemoryRouter } from "react-router-dom";
-import { server } from "../src/mocks/server";
-import shoppingCart from "../src/mocks/shoppingCart.json";
-import { getTotalPrice } from "../src/utils/getTotalPrice";
-import { CartItemTypes } from "../src/types/cartItem";
-import { resetCartItems } from "../src/mocks/handlers";
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { ShoppingCart } from '../src/pages/ShoppingCart/ShoppingCart';
+import { MemoryRouter } from 'react-router-dom';
+import { server } from '../src/mocks/server';
+import shoppingCart from '../src/mocks/shoppingCart.json';
+import { getTotalPrice } from '../src/utils/getTotalPrice';
+import { CartItemTypes } from '../src/types/cartItem';
+import { resetCartItems } from '../src/mocks/handlers';
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
-describe("장바구니 페이지 테스트", () => {
+describe('장바구니 페이지 테스트', () => {
   beforeEach(() => {
     resetCartItems();
   });
 
-  it("장바구니 삭제 버튼을 누르면 해당 제품이 삭제된다.", async () => {
+  it('장바구니 삭제 버튼을 누르면 해당 제품이 삭제된다.', async () => {
     render(
       <MemoryRouter>
         <ShoppingCart />
@@ -24,18 +24,18 @@ describe("장바구니 페이지 테스트", () => {
     );
 
     await waitFor(() => {
-      const prevDeleteButtons = screen.getAllByText("삭제");
+      const prevDeleteButtons = screen.getAllByText('삭제');
       expect(prevDeleteButtons.length).toBe(3);
       fireEvent.click(prevDeleteButtons[0]);
     });
 
     await waitFor(() => {
-      const currentDeleteButtons = screen.getAllByText("삭제");
+      const currentDeleteButtons = screen.getAllByText('삭제');
       expect(currentDeleteButtons.length).toBe(2);
     });
   });
 
-  it("장바구니에 담긴 아이템의 수량을 감소시키면 주문 금액이 감소한다.", async () => {
+  it('장바구니에 담긴 아이템의 수량을 감소시키면 주문 금액이 감소한다.', async () => {
     render(
       <MemoryRouter>
         <ShoppingCart />
@@ -48,28 +48,28 @@ describe("장바구니 페이지 테스트", () => {
       selectedCartId: selectedId,
     });
 
-    const orderPrice = await screen.findByTestId("orderPrice");
+    const orderPrice = await screen.findByTestId('orderPrice');
     await waitFor(() => {
       expect(orderPrice.textContent).toBe(
-        `${prevTotalPrice.toLocaleString("ko")}원`
+        `${prevTotalPrice.toLocaleString('ko')}원`
       );
     });
 
     await waitFor(() => {
-      const minusButtons = screen.getAllByTestId("quantity-minus-button");
+      const minusButtons = screen.getAllByTestId('quantity-minus-button');
       fireEvent.click(minusButtons[0]);
 
-      const currentOrderPrice = screen.getByTestId("orderPrice");
+      const currentOrderPrice = screen.getByTestId('orderPrice');
       const currentTotalPrice =
         prevTotalPrice - shoppingCart.content[0].product.price;
 
       expect(currentOrderPrice.textContent).toBe(
-        `${currentTotalPrice.toLocaleString("ko")}원`
+        `${currentTotalPrice.toLocaleString('ko')}원`
       );
     });
   });
 
-  it("장바구니에 담긴 아이템의 수량을 증가시키면 주문 금액이 증가한다.", async () => {
+  it('장바구니에 담긴 아이템의 수량을 증가시키면 주문 금액이 증가한다.', async () => {
     render(
       <MemoryRouter>
         <ShoppingCart />
@@ -82,28 +82,28 @@ describe("장바구니 페이지 테스트", () => {
       selectedCartId: selectedId,
     });
 
-    const orderPrice = await screen.findByTestId("orderPrice");
+    const orderPrice = await screen.findByTestId('orderPrice');
     await waitFor(() => {
       expect(orderPrice.textContent).toBe(
-        `${prevTotalPrice.toLocaleString("ko")}원`
+        `${prevTotalPrice.toLocaleString('ko')}원`
       );
     });
 
     await waitFor(() => {
-      const plusButtons = screen.getAllByTestId("quantity-plus-button");
+      const plusButtons = screen.getAllByTestId('quantity-plus-button');
       fireEvent.click(plusButtons[0]);
 
-      const currentOrderPrice = screen.getByTestId("orderPrice");
+      const currentOrderPrice = screen.getByTestId('orderPrice');
       const currentTotalPrice =
         prevTotalPrice + shoppingCart.content[0].product.price;
 
       expect(currentOrderPrice.textContent).toBe(
-        `${currentTotalPrice.toLocaleString("ko")}원`
+        `${currentTotalPrice.toLocaleString('ko')}원`
       );
     });
   });
 
-  it("첫 렌더링시 전체 선택이 활성화 되어있고, 주문 금액이 모든 상품에 대한 주문금액이다.", async () => {
+  it('첫 렌더링시 전체 선택이 활성화 되어있고, 주문 금액이 모든 상품에 대한 주문금액이다.', async () => {
     render(
       <MemoryRouter>
         <ShoppingCart />
@@ -111,7 +111,7 @@ describe("장바구니 페이지 테스트", () => {
     );
 
     await waitFor(() => {
-      const allSelect = screen.getByTestId("select-all") as HTMLInputElement;
+      const allSelect = screen.getByTestId('select-all') as HTMLInputElement;
       expect(allSelect.checked).toEqual(true);
     });
 
@@ -121,15 +121,15 @@ describe("장바구니 페이지 테스트", () => {
       selectedCartId: selectedId,
     });
 
-    const orderPrice = await screen.findByTestId("orderPrice");
+    const orderPrice = await screen.findByTestId('orderPrice');
     await waitFor(() => {
       expect(orderPrice.textContent).toBe(
-        `${prevTotalPrice.toLocaleString("ko")}원`
+        `${prevTotalPrice.toLocaleString('ko')}원`
       );
     });
   });
 
-  it("체크박스 선택해제시, 주문 금액에서 해당 아이템의 금액이 차감된다.", async () => {
+  it('체크박스 선택해제시, 주문 금액에서 해당 아이템의 금액이 차감된다.', async () => {
     render(
       <MemoryRouter>
         <ShoppingCart />
@@ -165,9 +165,9 @@ describe("장바구니 페이지 테스트", () => {
     });
 
     await waitFor(() => {
-      const orderPrice = screen.getByTestId("orderPrice");
+      const orderPrice = screen.getByTestId('orderPrice');
       expect(orderPrice.textContent).toBe(
-        `${prevTotalPrice.toLocaleString("ko")}원`
+        `${prevTotalPrice.toLocaleString('ko')}원`
       );
     });
   });

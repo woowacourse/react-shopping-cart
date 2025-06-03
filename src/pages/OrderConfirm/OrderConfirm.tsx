@@ -1,14 +1,14 @@
-import { useLocation } from "react-router-dom";
-import Header from "../../components/layout/Header/Header";
-import Main from "../../components/layout/Main/Main";
-import { PageLayout } from "../../components/layout/PageLayout/PageLayout";
+import { useLocation } from 'react-router-dom';
+import Header from '../../components/layout/Header/Header';
+import Main from '../../components/layout/Main/Main';
+import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import {
   bodyText,
   confirmLayout,
   subtitleText,
   titleText,
   totalPriceBox,
-} from "./orderConfirm.style";
+} from './OrderConfirm.style';
 
 export function OrderConfirm() {
   const { state } = useLocation();
@@ -28,7 +28,7 @@ export function OrderConfirm() {
           <div css={totalPriceBox}>
             <p css={subtitleText}>총 결제금액</p>
             <p css={titleText}>
-              {Number(state.totalPrice).toLocaleString("ko")}원
+              {Number(state.totalPrice).toLocaleString('ko')}원
             </p>
           </div>
         </div>
