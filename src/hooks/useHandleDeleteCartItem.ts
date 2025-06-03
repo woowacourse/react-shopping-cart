@@ -11,7 +11,7 @@ const useHandleDeleteCartItem = (refetchCartItems: () => Promise<void>) => {
     async (id: string) => {
       setIsLoading(true);
       try {
-        await deleteCartItem({ params: { id } });
+        await deleteCartItem(id);
       } catch (error) {
         if (error instanceof ApiError) {
           showError(error);
