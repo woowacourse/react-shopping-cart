@@ -3,7 +3,7 @@ import { Coupon } from "@/type/Coupon";
 import fetchCoupons from "@/apis/fetchCoupons";
 import { useCallback } from "react";
 
-function useCouponDiscount() {
+function useCouponFetch() {
   const getCoupons = useCallback(async () => {
     const { content } = (await fetchCoupons()) as { content: Coupon[] };
     return content;
@@ -24,4 +24,4 @@ function useCouponDiscount() {
   };
 }
 
-export default useCouponDiscount;
+export default useCouponFetch;
