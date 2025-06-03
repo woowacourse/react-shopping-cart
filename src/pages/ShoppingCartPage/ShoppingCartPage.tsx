@@ -59,9 +59,7 @@ export default function ShoppingCartPage() {
     checkedMap.get(item.id)
   ).length;
 
-  const cartItemCheckListTotalQuantity = cartItemList.reduce((acc, item) => {
-    return checkedMap.get(item.id) ? acc + item.quantity : acc;
-  }, 0);
+
 
   const allProductPrice = cartItemList.reduce((acc, item) => {
     return checkedMap.get(item.id)
@@ -70,9 +68,13 @@ export default function ShoppingCartPage() {
   }, 0);
 
   const shippingFee = allProductPrice >= MIN_PRICE_FOR_FREE_SHIPPING ? FREE_SHIPPING_FEE : DEFAULT_SHIPPING_FEE;
-  const totalPrice = allProductPrice + shippingFee;
 
   const handleOrderCheckButtonClick = () => {
+    const cartItemCheckListTotalQuantity = cartItemList.reduce((acc, item) => {
+      return checkedMap.get(item.id) ? acc + item.quantity : acc;
+    }, 0);
+    const totalPrice = allProductPrice + shippingFee;
+
     navigate("/order-check", {
       state: {
         checkedProductsLength,
