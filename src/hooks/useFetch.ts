@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 interface FetchDataProps<T> {
   apiCall: () => Promise<T>;
-  onSuccess: (data: T) => void;
+  onSuccess: (data?: T) => void;
   onError: (error: Error | unknown) => void;
 }
 
@@ -22,7 +22,9 @@ const useFetch = <T>(key: string) => {
     async ({ apiCall, onSuccess, onError }: FetchDataProps<T>) => {
       try {
         handleLoading(true);
-        onSuccess(await apiCall());
+        const result = await apiCall();
+
+        onSuccess(result);
       } catch (error) {
         onError(error);
       } finally {

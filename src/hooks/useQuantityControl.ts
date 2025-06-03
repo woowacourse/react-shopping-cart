@@ -1,4 +1,3 @@
-import useMutation from "./useMutation";
 import {
   decreaseCartItem,
   increaseCartItem,
@@ -7,6 +6,7 @@ import {
 import { DEFAULT_ERROR_MESSAGE } from "../constants/errorMessage";
 import { CartItemType } from "../types/response";
 import { findCartItemById } from "../utils/cartItem";
+import useFetch from "./useFetch";
 
 interface UseQuantityControlProps {
   cartItems: CartItemType[];
@@ -19,7 +19,7 @@ const useQuantityControl = ({
   updateCartItem,
   refetchCartItem,
 }: UseQuantityControlProps) => {
-  const { mutateData } = useMutation("cartItems");
+  const { fetchData } = useFetch<void>("cartItems");
 
   const updateQuantity = (cartId: number, quantity: number) => {
     const { product } = findCartItemById(cartId, cartItems);
@@ -32,7 +32,7 @@ const useQuantityControl = ({
     const newQuantity = quantity + 1;
     updateQuantity(cartId, newQuantity);
 
-    await mutateData({
+    await fetchData({
       apiCall: () => increaseCartItem(cartId, newQuantity),
       onSuccess: refetchCartItem,
       onError: () => {
@@ -47,7 +47,7 @@ const useQuantityControl = ({
     const newQuantity = quantity > 1 ? quantity - 1 : 1;
     updateQuantity(cartId, newQuantity);
 
-    await mutateData({
+    await fetchData({
       apiCall: () => decreaseCartItem(cartId, newQuantity),
       onSuccess: refetchCartItem,
       onError: () => {
@@ -57,7 +57,7 @@ const useQuantityControl = ({
   };
 
   const deleteCartItem = async (cartId: number) => {
-    await mutateData({
+    await fetchData({
       apiCall: () => removeCartItem(cartId),
       onSuccess: refetchCartItem,
       onError: (error) => {
