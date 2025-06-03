@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { CartItemType } from '../types/response';
 
-const useCheckedArray = (cartData: CartItemType[]) => {
+const useCheckedCartArray = (cartData: CartItemType[]) => {
   const [checkedItemIds, setCheckedItemIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
@@ -48,4 +48,4 @@ const useCheckedArray = (cartData: CartItemType[]) => {
   };
 };
 
-export default useCheckedArray;
+export default useCheckedCartArray;

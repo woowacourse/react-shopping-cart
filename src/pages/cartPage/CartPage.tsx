@@ -12,7 +12,7 @@ import {
   getCartItemNamePrice,
 } from '../../utils/calculate';
 import useCartData from '../../hooks/useCartData';
-import useCheckedArray from '../../hooks/useCheckedArray';
+import useCheckedArray from '../../hooks/useCheckedCartArray';
 import {
   NO_ITEM_IN_CART,
   CART_ITEM_TYPE_COUNT,
