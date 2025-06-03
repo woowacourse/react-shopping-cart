@@ -17,9 +17,12 @@ export default function CouponModal() {
   const { selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
 
   const handleSelectCoupon = (couponId: number) => {
-    setSelectedCouponIds((prev) =>
-      prev.includes(couponId) ? prev.filter((id) => id !== couponId) : [...prev, couponId],
-    );
+    setSelectedCouponIds((prev) => {
+      const isSelected = prev.includes(couponId);
+
+      if (prev.length === 2 && !isSelected) return prev;
+      return isSelected ? prev.filter((id) => id !== couponId) : [...prev, couponId];
+    });
   };
 
   return (
