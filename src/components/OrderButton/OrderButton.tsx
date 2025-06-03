@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import Text from '../common/Text/Text';
+import Text from '../@common/Text/Text';
 import { CartItemProps } from '../../types/cartItem';
 import { ButtonStyle } from './OrderButton.styles';
 

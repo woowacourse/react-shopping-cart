@@ -1,9 +1,9 @@
 import { CartItemProps } from '../../../types/cartItem';
-import Header from '../../../components/common/Header/Header';
-import HeaderButton from '../../../components/common/Header/HeaderButton';
+import Header from '../../../components/@common/Header/Header';
+import HeaderButton from '../../../components/@common/Header/HeaderButton';
 import { Back } from '../../../assets';
-import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
-import Text from '../../../components/common/Text/Text';
+import ContainerLayout from '../../../components/@common/ContainerLayout/ContainerLayout';
+import Text from '../../../components/@common/Text/Text';
 import { useLocation, useNavigate } from 'react-router';
 // import {
 //   OrderCheckContainerStyle,

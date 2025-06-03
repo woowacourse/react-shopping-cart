@@ -1,4 +1,4 @@
-import Text from '../common/Text/Text';
+import Text from '../@common/Text/Text';
 import {
   CartListCheckboxStyle,
   CartListContainerStyle,

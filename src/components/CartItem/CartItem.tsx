@@ -1,7 +1,7 @@
 import { Default, Minus, Plus } from '../../assets';
 import { PatchCartItemProps } from '../../types/cartApi';
 import { CartItemProps } from '../../types/cartItem';
-import Text from '../common/Text/Text';
+import Text from '../@common/Text/Text';
 import {
   CartInfo,
   CartItemBodyStyle,

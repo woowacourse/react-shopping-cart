@@ -1,22 +1,22 @@
 import '../../../App.css';
 
-import Header from '../../../components/common/Header/Header';
-import HeaderButton from '../../../components/common/Header/HeaderButton';
-import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
+import Header from '../../../components/@common/Header/Header';
+import HeaderButton from '../../../components/@common/Header/HeaderButton';
+import ContainerLayout from '../../../components/@common/ContainerLayout/ContainerLayout';
 import PageTitle from '../../../components/PageTitle/PageTitle';
 import CartItem from '../../../components/CartItem/CartItem';
 import CartList from '../../../components/CartList/CartList';
 import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
 import OrderButton from '../../../components/OrderButton/OrderButton';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
-import Text from '../../../components/common/Text/Text';
+import Text from '../../../components/@common/Text/Text';
 
 import { Logo } from '../../../assets';
 import { cartPrice } from '../../../utils/cartPrice/cartPrice';
 
 import useCartList from '../../../hooks/useCartList';
 import useSelect from '../../../hooks/useSelect';
-import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
+import LoadingSpinner from '../../../components/@common/LoadingSpinner/LoadingSpinning';
 
 function CartPage() {
   const {
