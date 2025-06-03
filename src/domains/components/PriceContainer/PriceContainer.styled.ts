@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export const Container = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ export const InfoText = styled.p`
   color: #0a0d13;
 `;
 
-export const PriceBox = styled.div`
+export const PriceBox = styled.ul`
   display: flex;
   flex-direction: column;
   padding: 12px 0;
@@ -37,7 +37,7 @@ export const TotalPriceBox = styled.div`
   border-top: 1px solid #e5e5e5;
 `;
 
-export const PriceTextBox = styled.p`
+export const PriceTextBox = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
