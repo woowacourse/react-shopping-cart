@@ -7,15 +7,37 @@ interface CartItemsResponse {
 
 export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const initializeCheckedItems = (items: CartProduct[]) => {
+    const allIds = items.map((item) => item.id);
+    setCheckedItems(allIds);
+    setIsInitialLoad(false);
+  };
+
+  const updateCheckedItems = (items: CartProduct[]) => {
+    setCheckedItems((prev) => {
+      const currentIds = items.map((item) => item.id);
+      return prev.filter((id) => currentIds.includes(id));
+    });
+  };
 
   useEffect(() => {
-    if (cartItems?.content && cartItems.content.length > 0) {
-      const itemIds = cartItems.content.map((item: CartProduct) => item.id);
-      setCheckedItems(itemIds);
-    } else {
-      setCheckedItems([]);
+    if (!cartItems?.content) {
+      handleEmptyCart();
+      return;
     }
-  }, [cartItems]);
+
+    if (isInitialLoad) {
+      initializeCheckedItems(cartItems.content);
+    } else {
+      updateCheckedItems(cartItems.content);
+    }
+  }, [cartItems, isInitialLoad]);
+
+  const handleEmptyCart = () => {
+    setCheckedItems([]);
+  };
 
   const isAllChecked = Boolean(
     cartItems?.content &&
