@@ -10,7 +10,7 @@ export const CartListHeaderStyle = css`
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
 `;
 
 export const CartListCheckboxStyle = css`

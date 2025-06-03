@@ -5,7 +5,6 @@ import HeaderButton from '../../../components/common/Header/HeaderButton';
 import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
 import CartListTitle from '../../../components/CartListTitle/CartListTitle';
 import CartItem from '../../../components/CartItem/CartItem';
-import CartList from '../../../components/CartList/CartList';
 import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
 import OrderButton from '../../../components/OrderButton/OrderButton';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
@@ -20,6 +19,8 @@ import { cartPrice } from '../../../utils/cartPrice';
 import { useEffect } from 'react';
 import { useToastContext } from '../../../context/ToastContext';
 import { useNavigate } from 'react-router';
+import { CartListStyle } from '../../../components/CartList/CartList.styles';
+import CartListHeader from '../../../components/CartList/CartList';
 
 function CartPage() {
   const cartList = useCartList();
@@ -51,10 +52,11 @@ function CartPage() {
       <EmptyCart />
     ) : (
       <>
-        <CartList
+        <CartListHeader
           allSelected={selectedList.isAllSelected}
           onAllSelectChange={selectedList.handleSelectAllItems}
-        >
+        />
+        <ul css={CartListStyle}>
           {cartList.data.map((cartItem) => (
             <CartItem
               key={cartItem.id}
@@ -66,7 +68,7 @@ function CartPage() {
               onDeleteClick={cartList.deleteCartItem}
             />
           ))}
-        </CartList>
+        </ul>
         <CartPriceInfo totalPrice={totalPrice} />
       </>
     );

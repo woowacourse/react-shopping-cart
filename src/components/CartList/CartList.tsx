@@ -1,34 +1,24 @@
 import Text from '../common/Text/Text';
-import {
-  CartListCheckboxStyle,
-  CartListContainerStyle,
-  CartListHeaderStyle,
-  CartListStyle,
-} from './CartList.styles';
+import { CartListCheckboxStyle, CartListHeaderStyle } from './CartList.styles';
 
-function CartList({
-  children,
+function CartListHeader({
   allSelected,
   onAllSelectChange,
 }: {
-  children: React.ReactNode;
   allSelected: boolean;
   onAllSelectChange: () => void;
 }) {
   return (
-    <div css={CartListContainerStyle}>
-      <div css={CartListHeaderStyle}>
-        <input
-          css={CartListCheckboxStyle}
-          type="checkbox"
-          checked={allSelected}
-          onChange={onAllSelectChange}
-        />
-        <Text varient="caption">전체 선택</Text>
-      </div>
-      <ul css={CartListStyle}>{children}</ul>
+    <div css={CartListHeaderStyle}>
+      <input
+        css={CartListCheckboxStyle}
+        type="checkbox"
+        checked={allSelected}
+        onChange={onAllSelectChange}
+      />
+      <Text varient="caption">전체 선택</Text>
     </div>
   );
 }
 
-export default CartList;
+export default CartListHeader;
