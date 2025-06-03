@@ -1,3 +1,4 @@
+import { BaseFetchItemsResult } from "./BaseFetchItemsResult";
 import { ProductWithQuantity } from "./Product";
 
 export interface CartItem {
@@ -5,3 +6,7 @@ export interface CartItem {
   quantity: number;
   product: ProductWithQuantity;
 }
+
+export type FetchCartItemsResult = {
+  content: CartItem[];
+} & BaseFetchItemsResult;
