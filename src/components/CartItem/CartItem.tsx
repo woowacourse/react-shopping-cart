@@ -12,6 +12,7 @@ import {
   ImageStyle,
   ListItemHeaderStyle,
 } from './CartItem.styles';
+import { TEXT } from '../../constants/text';
 
 function CartItem({
   cartItem,
@@ -41,7 +42,7 @@ function CartItem({
           css={DeleteButtonStyle}
           onClick={() => onDeleteClick(cartItem.id)}
         >
-          <Text varient="caption">삭제</Text>
+          <Text varient="caption">{TEXT.DELETE}</Text>
         </button>
       </div>
       <div css={CartItemBodyStyle}>
@@ -65,14 +66,14 @@ function CartItem({
                   : () => onDecreaseClick(cartItem)
               }
             >
-              <img src={Minus} alt="minus" />
+              <img src={Minus} alt="마이너스 버튼" />
             </button>
             <Text varient="caption">{cartItem.quantity}</Text>
             <button
               css={ControllerButton}
               onClick={() => onIncreaseClick(cartItem)}
             >
-              <img src={Plus} alt="plus" />
+              <img src={Plus} alt="플러스 버튼" />
             </button>
           </div>
         </div>
