@@ -5,6 +5,8 @@ import mockCart from '../../mocks/mockCart.json';
 import { server } from '../../mocks/node';
 import { http, HttpResponse } from 'msw';
 
+const NON_EXISTENT_CART_ITEM_ID = 999999;
+
 describe('useCartList 훅 테스트', () => {
   const targetId = mockCart[0].id;
 
@@ -43,7 +45,7 @@ describe('useCartList 훅 테스트', () => {
 
     await act(async () => {
       await result.current.handleIncreaseCartItem({
-        cartItemId: 1000000000,
+        cartItemId: NON_EXISTENT_CART_ITEM_ID,
         quantity: 1,
       });
     });
@@ -77,7 +79,7 @@ describe('useCartList 훅 테스트', () => {
 
     await act(async () => {
       await result.current.handleDecreaseCartItem({
-        cartItemId: 100000000,
+        cartItemId: NON_EXISTENT_CART_ITEM_ID,
         quantity: 0,
       });
     });
@@ -125,7 +127,6 @@ describe('useCartList 훅 테스트', () => {
     expect(result.current.isLoading).toBe(false);
   });
 
-  // 서버 오류 테스트 케이스 추가하기 현재 계속 에러가 발생해 주석처리
   it('장바구니 상품의 수량을 변경할 때 오류가 발생하면 상태 값이 변경되지 않는다', async () => {
     server.use(
       http.patch(`/cart-items/:cartItemId`, () => {
