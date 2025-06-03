@@ -23,7 +23,7 @@ export default function CartContent() {
   } = useCartItem();
   const navigate = useNavigate();
 
-  if (isLoading) {
+  if (isLoading && !cartItems?.length) {
     return <div>로딩중</div>;
   }
 
