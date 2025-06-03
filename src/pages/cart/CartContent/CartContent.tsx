@@ -64,8 +64,8 @@ export default function CartContent() {
           addOrderItemId={addOrderItemId}
           removeOrderItemId={removeOrderItemId}
         />
-        <PriceContainer orderTotalPrice={orderTotalPrice ?? 0} />
       </S.ScrollContainer>
+      <PriceContainer orderTotalPrice={orderTotalPrice ?? 0} />
       <S.OrderConfirmButton
         disabled={!orderIdList.length}
         type="button"

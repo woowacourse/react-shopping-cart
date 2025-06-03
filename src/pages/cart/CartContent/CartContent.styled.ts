@@ -40,9 +40,9 @@ export const OrderConfirmButton = styled.button`
 `;
 
 export const ScrollContainer = styled.div`
-  height: 100%;
+  height: 350px;
   overflow-y: auto;
-  padding-bottom: 64px;
+  margin-bottom: 30px;
 
   &::-webkit-scrollbar {
     width: 0px;
