@@ -12,11 +12,6 @@ function useSelect(cartList: CartItemProps[]) {
     if (cartList.length > 0 && initialLoadRef.current) {
       setSelectedItems(cartItemIds);
       initialLoadRef.current = false;
-    } else {
-      const currentCartItemIds = cartItemIds;
-      setSelectedItems((prev) =>
-        prev.filter((selectedId) => currentCartItemIds.includes(selectedId))
-      );
     }
   }, [cartList]);
 
