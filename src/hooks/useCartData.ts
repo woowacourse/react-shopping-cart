@@ -19,6 +19,7 @@ interface UseCartDataProps {
 
 const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const updateCartItem = async (cartId: number) => {
     const cartItem = getCartItemById(cartData, cartId);
@@ -34,36 +35,46 @@ const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
   };
 
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
-    const updateCartData = await callApi<CartItemType[]>(
-      async () => {
-        await modifyCartItem(cartItemId, quantity);
-        const cartData = await getCart();
-        setCartData(cartData);
-        return cartData;
-      },
-      "장바구니 수량을 변경했습니다.",
-      "updating"
-    );
-    if (!updateCartData) {
-      return;
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+      const updateCartData = await callApi<CartItemType[]>(
+        async () => {
+          await modifyCartItem(cartItemId, quantity);
+          const cartData = await getCart();
+          setCartData(cartData);
+          return cartData;
+        },
+        "장바구니 수량을 변경했습니다.",
+        "updating"
+      );
+      if (!updateCartData) return;
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   const removeCartItem = async (cartItemId: number) => {
-    const updateCartData = await callApi<CartItemType[]>(
-      async () => {
-        await deleteCartItem(cartItemId);
-        const cartData = await getCart();
-        setCartData(cartData);
-        return cartData;
-      },
-      "장바구니 상품을 삭제했습니다.",
-      "updating"
-    );
-    if (!updateCartData) {
-      return;
+    if (isProcessing) return;
+    try {
+      setIsProcessing(true);
+      const updateCartData = await callApi<CartItemType[]>(
+        async () => {
+          await deleteCartItem(cartItemId);
+          const cartData = await getCart();
+          setCartData(cartData);
+          return cartData;
+        },
+        "장바구니 상품을 삭제했습니다.",
+        "updating"
+      );
+      if (!updateCartData) return;
+
+      syncIsCheckedSet(updateCartData.map((item: CartItemType) => item.id));
+    } finally {
+      setIsProcessing(false);
     }
-    syncIsCheckedSet(updateCartData.map((item: CartItemType) => item.id));
   };
 
   const updateCartData = (updateData: CartItemType[]) => {
