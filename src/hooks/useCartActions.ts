@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
 import { patchCartItem } from '../api/patchCartItem';
 import { deleteCartItem } from '../api/deleteCartItem';
-import getCartItems from '../api/getCartItem';
-import { useApiContext } from './useApiContext';
 import { useMutation } from './useMutation';
+import { useCartItems } from './useCartItems';
 
 interface UpdateQuantityVariables {
   cartItemId: number;
@@ -15,7 +14,7 @@ interface RemoveItemVariables {
 }
 
 export function useCartActions() {
-  const { fetcher: refetchCart } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });
+  const { fetcher: refetchCart } = useCartItems();
 
   const updateQuantity = useMutation<void, UpdateQuantityVariables>(
     useCallback(
