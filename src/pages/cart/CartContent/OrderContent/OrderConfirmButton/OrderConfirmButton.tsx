@@ -1,8 +1,8 @@
-import * as S from "./OrderConfirmButton.styled";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/shared/config/routes";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { getDeliveryPrice } from "@/domains/utils/getDeliveryPrice";
+import BottomFixedButton from "@/shared/components/BottomFixedButton/BottomFixedButton";
 
 type OrderConfirmButton = {
   orderList: CartItemType[];
@@ -24,12 +24,12 @@ export default function OrderConfirmButton({
   };
 
   return (
-    <S.OrderConfirmButton
+    <BottomFixedButton
       type="button"
       onClick={handleOrderConfirmButtonClick}
       disabled={!orderList.length}
     >
       주문 확인
-    </S.OrderConfirmButton>
+    </BottomFixedButton>
   );
 }

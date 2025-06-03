@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const OrderConfirmButton = styled.button`
+export const Button = styled.button`
   width: 500px;
   height: 64px;
   position: fixed;
