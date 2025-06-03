@@ -5,6 +5,8 @@ import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
 import Fallback from "@/shared/components/Fallback";
 import { isOrderSuccessState } from "@/domains/validation/isOrderSuccessState";
 import OrderSummary from "@/domains/components/OrderSummary/OrderSummary";
+import PaymentPrice from "./PaymentPrice/PaymentPrice";
+import CartNavigateButton from "./CartNavigateButton/CartNavigateButton";
 
 export default function PaymentSuccessPage() {
   const { state, isValidating } = useValidateLocationState({
@@ -35,16 +37,9 @@ export default function PaymentSuccessPage() {
             orderListCount={orderListCount}
             orderQuantity={orderQuantity}
           />
-          <S.OrderPriceContainer>
-            <S.OrderPriceTitle>총 결제 금액</S.OrderPriceTitle>
-            <S.OrderPriceText>
-              {paymentPrice.toLocaleString()}원
-            </S.OrderPriceText>
-          </S.OrderPriceContainer>
+          <PaymentPrice paymentPrice={paymentPrice} />
         </S.OrderContainer>
-        <S.PayConfirmButton type="button">
-          장바구니로 돌아가기
-        </S.PayConfirmButton>
+        <CartNavigateButton />
       </S.Container>
     </>
   );
