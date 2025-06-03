@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { HeaderProps } from './Header';
 
-export const StyledHeader = styled.header<Pick<HeaderProps, 'right'>>`
+export const StyledHeader = styled.header<Pick<HeaderProps, 'justifyContent'>>`
   position: sticky;
   top: 0;
   height: 64px;
@@ -11,7 +11,7 @@ export const StyledHeader = styled.header<Pick<HeaderProps, 'right'>>`
   background-color: black;
   display: flex;
   align-items: center;
-  justify-content: ${({ right }) => (right ? 'space-between' : 'flex-start')};
+  justify-content: ${({ justifyContent }) => justifyContent};
   flex-shrink: 0;
   z-index: 10;
 `;

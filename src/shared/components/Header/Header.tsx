@@ -5,11 +5,13 @@ import { StyledHeader } from './Header.styled';
 export type HeaderProps = {
   left: ReactNode;
   right?: ReactNode;
+  justifyContent?: string;
 } & ComponentProps<'header'>;
 
 export const Header = ({ left, right, ...props }: HeaderProps) => {
+  const justifyContent = right ? 'space-between' : 'flex-start';
   return (
-    <StyledHeader right={right} {...props}>
+    <StyledHeader justifyContent={justifyContent} {...props}>
       {left}
       {right}
     </StyledHeader>
