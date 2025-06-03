@@ -13,6 +13,7 @@ export default function ShoppingCartPage() {
     queryKey: QUERY_KEY.CART_ITEM,
     queryFn: CartItemApi.getCartItems,
   });
+
   const navigate = useNavigate();
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
 
