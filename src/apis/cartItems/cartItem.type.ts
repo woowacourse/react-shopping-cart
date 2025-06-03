@@ -12,10 +12,7 @@ export interface CartItemType {
   product: ProductItemType;
 }
 
-export interface OrderItemType {
-  id: number;
-  isChecked: boolean;
-}
+export type OrderItemType = number[];
 
 export interface UpdateCartItemQuantity {
   id: number;

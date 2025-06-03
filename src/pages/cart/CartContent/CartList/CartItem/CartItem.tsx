@@ -11,18 +11,16 @@ interface CartItemProps {
   cartItem: CartItemType;
   refetchCartItems: () => Promise<void>;
   isChecked: boolean;
-  addOrderItem: (cartItem: CartItemType) => void;
-  removeOrderItem: (id: number) => void;
-  updateOrderItem: (id: number, quantity: number) => void;
+  addOrderItemId: (id: number) => void;
+  removeOrderItemId: (id: number) => void;
 }
 
 export default function CartItem({
   cartItem,
   refetchCartItems,
   isChecked,
-  addOrderItem,
-  removeOrderItem,
-  updateOrderItem,
+  addOrderItemId,
+  removeOrderItemId,
 }: CartItemProps) {
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
@@ -40,11 +38,11 @@ export default function CartItem({
 
   const handleCheckBoxClick = () => {
     if (isChecked) {
-      removeOrderItem(id);
+      removeOrderItemId(id);
       return;
     }
 
-    addOrderItem(cartItem);
+    addOrderItemId(id);
   };
 
   return (
@@ -71,8 +69,7 @@ export default function CartItem({
             cartItemId={id}
             quantity={quantity}
             refetchCartItems={refetchCartItems}
-            removeOrderItem={removeOrderItem}
-            updateOrderItem={updateOrderItem}
+            removeOrderItemId={removeOrderItemId}
           />
         </S.ItemDetail>
       </S.ItemContent>

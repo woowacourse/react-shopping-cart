@@ -6,6 +6,7 @@ import * as S from './CartContent.styled';
 import { useCartItem } from '../hooks/useCartItem';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/shared/config/routes';
+import { calculatePaymentAmount } from '@/shared/utils/payments';
 
 export default function CartContent() {
   const {
@@ -13,13 +14,12 @@ export default function CartContent() {
     isLoading,
     errorMessage,
     refetchCartItems,
-    orderList,
+    orderIdList,
     isAllChecked,
     orderTotalPrice,
     toggleAllCheckBox,
-    addOrderItem,
-    removeOrderItem,
-    updateOrderItem,
+    addOrderItemId,
+    removeOrderItemId,
   } = useCartItem();
   const navigate = useNavigate();
 
@@ -36,6 +36,7 @@ export default function CartContent() {
   }
 
   const handleOrderConfirmButtonClick = () => {
+    const orderList = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
     navigate(ROUTES.ORDER_SUCCESS, {
       state: {
         orderList,
@@ -54,16 +55,15 @@ export default function CartContent() {
       <S.ScrollContainer>
         <CartList
           cartItems={cartItems}
-          orderList={orderList}
+          orderIdList={orderIdList}
           refetchCartItems={refetchCartItems}
-          addOrderItem={addOrderItem}
-          removeOrderItem={removeOrderItem}
-          updateOrderItem={updateOrderItem}
+          addOrderItemId={addOrderItemId}
+          removeOrderItemId={removeOrderItemId}
         />
-        <PriceContainer orderTotalPrice={orderTotalPrice} />
+        <PriceContainer orderTotalPrice={orderTotalPrice ?? 0} />
       </S.ScrollContainer>
       <S.OrderConfirmButton
-        disabled={!orderList.length}
+        disabled={!orderIdList.length}
         type="button"
         onClick={handleOrderConfirmButtonClick}
       >

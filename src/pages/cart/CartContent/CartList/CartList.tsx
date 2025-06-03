@@ -1,37 +1,34 @@
 import CartItem from './CartItem/CartItem';
 import * as S from './CartList.styled';
-import { CartItemType } from '@/apis/cartItems/cartItem.type';
+import { CartItemType, OrderItemType } from '@/apis/cartItems/cartItem.type';
 
 interface CartListProps {
   cartItems: CartItemType[];
-  orderList: CartItemType[];
+  orderIdList: OrderItemType;
   refetchCartItems: () => Promise<void>;
-  addOrderItem: (cartItem: CartItemType) => void;
-  removeOrderItem: (id: number) => void;
-  updateOrderItem: (id: number, quantity: number) => void;
+  addOrderItemId: (id: number) => void;
+  removeOrderItemId: (id: number) => void;
 }
 
 export default function CartList({
   cartItems,
-  orderList,
+  orderIdList,
   refetchCartItems,
-  addOrderItem,
-  removeOrderItem,
-  updateOrderItem,
+  addOrderItemId,
+  removeOrderItemId,
 }: CartListProps) {
   return (
     <S.List>
       {cartItems.map((cartItem) => {
-        const isChecked = orderList.some((order) => order.id === cartItem.id);
+        const isChecked = orderIdList.includes(cartItem.id);
         return (
           <CartItem
             key={cartItem.id}
             cartItem={cartItem}
             refetchCartItems={refetchCartItems}
             isChecked={isChecked}
-            addOrderItem={addOrderItem}
-            removeOrderItem={removeOrderItem}
-            updateOrderItem={updateOrderItem}
+            addOrderItemId={addOrderItemId}
+            removeOrderItemId={removeOrderItemId}
           />
         );
       })}

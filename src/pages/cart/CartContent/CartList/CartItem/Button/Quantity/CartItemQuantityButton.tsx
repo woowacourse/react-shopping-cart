@@ -9,16 +9,14 @@ interface CartItemQuantityButtonProps {
   cartItemId: number;
   quantity: number;
   refetchCartItems: () => Promise<void>;
-  removeOrderItem: (id: number) => void;
-  updateOrderItem: (id: number, quantity: number) => void;
+  removeOrderItemId: (id: number) => void;
 }
 
 function CartItemQuantityButton({
   cartItemId,
   quantity,
   refetchCartItems,
-  removeOrderItem,
-  updateOrderItem,
+  removeOrderItemId,
 }: CartItemQuantityButtonProps) {
   const { mutate: updateCartItemMutate } = useMutation(updateCartItemQuantity);
 
@@ -28,7 +26,6 @@ function CartItemQuantityButton({
       quantity: updateQuantity,
     });
     refetchCartItems();
-    updateOrderItem(cartItemId, updateQuantity);
   };
 
   return (
@@ -37,7 +34,7 @@ function CartItemQuantityButton({
         <RemoveCartItemButton
           cartItemId={cartItemId}
           refetchCartItems={refetchCartItems}
-          removeOrderItem={removeOrderItem}
+          removeOrderItemId={removeOrderItemId}
         />
       ) : (
         <S.Button type="button" onClick={() => updateCartItem(quantity - 1)}>

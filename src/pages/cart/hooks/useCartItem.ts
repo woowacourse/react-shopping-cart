@@ -1,4 +1,4 @@
-import { CartItemType } from '@/apis/cartItems/cartItem.type';
+import { OrderItemType } from '@/apis/cartItems/cartItem.type';
 import { getCartItems } from '@/apis/cartItems/getCartItems';
 import useFetchData from '@/shared/hooks/useFetchData';
 import { useEffect, useRef, useState } from 'react';
@@ -10,50 +10,42 @@ export const useCartItem = () => {
     errorMessage,
     refetch: refetchCartItems,
   } = useFetchData({ fetchFn: getCartItems });
-  const [orderList, setOrderList] = useState<CartItemType[]>([]);
+  const [orderIdList, setOrderIdList] = useState<OrderItemType>([]);
   const isFirstLoad = useRef(true);
 
   useEffect(() => {
     if (cartItems && isFirstLoad.current) {
-      setOrderList(cartItems);
+      setOrderIdList(cartItems.map((item) => item.id));
       isFirstLoad.current = false;
     }
   }, [cartItems]);
 
   const cartIds = new Set(cartItems?.map((item) => item.id));
-  const orderIds = new Set(orderList.map((item) => item.id));
-  const isAllChecked = [...cartIds].every((id) => orderIds.has(id));
-  const orderTotalPrice = orderList.reduce((sum, { product, quantity }) => {
-    return sum + product.price * quantity;
+  const isAllChecked = [...cartIds].every((id) => orderIdList.includes(id));
+
+  const orderTotalPrice = cartItems?.reduce((sum, { id, product, quantity }) => {
+    if (orderIdList.includes(id)) {
+      return sum + product.price * quantity;
+    }
+
+    return sum;
   }, 0);
 
   const toggleAllCheckBox = () => {
     if (isAllChecked) {
-      setOrderList([]);
+      setOrderIdList([]);
       return;
     }
 
-    setOrderList(cartItems ?? []);
+    setOrderIdList(cartItems?.map((item) => item.id) ?? []);
   };
 
-  const addOrderItem = (cartItem: CartItemType) => {
-    setOrderList((prev) => [...prev, cartItem]);
+  const addOrderItemId = (id: number) => {
+    setOrderIdList((prev) => [...prev, id]);
   };
 
-  const removeOrderItem = (id: number) => {
-    const newOrderList = orderList.filter((order) => order.id !== id);
-    setOrderList(newOrderList);
-  };
-
-  const updateOrderItem = (id: number, quantity: number) => {
-    const updateOrderList = orderList.map((order) => {
-      if (order.id === id) {
-        return { ...order, quantity };
-      }
-
-      return order;
-    });
-    setOrderList(updateOrderList);
+  const removeOrderItemId = (id: number) => {
+    setOrderIdList((prev) => prev.filter((orderId) => orderId !== id));
   };
 
   return {
@@ -61,12 +53,11 @@ export const useCartItem = () => {
     isLoading,
     errorMessage,
     refetchCartItems,
-    orderList,
+    orderIdList,
     isAllChecked,
     orderTotalPrice,
     toggleAllCheckBox,
-    addOrderItem,
-    removeOrderItem,
-    updateOrderItem,
+    addOrderItemId,
+    removeOrderItemId,
   };
 };
