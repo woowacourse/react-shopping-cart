@@ -8,13 +8,13 @@ import { CartItemType } from '@/apis/cartItems/cartItem.type';
 
 interface OrderSuccessState {
   orderList: CartItemType[];
-  orderTotalPrice: number;
+  paymentAmount: number;
 }
 
 export default function OrderSuccessPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { orderList, orderTotalPrice } = location.state as OrderSuccessState;
+  const { orderList, paymentAmount } = location.state as OrderSuccessState;
   const orderListType = orderList.length;
   const orderQuantity = orderList.reduce((acc, { quantity }) => (acc += quantity), 0);
 
@@ -39,7 +39,7 @@ export default function OrderSuccessPage() {
           </S.OrderText>
           <S.OrderPriceContainer>
             <S.OrderPriceTitle>총 결제 금액</S.OrderPriceTitle>
-            <S.OrderPriceText>{orderTotalPrice.toLocaleString()}원</S.OrderPriceText>
+            <S.OrderPriceText>{paymentAmount.toLocaleString()}원</S.OrderPriceText>
           </S.OrderPriceContainer>
         </S.OrderContainer>
         <S.PayConfirmButton disabled={true} type="button">

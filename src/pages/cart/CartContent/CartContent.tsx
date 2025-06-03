@@ -6,7 +6,7 @@ import * as S from './CartContent.styled';
 import { useCartItem } from '../hooks/useCartItem';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/shared/config/routes';
-import { calculatePaymentAmount } from '@/shared/utils/payments';
+import { calculatePaymentAmount } from '@/shared/utils/orderPricing';
 
 export default function CartContent() {
   const {
@@ -37,10 +37,12 @@ export default function CartContent() {
 
   const handleOrderConfirmButtonClick = () => {
     const orderList = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
+    const paymentAmount = calculatePaymentAmount(orderTotalPrice ?? 0);
+
     navigate(ROUTES.ORDER_SUCCESS, {
       state: {
         orderList,
-        orderTotalPrice,
+        paymentAmount,
       },
     });
   };

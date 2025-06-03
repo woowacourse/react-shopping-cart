@@ -1,15 +1,13 @@
 import * as S from './PriceContainer.styled';
 import InfoIcon from '@assets/icons/info.svg';
-
-const FREE_DELIVERY_LIMIT = 100_000;
+import { calculatePaymentInfo, FREE_DELIVERY_LIMIT } from '@/shared/utils/orderPricing';
 
 interface PriceContainerProps {
   orderTotalPrice: number;
 }
 
 export default function PriceContainer({ orderTotalPrice }: PriceContainerProps) {
-  const deliveryPrice = orderTotalPrice >= FREE_DELIVERY_LIMIT ? 0 : 3000;
-  const paymentPrice = orderTotalPrice + deliveryPrice;
+  const { deliveryFee, paymentAmount } = calculatePaymentInfo(orderTotalPrice);
 
   return (
     <S.Container>
@@ -26,13 +24,13 @@ export default function PriceContainer({ orderTotalPrice }: PriceContainerProps)
         </S.PriceTextBox>
         <S.PriceTextBox>
           <S.PriceTitle>배송비</S.PriceTitle>
-          <S.PriceText data-testid="delivery-price">{deliveryPrice.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="delivery-price">{deliveryFee.toLocaleString()}원</S.PriceText>
         </S.PriceTextBox>
       </S.PriceBox>
       <S.TotalPriceBox>
         <S.PriceTextBox>
           <S.PriceTitle>총 결제 금액</S.PriceTitle>
-          <S.PriceText data-testid="payment-price">{paymentPrice.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="payment-price">{paymentAmount.toLocaleString()}원</S.PriceText>
         </S.PriceTextBox>
       </S.TotalPriceBox>
     </S.Container>

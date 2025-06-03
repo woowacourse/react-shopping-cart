@@ -45,11 +45,11 @@ const mockOrderList = [
   },
 ];
 
-const mockOrderTotalPrice = 170_000;
+const mockPaymentAmount = 170_000;
 
 const mockState = {
   orderList: mockOrderList,
-  orderTotalPrice: mockOrderTotalPrice,
+  paymentAmount: mockPaymentAmount,
 };
 
 describe('OrderSuccessPage', () => {
