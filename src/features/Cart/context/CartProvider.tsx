@@ -25,7 +25,7 @@ export const useCartContext = () => {
 export const CartProvider = ({ children }: PropsWithChildren) => {
   const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
   const { showToast } = useContext(ToastContext);
-  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+  const [checkedItems, setCheckedItems] = useState(new Set<number>());
   const hasInitialized = useRef(false);
 
   useEffect(() => {
