@@ -1,7 +1,10 @@
-import { useCartDispatch } from "../stores/CartContext";
-import { useSelectContext, useSelectDispatch } from "../stores/SelectContext";
-import updateCartItemApi from "../api/updateCartItemApi";
-import { ResponseCartItem } from "../types/types";
+import { useCartDispatch } from "../../stores/CartContext";
+import {
+  useSelectContext,
+  useSelectDispatch,
+} from "../../stores/SelectContext";
+import updateCartItemApi from "../../api/updateCartItemApi";
+import { ResponseCartItem } from "../../types/types";
 
 interface UseCartItemManagerProps {
   cart: ResponseCartItem;
