@@ -1,4 +1,5 @@
 export const ROUTES = {
-  CART: '/',
-  ORDER_SUCCESS: '/order-success',
+  CART: "/",
+  ORDER_CONFIRM: "/order-confirm",
+  PAYMENT_SUCCESS: "/payment-success",
 } as const;

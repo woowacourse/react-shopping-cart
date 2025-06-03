@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import OrderSuccessPage from "./OrderSuccessPage";
+import PaymentSuccessPage from "./PaymentSuccessPage";
 import { ROUTES } from "@/shared/config/routes";
 import CartPage from "../cart/CartPage";
 
@@ -54,10 +54,10 @@ describe("OrderSuccessPage", () => {
       render(
         <MemoryRouter
           initialEntries={[
-            { pathname: ROUTES.ORDER_SUCCESS, state: mockState },
+            { pathname: ROUTES.PAYMENT_SUCCESS, state: mockState },
           ]}
         >
-          <OrderSuccessPage />
+          <PaymentSuccessPage />
         </MemoryRouter>
       );
     });
@@ -74,13 +74,16 @@ describe("OrderSuccessPage", () => {
       <MemoryRouter
         initialEntries={[
           { pathname: ROUTES.CART },
-          { pathname: ROUTES.ORDER_SUCCESS },
+          { pathname: ROUTES.PAYMENT_SUCCESS },
         ]}
         initialIndex={1}
       >
         <Routes>
           <Route path={ROUTES.CART} element={<CartPage />} />
-          <Route path={ROUTES.ORDER_SUCCESS} element={<OrderSuccessPage />} />
+          <Route
+            path={ROUTES.PAYMENT_SUCCESS}
+            element={<PaymentSuccessPage />}
+          />
         </Routes>
       </MemoryRouter>
     );

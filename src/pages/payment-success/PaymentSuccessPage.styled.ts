@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export const Container = styled.main`
   display: flex;
@@ -14,19 +14,6 @@ export const OrderContainer = styled.div`
   flex-direction: column;
   gap: 24px;
   text-align: center;
-`;
-
-export const Title = styled.h1`
-  color: #000;
-  font-size: 24px;
-  font-weight: 700;
-`;
-
-export const OrderText = styled.p`
-  color: #0a0d13;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 150%;
 `;
 
 export const OrderPriceContainer = styled.div`

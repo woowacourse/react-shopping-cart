@@ -1,10 +1,6 @@
-import { ReactNode } from 'react';
-import * as S from './Header.styled';
+import { PropsWithChildren } from "react";
+import * as S from "./Header.styled";
 
-type HeaderProps = {
-  children: ReactNode;
-};
-
-export default function Header({ children }: HeaderProps) {
+export default function Header({ children }: PropsWithChildren) {
   return <S.Header>{children}</S.Header>;
 }
