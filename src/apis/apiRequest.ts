@@ -10,6 +10,7 @@ export const apiRequest = async ({ url, method, body }: ApiRequestProps) => {
     method,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Basic ${import.meta.env.VITE_API_TOKEN}`,
     },
     body,
   });
