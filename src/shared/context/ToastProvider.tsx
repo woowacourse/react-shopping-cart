@@ -2,13 +2,13 @@ import { createContext, PropsWithChildren, useRef, useState } from 'react';
 
 import { Toast } from '../components/Toast/Toast';
 
-export const ToastContext = createContext({ showToast(_message: string) {} });
+export const ToastContext = createContext({ showToast(_message: string, _duration: number = 3000) {} });
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
   const [toast, setToast] = useState('');
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const showToast = (message: string) => {
+  const showToast = (message: string, duration = 3000) => {
     setToast(message);
 
     if (timerRef.current) {
@@ -18,7 +18,7 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
     timerRef.current = setTimeout(() => {
       setToast('');
       timerRef.current = null;
-    }, 3000);
+    }, duration);
   };
 
   return (
