@@ -76,7 +76,14 @@ function Cart() {
     <>
       <Header icon="logo.svg" handleIconClick={() => navigate("/")} />
       <section css={Container}>
-        <Description cartItemCount={cartItems.length} />
+        <Description
+          title="장바구니"
+          subtitle={
+            cartItems.length !== 0
+              ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.`
+              : ""
+          }
+        />
 
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
