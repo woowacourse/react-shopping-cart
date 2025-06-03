@@ -19,7 +19,7 @@ const useQuantityControl = ({
   updateCartItem,
   refetchCartItem,
 }: UseQuantityControlProps) => {
-  const { fetchData } = useFetch<void>("cartItems");
+  const { fetchData } = useFetch<void>("cartItemsUpdate");
 
   const updateQuantity = (cartId: number, quantity: number) => {
     const { product } = findCartItemById(cartId, cartItems);

@@ -13,3 +13,10 @@ export interface CartItemType {
   product: ProductItemType;
   quantity: number;
 }
+
+export type FetchResponseType = {
+  cartItems: CartItemType[];
+  cartItemsUpdate: void;
+};
+
+export type FetchKeyType = keyof FetchResponseType;

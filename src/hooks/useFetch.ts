@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { FetchKeyType } from "../types/response";
 
 interface FetchDataProps<T> {
   apiCall: () => Promise<T>;
@@ -6,8 +7,10 @@ interface FetchDataProps<T> {
   onError: (error: Error | unknown) => void;
 }
 
-const useFetch = <T>(key: string) => {
-  const [isLoading, setIsLoading] = useState<Map<string, boolean>>(new Map());
+const useFetch = <T>(key: FetchKeyType) => {
+  const [isLoading, setIsLoading] = useState<Map<FetchKeyType, boolean>>(
+    new Map()
+  );
 
   const handleLoading = useCallback(
     (loadingState: boolean) => {
