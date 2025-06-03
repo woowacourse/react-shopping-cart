@@ -1,6 +1,4 @@
 import { getCartItemList } from '@/api/cart';
-import { Flex } from '@/shared/components/Flex';
-import { Loading } from '@/shared/components/Loading';
 import { STEPS } from '@/shared/constants/setStep';
 import { useFetchData } from '@/shared/hooks/useFetchData';
 

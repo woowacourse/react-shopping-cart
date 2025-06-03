@@ -1,25 +1,16 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { deleteCartItem, getCartItemList, updateCartItem } from '@/api/cart';
 import { ToastContext } from '@/shared/context/ToastProvider';
-import { useFetchData } from '@/shared/hooks/useFetchData';
 import { isError } from '@/shared/utils/isError';
 
-import { CartItem } from '../types/Cart.types';
+import { CartDataState } from '../types/Cart.types';
 
-export const useCart = () => {
-  const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
+export const useCart = ({ cart }: CartDataState) => {
   const { showToast } = useContext(ToastContext);
-  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
-  const hasInitialized = useRef(false);
-
-  useEffect(() => {
-    if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
-      setCheckedItems(new Set(cart.data.map((item) => item.id)));
-      hasInitialized.current = true;
-    }
-  }, [cart.data, checkedItems.size]);
-
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(
+    new Set(cart.data?.map((item) => item.id))
+  );
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
