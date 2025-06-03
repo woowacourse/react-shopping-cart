@@ -1,6 +1,10 @@
 import { useReducer } from 'react';
 
-type Action<K> = { type: 'TOGGLE'; id: K } | { type: 'CHECK_ALL' } | { type: 'UNCHECK_ALL' };
+type Action<K> =
+  | { type: 'TOGGLE'; id: K }
+  | { type: 'CHECK_ALL' }
+  | { type: 'UNCHECK_ALL' }
+  | { type: 'DELETE_CHECKED_ITEMS'; id: K };
 
 function reducer<K>(state: Map<K, boolean>, action: Action<K>): Map<K, boolean> {
   const newState = new Map(state);
@@ -15,6 +19,9 @@ function reducer<K>(state: Map<K, boolean>, action: Action<K>): Map<K, boolean> 
     case 'UNCHECK_ALL':
       for (const key of state.keys()) newState.set(key, false);
       return newState;
+    case 'DELETE_CHECKED_ITEMS':
+      newState.delete(action.id);
+      return newState;
     default:
       return state;
   }
@@ -28,6 +35,7 @@ export function useCheckList<T, K>(items: T[], getKey: (item: T) => K) {
   const toggle = (id: K) => dispatch({ type: 'TOGGLE', id });
   const checkAll = () => dispatch({ type: 'CHECK_ALL' });
   const uncheckAll = () => dispatch({ type: 'UNCHECK_ALL' });
+  const deleteCheckedItems = (id: K) => dispatch({ type: 'DELETE_CHECKED_ITEMS', id });
 
   const isAllChecked = Array.from(state.values()).every(Boolean);
 
@@ -36,6 +44,7 @@ export function useCheckList<T, K>(items: T[], getKey: (item: T) => K) {
     toggle,
     checkAll,
     uncheckAll,
-    isAllChecked
+    isAllChecked,
+    deleteCheckedItems
   };
 }

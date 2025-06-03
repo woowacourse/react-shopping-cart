@@ -12,9 +12,10 @@ interface CartItemProps {
   item: CartItemType;
   handleCheckBoxChange: () => void;
   checked: boolean;
+  handleDeleteCart: () => void;
 }
 
-export default function CartItem({ item, handleCheckBoxChange, checked }: CartItemProps) {
+export default function CartItem({ item, handleCheckBoxChange, checked, handleDeleteCart }: CartItemProps) {
   const { id: cartItemId, product, quantity: cartQuantity } = item;
   const { name, price, imageUrl } = product;
 
@@ -30,8 +31,9 @@ export default function CartItem({ item, handleCheckBoxChange, checked }: CartIt
     await refetchCart();
   };
 
-  const handleDeleteCart = async () => {
+  const handleDeleteCartItem = async () => {
     await deleteCartItem(cartItemId);
+    handleDeleteCart();
     await refetchCart();
   };
 
@@ -39,7 +41,7 @@ export default function CartItem({ item, handleCheckBoxChange, checked }: CartIt
     <div key={cartItemId} css={styles.cartItemFrameCss}>
       <div css={styles.cartItemHeaderCss}>
         <CheckBox onChange={handleCheckBoxChange} checked={checked} />
-        <RemoveButton onClick={handleDeleteCart} />
+        <RemoveButton onClick={handleDeleteCartItem} />
       </div>
       <div css={styles.cartItemInfoCss}>
         <img
