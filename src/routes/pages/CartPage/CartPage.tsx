@@ -4,7 +4,7 @@ import Header from '../../../components/@common/Header/Header';
 import HeaderButton from '../../../components/@common/Header/HeaderButton';
 import ContainerLayout from '../../../components/@common/ContainerLayout/ContainerLayout';
 import PageTitle from '../../../components/PageTitle/PageTitle';
-import CartItem from '../../../components/CartItem/CartItem';
+import CartItem from '../../../components/ListItem/CartItem/CartItem';
 import CartList from '../../../components/List/CartList/CartList';
 import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
 import OrderButton from '../../../components/OrderButton/OrderButton';

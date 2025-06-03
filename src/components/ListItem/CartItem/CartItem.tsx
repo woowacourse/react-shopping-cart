@@ -1,18 +1,21 @@
-import { Default, Minus, Plus } from '../../assets';
-import { PatchCartItemProps } from '../../types/cartApi';
-import { CartItemProps } from '../../types/cartItem';
-import Text from '../@common/Text/Text';
+import ListItem from '../ListItem';
+import Text from '../../@common/Text/Text';
+
+import { Default, Minus, Plus } from '../../../assets';
+import { PatchCartItemProps } from '../../../types/cartApi';
+import { CartItemProps } from '../../../types/cartItem';
 import {
-  CartInfo,
-  CartItemBodyStyle,
-  CartItemStyle,
   CheckboxStyle,
   ControllerBox,
   ControllerButton,
   DeleteButtonStyle,
-  ImageStyle,
-  ListItemHeaderStyle,
+  CartItemHeaderStyle,
 } from './CartItem.styles';
+import {
+  ListItemBodyStyle,
+  ItemImageStyle,
+  ItemInfo,
+} from '../ListItem.styles';
 
 function CartItem({
   cartItem,
@@ -36,8 +39,8 @@ function CartItem({
   onDeleteCartItemClick: (cartItemId: number) => Promise<void>;
 }) {
   return (
-    <li css={CartItemStyle}>
-      <div css={ListItemHeaderStyle}>
+    <ListItem>
+      <div css={CartItemHeaderStyle}>
         <input
           type="checkbox"
           css={CheckboxStyle}
@@ -51,14 +54,14 @@ function CartItem({
           <Text varient="caption">삭제</Text>
         </button>
       </div>
-      <div css={CartItemBodyStyle}>
+      <div css={ListItemBodyStyle}>
         <img
-          css={ImageStyle}
+          css={ItemImageStyle}
           src={cartItem.product.imageUrl ?? Default}
           alt={cartItem.product.name}
         />
 
-        <div css={CartInfo}>
+        <div css={ItemInfo}>
           <Text varient="caption">{cartItem.product.name}</Text>
           <Text varient="title">
             {cartItem.product.price.toLocaleString()}원
@@ -90,7 +93,7 @@ function CartItem({
           </div>
         </div>
       </div>
-    </li>
+    </ListItem>
   );
 }
 
