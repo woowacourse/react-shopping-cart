@@ -1,4 +1,4 @@
-import * as S from "./CartPage.style";
+import * as S from "./CartPage.styles";
 import { Title, Subtitle } from "../../styles/@common/title/Title.styles";
 import CartItem from "../../components/features/cartItem/CartItem";
 import CartPrice from "../../components/features/cartPrice/CartPrice";
@@ -21,6 +21,9 @@ import {
 import tryApiCall from "../../utils/tryApiCall";
 import { useToast } from "../../contexts/ToastContext";
 import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
+import CartPageSkeleton from "./skeleton/CartPageSkeleton";
+import { useState } from "react";
+import type { LoadingType } from "../../types/loading";
 
 const CartPage = () => {
   const {
@@ -40,24 +43,37 @@ const CartPage = () => {
   } = useCheckedArray(cartData);
   const { openToast } = useToast();
   const { goOrderComplete } = useEasyNavigate();
+  const [loadingState, setLoadingState] =
+    useState<LoadingType>("initialLoading");
 
   useEffect(() => {
+    setLoadingState("initialLoading");
+
     const fetchCartData = async () => {
       const initialCartData = await tryApiCall(
         () => getCart(),
         openToast,
         "장바구니 데이터를 불러왔습니다."
       );
-      if (!initialCartData) return;
-
+      if (!initialCartData) {
+        setLoadingState("error");
+        return;
+      }
       initCartData(initialCartData);
       initIsCheckedArray(initialCartData);
+      setLoadingState("success");
     };
 
     fetchCartData();
   }, []);
 
-  // TODO : item이 없을 경우 NO_CONTENT 메세지 보여줄 것
+  console.log(loadingState);
+
+  if (loadingState === "initialLoading") {
+    console.log("작동");
+    return <CartPageSkeleton />;
+  }
+
   return (
     <div css={S.cartPageWrapper}>
       <div css={S.cartTitleContainer}>

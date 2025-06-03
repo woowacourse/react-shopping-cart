@@ -1,5 +1,5 @@
-import Header from "../../components/layout/header/Header";
-import ToastProvider from "../../contexts/ToastContext";
+import Header from "../../../components/layout/header/Header";
+import ToastProvider from "../../../contexts/ToastContext";
 import * as S from "./Layout.styles";
 import { Outlet } from "react-router-dom";
 
