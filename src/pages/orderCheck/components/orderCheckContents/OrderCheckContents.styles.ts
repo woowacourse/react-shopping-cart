@@ -19,3 +19,25 @@ export const OrderItemList = styled.div`
   align-items: center;
   gap: 20px;
 `;
+
+export const ShippingOptionBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const ShippingOptionTitle = styled.h4`
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const ShippingOptionSelectRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const ShippingOptionSelectText = styled.label`
+  font-size: 12px;
+  font-weight: 500;
+`;
