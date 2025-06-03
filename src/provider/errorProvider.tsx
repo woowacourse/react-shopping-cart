@@ -12,10 +12,7 @@ type ErrorContextType = {
   showError: (msg: string) => void;
 };
 
-const ErrorContext = createContext<ErrorContextType>({
-  error: '',
-  showError: () => {},
-});
+const ErrorContext = createContext<ErrorContextType | undefined>(undefined);
 
 export function ErrorProvider({children}: {children: ReactNode}) {
   const [error, setError] = useState('');
@@ -42,11 +39,23 @@ export function ErrorProvider({children}: {children: ReactNode}) {
 }
 
 export const useError = () => {
-  const {error} = useContext(ErrorContext);
-  return error;
+  const context = useContext(ErrorContext);
+
+  if (!context) {
+    throw new Error('useError must be used within an ErrorContext.Provider');
+  }
+
+  return context.error;
 };
 
 export const useShowError = () => {
-  const {showError} = useContext(ErrorContext);
-  return showError;
+  const context = useContext(ErrorContext);
+
+  if (!context) {
+    throw new Error(
+      'useShowError must be used within an ErrorContext.Provider'
+    );
+  }
+
+  return context.showError;
 };
