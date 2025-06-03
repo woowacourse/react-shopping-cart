@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const OrderCompleteWrapper = css`
   display: flex;
@@ -6,6 +6,7 @@ export const OrderCompleteWrapper = css`
   gap: 2.4rem;
   align-items: center;
   justify-content: center;
+  margin-top: 10rem;
 `;
 
 export const OrderCompleteTitle = css`
@@ -16,6 +17,7 @@ export const OrderCompleteTitle = css`
 export const OrderCompleteDescription = css`
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
+  color: var(--color-dark-grey);
 `;
 
 export const OrderCompleteSubtitle = css`

@@ -47,10 +47,3 @@ export const cartCheckboxContainer = css`
   width: 100%;
   gap: 0.45rem;
 `;
-
-export const cartButtonContainer = css`
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  max-width: var(--layout-width);
-`;

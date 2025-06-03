@@ -29,7 +29,6 @@ export const buttonColor = {
 
 export const buttonDefaultStyle = css`
   border: none;
-  border-radius: 0.4rem;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
   display: flex;

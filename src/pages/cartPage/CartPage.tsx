@@ -20,6 +20,7 @@ import {
 } from "../../constants/systemMessages";
 import tryApiCall from "../../utils/tryApiCall";
 import { useToast } from "../../contexts/ToastContext";
+import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
 
 const CartPage = () => {
   const {
@@ -62,37 +63,45 @@ const CartPage = () => {
       <div css={S.cartTitleContainer}>
         <p css={Title}>장바구니</p>
 
-        <p css={Subtitle}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
+        {cartData.length === 0 ? (
+          <p css={Subtitle}>{NO_ITEM_IN_CART}</p>
+        ) : (
+          <p css={Subtitle}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
+        )}
       </div>
 
-      <div css={S.cartList}>
-        <div css={S.cartCheckboxContainer}>
-          <Checkbox
-            checked={isAllChecked}
-            onChange={() => controlAllCheckBox(cartData)}
+      {cartData.length > 0 && (
+        <>
+          <div css={S.cartList}>
+            <div css={S.cartCheckboxContainer}>
+              <Checkbox
+                checked={isAllChecked}
+                onChange={() => controlAllCheckBox(cartData)}
+              />
+              <p>전체 선택</p>
+            </div>
+            <div css={S.cartContentContainer}>
+              {cartData.map((item) => (
+                <CartItem
+                  key={item.id}
+                  cartData={item}
+                  updateCartItem={updateCartItem}
+                  increaseCartItem={increaseCartItem}
+                  justifyIsChecked={justifyIsChecked}
+                  controlCheckBox={controlCheckBox}
+                  removeCartItem={removeCartItem}
+                />
+              ))}
+            </div>
+          </div>
+
+          <CartPrice
+            cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
           />
-          <p>전체 선택</p>
-        </div>
-        <div css={S.cartContentContainer}>
-          {cartData.map((item) => (
-            <CartItem
-              key={item.id}
-              cartData={item}
-              updateCartItem={updateCartItem}
-              increaseCartItem={increaseCartItem}
-              justifyIsChecked={justifyIsChecked}
-              controlCheckBox={controlCheckBox}
-              removeCartItem={removeCartItem}
-            />
-          ))}
-        </div>
-      </div>
+        </>
+      )}
 
-      <CartPrice
-        cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
-      />
-
-      <div css={S.cartButtonContainer}>
+      <div css={buttonFixedContainer}>
         <Button
           size="large"
           color="black"
