@@ -5,6 +5,6 @@ export const FEE = {
 } as const;
 
 export const ROUTE = {
-  CART: '/',
+  HOME: '/',
   ORDER_COMPLETE: '/order-complete',
 };

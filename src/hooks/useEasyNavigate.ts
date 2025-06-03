@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../constants/systemConstants";
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../constants/systemConstants';
 
 const useEasyNavigate = () => {
   const navigate = useNavigate();
 
   const goHome = () => {
-    navigate(ROUTE.CART);
+    navigate(ROUTE.HOME);
   };
 
   const goOrderComplete = (
