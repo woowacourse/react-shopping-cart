@@ -31,7 +31,8 @@ export function OrderConfirm() {
             <>
               <p css={titleText}>주문확인</p>
               <p css={bodyText}>
-                총 {state.selectedCartType}종류의 상품 {state.selectedCartItem}
+                총 {state.selectedItemGroupCount}종류의 상품{' '}
+                {state.selectedCartItem}
                 개를 주문합니다. 최종 결제 금액을 확인해 주세요.
               </p>
               <div css={totalPriceBox}>

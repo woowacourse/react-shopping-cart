@@ -34,7 +34,7 @@ export function ShoppingCart() {
   const handleConfirm = () => {
     navigate('/confirm', {
       state: {
-        selectedCartType: selectedCartId.length,
+        selectedItemGroupCount: selectedCartId.length,
         selectedCartItem: calculateCartItemQuantity(),
         totalPrice,
       },
