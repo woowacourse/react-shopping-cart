@@ -1,12 +1,12 @@
 import BackButton from "@/shared/components/BackButton/BackButton";
 import { Header } from "@/shared/components/Header/Header.styled";
 import * as S from "./OrderConfirmPage.styled";
-
 import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
 import { isOrderSuccessState } from "@/domains/validation/isOrderSuccessState";
 import { ROUTES } from "@/shared/config/routes";
 import Fallback from "@/shared/components/Fallback";
 import OrderSummary from "@/domains/components/OrderSummary/OrderSummary";
+import OrderList from "./OrderList/OrderList";
 
 export default function OrderConfirmPage() {
   const { state, isValidating } = useValidateLocationState({
@@ -38,6 +38,7 @@ export default function OrderConfirmPage() {
           orderListCount={orderListCount}
           orderQuantity={orderQuantity}
         />
+        <OrderList orderList={orderList} />
       </S.Container>
     </>
   );

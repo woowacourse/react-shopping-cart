@@ -3,11 +3,11 @@ import * as S from "./OrderItem.styled";
 import ProductImage from "@/shared/components/ProductImage/ProductImage";
 
 type OrderItemProps = {
-  cartItem: CartItemType;
+  orderItem: CartItemType;
 };
 
-export default function OrderItem({ cartItem }: OrderItemProps) {
-  const { quantity, product } = cartItem;
+export default function OrderItem({ orderItem }: OrderItemProps) {
+  const { quantity, product } = orderItem;
   const { name, price, imageUrl } = product;
 
   return (

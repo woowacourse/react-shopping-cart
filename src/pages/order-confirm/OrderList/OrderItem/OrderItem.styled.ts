@@ -8,10 +8,6 @@ export const Item = styled.li`
   gap: 12px;
   border-top: 1px solid #e5e5e5;
   padding-top: 12px;
-
-  &:first-of-type {
-    border: none;
-  }
 `;
 
 export const ItemHeader = styled.div`
