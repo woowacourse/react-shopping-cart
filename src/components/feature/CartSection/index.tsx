@@ -9,11 +9,9 @@ import Button from '../../common/Button';
 import {useNavigate} from 'react-router';
 import {css} from '@emotion/react';
 import {useSelectedCart} from '../../../hooks/useSelectedCart';
-import {useCallback} from 'react';
 import {ROUTE_PATHS} from '../../../route/path';
+import {calcOrderHistory} from '../../../feature/calcOrderHistory';
 
-const FREE_ORDER_PRICE = 100_000;
-const ORDER_PRICE = 3_000;
 const styleButton = css`
   width: 100%;
   padding: 24px 0;
@@ -35,27 +33,13 @@ const CartSection = () => {
     handleRemove,
   } = useSelectedCart(cartItems);
 
-  const selectedItem = cartItems?.filter(
-    (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
-  );
+  const selectedItem =
+    cartItems?.filter(
+      (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
+    ) || [];
 
-  const getOrderPrice = useCallback(() => {
-    return (
-      selectedItem?.reduce(
-        (total: number, current: CartProduct) =>
-          current.product.price * current.quantity + total,
-        0
-      ) ?? 0
-    );
-  }, [selectedItem]);
-
-  const totalAmount = selectedItem?.reduce(
-    (total: number, current: CartProduct) => total + current.quantity,
-    0
-  );
-  const orderPrice = getOrderPrice();
-  const deliveryPrice = orderPrice >= FREE_ORDER_PRICE ? 0 : ORDER_PRICE;
-  const totalPrice = orderPrice + deliveryPrice;
+  const {orderPrice, deliveryPrice, totalAmount, totalPrice} =
+    calcOrderHistory(selectedItem);
 
   return (
     <S.Container>
