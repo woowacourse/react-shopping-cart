@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const ButtonStyle = css`
-  background: #bebebe;
+  background: #000;
   color: #ffffff;
   width: 100%;
   height: 6.4rem;
@@ -15,7 +15,7 @@ export const ButtonStyle = css`
   transform: translateX(-50%);
   bottom: 0;
   left: 50%;
-  cursor: 'not-allowed';
+  cursor: pointer;
 
   border: none;
   border-radius: 0;
