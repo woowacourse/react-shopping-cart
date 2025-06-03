@@ -2,7 +2,6 @@ import * as S from "../CartPage.styles";
 import * as Skeleton from "./CartPageSkeleton.styles";
 
 const CartPageSkeleton = () => {
-  console.log("렌더링됨");
   return (
     <div css={S.cartPageWrapper}>
       <div css={Skeleton.cartTitleSkeleton} />

@@ -11,6 +11,7 @@ const tryApiCall = async <T>(
     if (error instanceof Error) {
       openToast(error.message, false);
     }
+    console.log("작동");
     return undefined;
   }
 };

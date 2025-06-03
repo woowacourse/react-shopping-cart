@@ -22,8 +22,8 @@ import tryApiCall from "../../utils/tryApiCall";
 import { useToast } from "../../contexts/ToastContext";
 import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
 import CartPageSkeleton from "./skeleton/CartPageSkeleton";
-import { useState } from "react";
-import type { LoadingType } from "../../types/loading";
+import useLoading from "../../hooks/useLoading";
+import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
 
 const CartPage = () => {
   const {
@@ -43,11 +43,10 @@ const CartPage = () => {
   } = useCheckedArray(cartData);
   const { openToast } = useToast();
   const { goOrderComplete } = useEasyNavigate();
-  const [loadingState, setLoadingState] =
-    useState<LoadingType>("initialLoading");
+  const { loadingState, changeLoadingState } = useLoading();
 
   useEffect(() => {
-    setLoadingState("initialLoading");
+    changeLoadingState("initialLoading");
 
     const fetchCartData = async () => {
       const initialCartData = await tryApiCall(
@@ -55,23 +54,24 @@ const CartPage = () => {
         openToast,
         "장바구니 데이터를 불러왔습니다."
       );
+      console.log(initialCartData);
       if (!initialCartData) {
-        setLoadingState("error");
+        changeLoadingState("error");
         return;
       }
       initCartData(initialCartData);
       initIsCheckedArray(initialCartData);
-      setLoadingState("success");
+      changeLoadingState("success");
     };
 
     fetchCartData();
   }, []);
 
-  console.log(loadingState);
-
   if (loadingState === "initialLoading") {
-    console.log("작동");
     return <CartPageSkeleton />;
+  }
+  if (loadingState === "error") {
+    return <ErrorFallback />;
   }
 
   return (
