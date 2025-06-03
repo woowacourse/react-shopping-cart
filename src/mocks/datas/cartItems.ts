@@ -3,13 +3,25 @@ import { GetCartItemsResponse } from "@/types";
 export const CART_ITEMS_DATA: GetCartItemsResponse = {
   content: [
     {
-      id: 2679,
-      quantity: 1,
+      id: 1,
+      quantity: 2,
       product: {
         id: 24,
         name: "스파이더맨",
-        price: 80000,
+        price: 30000,
         imageUrl: "/images/spiderman.png",
+        category: "굿즈",
+        stock: 10,
+      },
+    },
+    {
+      id: 2,
+      quantity: 3,
+      product: {
+        id: 25,
+        name: "캐릭터 키링",
+        price: 5000,
+        imageUrl: "/images/keyring.png",
         category: "굿즈",
         stock: 10,
       },
