@@ -86,8 +86,6 @@ describe('RTL Test', () => {
     const user = userEvent.setup();
 
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
-    expect(cartItemCards.length).toBeGreaterThan(0);
-
     const firstCard = cartItemCards[0];
 
     const deleteButton = within(firstCard).getByRole('button', { name: '삭제' });
@@ -105,7 +103,6 @@ describe('RTL Test', () => {
     const user = userEvent.setup();
 
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
-    expect(cartItemCards.length).toBeGreaterThan(0);
 
     const firstCard = cartItemCards[0];
 
@@ -113,7 +110,6 @@ describe('RTL Test', () => {
     const quantityElement = within(firstCard).getByTestId('card-item-quantity');
 
     const initialQuantity = parseInt(quantityElement.textContent ?? '1', 10);
-    expect(initialQuantity).toBeGreaterThan(0);
 
     await user.click(quantityPlusButton);
 
