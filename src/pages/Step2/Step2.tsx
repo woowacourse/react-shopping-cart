@@ -2,8 +2,8 @@ import { ArrowBackIcon, Button, Checkbox, Header, Info, Spacing, Text } from "@/
 import Card from "@/components/Card/Card";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router";
-import { ButtonWrapper, ReceiptTextWrapper } from "../ShoppingCartPage/ShoppingCartPage.styles";
-import * as S from "./OrderConfirmPage.styles";
+import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
+import * as S from "./Step2.styles";
 import { PATH } from "@/constants";
 import Modal from "@/components/Modal/Modal";
 import CouponModal from "./components/CouponModal";
@@ -33,7 +33,7 @@ export default function OrderConfirmPage() {
     navigate(-1);
   };
   const handleOrderCompleteClick = () => {
-    navigate(PATH.orderCompleted);
+    navigate(PATH.main);
   };
 
   const handleCouponApplyClick = () => {

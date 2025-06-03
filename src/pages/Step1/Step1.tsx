@@ -6,9 +6,9 @@ import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import * as S from "./ShoppingCartPage.styles";
+import * as S from "./Step1.styles";
 
-export default function ShoppingCartPage() {
+export default function Step1() {
   const { data: cartItems, refetch } = useQuery<GetCartItemsResponse>({
     queryKey: QUERY_KEY.CART_ITEM,
     queryFn: CartItemApi.getCartItems,
@@ -43,13 +43,17 @@ export default function ShoppingCartPage() {
   }, 0);
 
   const handleOrderCompleteClick = () => {
-    navigate(PATH.orderConfirm, {
+    navigate(PATH.main, {
       state: {
         kind: selectedItemIds.length,
         quantity: totalQuantity,
         totalPrice,
       },
     });
+  };
+
+  const handleLogoClick = () => {
+    navigate(PATH.main);
   };
 
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
@@ -62,7 +66,7 @@ export default function ShoppingCartPage() {
   return (
     <>
       <Header>
-        <Text variant="title-1" color="white">
+        <Text variant="title-1" color="white" onClick={handleLogoClick}>
           SHOP
         </Text>
       </Header>

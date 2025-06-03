@@ -15,7 +15,7 @@ export default function OrderCompletedPage() {
   };
 
   const onBackToShoppingCartClick = () => {
-    navigate(PATH.shoppingCart);
+    navigate(PATH.main);
   };
 
   return (

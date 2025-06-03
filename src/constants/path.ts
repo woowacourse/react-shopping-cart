@@ -1,7 +1,5 @@
 export const PATH = {
-  shoppingCart: "/",
-  orderConfirm: "/order-confirm",
-  orderCompleted: "/order-completed",
+  main: "/",
 };
 export const API_PATH = {
   products: "/products",

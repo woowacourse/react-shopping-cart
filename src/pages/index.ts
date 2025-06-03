@@ -1,3 +1,2 @@
-export { default as OrderCompletedPage } from "./OrderCompletedPage/OrderCompletedPage";
-export { default as ShoppingCartPage } from "./ShoppingCartPage/ShoppingCartPage";
-export { default as OrderConfirmPage } from "./OrderConfirmPage/OrderConfirmPage";
+export { default as MainPage } from "./MainPage/MainPage";
+export { default as Step1 } from "./Step1/Step1";
