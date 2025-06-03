@@ -1,7 +1,8 @@
-import Checkbox from '../../@common/checkbox/Checkbox';
-import CountButton from '../countButton/CountButton';
-import * as S from './CartItem.styles';
-import type { CartItemType } from '../../../types/response';
+import Checkbox from "../../@common/checkbox/Checkbox";
+import CountButton from "../countButton/CountButton";
+import * as S from "./CartItem.styles";
+import type { CartItemType } from "../../../types/response";
+import { handleImageError } from "../../../utils/handleImageError";
 
 interface CartItemProps {
   cartData: CartItemType;
@@ -28,10 +29,16 @@ const CartItem = ({
             checked={justifyIsChecked(cartData.id)}
             onChange={() => controlCheckBox(cartData.id)}
           />
-          <button onClick={() => removeCartItem(cartData.id)}>삭제</button>
+          <button type="button" onClick={() => removeCartItem(cartData.id)}>
+            삭제
+          </button>
         </div>
         <div key={cartData.id} css={S.cartItemStyle}>
-          <img src={cartData.product.imageUrl} alt={cartData.product.name} />
+          <img
+            src={cartData.product.imageUrl}
+            alt={cartData.product.name}
+            onError={handleImageError}
+          />
           <div css={S.cartInfoStyle}>
             <h3 css={S.cartItemNameStyle}>{cartData.product.name}</h3>
             <p css={S.cartItemPriceStyle}>
