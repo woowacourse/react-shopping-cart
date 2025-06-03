@@ -1,10 +1,8 @@
-import Text from '../@common/Text/Text';
-import {
-  CartListCheckboxStyle,
-  CartListContainerStyle,
-  CartListHeaderStyle,
-  CartListStyle,
-} from './CartList.styles';
+import Text from '../../@common/Text/Text';
+import ListContainer from '../ListContainer';
+import List from '../List';
+
+import { CartListCheckboxStyle, CartListHeaderStyle } from './CartList.styles';
 
 function CartList({
   children,
@@ -16,7 +14,7 @@ function CartList({
   handleSelectedAllItems: () => void;
 }) {
   return (
-    <div css={CartListContainerStyle}>
+    <ListContainer>
       <div css={CartListHeaderStyle}>
         <input
           css={CartListCheckboxStyle}
@@ -26,8 +24,8 @@ function CartList({
         />
         <Text varient="caption">전체 선택</Text>
       </div>
-      <ul css={CartListStyle}>{children}</ul>
-    </div>
+      <List>{children}</List>
+    </ListContainer>
   );
 }
 

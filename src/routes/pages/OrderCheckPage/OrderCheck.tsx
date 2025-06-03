@@ -1,6 +1,7 @@
 import { CartItemProps } from '../../../types/cartItem';
 import Header from '../../../components/@common/Header/Header';
 import HeaderButton from '../../../components/@common/Header/HeaderButton';
+import OrderList from '../../../components/List/OrderList/OrderList';
 import { Back } from '../../../assets';
 import ContainerLayout from '../../../components/@common/ContainerLayout/ContainerLayout';
 import Text from '../../../components/@common/Text/Text';
@@ -38,6 +39,11 @@ function OrderCheck() {
             주문합니다.
           </Text>
         </PageTitle>
+        <OrderList>
+          {selectedCartData.map((cartItem) => (
+            <li key={cartItem.id}>{cartItem.product.name}</li>
+          ))}
+        </OrderList>
       </ContainerLayout>
       <PayButton />
     </>
