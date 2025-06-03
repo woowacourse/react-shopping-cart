@@ -110,7 +110,7 @@ export const CartInfo = ({
               gap="10px"
               margin="10px 0 0 0"
             >
-              <CheckBox checked={allChecked} onClick={onToggleAll} role="all-check" />
+              <CheckBox checked={allChecked} onChange={onToggleAll} role="all-check" />
               <Text type="Caption" weight="regular">
                 {`전체선택  (${selectedCartItemCount}/${cartItemCount})`}
               </Text>
