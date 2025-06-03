@@ -1,18 +1,21 @@
-import { getDeliveryPrice } from "@/pages/cart/utils/getDeliveryPrice";
 import * as S from "./PriceContainer.styled";
 import InfoIcon from "@assets/icons/info.svg";
-import { FREE_DELIVERY_LIMIT } from "@/pages/cart/constants/delivery";
+import { FREE_DELIVERY_LIMIT } from "@/domains/constants/delivery";
+
+type Price = {
+  title: string;
+  price: number;
+};
 
 type PriceContainerProps = {
-  orderTotalPrice: number;
+  priceList: Price[];
+  paymentPrice: number;
 };
 
 export default function PriceContainer({
-  orderTotalPrice,
+  priceList,
+  paymentPrice,
 }: PriceContainerProps) {
-  const deliveryPrice = getDeliveryPrice(orderTotalPrice);
-  const paymentPrice = orderTotalPrice + deliveryPrice;
-
   return (
     <S.Container>
       <S.InfoContainer>
@@ -23,18 +26,14 @@ export default function PriceContainer({
         </S.InfoText>
       </S.InfoContainer>
       <S.PriceBox>
-        <S.PriceTextBox>
-          <S.PriceTitle>주문 금액</S.PriceTitle>
-          <S.PriceText data-testid="order-price">
-            {orderTotalPrice.toLocaleString()}원
-          </S.PriceText>
-        </S.PriceTextBox>
-        <S.PriceTextBox>
-          <S.PriceTitle>배송비</S.PriceTitle>
-          <S.PriceText data-testid="delivery-price">
-            {deliveryPrice.toLocaleString()}원
-          </S.PriceText>
-        </S.PriceTextBox>
+        {priceList.map(({ title, price }) => (
+          <S.PriceTextBox key={title}>
+            <S.PriceTitle>{title}</S.PriceTitle>
+            <S.PriceText data-testid={`${title}-price`}>
+              {price.toLocaleString()}원
+            </S.PriceText>
+          </S.PriceTextBox>
+        ))}
       </S.PriceBox>
       <S.TotalPriceBox>
         <S.PriceTextBox>

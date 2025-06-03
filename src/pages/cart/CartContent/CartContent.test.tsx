@@ -9,7 +9,7 @@ import {
 import { MemoryRouter } from "react-router-dom";
 import CartContent from "./CartContent";
 import { CartItemProvider } from "../contexts/CartItemProvider";
-import { DELIVERY_PRICE } from "../constants/delivery";
+import { DELIVERY_PRICE } from "@/domains/constants/delivery";
 
 let { mockCartItems } = vi.hoisted(() => {
   return {

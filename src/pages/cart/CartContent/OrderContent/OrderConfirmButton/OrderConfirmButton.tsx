@@ -2,7 +2,7 @@ import * as S from "./OrderConfirmButton.styled";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/shared/config/routes";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { getDeliveryPrice } from "@/pages/cart/utils/getDeliveryPrice";
+import { getDeliveryPrice } from "@/domains/utils/getDeliveryPrice";
 
 type OrderConfirmButton = {
   orderList: CartItemType[];

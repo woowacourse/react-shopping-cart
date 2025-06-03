@@ -5,7 +5,7 @@ import {
   DELIVERY_PRICE,
   FREE_DELIVERY_LIMIT,
   FREE_DELIVERY_PRICE,
-} from "@/pages/cart/constants/delivery";
+} from "@/domains/constants/delivery";
 
 describe("CartPage의 PriceContainer", () => {
   it(`주문 목록에 담긴 상품의 개수 * 가격만큼 주문 금액이 나온다. 주문 금액이 ${FREE_DELIVERY_LIMIT}만원 미만인 경우 배송비가 ${DELIVERY_PRICE}원이다.`, async () => {
