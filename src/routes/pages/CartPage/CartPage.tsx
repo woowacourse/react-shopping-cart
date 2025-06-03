@@ -19,17 +19,26 @@ import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpi
 import { cartPrice } from '../../../utils/cartPrice';
 import { useEffect } from 'react';
 import { useToastContext } from '../../../context/ToastContext';
+import { useNavigate } from 'react-router';
 
 function CartPage() {
   const cartList = useCartList();
   const selectedList = useSelect(cartList.data);
-
   const { isVisible, showToast } = useToastContext();
+  const navigate = useNavigate();
 
   const totalPrice = cartPrice.totalPrice(
     cartList.data,
     selectedList.selectedItems
   );
+
+  const selectedCartData = cartList.data.filter((item) =>
+    selectedList.selectedItems.includes(item.id)
+  );
+
+  const handleOrderButtonClick = () => {
+    navigate('/order-check', { state: { selectedCartData, totalPrice } });
+  };
 
   useEffect(() => {
     if (cartList.error) {
@@ -74,10 +83,8 @@ function CartPage() {
         {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton
-        selectedCartData={cartList.data.filter((item) =>
-          selectedList.selectedItems.includes(item.id)
-        )}
-        totalPrice={totalPrice}
+        onClick={handleOrderButtonClick}
+        canOrder={selectedCartData.length > 0}
       />
     </>
   );
