@@ -7,7 +7,7 @@ export default function MainPage() {
 
   return (
     <>
-      <Funnel>
+      <Funnel initialStep={2}>
         <Funnel.Step index={1}>
           <Step1 selectedItemIds={selectedItemIds} setSelectedItemIds={setSelectedItemIds} />
         </Funnel.Step>

@@ -9,12 +9,13 @@ interface FunnelContextType {
   goToStep: (step: number) => void;
 }
 
-interface FunnelProps {}
-
 export const FunnelContext = createContext<FunnelContextType | null>(null);
 
-export default function Funnel({ children }: PropsWithChildren<FunnelProps>) {
-  const [step, setStep] = useState(1);
+interface FunnelProps {
+  initialStep?: number;
+}
+export default function Funnel({ children, initialStep = 1 }: PropsWithChildren<FunnelProps>) {
+  const [step, setStep] = useState(initialStep);
 
   const goNextStep = () => {
     setStep((step) => step + 1);

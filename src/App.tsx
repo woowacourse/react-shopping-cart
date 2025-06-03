@@ -1,23 +1,14 @@
-import { createHashRouter, RouterProvider } from "react-router";
 import * as S from "./App.styles";
-import { PATH } from "./constants";
-import { MainPage } from "./pages";
-import { ErrorProvider } from "./context";
 import { ErrorPopup } from "./components";
-
-const router = createHashRouter([
-  {
-    path: PATH.main,
-    element: <MainPage />,
-  },
-]);
+import { ErrorProvider } from "./context";
+import { MainPage } from "./pages";
 
 function App() {
   return (
     <S.AppWrapper>
       <ErrorProvider>
         <ErrorPopup />
-        <RouterProvider router={router} />
+        <MainPage />
       </ErrorProvider>
     </S.AppWrapper>
   );

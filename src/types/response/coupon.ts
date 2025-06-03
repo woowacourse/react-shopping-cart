@@ -1,7 +1,19 @@
-export interface GetCouponResponse {
+export type GetAllCouponsResponse = Coupon[];
+
+export interface Coupon {
   id: number;
-  name: string;
-  discount: number;
-  createdAt: string;
-  updatedAt: string;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discount?: number;
+  minimumAmount?: number;
+  discountType: string;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: AvailableTime;
+}
+
+export interface AvailableTime {
+  start: string;
+  end: string;
 }

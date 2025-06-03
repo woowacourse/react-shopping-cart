@@ -1,12 +1,12 @@
 import { ArrowBackIcon, Button, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
 import Card from "@/components/Card/Card";
 import Modal from "@/components/Modal/Modal";
+import { useCartItem } from "@/hooks";
+import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import CouponModal from "./components/CouponModal";
 import * as S from "./Step2.styles";
-import { useCartItem } from "@/hooks";
-import { CartItemService } from "@/services";
 
 interface Step2Props {
   selectedItemIds: number[];
@@ -17,10 +17,6 @@ export default function Step2({ selectedItemIds }: Step2Props) {
 
   const { cartItems } = useCartItem();
   const filteredCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
-
-  const handleCouponApplyClick = () => {
-    console.log("쿠폰 적용");
-  };
 
   const totalPrice = CartItemService.calculateTotalPrice(filteredCartItems);
   const deliveryFee = CartItemService.calculateDeliveryFee(totalPrice);
@@ -74,7 +70,6 @@ export default function Step2({ selectedItemIds }: Step2Props) {
                 width: 100%;
               `}
               variant="outlined"
-              onClick={handleCouponApplyClick}
             >
               쿠폰 적용
             </Button>

@@ -31,8 +31,6 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick }: 
     deleteCartItem(id);
   };
 
-  console.log(quantity);
-
   return (
     <S.ProductCardCartItemWrapper>
       <S.ButtonWrapper>

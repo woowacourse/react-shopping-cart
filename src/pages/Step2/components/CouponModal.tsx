@@ -1,9 +1,17 @@
+import { CouponApi } from "@/apis";
 import { Button, Checkbox, Spacing, Text } from "@/components";
 import { CloseIcon, Info } from "@/components/icons";
 import Modal from "@/components/Modal/Modal";
+import { QUERY_KEY } from "@/constants";
+import { useQuery } from "@/modules";
 import { css } from "@emotion/react";
 
 export default function CouponModal() {
+  const { data: coupons } = useQuery({
+    queryFn: CouponApi.getAllCoupons,
+    queryKey: QUERY_KEY.coupon,
+  });
+
   return (
     <Modal isBackdropClose>
       <Modal.Top>
@@ -27,36 +35,47 @@ export default function CouponModal() {
 
         <Spacing size={16} />
 
-        <div
-          css={css`
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 16px;
-          `}
-        >
+        {coupons?.map((coupon) => (
           <div
             css={css`
-              display: flex;
-              align-items: center;
-              gap: 12px;
+              border: 1px solid #e0e0e0;
+              border-radius: 8px;
+              padding: 16px;
             `}
           >
-            <Checkbox checked={false} />
-            <Text variant="title-2">5,000원 할인 쿠폰</Text>
-          </div>
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                gap: 12px;
+              `}
+            >
+              <Checkbox checked={false} />
+              <Text variant="title-2">{coupon.description}</Text>
+            </div>
 
-          <Spacing size={16} />
+            <Spacing size={16} />
 
-          <div>
-            <p>
-              <Text variant="body-1">만료일: 2025.06.03</Text>
-            </p>
-            <Spacing size={4} />
-            <p>
-              <Text variant="body-1">최소 주문 금액:1</Text>
-            </p>
+            <div>
+              <p>
+                <Text variant="body-1">만료일: {coupon.expirationDate}</Text>
+              </p>
+              <Spacing size={4} />
+              {coupon.minimumAmount && (
+                <p>
+                  <Text variant="body-1">최소 주문 금액:{coupon.minimumAmount?.toLocaleString()}</Text>
+                </p>
+              )}
+              {coupon.availableTime && (
+                <p>
+                  <Text variant="body-1">
+                    사용 가능 시간: {coupon.availableTime.start} ~ {coupon.availableTime.end}
+                  </Text>
+                </p>
+              )}
+            </div>
           </div>
-        </div>
+        ))}
       </Modal.Content>
 
       <Modal.Bottom>
