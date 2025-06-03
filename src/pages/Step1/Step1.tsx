@@ -1,11 +1,10 @@
 import { CartItemApi } from "@/apis";
-import { Button, CartItem, Checkbox, Header, Info, Spacing, Text } from "@/components";
-import { PATH, QUERY_KEY } from "@/constants";
+import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
+import { QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
 import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import * as S from "./Step1.styles";
 
 export default function Step1() {
@@ -14,8 +13,9 @@ export default function Step1() {
     queryFn: CartItemApi.getCartItems,
   });
 
-  const navigate = useNavigate();
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+
+  const { goNextStep } = useFunnelContext();
 
   // 개별 아이템 선택/해제
   const handleSelectItem = (itemId: number) => {
@@ -42,20 +42,6 @@ export default function Step1() {
     return prev + currentCartItem.quantity;
   }, 0);
 
-  const handleOrderCompleteClick = () => {
-    navigate(PATH.main, {
-      state: {
-        kind: selectedItemIds.length,
-        quantity: totalQuantity,
-        totalPrice,
-      },
-    });
-  };
-
-  const handleLogoClick = () => {
-    navigate(PATH.main);
-  };
-
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
 
   useEffect(() => {
@@ -66,7 +52,7 @@ export default function Step1() {
   return (
     <>
       <Header>
-        <Text variant="title-1" color="white" onClick={handleLogoClick}>
+        <Text variant="title-1" color="white">
           SHOP
         </Text>
       </Header>
@@ -139,7 +125,7 @@ export default function Step1() {
           css={css`
             width: 100%;
           `}
-          onClick={handleOrderCompleteClick}
+          onClick={goNextStep}
           disabled={cartItems.content.length === 0}
         >
           <Text variant="title-3" color="white">

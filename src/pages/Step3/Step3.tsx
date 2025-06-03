@@ -1,26 +1,17 @@
-import { ArrowBackIcon, Button, Header, Spacing, Text } from "@/components";
-import { useLocation, useNavigate } from "react-router";
-import * as S from "./OrderCompletedPage.styles";
+import { ArrowBackIcon, Button, Header, Spacing, Text, useFunnelContext } from "@/components";
 import { css } from "@emotion/react";
-import { PATH } from "@/constants";
+import { useLocation } from "react-router";
+import * as S from "./Step3.styles";
 
 export default function OrderCompletedPage() {
-  const navigate = useNavigate();
+  const { goPrevStep, goToStep } = useFunnelContext();
   const location = useLocation();
 
   const { kind, quantity, totalPrice } = location?.state || {};
 
-  const onTitleClick = () => {
-    navigate(-1);
-  };
-
-  const onBackToShoppingCartClick = () => {
-    navigate(PATH.main);
-  };
-
   return (
     <>
-      <Header onClick={onTitleClick}>
+      <Header onClick={goPrevStep}>
         <ArrowBackIcon
           css={css`
             width: 24px;
@@ -48,7 +39,7 @@ export default function OrderCompletedPage() {
           css={css`
             width: 100%;
           `}
-          onClick={onBackToShoppingCartClick}
+          onClick={() => goToStep(1)}
         >
           장바구니로 돌아가기
         </Button>

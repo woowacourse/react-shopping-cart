@@ -1,5 +1,5 @@
 import { Funnel } from "@/components";
-import { Step1 } from "..";
+import { Step1, Step2, Step3 } from "..";
 
 export default function MainPage() {
   return (
@@ -9,10 +9,10 @@ export default function MainPage() {
           <Step1 />
         </Funnel.Step>
         <Funnel.Step index={2}>
-          <div>2</div>
+          <Step2 />
         </Funnel.Step>
         <Funnel.Step index={3}>
-          <div>3</div>
+          <Step3 />
         </Funnel.Step>
       </Funnel>
     </>

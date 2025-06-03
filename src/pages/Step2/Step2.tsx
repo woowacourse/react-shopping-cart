@@ -1,12 +1,10 @@
-import { ArrowBackIcon, Button, Checkbox, Header, Info, Spacing, Text } from "@/components";
+import { ArrowBackIcon, Button, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
 import Card from "@/components/Card/Card";
-import { css } from "@emotion/react";
-import { useNavigate } from "react-router";
-import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
-import * as S from "./Step2.styles";
-import { PATH } from "@/constants";
 import Modal from "@/components/Modal/Modal";
+import { css } from "@emotion/react";
+import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import CouponModal from "./components/CouponModal";
+import * as S from "./Step2.styles";
 
 const cartItem = {
   id: 1,
@@ -22,19 +20,12 @@ const cartItem = {
 };
 
 export default function OrderConfirmPage() {
-  const navigate = useNavigate();
+  const { goPrevStep, goNextStep } = useFunnelContext();
 
   const {
     product: { imageUrl, price, name },
     quantity,
   } = cartItem;
-
-  const onTitleClick = () => {
-    navigate(-1);
-  };
-  const handleOrderCompleteClick = () => {
-    navigate(PATH.main);
-  };
 
   const handleCouponApplyClick = () => {
     console.log("쿠폰 적용");
@@ -42,7 +33,7 @@ export default function OrderConfirmPage() {
 
   return (
     <div>
-      <Header onClick={onTitleClick}>
+      <Header onClick={goPrevStep}>
         <ArrowBackIcon
           css={css`
             width: 24px;
@@ -134,7 +125,7 @@ export default function OrderConfirmPage() {
             css={css`
               width: 100%;
             `}
-            onClick={handleOrderCompleteClick}
+            onClick={goNextStep}
           >
             <Text variant="title-3" color="white">
               결제하기
