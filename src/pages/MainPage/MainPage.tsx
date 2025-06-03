@@ -5,7 +5,7 @@ import { ShoppingCartProvider } from "./context";
 export default function MainPage() {
   return (
     <ShoppingCartProvider>
-      <Funnel initialStep={2}>
+      <Funnel initialStep={1}>
         <Funnel.Step index={1}>
           <Step1 />
         </Funnel.Step>

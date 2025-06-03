@@ -1,11 +1,20 @@
-import { ArrowBackIcon, Button, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
-import Card from "@/components/Card/Card";
-import Modal from "@/components/Modal/Modal";
+import {
+  Card,
+  Modal,
+  ArrowBackIcon,
+  Button,
+  Checkbox,
+  Header,
+  Info,
+  Spacing,
+  Text,
+  useFunnelContext,
+} from "@/components";
 import { useCartItem } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
-import CouponModal from "./components/CouponModal";
+import { CouponModal } from "./components";
 import * as S from "./Step2.styles";
 import { useShoppingCartContext } from "../MainPage/context";
 
