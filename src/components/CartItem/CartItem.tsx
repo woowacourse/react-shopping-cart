@@ -17,10 +17,10 @@ import {
 interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
-  toggleSelect: () => void;
-  increaseQuantity: (cartId: number) => Promise<void>;
-  decreaseQuantity: (cartId: number) => Promise<void>;
-  deleteCartItem: (cartId: number) => Promise<void>;
+  toggleSelect?: () => void;
+  increaseQuantity?: (cartId: number) => Promise<void>;
+  decreaseQuantity?: (cartId: number) => Promise<void>;
+  deleteCartItem?: (cartId: number) => Promise<void>;
 }
 
 function CartItem({
@@ -37,14 +37,18 @@ function CartItem({
     <>
       <div css={ItemContainer}>
         <div css={ItemController}>
-          <CheckBox
-            id={String(cartId)}
-            isSelected={isSelected}
-            onClick={toggleSelect}
-          />
-          <button css={DeleteButton} onClick={() => deleteCartItem(cartId)}>
-            삭제
-          </button>
+          {toggleSelect && (
+            <CheckBox
+              id={String(cartId)}
+              isSelected={isSelected}
+              onClick={toggleSelect}
+            />
+          )}
+          {deleteCartItem && (
+            <button css={DeleteButton} onClick={() => deleteCartItem(cartId)}>
+              삭제
+            </button>
+          )}
         </div>
         <div css={ItemInfo}>
           <img
@@ -60,11 +64,15 @@ function CartItem({
               <p css={ItemPrice}>{product.price.toLocaleString()}원</p>
             </div>
             <div css={CountContainer}>
-              <QuantityControlButton
-                quantity={quantity}
-                decreaseQuantity={() => decreaseQuantity(cartId)}
-                increaseQuantity={() => increaseQuantity(cartId)}
-              />
+              {decreaseQuantity && increaseQuantity ? (
+                <QuantityControlButton
+                  quantity={quantity}
+                  decreaseQuantity={() => decreaseQuantity(cartId)}
+                  increaseQuantity={() => increaseQuantity(cartId)}
+                />
+              ) : (
+                <p>{quantity}</p>
+              )}
             </div>
           </div>
         </div>
