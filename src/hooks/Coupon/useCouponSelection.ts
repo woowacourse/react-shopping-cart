@@ -1,27 +1,50 @@
 import { MAX_COUPON_COUNT } from "@/constants/priceSetting";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 
-function useCouponSelection(initialSelectedIds?: Set<string>) {
-  const [selectedCouponIds, setSelectedCouponIds] = useState<Set<string>>(() =>
+export interface UseCouponSelectionReturn {
+  handleSelectCoupon: (id: string) => void;
+  selectedCouponIds: Set<string> | undefined;
+  isSelectedToLimit: boolean;
+}
+function useCouponSelection(
+  initialSelectedIds?: Set<string>
+): UseCouponSelectionReturn {
+  const [selectedCouponIds, setSelectedCouponIds] = useState<Set<string>>(
     initialSelectedIds ? new Set(initialSelectedIds) : new Set()
   );
 
-  // initialSelectedIds의 요소를 정렬하여 문자열로 만든다.
-  // 이 문자열(initialKey)이 바뀔 때만 "실제 내용이 바뀐 것"으로 판단함.
-  const initialKey = useMemo(() => {
-    if (!initialSelectedIds || initialSelectedIds.size === 0) {
-      return "";
-    }
-    return Array.from(initialSelectedIds).sort().join(",");
-  }, [initialSelectedIds]);
+  // 이전 initialSelectedIds를 기억하기 위한 ref
+  const prevInitialSelectedIds = useRef<Set<string> | undefined>(
+    initialSelectedIds
+  );
 
-  // initialKey(내용)가 변할 때만 selectedCouponIds를 덮어쓴다
+  // initialSelectedIds가 실제로 변경되었을 때만 상태 업데이트
   useEffect(() => {
     if (!initialSelectedIds) return;
-    setSelectedCouponIds(new Set(initialSelectedIds));
-  }, [initialKey]);
 
-  const handleSelectCoupon = (id: string) => {
+    // 이전 값과 현재 값을 비교
+    const prevIds = prevInitialSelectedIds.current;
+    if (!prevIds) {
+      setSelectedCouponIds(new Set(initialSelectedIds));
+      prevInitialSelectedIds.current = initialSelectedIds;
+      return;
+    }
+
+    // Set의 내용이 실제로 변경되었는지 확인
+    const prevIdsArray = Array.from(prevIds).sort();
+    const newIdsArray = Array.from(initialSelectedIds).sort();
+
+    if (
+      prevIdsArray.length !== newIdsArray.length ||
+      prevIdsArray.some((id, index) => id !== newIdsArray[index])
+    ) {
+      setSelectedCouponIds(new Set(initialSelectedIds));
+    }
+
+    prevInitialSelectedIds.current = initialSelectedIds;
+  }, [initialSelectedIds]); // selectedCouponIds 제거!
+
+  const handleSelectCoupon = useCallback((id: string) => {
     setSelectedCouponIds((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
@@ -34,15 +57,17 @@ function useCouponSelection(initialSelectedIds?: Set<string>) {
       }
       return newSet;
     });
-  };
+  }, []);
 
-  const isSelectedToLimit = selectedCouponIds.size >= MAX_COUPON_COUNT;
-
+  const isSelectedToLimit = useMemo(() => {
+    return selectedCouponIds
+      ? selectedCouponIds.size >= MAX_COUPON_COUNT
+      : false;
+  }, [selectedCouponIds]);
   return {
     handleSelectCoupon,
     selectedCouponIds,
     isSelectedToLimit,
   };
 }
-
 export default useCouponSelection;
