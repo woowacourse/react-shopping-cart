@@ -5,7 +5,7 @@ export const DeliveryInfoStyle = css`
   flex-direction: column;
   align-items: flex-start;
   gap: 1.2rem;
-  margin-top: 3.2rem;
+  margin: 3.2rem 0;
 `;
 
 export const DeliveryInfoCheckboxContainerStyle = css`
