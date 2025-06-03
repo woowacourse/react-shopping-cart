@@ -41,7 +41,6 @@ const useQuantityControl = ({
     });
   };
 
-  // 안돌아간다면 이 quantity 객체 분해가 문제 1순위임
   const decreaseQuantity = async (cartId: number) => {
     const { quantity } = findCartItemById(cartId, cartItems);
     const newQuantity = quantity > 1 ? quantity - 1 : 1;
