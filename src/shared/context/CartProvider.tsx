@@ -31,14 +31,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     });
   };
 
-  const updateSelectedCartItem = (cartItem: CartItem, quantity?: number) => {
+  const updateSelectedCartItem = (cartItem: CartItem, quantity: number) => {
     setSelectedCartItems((prevItems) => {
       const existing = prevItems.some((item) => item.id === cartItem.id);
 
       if (existing) {
-        return prevItems.map((item) =>
-          item.id === cartItem.id ? { ...item, quantity: quantity !== undefined ? quantity : item.quantity } : item
-        );
+        return prevItems.map((item) => (item.id === cartItem.id ? { ...item, quantity } : item));
       }
 
       return [...prevItems, cartItem];

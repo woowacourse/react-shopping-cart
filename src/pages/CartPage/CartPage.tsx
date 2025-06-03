@@ -13,7 +13,8 @@ import CartListSkeleton from '../../features/cart/ui/CartListSkeleton';
 import { useCartContext } from '../../shared/context/useCartContext';
 
 function CartPage() {
-  const { cartItems, updateCartItems, selectedCartItems } = useCartContext();
+  const { cartItems, updateCartItems, selectedCartItems, updateSelectedCartItem, removeSelectedCartItem } =
+    useCartContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +22,6 @@ function CartPage() {
       try {
         const response = await getCartItems();
         if (!response) return;
-        console.log('Fetched cart items:', response.content);
         updateCartItems(response.content);
       } catch (error) {
         if (error instanceof Error) {
@@ -34,6 +34,21 @@ function CartPage() {
     };
     fetchCartItems();
   }, [selectedCartItems]);
+
+  useEffect(() => {
+    selectedCartItems.forEach((item) => {
+      const currentItem = cartItems.find((cartItem) => cartItem.id === item.id);
+      if (!currentItem) {
+        removeSelectedCartItem(item);
+        return;
+      }
+
+      const currentItemQuantity = currentItem.quantity;
+      if (currentItemQuantity !== item.quantity) {
+        updateSelectedCartItem(item, currentItemQuantity);
+      }
+    });
+  }, [cartItems]);
 
   return (
     <S.CartPageContainer>

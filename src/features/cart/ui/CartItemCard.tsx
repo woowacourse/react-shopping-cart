@@ -77,7 +77,7 @@ export default function CartItemCard({ cartItem }: CartItemCardProps) {
             </S.CartItemInfoPrice>
           </S.CartItemInfoDetails>
 
-          <CartItemQuantitySelector quantity={cartItem.quantity} cartItem={cartItem} isSelected={isSelected} />
+          <CartItemQuantitySelector cartItem={cartItem} isSelected={isSelected} />
         </S.CartItemInfo>
       </S.CartItemContent>
     </S.CartItemContainer>
