@@ -2,12 +2,9 @@ import { css } from "@emotion/react";
 
 export const Container = css`
   height: 86vh;
+  padding: 36px 24px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
 `;
 
 export const Title = css`
