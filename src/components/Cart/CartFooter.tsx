@@ -9,10 +9,10 @@ interface CartFooterProps {
 }
 
 function CartFooter({ price, shippingFee, totalPrice }: CartFooterProps) {
-  const renderCartPrice = [
-    { title: '주문 금액', price, variant: 'default' as CartPriceVariant },
-    { title: '배송비', price: shippingFee, variant: 'shipping' as CartPriceVariant },
-    { title: '총 결제 금액', price: totalPrice, variant: 'total' as CartPriceVariant },
+  const renderCartPrice: { title: string; price: number; variant: CartPriceVariant }[] = [
+    { title: '주문 금액', price, variant: 'default' },
+    { title: '배송비', price: shippingFee, variant: 'shipping' },
+    { title: '총 결제 금액', price: totalPrice, variant: 'total' },
   ];
   return (
     <Container>
