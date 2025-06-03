@@ -26,7 +26,6 @@ export const CartItemContext = createContext<CartItemContext | null>(null);
 export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [_isFetching, setIsFetching] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [selectedItem, setSelectedItem] = useState(new Set());
 
@@ -36,10 +35,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   async function fetchCartItems() {
     try {
-      setIsFetching(true);
       const data = await cartItemsApi.get();
       setCartItems(data);
-      setIsFetching(false);
     } catch (error) {
       setErrorMessage("Fail to Fetch Error");
     }
@@ -47,10 +44,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   async function deleteCartItem(cartItemId: number) {
     try {
-      setIsFetching(true);
       await cartItemsApi.delete(cartItemId);
       await fetchCartItems();
-      setIsFetching(false);
     } catch (error) {
       setErrorMessage("Fail to Delete Error");
     }
@@ -58,10 +53,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   async function updateCartItem(cartItemId: number, quantity: number) {
     try {
-      setIsFetching(true);
       await cartItemsApi.patch(cartItemId, quantity);
       await fetchCartItems();
-      setIsFetching(false);
     } catch (error) {
       setErrorMessage("Fail to Update Error");
     }
