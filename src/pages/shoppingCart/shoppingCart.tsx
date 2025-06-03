@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import getShoppingCart from "../../api/getShoppingCart";
+import { getShoppingCart } from "../../api/shoppingCart";
 import Button from "../../components/Button/Button";
 import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
 import { EmptyShoppingCart } from "../../components/EmptyShoppingCart/EmptyShoppingCart";

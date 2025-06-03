@@ -1,4 +1,4 @@
-import deleteShoppingCart from "../../api/deleteShoppingCart";
+import { deleteShoppingCart } from "../../api/shoppingCart";
 import { CartItemTypes } from "../../types/cartItem";
 import Button from "../Button/Button";
 import { CartProduct } from "../CartProduct/CartProduct";

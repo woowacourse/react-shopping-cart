@@ -1,4 +1,4 @@
-import patchShoppingCart from "../../api/patchShoppingCart";
+import { patchShoppingCart } from "../../api/shoppingCart";
 import { IconButton } from "../IconButton/IconButton";
 import { QuantitySelectorLayout } from "./QuantitySelector.style";
 
