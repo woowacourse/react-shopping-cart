@@ -87,19 +87,79 @@ describe('CartItem', () => {
     expect(defaultProps.removeCartItem).toHaveBeenCalledWith(mockCartData.id);
   });
 
-  it('수량 조절 버튼으로 상품 수량을 변경할 수 있어야 한다', () => {
-    render(<CartItem {...defaultProps} />);
+  describe('수량 조절', () => {
+    it('수량 증가 버튼을 클릭하면 수량이 1 증가해야 한다', () => {
+      const { rerender } = render(<CartItem {...defaultProps} />);
 
-    const increaseButton = screen.getByRole('button', { name: '+' });
-    const decreaseButton = screen.getByRole('button', { name: '-' });
+      expect(screen.getByText('1')).toBeInTheDocument();
 
-    fireEvent.click(increaseButton);
-    expect(defaultProps.increaseCartItem).toHaveBeenCalledWith(
-      mockCartData.id,
-      2
-    );
+      const increaseButton = screen.getByRole('button', { name: '+' });
+      fireEvent.click(increaseButton);
 
-    fireEvent.click(decreaseButton);
-    expect(defaultProps.updateCartItem).toHaveBeenCalledWith(mockCartData.id);
+      expect(defaultProps.increaseCartItem).toHaveBeenCalledWith(
+        mockCartData.id,
+        2
+      );
+
+      const updatedCartData = { ...mockCartData, quantity: 2 };
+      rerender(
+        <CartItem {...{ ...defaultProps, cartData: updatedCartData }} />
+      );
+
+      expect(screen.getByText('2')).toBeInTheDocument();
+      expect(screen.queryByText('1')).not.toBeInTheDocument();
+    });
+
+    it('수량이 2 이상일 때 감소 버튼을 클릭하면 수량이 1 감소해야 한다', () => {
+      const cartDataWithQuantity3 = { ...mockCartData, quantity: 3 };
+      const { rerender } = render(
+        <CartItem {...{ ...defaultProps, cartData: cartDataWithQuantity3 }} />
+      );
+
+      expect(screen.getByText('3')).toBeInTheDocument();
+
+      const decreaseButton = screen.getByRole('button', { name: '-' });
+      fireEvent.click(decreaseButton);
+
+      expect(defaultProps.updateCartItem).toHaveBeenCalledWith(mockCartData.id);
+
+      const updatedCartData = { ...mockCartData, quantity: 2 };
+      rerender(
+        <CartItem {...{ ...defaultProps, cartData: updatedCartData }} />
+      );
+
+      expect(screen.getByText('2')).toBeInTheDocument();
+      expect(screen.queryByText('3')).not.toBeInTheDocument();
+    });
+
+    it('수량이 1일 때 감소 버튼을 클릭하면 상품이 삭제되어야 한다', () => {
+      render(<CartItem {...defaultProps} />);
+
+      expect(screen.getByText('1')).toBeInTheDocument();
+
+      const decreaseButton = screen.getByRole('button', { name: '-' });
+      fireEvent.click(decreaseButton);
+
+      expect(defaultProps.updateCartItem).toHaveBeenCalledWith(mockCartData.id);
+    });
+
+    it('수량 표시가 정확해야 한다', () => {
+      const testCases = [
+        { quantity: 1, expected: '1' },
+        { quantity: 5, expected: '5' },
+        { quantity: 10, expected: '10' },
+      ];
+
+      testCases.forEach(({ quantity, expected }) => {
+        const cartDataWithQuantity = { ...mockCartData, quantity };
+        const { unmount } = render(
+          <CartItem {...{ ...defaultProps, cartData: cartDataWithQuantity }} />
+        );
+
+        expect(screen.getByText(expected)).toBeInTheDocument();
+
+        unmount();
+      });
+    });
   });
 });
