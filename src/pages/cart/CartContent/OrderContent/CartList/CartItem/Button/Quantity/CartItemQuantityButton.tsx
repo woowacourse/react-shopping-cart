@@ -6,24 +6,24 @@ import RemoveCartItemButton from "../Remove/RemoveCartItemButton";
 type CartItemQuantityButtonProps = {
   id: number;
   quantity: number;
-  updateCartItem: (id: number, quantity: number) => Promise<void>;
-  removeCartItem: (id: number) => Promise<void>;
+  onUpdateQuantity: (id: number, quantity: number) => Promise<void>;
+  onRemove: (id: number) => Promise<void>;
 };
 
 function CartItemQuantityButton({
   id,
   quantity,
-  updateCartItem,
-  removeCartItem,
+  onUpdateQuantity,
+  onRemove,
 }: CartItemQuantityButtonProps) {
   return (
     <S.ButtonWrapper>
       {quantity === 1 ? (
-        <RemoveCartItemButton id={id} removeCartItem={removeCartItem} />
+        <RemoveCartItemButton id={id} removeCartItem={onRemove} />
       ) : (
         <S.Button
           type="button"
-          onClick={() => updateCartItem(id, quantity - 1)}
+          onClick={() => onUpdateQuantity(id, quantity - 1)}
         >
           <img src={MinusIcon} alt="수량 1개 빼기" />
         </S.Button>
@@ -31,7 +31,10 @@ function CartItemQuantityButton({
       <S.QuantityText data-testid="current-cart-item-quantity">
         {quantity}
       </S.QuantityText>
-      <S.Button type="button" onClick={() => updateCartItem(id, quantity + 1)}>
+      <S.Button
+        type="button"
+        onClick={() => onUpdateQuantity(id, quantity + 1)}
+      >
         <img src={PlusIcon} alt="수량 1개 추가" />
       </S.Button>
     </S.ButtonWrapper>

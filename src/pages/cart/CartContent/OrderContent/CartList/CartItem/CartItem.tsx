@@ -7,17 +7,17 @@ import ProductImage from "./ProductImage/ProductImage";
 type CartItemProps = {
   cartItem: CartItemType;
   isChecked: boolean;
-  onCheckBoxClick: (id: number, isChecked: boolean) => void;
-  updateCartItem: (id: number, quantity: number) => Promise<void>;
-  removeCartItem: (id: number) => Promise<void>;
+  onCheck: (id: number, isChecked: boolean) => void;
+  onUpdateQuantity: (id: number, quantity: number) => Promise<void>;
+  onRemove: (id: number) => Promise<void>;
 };
 
 export default function CartItem({
   cartItem,
   isChecked,
-  updateCartItem,
-  removeCartItem,
-  onCheckBoxClick,
+  onUpdateQuantity,
+  onRemove,
+  onCheck,
 }: CartItemProps) {
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
@@ -27,10 +27,10 @@ export default function CartItem({
       <S.ItemHeader>
         <CheckBox
           isChecked={isChecked}
-          onClick={() => onCheckBoxClick(id, isChecked)}
+          onClick={() => onCheck(id, isChecked)}
           aria-label="상품 선택"
         />
-        <S.DeleteButton type="button" onClick={() => removeCartItem(id)}>
+        <S.DeleteButton type="button" onClick={() => onRemove(id)}>
           삭제
         </S.DeleteButton>
       </S.ItemHeader>
@@ -45,8 +45,8 @@ export default function CartItem({
           <CartItemQuantityButton
             id={id}
             quantity={quantity}
-            updateCartItem={updateCartItem}
-            removeCartItem={removeCartItem}
+            onUpdateQuantity={onUpdateQuantity}
+            onRemove={onRemove}
           />
         </S.ItemDetail>
       </S.ItemContent>
