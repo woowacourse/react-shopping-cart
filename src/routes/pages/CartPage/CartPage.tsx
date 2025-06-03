@@ -21,50 +21,40 @@ import { useEffect } from 'react';
 import { useToastContext } from '../../../context/ToastContext';
 
 function CartPage() {
-  const {
-    cartList,
-    isLoading,
-    error,
-    increaseCartItem,
-    decreaseCartItem,
-    deleteCartItem,
-  } = useCartList();
-
-  const {
-    selectedItems,
-    isAllSelected,
-    handleSelectItem,
-    handleSelectAllItems,
-  } = useSelect(cartList);
+  const cartList = useCartList();
+  const selectedList = useSelect(cartList.data);
 
   const { isVisible, showToast } = useToastContext();
 
-  const totalPrice = cartPrice.totalPrice(cartList, selectedItems);
+  const totalPrice = cartPrice.totalPrice(
+    cartList.data,
+    selectedList.selectedItems
+  );
 
   useEffect(() => {
-    if (error) {
-      showToast(error);
+    if (cartList.error) {
+      showToast(cartList.error);
     }
-  }, [error]);
+  }, [cartList.error]);
 
   const renderCartList = () => {
-    return cartList.length === 0 ? (
+    return cartList.data.length === 0 ? (
       <EmptyCart />
     ) : (
       <>
         <CartList
-          isAllSelected={isAllSelected}
-          handleSelectedAllItems={handleSelectAllItems}
+          isAllSelected={selectedList.isAllSelected}
+          handleSelectedAllItems={selectedList.handleSelectAllItems}
         >
-          {cartList.map((cartItem) => (
+          {cartList.data.map((cartItem) => (
             <CartItem
               key={cartItem.id}
               cartItem={cartItem}
-              isSelected={selectedItems.includes(cartItem.id)}
-              handleSelectItem={handleSelectItem}
-              increaseCartItem={increaseCartItem}
-              decreaseCartItem={decreaseCartItem}
-              deleteCartItem={deleteCartItem}
+              isSelected={selectedList.selectedItems.includes(cartItem.id)}
+              handleSelectItem={selectedList.handleSelectItem}
+              increaseCartItem={cartList.increaseCartItem}
+              decreaseCartItem={cartList.decreaseCartItem}
+              deleteCartItem={cartList.deleteCartItem}
             />
           ))}
         </CartList>
@@ -78,14 +68,14 @@ function CartPage() {
       <Header>
         <HeaderButton src={Logo} />
       </Header>
-      {isVisible && <Toast message={error} />}
+      {isVisible && <Toast message={cartList.error} />}
       <ContainerLayout>
-        <CartListTitle cartListLength={cartList.length} />
-        {isLoading ? <LoadingSpinner /> : renderCartList()}
+        <CartListTitle cartListLength={cartList.data.length} />
+        {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton
-        selectedCartData={cartList.filter((item) =>
-          selectedItems.includes(item.id)
+        selectedCartData={cartList.data.filter((item) =>
+          selectedList.selectedItems.includes(item.id)
         )}
         totalPrice={totalPrice}
       />

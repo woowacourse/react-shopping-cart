@@ -63,7 +63,7 @@ function useCartList() {
   };
 
   return {
-    cartList,
+    data: cartList,
     error,
     isLoading,
     increaseCartItem,
