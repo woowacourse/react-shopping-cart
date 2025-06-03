@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { CartItemType } from '../types/response';
-import { getCartItemById } from '../utils/getCartItemById';
+import { useState } from "react";
+import type { CartItemType } from "../types/response";
+import { getCartItemById } from "../utils/getCartItemById";
 import {
   deleteCartItem,
   getCart,
   modifyCartItem,
-} from '../services/cartService';
-import tryApiCall from '../utils/tryApiCall';
-import { useToast } from '../contexts/ToastContext';
+} from "../services/cartService";
+import tryApiCall from "../utils/tryApiCall";
+import { useToast } from "../contexts/ToastContext";
 
 const useCartData = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
@@ -33,7 +33,7 @@ const useCartData = () => {
         setCartData(cartData);
       },
       openToast,
-      '장바구니 수량을 변경했습니다.'
+      "장바구니 수량을 변경했습니다."
     );
   };
 
@@ -45,7 +45,7 @@ const useCartData = () => {
         setCartData(cartData);
       },
       openToast,
-      '장바구니 상품을 삭제했습니다.'
+      "장바구니 상품을 삭제했습니다."
     );
   };
 
