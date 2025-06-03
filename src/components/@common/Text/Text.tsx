@@ -20,5 +20,4 @@ export default Text;
 const TextStyle = (type: TextType) => css`
   font-weight: ${type === "small" ? 500 : 700};
   font-size: ${type === "large" ? "24px" : type === "medium" ? "16px" : "12px"};
-  color = ${type === "small" ? "#0A0D13" : "#000000"};
 `;
