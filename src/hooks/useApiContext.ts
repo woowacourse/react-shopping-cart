@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState, useCallback } from 'react';
 import { ApiContext, CachedData } from '../contexts/ApiContext';
 import { useToast } from './useToast';
+import { TTL } from '../constants/ttl';
 
 interface UseApiContextProps<T> {
   fetchFn: () => Promise<T>;
   key: string;
-  ttl?: number;
 }
 
-export function useApiContext<T>({ fetchFn, key, ttl = 5 * 60 * 1000 }: UseApiContextProps<T>) {
+export function useApiContext<T>({ fetchFn, key }: UseApiContextProps<T>) {
   const { data, setDataState } = useContext(ApiContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -38,13 +38,13 @@ export function useApiContext<T>({ fetchFn, key, ttl = 5 * 60 * 1000 }: UseApiCo
 
     if (cached) {
       const age = Date.now() - cached.fetchedAt;
-      if (age > ttl) {
+      if (age > TTL) {
         request();
       }
     } else {
       request();
     }
-  }, [data, key, request, ttl]);
+  }, [data, key, request]);
 
   return {
     data: (data[key] as CachedData<T>)?.value as T | undefined,

@@ -6,7 +6,7 @@ import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
-import { useCartSummary } from './useCartSummary';
+import { useCartSummary } from '../../hooks/useCartSummary';
 
 interface CartItemListProps {
   cartItems: CartItemType[];

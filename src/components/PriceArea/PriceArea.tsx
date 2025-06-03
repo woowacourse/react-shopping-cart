@@ -1,3 +1,4 @@
+import { DELIVERY } from '../../constants/delivery';
 import * as styles from './PriceArea.style';
 
 interface PriceAreaProps {
@@ -11,7 +12,9 @@ function PriceArea({ orderAmount, deliveryFee, totalAmount }: PriceAreaProps) {
     <section css={styles.priceAreaCss}>
       <div css={styles.infoDeliveryFeeCss}>
         <img src="./assets/info.svg" alt="info icon" />
-        <p css={styles.descriptionCss}>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
+        <p css={styles.descriptionCss}>
+          총 주문 금액이 {DELIVERY.THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.
+        </p>
       </div>
       <hr css={styles.hrSss} />
       <div css={styles.priceRowCss}>

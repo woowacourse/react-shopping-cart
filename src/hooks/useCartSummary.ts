@@ -1,7 +1,7 @@
-import { CartItemType } from '../../types/cartItem';
+import { CartItemType } from '../types/cartItem';
 import { useMemo } from 'react';
-import { calculateOrderAmount, calculateTotalQuantity } from './calculate';
-import { calculateDeliveryFee } from './calculate';
+import { calculateOrderAmount, calculateTotalQuantity } from '../components/CartItemList/calculate';
+import { calculateDeliveryFee } from '../components/CartItemList/calculate';
 
 interface CartSummary {
   orderAmount: number;
