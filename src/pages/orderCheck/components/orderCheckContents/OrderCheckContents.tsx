@@ -1,10 +1,12 @@
 import { FooterButton, SelectBox } from '@/components/common';
-import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
-import * as S from './OrderCheckContents.styles';
-import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
-import { CartItemType } from '@/components/features/cart/types';
 import BorderButton from '@/components/common/borderButton/BorderButton';
+import { CartItemType } from '@/components/features/cart/types';
+import { calculateOrderPrice } from '@/components/features/cart/utils/cartCalculations';
+import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
+import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
+import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
 import { useState } from 'react';
+import * as S from './OrderCheckContents.styles';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -12,6 +14,8 @@ interface OrderCheckContentsProps {
 
 function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
+
+  const orderPrice = calculateOrderPrice(orderItems);
 
   const toggleRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
@@ -40,6 +44,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
           </S.ShippingOptionSelectText>
         </S.ShippingOptionSelectRow>
       </S.ShippingOptionBox>
+      <OrderPriceSummary value={orderPrice} />
       <FooterButton disabled onClick={() => {}}>
         결제하기
       </FooterButton>

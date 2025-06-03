@@ -7,13 +7,13 @@ export const Container = styled.div`
   gap: 12px;
 `;
 
-export const Description = styled.div`
+export const NoticeBox = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
 `;
 
-export const DescriptionText = styled.p`
+export const NoticeText = styled.p`
   font-size: 12px;
   font-weight: 500;
   color: #0a0d13;

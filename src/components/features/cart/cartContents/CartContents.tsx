@@ -1,7 +1,7 @@
 import { ErrorToastMessage, FooterButton } from '@/components/common';
 import { useNavigate } from 'react-router';
 import CartList from '../cartList/CartList';
-import CartPrice from '../cartPrice/CartPrice';
+import CartPriceSummary from '../cartPriceSummary/CartPriceSummary';
 import CartTitle from '../cartTitle/CartTitle';
 import useCartSelection from '../hooks/useCartSelection';
 import { CartItemType } from '../types';
@@ -46,7 +46,7 @@ function CartContents({
         toggleAllSelect={cartSelection.actions.toggleAll}
         refetch={refetch}
       />
-      <CartPrice value={orderPrice} />
+      <CartPriceSummary value={orderPrice} />
       <FooterButton disabled={disabled} onClick={moveToOrderCheck}>
         주문 확인
       </FooterButton>
