@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { useNavigate } from "react-router-dom";
-import getShoppingCart from "../../api/getShoppingCart";
-import Button from "../../components/Button/Button";
-import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
-import { EmptyShoppingCart } from "../../components/EmptyShoppingCart/EmptyShoppingCart";
-import Header from "../../components/layout/Header/Header";
-import Main from "../../components/layout/Main/Main";
-import { PageLayout } from "../../components/layout/PageLayout/PageLayout";
-import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
-import Toast from "../../components/Toast/Toast";
-import { CartItemTypes } from "../../types/cartItem";
-import { getTotalPrice } from "../../utils/getTotalPrice";
-import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
-import { Footer } from "../../components/layout/Footer/Footer";
+import { useNavigate } from 'react-router-dom';
+import getShoppingCart from '../../api/getShoppingCart';
+import Button from '../../components/Button/Button';
+import CartProductContainer from '../../components/CartProductContainer/CartProductContainer';
+import { EmptyShoppingCart } from '../../components/EmptyShoppingCart/EmptyShoppingCart';
+import Header from '../../components/layout/Header/Header';
+import Main from '../../components/layout/Main/Main';
+import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
+import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
+import Toast from '../../components/Toast/Toast';
+import { CartItemTypes } from '../../types/cartItem';
+import { getTotalPrice } from '../../utils/getTotalPrice';
+import { subTitleStyle, titleBox, titleStyle } from './shoppingCart.style';
+import { Footer } from '../../components/layout/Footer/Footer';
 
 export function ShoppingCart() {
   const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
 
@@ -32,7 +32,7 @@ export function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    navigate("/confirm", {
+    navigate('/confirm', {
       state: {
         selectedCartType: selectedCartId.length,
         selectedCartItem: calculateCartItemQuantity(),
@@ -48,7 +48,7 @@ export function ShoppingCart() {
       if (cartItem.length === 0) setIsLoading(false);
       setCartItem(response);
     } catch (e) {
-      setError("데이터를 가져오는데 실패했습니다");
+      setError('데이터를 가져오는데 실패했습니다');
     }
   };
 
@@ -76,7 +76,9 @@ export function ShoppingCart() {
         <div css={titleBox}>
           <p css={titleStyle}>장바구니</p>
           {cartItem.length !== 0 && (
-            <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
+            <p css={subTitleStyle}>
+              현재 {cartItem.length}종류의 상품이 담겨있습니다.
+            </p>
           )}
         </div>
         {cartItem.length === 0 ? (
@@ -101,8 +103,8 @@ export function ShoppingCart() {
           size="full"
           style={
             selectedCartId.length === 0 || cartItem.length === 0
-              ? "secondary"
-              : "primary"
+              ? 'secondary'
+              : 'primary'
           }
           disabled={selectedCartId.length === 0 || cartItem.length === 0}
         >
