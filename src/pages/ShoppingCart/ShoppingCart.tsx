@@ -46,6 +46,10 @@ export function ShoppingCart() {
     }
   }, [isLoading, cartItems]);
 
+  // 예시
+  const shouldDisableButton =
+    cartItems.length === 0 || selectedCartIds.length === 0;
+
   return (
     <PageLayout>
       <Header>
@@ -81,11 +85,7 @@ export function ShoppingCart() {
           onClick={handleConfirm}
           type="submit"
           size="full"
-          style={
-            selectedCartIds.length === 0 || cartItems.length === 0
-              ? 'secondary'
-              : 'primary'
-          }
+          style={shouldDisableButton ? 'secondary' : 'primary'}
           disabled={selectedCartIds.length === 0 || cartItems.length === 0}
         >
           주문 확인
