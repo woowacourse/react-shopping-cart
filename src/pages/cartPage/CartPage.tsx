@@ -13,7 +13,7 @@ import {
   getCartItemNamePrice,
 } from "../../utils/calculate";
 import useCartData from "../../hooks/useCartData";
-import useCheckedArray from "../../hooks/useCheckedArray";
+import useCheckedSet from "../../hooks/useCheckedSet";
 import {
   NO_ITEM_IN_CART,
   CART_ITEM_TYPE_COUNT,
@@ -22,25 +22,28 @@ import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedCon
 import CartPageSkeleton from "./skeleton/CartPageSkeleton";
 import useData from "../../hooks/@common/useData";
 import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
+import type { CartItemType } from "../../types/response";
 
 const CartPage = () => {
   const { callApi, loadingState } = useData();
+
+  const {
+    isCheckedSet,
+    justifyIsChecked,
+    controlCheckBox,
+    controlAllCheckBox,
+    updateIsCheckedSet,
+    syncIsCheckedSet,
+  } = useCheckedSet();
+  const isCheckedArray = Array.from(isCheckedSet);
 
   const {
     cartData,
     updateCartItem,
     increaseCartItem,
     removeCartItem,
-    initCartData,
-  } = useCartData({ callApi });
-  const {
-    isCheckedArray,
-    justifyIsChecked,
-    controlCheckBox,
-    controlAllCheckBox,
-    initIsCheckedArray,
-    isAllChecked,
-  } = useCheckedArray(cartData);
+    updateCartData,
+  } = useCartData({ callApi, syncIsCheckedSet });
 
   const { goOrderComplete } = useEasyNavigate();
 
@@ -54,12 +57,14 @@ const CartPage = () => {
       if (!initialCartData) {
         return;
       }
-      initCartData(initialCartData);
-      initIsCheckedArray(initialCartData);
+      updateCartData(initialCartData);
+      updateIsCheckedSet(initialCartData.map((item: CartItemType) => item.id));
     };
 
     fetchCartData();
   }, []);
+
+  console.log(isCheckedSet);
 
   if (loadingState === "initialLoading") {
     return <CartPageSkeleton />;
@@ -87,7 +92,7 @@ const CartPage = () => {
           <div css={S.cartList}>
             <div css={S.cartCheckboxContainer}>
               <Checkbox
-                checked={isAllChecked}
+                checked={isCheckedArray.length === cartData.length}
                 onChange={() => controlAllCheckBox(cartData)}
               />
               <p>전체 선택</p>
@@ -117,7 +122,7 @@ const CartPage = () => {
         <Button
           size="large"
           color="black"
-          disabled={isCheckedArray.length === 0}
+          disabled={isCheckedSet.size === 0}
           onClick={() =>
             goOrderComplete(
               cartData.length,

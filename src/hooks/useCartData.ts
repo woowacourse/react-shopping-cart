@@ -14,9 +14,10 @@ interface UseCartDataProps {
     successMessage: string,
     loadingType: LoadingType
   ) => Promise<T | undefined>;
+  syncIsCheckedSet: (updateData: CartItemType["id"][]) => void;
 }
 
-const useCartData = ({ callApi }: UseCartDataProps) => {
+const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
 
   const updateCartItem = async (cartId: number) => {
@@ -33,30 +34,39 @@ const useCartData = ({ callApi }: UseCartDataProps) => {
   };
 
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
-    await callApi(
+    const updateCartData = await callApi<CartItemType[]>(
       async () => {
         await modifyCartItem(cartItemId, quantity);
         const cartData = await getCart();
         setCartData(cartData);
+        return cartData;
       },
       "장바구니 수량을 변경했습니다.",
-      "updating" as LoadingType
+      "updating"
     );
+    if (!updateCartData) {
+      return;
+    }
   };
 
   const removeCartItem = async (cartItemId: number) => {
-    await callApi(
+    const updateCartData = await callApi<CartItemType[]>(
       async () => {
         await deleteCartItem(cartItemId);
         const cartData = await getCart();
         setCartData(cartData);
+        return cartData;
       },
       "장바구니 상품을 삭제했습니다.",
-      "updating" as LoadingType
+      "updating"
     );
+    if (!updateCartData) {
+      return;
+    }
+    syncIsCheckedSet(updateCartData.map((item: CartItemType) => item.id));
   };
 
-  const initCartData = (updateData: CartItemType[]) => {
+  const updateCartData = (updateData: CartItemType[]) => {
     setCartData(updateData);
   };
 
@@ -65,7 +75,7 @@ const useCartData = ({ callApi }: UseCartDataProps) => {
     updateCartItem,
     increaseCartItem,
     removeCartItem,
-    initCartData,
+    updateCartData,
   };
 };
 
