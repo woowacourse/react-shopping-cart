@@ -4,16 +4,22 @@ import { QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
 import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import * as S from "./Step1.styles";
+import { CartItemService } from "@/services";
 
-export default function Step1() {
+interface Step1Props {
+  selectedItemIds: number[];
+  setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
+}
+
+export default function Step1({ selectedItemIds, setSelectedItemIds }: Step1Props) {
   const { data: cartItems, refetch } = useQuery<GetCartItemsResponse>({
     queryKey: QUERY_KEY.CART_ITEM,
     queryFn: CartItemApi.getCartItems,
   });
 
-  const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+  console.log(selectedItemIds);
 
   const { goNextStep } = useFunnelContext();
 
@@ -28,19 +34,9 @@ export default function Step1() {
     else setSelectedItemIds(cartItems?.content.map((item) => item.id) ?? []);
   };
 
-  const orderPrice =
-    cartItems?.content.reduce(
-      (total, item) => total + (selectedItemIds.includes(item.id) ? item.product.price * item.quantity : 0),
-      0,
-    ) || 0;
-  const deliveryFee = orderPrice >= 100_000 ? 0 : 3_000;
-  const totalPrice = orderPrice + deliveryFee;
-
-  const totalQuantity = selectedItemIds.reduce((prev, cur) => {
-    const currentCartItem = cartItems?.content.find((it) => it.id === cur);
-    if (!currentCartItem) return cur;
-    return prev + currentCartItem.quantity;
-  }, 0);
+  const orderPrice = CartItemService.calculateTotalPrice(cartItems?.content ?? []);
+  const deliveryFee = CartItemService.calculateDeliveryFee(orderPrice);
+  const totalPrice = CartItemService.calculateTotalPriceWithDeliveryFee(orderPrice);
 
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
 

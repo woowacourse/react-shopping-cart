@@ -5,31 +5,29 @@ import { css } from "@emotion/react";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import CouponModal from "./components/CouponModal";
 import * as S from "./Step2.styles";
+import { useCartItem } from "@/hooks";
+import { CartItemService } from "@/services";
 
-const cartItem = {
-  id: 1,
-  name: "상품 이름",
-  price: 10000,
-  quantity: 2,
-  product: {
-    imageUrl: "/images/default-img.png",
-    id: 1,
-    name: "상품 이름",
-    price: 10000,
-  },
-};
+interface Step2Props {
+  selectedItemIds: number[];
+}
 
-export default function OrderConfirmPage() {
+export default function Step2({ selectedItemIds }: Step2Props) {
   const { goPrevStep, goNextStep } = useFunnelContext();
 
-  const {
-    product: { imageUrl, price, name },
-    quantity,
-  } = cartItem;
+  const { cartItems } = useCartItem();
+  const filteredCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
 
   const handleCouponApplyClick = () => {
     console.log("쿠폰 적용");
   };
+
+  const totalPrice = CartItemService.calculateTotalPrice(filteredCartItems);
+  const deliveryFee = CartItemService.calculateDeliveryFee(totalPrice);
+  const totalPriceWithDeliveryFee = CartItemService.calculateTotalPriceWithDeliveryFee(totalPrice);
+
+  const totalType = CartItemService.calculateTotalType(filteredCartItems);
+  const totalQuantity = CartItemService.calculateTotalQuantity(filteredCartItems);
 
   return (
     <div>
@@ -47,18 +45,22 @@ export default function OrderConfirmPage() {
         <Text variant="title-1">주문 확인</Text>
         <Spacing size={27} />
         <Text variant="body-1">
-          총 1개의 상품 2개를 주문합니다.
+          총 {totalType}종류의 상품 {totalQuantity}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </Text>
-        <Card>
-          <Card.Image src={imageUrl} alt={name} />
-          <Card.Info>
-            <Card.Name>{name}</Card.Name>
-            <Card.Description>{price.toLocaleString()}원</Card.Description>
-            <Text variant="body-1">{quantity}개</Text>
-          </Card.Info>
-        </Card>
+
+        {filteredCartItems?.map((item) => (
+          <Card key={item.id}>
+            <Card.Image src={item.product.imageUrl} alt={item.product.name} />
+            <Card.Info>
+              <Card.Name>{item.product.name}</Card.Name>
+              <Card.Description>{item.product.price.toLocaleString()}원</Card.Description>
+              <Text variant="body-1">{item.quantity}개</Text>
+            </Card.Info>
+          </Card>
+        ))}
+
         <Spacing size={16} />
 
         <Modal.Wrapper>
@@ -102,22 +104,22 @@ export default function OrderConfirmPage() {
         <S.ReceiptWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">주문 금액</Text>
-            <Text variant="title-1">{price.toLocaleString()}원</Text>
+            {/* <Text variant="title-1">{price.toLocaleString()}원</Text> */}
           </ReceiptTextWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">쿠폰 할인 금액</Text>
-            <Text variant="title-1">{0}원</Text>
+            <Text variant="title-1">{}원</Text>
           </ReceiptTextWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">배송비</Text>
-            <Text variant="title-1">{0}원</Text>
+            <Text variant="title-1">{deliveryFee.toLocaleString()}원</Text>
           </ReceiptTextWrapper>
 
           <hr />
 
           <ReceiptTextWrapper>
             <Text variant="title-3">총 결제 금액</Text>
-            <Text variant="title-1">{price.toLocaleString()}원</Text>
+            <Text variant="title-1">{totalPriceWithDeliveryFee.toLocaleString()}원</Text>
           </ReceiptTextWrapper>
         </S.ReceiptWrapper>
         <ButtonWrapper>

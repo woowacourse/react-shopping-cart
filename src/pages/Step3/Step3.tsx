@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useLocation } from "react-router";
 import * as S from "./Step3.styles";
 
-export default function OrderCompletedPage() {
+export default function Step3() {
   const { goPrevStep, goToStep } = useFunnelContext();
   const location = useLocation();
 
