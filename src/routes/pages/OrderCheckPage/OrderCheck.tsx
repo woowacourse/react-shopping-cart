@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from 'react-router';
+
 import Header from '../../../components/@common/Header/Header';
 import HeaderButton from '../../../components/@common/Header/HeaderButton';
 import OrderList from '../../../components/List/OrderList/OrderList';
@@ -7,11 +9,11 @@ import PayButton from '../../../components/PayButton/PayButton';
 import PageTitle from '../../../components/PageTitle/PageTitle';
 import OrderItem from '../../../components/ListItem/OrderItem/OrderItem';
 import CouponButton from '../../../components/CouponButton/CouponButton';
+import DeliveryInfo from '../../../components/DeliveryInfo/DeliveryInfo';
+import OrderPriceInfo from '../../../components/PriceInfo/OrderPriceInfo/OrderPriceInfo';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
-import { useLocation, useNavigate } from 'react-router';
-import DeliveryInfo from '../../../components/DeliveryInfo/DeliveryInfo';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -23,8 +25,6 @@ function OrderCheck() {
     (acc, curr) => acc + curr.quantity,
     0
   );
-  const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
-  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
 
   return (
     <>
@@ -46,6 +46,7 @@ function OrderCheck() {
         </OrderList>
         <CouponButton />
         <DeliveryInfo />
+        <OrderPriceInfo totalPrice={totalPrice} couponDiscount={3000} />
       </ContainerLayout>
       <PayButton />
     </>
