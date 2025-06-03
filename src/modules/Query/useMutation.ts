@@ -12,9 +12,7 @@ interface MutateOptions {
   onError?: (error: unknown) => void;
 }
 
-export default function useMutation<TRequest, TResponse>({
-  mutationFn,
-}: UseMutationProps<TRequest, TResponse>) {
+export default function useMutation<TRequest, TResponse>({ mutationFn }: UseMutationProps<TRequest, TResponse>) {
   const [status, setStatus] = useState<Status>("idle");
 
   const mutate = async (variables: TRequest, options?: MutateOptions) => {

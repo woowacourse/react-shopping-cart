@@ -2,6 +2,8 @@ import { createHashRouter, RouterProvider } from "react-router";
 import * as S from "./App.styles";
 import { PATH } from "./constants";
 import { MainPage } from "./pages";
+import { ErrorProvider } from "./context";
+import { ErrorPopup } from "./components";
 
 const router = createHashRouter([
   {
@@ -13,7 +15,10 @@ const router = createHashRouter([
 function App() {
   return (
     <S.AppWrapper>
-      <RouterProvider router={router} />
+      <ErrorProvider>
+        <ErrorPopup />
+        <RouterProvider router={router} />
+      </ErrorProvider>
     </S.AppWrapper>
   );
 }

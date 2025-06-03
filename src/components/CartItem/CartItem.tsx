@@ -9,31 +9,29 @@ interface CartItemProps {
   cartItem: GetCartItemsResponse["content"][number];
   isSelected: boolean;
   handleCheckboxClick: () => void;
-  refetch: () => void;
 }
 
-export default function CartItem({ cartItem, isSelected, handleCheckboxClick, refetch }: CartItemProps) {
+export default function CartItem({ cartItem, isSelected, handleCheckboxClick }: CartItemProps) {
   const {
     product: { imageUrl, price, name },
     quantity,
   } = cartItem;
 
-  const { increaseCartItem, decreaseCartItem, deleteCartItem } = useCartItem();
+  const { increaseCartItem, decreaseCartItem, deleteCartItem, cartItemsStatus } = useCartItem();
 
-  const handleAddButtonClick = async () => {
-    await increaseCartItem(cartItem.product.id);
-    refetch();
+  const handleAddButtonClick = () => {
+    increaseCartItem(cartItem.product.id);
   };
 
-  const handleMinusButtonClick = async () => {
-    await decreaseCartItem(cartItem.product.id);
-    refetch();
+  const handleMinusButtonClick = () => {
+    decreaseCartItem(cartItem.product.id);
   };
 
-  const handleDeleteClick = async (id: number) => {
-    await deleteCartItem(id);
-    refetch();
+  const handleDeleteClick = (id: number) => {
+    deleteCartItem(id);
   };
+
+  console.log(quantity);
 
   return (
     <S.ProductCardCartItemWrapper>
@@ -61,6 +59,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
           <Card.Name>{name}</Card.Name>
           <Card.Description>{price.toLocaleString()}원</Card.Description>
           <PlusMinusButton
+            isLoading={cartItemsStatus === "loading"}
             quantity={quantity}
             onAddButtonClick={handleAddButtonClick}
             onMinusButtonClick={handleMinusButtonClick}

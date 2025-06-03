@@ -4,4 +4,5 @@ export const PATH = {
 export const API_PATH = {
   products: "/products",
   cartItems: "/cart-items",
+  coupons: "/coupons",
 };

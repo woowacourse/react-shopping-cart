@@ -14,18 +14,18 @@ export const CART_ITEMS_DATA: GetCartItemsResponse = {
         stock: 10,
       },
     },
-    {
-      id: 2,
-      quantity: 3,
-      product: {
-        id: 25,
-        name: "캐릭터 키링",
-        price: 5000,
-        imageUrl: "/images/keyring.png",
-        category: "굿즈",
-        stock: 10,
-      },
-    },
+    // {
+    //   id: 2,
+    //   quantity: 3,
+    //   product: {
+    //     id: 25,
+    //     name: "캐릭터 키링",
+    //     price: 5000,
+    //     imageUrl: "/images/keyring.png",
+    //     category: "굿즈",
+    //     stock: 10,
+    //   },
+    // },
   ],
   pageable: {
     pageNumber: 0,

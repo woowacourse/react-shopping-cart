@@ -1,12 +1,9 @@
-import { CartItemApi } from "@/apis";
 import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
-import { QUERY_KEY } from "@/constants";
-import { useQuery } from "@/modules";
-import { GetCartItemsResponse } from "@/types";
+import { useCartItem } from "@/hooks";
+import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import * as S from "./Step1.styles";
-import { CartItemService } from "@/services";
 
 interface Step1Props {
   selectedItemIds: number[];
@@ -14,12 +11,7 @@ interface Step1Props {
 }
 
 export default function Step1({ selectedItemIds, setSelectedItemIds }: Step1Props) {
-  const { data: cartItems, refetch } = useQuery<GetCartItemsResponse>({
-    queryKey: QUERY_KEY.CART_ITEM,
-    queryFn: CartItemApi.getCartItems,
-  });
-
-  console.log(selectedItemIds);
+  const { cartItems } = useCartItem();
 
   const { goNextStep } = useFunnelContext();
 
@@ -81,7 +73,6 @@ export default function Step1({ selectedItemIds, setSelectedItemIds }: Step1Prop
                   cartItem={item}
                   isSelected={selectedItemIds.includes(item.id)}
                   handleCheckboxClick={() => handleSelectItem(item.id)}
-                  refetch={refetch}
                 />
               ))}
             </S.CartItemList>
