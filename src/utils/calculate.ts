@@ -1,0 +1,70 @@
+import type { CartItemType } from '../types/response';
+import { getCartItemById } from './getCartItemById';
+
+// Set 기반 계산 함수 (더 효율적)
+
+// 기존 배열 기반 함수 (호환성 유지)
+export const getCartItemNamePrice = (
+  isCheckedArray: number[],
+  cartData: CartItemType[]
+): { name: string; price: number; quantity: number }[] => {
+  const results = isCheckedArray
+    .map((id) => {
+      const cartItem = getCartItemById(cartData, id);
+      if (!cartItem || cartItem === undefined) {
+        return;
+      }
+      return {
+        name: cartItem.product.name,
+        price: cartItem.product.price,
+        quantity: cartItem.quantity,
+      };
+    })
+    .filter(
+      (item): item is { name: string; price: number; quantity: number } =>
+        item !== undefined
+    );
+  return results;
+};
+
+export const calculateTotalCartItemPrice = (
+  cartItemNamePrice: { name: string; price: number; quantity: number }[]
+) => {
+  return cartItemNamePrice.reduce(
+    (acc, curr) => acc + curr.price * curr.quantity,
+    0
+  );
+};
+
+export const calculateTotalPrice = (
+  cartItemNamePrice: { name: string; price: number; quantity: number }[]
+) => {
+  const deliveryFee = calculateDeliveryFee(cartItemNamePrice);
+  return calculateTotalCartItemPrice(cartItemNamePrice) + deliveryFee;
+};
+
+export const calculateDeliveryFee = (
+  cartItemNamePrice: { name: string; price: number; quantity: number }[]
+) => {
+  return calculateTotalCartItemPrice(cartItemNamePrice) > 100000 ? 0 : 3000;
+};
+
+// Set 기반 총 상품 개수 계산 (더 효율적)
+export const calculateTotalProductCountFromSet = (
+  checkedItemIds: Set<number>,
+  cartData: CartItemType[]
+) => {
+  return cartData
+    .filter((item) => checkedItemIds.has(item.id))
+    .reduce((acc, item) => acc + item.quantity, 0);
+};
+
+// 기존 배열 기반 함수 (호환성 유지)
+export const calculateTotalProductCount = (
+  cartData: CartItemType[],
+  isCheckedArray: number[]
+) => {
+  const cartItems = isCheckedArray.map((id) => getCartItemById(cartData, id));
+
+  return cartItems.reduce((acc, curr) => acc + (curr?.quantity ?? 0), 0);
+};
