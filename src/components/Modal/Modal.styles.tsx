@@ -1,27 +1,9 @@
+import { Device } from "@/hooks";
 import styled from "@emotion/styled";
 import type { ModalProps } from "./Modal";
-import { Device } from "@/hooks";
-
-const modalSize = {
-  small: "320px",
-  medium: "480px",
-  large: "600px",
-};
-
-const getModalWidth = (size: "small" | "medium" | "large", position: "center" | "bottom", device: Device) => {
-  if (device === "mobile" || device === "tablet") {
-    return "90%";
-  }
-
-  if (position === "center") {
-    return modalSize[size];
-  } else {
-    return "100%";
-  }
-};
 
 export const ModalContainer = styled.div<Pick<ModalProps, "position" | "zIndex" | "size"> & { device: Device }>`
-  width: ${(props) => getModalWidth(props.size ?? "medium", props.position ?? "center", props.device)};
+  width: 420px;
   box-sizing: border-box;
   height: fit-content;
 

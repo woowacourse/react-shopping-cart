@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { ButtonWrapper, ReceiptTextWrapper } from "../ShoppingCartPage/ShoppingCartPage.styles";
 import * as S from "./OrderConfirmPage.styles";
 import { PATH } from "@/constants";
+import Modal from "@/components/Modal/Modal";
+import CouponModal from "./components/CouponModal";
 
 const cartItem = {
   id: 1,
@@ -32,6 +34,10 @@ export default function OrderConfirmPage() {
   };
   const handleOrderCompleteClick = () => {
     navigate(PATH.orderCompleted);
+  };
+
+  const handleCouponApplyClick = () => {
+    console.log("쿠폰 적용");
   };
 
   return (
@@ -62,31 +68,35 @@ export default function OrderConfirmPage() {
             <Text variant="body-1">{quantity}개</Text>
           </Card.Info>
         </Card>
-
         <Spacing size={16} />
 
-        <Button
-          css={css`
-            width: 100%;
-          `}
-          variant="outlined"
-        >
-          쿠폰 적용
-        </Button>
+        <Modal.Wrapper>
+          <Modal.Trigger
+            css={css`
+              width: 100%;
+            `}
+          >
+            <Button
+              css={css`
+                width: 100%;
+              `}
+              variant="outlined"
+              onClick={handleCouponApplyClick}
+            >
+              쿠폰 적용
+            </Button>
+          </Modal.Trigger>
+          <CouponModal />
+        </Modal.Wrapper>
 
         <Spacing size={32} />
-
         <Text variant="title-3">배송 정보</Text>
-
         <Spacing size={16} />
-
         <S.CheckboxWrapper>
           <Checkbox checked />
           <Text variant="body-1">제주도 및 도서 산간 지역</Text>
         </S.CheckboxWrapper>
-
         <Spacing size={32} />
-
         <Text
           variant="body-1"
           css={css`
@@ -97,9 +107,7 @@ export default function OrderConfirmPage() {
         >
           <Info /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </Text>
-
         <hr />
-
         <S.ReceiptWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">주문 금액</Text>
@@ -127,8 +135,6 @@ export default function OrderConfirmPage() {
               width: 100%;
             `}
             onClick={handleOrderCompleteClick}
-
-            // disabled={cartItems.content.length === 0}
           >
             <Text variant="title-3" color="white">
               결제하기
