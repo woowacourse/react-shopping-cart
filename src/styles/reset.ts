@@ -124,5 +124,8 @@ const Reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  input {
+    margin: 0;
+  }
 `;
 export default Reset;

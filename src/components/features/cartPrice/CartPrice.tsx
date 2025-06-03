@@ -47,7 +47,7 @@ const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
         </div>
       </div>
       <div css={S.CartPriceInfoContainer}>
-        <div css={S.CartPriceSubtitle}>총 주문 금액</div>
+        <div css={S.CartPriceSubtitle}>총 결제 금액</div>
         {totalCartItemPrice !== 0 && (
           <div css={Title}>{totalPrice.toLocaleString()}원</div>
         )}

@@ -1,27 +1,38 @@
 import { css } from "@emotion/react";
 
-export const buttonStyles = {
-  smallBlack: css`
-    max-width: 65px;
-    height: 29px;
-    padding: 4px 8px;
-    background-color: var(--color-black);
-    color: var(--color-white);
-    &:disabled {
-      background-color: var(--color-grey);
-      color: var(--color-white);
-      cursor: not-allowed;
-    }
+export const buttonSize = {
+  small: css`
+    max-width: 6.5rem;
+    padding: 0.4rem 0.8rem;
   `,
-  largeBlack: css`
+  large: css`
     width: 100%;
-    padding: 12px 0;
-    background-color: var(--color-black);
-    color: var(--color-white);
-    &:disabled {
-      background-color: var(--color-grey);
-      color: var(--color-white);
-      cursor: not-allowed;
-    }
+    padding: 1.8rem 0;
   `,
 };
+
+export const buttonColor = {
+  black: css`
+    background-color: var(--color-black);
+    color: var(--color-white);
+    &:disabled {
+      background-color: var(--color-grey);
+      color: var(--color-white);
+      cursor: not-allowed;
+    }
+  `,
+  white: css`
+    background-color: var(--color-white);
+    color: var(--color-black);
+  `,
+};
+
+export const buttonDefaultStyle = css`
+  border: none;
+  border-radius: 0.4rem;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

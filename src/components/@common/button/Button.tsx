@@ -1,18 +1,21 @@
-import { buttonStyles } from "./Button.styles";
+import { buttonSize, buttonColor, buttonDefaultStyle } from "./Button.styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "smallBlack" | "largeBlack";
+  size?: "small" | "large";
+  color?: "black" | "white";
 }
 
 const Button = ({
-  variant = "smallBlack",
+  size = "small",
+  color = "black",
   children,
   ...props
 }: ButtonProps) => {
-  console.log(props.disabled);
-  const buttonStyle = buttonStyles[variant];
+  const sizeStyle = buttonSize[size];
+  const colorStyle = buttonColor[color];
   return (
-    <button css={buttonStyle} {...props}>
+    <button css={[buttonDefaultStyle, sizeStyle, colorStyle]} {...props}>
       {children}
     </button>
   );

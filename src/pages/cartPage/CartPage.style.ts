@@ -1,6 +1,17 @@
 import { css } from "@emotion/react";
 
-export const CartTitleContainer = css`
+export const cartPageWrapper = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  gap: 3.6rem;
+  padding-bottom: 7rem;
+`;
+
+export const cartTitleContainer = css`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -10,17 +21,24 @@ export const CartTitleContainer = css`
   gap: 1.2rem;
 `;
 
-export const CartPageWrapper = css`
+export const cartContentContainer = css`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  width: 100%;
-  gap: 3.6rem;
 `;
 
-export const CartCheckboxContainer = css`
+export const cartList = css`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+`;
+
+export const cartCheckboxContainer = css`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,4 +46,11 @@ export const CartCheckboxContainer = css`
 
   width: 100%;
   gap: 0.45rem;
+`;
+
+export const cartButtonContainer = css`
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  max-width: var(--layout-width);
 `;

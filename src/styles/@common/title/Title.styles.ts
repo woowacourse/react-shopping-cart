@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const Title = css`
   font-size: var(--font-size-title);
@@ -8,6 +8,6 @@ export const Title = css`
 
 export const Subtitle = css`
   font-size: var(--font-size-subtitle);
-  font-weight: var(--font-weight-subtitle);
+  font-weight: var(--font-weight-body);
   color: var(--color-dark-grey);
 `;

@@ -4,7 +4,10 @@ export const cartItemWrapper = css`
   width: 100%;
   border-top: 1px solid var(--color-light-grey);
   box-sizing: border-box;
-  padding: 1.5rem;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 export const cartItemController = css`
@@ -40,9 +43,16 @@ export const cartItemStyle = css`
 export const cartInfoStyle = css`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: flex-start;
-  gap: 1.2rem;
   width: 100%;
+`;
+
+export const cartInfoDetailStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
 `;
 
 export const cartItemNameStyle = css`
@@ -51,6 +61,6 @@ export const cartItemNameStyle = css`
 `;
 
 export const cartItemPriceStyle = css`
-  font-size: var(--font-size-subtitle);
-  font-weight: var(--font-weight-subtitle);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-title);
 `;

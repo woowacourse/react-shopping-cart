@@ -3,6 +3,7 @@ import CountButton from "../countButton/CountButton";
 import * as S from "./CartItem.styles";
 import type { CartItemType } from "../../../types/response";
 import { handleImageError } from "../../../utils/handleImageError";
+import Button from "../../@common/button/Button";
 
 interface CartItemProps {
   cartData: CartItemType;
@@ -29,10 +30,16 @@ const CartItem = ({
             checked={justifyIsChecked(cartData.id)}
             onChange={() => controlCheckBox(cartData.id)}
           />
-          <button type="button" onClick={() => removeCartItem(cartData.id)}>
+          <Button
+            type="button"
+            onClick={() => removeCartItem(cartData.id)}
+            size="small"
+            color="white"
+          >
             삭제
-          </button>
+          </Button>
         </div>
+
         <div key={cartData.id} css={S.cartItemStyle}>
           <img
             src={cartData.product.imageUrl}
@@ -40,10 +47,13 @@ const CartItem = ({
             onError={handleImageError}
           />
           <div css={S.cartInfoStyle}>
-            <h3 css={S.cartItemNameStyle}>{cartData.product.name}</h3>
-            <p css={S.cartItemPriceStyle}>
-              {cartData.product.price.toLocaleString()}원
-            </p>
+            <div css={S.cartInfoDetailStyle}>
+              <h3 css={S.cartItemNameStyle}>{cartData.product.name}</h3>
+              <p css={S.cartItemPriceStyle}>
+                {cartData.product.price.toLocaleString()}원
+              </p>
+            </div>
+
             <CountButton
               updateCartItem={() => {
                 updateCartItem(cartData.id);

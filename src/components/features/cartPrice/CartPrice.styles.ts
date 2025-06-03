@@ -1,15 +1,17 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const CartPriceInfoContainer = css`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.8rem 0;
 `;
 
 export const CartPriceSubtitle = css`
   font-size: var(--font-size-subtitle);
   font-weight: var(--font-weight-subtitle);
+  color: var(--color-dark-grey);
 `;
 
 export const CartPrice = css`

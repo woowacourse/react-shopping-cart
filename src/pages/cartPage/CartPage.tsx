@@ -56,53 +56,60 @@ const CartPage = () => {
     fetchCartData();
   }, []);
 
+  // TODO : item이 없을 경우 NO_CONTENT 메세지 보여줄 것
   return (
-    <div css={S.CartPageWrapper}>
-      <div css={S.CartTitleContainer}>
+    <div css={S.cartPageWrapper}>
+      <div css={S.cartTitleContainer}>
         <p css={Title}>장바구니</p>
 
-        {cartData.length > 0 ? (
-          <>
-            <p css={Subtitle}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
-            <div css={S.CartCheckboxContainer}>
-              <Checkbox
-                checked={isAllChecked}
-                onChange={() => controlAllCheckBox(cartData)}
-              />
-              <p>전체 선택</p>
-            </div>
-            {cartData.map((item) => (
-              <CartItem
-                key={item.id}
-                cartData={item}
-                updateCartItem={updateCartItem}
-                increaseCartItem={increaseCartItem}
-                justifyIsChecked={justifyIsChecked}
-                controlCheckBox={controlCheckBox}
-                removeCartItem={removeCartItem}
-              />
-            ))}
-            <CartPrice
-              cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
-            />
-          </>
-        ) : (
-          <h2>{NO_ITEM_IN_CART}</h2>
-        )}
+        <p css={Subtitle}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
       </div>
-      <Button
-        variant="largeBlack"
-        disabled={isCheckedArray.length === 0}
-        onClick={() =>
-          goOrderComplete(
-            cartData.length,
-            calculateTotalPrice(getCartItemNamePrice(isCheckedArray, cartData)),
-            calculateTotalProductCount(cartData, isCheckedArray)
-          )
-        }
-      >
-        주문 확인
-      </Button>
+
+      <div css={S.cartList}>
+        <div css={S.cartCheckboxContainer}>
+          <Checkbox
+            checked={isAllChecked}
+            onChange={() => controlAllCheckBox(cartData)}
+          />
+          <p>전체 선택</p>
+        </div>
+        <div css={S.cartContentContainer}>
+          {cartData.map((item) => (
+            <CartItem
+              key={item.id}
+              cartData={item}
+              updateCartItem={updateCartItem}
+              increaseCartItem={increaseCartItem}
+              justifyIsChecked={justifyIsChecked}
+              controlCheckBox={controlCheckBox}
+              removeCartItem={removeCartItem}
+            />
+          ))}
+        </div>
+      </div>
+
+      <CartPrice
+        cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
+      />
+
+      <div css={S.cartButtonContainer}>
+        <Button
+          size="large"
+          color="black"
+          disabled={isCheckedArray.length === 0}
+          onClick={() =>
+            goOrderComplete(
+              cartData.length,
+              calculateTotalPrice(
+                getCartItemNamePrice(isCheckedArray, cartData)
+              ),
+              calculateTotalProductCount(cartData, isCheckedArray)
+            )
+          }
+        >
+          주문 확인
+        </Button>
+      </div>
     </div>
   );
 };

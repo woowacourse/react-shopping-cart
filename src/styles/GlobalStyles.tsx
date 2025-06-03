@@ -1,5 +1,5 @@
-import { css } from '@emotion/react';
-import Reset from './reset';
+import { css } from "@emotion/react";
+import Reset from "./reset";
 const GlobalStyle = css`
   ${Reset}
   * {
@@ -26,7 +26,7 @@ const GlobalStyle = css`
     --color-green: #00c853;
     --color-pink: #ff4d4f;
 
-    --font-family: 'Noto Sans KR';
+    --font-family: "Noto Sans KR";
     --font-size-title: 24px;
     --font-weight-title: 700;
 
@@ -38,6 +38,9 @@ const GlobalStyle = css`
 
     --font-size-body: 12px;
     --font-weight-body: 500;
+
+    --header-height: 6.4rem;
+    --layout-width: 42.9rem;
   }
   html,
   body {
@@ -73,6 +76,9 @@ const GlobalStyle = css`
   }
   ::-webkit-scrollbar {
     display: none;
+  }
+  input[type="checkbox"] {
+    accent-color: var(--color-black);
   }
 `;
 export default GlobalStyle;

@@ -1,4 +1,4 @@
-import * as S from './CountButton.styles';
+import * as S from "./CountButton.styles";
 
 interface CountButtonProps {
   updateCartItem: (cartId: number) => void;
@@ -16,6 +16,7 @@ const CountButton = ({
   return (
     <div css={S.countButtonContainer}>
       <button
+        type="button"
         css={S.countButtonButtonStyle}
         onClick={() => updateCartItem(cartId)}
       >
@@ -23,6 +24,7 @@ const CountButton = ({
       </button>
       <span>{quantity}</span>
       <button
+        type="button"
         css={S.countButtonButtonStyle}
         onClick={() => increaseCartItem(cartId, quantity + 1)}
       >

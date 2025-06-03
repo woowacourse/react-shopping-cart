@@ -1,14 +1,16 @@
-import Header from '../../components/layout/header/Header';
-import ToastProvider from '../../contexts/ToastContext';
-import * as S from './Layout.styles';
-import { Outlet } from 'react-router-dom';
+import Header from "../../components/layout/header/Header";
+import ToastProvider from "../../contexts/ToastContext";
+import * as S from "./Layout.styles";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
     <ToastProvider>
-      <div css={S.LayoutWrapper}>
+      <div css={S.layoutWrapper}>
         <Header />
-        <Outlet />
+        <div css={S.layoutOutlet}>
+          <Outlet />
+        </div>
       </div>
     </ToastProvider>
   );
