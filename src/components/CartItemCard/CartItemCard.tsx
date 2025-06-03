@@ -3,7 +3,8 @@ import TextButton from "../@common/Button/TextButton/TextButton";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import QuantityStepper from "../QuantityStepper/QuantityStepper";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
+import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
+import { useUpdateCartItem } from "../../hooks/useUpdateCartItem";
 
 interface CartItemCardProps {
   cartItemId: number;
@@ -24,7 +25,8 @@ const CartItemCard = ({
   isSelected,
   handleToggle,
 }: CartItemCardProps) => {
-  const { deleteCartItem, updateCartItem } = useCartItemContext();
+  const { deleteCartItem } = useDeleteCartItem();
+  const { updateCartItem } = useUpdateCartItem();
 
   return (
     <>
