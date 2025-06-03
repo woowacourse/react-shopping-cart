@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 interface MutationResult<T, V> {
-  mutate: (vars: V) => Promise<void>;
+  mutate: (vars: V) => Promise<T>;
   data: T | null;
   isLoading: boolean;
   error: Error | null;
@@ -19,8 +19,11 @@ export function useMutation<T, V>(fn: (vars: V) => Promise<T>): MutationResult<T
       try {
         const response = await fn(vars);
         setData(response);
+        return response;
       } catch (err) {
-        setError(err instanceof Error ? err : new Error(String(err)));
+        const thrown = err instanceof Error ? err : new Error(String(err));
+        setError(thrown);
+        throw thrown;
       } finally {
         setIsLoading(false);
       }
