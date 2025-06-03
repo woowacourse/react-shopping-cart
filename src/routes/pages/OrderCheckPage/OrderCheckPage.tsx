@@ -26,7 +26,9 @@ function OrderCheck() {
   return (
     <>
       <Header>
-        <HeaderButton src={Back} onClick={() => navigate(-1)} />
+        <HeaderButton onClick={() => navigate(-1)}>
+          <img src={Back} alt="뒤로가기 버튼" />
+        </HeaderButton>
       </Header>
       <ContainerLayout>
         <div css={OrderCheckContainerStyle}>

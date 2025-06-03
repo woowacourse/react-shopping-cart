@@ -1,14 +1,14 @@
 import { HeaderButtonStyle } from './Header.styles';
 
 interface HeaderButtonProps {
-  src: string;
+  children: React.ReactNode;
   onClick?: () => void;
 }
 
-function HeaderButton({ src, onClick }: HeaderButtonProps) {
+function HeaderButton({ children, onClick }: HeaderButtonProps) {
   return (
     <button css={HeaderButtonStyle} onClick={onClick}>
-      <img src={src} alt="header-button" />
+      {children}
     </button>
   );
 }

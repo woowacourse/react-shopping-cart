@@ -77,7 +77,9 @@ function CartPage() {
   return (
     <>
       <Header>
-        <HeaderButton src={Logo} />
+        <HeaderButton>
+          <img src={Logo} alt="로고" />
+        </HeaderButton>
       </Header>
       {isVisible && <Toast message={cartList.error} />}
       <ContainerLayout>
