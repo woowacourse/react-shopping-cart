@@ -5,20 +5,20 @@ import {
 
 interface ApiClientProps<T = unknown> {
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
-  URI: string;
+  path: string;
   body?: T;
 }
 
 export const apiClient = async <T = unknown>({
   method,
-  URI,
+  path,
   body,
 }: ApiClientProps<T>) => {
   const basicToken = btoa(
     `${import.meta.env.VITE_API_USERNAME}:${import.meta.env.VITE_API_PASSWORD}`
   );
   // biome-ignore lint/style/useTemplate: --
-  const requestURL = `${import.meta.env.VITE_API_BASE_URL}` + URI;
+  const requestURL = `${import.meta.env.VITE_API_BASE_URL}` + path;
   const response = await fetch(requestURL, {
     method,
     body: body ? JSON.stringify(body) : undefined,

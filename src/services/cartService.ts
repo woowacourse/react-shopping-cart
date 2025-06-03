@@ -3,7 +3,7 @@ import { apiClient } from './apiClient';
 export const getCart = async () => {
   const data = await apiClient({
     method: 'GET',
-    URI: '/cart-items',
+    path: '/cart-items',
   });
 
   return data.content;
@@ -12,7 +12,7 @@ export const getCart = async () => {
 export const modifyCartItem = async (cartItemId: number, quantity: number) => {
   const data = await apiClient({
     method: 'PATCH',
-    URI: `/cart-items/${cartItemId}`,
+    path: `/cart-items/${cartItemId}`,
     body: { quantity: quantity },
   });
 
@@ -22,7 +22,7 @@ export const modifyCartItem = async (cartItemId: number, quantity: number) => {
 export const deleteCartItem = async (cartItemId: number) => {
   const data = await apiClient({
     method: 'DELETE',
-    URI: `/cart-items/${cartItemId}`,
+    path: `/cart-items/${cartItemId}`,
   });
 
   return data;
