@@ -1,4 +1,4 @@
-import * as S from './CartTitle.styles';
+import PageTitle from '@/components/common/pageTitle/PageTitle';
 
 interface CartTitleProps {
   quantity?: number;
@@ -6,12 +6,12 @@ interface CartTitleProps {
 
 function CartTitle({ quantity = 0 }: CartTitleProps) {
   return (
-    <S.Container>
-      <S.Title>장바구니</S.Title>
-      <S.Description>
-        {quantity !== 0 && `현재 ${quantity}종류의 상품이 담겨있습니다.`}
-      </S.Description>
-    </S.Container>
+    <PageTitle
+      title="장바구니"
+      description={
+        quantity !== 0 ? `현재 ${quantity}종류의 상품이 담겨있습니다.` : null
+      }
+    />
   );
 }
 

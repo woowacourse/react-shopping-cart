@@ -1,4 +1,5 @@
 import { FooterButton } from '@/components/common';
+import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
 import * as S from './OrderCheckContents.styles';
 
 interface OrderCheckContentsProps {
@@ -14,6 +15,7 @@ function OrderCheckContents({
 }: OrderCheckContentsProps) {
   return (
     <S.Container>
+      <OrderCheckTitle />
       <S.InfoBox>
         <S.Title>주문 확인</S.Title>
         <S.Description>

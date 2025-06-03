@@ -14,4 +14,5 @@ export const Title = styled.h1`
 export const Description = styled.p`
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.5;
 `;
