@@ -1,43 +1,43 @@
-import deleteShoppingCart from "../../api/deleteShoppingCart";
-import { CartItemTypes } from "../../types/cartItem";
-import Button from "../Button/Button";
-import { CartProduct } from "../CartProduct/CartProduct";
-import { CheckBox } from "../CheckBox/CheckBox";
-import { Line } from "../Line/Line";
+import deleteShoppingCart from '../../api/deleteShoppingCart';
+import { CartItemTypes } from '../../types/cartItem';
+import Button from '../Button/Button';
+import { CartProduct } from '../CartProduct/CartProduct';
+import { CheckBox } from '../CheckBox/CheckBox';
+import { Line } from '../Line/Line';
 import {
   CartItemBox,
   CartItemHeader,
   CartProductContainerLayout,
   CartProductList,
   SelectAllLayout,
-} from "./CartProductContainer.style";
+} from './CartProductContainer.style';
 
 interface CartProductContainerProps {
-  cartItem: CartItemTypes[];
+  cartItems: CartItemTypes[];
   onChange: () => void;
   onError: (message: string) => void;
-  selectedCartId: string[];
-  setSelectedCartId: (id: string[]) => void;
+  selectedCartIds: string[];
+  setSelectedCartIds: (id: string[]) => void;
 }
 
 export default function CartProductContainer({
-  cartItem,
+  cartItems,
   onChange,
   onError,
-  selectedCartId,
-  setSelectedCartId,
+  selectedCartIds,
+  setSelectedCartIds,
 }: CartProductContainerProps) {
   const handleCheckBox = (id: string) => {
-    if (id === "select-all") {
-      if (selectedCartId.length === 0) {
-        setSelectedCartId(cartItem.map((item) => item.id.toString()));
-      } else setSelectedCartId([]);
+    if (id === 'select-all') {
+      if (selectedCartIds.length === 0) {
+        setSelectedCartIds(cartItems.map((item) => item.id.toString()));
+      } else setSelectedCartIds([]);
       return;
     }
-    if (selectedCartId.includes(id)) {
-      setSelectedCartId(selectedCartId.filter((itemId) => itemId !== id));
+    if (selectedCartIds.includes(id)) {
+      setSelectedCartIds(selectedCartIds.filter((itemId) => itemId !== id));
     } else {
-      setSelectedCartId([...selectedCartId, id]);
+      setSelectedCartIds([...selectedCartIds, id]);
     }
   };
 
@@ -46,7 +46,7 @@ export default function CartProductContainer({
       await deleteShoppingCart(id);
       onChange();
     } catch (error) {
-      onError("삭제에 실패했습니다");
+      onError('삭제에 실패했습니다');
     }
   };
 
@@ -56,7 +56,8 @@ export default function CartProductContainer({
         <div css={SelectAllLayout}>
           <CheckBox
             isChecked={
-              selectedCartId.length === cartItem.length && cartItem.length !== 0
+              selectedCartIds.length === cartItems.length &&
+              cartItems.length !== 0
             }
             dataTestId="select-all"
             id="select-all"
@@ -65,14 +66,14 @@ export default function CartProductContainer({
           <label htmlFor="select-all">전체 선택</label>
         </div>
         <section css={CartProductList}>
-          {cartItem.map((item) => {
+          {cartItems.map((item) => {
             return (
               <div css={CartItemBox}>
                 <Line />
                 <div css={CartItemHeader}>
                   <CheckBox
                     dataTestId={`select-${item.id}`}
-                    isChecked={selectedCartId.includes(item.id.toString())}
+                    isChecked={selectedCartIds.includes(item.id.toString())}
                     onChange={handleCheckBox}
                     id={item.id.toString()}
                   />

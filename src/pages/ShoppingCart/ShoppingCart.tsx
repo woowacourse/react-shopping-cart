@@ -15,16 +15,16 @@ import { Footer } from '../../components/layout/Footer/Footer';
 import useFetchCartItems from '../../hooks/useFetchCartItems';
 
 export function ShoppingCart() {
-  const { cartItem, error, isLoading, getCartItemData, setError } =
+  const { cartItems, error, isLoading, getCartItemData, setError } =
     useFetchCartItems();
-  const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
+  const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
   const navigate = useNavigate();
-  const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartId });
+  const totalPrice = getTotalPrice({ cartItems, selectedCartIds });
 
   const calculateCartItemQuantity = () => {
-    return cartItem.reduce((a, b) => {
-      if (selectedCartId.includes(b.id.toString())) return a + b.quantity;
+    return cartItems.reduce((a, b) => {
+      if (selectedCartIds.includes(b.id.toString())) return a + b.quantity;
       return a;
     }, 0);
   };
@@ -32,7 +32,7 @@ export function ShoppingCart() {
   const handleConfirm = () => {
     navigate('/confirm', {
       state: {
-        selectedItemGroupCount: selectedCartId.length,
+        selectedItemGroupCount: selectedCartIds.length,
         selectedCartItem: calculateCartItemQuantity(),
         totalPrice,
       },
@@ -44,10 +44,10 @@ export function ShoppingCart() {
   };
 
   useEffect(() => {
-    if (!isLoading && cartItem) {
-      setSelectedCartId(cartItem.map((item) => item.id.toString()));
+    if (!isLoading && cartItems) {
+      setSelectedCartIds(cartItems.map((item) => item.id.toString()));
     }
-  }, [isLoading, cartItem]);
+  }, [isLoading, cartItems]);
 
   return (
     <PageLayout>
@@ -58,22 +58,22 @@ export function ShoppingCart() {
       <Main>
         <div css={titleBox}>
           <p css={titleStyle}>장바구니</p>
-          {cartItem.length !== 0 && (
+          {cartItems.length !== 0 && (
             <p css={subTitleStyle}>
-              현재 {cartItem.length}종류의 상품이 담겨있습니다.
+              현재 {cartItems.length}종류의 상품이 담겨있습니다.
             </p>
           )}
         </div>
-        {cartItem.length === 0 ? (
+        {cartItems.length === 0 ? (
           <EmptyShoppingCart />
         ) : (
           <>
             <CartProductContainer
-              cartItem={cartItem}
+              cartItems={cartItems}
               onChange={getCartItemData}
               onError={handleError}
-              selectedCartId={selectedCartId}
-              setSelectedCartId={setSelectedCartId}
+              selectedCartIds={selectedCartIds}
+              setSelectedCartIds={setSelectedCartIds}
             />
             <PaymentSummary price={totalPrice} />
           </>
@@ -85,11 +85,11 @@ export function ShoppingCart() {
           type="submit"
           size="full"
           style={
-            selectedCartId.length === 0 || cartItem.length === 0
+            selectedCartIds.length === 0 || cartItems.length === 0
               ? 'secondary'
               : 'primary'
           }
-          disabled={selectedCartId.length === 0 || cartItem.length === 0}
+          disabled={selectedCartIds.length === 0 || cartItems.length === 0}
         >
           주문 확인
         </Button>
