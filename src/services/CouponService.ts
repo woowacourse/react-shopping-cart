@@ -2,11 +2,15 @@ import { CartItem, Coupon } from "@/types";
 import CartItemService from "./CartItemService";
 
 export default class CouponService {
-  constructor(private readonly cartItems: CartItem[]) {}
+  private readonly cartItemService: CartItemService;
+
+  constructor(private readonly cartItems: CartItem[]) {
+    this.cartItemService = new CartItemService(this.cartItems);
+  }
 
   canAdjustCoupon(coupon: Coupon) {
     if (coupon.discountType === "fixed" || coupon.discountType === "freeShipping") {
-      const totalPrice = CartItemService.calculateTotalPrice(this.cartItems);
+      const totalPrice = this.cartItemService.calculateTotalPrice();
       return totalPrice >= coupon.minimumAmount;
     }
 
@@ -20,11 +24,30 @@ export default class CouponService {
 
     if (coupon.discountType === "buyXgetY") {
       const moreThanBuyQuantity = this.cartItems.filter((item) => item.quantity >= coupon.buyQuantity);
-      if (!moreThanBuyQuantity) return false;
-
-      const mostExpensiveItem = moreThanBuyQuantity.sort((a, b) => b.product.price - a.product.price).at(0);
-
-      return mostExpensiveItem;
+      return moreThanBuyQuantity.length > 0;
     }
+  }
+
+  calculateDiscountPrice(coupon: Coupon, isFar: boolean): number {
+    if (coupon.discountType === "fixed") {
+      return coupon.discount;
+    }
+
+    if (coupon.discountType === "buyXgetY") {
+      const mostExpensiveItem = this.cartItems.sort((a, b) => b.product.price - a.product.price).at(0);
+      if (!mostExpensiveItem) return 0;
+
+      return mostExpensiveItem.product.price * coupon.getQuantity;
+    }
+
+    if (coupon.discountType === "freeShipping") {
+      return this.cartItemService.calculateDeliveryFee(isFar);
+    }
+
+    if (coupon.discountType === "percentage") {
+      return this.cartItemService.calculateTotalPrice() * coupon.discount;
+    }
+
+    return 0;
   }
 }

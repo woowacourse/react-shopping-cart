@@ -11,26 +11,40 @@ import {
   useFunnelContext,
 } from "@/components";
 import { useCartItem } from "@/hooks";
-import { CartItemService } from "@/services";
+import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import { CouponModal } from "./components";
 import * as S from "./Step2.styles";
 import { useShoppingCartContext } from "../MainPage/context";
+import { QUERY_KEY } from "@/constants";
+import { useQuery } from "@/modules/Query";
+import { CouponApi } from "@/apis";
 
 export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();
-  const { selectedItemIds, isFar, setIsFar } = useShoppingCartContext();
+  const { selectedItemIds, isFar, setIsFar, selectedCouponIds } = useShoppingCartContext();
+  const { data: coupons } = useQuery({
+    queryFn: CouponApi.getAllCoupons,
+    queryKey: QUERY_KEY.coupon,
+  });
 
   const { cartItems } = useCartItem();
   const filteredCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
 
-  const totalPrice = CartItemService.calculateTotalPrice(filteredCartItems);
-  const deliveryFee = CartItemService.calculateDeliveryFee(totalPrice);
-  const totalPriceWithDeliveryFee = CartItemService.calculateTotalPriceWithDeliveryFee(totalPrice);
+  const cartItemService = new CartItemService(filteredCartItems ?? []);
+  const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
+  const totalPriceWithDeliveryFee = cartItemService.calculateTotalPriceWithDeliveryFee(isFar);
 
-  const totalType = CartItemService.calculateTotalType(filteredCartItems);
-  const totalQuantity = CartItemService.calculateTotalQuantity(filteredCartItems);
+  const totalType = cartItemService.calculateTotalType();
+  const totalQuantity = cartItemService.calculateTotalQuantity();
+
+  const filteredCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+
+  const totalDiscountPrice = filteredCoupons?.reduce((acc, coupon) => {
+    const couponService = new CouponService(cartItems.content);
+    return acc + couponService.calculateDiscountPrice(coupon, isFar);
+  }, 0);
 
   return (
     <div>
@@ -106,11 +120,11 @@ export default function Step2() {
         <S.ReceiptWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">주문 금액</Text>
-            {/* <Text variant="title-1">{price.toLocaleString()}원</Text> */}
+            <Text variant="title-1">{totalPriceWithDeliveryFee.toLocaleString()}원</Text>
           </ReceiptTextWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">쿠폰 할인 금액</Text>
-            <Text variant="title-1">{}원</Text>
+            <Text variant="title-1">{totalDiscountPrice?.toLocaleString()}원</Text>
           </ReceiptTextWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">배송비</Text>
@@ -121,7 +135,9 @@ export default function Step2() {
 
           <ReceiptTextWrapper>
             <Text variant="title-3">총 결제 금액</Text>
-            <Text variant="title-1">{totalPriceWithDeliveryFee.toLocaleString()}원</Text>
+            <Text variant="title-1">
+              {(totalPriceWithDeliveryFee - totalDiscountPrice + deliveryFee).toLocaleString()}원
+            </Text>
           </ReceiptTextWrapper>
         </S.ReceiptWrapper>
         <ButtonWrapper>

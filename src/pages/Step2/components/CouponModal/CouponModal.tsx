@@ -7,14 +7,17 @@ import { useQuery } from "@/modules";
 import { css } from "@emotion/react";
 import CouponItem from "./CouponItem";
 import { useShoppingCartContext } from "@/pages/MainPage/context";
+import { CouponService } from "@/services";
+import { useCartItem } from "@/hooks";
 
 export default function CouponModal() {
   const { data: coupons } = useQuery({
     queryFn: CouponApi.getAllCoupons,
     queryKey: QUERY_KEY.coupon,
   });
+  const { cartItems } = useCartItem();
 
-  const { selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
+  const { selectedCouponIds, setSelectedCouponIds, isFar } = useShoppingCartContext();
 
   const handleSelectCoupon = (couponId: number) => {
     setSelectedCouponIds((prev) => {
@@ -24,6 +27,13 @@ export default function CouponModal() {
       return isSelected ? prev.filter((id) => id !== couponId) : [...prev, couponId];
     });
   };
+
+  const filteredCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+
+  const totalDiscountPrice = filteredCoupons?.reduce((acc, coupon) => {
+    const couponService = new CouponService(cartItems.content);
+    return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
+  }, 0);
 
   return (
     <Modal isBackdropClose>
@@ -72,7 +82,7 @@ export default function CouponModal() {
             width: 100%;
           `}
         >
-          총 6,000원 할인 쿠폰 사용하기
+          총 {totalDiscountPrice?.toLocaleString()}원 할인 쿠폰 사용하기
         </Button>
       </Modal.Bottom>
     </Modal>

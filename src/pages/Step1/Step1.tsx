@@ -23,9 +23,10 @@ export default function Step1() {
     else setSelectedItemIds(cartItems?.content.map((item) => item.id) ?? []);
   };
 
-  const orderPrice = CartItemService.calculateTotalPrice(cartItems?.content ?? []);
-  const deliveryFee = CartItemService.calculateDeliveryFee(orderPrice);
-  const totalPrice = CartItemService.calculateTotalPriceWithDeliveryFee(orderPrice);
+  const cartItemService = new CartItemService(cartItems?.content ?? []);
+  const orderPrice = cartItemService.calculateTotalPrice();
+  const deliveryFee = cartItemService.calculateDeliveryFee(false);
+  const totalPrice = cartItemService.calculateTotalPriceWithDeliveryFee(false);
 
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
 
