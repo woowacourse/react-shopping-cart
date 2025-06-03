@@ -32,21 +32,20 @@ export const useFetchData = <T>(options?: UseFetchDataOptions<T>) => {
     }
   }, []);
 
-  const mutate = useCallback(
-    async (apiCall: () => Promise<void>, refetchFn?: () => Promise<T>) => {
-      try {
-        setData((prev) => ({ ...prev, error: null }));
-        await apiCall();
-        if (refetchFn) {
-          await fetch(refetchFn);
-        }
-      } catch (error) {
-        setData((prev) => ({ ...prev, error: error as Error }));
-        throw error;
+  const mutate = useCallback(async (apiCall: () => Promise<void>, refetchFn?: () => Promise<T>) => {
+    try {
+      setData((prev) => ({ ...prev, error: null }));
+      await apiCall();
+
+      if (refetchFn) {
+        const result = await refetchFn();
+        setData({ data: result, isLoading: false, error: null });
       }
-    },
-    [fetch]
-  );
+    } catch (error) {
+      setData((prev) => ({ ...prev, error: error as Error }));
+      throw error;
+    }
+  }, []);
 
   useEffect(() => {
     if (options?.autoFetch) {
