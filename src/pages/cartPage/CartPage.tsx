@@ -124,7 +124,7 @@ const CartPage = () => {
           disabled={isCheckedSet.size === 0}
           onClick={() =>
             goOrderComplete(
-              cartData.length,
+              isCheckedArray.length,
               calculateTotalPrice(
                 getCartItemNamePrice(isCheckedArray, cartData)
               ),
