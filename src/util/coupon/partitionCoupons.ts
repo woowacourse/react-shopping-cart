@@ -7,15 +7,23 @@ export const partitionCoupons = (
   items: CartItem[],
   now = new Date()
 ) => {
-  const validCoupons: Coupon[] = [];
-  const invalidCoupons: Array<
-    Coupon & { invalidReason: InvalidReason | undefined }
-  > = [];
+  const validCoupons = new Set<Coupon>();
+  const invalidCoupons = new Set<{
+    coupon: Coupon;
+    invalidReason: InvalidReason;
+  }>();
 
-  coupons.forEach((c) => {
-    const res = validateCoupon(c, items, now);
-    if (res.isValid) validCoupons.push(c);
-    else invalidCoupons.push({ ...c, invalidReason: res.invalidReason });
+  coupons.forEach((coupon) => {
+    const res = validateCoupon(coupon, items, now);
+    if (res.isValid) {
+      validCoupons.add(coupon);
+    } else {
+      invalidCoupons.add({
+        coupon,
+        invalidReason: res.invalidReason!,
+      });
+    }
   });
+
   return { validCoupons, invalidCoupons };
 };
