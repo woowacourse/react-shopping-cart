@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { LoadingType } from "../types/loading";
+import type { LoadingType } from "../../types/loading";
 
 const useLoading = () => {
   const [loadingState, setLoadingState] =

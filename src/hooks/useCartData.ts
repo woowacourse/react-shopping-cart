@@ -6,12 +6,18 @@ import {
   getCart,
   modifyCartItem,
 } from "../services/cartService";
-import tryApiCall from "../utils/tryApiCall";
-import { useToast } from "../contexts/ToastContext";
+import type { LoadingType } from "../types/loading";
 
-const useCartData = () => {
+interface UseCartDataProps {
+  callApi: <T>(
+    apiFn: () => Promise<T>,
+    successMessage: string,
+    loadingType: LoadingType
+  ) => Promise<T | undefined>;
+}
+
+const useCartData = ({ callApi }: UseCartDataProps) => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
-  const { openToast } = useToast();
 
   const updateCartItem = async (cartId: number) => {
     const cartItem = getCartItemById(cartData, cartId);
@@ -22,30 +28,31 @@ const useCartData = () => {
       await removeCartItem(cartItem.id);
       return;
     }
+
     await increaseCartItem(cartItem.id, cartItem.quantity - 1);
   };
 
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
-    tryApiCall(
+    await callApi(
       async () => {
         await modifyCartItem(cartItemId, quantity);
         const cartData = await getCart();
         setCartData(cartData);
       },
-      openToast,
-      "장바구니 수량을 변경했습니다."
+      "장바구니 수량을 변경했습니다.",
+      "updating" as LoadingType
     );
   };
 
   const removeCartItem = async (cartItemId: number) => {
-    tryApiCall(
+    await callApi(
       async () => {
         await deleteCartItem(cartItemId);
         const cartData = await getCart();
         setCartData(cartData);
       },
-      openToast,
-      "장바구니 상품을 삭제했습니다."
+      "장바구니 상품을 삭제했습니다.",
+      "updating" as LoadingType
     );
   };
 
