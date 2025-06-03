@@ -19,7 +19,7 @@ function CartItemQuantityButton({
   return (
     <S.ButtonWrapper>
       {quantity === 1 ? (
-        <RemoveCartItemButton id={id} removeCartItem={onRemove} />
+        <RemoveCartItemButton id={id} onClick={onRemove} />
       ) : (
         <S.Button
           type="button"
