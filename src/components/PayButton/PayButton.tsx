@@ -1,10 +1,11 @@
+import { TEXT } from '../../constants/text';
 import Text from '../common/Text/Text';
 import { ButtonStyle } from './PayButton.styles';
 
 function PayButton() {
   return (
     <button css={ButtonStyle} disabled={true}>
-      <Text varient="body">결제하기</Text>
+      <Text varient="body">{TEXT.PAY}</Text>
     </button>
   );
 }

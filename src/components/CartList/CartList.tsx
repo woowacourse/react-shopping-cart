@@ -1,5 +1,6 @@
 import Text from '../common/Text/Text';
 import { CartListCheckboxStyle, CartListHeaderStyle } from './CartList.styles';
+import { TEXT } from '../../constants/text';
 
 function CartListHeader({
   allSelected,
@@ -16,7 +17,7 @@ function CartListHeader({
         checked={allSelected}
         onChange={onAllSelectChange}
       />
-      <Text varient="caption">전체 선택</Text>
+      <Text varient="caption">{TEXT.ALL_SELECT}</Text>
     </div>
   );
 }

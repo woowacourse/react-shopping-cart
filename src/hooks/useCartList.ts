@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
 
 function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
@@ -17,7 +18,7 @@ function useCartList() {
       const response = await cart.getCartList();
       setCartList(response);
     } catch (error) {
-      setError('카드 정보를 불어오는 데 문제가 발생했습니다.');
+      setError(ERROR_MESSAGE.CART_LIST);
     } finally {
       setIsLoading(false);
     }
@@ -34,7 +35,7 @@ function useCartList() {
         )
       );
     } catch (error) {
-      setError('상품의 수량을 증가시키는 데 문제가 발생했습니다.');
+      setError(ERROR_MESSAGE.INCREASE_CART_ITEM);
     }
   };
 
@@ -49,7 +50,7 @@ function useCartList() {
         )
       );
     } catch (error) {
-      setError('상품의 수량을 감소시키는 데 문제가 발생했습니다.');
+      setError(ERROR_MESSAGE.DECREASE_CART_ITEM);
     }
   };
 
@@ -58,7 +59,7 @@ function useCartList() {
       await cart.deleteCartItem(cartItemId);
       setCartList(cartList.filter((item) => item.id !== cartItemId));
     } catch (error) {
-      setError('상품을 삭제하는 데 문제가 발생했습니다.');
+      setError(ERROR_MESSAGE.DELETE_CART_ITEM);
     }
   };
 
