@@ -1,17 +1,17 @@
 import { http, HttpResponse } from "msw";
-import mockCartItemResponse from "./shoppingCart.json";
-import mockProductResponse from "./product.json";
-import { CartItemTypes } from "../types/cartItem";
+import { mockShoppingCartResponse } from "./mockShoppingCartResponse";
+import { mockProductResponse } from "./mockProductResponse";
+import { CartItemTypes } from "../../types/cartItem";
 
 const products = structuredClone(mockProductResponse.content);
 
 function createCartHandlers() {
   let cartItems: CartItemTypes[] = JSON.parse(
-    JSON.stringify(mockCartItemResponse.content)
+    JSON.stringify(mockShoppingCartResponse.content)
   );
 
   const resetCartItems = () => {
-    cartItems = JSON.parse(JSON.stringify(mockCartItemResponse.content));
+    cartItems = JSON.parse(JSON.stringify(mockShoppingCartResponse.content));
   };
 
   const findProductById = (id: number) => {
@@ -36,7 +36,7 @@ function createCartHandlers() {
   const cartHandlers = [
     http.get(`${import.meta.env.VITE_BASE_URL}/cart-items`, () => {
       return HttpResponse.json({
-        ...mockCartItemResponse,
+        ...mockShoppingCartResponse,
         content: cartItems,
       });
     }),

@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { ShoppingCart } from "../src/pages/shoppingCart/shoppingCart";
+import { ShoppingCart } from "../page/shoppingCart/shoppingCart";
 import { MemoryRouter } from "react-router-dom";
-import { server } from "../src/mocks/server";
-import shoppingCart from "../src/mocks/shoppingCart.json";
-import { getTotalPrice } from "../src/utils/getTotalPrice";
-import { CartItemTypes } from "../src/types/cartItem";
-import { resetCartItems } from "../src/mocks/handlers";
+import { server } from "./mocks/server";
+import { mockShoppingCartResponse } from "./mocks/mockShoppingCartResponse";
+import { getTotalPrice } from "../utils/getTotalPrice";
+import { CartItemTypes } from "../types/cartItem";
+import { resetCartItems } from "./mocks/handlers";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
@@ -42,9 +42,11 @@ describe("장바구니 페이지 테스트", () => {
       </MemoryRouter>
     );
 
-    const selectedId = shoppingCart.content.map((e) => e.id.toString());
+    const selectedId = mockShoppingCartResponse.content.map((e) =>
+      e.id.toString()
+    );
     const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
+      cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartId: selectedId,
     });
 
@@ -61,7 +63,7 @@ describe("장바구니 페이지 테스트", () => {
 
       const currentOrderPrice = screen.getByTestId("orderPrice");
       const currentTotalPrice =
-        prevTotalPrice - shoppingCart.content[0].product.price;
+        prevTotalPrice - mockShoppingCartResponse.content[0].product.price;
 
       expect(currentOrderPrice.textContent).toBe(
         `${currentTotalPrice.toLocaleString("ko")}원`
@@ -76,9 +78,11 @@ describe("장바구니 페이지 테스트", () => {
       </MemoryRouter>
     );
 
-    const selectedId = shoppingCart.content.map((e) => e.id.toString());
+    const selectedId = mockShoppingCartResponse.content.map((e) =>
+      e.id.toString()
+    );
     const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
+      cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartId: selectedId,
     });
 
@@ -95,7 +99,7 @@ describe("장바구니 페이지 테스트", () => {
 
       const currentOrderPrice = screen.getByTestId("orderPrice");
       const currentTotalPrice =
-        prevTotalPrice + shoppingCart.content[0].product.price;
+        prevTotalPrice + mockShoppingCartResponse.content[0].product.price;
 
       expect(currentOrderPrice.textContent).toBe(
         `${currentTotalPrice.toLocaleString("ko")}원`
@@ -115,9 +119,11 @@ describe("장바구니 페이지 테스트", () => {
       expect(allSelect.checked).toEqual(true);
     });
 
-    const selectedId = shoppingCart.content.map((e) => e.id.toString());
+    const selectedId = mockShoppingCartResponse.content.map((e) =>
+      e.id.toString()
+    );
     const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
+      cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartId: selectedId,
     });
 
@@ -145,7 +151,7 @@ describe("장바구니 페이지 테스트", () => {
       expect(checkbox).toBeChecked();
     });
 
-    const item = shoppingCart.content[0];
+    const item = mockShoppingCartResponse.content[0];
     const itemCheckbox = screen.getByTestId(
       `select-${item.id}`
     ) as HTMLInputElement;
@@ -155,12 +161,12 @@ describe("장바구니 페이지 테스트", () => {
       expect(itemCheckbox).not.toBeChecked();
     });
 
-    const selectedId = shoppingCart.content
+    const selectedId = mockShoppingCartResponse.content
       .map((e) => e.id.toString())
       .filter((e) => e !== item.id.toString());
 
     const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
+      cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartId: selectedId,
     });
 

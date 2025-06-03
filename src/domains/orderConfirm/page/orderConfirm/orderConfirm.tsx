@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import Header from "../../components/layout/Header/Header";
-import Main from "../../components/layout/Main/Main";
-import { PageLayout } from "../../components/layout/PageLayout/PageLayout";
+import Header from "../../../../layout/Header/Header";
+import Main from "../../../../layout/Main/Main";
+import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
 import {
   bodyText,
   confirmLayout,

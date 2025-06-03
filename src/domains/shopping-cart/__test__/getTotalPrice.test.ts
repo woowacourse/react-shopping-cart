@@ -1,5 +1,5 @@
-import shoppingCart from "../src/mocks/shoppingCart.json";
-import { getTotalPrice } from "../src/utils/getTotalPrice";
+import { mockShoppingCartResponse } from "./mocks/mockShoppingCartResponse";
+import { getTotalPrice } from "../utils/getTotalPrice";
 
 describe("getTotalPrice 함수 동작을 검증한다", () => {
   it.each([
@@ -11,7 +11,7 @@ describe("getTotalPrice 함수 동작을 검증한다", () => {
     (selectedCartId, totalPrice) => {
       expect(
         getTotalPrice({
-          cartItems: shoppingCart.content,
+          cartItems: mockShoppingCartResponse.content,
           selectedCartId,
         })
       ).toBe(totalPrice);

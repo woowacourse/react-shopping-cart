@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import Button from "../../../../components/Button/Button";
+import Toast from "../../../../components/Toast/Toast";
+import { Footer } from "../../../../layout/Footer/Footer";
+import Header from "../../../../layout/Header/Header";
+import Main from "../../../../layout/Main/Main";
+import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
+import { EmptyShoppingCart } from "../../../orderConfirm/compoennt/EmptyShoppingCart/EmptyShoppingCart";
 import { getShoppingCart } from "../../api/shoppingCart";
-import Button from "../../components/Button/Button";
 import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
-import { EmptyShoppingCart } from "../../components/EmptyShoppingCart/EmptyShoppingCart";
-import Header from "../../components/layout/Header/Header";
-import Main from "../../components/layout/Main/Main";
-import { PageLayout } from "../../components/layout/PageLayout/PageLayout";
 import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
-import Toast from "../../components/Toast/Toast";
 import { CartItemTypes } from "../../types/cartItem";
 import { getTotalPrice } from "../../utils/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
-import { Footer } from "../../components/layout/Footer/Footer";
 
 export function ShoppingCart() {
   const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);

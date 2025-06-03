@@ -1,4 +1,4 @@
-import { Line } from "../Line/Line";
+import { Line } from "../../../../components/Line/Line";
 import { SummaryRow } from "../SummaryRow/SummaryRow";
 import {
   deliveryInfo,

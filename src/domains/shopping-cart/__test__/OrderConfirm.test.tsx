@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { resetCartItems } from "../src/mocks/handlers";
-import { server } from "../src/mocks/server";
-import { OrderConfirm } from "../src/pages/orderConfirm/orderConfirm";
+import { resetCartItems } from "./mocks/handlers";
+import { server } from "./mocks/server";
+import { OrderConfirm } from "../../orderConfirm/page/orderConfirm/orderConfirm";
 import { MemoryRouter } from "react-router-dom";
 
 beforeAll(() => server.listen());

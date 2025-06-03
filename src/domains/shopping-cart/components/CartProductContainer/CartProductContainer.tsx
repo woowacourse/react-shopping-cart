@@ -1,9 +1,9 @@
 import { deleteShoppingCart } from "../../api/shoppingCart";
 import { CartItemTypes } from "../../types/cartItem";
-import Button from "../Button/Button";
+import Button from "../../../../components/Button/Button";
 import { CartProduct } from "../CartProduct/CartProduct";
-import { CheckBox } from "../CheckBox/CheckBox";
-import { Line } from "../Line/Line";
+import { CheckBox } from "../../../../components/CheckBox/CheckBox";
+import { Line } from "../../../../components/Line/Line";
 import {
   CartItemBox,
   CartItemHeader,
