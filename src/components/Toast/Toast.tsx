@@ -30,8 +30,8 @@ function Toast({ message, type, onClose }: ToastProps) {
 
   return (
     <div css={styles.toastCss(type)}>
-      <h2 css={styles.messageCss}>{message}</h2>
-      <button css={styles.closeButtonCss} onClick={handleClose}>
+      <h2 css={styles.messageCss(type)}>{message}</h2>
+      <button css={styles.closeButtonCss(type)} onClick={handleClose}>
         ✕
       </button>
     </div>

@@ -21,18 +21,20 @@ export const toastCss = (type: 'error' | 'success') =>
     transition: 'opacity 0.3s ease-in-out'
   });
 
-export const messageCss = css({
-  margin: 0,
-  fontSize: '16px',
-  fontWeight: '500',
-  color: '#D63031'
-});
+export const messageCss = (type: 'error' | 'success') =>
+  css({
+    margin: 0,
+    fontSize: '16px',
+    fontWeight: '500',
+    color: type === 'error' ? '#D63031' : '#000'
+  });
 
-export const closeButtonCss = css({
-  background: 'none',
-  border: 'none',
-  color: '#D63031',
-  cursor: 'pointer',
-  fontSize: '18px',
-  padding: '0 0 0 10px'
-});
+export const closeButtonCss = (type: 'error' | 'success') =>
+  css({
+    background: 'none',
+    border: 'none',
+    color: type === 'error' ? '#D63031' : '#000',
+    cursor: 'pointer',
+    fontSize: '18px',
+    padding: '0 0 0 10px'
+  });

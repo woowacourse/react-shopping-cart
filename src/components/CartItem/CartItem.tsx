@@ -22,15 +22,18 @@ export default function CartItem({ item, handleCheckBoxChange, checked, handleDe
 
   const handleMinus = async () => {
     updateQuantity.mutate({ cartItemId, newQuantity: cartQuantity - 1 });
+    addToast({ message: '수량 변경이 완료되었습니다.', type: 'success' });
   };
 
   const handlePlus = async () => {
     updateQuantity.mutate({ cartItemId, newQuantity: cartQuantity + 1 });
+    addToast({ message: '수량 변경이 완료되었습니다.', type: 'success' });
   };
 
   const handleDeleteCartItem = async () => {
     removeItem.mutate({ cartItemId });
     handleDeleteCart();
+    addToast({ message: '상품 삭제가 완료되었습니다.', type: 'success' });
   };
 
   const { addToast } = useToast();
