@@ -2,16 +2,13 @@ import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelConte
 import { useCartItem } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
+import { useShoppingCartContext } from "../MainPage/context";
 import * as S from "./Step1.styles";
 
-interface Step1Props {
-  selectedItemIds: number[];
-  setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
-}
-
-export default function Step1({ selectedItemIds, setSelectedItemIds }: Step1Props) {
+export default function Step1() {
   const { cartItems } = useCartItem();
+  const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
 
   const { goNextStep } = useFunnelContext();
 

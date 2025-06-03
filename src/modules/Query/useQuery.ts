@@ -6,11 +6,12 @@ import { useQueryData, useQueryStatus } from "./useQueryData";
 interface UseQueryProps<T> {
   queryKey: string;
   queryFn: () => Promise<T>;
+  initialData?: Partial<T>;
 }
 
 const AUTO_REFETCH_INTERVAL = 5 * 60 * 1000; // 5분
 
-export default function useQuery<T>({ queryKey, queryFn }: UseQueryProps<T>) {
+export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQueryProps<T>) {
   const data = useQueryData<T>(queryKey);
   const status = useQueryStatus(queryKey);
 
@@ -47,7 +48,7 @@ export default function useQuery<T>({ queryKey, queryFn }: UseQueryProps<T>) {
   const refetch = () => fetchData(true);
 
   return {
-    data,
+    data: data ?? (initialData as T),
     status,
     fetchData,
     refetch,

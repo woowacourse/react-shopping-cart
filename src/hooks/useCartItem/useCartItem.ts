@@ -16,6 +16,7 @@ export default function useCartItem() {
   } = useQuery({
     queryFn: CartItemApi.getCartItems,
     queryKey: "cartItems",
+    initialData: { content: [] },
   });
 
   const { showError, error } = useError();

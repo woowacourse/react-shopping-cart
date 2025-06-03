@@ -7,13 +7,11 @@ import { css } from "@emotion/react";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import CouponModal from "./components/CouponModal";
 import * as S from "./Step2.styles";
+import { useShoppingCartContext } from "../MainPage/context";
 
-interface Step2Props {
-  selectedItemIds: number[];
-}
-
-export default function Step2({ selectedItemIds }: Step2Props) {
+export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();
+  const { selectedItemIds, isFar, setIsFar } = useShoppingCartContext();
 
   const { cartItems } = useCartItem();
   const filteredCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
@@ -81,7 +79,7 @@ export default function Step2({ selectedItemIds }: Step2Props) {
         <Text variant="title-3">배송 정보</Text>
         <Spacing size={16} />
         <S.CheckboxWrapper>
-          <Checkbox checked />
+          <Checkbox checked={isFar} onClick={() => setIsFar(!isFar)} />
           <Text variant="body-1">제주도 및 도서 산간 지역</Text>
         </S.CheckboxWrapper>
         <Spacing size={32} />

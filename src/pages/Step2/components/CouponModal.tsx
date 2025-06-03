@@ -4,6 +4,7 @@ import { CloseIcon, Info } from "@/components/icons";
 import Modal from "@/components/Modal/Modal";
 import { QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
+import { useShoppingCartContext } from "@/pages/MainPage/context";
 import { css } from "@emotion/react";
 
 export default function CouponModal() {
@@ -11,6 +12,8 @@ export default function CouponModal() {
     queryFn: CouponApi.getAllCoupons,
     queryKey: QUERY_KEY.coupon,
   });
+
+  const { selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
 
   return (
     <Modal isBackdropClose>
@@ -35,47 +38,63 @@ export default function CouponModal() {
 
         <Spacing size={16} />
 
-        {coupons?.map((coupon) => (
-          <div
-            css={css`
-              border: 1px solid #e0e0e0;
-              border-radius: 8px;
-              padding: 16px;
-            `}
-          >
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          `}
+        >
+          {coupons?.map((coupon) => (
             <div
+              key={coupon.id}
               css={css`
-                display: flex;
-                align-items: center;
-                gap: 12px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 16px;
               `}
             >
-              <Checkbox checked={false} />
-              <Text variant="title-2">{coupon.description}</Text>
-            </div>
+              <div
+                css={css`
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                `}
+              >
+                <Checkbox
+                  checked={selectedCouponIds.includes(coupon.id)}
+                  onClick={() =>
+                    setSelectedCouponIds((prev) =>
+                      prev.includes(coupon.id) ? prev.filter((id) => id !== coupon.id) : [...prev, coupon.id],
+                    )
+                  }
+                />
+                <Text variant="title-2">{coupon.description}</Text>
+              </div>
 
-            <Spacing size={16} />
+              <Spacing size={16} />
 
-            <div>
-              <p>
-                <Text variant="body-1">만료일: {coupon.expirationDate}</Text>
-              </p>
-              <Spacing size={4} />
-              {coupon.minimumAmount && (
+              <div>
                 <p>
-                  <Text variant="body-1">최소 주문 금액:{coupon.minimumAmount?.toLocaleString()}</Text>
+                  <Text variant="body-1">만료일: {coupon.expirationDate}</Text>
                 </p>
-              )}
-              {coupon.availableTime && (
-                <p>
-                  <Text variant="body-1">
-                    사용 가능 시간: {coupon.availableTime.start} ~ {coupon.availableTime.end}
-                  </Text>
-                </p>
-              )}
+                <Spacing size={4} />
+                {coupon.minimumAmount && (
+                  <p>
+                    <Text variant="body-1">최소 주문 금액: {coupon.minimumAmount?.toLocaleString()}원</Text>
+                  </p>
+                )}
+                {coupon.availableTime && (
+                  <p>
+                    <Text variant="body-1">
+                      사용 가능 시간: {coupon.availableTime.start} ~ {coupon.availableTime.end}
+                    </Text>
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </Modal.Content>
 
       <Modal.Bottom>
