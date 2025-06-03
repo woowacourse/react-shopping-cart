@@ -1,3 +1,5 @@
+import { useFetchData } from '@/shared/hooks/useFetchData';
+
 import { Product } from './Product.types';
 
 export type CartResponse = {
@@ -23,4 +25,8 @@ export type CartItem = {
 
 export type CartItemList = {
   cartItems: CartItem[];
+};
+
+export type CartDataState = {
+  cart: ReturnType<typeof useFetchData<CartItem[]>>;
 };
