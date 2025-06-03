@@ -8,12 +8,12 @@ import {
 
 function CartList({
   children,
-  isAllSelected,
-  onSelectAllItems,
+  allSelected,
+  onAllSelectChange,
 }: {
   children: React.ReactNode;
-  isAllSelected: boolean;
-  onSelectAllItems: () => void;
+  allSelected: boolean;
+  onAllSelectChange: () => void;
 }) {
   return (
     <div css={CartListContainerStyle}>
@@ -21,8 +21,8 @@ function CartList({
         <input
           css={CartListCheckboxStyle}
           type="checkbox"
-          checked={isAllSelected}
-          onChange={onSelectAllItems}
+          checked={allSelected}
+          onChange={onAllSelectChange}
         />
         <Text varient="caption">전체 선택</Text>
       </div>

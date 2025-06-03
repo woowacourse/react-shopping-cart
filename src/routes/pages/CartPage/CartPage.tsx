@@ -43,18 +43,18 @@ function CartPage() {
     ) : (
       <>
         <CartList
-          isAllSelected={selectedList.isAllSelected}
-          onSelectAllItems={selectedList.handleSelectAllItems}
+          allSelected={selectedList.isAllSelected}
+          onAllSelectChange={selectedList.handleSelectAllItems}
         >
           {cartList.data.map((cartItem) => (
             <CartItem
               key={cartItem.id}
               cartItem={cartItem}
-              isSelected={selectedList.selectedItems.includes(cartItem.id)}
-              onSelectItem={selectedList.handleSelectItem}
-              onIncreaseCartItem={cartList.increaseCartItem}
-              onDecreaseCartItem={cartList.decreaseCartItem}
-              onDeleteCartItem={cartList.deleteCartItem}
+              selected={selectedList.selectedItems.includes(cartItem.id)}
+              onSelectChange={selectedList.handleSelectItem}
+              onIncreaseClick={cartList.increaseCartItem}
+              onDecreaseClick={cartList.decreaseCartItem}
+              onDeleteClick={cartList.deleteCartItem}
             />
           ))}
         </CartList>
@@ -70,7 +70,7 @@ function CartPage() {
       </Header>
       {isVisible && <Toast message={cartList.error} />}
       <ContainerLayout>
-        <CartListTitle cartListLength={cartList.data.length} />
+        <CartListTitle count={cartList.data.length} />
         {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton

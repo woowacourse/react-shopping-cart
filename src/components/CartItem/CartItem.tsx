@@ -15,18 +15,18 @@ import {
 
 function CartItem({
   cartItem,
-  isSelected,
-  onSelectItem,
-  onIncreaseCartItem,
-  onDecreaseCartItem,
-  onDeleteCartItem,
+  selected,
+  onSelectChange,
+  onIncreaseClick,
+  onDecreaseClick,
+  onDeleteClick,
 }: {
   cartItem: CartItemProps;
-  isSelected: boolean;
-  onSelectItem: (cartItemId: number) => void;
-  onIncreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  onDecreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  onDeleteCartItem: (cartItemId: number) => Promise<void>;
+  selected: boolean;
+  onSelectChange: (cartItemId: number) => void;
+  onIncreaseClick: (cartItem: CartItemProps) => Promise<void>;
+  onDecreaseClick: (cartItem: CartItemProps) => Promise<void>;
+  onDeleteClick: (cartItemId: number) => Promise<void>;
 }) {
   return (
     <li css={CartItemStyle}>
@@ -34,12 +34,12 @@ function CartItem({
         <input
           type="checkbox"
           css={CheckboxStyle}
-          checked={isSelected}
-          onChange={() => onSelectItem(cartItem.id)}
+          checked={selected}
+          onChange={() => onSelectChange(cartItem.id)}
         />
         <button
           css={DeleteButtonStyle}
-          onClick={() => onDeleteCartItem(cartItem.id)}
+          onClick={() => onDeleteClick(cartItem.id)}
         >
           <Text varient="caption">삭제</Text>
         </button>
@@ -61,8 +61,8 @@ function CartItem({
               css={ControllerButton}
               onClick={
                 cartItem.quantity === 1
-                  ? () => onDeleteCartItem(cartItem.id)
-                  : () => onDecreaseCartItem(cartItem)
+                  ? () => onDeleteClick(cartItem.id)
+                  : () => onDecreaseClick(cartItem)
               }
             >
               <img src={Minus} alt="minus" />
@@ -70,7 +70,7 @@ function CartItem({
             <Text varient="caption">{cartItem.quantity}</Text>
             <button
               css={ControllerButton}
-              onClick={() => onIncreaseCartItem(cartItem)}
+              onClick={() => onIncreaseClick(cartItem)}
             >
               <img src={Plus} alt="plus" />
             </button>
