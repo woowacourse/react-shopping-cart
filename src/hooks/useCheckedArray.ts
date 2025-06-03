@@ -1,46 +1,50 @@
-import { useEffect, useState } from "react";
-import type { CartItemType } from "../types/response";
+import { useEffect, useState } from 'react';
+import type { CartItemType } from '../types/response';
 
 const useCheckedArray = (cartData: CartItemType[]) => {
-  const [isCheckedArray, setIsCheckedArray] = useState<number[]>([]);
+  const [checkedItemIds, setCheckedItemIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    initIsCheckedArray(cartData);
+    setCheckedItemIds(new Set(cartData.map((item) => item.id)));
   }, [cartData]);
 
-  const justifyIsChecked = (cartId: number) => {
-    const isChecked = isCheckedArray.includes(cartId);
-    return isChecked;
+  const isItemChecked = (cartId: number) => {
+    return checkedItemIds.has(cartId);
   };
 
-  const controlCheckBox = (cartId: number) => {
-    if (justifyIsChecked(cartId)) {
-      setIsCheckedArray(isCheckedArray.filter((id) => id !== cartId));
-      return;
+  const toggleItemCheck = (cartId: number) => {
+    const newCheckedIds = new Set(checkedItemIds);
+    if (newCheckedIds.has(cartId)) {
+      newCheckedIds.delete(cartId);
+    } else {
+      newCheckedIds.add(cartId);
     }
-
-    setIsCheckedArray([...isCheckedArray, cartId]);
+    setCheckedItemIds(newCheckedIds);
   };
 
-  const controlAllCheckBox = (cartData: CartItemType[]) => {
-    if (isCheckedArray.length === cartData.length) {
-      setIsCheckedArray([]);
-      return;
+  const toggleAllItemsCheck = (cartData: CartItemType[]) => {
+    if (checkedItemIds.size === cartData.length) {
+      setCheckedItemIds(new Set());
+    } else {
+      setCheckedItemIds(new Set(cartData.map((item) => item.id)));
     }
-    setIsCheckedArray(cartData.map((item) => item.id));
   };
 
-  const initIsCheckedArray = (cartData: CartItemType[]) => {
-    setIsCheckedArray(cartData.map((item) => item.id));
+  const getCheckedItemsArray = () => {
+    return Array.from(checkedItemIds);
   };
 
   return {
-    isAllChecked: isCheckedArray.length === cartData.length,
-    isCheckedArray,
-    justifyIsChecked,
-    controlCheckBox,
-    controlAllCheckBox,
-    initIsCheckedArray,
+    isAllChecked:
+      checkedItemIds.size === cartData.length && cartData.length > 0,
+    isCheckedArray: getCheckedItemsArray(),
+    justifyIsChecked: isItemChecked,
+    controlCheckBox: toggleItemCheck,
+    controlAllCheckBox: toggleAllItemsCheck,
+    checkedItemIds,
+    isItemChecked,
+    toggleItemCheck,
+    toggleAllItemsCheck,
   };
 };
 

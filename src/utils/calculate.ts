@@ -1,6 +1,9 @@
-import type { CartItemType } from "../types/response";
-import { getCartItemById } from "./getCartItemById";
+import type { CartItemType } from '../types/response';
+import { getCartItemById } from './getCartItemById';
 
+// Set 기반 계산 함수 (더 효율적)
+
+// 기존 배열 기반 함수 (호환성 유지)
 export const getCartItemNamePrice = (
   isCheckedArray: number[],
   cartData: CartItemType[]
@@ -46,6 +49,17 @@ export const calculateDeliveryFee = (
   return calculateTotalCartItemPrice(cartItemNamePrice) > 100000 ? 0 : 3000;
 };
 
+// Set 기반 총 상품 개수 계산 (더 효율적)
+export const calculateTotalProductCountFromSet = (
+  checkedItemIds: Set<number>,
+  cartData: CartItemType[]
+) => {
+  return cartData
+    .filter((item) => checkedItemIds.has(item.id))
+    .reduce((acc, item) => acc + item.quantity, 0);
+};
+
+// 기존 배열 기반 함수 (호환성 유지)
 export const calculateTotalProductCount = (
   cartData: CartItemType[],
   isCheckedArray: number[]
