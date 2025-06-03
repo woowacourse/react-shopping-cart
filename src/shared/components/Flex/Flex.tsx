@@ -3,15 +3,7 @@ import { ComponentProps, ReactNode } from 'react';
 import { StyledFlexBox } from './Flex.styled';
 
 export type Props = {
-  /**
-   * Controls flex direction (row or column)
-   * @default row
-   */
   direction: 'row' | 'column';
-  /**
-   * Controls horizontal alignment of items
-   * @default center
-   */
   justifyContent:
     | 'center'
     | 'flex-start'
@@ -21,10 +13,6 @@ export type Props = {
     | 'space-evenly'
     | 'initial'
     | 'inherit';
-  /**
-   * Controls vertical alignment of items
-   * @default center
-   */
   alignItems:
     | 'normal'
     | 'start'
@@ -36,35 +24,11 @@ export type Props = {
     | 'stretch'
     | 'initial'
     | 'inherit';
-  /**
-   * Specifies spacing between flex items
-   * @default 0
-   */
   gap: string;
-
-  /**
-   * Sets outer spacing around the container
-   * @default 0
-   */
   margin?: string;
-  /**
-   * Sets inner spacing within the container
-   * @default 0
-   */
   padding?: string;
-  /**
-   * Sets container width
-   * @default auto
-   */
   width?: string;
-  /**
-   * Sets container height
-   * @default auto
-   */
   height?: string;
-  /**
-   * Required prop for content inside the container
-   */
   children: ReactNode;
 } & ComponentProps<'div'>;
 export const Flex = ({

@@ -2,40 +2,12 @@ import { ComponentProps } from 'react';
 import styled from '@emotion/styled';
 
 type ProgressProps = {
-  /**
-   * The current value of the progress bar.
-   * Should be a number between 0 and max.
-   */
   value: number;
-  /**
-   * The maximum value of the progress bar.
-   * Defaults to 100 if not provided.
-   */
   max?: number;
-  /**
-   * The height of the progress bar.
-   * Accepts any valid CSS height value (e.g., '20px', '1rem').
-   */
   height?: string;
-  /**
-   * The color of the progress fill.
-   * Defaults to a shade of blue.
-   */
   color?: string;
-  /**
-   * The background color of the progress bar.
-   * Defaults to a light gray.
-   */
   backgroundColor?: string;
-  /**
-   * The border radius of the progress bar.
-   * Defaults to '16px'.
-   */
   borderRadius?: string;
-  /**
-   * Whether the progress fill should animate its width change.
-   * Defaults to true.
-   */
   animated?: boolean;
 } & ComponentProps<'div'>;
 
