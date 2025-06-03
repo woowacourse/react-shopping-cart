@@ -10,6 +10,7 @@ const Header = () => {
     [ROUTE.CART]: IconLogo,
     [ROUTE.ORDER_COMPLETE]: backIcon,
   };
+
   return (
     <section css={headerContainer}>
       <a href={ROUTE.CART}>

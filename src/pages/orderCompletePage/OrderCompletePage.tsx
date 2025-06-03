@@ -9,15 +9,17 @@ const OrderCompletePage = () => {
 
   return (
     <div css={S.OrderCompleteWrapper}>
-      <div css={S.OrderCompleteTitle}>주문 확인</div>
-      <div css={S.OrderCompleteDescription}>
-        총 {productTypeCount}종류의 상품 {totalProductCount}개를 주문합니다.
-      </div>
+      <div css={S.OrderCompleteContainer}>
+        <div css={S.OrderCompleteTitle}>주문 확인</div>
+        <div css={S.OrderCompleteDescription}>
+          총 {productTypeCount}종류의 상품 {totalProductCount}개를 주문합니다.
+        </div>
 
-      <div css={S.OrderCompletePriceContainer}>
-        <div css={S.OrderCompleteSubtitle}>총 결제 금액</div>
-        <div css={S.OrderCompleteTotalPrice}>
-          {totalPrice.toLocaleString()}원
+        <div css={S.OrderCompletePriceContainer}>
+          <div css={S.OrderCompleteSubtitle}>총 결제 금액</div>
+          <div css={S.OrderCompleteTotalPrice}>
+            {totalPrice.toLocaleString()}원
+          </div>
         </div>
       </div>
 

@@ -1,14 +1,18 @@
 import { css } from "@emotion/react";
+import { fadeIn } from "../../animations/animations";
 
 export const OrderCompleteWrapper = css`
+  margin-top: 10rem;
+`;
+
+export const OrderCompleteContainer = css`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
   align-items: center;
   justify-content: center;
-  margin-top: 10rem;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
-
 export const OrderCompleteTitle = css`
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-title);
