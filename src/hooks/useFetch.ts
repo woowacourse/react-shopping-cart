@@ -39,7 +39,7 @@ const useFetch = <T>(key: FetchKeyType) => {
 
   return {
     fetchData,
-    isLoading,
+    isLoading: isLoading.get(key) ?? false,
   };
 };
 
