@@ -15,10 +15,10 @@ const cart = {
     await apiRequest({
       url: `/cart-items/${cartItem.id}`,
       method: 'PATCH',
-      body: JSON.stringify({
+      body: {
         id: cartItem.id,
         quantity: cartItem.quantity + 1,
-      }),
+      },
     });
   },
 
@@ -26,10 +26,10 @@ const cart = {
     await apiRequest({
       url: `/cart-items/${cartItem.id}`,
       method: 'PATCH',
-      body: JSON.stringify({
+      body: {
         id: cartItem.id,
         quantity: cartItem.quantity - 1,
-      }),
+      },
     });
   },
 
