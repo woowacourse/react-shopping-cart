@@ -44,17 +44,17 @@ function CartPage() {
       <>
         <CartList
           isAllSelected={selectedList.isAllSelected}
-          handleSelectedAllItems={selectedList.handleSelectAllItems}
+          onSelectAllItems={selectedList.handleSelectAllItems}
         >
           {cartList.data.map((cartItem) => (
             <CartItem
               key={cartItem.id}
               cartItem={cartItem}
               isSelected={selectedList.selectedItems.includes(cartItem.id)}
-              handleSelectItem={selectedList.handleSelectItem}
-              increaseCartItem={cartList.increaseCartItem}
-              decreaseCartItem={cartList.decreaseCartItem}
-              deleteCartItem={cartList.deleteCartItem}
+              onSelectItem={selectedList.handleSelectItem}
+              onIncreaseCartItem={cartList.increaseCartItem}
+              onDecreaseCartItem={cartList.decreaseCartItem}
+              onDeleteCartItem={cartList.deleteCartItem}
             />
           ))}
         </CartList>

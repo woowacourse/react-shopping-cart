@@ -16,17 +16,17 @@ import {
 function CartItem({
   cartItem,
   isSelected,
-  handleSelectItem,
-  increaseCartItem,
-  decreaseCartItem,
-  deleteCartItem,
+  onSelectItem,
+  onIncreaseCartItem,
+  onDecreaseCartItem,
+  onDeleteCartItem,
 }: {
   cartItem: CartItemProps;
   isSelected: boolean;
-  handleSelectItem: (cartItemId: number) => void;
-  increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  deleteCartItem: (cartItemId: number) => Promise<void>;
+  onSelectItem: (cartItemId: number) => void;
+  onIncreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  onDecreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  onDeleteCartItem: (cartItemId: number) => Promise<void>;
 }) {
   return (
     <li css={CartItemStyle}>
@@ -35,11 +35,11 @@ function CartItem({
           type="checkbox"
           css={CheckboxStyle}
           checked={isSelected}
-          onChange={() => handleSelectItem(cartItem.id)}
+          onChange={() => onSelectItem(cartItem.id)}
         />
         <button
           css={DeleteButtonStyle}
-          onClick={() => deleteCartItem(cartItem.id)}
+          onClick={() => onDeleteCartItem(cartItem.id)}
         >
           <Text varient="caption">삭제</Text>
         </button>
@@ -61,8 +61,8 @@ function CartItem({
               css={ControllerButton}
               onClick={
                 cartItem.quantity === 1
-                  ? () => deleteCartItem(cartItem.id)
-                  : () => decreaseCartItem(cartItem)
+                  ? () => onDeleteCartItem(cartItem.id)
+                  : () => onDecreaseCartItem(cartItem)
               }
             >
               <img src={Minus} alt="minus" />
@@ -70,7 +70,7 @@ function CartItem({
             <Text varient="caption">{cartItem.quantity}</Text>
             <button
               css={ControllerButton}
-              onClick={() => increaseCartItem(cartItem)}
+              onClick={() => onIncreaseCartItem(cartItem)}
             >
               <img src={Plus} alt="plus" />
             </button>
