@@ -15,11 +15,15 @@ export const apiRequest = async ({ url, method, body }: ApiRequestProps) => {
   });
 
   if (!response.ok) {
-    throw new Error();
+    throw new Error(`${response.status} ${response.statusText}`);
   }
 
-  if (response.headers.get('Content-Type') === 'application/json') {
-    return response.json();
+  try {
+    if (response.headers.get('Content-Type') === 'application/json') {
+      return await response.json();
+    }
+  } catch (error) {
+    throw new Error(`${response.status} ${response.statusText}`);
   }
 
   return response;
