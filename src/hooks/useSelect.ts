@@ -6,12 +6,14 @@ function useSelect(cartList: CartItemProps[]) {
   const isAllSelected = selectedItems.length === cartList.length;
   const initialLoadRef = useRef(true);
 
+  const cartItemIds = cartList.map((cartItem) => cartItem.id);
+
   useEffect(() => {
     if (cartList.length > 0 && initialLoadRef.current) {
-      setSelectedItems(cartList.map((cartItem) => cartItem.id));
+      setSelectedItems(cartItemIds);
       initialLoadRef.current = false;
     } else {
-      const currentCartItemIds = cartList.map((item) => item.id);
+      const currentCartItemIds = cartItemIds;
       setSelectedItems((prev) =>
         prev.filter((selectedId) => currentCartItemIds.includes(selectedId))
       );
@@ -31,7 +33,7 @@ function useSelect(cartList: CartItemProps[]) {
     if (isAllSelected) {
       setSelectedItems([]);
     } else {
-      setSelectedItems(cartList.map((cartItem) => cartItem.id));
+      setSelectedItems(cartItemIds);
     }
   };
 
