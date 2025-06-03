@@ -29,18 +29,19 @@ function CouponItem({
     endDate.setHours(endHour, 0, 0, 0);
     period = startDate.getHours() < 12 ? "오전" : "오후";
   }
-
+  const isDisabled = isInvalid || (isLimitReached && !isSelected);
+  const computedChecked = isDisabled ? false : isSelected;
   return (
-    <Styled.Container disabled={(isLimitReached && !isSelected) || isInvalid}>
+    <Styled.Container disabled={isDisabled}>
       <Styled.CouponHeaderWrapper>
         <CheckBox
           id={`select-checkbox-coupon-${coupon.id}`}
-          checked={isSelected}
+          checked={computedChecked}
           onChange={() => onSelect(coupon.id)}
           label={`${coupon.code} 쿠폰 선택`}
           boxSize="medium"
           hidden={true}
-          disabled={(isLimitReached && !isSelected) || isInvalid}
+          disabled={isDisabled}
         />
         <Styled.CouponDescription>{description}</Styled.CouponDescription>
       </Styled.CouponHeaderWrapper>
