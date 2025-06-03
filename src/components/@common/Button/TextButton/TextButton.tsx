@@ -4,11 +4,12 @@ import Text from "../../Text/Text";
 interface TextButtonProps {
   text: string;
   onClick: () => void;
+  testId?: string;
 }
 
-const TextButton = ({ text, onClick }: TextButtonProps) => {
+const TextButton = ({ text, onClick, testId }: TextButtonProps) => {
   return (
-    <button onClick={onClick} className={TextButtonStyle}>
+    <button onClick={onClick} className={TextButtonStyle} data-testid={testId}>
       <Text text={text}></Text>
     </button>
   );

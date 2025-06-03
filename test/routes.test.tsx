@@ -38,7 +38,7 @@ describe("라우팅 테스트", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("장바구니")).toBeInTheDocument();
+      expect(screen.getByTestId("cart-title")).toBeInTheDocument();
     });
   });
 });

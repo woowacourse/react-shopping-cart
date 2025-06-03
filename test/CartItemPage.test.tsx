@@ -54,7 +54,7 @@ describe("장바구니 페이지 테스트", () => {
 
     expect(await screen.findByText("콜라")).toBeInTheDocument();
 
-    const deleteButton = await screen.findByText("삭제");
+    const deleteButton = await screen.findByTestId("delete-cart-item-button");
     fireEvent.click(deleteButton);
 
     expect(

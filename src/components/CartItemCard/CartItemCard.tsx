@@ -39,6 +39,7 @@ const CartItemCard = ({
             testId="item-toggle"
           />
           <TextButton
+            testId="delete-cart-item-button"
             text="삭제"
             onClick={() => {
               deleteCartItem(cartItemId);

@@ -8,7 +8,7 @@ interface CartPageTitleProps {
 const CartPageTitle = ({ cartItemsTypeCount }: CartPageTitleProps) => {
   return (
     <div className={CartPageTitleStyle}>
-      <Text text="장바구니" type="large" />
+      <Text testId="cart-title" text="장바구니" type="large" />
       {cartItemsTypeCount === 0 ? (
         ""
       ) : (
