@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import getShoppingCart from '../../api/getShoppingCart';
 import Button from '../../components/Button/Button';
 import CartProductContainer from '../../components/CartProductContainer/CartProductContainer';
 import { EmptyShoppingCart } from '../../components/EmptyShoppingCart/EmptyShoppingCart';
@@ -10,15 +9,14 @@ import Main from '../../components/layout/Main/Main';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
 import Toast from '../../components/Toast/Toast';
-import { CartItemTypes } from '../../types/cartItem';
 import { getTotalPrice } from '../../utils/getTotalPrice';
 import { subTitleStyle, titleBox, titleStyle } from './ShoppingCart.style';
 import { Footer } from '../../components/layout/Footer/Footer';
+import useFetchCartItems from '../../hooks/useFetchCartItems';
 
 export function ShoppingCart() {
-  const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const { cartItem, error, isLoading, getCartItemData, setError } =
+    useFetchCartItems();
   const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
 
   const navigate = useNavigate();
@@ -41,24 +39,9 @@ export function ShoppingCart() {
     });
   };
 
-  const getCartItemData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await getShoppingCart();
-      if (cartItem.length === 0) setIsLoading(false);
-      setCartItem(response);
-    } catch (e) {
-      setError('데이터를 가져오는데 실패했습니다');
-    }
-  };
-
   const handleError = (errorMessage: string) => {
     setError(errorMessage);
   };
-
-  useEffect(() => {
-    getCartItemData();
-  }, []);
 
   useEffect(() => {
     if (!isLoading && cartItem) {
