@@ -30,7 +30,9 @@ function Counter({
         autoFocus={autoFocus}
       >
         {showTrash ? (
-          <TrashIcon src='../../../public/assets/icons/Trash.svg' />
+          <TrashIcon
+            src={`${import.meta.env.BASE_URL}assets/icons/Trash.svg`}
+          />
         ) : (
           '−'
         )}

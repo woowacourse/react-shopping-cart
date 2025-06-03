@@ -94,7 +94,9 @@ function CartCheckList() {
       <ItemList>
         {isCartEmpty ? (
           <EmptyCartBox>
-            <EmptyCartImage src='../../../../public/assets/DeleteCart.svg' />
+            <EmptyCartImage
+              src={`${import.meta.env.BASE_URL}assets/DeleteCart.svg`}
+            />
             <EmptyCartText>장바구니에 담긴 상품이 없습니다.</EmptyCartText>
           </EmptyCartBox>
         ) : (

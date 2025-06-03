@@ -18,7 +18,7 @@ const LabelPriceContainer = () => {
     <Container>
       <InfoBox>
         <InfoIcon
-          src='../../../../public/assets/icons/Info.svg'
+          src={`${import.meta.env.BASE_URL}assets/icons/Info.svg`}
           alt='info 아이콘'
         />
         <InfoMessage>
