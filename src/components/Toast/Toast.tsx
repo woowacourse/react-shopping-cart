@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
-import * as styles from './ErrorToast.style';
+import * as styles from './Toast.style';
 
-export default function ErrorToast({ error, duration = 2000 }: { error: Error; duration?: number }) {
+interface ToastProps {
+  message: string;
+  type: 'error' | 'success';
+  duration?: number;
+}
+
+export default function Toast({ message, type, duration = 2000 }: ToastProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -21,8 +27,8 @@ export default function ErrorToast({ error, duration = 2000 }: { error: Error; d
   if (!visible) return null;
 
   return (
-    <div css={styles.toastCss}>
-      <h2 css={styles.messageCss}>{error.message}</h2>
+    <div css={styles.toastCss(type)}>
+      <h2 css={styles.messageCss}>{message}</h2>
       <button css={styles.closeButtonCss} onClick={handleClose}>
         ✕
       </button>
