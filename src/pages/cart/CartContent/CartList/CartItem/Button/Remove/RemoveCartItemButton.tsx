@@ -3,11 +3,11 @@ import * as S from './RemoveCartItemButton.styled';
 import { deleteCartItem } from '@/apis/cartItems/deleteCartItem';
 import useMutation from '@/shared/hooks/useMutation';
 
-type RemoveCartItemButtonProps = {
+interface RemoveCartItemButtonProps {
   cartItemId: number;
   refetchCartItems: () => Promise<void>;
   removeOrderItem: (id: number) => void;
-};
+}
 
 function RemoveCartItemButton({
   cartItemId,

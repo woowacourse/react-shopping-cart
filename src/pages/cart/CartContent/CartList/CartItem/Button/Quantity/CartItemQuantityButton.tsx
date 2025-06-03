@@ -5,13 +5,13 @@ import RemoveCartItemButton from '../Remove/RemoveCartItemButton';
 import useMutation from '@/shared/hooks/useMutation';
 import { updateCartItemQuantity } from '@/apis/cartItems/updateCartItemQuantity';
 
-type CartItemQuantityButtonProps = {
+interface CartItemQuantityButtonProps {
   cartItemId: number;
   quantity: number;
   refetchCartItems: () => Promise<void>;
   removeOrderItem: (id: number) => void;
   updateOrderItem: (id: number, quantity: number) => void;
-};
+}
 
 function CartItemQuantityButton({
   cartItemId,

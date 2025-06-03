@@ -6,10 +6,10 @@ import { useEffect } from 'react';
 import { ROUTES } from '@/shared/config/routes';
 import { CartItemType } from '@/apis/cartItems/cartItem.type';
 
-type OrderSuccessState = {
+interface OrderSuccessState {
   orderList: CartItemType[];
   orderTotalPrice: number;
-};
+}
 
 export default function OrderSuccessPage() {
   const navigate = useNavigate();

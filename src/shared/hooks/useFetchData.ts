@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
-type UseFetchDataParam<T> = {
+interface UseFetchDataParam<T> {
   fetchFn: () => Promise<T>;
-};
+}
 
 const useFetchData = <T>({ fetchFn }: UseFetchDataParam<T>) => {
   const [data, setData] = useState<T | null>(null);

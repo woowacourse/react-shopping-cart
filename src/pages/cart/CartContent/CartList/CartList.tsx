@@ -2,14 +2,14 @@ import CartItem from './CartItem/CartItem';
 import * as S from './CartList.styled';
 import { CartItemType } from '@/apis/cartItems/cartItem.type';
 
-type CartListProps = {
+interface CartListProps {
   cartItems: CartItemType[];
   orderList: CartItemType[];
   refetchCartItems: () => Promise<void>;
   addOrderItem: (cartItem: CartItemType) => void;
   removeOrderItem: (id: number) => void;
   updateOrderItem: (id: number, quantity: number) => void;
-};
+}
 
 export default function CartList({
   cartItems,

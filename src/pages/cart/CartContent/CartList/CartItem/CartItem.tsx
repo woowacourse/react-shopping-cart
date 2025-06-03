@@ -7,14 +7,14 @@ import { SyntheticEvent } from 'react';
 import { deleteCartItem } from '@/apis/cartItems/deleteCartItem';
 import useMutation from '@/shared/hooks/useMutation';
 
-type CartItemProps = {
+interface CartItemProps {
   cartItem: CartItemType;
   refetchCartItems: () => Promise<void>;
   isChecked: boolean;
   addOrderItem: (cartItem: CartItemType) => void;
   removeOrderItem: (id: number) => void;
   updateOrderItem: (id: number, quantity: number) => void;
-};
+}
 
 export default function CartItem({
   cartItem,

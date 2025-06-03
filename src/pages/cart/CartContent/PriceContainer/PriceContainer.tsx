@@ -3,9 +3,9 @@ import InfoIcon from '@assets/icons/info.svg';
 
 const FREE_DELIVERY_LIMIT = 100_000;
 
-type PriceContainerProps = {
+interface PriceContainerProps {
   orderTotalPrice: number;
-};
+}
 
 export default function PriceContainer({ orderTotalPrice }: PriceContainerProps) {
   const deliveryPrice = orderTotalPrice >= FREE_DELIVERY_LIMIT ? 0 : 3000;

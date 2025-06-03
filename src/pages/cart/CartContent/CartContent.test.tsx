@@ -81,12 +81,12 @@ const expectAllItemsCheckedAfterAllCheck = (expectedState: 'checked' | 'unchecke
   });
 };
 
-type ExpectCartItemQuantityChangeParams = {
+interface ExpectCartItemQuantityChangeParams {
   productIndex: number;
   buttonName: '추가' | '빼기';
   beforeExpected: string;
   afterExpected: string;
-};
+}
 
 export const expectCartItemQuantityChange = async ({
   productIndex,

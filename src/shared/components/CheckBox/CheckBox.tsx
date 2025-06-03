@@ -1,8 +1,8 @@
 import { ComponentProps } from 'react';
 
-type CheckBoxProps = {
+interface CheckBoxProps extends ComponentProps<'button'> {
   isChecked: boolean;
-} & ComponentProps<'button'>;
+}
 
 const palette = {
   checked: {
