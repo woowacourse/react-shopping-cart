@@ -6,6 +6,7 @@ import * as cartApi from '@/features/Cart/api/cart';
 import { CartPage } from '@/features/Cart/pages/CartPage';
 
 import { cartItems } from './Cart.data';
+import { CartProvider } from '@/features/Cart/context/CartProvider';
 
 export const createTestCartItems = (): ReadonlyArray<Readonly<(typeof cartItems)[0]>> => {
   return cartItems.map((item) => ({
@@ -14,7 +15,12 @@ export const createTestCartItems = (): ReadonlyArray<Readonly<(typeof cartItems)
   })) as ReadonlyArray<Readonly<(typeof cartItems)[0]>>;
 };
 
-export const renderCartPage = () => render(<CartPage />);
+export const renderCartPage = () =>
+  render(
+    <CartProvider>
+      <CartPage />
+    </CartProvider>
+  );
 
 vi.mock('@/features/Cart/api/cart');
 const mockCartApi = vi.mocked(cartApi);

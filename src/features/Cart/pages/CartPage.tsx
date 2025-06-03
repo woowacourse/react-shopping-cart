@@ -1,13 +1,13 @@
 import { useFunnel } from '../../../shared/hooks/useFunnel';
 import { CartInfo } from '../components/CartInfo';
 import { OrderConfirm } from '../components/OrderConfirm';
-import { useCart } from '../hooks/useCart';
+import { useCartContext } from '../context/CartProvider';
 
 type STEPS = '장바구니' | '주문정보';
 
 export const CartPage = () => {
   const { Funnel, setStep } = useFunnel<STEPS>('장바구니');
-  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCart();
+  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCartContext();
 
   return (
     <>

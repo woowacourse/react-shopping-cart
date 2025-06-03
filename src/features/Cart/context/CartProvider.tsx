@@ -1,12 +1,28 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, PropsWithChildren } from 'react';
 
-import { deleteCartItem, getCartItemList, updateCartItem } from '@/features/Cart/api/cart';
+import { useFetchData } from '@/shared/hooks/useFetchData';
+import { deleteCartItem, getCartItemList, updateCartItem } from '../api/cart';
+import { CartItem } from '../types/Cart.types';
 import { ToastContext } from '@/shared/context/ToastProvider';
 import { isError } from '@/shared/utils/isError';
-import { useFetchData } from '@/shared/hooks/useFetchData';
-import { CartItem } from '../types/Cart.types';
 
-export const useCart = () => {
+type CartContextType = {
+  cartItems: (CartItem & { isChecked: boolean })[];
+  toggleCheck: (id: number) => void;
+  toggleAllCheck: () => void;
+  updateQuantity: (id: number, qty: number) => Promise<void>;
+  removeCartItem: (id: number) => Promise<void>;
+};
+
+const CartContext = createContext<CartContextType | null>(null);
+
+export const useCartContext = () => {
+  const context = useContext(CartContext);
+  if (!context) throw new Error('useCartContext는 CartProvider 내에서 사용해주세요.');
+  return context;
+};
+
+export const CartProvider = ({ children }: PropsWithChildren) => {
   const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
   const { showToast } = useContext(ToastContext);
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
@@ -17,39 +33,27 @@ export const useCart = () => {
       setCheckedItems(new Set(cart.data.map((item) => item.id)));
       hasInitialized.current = true;
     }
-  }, [cart.data, checkedItems.size]);
+  }, [cart.data]);
 
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
+      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
       return newSet;
     });
   };
 
   const toggleAllCheck = () => {
     setCheckedItems((prev) => {
-      if (prev.size === cart.data?.length) {
-        return new Set<number>();
-      }
-
-      const newSet = new Set<number>();
-      cart.data?.forEach((item) => newSet.add(item.id));
-      return newSet;
+      if (prev.size === cart.data?.length) return new Set();
+      return new Set(cart.data?.map((item) => item.id));
     });
   };
 
   const updateQuantity = async (cartId: number, newQuantity: number) => {
     const cartItem = cart.data?.find((item) => item.id === cartId);
     try {
-      await cart.mutate(
-        () => updateCartItem({ cartId: cartId, newQuantity: newQuantity }),
-        getCartItemList
-      );
+      await cart.mutate(() => updateCartItem({ cartId, newQuantity }), getCartItemList);
     } catch (error) {
       if (isError(error)) {
         showToast(
@@ -71,17 +75,24 @@ export const useCart = () => {
       if (isError(error)) {
         showToast(
           `장바구니에서 ${
-            cart?.data?.find((item) => item.id === id)?.product?.name
+            cart.data?.find((item) => item.id === id)?.product.name
           } 상품을 삭제할 수 없습니다.`
         );
       }
     }
   };
 
-  const cartItems = cart.data?.map((item) => ({
-    ...item,
-    isChecked: checkedItems.has(item.id),
-  }));
+  const cartItems =
+    cart.data?.map((item) => ({
+      ...item,
+      isChecked: checkedItems.has(item.id),
+    })) ?? [];
 
-  return { cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem };
+  return (
+    <CartContext.Provider
+      value={{ cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };
