@@ -64,18 +64,17 @@ const CartPage = () => {
     fetchCartData();
   }, []);
 
-  console.log(isCheckedSet);
-
   if (loadingState === "initialLoading") {
-    return <CartPageSkeleton />;
+    return <CartPageSkeleton data-testid="cart-page-skeleton" />;
   }
   if (loadingState === "error") {
-    return <ErrorFallback />;
+    return <ErrorFallback data-testid="error-fallback" />;
   }
 
   return (
     <div
       css={[S.cartPageWrapper, loadingState === "updating" && S.dimmedStyle]}
+      data-testid="cart-page-wrapper"
     >
       <div css={S.cartTitleContainer}>
         <p css={Title}>장바구니</p>

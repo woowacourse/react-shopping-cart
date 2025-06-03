@@ -7,7 +7,7 @@ const ErrorFallback = () => {
   const { goHome } = useEasyNavigate();
 
   return (
-    <div css={S.errorFallbackContainer}>
+    <div css={S.errorFallbackContainer} data-testid="error-fallback">
       <img
         css={S.errorFallbackImage}
         src={errorFallbackImage}

@@ -3,7 +3,7 @@ import * as Skeleton from "./CartPageSkeleton.styles";
 
 const CartPageSkeleton = () => {
   return (
-    <div css={S.cartPageWrapper}>
+    <div css={S.cartPageWrapper} data-testid="cart-page-skeleton">
       <div css={Skeleton.cartTitleSkeleton} />
 
       <div css={S.cartList}>
