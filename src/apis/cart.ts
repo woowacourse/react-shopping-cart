@@ -1,13 +1,11 @@
 import { CartProduct } from '../types/cart';
-import { BASE_URL, USER_TOKEN } from './env';
+import { BASE_URL } from './env';
+import { CART_HEADER } from './options';
 
 export const getCartItems = async () => {
   try {
     const response = await fetch(`${BASE_URL}/cart-items?page=0&size=20`, {
-      headers: {
-        Authorization: `Basic ${USER_TOKEN}`,
-        'content-type': 'application/json',
-      },
+      headers: CART_HEADER,
     });
     return await response.json();
   } catch (error) {
@@ -19,10 +17,7 @@ export const patchIncreaseQuantity = async (cartItem: CartProduct) => {
   try {
     await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
       method: 'PATCH',
-      headers: {
-        Authorization: `Basic ${USER_TOKEN}`,
-        'content-type': 'application/json',
-      },
+      headers: CART_HEADER,
       body: JSON.stringify({
         quantity: cartItem.quantity + 1,
       }),
@@ -36,10 +31,7 @@ export const patchDecreaseQuantity = async (cartItem: CartProduct) => {
   try {
     await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
       method: 'PATCH',
-      headers: {
-        Authorization: `Basic ${USER_TOKEN}`,
-        'content-type': 'application/json',
-      },
+      headers: CART_HEADER,
       body: JSON.stringify({
         quantity: cartItem.quantity - 1,
       }),
@@ -53,10 +45,7 @@ export const removeCartItem = async (cartItem: CartProduct) => {
   try {
     await fetch(`${BASE_URL}/cart-items/${cartItem.id}`, {
       method: 'DELETE',
-      headers: {
-        Authorization: `Basic ${USER_TOKEN}`,
-        'content-type': 'application/json',
-      },
+      headers: CART_HEADER,
     });
   } catch (error) {
     throw new Error('장바구니 상품 삭제시 오류 발생');
