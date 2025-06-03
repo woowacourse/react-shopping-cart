@@ -18,8 +18,7 @@ const inTimeRange = (now: Date, range: { start: string; end: string }) => {
   return cur >= toMin(range.start) && cur <= toMin(range.end);
 };
 const isBogoable = (coupon: Coupon, items: CartItem[]) => {
-  // 각 아이템별로, 해당 상품 quantity가 buyQuantity 이상인 항목이 하나라도 있으면 유효
-  return items.some((item) => item.quantity >= (coupon.buyQuantity ?? 0));
+  return items.some((item) => item.quantity > (coupon.buyQuantity ?? 0));
 };
 const isExpired = (coupon: Coupon, now: Date) => {
   return !!coupon.expirationDate && now > coupon.expirationDate;

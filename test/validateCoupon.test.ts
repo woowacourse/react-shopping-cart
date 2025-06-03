@@ -39,13 +39,13 @@ describe("validateCoupon - 모든 규칙의 성공·실패", () => {
     },
 
     {
-      name: "✅ hasNoShippingBenefit – 무료배송 쿠폰",
+      name: "❌ hasNoShippingBenefit – 무료배송 쿠폰",
       coupon: {
         discountType: "freeShipping",
       } as Coupon,
       items: [item(100000, 1)],
       now: NOW,
-      expected: { isValid: false } as const,
+      expected: { isValid: false, invalidReason: "noEffect" } as const,
     },
 
     /* ── 2. 최소 주문 금액 ── */
@@ -108,7 +108,7 @@ describe("validateCoupon - 모든 규칙의 성공·실패", () => {
       expected: { isValid: false, invalidReason: "bogoQty" } as const,
     },
     {
-      name: "✅ not bogoQty – 수량 같음(성공)",
+      name: "❌ not bogoQty – 수량 같음(실패), 사용자에게 추가적으로 제품을 구매하라고 안내할수 있음.",
       coupon: {
         discountType: "buyXgetY",
         buyQuantity: 2,
@@ -116,7 +116,7 @@ describe("validateCoupon - 모든 규칙의 성공·실패", () => {
       } as Coupon,
       items: [item(1000, 2)],
       now: NOW,
-      expected: { isValid: true } as const,
+      expected: { isValid: false, invalidReason: "bogoQty" } as const,
     },
     {
       name: "✅ not bogoQty – 수량 충족(성공)",
