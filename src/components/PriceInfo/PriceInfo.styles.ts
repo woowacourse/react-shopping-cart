@@ -1,12 +1,12 @@
 import { css } from '@emotion/react';
 
-export const CartPriceInfoContainerStyle = css`
+export const PriceInfoContainerStyle = css`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 `;
 
-export const CartPriceInfoHeaderStyle = css`
+export const PriceInfoHeaderStyle = css`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -15,7 +15,7 @@ export const CartPriceInfoHeaderStyle = css`
   width: 100%;
 `;
 
-export const CartPriceContainerStyle = css`
+export const PriceInfoWrapperStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ export const CartPriceContainerStyle = css`
   gap: 0.8rem;
 `;
 
-export const CartPriceInfoStyle = css`
+export const PriceInfoItemStyle = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
