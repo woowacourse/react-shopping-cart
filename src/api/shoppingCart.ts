@@ -35,9 +35,4 @@ async function patchShoppingCart(productId: number, quantity: number) {
   });
 }
 
-export {
-  PAGEABLE_DEFAULT,
-  deleteShoppingCart,
-  getShoppingCart,
-  patchShoppingCart,
-};
+export { deleteShoppingCart, getShoppingCart, patchShoppingCart };
