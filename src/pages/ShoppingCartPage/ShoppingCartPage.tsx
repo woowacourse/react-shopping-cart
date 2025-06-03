@@ -29,7 +29,7 @@ export default function ShoppingCartPage() {
       });
       return newMap;
     });
-  }, [cartItemList.map((item) => item.id).join(",")]);
+  }, [cartItemList]);
 
   const handleSelectedCartItem = (id: number) => {
     setCheckedMap((prevMap) => {
