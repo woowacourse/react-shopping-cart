@@ -1,17 +1,12 @@
 import { css } from "@emotion/css";
 import Text from "../@common/Text/Text";
 import CartItemCard from "../CartItemCard/CartItemCard";
-import { CartItem } from "../../types/type";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
 import { useEffect } from "react";
 import CartItemCheckbox from "../CartItemCheckbox/CartItemCheckbox";
 
-interface CartItemCardListProps {
-  cartItems: CartItem[];
-}
-
-const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
-  const { selectedItem, handleSelectedItem } = useCartItemContext();
+const CartItemCardList = () => {
+  const { cartItems, selectedItem, handleSelectedItem } = useCartItemContext();
 
   const toggleCartItemChecked = (cartItemId: number) => {
     const newSet = new Set(selectedItem);
