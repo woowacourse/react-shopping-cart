@@ -4,17 +4,18 @@ interface StepperProps {
   value: number;
   onIncrement: () => void;
   onDecrement: () => void;
+  disabled: boolean;
 }
 
-export default function Stepper({ value, onIncrement, onDecrement }: StepperProps) {
+export default function Stepper({ value, onIncrement, onDecrement, disabled }: StepperProps) {
   return (
     <div css={stepperWrapper} data-testid="stepper">
-      <button onClick={onDecrement}>
-        <img src="assets/minus.svg" alt="마이너스 버튼" />
+      <button css={buttonCss} onClick={onDecrement} disabled={disabled}>
+        -
       </button>
       <span css={valueCss}>{value}</span>
-      <button onClick={onIncrement}>
-        <img src="assets/plus.svg" alt="플러스 버튼" />
+      <button css={buttonCss} onClick={onIncrement} disabled={disabled}>
+        +
       </button>
     </div>
   );
@@ -29,4 +30,22 @@ const stepperWrapper = css({
 const valueCss = css({
   fontSize: '12px',
   fontWeight: 500
+});
+
+const buttonCss = css({
+  backgroundColor: 'white',
+  border: '1px solid #eaeaea',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  width: '24px',
+  height: '24px',
+
+  '&:hover': {
+    backgroundColor: '#eaeaea'
+  },
+
+  '&:disabled': {
+    backgroundColor: '#BEBEBE',
+    cursor: 'not-allowed'
+  }
 });
