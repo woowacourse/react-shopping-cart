@@ -8,16 +8,11 @@ import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
 import { useCartItemContext } from "../contexts/useCartItemContext";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
 import { useNavigate } from "react-router";
+import { useCartSummary } from "../hooks/useCartSummary";
 
 const CartItemPage = () => {
-  const {
-    cartItems,
-    selectedItem,
-    isLoading,
-    orderPrice,
-    totalPrice,
-    shippingFee,
-  } = useCartItemContext();
+  const { cartItems, selectedItem, isLoading } = useCartItemContext();
+  const { orderPrice, totalPrice, shippingFee } = useCartSummary();
   const navigate = useNavigate();
 
   return (

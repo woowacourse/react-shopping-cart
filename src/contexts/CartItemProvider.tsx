@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import { CartItem } from "../types/type";
-import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
 import { useFetchCartItems } from "../hooks/useFetchCartItems";
 
 interface CartItemContext {
@@ -8,9 +7,6 @@ interface CartItemContext {
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   selectedItem: Set<unknown>;
   handleSelectedItem: (newSet: Set<unknown>) => void;
-  orderPrice: number;
-  shippingFee: number;
-  totalPrice: number;
   isLoading: boolean;
   fetchError: string;
 }
@@ -31,17 +27,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     return setSelectedItem(newSet);
   };
 
-  const orderPrice = cartItems.reduce((acc, cartItem) => {
-    if (selectedItem.has(cartItem.id)) {
-      return acc + cartItem.product.price * cartItem.quantity;
-    }
-    return acc;
-  }, 0);
-
-  const shippingFee = orderPrice >= FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
-
-  const totalPrice = shippingFee + orderPrice;
-
   return (
     <CartItemContext.Provider
       value={{
@@ -49,9 +34,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         setCartItems,
         selectedItem,
         handleSelectedItem,
-        orderPrice,
-        shippingFee,
-        totalPrice,
         isLoading,
         fetchError,
       }}
