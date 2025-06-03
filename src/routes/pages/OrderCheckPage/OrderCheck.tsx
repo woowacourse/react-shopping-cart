@@ -11,6 +11,7 @@ import CouponButton from '../../../components/CouponButton/CouponButton';
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
 import { useLocation, useNavigate } from 'react-router';
+import DeliveryInfo from '../../../components/DeliveryInfo/DeliveryInfo';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function OrderCheck() {
           ))}
         </OrderList>
         <CouponButton />
+        <DeliveryInfo />
       </ContainerLayout>
       <PayButton />
     </>
