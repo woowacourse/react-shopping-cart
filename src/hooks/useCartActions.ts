@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { patchCartItem } from '../api/patchCartItem';
 import { deleteCartItem } from '../api/deleteCartItem';
 import getCartItems from '../api/getCartItem';
-import { useApiContext } from '../contexts/ApiContext';
+import { useApiContext } from './useApiContext';
 import { useMutation } from './useMutation';
 
 interface UpdateQuantityVariables {

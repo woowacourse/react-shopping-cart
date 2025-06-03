@@ -1,67 +1,28 @@
-import {
-  createContext,
-  DependencyList,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  type PropsWithChildren
-} from 'react';
+import { createContext, useState, PropsWithChildren } from 'react';
 
-const ApiContext = createContext<{
-  data: Record<string, unknown>;
-  setData: Dispatch<SetStateAction<Record<string, unknown>>>;
-}>({
+export interface CachedData<T> {
+  value: T;
+  fetchedAt: number;
+}
+
+export interface ApiContextType {
+  data: { [key: string]: CachedData<unknown> };
+  setDataState: (
+    updater: (prev: { [key: string]: CachedData<unknown> }) => { [key: string]: CachedData<unknown> }
+  ) => void;
+}
+
+export const ApiContext = createContext<ApiContextType>({
   data: {},
-  setData: () => {}
+  setDataState: () => {}
 });
 
 export function ApiProvider({ children }: PropsWithChildren) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<{ [key: string]: CachedData<unknown> }>({});
 
-  return <ApiContext.Provider value={{ data, setData }}>{children}</ApiContext.Provider>;
-}
-
-export function useApiContext<T>({
-  fetchFn,
-  key,
-  deps
-}: {
-  fetchFn: () => Promise<T>;
-  key: string;
-  deps?: DependencyList;
-}) {
-  const { data, setData } = useContext(ApiContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  const request = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const res = await fetchFn();
-
-      setData((prev) => ({ ...prev, [key]: res }));
-    } catch (e) {
-      setError(e instanceof Error ? e : new Error('Unknown error'));
-    } finally {
-      setIsLoading(false);
-    }
-  }, [fetchFn, key, setData]);
-
-  useEffect(() => {
-    if (data[key] === undefined) {
-      request();
-    }
-  }, [data, key, request, deps]);
-
-  return {
-    data: data[key] as T | undefined,
-    isLoading,
-    error,
-    fetcher: request
+  const setDataState: ApiContextType['setDataState'] = (updater) => {
+    setData((prev) => updater(prev));
   };
+
+  return <ApiContext.Provider value={{ data, setDataState }}>{children}</ApiContext.Provider>;
 }

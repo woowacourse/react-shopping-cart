@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import Header from '../components/common/Header';
 import { css } from '@emotion/react';
 import CartItemList from '../components/CartItemList/CartItemList';
-import { useApiContext } from '../contexts/ApiContext';
+import { useApiContext } from '../hooks/useApiContext';
 import getCartItems from '../api/getCartItem';
 
 function CartPage() {
