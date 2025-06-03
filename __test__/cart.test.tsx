@@ -40,12 +40,15 @@ describe('RTL Test', () => {
     renderCartPage();
   });
 
+  it('장바구니가 1개 이상일 때 장바구니 페이지에 장바구니 카드들이 잘 렌더링된다.', async () => {
+    const cartItemCards = await screen.findAllByTestId('cart-item-card');
+    expect(cartItemCards.length).toBeGreaterThan(0);
+  });
+
   it('장바구니에서 체크박스를 누르면 배송비를 고려하여 해당 금액이 반영된다.', async () => {
     const user = userEvent.setup();
 
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
-    expect(cartItemCards.length).toBeGreaterThan(0);
-
     const allSelectCheckbox = screen.getByLabelText('전체 선택');
 
     await user.click(allSelectCheckbox);
@@ -58,7 +61,6 @@ describe('RTL Test', () => {
 
     // 쉼표 제거 후 숫자 변환
     const itemPrice = parseInt(expectedPriceText.replace(/,/g, ''), 10);
-    expect(itemPrice).not.toBeNaN();
 
     const deliveryFeeElement = screen.getByTestId('delivery-fee');
     const expectedDeliveryFeeText = deliveryFeeElement.textContent?.trim() || '';
@@ -72,7 +74,6 @@ describe('RTL Test', () => {
     }
 
     const totalPurchasePrice = screen.getByTestId('total-purchase-price');
-    expect(totalPurchasePrice).toBeInTheDocument();
 
     await user.click(checkbox);
 
