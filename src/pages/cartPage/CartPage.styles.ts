@@ -1,5 +1,11 @@
 import { css } from "@emotion/react";
 
+export const dimmedStyle = css`
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+`;
+
 export const cartPageWrapper = css`
   display: flex;
   flex-direction: column;

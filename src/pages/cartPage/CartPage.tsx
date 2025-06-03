@@ -69,7 +69,9 @@ const CartPage = () => {
   }
 
   return (
-    <div css={S.cartPageWrapper}>
+    <div
+      css={[S.cartPageWrapper, loadingState === "updating" && S.dimmedStyle]}
+    >
       <div css={S.cartTitleContainer}>
         <p css={Title}>장바구니</p>
 

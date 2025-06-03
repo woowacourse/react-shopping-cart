@@ -1,4 +1,4 @@
-import { http } from "msw";
+import { http, delay } from "msw";
 import { mockCartData } from "./mockData";
 
 interface CartItemProps {
@@ -40,6 +40,8 @@ export const handlers = [
 
     mockCartData[cartIndex].quantity = quantity;
 
+    await delay(1500);
+
     return new Response(null, {
       status: 204,
       headers: { "Content-Type": "application/json" },
@@ -63,6 +65,8 @@ export const handlers = [
     }
 
     mockCartData.splice(cartIndex, 1);
+
+    await delay(1500);
 
     return new Response(null, {
       status: 204,

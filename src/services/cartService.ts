@@ -3,7 +3,7 @@ import { apiClient } from "./apiClient";
 export const getCart = async () => {
   const data = await apiClient({
     method: "GET",
-    URI: "/cart-items",
+    URI: "/cart-item",
   });
 
   return data.content;
