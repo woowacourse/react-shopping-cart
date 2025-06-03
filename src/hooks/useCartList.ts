@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
+import { useToastContext } from '../context/ToastContext';
 
 function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const { showToast } = useToastContext();
   useEffect(() => {
     loadCartList();
   }, []);
@@ -19,6 +20,7 @@ function useCartList() {
       setCartList(response);
     } catch (error) {
       setError(ERROR_MESSAGE.CART_LIST);
+      showToast(ERROR_MESSAGE.CART_LIST);
     } finally {
       setIsLoading(false);
     }
@@ -36,6 +38,7 @@ function useCartList() {
       );
     } catch (error) {
       setError(ERROR_MESSAGE.INCREASE_CART_ITEM);
+      showToast(ERROR_MESSAGE.INCREASE_CART_ITEM);
     }
   };
 
@@ -51,6 +54,7 @@ function useCartList() {
       );
     } catch (error) {
       setError(ERROR_MESSAGE.DECREASE_CART_ITEM);
+      showToast(ERROR_MESSAGE.DECREASE_CART_ITEM);
     }
   };
 
@@ -60,6 +64,7 @@ function useCartList() {
       setCartList(cartList.filter((item) => item.id !== cartItemId));
     } catch (error) {
       setError(ERROR_MESSAGE.DELETE_CART_ITEM);
+      showToast(ERROR_MESSAGE.DELETE_CART_ITEM);
     }
   };
 

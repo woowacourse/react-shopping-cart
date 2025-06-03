@@ -16,7 +16,6 @@ import useCartList from '../../../hooks/useCartList';
 import useSelect from '../../../hooks/useSelect';
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
 import { cartPrice } from '../../../utils/cartPrice';
-import { useEffect } from 'react';
 import { useToastContext } from '../../../context/ToastContext';
 import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
@@ -25,7 +24,7 @@ import CartListHeader from '../../../components/CartList/CartList';
 function CartPage() {
   const cartList = useCartList();
   const selectedList = useSelect(cartList.data);
-  const { isVisible, showToast } = useToastContext();
+  const { isVisible } = useToastContext();
   const navigate = useNavigate();
 
   const totalPrice = cartPrice.totalPrice(
@@ -40,12 +39,6 @@ function CartPage() {
   const handleOrderButtonClick = () => {
     navigate('/order-check', { state: { selectedCartData, totalPrice } });
   };
-
-  useEffect(() => {
-    if (cartList.error) {
-      showToast(cartList.error);
-    }
-  }, [cartList.error]);
 
   const renderCartList = () => {
     return cartList.data.length === 0 ? (
@@ -81,8 +74,8 @@ function CartPage() {
           <img src={Logo} alt="로고" />
         </HeaderButton>
       </Header>
-      {isVisible && <Toast message={cartList.error} />}
       <ContainerLayout>
+        {isVisible && <Toast message={cartList.error} />}
         <CartListTitle count={cartList.data.length} />
         {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
