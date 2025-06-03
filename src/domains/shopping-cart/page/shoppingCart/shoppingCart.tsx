@@ -12,7 +12,7 @@ import { getShoppingCart } from "../../api/shoppingCart";
 import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
 import { CartItemTypes } from "../../types/cartItem";
-import { getTotalPrice } from "../../utils/getTotalPrice";
+import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
 
 export function ShoppingCart() {

@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { ShoppingCart } from "../page/shoppingCart/shoppingCart";
+import { ShoppingCart } from "./shoppingCart";
 import { MemoryRouter } from "react-router-dom";
-import { server } from "./mocks/server";
-import { mockShoppingCartResponse } from "./mocks/mockShoppingCartResponse";
-import { getTotalPrice } from "../utils/getTotalPrice";
-import { CartItemTypes } from "../types/cartItem";
-import { resetCartItems } from "./mocks/handlers";
+import { server } from "../../mocks/server";
+import { mockShoppingCartResponse } from "../../mocks/mockShoppingCartResponse";
+import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
+import { CartItemTypes } from "../../types/cartItem";
+import { resetCartItems } from "../../mocks/handlers";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());

@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { mockShoppingCartResponse } from "./mockShoppingCartResponse";
 import { mockProductResponse } from "./mockProductResponse";
-import { CartItemTypes } from "../../types/cartItem";
+import { CartItemTypes } from "../types/cartItem";
 
 const products = structuredClone(mockProductResponse.content);
 
