@@ -70,7 +70,7 @@ export function ShoppingCart() {
     <PageLayout>
       <Header>
         <p>SHOP</p>
-        {Boolean(error) && <Toast>{error && error}</Toast>}
+        {Boolean(error) && <Toast>{error}</Toast>}
       </Header>
       <Main>
         <div css={titleBox}>
