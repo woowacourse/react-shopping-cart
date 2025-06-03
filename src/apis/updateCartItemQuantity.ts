@@ -27,19 +27,15 @@ const updateCartItemQuantity = async ({ params }: updateCartItemsParams) => {
     body: JSON.stringify({ quantity: quantity }),
   };
 
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      const errorType = getErrorTypeByStatus(response.status);
-      throw new ApiError(
-        response.status,
-        response.statusText,
-        getErrorMessage(response.statusText, response.status),
-        errorType
-      );
-    }
-  } catch (error) {
-    throw error;
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    const errorType = getErrorTypeByStatus(response.status);
+    throw new ApiError(
+      response.status,
+      response.statusText,
+      getErrorMessage(response.statusText, response.status),
+      errorType
+    );
   }
 };
 
