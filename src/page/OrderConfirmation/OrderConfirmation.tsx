@@ -11,21 +11,16 @@ import { useMemo, useState } from "react";
 import Modal from "@/components/common/Modal/Modal";
 
 import { Coupon } from "@/type/Coupon";
-import { CouponApplyResult } from "@/hooks/Coupon/useCouponApply";
 import { validateCoupon } from "@/util/coupon/validateCoupon";
-
-interface CouponSelection {
-  handleSelectCoupon: (id: string) => void;
-  selectedCouponIds: Set<string>;
-  isSelectedToLimit: boolean;
-}
+import { CouponDiscountResult } from "@/hooks/Coupon/useCouponDiscount";
+import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
 
 interface OrderConfirmationProps {
   onPrev: () => void;
   selectedCartItems: CartItem[];
   couponsData: Coupon[] | null;
-  result: CouponApplyResult;
-  couponSelection: CouponSelection;
+  result: CouponDiscountResult;
+  couponSelection: UseCouponSelectionReturn;
 }
 
 function OrderConfirmation({
@@ -45,6 +40,18 @@ function OrderConfirmation({
       couponsData?.filter((c) => !validateCoupon(c, selectedCartItems).isValid),
     [couponsData, selectedCartItems, result.orderTotal]
   );
+
+  // 디버깅을 위한 콘솔 로그
+  console.log("🔍 Debug Info:", {
+    selectedCouponIds: selectedCouponIds ? Array.from(selectedCouponIds) : [],
+    isSelectedToLimit,
+    invalidCouponIds: invalidCoupons?.map((c) => c.id) || [],
+    totalAmount: selectedCartItems.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0
+    ),
+  });
+
   return (
     <>
       <OrderConfirmationHeader handleGoBackToHomeButton={onPrev} />
@@ -72,8 +79,10 @@ function OrderConfirmation({
               <Modal.Content>
                 <CouponList>
                   {couponsData?.map((coupon) => {
-                    const isSelected = selectedCouponIds.has(coupon.id);
-                    const isDisabledByLimit = !isSelected && isSelectedToLimit;
+                    const isSelected = !!selectedCouponIds?.has(coupon.id);
+                    // 선택되지 않은 쿠폰에 대해서만 제한 확인
+                    const isLimitReachedForThisCoupon =
+                      !isSelected && isSelectedToLimit;
 
                     return (
                       <CouponItem
@@ -81,7 +90,7 @@ function OrderConfirmation({
                         coupon={coupon}
                         onSelect={handleSelectCoupon}
                         isSelected={isSelected}
-                        isLimitReached={isDisabledByLimit}
+                        isLimitReached={isLimitReachedForThisCoupon}
                         isInvalid={invalidCoupons?.some(
                           (invalidCoupon) => invalidCoupon.id === coupon.id
                         )}
@@ -89,10 +98,7 @@ function OrderConfirmation({
                     );
                   })}
                 </CouponList>
-                <Styled.CouponButton
-                  disabled={result.discountTotal === 0}
-                  onClick={() => setIsOpen(false)}
-                >
+                <Styled.CouponButton onClick={() => setIsOpen(false)}>
                   총 {result.discountTotal.toLocaleString()}원 할인쿠폰 사용하기
                 </Styled.CouponButton>
               </Modal.Content>
