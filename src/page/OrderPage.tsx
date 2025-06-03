@@ -12,6 +12,7 @@ import useCouponFetch from "@/hooks/Coupon/useCouponFetch";
 import { useCouponApply } from "@/hooks/Coupon/useCouponApply";
 import useCouponSelection from "@/hooks/Coupon/useCouponSelection";
 import { useMemo } from "react";
+import { useCouponDiscount } from "@/hooks/Coupon/useCouponDiscount";
 
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
@@ -31,34 +32,27 @@ function OrderPage({
   const { selectedCartItems } = useCartContext();
   const { couponsData } = useCouponFetch();
 
-  // 모든 쿠폰으로 초기 계산하여 최적의 쿠폰들 찾기
+  // // 모든 쿠폰으로 초기 계산하여 최적의 쿠폰들 찾기
   const allCouponsResult = useCouponApply({
     coupons: couponsData || [],
     selectedShoppingCartItems: selectedCartItems,
   });
 
-  // 초기에 가장 좋은 쿠폰들을 자동으로 적용
   const initialOptimalCoupons = useMemo(() => {
     return new Set(allCouponsResult.appliedCoupons.map((c) => c.id));
   }, [allCouponsResult.appliedCoupons]);
 
-  // 쿠폰 선택 상태 관리 (초기값으로 최적 쿠폰들 설정)
   const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
     useCouponSelection(initialOptimalCoupons);
 
-  // 선택된 쿠폰만 필터링
   const selectedCoupons = useMemo(
-    () =>
-      couponsData?.filter((coupon) => selectedCouponIds.has(coupon.id)) || [],
+    () => couponsData?.filter((coupon) => selectedCouponIds?.has(coupon.id)),
     [couponsData, selectedCouponIds]
   );
-
-  // 선택된 쿠폰들로 실시간 계산
-  const result = useCouponApply({
-    coupons: selectedCoupons,
+  const result = useCouponDiscount({
+    selectedCoupons,
     selectedShoppingCartItems: selectedCartItems,
   });
-
   return (
     <CartLayout>
       <Funnel>
