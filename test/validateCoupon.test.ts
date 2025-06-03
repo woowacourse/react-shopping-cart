@@ -38,6 +38,16 @@ describe("validateCoupon - 모든 규칙의 성공·실패", () => {
       expected: { isValid: true } as const,
     },
 
+    {
+      name: "✅ hasNoShippingBenefit – 무료배송 쿠폰",
+      coupon: {
+        discountType: "freeShipping",
+      } as Coupon,
+      items: [item(100000, 1)],
+      now: NOW,
+      expected: { isValid: false } as const,
+    },
+
     /* ── 2. 최소 주문 금액 ── */
     {
       name: "❌ minAmount – 주문 총액 부족",

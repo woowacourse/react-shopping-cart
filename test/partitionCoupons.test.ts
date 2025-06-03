@@ -80,11 +80,12 @@ describe("partitionCoupons – 총액별로 유효·무효 분류", () => {
       );
 
       // 개수 검증
-      expect(validCoupons).toHaveLength(expectValid);
-      expect(invalidCoupons).toHaveLength(expectInvalid.length);
-
+      expect(validCoupons.size).toBe(expectValid);
+      expect(invalidCoupons.size).toBe(expectInvalid.length);
+      console.log(validCoupons);
+      console.log(invalidCoupons);
       // 사유 검증
-      const reasons = invalidCoupons.map((c: any) => c.invalidReason);
+      const reasons = Array.from(invalidCoupons).map((c) => c.invalidReason);
       expectInvalid.forEach((r) => expect(reasons).toContain(r));
     });
   });
