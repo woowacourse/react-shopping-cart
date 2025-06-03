@@ -13,6 +13,21 @@ const useCartData = () => {
   const [cartData, setCartData] = useState<CartItemType[]>([]);
   const { openToast } = useToast();
 
+  const fetchCartData = async () => {
+    const { error, data } = await tryApiCall(async () => {
+      return await getCart();
+    });
+
+    if (error) {
+      openToast(error, false);
+    } else {
+      if (data) {
+        initCartData(data);
+        openToast('장바구니 데이터를 불러왔습니다.', true);
+      }
+    }
+  };
+
   const updateCartItem = async (cartId: number) => {
     const cartItem = getCartItemById(cartData, cartId);
     if (!cartItem) {
@@ -28,8 +43,7 @@ const useCartData = () => {
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
     const { error } = await tryApiCall(async () => {
       await modifyCartItem(cartItemId, quantity);
-      const fetchedCartItems = await getCart();
-      setCartData(fetchedCartItems);
+      await fetchCartData();
     });
 
     if (error) {
@@ -42,8 +56,7 @@ const useCartData = () => {
   const removeCartItem = async (cartItemId: number) => {
     const { error } = await tryApiCall(async () => {
       await deleteCartItem(cartItemId);
-      const fetchedCartItems = await getCart();
-      setCartData(fetchedCartItems);
+      await fetchCartData();
     });
 
     if (error) {
@@ -63,6 +76,7 @@ const useCartData = () => {
     increaseCartItem,
     removeCartItem,
     initCartData,
+    fetchCartData,
   };
 };
 
