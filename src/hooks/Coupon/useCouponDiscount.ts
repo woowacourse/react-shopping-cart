@@ -40,11 +40,16 @@ export const useCouponDiscount = ({
   /* 2. (쿠폰 유효성 필터링) */
 
   const seekMostExpensiveBOGOItem = useCallback(
-    (buyQty: number): CartItem => {
+    (buyQty: number): CartItem | null => {
       // buyQty 이상인 아이템만 필터링
       const eligibleItems = selectedShoppingCartItems.filter(
         (item) => item.quantity >= buyQty
       );
+
+      // 빈 배열인 경우 null 반환
+      if (eligibleItems.length === 0) {
+        return null;
+      }
 
       // 가격 비교를 통해 가장 비싼 아이템 객체를 반환
       return eligibleItems.reduce((prev, curr) =>
