@@ -28,8 +28,8 @@ const useCartData = () => {
   const increaseCartItem = async (cartItemId: number, quantity: number) => {
     const { error } = await tryApiCall(async () => {
       await modifyCartItem(cartItemId, quantity);
-      const cartData = await getCart();
-      setCartData(cartData);
+      const fetchedCartItems = await getCart();
+      setCartData(fetchedCartItems);
     });
 
     if (error) {
@@ -42,8 +42,8 @@ const useCartData = () => {
   const removeCartItem = async (cartItemId: number) => {
     const { error } = await tryApiCall(async () => {
       await deleteCartItem(cartItemId);
-      const cartData = await getCart();
-      setCartData(cartData);
+      const fetchedCartItems = await getCart();
+      setCartData(fetchedCartItems);
     });
 
     if (error) {

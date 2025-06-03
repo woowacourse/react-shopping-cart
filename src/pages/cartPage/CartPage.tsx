@@ -35,7 +35,6 @@ const CartPage = () => {
     justifyIsChecked,
     controlCheckBox,
     controlAllCheckBox,
-    initIsCheckedArray,
     isAllChecked,
   } = useCheckedArray(cartData);
   const { openToast } = useToast();
@@ -43,8 +42,9 @@ const CartPage = () => {
   useEffect(() => {
     const fetchCartData = async () => {
       const { error } = await tryApiCall(async () => {
-        const cartData = await getCart();
-        initCartData(cartData);
+        const fetchedCartItems = await getCart();
+        initCartData(fetchedCartItems);
+        return fetchedCartItems;
       });
 
       if (error) {
@@ -55,7 +55,6 @@ const CartPage = () => {
     };
 
     fetchCartData();
-    initIsCheckedArray(cartData);
   }, []);
 
   return (
