@@ -14,6 +14,6 @@ export const patchCartItem = async (cartItemId: number | undefined, quantity: nu
   });
 
   if (!result.ok) {
-    throw new Error('장바구니에서 상품 수량을 수정하는데 실패했습니다');
+    throw new Error('상품 수량을 수정하는 데 실패했습니다.');
   }
 };

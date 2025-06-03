@@ -12,7 +12,7 @@ interface CartItemListProps {
   cartItems: CartItemType[];
 }
 
-export default function CartItemList({ cartItems }: CartItemListProps) {
+function CartItemList({ cartItems }: CartItemListProps) {
   const navigate = useNavigate();
   const { state, isAllChecked, toggle, checkAll, uncheckAll, deleteCheckedItems } = useCheckList(
     cartItems,
@@ -36,7 +36,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
               item={item}
               checked={state.get(item.id) ?? false}
               handleCheckBoxChange={() => toggle(item.id)}
-              handleDeleteCart={() => deleteCheckedItems(item.id)}
+              handleDeleteCheck={() => deleteCheckedItems(item.id)}
             />
           ))}
         </div>
@@ -59,3 +59,5 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     </div>
   );
 }
+
+export default CartItemList;

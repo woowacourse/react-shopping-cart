@@ -12,6 +12,6 @@ export const deleteCartItem = async (cartItemId: number | undefined) => {
   });
 
   if (!res.ok) {
-    throw new Error('장바구니에서 상품을 삭제하는 데 실패했습니다.');
+    throw new Error('상품을 삭제하는 데 실패했습니다.');
   }
 };
