@@ -6,7 +6,7 @@ import ContainerLayout from '../../../components/@common/ContainerLayout/Contain
 import PageTitle from '../../../components/PageTitle/PageTitle';
 import CartItem from '../../../components/ListItem/CartItem/CartItem';
 import CartList from '../../../components/List/CartList/CartList';
-import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
+import CartPriceInfo from '../../../components/PriceInfo/CartPriceInfo/CartPriceInfo';
 import OrderButton from '../../../components/OrderButton/OrderButton';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
 import Text from '../../../components/@common/Text/Text';

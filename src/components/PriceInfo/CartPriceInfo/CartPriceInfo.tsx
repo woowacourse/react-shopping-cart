@@ -1,5 +1,5 @@
-import Text from '../@common/Text/Text';
-import { Info } from '../../assets';
+import Text from '../../@common/Text/Text';
+import { Info } from '../../../assets';
 import {
   CartPriceContainerStyle,
   CartPriceInfoContainerStyle,
