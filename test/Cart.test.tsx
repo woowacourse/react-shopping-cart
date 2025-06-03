@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { vi, beforeEach } from 'vitest';
+import { vi, beforeEach, describe, it, expect } from 'vitest';
 
 import * as cartApi from '@/features/Cart/api/cart';
 import { CartPage } from '@/features/Cart/pages/CartPage';

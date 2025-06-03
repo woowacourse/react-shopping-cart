@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest", "@testing-library/jest-dom"],
+    "types": ["@testing-library/jest-dom"],
     "esModuleInterop": true,
 
     "jsx": "react-jsx",
