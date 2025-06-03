@@ -1,8 +1,7 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
+import { FREE_DELIVERY_THRESHOLD } from '../constants/price';
 
 export const useCartInfo = (cartItems: CartItem[]) => {
-  const FREE_SHIPPING_THRESHOLD = 100000;
-
   const allChecked = cartItems.every((item) => item.isChecked);
   const cartItemCount = cartItems.length;
   const selectedCartItems = cartItems.filter((item) => item.isChecked);
@@ -12,8 +11,8 @@ export const useCartInfo = (cartItems: CartItem[]) => {
     0
   );
 
-  const progressValue = Math.min((selectedTotalAmount / FREE_SHIPPING_THRESHOLD) * 100, 100);
-  const remainingForFreeShipping = Math.max(FREE_SHIPPING_THRESHOLD - selectedTotalAmount, 0);
+  const progressValue = Math.min((selectedTotalAmount / FREE_DELIVERY_THRESHOLD) * 100, 100);
+  const remainingForFreeShipping = Math.max(FREE_DELIVERY_THRESHOLD - selectedTotalAmount, 0);
 
   return {
     allChecked,

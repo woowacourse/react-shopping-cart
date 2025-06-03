@@ -1,4 +1,5 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
+import { FREE_DELIVERY_THRESHOLD } from '../constants/price';
 
 export const usePriceInfo = (cartItems: CartItem[] = []) => {
   const orderPrice = cartItems
@@ -7,7 +8,7 @@ export const usePriceInfo = (cartItems: CartItem[] = []) => {
       return acc + Number(cart.product.price) * Number(cart.quantity);
     }, 0);
 
-  const deliveryFee = orderPrice >= 100000 ? 0 : 3000;
+  const deliveryFee = orderPrice >= FREE_DELIVERY_THRESHOLD ? 0 : 3000;
   const totalPrice = orderPrice + deliveryFee;
 
   return {
