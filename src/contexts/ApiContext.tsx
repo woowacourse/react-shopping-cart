@@ -1,4 +1,5 @@
 import { createContext, PropsWithChildren, useReducer } from "react";
+import { FetchActionType, FetchActionName } from "../type/FetchAction";
 
 type State = {
   data: Record<string, unknown>;
@@ -7,10 +8,18 @@ type State = {
 };
 
 type Action =
-  | { type: "startFetch"; name: string }
-  | { type: "fetchSuccess"; name: string; payload: unknown }
-  | { type: "fetchError"; name: string; error: unknown }
-  | { type: "endFetch"; name: string };
+  | { type: FetchActionType.StartFetch; name: FetchActionName }
+  | {
+      type: FetchActionType.FetchSuccess;
+      name: FetchActionName;
+      payload: unknown;
+    }
+  | {
+      type: FetchActionType.FetchError;
+      name: FetchActionName;
+      error: unknown;
+    }
+  | { type: FetchActionType.EndFetch; name: FetchActionName };
 
 const initialState: State = {
   data: {},
@@ -20,26 +29,26 @@ const initialState: State = {
 
 function apiReducer(state: State, action: Action): State {
   switch (action.type) {
-    case "startFetch":
+    case FetchActionType.StartFetch:
       return {
         ...state,
         loadingStates: { ...state.loadingStates, [action.name]: true },
         errorStates: { ...state.errorStates, [action.name]: undefined },
       };
-    case "fetchSuccess":
+    case FetchActionType.FetchSuccess:
       return {
         ...state,
         data: { ...state.data, [action.name]: action.payload },
         loadingStates: { ...state.loadingStates, [action.name]: false },
         errorStates: { ...state.errorStates, [action.name]: undefined },
       };
-    case "fetchError":
+    case FetchActionType.FetchError:
       return {
         ...state,
         loadingStates: { ...state.loadingStates, [action.name]: false },
         errorStates: { ...state.errorStates, [action.name]: action.error },
       };
-    case "endFetch":
+    case FetchActionType.EndFetch:
       return {
         ...state,
         loadingStates: { ...state.loadingStates, [action.name]: false },

@@ -1,13 +1,14 @@
 import { useCallback, useContext, useEffect } from "react";
 
 import { ApiContext } from "../contexts/ApiContext";
+import { FetchActionType, FetchActionName } from "../type/FetchAction";
 
 export function useData<T>({
   fetcher,
   name,
 }: {
   fetcher: () => Promise<T>;
-  name: string;
+  name: FetchActionName;
 }) {
   const context = useContext(ApiContext);
   if (!context) {
@@ -16,14 +17,14 @@ export function useData<T>({
   const { state, dispatch } = context;
 
   const request = useCallback(async () => {
-    dispatch({ type: "startFetch", name });
+    dispatch({ type: FetchActionType.StartFetch, name });
     try {
       const result = await fetcher();
-      dispatch({ type: "fetchSuccess", name, payload: result });
+      dispatch({ type: FetchActionType.FetchSuccess, name, payload: result });
     } catch (error) {
-      dispatch({ type: "fetchError", name, error });
+      dispatch({ type: FetchActionType.FetchError, name, error });
     } finally {
-      dispatch({ type: "endFetch", name });
+      dispatch({ type: FetchActionType.EndFetch, name });
     }
   }, [fetcher, name, dispatch]);
 

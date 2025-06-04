@@ -1,15 +1,16 @@
-import { CartItem } from "../../type/CartItem"
-import { useData } from "../useData"
-import fetchCartItems from "../../apis/fetchCartItems"
-import useHandleCartItemQuantity from "./useHandleCartItemQuantity"
-import useHandleDeleteCartItem from "./useHandleDeleteCartItem"
+import { CartItem } from "../../type/CartItem";
+import { useData } from "../useData";
+import fetchCartItems from "../../apis/fetchCartItems";
+import useHandleCartItemQuantity from "./useHandleCartItemQuantity";
+import useHandleDeleteCartItem from "./useHandleDeleteCartItem";
+import { FetchActionName } from "../../type/FetchAction";
 
 const getCartItems = async () => {
   const { content } = await fetchCartItems({
     params: { page: "0", size: "20" },
-  })
-  return content
-}
+  });
+  return content;
+};
 
 function useShoppingCart() {
   const {
@@ -19,14 +20,14 @@ function useShoppingCart() {
     refetch: refetchCartItems,
   } = useData<CartItem[]>({
     fetcher: getCartItems,
-    name: "cart-items",
-  })
+    name: FetchActionName.CartItems,
+  });
 
   const { isLoading: isQuantityUpdateLoading, handleCartItemQuantity } =
-    useHandleCartItemQuantity(refetchCartItems)
+    useHandleCartItemQuantity(refetchCartItems);
 
   const { isLoading: isDeleteItemLoading, handleDeleteCartItem } =
-    useHandleDeleteCartItem(refetchCartItems)
+    useHandleDeleteCartItem(refetchCartItems);
 
   return {
     cartItemsData,
@@ -37,7 +38,7 @@ function useShoppingCart() {
     handleCartItemQuantity,
     isDeleteItemLoading,
     handleDeleteCartItem,
-  }
+  };
 }
 
-export default useShoppingCart
+export default useShoppingCart;
