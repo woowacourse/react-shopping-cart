@@ -1,20 +1,16 @@
 import { Checkbox, Spacing, Text } from "@/components";
-import { useCartItem } from "@/hooks";
-import { CouponService } from "@/services";
 import { Coupon } from "@/types";
+import { formatDate } from "@/utils";
 import { css } from "@emotion/react";
 
 interface CouponItemProps {
   coupon: Coupon;
   isSelected: boolean;
   onSelect: () => void;
+  isCouponAvailable: boolean;
 }
 
-export default function CouponItem({ coupon, isSelected, onSelect }: CouponItemProps) {
-  const { cartItems } = useCartItem();
-  const couponService = new CouponService(cartItems.content);
-  const isCouponAvailable = couponService.canAdjustCoupon(coupon);
-
+export default function CouponItem({ coupon, isSelected, onSelect, isCouponAvailable }: CouponItemProps) {
   return (
     <div
       css={css`
@@ -41,7 +37,7 @@ export default function CouponItem({ coupon, isSelected, onSelect }: CouponItemP
 
       <div>
         <p>
-          <Text variant="body-1">만료일: {coupon.expirationDate}</Text>
+          <Text variant="body-1">만료일: {formatDate(coupon.expirationDate)}</Text>
         </p>
         <Spacing size={4} />
         {(coupon.discountType === "fixed" || coupon.discountType === "freeShipping") && (
@@ -52,7 +48,8 @@ export default function CouponItem({ coupon, isSelected, onSelect }: CouponItemP
         {coupon.discountType === "percentage" && (
           <p>
             <Text variant="body-1">
-              사용 가능 시간: {coupon.availableTime.start} ~ {coupon.availableTime.end}
+              {coupon.availableTime.start} - {coupon.availableTime.end}
+              {/* 사용 가능 시간: {formatTime(coupon.availableTime.start, coupon.availableTime.end)} */}
             </Text>
           </p>
         )}

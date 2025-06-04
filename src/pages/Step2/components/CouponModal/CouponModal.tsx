@@ -9,6 +9,7 @@ import CouponItem from "./CouponItem";
 import { useShoppingCartContext } from "@/pages/MainPage/context";
 import { CouponService } from "@/services";
 import { useCartItem } from "@/hooks";
+import { useEffect } from "react";
 
 export default function CouponModal() {
   const { data: coupons } = useQuery({
@@ -28,12 +29,28 @@ export default function CouponModal() {
     });
   };
 
-  const filteredCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
-  const totalDiscountPrice = filteredCoupons?.reduce((acc, coupon) => {
+  const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
     const couponService = new CouponService(cartItems.content);
     return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
   }, 0);
+
+  const availableCoupons = coupons?.filter((coupon) => new CouponService(cartItems.content).canAdjustCoupon(coupon));
+
+  useEffect(() => {
+    if (selectedCouponIds.length > 0) return;
+    const mostDiscountCombination = availableCoupons
+      ?.sort((a, b) => {
+        const couponService = new CouponService(cartItems.content);
+        return (
+          couponService.calculateDiscountPrice(a, isFar) - couponService.calculateDiscountPrice(b, isFar) || a.id - b.id
+        );
+      })
+      .slice(0, 2);
+
+    setSelectedCouponIds(mostDiscountCombination?.map((coupon) => coupon.id) || []);
+  }, [availableCoupons, cartItems.content, isFar, selectedCouponIds.length, setSelectedCouponIds]);
 
   return (
     <Modal isBackdropClose>
@@ -71,6 +88,7 @@ export default function CouponModal() {
               coupon={coupon}
               isSelected={selectedCouponIds.includes(coupon.id)}
               onSelect={() => handleSelectCoupon(coupon.id)}
+              isCouponAvailable={availableCoupons?.includes(coupon)}
             />
           ))}
         </div>
