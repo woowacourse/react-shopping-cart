@@ -13,6 +13,9 @@ export const Footer = styled.footer<FooterProps>`
   height: 64px;
   cursor: pointer;
   position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 export const Button = styled.button`
