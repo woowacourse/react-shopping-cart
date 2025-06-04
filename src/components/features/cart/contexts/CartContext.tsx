@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { PaginationResponse } from '../../../../api/type';
 import { CartItemType } from '../types';
-import useFetch from '../hooks/useFetch';
+import fetchData from '../utils/fetchData';
 
 interface CartContextValue {
   cartItems: CartItemType[];
@@ -20,7 +20,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const fetcher = useFetch<PaginationResponse<CartItemType>>();
+  const fetcher = fetchData<PaginationResponse<CartItemType>>();
 
   const fetch = useCallback(async () => {
     const data = await fetcher('/cart-items?page=0&size=20');
