@@ -1,17 +1,18 @@
 import { useCallback, useState } from 'react';
 import { CartItemType } from '../types';
+import {
+  loadSelectedCartItemIds,
+  saveSelectedCartItemIds,
+} from '../utils/localSelectedCartItemIds';
 
 function useCartSelection(cartItems: CartItemType[]) {
   const [selectedCartItemIds, setSelectedCartItemIds] = useState<Set<number>>(
     () => {
-      const localSelectedCartItemIds = localStorage.getItem(
-        'selectedCartItemIds'
-      );
-      if (localSelectedCartItemIds) {
-        return new Set(JSON.parse(localSelectedCartItemIds));
-      }
+      const localSelected = loadSelectedCartItemIds();
 
-      return new Set(cartItems.map((item) => item.id));
+      return localSelected.size > 0
+        ? localSelected
+        : new Set(cartItems.map((item) => item.id));
     }
   );
 
@@ -25,18 +26,13 @@ function useCartSelection(cartItems: CartItemType[]) {
   );
 
   const toggleSelect = useCallback((targetId: number) => {
-    setSelectedCartItemIds((prevSelected) => {
-      const newSelected = new Set(prevSelected);
-      if (newSelected.has(targetId)) {
-        newSelected.delete(targetId);
-      } else {
-        newSelected.add(targetId);
-      }
+    setSelectedCartItemIds((prev) => {
+      const newSelected = new Set(prev);
+      newSelected.has(targetId)
+        ? newSelected.delete(targetId)
+        : newSelected.add(targetId);
 
-      localStorage.setItem(
-        'selectedCartItemIds',
-        JSON.stringify([...newSelected])
-      );
+      saveSelectedCartItemIds(newSelected);
       return newSelected;
     });
   }, []);
@@ -44,14 +40,13 @@ function useCartSelection(cartItems: CartItemType[]) {
   const toggleAllSelect = useCallback(() => {
     setSelectedCartItemIds(() => {
       if (isAllItemSelected) {
-        localStorage.setItem('selectedCartItemIds', JSON.stringify([]));
-        return new Set([]);
+        const empty = new Set<number>();
+        saveSelectedCartItemIds(empty);
+        return empty;
       } else {
-        localStorage.setItem(
-          'selectedCartItemIds',
-          JSON.stringify(cartItems.map((item) => item.id))
-        );
-        return new Set(cartItems.map((item) => item.id));
+        const full = new Set(cartItems.map((item) => item.id));
+        saveSelectedCartItemIds(full);
+        return full;
       }
     });
   }, [cartItems, isAllItemSelected]);
