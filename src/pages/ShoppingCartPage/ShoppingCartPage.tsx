@@ -8,9 +8,10 @@ import { useAPI } from '../../context/APIContext';
 import * as S from './ShoppingCartPage.styles';
 import { useState } from 'react';
 import { CartItemsResponse } from '../../types/cartItems';
+import Text from '../../components/Text/Text';
 
 export default function ShoppingCartPage() {
-  const { data, refetch } = useAPI<CartItemsResponse>({ fetcher: getCartItem, name: 'cartItem' });
+  const { data, isLoading, refetch } = useAPI<CartItemsResponse>({ fetcher: getCartItem, name: 'cartItem' });
   const navigate = useNavigate();
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
 
@@ -31,8 +32,8 @@ export default function ShoppingCartPage() {
       },
     });
   };
-
-  if (!data) return null;
+  if (isLoading) return <Text variant="title-1">로딩중입니다</Text>;
+  if (!data) return <Text variant="title-1">데이터가 없습니다</Text>;
   return (
     <>
       <Header title="SHOP" />
