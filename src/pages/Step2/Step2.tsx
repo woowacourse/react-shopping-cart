@@ -34,7 +34,7 @@ export default function Step2() {
 
   const cartItemService = new CartItemService(filteredCartItems ?? []);
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
-  const totalPriceWithDeliveryFee = cartItemService.calculateTotalPriceWithDeliveryFee(isFar);
+  const totalPrice = cartItemService.calculateTotalPrice();
 
   const totalType = cartItemService.calculateTotalType();
   const totalQuantity = cartItemService.calculateTotalQuantity();
@@ -121,7 +121,7 @@ export default function Step2() {
         <S.ReceiptWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">주문 금액</Text>
-            <Text variant="title-1">{totalPriceWithDeliveryFee.toLocaleString()}원</Text>
+            <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
           </ReceiptTextWrapper>
           <ReceiptTextWrapper>
             <Text variant="title-3">쿠폰 할인 금액</Text>
@@ -136,9 +136,7 @@ export default function Step2() {
 
           <ReceiptTextWrapper>
             <Text variant="title-3">총 결제 금액</Text>
-            <Text variant="title-1">
-              {(totalPriceWithDeliveryFee - totalDiscountPrice + deliveryFee).toLocaleString()}원
-            </Text>
+            <Text variant="title-1">{(totalPrice - totalDiscountPrice + deliveryFee).toLocaleString()}원</Text>
           </ReceiptTextWrapper>
         </S.ReceiptWrapper>
         <ButtonWrapper>
