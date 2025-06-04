@@ -1,11 +1,8 @@
 import styled from '@emotion/styled';
 import { useCartItemsContext } from '../../contexts/CartItemsContext';
-import getOrderPrice from '../../utils/getOrderPrice';
 import PriceRow from './PriceRow';
-import {
-  DELIVERY_PRICE,
-  DELIVERY_PRICE_THRESHOLD,
-} from '../../constants/config';
+import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../../constants/config';
+import { getOrderPrice } from '../../utils';
 
 const PriceSection = () => {
   const { cartItems, checkedCartIds } = useCartItemsContext();

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import BottomButton from '../components/BottomButton';
-import getOrderPrice from '../utils/getOrderPrice';
 import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { useLocation } from 'react-router-dom';
 import { CartItem } from '../types';
+import { getOrderPrice } from '../utils';
 
 const OrderConfirmPage = () => {
   const { state } = useLocation();
