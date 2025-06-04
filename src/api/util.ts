@@ -10,6 +10,6 @@ export const isSuccess = (response: Response) => {
   return response.ok;
 };
 
-export const isFetchError = (response: Response) => {
+export const isErrorWithStatus = (response: Response) => {
   return response.status in FETCH_ERROR_MESSAGE;
 };

@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Cart from "./pages/Cart/Cart";
 import OrderSummary from "./pages/OrderSummary/OrderSummary";
 
@@ -9,8 +8,7 @@ const basename =
 const router = createBrowserRouter(
   [
     {
-      path: "/",
-      element: <App />,
+      element: <Outlet />,
       children: [
         {
           path: "/",
@@ -24,7 +22,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename, // ✅ 이 부분 추가
+    basename,
   }
 );
 

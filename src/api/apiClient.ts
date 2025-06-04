@@ -2,7 +2,7 @@ import {
   DEFAULT_ERROR_MESSAGE,
   FETCH_ERROR_MESSAGE,
 } from "../constants/errorMessage";
-import { isEmptyResponse, isFetchError, isSuccess } from "./util";
+import { isEmptyResponse, isErrorWithStatus, isSuccess } from "./util";
 
 type FetchMethodType = "GET" | "POST" | "DELETE" | "PATCH";
 
@@ -48,7 +48,7 @@ const apiClient: ApiClientType = async <Response, RequestBody>({
     return response.json();
   }
 
-  if (isFetchError(response)) {
+  if (isErrorWithStatus(response)) {
     const errorBody = await response.json();
     const message =
       errorBody.message ?? FETCH_ERROR_MESSAGE[String(response.status)];
