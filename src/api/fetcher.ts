@@ -16,8 +16,8 @@ export async function fetcher<T>(
   endpoint: string,
   options: FetchOptions = {}
 ): Promise<T> {
-  const API_URL = import.meta.env.VITE_BASE_URL || "";
-  const TOKEN = import.meta.env.VITE_USER_TOKEN || "";
+  const API_URL = import.meta.env.VITE_BASE_URL;
+  const TOKEN = import.meta.env.VITE_USER_TOKEN;
 
   if (!API_URL) {
     throw new Error(API_URL_ERROR_MESSAGE);
@@ -35,7 +35,7 @@ export async function fetcher<T>(
     const urlParams = new URLSearchParams();
 
     Object.entries(options.params).forEach(([key, value]) => {
-      if (value !== undefined && value !== "") {
+      if (value !== "") {
         urlParams.append(key, value.toString());
       }
     });
