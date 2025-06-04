@@ -1,21 +1,21 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import * as S from "./OrderCompletePage.styled";
+import * as S from "./CheckPaymentPage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
 import { ResponseCartItem } from "../../types/types";
-interface OrderCompleteState {
+interface CheckPaymentState {
   selectedCartItem: ResponseCartItem[];
   totalPrice: number;
   orderPrice: number;
   deliveryPrice: number;
 }
 
-const OrderCompletePage = () => {
+const CheckPaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const state = location.state as OrderCompleteState;
+  const state = location.state as CheckPaymentState;
 
   useEffect(() => {
     if (!state) {
@@ -27,37 +27,21 @@ const OrderCompletePage = () => {
     navigate("/", { replace: true });
   };
 
-  const handleCheckPayment = (): void => {
-    navigate("/check-payment", {
-      state: {
-        selectedCartItem: state.selectedCartItem,
-        totalPrice: state.totalPrice,
-        orderPrice: state.orderPrice,
-        deliveryPrice: state.deliveryPrice,
-      },
-    });
-  };
-
   return (
     <S.Root>
       <S.OrderCompletePageWrapper>
-        <Header
-          orderStatus="order-complete"
-          setIsOrderComplete={handleBackToCart}
-        />
+        <Header orderStatus="check-payment" />
         <OrderResult
           selectedCartItem={state.selectedCartItem}
           totalPrice={state.totalPrice}
-          titleText="주문 확인"
+          titleText="결제 확인"
         />
         <S.ButtonContainer>
-          <S.PaymentButton onClick={handleCheckPayment}>
-            결제하기
-          </S.PaymentButton>
+          <S.PaymentButton onClick={handleBackToCart}>결제하기</S.PaymentButton>
         </S.ButtonContainer>
       </S.OrderCompletePageWrapper>
     </S.Root>
   );
 };
 
-export default OrderCompletePage;
+export default CheckPaymentPage;

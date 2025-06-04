@@ -4,9 +4,11 @@ import * as S from "./OrderResult.styled";
 function OrderResult({
   selectedCartItem,
   totalPrice,
+  titleText,
 }: {
   selectedCartItem: ResponseCartItem[];
   totalPrice: number;
+  titleText: string;
 }) {
   const totalCount = selectedCartItem.reduce(
     (count, cart) => count + cart.quantity,
@@ -15,7 +17,7 @@ function OrderResult({
 
   return (
     <S.OrderResultWrapper>
-      <S.OrderResultTitle>주문 확인</S.OrderResultTitle>
+      <S.OrderResultTitle>{titleText}</S.OrderResultTitle>
       <S.OrderResultDescription>
         총 {selectedCartItem.length}종류의 상품 {totalCount}개를 주문합니다.
       </S.OrderResultDescription>

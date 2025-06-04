@@ -2,19 +2,21 @@ import BackArrow from "../Icon/BackArrow";
 import * as S from "./Header.styled";
 
 function Header({
-  isOrderComplete,
+  orderStatus,
   setIsOrderComplete,
 }: {
-  isOrderComplete: boolean;
-  setIsOrderComplete: (value: boolean) => void;
+  orderStatus: "order" | "order-complete" | "check-payment";
+  setIsOrderComplete?: (value: boolean) => void;
 }) {
   return (
     <S.HeaderContainer>
       <S.HeaderTitle>
-        {isOrderComplete ? (
-          <S.HeaderIcon onClick={() => setIsOrderComplete(false)}>
+        {orderStatus === "order-complete" ? (
+          <S.HeaderIcon onClick={() => setIsOrderComplete?.(false)}>
             <BackArrow />
           </S.HeaderIcon>
+        ) : orderStatus === "check-payment" ? (
+          <></>
         ) : (
           "SHOP"
         )}

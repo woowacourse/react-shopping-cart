@@ -8,7 +8,7 @@ const CartPage = () => {
   return (
     <S.Root>
       <S.CartPageWrapper>
-        <Header isOrderComplete={false} setIsOrderComplete={() => {}} />
+        <Header orderStatus="order" />
         <CartDataLoader>
           <S.CartContentWrapper>
             <S.HeaderTitle>장바구니</S.HeaderTitle>
