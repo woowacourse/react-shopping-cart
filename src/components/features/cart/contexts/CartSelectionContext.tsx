@@ -32,7 +32,7 @@ export function CartSelectionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setSelectedList(Array.from({ length: cartItems.length }, () => true));
-  }, [cartItems]);
+  }, [cartItems.length]);
 
   const allSelected = useMemo(
     () => selectedList.length > 0 && selectedList.every(Boolean),
