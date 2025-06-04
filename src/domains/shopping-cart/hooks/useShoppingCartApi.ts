@@ -3,7 +3,7 @@ import { CartItemTypes } from "../types/cartItem";
 import { deleteShoppingCart, getShoppingCart } from "../api/shoppingCart";
 
 export function useShoppingCartApi() {
-  const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
+  const [cartItems, setCartItem] = useState<CartItemTypes[]>([]);
   const [error, setError] = useState("");
 
   async function withErrorHandling(
@@ -40,7 +40,7 @@ export function useShoppingCartApi() {
   return {
     getCartItemData,
     deleteCartItem,
-    cartItem,
+    cartItems,
     error,
   };
 }

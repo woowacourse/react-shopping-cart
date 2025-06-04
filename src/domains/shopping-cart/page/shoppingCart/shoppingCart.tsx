@@ -19,19 +19,19 @@ export function ShoppingCart() {
   const isFirstMount = useRef(true);
   const navigate = useNavigate();
 
-  const { getCartItemData, deleteCartItem, cartItem, error } =
+  const { getCartItemData, deleteCartItem, cartItems, error } =
     useShoppingCartApi();
   const {
     toggleSelectAll,
     toggleCartItem,
     removeFromSelection,
     selectedCartIds,
-  } = useSelectedCartIds(cartItem);
+  } = useSelectedCartIds(cartItems);
 
-  const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartIds });
+  const totalPrice = getTotalPrice({ cartItems: cartItems, selectedCartIds });
 
   const calculateCartItemQuantity = () => {
-    return cartItem.reduce((totalQuantity, item) => {
+    return cartItems.reduce((totalQuantity, item) => {
       if (selectedCartIds.includes(item.id.toString()))
         return totalQuantity + item.quantity;
       return totalQuantity;
@@ -54,11 +54,11 @@ export function ShoppingCart() {
   };
 
   useEffect(() => {
-    if (isFirstMount.current && cartItem.length !== 0) {
+    if (isFirstMount.current && cartItems.length !== 0) {
       toggleSelectAll();
       isFirstMount.current = false;
     }
-  }, [isFirstMount, cartItem]);
+  }, [isFirstMount, cartItems]);
 
   return (
     <PageLayout>
@@ -69,16 +69,16 @@ export function ShoppingCart() {
       <Main>
         <div css={titleBox}>
           <p css={titleStyle}>장바구니</p>
-          {cartItem.length !== 0 && (
+          {cartItems.length !== 0 && (
             <p css={subTitleStyle}>현재 2종류의 상품이 담겨있습니다.</p>
           )}
         </div>
-        {cartItem.length === 0 ? (
+        {cartItems.length === 0 ? (
           <EmptyShoppingCart />
         ) : (
           <>
             <CartProductContainer
-              cartItem={cartItem}
+              cartItems={cartItems}
               selectedCartIds={selectedCartIds}
               onDelete={async (id: string) => {
                 const response = await deleteCartItem(id);
@@ -100,11 +100,11 @@ export function ShoppingCart() {
           type="submit"
           size="full"
           style={
-            selectedCartIds.length === 0 || cartItem.length === 0
+            selectedCartIds.length === 0 || cartItems.length === 0
               ? "secondary"
               : "primary"
           }
-          disabled={selectedCartIds.length === 0 || cartItem.length === 0}
+          disabled={selectedCartIds.length === 0 || cartItems.length === 0}
         >
           주문 확인
         </Button>

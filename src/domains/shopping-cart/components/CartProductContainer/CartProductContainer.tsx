@@ -12,7 +12,7 @@ import {
 } from "./CartProductContainer.style";
 
 interface CartProductContainerProps {
-  cartItem: CartItemTypes[];
+  cartItems: CartItemTypes[];
   selectedCartIds: string[];
   onDelete: (id: string) => Promise<void>;
   updateCartItem: () => void;
@@ -20,7 +20,7 @@ interface CartProductContainerProps {
 }
 
 export default function CartProductContainer({
-  cartItem,
+  cartItems,
   selectedCartIds,
   onDelete,
   updateCartItem,
@@ -32,8 +32,8 @@ export default function CartProductContainer({
         <div css={SelectAllLayout}>
           <CheckBox
             isChecked={
-              selectedCartIds.length === cartItem.length &&
-              cartItem.length !== 0
+              selectedCartIds.length === cartItems.length &&
+              cartItems.length !== 0
             }
             dataTestId="select-all"
             id="select-all"
@@ -42,7 +42,7 @@ export default function CartProductContainer({
           <label htmlFor="select-all">전체 선택</label>
         </div>
         <section css={CartProductList}>
-          {cartItem.map((item) => {
+          {cartItems.map((item) => {
             return (
               <div css={CartItemBox}>
                 <Line />
