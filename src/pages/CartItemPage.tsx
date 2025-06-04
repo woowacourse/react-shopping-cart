@@ -1,13 +1,13 @@
 import { css } from "@emotion/css";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import CartItemCardList from "../components/CartItemList/CartItemList";
-import CartPageTitle from "../components/CartPageTitle/CartPageTitle";
 import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
 import { useCartItemContext } from "../contexts/useCartItemContext";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { PriceSummary } from "../components/PriceSummary/PriceSummary";
+import PageTitle from "../components/PageTitle/PageTitle";
 
 const CartItemPage = () => {
   const {
@@ -41,7 +41,7 @@ const CartItemPage = () => {
   if (loadingStatus === "success" && cartItems.length === 0) {
     return (
       <div className={CartItemPageStyles}>
-        <CartPageTitle cartItemsTypeCount={0} />
+        <PageTitle title="장바구니" />
         <Text text="장바구니에 담은 상품이 없습니다." />
       </div>
     );
@@ -50,7 +50,12 @@ const CartItemPage = () => {
   return (
     <>
       <div className={CartItemPageStyles}>
-        <CartPageTitle cartItemsTypeCount={cartItems.length} />
+        <PageTitle
+          title="장바구니"
+          titleCaption={
+            <Text text={`현재 ${cartItems.length}개의 상품이 담겨있습니다.`} />
+          }
+        />
         <CartItemCardList cartItems={cartItems} />
         <PriceSummary
           orderPrice={orderPrice}
