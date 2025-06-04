@@ -12,8 +12,8 @@ const PAGEABLE_DEFAULT = {
   sort: "",
 };
 
-async function deleteShoppingCart(productId: number) {
-  return apiClient.delete("cart-items", productId.toString());
+async function deleteShoppingCart(productId: string) {
+  return apiClient.delete("cart-items", productId);
 }
 
 async function getShoppingCart(pageable: PageableType = PAGEABLE_DEFAULT) {

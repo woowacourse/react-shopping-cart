@@ -21,8 +21,12 @@ export function ShoppingCart() {
 
   const { getCartItemData, deleteCartItem, cartItem, error } =
     useShoppingCartApi();
-  const { selectById, selectAll, selectedCartIds } =
-    useSelectedCartIds(cartItem);
+  const {
+    toggleSelectAll,
+    toggleCartItem,
+    removeFromSelection,
+    selectedCartIds,
+  } = useSelectedCartIds(cartItem);
 
   const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartIds });
 
@@ -44,9 +48,14 @@ export function ShoppingCart() {
     });
   };
 
+  const handleCheckBox = (id: string) => {
+    if (id === "select-all") return toggleSelectAll();
+    else toggleCartItem(id);
+  };
+
   useEffect(() => {
     if (isFirstMount.current && cartItem.length !== 0) {
-      selectAll();
+      toggleSelectAll();
       isFirstMount.current = false;
     }
   }, [isFirstMount, cartItem]);
@@ -70,11 +79,16 @@ export function ShoppingCart() {
           <>
             <CartProductContainer
               cartItem={cartItem}
-              updateCartItem={getCartItemData}
-              onDelete={deleteCartItem}
               selectedCartIds={selectedCartIds}
-              selectById={selectById}
-              selectAll={selectAll}
+              onDelete={async (id: string) => {
+                const response = await deleteCartItem(id);
+                if (response) {
+                  removeFromSelection(id);
+                  getCartItemData();
+                }
+              }}
+              updateCartItem={getCartItemData}
+              handleCheckBox={handleCheckBox}
             />
             <PaymentSummary price={totalPrice} />
           </>

@@ -13,26 +13,19 @@ import {
 
 interface CartProductContainerProps {
   cartItem: CartItemTypes[];
-  updateCartItem: () => void;
-  onDelete: (id: number) => void;
   selectedCartIds: string[];
-  selectById: (id: string) => void;
-  selectAll: () => void;
+  onDelete: (id: string) => Promise<void>;
+  updateCartItem: () => void;
+  handleCheckBox: (id: string) => void;
 }
 
 export default function CartProductContainer({
   cartItem,
-  updateCartItem,
-  onDelete,
   selectedCartIds,
-  selectById,
-  selectAll,
+  onDelete,
+  updateCartItem,
+  handleCheckBox,
 }: CartProductContainerProps) {
-  const handleCheckBox = (id: string) => {
-    if (id === "select-all") return selectAll();
-    else selectById(id);
-  };
-
   return (
     <>
       <div css={CartProductContainerLayout}>
@@ -60,7 +53,13 @@ export default function CartProductContainer({
                     onChange={handleCheckBox}
                     id={item.id.toString()}
                   />
-                  <Button onClick={() => onDelete(item.id)} style="ghost">
+                  <Button
+                    onClick={async () => {
+                      await onDelete(item.id.toString());
+                      updateCartItem();
+                    }}
+                    style="ghost"
+                  >
                     삭제
                   </Button>
                 </div>
