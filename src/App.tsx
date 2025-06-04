@@ -10,9 +10,6 @@ import { OrderListProvider } from "./pages/shopping-cart/context/OrderListProvid
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
 import { getBrowserBaseUrl } from "./utils/getBrowserBaseUrl";
 
-// const isLocalhost = window.location.hostname === "localhost";
-// const basename = isLocalhost ? "/" : "/react-shopping-cart";
-
 function App() {
   return (
     <>
