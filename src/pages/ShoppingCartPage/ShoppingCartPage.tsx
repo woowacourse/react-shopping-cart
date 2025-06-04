@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import ShoppingCartSection from '../../components/ShoppingCartSection/ShoppingCartSection';
 import { useAPI } from '../../context/APIContext';
 import * as S from './ShoppingCartPage.styles';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CartItemsResponse } from '../../types/cartItems';
 import Text from '../../components/Text/Text';
 
@@ -14,6 +14,14 @@ export default function ShoppingCartPage() {
   const { data, isLoading, refetch } = useAPI<CartItemsResponse>({ fetcher: getCartItem, name: 'cartItem' });
   const navigate = useNavigate();
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+  const hasInitialized = useRef(false);
+
+  useEffect(() => {
+    if (data && !hasInitialized.current) {
+      hasInitialized.current = true;
+      setSelectedItemIds(data.content.map((item) => item.id));
+    }
+  }, [data]);
 
   const handleNavigateClick = () => {
     navigate('/completed', {

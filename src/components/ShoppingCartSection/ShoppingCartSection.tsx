@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { CartItemsResponse } from '../../types/cartItems';
 import CartItem from '../CartItem/CartItem';
 import Checkbox from '../Checkbox/Checkbox';
@@ -21,7 +21,6 @@ export default function ShoppingCartSection({
   selectedItemIds,
   setSelectedItemIds,
 }: ShoppingCartSectionProps) {
-  const hasInitialized = useRef(false);
   const isAllSelected = items?.content.length > 0 && selectedItemIds.length === items.content.length;
 
   const orderPrice =
@@ -31,15 +30,6 @@ export default function ShoppingCartSection({
     ) || 0;
   const shippingFee = orderPrice >= 100000 ? 0 : 3000;
   const totalPrice = orderPrice + shippingFee;
-
-  useEffect(() => {
-    if (!items) return;
-
-    if (!hasInitialized.current) {
-      setSelectedItemIds(items.content.map((item) => item.id));
-      hasInitialized.current = true;
-    }
-  }, [items, setSelectedItemIds]);
 
   const handleCheckboxClick = (itemId: number) => {
     setSelectedItemIds((prev) => (prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]));
