@@ -33,7 +33,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       showToast('장바구니 정보를 불러올 수 없습니다.');
     }
   }, [cart.error, showToast]);
-  
+
   useEffect(() => {
     if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
       setCheckedItems(new Set(cart.data.map((item) => item.id)));

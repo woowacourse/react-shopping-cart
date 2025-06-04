@@ -7,7 +7,8 @@ type STEPS = '장바구니' | '주문정보';
 
 export const CartPage = () => {
   const { Funnel, setStep } = useFunnel<STEPS>('장바구니');
-  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCartContext();
+  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } =
+    useCartContext();
 
   return (
     <>

@@ -79,9 +79,7 @@ describe('CartProvider', () => {
       await result.current.updateQuantity(1, 999);
     });
 
-    expect(showToastMock).toHaveBeenCalledWith(
-      '"상품1" 상품의 최대 구매 수량은 10개 입니다.'
-    );
+    expect(showToastMock).toHaveBeenCalledWith('"상품1" 상품의 최대 구매 수량은 10개 입니다.');
   });
 
   it('removeCartItem 호출 시 mutate와 checkedItems 갱신이 실행된다.', async () => {
