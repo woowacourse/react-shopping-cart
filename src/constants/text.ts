@@ -6,6 +6,7 @@ export const TEXT = {
   ALL_SELECT: '전체 선택',
   CART_TITLE: '장바구니',
   ORDER_PRICE: '주문 금액',
+  COUPON_PRICE: '쿠폰 할인 금액',
   DELIVERY_FEE: '배송비',
   TOTAL_PRICE: '총 결제 금액',
   ORDER_CHECK: '주문 확인',
