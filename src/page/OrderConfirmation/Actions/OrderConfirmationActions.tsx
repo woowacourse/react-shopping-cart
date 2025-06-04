@@ -18,11 +18,7 @@ export default function OrderConfirmationActions({
   const handleOrderConfirm = () => {
     navigate(PAGE_URL.ORDER_COMPLETE, {
       state: {
-        selectedCartItemsLength: selectedCartItems.length,
-        selectedCartItemsCount: selectedCartItems.reduce(
-          (acc, item) => acc + item.quantity,
-          0
-        ),
+        selectedCartItems: selectedCartItems,
         finalPrice,
       },
     });

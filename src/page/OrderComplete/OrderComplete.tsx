@@ -4,6 +4,9 @@ import { OrderConfirmationLocationState } from "@/type/OrderConfirmation";
 import { PAGE_URL } from "@/constants/PageUrl";
 import ErrorPage from "../Error/ErrorPage";
 import Header from "@/components/common/Header/Header.tsx";
+import { isCartItem } from "@/util/validationTool.ts";
+
+import { useCartContext } from "@/components/Cart/CartContext.tsx";
 
 interface OrderCompleteProps {
   onReset: () => void;
@@ -12,8 +15,10 @@ interface OrderCompleteProps {
 function OrderComplete({ onReset }: OrderCompleteProps) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { handleOrderCartItem } = useCartContext();
 
-  const handleOrderConfirm = () => {
+  const handleOrderConfirm = async () => {
+    await handleOrderCartItem(location.state.selectedCartItems);
     navigate(PAGE_URL.HOME);
     onReset();
   };
@@ -26,16 +31,11 @@ function OrderComplete({ onReset }: OrderCompleteProps) {
     }
 
     const typedState = state as Record<string, unknown>;
-
     return (
-      typeof typedState.selectedCartItemsLength === "number" &&
-      typeof typedState.selectedCartItemsCount === "number" &&
+      Array.isArray(typedState.selectedCartItems) &&
+      typedState.selectedCartItems.every(isCartItem) &&
       typeof typedState.finalPrice === "number" &&
-      typedState.selectedCartItemsLength >= 0 &&
-      typedState.selectedCartItemsCount >= 0 &&
-      typedState.finalPrice >= 0 &&
-      Number.isInteger(typedState.selectedCartItemsLength) &&
-      Number.isInteger(typedState.selectedCartItemsCount)
+      typedState.finalPrice >= 0
     );
   };
 
@@ -43,19 +43,18 @@ function OrderComplete({ onReset }: OrderCompleteProps) {
     return <ErrorPage />;
   }
 
-  const { selectedCartItemsLength, selectedCartItemsCount, finalPrice } =
-    location.state;
+  const { selectedCartItems, finalPrice } = location.state;
 
   return (
     <Styled.Container>
       <Header />
-
       <Styled.Wrapper>
         <Styled.ContentSection>
           <Styled.Title>주문 확인</Styled.Title>
           <Styled.Description>
-            총 {selectedCartItemsLength}종류의 상품
-            {selectedCartItemsCount}개를 주문합니다.
+            총 {selectedCartItems.length}종류의 상품
+            {selectedCartItems.reduce((acc, item) => acc + item.quantity, 0)}
+            개를 주문합니다.
           </Styled.Description>
           <Styled.Description>
             최종 결제 금액을 확인해 주세요.
