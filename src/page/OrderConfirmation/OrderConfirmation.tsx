@@ -1,9 +1,9 @@
 import { CartItem } from "@/type/CartItem";
-import OrderConfirmationList from "@/components/OrderConfirmation/OrderConfirmationList/OrderConfirmationList";
-
-import OrderConfirmationPreviewCard from "@/components/OrderConfirmation/OrderConfirmationPreviewCard/OrderConfirmationPreviewCard";
 import * as Styled from "./OrderConfirmation.style";
 import * as CartListStyled from "@/components/Cart/CartList/CartList.style";
+
+import OrderConfirmationList from "@/components/OrderConfirmation/OrderConfirmationList/OrderConfirmationList";
+import OrderConfirmationPreviewCard from "@/components/OrderConfirmation/OrderConfirmationPreviewCard/OrderConfirmationPreviewCard";
 
 import CouponList from "@/components/Coupon/CouponList/CouponList";
 import CouponItem from "@/components/Coupon/CouponItem/CouponItem";
@@ -25,16 +25,19 @@ import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
 import CheckBox from "@/components/common/CheckBox";
 import { FREE_SHIPPING_OVER } from "@/constants/priceSetting";
 import notice from "/notice.svg";
+import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
+import Spinner from "@/components/common/Spinner";
 
-// Context 정의
 interface OrderConfirmationContextValue {
   selectedCartItems: CartItem[];
-  couponsData: Coupon[] | null;
-  result: CouponDiscountResult;
-  couponSelection: UseCouponSelectionReturn;
-  invalidCoupons?: Coupon[];
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
+  isInIsland: boolean;
+  setIsInIsland: (inIsland: boolean) => void;
+  couponsData: Coupon[] | null;
+  couponSelection: UseCouponSelectionReturn;
+  result: CouponDiscountResult;
+  invalidCoupons: Coupon[] | undefined;
 }
 
 export const OrderConfirmationContext =
@@ -43,27 +46,35 @@ export const OrderConfirmationContext =
 const useOrderConfirmationContext = () => {
   const context = useContext(OrderConfirmationContext);
   if (!context) {
-    throw new Error("OrderConfirmation 컴포넌트 내에서만 사용할 수 있습니다.");
+    throw new Error(
+      "useOrderConfirmationContext는 OrderConfirmationContext 안에서만 사용할 수 있습니다."
+    );
   }
   return context;
 };
 
 interface OrderConfirmationProps {
   selectedCartItems: CartItem[];
-  couponsData: Coupon[] | null;
-  result: CouponDiscountResult;
-  couponSelection: UseCouponSelectionReturn;
   children: ReactNode;
+  isInIsland: boolean;
+  setIsInIsland: (inIsland: boolean) => void;
+  couponsData: Coupon[] | null;
+  couponSelection: UseCouponSelectionReturn;
+  result: CouponDiscountResult;
 }
 
 function OrderConfirmation({
   selectedCartItems,
-  couponsData,
-  result,
-  couponSelection,
   children,
+  isInIsland,
+  setIsInIsland,
+  couponsData,
+  couponSelection,
+  result,
 }: OrderConfirmationProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { couponsFetchLoading } = useCouponFetch();
 
   const invalidCoupons = useMemo(
     () =>
@@ -73,13 +84,25 @@ function OrderConfirmation({
 
   const contextValue: OrderConfirmationContextValue = {
     selectedCartItems,
-    couponsData,
-    result,
-    couponSelection,
-    invalidCoupons,
     isModalOpen,
     setIsModalOpen,
+    isInIsland,
+    setIsInIsland,
+    couponsData,
+    couponSelection,
+    result,
+    invalidCoupons,
   };
+
+  if (couponsFetchLoading) {
+    return (
+      <OrderConfirmationContext.Provider value={contextValue}>
+        <Styled.OrderConfirmationContainer>
+          <Spinner />
+        </Styled.OrderConfirmationContainer>
+      </OrderConfirmationContext.Provider>
+    );
+  }
 
   return (
     <OrderConfirmationContext.Provider value={contextValue}>
@@ -92,12 +115,10 @@ function OrderConfirmation({
 
 function Header() {
   const { selectedCartItems } = useOrderConfirmationContext();
-
   const totalQuantity = selectedCartItems.reduce(
     (acc, item) => acc + item.quantity,
     0
   );
-
   return (
     <Styled.Header>
       <Styled.HeaderTitle>주문 확인</Styled.HeaderTitle>
@@ -114,7 +135,6 @@ function Header() {
 
 function ItemList() {
   const { selectedCartItems } = useOrderConfirmationContext();
-
   return (
     <OrderConfirmationList>
       {selectedCartItems.map((cartItem) => (
@@ -126,12 +146,12 @@ function ItemList() {
 
 function CouponSelection({ children }: PropsWithChildren) {
   const {
-    couponsData,
-    result,
-    couponSelection,
-    invalidCoupons,
     isModalOpen,
     setIsModalOpen,
+    couponsData,
+    couponSelection,
+    result,
+    invalidCoupons,
   } = useOrderConfirmationContext();
 
   const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
@@ -153,7 +173,6 @@ function CouponSelection({ children }: PropsWithChildren) {
                   const isSelected = !!selectedCouponIds?.has(coupon.id);
                   const isLimitReachedForThisCoupon =
                     !isSelected && isSelectedToLimit;
-
                   return (
                     <CouponItem
                       key={coupon.id}
@@ -162,7 +181,7 @@ function CouponSelection({ children }: PropsWithChildren) {
                       isSelected={isSelected}
                       isLimitReached={isLimitReachedForThisCoupon}
                       isInvalid={invalidCoupons?.some(
-                        (invalidCoupon) => invalidCoupon.id === coupon.id
+                        (invalid) => invalid.id === coupon.id
                       )}
                     />
                   );
@@ -189,7 +208,7 @@ function CouponSelection({ children }: PropsWithChildren) {
 }
 
 function ShippingIsland() {
-  const [isInIsland, setIsInIsland] = useState(false);
+  const { isInIsland, setIsInIsland } = useOrderConfirmationContext();
   return (
     <Styled.ShippingIsland>
       <Styled.ShippingIslandTitle>배송 정보</Styled.ShippingIslandTitle>
@@ -215,9 +234,9 @@ function ShippingIsland() {
     </Styled.ShippingIsland>
   );
 }
+
 function PriceDetails() {
   const { result } = useOrderConfirmationContext();
-
   return (
     <Styled.OrderPriceDetailWrapper>
       <Styled.OrderPriceDetails>
