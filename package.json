@@ -11,7 +11,7 @@
     "test": "vitest",
     "deploy": "vite build --base=/react-shopping-cart/ --minify=false && npx gh-pages -d dist"
   },
-  "homepage": "https://kimyou1102.github.io/react-shopping-products",
+  "homepage": "https://kimyou1102.github.io/react-shopping-cart",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@vitejs/plugin-react": "^4.5.0",
