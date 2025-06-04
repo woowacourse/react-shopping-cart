@@ -5,16 +5,16 @@ import ToastProvider from './contexts/ToastProvider';
 
 function App() {
   return (
-    <S.layout>
+    <S.Layout>
       <ToastProvider>
         <RouterProvider router={router} />
       </ToastProvider>
-    </S.layout>
+    </S.Layout>
   );
 }
 
 const S = {
-  layout: styled.div`
+  Layout: styled.div`
     position: relative;
     width: 430px;
     height: 100vh;

@@ -43,7 +43,7 @@ const PriceSection = () => {
 export default PriceSection;
 
 const S = {
-  calculationContainer: styled.div`
+  CalculationContainer: styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;

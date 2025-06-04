@@ -8,7 +8,7 @@ const Header = () => {
 
   const headerContent =
     pathname === '/react-shopping-cart/' ? (
-      <S.title>SHOP</S.title>
+      <S.Title>SHOP</S.Title>
     ) : (
       <button>
         <img
@@ -19,11 +19,11 @@ const Header = () => {
       </button>
     );
 
-  return <S.container>{headerContent}</S.container>;
+  return <S.Container>{headerContent}</S.Container>;
 };
 
 const S = {
-  container: styled.header`
+  Container: styled.header`
     display: flex;
     align-items: center;
     width: 100%;
@@ -32,7 +32,8 @@ const S = {
     background-color: black;
   `,
 
-  title: styled.p`
+  Title: styled.p`
+    user-select: none;
     color: white;
     font-size: 20px;
     font-weight: 800;

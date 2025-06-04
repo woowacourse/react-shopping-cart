@@ -24,7 +24,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
     <S.Container data-testid="item-card">
       <S.ButtonBox>
         <CheckBox checked={isChecked} onChange={handleCheckBoxClick} />
-        <S.deleteButton onClick={() => handleClickDelete(id)}>삭제</S.deleteButton>
+        <S.DeleteButton onClick={() => handleClickDelete(id)}>삭제</S.DeleteButton>
       </S.ButtonBox>
       <S.ItemBox>
         <S.ItemImage src={product.imageUrl} alt="product-image" />
@@ -108,7 +108,7 @@ const S = {
     width: 80px;
   `,
 
-  deleteButton: styled.button`
+  DeleteButton: styled.button`
     background-color: white;
     border: 2px solid #e6e6e6;
     border-radius: 8px;

@@ -18,9 +18,9 @@ const Toast = ({ message, onLater, time = 2500 }: ToastProps) => {
   }, [onLater, time]);
 
   return (
-    <S.container>
+    <S.Container>
       <p>{message}</p>
-    </S.container>
+    </S.Container>
   );
 };
 
@@ -49,7 +49,7 @@ const active = keyframes`
 `;
 
 const S = {
-  container: styled.div`
+  Container: styled.div`
     position: absolute;
     top: 64px;
     left: 0px;

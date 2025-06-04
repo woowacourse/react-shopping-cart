@@ -8,8 +8,8 @@ type PriceRowProps = {
 const PriceRow = ({ title, price }: PriceRowProps) => {
   return (
     <S.Container>
-      <S.title>{title}</S.title>
-      <S.price data-testid={title}>{`${price.toLocaleString()}원`}</S.price>
+      <S.Title>{title}</S.Title>
+      <S.Price data-testid={title}>{`${price.toLocaleString()}원`}</S.Price>
     </S.Container>
   );
 };
@@ -23,12 +23,12 @@ const S = {
     justify-content: space-between;
   `,
 
-  title: styled.p`
+  Title: styled.p`
     font-size: 16px;
     font-weight: 700;
   `,
 
-  price: styled.p`
+  Price: styled.p`
     font-size: 24px;
     font-weight: 700;
   `,
