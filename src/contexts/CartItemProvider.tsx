@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import { CartItem } from "../types/type";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
 import { LoadingStatus, useCartItems } from "../hooks/useCartItems";
-
+import { useSelected } from "../hooks/useSelected";
 interface CartItemContext {
   cartItems: CartItem[];
   loadingStatus: LoadingStatus;
@@ -35,19 +35,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     errorMessage,
     handleLoadingStatus,
   } = useCartItems();
-  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(
-    new Set()
-  );
-
-  const toggleSelectedItemId = (id: number) => {
-    const newSet = new Set(selectedItemIds);
-    newSet.has(id) ? newSet.delete(id) : newSet.add(id);
-    setSelectedItemIds(newSet);
-  };
-
-  const replaceSelectedItemIds = (ids: number[]) => {
-    setSelectedItemIds(new Set(ids));
-  };
+  const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
+    useSelected();
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {
     if (selectedItemIds.has(cartItem.id)) {

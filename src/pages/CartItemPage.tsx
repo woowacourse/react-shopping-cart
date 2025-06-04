@@ -50,44 +50,32 @@ const CartItemPage = () => {
 
   return (
     <>
-      {loadingStatus === "success" && (
-        <>
-          <div className={CartItemPageStyles}>
-            <CartPageTitle cartItemsTypeCount={cartItems.length} />
-            <CartItemCardList cartItems={cartItems} />
+      <div className={CartItemPageStyles}>
+        <CartPageTitle cartItemsTypeCount={cartItems.length} />
+        <CartItemCardList cartItems={cartItems} />
 
-            <div className={InfoRow}>
-              <img src="./info-icon.svg" alt="info" />
-              <Text
-                text={`총 주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
-              />
-            </div>
+        <div className={InfoRow}>
+          <img src="./info-icon.svg" alt="info" />
+          <Text
+            text={`총 주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
+          />
+        </div>
 
-            <hr className={Divider} />
-            <PriceRow
-              title="주문 금액"
-              price={orderPrice}
-              testId="order-price"
-            />
-            <PriceRow
-              title="배송비"
-              price={shippingFee}
-              testId="shipping-fee"
-            />
-            <hr className={Divider} />
-            <PriceRow title="총 결제 금액" price={totalPrice} />
-          </div>
+        <hr className={Divider} />
+        <PriceRow title="주문 금액" price={orderPrice} testId="order-price" />
+        <PriceRow title="배송비" price={shippingFee} testId="shipping-fee" />
+        <hr className={Divider} />
+        <PriceRow title="총 결제 금액" price={totalPrice} />
+      </div>
 
-          {cartItems.length > 0 && (
-            <ConfirmButton
-              text="주문하기"
-              disabled={selectedItemIds.size === 0}
-              onClick={() => {
-                navigate("/order-confirm");
-              }}
-            />
-          )}
-        </>
+      {cartItems.length > 0 && (
+        <ConfirmButton
+          text="주문하기"
+          disabled={selectedItemIds.size === 0}
+          onClick={() => {
+            navigate("/order-confirm");
+          }}
+        />
       )}
     </>
   );
