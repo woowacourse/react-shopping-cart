@@ -10,7 +10,7 @@ function App() {
     <>
       <Global styles={GlobalStyle} />
       <Layout>
-        <BrowserRouter basename="/react-shopping-cart">
+        <BrowserRouter basename="/react-shopping-cart/">
           <Routes>
             <Route path="/" element={<CartPage />} />
             <Route path="/orderConfirm" element={<OrderConfirmPage />} />
