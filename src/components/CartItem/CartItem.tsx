@@ -3,12 +3,13 @@ import { css } from '@emotion/react';
 // import { useCartItem } from '../../hooks';
 import * as S from './CartItem.styles';
 import Button from '../Button/Button';
-import PlusMinusButton from '../PlusMinusButton/PlusMinusButton';
+
 import Checkbox from '../Checkbox/Checkbox';
 
 import { deleteCartItem } from '../../apis/cartItem';
 import { CartItemsResponse } from '../../types/cartItems';
 import useCartItemController from '../../hooks/useCartItemController';
+import QuantityControlButton from '../QuantityControlButton/QuantityControlButton';
 
 interface CartItemProps {
   cartItem: CartItemsResponse['content'][number];
@@ -78,7 +79,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
         <S.CartItemInfoWrapper>
           <S.CartItemName>{name}</S.CartItemName>
           <S.CartItemPrice>{price.toLocaleString()}원</S.CartItemPrice>
-          <PlusMinusButton
+          <QuantityControlButton
             quantity={quantity}
             onAddButtonClick={handleAddButtonClick}
             onMinusButtonClick={handleMinusButtonClick}

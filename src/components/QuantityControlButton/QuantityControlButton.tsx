@@ -1,13 +1,17 @@
 import Button from '../Button/Button';
-import * as S from './PlusMinusButton.styles';
+import * as S from './QuantityControlButton.styles';
 
-interface PlusMinusButtonProps {
+interface QuantityControlButtonProps {
   onAddButtonClick: () => void;
   onMinusButtonClick: () => void;
   quantity: number;
 }
 
-export default function PlusMinusButton({ onAddButtonClick, onMinusButtonClick, quantity }: PlusMinusButtonProps) {
+export default function QuantityControlButton({
+  onAddButtonClick,
+  onMinusButtonClick,
+  quantity,
+}: QuantityControlButtonProps) {
   return (
     <S.ButtonWrapper>
       <Button css={S.controlButton} onClick={onMinusButtonClick}>
