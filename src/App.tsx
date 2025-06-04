@@ -4,14 +4,15 @@ import { css } from '@emotion/react';
 import OrderPage from './page/OrderPage';
 import { ApiProvider } from './contexts/ApiContext';
 import { ErrorContextProvider } from './contexts/ErrorContext';
+import { PATH } from './constants/path';
 
 const isTest = import.meta.env.MODE === 'test';
 const basename = isTest ? '' : '/react-shopping-cart';
 
 const router = createBrowserRouter(
   [
-    { path: '/', element: <CartPage /> },
-    { path: '/order', element: <OrderPage /> }
+    { path: PATH.CART, element: <CartPage /> },
+    { path: PATH.ORDER, element: <OrderPage /> }
   ],
   {
     basename
