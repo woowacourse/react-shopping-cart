@@ -6,10 +6,9 @@ interface useCartItemControllerProps {
   productId: number;
   stock: number;
   selectedCartItem?: Content;
-  onChange: () => void;
 }
 
-export default function useCartItemController({ stock, selectedCartItem, onChange }: useCartItemControllerProps) {
+export default function useCartItemController({ stock, selectedCartItem }: useCartItemControllerProps) {
   const [quantity, setQuantity] = useState(selectedCartItem?.quantity ?? 0);
   const [showToast, setShowToast] = useState(false);
 
@@ -26,7 +25,6 @@ export default function useCartItemController({ stock, selectedCartItem, onChang
     }
     await patchCartItem({ id: selectedCartItem!.id, quantity: next });
     setQuantity(next);
-    onChange();
   };
 
   const handleDecrease = async () => {
@@ -37,7 +35,6 @@ export default function useCartItemController({ stock, selectedCartItem, onChang
       await patchCartItem({ id: selectedCartItem!.id, quantity: next });
     }
     setQuantity(next);
-    onChange();
   };
 
   return {

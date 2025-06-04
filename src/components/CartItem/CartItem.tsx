@@ -26,9 +26,6 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
   const { handleIncrease, handleDecrease } = useCartItemController({
     stock: 100,
     selectedCartItem: cartItem,
-    onChange: () => {
-      console.log('Cart item updated');
-    },
     productId: cartItem.product.id,
   });
 
