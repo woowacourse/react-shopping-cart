@@ -67,7 +67,7 @@ interface useCartItemListReturn {
 
 const useCartItemList = (): useCartItemListReturn => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const { cartItemList, handleCartItemList } = useCartItemListContext();
+  const { cartItemList, updateCartItemList } = useCartItemListContext();
   const { handleErrorMessage } = useErrorContext();
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const useCartItemList = (): useCartItemListReturn => {
           size: "50",
         },
       });
-      handleCartItemList(content);
+      updateCartItemList(content);
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
     } catch (error) {
       dispatch({ type: ACTION_TYPE.FETCH_FAIL });
