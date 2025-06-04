@@ -41,17 +41,6 @@ function OrderConfirmation({
     [couponsData, selectedCartItems, result.orderTotal]
   );
 
-  // 디버깅을 위한 콘솔 로그
-  console.log("🔍 Debug Info:", {
-    selectedCouponIds: selectedCouponIds ? Array.from(selectedCouponIds) : [],
-    isSelectedToLimit,
-    invalidCouponIds: invalidCoupons?.map((c) => c.id) || [],
-    totalAmount: selectedCartItems.reduce(
-      (sum, item) => sum + item.product.price * item.quantity,
-      0
-    ),
-  });
-
   return (
     <>
       <OrderConfirmationHeader handleGoBackToHomeButton={onPrev} />
@@ -98,6 +87,9 @@ function OrderConfirmation({
                     );
                   })}
                 </CouponList>
+                <Styled.CouponComboNotice>
+                  🏷️ 자동으로 가장 큰 할인 금액의 쿠폰이 적용됩니다!
+                </Styled.CouponComboNotice>
                 <Styled.CouponButton onClick={() => setIsOpen(false)}>
                   총 {result.discountTotal.toLocaleString()}원 할인쿠폰 사용하기
                 </Styled.CouponButton>
@@ -134,14 +126,19 @@ function OrderConfirmation({
               -{result.discountTotal.toLocaleString()}원
             </Styled.DiscountTotalPrice>
           </Styled.OrderWrapper>
-
           <Styled.OrderWrapper>
-            <Styled.FinalTotalTitle>총 결제 금액</Styled.FinalTotalTitle>
-            <Styled.FinalTotalPrice>
-              {result.finalTotal.toLocaleString()}원
-            </Styled.FinalTotalPrice>
+            <Styled.OrderTotalTitle>배송비</Styled.OrderTotalTitle>
+            <Styled.OrderTotalPrice>
+              {result.shippingFee.toLocaleString()}원
+            </Styled.OrderTotalPrice>
           </Styled.OrderWrapper>
         </Styled.OrderPriceDetails>
+        <Styled.FinalTotalWrapper>
+          <Styled.FinalTotalTitle>총 결제 금액</Styled.FinalTotalTitle>
+          <Styled.FinalTotalPrice>
+            {result.finalTotal.toLocaleString()}원
+          </Styled.FinalTotalPrice>
+        </Styled.FinalTotalWrapper>
       </Styled.Container>
     </>
   );
