@@ -5,7 +5,6 @@ import { updateCartItem } from '../api/updateCartItem';
 
 interface CartItemQuantitySelectorProps {
   cartItem: CartItem;
-  quantity: number;
   isSelected: boolean;
   updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
@@ -15,10 +14,9 @@ export default function CartItemQuantitySelector({
   isSelected,
   updateSelectedCartItem,
   cartItem,
-  quantity,
   setCartItems,
 }: CartItemQuantitySelectorProps) {
-  const [cartQuantity, setCartQuantity] = useState<number>(quantity);
+  const [cartQuantity, setCartQuantity] = useState<number>(cartItem.quantity);
 
   useEffect(() => {
     updateToRecentCartItems({
