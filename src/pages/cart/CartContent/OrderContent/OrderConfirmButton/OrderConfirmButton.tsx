@@ -1,24 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/shared/config/routes";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { getDeliveryPrice } from "@/domains/utils/getDeliveryPrice";
 import BottomFixedButton from "@/shared/components/BottomFixedButton/BottomFixedButton";
 
-type OrderConfirmButton = {
+type OrderConfirmButtonProps = {
   orderList: CartItemType[];
-  orderTotalPrice: number;
+  paymentPrice: number;
 };
 
 export default function OrderConfirmButton({
   orderList,
-  orderTotalPrice,
-}: OrderConfirmButton) {
+  paymentPrice,
+}: OrderConfirmButtonProps) {
   const navigate = useNavigate();
   const handleOrderConfirmButtonClick = () => {
     navigate(ROUTES.ORDER_CONFIRM, {
       state: {
         orderList,
-        paymentPrice: orderTotalPrice + getDeliveryPrice(orderTotalPrice),
+        paymentPrice,
       },
     });
   };

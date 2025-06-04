@@ -40,6 +40,7 @@ export default function OrderContent() {
       price: deliveryPrice,
     },
   ];
+  const paymentPrice = orderTotalPrice + deliveryPrice;
   return (
     <>
       <AllCheckBox
@@ -58,15 +59,9 @@ export default function OrderContent() {
             />
           ))}
         </CartList>
-        <PriceContainer
-          priceList={priceList}
-          paymentPrice={orderTotalPrice + deliveryPrice}
-        />
+        <PriceContainer priceList={priceList} paymentPrice={paymentPrice} />
       </S.ScrollContainer>
-      <OrderConfirmButton
-        orderList={orderList}
-        orderTotalPrice={orderTotalPrice}
-      />
+      <OrderConfirmButton orderList={orderList} paymentPrice={paymentPrice} />
     </>
   );
 }
