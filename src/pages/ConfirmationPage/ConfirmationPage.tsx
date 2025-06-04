@@ -40,7 +40,7 @@ export default function ConfirmationPage() {
 
   return (
     <S.ConfirmationContainer>
-      <Navbar title='◀' url={ROUTES.CART} />
+      <Navbar title="◀" url={ROUTES.CART} />
       <S.ConfirmationSection>
         <S.ConfirmationTitle>주문 확인</S.ConfirmationTitle>
         <S.ConfirmationQuantity>
@@ -51,7 +51,7 @@ export default function ConfirmationPage() {
         <S.ConfirmationTotalPurchasePrice>{totalPrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
       </S.ConfirmationSection>
       <S.ConfirmationFooterContainer>
-        <Button onClick={handleClick} title='결제하기' css={ButtonCSS} disabled={selectedCartItems.length === 0} />
+        <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={selectedCartItems.length === 0} />
       </S.ConfirmationFooterContainer>
     </S.ConfirmationContainer>
   );

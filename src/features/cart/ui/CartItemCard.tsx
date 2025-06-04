@@ -55,10 +55,10 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
   };
 
   return (
-    <S.CartItemContainer data-testid='cart-item-card'>
+    <S.CartItemContainer data-testid="cart-item-card">
       <S.CartItemHeader>
-        <SelectInput type='checkbox' onChange={handleSelectedCartItemUpdate} checked={isSelected} />
-        <Button title='삭제' css={deleteButtonCSS} onClick={handleCartItemDelete} />
+        <SelectInput type="checkbox" onChange={handleSelectedCartItemUpdate} checked={isSelected} />
+        <Button title="삭제" css={deleteButtonCSS} onClick={handleCartItemDelete} />
       </S.CartItemHeader>
       <S.CartItemContent>
         <S.CartItemImage
@@ -72,8 +72,8 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
         />
         <S.CartItemInfo>
           <S.CartItemInfoDetails>
-            <S.CartItemInfoName data-testid='cart-item-name'>{cartItem.product.name}</S.CartItemInfoName>
-            <S.CartItemInfoPrice data-testid='card-item-price'>
+            <S.CartItemInfoName data-testid="cart-item-name">{cartItem.product.name}</S.CartItemInfoName>
+            <S.CartItemInfoPrice data-testid="card-item-price">
               {cartItem.product.price.toLocaleString()}원
             </S.CartItemInfoPrice>
           </S.CartItemInfoDetails>

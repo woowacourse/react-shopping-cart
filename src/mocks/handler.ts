@@ -1,5 +1,5 @@
-import { http, HttpResponse } from "msw";
-import rawCartItems from "./cartItems.json";
+import { http, HttpResponse } from 'msw';
+import rawCartItems from './cartItems.json';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -18,7 +18,7 @@ const updateCartItemQuantity = async ({ params, request }) => {
   if (itemIndex !== -1) {
     cartItems[itemIndex].quantity = quantity;
   }
-  return HttpResponse.json({ message: "장바구니 아이템이 변경되었습니다." });
+  return HttpResponse.json({ message: '장바구니 아이템이 변경되었습니다.' });
 };
 
 const deleteCartItem = ({ params }) => {

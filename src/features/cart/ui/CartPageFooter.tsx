@@ -38,7 +38,7 @@ export default function Footer({ cartItemQuantity }: { cartItemQuantity: number 
     <FooterContainer>
       <Button
         onClick={handleClick}
-        title='주문 확인'
+        title="주문 확인"
         css={ButtonCSS}
         disabled={cartItemQuantity === 0 || selectedCartItems.length === 0}
       />

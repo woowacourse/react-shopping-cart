@@ -1,13 +1,9 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from "react-router";
-import { ROUTES } from "../../shared/constants/routeConstants";
-import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
-import CartPage from "../../pages/CartPage/CartPage";
-import Layout from "../layout/Layout";
-import ConfirmationPage from "../../pages/ConfirmationPage/ConfirmationPage";
+import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router';
+import { ROUTES } from '../../shared/constants/routeConstants';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
+import CartPage from '../../pages/CartPage/CartPage';
+import Layout from '../layout/Layout';
+import ConfirmationPage from '../../pages/ConfirmationPage/ConfirmationPage';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
