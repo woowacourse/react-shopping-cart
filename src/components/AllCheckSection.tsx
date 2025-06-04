@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import CheckBox from '../components/CheckBox';
-import useCheckedCartItemActions from '../hooks/useCheckedCartItemActions';
+import useCheckedCartIdsActions from '../hooks/useCheckedCartIdsActions';
 
 const AllCheckSection = () => {
-  const { isAllChecked, toggleAllChecked } = useCheckedCartItemActions();
+  const { isAllChecked, toggleAllChecked } = useCheckedCartIdsActions();
 
   return (
     <S.Container data-testid="allCheckSection">

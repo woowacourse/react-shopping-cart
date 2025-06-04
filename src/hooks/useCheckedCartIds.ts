@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import getIdsFromCartItems from '../utils/getIdsFromCartItems';
 import { CartItem } from '../types';
 
-const useCheckedCartItems = () => {
+const useCheckedCartIds = () => {
   const [checkedCartIds, setCheckedCartIds] = useState<number[]>([]);
 
   const addCheckedCartItem = (id: number) => {
@@ -25,4 +25,4 @@ const useCheckedCartItems = () => {
   };
 };
 
-export default useCheckedCartItems;
+export default useCheckedCartIds;

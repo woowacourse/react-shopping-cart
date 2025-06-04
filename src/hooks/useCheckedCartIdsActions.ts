@@ -1,6 +1,6 @@
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 
-const useCheckedCartItemActions = () => {
+const useCheckedCartIdsActions = () => {
   const { cartItems, checkedCartIds, addCheckedCartItem, removeCheckedCartItem, init } =
     useCartItemsContext();
 
@@ -29,4 +29,4 @@ const useCheckedCartItemActions = () => {
   };
 };
 
-export default useCheckedCartItemActions;
+export default useCheckedCartIdsActions;

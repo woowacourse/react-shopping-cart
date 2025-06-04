@@ -1,13 +1,13 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { CartItemsContext } from './CartItemsContext';
 import useCartItems from '../hooks/useCartItems';
-import useCheckedCartItems from '../hooks/useCheckedCartItems';
+import useCheckedCartIds from '../hooks/useCheckedCartIds';
 
 const CartItemsProvider = ({ children }: { children: ReactNode }) => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
 
   const cartItemsState = useCartItems();
-  const checkedCartItemsState = useCheckedCartItems();
+  const checkedCartItemsState = useCheckedCartIds();
 
   const { cartItems } = cartItemsState;
   const { init } = checkedCartItemsState;
