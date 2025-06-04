@@ -1,5 +1,6 @@
 import {
   calculateOrderPrice,
+  calculateTotalPrice,
   calculateTotalProductQuantity,
 } from '../../cart/utils/cartCalculations';
 import { useLocation } from 'react-router';
@@ -11,6 +12,7 @@ export default function useOrderSummary() {
   const quantity = products.length;
   const totalProductQuantity = calculateTotalProductQuantity(products);
   const price = calculateOrderPrice(products);
+  const { totalPrice } = calculateTotalPrice(price);
 
-  return { quantity, totalProductQuantity, price };
+  return { quantity, totalProductQuantity, totalPrice };
 }

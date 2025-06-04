@@ -17,7 +17,7 @@ function OrderConfirmContents() {
         </S.Description>
         <S.PriceBox>
           <S.PriceText>총 결제 금액</S.PriceText>
-          <S.Price>{order.price.toLocaleString()}원</S.Price>
+          <S.Price>{order.totalPrice.toLocaleString()}원</S.Price>
         </S.PriceBox>
       </S.InfoBox>
       <FooterButton disabled onClick={() => {}}>
