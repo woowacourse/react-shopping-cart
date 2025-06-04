@@ -46,8 +46,6 @@ interface CartContextType {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
-
-  errorMessage: string;
 }
 
 interface CartItemCheckType {
@@ -225,8 +223,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         orderPrice: calculateOrderPrice(),
         shippingFee: calculateShippingFee(),
         totalPrice: calculateOrderPrice() + calculateShippingFee(),
-
-        errorMessage,
       }}
     >
       {children}
