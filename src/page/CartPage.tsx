@@ -4,9 +4,19 @@ import { css } from '@emotion/react';
 import CartItemList from '../components/CartItemList/CartItemList';
 import { useApiContext } from '../contexts/ApiContext';
 import getCartItems from '../api/getCartItem';
+import { useEffect } from 'react';
+import { useErrorContext } from '../contexts/ErrorContext';
 
 function CartPage() {
-  const { data: cartItems } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });
+  const { data: cartItems, error } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });
+
+  const { showError } = useErrorContext();
+
+  useEffect(() => {
+    if (error) {
+      showError(error);
+    }
+  }, [error, showError]);
 
   return (
     <>
