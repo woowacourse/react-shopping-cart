@@ -14,7 +14,6 @@ const CartCount = ({ count, onPlusCount, onMinusCount, testId }: Props) => {
     border-radius: 10px;
     padding: 5px 5px;
   `;
-  console.log(count);
 
   return (
     <CartCountSection data-testid={testId}>
