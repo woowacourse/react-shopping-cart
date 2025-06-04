@@ -2,7 +2,6 @@ import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelConte
 import { useCartItem } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
-import { useEffect } from "react";
 import { useShoppingCartContext } from "../MainPage/context";
 import * as S from "./Step1.styles";
 
@@ -23,16 +22,14 @@ export default function Step1() {
     else setSelectedItemIds(cartItems?.content.map((item) => item.id) ?? []);
   };
 
-  const cartItemService = new CartItemService(cartItems?.content ?? []);
+  const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
+
+  const cartItemService = new CartItemService(selectedCartItems ?? []);
   const orderPrice = cartItemService.calculateTotalPrice();
   const deliveryFee = cartItemService.calculateDeliveryFee(false);
   const totalPrice = cartItemService.calculateTotalPriceWithDeliveryFee(false);
 
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
-
-  useEffect(() => {
-    setSelectedItemIds(cartItems?.content.map((item) => item.id) ?? []);
-  }, [cartItems]);
 
   if (!cartItems) return null;
   return (
