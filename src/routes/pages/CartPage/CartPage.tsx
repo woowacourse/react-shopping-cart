@@ -20,6 +20,7 @@ import { useToastContext } from '../../../context/ToastContext';
 import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
 import CartListHeader from '../../../components/CartList/CartList';
+import { TEXT } from '../../../constants/text';
 
 function CartPage() {
   const cartList = useCartList();
@@ -76,7 +77,10 @@ function CartPage() {
       </Header>
       <ContainerLayout>
         {isVisible && <Toast message={cartList.error} />}
-        <CartListTitle count={cartList.data.length} />
+        <CartListTitle
+          title={TEXT.CART_TITLE}
+          description={`현재 ${cartList.data.length}종류의 상품이 담겨있습니다.`}
+        />
         {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton
