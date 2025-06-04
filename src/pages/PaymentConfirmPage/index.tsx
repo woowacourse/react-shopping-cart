@@ -23,6 +23,8 @@ const PaymentConfirmPage = () => {
 
   const { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice } = location.state;
 
+  const handleNavigate = () => navigate("/");
+
   return (
     <>
       <Header>
@@ -43,8 +45,8 @@ const PaymentConfirmPage = () => {
           </S.TextWrap>
         </S.Information>
         <S.ButtonWrap>
-          <Button variant="disabled" onClick={() => {}}>
-            결제하기
+          <Button variant="primary" onClick={handleNavigate}>
+            장바구니로 돌아가기
           </Button>
         </S.ButtonWrap>
       </S.Container>
