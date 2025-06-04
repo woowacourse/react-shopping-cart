@@ -1,14 +1,14 @@
 import { http, HttpResponse } from 'msw';
-import { fetchedData } from '../../test/mocks';
+import { fetchedCartData, mockCoupons } from '../../test/mocks';
 
 export const handlers = [
   http.get('*/cart-items', () => {
-    return HttpResponse.json(fetchedData);
+    return HttpResponse.json(fetchedCartData);
   }),
 
   http.delete(`*/cart-items/:id`, async ({ params }) => {
     const id = Number(params.id);
-    fetchedData.content = fetchedData.content.filter((cart) => cart.id !== id);
+    fetchedCartData.content = fetchedCartData.content.filter((cart) => cart.id !== id);
     return HttpResponse.json({ ok: true }, { status: 201 });
   }),
 
@@ -16,15 +16,17 @@ export const handlers = [
     const cartId = Number(params.id);
     const body = await request.json();
     const { quantity } = body as { quantity: number };
-    const cartIndex = fetchedData.content.findIndex(
-      (item) => item.id === cartId
-    );
+    const cartIndex = fetchedCartData.content.findIndex((item) => item.id === cartId);
     if (!cartId || quantity < 1) return HttpResponse.error();
-    const cartItem = fetchedData.content[cartIndex];
-    fetchedData.content[cartIndex] = {
+    const cartItem = fetchedCartData.content[cartIndex];
+    fetchedCartData.content[cartIndex] = {
       ...cartItem,
       quantity,
     };
     return HttpResponse.json({ ok: true }, { status: 200 });
+  }),
+
+  http.get(`*/coupons`, () => {
+    return HttpResponse.json(mockCoupons);
   }),
 ];
