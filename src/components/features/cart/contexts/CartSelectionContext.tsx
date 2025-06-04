@@ -56,16 +56,28 @@ export function CartSelectionProvider({ children }: { children: ReactNode }) {
   );
   const disabled = !selectedList.some(Boolean);
 
-  const value: CartSelectionContextValue = {
-    selectedList,
-    allSelected,
-    selectCartItems,
-    orderPrice,
-    disabled,
-    setSelectedList,
-    toggle,
-    toggleAll,
-  };
+  const value = useMemo(
+    () => ({
+      selectedList,
+      allSelected,
+      selectCartItems,
+      orderPrice,
+      disabled,
+      setSelectedList,
+      toggle,
+      toggleAll,
+    }),
+    [
+      selectedList,
+      allSelected,
+      selectCartItems,
+      orderPrice,
+      disabled,
+      setSelectedList,
+      toggle,
+      toggleAll,
+    ]
+  );
 
   return (
     <CartSelectionContext.Provider value={value}>
