@@ -13,9 +13,11 @@ interface DataState<T> {
   error: Error | null;
 }
 
+type DataType = Record<string, DataState<unknown>>;
+
 interface DataContextType {
-  data: Record<string, DataState<unknown>>;
-  setData: React.Dispatch<React.SetStateAction<Record<string, DataState<unknown>>>>;
+  data: DataType;
+  setData: React.Dispatch<React.SetStateAction<DataType>>;
 }
 
 const DataContext = createContext<DataContextType>({
