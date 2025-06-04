@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
@@ -8,65 +8,47 @@ import Header from "../../../../layout/Header/Header";
 import Main from "../../../../layout/Main/Main";
 import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
 import { EmptyShoppingCart } from "../../../orderConfirm/compoennt/EmptyShoppingCart/EmptyShoppingCart";
-import { getShoppingCart } from "../../api/shoppingCart";
 import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
-import { CartItemTypes } from "../../types/cartItem";
+import { useSelectedCartIds } from "../../hooks/useSelectedCartIds";
+import { useShoppingCartApi } from "../../hooks/useShoppingCartApi";
 import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
 
 export function ShoppingCart() {
-  const [cartItem, setCartItem] = useState<CartItemTypes[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedCartId, setSelectedCartId] = useState<string[]>([]);
+  const { getCartItemData, setError, cartItem, error, isLoading } =
+    useShoppingCartApi();
+  const isFirstMount = useRef(true);
+
+  const {
+    calculateCartItemQuantity,
+    selectAllCartItems,
+    selectedCartIds,
+    setSelectedCartIds,
+  } = useSelectedCartIds(cartItem);
 
   const navigate = useNavigate();
-  const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartId });
 
-  const calculateCartItemQuantity = () => {
-    return cartItem.reduce((totalQuantity, item) => {
-      if (selectedCartId.includes(item.id.toString()))
-        return totalQuantity + item.quantity;
-      return totalQuantity;
-    }, 0);
-  };
+  const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartIds });
 
   const handleConfirm = () => {
     navigate("/confirm", {
       state: {
-        selectedCartType: selectedCartId.length,
+        selectedCartType: selectedCartIds.length,
         selectedCartItem: calculateCartItemQuantity(),
         totalPrice,
       },
     });
   };
 
-  const getCartItemData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await getShoppingCart();
-      if (cartItem.length === 0) setIsLoading(false);
-      setCartItem(response);
-    } catch (e) {
-      setError("데이터를 가져오는데 실패했습니다");
-    }
-  };
-
-  const handleError = (errorMessage: string) => {
-    setError(errorMessage);
-  };
-
   useEffect(() => {
-    getCartItemData();
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading && cartItem) {
-      setSelectedCartId(cartItem.map((item) => item.id.toString()));
+    if (isFirstMount.current && cartItem.length !== 0) {
+      selectAllCartItems();
+      isFirstMount.current = false;
     }
-  }, [isLoading, cartItem]);
+  }, [isFirstMount, cartItem]);
 
+  console.log("장바구니 데이터", selectedCartIds);
   return (
     <PageLayout>
       <Header>
@@ -87,10 +69,10 @@ export function ShoppingCart() {
             <CartProductContainer
               cartItem={cartItem}
               onChange={getCartItemData}
-              onError={handleError}
-              selectedCartId={selectedCartId}
-              setSelectedCartId={setSelectedCartId}
-            />
+              onError={(errorMessage) => setError(errorMessage)}
+              selectedCartIds={selectedCartIds}
+              setSelectedCartIds={setSelectedCartIds}
+            ></CartProductContainer>
             <PaymentSummary price={totalPrice} />
           </>
         )}
@@ -101,11 +83,11 @@ export function ShoppingCart() {
           type="submit"
           size="full"
           style={
-            selectedCartId.length === 0 || cartItem.length === 0
+            selectedCartIds.length === 0 || cartItem.length === 0
               ? "secondary"
               : "primary"
           }
-          disabled={selectedCartId.length === 0 || cartItem.length === 0}
+          disabled={selectedCartIds.length === 0 || cartItem.length === 0}
         >
           주문 확인
         </Button>

@@ -16,28 +16,28 @@ interface CartProductContainerProps {
   cartItem: CartItemTypes[];
   onChange: () => void;
   onError: (message: string) => void;
-  selectedCartId: string[];
-  setSelectedCartId: (id: string[]) => void;
+  selectedCartIds: string[];
+  setSelectedCartIds: (id: string[]) => void;
 }
 
 export default function CartProductContainer({
   cartItem,
   onChange,
   onError,
-  selectedCartId,
-  setSelectedCartId,
+  selectedCartIds,
+  setSelectedCartIds,
 }: CartProductContainerProps) {
   const handleCheckBox = (id: string) => {
     if (id === "select-all") {
-      if (selectedCartId.length === 0) {
-        setSelectedCartId(cartItem.map((item) => item.id.toString()));
-      } else setSelectedCartId([]);
+      if (selectedCartIds.length === 0) {
+        setSelectedCartIds(cartItem.map((item) => item.id.toString()));
+      } else setSelectedCartIds([]);
       return;
     }
-    if (selectedCartId.includes(id)) {
-      setSelectedCartId(selectedCartId.filter((itemId) => itemId !== id));
+    if (selectedCartIds.includes(id)) {
+      setSelectedCartIds(selectedCartIds.filter((itemId) => itemId !== id));
     } else {
-      setSelectedCartId([...selectedCartId, id]);
+      setSelectedCartIds([...selectedCartIds, id]);
     }
   };
 
@@ -56,7 +56,8 @@ export default function CartProductContainer({
         <div css={SelectAllLayout}>
           <CheckBox
             isChecked={
-              selectedCartId.length === cartItem.length && cartItem.length !== 0
+              selectedCartIds.length === cartItem.length &&
+              cartItem.length !== 0
             }
             dataTestId="select-all"
             id="select-all"
@@ -72,7 +73,7 @@ export default function CartProductContainer({
                 <div css={CartItemHeader}>
                   <CheckBox
                     dataTestId={`select-${item.id}`}
-                    isChecked={selectedCartId.includes(item.id.toString())}
+                    isChecked={selectedCartIds.includes(item.id.toString())}
                     onChange={handleCheckBox}
                     id={item.id.toString()}
                   />

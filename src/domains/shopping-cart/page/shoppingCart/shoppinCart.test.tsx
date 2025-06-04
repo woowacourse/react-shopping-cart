@@ -47,7 +47,7 @@ describe("장바구니 페이지 테스트", () => {
     );
     const prevTotalPrice = getTotalPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
-      selectedCartId: selectedId,
+      selectedCartIds: selectedId,
     });
 
     const orderPrice = await screen.findByTestId("orderPrice");
@@ -83,7 +83,7 @@ describe("장바구니 페이지 테스트", () => {
     );
     const prevTotalPrice = getTotalPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
-      selectedCartId: selectedId,
+      selectedCartIds: selectedId,
     });
 
     const orderPrice = await screen.findByTestId("orderPrice");
@@ -124,7 +124,7 @@ describe("장바구니 페이지 테스트", () => {
     );
     const prevTotalPrice = getTotalPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
-      selectedCartId: selectedId,
+      selectedCartIds: selectedId,
     });
 
     const orderPrice = await screen.findByTestId("orderPrice");
@@ -167,7 +167,7 @@ describe("장바구니 페이지 테스트", () => {
 
     const prevTotalPrice = getTotalPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
-      selectedCartId: selectedId,
+      selectedCartIds: selectedId,
     });
 
     await waitFor(() => {
