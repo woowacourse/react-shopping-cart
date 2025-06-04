@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react"
 import * as Styled from "./CartContent.style"
 import useShoppingCart from "../../../hooks/useShoppingCart"
 import CartList from "../CartList/CartList"
@@ -12,6 +11,7 @@ import {
   FREE_SHIPPING_OVER,
   SHIPPING_FEE,
 } from "../../../constants/priceSetting"
+import useSelectedCartIds from "../../../hooks/useSelectedCartIds"
 
 function CartContent() {
   const {
@@ -22,30 +22,14 @@ function CartContent() {
     isDeleteItemLoading,
   } = useShoppingCart()
 
-  const [selectedCartIds, setSelectedCartIds] = useState<number[]>([])
-  const initialized = useRef(false)
+  const {
+    selectedCartIds,
+    isAllSelected,
+    handleSelectCartItem,
+    handleSelectAllCartItems,
+  } = useSelectedCartIds(cartItemsData)
+
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!initialized.current && cartItemsData.length) {
-      const allIds = cartItemsData.map((item) => item.id)
-      setSelectedCartIds(allIds)
-      initialized.current = true
-    }
-  }, [cartItemsData])
-
-  const handleSelectCartItem = (id: number) => {
-    if (selectedCartIds.includes(id)) {
-      setSelectedCartIds((prev) => prev.filter((cartId) => cartId !== id))
-    } else {
-      setSelectedCartIds((prev) => [...prev, id])
-    }
-  }
-
-  const isAllSelected =
-    cartItemsData.length > 0 &&
-    cartItemsData.every((item) => selectedCartIds.includes(item.id))
-
   const handleOrderConfirm = () => {
     const selectedCartItems = cartItemsData.filter((cartItem) =>
       selectedCartIds.includes(cartItem.id)
@@ -80,14 +64,7 @@ function CartContent() {
           </Styled.CartContentDescription>
           <Styled.AllSelectWrapper>
             <Styled.SelectButton
-              onClick={() => {
-                if (selectedCartIds.length === cartItemsData.length) {
-                  setSelectedCartIds([])
-                } else {
-                  const allIds = cartItemsData.map((item) => item.id)
-                  setSelectedCartIds(allIds)
-                }
-              }}
+              onClick={() => handleSelectAllCartItems(isAllSelected)}
             >
               <Styled.SelectIcon src={isAllSelected ? checked : unChecked} />
             </Styled.SelectButton>
