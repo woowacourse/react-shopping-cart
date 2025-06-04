@@ -27,7 +27,6 @@ const CartContentLoading = () => {
   );
 };
 
-// Header Component
 const CartContentHeader = () => {
   const { cartItemsData, isAllSelected, handleSelectAllCartItems } =
     useCartContext();
@@ -55,7 +54,6 @@ const CartContentHeader = () => {
   );
 };
 
-// Content Component
 const CartContentItems = () => {
   const { cartItemsData, subtotalPrice } = useCartContext();
 
@@ -101,19 +99,6 @@ const CartContentItemsList = () => {
   );
 };
 
-const CartContentActions = ({ onNext }: { onNext: () => void }) => {
-  const { selectedCartItemsLength } = useCartContext();
-
-  return (
-    <Styled.OrderConfirmButton
-      disabled={selectedCartItemsLength === 0}
-      onClick={onNext}
-    >
-      주문 확인
-    </Styled.OrderConfirmButton>
-  );
-};
-
 function CartContent() {
   return (
     <CartContentRoot>
@@ -128,6 +113,5 @@ CartContent.Root = CartContentRoot;
 CartContent.Loading = CartContentLoading;
 CartContent.Header = CartContentHeader;
 CartContent.Items = CartContentItems;
-CartContent.Actions = CartContentActions;
 
 export default CartContent;
