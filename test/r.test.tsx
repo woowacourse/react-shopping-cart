@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "../src/App";
 import { CartProvider } from "../src/stores/CartContext";
+import { BrowserRouter } from "react-router-dom";
 
 jest.mock("../src/api/cartItemListApi", () => ({
   __esModule: true,
@@ -46,6 +47,10 @@ const mockCartItems = [
   },
 ];
 
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<BrowserRouter>{component}</BrowserRouter>);
+};
+
 describe("RTL Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -55,7 +60,7 @@ describe("RTL Test", () => {
   });
 
   it("should render", async () => {
-    render(
+    renderWithRouter(
       <CartProvider>
         <App />
       </CartProvider>
@@ -76,7 +81,7 @@ describe("장바구니 기능 테스트", () => {
   });
 
   it("장바구니 페이지가 정상적으로 렌더링된다", async () => {
-    render(
+    renderWithRouter(
       <CartProvider>
         <App />
       </CartProvider>
@@ -88,7 +93,7 @@ describe("장바구니 기능 테스트", () => {
   });
 
   it("상품 선택/해제 시 결제 금액이 동적으로 변경된다", async () => {
-    render(
+    renderWithRouter(
       <CartProvider>
         <App />
       </CartProvider>
@@ -119,7 +124,7 @@ describe("장바구니 기능 테스트", () => {
   });
 
   it("상품 수량은 +/- 버튼으로 변경 가능하다", async () => {
-    render(
+    renderWithRouter(
       <CartProvider>
         <App />
       </CartProvider>
@@ -148,7 +153,7 @@ describe("장바구니 기능 테스트", () => {
       .mockResolvedValueOnce(mockCartItems)
       .mockResolvedValueOnce([]);
 
-    render(
+    renderWithRouter(
       <CartProvider>
         <App />
       </CartProvider>
@@ -175,7 +180,7 @@ describe("장바구니 기능 테스트", () => {
   it("장바구니가 비어있을 때 적절한 메시지가 표시된다", async () => {
     mockCartItemListApi.mockResolvedValue([]);
 
-    render(
+    renderWithRouter(
       <CartProvider>
         <App />
       </CartProvider>

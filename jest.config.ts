@@ -31,6 +31,13 @@ const config: Config = {
         VITE_USER_TOKEN: "test-token",
       },
     },
+    // TextEncoder/TextDecoder 추가
+    TextEncoder: TextEncoder,
+    TextDecoder: TextDecoder,
+  },
+  // Node.js 환경에서 브라우저 API 폴리필 설정
+  testEnvironmentOptions: {
+    customExportConditions: ["node", "node-addons"],
   },
 };
 
