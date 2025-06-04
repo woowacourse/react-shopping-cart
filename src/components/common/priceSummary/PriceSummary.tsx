@@ -27,7 +27,7 @@ function PriceSummary({ items, total, notice }: PriceSummaryProps) {
 
       <S.IndividualPriceBox>
         {items.map(({ label, amount, isDiscount }) => (
-          <S.PriceRow data-testid="price-row">
+          <S.PriceRow data-testid="price-row" key={`${label}-${amount}`}>
             <S.PriceLabel>{label}</S.PriceLabel>
             <S.PriceAmount>
               {isDiscount ? '-' : ''}
