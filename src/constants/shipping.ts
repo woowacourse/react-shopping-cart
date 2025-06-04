@@ -1,0 +1,3 @@
+export const MIN_PRICE_FOR_FREE_SHIPPING = 100000;
+export const DEFAULT_SHIPPING_FEE = 3000;
+export const FREE_SHIPPING_FEE = 0;

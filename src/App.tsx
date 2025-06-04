@@ -1,11 +1,9 @@
-import "./App.css";
+import router from "./router";
+
+import { RouterProvider } from "react-router";
 
 function App() {
-  return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
