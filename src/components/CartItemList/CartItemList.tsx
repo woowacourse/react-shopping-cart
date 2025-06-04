@@ -1,10 +1,10 @@
 import { css } from "@emotion/css";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
-import CartItemCard from "../CartItemCard/CartItemCard";
 import { CartItem } from "../../types/type";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
 import { useEffect } from "react";
+import EditableCartItemCard from "../CartItemCard/EditableCartItemCard";
 
 interface CartItemCardListProps {
   cartItems: CartItem[];
@@ -30,7 +30,7 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
 
   useEffect(() => {
     replaceSelectedItemIds(cartItems.map((item) => item.id));
-  }, []);
+  }, [cartItems]);
 
   return (
     <>
@@ -43,7 +43,7 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
         <Text text="전체선택" />
       </div>
       {cartItems.map((item) => (
-        <CartItemCard
+        <EditableCartItemCard
           cartItemId={item.id}
           key={item.id}
           imgUrl={item.product.imageUrl}
