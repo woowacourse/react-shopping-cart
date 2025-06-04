@@ -7,8 +7,8 @@ interface HeaderProps {
 
 export default function Header({ title, handleTitleClick }: HeaderProps) {
   return (
-    <S.headerLayout>
+    <S.HeaderLayout>
       <S.Title onClick={handleTitleClick}>{title}</S.Title>
-    </S.headerLayout>
+    </S.HeaderLayout>
   );
 }

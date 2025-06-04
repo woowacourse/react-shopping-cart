@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const headerLayout = styled.header`
+export const HeaderLayout = styled.header`
   position: relative;
   display: flex;
   align-items: center;

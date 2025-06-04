@@ -7,7 +7,7 @@ export const ButtonWrapper = styled.div`
   gap: 16px;
 `;
 
-export const controlButton = css`
+export const ControlButton = css`
   padding: 0;
   border-radius: 8px;
   border: 1.5px solid #e5e5e5;
@@ -20,14 +20,14 @@ export const controlButton = css`
   justify-content: center;
 `;
 
-export const controlButtonText = css`
+export const ControlButtonText = css`
   width: 100%;
   font-size: 24px;
   color: #222;
   text-align: center;
 `;
 
-export const quantityText = css`
+export const QuantityText = css`
   width: 24px;
   text-align: center;
 `;

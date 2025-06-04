@@ -14,12 +14,12 @@ export default function QuantityControlButton({
 }: QuantityControlButtonProps) {
   return (
     <S.ButtonWrapper>
-      <Button css={S.controlButton} onClick={onMinusButtonClick}>
-        <p css={S.controlButtonText}>-</p>
+      <Button css={S.ControlButton} onClick={onMinusButtonClick}>
+        <p css={S.ControlButtonText}>-</p>
       </Button>
-      <p css={S.quantityText}>{quantity}</p>
-      <Button css={S.controlButton} onClick={onAddButtonClick}>
-        <p css={S.controlButtonText}>+</p>
+      <p css={S.QuantityText}>{quantity}</p>
+      <Button css={S.ControlButton} onClick={onAddButtonClick}>
+        <p css={S.ControlButtonText}>+</p>
       </Button>
     </S.ButtonWrapper>
   );
