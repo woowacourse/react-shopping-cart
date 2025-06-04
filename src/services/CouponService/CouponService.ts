@@ -1,5 +1,5 @@
 import { CartItem, Coupon } from "@/types";
-import CartItemService from "./CartItemService";
+import CartItemService from "../CartItemService/CartItemService";
 
 export default class CouponService {
   private readonly cartItemService: CartItemService;
@@ -45,7 +45,7 @@ export default class CouponService {
     }
 
     if (coupon.discountType === "percentage") {
-      return this.cartItemService.calculateTotalPrice() * coupon.discount;
+      return (this.cartItemService.calculateTotalPrice() * coupon.discount) / 100;
     }
 
     return 0;
