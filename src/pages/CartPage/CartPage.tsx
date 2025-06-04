@@ -6,7 +6,7 @@ import Title from "../../components/@common/Title/Title";
 import useCart from "../../hooks/useCart";
 import useToast from "../../hooks/useToast";
 import * as S from "./CartPage.styles";
-import InfoIcon from "/info.svg";
+import InfoIcon from "/Info.svg";
 import { TOAST_TYPES } from "../../components/@common/Toast/type";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 import { CLIENT_BASE_PATH } from "../../apis/config";
