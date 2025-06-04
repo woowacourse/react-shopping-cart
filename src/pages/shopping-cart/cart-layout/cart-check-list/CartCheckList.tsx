@@ -1,20 +1,11 @@
-"use client";
-
 import styled from "@emotion/styled";
-import { deleteCartItem, patchCartItem } from "../../../../api/cart";
 import CheckBox from "../../../../components/common/CheckBox";
-import Counter from "../../../../components/common/Counter";
-import Image from "../../../../components/common/Image";
 import { useOrderListContext } from "../../context/OrderListProvider";
-import { useContext } from "react";
-import { ToastContext } from "../../../../context/ToastProvider";
-import { formatKRWString } from "../../../../utils/formatKRWString";
+import EmptyCartBox from "./EmptyCartBox";
+import CartCheckItem from "./cart-check-item/CartCheckItem";
 
 function CartCheckList() {
-  const { cartListData, cartRefetch, selectionMap, setSelectionMap } =
-    useOrderListContext();
-
-  const { showToast } = useContext(ToastContext);
+  const { cartListData, selectionMap, setSelectionMap } = useOrderListContext();
 
   const isCartEmpty = !cartListData || cartListData.length === 0;
 
@@ -30,46 +21,6 @@ function CartCheckList() {
     setSelectionMap(nextMap);
   };
 
-  const handleToggleSelection = (cartId: string) => {
-    setSelectionMap((prev) => ({
-      ...prev,
-      [cartId]: !prev[cartId],
-    }));
-  };
-
-  const handlePlusQuantity = async (cartId: string) => {
-    try {
-      if (!cartListData) return;
-      const cart = cartListData.find((cart) => cart.id === cartId);
-      if (!cart) throw new Error("장바구니에 해당 아이템이 없습니다.");
-      await patchCartItem(cartId, cart.quantity + 1);
-      await cartRefetch();
-    } catch (e) {
-      showToast("장바구니에 추가하는 데 실패했습니다.");
-    }
-  };
-
-  const handleMinusQuantity = async (cartId: string) => {
-    try {
-      if (!cartListData || cartListData.length >= 50) return;
-      const cart = cartListData.find((cart) => cart.id === cartId);
-      if (!cart) throw new Error("장바구니에 해당 아이템이 없습니다.");
-      await patchCartItem(cartId, cart.quantity - 1);
-      await cartRefetch();
-    } catch (e) {
-      showToast("장바구니에서 뺴는 데 실패했습니다.");
-    }
-  };
-
-  if (!cartListData) {
-    return <LodingCartItem>장바구니를 불러오는 중...</LodingCartItem>;
-  }
-
-  const removeItem = async (id: string) => {
-    await deleteCartItem(id);
-    await cartRefetch();
-  };
-
   return (
     <Container>
       <CheckedAll>
@@ -83,47 +34,10 @@ function CartCheckList() {
       </CheckedAll>
       <ItemList>
         {isCartEmpty ? (
-          <EmptyCartBox>
-            <EmptyCartImage src="./assets/icons/DeleteCart.svg" />
-            <EmptyCartText>장바구니에 담긴 상품이 없습니다.</EmptyCartText>
-          </EmptyCartBox>
+          <EmptyCartBox />
         ) : (
           cartListData?.map((cart) => (
-            <ItemWithCheckboxContainer key={cart.id}>
-              <CheckBox
-                isChecked={selectionMap[cart.id]}
-                onToggle={() => handleToggleSelection(cart.id)}
-                role={"cart-item-checkbox"}
-                aria-checked={selectionMap[cart.id]}
-              ></CheckBox>
-              <ItemContainer>
-                <Image
-                  width="80px"
-                  height="80px"
-                  src={cart.product.imageUrl}
-                  altText={`${cart.product.name} 상품 이미지`}
-                />
-
-                <ProductInfo aria-label="상품 정보" role="cart-product-info">
-                  <ProductName>{cart.product.name}</ProductName>
-                  <ProductPrice>
-                    {formatKRWString(cart.product.price)}
-                  </ProductPrice>
-                  <Counter
-                    canBeZero={false}
-                    count={cart.quantity}
-                    maxCount={cart.product.quantity}
-                    onPlusClick={() => handlePlusQuantity(cart.id)}
-                    onMinusClick={() => handleMinusQuantity(cart.id)}
-                    autoFocus={true}
-                  />
-                </ProductInfo>
-
-                <DeleteButton onClick={() => removeItem(cart.id)}>
-                  삭제
-                </DeleteButton>
-              </ItemContainer>
-            </ItemWithCheckboxContainer>
+            <CartCheckItem key={cart.id} cart={cart} />
           ))
         )}
       </ItemList>
@@ -136,14 +50,6 @@ export default CartCheckList;
 const Container = styled.div`
   width: 100%;
   max-width: 480px;
-`;
-
-const LodingCartItem = styled.div`
-  width: 100%;
-  height: 380px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const ItemList = styled.div`
@@ -164,70 +70,4 @@ const CheckedAll = styled.div`
   align-items: center;
   padding: 16px 0;
   border-bottom: 1px solid #bdbdbd;
-`;
-
-const ItemWithCheckboxContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-const ItemContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid #f0f0f0;
-  align-items: flex-start;
-`;
-
-const ProductInfo = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  align-items: flex-start;
-`;
-
-const ProductName = styled.p`
-  text-align: left;
-`;
-
-const ProductPrice = styled.p``;
-
-const DeleteButton = styled.button`
-  padding: 8px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background-color: #fff;
-  color: #666;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const EmptyCartBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  text-align: center;
-  padding: 32px;
-`;
-
-const EmptyCartImage = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  opacity: 0.3;
-`;
-
-const EmptyCartText = styled.p`
-  width: 100%;
-  color: grey;
 `;
