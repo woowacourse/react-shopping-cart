@@ -1,18 +1,15 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CLIENT_BASE_PATH } from "../../apis/config";
 import Description from "../../components/@common/Description/Description";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 import { Header } from "../../components/@common/Header/Header.styles";
 import Title from "../../components/@common/Title/Title";
-import { TOAST_TYPES } from "../../components/@common/Toast/type";
 import AllSelector from "../../components/AllSelector/AlllSelector";
 import CartItem from "../../components/CartItem/CartItem";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import { ROUTES } from "../../constants/routes";
 import useCart from "../../hooks/useCart";
-import useToast from "../../hooks/useToast";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
@@ -24,17 +21,9 @@ const CartPage = () => {
     orderPrice,
     shippingFee,
     totalPrice,
-    errorMessage,
   } = useCart();
 
-  const { showToast } = useToast();
-
-  useEffect(() => {
-    showToast({ message: errorMessage, type: TOAST_TYPES.ERROR });
-  }, [errorMessage, showToast]);
-
   const navigate = useNavigate();
-
   const navigateToOrderPage = () => {
     navigate(ROUTES.ORDER);
   };
