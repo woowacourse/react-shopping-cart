@@ -1,9 +1,9 @@
 import { fetcher } from "./fetcher";
 
-async function removeProductItemApi(productId: number) {
+async function removeProductItem(productId: number) {
   return fetcher(`/cart-items/${productId}`, {
     method: "DELETE",
   });
 }
 
-export default removeProductItemApi;
+export default removeProductItem;

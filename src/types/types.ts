@@ -13,3 +13,7 @@ export interface ResponseCartItem {
   quantity: number;
   product: Omit<ResponseProduct, "isInCart">;
 }
+
+export interface ResponseData<T> {
+  content: T[];
+}

@@ -7,28 +7,28 @@ jest.mock("../src/api/cartItemListApi", () => ({
   default: jest.fn(),
 }));
 
-jest.mock("../src/api/removeProductItemApi", () => ({
+jest.mock("../src/api/removeProductItem", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock("../src/api/updateCartItemApi", () => ({
+jest.mock("../src/api/updateCartItem", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-import cartItemListApi from "../src/api/cartItemListApi";
-import removeProductItemApi from "../src/api/removeProductItemApi";
-import updateCartItemApi from "../src/api/updateCartItemApi";
+import cartItemListApi from "../src/api/getCartList";
+import removeProductItem from "../src/api/removeProductItem";
+import updateCartItem from "../src/api/updateCartItem";
 
 const mockCartItemListApi = cartItemListApi as jest.MockedFunction<
   typeof cartItemListApi
 >;
-const mockRemoveProductItemApi = removeProductItemApi as jest.MockedFunction<
-  typeof removeProductItemApi
+const mockremoveProductItem = removeProductItem as jest.MockedFunction<
+  typeof removeProductItem
 >;
-const mockUpdateCartItemApi = updateCartItemApi as jest.MockedFunction<
-  typeof updateCartItemApi
+const mockupdateCartItem = updateCartItem as jest.MockedFunction<
+  typeof updateCartItem
 >;
 
 const mockCartItems = [
@@ -50,8 +50,8 @@ describe("RTL Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockCartItemListApi.mockResolvedValue(mockCartItems);
-    mockRemoveProductItemApi.mockResolvedValue(undefined);
-    mockUpdateCartItemApi.mockResolvedValue(undefined);
+    mockremoveProductItem.mockResolvedValue(undefined);
+    mockupdateCartItem.mockResolvedValue(undefined);
   });
 
   it("should render", async () => {
@@ -71,8 +71,8 @@ describe("장바구니 기능 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockCartItemListApi.mockResolvedValue(mockCartItems);
-    mockRemoveProductItemApi.mockResolvedValue(undefined);
-    mockUpdateCartItemApi.mockResolvedValue(undefined);
+    mockremoveProductItem.mockResolvedValue(undefined);
+    mockupdateCartItem.mockResolvedValue(undefined);
   });
 
   it("장바구니 페이지가 정상적으로 렌더링된다", async () => {
@@ -138,7 +138,7 @@ describe("장바구니 기능 테스트", () => {
       fireEvent.click(increaseButton);
 
       await waitFor(() => {
-        expect(mockUpdateCartItemApi).toHaveBeenCalled();
+        expect(mockupdateCartItem).toHaveBeenCalled();
       });
     }
   });

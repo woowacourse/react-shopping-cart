@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ResponseCartItem } from "../types/types";
-import getCartItemList from "../api/cartItemListApi";
+import getCartItemList from "../api/getCartList";
 
 function useCart() {
   const [cartItemList, setCartItemList] = useState<ResponseCartItem[]>([]);
@@ -14,7 +14,7 @@ function useCart() {
       sort: "asc",
     })
       .then((res) => {
-        setCartItemList(res);
+        setCartItemList(res.content);
       })
       .catch((error) => {
         console.error("Cart item list fetch error:", error);

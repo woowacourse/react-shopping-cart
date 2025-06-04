@@ -1,6 +1,6 @@
 import { useCartDispatch } from "../stores/CartContext";
 import { useSelectContext, useSelectDispatch } from "../stores/SelectContext";
-import updateCartItemApi from "../api/updateCartItemApi";
+import updateCartItem from "../api/updateCartItem";
 import { ResponseCartItem } from "../types/types";
 
 interface UseCartItemManagerProps {
@@ -47,7 +47,7 @@ function useCartItemManager({
         type: "ADD_ITEM_QUANTITY",
         payload: { id: cart.id, quantity: newQuantity },
       });
-      await updateCartItemApi(cart.id, newQuantity);
+      await updateCartItem(cart.id, newQuantity);
     } catch (error) {
       dispatch({
         type: "SET_CART",
@@ -72,7 +72,7 @@ function useCartItemManager({
           payload: { id: cart.id, quantity: newQuantity },
         });
       }
-      await updateCartItemApi(cart.id, newQuantity);
+      await updateCartItem(cart.id, newQuantity);
     } catch (error) {
       dispatch({
         type: "SET_CART",
@@ -94,7 +94,7 @@ function useCartItemManager({
         payload: { id: cart.id },
       });
 
-      await updateCartItemApi(cart.id, 0);
+      await updateCartItem(cart.id, 0);
     } catch (error) {
       console.error("Failed to delete cart item:", error);
       dispatch({
