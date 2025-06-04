@@ -1,23 +1,25 @@
 import { Button, Checkbox, PlusMinusButton } from "@/components";
 import { useCartItem } from "@/hooks";
-import { GetCartItemsResponse } from "@/types";
 import { css } from "@emotion/react";
-import * as S from "./CartItem.styles";
 import Card from "../Card/Card";
+import * as S from "./CartItem.styles";
 
 interface CartItemProps {
-  cartItem: GetCartItemsResponse["content"][number];
+  id: number;
   isSelected: boolean;
   handleCheckboxClick: () => void;
 }
 
-export default function CartItem({ cartItem, isSelected, handleCheckboxClick }: CartItemProps) {
+export default function CartItem({ id, isSelected, handleCheckboxClick }: CartItemProps) {
+  const { cartItems, increaseCartItem, decreaseCartItem, deleteCartItem, cartItemsStatus } = useCartItem();
+  const cartItem = cartItems.content.find((item) => item.id === id);
+
+  if (!cartItem) return null;
+
   const {
     product: { imageUrl, price, name },
     quantity,
   } = cartItem;
-
-  const { increaseCartItem, decreaseCartItem, deleteCartItem, cartItemsStatus } = useCartItem();
 
   const handleAddButtonClick = () => {
     increaseCartItem(cartItem.product.id);
@@ -67,3 +69,5 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick }: 
     </S.ProductCardCartItemWrapper>
   );
 }
+
+// function CartItem() {}

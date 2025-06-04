@@ -7,7 +7,7 @@ export const COUPON_DATA: GetAllCouponsResponse = [
     description: "5,000원 할인 쿠폰",
     expirationDate: "2025-11-30",
     discount: 5000,
-    minimumAmount: 100000,
+    minimumAmount: 100_000,
     discountType: "fixed",
   },
   {
@@ -24,7 +24,7 @@ export const COUPON_DATA: GetAllCouponsResponse = [
     code: "FREESHIPPING",
     description: "5만원 이상 구매 시 무료 배송 쿠폰",
     expirationDate: "2025-08-31",
-    minimumAmount: 50000,
+    minimumAmount: 50_000,
     discountType: "freeShipping",
   },
   {

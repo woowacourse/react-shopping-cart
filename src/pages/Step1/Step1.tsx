@@ -65,7 +65,7 @@ export default function Step1() {
               {cartItems?.content.map((item) => (
                 <CartItem
                   key={item.id}
-                  cartItem={item}
+                  id={item.id}
                   isSelected={selectedItemIds.includes(item.id)}
                   handleCheckboxClick={() => handleSelectItem(item.id)}
                 />

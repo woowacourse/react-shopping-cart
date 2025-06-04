@@ -11,3 +11,18 @@ export const formatTime = (time: string) => {
   const hour12 = hour % 12 || 12;
   return `${ampm} ${hour12}시 ${minute.toString().padStart(2, "0")}분`;
 };
+
+/**
+ * 04:00:00
+ * @param time
+ * @returns {hour:number,minute:number,second:number}
+ */
+export const getTime = (time: string) => {
+  const [hours, minutes, seconds] = time.split(":").map(Number);
+
+  return {
+    hour: hours,
+    minute: minutes,
+    second: seconds,
+  };
+};

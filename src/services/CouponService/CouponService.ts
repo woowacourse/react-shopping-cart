@@ -1,5 +1,6 @@
 import { CartItem, Coupon } from "@/types";
 import CartItemService from "../CartItemService/CartItemService";
+import { getTime } from "@/utils/time";
 
 export default class CouponService {
   private readonly cartItemService: CartItemService;
@@ -16,10 +17,17 @@ export default class CouponService {
 
     if (coupon.discountType === "percentage") {
       const currentTime = new Date();
-      const couponStartTime = new Date(coupon.availableTime.start);
-      const couponEndTime = new Date(coupon.availableTime.end);
+      const couponStartTime = getTime(coupon.availableTime.start);
+      const couponEndTime = getTime(coupon.availableTime.end);
 
-      return currentTime >= couponStartTime && currentTime <= couponEndTime;
+      return (
+        currentTime.getHours() >= couponStartTime.hour &&
+        currentTime.getHours() <= couponEndTime.hour &&
+        currentTime.getMinutes() >= couponStartTime.minute &&
+        currentTime.getMinutes() <= couponEndTime.minute &&
+        currentTime.getSeconds() >= couponStartTime.second &&
+        currentTime.getSeconds() <= couponEndTime.second
+      );
     }
 
     if (coupon.discountType === "buyXgetY") {

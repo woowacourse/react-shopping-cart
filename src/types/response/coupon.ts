@@ -9,7 +9,7 @@ export type Coupon = {
 
 type CouponDetail = Fixed5000Coupon | BuyXGetYCoupon | FreeShippingCoupon | MiracleSaleCoupon;
 
-type Fixed5000Coupon = {
+export type Fixed5000Coupon = {
   code: "FIXED5000";
   discountType: "fixed";
   discount: number;
