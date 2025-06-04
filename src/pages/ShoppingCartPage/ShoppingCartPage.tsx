@@ -20,12 +20,12 @@ export default function ShoppingCartPage() {
         kind: selectedItemIds.length,
         quantity: selectedItemIds.reduce((prev, cur) => {
           const currentCartItem = data?.content.find((it) => it.id === cur);
-          if (!currentCartItem) return cur;
+          if (!currentCartItem) return prev;
           return prev + currentCartItem.quantity;
         }, 0),
         totalPrice: selectedItemIds.reduce((prev, cur) => {
           const currentCartItem = data?.content.find((it) => it.id === cur);
-          if (!currentCartItem) return cur;
+          if (!currentCartItem) return prev;
           return prev + currentCartItem.product.price * currentCartItem.quantity;
         }, 0),
       },
