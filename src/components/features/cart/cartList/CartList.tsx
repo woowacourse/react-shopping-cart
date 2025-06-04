@@ -1,16 +1,13 @@
 import SelectBox from '../../../common/selectBox/SelectBox';
 import CartItem from '../cartItem/CartItem';
 import * as S from './CartList.styles';
-import { CartItemType } from '../types';
 import { useCartSelectionContext } from '../contexts/CartSelectionContext';
+import { useCartContext } from '../contexts/CartContext';
 
-interface CartListProps {
-  cartItems: CartItemType[];
-  refetch: () => Promise<void>;
-}
-
-function CartList({ cartItems, refetch }: CartListProps) {
+function CartList() {
   const selection = useCartSelectionContext();
+  const { cartItems, fetch } = useCartContext();
+
   return (
     <S.Container>
       <S.AllSelectBox>
@@ -27,7 +24,7 @@ function CartList({ cartItems, refetch }: CartListProps) {
           cartItem={cartItem}
           selected={selection.selectedList[index]}
           toggle={() => selection.toggle(index)}
-          onUpdate={refetch}
+          onUpdate={fetch}
         />
       ))}
     </S.Container>
