@@ -2,7 +2,6 @@
 
 import { css } from '@emotion/react';
 import Button from '../../shared/ui/Button';
-import Navbar from '../../shared/ui/Navbar';
 import * as S from './ConfirmationPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import { useNavigate } from 'react-router';
@@ -40,7 +39,6 @@ export default function ConfirmationPage() {
 
   return (
     <S.ConfirmationContainer>
-      <Navbar title='◀' url={ROUTES.CART} />
       <S.ConfirmationSection>
         <S.ConfirmationTitle>주문 확인</S.ConfirmationTitle>
         <S.ConfirmationQuantity>

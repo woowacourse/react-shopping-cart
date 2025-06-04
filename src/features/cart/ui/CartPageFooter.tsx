@@ -3,9 +3,14 @@
 import { css } from '@emotion/react';
 import Button from '../../../shared/ui/Button';
 import { useNavigate } from 'react-router';
-import { ROUTES } from '../../../shared/constants/routeConstants';
 import { useCartContext } from '../../../shared/context/useCartContext';
 import styled from '@emotion/styled';
+
+interface FooterProps {
+  title: string;
+  url: string;
+  cartItemQuantity: number;
+}
 
 const ButtonCSS = css`
   width: 100%;
@@ -25,20 +30,20 @@ const ButtonCSS = css`
   }
 `;
 
-export default function Footer({ cartItemQuantity }: { cartItemQuantity: number }) {
+export default function Footer({ title, url, cartItemQuantity }: FooterProps) {
   const { selectedCartItems } = useCartContext();
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(ROUTES.CONFIRMATION);
+    navigate(url);
   };
 
   return (
     <FooterContainer>
       <Button
         onClick={handleClick}
-        title='주문 확인'
+        title={title}
         css={ButtonCSS}
         disabled={cartItemQuantity === 0 || selectedCartItems.length === 0}
       />
