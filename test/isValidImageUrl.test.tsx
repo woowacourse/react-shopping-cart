@@ -13,15 +13,17 @@ describe('isValidImageUrl', () => {
     expect(isValidImageUrl('https://example.com/image.png?width=100')).toBe(
       true
     );
+    expect(isValidImageUrl('https://example.com/image')).toBe(true);
+    expect(isValidImageUrl('//example.com/image')).toBe(true);
+    expect(isValidImageUrl('//example.com/image.png')).toBe(true);
   });
 
-  it('확장자가 없거나 이미지 확장자가 아닌 경우 false를 반환한다', () => {
-    expect(isValidImageUrl('https://example.com/image')).toBe(false);
+  it('이미지 확장자가 아닌 경우 false를 반환한다', () => {
     expect(isValidImageUrl('https://example.com/image.txt')).toBe(false);
     expect(isValidImageUrl('https://example.com/image.pdf')).toBe(false);
   });
 
-  it('http/https로 시작하지 않는 경우 false를 반환한다', () => {
+  it('http/https로 시작하지 않고 //로도 시작하지 않는 경우 false를 반환한다', () => {
     expect(isValidImageUrl('ftp://example.com/image.png')).toBe(false);
     expect(isValidImageUrl('file://example.com/image.png')).toBe(false);
     expect(isValidImageUrl('/images/image.png')).toBe(false);
