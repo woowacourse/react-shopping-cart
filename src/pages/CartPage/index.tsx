@@ -12,7 +12,7 @@ const CartPage = () => {
   const { cartItemsInfo, cartItemListProps, orderResult } = useCart();
 
   const navigate = useNavigate();
-  const handleNavigate = () => navigate("/order-confirm", { state: orderResult });
+  const handleNavigate = () => navigate("/payment-confirm", { state: orderResult });
   return (
     <>
       <Header>

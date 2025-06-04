@@ -1,7 +1,7 @@
 import * as S from "./styles/Layout.styled";
 import { BrowserRouter, Route, Routes } from "react-router";
 import CartPage from "./pages/CartPage";
-import OrderConfirmPage from "./pages/OrderConfirmPage";
+import PaymentConfirmPage from "./pages/PaymentConfirmPage";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import ErrorPopup from "./components/common/Error/Popup";
 
@@ -13,7 +13,7 @@ function App() {
           <ErrorPopup />
           <Routes>
             <Route path="/" element={<CartPage />} />
-            <Route path="/order-confirm" element={<OrderConfirmPage />} />
+            <Route path="/payment-confirm" element={<PaymentConfirmPage />} />
           </Routes>
         </BrowserRouter>
       </S.Layout>

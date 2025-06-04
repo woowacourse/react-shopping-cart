@@ -1,11 +1,11 @@
-import * as S from "./OrderConfirmPage.styled";
+import * as S from "./PaymentConfirmPage.styled";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
 import Header from "../../components/Header";
 import PrevArrow from "../../components/icons/PrevArrow";
 import { useLocation, useNavigate } from "react-router";
 
-const OrderConfirmPage = () => {
+const PaymentConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -52,4 +52,4 @@ const OrderConfirmPage = () => {
   );
 };
 
-export default OrderConfirmPage;
+export default PaymentConfirmPage;
