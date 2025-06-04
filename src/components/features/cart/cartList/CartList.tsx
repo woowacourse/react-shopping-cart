@@ -21,7 +21,7 @@ function CartList() {
       {cartItems.map((cartItem, index) => (
         <CartItem
           key={cartItem.id}
-          cartItem={cartItem}
+          {...cartItem}
           selected={selection.selectedList[index]}
           toggle={() => selection.toggle(index)}
           onUpdate={fetch}

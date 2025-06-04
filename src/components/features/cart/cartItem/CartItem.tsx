@@ -8,22 +8,28 @@ import { CartItemType } from '../types';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
 
-interface CartItemProps {
-  cartItem: CartItemType;
+interface CartItemProps extends CartItemType {
   selected: boolean;
   toggle: () => void;
   onUpdate: () => Promise<void>;
 }
 
-function CartItem({ cartItem, selected, toggle, onUpdate }: CartItemProps) {
+function CartItem({
+  id,
+  product,
+  quantity,
+  selected,
+  toggle,
+  onUpdate,
+}: CartItemProps) {
   return (
-    <S.Container data-testid={`CartItem-${cartItem.id}`}>
+    <S.Container data-testid={`CartItem-${id}`}>
       <Separator />
       <S.ActionContainer>
         <SelectBox selected={selected} onClick={toggle} />
         <S.DeleteButton
           onClick={async () => {
-            await deleteCartItem(cartItem.id);
+            await deleteCartItem(id);
             onUpdate();
           }}
         >
@@ -34,8 +40,8 @@ function CartItem({ cartItem, selected, toggle, onUpdate }: CartItemProps) {
         <S.PreviewBox>
           <S.PreviewImage
             src={
-              isValidImageUrl(cartItem.product.imageUrl)
-                ? cartItem.product.imageUrl
+              isValidImageUrl(product.imageUrl)
+                ? product.imageUrl
                 : defaultImage
             }
             alt="상품 이미지"
@@ -43,19 +49,17 @@ function CartItem({ cartItem, selected, toggle, onUpdate }: CartItemProps) {
         </S.PreviewBox>
         <S.InfoBox>
           <S.CartProductInfo>
-            <S.CartProductTitle>{cartItem.product.name}</S.CartProductTitle>
+            <S.CartProductTitle>{product.name}</S.CartProductTitle>
             <S.CartProductPrice>
-              {`${(
-                cartItem.product.price * cartItem.quantity
-              ).toLocaleString()}원`}
+              {`${(product.price * quantity).toLocaleString()}원`}
             </S.CartProductPrice>
           </S.CartProductInfo>
           <S.UpdateCartBox>
-            {cartItem.quantity === 1 ? (
+            {quantity === 1 ? (
               <IconButton
                 actionType="delete"
                 onClick={async () => {
-                  await deleteCartItem(cartItem.id);
+                  await deleteCartItem(id);
                   onUpdate();
                 }}
               />
@@ -63,16 +67,16 @@ function CartItem({ cartItem, selected, toggle, onUpdate }: CartItemProps) {
               <IconButton
                 actionType="minus"
                 onClick={async () => {
-                  await updateCartItem(cartItem.id, cartItem.quantity - 1);
+                  await updateCartItem(id, quantity - 1);
                   onUpdate();
                 }}
               />
             )}
-            <S.Text>{cartItem.quantity}</S.Text>
+            <S.Text>{quantity}</S.Text>
             <IconButton
               actionType="plus"
               onClick={async () => {
-                await updateCartItem(cartItem.id, cartItem.quantity + 1);
+                await updateCartItem(id, quantity + 1);
                 onUpdate();
               }}
             />
