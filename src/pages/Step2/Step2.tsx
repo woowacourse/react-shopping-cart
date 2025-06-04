@@ -18,8 +18,9 @@ import { CouponModal } from "./components";
 import * as S from "./Step2.styles";
 import { useShoppingCartContext } from "../MainPage/context";
 import { QUERY_KEY } from "@/constants";
-import { useQuery } from "@/modules/Query";
+import { useQuery } from "@/modules";
 import { CouponApi } from "@/apis";
+import { useState } from "react";
 
 export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();
@@ -28,11 +29,12 @@ export default function Step2() {
     queryFn: CouponApi.getAllCoupons,
     queryKey: QUERY_KEY.coupon,
   });
+  const [isOpen, setIsOpen] = useState(false);
 
   const { cartItems } = useCartItem();
-  const filteredCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
+  const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
 
-  const cartItemService = new CartItemService(filteredCartItems ?? []);
+  const cartItemService = new CartItemService(selectedCartItems ?? []);
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
   const totalPrice = cartItemService.calculateTotalPrice();
 
@@ -42,12 +44,12 @@ export default function Step2() {
   const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
   const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
-    const couponService = new CouponService(cartItems.content);
+    const couponService = new CouponService(selectedCartItems);
     return acc + couponService.calculateDiscountPrice(coupon, isFar);
   }, 0);
 
   return (
-    <div>
+    <main>
       <Header onClick={goPrevStep}>
         <ArrowBackIcon
           css={css`
@@ -68,7 +70,7 @@ export default function Step2() {
         </Text>
         <Spacing size={28} />
 
-        {filteredCartItems?.map((item) => (
+        {selectedCartItems?.map((item) => (
           <Card key={item.id}>
             <Card.Image src={item.product.imageUrl} alt={item.product.name} />
             <Card.Info>
@@ -81,21 +83,17 @@ export default function Step2() {
 
         <Spacing size={16} />
 
-        <Modal.Wrapper>
-          <Modal.Trigger
-            css={css`
-              width: 100%;
-            `}
-          >
-            <Button
-              css={css`
-                width: 100%;
-              `}
-              variant="outlined"
-            >
-              쿠폰 적용
-            </Button>
-          </Modal.Trigger>
+        <Button
+          css={css`
+            width: 100%;
+          `}
+          variant="outlined"
+          onClick={() => setIsOpen(true)}
+        >
+          쿠폰 적용
+        </Button>
+
+        <Modal.Wrapper isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <CouponModal />
         </Modal.Wrapper>
 
@@ -152,6 +150,6 @@ export default function Step2() {
           </Button>
         </ButtonWrapper>
       </S.OrderConfirmPageWrapper>
-    </div>
+    </main>
   );
 }

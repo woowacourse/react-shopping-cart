@@ -1,7 +1,6 @@
 import { CouponApi } from "@/apis";
-import { Button, Spacing, Text } from "@/components";
+import { Button, Spacing, Text, Modal } from "@/components";
 import { CloseIcon, Info } from "@/components/icons";
-import Modal from "@/components/Modal/Modal";
 import { QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
 import { css } from "@emotion/react";
@@ -17,6 +16,8 @@ export default function CouponModal() {
     queryKey: QUERY_KEY.coupon,
   });
   const { cartItems } = useCartItem();
+  const { selectedItemIds } = useShoppingCartContext();
+  const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
 
   const { selectedCouponIds, setSelectedCouponIds, isFar } = useShoppingCartContext();
 
@@ -32,28 +33,25 @@ export default function CouponModal() {
   const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
   const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
-    const couponService = new CouponService(cartItems.content);
+    const couponService = new CouponService(selectedCartItems);
     return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
   }, 0);
 
   const availableCoupons = useMemo(
-    () => coupons?.filter((coupon) => new CouponService(cartItems.content).canAdjustCoupon(coupon)),
-    [coupons, cartItems.content],
+    () => coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
+    [coupons, selectedCartItems],
   );
 
   useEffect(() => {
-    if (selectedCouponIds.length > 0) return;
     const mostDiscountCombination = availableCoupons
       ?.sort((a, b) => {
-        const couponService = new CouponService(cartItems.content);
-        return (
-          couponService.calculateDiscountPrice(a, isFar) - couponService.calculateDiscountPrice(b, isFar) || a.id - b.id
-        );
+        const couponService = new CouponService(selectedCartItems);
+        return couponService.calculateDiscountPrice(b, isFar) - couponService.calculateDiscountPrice(a, isFar);
       })
       .slice(0, 2);
 
     setSelectedCouponIds(mostDiscountCombination?.map((coupon) => coupon.id) || []);
-  }, [availableCoupons]);
+  }, []);
 
   return (
     <Modal isBackdropClose>

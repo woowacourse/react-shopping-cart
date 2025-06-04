@@ -32,7 +32,13 @@ export default function Step3() {
   }, 0);
 
   return (
-    <>
+    <main
+      css={css`
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      `}
+    >
       <Header onClick={goPrevStep}>
         <ArrowBackIcon
           css={css`
@@ -68,6 +74,6 @@ export default function Step3() {
           장바구니로 돌아가기
         </Button>
       </S.ButtonWrapper>
-    </>
+    </main>
   );
 }

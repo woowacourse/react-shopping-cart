@@ -33,7 +33,7 @@ export default function Step1() {
 
   if (!cartItems) return null;
   return (
-    <>
+    <main>
       <Header>
         <Text variant="title-1" color="white">
           SHOP
@@ -115,6 +115,6 @@ export default function Step1() {
           </Text>
         </Button>
       </S.ButtonWrapper>
-    </>
+    </main>
   );
 }

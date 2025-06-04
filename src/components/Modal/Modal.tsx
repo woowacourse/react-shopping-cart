@@ -68,6 +68,8 @@ function Wrapper({
     }
   }, [isOpen]);
 
+  if (!isOpen) return null;
+
   return <ModalContext.Provider value={{ isOpen, close, open }}>{children}</ModalContext.Provider>;
 }
 Wrapper.displayName = "ModalWrapper";
