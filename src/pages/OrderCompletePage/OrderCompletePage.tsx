@@ -23,20 +23,20 @@ const OrderCompletePage = () => {
     }
   }, [state, navigate]);
 
-  const handlePayment = (): void => {
+  const handleBackToCart = (): void => {
     navigate("/", { replace: true });
   };
 
   return (
     <S.Root>
       <S.OrderCompletePageWrapper>
-        <Header isOrderComplete={true} setIsOrderComplete={() => {}} />
+        <Header isOrderComplete={true} setIsOrderComplete={handleBackToCart} />
         <OrderResult
           selectedCartItem={state.selectedCartItem}
           totalPrice={state.totalPrice}
         />
         <S.ButtonContainer>
-          <S.PaymentButton onClick={handlePayment}>결제하기</S.PaymentButton>
+          <S.PaymentButton onClick={handleBackToCart}>결제하기</S.PaymentButton>
         </S.ButtonContainer>
       </S.OrderCompletePageWrapper>
     </S.Root>
