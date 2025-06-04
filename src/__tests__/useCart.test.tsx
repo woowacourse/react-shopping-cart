@@ -56,6 +56,39 @@ describe("useCart 훅 테스트", () => {
     (getCartItems as jest.Mock).mockResolvedValue(mockCartItems);
   });
 
+  describe("장바구니가 비어있을 때", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      (getCartItems as jest.Mock).mockResolvedValue([]);
+    });
+
+    it("장바구니 상품 데이터가 빈 배열로 초기화된다", async () => {
+      const { result } = renderHook(() => useCart(), { wrapper });
+
+      await waitFor(() => {
+        expect(getCartItems).toHaveBeenCalled();
+      });
+
+      expect(result.current.cartItemsData).toEqual([]);
+      expect(result.current.cartItemsCheckData).toEqual([]);
+    });
+
+    it("파생 상태들이 올바르게 초기화된다", async () => {
+      const { result } = renderHook(() => useCart(), { wrapper });
+
+      await waitFor(() => {
+        expect(getCartItems).toHaveBeenCalled();
+      });
+
+      expect(result.current.cartItemCount).toBe(0);
+      expect(result.current.orderItemCount).toBe(0);
+      expect(result.current.orderQuantity).toBe(0);
+      expect(result.current.orderPrice).toBe(0);
+      expect(result.current.shippingFee).toBe(0);
+      expect(result.current.totalPrice).toBe(0);
+    });
+  });
+
   describe("초기 렌더링했을 때", () => {
     it("전체 장바구니 상품 데이터가 불러와지고, 원본 상태가 초기화된다.", async () => {
       const { result } = renderHook(() => useCart(), { wrapper });
