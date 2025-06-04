@@ -1,13 +1,5 @@
-import { FREE_SHIPPING_OVER } from "@/constants/priceSetting";
 import { CartItem } from "@/type/CartItem";
-import { Coupon } from "@/type/Coupon";
-
-export type InvalidReason =
-  | "expired"
-  | "minAmount"
-  | "timeRange"
-  | "bogoQty"
-  | "noEffect";
+import { Coupon, InvalidReason } from "@/type/Coupon";
 
 const inTimeRange = (now: Date, range: { start: string; end: string }) => {
   const toMin = (t: string) => {
@@ -30,13 +22,7 @@ const isMinAmount = (coupon: Coupon, items: CartItem[]) => {
   );
   return coupon.minimumAmount && orderTotal < coupon.minimumAmount;
 };
-const hasNoShippingBenefit = (items: CartItem[]) => {
-  const orderTotal = items.reduce(
-    (acc, item) => acc + item.product.price * item.quantity,
-    0
-  );
-  return orderTotal >= FREE_SHIPPING_OVER;
-};
+
 export const validateCoupon = (
   coupon: Coupon,
   items: CartItem[],
@@ -52,8 +38,6 @@ export const validateCoupon = (
 
   if (coupon.discountType === "buyXgetY" && !isBogoable(coupon, items))
     return { isValid: false, invalidReason: "bogoQty" };
-  if (coupon.discountType === "freeShipping" && hasNoShippingBenefit(items)) {
-    return { isValid: false, invalidReason: "noEffect" };
-  }
+
   return { isValid: true };
 };
