@@ -69,6 +69,6 @@ export async function fetcher<T>(
   if (!responseText) {
     return {} as T;
   }
-  const data = JSON.parse(responseText);
-  return data.content !== undefined ? data.content : data;
+
+  return JSON.parse(responseText);
 }
