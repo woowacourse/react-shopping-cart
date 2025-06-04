@@ -9,7 +9,7 @@ import CouponItem from "./CouponItem";
 import { useShoppingCartContext } from "@/pages/MainPage/context";
 import { CouponService } from "@/services";
 import { useCartItem } from "@/hooks";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function CouponModal() {
   const { data: coupons } = useQuery({
@@ -36,7 +36,10 @@ export default function CouponModal() {
     return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
   }, 0);
 
-  const availableCoupons = coupons?.filter((coupon) => new CouponService(cartItems.content).canAdjustCoupon(coupon));
+  const availableCoupons = useMemo(
+    () => coupons?.filter((coupon) => new CouponService(cartItems.content).canAdjustCoupon(coupon)),
+    [coupons, cartItems.content],
+  );
 
   useEffect(() => {
     if (selectedCouponIds.length > 0) return;
@@ -50,7 +53,7 @@ export default function CouponModal() {
       .slice(0, 2);
 
     setSelectedCouponIds(mostDiscountCombination?.map((coupon) => coupon.id) || []);
-  }, [availableCoupons, cartItems.content, isFar, selectedCouponIds.length, setSelectedCouponIds]);
+  }, [availableCoupons]);
 
   return (
     <Modal isBackdropClose>
