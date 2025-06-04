@@ -20,11 +20,11 @@ import { useShoppingCartContext } from "../MainPage/context";
 import { QUERY_KEY } from "@/constants";
 import { useQuery } from "@/modules";
 import { CouponApi } from "@/apis";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();
-  const { selectedItemIds, isFar, setIsFar, selectedCouponIds } = useShoppingCartContext();
+  const { selectedItemIds, isFar, setIsFar, selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
   const { data: coupons } = useQuery({
     queryFn: CouponApi.getAllCoupons,
     queryKey: QUERY_KEY.coupon,
@@ -47,6 +47,26 @@ export default function Step2() {
     const couponService = new CouponService(selectedCartItems);
     return acc + couponService.calculateDiscountPrice(coupon, isFar);
   }, 0);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const availableCoupons = useMemo(
+    () => coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
+    [coupons, selectedCartItems],
+  );
+
+  useEffect(() => {
+    const mostDiscountCombination = availableCoupons
+      ?.sort((a, b) => {
+        const couponService = new CouponService(selectedCartItems);
+        return couponService.calculateDiscountPrice(b, isFar) - couponService.calculateDiscountPrice(a, isFar);
+      })
+      .slice(0, 2);
+
+    setSelectedCouponIds(mostDiscountCombination?.map((coupon) => coupon.id) || []);
+  }, []);
 
   return (
     <main>
@@ -93,8 +113,8 @@ export default function Step2() {
           쿠폰 적용
         </Button>
 
-        <Modal.Wrapper isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <CouponModal />
+        <Modal.Wrapper isOpen={isOpen} onClose={closeModal}>
+          <CouponModal closeModal={closeModal} />
         </Modal.Wrapper>
 
         <Spacing size={32} />
