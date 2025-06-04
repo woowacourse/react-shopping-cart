@@ -2,9 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 
-import TestProvider from "../../../utils/TestProvider";
-
-import Receipt from "./Receipt";
+import TestProvider from "../utils/TestProvider.tsx";
+import Receipt from "../components/shoppingCart/receipt/Receipt";
 
 describe("ReceiptTest", () => {
   it("주문 금액이 100,000원 미만인 경우 배송비는 3,000원으로 설정된다.", () => {
