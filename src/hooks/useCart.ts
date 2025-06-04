@@ -30,13 +30,21 @@ export interface UseCartReturnType {
     handleCheckChange: HandleCheckChangeType;
     isAllChecked: boolean;
   };
-  orderResult: Record<"cartItemsTotalQuantity" | "cartItemsCheckedCount" | "totalPrice", number>;
+  orderConfirmPageData: {
+    orderItems: CartItem[];
+    cartItemsTotalQuantity: number;
+    cartItemsCheckedCount: number;
+    orderPrice: number;
+    deliveryPrice: number;
+    totalPrice: number;
+  };
 }
 
 const useCart = (): UseCartReturnType => {
   const { setErrorMessage } = useErrorMessage();
 
   const [cartItems, setCartItems] = useState<CartItemsType[]>([]);
+  const orderItems = cartItems.filter((item) => item.isChecked).map(({ isChecked, ...rest }) => rest);
   const cartItemsCount = cartItems.length;
   const cartItemsCheckedCount = cartItems.filter((item) => item.isChecked).length;
   const cartItemsTotalQuantity = cartItems.reduce((acc, item) => {
@@ -122,7 +130,14 @@ const useCart = (): UseCartReturnType => {
   return {
     cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
     cartItemListProps: { cartItems, handleCartItemChange, handleCheckChange, isAllChecked },
-    orderResult: { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice },
+    orderConfirmPageData: {
+      orderItems,
+      orderPrice,
+      deliveryPrice,
+      totalPrice,
+      cartItemsTotalQuantity,
+      cartItemsCheckedCount,
+    },
   };
 };
 
