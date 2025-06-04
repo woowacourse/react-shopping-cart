@@ -3,7 +3,16 @@ import { CartItemType } from '../types';
 
 function useCartSelection(cartItems: CartItemType[]) {
   const [selectedCartItemIds, setSelectedCartItemIds] = useState<Set<number>>(
-    () => new Set(cartItems.map((item) => item.id))
+    () => {
+      const localSelectedCartItemIds = localStorage.getItem(
+        'selectedCartItemIds'
+      );
+      if (localSelectedCartItemIds) {
+        return new Set(JSON.parse(localSelectedCartItemIds));
+      }
+
+      return new Set(cartItems.map((item) => item.id));
+    }
   );
 
   const isAllItemSelected = selectedCartItemIds.size === cartItems.length;
@@ -23,6 +32,11 @@ function useCartSelection(cartItems: CartItemType[]) {
       } else {
         newSelected.add(targetId);
       }
+
+      localStorage.setItem(
+        'selectedCartItemIds',
+        JSON.stringify([...newSelected])
+      );
       return newSelected;
     });
   }, []);
@@ -30,8 +44,13 @@ function useCartSelection(cartItems: CartItemType[]) {
   const toggleAllSelect = useCallback(() => {
     setSelectedCartItemIds(() => {
       if (isAllItemSelected) {
+        localStorage.setItem('selectedCartItemIds', JSON.stringify([]));
         return new Set([]);
       } else {
+        localStorage.setItem(
+          'selectedCartItemIds',
+          JSON.stringify(cartItems.map((item) => item.id))
+        );
         return new Set(cartItems.map((item) => item.id));
       }
     });
