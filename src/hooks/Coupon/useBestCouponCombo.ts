@@ -24,7 +24,7 @@ interface Props {
   isIsland?: boolean; // 제주·도서산간 여부 (추가 배송비 3,000원)
 }
 
-const useCouponApply = ({
+const useBestCouponCombo = ({
   coupons = [],
   selectedShoppingCartItems,
   isIsland = false,
@@ -128,4 +128,4 @@ const useCouponApply = ({
     appliedCoupons,
   };
 };
-export { useCouponApply };
+export { useBestCouponCombo };
