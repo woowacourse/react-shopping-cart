@@ -15,3 +15,5 @@ export interface AvailableTime {
   start: string;
   end: string;
 }
+
+export type InvalidReason = "expired" | "minAmount" | "timeRange" | "bogoQty";
