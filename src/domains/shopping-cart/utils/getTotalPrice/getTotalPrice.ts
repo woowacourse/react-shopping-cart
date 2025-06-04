@@ -11,5 +11,8 @@ export function getTotalPrice({
 }: getTotalPriceProps) {
   return cartItems
     .filter((e) => selectedCartId.includes(e.id.toString()))
-    .reduce((a, b) => a + b.product.price * b.quantity, 0);
+    .reduce(
+      (totalPrice, item) => totalPrice + item.product.price * item.quantity,
+      0
+    );
 }

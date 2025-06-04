@@ -25,9 +25,10 @@ export function ShoppingCart() {
   const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartId });
 
   const calculateCartItemQuantity = () => {
-    return cartItem.reduce((a, b) => {
-      if (selectedCartId.includes(b.id.toString())) return a + b.quantity;
-      return a;
+    return cartItem.reduce((totalQuantity, item) => {
+      if (selectedCartId.includes(item.id.toString()))
+        return totalQuantity + item.quantity;
+      return totalQuantity;
     }, 0);
   };
 
