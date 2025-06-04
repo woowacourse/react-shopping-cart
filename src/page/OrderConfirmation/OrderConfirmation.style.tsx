@@ -1,13 +1,5 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.main`
-  margin-top: 64px;
-  width: 100%;
-  min-height: 100vh;
-  align-items: center;
-  padding: 24px;
-`;
-
 export const OrderConfirmButton = styled.button`
   width: 100%;
   max-width: 430px;
@@ -54,11 +46,13 @@ export const CouponButton = styled.button`
 export const Header = styled.header`
   width: 100%;
   margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 export const HeaderTitle = styled.h2`
   font-weight: 700;
   font-size: 24px;
+  margin-bottom: 8px;
 `;
 
 export const HeaderDescription = styled.p`
@@ -159,4 +153,34 @@ export const CouponComboNotice = styled.p`
   margin-bottom: 16px;
   font-weight: 700;
   text-align: center;
+`;
+export const ShippingIsland = styled.div`
+  margin-bottom: 8px;
+`;
+
+export const ShippingIslandTitle = styled.h2`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+export const ShippingIslandDescription = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+export const ShippingIslandWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+`;
+
+export const OrderPriceDetailWrapper = styled.div`
+  margin-bottom: 96px;
+`;
+
+export const OrderConfirmationContainer = styled.div`
+  max-width: 380px;
+  margin: 0 auto;
 `;

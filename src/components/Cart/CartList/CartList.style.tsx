@@ -20,9 +20,10 @@ export const TotalPriceContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
+  margin-bottom: 96px;
 `;
 
-export const TotalPriceTitle = styled.p`
+export const TotalPriceTitle = styled.div`
   display: flex;
   justify-content: space-between;
 `;
