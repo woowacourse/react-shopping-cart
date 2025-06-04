@@ -6,8 +6,6 @@ import ErrorPage from "../Error/ErrorPage";
 import Header from "@/components/common/Header/Header.tsx";
 import { isCartItem } from "@/util/validationTool.ts";
 
-import { useCartContext } from "@/components/Cart/CartContext.tsx";
-
 interface OrderCompleteProps {
   onReset: () => void;
 }
@@ -15,10 +13,8 @@ interface OrderCompleteProps {
 function OrderComplete({ onReset }: OrderCompleteProps) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { handleOrderCartItem } = useCartContext();
 
   const handleOrderConfirm = async () => {
-    await handleOrderCartItem(location.state.selectedCartItems);
     navigate(PAGE_URL.HOME);
     onReset();
   };
