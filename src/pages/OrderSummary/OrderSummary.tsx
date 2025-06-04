@@ -5,6 +5,8 @@ import { Container, TotalCost, TotalCostLabel } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../utils/cost";
 import Description from "../../components/Description/Description";
+import CartItemList from "../../components/CartItemList/CartItemList";
+import CartItem from "../../components/CartItem/CartItem";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -29,6 +31,12 @@ function OrderSummary() {
             cartItems
           )}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
+        <CartItemList>
+          {cartItems.map((cartItem: CartItemType) => (
+            <CartItem key={cartItem.id} cartItem={cartItem} />
+          ))}
+        </CartItemList>
+
         <p css={TotalCostLabel}>총 결제 금액</p>
         <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
       </section>

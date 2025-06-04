@@ -41,6 +41,9 @@ export const CountContainer = css`
   display: flex;
   gap: 4.5px;
   align-items: center;
+
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
 `;
 
 export const ProductImage = css`

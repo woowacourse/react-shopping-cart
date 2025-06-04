@@ -71,7 +71,7 @@ function CartItem({
                   increaseQuantity={() => increaseQuantity(cartId)}
                 />
               ) : (
-                <p>{quantity}</p>
+                <p>{quantity}개</p>
               )}
             </div>
           </div>
