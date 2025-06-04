@@ -1,8 +1,9 @@
 import { CartItem } from "@/type/CartItem";
 import OrderConfirmationList from "@/components/OrderConfirmation/OrderConfirmationList/OrderConfirmationList";
-import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
+
 import OrderConfirmationPreviewCard from "@/components/OrderConfirmation/OrderConfirmationPreviewCard/OrderConfirmationPreviewCard";
 import * as Styled from "./OrderConfirmation.style";
+import * as CartListStyled from "@/components/Cart/CartList/CartList.style";
 
 import CouponList from "@/components/Coupon/CouponList/CouponList";
 import CouponItem from "@/components/Coupon/CouponItem/CouponItem";
@@ -21,6 +22,9 @@ import type { Coupon } from "@/type/Coupon";
 import { validateCoupon } from "@/util/coupon/validateCoupon";
 import { CouponDiscountResult } from "@/hooks/Coupon/useCouponDiscount";
 import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
+import CheckBox from "@/components/common/CheckBox";
+import { FREE_SHIPPING_OVER } from "@/constants/priceSetting";
+import notice from "/notice.svg";
 
 // Context 정의
 interface OrderConfirmationContextValue {
@@ -45,7 +49,6 @@ const useOrderConfirmationContext = () => {
 };
 
 interface OrderConfirmationProps {
-  onPrev: () => void;
   selectedCartItems: CartItem[];
   couponsData: Coupon[] | null;
   result: CouponDiscountResult;
@@ -55,7 +58,6 @@ interface OrderConfirmationProps {
 
 function OrderConfirmation({
   selectedCartItems,
-  onPrev,
   couponsData,
   result,
   couponSelection,
@@ -81,8 +83,9 @@ function OrderConfirmation({
 
   return (
     <OrderConfirmationContext.Provider value={contextValue}>
-      <OrderConfirmationHeader handleGoBackToHomeButton={onPrev} />
-      <Styled.Container>{children}</Styled.Container>
+      <Styled.OrderConfirmationContainer>
+        {children}
+      </Styled.OrderConfirmationContainer>
     </OrderConfirmationContext.Provider>
   );
 }
@@ -121,7 +124,7 @@ function ItemList() {
   );
 }
 
-function Coupon({ children }: PropsWithChildren) {
+function CouponSelection({ children }: PropsWithChildren) {
   const {
     couponsData,
     result,
@@ -185,50 +188,72 @@ function Coupon({ children }: PropsWithChildren) {
   );
 }
 
+function ShippingIsland() {
+  const [isInIsland, setIsInIsland] = useState(false);
+  return (
+    <Styled.ShippingIsland>
+      <Styled.ShippingIslandTitle>배송 정보</Styled.ShippingIslandTitle>
+      <Styled.ShippingIslandWrapper>
+        <CheckBox
+          id="isInIsland"
+          checked={isInIsland}
+          onChange={() => setIsInIsland(!isInIsland)}
+          label="제주도 및 도서 산간 지역"
+          hidden={true}
+        />
+        <Styled.ShippingIslandDescription>
+          제주도 및 도서 산간 지역
+        </Styled.ShippingIslandDescription>
+      </Styled.ShippingIslandWrapper>
+      <CartListStyled.Notice>
+        <CartListStyled.NoticeIcon src={notice} />
+        <CartListStyled.FreeShippingText>
+          총 주문 금액이 {FREE_SHIPPING_OVER.toLocaleString()}원 이상일 경우
+          무료 배송됩니다.
+        </CartListStyled.FreeShippingText>
+      </CartListStyled.Notice>
+    </Styled.ShippingIsland>
+  );
+}
 function PriceDetails() {
   const { result } = useOrderConfirmationContext();
 
   return (
-    <Styled.OrderPriceDetails>
-      <Styled.OrderWrapper>
-        <Styled.OrderTotalTitle>총 결제 금액</Styled.OrderTotalTitle>
-        <Styled.OrderTotalPrice>
-          {result.orderTotal.toLocaleString()}원
-        </Styled.OrderTotalPrice>
-      </Styled.OrderWrapper>
-      <Styled.OrderWrapper>
-        <Styled.DiscountTotalTitle>쿠폰 할인 금액</Styled.DiscountTotalTitle>
-        <Styled.DiscountTotalPrice>
-          -{result.discountTotal.toLocaleString()}원
-        </Styled.DiscountTotalPrice>
-      </Styled.OrderWrapper>
-      <Styled.OrderWrapper>
-        <Styled.OrderTotalTitle>배송비</Styled.OrderTotalTitle>
-        <Styled.OrderTotalPrice>
-          {result.shippingFee.toLocaleString()}원
-        </Styled.OrderTotalPrice>
-      </Styled.OrderWrapper>
-    </Styled.OrderPriceDetails>
-  );
-}
-
-function FinalTotal() {
-  const { result } = useOrderConfirmationContext();
-
-  return (
-    <Styled.FinalTotalWrapper>
-      <Styled.FinalTotalTitle>총 결제 금액</Styled.FinalTotalTitle>
-      <Styled.FinalTotalPrice>
-        {result.finalTotal.toLocaleString()}원
-      </Styled.FinalTotalPrice>
-    </Styled.FinalTotalWrapper>
+    <Styled.OrderPriceDetailWrapper>
+      <Styled.OrderPriceDetails>
+        <Styled.OrderWrapper>
+          <Styled.OrderTotalTitle>총 결제 금액</Styled.OrderTotalTitle>
+          <Styled.OrderTotalPrice>
+            {result.orderTotal.toLocaleString()}원
+          </Styled.OrderTotalPrice>
+        </Styled.OrderWrapper>
+        <Styled.OrderWrapper>
+          <Styled.DiscountTotalTitle>쿠폰 할인 금액</Styled.DiscountTotalTitle>
+          <Styled.DiscountTotalPrice>
+            -{result.discountTotal.toLocaleString()}원
+          </Styled.DiscountTotalPrice>
+        </Styled.OrderWrapper>
+        <Styled.OrderWrapper>
+          <Styled.OrderTotalTitle>배송비</Styled.OrderTotalTitle>
+          <Styled.OrderTotalPrice>
+            {result.shippingFee.toLocaleString()}원
+          </Styled.OrderTotalPrice>
+        </Styled.OrderWrapper>
+      </Styled.OrderPriceDetails>
+      <Styled.FinalTotalWrapper>
+        <Styled.FinalTotalTitle>총 결제 금액</Styled.FinalTotalTitle>
+        <Styled.FinalTotalPrice>
+          {result.finalTotal.toLocaleString()}원
+        </Styled.FinalTotalPrice>
+      </Styled.FinalTotalWrapper>
+    </Styled.OrderPriceDetailWrapper>
   );
 }
 
 OrderConfirmation.Header = Header;
 OrderConfirmation.ItemList = ItemList;
-OrderConfirmation.Coupon = Coupon;
+OrderConfirmation.CouponSelection = CouponSelection;
+OrderConfirmation.ShippingIsland = ShippingIsland;
 OrderConfirmation.PriceDetails = PriceDetails;
-OrderConfirmation.FinalTotal = FinalTotal;
 
 export default OrderConfirmation;

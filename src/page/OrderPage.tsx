@@ -14,6 +14,7 @@ import CartContent from "@/components/Cart/CartContent/CartContent";
 import OrderConfirmation from "./OrderConfirmation/OrderConfirmation";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
 import CartContentActions from "@/components/Cart/CartContentActions/CartContentActions";
+import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
@@ -57,9 +58,14 @@ function OrderPage({
   });
   return (
     <CartLayout>
+      {currentStep === STEP_NAME.SELECT_PRODUCT && <CartHeader />}
+      {currentStep === STEP_NAME.APPLY_COUPON_AND_PAYMENT && (
+        <OrderConfirmationHeader
+          handleGoBackToHomeButton={() => prevClickHandler("구매품 선택")}
+        />
+      )}
       <Funnel>
         <Step name="구매품 선택">
-          <CartHeader />
           <CartContent.Root>
             <CartContent.Loading />
             <CartContent.Header />
@@ -69,15 +75,15 @@ function OrderPage({
         <Step name="쿠폰 적용 및 결제">
           <OrderConfirmation
             selectedCartItems={selectedCartItems}
-            onPrev={() => prevClickHandler("구매품 선택")}
             couponsData={couponsData}
             result={result}
             couponSelection={couponSelection}
           >
+            <OrderConfirmation.Header />
             <OrderConfirmation.ItemList />
-            <OrderConfirmation.Coupon />
+            <OrderConfirmation.CouponSelection />
+            <OrderConfirmation.ShippingIsland />
             <OrderConfirmation.PriceDetails />
-            <OrderConfirmation.FinalTotal />
           </OrderConfirmation>
         </Step>
       </Funnel>
