@@ -8,6 +8,7 @@ import { useApiContext } from '../../contexts/ApiContext';
 import getCartItems from '../../api/getCartItem';
 import { deleteCartItem } from '../../api/deleteCartItem';
 import { useErrorContext } from '../../contexts/ErrorContext';
+import Image from '../Image/Image';
 
 interface CartItemProps {
   item: CartItemType;
@@ -61,14 +62,7 @@ export default function CartItem({ item, handleCheckBoxChange, checked }: CartIt
         <RemoveButton onClick={handleDeleteCart} />
       </div>
       <div css={styles.cartItemInfoCss}>
-        <img
-          css={styles.cartItemImgCss}
-          src={imageUrl || './assets/default.png'}
-          alt={name}
-          onError={(e) => {
-            e.currentTarget.src = './assets/default.png';
-          }}
-        />
+        <Image css={styles.cartItemImgCss} src={imageUrl} alt={name} />
         <div>
           <p>{name}</p>
           <p css={styles.cartItemPriceCss}>{(price * cartQuantity).toLocaleString()}원</p>
