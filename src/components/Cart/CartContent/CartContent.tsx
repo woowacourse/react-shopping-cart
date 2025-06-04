@@ -4,14 +4,8 @@ import CartList from "../CartList/CartList"
 import CartCard from "../CartCard/CartCard"
 import checked from "/checked.svg"
 import unChecked from "/unChecked.svg"
-import { useNavigate } from "react-router"
-import { PAGE_URL } from "../../../constants/PageUrl"
-import type { OrderConfirmationLocationState } from "../../../type/OrderConfirmation"
-import {
-  FREE_SHIPPING_OVER,
-  SHIPPING_FEE,
-} from "../../../constants/priceSetting"
 import useSelectedCartIds from "../../../hooks/useSelectedCartIds"
+import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton"
 
 function CartContent() {
   const {
@@ -28,30 +22,6 @@ function CartContent() {
     handleSelectCartItem,
     handleSelectAllCartItems,
   } = useSelectedCartIds(cartItemsData)
-
-  const navigate = useNavigate()
-  const handleOrderConfirm = () => {
-    const selectedCartItems = cartItemsData.filter((cartItem) =>
-      selectedCartIds.includes(cartItem.id)
-    )
-    const totalPrice = selectedCartItems.reduce(
-      (total, item) => total + item.product.price * item.quantity,
-      0
-    )
-
-    const shippingFee = totalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE
-    const totalPriceWithShipping = totalPrice + shippingFee
-
-    const state: OrderConfirmationLocationState = {
-      selectedCartItemsLength: selectedCartIds.length,
-      selectedCartItemsCount: selectedCartItems.reduce(
-        (totalCount, item) => totalCount + item.quantity,
-        0
-      ),
-      totalPrice: totalPriceWithShipping,
-    }
-    navigate(PAGE_URL.ORDER_CONFIRMATION, { state })
-  }
 
   return (
     <Styled.CartContentContainer>
@@ -93,12 +63,10 @@ function CartContent() {
           장바구니에 담긴 상품이 없습니다.
         </Styled.EmptyCartMessage>
       )}
-      <Styled.OrderConfirmButton
-        disabled={selectedCartIds.length === 0}
-        onClick={handleOrderConfirm}
-      >
-        주문 확인
-      </Styled.OrderConfirmButton>
+      <OrderConfirmButton
+        selectedCartIds={selectedCartIds}
+        cartItemsData={cartItemsData}
+      />
     </Styled.CartContentContainer>
   )
 }

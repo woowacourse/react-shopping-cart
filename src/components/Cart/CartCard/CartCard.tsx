@@ -6,8 +6,11 @@ import checked from "/checked.svg";
 
 interface CartCardProps {
   cartItem: CartItem;
-  handleDeleteCartItem: (id: number) => void;
-  handleCartItemQuantity: (params: { id: number; quantity: number }) => void;
+  handleDeleteCartItem: (id: number) => Promise<void>;
+  handleCartItemQuantity: (params: {
+    id: number;
+    quantity: number;
+  }) => Promise<void>;
   handleSelectCartItem: (id: number) => void;
   isDeleteItemLoading: boolean;
   isQuantityUpdateLoading: boolean;
@@ -34,7 +37,10 @@ function CartCard({
           </Styled.SelectButton>
           <Styled.DeleteButton
             disabled={isDeleteItemLoading}
-            onClick={() => handleDeleteCartItem(id)}
+            onClick={async () => {
+              await handleDeleteCartItem(id);
+              handleSelectCartItem(id);
+            }}
           >
             삭제
           </Styled.DeleteButton>
@@ -46,14 +52,14 @@ function CartCard({
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
             <ProductQuantityControl
               quantity={quantity}
-              handleIncreaseCartItemQuantity={() =>
-                handleCartItemQuantity({
+              handleIncreaseCartItemQuantity={async () =>
+                await handleCartItemQuantity({
                   id: cartItem.id,
                   quantity: quantity + 1,
                 })
               }
-              handleDecreaseCartItemQuantity={() =>
-                handleCartItemQuantity({
+              handleDecreaseCartItemQuantity={async () =>
+                await handleCartItemQuantity({
                   id: cartItem.id,
                   quantity: quantity - 1,
                 })
