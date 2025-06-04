@@ -40,4 +40,21 @@ describe('주문확인 페이지 테스트', () => {
       )
     ).toBeInTheDocument();
   });
+
+  it('장바구니 페이지에 직접 url로 진입시 에러 화면이 나타난다.', () => {
+    render(
+      <MemoryRouter
+        initialEntries={[
+          {
+            pathname: '/confirm',
+          },
+        ]}
+      >
+        <OrderConfirm />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('잘못된 접근입니다.')).toBeInTheDocument();
+    expect(screen.getByText('장바구니 페이지로 돌아가기')).toBeInTheDocument();
+  });
 });
