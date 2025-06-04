@@ -1,8 +1,14 @@
+import { getShoppingCartData } from "../../../../../api/cart";
 import CheckBox from "../../../../../components/common/CheckBox";
+import { useAPIDataContext } from "../../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../context/OrderListProvider";
 
 function CartItemCheckbox({ cartId }: { cartId: string }) {
-  const { selectionMap, setSelectionMap } = useOrderListContext();
+  const { data: cartListData } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
+  const { selectionMap, setSelectionMap } = useOrderListContext(cartListData);
 
   const handleToggleSelection = (cartId: string) => {
     setSelectionMap((prev) => ({

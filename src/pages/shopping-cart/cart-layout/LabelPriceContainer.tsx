@@ -3,12 +3,18 @@ import Flex from "../../../components/common/Flex";
 import LabelPrice from "../../../components/common/LabelPrice";
 import { useOrderListContext } from "../context/OrderListProvider";
 import { formatKRWString } from "../../../utils/formatKRWString";
+import { useAPIDataContext } from "../../../context/APIDataProvider";
+import { getShoppingCartData } from "../../../api/cart";
 
 const FREE_SHIPPING_STANDARD = 100000;
 const SHIPPING_FEE = 3000;
 
 const LabelPriceContainer = () => {
-  const { cartListData, selectionMap } = useOrderListContext();
+  const { data: cartListData } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
+  const { selectionMap } = useOrderListContext(cartListData);
   const selectedItems = (cartListData ?? []).filter(
     (item) => selectionMap[item.id]
   );

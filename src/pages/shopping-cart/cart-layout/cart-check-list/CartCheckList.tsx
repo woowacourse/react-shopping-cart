@@ -3,9 +3,15 @@ import CheckBox from "../../../../components/common/CheckBox";
 import { useOrderListContext } from "../../context/OrderListProvider";
 import EmptyCartBox from "./EmptyCartBox";
 import CartCheckItem from "./cart-check-item/CartCheckItem";
+import { useAPIDataContext } from "../../../../context/APIDataProvider";
+import { getShoppingCartData } from "../../../../api/cart";
 
 function CartCheckList() {
-  const { cartListData, selectionMap, setSelectionMap } = useOrderListContext();
+  const { data: cartListData } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
+  const { selectionMap, setSelectionMap } = useOrderListContext(cartListData);
 
   const isCartEmpty = !cartListData || cartListData.length === 0;
 

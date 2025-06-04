@@ -5,13 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
 import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
 import { formatKRWString } from "../../utils/formatKRWString";
+import { useAPIDataContext } from "../../context/APIDataProvider";
+import { getShoppingCartData } from "../../api/cart";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
   };
-  const { cartListData, selectionMap } = useOrderListContext();
+  const { data: cartListData } = useAPIDataContext({
+    name: "cart",
+    fetcher: getShoppingCartData,
+  });
+  const { selectionMap } = useOrderListContext(cartListData);
   const orderList = (cartListData ?? []).filter(
     (cart) => selectionMap[cart.id] === true
   );

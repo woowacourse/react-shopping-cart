@@ -1,7 +1,11 @@
 import { useContext } from "react";
-import { useOrderListContext } from "../../../context/OrderListProvider";
-import { Cart, patchCartItem } from "../../../../../api/cart";
+import {
+  Cart,
+  getShoppingCartData,
+  patchCartItem,
+} from "../../../../../api/cart";
 import Counter from "../../../../../components/common/Counter";
+import { useAPIDataContext } from "../../../../../context/APIDataProvider";
 import { ToastContext } from "../../../../../context/ToastProvider";
 
 interface CartItemCounterProps {
@@ -9,7 +13,10 @@ interface CartItemCounterProps {
 }
 
 function CartItemCounter({ cart }: CartItemCounterProps) {
-  const { cartListData, cartRefetch } = useOrderListContext();
+  const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
 
   const { showToast } = useContext(ToastContext);
 

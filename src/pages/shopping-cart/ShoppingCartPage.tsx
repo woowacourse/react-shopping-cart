@@ -4,9 +4,15 @@ import CartLayout from "./cart-layout/CartLayout";
 import { useOrderListContext } from "./context/OrderListProvider";
 import { useNavigate } from "react-router-dom";
 import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
+import { useAPIDataContext } from "../../context/APIDataProvider";
+import { getShoppingCartData } from "../../api/cart";
 
 const ShoppingCartPage = () => {
-  const { selectionMap } = useOrderListContext();
+  const { data: cartListData } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
+  const { selectionMap } = useOrderListContext(cartListData);
   const isDisabled = !Object.values(selectionMap).some(
     (isSelected) => isSelected
   );

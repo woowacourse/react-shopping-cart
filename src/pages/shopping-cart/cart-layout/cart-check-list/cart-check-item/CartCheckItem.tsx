@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
-import { Cart, deleteCartItem } from "../../../../../api/cart";
+import {
+  Cart,
+  deleteCartItem,
+  getShoppingCartData,
+} from "../../../../../api/cart";
 import Image from "../../../../../components/common/Image";
+import { useAPIDataContext } from "../../../../../context/APIDataProvider";
 import { formatKRWString } from "../../../../../utils/formatKRWString";
-import { useOrderListContext } from "../../../context/OrderListProvider";
 import CartItemCheckbox from "./CartItemCheckbox";
 import CartItemCounter from "./CartItemCounter";
 
@@ -11,7 +15,10 @@ interface CartCheckItemProps {
 }
 
 function CartCheckItem({ cart }: CartCheckItemProps) {
-  const { cartRefetch } = useOrderListContext();
+  const { refetch: cartRefetch } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
 
   const removeItem = async (id: string) => {
     await deleteCartItem(id);

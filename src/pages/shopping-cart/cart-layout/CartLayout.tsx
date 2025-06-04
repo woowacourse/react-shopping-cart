@@ -1,12 +1,16 @@
 import styled from "@emotion/styled";
+import { getShoppingCartData } from "../../../api/cart";
 import { Flex } from "../../../components/common";
+import { useAPIDataContext } from "../../../context/APIDataProvider";
 import CartCheckList from "./cart-check-list/CartCheckList";
 import CartTitle from "./cart-check-list/CartTitle";
 import LabelPriceContainer from "./LabelPriceContainer";
-import { useOrderListContext } from "../context/OrderListProvider";
 
 const CartLayout = () => {
-  const { cartListData } = useOrderListContext();
+  const { data: cartListData } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
 
   return (
     <Container>
