@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-export const AppContainer = styled.div`
+export const CartPageContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -8,7 +8,7 @@ export const AppContainer = styled.div`
   align-items: center;
 `;
 
-export const AppContent = styled.main`
+export const CartPageContent = styled.main`
   width: 100%;
   flex: 1;
   display: flex;
