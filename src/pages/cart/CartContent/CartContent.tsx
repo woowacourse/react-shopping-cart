@@ -32,8 +32,8 @@ export default function CartContent() {
   }
 
   const handleOrderConfirmButtonClick = () => {
-    const orderList = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
-    navigateTo(ROUTES.ORDER_SUCCESS, { orderList, orderTotalPrice });
+    const orderItems = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
+    navigateTo(ROUTES.ORDER_SUCCESS, { orderItems, orderTotalPrice });
   };
 
   return (

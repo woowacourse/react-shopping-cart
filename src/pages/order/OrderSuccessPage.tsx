@@ -19,9 +19,9 @@ export default function OrderSuccessPage() {
   const state = validateOrderSuccessState();
   if (!state) return null;
 
-  const { orderList, orderTotalPrice } = state;
-  const orderListType = orderList.length;
-  const orderQuantity = orderList.reduce((acc, { quantity }) => (acc += quantity), 0);
+  const { orderItems, orderTotalPrice } = state;
+  const orderItemsType = orderItems.length;
+  const orderTotalQuantity = orderItems.reduce((acc, { quantity }) => (acc += quantity), 0);
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function OrderSuccessPage() {
         <S.OrderContainer>
           <S.Title>주문 확인</S.Title>
           <S.OrderText>
-            총 {orderListType}종류의 상품 {orderQuantity}개를 주문합니다.
+            총 {orderItemsType}종류의 상품 {orderTotalQuantity}개를 주문합니다.
             <br />
             최종 결제 금액을 확인해 주세요.
           </S.OrderText>

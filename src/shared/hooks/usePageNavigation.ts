@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { CartItemType } from '@/apis/cartItems/cartItem.type';
 
 interface OrderSuccessState {
-  orderList: CartItemType[];
+  orderItems: CartItemType[];
   orderTotalPrice: number;
 }
 
@@ -21,8 +21,8 @@ export const usePageNavigation = () => {
 
     const state = location.state as OrderSuccessState;
     if (
-      !state.orderList ||
-      !Array.isArray(state.orderList) ||
+      !state.orderItems ||
+      !Array.isArray(state.orderItems) ||
       typeof state.orderTotalPrice !== 'number'
     ) {
       return null;
