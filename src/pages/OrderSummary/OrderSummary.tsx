@@ -9,7 +9,7 @@ import {
   TotalCostLabel,
 } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../utils/cost";
+import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 
 function OrderSummary() {
   const navigate = useNavigate();

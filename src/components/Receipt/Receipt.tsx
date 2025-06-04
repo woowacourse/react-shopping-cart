@@ -1,5 +1,5 @@
 import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../utils/cost";
+import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { Container, InfoText, Table } from "./Receipt.styles";
 
 interface ReceiptProps {
