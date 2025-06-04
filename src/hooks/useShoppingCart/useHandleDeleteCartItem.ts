@@ -1,23 +1,22 @@
 import { useState, useCallback } from "react";
-import { useErrorToast } from "../contexts/ErrorToastContext";
-import updateCartItemQuantity from "../apis/updateCartItemQuantity";
-import { ApiError } from "../constants/ApiError";
+import { useErrorToast } from "../../contexts/ErrorToastContext";
+import { ApiError } from "../../constants/ApiError";
+import deleteCartItem from "../../apis/deleteCartItem";
 
-const useHandleCartItemQuantity = (refetchCartItems: () => Promise<void>) => {
+const useHandleDeleteCartItem = (refetchCartItems: () => Promise<void>) => {
   const [isLoading, setIsLoading] = useState(false);
   const { showError } = useErrorToast();
 
-  const handleCartItemQuantity = useCallback(
-    async (params: { id: number; quantity: number }) => {
+  const handleDeleteCartItem = useCallback(
+    async (id: number) => {
       setIsLoading(true);
       try {
-        await updateCartItemQuantity({ params });
+        await deleteCartItem(id);
       } catch (error) {
         if (error instanceof ApiError) {
           showError(error);
         }
       }
-
       try {
         await refetchCartItems();
       } catch (error) {
@@ -30,7 +29,7 @@ const useHandleCartItemQuantity = (refetchCartItems: () => Promise<void>) => {
     [refetchCartItems, showError]
   );
 
-  return { isLoading, handleCartItemQuantity };
+  return { isLoading, handleDeleteCartItem };
 };
 
-export default useHandleCartItemQuantity;
+export default useHandleDeleteCartItem;

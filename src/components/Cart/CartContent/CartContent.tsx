@@ -1,5 +1,5 @@
 import * as Styled from "./CartContent.style"
-import useShoppingCart from "../../../hooks/useShoppingCart"
+import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart"
 import CartList from "../CartList/CartList"
 import CartCard from "../CartCard/CartCard"
 import checked from "/checked.svg"
