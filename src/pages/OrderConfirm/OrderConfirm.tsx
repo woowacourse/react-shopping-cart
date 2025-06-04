@@ -8,6 +8,8 @@ import {
   subtitleText,
   titleText,
   totalPriceBox,
+  backButton,
+  backImg,
 } from './OrderConfirm.style';
 import Button from '../../components/Button/Button';
 import { css } from '@emotion/react';
@@ -23,7 +25,9 @@ export function OrderConfirm() {
   return (
     <PageLayout>
       <Header>
-        <p>SHOP</p>
+        <button css={backButton} onClick={handleBackClick}>
+          <img css={backImg} src="./back.png" />
+        </button>
       </Header>
       <Main>
         <div css={confirmLayout}>

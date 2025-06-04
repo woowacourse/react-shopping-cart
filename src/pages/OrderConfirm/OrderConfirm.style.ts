@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 const confirmLayout = css`
   display: flex;
@@ -30,4 +30,24 @@ const bodyText = css`
   font-size: 12px;
 `;
 
-export { confirmLayout, titleText, subtitleText, totalPriceBox, bodyText };
+const backButton = css`
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const backImg = css`
+  width: 21px;
+  height: 21px;
+`;
+
+export {
+  confirmLayout,
+  titleText,
+  subtitleText,
+  totalPriceBox,
+  bodyText,
+  backButton,
+  backImg,
+};
