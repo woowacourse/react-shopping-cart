@@ -22,19 +22,19 @@ function CartContent() {
     isDeleteItemLoading,
   } = useShoppingCart()
 
-  const [selectedCartIds, setSelectedCartIds] = useState<string[]>([])
+  const [selectedCartIds, setSelectedCartIds] = useState<number[]>([])
   const initialized = useRef(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!initialized.current && cartItemsData.length) {
-      const allIds = cartItemsData.map((item) => item.id.toString())
+      const allIds = cartItemsData.map((item) => item.id)
       setSelectedCartIds(allIds)
       initialized.current = true
     }
   }, [cartItemsData])
 
-  const handleSelectCartItem = (id: string) => {
+  const handleSelectCartItem = (id: number) => {
     if (selectedCartIds.includes(id)) {
       setSelectedCartIds((prev) => prev.filter((cartId) => cartId !== id))
     } else {
@@ -44,15 +44,15 @@ function CartContent() {
 
   const isAllSelected =
     cartItemsData.length > 0 &&
-    cartItemsData.every((item) => selectedCartIds.includes(item.id.toString()))
+    cartItemsData.every((item) => selectedCartIds.includes(item.id))
 
   const handleOrderConfirm = () => {
     const selectedCartItems = cartItemsData.filter((cartItem) =>
-      selectedCartIds.includes(cartItem.id.toString()),
+      selectedCartIds.includes(cartItem.id)
     )
     const totalPrice = selectedCartItems.reduce(
       (total, item) => total + item.product.price * item.quantity,
-      0,
+      0
     )
 
     const shippingFee = totalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE
@@ -62,7 +62,7 @@ function CartContent() {
       selectedCartItemsLength: selectedCartIds.length,
       selectedCartItemsCount: selectedCartItems.reduce(
         (totalCount, item) => totalCount + item.quantity,
-        0,
+        0
       ),
       totalPrice: totalPriceWithShipping,
     }
@@ -84,7 +84,7 @@ function CartContent() {
                 if (selectedCartIds.length === cartItemsData.length) {
                   setSelectedCartIds([])
                 } else {
-                  const allIds = cartItemsData.map((item) => item.id.toString())
+                  const allIds = cartItemsData.map((item) => item.id)
                   setSelectedCartIds(allIds)
                 }
               }}
@@ -106,7 +106,7 @@ function CartContent() {
                 isQuantityUpdateLoading={isQuantityUpdateLoading}
                 handleCartItemQuantity={handleCartItemQuantity}
                 handleSelectCartItem={handleSelectCartItem}
-                isSelected={selectedCartIds.includes(cartItem.id.toString())}
+                isSelected={selectedCartIds.includes(cartItem.id)}
               />
             ))}
           </CartList>

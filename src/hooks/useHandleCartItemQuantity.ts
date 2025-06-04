@@ -8,7 +8,7 @@ const useHandleCartItemQuantity = (refetchCartItems: () => Promise<void>) => {
   const { showError } = useErrorToast();
 
   const handleCartItemQuantity = useCallback(
-    async (params: { id: string; quantity: string }) => {
+    async (params: { id: number; quantity: number }) => {
       setIsLoading(true);
       try {
         await updateCartItemQuantity({ params });

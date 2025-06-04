@@ -10,12 +10,12 @@ import notice from "/notice.svg";
 
 interface CartListProps extends PropsWithChildren {
   cartItemsData: CartItem[];
-  selectedCartIds: string[];
+  selectedCartIds: number[];
 }
 
 function CartList({ cartItemsData, selectedCartIds, children }: CartListProps) {
   const totalPrice = cartItemsData
-    .filter((cartItem) => selectedCartIds.includes(cartItem.id.toString()))
+    .filter((cartItem) => selectedCartIds.includes(cartItem.id))
     .reduce((total, item) => total + item.product.price * item.quantity, 0);
 
   const shippingFee = totalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE;

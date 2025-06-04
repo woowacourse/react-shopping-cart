@@ -2,8 +2,8 @@ import { apiClient } from "./apiClient";
 
 interface updateCartItemsParams {
   params: {
-    id: string;
-    quantity: string;
+    id: number;
+    quantity: number;
   };
 }
 

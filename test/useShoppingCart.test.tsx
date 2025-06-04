@@ -111,7 +111,7 @@ describe("useShoppingCart는", () => {
 
     // quantity 업데이트 실행
     await act(() =>
-      result.current.handleCartItemQuantity({ id: "1", quantity: "2" })
+      result.current.handleCartItemQuantity({ id: 1, quantity: 2 })
     );
 
     // 로딩 상태가 정상적으로 처리되는지 확인
@@ -124,7 +124,7 @@ describe("useShoppingCart는", () => {
     });
 
     await act(async () => {
-      await result.current.handleCartItemQuantity({ id: "2", quantity: "1" });
+      await result.current.handleCartItemQuantity({ id: 2, quantity: 1 });
     });
 
     await waitFor(() => {
@@ -155,7 +155,7 @@ describe("useShoppingCart는", () => {
 
     // 아이템 삭제 실행
     await act(async () => {
-      result.current.handleDeleteCartItem("1");
+      result.current.handleDeleteCartItem(1);
     });
 
     // 로딩 상태가 정상적으로 처리되는지 확인

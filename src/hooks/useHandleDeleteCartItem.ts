@@ -8,7 +8,7 @@ const useHandleDeleteCartItem = (refetchCartItems: () => Promise<void>) => {
   const { showError } = useErrorToast();
 
   const handleDeleteCartItem = useCallback(
-    async (id: string) => {
+    async (id: number) => {
       setIsLoading(true);
       try {
         await deleteCartItem(id);
