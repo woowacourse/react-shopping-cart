@@ -1,5 +1,5 @@
 import { useCartContext } from '../../../shared/context/useCartContext';
-import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../constants/orderPriceSummary';
+import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
 export default function OrderPriceSummary() {
   const { selectedCartItems } = useCartContext();

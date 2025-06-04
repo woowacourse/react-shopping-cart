@@ -1,5 +1,5 @@
 import * as S from './CartItemQuantitySelector.styles';
-import { CartItem } from '../../../shared/types/cart';
+import { CartItem } from '../api/types/cart';
 import { updateCartItem } from '../api/updateCartItem';
 import { useCartContext } from '../../../shared/context/useCartContext';
 

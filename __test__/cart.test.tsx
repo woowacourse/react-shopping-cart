@@ -4,7 +4,7 @@ import { CartProvider } from '../src/shared/context/CartProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
-import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../src/features/constants/orderPriceSummary';
+import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../src/features/cart/constants/orderPriceSummary';
 import { server } from '../src/mocks/server';
 import { http, HttpResponse } from 'msw';
 
