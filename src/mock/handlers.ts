@@ -131,10 +131,42 @@ const patchCartItems = http.patch(
     return new HttpResponse(null, { status: 200 });
   }
 );
+const orderCartItems = http.post(`${BASE_URL}/order`, async ({ request }) => {
+  const { cartItems } = (await request.json()) as { cartItems: CartItem[] };
+
+  for (const item of cartItems) {
+    const qty = Number(item.quantity);
+    const product = products.find((p) => p.id === item.product.id);
+
+    if (!product) {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: "Product Not Found",
+      });
+    }
+
+    if (product.quantity < qty) {
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Insufficient Stock",
+      });
+    }
+
+    console.log(`Ordering ${qty} of ${product.name} (ID: ${product.id})`);
+    product.quantity -= qty;
+  }
+
+  // 4) 장바구니 비우기
+  cartItems.length = 0;
+
+  // 5) 성공 응답
+  return new HttpResponse(null, { status: 201 });
+});
 
 export const handlers = [
   getCartItems,
   deleteCartItems,
   patchCartItems,
+  orderCartItems,
   getCoupons,
 ];
