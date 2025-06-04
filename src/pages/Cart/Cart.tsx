@@ -7,10 +7,10 @@ import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import { Container, NoCartItemText, Wrap } from "./Cart.styles";
 import { CartItemType } from "../../types/response";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../hooks/common/useFetch";
 import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
-import useCheckboxHandler from "../../hooks/useCheckboxHandler";
+import useCheckboxHandler from "../../hooks/cart/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 
 const getSelectedCartItems = (

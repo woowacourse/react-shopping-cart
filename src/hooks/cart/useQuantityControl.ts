@@ -1,11 +1,11 @@
 import { useState } from "react";
-import useMutation from "./useMutation";
+import useMutation from "../common/useMutation";
 import {
   decreaseCartItem,
   increaseCartItem,
   removeCartItem,
-} from "../api/cartItem";
-import { DEFAULT_ERROR_MESSAGE } from "../constants/errorMessage";
+} from "../../api/cartItem";
+import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 
 interface UseQuantityControlProps {
   initialQuantity: number;

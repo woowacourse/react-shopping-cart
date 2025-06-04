@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CartItemType } from "../types/response";
+import { CartItemType } from "../../types/response";
 
 const useCheckboxHandler = (cartItems: CartItemType[]) => {
   const allCartIds = useMemo(
