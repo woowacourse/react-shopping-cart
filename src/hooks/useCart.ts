@@ -1,32 +1,28 @@
-import { useEffect, useState } from "react";
 import { ResponseCartItem } from "../types/types";
 import getCartItemList from "../api/cartItemListApi";
+import { useDataFetch } from "./useDataFetch";
 
 function useCart() {
-  const [cartItemList, setCartItemList] = useState<ResponseCartItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setIsLoading(true);
+  const fetcher = () =>
     getCartItemList({
       page: 0,
       size: 20,
       sort: "asc",
-    })
-      .then((res) => {
-        setCartItemList(res);
-      })
-      .catch((error) => {
-        console.error("Cart item list fetch error:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    });
+
+  const { data, loading, error, refetch } = useDataFetch<ResponseCartItem[]>(
+    fetcher,
+    {
+      autoFetch: true,
+      deps: [],
+    }
+  );
 
   return {
-    cartItemList,
-    isLoading,
+    cartItemList: data || [],
+    isLoading: loading,
+    error,
+    refetch,
   };
 }
 
