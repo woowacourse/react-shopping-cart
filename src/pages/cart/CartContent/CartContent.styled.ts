@@ -12,13 +12,3 @@ export const Text = styled.p`
   font-size: 14px;
   font-weight: 500;
 `;
-
-export const ScrollContainer = styled.div`
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 64px;
-
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
-`;
