@@ -19,8 +19,8 @@ export async function baseAPI<T>({
     body: body ? JSON.stringify(body) : null,
   });
 
-  if (method === "GET" && !result.ok) {
-    throw new Error("GET 요청에 실패하였습니다.");
+  if (!result.ok) {
+    throw new Error("요청에 실패하였습니다.");
   }
 
   if (result.status === 204) return null;
