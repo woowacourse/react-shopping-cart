@@ -15,10 +15,7 @@ export default function CartContent() {
   const { cartItems, isLoading, errorMessage } = useCartContext();
   const { orderIdList, isAllChecked, toggleAllSelection, addOrderItemId, removeOrderItemId } =
     useOrderSelection(cartItems);
-  const { orderTotalPrice, deliveryFee, paymentAmount } = useOrderCalculation(
-    cartItems,
-    orderIdList,
-  );
+  const { orderPrice, deliveryFee, orderTotalPrice } = useOrderCalculation(cartItems, orderIdList);
 
   const { navigateTo } = usePageNavigation();
 
@@ -36,7 +33,7 @@ export default function CartContent() {
 
   const handleOrderConfirmButtonClick = () => {
     const orderList = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
-    navigateTo(ROUTES.ORDER_SUCCESS, { orderList, paymentAmount });
+    navigateTo(ROUTES.ORDER_SUCCESS, { orderList, orderTotalPrice });
   };
 
   return (
@@ -55,9 +52,9 @@ export default function CartContent() {
         />
       </S.ScrollContainer>
       <PriceContainer
-        orderTotalPrice={orderTotalPrice}
+        orderPrice={orderPrice}
         deliveryFee={deliveryFee}
-        paymentAmount={paymentAmount}
+        orderTotalPrice={orderTotalPrice}
       />
       <S.OrderConfirmButton
         disabled={!orderIdList.length}

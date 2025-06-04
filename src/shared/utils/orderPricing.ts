@@ -1,20 +1,20 @@
 export const FREE_DELIVERY_LIMIT = 100_000;
 const DELIVERY_FEE = 3_000;
 
-export const calculateDeliveryFee = (orderAmount: number): number => {
-  return orderAmount >= FREE_DELIVERY_LIMIT ? 0 : DELIVERY_FEE;
+export const calculateDeliveryFee = (orderPrice: number): number => {
+  return orderPrice >= FREE_DELIVERY_LIMIT ? 0 : DELIVERY_FEE;
 };
 
-export const calculatePaymentAmount = (orderAmount: number): number => {
-  return orderAmount + calculateDeliveryFee(orderAmount);
+export const calculatePaymentAmount = (orderPrice: number): number => {
+  return orderPrice + calculateDeliveryFee(orderPrice);
 };
 
-export const calculatePaymentInfo = (orderAmount: number) => {
-  const deliveryFee = calculateDeliveryFee(orderAmount);
-  const paymentAmount = orderAmount + deliveryFee;
+export const calculatePaymentInfo = (orderPrice: number) => {
+  const deliveryFee = calculateDeliveryFee(orderPrice);
+  const orderTotalPrice = orderPrice + deliveryFee;
 
   return {
     deliveryFee,
-    paymentAmount,
+    orderTotalPrice,
   };
 };

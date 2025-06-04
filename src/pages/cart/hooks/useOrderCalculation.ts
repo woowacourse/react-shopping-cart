@@ -7,7 +7,7 @@ export const useOrderCalculation = (
   orderIdList: OrderItemType,
 ) => {
   return useMemo(() => {
-    const orderTotalPrice =
+    const orderPrice =
       cartItems?.reduce((sum, { id, product, quantity }) => {
         if (orderIdList.includes(id)) {
           return sum + product.price * quantity;
@@ -15,12 +15,12 @@ export const useOrderCalculation = (
         return sum;
       }, 0) || 0;
 
-    const { deliveryFee, paymentAmount } = calculatePaymentInfo(orderTotalPrice);
+    const { deliveryFee, orderTotalPrice } = calculatePaymentInfo(orderPrice);
 
     return {
-      orderTotalPrice,
+      orderPrice,
       deliveryFee,
-      paymentAmount,
+      orderTotalPrice,
     };
   }, [cartItems, orderIdList]);
 };

@@ -19,7 +19,7 @@ export default function OrderSuccessPage() {
   const state = validateOrderSuccessState();
   if (!state) return null;
 
-  const { orderList, paymentAmount } = state;
+  const { orderList, orderTotalPrice } = state;
   const orderListType = orderList.length;
   const orderQuantity = orderList.reduce((acc, { quantity }) => (acc += quantity), 0);
 
@@ -38,7 +38,7 @@ export default function OrderSuccessPage() {
           </S.OrderText>
           <S.OrderPriceContainer>
             <S.OrderPriceTitle>총 결제 금액</S.OrderPriceTitle>
-            <S.OrderPriceText>{paymentAmount.toLocaleString()}원</S.OrderPriceText>
+            <S.OrderPriceText>{orderTotalPrice.toLocaleString()}원</S.OrderPriceText>
           </S.OrderPriceContainer>
         </S.OrderContainer>
         <S.PayConfirmButton disabled={true} type="button">

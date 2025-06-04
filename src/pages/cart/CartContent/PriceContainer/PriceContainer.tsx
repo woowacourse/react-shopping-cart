@@ -3,15 +3,15 @@ import InfoIcon from '@assets/icons/info.svg';
 import { FREE_DELIVERY_LIMIT } from '@/shared/utils/orderPricing';
 
 interface PriceContainerProps {
-  orderTotalPrice: number;
+  orderPrice: number;
   deliveryFee: number;
-  paymentAmount: number;
+  orderTotalPrice: number;
 }
 
 export default function PriceContainer({
-  orderTotalPrice,
+  orderPrice,
   deliveryFee,
-  paymentAmount,
+  orderTotalPrice,
 }: PriceContainerProps) {
   return (
     <S.Container>
@@ -24,7 +24,7 @@ export default function PriceContainer({
       <S.PriceBox>
         <S.PriceTextBox>
           <S.PriceTitle>주문 금액</S.PriceTitle>
-          <S.PriceText data-testid="order-price">{orderTotalPrice.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="order-price">{orderPrice.toLocaleString()}원</S.PriceText>
         </S.PriceTextBox>
         <S.PriceTextBox>
           <S.PriceTitle>배송비</S.PriceTitle>
@@ -34,7 +34,9 @@ export default function PriceContainer({
       <S.TotalPriceBox>
         <S.PriceTextBox>
           <S.PriceTitle>총 결제 금액</S.PriceTitle>
-          <S.PriceText data-testid="payment-price">{paymentAmount.toLocaleString()}원</S.PriceText>
+          <S.PriceText data-testid="payment-price">
+            {orderTotalPrice.toLocaleString()}원
+          </S.PriceText>
         </S.PriceTextBox>
       </S.TotalPriceBox>
     </S.Container>

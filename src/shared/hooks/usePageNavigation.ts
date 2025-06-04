@@ -3,7 +3,7 @@ import { CartItemType } from '@/apis/cartItems/cartItem.type';
 
 interface OrderSuccessState {
   orderList: CartItemType[];
-  paymentAmount: number;
+  orderTotalPrice: number;
 }
 
 type RouteState = OrderSuccessState | undefined;
@@ -23,7 +23,7 @@ export const usePageNavigation = () => {
     if (
       !state.orderList ||
       !Array.isArray(state.orderList) ||
-      typeof state.paymentAmount !== 'number'
+      typeof state.orderTotalPrice !== 'number'
     ) {
       return null;
     }
