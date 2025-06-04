@@ -5,7 +5,7 @@ export const calculateOrderAmount = (items: CartItemType[]): number => {
 };
 
 export const calculateDeliveryFee = (orderAmount: number): number => {
-  return orderAmount > 100000 ? 0 : 3000;
+  return orderAmount > 100_000 ? 0 : 3_000;
 };
 
 export const calculateTotalQuantity = (items: CartItemType[]): number => {
