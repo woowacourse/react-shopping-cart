@@ -14,15 +14,15 @@ export async function baseAPI<T>({
       Authorization: `Basic ${btoa(
         `${import.meta.env.VITE_USER_ID}:${import.meta.env.VITE_PASSWORD}`
       )}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: body ? JSON.stringify(body) : null,
   });
 
-  if (method === 'GET' && !result.ok) {
-    throw new Error('GET 요청에 실패하였습니다.');
+  if (method === "GET" && !result.ok) {
+    throw new Error("GET 요청에 실패하였습니다.");
   }
 
-  if (method === 'GET') return result.json();
-  return null;
+  if (result.status === 204) return null;
+  return result.json();
 }
