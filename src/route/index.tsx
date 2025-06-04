@@ -1,8 +1,8 @@
 import {ROUTE_PATHS} from './path';
 import {createBrowserRouter, RouterProvider} from 'react-router';
-import App from '../App';
 import NavBar from '../components/layout/NavBar';
 import Confirm from '../pages/Confirm';
+import CartList from '../pages/CartList';
 
 const router = createBrowserRouter(
   [
@@ -11,7 +11,7 @@ const router = createBrowserRouter(
       children: [
         {
           path: ROUTE_PATHS.MAIN,
-          element: <App />,
+          element: <CartList />,
         },
         {
           path: ROUTE_PATHS.CONFIRM,

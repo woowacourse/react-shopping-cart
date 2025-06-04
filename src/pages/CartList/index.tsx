@@ -1,19 +1,20 @@
-import * as S from './CartSection.styles';
-import Card from './CartProducts/Card';
-import Header from './Header';
-import CheckBox from '../../common/CheckBox';
-import PriceSection from './PriceSection';
-import useGetCartItem from '../../../hooks/useGetCartItem';
-import {CartProduct} from '../../../type/cart';
-import Button from '../../common/Button';
 import {useNavigate} from 'react-router';
+import useGetCartItem from '../../hooks/useGetCartItem';
+import {useSelectedCart} from '../../hooks/useSelectedCart';
+import {useShowError} from '../../provider/errorProvider';
+import CheckBox from '../../components/common/CheckBox';
+import Card from '../../components/feature/CartSection/CartProducts/Card';
+import Button from '../../components/common/Button';
+import Header from '../../components/feature/CartSection/Header';
+import PriceSection from '../../components/feature/CartSection/PriceSection';
+import {ROUTE_PATHS} from '../../route/path';
+import {calcOrderHistory} from '../../feature/calcOrderHistory';
+import {deleteCartProduct} from '../../api/cart/deleteCartProduct';
+import {patchCartProduct} from '../../api/cart/patchCartProduct';
+
+import {CartProduct} from '../../type/cart';
+import * as S from './index.styles';
 import {css} from '@emotion/react';
-import {useSelectedCart} from '../../../hooks/useSelectedCart';
-import {ROUTE_PATHS} from '../../../route/path';
-import {calcOrderHistory} from '../../../feature/calcOrderHistory';
-import {useShowError} from '../../../provider/errorProvider';
-import {deleteCartProduct} from '../../../api/cart/deleteCartProduct';
-import {patchCartProduct} from '../../../api/cart/patchCartProduct';
 
 const styleButton = css`
   width: 100%;
@@ -24,7 +25,7 @@ const styleButton = css`
   font-size: 16px;
 `;
 
-const CartSection = () => {
+const CartList = () => {
   const navigate = useNavigate();
   const {cartItems, refetch} = useGetCartItem();
   const {
@@ -123,4 +124,4 @@ const CartSection = () => {
   );
 };
 
-export default CartSection;
+export default CartList;
