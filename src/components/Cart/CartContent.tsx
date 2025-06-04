@@ -46,8 +46,6 @@ function CartContent() {
     }
   };
 
-  const isDisabled = checkedItems.length === 0;
-
   return (
     <>
       <Header title="SHOP" />
@@ -71,7 +69,7 @@ function CartContent() {
         )}
       </Container>
       <Button
-        disabled={isDisabled}
+        disabled={!hasItems}
         onClick={() =>
           navigate('/orderConfirm', {
             state: { price: totalPrice, count: checkedItems.length, totalCount: totalCount },
