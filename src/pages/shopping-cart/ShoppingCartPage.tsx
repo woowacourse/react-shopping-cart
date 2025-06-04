@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
+import { getShoppingCartData } from "../../api/cart";
 import { Header } from "../../components/common";
+import { useAPIDataContext } from "../../context/APIDataProvider";
 import CartLayout from "./cart-layout/CartLayout";
 import { useOrderListContext } from "./context/OrderListProvider";
-import { useNavigate } from "react-router-dom";
-import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
-import { useAPIDataContext } from "../../context/APIDataProvider";
-import { getShoppingCartData } from "../../api/cart";
 
 const ShoppingCartPage = () => {
   const { data: cartListData } = useAPIDataContext({
@@ -23,7 +22,7 @@ const ShoppingCartPage = () => {
     }
   };
   return (
-    <ErrorBoundary>
+    <>
       <Header left="SHOP" />
       <CartLayout />
       <CheckoutButton
@@ -33,7 +32,7 @@ const ShoppingCartPage = () => {
       >
         주문 확인
       </CheckoutButton>
-    </ErrorBoundary>
+    </>
   );
 };
 

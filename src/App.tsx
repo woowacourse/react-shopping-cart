@@ -9,6 +9,7 @@ import OrderConfirmPage from "./pages/order-confirm/OrderConfirmPage";
 import { OrderListProvider } from "./pages/shopping-cart/context/OrderListProvider";
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
 import { getBrowserBaseUrl } from "./utils/getBrowserBaseUrl";
+import ErrorBoundary from "./components/features/error-boundary/ErrorBoundary";
 
 function App() {
   return (
@@ -20,8 +21,23 @@ function App() {
             <OrderListProvider>
               <BrowserRouter basename={getBrowserBaseUrl()}>
                 <Routes>
-                  <Route path="/" element={<ShoppingCartPage />} />
-                  <Route path="/order-confirm" element={<OrderConfirmPage />} />
+                  <Route
+                    path="/"
+                    element={
+                      <ErrorBoundary>
+                        <ShoppingCartPage />
+                      </ErrorBoundary>
+                    }
+                  />
+                  <Route
+                    path="/order-confirm"
+                    element={
+                      <ErrorBoundary>
+                        {" "}
+                        <OrderConfirmPage />
+                      </ErrorBoundary>
+                    }
+                  />
                   <Route
                     path="*"
                     element={

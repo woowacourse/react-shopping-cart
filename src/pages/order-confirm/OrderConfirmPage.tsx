@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
+import { getShoppingCartData } from "../../api/cart";
 import { Flex, Header } from "../../components/common";
 import BackArrowButton from "../../components/common/BackArrowButton";
-import { useNavigate } from "react-router-dom";
-import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
-import ErrorBoundary from "../../components/features/error-boundary/ErrorBoundary";
-import { formatKRWString } from "../../utils/formatKRWString";
 import { useAPIDataContext } from "../../context/APIDataProvider";
-import { getShoppingCartData } from "../../api/cart";
+import { formatKRWString } from "../../utils/formatKRWString";
+import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const OrderConfirmPage = () => {
   const totalPrice = totalCartPrice + shippingFee;
 
   return (
-    <ErrorBoundary>
+    <>
       <Header left={<BackArrowButton onClick={handleBackClick} />} />
       <Container>
         <Flex justifyContent="center" alignItems="center" gap="lg">
@@ -56,7 +55,7 @@ const OrderConfirmPage = () => {
       <PayButton isDisabled={true} disabled>
         결제하기
       </PayButton>
-    </ErrorBoundary>
+    </>
   );
 };
 
