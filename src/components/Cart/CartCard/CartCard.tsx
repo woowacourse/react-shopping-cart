@@ -11,7 +11,8 @@ interface CartCardProps {
     id: number;
     quantity: number;
   }) => Promise<void>;
-  handleSelectCartItem: (id: number) => void;
+  handleRemoveSelectCartItem: (id: number) => void;
+  handleAddSelectCartItem: (id: number) => void;
   isDeleteItemLoading: boolean;
   isQuantityUpdateLoading: boolean;
   isSelected: boolean;
@@ -21,25 +22,33 @@ function CartCard({
   cartItem,
   handleDeleteCartItem,
   handleCartItemQuantity,
-  handleSelectCartItem,
+  handleRemoveSelectCartItem,
+  handleAddSelectCartItem,
   isDeleteItemLoading,
   isQuantityUpdateLoading,
   isSelected,
 }: CartCardProps) {
   const { product, quantity, id } = cartItem;
   const { name, price, imageUrl } = product;
+
   return (
     <li>
       <Styled.Container>
         <Styled.ButtonWrapper>
-          <Styled.SelectButton onClick={() => handleSelectCartItem(id)}>
+          <Styled.SelectButton
+            onClick={() =>
+              isSelected
+                ? handleRemoveSelectCartItem(id)
+                : handleAddSelectCartItem(id)
+            }
+          >
             <Styled.SelectIcon src={isSelected ? checked : unChecked} />
           </Styled.SelectButton>
           <Styled.DeleteButton
             disabled={isDeleteItemLoading}
             onClick={async () => {
+              handleRemoveSelectCartItem(id);
               await handleDeleteCartItem(id);
-              handleSelectCartItem(id);
             }}
           >
             삭제

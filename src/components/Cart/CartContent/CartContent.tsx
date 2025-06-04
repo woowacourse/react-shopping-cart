@@ -1,11 +1,11 @@
-import * as Styled from "./CartContent.style"
-import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart"
-import CartList from "../CartList/CartList"
-import CartCard from "../CartCard/CartCard"
-import checked from "/checked.svg"
-import unChecked from "/unChecked.svg"
-import useSelectedCartIds from "../../../hooks/useSelectedCartIds"
-import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton"
+import * as Styled from "./CartContent.style";
+import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart";
+import CartList from "../CartList/CartList";
+import CartCard from "../CartCard/CartCard";
+import checked from "/checked.svg";
+import unChecked from "/unChecked.svg";
+import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
+import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 
 function CartContent() {
   const {
@@ -14,14 +14,15 @@ function CartContent() {
     handleDeleteCartItem,
     isQuantityUpdateLoading,
     isDeleteItemLoading,
-  } = useShoppingCart()
+  } = useShoppingCart();
 
   const {
     selectedCartIds,
     isAllSelected,
-    handleSelectCartItem,
+    handleRemoveSelectCartItem,
+    handleAddSelectCartItem,
     handleSelectAllCartItems,
-  } = useSelectedCartIds(cartItemsData)
+  } = useSelectedCartIds(cartItemsData);
 
   return (
     <Styled.CartContentContainer>
@@ -52,7 +53,8 @@ function CartContent() {
                 isDeleteItemLoading={isDeleteItemLoading}
                 isQuantityUpdateLoading={isQuantityUpdateLoading}
                 handleCartItemQuantity={handleCartItemQuantity}
-                handleSelectCartItem={handleSelectCartItem}
+                handleRemoveSelectCartItem={handleRemoveSelectCartItem}
+                handleAddSelectCartItem={handleAddSelectCartItem}
                 isSelected={selectedCartIds.includes(cartItem.id)}
               />
             ))}
@@ -68,7 +70,7 @@ function CartContent() {
         cartItemsData={cartItemsData}
       />
     </Styled.CartContentContainer>
-  )
+  );
 }
 
-export default CartContent
+export default CartContent;
