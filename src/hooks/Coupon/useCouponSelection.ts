@@ -7,22 +7,19 @@ export interface UseCouponSelectionReturn {
   isSelectedToLimit: boolean;
 }
 function useCouponSelection(
-  initialSelectedIds?: Set<string>
+  initialSelectedIds: Set<string>
 ): UseCouponSelectionReturn {
   const [selectedCouponIds, setSelectedCouponIds] = useState<Set<string>>(
     initialSelectedIds ? new Set(initialSelectedIds) : new Set()
   );
 
-  // 이전 initialSelectedIds를 기억하기 위한 ref
   const prevInitialSelectedIds = useRef<Set<string> | undefined>(
     initialSelectedIds
   );
 
-  // initialSelectedIds가 실제로 변경되었을 때만 상태 업데이트
   useEffect(() => {
     if (!initialSelectedIds) return;
 
-    // 이전 값과 현재 값을 비교
     const prevIds = prevInitialSelectedIds.current;
     if (!prevIds) {
       setSelectedCouponIds(new Set(initialSelectedIds));
@@ -30,7 +27,6 @@ function useCouponSelection(
       return;
     }
 
-    // Set의 내용이 실제로 변경되었는지 확인
     const prevIdsArray = Array.from(prevIds).sort();
     const newIdsArray = Array.from(initialSelectedIds).sort();
 
@@ -42,7 +38,7 @@ function useCouponSelection(
     }
 
     prevInitialSelectedIds.current = initialSelectedIds;
-  }, [initialSelectedIds]); // selectedCouponIds 제거!
+  }, [initialSelectedIds]);
 
   const handleSelectCoupon = useCallback((id: string) => {
     setSelectedCouponIds((prev) => {
@@ -70,4 +66,4 @@ function useCouponSelection(
     isSelectedToLimit,
   };
 }
-export default useCouponSelection;
+export { useCouponSelection };
