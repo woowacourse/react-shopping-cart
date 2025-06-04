@@ -8,6 +8,7 @@ import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummar
 import { useState } from 'react';
 import * as S from './OrderCheckContents.styles';
 import { Modal } from '@jae-o/modal-component-module';
+import { useNavigate } from 'react-router';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -15,12 +16,27 @@ interface OrderCheckContentsProps {
 
 function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
+  const navigate = useNavigate();
 
   const orderPrice = calculateOrderPrice(orderItems);
 
   const toggleRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
   };
+
+  const moveToPaymentCheck = () => {
+    navigate('/payment-check', {
+      state: {
+        orderItemQuantity: orderItems.length,
+        totalProductQuantity: orderItems.reduce(
+          (acc, item) => acc + item.quantity,
+          0
+        ),
+        orderPrice,
+      },
+    });
+  };
+
   return (
     <Modal>
       <S.Container>
@@ -47,9 +63,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
           </S.ShippingOptionSelectRow>
         </S.ShippingOptionBox>
         <OrderPriceSummary value={orderPrice} />
-        <FooterButton disabled onClick={() => {}}>
-          결제하기
-        </FooterButton>
+        <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
           <S.CouponContainer>
             <S.NoticeBox>
