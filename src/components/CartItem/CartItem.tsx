@@ -5,9 +5,10 @@ import * as S from './CartItem.styles';
 import Button from '../Button/Button';
 import PlusMinusButton from '../PlusMinusButton/PlusMinusButton';
 import Checkbox from '../Checkbox/Checkbox';
-import useCartQuantity from '../../hooks/useCartQuantity';
+
 import { deleteCartItem } from '../../apis/cartItem';
 import { CartItemsResponse } from '../../types/cartItems';
+import useCartItemController from '../../hooks/useCartItemController';
 
 interface CartItemProps {
   cartItem: CartItemsResponse['content'][number];
@@ -22,7 +23,7 @@ export default function CartItem({ cartItem, isSelected, handleCheckboxClick, re
     quantity,
   } = cartItem;
 
-  const { handleIncrease, handleDecrease } = useCartQuantity({
+  const { handleIncrease, handleDecrease } = useCartItemController({
     stock: 100,
     selectedCartItem: cartItem,
     onChange: () => {
