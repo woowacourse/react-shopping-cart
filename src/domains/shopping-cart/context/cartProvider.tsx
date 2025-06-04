@@ -8,13 +8,23 @@ interface CartContextType {
   error: string;
   getCartItemData: () => Promise<Response | undefined>;
   deleteCartItem: (id: string) => Promise<Response | undefined>;
+  patchCartItem: (
+    id: string,
+    quantity: number
+  ) => Promise<Response | undefined>;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const { getCartItemData, deleteCartItem, cartItems, loading, error } =
-    useShoppingCartApi();
+  const {
+    getCartItemData,
+    deleteCartItem,
+    patchCartItem,
+    cartItems,
+    loading,
+    error,
+  } = useShoppingCartApi();
 
   const contextValue: CartContextType = {
     cartItems,
@@ -22,6 +32,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     error,
     getCartItemData,
     deleteCartItem,
+    patchCartItem,
   };
 
   return (
