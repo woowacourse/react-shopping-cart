@@ -7,6 +7,7 @@ import patchCartItem from '../../api/patchCartItem';
 import { useApiContext } from '../../contexts/ApiContext';
 import getCartItems from '../../api/getCartItem';
 import { deleteCartItem } from '../../api/deleteCartItem';
+import { useErrorContext } from '../../contexts/ErrorContext';
 
 interface CartItemProps {
   item: CartItemType;
@@ -17,23 +18,40 @@ interface CartItemProps {
 export default function CartItem({ item, handleCheckBoxChange, checked }: CartItemProps) {
   const { id: cartItemId, product, quantity: cartQuantity } = item;
   const { name, price, imageUrl } = product;
-
   const { fetcher: refetchCart } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });
+  const { showError } = useErrorContext();
 
   const handleMinus = async () => {
-    await patchCartItem(cartItemId, cartQuantity - 1);
-    await refetchCart();
+    try {
+      await patchCartItem(cartItemId, cartQuantity - 1);
+      await refetchCart();
+    } catch (e) {
+      if (e instanceof Error) {
+        showError(e);
+      }
+    }
   };
 
   const handlePlus = async () => {
-    // if (cartQuantity >= productQuantity) return;
-    await patchCartItem(cartItemId, cartQuantity + 1);
-    await refetchCart();
+    try {
+      await patchCartItem(cartItemId, cartQuantity + 1);
+      await refetchCart();
+    } catch (e) {
+      if (e instanceof Error) {
+        showError(e);
+      }
+    }
   };
 
   const handleDeleteCart = async () => {
-    await deleteCartItem(cartItemId);
-    await refetchCart();
+    try {
+      await deleteCartItem(cartItemId);
+      await refetchCart();
+    } catch (e) {
+      if (e instanceof Error) {
+        showError(e);
+      }
+    }
   };
 
   return (

@@ -1,11 +1,7 @@
 import { URLS } from '../constants/url';
 import { httpClient } from './httpClient';
 
-const patchCartItem = async (cartItemId: number | undefined, quantity: number) => {
-  if (cartItemId === undefined) {
-    throw new Error('cartItemId가 정의되지 않았습니다.');
-  }
-
+const patchCartItem = async (cartItemId: number, quantity: number) => {
   const result = await httpClient.patch(`${URLS.CART_ITEMS}/${cartItemId}`, quantity);
 
   if (!result.ok) {
