@@ -7,7 +7,7 @@
 
 ### step2 시작전 리팩토링
 
-- [ ] CartItem 컴포넌트 네이밍 변경 (범용적)
+- [x] CartItem 컴포넌트 네이밍 변경 (범용적)
 - [ ] 불필요한 리렌더링 최적화하기 (CartPage)
 - [ ] CartItem 훅 내부 로직 context API로 관리 -> CartContext
 - [ ] isChecked 값 {id:checked} 매치해서 배열로 관리?
