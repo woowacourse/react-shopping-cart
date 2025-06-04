@@ -68,7 +68,7 @@ export default function CartProductContainer({
         <section css={CartProductList}>
           {cartItems.map((item) => {
             return (
-              <div css={CartItemBox}>
+              <div css={CartItemBox} key={item.id}>
                 <Line />
                 <div css={CartItemHeader}>
                   <CheckBox
@@ -82,7 +82,6 @@ export default function CartProductContainer({
                   </Button>
                 </div>
                 <CartProduct
-                  key={item.id}
                   id={item.id}
                   imageUrl={item.product.imageUrl}
                   name={item.product.name}
