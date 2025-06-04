@@ -1,5 +1,8 @@
 export const TEXT = {
   DELETE: '삭제',
+  COUPON: '쿠폰 적용',
+  DELIVERY_INFO: '배송 정보',
+  DELIVERY_INFO_DESCRIPTION: '제주도 및 도서 산간 지역',
   ALL_SELECT: '전체 선택',
   CART_TITLE: '장바구니',
   ORDER_PRICE: '주문 금액',
