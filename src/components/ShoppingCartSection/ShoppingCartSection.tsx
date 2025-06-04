@@ -58,7 +58,7 @@ export default function ShoppingCartSection({
       ) : (
         <>
           <Spacing size={8} />
-          <Text variant="body-2">현재 {2}종류의 상품이 담겨있습니다.</Text>
+          <Text variant="body-2">현재 {items?.content.length}종류의 상품이 담겨있습니다.</Text>
           <Spacing size={32} />
 
           <S.CheckboxWrapper>
