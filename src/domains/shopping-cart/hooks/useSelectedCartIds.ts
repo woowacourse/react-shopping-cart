@@ -5,23 +5,21 @@ import { CartItemTypes } from "../types/cartItem";
 export function useSelectedCartIds(cartItem: CartItemTypes[]) {
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
-  const calculateCartItemQuantity = () => {
-    return cartItem.reduce((totalQuantity, item) => {
-      if (selectedCartIds.includes(item.id.toString()))
-        return totalQuantity + item.quantity;
-      return totalQuantity;
-    }, 0);
+  const selectAll = () => {
+    if (cartItem && selectedCartIds.length === 0) {
+      setSelectedCartIds(cartItem.map((item) => item.id.toString()));
+    } else if (selectedCartIds.length === 0) setSelectedCartIds([]);
   };
 
-  const selectAllCartItems = () => {
-    if (cartItem)
-      setSelectedCartIds(cartItem.map((item) => item.id.toString()));
+  const selectById = (id: string) => {
+    if (selectedCartIds.includes(id))
+      setSelectedCartIds(selectedCartIds.filter((itemId) => itemId !== id));
+    else setSelectedCartIds([...selectedCartIds, id]);
   };
 
   return {
     selectedCartIds,
-    setSelectedCartIds,
-    selectAllCartItems,
-    calculateCartItemQuantity,
+    selectById,
+    selectAll,
   };
 }

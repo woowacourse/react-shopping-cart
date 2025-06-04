@@ -16,20 +16,23 @@ import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
 
 export function ShoppingCart() {
-  const { getCartItemData, setError, cartItem, error, isLoading } =
-    useShoppingCartApi();
   const isFirstMount = useRef(true);
-
-  const {
-    calculateCartItemQuantity,
-    selectAllCartItems,
-    selectedCartIds,
-    setSelectedCartIds,
-  } = useSelectedCartIds(cartItem);
-
   const navigate = useNavigate();
 
+  const { getCartItemData, deleteCartItem, cartItem, error } =
+    useShoppingCartApi();
+  const { selectById, selectAll, selectedCartIds } =
+    useSelectedCartIds(cartItem);
+
   const totalPrice = getTotalPrice({ cartItems: cartItem, selectedCartIds });
+
+  const calculateCartItemQuantity = () => {
+    return cartItem.reduce((totalQuantity, item) => {
+      if (selectedCartIds.includes(item.id.toString()))
+        return totalQuantity + item.quantity;
+      return totalQuantity;
+    }, 0);
+  };
 
   const handleConfirm = () => {
     navigate("/confirm", {
@@ -43,12 +46,11 @@ export function ShoppingCart() {
 
   useEffect(() => {
     if (isFirstMount.current && cartItem.length !== 0) {
-      selectAllCartItems();
+      selectAll();
       isFirstMount.current = false;
     }
   }, [isFirstMount, cartItem]);
 
-  console.log("장바구니 데이터", selectedCartIds);
   return (
     <PageLayout>
       <Header>
@@ -68,11 +70,12 @@ export function ShoppingCart() {
           <>
             <CartProductContainer
               cartItem={cartItem}
-              onChange={getCartItemData}
-              onError={(errorMessage) => setError(errorMessage)}
+              updateCartItem={getCartItemData}
+              onDelete={deleteCartItem}
               selectedCartIds={selectedCartIds}
-              setSelectedCartIds={setSelectedCartIds}
-            ></CartProductContainer>
+              selectById={selectById}
+              selectAll={selectAll}
+            />
             <PaymentSummary price={totalPrice} />
           </>
         )}

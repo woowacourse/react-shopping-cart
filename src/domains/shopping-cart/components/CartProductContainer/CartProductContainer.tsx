@@ -1,9 +1,8 @@
-import { deleteShoppingCart } from "../../api/shoppingCart";
-import { CartItemTypes } from "../../types/cartItem";
 import Button from "../../../../components/Button/Button";
-import { CartProduct } from "../CartProduct/CartProduct";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { Line } from "../../../../components/Line/Line";
+import { CartItemTypes } from "../../types/cartItem";
+import { CartProduct } from "../CartProduct/CartProduct";
 import {
   CartItemBox,
   CartItemHeader,
@@ -14,40 +13,24 @@ import {
 
 interface CartProductContainerProps {
   cartItem: CartItemTypes[];
-  onChange: () => void;
-  onError: (message: string) => void;
+  updateCartItem: () => void;
+  onDelete: (id: number) => void;
   selectedCartIds: string[];
-  setSelectedCartIds: (id: string[]) => void;
+  selectById: (id: string) => void;
+  selectAll: () => void;
 }
 
 export default function CartProductContainer({
   cartItem,
-  onChange,
-  onError,
+  updateCartItem,
+  onDelete,
   selectedCartIds,
-  setSelectedCartIds,
+  selectById,
+  selectAll,
 }: CartProductContainerProps) {
   const handleCheckBox = (id: string) => {
-    if (id === "select-all") {
-      if (selectedCartIds.length === 0) {
-        setSelectedCartIds(cartItem.map((item) => item.id.toString()));
-      } else setSelectedCartIds([]);
-      return;
-    }
-    if (selectedCartIds.includes(id)) {
-      setSelectedCartIds(selectedCartIds.filter((itemId) => itemId !== id));
-    } else {
-      setSelectedCartIds([...selectedCartIds, id]);
-    }
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteShoppingCart(id);
-      onChange();
-    } catch (error) {
-      onError("삭제에 실패했습니다");
-    }
+    if (id === "select-all") return selectAll();
+    else selectById(id);
   };
 
   return (
@@ -77,7 +60,7 @@ export default function CartProductContainer({
                     onChange={handleCheckBox}
                     id={item.id.toString()}
                   />
-                  <Button onClick={() => handleDelete(item.id)} style="ghost">
+                  <Button onClick={() => onDelete(item.id)} style="ghost">
                     삭제
                   </Button>
                 </div>
@@ -88,7 +71,7 @@ export default function CartProductContainer({
                   name={item.product.name}
                   price={item.product.price}
                   quantity={item.quantity}
-                  onChange={onChange}
+                  onChange={updateCartItem}
                 />
               </div>
             );
