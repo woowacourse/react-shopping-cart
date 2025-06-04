@@ -64,7 +64,7 @@ describe("Cart 전체선택 동기화", () => {
     });
   });
 
-  it("전체선택 버튼을 클릭하면 모두 해제되어야 한다", async () => {
+  it("모든 체크박스가 체크 된 상태에서 전체선택 버튼을 클릭하면 모든 체크박스가 해제되어야 한다", async () => {
     const user = userEvent.setup();
     const allBtn = screen.getByLabelText("전체선택");
     await user.click(allBtn);
@@ -79,7 +79,7 @@ describe("Cart 전체선택 동기화", () => {
     });
   });
 
-  it("다시 클릭하면 모두 선택으로 돌아와야 한다", async () => {
+  it("모든 체크박스가 체크 되지 상태에서 전체선택 버튼을 클릭하면 모든 체크박스가 체크된 상태가 된다.", async () => {
     const user = userEvent.setup();
     const allBtn = screen.getByLabelText("전체선택");
     await user.click(allBtn);

@@ -22,7 +22,7 @@ describe("<CheckBox />", () => {
     expect(img.src).toContain("enabledCheck.svg");
   });
 
-  it("버튼을 클릭하면 이미지가 활성에서 비활성으로 토글된다", () => {
+  it("체크 박스가 선택되어 있을 때 체크박스 버튼을 클릭하면 이미지가 활성에서 비활성으로 토글된다", () => {
     render(<CheckBoxWrapper />);
 
     const button = screen.getByRole("button");
