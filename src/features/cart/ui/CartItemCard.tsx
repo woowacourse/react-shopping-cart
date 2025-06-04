@@ -79,7 +79,6 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
           </S.CartItemInfoDetails>
 
           <CartItemQuantitySelector
-            quantity={cartItem.quantity}
             cartItem={cartItem}
             isSelected={isSelected}
             updateSelectedCartItem={updateSelectedCartItem}
