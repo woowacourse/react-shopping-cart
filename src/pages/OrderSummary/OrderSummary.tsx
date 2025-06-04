@@ -7,14 +7,18 @@ import {
   TotalCost,
   TotalCostLabel,
 } from "./OrderSummary.styles";
-import { CartItemType } from "../../types/response";
+import { CartItemType, CouponDataType, CouponType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../utils/cost";
 import Description from "../../components/Description/Description";
 import CartItemList from "../../components/CartItemList/CartItemList";
 import CartItem from "../../components/CartItem/CartItem";
 import { createPortal } from "react-dom";
-import Modal from "../../modal/Modal";
-import { useState } from "react";
+import Modal from "../../components/modal/Modal";
+import { useCallback, useEffect, useState } from "react";
+import useFetch from "../../hooks/useFetch";
+import { getCoupons } from "../../api/coupon";
+import { adaptCoupons } from "../../utils/dataAdapter";
+import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -31,6 +35,30 @@ function OrderSummary() {
 
   const [openModal, setOpenModal] = useState(false);
   const modalRoot = document.getElementById("root")!;
+
+  const { fetchData } = useFetch<CouponDataType[]>("coupons");
+  const [coupons, setCoupons] = useState<CouponType[]>([]);
+  const fetchCoupons = useCallback(
+    () =>
+      fetchData({
+        apiCall: getCoupons,
+        onSuccess: (data) => {
+          if (data) {
+            setCoupons(adaptCoupons(data));
+          }
+        },
+        onError: (error) => {
+          const errorMessage =
+            error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
+          alert(errorMessage);
+        },
+      }),
+    [fetchData]
+  );
+
+  useEffect(() => {
+    fetchCoupons();
+  }, [fetchCoupons]);
 
   return (
     <>
