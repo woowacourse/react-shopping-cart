@@ -55,7 +55,7 @@ export default function CouponModal() {
   return (
     <Modal isBackdropClose>
       <Modal.Top>
-        <Modal.Title>쿠폰 적용</Modal.Title>
+        <Modal.Title>쿠폰을 선택해 주세요</Modal.Title>
         <Modal.Close>
           <CloseIcon />
         </Modal.Close>

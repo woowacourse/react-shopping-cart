@@ -60,12 +60,13 @@ export default function Step2() {
 
       <S.OrderConfirmPageWrapper>
         <Text variant="title-1">주문 확인</Text>
-        <Spacing size={27} />
+        <Spacing size={28} />
         <Text variant="body-1">
           총 {totalType}종류의 상품 {totalQuantity}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </Text>
+        <Spacing size={28} />
 
         {filteredCartItems?.map((item) => (
           <Card key={item.id}>
@@ -101,8 +102,8 @@ export default function Step2() {
         <Spacing size={32} />
         <Text variant="title-3">배송 정보</Text>
         <Spacing size={16} />
-        <S.CheckboxWrapper>
-          <Checkbox checked={isFar} onClick={() => setIsFar(!isFar)} />
+        <S.CheckboxWrapper onClick={() => setIsFar(!isFar)}>
+          <Checkbox checked={isFar} />
           <Text variant="body-1">제주도 및 도서 산간 지역</Text>
         </S.CheckboxWrapper>
         <Spacing size={32} />

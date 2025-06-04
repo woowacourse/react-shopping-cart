@@ -1,6 +1,6 @@
 import { Checkbox, Spacing, Text } from "@/components";
 import { Coupon } from "@/types";
-import { formatDate } from "@/utils";
+import { formatDate, formatTime } from "@/utils";
 import { css } from "@emotion/react";
 
 interface CouponItemProps {
@@ -48,8 +48,7 @@ export default function CouponItem({ coupon, isSelected, onSelect, isCouponAvail
         {coupon.discountType === "percentage" && (
           <p>
             <Text variant="body-1">
-              {coupon.availableTime.start} - {coupon.availableTime.end}
-              {/* 사용 가능 시간: {formatTime(coupon.availableTime.start, coupon.availableTime.end)} */}
+              사용 가능 시간: {formatTime(coupon.availableTime.start)} ~ {formatTime(coupon.availableTime.end)}
             </Text>
           </p>
         )}

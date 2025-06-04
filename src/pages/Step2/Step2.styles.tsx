@@ -10,6 +10,7 @@ export const CheckboxWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 `;
 
 export const ReceiptWrapper = styled.div`
