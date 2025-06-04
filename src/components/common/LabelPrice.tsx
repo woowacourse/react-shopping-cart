@@ -12,9 +12,7 @@ const LabelPrice = ({ label, price, ariaLabel }: LabelPriceProps) => {
   return (
     <TotalSection>
       <TotalLabel>{label}</TotalLabel>
-      <TotalAmount aria-label={ariaLabel}>
-        {formatKRWString(price)}원
-      </TotalAmount>
+      <TotalAmount aria-label={ariaLabel}>{formatKRWString(price)}</TotalAmount>
     </TotalSection>
   );
 };

@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import Flex from "../../../components/common/Flex";
 import LabelPrice from "../../../components/common/LabelPrice";
 import { useOrderListContext } from "../context/OrderListProvider";
+import { formatKRWString } from "../../../utils/formatKRWString";
+
+const FREE_SHIPPING_STANDARD = 100000;
+const SHIPPING_FEE = 3000;
 
 const LabelPriceContainer = () => {
   const { cartListData, selectionMap } = useOrderListContext();
@@ -12,7 +16,7 @@ const LabelPriceContainer = () => {
     (total, item) => total + item.product.price * item.quantity,
     0
   );
-  const shippingFee = orderPrice >= 100000 || orderPrice === 0 ? 0 : 3000;
+  const shippingFee = orderPrice >= FREE_SHIPPING_STANDARD ? 0 : SHIPPING_FEE;
   const totalPrice = orderPrice + shippingFee;
 
   return (
@@ -20,7 +24,8 @@ const LabelPriceContainer = () => {
       <InfoBox>
         <InfoIcon src="./assets/icons/Info.svg" alt="info 아이콘" />
         <InfoMessage>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          총 주문 금액이 {formatKRWString(FREE_SHIPPING_STANDARD)} 이상일 경우
+          무료 배송됩니다.
         </InfoMessage>
       </InfoBox>
       <PriceWrapper>
