@@ -286,12 +286,3 @@ button {
 .funnel-step.exit {
   animation: slideOut 300ms ease forwards;
 }
-.fixed-footer {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 430px;
-  z-index: 9999;
-}
