@@ -2,7 +2,7 @@ import { CheckBoxLayout } from "./CheckBox.style";
 
 interface CheckBoxProps {
   isChecked: boolean;
-  onChange: (id: string) => void;
+  handleCheckBox: (id: string) => void;
   id: string;
   dataTestId: string;
 }
@@ -10,7 +10,7 @@ interface CheckBoxProps {
 export function CheckBox({
   isChecked = false,
   id,
-  onChange,
+  handleCheckBox,
   dataTestId,
 }: CheckBoxProps) {
   return (
@@ -19,7 +19,7 @@ export function CheckBox({
       css={CheckBoxLayout}
       id={id}
       checked={isChecked}
-      onChange={() => onChange(id)}
+      onChange={() => handleCheckBox(id)}
       data-testid={dataTestId}
     />
   );

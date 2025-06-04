@@ -35,7 +35,7 @@ export default function CartProductContainer({
             }
             dataTestId="select-all"
             id="select-all"
-            onChange={getCartItemData}
+            handleCheckBox={handleCheckBox}
           />
           <label htmlFor="select-all">전체 선택</label>
         </div>
@@ -48,7 +48,7 @@ export default function CartProductContainer({
                   <CheckBox
                     dataTestId={`select-${item.id}`}
                     isChecked={selectedCartIds.includes(item.id.toString())}
-                    onChange={handleCheckBox}
+                    handleCheckBox={handleCheckBox}
                     id={item.id.toString()}
                   />
                   <Button
