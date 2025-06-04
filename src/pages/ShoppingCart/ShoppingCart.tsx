@@ -41,10 +41,10 @@ export function ShoppingCart() {
   };
 
   useEffect(() => {
-    if (!isLoading && cartItems) {
+    if (!isLoading && cartItems.length > 0) {
       setSelectedCartIds(cartItems.map((item) => item.id.toString()));
     }
-  }, [isLoading, cartItems]);
+  }, [isLoading]);
 
   // 예시
   const shouldDisableButton =
