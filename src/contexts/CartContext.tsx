@@ -10,8 +10,7 @@ import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import { CartItemContent } from "../types/response";
 import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
-import useToast from "../hooks/useToast";
-import { TOAST_TYPES } from "../components/@common/Toast/type";
+import useErrorHandler from "../hooks/useErrorHandler";
 
 const INITIAL_CHECKED = true;
 
@@ -62,20 +61,8 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   >([]);
   const [allChecked, setAllChecked] = useState(INITIAL_CHECKED);
   const isCheckDataInitialized = useRef(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const { showToast } = useToast();
 
-  useEffect(() => {
-    showToast({ message: errorMessage, type: TOAST_TYPES.ERROR });
-  }, [errorMessage, showToast]);
-
-  const handleError = useCallback((error: unknown) => {
-    if (error instanceof Error) {
-      setErrorMessage(error.message);
-    } else {
-      setErrorMessage("알 수 없는 오류가 발생했습니다.");
-    }
-  }, []);
+  const { handleError } = useErrorHandler();
 
   const fetchData = useCallback(async () => {
     try {
