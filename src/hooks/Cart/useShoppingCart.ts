@@ -3,6 +3,7 @@ import { CartItem } from "@/type/CartItem";
 import { useFetch } from "../useFetch";
 import useHandleCartItemQuantity from "./useHandleCartItemQuantity";
 import useHandleDeleteCartItem from "./useHandleDeleteCartItem";
+import useHandleOrderCartItem from "./useHandleOrderCartItem";
 
 const getCartItems = async () => {
   const { content } = (await fetchCartItems({
@@ -23,6 +24,7 @@ function useShoppingCart() {
     useHandleCartItemQuantity(refetchCartItems);
 
   const { handleDeleteCartItem } = useHandleDeleteCartItem(refetchCartItems);
+  const { handleOrderCartItem } = useHandleOrderCartItem(refetchCartItems);
 
   return {
     cartItemsData: cartItemsData || [],
@@ -31,6 +33,7 @@ function useShoppingCart() {
     refetchCartItems,
     handleCartItemQuantity,
     handleDeleteCartItem,
+    handleOrderCartItem,
   };
 }
 
