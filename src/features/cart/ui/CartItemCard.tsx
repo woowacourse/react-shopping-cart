@@ -57,7 +57,7 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
   return (
     <S.CartItemContainer data-testid="cart-item-card">
       <S.CartItemHeader>
-        <SelectInput type="checkbox" onChange={handleSelectedCartItemUpdate} checked={isSelected} />
+        <SelectInput onChange={handleSelectedCartItemUpdate} checked={isSelected} />
         <Button title="삭제" css={deleteButtonCSS} onClick={handleCartItemDelete} />
       </S.CartItemHeader>
       <S.CartItemContent>

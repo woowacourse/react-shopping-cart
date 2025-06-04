@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-export default function SelectInput({ ...rest }) {
-  return <SelectInputBox {...rest} />;
+export default function SelectInput({ ...rest }: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <SelectInputBox type="checkbox" {...rest} />;
 }
 
 const SelectInputBox = styled.input`

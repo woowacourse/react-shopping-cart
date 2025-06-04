@@ -22,7 +22,7 @@ export default function CartList({ cartItems, setCartItems, addAllCartItemsInSel
   return (
     <S.CartListContainer>
       <S.AllSelectContainer>
-        <SelectInput type="checkbox" onChange={handleAllCartItemsInSelected} />
+        <SelectInput onChange={handleAllCartItemsInSelected} />
         <span>전체 선택</span>
       </S.AllSelectContainer>
       <S.CartItemCardContainer>
