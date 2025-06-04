@@ -18,10 +18,6 @@ const OrderListContext = createContext<{
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
-  // const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
-  //   fetcher: getShoppingCartData,
-  //   name: "cart",
-  // });
   const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
 
   return (
@@ -35,7 +31,7 @@ export const useOrderListContext = (cartListData: Cart[] | undefined) => {
   const { selectionMap, setSelectionMap } = useContext(OrderListContext);
   if (!selectionMap) {
     throw new Error(
-      "useOrderListContext must be used within an OrderListProvider"
+      "useOrderListContext 는 반드시 OrderListProvider 안에서 사용되어야합니다."
     );
   }
 
