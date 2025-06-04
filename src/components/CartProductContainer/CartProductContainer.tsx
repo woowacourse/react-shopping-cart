@@ -28,9 +28,11 @@ export default function CartProductContainer({
   setSelectedCartIds,
 }: CartProductContainerProps) {
   const handleAllCheckBox = () => {
-    if (selectedCartIds.length === 0) {
+    if (selectedCartIds.length === cartItems.length) {
+      setSelectedCartIds([]);
+    } else {
       setSelectedCartIds(cartItems.map((item) => item.id.toString()));
-    } else setSelectedCartIds([]);
+    }
   };
 
   const handleCheckBox = (id: string) => {
