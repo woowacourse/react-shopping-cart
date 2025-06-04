@@ -5,6 +5,10 @@ export const TextStyle = {
   title: css`
     ${theme.font.title}
   `,
+
+  subTitle: css`
+    ${theme.font.subTitle}
+  `,
   body: css`
     ${theme.font.body}
   `,

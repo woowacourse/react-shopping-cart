@@ -2,7 +2,7 @@ import { TextStyle } from './Text.styles';
 
 interface TextProps {
   children: React.ReactNode;
-  varient: 'title' | 'body' | 'caption';
+  varient: 'title' | 'subTitle' | 'body' | 'caption';
 }
 
 function Text({ children, varient }: TextProps) {
