@@ -7,6 +7,7 @@ import { isOrderSuccessState } from "@/domains/validation/isOrderSuccessState";
 import OrderSummary from "@/domains/components/OrderSummary/OrderSummary";
 import PaymentPrice from "./PaymentPrice/PaymentPrice";
 import CartNavigateButton from "./CartNavigateButton/CartNavigateButton";
+import { getOrderQuantity } from "@/domains/utils/getOrderQuantity";
 
 export default function PaymentSuccessPage() {
   const { state, isValidating } = useValidateLocationState({
@@ -21,11 +22,6 @@ export default function PaymentSuccessPage() {
   }
 
   const { orderList, paymentPrice } = state;
-  const orderListCount = orderList.length;
-  const orderQuantity = orderList.reduce(
-    (acc, { quantity }) => (acc += quantity),
-    0
-  );
 
   return (
     <>
@@ -34,8 +30,8 @@ export default function PaymentSuccessPage() {
         <S.OrderContainer>
           <OrderSummary
             title="결제 확인"
-            orderListCount={orderListCount}
-            orderQuantity={orderQuantity}
+            orderListCount={orderList.length}
+            orderQuantity={getOrderQuantity(orderList)}
           />
           <PaymentPrice paymentPrice={paymentPrice} />
         </S.OrderContainer>
