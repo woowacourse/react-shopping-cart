@@ -9,10 +9,10 @@ import Header from "../../components/Header";
 import Logo from "../../components/icons/Logo";
 
 const CartPage = () => {
-  const { cartItemsInfo, cartItemListProps, orderResult } = useCart();
+  const { cartItemsInfo, cartItemListProps, orderConfirmPageData } = useCart();
 
   const navigate = useNavigate();
-  const handleNavigate = () => navigate("/payment-confirm", { state: orderResult });
+  const handleNavigate = () => navigate("/order-confirm", { state: orderConfirmPageData });
   return (
     <>
       <Header>

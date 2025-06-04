@@ -4,6 +4,7 @@ import CartPage from "./pages/CartPage";
 import PaymentConfirmPage from "./pages/PaymentConfirmPage";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import ErrorPopup from "./components/common/Error/Popup";
+import OrderConfirmPage from "./pages/OrderConfirmPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <ErrorPopup />
           <Routes>
             <Route path="/" element={<CartPage />} />
+            <Route path="/order-confirm" element={<OrderConfirmPage />} />
             <Route path="/payment-confirm" element={<PaymentConfirmPage />} />
           </Routes>
         </BrowserRouter>
