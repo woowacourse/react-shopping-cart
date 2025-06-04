@@ -16,7 +16,7 @@ import {
 
 interface CartItemProps {
   cartItem: CartItemType;
-  isSelected: boolean;
+  isSelected?: boolean;
   toggleSelect?: () => void;
   increaseQuantity?: (cartId: number) => Promise<void>;
   decreaseQuantity?: (cartId: number) => Promise<void>;
@@ -37,7 +37,7 @@ function CartItem({
     <>
       <div css={ItemContainer}>
         <div css={ItemController}>
-          {toggleSelect && (
+          {isSelected && toggleSelect && (
             <CheckBox
               id={String(cartId)}
               isSelected={isSelected}

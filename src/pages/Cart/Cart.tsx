@@ -13,6 +13,7 @@ import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import useQuantityControl from "../../hooks/useQuantityControl";
+import CartItem from "../../components/CartItem/CartItem";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -95,14 +96,19 @@ function Cart() {
               isSelected={isAllSelected()}
               onClick={toggleAllSelect}
             />
-            <CartItemList
-              cartItems={cartItems}
-              isSelected={isSelected}
-              toggleSelect={toggleSelect}
-              increaseQuantity={increaseQuantity}
-              decreaseQuantity={decreaseQuantity}
-              deleteCartItem={deleteCartItem}
-            />
+            <CartItemList>
+              {cartItems.map((cartItem) => (
+                <CartItem
+                  key={cartItem.id}
+                  cartItem={cartItem}
+                  isSelected={isSelected(cartItem.id)}
+                  toggleSelect={() => toggleSelect(cartItem.id)}
+                  increaseQuantity={increaseQuantity}
+                  decreaseQuantity={decreaseQuantity}
+                  deleteCartItem={deleteCartItem}
+                />
+              ))}
+            </CartItemList>
             <Receipt
               selectedCartItems={getSelectedCartItems(
                 cartItems,
