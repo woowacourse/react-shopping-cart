@@ -18,13 +18,15 @@ export async function baseAPI<T>({
     },
     body: body ? JSON.stringify(body) : null,
   });
-  if (!result.ok) {
-    const resultString = await result.text();
-    const parsedResult = JSON.parse(resultString);
 
-    throw new Error(parsedResult.message);
+  if (!result.ok) {
+    const resultData = await result.json();
+    throw new Error(resultData.message);
   }
 
-  if (method === 'GET') return result.json();
+  const contentType = result.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return await result.json();
+  }
   return null;
 }

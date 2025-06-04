@@ -16,9 +16,7 @@ describe('baseAPI 실패 케이스', () => {
       status: 400,
       statusText: 'Bad Request',
       headers: new Headers(),
-      text: vi
-        .fn()
-        .mockResolvedValue(JSON.stringify({ message: '에러 발생!' })),
+      json: vi.fn().mockResolvedValue({ message: '에러 발생!' }),
     } as unknown as Response;
 
     vi.mocked(global.fetch).mockResolvedValueOnce(mockResponse);
