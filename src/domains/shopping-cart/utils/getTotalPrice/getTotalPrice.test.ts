@@ -8,11 +8,11 @@ describe("getTotalPrice 함수 동작을 검증한다", () => {
     [["7457"], 100000],
   ])(
     "선택된 장바구니 아이템에 따라 총 금액을 계산할 수 있다,",
-    (selectedCartId, totalPrice) => {
+    (selectedCartIds, totalPrice) => {
       expect(
         getTotalPrice({
           cartItems: mockShoppingCartResponse.content,
-          selectedCartId,
+          selectedCartIds,
         })
       ).toBe(totalPrice);
     }
