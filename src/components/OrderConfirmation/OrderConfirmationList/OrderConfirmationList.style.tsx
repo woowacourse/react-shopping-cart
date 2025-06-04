@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-bottom: 24px;
 `;
 
 export const UlContainer = styled.ul`
@@ -13,5 +12,4 @@ export const UlContainer = styled.ul`
   flex-direction: column;
   min-width: 380px;
   width: 100%;
-  border-bottom: 1px solid #0000001a;
 `;

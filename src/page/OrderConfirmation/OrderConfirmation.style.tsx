@@ -146,3 +146,17 @@ export const OrderWrapper = styled.li`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const FinalTotalWrapper = styled.p`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+`;
+export const CouponComboNotice = styled.p`
+  font-size: 1rem;
+  color: #333333;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  text-align: center;
+`;
