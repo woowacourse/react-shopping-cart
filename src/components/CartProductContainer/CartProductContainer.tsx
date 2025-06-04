@@ -27,13 +27,13 @@ export default function CartProductContainer({
   selectedCartIds,
   setSelectedCartIds,
 }: CartProductContainerProps) {
+  const handleAllCheckBox = () => {
+    if (selectedCartIds.length === 0) {
+      setSelectedCartIds(cartItems.map((item) => item.id.toString()));
+    } else setSelectedCartIds([]);
+  };
+
   const handleCheckBox = (id: string) => {
-    if (id === 'select-all') {
-      if (selectedCartIds.length === 0) {
-        setSelectedCartIds(cartItems.map((item) => item.id.toString()));
-      } else setSelectedCartIds([]);
-      return;
-    }
     if (selectedCartIds.includes(id)) {
       setSelectedCartIds(selectedCartIds.filter((itemId) => itemId !== id));
     } else {
@@ -61,7 +61,7 @@ export default function CartProductContainer({
             }
             dataTestId="select-all"
             id="select-all"
-            onChange={handleCheckBox}
+            onChange={handleAllCheckBox}
           />
           <label htmlFor="select-all">전체 선택</label>
         </div>
