@@ -85,16 +85,18 @@ const CartContentItemsList = () => {
 
   return (
     <>
-      {cartItemsData.map((cartItem) => (
-        <CartCard
-          key={cartItem.id}
-          cartItem={cartItem}
-          handleDeleteCartItem={handleDeleteCartItem}
-          handleCartItemQuantity={handleCartItemQuantity}
-          handleSelectCartItem={handleSelectCartItem}
-          isSelected={selectedCartIds.has(cartItem.id)}
-        />
-      ))}
+      {cartItemsData
+        .filter((item) => item.product.quantity > 0)
+        .map((cartItem) => (
+          <CartCard
+            key={cartItem.id}
+            cartItem={cartItem}
+            handleDeleteCartItem={handleDeleteCartItem}
+            handleCartItemQuantity={handleCartItemQuantity}
+            handleSelectCartItem={handleSelectCartItem}
+            isSelected={selectedCartIds.has(cartItem.id)}
+          />
+        ))}
     </>
   );
 };
