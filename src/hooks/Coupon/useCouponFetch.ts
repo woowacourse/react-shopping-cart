@@ -24,4 +24,4 @@ function useCouponFetch() {
   };
 }
 
-export default useCouponFetch;
+export { useCouponFetch };
