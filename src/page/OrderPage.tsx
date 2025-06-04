@@ -13,6 +13,8 @@ import CartHeader from "@/components/Cart/CartHeader/CartHeader";
 import CartContent from "@/components/Cart/CartContent/CartContent";
 import OrderConfirmation from "./OrderConfirmation/OrderConfirmation";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
+import CartContentActions from "@/components/Cart/CartContentActions/CartContentActions";
+
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
   prevClickHandler: (prevStep: string) => void;
@@ -40,12 +42,14 @@ function OrderPage({
     return new Set(allCouponsResult.appliedCoupons.map((c) => c.id));
   }, [allCouponsResult.appliedCoupons]);
 
-  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
-    useCouponSelection(initialOptimalCoupons);
+  const couponSelection = useCouponSelection(initialOptimalCoupons);
 
   const selectedCoupons = useMemo(
-    () => couponsData?.filter((coupon) => selectedCouponIds?.has(coupon.id)),
-    [couponsData, selectedCouponIds]
+    () =>
+      couponsData?.filter((coupon) =>
+        couponSelection.selectedCouponIds?.has(coupon.id)
+      ),
+    [couponsData, couponSelection.selectedCouponIds]
   );
   const result = useCouponDiscount({
     selectedCoupons,
@@ -68,17 +72,18 @@ function OrderPage({
             onPrev={() => prevClickHandler("구매품 선택")}
             couponsData={couponsData}
             result={result}
-            couponSelection={{
-              handleSelectCoupon,
-              selectedCouponIds,
-              isSelectedToLimit,
-            }}
-          />
+            couponSelection={couponSelection}
+          >
+            <OrderConfirmation.ItemList />
+            <OrderConfirmation.Coupon />
+            <OrderConfirmation.PriceDetails />
+            <OrderConfirmation.FinalTotal />
+          </OrderConfirmation>
         </Step>
       </Funnel>
 
       {currentStep === STEP_NAME.SELECT_PRODUCT && (
-        <CartContent.Actions
+        <CartContentActions
           onNext={() => nextClickHandler("쿠폰 적용 및 결제")}
         />
       )}
