@@ -1,8 +1,10 @@
-import {useState, useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import {CartProduct} from '../type/cart';
+import {useSelectedCartId} from '../provider/selectedItemProvider';
 
 export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
-  const [selectedCartId, setSelectedCartId] = useState<number[]>([]);
+  const {selectedCartId, setSelectedCartId} = useSelectedCartId();
+
   const isSetting = useRef(false);
 
   const isChecked = (id: number) => {
@@ -43,7 +45,6 @@ export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
   }, [cartItems]);
 
   return {
-    selectedCartId,
     isAllChecked,
     isChecked,
     handleAllSelected,

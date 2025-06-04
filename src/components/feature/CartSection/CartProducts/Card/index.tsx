@@ -15,12 +15,15 @@ type Props = {
 };
 
 const Card = ({cartItem, isChecked, onToggle, onDelete, onPatch}: Props) => {
-  const {id, imageUrl, name, price} = cartItem.product;
+  const {imageUrl, name, price} = cartItem.product;
 
   return (
     <S.CardContainer>
       <S.ButtonSection>
-        <CheckBox isChecked={isChecked} onChange={() => onToggle(id)} />
+        <CheckBox
+          isChecked={isChecked}
+          onChange={() => onToggle(cartItem.id)}
+        />
         <Button onClick={() => onDelete(cartItem.id)} title="삭제" />
       </S.ButtonSection>
 

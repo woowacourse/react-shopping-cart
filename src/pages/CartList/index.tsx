@@ -12,9 +12,9 @@ import {calcOrderHistory} from '../../feature/calcOrderHistory';
 import {deleteCartProduct} from '../../api/cart/deleteCartProduct';
 import {patchCartProduct} from '../../api/cart/patchCartProduct';
 
-import {CartProduct} from '../../type/cart';
 import * as S from './index.styles';
 import {css} from '@emotion/react';
+import {useSelectedItems} from '../../provider/selectedItemProvider';
 
 const styleButton = css`
   width: 100%;
@@ -29,7 +29,6 @@ const CartList = () => {
   const navigate = useNavigate();
   const {cartItems, refetch} = useGetCartItem();
   const {
-    selectedCartId,
     isAllChecked,
     isChecked,
     handleAllSelected,
@@ -38,10 +37,7 @@ const CartList = () => {
   } = useSelectedCart(cartItems);
   const showError = useShowError();
 
-  const selectedItem =
-    cartItems?.filter(
-      (item: CartProduct) => selectedCartId.indexOf(item.id) > -1
-    ) || [];
+  const selectedItem = useSelectedItems();
 
   const {orderPrice, deliveryPrice, totalAmount, totalPrice} =
     calcOrderHistory(selectedItem);
@@ -112,11 +108,11 @@ const CartList = () => {
       <Button
         testId="order-confirm-button"
         title="주문 확인"
-        disabled={selectedCartId?.length === 0}
+        disabled={selectedItem?.length === 0}
         onClick={() =>
           navigate(ROUTE_PATHS.ORDER_CONFIRM, {
             state: {
-              sort: selectedCartId.length,
+              sort: selectedItem.length,
               totalAmount: totalAmount,
               totalPrice: totalPrice,
             },
