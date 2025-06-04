@@ -1,0 +1,4 @@
+export const CART = {
+  DELIVERY_FEE: 3000,
+  FREE_DELIVERY_THRESHOLD: 100000,
+};
