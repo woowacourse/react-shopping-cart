@@ -24,5 +24,9 @@ export async function baseAPI<T>({
   }
 
   if (result.status === 204) return null;
-  return result.json();
+
+  const text = await result.text();
+  if (text === "") return null;
+
+  return JSON.parse(text) as T;
 }
