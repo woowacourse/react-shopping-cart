@@ -17,113 +17,120 @@ export interface CouponCalculationResult {
   appliedCoupons: CouponApplied[];
 }
 
-interface UseCouponCalculationProps {
-  selectedCoupons: Coupon[];
+interface Props {
+  coupons: Coupon[];
   selectedShoppingCartItems: CartItem[];
-  isIsland?: boolean;
+  isIsland?: boolean; // 제주·도서산간 여부 (추가 배송비 3,000원)
 }
 
-export const useCouponCalculation = ({
-  selectedCoupons = [],
+const useCouponCalculation = ({
+  coupons,
   selectedShoppingCartItems,
   isIsland = false,
-}: UseCouponCalculationProps): CouponCalculationResult => {
-  // 주문 총액
-  const orderTotal = useMemo(() => {
-    if (!selectedShoppingCartItems || selectedShoppingCartItems.length === 0) {
-      return 0;
-    }
+}: Props): CouponCalculationResult => {
+  /* 1. 주문 총액 */
+  const orderTotal = useMemo(
+    () =>
+      selectedShoppingCartItems.reduce(
+        (sum, item) => sum + item.product.price * item.quantity,
+        0
+      ),
+    [selectedShoppingCartItems]
+  );
 
-    return selectedShoppingCartItems.reduce(
-      (sum, item) => sum + item.product.price * item.quantity,
-      0
-    );
-  }, [selectedShoppingCartItems]);
-  // 가장 비싼 BOGO 아이템 찾기
-
+  /* 2. BOGO 쿠폰을 위한 가장 비싼 아이템 찾기 */
   const seekMostExpensiveBOGOItem = useCallback(
     (buyQty: number): CartItem | null => {
-      // 쇼핑카트가 비어있으면 null 반환
-      if (
-        !selectedShoppingCartItems ||
-        selectedShoppingCartItems.length === 0
-      ) {
-        return null;
-      }
-
       // buyQty 이상인 아이템만 필터링
       const eligibleItems = selectedShoppingCartItems.filter(
         (item) => item.quantity >= buyQty
       );
 
-      // 조건을 만족하는 아이템이 없으면 null 반환
       if (eligibleItems.length === 0) {
         return null;
       }
 
-      // 가격 비교를 통해 가장 비싼 아이템 객체를 반환
       return eligibleItems.reduce((prev, curr) =>
         curr.product.price > prev.product.price ? curr : prev
       );
     },
     [selectedShoppingCartItems]
   );
-  // 쿠폰별 할인 계산
+
+  /* 3. 쿠폰별 할인 계산 */
   const appliedCoupons = useMemo(() => {
     const baseShipping = getBaseShipping(orderTotal, isIsland);
 
-    return selectedCoupons.map((coupon) => {
-      let discountItem = 0;
-      let discountShipping = 0;
+    return coupons.map((coupon) => {
+      let item = 0,
+        shippingFee = 0;
 
       switch (coupon.discountType) {
         case "fixed":
-          discountItem = coupon.discount ?? 0;
+          item = coupon.discount ?? 0;
           break;
+
         case "freeShipping":
-          discountShipping = baseShipping;
+          shippingFee = baseShipping;
           break;
+
         case "percentage":
-          discountItem = (orderTotal * (coupon.discount ?? 0)) / 100;
+          item = (orderTotal * (coupon.discount ?? 0)) / 100;
           break;
+
         case "buyXgetY": {
-          const maxItem = seekMostExpensiveBOGOItem(coupon.buyQuantity ?? 0);
-          if (maxItem) {
-            const freeCount =
-              Math.floor(maxItem.quantity / (coupon.buyQuantity ?? 0)) *
-              (coupon.getQuantity ?? 0);
-            discountItem = maxItem.product.price * freeCount;
+          const buyQty = coupon.buyQuantity ?? 0;
+          const getQty = coupon.getQuantity ?? 0;
+          if (buyQty <= 0 || getQty <= 0) {
+            item = 0;
+            break;
           }
 
+          const maxItem = seekMostExpensiveBOGOItem(buyQty);
+          if (!maxItem) {
+            item = 0;
+            break;
+          }
+
+          const groupSize = buyQty + getQty;
+          const freeCount = Math.floor(maxItem.quantity / groupSize) * getQty;
+          item = maxItem.product.price * freeCount;
+          console.log(
+            `BOGO 할인 적용: ${maxItem.product.name} - ${freeCount}개 무료`
+          );
           break;
         }
+
         default:
           console.warn(`Unknown coupon type: ${coupon.discountType}`);
           break;
       }
 
-      return { coupon, discountItem, discountShipping };
+      return {
+        coupon,
+        discountItem: item,
+        discountShipping: shippingFee,
+      };
     });
-  }, [selectedCoupons, orderTotal, isIsland, seekMostExpensiveBOGOItem]);
+  }, [coupons, orderTotal, isIsland, seekMostExpensiveBOGOItem]);
 
-  // 총 할인 계산
-  const { totalItemDiscount, totalShippingDiscount } = useMemo(() => {
-    let totalItemDiscount = 0;
-    let totalShippingDiscount = 0;
-
-    appliedCoupons.forEach((applied) => {
-      totalItemDiscount += applied.discountItem;
-      totalShippingDiscount += applied.discountShipping;
+  /* 4. 할인 합계와 배송비 계산 */
+  const { itemDiscount, shipDiscount } = useMemo(() => {
+    let itemDiscount = 0,
+      shipDiscount = 0;
+    appliedCoupons.forEach((coupon) => {
+      itemDiscount += coupon.discountItem;
+      shipDiscount += coupon.discountShipping;
     });
-
-    return { totalItemDiscount, totalShippingDiscount };
+    return { itemDiscount, shipDiscount };
   }, [appliedCoupons]);
 
-  // 최종 계산
   const baseShipping = getBaseShipping(orderTotal, isIsland);
-  const shippingFee = Math.max(0, baseShipping - totalShippingDiscount);
-  const discountTotal = totalItemDiscount + totalShippingDiscount;
-  const finalTotal = orderTotal + shippingFee - totalItemDiscount;
+  const shippingFee = Math.max(0, baseShipping - shipDiscount);
+
+  /* 5. 최종 금액 */
+  const discountTotal = itemDiscount + shipDiscount;
+  const finalTotal = orderTotal + shippingFee - itemDiscount;
 
   return {
     orderTotal,
@@ -133,3 +140,5 @@ export const useCouponCalculation = ({
     appliedCoupons,
   };
 };
+
+export { useCouponCalculation };
