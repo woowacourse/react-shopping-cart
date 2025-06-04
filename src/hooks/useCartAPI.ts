@@ -6,6 +6,10 @@ import { CartItemContent } from "../types/response";
 
 interface CartItemCheckType {
   id: number;
+  quantity: number;
+  name: string;
+  imageUrl: string;
+  price: number;
   checked: boolean;
 }
 
@@ -30,7 +34,16 @@ const useCartAPI = ({
       setCartItemsData(items);
 
       if (!isCheckDataInitialized.current && items.length > 0) {
-        setCartItemsCheckData(items.map(({ id }) => ({ id, checked: true })));
+        setCartItemsCheckData(
+          items.map(({ id, quantity, product }) => ({
+            id,
+            quantity,
+            name: product.name,
+            imageUrl: product.imageUrl,
+            price: product.price,
+            checked: true,
+          }))
+        );
         isCheckDataInitialized.current = true;
       }
     } catch (error) {

@@ -42,6 +42,10 @@ interface CartContextType {
 
 interface CartItemCheckType {
   id: number;
+  quantity: number;
+  name: string;
+  imageUrl: string;
+  price: number;
   checked: boolean;
 }
 
@@ -52,6 +56,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const [cartItemsCheckData, setCartItemsCheckData] = useState<
     CartItemCheckType[]
   >([]);
+
   const isCheckDataInitialized = useRef(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -76,10 +81,15 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (cartItemsData.length > 0 && !isCheckDataInitialized.current) {
-      const data = cartItemsData.map(({ id }) => ({
+      const data = cartItemsData.map(({ id, quantity, product }) => ({
         id,
+        quantity,
+        name: product.name,
+        imageUrl: product.imageUrl,
+        price: product.price,
         checked: INITIAL_CHECKED,
       }));
+
       setCartItemsCheckData(data);
       isCheckDataInitialized.current = true;
     }
