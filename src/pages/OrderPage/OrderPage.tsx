@@ -1,11 +1,12 @@
-import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import Header from "../../components/@common/Header/Header";
-import BackIcon from "/left-arrow.svg";
-import * as S from "./OrderPage.styles";
-import Title from "../../components/@common/Title/Title";
-import Description from "../../components/@common/Description/Description";
-import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import Description from "../../components/@common/Description/Description";
+import Header from "../../components/@common/Header/Header";
+import Title from "../../components/@common/Title/Title";
+import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
+import { ROUTES } from "../../constants/routes";
+import useCart from "../../hooks/useCart";
+import * as S from "./OrderPage.styles";
+import BackIcon from "/left-arrow.svg";
 
 const OrderPage = () => {
   const { orderItemCount, orderQuantity, totalPrice } = useCart();
@@ -13,7 +14,7 @@ const OrderPage = () => {
   const navigate = useNavigate();
 
   const navigateToBack = () => {
-    navigate(-1);
+    navigate(ROUTES.HOME);
   };
 
   return (
