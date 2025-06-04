@@ -9,10 +9,16 @@ import Main from '../../components/layout/Main/Main';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
 import Toast from '../../components/Toast/Toast';
-import { subTitleStyle, titleBox, titleStyle } from './ShoppingCart.style';
+import {
+  subTitleStyle,
+  titleBox,
+  titleStyle,
+  spinnerWrapper,
+} from './ShoppingCart.style';
 import { Footer } from '../../components/layout/Footer/Footer';
 import useFetchCartItems from '../../hooks/useFetchCartItems';
 import { getCartItemSummary } from '../../utils/getCartItemSummary';
+import Spinner from '../../components/Splinner/Splinner';
 
 export function ShoppingCart() {
   const navigate = useNavigate();
@@ -57,27 +63,35 @@ export function ShoppingCart() {
         {Boolean(error) && <Toast>{error}</Toast>}
       </Header>
       <Main>
-        <div css={titleBox}>
-          <p css={titleStyle}>장바구니</p>
-          {cartItems.length !== 0 && (
-            <p css={subTitleStyle}>
-              현재 {cartItems.length}종류의 상품이 담겨있습니다.
-            </p>
-          )}
-        </div>
-        {cartItems.length === 0 ? (
-          <EmptyShoppingCart />
+        {isLoading ? (
+          <div css={spinnerWrapper}>
+            <Spinner size={60} />
+          </div>
         ) : (
           <>
-            <CartProductContainer
-              cartItems={cartItems}
-              onChange={getCartItemData}
-              onError={handleError}
-              selectedCartIds={selectedCartIds}
-              setSelectedCartIds={setSelectedCartIds}
-              isFetching={isFetching}
-            />
-            <PaymentSummary price={totalPrice} />
+            <div css={titleBox}>
+              <p css={titleStyle}>장바구니</p>
+              {cartItems.length !== 0 && (
+                <p css={subTitleStyle}>
+                  현재 {cartItems.length}종류의 상품이 담겨있습니다.
+                </p>
+              )}
+            </div>
+            {cartItems.length === 0 ? (
+              <EmptyShoppingCart />
+            ) : (
+              <>
+                <CartProductContainer
+                  cartItems={cartItems}
+                  onChange={getCartItemData}
+                  onError={handleError}
+                  selectedCartIds={selectedCartIds}
+                  setSelectedCartIds={setSelectedCartIds}
+                  isFetching={isFetching}
+                />
+                <PaymentSummary price={totalPrice} />
+              </>
+            )}
           </>
         )}
       </Main>

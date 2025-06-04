@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 const titleStyle = css`
   font-weight: 700;
@@ -16,4 +16,11 @@ const titleBox = css`
   flex-direction: column;
 `;
 
-export { titleStyle, subTitleStyle, titleBox };
+const spinnerWrapper = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+`;
+
+export { titleStyle, subTitleStyle, titleBox, spinnerWrapper };
