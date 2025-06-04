@@ -4,47 +4,24 @@ import Button from '../../../../common/Button';
 import CheckBox from '../../../../common/CheckBox';
 import Line from '../../../../common/Line';
 import {CartProduct} from '../../../../../type/cart';
-import {deleteCartProduct} from '../../../../../api/cart/deleteCartProduct';
 import {formatPrice} from '../../../../../utils/formatPrice';
-import {useShowError} from '../../../../../provider/errorProvider';
-import {patchCartProduct} from '../../../../../api/cart/patchCartProduct';
 
 type Props = {
   cartItem: CartProduct;
   isChecked: boolean;
-  onRefetch: () => void;
-  onToggle: () => void;
-  onRemove: () => void;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+  onPatch: (id: number, quantity: number) => void;
 };
 
-const Card = ({cartItem, onRefetch, isChecked, onToggle, onRemove}: Props) => {
-  const {imageUrl, name, price} = cartItem.product;
-  const showError = useShowError();
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteCartProduct(id);
-      onRemove();
-      onRefetch();
-    } catch (e) {
-      showError?.('데이터를 삭제하는 중 문제가 발생했습니다.');
-    }
-  };
-
-  const handleUpdate = async (id: number, updatedQuantity: number) => {
-    try {
-      await patchCartProduct(id, updatedQuantity);
-      onRefetch();
-    } catch (e) {
-      showError?.('상품을 추가/삭제하는 중 문제가 발생했습니다.');
-    }
-  };
+const Card = ({cartItem, isChecked, onToggle, onDelete, onPatch}: Props) => {
+  const {id, imageUrl, name, price} = cartItem.product;
 
   return (
     <S.CardContainer>
       <S.ButtonSection>
-        <CheckBox isChecked={isChecked} onChange={onToggle} />
-        <Button onClick={() => handleDelete(cartItem.id)} title="삭제" />
+        <CheckBox isChecked={isChecked} onChange={() => onToggle(id)} />
+        <Button onClick={() => onDelete(cartItem.id)} title="삭제" />
       </S.ButtonSection>
 
       <S.CardInfoSection>
@@ -60,10 +37,8 @@ const Card = ({cartItem, onRefetch, isChecked, onToggle, onRemove}: Props) => {
           </S.ProductDescription>
           <CartCount
             count={cartItem.quantity}
-            onPlusCount={() => handleUpdate(cartItem.id, cartItem.quantity + 1)}
-            onMinusCount={() =>
-              handleUpdate(cartItem.id, cartItem.quantity - 1)
-            }
+            onPlusCount={() => onPatch(cartItem.id, cartItem.quantity + 1)}
+            onMinusCount={() => onPatch(cartItem.id, cartItem.quantity - 1)}
           />
         </S.ProductInfoSection>
       </S.CardInfoSection>

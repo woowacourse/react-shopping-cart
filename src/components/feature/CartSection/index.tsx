@@ -11,6 +11,9 @@ import {css} from '@emotion/react';
 import {useSelectedCart} from '../../../hooks/useSelectedCart';
 import {ROUTE_PATHS} from '../../../route/path';
 import {calcOrderHistory} from '../../../feature/calcOrderHistory';
+import {useShowError} from '../../../provider/errorProvider';
+import {deleteCartProduct} from '../../../api/cart/deleteCartProduct';
+import {patchCartProduct} from '../../../api/cart/patchCartProduct';
 
 const styleButton = css`
   width: 100%;
@@ -32,6 +35,7 @@ const CartSection = () => {
     handleToggle,
     handleRemove,
   } = useSelectedCart(cartItems);
+  const showError = useShowError();
 
   const selectedItem =
     cartItems?.filter(
@@ -40,6 +44,25 @@ const CartSection = () => {
 
   const {orderPrice, deliveryPrice, totalAmount, totalPrice} =
     calcOrderHistory(selectedItem);
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteCartProduct(id);
+      handleRemove(id);
+      refetch();
+    } catch (e) {
+      showError?.('데이터를 삭제하는 중 문제가 발생했습니다.');
+    }
+  };
+
+  const handlePatch = async (id: number, updatedQuantity: number) => {
+    try {
+      await patchCartProduct(id, updatedQuantity);
+      refetch();
+    } catch (e) {
+      showError?.('상품을 추가/삭제하는 중 문제가 발생했습니다.');
+    }
+  };
 
   return (
     <S.Container>
@@ -65,10 +88,10 @@ const CartSection = () => {
                 <Card
                   key={cartItem.id}
                   cartItem={cartItem}
-                  onRefetch={refetch}
                   isChecked={isChecked(cartItem.id)}
-                  onToggle={() => handleToggle(cartItem.id)}
-                  onRemove={() => handleRemove(cartItem.id)}
+                  onToggle={handleToggle}
+                  onDelete={handleDelete}
+                  onPatch={handlePatch}
                 />
               ))}
             </S.CartList>
