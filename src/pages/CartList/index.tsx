@@ -110,7 +110,7 @@ const CartList = () => {
         title="주문 확인"
         disabled={selectedCartId?.length === 0}
         onClick={() =>
-          navigate(ROUTE_PATHS.CONFIRM, {
+          navigate(ROUTE_PATHS.ORDER_CONFIRM, {
             state: {
               sort: selectedCartId.length,
               totalAmount: totalAmount,

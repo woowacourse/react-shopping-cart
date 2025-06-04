@@ -1,8 +1,9 @@
 import {ROUTE_PATHS} from './path';
 import {createBrowserRouter, RouterProvider} from 'react-router';
 import NavBar from '../components/layout/NavBar';
-import Confirm from '../pages/Confirm';
 import CartList from '../pages/CartList';
+import PaymentConfirm from '../pages/PaymentConfirm';
+import OrderConfirm from '../pages/OrderConfirm';
 
 const router = createBrowserRouter(
   [
@@ -14,8 +15,12 @@ const router = createBrowserRouter(
           element: <CartList />,
         },
         {
-          path: ROUTE_PATHS.CONFIRM,
-          element: <Confirm />,
+          path: ROUTE_PATHS.PAYMENT_CONFIRM,
+          element: <PaymentConfirm />,
+        },
+        {
+          path: ROUTE_PATHS.ORDER_CONFIRM,
+          element: <OrderConfirm />,
         },
       ],
     },

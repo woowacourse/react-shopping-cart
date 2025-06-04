@@ -15,7 +15,7 @@ const buttonStyle = css`
   bottom: 0;
 `;
 
-const Confirm = () => {
+const PaymentConfirm = () => {
   const location = useLocation();
   if (!location.state)
     return (
@@ -47,4 +47,4 @@ const Confirm = () => {
   );
 };
 
-export default Confirm;
+export default PaymentConfirm;
