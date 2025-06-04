@@ -5,6 +5,7 @@ import {
 } from "../../stores/SelectContext";
 import updateCartItemApi from "../../api/updateCartItemApi";
 import { ResponseCartItem } from "../../types/types";
+import { useLocation } from "react-router-dom";
 
 interface UseCartItemManagerProps {
   cart: ResponseCartItem;
@@ -16,6 +17,7 @@ interface UseCartItemManagerReturn {
   handleIncrease: () => Promise<void>;
   handleDecrease: () => Promise<void>;
   handleDelete: () => Promise<void>;
+  orderStatus: string;
 }
 
 function useCartItemManager({
@@ -27,6 +29,7 @@ function useCartItemManager({
 
   const isSelected =
     selectState.find((item) => item.id === cart.id)?.selected || false;
+  const orderStatus = useLocation().pathname.split("/")[1];
 
   const handleSelect = (): void => {
     if (isSelected) {
@@ -113,6 +116,7 @@ function useCartItemManager({
     handleIncrease,
     handleDecrease,
     handleDelete,
+    orderStatus,
   };
 }
 

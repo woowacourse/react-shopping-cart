@@ -13,6 +13,16 @@ export const OrderCompletePageWrapper = styled.div`
   position: relative;
 `;
 
+export const OrderResultWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`;
+
 export const ButtonContainer = styled.div`
   position: absolute;
   bottom: 0;

@@ -31,11 +31,13 @@ const CheckPaymentPage = () => {
     <S.Root>
       <S.OrderCompletePageWrapper>
         <Header orderStatus="check-payment" />
-        <OrderResult
-          selectedCartItem={state.selectedCartItem}
-          totalPrice={state.totalPrice}
-          titleText="결제 확인"
-        />
+        <S.OrderResultWrapper>
+          <OrderResult
+            selectedCartItem={state.selectedCartItem}
+            totalPrice={state.totalPrice}
+            orderStatus="check-payment"
+          />
+        </S.OrderResultWrapper>
         <S.ButtonContainer>
           <S.PaymentButton onClick={handleBackToCart}>결제하기</S.PaymentButton>
         </S.ButtonContainer>

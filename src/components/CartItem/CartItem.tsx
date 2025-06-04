@@ -17,6 +17,7 @@ const CartItem = ({ cart }: CartItemProps) => {
     handleIncrease,
     handleDecrease,
     handleDelete,
+    orderStatus,
   } = useCartItemManager({ cart });
 
   return (
@@ -24,8 +25,14 @@ const CartItem = ({ cart }: CartItemProps) => {
       <S.Line />
       <S.ItemContainer>
         <S.CartItemHeader>
-          <CheckBox isChecked={isSelected} onClick={handleSelect} />
-          <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
+          {orderStatus === "order-complete" ? (
+            <></>
+          ) : (
+            <>
+              <CheckBox isChecked={isSelected} onClick={handleSelect} />
+              <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
+            </>
+          )}
         </S.CartItemHeader>
         <S.ItemInfo>
           <S.ProductImage src={imageUrl} alt={name} />
