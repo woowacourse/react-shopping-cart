@@ -60,12 +60,11 @@ export function useData<T>({ fetcher, name }: { fetcher: () => Promise<T>; name:
   }, [fetcher, name, setData]);
 
   useEffect(() => {
-    const hasData = data[name]?.data;
+    const currentData = data[name];
 
-    if (hasData) {
-      return;
+    if (!currentData?.data && !currentData?.isLoading) {
+      request();
     }
-    request();
   }, [data, name, request]);
 
   const currentData = data[name] as DataState<T> | undefined;

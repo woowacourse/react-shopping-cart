@@ -1,11 +1,26 @@
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header/Header';
 import styled from '@emotion/styled';
 import Button from '../components/Button/Button';
 
+interface OrderDetailState {
+  price: number;
+  count: number;
+  totalCount: number;
+}
+
 function OrderConfirmPage() {
   const location = useLocation();
-  const { price, count, totalCount } = location.state;
+  const navigate = useNavigate();
+  const state = location.state as OrderDetailState | undefined;
+
+  if (!state) {
+    return (
+      <Button disabled={false} onClick={() => navigate('/', { replace: true })}>
+        메인 페이지로 돌아가기
+      </Button>
+    );
+  }
 
   return (
     <>
@@ -13,11 +28,11 @@ function OrderConfirmPage() {
       <Container>
         <Title>주문하기</Title>
         <Description>
-          총 {count}종류의 상품 {totalCount}개를 주문합니다.
+          총 {state.count}종류의 상품 {state.totalCount}개를 주문합니다.
           <br /> 최종 결제 금액을 확인해 주세요.
         </Description>
         <SubTitle>총 결제 금액</SubTitle>
-        <Title>{price.toLocaleString()}원</Title>
+        <Title>{state.price.toLocaleString()}원</Title>
       </Container>
       <Button disabled={true}>결제하기</Button>
     </>
