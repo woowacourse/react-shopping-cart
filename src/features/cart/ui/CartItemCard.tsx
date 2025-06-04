@@ -6,7 +6,7 @@ import SelectInput from '../../../shared/ui/SelectInput';
 import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
 import { CartItem } from '../../../shared/type/cart';
-import { useSelectedCartContext } from '../../../shared/context/useCartContext';
+import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
 import { deleteCartItem } from '../api/deleteCartItem';
 
 const deleteButtonCSS = css`

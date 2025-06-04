@@ -4,7 +4,7 @@ import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui'
 import Navbar from '../../shared/ui/Navbar';
 import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import { getCartItems } from '../../features/cart/api/getCartItems';
-import { useSelectedCartContext } from '../../shared/context/useCartContext';
+import { useSelectedCartContext } from '../../shared/context/useSelectedCartContext';
 import { CartItem } from '../../shared/type/cart';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';

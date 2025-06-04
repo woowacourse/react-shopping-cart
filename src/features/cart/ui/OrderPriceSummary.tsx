@@ -1,4 +1,4 @@
-import { useSelectedCartContext } from '../../../shared/context/useCartContext';
+import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
 import * as S from './OrderPriceSummary.styles';
 export default function OrderPriceSummary() {
   const { selectedCartItems } = useSelectedCartContext();
