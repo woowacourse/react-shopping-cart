@@ -46,21 +46,23 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   const updateItemQuantity = async (id: number, quantity: number) => {
+    const originalItems = cartItems;
+    setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)));
     try {
       await updateCartItemQuantity({ id, quantity });
-
-      setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)));
     } catch (error) {
+      setCartItems(originalItems);
       setErrorMessage(error instanceof Error ? error.message : '수량 변경에 실패했습니다.');
     }
   };
 
   const removeItem = async (id: number) => {
+    const originalItems = cartItems;
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
     try {
       await deleteCartItem(id);
-
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
+      setCartItems(originalItems);
       setErrorMessage(error instanceof Error ? error.message : '아이템 삭제에 실패했습니다.');
     }
   };
