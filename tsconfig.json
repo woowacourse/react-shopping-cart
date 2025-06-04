@@ -24,6 +24,12 @@
     "esModuleInterop": true,
 
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]
