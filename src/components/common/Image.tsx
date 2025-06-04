@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ImgHTMLAttributes, useEffect, useState } from "react";
+import { ImgHTMLAttributes, useState } from "react";
 
 interface ImageProps
   extends Omit<ImgHTMLAttributes<HTMLImageElement>, "onError"> {
@@ -20,10 +20,6 @@ function Image({
   ...props
 }: ImageProps) {
   const [imageUrl, setImageUrl] = useState(src);
-
-  useEffect(() => {
-    setImageUrl(src);
-  }, [src]);
 
   const handleError = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
