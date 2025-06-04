@@ -1,3 +1,4 @@
+import { usePersistState } from "@/hooks";
 import { Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react";
 
 interface ShoppingCartContextType {
@@ -14,13 +15,20 @@ interface ShoppingCartProviderProps {}
 export const ShoppingCartContext = createContext<ShoppingCartContextType | null>(null);
 
 export default function ShoppingCartProvider({ children }: PropsWithChildren<ShoppingCartProviderProps>) {
-  const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+  const [selectedItemIds, setSelectedItemIds] = usePersistState<number[]>("selectedItemIds", []);
   const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
   const [isFar, setIsFar] = useState(false);
 
   return (
     <ShoppingCartContext.Provider
-      value={{ selectedItemIds, setSelectedItemIds, selectedCouponIds, setSelectedCouponIds, isFar, setIsFar }}
+      value={{
+        selectedItemIds,
+        setSelectedItemIds,
+        selectedCouponIds,
+        setSelectedCouponIds,
+        isFar,
+        setIsFar,
+      }}
     >
       {children}
     </ShoppingCartContext.Provider>
