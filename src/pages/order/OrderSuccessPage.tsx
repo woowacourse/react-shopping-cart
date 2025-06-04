@@ -1,28 +1,27 @@
 import BackButton from '@/shared/components/BackButton/BackButton';
 import * as S from './OrderSuccessPage.styled';
 import Header from '@/shared/components/Header/Header';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { usePageNavigation } from '@/shared/hooks/usePageNavigation';
 import { ROUTES } from '@/shared/config/routes';
-import { CartItemType } from '@/apis/cartItems/cartItem.type';
-
-interface OrderSuccessState {
-  orderList: CartItemType[];
-  paymentAmount: number;
-}
 
 export default function OrderSuccessPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { orderList, paymentAmount } = location.state as OrderSuccessState;
-  const orderListType = orderList.length;
-  const orderQuantity = orderList.reduce((acc, { quantity }) => (acc += quantity), 0);
+  const { validateOrderSuccessState, navigateTo } = usePageNavigation();
 
   useEffect(() => {
-    if (!location.state) {
-      navigate(ROUTES.CART);
+    const state = validateOrderSuccessState();
+    if (!state) {
+      navigateTo(ROUTES.CART);
+      return;
     }
   }, []);
+
+  const state = validateOrderSuccessState();
+  if (!state) return null;
+
+  const { orderList, paymentAmount } = state;
+  const orderListType = orderList.length;
+  const orderQuantity = orderList.reduce((acc, { quantity }) => (acc += quantity), 0);
 
   return (
     <>

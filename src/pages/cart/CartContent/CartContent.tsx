@@ -3,13 +3,13 @@ import PriceContainer from './PriceContainer/PriceContainer';
 import CartList from './CartList/CartList';
 import CheckBox from '@/shared/components/CheckBox/CheckBox';
 import * as S from './CartContent.styled';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/shared/config/routes';
 import LoadingContainer from '@/shared/components/LoadingContainer/LoadingContainer';
 import ErrorContainer from '@/shared/components/ErrorContainer/ErrorContainer';
 import { useCartContext } from '../contexts/CartContext';
 import { useOrderSelection } from '../hooks/useOrderSelection';
 import { useOrderCalculation } from '../hooks/useOrderCalculation';
+import { usePageNavigation } from '@/shared/hooks/usePageNavigation';
+import { ROUTES } from '@/shared/config/routes';
 
 export default function CartContent() {
   const { cartItems, isLoading, errorMessage } = useCartContext();
@@ -20,7 +20,7 @@ export default function CartContent() {
     orderIdList,
   );
 
-  const navigate = useNavigate();
+  const { navigateTo } = usePageNavigation();
 
   if (isLoading && !cartItems?.length) {
     return <LoadingContainer />;
@@ -36,13 +36,7 @@ export default function CartContent() {
 
   const handleOrderConfirmButtonClick = () => {
     const orderList = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
-
-    navigate(ROUTES.ORDER_SUCCESS, {
-      state: {
-        orderList,
-        paymentAmount,
-      },
-    });
+    navigateTo(ROUTES.ORDER_SUCCESS, { orderList, paymentAmount });
   };
 
   return (
