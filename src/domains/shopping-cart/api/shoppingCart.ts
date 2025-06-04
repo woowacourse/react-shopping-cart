@@ -28,7 +28,7 @@ async function getShoppingCart(pageable: PageableType = PAGEABLE_DEFAULT) {
   return await apiClient.get("cart-items", params);
 }
 
-async function patchShoppingCart(productId: number, quantity: number) {
+async function patchShoppingCart(productId: string, quantity: number) {
   return apiClient.patch("cart-items", productId, {
     id: productId,
     quantity,

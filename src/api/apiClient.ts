@@ -39,7 +39,7 @@ export const apiClient = {
       true
     );
   },
-  patch: (url: string, id: number, body?: object) => {
+  patch: (url: string, id: string, body?: object) => {
     return tryFetchData(
       fetch(`${baseUrl}/${url}/${id}`, getRequestHeaders("PATCH", body)),
       false
