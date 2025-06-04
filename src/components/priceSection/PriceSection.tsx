@@ -9,30 +9,16 @@ const PriceSection = () => {
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
   const deliveryPrice =
-    orderPrice >= DELIVERY_PRICE_THRESHOLD || orderPrice === 0
-      ? 0
-      : DELIVERY_PRICE;
+    orderPrice >= DELIVERY_PRICE_THRESHOLD || orderPrice === 0 ? 0 : DELIVERY_PRICE;
 
   return (
     <>
-      <S.calculationContainer>
-        <PriceRow
-          title="주문 금액"
-          price={orderPrice}
-          data-testid="orderPrice"
-        />
-        <PriceRow
-          title="배송비"
-          price={deliveryPrice}
-          data-testid="deliveryPrice"
-        />
-      </S.calculationContainer>
+      <S.CalculationContainer>
+        <PriceRow title="주문 금액" price={orderPrice} data-testid="orderPrice" />
+        <PriceRow title="배송비" price={deliveryPrice} data-testid="deliveryPrice" />
+      </S.CalculationContainer>
 
-      <PriceRow
-        title="총 결제 금액"
-        price={orderPrice + deliveryPrice}
-        data-testid="totalPrice"
-      />
+      <PriceRow title="총 결제 금액" price={orderPrice + deliveryPrice} data-testid="totalPrice" />
     </>
   );
 };
