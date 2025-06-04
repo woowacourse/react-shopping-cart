@@ -1,14 +1,18 @@
 import * as S from './PriceContainer.styled';
 import InfoIcon from '@assets/icons/info.svg';
-import { calculatePaymentInfo, FREE_DELIVERY_LIMIT } from '@/shared/utils/orderPricing';
+import { FREE_DELIVERY_LIMIT } from '@/shared/utils/orderPricing';
 
 interface PriceContainerProps {
   orderTotalPrice: number;
+  deliveryFee: number;
+  paymentAmount: number;
 }
 
-export default function PriceContainer({ orderTotalPrice }: PriceContainerProps) {
-  const { deliveryFee, paymentAmount } = calculatePaymentInfo(orderTotalPrice);
-
+export default function PriceContainer({
+  orderTotalPrice,
+  deliveryFee,
+  paymentAmount,
+}: PriceContainerProps) {
   return (
     <S.Container>
       <S.InfoContainer>

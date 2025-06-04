@@ -1,8 +1,9 @@
 import * as S from './CartPage.styled';
 import Header from '@/shared/components/Header/Header';
 import CartContent from './CartContent/CartContent';
+import { CartProvider } from './contexts/CartContext';
 
-export default function CartPage() {
+const CartPageContent = () => {
   return (
     <>
       <Header>SHOP</Header>
@@ -11,5 +12,13 @@ export default function CartPage() {
         <CartContent />
       </S.Container>
     </>
+  );
+};
+
+export default function CartPage() {
+  return (
+    <CartProvider>
+      <CartPageContent />
+    </CartProvider>
   );
 }

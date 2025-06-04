@@ -4,12 +4,10 @@ import DefaultItemIcon from '@assets/icons/default-item.svg';
 import CartItemQuantityButton from './Button/Quantity/CartItemQuantityButton';
 import { CartItemType } from '@/apis/cartItems/cartItem.type';
 import { SyntheticEvent } from 'react';
-import { deleteCartItem } from '@/apis/cartItems/deleteCartItem';
-import useMutation from '@/shared/hooks/useMutation';
+import { useCartContext } from '../../../contexts/CartContext';
 
 interface CartItemProps {
   cartItem: CartItemType;
-  refetchCartItems: () => Promise<void>;
   isChecked: boolean;
   addOrderItemId: (id: number) => void;
   removeOrderItemId: (id: number) => void;
@@ -17,14 +15,13 @@ interface CartItemProps {
 
 export default function CartItem({
   cartItem,
-  refetchCartItems,
   isChecked,
   addOrderItemId,
   removeOrderItemId,
 }: CartItemProps) {
   const { id, quantity, product } = cartItem;
   const { name, price, imageUrl } = product;
-  const { mutate: removeCartItemMutate } = useMutation(() => deleteCartItem(id));
+  const { removeItem } = useCartContext();
 
   const imageLoadError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
@@ -32,8 +29,8 @@ export default function CartItem({
   };
 
   const removeCartItem = async () => {
-    await removeCartItemMutate(undefined);
-    refetchCartItems();
+    await removeItem(id);
+    removeOrderItemId(id);
   };
 
   const handleCheckBoxClick = () => {
@@ -68,7 +65,6 @@ export default function CartItem({
           <CartItemQuantityButton
             cartItemId={id}
             quantity={quantity}
-            refetchCartItems={refetchCartItems}
             removeOrderItemId={removeOrderItemId}
           />
         </S.ItemDetail>

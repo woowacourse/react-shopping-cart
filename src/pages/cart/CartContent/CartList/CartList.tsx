@@ -5,7 +5,6 @@ import { CartItemType, OrderItemType } from '@/apis/cartItems/cartItem.type';
 interface CartListProps {
   cartItems: CartItemType[];
   orderIdList: OrderItemType;
-  refetchCartItems: () => Promise<void>;
   addOrderItemId: (id: number) => void;
   removeOrderItemId: (id: number) => void;
 }
@@ -13,7 +12,6 @@ interface CartListProps {
 export default function CartList({
   cartItems,
   orderIdList,
-  refetchCartItems,
   addOrderItemId,
   removeOrderItemId,
 }: CartListProps) {
@@ -25,7 +23,6 @@ export default function CartList({
           <CartItem
             key={cartItem.id}
             cartItem={cartItem}
-            refetchCartItems={refetchCartItems}
             isChecked={isChecked}
             addOrderItemId={addOrderItemId}
             removeOrderItemId={removeOrderItemId}

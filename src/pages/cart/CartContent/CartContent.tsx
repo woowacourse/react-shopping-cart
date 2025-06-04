@@ -3,26 +3,23 @@ import PriceContainer from './PriceContainer/PriceContainer';
 import CartList from './CartList/CartList';
 import CheckBox from '@/shared/components/CheckBox/CheckBox';
 import * as S from './CartContent.styled';
-import { useCartItem } from '../hooks/useCartItem';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/shared/config/routes';
-import { calculatePaymentAmount } from '@/shared/utils/orderPricing';
 import LoadingContainer from '@/shared/components/LoadingContainer/LoadingContainer';
 import ErrorContainer from '@/shared/components/ErrorContainer/ErrorContainer';
+import { useCartContext } from '../contexts/CartContext';
+import { useOrderSelection } from '../hooks/useOrderSelection';
+import { useOrderCalculation } from '../hooks/useOrderCalculation';
 
 export default function CartContent() {
-  const {
+  const { cartItems, isLoading, errorMessage } = useCartContext();
+  const { orderIdList, isAllChecked, toggleAllSelection, addOrderItemId, removeOrderItemId } =
+    useOrderSelection(cartItems);
+  const { orderTotalPrice, deliveryFee, paymentAmount } = useOrderCalculation(
     cartItems,
-    isLoading,
-    errorMessage,
-    refetchCartItems,
     orderIdList,
-    isAllChecked,
-    orderTotalPrice,
-    toggleAllCheckBox,
-    addOrderItemId,
-    removeOrderItemId,
-  } = useCartItem();
+  );
+
   const navigate = useNavigate();
 
   if (isLoading && !cartItems?.length) {
@@ -39,7 +36,6 @@ export default function CartContent() {
 
   const handleOrderConfirmButtonClick = () => {
     const orderList = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
-    const paymentAmount = calculatePaymentAmount(orderTotalPrice ?? 0);
 
     navigate(ROUTES.ORDER_SUCCESS, {
       state: {
@@ -53,19 +49,22 @@ export default function CartContent() {
     <S.Container>
       <S.Text>현재 {cartItems.length}종류의 상품이 담겨있습니다.</S.Text>
       <S.AllCheckBox>
-        <CheckBox isChecked={isAllChecked} onClick={toggleAllCheckBox} aria-label="전체 선택" />
+        <CheckBox isChecked={isAllChecked} onClick={toggleAllSelection} aria-label="전체 선택" />
         <S.Text>전체 선택</S.Text>
       </S.AllCheckBox>
       <S.ScrollContainer>
         <CartList
           cartItems={cartItems}
           orderIdList={orderIdList}
-          refetchCartItems={refetchCartItems}
           addOrderItemId={addOrderItemId}
           removeOrderItemId={removeOrderItemId}
         />
       </S.ScrollContainer>
-      <PriceContainer orderTotalPrice={orderTotalPrice ?? 0} />
+      <PriceContainer
+        orderTotalPrice={orderTotalPrice}
+        deliveryFee={deliveryFee}
+        paymentAmount={paymentAmount}
+      />
       <S.OrderConfirmButton
         disabled={!orderIdList.length}
         type="button"
