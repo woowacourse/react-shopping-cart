@@ -11,7 +11,7 @@ function Text({
   children,
   varient,
   whiteSpace = 'normal',
-  textAlign = 'left',
+  textAlign = 'center',
 }: TextProps) {
   return (
     <p css={TextStyle[varient]} style={{ whiteSpace, textAlign }}>
