@@ -1,6 +1,7 @@
 import { ResponseCartItem } from "../types/types";
 import { fetcher } from "./fetcher";
-interface CarItemListProps {
+
+interface CarItemListParams {
   page?: number;
   size?: number;
   sort?: string;
@@ -10,7 +11,7 @@ async function getCartItemList({
   page = 0,
   size = 50,
   sort = "asc",
-}: CarItemListProps): Promise<ResponseCartItem[]> {
+}: CarItemListParams): Promise<ResponseCartItem[]> {
   return fetcher("/cart-items", {
     method: "GET",
     params: {

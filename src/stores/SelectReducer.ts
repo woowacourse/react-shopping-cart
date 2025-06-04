@@ -28,7 +28,7 @@ export const selectReducer = (state: SelectState[], action: SelectAction) => {
       return action.payload.items?.length
         ? action.payload.items.map((item) => ({
             id: item.id,
-            selected: false,
+            selected: true,
           }))
         : [];
     case "ADD_SELECT":
