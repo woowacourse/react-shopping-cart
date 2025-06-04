@@ -16,6 +16,7 @@ export const CartProvider = ({ children, onNext }: CartProviderProps) => {
     cartFetchLoading,
     handleCartItemQuantity,
     handleDeleteCartItem,
+    handleOrderCartItem,
   } = useShoppingCart();
 
   const {
@@ -40,6 +41,7 @@ export const CartProvider = ({ children, onNext }: CartProviderProps) => {
     selectedCartIds,
     handleSelectCartItem,
     handleSelectAllCartItems,
+    handleOrderCartItem,
     selectedCartItemsLength,
     isAllSelected,
     selectedCartItems,

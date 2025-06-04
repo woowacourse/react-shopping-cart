@@ -10,10 +10,10 @@ interface CartContextValue {
     quantity: number;
   }) => Promise<void>;
   handleDeleteCartItem: (id: string) => Promise<void>;
-
   selectedCartIds: Set<string>;
   handleSelectCartItem: (id: string) => void;
   handleSelectAllCartItems: () => void;
+  handleOrderCartItem: (cartItems: CartItem[]) => Promise<void>;
   selectedCartItemsLength: number;
   isAllSelected: boolean;
   selectedCartItems: CartItem[];
