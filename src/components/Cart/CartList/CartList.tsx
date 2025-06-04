@@ -2,11 +2,9 @@ import * as Styled from "./CartList.style";
 
 import { PropsWithChildren } from "react";
 import { CartItem } from "../../../type/CartItem";
-import {
-  FREE_SHIPPING_OVER,
-  SHIPPING_FEE,
-} from "../../../constants/priceSetting";
+import { FREE_SHIPPING_OVER } from "../../../constants/priceSetting";
 import notice from "/notice.svg";
+import { getOrderSummary } from "../../../util/cart/getOrderSummary";
 
 interface CartListProps extends PropsWithChildren {
   cartItemsData: CartItem[];
@@ -14,12 +12,10 @@ interface CartListProps extends PropsWithChildren {
 }
 
 function CartList({ cartItemsData, selectedCartIds, children }: CartListProps) {
-  const totalPrice = cartItemsData
-    .filter((cartItem) => selectedCartIds.includes(cartItem.id))
-    .reduce((total, item) => total + item.product.price * item.quantity, 0);
-
-  const shippingFee = totalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE;
-  const totalPriceWithShipping = totalPrice + shippingFee;
+  const { totalPrice, shippingFee, totalPriceWithShipping } = getOrderSummary({
+    cartItemsData,
+    selectedCartIds,
+  });
 
   return (
     <Styled.Container>
