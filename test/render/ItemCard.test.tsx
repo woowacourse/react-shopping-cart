@@ -56,7 +56,7 @@ describe('ItemCard 테스트', () => {
     });
 
     it("수량이 1일 때 '-' 버튼 클릭 시 상품이 삭제된다.", async () => {
-      const secondItemCard = screen.getAllByTestId('item-card')[1];
+      const secondItemCard = screen.getAllByTestId('item-card')[3];
       const minusButton = within(secondItemCard).getByAltText('minus-button');
 
       fireEvent.click(minusButton);

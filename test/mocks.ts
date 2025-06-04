@@ -13,7 +13,7 @@ export const mockCartItems = [
   },
   {
     id: 2,
-    quantity: 1,
+    quantity: 5,
     product: {
       id: 25,
       name: '모던 우드 체어',
