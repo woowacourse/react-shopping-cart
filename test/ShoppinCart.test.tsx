@@ -3,7 +3,7 @@ import { ShoppingCart } from '../src/pages/ShoppingCart/ShoppingCart';
 import { MemoryRouter } from 'react-router-dom';
 import { server } from '../src/mocks/server';
 import shoppingCart from '../src/mocks/shoppingCart.json';
-import { getTotalPrice } from '../src/utils/getTotalPrice';
+import { getCartItemSummary } from '../src/utils/getCartItemSummary';
 import { CartItemTypes } from '../src/types/cartItem';
 import { resetCartItems } from '../src/mocks/handlers';
 
@@ -43,10 +43,10 @@ describe('장바구니 페이지 테스트', () => {
     );
 
     const selectedId = shoppingCart.content.map((e) => e.id.toString());
-    const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
-      selectedCartId: selectedId,
-    });
+    const { totalPrice: prevTotalPrice } = getCartItemSummary(
+      shoppingCart.content as CartItemTypes[],
+      selectedId
+    );
 
     const orderPrice = await screen.findByTestId('orderPrice');
     await waitFor(() => {
@@ -77,10 +77,10 @@ describe('장바구니 페이지 테스트', () => {
     );
 
     const selectedId = shoppingCart.content.map((e) => e.id.toString());
-    const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
-      selectedCartId: selectedId,
-    });
+    const { totalPrice: prevTotalPrice } = getCartItemSummary(
+      shoppingCart.content as CartItemTypes[],
+      selectedId
+    );
 
     const orderPrice = await screen.findByTestId('orderPrice');
     await waitFor(() => {
@@ -116,10 +116,10 @@ describe('장바구니 페이지 테스트', () => {
     });
 
     const selectedId = shoppingCart.content.map((e) => e.id.toString());
-    const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
-      selectedCartId: selectedId,
-    });
+    const { totalPrice: prevTotalPrice } = getCartItemSummary(
+      shoppingCart.content as CartItemTypes[],
+      selectedId
+    );
 
     const orderPrice = await screen.findByTestId('orderPrice');
     await waitFor(() => {
@@ -159,10 +159,10 @@ describe('장바구니 페이지 테스트', () => {
       .map((e) => e.id.toString())
       .filter((e) => e !== item.id.toString());
 
-    const prevTotalPrice = getTotalPrice({
-      cartItems: shoppingCart.content as CartItemTypes[],
-      selectedCartId: selectedId,
-    });
+    const { totalPrice: prevTotalPrice } = getCartItemSummary(
+      shoppingCart.content as CartItemTypes[],
+      selectedId
+    );
 
     await waitFor(() => {
       const orderPrice = screen.getByTestId('orderPrice');

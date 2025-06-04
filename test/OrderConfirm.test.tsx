@@ -15,7 +15,7 @@ describe('주문확인 페이지 테스트', () => {
 
   it("장바구니 페이지에서 '주문확인' 버튼을 누르면, 전송된 값을 주문확인 페이지에서 확인할 수 있다.", () => {
     const fakeState = {
-      selectedCartType: 2,
+      selectedItemGroupCount: 2,
       selectedCartItem: 4,
       totalPrice: 10000,
     };
