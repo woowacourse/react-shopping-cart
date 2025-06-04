@@ -1,19 +1,19 @@
 import { STEP_NAME, StepName } from "@/constants/steps";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { FunnelProps, StepProps } from "@/hooks/Funnel/useFunnel";
 import { useCartContext } from "@/components/Cart/CartContext";
 import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
-import { useCouponApply } from "@/hooks/Coupon/useCouponApply";
+import { useBestCouponCombo } from "@/hooks/Coupon/useBestCouponCombo";
 import { useCouponSelection } from "@/hooks/Coupon/useCouponSelection";
 import { useCouponDiscount } from "@/hooks/Coupon/useCouponDiscount";
 
 import CartLayout from "@/layout/CartLayout";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
 import CartContent from "@/components/Cart/CartContent/CartContent";
+import CartContentActions from "@/components/Cart/CartContentActions/CartContentActions";
 import OrderConfirmation from "./OrderConfirmation/OrderConfirmation";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
-import CartContentActions from "@/components/Cart/CartContentActions/CartContentActions";
 import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 
 export interface ProfileSetupInterface {
@@ -32,18 +32,22 @@ function OrderPage({
   currentStep,
 }: ProfileSetupInterface) {
   const { selectedCartItems } = useCartContext();
+
+  const [isInIsland, setIsInIsland] = useState(false);
+
   const { couponsData } = useCouponFetch();
 
-  const allCouponsResult = useCouponApply({
+  const allCouponsResult = useBestCouponCombo({
     coupons: couponsData || [],
     selectedShoppingCartItems: selectedCartItems,
+    isIsland: isInIsland,
   });
 
-  const initialOptimalCoupons = useMemo(() => {
+  const initialOptimalCouponIds = useMemo(() => {
     return new Set(allCouponsResult.appliedCoupons.map((c) => c.id));
   }, [allCouponsResult.appliedCoupons]);
 
-  const couponSelection = useCouponSelection(initialOptimalCoupons);
+  const couponSelection = useCouponSelection(initialOptimalCouponIds);
 
   const selectedCoupons = useMemo(
     () =>
@@ -52,10 +56,13 @@ function OrderPage({
       ),
     [couponsData, couponSelection.selectedCouponIds]
   );
+
   const result = useCouponDiscount({
     selectedCoupons,
     selectedShoppingCartItems: selectedCartItems,
+    isIsland: isInIsland,
   });
+
   return (
     <CartLayout>
       {currentStep === STEP_NAME.SELECT_PRODUCT && <CartHeader />}
@@ -76,8 +83,10 @@ function OrderPage({
           <OrderConfirmation
             selectedCartItems={selectedCartItems}
             couponsData={couponsData}
-            result={result}
             couponSelection={couponSelection}
+            result={result}
+            isInIsland={isInIsland}
+            setIsInIsland={setIsInIsland}
           >
             <OrderConfirmation.Header />
             <OrderConfirmation.ItemList />
