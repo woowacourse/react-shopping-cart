@@ -1,4 +1,3 @@
-import { useCart } from "../../context/cartProvider";
 import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 
 import {
@@ -24,8 +23,6 @@ export function CartProduct({
   price,
   quantity,
 }: CartProductProps) {
-  const { getCartItemData } = useCart();
-
   return (
     <div
       id={`cartProduct-${id}`}
@@ -37,11 +34,7 @@ export function CartProduct({
       <div css={TitleLayout}>
         <p css={ProductName}>{name}</p>
         <p css={ProductPrice}>{price.toLocaleString()}원</p>
-        <QuantitySelector
-          quantity={quantity}
-          cartId={id}
-          onChange={getCartItemData}
-        />
+        <QuantitySelector quantity={quantity} cartId={id.toString()} />
       </div>
     </div>
   );

@@ -1,30 +1,24 @@
-import { patchShoppingCart } from "../../api/shoppingCart";
 import { IconButton } from "../../../../components/IconButton/IconButton";
+import { useCart } from "../../context/cartProvider";
 import { QuantitySelectorLayout } from "./QuantitySelector.style";
 
 interface QuantitySelectorProps {
-  cartId: number;
+  cartId: string;
   quantity: number;
-  onChange: () => void;
 }
 
-export function QuantitySelector({
-  cartId,
-  quantity,
-  onChange,
-}: QuantitySelectorProps) {
+export function QuantitySelector({ cartId, quantity }: QuantitySelectorProps) {
+  const { patchCartItem } = useCart();
+
   const handleAddCount = async () => {
-    await patchShoppingCart(cartId, quantity + 1);
-    onChange();
+    await patchCartItem(cartId, quantity + 1);
   };
 
   const handleMinusCount = async () => {
     if (quantity < 0) return;
     if (quantity === 1 && !window.confirm("장바구니에서 삭제하시겠습니까?"))
       return;
-    await patchShoppingCart(cartId, quantity - 1);
-
-    onChange();
+    await patchCartItem(cartId, quantity - 1);
   };
 
   return (

@@ -9,7 +9,7 @@ import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
 import { EmptyShoppingCart } from "../../../orderConfirm/compoennt/EmptyShoppingCart/EmptyShoppingCart";
 import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
-import { CartProvider, useCart } from "../../context/cartProvider";
+import { useCart } from "../../context/cartProvider";
 import { useSelectedCartIds } from "../../hooks/useSelectedCartIds";
 import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
@@ -18,7 +18,7 @@ export function ShoppingCart() {
   const isFirstMount = useRef(true);
   const navigate = useNavigate();
 
-  const { getCartItemData, deleteCartItem, cartItems, error } = useCart();
+  const { deleteCartItem, cartItems, error } = useCart();
 
   const {
     toggleSelectAll,
@@ -82,7 +82,6 @@ export function ShoppingCart() {
                 const response = await deleteCartItem(id);
                 if (response?.ok) {
                   removeFromSelection(id);
-                  getCartItemData();
                 }
               }}
               handleCheckBox={handleCheckBox}
