@@ -18,6 +18,7 @@ interface CartProductContainerProps {
   onError: (message: string) => void;
   selectedCartIds: string[];
   setSelectedCartIds: (id: string[]) => void;
+  isFetching: boolean;
 }
 
 export default function CartProductContainer({
@@ -26,6 +27,7 @@ export default function CartProductContainer({
   onError,
   selectedCartIds,
   setSelectedCartIds,
+  isFetching,
 }: CartProductContainerProps) {
   const handleAllCheckBox = () => {
     if (selectedCartIds.length === cartItems.length) {
@@ -90,6 +92,7 @@ export default function CartProductContainer({
                   price={item.product.price}
                   quantity={item.quantity}
                   onChange={onChange}
+                  isFetching={isFetching}
                 />
               </div>
             );

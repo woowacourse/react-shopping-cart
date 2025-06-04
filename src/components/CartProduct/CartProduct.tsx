@@ -1,4 +1,4 @@
-import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
+import { QuantitySelector } from '../QuantitySelector/QuantitySelector';
 
 import {
   CartProductLayout,
@@ -6,7 +6,7 @@ import {
   ProductName,
   ProductPrice,
   TitleLayout,
-} from "./CartProduct.style";
+} from './CartProduct.style';
 
 interface CartProductProps {
   id: number;
@@ -15,6 +15,7 @@ interface CartProductProps {
   price: number;
   quantity: number;
   onChange: () => void;
+  isFetching: boolean;
 }
 
 export function CartProduct({
@@ -24,6 +25,7 @@ export function CartProduct({
   price,
   quantity,
   onChange,
+  isFetching,
 }: CartProductProps) {
   return (
     <div
@@ -36,7 +38,12 @@ export function CartProduct({
       <div css={TitleLayout}>
         <p css={ProductName}>{name}</p>
         <p css={ProductPrice}>{price.toLocaleString()}원</p>
-        <QuantitySelector quantity={quantity} cartId={id} onChange={onChange} />
+        <QuantitySelector
+          quantity={quantity}
+          cartId={id}
+          onChange={onChange}
+          isFetching={isFetching}
+        />
       </div>
     </div>
   );

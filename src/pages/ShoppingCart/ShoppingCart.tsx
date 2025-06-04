@@ -17,7 +17,7 @@ import { getCartItemSummary } from '../../utils/getCartItemSummary';
 export function ShoppingCart() {
   const navigate = useNavigate();
 
-  const { cartItems, error, isLoading, getCartItemData, setError } =
+  const { cartItems, error, isLoading, isFetching, getCartItemData, setError } =
     useFetchCartItems();
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
@@ -75,6 +75,7 @@ export function ShoppingCart() {
               onError={handleError}
               selectedCartIds={selectedCartIds}
               setSelectedCartIds={setSelectedCartIds}
+              isFetching={isFetching}
             />
             <PaymentSummary price={totalPrice} />
           </>
