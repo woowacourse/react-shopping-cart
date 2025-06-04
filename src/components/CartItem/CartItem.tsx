@@ -1,4 +1,4 @@
-import useCart from "../../hooks/useCart";
+import useCart from "../../hooks/contexts/useCart";
 import { CartItemContent } from "../../types/response";
 import Checkbox from "../@common/Checkbox/Checkbox";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";

@@ -6,7 +6,7 @@ import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import { CartProvider } from "../contexts/CartContext";
 import { ToastProvider } from "../contexts/ToastContext";
-import useCart from "../hooks/useCart";
+import useCart from "../hooks/contexts/useCart";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -132,7 +132,7 @@ describe("useCart 훅 테스트", () => {
         result.current.cartItemsCheckData.forEach((item) => {
           expect(item.checked).toBe(true);
         });
-        expect(result.current.hasCheckedItem()).toBe(true);
+        expect(result.current.hasCheckedItem).toBe(true);
       });
     });
   });

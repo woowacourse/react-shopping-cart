@@ -9,7 +9,7 @@ import CartItem from "../../components/CartItem/CartItem";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../hooks/useCart";
+import useCart from "../../hooks/contexts/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
@@ -69,7 +69,7 @@ const CartPage = () => {
         )}
       </S.Main>
       <FooterButton
-        disabled={cartItemCount === 0 || !hasCheckedItem()}
+        disabled={cartItemCount === 0 || !hasCheckedItem}
         onClick={navigateToOrderPage}
         tabIndex={0}
       >

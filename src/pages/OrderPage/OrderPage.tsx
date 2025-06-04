@@ -4,7 +4,7 @@ import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../hooks/useCart";
+import useCart from "../../hooks/contexts/useCart";
 import * as S from "./OrderPage.styles";
 import BackIcon from "/left-arrow.svg";
 
