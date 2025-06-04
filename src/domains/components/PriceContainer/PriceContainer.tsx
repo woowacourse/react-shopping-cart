@@ -36,12 +36,12 @@ export default function PriceContainer({
         ))}
       </S.PriceBox>
       <S.TotalPriceBox>
-        <S.PriceTextBox>
+        <S.PaymentTextBox>
           <S.PriceTitle>총 결제 금액</S.PriceTitle>
           <S.PriceText data-testid="payment-price">
             {paymentPrice.toLocaleString()}원
           </S.PriceText>
-        </S.PriceTextBox>
+        </S.PaymentTextBox>
       </S.TotalPriceBox>
     </S.Container>
   );
