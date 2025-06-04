@@ -13,7 +13,6 @@ const useHandleCartItemQuantity = (refetchCartItems: () => Promise<void>) => {
       } catch (error) {
         if (error instanceof ApiError) {
           showError(error);
-
           return;
         }
       }
