@@ -38,7 +38,11 @@ function App() {
       />
       <Route
         path={PAGE_URL.ORDER_COMPLETE}
-        element={<OrderComplete onReset={resetClickHandler} />}
+        element={
+          <CartProvider>
+            <OrderComplete onReset={resetClickHandler} />
+          </CartProvider>
+        }
       />
     </Routes>
   );
