@@ -68,16 +68,20 @@ const CartList = () => {
   return (
     <S.Container>
       <S.Wrapper>
-        <Header />
+        <Header
+          title="장바구니"
+          description={
+            cartItems?.length === 0
+              ? ''
+              : `현재 ${cartItems?.length}종류의 상품이 담겨있습니다.`
+          }
+        />
         {cartItems?.length === 0 ? (
           <S.EmptyCartContainer data-testid="empty-page">
             장바구니에 담은 상품이 없습니다.
           </S.EmptyCartContainer>
         ) : (
           <>
-            <S.Description>
-              현재 {cartItems?.length}종류의 상품이 담겨있습니다.
-            </S.Description>
             <CheckBox
               label="전체 선택"
               isChecked={isAllChecked}

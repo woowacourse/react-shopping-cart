@@ -15,10 +15,6 @@ export const Wrapper = styled.div`
   gap: 15px;
 `;
 
-export const Description = styled.div`
-  font-size: 12px;
-`;
-
 export const CartList = styled.div`
   overflow: scroll;
   height: 400px;
