@@ -1,4 +1,4 @@
-import { FooterButton, SelectBox } from '@/components/common';
+import { FooterButton, SelectBox, Separator } from '@/components/common';
 import BorderButton from '@/components/common/borderButton/BorderButton';
 import { CartItemType } from '@/components/features/cart/types';
 import { calculateOrderPrice } from '@/components/features/cart/utils/cartCalculations';
@@ -30,7 +30,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
             <OrderItem key={item.id} cartItem={item} />
           ))}
         </S.OrderItemList>
-        <Modal.OpenTrigger>
+        <Modal.OpenTrigger asChild>
           <BorderButton>쿠폰 적용</BorderButton>
         </Modal.OpenTrigger>
         <S.ShippingOptionBox>
@@ -50,7 +50,65 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         <FooterButton disabled onClick={() => {}}>
           결제하기
         </FooterButton>
-        <Modal.Container title="쿠폰 적용"></Modal.Container>
+        <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
+          <S.CouponContainer>
+            <S.NoticeBox>
+              <img src="./assets/Notification.svg" alt="알림" />
+              <S.NoticeText>
+                쿠폰은 최대 2개까지 사용할 수 있습니다.
+              </S.NoticeText>
+            </S.NoticeBox>
+            <S.CouponList>
+              <S.CouponItem>
+                <Separator />
+                <S.CouponTitleRow>
+                  <SelectBox selected={false} />
+                  <S.CouponTitle>무료배송 쿠폰</S.CouponTitle>
+                </S.CouponTitleRow>
+                <S.CouponDescriptionBox>
+                  <S.CouponDescription>
+                    만료일: 2024년 11월 30일
+                  </S.CouponDescription>
+                  <S.CouponDescription>
+                    최소 주문 금액: 100,000원
+                  </S.CouponDescription>
+                </S.CouponDescriptionBox>
+              </S.CouponItem>
+              <S.CouponItem>
+                <Separator />
+                <S.CouponTitleRow>
+                  <SelectBox selected={false} />
+                  <S.CouponTitle>2개 구매 시 1개 무료 쿠폰</S.CouponTitle>
+                </S.CouponTitleRow>
+                <S.CouponDescriptionBox>
+                  <S.CouponDescription>
+                    만료일: 2024년 5월 30일
+                  </S.CouponDescription>
+                </S.CouponDescriptionBox>
+              </S.CouponItem>
+              <S.CouponItem>
+                <Separator />
+                <S.CouponTitleRow>
+                  <SelectBox selected={true} />
+                  <S.CouponTitle>
+                    5만원 이상 구매 시 무료 배송 쿠폰
+                  </S.CouponTitle>
+                </S.CouponTitleRow>
+                <S.CouponDescriptionBox>
+                  <S.CouponDescription>
+                    만료일: 2024년 8월 31일
+                  </S.CouponDescription>
+                  <S.CouponDescription>
+                    최소 주문 금액: 50,000원
+                  </S.CouponDescription>
+                </S.CouponDescriptionBox>
+              </S.CouponItem>
+            </S.CouponList>
+          </S.CouponContainer>
+          <Modal.CloseTrigger asChild>
+            <Modal.WideButton>총 6,000원 할인 쿠폰 사용하기</Modal.WideButton>
+          </Modal.CloseTrigger>
+        </Modal.Container>
       </S.Container>
     </Modal>
   );
