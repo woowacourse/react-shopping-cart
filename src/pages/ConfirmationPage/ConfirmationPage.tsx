@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react';
-import { useSelectedCartContext } from '../../shared/context/useSelectedCartContext';
+import { useSelectedCartItemsContext } from '../../shared/context/useSelectedCartItemsContext';
 import Button from '../../shared/ui/Button';
 import Navbar from '../../shared/ui/Navbar';
 import * as S from './ConfirmationPage.styles';
@@ -27,16 +27,16 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { selectedCartItems } = useSelectedCartContext();
+  const { SelectedCartItemsItems } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(ROUTES.ROOT);
   };
 
-  const cartTypeQuantity = selectedCartItems.length;
-  const totalQuantity = selectedCartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const cartTypeQuantity = SelectedCartItemsItems.length;
+  const totalQuantity = SelectedCartItemsItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = SelectedCartItemsItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   return (
     <S.ConfirmationContainer>
@@ -51,7 +51,7 @@ export default function ConfirmationPage() {
         <S.ConfirmationTotalPurchasePrice>{totalPrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
       </S.ConfirmationSection>
       <S.ConfirmationFooterContainer>
-        <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={selectedCartItems.length === 0} />
+        <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={SelectedCartItemsItems.length === 0} />
       </S.ConfirmationFooterContainer>
     </S.ConfirmationContainer>
   );

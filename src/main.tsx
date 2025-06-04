@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { SelectedCartProvider } from './shared/context/SelectedCartProvider.tsx';
+import { SelectedCartItemsProvider } from './shared/context/SelectedCartItemsProvider.tsx';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
 
@@ -19,9 +19,9 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <SelectedCartProvider>
+      <SelectedCartItemsProvider>
         <RouterProvider router={router} />
-      </SelectedCartProvider>
+      </SelectedCartItemsProvider>
     </React.StrictMode>
   );
 });

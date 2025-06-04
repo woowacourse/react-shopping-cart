@@ -6,7 +6,7 @@ import SelectInput from '../../../shared/ui/SelectInput';
 import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
 import { CartItem } from '../../../shared/type/cart';
-import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useSelectedCartItemsContext } from '../../../shared/context/useSelectedCartItemsContext';
 import { deleteCartItem } from '../api/deleteCartItem';
 
 const deleteButtonCSS = css`
@@ -30,22 +30,24 @@ interface CartItemCardProps {
 }
 
 export default function CartItemCard({ cartItem, setCartItems }: CartItemCardProps) {
-  const { selectedCartItems, updateSelectedCartItem, removeSelectedCartItem } = useSelectedCartContext();
-  const handleSelectedCartItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { SelectedCartItemsItems, updateSelectedCartItemsItem, removeSelectedCartItemsItem } =
+    useSelectedCartItemsContext();
+  const handleSelectedCartItemsItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     if (!isChecked) {
-      removeSelectedCartItem(cartItem);
+      removeSelectedCartItemsItem(cartItem);
       return;
     }
-    updateSelectedCartItem(cartItem, cartItem.quantity);
+    updateSelectedCartItemsItem(cartItem, cartItem.quantity);
   };
 
-  const isSelected = selectedCartItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
+  const isSelected = SelectedCartItemsItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
 
   const handleCartItemDelete = async () => {
     try {
       await deleteCartItem(cartItem.id);
-      removeSelectedCartItem(cartItem);
+      removeSelectedCartItemsItem(cartItem);
+      // fetchCartItemsç
     } catch (error) {
       if (error instanceof Error) {
         console.error('장바구니 아이템 삭제 실패:', error.message);
@@ -57,7 +59,7 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
   return (
     <S.CartItemContainer data-testid="cart-item-card">
       <S.CartItemHeader>
-        <SelectInput onChange={handleSelectedCartItemUpdate} checked={isSelected} />
+        <SelectInput onChange={handleSelectedCartItemsItemUpdate} checked={isSelected} />
         <Button title="삭제" css={deleteButtonCSS} onClick={handleCartItemDelete} />
       </S.CartItemHeader>
       <S.CartItemContent>
@@ -81,7 +83,7 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
           <CartItemQuantitySelector
             cartItem={cartItem}
             isSelected={isSelected}
-            updateSelectedCartItem={updateSelectedCartItem}
+            updateSelectedCartItemsItem={updateSelectedCartItemsItem}
             setCartItems={setCartItems}
           />
         </S.CartItemInfo>

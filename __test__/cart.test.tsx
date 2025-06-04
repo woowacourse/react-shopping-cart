@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router';
 import App from '../src/pages/CartPage/CartPage';
-import { SelectedCartProvider } from '../src/shared/context/SelectedCartProvider';
+import { SelectedCartItemsProvider } from '../src/shared/context/SelectedCartItemsProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';
@@ -8,10 +8,10 @@ import { describe, it } from 'vitest';
 function renderApp() {
   return render(
     <MemoryRouter initialEntries={['/']}>
-      <SelectedCartProvider>
+      <SelectedCartItemsProvider>
         <App />
-      </SelectedCartProvider>
-    </MemoryRouter>,
+      </SelectedCartItemsProvider>
+    </MemoryRouter>
   );
 }
 

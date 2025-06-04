@@ -4,13 +4,13 @@ import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui'
 import Navbar from '../../shared/ui/Navbar';
 import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import { getCartItems } from '../../features/cart/api/getCartItems';
-import { useSelectedCartContext } from '../../shared/context/useSelectedCartContext';
+import { useSelectedCartItemsContext } from '../../shared/context/useSelectedCartItemsContext';
 import { CartItem } from '../../shared/type/cart';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
 
 function CartPage() {
-  const { addAllCartItemsInSelected, selectedCartItems } = useSelectedCartContext();
+  const { addAllCartItemsInSelected, SelectedCartItemsItems } = useSelectedCartItemsContext();
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
@@ -29,7 +29,7 @@ function CartPage() {
       }
     };
     fetchCartItems();
-  }, [selectedCartItems]);
+  }, [SelectedCartItemsItems]);
 
   return (
     <S.CartPageContainer>

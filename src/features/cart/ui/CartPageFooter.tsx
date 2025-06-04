@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import Button from '../../../shared/ui/Button';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../../shared/constants/routeConstants';
-import { useSelectedCartContext } from '../../../shared/context/useSelectedCartContext';
+import { useSelectedCartItemsContext } from '../../../shared/context/useSelectedCartItemsContext';
 import styled from '@emotion/styled';
 
 const ButtonCSS = css`
@@ -26,7 +26,7 @@ const ButtonCSS = css`
 `;
 
 export default function Footer({ cartItemQuantity }: { cartItemQuantity: number }) {
-  const { selectedCartItems } = useSelectedCartContext();
+  const { SelectedCartItemsItems } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ export default function Footer({ cartItemQuantity }: { cartItemQuantity: number 
         onClick={handleClick}
         title="주문 확인"
         css={ButtonCSS}
-        disabled={cartItemQuantity === 0 || selectedCartItems.length === 0}
+        disabled={cartItemQuantity === 0 || SelectedCartItemsItems.length === 0}
       />
     </FooterContainer>
   );
