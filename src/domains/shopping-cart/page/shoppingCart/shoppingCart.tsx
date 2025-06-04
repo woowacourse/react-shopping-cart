@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
 import Toast from "../../../../components/Toast/Toast";
@@ -10,8 +9,8 @@ import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
 import { EmptyShoppingCart } from "../../../orderConfirm/compoennt/EmptyShoppingCart/EmptyShoppingCart";
 import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
+import { CartProvider, useCart } from "../../context/cartProvider";
 import { useSelectedCartIds } from "../../hooks/useSelectedCartIds";
-import { useShoppingCartApi } from "../../hooks/useShoppingCartApi";
 import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
 import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
 
@@ -19,8 +18,8 @@ export function ShoppingCart() {
   const isFirstMount = useRef(true);
   const navigate = useNavigate();
 
-  const { getCartItemData, deleteCartItem, cartItems, error } =
-    useShoppingCartApi();
+  const { getCartItemData, deleteCartItem, cartItems, error } = useCart();
+
   const {
     toggleSelectAll,
     toggleCartItem,
@@ -78,7 +77,6 @@ export function ShoppingCart() {
         ) : (
           <>
             <CartProductContainer
-              cartItems={cartItems}
               selectedCartIds={selectedCartIds}
               onDelete={async (id: string) => {
                 const response = await deleteCartItem(id);
@@ -87,7 +85,6 @@ export function ShoppingCart() {
                   getCartItemData();
                 }
               }}
-              updateCartItem={getCartItemData}
               handleCheckBox={handleCheckBox}
             />
             <PaymentSummary price={totalPrice} />

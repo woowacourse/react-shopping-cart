@@ -5,13 +5,16 @@ import { deleteShoppingCart, getShoppingCart } from "../api/shoppingCart";
 export function useShoppingCartApi() {
   const [cartItems, setCartItem] = useState<CartItemTypes[]>([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function withErrorHandling(
     fetchFunction: () => Promise<Response>,
     errorMessage: string
   ): Promise<Response | undefined> {
     try {
+      setLoading(true);
       const response = await fetchFunction();
+      setLoading(false);
       return response;
     } catch (error) {
       setError(errorMessage);
@@ -41,6 +44,7 @@ export function useShoppingCartApi() {
     getCartItemData,
     deleteCartItem,
     cartItems,
+    loading,
     error,
   };
 }

@@ -1,7 +1,7 @@
 import Button from "../../../../components/Button/Button";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { Line } from "../../../../components/Line/Line";
-import { CartItemTypes } from "../../types/cartItem";
+import { useCart } from "../../context/cartProvider";
 import { CartProduct } from "../CartProduct/CartProduct";
 import {
   CartItemBox,
@@ -12,20 +12,18 @@ import {
 } from "./CartProductContainer.style";
 
 interface CartProductContainerProps {
-  cartItems: CartItemTypes[];
   selectedCartIds: string[];
   onDelete: (id: string) => Promise<void>;
-  updateCartItem: () => void;
   handleCheckBox: (id: string) => void;
 }
 
 export default function CartProductContainer({
-  cartItems,
   selectedCartIds,
   onDelete,
-  updateCartItem,
   handleCheckBox,
 }: CartProductContainerProps) {
+  const { getCartItemData, cartItems } = useCart();
+
   return (
     <>
       <div css={CartProductContainerLayout}>
@@ -37,7 +35,7 @@ export default function CartProductContainer({
             }
             dataTestId="select-all"
             id="select-all"
-            onChange={handleCheckBox}
+            onChange={getCartItemData}
           />
           <label htmlFor="select-all">전체 선택</label>
         </div>
@@ -56,7 +54,7 @@ export default function CartProductContainer({
                   <Button
                     onClick={async () => {
                       await onDelete(item.id.toString());
-                      updateCartItem();
+                      getCartItemData();
                     }}
                     style="ghost"
                   >
@@ -70,7 +68,6 @@ export default function CartProductContainer({
                   name={item.product.name}
                   price={item.product.price}
                   quantity={item.quantity}
-                  onChange={updateCartItem}
                 />
               </div>
             );
