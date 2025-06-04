@@ -5,6 +5,7 @@ import {
   useCallback,
   useEffect,
   ReactNode,
+  useMemo,
 } from 'react';
 import { PaginationResponse } from '../../../../api/type';
 import { CartItemType } from '../types';
@@ -30,11 +31,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     fetch();
   }, [fetch]);
 
-  return (
-    <CartContext.Provider value={{ cartItems, fetch }}>
-      {children}
-    </CartContext.Provider>
-  );
+  const value = useMemo(() => ({ cartItems, fetch }), [cartItems, fetch]);
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCartContext() {
