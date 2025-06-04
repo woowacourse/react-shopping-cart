@@ -21,14 +21,13 @@ function CartCheckList() {
   const isSelectAll = Object.values(selectionMap).every(
     (isSelected) => isSelected
   );
+
   const handleSelectAll = () => {
-    setSelectionMap(() => {
-      const nextMap: Record<string, boolean> = {};
-      for (const cart of cartListData ?? []) {
-        nextMap[cart.id] = !isSelectAll;
-      }
-      return nextMap;
-    });
+    const nextMap: Record<string, boolean> = {};
+    for (const cart of cartListData ?? []) {
+      nextMap[cart.id] = !isSelectAll;
+    }
+    setSelectionMap(nextMap);
   };
 
   const handleToggleSelection = (cartId: string) => {
