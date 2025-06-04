@@ -30,3 +30,16 @@ export const TotalCost = css`
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-bold);
 `;
+
+export const RedeemCouponButton = css`
+  width: 100%;
+  height: 48px;
+
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 5px;
+
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark-gray);
+`;
