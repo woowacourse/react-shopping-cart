@@ -82,7 +82,7 @@ export function ShoppingCart() {
               selectedCartIds={selectedCartIds}
               onDelete={async (id: string) => {
                 const response = await deleteCartItem(id);
-                if (response) {
+                if (response?.ok) {
                   removeFromSelection(id);
                   getCartItemData();
                 }

@@ -9,7 +9,7 @@ export function useShoppingCartApi() {
   async function withErrorHandling(
     fetchFunction: () => Promise<Response>,
     errorMessage: string
-  ) {
+  ): Promise<Response | undefined> {
     try {
       const response = await fetchFunction();
       return response;
