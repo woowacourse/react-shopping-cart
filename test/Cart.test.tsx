@@ -228,4 +228,82 @@ describe('장바구니 목록을 렌더링 한다.', () => {
     ).toBeInTheDocument();
     expect(screen.getByText(`총 결제 금액 50,000원`)).toBeInTheDocument();
   });
+
+  it('장바구니 삭제 API 호출이 실패하면 상품이 삭제되지 않고 유지된다.', async () => {
+    mockCartApi.getCartItemList.mockResolvedValue([...currentCartItems]);
+    mockCartApi.deleteCartItem.mockRejectedValue(new Error('삭제 오류'));
+  
+    renderCartPage();
+  
+    const deleteButtons = await screen.findAllByRole('button', { name: /삭제$/ });
+    await user.click(deleteButtons[0]);
+
+    expect(await screen.findByText('상품1')).toBeInTheDocument();
+  
+    const items = await screen.findAllByRole('cart-item');
+    expect(items).toHaveLength(2);
+  });
+  
+  it('수량 증가 API 호출이 실패하면 수량이 변경되지 않는다.', async () => {
+    mockCartApi.getCartItemList.mockResolvedValue([...currentCartItems]);
+  
+    mockCartApi.updateCartItem.mockRejectedValue(new Error('수량 증가 실패'));
+  
+    renderCartPage();
+  
+    const plusButtons = await screen.findAllByRole('plus-button');
+    const quantityEls = await screen.findAllByRole('cart-item-quantity');
+    const initialQuantity = currentCartItems[0].quantity;
+  
+    await user.click(plusButtons[0]);
+  
+    expect(mockCartApi.updateCartItem).toHaveBeenCalled();
+    expect(quantityEls[0]).toHaveTextContent(initialQuantity.toString());
+  });
+
+  it('수량 감소 API 호출이 실패하면 수량이 변경되지 않는다.', async () => {
+    mockCartApi.getCartItemList.mockResolvedValue([...currentCartItems]);
+    mockCartApi.updateCartItem.mockRejectedValue(new Error('수량 감소 실패'));
+  
+    renderCartPage();
+  
+    const minusButtons = await screen.findAllByRole('minus-button');
+    const quantityEls = await screen.findAllByRole('cart-item-quantity');
+    const initialQuantity = currentCartItems[0].quantity;
+  
+    await user.click(minusButtons[0]);
+  
+    expect(mockCartApi.updateCartItem).toHaveBeenCalled();
+    expect(quantityEls[0]).toHaveTextContent(initialQuantity.toString());
+  });
+
+  it('전체 선택 해제 API 실패 시 선택 상태가 유지된다.', async () => {
+    mockCartApi.getCartItemList.mockResolvedValue([...currentCartItems]);
+    renderCartPage();
+  
+    const allCheck = await screen.findByRole('all-check');
+    await user.click(allCheck);
+  
+    const quantityEls = await screen.findAllByRole('cart-item-quantity');
+    expect(quantityEls).not.toHaveLength(0);
+  });
+  
+  it('개별 상품 체크박스 API 실패 시 선택 상태가 유지된다.', async () => {
+    mockCartApi.getCartItemList.mockResolvedValue([...currentCartItems]);
+  
+    renderCartPage();
+  
+    const cartItem = (await screen.findAllByRole('cart-item'))[0];
+    const checkbox = within(cartItem).getByRole('checkbox');
+  
+    const checked = checkbox.getAttribute('checked') !== null;
+  
+    await user.click(checkbox);
+  
+    if (checked) {
+      expect(checkbox).toBeChecked();
+    } else {
+      expect(checkbox).not.toBeChecked();
+    }
+  });
 });

@@ -11,7 +11,7 @@ export type ModalProps = {
 export const Toast = ({ children, parent = document.body, ...props }: ModalProps) => {
   return createPortal(
     <StyledModalContainer>
-      <StyledModalContent role="dialog" aria-modal="true" {...props}>
+      <StyledModalContent role="alert" aria-modal="true" {...props}>
         {children}
       </StyledModalContent>
     </StyledModalContainer>,
