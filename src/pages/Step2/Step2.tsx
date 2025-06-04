@@ -39,9 +39,9 @@ export default function Step2() {
   const totalType = cartItemService.calculateTotalType();
   const totalQuantity = cartItemService.calculateTotalQuantity();
 
-  const filteredCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
-  const totalDiscountPrice = filteredCoupons?.reduce((acc, coupon) => {
+  const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
     const couponService = new CouponService(cartItems.content);
     return acc + couponService.calculateDiscountPrice(coupon, isFar);
   }, 0);

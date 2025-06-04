@@ -1,9 +1,35 @@
 import { ArrowBackIcon, Button, Header, Spacing, Text, useFunnelContext } from "@/components";
 import { css } from "@emotion/react";
 import * as S from "./Step3.styles";
+import { useCartItem } from "@/hooks";
+import { useShoppingCartContext } from "../MainPage/context";
+import { CartItemService, CouponService } from "@/services";
+import { useQuery } from "@/modules";
+import { CouponApi } from "@/apis";
 
 export default function Step3() {
   const { goPrevStep, goToStep } = useFunnelContext();
+
+  const { cartItems } = useCartItem();
+  const { data: coupons } = useQuery({
+    queryKey: "coupons",
+    queryFn: CouponApi.getAllCoupons,
+  });
+  const { selectedCouponIds, isFar } = useShoppingCartContext();
+
+  const cartItemService = new CartItemService(cartItems?.content ?? []);
+  const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
+  const totalPriceWithDeliveryFee = cartItemService.calculateTotalPriceWithDeliveryFee(isFar);
+
+  const totalType = cartItemService.calculateTotalType();
+  const totalQuantity = cartItemService.calculateTotalQuantity();
+
+  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+
+  const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
+    const couponService = new CouponService(cartItems.content);
+    return acc + couponService.calculateDiscountPrice(coupon, isFar);
+  }, 0);
 
   return (
     <>
@@ -21,13 +47,15 @@ export default function Step3() {
         <Text variant="title-1">결제 확인</Text>
         <Spacing size={27} />
         <Text variant="body-3">
-          총 {1}종류의 상품 {2}개를 주문합니다. <br />
+          총 {totalType}종류의 상품 {totalQuantity}개를 주문합니다. <br />
           최종 결제 금액을 확인해 주세요.
         </Text>
         <Spacing size={24} />
         <Text variant="title-3">총 결제 금액</Text>
         <Spacing size={12} />
-        <Text variant="title-1">{3?.toLocaleString()}원</Text>
+        <Text variant="title-1">
+          {(totalPriceWithDeliveryFee - totalDiscountPrice + deliveryFee).toLocaleString()}원
+        </Text>
       </S.OrderCompletedSection>
 
       <S.ButtonWrapper>
