@@ -18,10 +18,14 @@ interface SelectedCartItemsProviderProps {
 export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProviderProps) => {
   const { cartItems } = useCartItemsContext();
   const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
-    setSelectedCartItems(cartItems);
-  }, [cartItems]);
+    if (!init && cartItems.length > 0) {
+      setSelectedCartItems(cartItems);
+      setInit(true);
+    }
+  }, [cartItems, init]);
 
   useEffect(() => {
     setSelectedCartItems((prev) =>
