@@ -43,9 +43,6 @@ export default function CustomModal({ isOpen, onClose, position = 'center', chil
     <S.Overlay position={position} onClick={onClose}>
       <S.ModalContainer position={position} onClick={(e) => e.stopPropagation()}>
         <main>{children}</main>
-        <S.ModalFooterContainer>
-          <S.CloseButton onClick={onClose}>닫기</S.CloseButton>
-        </S.ModalFooterContainer>
       </S.ModalContainer>
     </S.Overlay>,
     document.body

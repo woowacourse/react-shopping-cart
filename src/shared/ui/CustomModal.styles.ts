@@ -29,8 +29,8 @@ export const ModalContainer = styled.div<{ position: ModalPosition }>`
     border-top-right-radius: 16px;
   `
       : `
-    width: 90%;
-    max-width: 480px;
+    width: 95%;
+    min-width: 480px;
     border-radius: 16px;
   `}
 
@@ -51,27 +51,4 @@ export const ModalContent = styled.main`
   flex-direction: column;
   align-items: center;
   gap: 24px;
-`;
-
-export const ModalFooterContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const CloseButton = styled.button`
-  width: 100%;
-  padding: 15px 0;
-  background-color: #333333;
-  color: white;
-  border-radius: 5px;
-  font-size: 15px;
-  font-style: 700;
-  cursor: pointer;
-  :hover {
-    background-color: #000;
-  }
-
-  transition: background-color 0.2s ease;
 `;
