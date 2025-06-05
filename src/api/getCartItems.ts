@@ -1,6 +1,10 @@
 const getCartItems = async () => {
-  const data = await fetch(`${import.meta.env.VITE_BASE_URL}/cart-items`);
-  const { content } = await data.json();
+  const response = await fetch(`${import.meta.env.VITE_BASE_URL}/cart-items`);
+  const { content } = await response.json();
+
+  if (!response.ok) {
+    throw new Error('Failed to delete cart item');
+  }
 
   return content;
 };

@@ -10,7 +10,7 @@ const deleteCartItems = async (id: number) => {
   );
 
   if (!response.ok) {
-    throw new Error('Failed to update cart item');
+    throw new Error('Failed to delete cart item');
   }
 
   return response.json();
