@@ -3,6 +3,7 @@ import CartPage from './pages/cart/CartPage';
 import OrderConfirmPage from './pages/orderConfirm/OrderConfirmPage';
 import { CartProvider } from './components/features/cart/contexts/CartContext';
 import { CartSelectionProvider } from './components/features/cart/contexts/CartSelectionContext';
+import PaymentPage from './pages/payment/PaymentPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CartPage />} />
             <Route path="/order-confirmation" element={<OrderConfirmPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
           </Routes>
         </CartSelectionProvider>
       </CartProvider>
