@@ -11,8 +11,3 @@ export interface CartProduct {
   quantity: number;
   product: Product;
 }
-
-export interface CartInfo {
-  id: number;
-  quantity: number;
-}
