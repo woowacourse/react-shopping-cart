@@ -15,6 +15,7 @@ import CartContentActions from "@/components/Cart/CartContentActions/CartContent
 import OrderConfirmation from "./OrderConfirmation/OrderConfirmation";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
 import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
+import Spinner from "@/components/common/Spinner";
 
 export interface ProfileSetupInterface {
   nextClickHandler: (nextStep: string) => void;
@@ -35,7 +36,7 @@ function OrderPage({
 
   const [isInIsland, setIsInIsland] = useState(false);
 
-  const { couponsData } = useCouponFetch();
+  const { couponsData, couponsFetchLoading } = useCouponFetch();
 
   const allCouponsResult = useBestCouponCombo({
     coupons: couponsData || [],
@@ -44,7 +45,7 @@ function OrderPage({
   });
 
   const initialOptimalCouponIds = useMemo(() => {
-    return new Set(allCouponsResult.appliedCoupons.map((c) => c.id));
+    return new Set(allCouponsResult.appliedCoupons.map((coupon) => coupon.id));
   }, [allCouponsResult.appliedCoupons]);
 
   const couponSelection = useCouponSelection(initialOptimalCouponIds);
@@ -88,11 +89,18 @@ function OrderPage({
             isInIsland={isInIsland}
             setIsInIsland={setIsInIsland}
           >
-            <OrderConfirmation.Header />
-            <OrderConfirmation.ItemList />
-            <OrderConfirmation.CouponSelection />
-            <OrderConfirmation.ShippingIsland />
-            <OrderConfirmation.PriceDetails />
+            {couponsFetchLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                <OrderConfirmation.BOGOOfferNotice />
+                <OrderConfirmation.Header />
+                <OrderConfirmation.ItemList />
+                <OrderConfirmation.CouponSelection />
+                <OrderConfirmation.ShippingIsland />
+                <OrderConfirmation.PriceDetails />
+              </>
+            )}
           </OrderConfirmation>
         </Step>
       </Funnel>
