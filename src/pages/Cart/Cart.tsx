@@ -5,7 +5,7 @@ import Description from "../../components/Description/Description";
 import Header from "../../components/Header/Header";
 import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import { Container, NoCartItemText, Wrap } from "./Cart.styles";
+import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/common/useFetch";
 import { getCartItems } from "../../api/cartItem";
@@ -13,6 +13,7 @@ import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/cart/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import { CartLogo } from "../../constants/images";
+import { NoCartItemText, Wrap } from "./Cart.styles";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -55,11 +56,16 @@ function Cart() {
     fetchCartItem();
   }, [fetchCartItem]);
 
+  const subTitle =
+    cartItems.length !== 0
+      ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.`
+      : "";
+
   return (
     <>
       <Header icon={CartLogo} handleIconClick={() => navigate("/")} />
       <section css={Container}>
-        <Description cartItemCount={cartItems.length} />
+        <Description title="장바구니" subTitle={subTitle} />
 
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>

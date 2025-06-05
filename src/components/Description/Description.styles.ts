@@ -14,4 +14,6 @@ export const Title = css`
 export const Subtitle = css`
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-normal);
+  white-space: pre-line;
+  line-height: 10px;
 `;

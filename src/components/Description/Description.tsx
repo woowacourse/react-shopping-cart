@@ -1,18 +1,15 @@
 import { Title, Subtitle, Container } from "./Description.styles";
 
 interface DescriptionProps {
-  cartItemCount: number;
+  title: string;
+  subTitle: string;
 }
 
-function Description({ cartItemCount }: DescriptionProps) {
+function Description({ title, subTitle }: DescriptionProps) {
   return (
     <section css={Container}>
-      <p css={Title}>장바구니</p>
-      {cartItemCount !== 0 && (
-        <p
-          css={Subtitle}
-        >{`현재 ${cartItemCount}종류의 상품이 담겨있습니다.`}</p>
-      )}
+      <p css={Title}>{title}</p>
+      <p css={Subtitle}>{subTitle}</p>
     </section>
   );
 }
