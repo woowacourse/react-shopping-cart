@@ -21,7 +21,7 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
 
   useEffect(() => {
     setSelectedCartItems(cartItems);
-  }, []);
+  }, [cartItems]);
 
   useEffect(() => {
     setSelectedCartItems((prev) =>
