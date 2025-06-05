@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import {
@@ -11,12 +11,12 @@ import {
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { BackIcon } from "../../constants/images";
+import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
 
 function OrderSummary() {
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const { state: cartItems } = location;
+  const cartItems = useSafeLocationState<CartItemType[]>();
 
   const getAllQuantity = (cartItems: CartItemType[]) => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
