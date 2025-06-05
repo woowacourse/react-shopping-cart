@@ -12,7 +12,7 @@ interface CouponModalProps {
 }
 
 export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
-  const { coupons, fetchCoupons } = useCoupon();
+  const { coupons, fetchCoupons, couponDiscount } = useCoupon();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +57,7 @@ export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
             })}
           </Modal.Body>
           <Modal.Button
-            title={"닫기"}
+            title={`총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
             onClick={onModalClose}
             size="large"
             styled={{ height: "44px" }}
