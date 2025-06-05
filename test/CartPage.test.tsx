@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router';
 import CartPage from '../src/pages/CartPage';
 import * as cartApi from '../src/apis/cart';
 import { DataProvider } from '../src/context/DataContext';
+import { CartSelectionProvider } from '../src/context/CartSelectContext';
 import { CartProduct } from '../src/types/cart';
 
 const mockNavigate = vi.fn();
@@ -75,7 +76,9 @@ describe('CartPage', () => {
     return render(
       <BrowserRouter>
         <DataProvider>
-          <CartPage />
+          <CartSelectionProvider>
+            <CartPage />
+          </CartSelectionProvider>
         </DataProvider>
       </BrowserRouter>,
     );
@@ -134,6 +137,30 @@ describe('CartPage', () => {
     await waitFor(() => {
       expect(screen.getByTestId('shipping-fee')).toHaveTextContent('3000');
       expect(screen.getByTestId('total-price')).toHaveTextContent('33000');
+    });
+  });
+
+  it('10만원 이상일 때 배송비가 면제되어야 한다', async () => {
+    const exactItems = [
+      {
+        id: 1,
+        quantity: 1,
+        product: {
+          id: 101,
+          name: '상품1',
+          price: 100000,
+          imageUrl: 'https://example.com/1.jpg',
+          category: 'test',
+        },
+      },
+    ];
+    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: exactItems });
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByTestId('shipping-fee')).toHaveTextContent('0');
+      expect(screen.getByTestId('total-price')).toHaveTextContent('100000');
     });
   });
 
