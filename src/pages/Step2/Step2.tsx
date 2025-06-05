@@ -28,6 +28,7 @@ export default function Step2() {
   const { data: coupons } = useQuery({
     queryFn: CouponApi.getAllCoupons,
     queryKey: QUERY_KEY.coupon,
+    initialData: [],
   });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,30 +44,24 @@ export default function Step2() {
 
   const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
-  const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
-    const couponService = new CouponService(selectedCartItems);
-    return acc + couponService.calculateDiscountPrice(coupon, isFar);
-  }, 0);
+  const totalDiscountPrice = CouponService.calculateTotalDiscountPrice(selectedCartItems, selectedCoupons, isFar);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const closeModal = () => setIsOpen(false);
 
   const availableCoupons = useMemo(
     () => coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
-    [coupons, selectedCartItems],
+    [coupons],
   );
 
   useEffect(() => {
-    const mostDiscountCombination = availableCoupons
-      ?.sort((a, b) => {
-        const couponService = new CouponService(selectedCartItems);
-        return couponService.calculateDiscountPrice(b, isFar) - couponService.calculateDiscountPrice(a, isFar);
-      })
-      .slice(0, 2);
+    const mostDiscountCombination = CouponService.calculateMostDiscountCombination(
+      selectedCartItems,
+      availableCoupons,
+      isFar,
+    );
 
     setSelectedCouponIds(mostDiscountCombination?.map((coupon) => coupon.id) || []);
-  }, []);
+  }, [availableCoupons]);
 
   return (
     <main>

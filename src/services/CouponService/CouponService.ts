@@ -58,4 +58,21 @@ export default class CouponService {
 
     return 0;
   }
+
+  static calculateTotalDiscountPrice(cartItems: CartItem[], coupons: Coupon[], isFar: boolean) {
+    return coupons.reduce((acc, coupon) => {
+      const couponService = new CouponService(cartItems);
+      return acc + couponService.calculateDiscountPrice(coupon, isFar);
+    }, 0);
+  }
+
+  static calculateMostDiscountCombination(cartItems: CartItem[], coupons: Coupon[], isFar: boolean) {
+    console.log(coupons);
+    return coupons
+      .sort((a, b) => {
+        const couponService = new CouponService(cartItems);
+        return couponService.calculateDiscountPrice(b, isFar) - couponService.calculateDiscountPrice(a, isFar);
+      })
+      .slice(0, 2);
+  }
 }

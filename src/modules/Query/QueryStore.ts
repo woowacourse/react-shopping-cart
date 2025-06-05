@@ -33,8 +33,7 @@ export const setQueryStatus = (key: string, status: Status) => {
   emitChange(statusListeners, key);
 };
 
-export const getQueryStatus = (key: string): Status =>
-  statusStore[key] ?? "idle";
+export const getQueryStatus = (key: string): Status => statusStore[key] ?? "idle";
 
 export const subscribeQueryStatus = (key: string, cb: Listener) => {
   if (!statusListeners[key]) statusListeners[key] = new Set();
