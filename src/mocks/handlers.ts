@@ -40,8 +40,6 @@ const createMockProducts = (size: number, page: number): ResponseProduct[] => {
 
 export const handlers = [
   http.get(`${API_URL}/products`, ({ request }) => {
-    console.log("MSW가 상품 목록 요청을 가로챘습니다:", request.url);
-
     const url = new URL(request.url);
     const page = Number(url.searchParams.get("page") || "0");
     const size = Number(url.searchParams.get("size") || "20");
@@ -57,9 +55,7 @@ export const handlers = [
     });
   }),
 
-  http.get(`${API_URL}/cart-items`, ({ request }) => {
-    console.log("MSW가 장바구니 목록 요청을 가로챘습니다:", request.url);
-
+  http.get(`${API_URL}/cart-items`, () => {
     return HttpResponse.json({
       content: cartItemStore,
       totalElements: cartItemStore.length,
@@ -70,8 +66,6 @@ export const handlers = [
   }),
 
   http.post(`${API_URL}/cart-items`, async ({ request }) => {
-    console.log("MSW가 장바구니 추가 요청을 가로챘습니다:", request.url);
-
     const body = await request.json();
     const { productId, quantity } = body as {
       productId: number;
@@ -111,8 +105,6 @@ export const handlers = [
   }),
 
   http.delete(`${API_URL}/cart-items/:id`, ({ params }) => {
-    console.log("MSW가 장바구니 삭제 요청을 가로챘습니다:", params.id);
-
     const cartItemId = Number(params.id);
     cartItemStore = cartItemStore.filter((item) => item.id !== cartItemId);
 
@@ -120,8 +112,6 @@ export const handlers = [
   }),
 
   http.patch(`${API_URL}/cart-items/:id`, async ({ params, request }) => {
-    console.log("MSW가 장바구니 수정 요청을 가로챴습니다:", params.id);
-
     const body = await request.json();
     const { quantity } = body as { quantity: number };
     const cartItemId = Number(params.id);
