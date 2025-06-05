@@ -56,6 +56,9 @@ export default function CartProductContainer({
   const handleDelete = async (id: number) => {
     try {
       await deleteShoppingCart(id);
+      const ids = selectedCartIds.filter((itemId) => itemId !== id.toString());
+      setSelectedCartIds(ids);
+      setItem(SELECTED_CART_ITEM_IDS, ids);
       onChange();
     } catch (error) {
       onError('삭제에 실패했습니다');
