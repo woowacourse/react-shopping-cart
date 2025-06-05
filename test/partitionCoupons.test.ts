@@ -6,7 +6,15 @@ import type { Coupon } from "@/type/Coupon";
 
 // 테스트용 유틸리티 함수
 const createCartItem = (price: number, quantity: number): CartItem => ({
-  product: { id: `prod-${price}`, name: `Product ${price}`, price },
+  id: `item-${price}-${quantity}`,
+  product: {
+    id: `prod-${price}`,
+    name: `Product ${price}`,
+    price,
+    quantity: 0,
+    category: "test",
+    imageUrl: "",
+  },
   quantity,
 });
 
@@ -28,57 +36,60 @@ const TOMORROW = createKoreaDate(2024, 7, 16, 12, 0);
 
 // 테스트용 쿠폰들
 const VALID_COUPON_1: Coupon = {
+  id: "1",
   code: "VALID1",
   description: "Valid coupon 1",
   discountType: "amount",
-  discountValue: 1000,
+
   expirationDate: TOMORROW,
   minimumAmount: 5000,
   availableTime: { start: "10:00", end: "18:00" },
 };
 
 const VALID_COUPON_2: Coupon = {
+  id: "2",
   code: "VALID2",
   description: "Valid coupon 2",
   discountType: "rate",
-  discountValue: 10,
+  expirationDate: NOW,
   // 조건 없음 - 모든 경우에 유효
 };
 
 const EXPIRED_COUPON: Coupon = {
+  id: "3",
   code: "EXPIRED",
   description: "Expired coupon",
   discountType: "amount",
-  discountValue: 2000,
   expirationDate: YESTERDAY, // 만료됨
 };
 
 const MIN_AMOUNT_FAIL_COUPON: Coupon = {
+  id: "4",
   code: "MIN_AMOUNT_FAIL",
   description: "Minimum amount fail coupon",
   discountType: "rate",
-  discountValue: 15,
+
   expirationDate: TOMORROW,
   minimumAmount: 50000, // 높은 최소 금액
 };
 
 const TIME_RANGE_FAIL_COUPON: Coupon = {
+  id: "5",
   code: "TIME_RANGE_FAIL",
   description: "Time range fail coupon",
   discountType: "amount",
-  discountValue: 3000,
   expirationDate: TOMORROW,
   minimumAmount: 1000,
   availableTime: { start: "02:00", end: "05:00" }, // 현재 시간(12:00) 범위 밖
 };
 
 const BOGO_FAIL_COUPON: Coupon = {
+  id: "6",
   code: "BOGO_FAIL",
   description: "BOGO fail coupon",
   discountType: "buyXgetY",
-  discountValue: 0,
   buyQuantity: 5, // 높은 구매 수량 요구
-  getYQuantity: 1,
+  getQuantity: 1,
   expirationDate: TOMORROW,
 };
 
@@ -222,10 +233,10 @@ describe("partitionCoupons 함수 검증", () => {
 
     it("✅ 경계값 조건에서 유효한 쿠폰이 올바르게 분류되어야 함", () => {
       const boundaryCoupon: Coupon = {
+        id: "1",
         code: "BOUNDARY",
         description: "Boundary test coupon",
         discountType: "amount",
-        discountValue: 1000,
         expirationDate: NOW, // 현재 시간과 정확히 같음
         minimumAmount: 10000, // 정확히 같은 금액
         availableTime: { start: "12:00", end: "18:00" }, // 현재 시간이 시작 시간
@@ -291,10 +302,10 @@ describe("partitionCoupons 함수 검증", () => {
   describe("5. 시간 매개변수 검증", () => {
     it("✅ now 매개변수가 제공되지 않으면 현재 시간을 사용해야 함", () => {
       const timeSpecificCoupon: Coupon = {
+        id: "1",
         code: "TIME_SPECIFIC",
         description: "Time specific coupon",
         discountType: "amount",
-        discountValue: 1000,
         expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24시간 후
       };
 

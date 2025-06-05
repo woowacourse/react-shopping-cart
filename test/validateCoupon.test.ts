@@ -2,11 +2,19 @@
 import { describe, it, expect } from "vitest";
 import { validateCoupon } from "@/util/coupon/validateCoupon";
 import type { CartItem } from "@/type/CartItem";
-import type { Coupon, InvalidReason } from "@/type/Coupon";
+import type { Coupon } from "@/type/Coupon";
 
 // 테스트용 유틸리티 함수
 const createCartItem = (price: number, quantity: number): CartItem => ({
-  product: { id: `prod-${price}`, name: `Product ${price}`, price },
+  id: `item-${price}-${quantity}`,
+  product: {
+    id: `prod-${price}`,
+    name: `Product ${price}`,
+    price,
+    imageUrl: "",
+    category: "",
+    quantity: 0,
+  },
   quantity,
 });
 
@@ -33,13 +41,36 @@ const TIME_WITHIN_RANGE_END = createKoreaDate(2024, 7, 15, 18, 0); // 18:00 (사
 
 // 기본 쿠폰 템플릿 (모든 조건 통과 가능)
 const baseValidCoupon: Coupon = {
+  id: "base-coupon",
   code: "VALID_COUPON",
   description: "A perfectly valid coupon",
   discountType: "amount",
-  discountValue: 1000,
+  expirationDate: TOMORROW,
+  discount: 1000,
+  minimumAmount: undefined,
+  buyQuantity: undefined,
+  getQuantity: undefined,
+  availableTime: undefined,
 };
 
-describe("validateCoupon 함수 검증", () => {
+describe("validateCoupon 함수는", () => {
+  describe("구현되지 않은 쿠폰은 유효하지 않은 쿠폰으로 판정해야함", () => {
+    it("❌ 구현되지 않은 쿠폰은 유효하지 않아야 함", () => {
+      const coupon: Coupon = {
+        id: "unimplemented",
+        expirationDate: TOMORROW,
+        code: "INVALID_COUPON",
+        description: "An invalid coupon",
+        discountType: "earlyBird", // 존재하지 않는 할인 유형
+      };
+      const result = validateCoupon(coupon, [createCartItem(10000, 1)], NOW);
+      expect(result).toEqual({
+        isValid: false,
+        invalidReason: "invalidType",
+      });
+    });
+  });
+
   describe("1. 만료일(expirationDate) 검증", () => {
     it("✅ 만료일이 설정되지 않은 경우 유효해야 함", () => {
       const coupon: Coupon = { ...baseValidCoupon, expirationDate: undefined };
@@ -192,7 +223,7 @@ describe("validateCoupon 함수 검증", () => {
       ...baseValidCoupon,
       discountType: "buyXgetY",
       buyQuantity: 2, // 2개 "초과" 구매 시 적용
-      getYQuantity: 1,
+      getQuantity: 1,
       expirationDate: TOMORROW, // 만료일 통과
       minimumAmount: undefined, // 최소금액 조건 없음
       availableTime: undefined, // 시간 조건 없음
@@ -259,10 +290,11 @@ describe("validateCoupon 함수 검증", () => {
   describe("5. 모든 조건 만족 및 우선순위 검증", () => {
     it("✅ 모든 조건이 유효한 경우 최종적으로 유효해야 함", () => {
       const coupon: Coupon = {
+        id: "all-good-coupon",
         code: "ALL_GOOD",
         description: "Perfect coupon",
         discountType: "rate",
-        discountValue: 10,
+        discount: 10,
         expirationDate: TOMORROW,
         minimumAmount: 5000,
         availableTime: { start: "09:00", end: "22:00" },
@@ -274,10 +306,11 @@ describe("validateCoupon 함수 검증", () => {
 
     it("❌ 여러 실패 조건 중 가장 먼저 확인되는 'expired'가 반환되어야 함", () => {
       const coupon: Coupon = {
+        id: "expired-first-coupon",
         code: "EXPIRED_FIRST",
         description: "Expired and low amount",
         discountType: "amount",
-        discountValue: 100,
+        discount: 100,
         expirationDate: YESTERDAY, // 만료됨 (가장 먼저 체크)
         minimumAmount: 100000, // 최소금액 미달
       };
@@ -291,10 +324,11 @@ describe("validateCoupon 함수 검증", () => {
 
     it("❌ 만료일은 통과했으나 'minAmount'에서 실패하면 'minAmount'가 반환되어야 함", () => {
       const coupon: Coupon = {
+        id: "min-amount-fail-coupon",
         code: "MIN_AMOUNT_FAIL",
         description: "Valid date, but low amount",
         discountType: "rate",
-        discountValue: 10,
+        discount: 10,
         expirationDate: TOMORROW, // 유효
         minimumAmount: 10000, // 최소금액 10000원
         availableTime: { start: "00:00", end: "08:00" }, // 시간 범위 미해당 (나중 순위)
@@ -309,11 +343,12 @@ describe("validateCoupon 함수 검증", () => {
 
     it("❌ 만료일, 최소금액 통과 후 'timeRange'에서 실패하면 'timeRange'가 반환되어야 함", () => {
       const coupon: Coupon = {
+        id: "time-range-fail-coupon",
         code: "TIME_RANGE_FAIL",
         description: "Valid date and amount, but wrong time",
         discountType: "buyXgetY",
         buyQuantity: 1,
-        getYQuantity: 1,
+        getQuantity: 1,
         expirationDate: TOMORROW, // 유효
         minimumAmount: 5000, // 최소금액 5000원
         availableTime: { start: "14:00", end: "16:00" }, // 현재시간(12:00) 미포함
