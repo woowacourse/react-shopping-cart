@@ -1,6 +1,8 @@
+import { DISCOUNT_TYPE_KEY } from "../constants/coupon";
 import {
   BuyXGetYCouponDataType,
   BuyXGetYCouponType,
+  CouponDataType,
   FixedCouponDataType,
   FixedCouponType,
   FreeShippingCouponDataType,
@@ -8,7 +10,7 @@ import {
   PercentageCouponDataType,
   PercentageCouponType,
 } from "../types/response";
-import { convertTo12Hour, splitTime } from "./time";
+import { splitTime } from "./time";
 
 export const adaptFixedCoupon = (
   coupon: FixedCouponDataType
@@ -63,13 +65,10 @@ export const adaptPercentageCoupon = (
 ): PercentageCouponType => {
   const { expirationDate, availableTime } = coupon;
   const [year, month, day] = expirationDate.split("-");
-  const { hour: rowStartHour, minute: startMinute } = splitTime(
+  const { hour: startHour, minute: startMinute } = splitTime(
     availableTime.start
   );
-  const { hour: rowEndHour, minute: endMinute } = splitTime(availableTime.end);
-  const { period: startPeriod, hour: startHour } =
-    convertTo12Hour(rowStartHour);
-  const { period: endPeriod, hour: endHour } = convertTo12Hour(rowEndHour);
+  const { hour: endHour, minute: endMinute } = splitTime(availableTime.end);
 
   return {
     ...coupon,
@@ -79,8 +78,30 @@ export const adaptPercentageCoupon = (
       day,
     },
     availableTime: {
-      start: { period: startPeriod, hour: startHour, minute: startMinute },
-      end: { period: endPeriod, hour: endHour, minute: endMinute },
+      start: { hour: startHour, minute: startMinute },
+      end: { hour: endHour, minute: endMinute },
     },
   };
+};
+
+export const adaptCoupon = (coupon: CouponDataType) => {
+  const { discountType } = coupon;
+  switch (discountType) {
+    case DISCOUNT_TYPE_KEY.fixed:
+      return adaptFixedCoupon(coupon);
+
+    case DISCOUNT_TYPE_KEY.buyXgetY:
+      return adaptBuyXGetYCoupon(coupon);
+
+    case DISCOUNT_TYPE_KEY.freeShipping:
+      return adaptFreeShippingCoupon(coupon);
+
+    case DISCOUNT_TYPE_KEY.percentage:
+      return adaptPercentageCoupon(coupon);
+
+    default:
+      throw new Error(
+        "존재하지 않는 쿠폰 타입입니다. discountType을 확인해주세요."
+      );
+  }
 };
