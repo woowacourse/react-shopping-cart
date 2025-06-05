@@ -27,7 +27,7 @@ const OrderConfirmPage = () => {
       </S.Container>
     );
 
-  const { orderItems, orderPrice, deliveryPrice, totalPrice, cartItemsTotalQuantity, cartItemsCheckedCount } =
+  const { cartItems, orderPrice, deliveryPrice, totalPrice, cartItemsTotalQuantity, cartItemsCheckedCount } =
     location.state;
 
   const handleNavigate = () => navigate("/payment-confirm", { state: location.state });
@@ -48,7 +48,7 @@ const OrderConfirmPage = () => {
           </S.TextWrap>
         </S.TextWrap>
 
-        <OrderItemList orderItems={orderItems} />
+        <OrderItemList orderItems={cartItems} />
 
         <Button
           variant="secondary"

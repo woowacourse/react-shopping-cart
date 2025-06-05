@@ -6,7 +6,7 @@ import QuantityRegulator from "../../QuantityRegulator";
 import ItemCard from "../../ItemCard/index";
 
 const CartItemList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnType["cartItemListProps"] }) => {
-  const { cartItems, handleCartItemChange, isAllChecked, handleCheckChange } = cartItemListProps;
+  const { cartItems, checkedIds, handleCartItemChange, isAllChecked, handleCheckChange } = cartItemListProps;
 
   return (
     <S.Container>
@@ -15,11 +15,11 @@ const CartItemList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnT
       </CheckBox>
       <S.List>
         {cartItems.map((item) => {
-          const { id, isChecked, quantity, product } = item;
+          const { id, quantity, product } = item;
           return (
             <ItemCard gap={12} key={id}>
               <ItemCard.Top>
-                <CheckBox isChecked={isChecked} onClick={() => handleCheckChange({ id, action: "each" })} />
+                <CheckBox isChecked={checkedIds.has(id)} onClick={() => handleCheckChange({ id, action: "each" })} />
                 <Button variant="secondary" size="auto" onClick={() => handleCartItemChange({ id, action: "delete" })}>
                   삭제
                 </Button>
