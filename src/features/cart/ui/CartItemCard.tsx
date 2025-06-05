@@ -7,6 +7,7 @@ import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
 import { CartItem } from '../../../shared/type/cart';
 import { useSelectedCartItemsContext } from '../../../shared/context/useSelectedCartItemsContext';
+import { useCartItemsContext } from '../../../shared/context/useCartItemsContext';
 import { deleteCartItem } from '../api/deleteCartItem';
 
 const deleteButtonCSS = css`
@@ -26,19 +27,19 @@ const deleteButtonCSS = css`
 
 interface CartItemCardProps {
   cartItem: CartItem;
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
 }
 
-export default function CartItemCard({ cartItem, setCartItems }: CartItemCardProps) {
-  const { SelectedCartItemsItems, updateSelectedCartItemsItem, removeSelectedCartItemsItem } =
-    useSelectedCartItemsContext();
+export default function CartItemCard({ cartItem }: CartItemCardProps) {
+  const { SelectedCartItemsItems, addSelectedCartItem, removeSelectedCartItem } = useSelectedCartItemsContext();
+  const { fetchCartItems } = useCartItemsContext();
+
   const handleSelectedCartItemsItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     if (!isChecked) {
-      removeSelectedCartItemsItem(cartItem);
+      removeSelectedCartItem(cartItem);
       return;
     }
-    updateSelectedCartItemsItem(cartItem, cartItem.quantity);
+    addSelectedCartItem(cartItem, cartItem.quantity);
   };
 
   const isSelected = SelectedCartItemsItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
@@ -46,8 +47,8 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
   const handleCartItemDelete = async () => {
     try {
       await deleteCartItem(cartItem.id);
-      removeSelectedCartItemsItem(cartItem);
-      // fetchCartItemsç
+      removeSelectedCartItem(cartItem);
+      await fetchCartItems();
     } catch (error) {
       if (error instanceof Error) {
         console.error('장바구니 아이템 삭제 실패:', error.message);
@@ -79,13 +80,7 @@ export default function CartItemCard({ cartItem, setCartItems }: CartItemCardPro
               {cartItem.product.price.toLocaleString()}원
             </S.CartItemInfoPrice>
           </S.CartItemInfoDetails>
-
-          <CartItemQuantitySelector
-            cartItem={cartItem}
-            isSelected={isSelected}
-            updateSelectedCartItemsItem={updateSelectedCartItemsItem}
-            setCartItems={setCartItems}
-          />
+          <CartItemQuantitySelector cartItem={cartItem} />
         </S.CartItemInfo>
       </S.CartItemContent>
     </S.CartItemContainer>

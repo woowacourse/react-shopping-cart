@@ -1,11 +1,12 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { CartItem } from '../type/cart';
+import { useCartItemsContext } from './useCartItemsContext';
 
 interface SelectedCartItemsContextType {
   SelectedCartItemsItems: CartItem[];
-  updateSelectedCartItemsItem: (item: CartItem, updatedQuantity: number) => void;
+  addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
-  removeSelectedCartItemsItem: (item: CartItem) => void;
+  removeSelectedCartItem: (item: CartItem) => void;
 }
 
 export const SelectedCartItemsContext = createContext<SelectedCartItemsContextType | undefined>(undefined);
@@ -15,26 +16,24 @@ interface SelectedCartItemsProviderProps {
 }
 
 export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProviderProps) => {
+  const { cartItems } = useCartItemsContext();
   const [SelectedCartItemsItems, setSelectedCartItemsItems] = useState<CartItem[]>([]);
 
-  const updateSelectedCartItemsItem = (cartItem: CartItem, quantity?: number) => {
-    setSelectedCartItemsItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex((item) => item.id === cartItem.id);
+  useEffect(() => {
+    setSelectedCartItemsItems((prev) =>
+      prev.map((selectedItem) => {
+        const updatedItem = cartItems.find((item) => item.id === selectedItem.id);
+        return updatedItem ? updatedItem : selectedItem;
+      })
+    );
+  }, [cartItems]);
 
-      if (existingItemIndex > -1) {
-        const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity = quantity ?? 1;
-        return updatedItems;
-      }
-
-      return [...prevItems, cartItem];
-    });
+  const addSelectedCartItem = (cartItem: CartItem) => {
+    setSelectedCartItemsItems((prevItems) => [...prevItems, cartItem]);
   };
 
-  const removeSelectedCartItemsItem = (cartItem: CartItem) => {
-    setSelectedCartItemsItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== cartItem.id);
-    });
+  const removeSelectedCartItem = (cartItem: CartItem) => {
+    setSelectedCartItemsItems((prevItems) => prevItems.filter((item) => item.id !== cartItem.id));
   };
 
   const addAllCartItemsInSelected = (cartItems: CartItem[]) => {
@@ -45,9 +44,9 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
     <SelectedCartItemsContext.Provider
       value={{
         SelectedCartItemsItems,
-        updateSelectedCartItemsItem,
+        addSelectedCartItem,
         addAllCartItemsInSelected,
-        removeSelectedCartItemsItem,
+        removeSelectedCartItem,
       }}
     >
       {children}
