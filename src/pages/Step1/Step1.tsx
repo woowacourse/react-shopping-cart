@@ -1,5 +1,5 @@
 import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
-import { useCartItemQuery } from "@/hooks";
+import { useCartItem, useCartItemQuery } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { useShoppingCartContext } from "../MainPage/context";
@@ -7,6 +7,7 @@ import * as S from "./Step1.styles";
 
 export default function Step1() {
   const { data: cartItems } = useCartItemQuery();
+  const { deleteCartItem, increaseCartItem, decreaseCartItem } = useCartItem();
   const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
 
   const { goNextStep } = useFunnelContext();
@@ -30,6 +31,19 @@ export default function Step1() {
   const totalPrice = cartItemService.calculateTotalPriceWithDeliveryFee(false);
 
   const isAllSelected = cartItems?.content.length > 0 && selectedItemIds.length === cartItems.content.length;
+
+  const handleDeleteCartItem = (id: number) => {
+    setSelectedItemIds((prev) => prev.filter((itemId) => itemId !== id));
+    deleteCartItem(id);
+  };
+
+  const handleAddButtonClick = (id: number) => {
+    increaseCartItem(id);
+  };
+
+  const handleMinusButtonClick = (id: number) => {
+    decreaseCartItem(id);
+  };
 
   if (!cartItems) return null;
   return (
@@ -67,7 +81,10 @@ export default function Step1() {
                   key={item.id}
                   id={item.id}
                   isSelected={selectedItemIds.includes(item.id)}
-                  handleCheckboxClick={() => handleSelectItem(item.id)}
+                  onCheckboxClick={() => handleSelectItem(item.id)}
+                  onDeleteClick={handleDeleteCartItem}
+                  onAddButtonClick={() => handleAddButtonClick(item.id)}
+                  onMinusButtonClick={() => handleMinusButtonClick(item.id)}
                 />
               ))}
             </S.CartItemList>

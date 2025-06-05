@@ -1,18 +1,26 @@
 import { Button, Checkbox, PlusMinusButton } from "@/components";
-import { useCartItem } from "@/hooks";
+import { useCartItemQuery } from "@/hooks";
 import { css } from "@emotion/react";
 import Card from "../Card/Card";
 import * as S from "./CartItem.styles";
-import { useCartItemQuery } from "@/hooks";
 
 interface CartItemProps {
   id: number;
   isSelected: boolean;
-  handleCheckboxClick: () => void;
+  onCheckboxClick: () => void;
+  onDeleteClick: (id: number) => void;
+  onAddButtonClick: () => void;
+  onMinusButtonClick: () => void;
 }
 
-export default function CartItem({ id, isSelected, handleCheckboxClick }: CartItemProps) {
-  const { increaseCartItem, decreaseCartItem, deleteCartItem } = useCartItem();
+export default function CartItem({
+  id,
+  isSelected,
+  onCheckboxClick,
+  onDeleteClick,
+  onAddButtonClick,
+  onMinusButtonClick,
+}: CartItemProps) {
   const { data: cartItems, status: cartItemsStatus } = useCartItemQuery();
   const cartItem = cartItems.content.find((item) => item.id === id);
 
@@ -23,25 +31,13 @@ export default function CartItem({ id, isSelected, handleCheckboxClick }: CartIt
     quantity,
   } = cartItem;
 
-  const handleAddButtonClick = () => {
-    increaseCartItem(cartItem.product.id);
-  };
-
-  const handleMinusButtonClick = () => {
-    decreaseCartItem(cartItem.product.id);
-  };
-
-  const handleDeleteClick = (id: number) => {
-    deleteCartItem(id);
-  };
-
   return (
     <S.ProductCardCartItemWrapper>
       <S.ButtonWrapper>
-        <Checkbox checked={isSelected} onClick={handleCheckboxClick} />
+        <Checkbox checked={isSelected} onClick={onCheckboxClick} />
 
         <Button
-          onClick={() => handleDeleteClick(cartItem.id)}
+          onClick={() => onDeleteClick(cartItem.id)}
           css={css`
             background-color: #fff;
             width: fit-content;
@@ -63,8 +59,8 @@ export default function CartItem({ id, isSelected, handleCheckboxClick }: CartIt
           <PlusMinusButton
             isLoading={cartItemsStatus === "loading"}
             quantity={quantity}
-            onAddButtonClick={handleAddButtonClick}
-            onMinusButtonClick={handleMinusButtonClick}
+            onAddButtonClick={onAddButtonClick}
+            onMinusButtonClick={onMinusButtonClick}
           />
         </Card.Info>
       </Card>
