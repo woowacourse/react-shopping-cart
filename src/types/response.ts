@@ -1,3 +1,5 @@
+import { DISCOUNT_TYPE_KEY } from "../constants/coupon";
+
 export type CategoryType = "전체" | "식료품" | "패션잡화";
 
 export interface ProductItemType {
@@ -20,12 +22,18 @@ export interface ExpirationDateType {
   day: string;
 }
 
-export interface FixedCouponDataType {
+export type DiscountType = keyof typeof DISCOUNT_TYPE_KEY;
+
+export interface BaseCouponDataType {
   id: number;
   code: string;
   description: string;
   expirationDate: string;
-  discountType: string;
+  discountType: DiscountType;
+}
+
+export interface FixedCouponDataType extends BaseCouponDataType {
+  discountType: "fixed";
   discount: number;
   minimumAmount: number;
 }
@@ -35,7 +43,7 @@ export interface FixedCouponType {
   code: string;
   description: string;
   expirationDate: ExpirationDateType;
-  discountType: string;
+  discountType: "fixed";
   discount: number;
   minimumAmount: number;
 }
@@ -45,7 +53,7 @@ export interface BuyXGetYCouponDataType {
   code: string;
   description: string;
   expirationDate: string;
-  discountType: string;
+  discountType: "buyXgetY";
   buyQuantity: number;
   getQuantity: number;
 }
@@ -55,7 +63,7 @@ export interface BuyXGetYCouponType {
   code: string;
   description: string;
   expirationDate: ExpirationDateType;
-  discountType: string;
+  discountType: "buyXgetY";
   buyQuantity: number;
   getQuantity: number;
 }
@@ -65,7 +73,7 @@ export interface FreeShippingCouponDataType {
   code: string;
   description: string;
   expirationDate: string;
-  discountType: string;
+  discountType: "freeShipping";
   minimumAmount: number;
 }
 
@@ -74,7 +82,7 @@ export interface FreeShippingCouponType {
   code: string;
   description: string;
   expirationDate: ExpirationDateType;
-  discountType: string;
+  discountType: "freeShipping";
   minimumAmount: number;
 }
 
@@ -83,7 +91,7 @@ export interface PercentageCouponDataType {
   code: string;
   description: string;
   expirationDate: string;
-  discountType: string;
+  discountType: "percentage";
   discount: number;
   availableTime: {
     start: string;
@@ -101,7 +109,7 @@ export interface PercentageCouponType {
   code: string;
   description: string;
   expirationDate: ExpirationDateType;
-  discountType: string;
+  discountType: "percentage";
   discount: number;
   availableTime: {
     start: AvailableTimeType;
