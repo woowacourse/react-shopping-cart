@@ -1,10 +1,27 @@
-import "./App.css";
+import { createHashRouter, RouterProvider } from 'react-router';
+import * as S from './App.styles';
+import { APIProvider } from './context/APIContext';
+import OrderCompletePage from './pages/OrderCompletedPage/OrderCompletedPage';
+import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <ShoppingCartPage />,
+  },
+  {
+    path: '/completed',
+    element: <OrderCompletePage />,
+  },
+]);
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <APIProvider>
+      <S.AppWrapper>
+        <RouterProvider router={router} />
+      </S.AppWrapper>
+    </APIProvider>
   );
 }
 
