@@ -1,4 +1,5 @@
-import { InvalidReason, validateCoupon } from "./validateCoupon";
+import { validateCoupon } from "./validateCoupon";
+import type { InvalidReason } from "@/type/Coupon";
 import type { Coupon } from "@/type/Coupon";
 import type { CartItem } from "@/type/CartItem";
 
