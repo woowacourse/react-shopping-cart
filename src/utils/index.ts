@@ -4,3 +4,4 @@ export { default as checkIsOverDate } from './checkIsOverDate';
 export { default as getCheckedItems } from './getCheckedItems';
 export { default as getDiscountPrice } from './getDiscountPrice';
 export { default as applyCouponsToItems } from './applyCouponsToItems';
+export { default as getMaxDiscountCoupons } from './getMaxDiscountCoupons';
