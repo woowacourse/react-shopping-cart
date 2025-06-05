@@ -29,7 +29,6 @@ const useCartItems = () => {
     if (!targetCartItem) return;
 
     if (targetCartItem.quantity === 1) {
-      console.log('수량이 1인 아이템은 삭제합니다.');
       await deleteCartItems(id);
     } else {
       await patchCartItems(id, targetCartItem.quantity - 1);
