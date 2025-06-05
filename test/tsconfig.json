@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    // bundle로 정하면 jest가 import를 못해서, 해당 옵션으로 파일을 따로 만들었어요
     "moduleResolution": "node",
     "types": [
       "vitest/globals",
