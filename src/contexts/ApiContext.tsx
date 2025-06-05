@@ -42,10 +42,7 @@ function apiReducer(state: State, action: Action): State {
 export const ApiContext = createContext<{
   state: State
   dispatch: React.Dispatch<Action>
-}>({
-  state: initialState,
-  dispatch: () => {},
-})
+} | null>(null)
 
 export function ApiProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(apiReducer, initialState)
