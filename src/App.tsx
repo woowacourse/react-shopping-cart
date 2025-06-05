@@ -6,6 +6,7 @@ import { CartProvider } from "./contexts/CartContext.tsx";
 import { ToastProvider } from "./contexts/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
+import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
 
 const Layout = () => {
   return (
@@ -22,11 +23,12 @@ const Layout = () => {
 const router = createBrowserRouter(
   [
     {
-      path: ROUTES.HOME,
+      path: ROUTES.CART,
       element: <Layout />,
       children: [
-        { path: ROUTES.HOME, element: <CartPage /> },
+        { path: ROUTES.CART, element: <CartPage /> },
         { path: ROUTES.ORDER, element: <OrderPage /> },
+        { path: ROUTES.PAYMENT, element: <PaymentPage /> },
       ],
     },
   ],

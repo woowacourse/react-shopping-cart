@@ -58,7 +58,7 @@ describe("router 테스트", () => {
 
     const routes = [
       {
-        path: ROUTES.HOME,
+        path: ROUTES.CART,
         element: (
           <ToastProvider>
             <CartProvider>
@@ -80,7 +80,7 @@ describe("router 테스트", () => {
     ];
 
     const router = createMemoryRouter(routes, {
-      initialEntries: [ROUTES.HOME],
+      initialEntries: [ROUTES.CART],
     });
 
     render(<RouterProvider router={router} />);
@@ -122,7 +122,7 @@ describe("router 테스트", () => {
   it("주문 페이지에서 뒤로 가기 버튼을 누르면 장바구니 페이지로 이동하고, 기존 장바구니 정보가 유지된다.", async () => {
     const routes = [
       {
-        path: ROUTES.HOME,
+        path: ROUTES.CART,
         element: (
           <ToastProvider>
             <CartProvider>
@@ -144,7 +144,7 @@ describe("router 테스트", () => {
     ];
 
     const router = createMemoryRouter(routes, {
-      initialEntries: [ROUTES.HOME, ROUTES.ORDER],
+      initialEntries: [ROUTES.CART, ROUTES.ORDER],
       initialIndex: 1,
     });
 
