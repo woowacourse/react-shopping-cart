@@ -1,11 +1,12 @@
-import * as Styled from "./CartContent.style";
-import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart";
-import CartList from "../CartList/CartList";
-import CartCard from "../CartCard/CartCard";
-import checked from "/checked.svg";
-import unChecked from "/unChecked.svg";
-import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
-import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
+import * as Styled from "./CartContent.style"
+import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart"
+import CartList from "../CartList/CartList"
+import CartCard from "../CartCard/CartCard"
+import checked from "/checked.svg"
+import unChecked from "/unChecked.svg"
+import useSelectedCartIds from "../../../hooks/useSelectedCartIds"
+import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton"
+import OrderSummary from "../OrderSummary/OrderSummary"
 
 function CartContent() {
   const {
@@ -14,7 +15,7 @@ function CartContent() {
     handleDeleteCartItem,
     isQuantityUpdateLoading,
     isDeleteItemLoading,
-  } = useShoppingCart();
+  } = useShoppingCart()
 
   const {
     selectedCartIds,
@@ -22,7 +23,7 @@ function CartContent() {
     handleRemoveSelectCartItem,
     handleAddSelectCartItem,
     handleSelectAllCartItems,
-  } = useSelectedCartIds(cartItemsData);
+  } = useSelectedCartIds(cartItemsData)
 
   return (
     <Styled.CartContentContainer>
@@ -41,10 +42,7 @@ function CartContent() {
             </Styled.SelectButton>
             <p>전체선택</p>
           </Styled.AllSelectWrapper>
-          <CartList
-            cartItemsData={cartItemsData}
-            selectedCartIds={selectedCartIds}
-          >
+          <CartList>
             {cartItemsData.map((cartItem) => (
               <CartCard
                 key={cartItem.id}
@@ -59,6 +57,10 @@ function CartContent() {
               />
             ))}
           </CartList>
+          <OrderSummary
+            cartItemsData={cartItemsData}
+            selectedCartIds={selectedCartIds}
+          />
         </>
       ) : (
         <Styled.EmptyCartMessage>
@@ -70,7 +72,7 @@ function CartContent() {
         cartItemsData={cartItemsData}
       />
     </Styled.CartContentContainer>
-  );
+  )
 }
 
-export default CartContent;
+export default CartContent
