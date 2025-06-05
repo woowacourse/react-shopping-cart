@@ -14,7 +14,7 @@ export interface CartItemType {
   quantity: number;
 }
 
-interface expirationDate {
+export interface ExpirationDateType {
   year: string;
   month: string;
   day: string;
@@ -34,7 +34,7 @@ export interface FixedCouponType {
   id: number;
   code: string;
   description: string;
-  expirationDate: expirationDate;
+  expirationDate: ExpirationDateType;
   discountType: string;
   discount: number;
   minimumAmount: number;
@@ -54,7 +54,7 @@ export interface BuyXGetYCouponType {
   id: number;
   code: string;
   description: string;
-  expirationDate: expirationDate;
+  expirationDate: ExpirationDateType;
   discountType: string;
   buyQuantity: number;
   getQuantity: number;
@@ -73,7 +73,7 @@ export interface FreeShippingCouponType {
   id: number;
   code: string;
   description: string;
-  expirationDate: expirationDate;
+  expirationDate: ExpirationDateType;
   discountType: string;
   minimumAmount: number;
 }
@@ -91,8 +91,7 @@ export interface PercentageCouponDataType {
   };
 }
 
-interface availableTime {
-  hourPeriod: string;
+export interface AvailableTimeType {
   hour: number;
   minute: number;
 }
@@ -101,12 +100,12 @@ export interface PercentageCouponType {
   id: number;
   code: string;
   description: string;
-  expirationDate: expirationDate;
+  expirationDate: ExpirationDateType;
   discountType: string;
   discount: number;
   availableTime: {
-    start: availableTime;
-    end: availableTime;
+    start: AvailableTimeType;
+    end: AvailableTimeType;
   };
 }
 
