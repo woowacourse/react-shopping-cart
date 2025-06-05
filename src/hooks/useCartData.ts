@@ -51,7 +51,6 @@ const useCartData = () => {
   return {
     cartItemsData,
     setCartItemsData,
-    fetchData,
     deleteItem,
     updateItemQuantity,
   };
