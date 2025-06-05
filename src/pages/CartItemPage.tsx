@@ -61,7 +61,11 @@ const CartItemPage = () => {
               disabled={selectedItem.size === 0}
               onClick={() => {
                 navigate("/order-confirm", {
-                  state: { selectedItemCount: selectedItem.size, totalPrice },
+                  state: {
+                    selectedItemCount: selectedItem.size,
+                    totalPrice,
+                    selectedItemIds: Array.from(selectedItem),
+                  },
                 });
               }}
             />

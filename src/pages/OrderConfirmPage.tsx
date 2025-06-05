@@ -3,15 +3,18 @@ import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
 import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
+import { useCartItemContext } from "../contexts/useCartItemContext";
 
 const OrderConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { cartItems } = useCartItemContext();
 
   const isInvalidAccess =
     !location.state ||
     !location.state.selectedItemCount ||
-    !location.state.totalPrice;
+    !location.state.totalPrice ||
+    !location.state.selectedItemIds;
 
   if (isInvalidAccess) {
     return (
@@ -31,7 +34,15 @@ const OrderConfirmPage = () => {
     );
   }
 
-  const { selectedItemCount, totalPrice } = location.state;
+  const { selectedItemCount, totalPrice, selectedItemIds } = location.state;
+
+  const selectedItems = cartItems.filter((item) =>
+    selectedItemIds.includes(item.id)
+  );
+  const totalQuantity = selectedItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
 
   return (
     <>
@@ -45,7 +56,9 @@ const OrderConfirmPage = () => {
         <section className={ContentStyle}>
           <Text text="주문 확인" type="large" />
           <section className={Description}>
-            <Text text={`총 ${selectedItemCount}개의 상품을 주문합니다.`} />
+            <Text
+              text={`총 ${selectedItemCount}종류의 상품 ${totalQuantity}개를 주문합니다.`}
+            />
             <Text text="최종 결제 금액을 확인해 주세요." />
           </section>
           <Text text="총 결제 금액" type="medium" />
