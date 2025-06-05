@@ -36,21 +36,19 @@ export default function CouponItem({ coupon, isSelected, onSelect, isCouponAvail
       <Spacing size={16} />
 
       <div>
-        <p>
-          <Text variant="body-1">만료일: {formatDate(coupon.expirationDate)}</Text>
-        </p>
+        <Text as="p" variant="body-1">
+          만료일: {formatDate(coupon.expirationDate)}
+        </Text>
         <Spacing size={4} />
         {(coupon.discountType === "fixed" || coupon.discountType === "freeShipping") && (
-          <p>
-            <Text variant="body-1">최소 주문 금액: {coupon.minimumAmount?.toLocaleString()}원</Text>
-          </p>
+          <Text as="p" variant="body-1">
+            최소 주문 금액: {coupon.minimumAmount?.toLocaleString()}원
+          </Text>
         )}
         {coupon.discountType === "percentage" && (
-          <p>
-            <Text variant="body-1">
-              사용 가능 시간: {formatTime(coupon.availableTime.start)} ~ {formatTime(coupon.availableTime.end)}
-            </Text>
-          </p>
+          <Text as="p" variant="body-1">
+            사용 가능 시간: {formatTime(coupon.availableTime.start)} ~ {formatTime(coupon.availableTime.end)}
+          </Text>
         )}
       </div>
     </div>
