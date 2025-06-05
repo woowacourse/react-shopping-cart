@@ -1,4 +1,4 @@
-import { showErrorToast } from '@/services/toastStore';
+import { showErrorToast } from '@/shared/toast/toastStore';
 import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';

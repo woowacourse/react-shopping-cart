@@ -1,5 +1,5 @@
-import { subscribeToast } from '@/services/toastStore';
 import { useEffect, useState } from 'react';
+import { subscribeToast } from './toastStore';
 
 export function useErrorToast(): string | null {
   const [message, setMessage] = useState<string | null>(null);
