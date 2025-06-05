@@ -27,9 +27,9 @@ export default function Step2() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: cartItems } = useCartItemQuery();
-  const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
+  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
 
-  const cartItemService = new CartItemService(selectedCartItems ?? []);
+  const cartItemService = new CartItemService(selectedCartItems);
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
   const totalPrice = cartItemService.calculateTotalPrice();
 
@@ -79,7 +79,7 @@ export default function Step2() {
         </Text>
         <Spacing size={28} />
 
-        {selectedCartItems?.map((item) => (
+        {selectedCartItems.map((item) => (
           <Card key={item.id}>
             <Card.Image src={item.product.imageUrl} alt={item.product.name} />
             <Card.Info>

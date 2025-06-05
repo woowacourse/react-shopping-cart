@@ -15,7 +15,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
   const { data: coupons } = useCouponQuery();
   const { data: cartItems } = useCartItemQuery();
   const { selectedItemIds } = useShoppingCartContext();
-  const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
+  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
 
   const { selectedCouponIds, setSelectedCouponIds, isFar } = useShoppingCartContext();
 

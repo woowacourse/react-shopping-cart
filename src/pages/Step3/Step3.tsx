@@ -12,7 +12,7 @@ export default function Step3() {
   const { data: coupons } = useCouponQuery();
   const { selectedCouponIds, isFar } = useShoppingCartContext();
 
-  const cartItemService = new CartItemService(cartItems?.content ?? []);
+  const cartItemService = new CartItemService(cartItems.content);
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
   const totalPrice = cartItemService.calculateTotalPrice();
 

@@ -21,9 +21,9 @@ export default function useCartItem() {
   const increaseCartItem = async (productId: number) => {
     if (error) return;
 
-    const cartItem = cartItems?.content.find((item) => item.product.id === productId);
+    const cartItem = cartItems.content.find((item) => item.product.id === productId);
 
-    const product = products?.content.find((item) => item.id === productId);
+    const product = products.content.find((item) => item.id === productId);
     if (!product) return;
 
     if (!cartItem) {
@@ -52,7 +52,7 @@ export default function useCartItem() {
   const decreaseCartItem = async (productId: number) => {
     if (error) return;
 
-    const cartItem = cartItems?.content.find((item) => item.product.id === productId);
+    const cartItem = cartItems.content.find((item) => item.product.id === productId);
 
     if (!cartItem) return;
     optimisticDecreaseCartItem;
