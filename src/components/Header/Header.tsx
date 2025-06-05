@@ -1,26 +1,7 @@
-import BackArrow from "../Icon/BackArrow";
 import * as S from "./Header.styled";
 
-function Header({
-  isOrderComplete,
-  setIsOrderComplete,
-}: {
-  isOrderComplete: boolean;
-  setIsOrderComplete: (value: boolean) => void;
-}) {
-  return (
-    <S.HeaderContainer>
-      <S.HeaderTitle>
-        {isOrderComplete ? (
-          <S.HeaderIcon onClick={() => setIsOrderComplete(false)}>
-            <BackArrow />
-          </S.HeaderIcon>
-        ) : (
-          "SHOP"
-        )}
-      </S.HeaderTitle>
-    </S.HeaderContainer>
-  );
+function Header({ children }: { children: React.ReactNode }) {
+  return <S.HeaderContainer>{children}</S.HeaderContainer>;
 }
 
 export default Header;

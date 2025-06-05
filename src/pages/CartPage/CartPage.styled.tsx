@@ -66,8 +66,8 @@ export const CartContentWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-export const CartItemList = styled.ul`
-  list-style: none;
-  overflow-y: auto;
-  height: calc(100vh - 504px);
+export const HeaderIcon = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
 `;
