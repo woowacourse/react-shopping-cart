@@ -42,7 +42,7 @@ describe('CartItem', () => {
   const renderComponent = (cartItem = mockCartItem) => {
     return render(
       <DataProvider>
-        <CartItem cartItem={cartItem} checkedItems={[1]} setCheckedItems={mockSetCheckedItems} />
+        <CartItem cartItem={cartItem} />
       </DataProvider>,
     );
   };
@@ -63,7 +63,7 @@ describe('CartItem', () => {
   it('수량 증가 버튼 클릭 시 API가 호출되어야 한다', async () => {
     renderComponent();
 
-    const increaseButton = screen.getByText('＋');
+    const increaseButton = screen.getByTestId('increase-quantity-button');
     fireEvent.click(increaseButton);
 
     await waitFor(() => {
@@ -74,7 +74,7 @@ describe('CartItem', () => {
   it('수량 감소 버튼 클릭 시 API가 호출되어야 한다', async () => {
     renderComponent();
 
-    const decreaseButton = screen.getByText('−');
+    const decreaseButton = screen.getByTestId('decrease-quantity-button');
     fireEvent.click(decreaseButton);
 
     await waitFor(() => {

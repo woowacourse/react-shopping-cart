@@ -55,9 +55,13 @@ function CartItem({ cartItem }: CartItemProps) {
           <ProductTitle>{cartItem.product.name}</ProductTitle>
           <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton onClick={handleDecreaseQuantity}>−</StepperButton>
-            <StepperQuantity>{cartItem.quantity}</StepperQuantity>
-            <StepperButton onClick={handleIncreaseQuantity}>＋</StepperButton>
+            <StepperButton data-testid="decrease-quantity-button" onClick={handleDecreaseQuantity}>
+              −
+            </StepperButton>
+            <StepperQuantity data-testid="item-quantity">{cartItem.quantity}</StepperQuantity>
+            <StepperButton data-testid="increase-quantity-button" onClick={handleIncreaseQuantity}>
+              ＋
+            </StepperButton>
           </StepperContainer>
         </CartContent>
       </ProductRow>
