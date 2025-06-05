@@ -11,7 +11,7 @@ import {
   backButton,
   backImg,
 } from './OrderConfirm.style';
-import Button from '../../components/Button/Button';
+import Button from '../../components/Common/Button/Button';
 import { css } from '@emotion/react';
 
 export function OrderConfirm() {

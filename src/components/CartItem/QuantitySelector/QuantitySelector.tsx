@@ -1,5 +1,5 @@
-import patchShoppingCart from '../../api/patchShoppingCart';
-import { IconButton } from '../IconButton/IconButton';
+import patchShoppingCart from '../../../api/patchShoppingCart';
+import { IconButton } from '../../Common/IconButton/IconButton';
 import { QuantitySelectorLayout } from './QuantitySelector.style';
 
 interface QuantitySelectorProps {

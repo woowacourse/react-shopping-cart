@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import CartProductContainer from '../../components/CartProductContainer/CartProductContainer';
-import { EmptyShoppingCart } from '../../components/EmptyShoppingCart/EmptyShoppingCart';
+import Button from '../../components/Common/Button/Button';
+import CartProductContainer from '../../components/CartItem/CartProductContainer/CartProductContainer';
+import { EmptyShoppingCart } from '../../components/CartItem/EmptyShoppingCart/EmptyShoppingCart';
 import Header from '../../components/layout/Header/Header';
 import Main from '../../components/layout/Main/Main';
 import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
-import Toast from '../../components/Toast/Toast';
+import { PaymentSummary } from '../../components/Payment/PaymentSummary/PaymentSummary';
+import Toast from '../../components/Common/Toast/Toast';
 import {
   subTitleStyle,
   titleBox,
@@ -18,7 +18,7 @@ import {
 import { Footer } from '../../components/layout/Footer/Footer';
 import useFetchCartItems from '../../hooks/useFetchCartItems';
 import { getCartItemSummary } from '../../utils/getCartItemSummary';
-import Spinner from '../../components/Splinner/Splinner';
+import Spinner from '../../components/Common/Splinner/Splinner';
 
 export function ShoppingCart() {
   const navigate = useNavigate();

@@ -1,12 +1,12 @@
-import { Line } from "../Line/Line";
-import { SummaryRow } from "../SummaryRow/SummaryRow";
+import { Line } from '../../Common/Line/Line';
+import { SummaryRow } from '../SummaryRow/SummaryRow';
 import {
   deliveryInfo,
   deliveryInfoBox,
   imgLayout,
   paymentSummaryLayout,
   summaryRowBox,
-} from "./PaymentSummary.style";
+} from './PaymentSummary.style';
 
 interface PaymentSummaryProps {
   price: number;
