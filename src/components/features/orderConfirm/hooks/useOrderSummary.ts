@@ -14,5 +14,5 @@ export default function useOrderSummary() {
   const price = calculateOrderPrice(products);
   const { totalPrice } = calculateTotalPrice(price);
 
-  return { quantity, totalProductQuantity, totalPrice };
+  return { products, quantity, totalProductQuantity, totalPrice };
 }
