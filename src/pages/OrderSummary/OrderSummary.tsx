@@ -17,8 +17,9 @@ import Modal from "../../components/modal/Modal";
 import { useCallback, useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { getCoupons } from "../../api/coupon";
-import { adaptCoupons } from "../../utils/dataAdapter";
+import { adaptCoupon } from "../../utils/dataAdapter";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
+import Coupon from "../../components/Coupon/Coupon";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function OrderSummary() {
         apiCall: getCoupons,
         onSuccess: (data) => {
           if (data) {
-            setCoupons(adaptCoupons(data));
+            setCoupons(data.map((coupon) => adaptCoupon(coupon)));
           }
         },
         onError: (error) => {
@@ -96,7 +97,9 @@ function OrderSummary() {
             buttonLabel="총 6,000원 할인 쿠폰 사용하기"
             handleModalButtonClick={() => ""}
           >
-            <p>aa</p>
+            {coupons.map((coupon) => {
+              return <Coupon key={coupon.id} coupon={coupon} />;
+            })}
           </Modal>,
           modalRoot
         )}
