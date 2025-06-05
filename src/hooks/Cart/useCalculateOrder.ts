@@ -1,6 +1,6 @@
+import type { CartItem } from "@/type/CartItem";
+import { summarizeOrder } from "@/util/summarizeOrder";
 import { useMemo } from "react";
-import { summarizeOrder } from "../util/summarizeOrder";
-import { CartItem } from "../type/CartItem";
 
 export function useCalculateOrder(
   cartItems: CartItem[],
