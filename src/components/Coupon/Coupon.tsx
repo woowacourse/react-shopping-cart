@@ -1,27 +1,11 @@
-import { AvailableTimeType, CouponType } from "../../types/response";
-import { convertTo12Hour, formatTime } from "../../utils/time";
+import { CouponType } from "../../types/response";
+import { getAvailableTimeDescription } from "./utils";
 
 interface CouponProps {
   coupon: CouponType;
 }
 
 function Coupon({ coupon }: CouponProps) {
-  const getAvailableTimeDescription = (availableTime: {
-    start: AvailableTimeType;
-    end: AvailableTimeType;
-  }) => {
-    const { start, end } = availableTime;
-    const { period: startPeriod } = convertTo12Hour(start.hour);
-    const { period: endPeriod } = convertTo12Hour(end.hour);
-    if (startPeriod === endPeriod) {
-      return `${startPeriod} ${formatTime(start)}부터 ${formatTime(end)}까지`;
-    }
-
-    return `${startPeriod} ${formatTime(start)}부터 ${endPeriod} ${formatTime(
-      end
-    )}까지`;
-  };
-
   return (
     <div>
       <p>{coupon.description}</p>
