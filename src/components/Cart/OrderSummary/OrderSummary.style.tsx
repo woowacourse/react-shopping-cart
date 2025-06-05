@@ -6,6 +6,7 @@ export const TotalPriceContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
+  margin-bottom: 64px;
 `
 
 export const TotalPriceTitle = styled.p`
