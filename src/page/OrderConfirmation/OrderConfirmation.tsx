@@ -25,8 +25,6 @@ import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
 import CheckBox from "@/components/common/CheckBox";
 import { FREE_SHIPPING_OVER } from "@/constants/priceSetting";
 import notice from "/notice.svg";
-import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
-import Spinner from "@/components/common/Spinner";
 
 interface OrderConfirmationContextValue {
   selectedCartItems: CartItem[];
@@ -74,8 +72,6 @@ function OrderConfirmation({
 }: OrderConfirmationProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { couponsFetchLoading } = useCouponFetch();
-
   const invalidCoupons = useMemo(
     () =>
       couponsData?.filter((c) => !validateCoupon(c, selectedCartItems).isValid),
@@ -94,16 +90,6 @@ function OrderConfirmation({
     invalidCoupons,
   };
 
-  if (couponsFetchLoading) {
-    return (
-      <OrderConfirmationContext.Provider value={contextValue}>
-        <Styled.OrderConfirmationContainer>
-          <Spinner />
-        </Styled.OrderConfirmationContainer>
-      </OrderConfirmationContext.Provider>
-    );
-  }
-
   return (
     <OrderConfirmationContext.Provider value={contextValue}>
       <Styled.OrderConfirmationContainer>
@@ -119,6 +105,7 @@ function Header() {
     (acc, item) => acc + item.quantity,
     0
   );
+
   return (
     <Styled.Header>
       <Styled.HeaderTitle>주문 확인</Styled.HeaderTitle>
@@ -133,12 +120,45 @@ function Header() {
   );
 }
 
+function BOGOOfferNotice() {
+  const { couponsData } = useOrderConfirmationContext();
+  const buyXgetYCoupon = couponsData?.find(
+    (coupon) => coupon.discountType === "buyXgetY"
+  );
+  if (!buyXgetYCoupon) return null;
+  return (
+    <Styled.BOGOOfferNoticeWrapper>
+      <Styled.BOGOOfferText>
+        지금 모든 품목들 {buyXgetYCoupon.buyQuantity}개 구매 시{" "}
+        {buyXgetYCoupon.getQuantity}개 <strong>무료!</strong>
+      </Styled.BOGOOfferText>
+
+      <Styled.BOGOOfferInstruction>
+        <span>
+          프로모션 적용을 위해서는 반드시&nbsp;
+          <em>
+            {(buyXgetYCoupon.buyQuantity ?? 0) +
+              (buyXgetYCoupon.getQuantity ?? 0)}
+            개
+          </em>
+        </span>
+        <span>를 장바구니에 담아주세요.</span>
+      </Styled.BOGOOfferInstruction>
+    </Styled.BOGOOfferNoticeWrapper>
+  );
+}
+
 function ItemList() {
-  const { selectedCartItems } = useOrderConfirmationContext();
+  const { selectedCartItems, couponsData } = useOrderConfirmationContext();
+
   return (
     <OrderConfirmationList>
       {selectedCartItems.map((cartItem) => (
-        <OrderConfirmationPreviewCard key={cartItem.id} cartItem={cartItem} />
+        <OrderConfirmationPreviewCard
+          key={cartItem.id}
+          cartItem={cartItem}
+          couponsData={couponsData}
+        />
       ))}
     </OrderConfirmationList>
   );
@@ -274,5 +294,6 @@ OrderConfirmation.ItemList = ItemList;
 OrderConfirmation.CouponSelection = CouponSelection;
 OrderConfirmation.ShippingIsland = ShippingIsland;
 OrderConfirmation.PriceDetails = PriceDetails;
+OrderConfirmation.BOGOOfferNotice = BOGOOfferNotice;
 
 export default OrderConfirmation;
