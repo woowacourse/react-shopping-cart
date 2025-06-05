@@ -1,11 +1,13 @@
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 
-type OrderSuccessState = {
+type PaymentSuccessState = {
   orderList: CartItemType[];
   paymentPrice: number;
 };
 
-export const isOrderSuccessState = (state: any): state is OrderSuccessState => {
+export const isValidPaymentSuccessState = (
+  state: any
+): state is PaymentSuccessState => {
   if (!state) {
     return false;
   }

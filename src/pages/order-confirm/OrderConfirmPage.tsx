@@ -1,7 +1,7 @@
 import BackButton from "@/shared/components/BackButton/BackButton";
 import { Header } from "@/shared/components/Header/Header.styled";
 import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
-import { isOrderSuccessState } from "@/domains/validation/isOrderSuccessState";
+import { isValidOrderConfirmState } from "./validation/isValidOrderConfirmState";
 import { ROUTES } from "@/shared/config/routes";
 import Fallback from "@/shared/components/Fallback";
 import OrderConfirmContent from "./OrderConfirmContent/OrderConfirmContent";
@@ -9,7 +9,7 @@ import { getOrderQuantity } from "@/domains/utils/getOrderQuantity";
 
 export default function OrderConfirmPage() {
   const { state, isValidating } = useValidateLocationState({
-    validationFn: isOrderSuccessState,
+    validationFn: isValidOrderConfirmState,
     redirectPath: ROUTES.CART,
   });
 
@@ -19,7 +19,7 @@ export default function OrderConfirmPage() {
     );
   }
 
-  const { orderList, paymentPrice } = state;
+  const { orderList } = state;
   return (
     <>
       <Header>
@@ -29,7 +29,6 @@ export default function OrderConfirmPage() {
         orderList={orderList}
         orderListCount={orderList.length}
         orderQuantity={getOrderQuantity(orderList)}
-        paymentPrice={paymentPrice}
       />
     </>
   );

@@ -3,7 +3,7 @@ import Header from "@/shared/components/Header/Header";
 import { ROUTES } from "@/shared/config/routes";
 import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
 import Fallback from "@/shared/components/Fallback";
-import { isOrderSuccessState } from "@/domains/validation/isOrderSuccessState";
+import { isValidPaymentSuccessState } from "./validation/isValidPaymentSuccessState";
 import OrderSummary from "@/domains/components/OrderSummary/OrderSummary";
 import PaymentPrice from "./PaymentPrice/PaymentPrice";
 import CartNavigateButton from "./CartNavigateButton/CartNavigateButton";
@@ -11,7 +11,7 @@ import { getOrderQuantity } from "@/domains/utils/getOrderQuantity";
 
 export default function PaymentSuccessPage() {
   const { state, isValidating } = useValidateLocationState({
-    validationFn: isOrderSuccessState,
+    validationFn: isValidPaymentSuccessState,
     redirectPath: ROUTES.CART,
   });
 
