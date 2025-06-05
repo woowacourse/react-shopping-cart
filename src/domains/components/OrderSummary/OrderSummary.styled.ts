@@ -13,4 +13,5 @@ export const Text = styled.p`
   font-weight: 500;
   line-height: 150%;
   width: 200px;
+  word-break: keep-all;
 `;
