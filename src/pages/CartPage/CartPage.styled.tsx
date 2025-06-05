@@ -44,6 +44,7 @@ export const Description = styled.p`
   color: #666666;
   margin: 13px 0px;
 `;
+
 export const EmptyCart = styled.div`
   height: calc(100vh - 216px);
   display: flex;

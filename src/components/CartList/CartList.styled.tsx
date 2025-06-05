@@ -13,3 +13,9 @@ export const LoadingContent = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const Description = styled.p`
+  font-size: 12px;
+  color: #666666;
+  margin: 13px 0px;
+`;

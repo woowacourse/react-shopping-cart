@@ -1,7 +1,6 @@
 import * as S from "./CartPage.styled";
 import useCartManager from "../../hooks/useCartManager";
 import Header from "../../components/Header/Header";
-import TitleSection from "../../components/TitleSection/TitleSection";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import { useNavigate } from "react-router-dom";
 import CartList from "../../components/CartList/CartList";
@@ -33,7 +32,6 @@ const CartPage = () => {
             <S.EmptyCart>장바구니에 담은 상품이 없습니다.</S.EmptyCart>
           ) : (
             <S.Content>
-              <TitleSection />
               <CartList />
               <S.Description>
                 ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
