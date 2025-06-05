@@ -1,7 +1,7 @@
 [
   {
     "id": 1551,
-    "quantity": 3,
+    "quantity": 1,
     "product": {
       "id": 36,
       "name": "패셔니스타 유담이",
@@ -12,7 +12,7 @@
   },
   {
     "id": 1554,
-    "quantity": 1,
+    "quantity": 2,
     "product": {
       "id": 23,
       "name": "리바이 아커만",
