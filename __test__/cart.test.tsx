@@ -35,35 +35,24 @@ describe('RTL Test', () => {
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
     expect(cartItemCards.length).toBeGreaterThan(0);
 
-    const firstCard = cartItemCards[0];
-    const checkbox = within(firstCard).getByRole('checkbox');
-
-    const priceElement = within(firstCard).getByTestId('card-item-price');
-    const expectedPriceText = priceElement.textContent?.trim() || '';
-    expect(expectedPriceText).toBeTruthy();
-
-    // 쉼표 제거 후 숫자 변환
-    const itemPrice = parseInt(expectedPriceText.replace(/,/g, ''), 10);
-    expect(itemPrice).not.toBeNaN();
-
-    const deliveryFeeElement = screen.getByTestId('delivery-fee');
-    const expectedDeliveryFeeText = deliveryFeeElement.textContent?.trim() || '';
-
-    let expectedTotal = itemPrice;
-    if (itemPrice > 100000) {
-      expect(expectedDeliveryFeeText).toBe('0원');
-    } else {
-      expect(expectedDeliveryFeeText).toContain('3,000원');
-      expectedTotal += 3000;
-    }
+    await waitFor(() => {
+      const deliveryFeeElement = screen.getByTestId('delivery-fee');
+      expect(deliveryFeeElement.textContent).toContain('0원');
+    });
 
     const totalPurchasePrice = screen.getByTestId('total-purchase-price');
-    expect(totalPurchasePrice).toBeInTheDocument();
+    await waitFor(() => {
+      expect(totalPurchasePrice.textContent).toContain('228,000원');
+    });
 
+    const firstCard = cartItemCards[1];
+    const checkbox = within(firstCard).getByRole('checkbox');
     await user.click(checkbox);
 
     await waitFor(() => {
-      expect(totalPurchasePrice.textContent).toContain(expectedTotal.toLocaleString() + '원');
+      const deliveryFeeAfter = screen.getByTestId('delivery-fee');
+      expect(deliveryFeeAfter.textContent).toContain('3,000원');
+      expect(totalPurchasePrice.textContent).toContain('31,000원');
     });
   });
 
