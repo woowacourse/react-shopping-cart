@@ -44,7 +44,7 @@ function useCartItemManager({
 
     try {
       dispatch({
-        type: "ADD_ITEM_QUANTITY",
+        type: "INCREASE_ITEM_QUANTITY",
         payload: { id: cart.id, quantity: newQuantity },
       });
       await updateCartItem(cart.id, newQuantity);
@@ -68,7 +68,7 @@ function useCartItemManager({
         });
       } else {
         dispatch({
-          type: "SUB_ITEM_QUANTITY",
+          type: "DECREASE_ITEM_QUANTITY",
           payload: { id: cart.id, quantity: newQuantity },
         });
       }

@@ -4,8 +4,8 @@ export const initialState = [];
 
 type ActionType =
   | "REMOVE_ITEM"
-  | "ADD_ITEM_QUANTITY"
-  | "SUB_ITEM_QUANTITY"
+  | "INCREASE_ITEM_QUANTITY"
+  | "DECREASE_ITEM_QUANTITY"
   | "SET_CART";
 
 export interface CartAction {
@@ -23,13 +23,13 @@ export const cartReducer = (state: ResponseCartItem[], action: CartAction) => {
       return action.payload.items || [];
     case "REMOVE_ITEM":
       return state.filter((item) => item.id !== action.payload.id);
-    case "ADD_ITEM_QUANTITY":
+    case "INCREASE_ITEM_QUANTITY":
       return state.map((item) =>
         item.id === action.payload.id
           ? { ...item, quantity: action.payload.quantity || item.quantity + 1 }
           : item
       );
-    case "SUB_ITEM_QUANTITY":
+    case "DECREASE_ITEM_QUANTITY":
       return state.map((item) =>
         item.id === action.payload.id
           ? {
