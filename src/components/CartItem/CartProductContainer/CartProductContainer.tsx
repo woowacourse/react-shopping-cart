@@ -11,6 +11,7 @@ import {
   CartProductList,
   SelectAllLayout,
 } from './CartProductContainer.style';
+import { SELECTED_CART_ITEM_IDS, setItem } from '../../../utils/localStorage';
 
 interface CartProductContainerProps {
   cartItems: CartItemTypes[];
@@ -32,16 +33,23 @@ export default function CartProductContainer({
   const handleAllCheckBox = () => {
     if (selectedCartIds.length === cartItems.length) {
       setSelectedCartIds([]);
+      setItem(SELECTED_CART_ITEM_IDS, []);
     } else {
-      setSelectedCartIds(cartItems.map((item) => item.id.toString()));
+      const ids = cartItems.map((item) => item.id.toString());
+      setSelectedCartIds(ids);
+      setItem(SELECTED_CART_ITEM_IDS, ids);
     }
   };
 
   const handleCheckBox = (id: string) => {
     if (selectedCartIds.includes(id)) {
-      setSelectedCartIds(selectedCartIds.filter((itemId) => itemId !== id));
+      const ids = selectedCartIds.filter((itemId) => itemId !== id);
+      setSelectedCartIds(ids);
+      setItem(SELECTED_CART_ITEM_IDS, ids);
     } else {
-      setSelectedCartIds([...selectedCartIds, id]);
+      const ids = [...selectedCartIds, id];
+      setSelectedCartIds(ids);
+      setItem(SELECTED_CART_ITEM_IDS, ids);
     }
   };
 
