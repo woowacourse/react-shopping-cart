@@ -18,6 +18,7 @@ import { useShoppingCartContext } from "../MainPage/context";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import { CouponModal } from "./components";
 import * as S from "./Step2.styles";
+import { FREE_DELIVERY_PRICE } from "@/constants";
 
 export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();
@@ -121,7 +122,7 @@ export default function Step2() {
             gap: 4px;
           `}
         >
-          <Info /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          <Info /> 총 주문 금액이 {FREE_DELIVERY_PRICE.toLocaleString()}원 이상일 경우 무료 배송됩니다.
         </Text>
         <hr />
         <S.ReceiptWrapper>

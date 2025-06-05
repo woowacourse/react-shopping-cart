@@ -1,10 +1,7 @@
+import { DELIVERY_FEE, FAR_DELIVERY_FEE, FREE_DELIVERY_PRICE } from "@/constants";
 import { CartItem } from "@/types";
 
 export default class CartItemService {
-  #FREE_DELIVERY_PRICE = 100_000;
-  #DELIVERY_FEE = 3_000;
-  #FAR_DELIVERY_FEE = 6_000;
-
   constructor(private readonly cartItems: CartItem[] = []) {}
 
   calculateTotalPrice() {
@@ -20,9 +17,9 @@ export default class CartItemService {
   }
 
   calculateDeliveryFee(isFar: boolean) {
-    if (this.calculateTotalPrice() >= this.#FREE_DELIVERY_PRICE) return 0;
-    if (isFar) return this.#FAR_DELIVERY_FEE;
-    return this.#DELIVERY_FEE;
+    if (this.calculateTotalPrice() >= FREE_DELIVERY_PRICE) return 0;
+    if (isFar) return FAR_DELIVERY_FEE;
+    return DELIVERY_FEE;
   }
 
   calculateTotalPriceWithDeliveryFee(isFar: boolean) {

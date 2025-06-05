@@ -4,6 +4,7 @@ import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { useShoppingCartContext } from "../MainPage/context";
 import * as S from "./Step1.styles";
+import { FREE_DELIVERY_PRICE } from "@/constants";
 
 export default function Step1() {
   const { data: cartItems } = useCartItemQuery();
@@ -97,7 +98,7 @@ export default function Step1() {
                 gap: 4px;
               `}
             >
-              <Info /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+              <Info /> 총 주문 금액이 {FREE_DELIVERY_PRICE.toLocaleString()}원 이상일 경우 무료 배송됩니다.
             </Text>
             <Spacing size={16} />
 
