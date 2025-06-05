@@ -37,8 +37,13 @@ function CartContent() {
           <Styled.AllSelectWrapper>
             <Styled.SelectButton
               onClick={() => handleSelectAllCartItems(isAllSelected)}
+              type="button"
+              aria-label={isAllSelected ? "전체 선택 해제" : "전체 선택"}
             >
-              <Styled.SelectIcon src={isAllSelected ? checked : unChecked} />
+              <Styled.SelectIcon
+                src={isAllSelected ? checked : unChecked}
+                alt={isAllSelected ? "전체 선택됨" : "전체 선택 안 됨"}
+              />
             </Styled.SelectButton>
             <p>전체선택</p>
           </Styled.AllSelectWrapper>
