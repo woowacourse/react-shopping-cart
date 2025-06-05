@@ -22,12 +22,25 @@ const isMinAmount = (coupon: Coupon, items: CartItem[]) => {
   );
   return coupon.minimumAmount && orderTotal < coupon.minimumAmount;
 };
-
+const isValidType = (coupon: Coupon) => {
+  return [
+    "fixed",
+    "amount",
+    "percentage",
+    "rate",
+    "buyXgetY",
+    "freeShipping",
+  ].includes(coupon.discountType);
+};
 export const validateCoupon = (
   coupon: Coupon,
   items: CartItem[],
   now = new Date()
 ): { isValid: boolean; invalidReason?: InvalidReason } => {
+  if (!isValidType(coupon)) {
+    return { isValid: false, invalidReason: "invalidType" };
+  }
+
   if (isExpired(coupon, now))
     return { isValid: false, invalidReason: "expired" };
 
