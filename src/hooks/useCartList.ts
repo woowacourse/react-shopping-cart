@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { useToastContext } from '../context/ToastContext';
+import { useCartListContext } from '../context/useCartListContext';
 
 function useCartList() {
-  const [cartList, setCartList] = useState<CartItemProps[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { cartList, setCartList, error, setError, isLoading, setIsLoading } =
+    useCartListContext();
+
   const { showToast } = useToastContext();
   useEffect(() => {
     loadCartList();
