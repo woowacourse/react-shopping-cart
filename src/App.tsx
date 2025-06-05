@@ -1,10 +1,15 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { OrderConfirm } from './pages/OrderConfirm/OrderConfirm';
+import { ShoppingCart } from './pages/ShoppingCart/ShoppingCart';
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <BrowserRouter basename="/react-shopping-cart">
+      <Routes>
+        <Route path="/" element={<ShoppingCart />}></Route>
+        <Route path="/confirm" element={<OrderConfirm />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
