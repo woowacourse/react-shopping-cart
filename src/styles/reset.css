@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto-Variable.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 html,
 #root {
   background-color: beige;
@@ -91,7 +83,7 @@ time,
 mark,
 audio,
 video {
-  font-family: "Roboto", sans-serif !important;
+  font-family: Pretendard, sans-serif !important;
   margin: 0;
   padding: 0;
   border: 0;
