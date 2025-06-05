@@ -105,4 +105,22 @@ describe("CouponService", () => {
       });
     });
   });
+
+  describe("calculateTotalDiscountPrice", () => {
+    it("총 할인 금액을 반환한다.", () => {
+      expect(CouponService.calculateTotalDiscountPrice(CART_ITEMS_DATA.content, COUPON_DATA.slice(1, 3), false)).toBe(
+        33_000,
+      );
+    });
+  });
+
+  describe("calculateMostDiscountCombination", () => {
+    it("가장 할인 금액이 높은 쿠폰 2개를 반환한다.", () => {
+      expect(
+        CouponService.calculateMostDiscountCombination(CART_ITEMS_DATA.content, COUPON_DATA, false).map(
+          (coupon) => coupon.id,
+        ),
+      ).toEqual([2, 4]);
+    });
+  });
 });

@@ -67,7 +67,6 @@ export default class CouponService {
   }
 
   static calculateMostDiscountCombination(cartItems: CartItem[], coupons: Coupon[], isFar: boolean) {
-    console.log(coupons);
     return coupons
       .sort((a, b) => {
         const couponService = new CouponService(cartItems);
