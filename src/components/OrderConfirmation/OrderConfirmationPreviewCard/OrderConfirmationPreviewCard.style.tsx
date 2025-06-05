@@ -17,9 +17,8 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 80px;
-  height: 80px;
-
+  width: 120px;
+  height: 120px;
   border-radius: 8px;
 `;
 
@@ -27,6 +26,7 @@ export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   gap: 16px;
+  align-items: center;
 `;
 
 export const ProductInfo = styled.div`
@@ -50,4 +50,9 @@ export const Price = styled.p`
 export const CartItemQuantity = styled.p`
   font-size: 0.75rem;
   font-weight: 500;
+`;
+export const CouponInfo = styled.span`
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ff1412;
 `;

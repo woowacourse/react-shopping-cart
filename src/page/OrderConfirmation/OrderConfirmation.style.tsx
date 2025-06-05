@@ -63,7 +63,6 @@ export const HeaderDescription = styled.p`
   }
 `;
 
-// OrderTotal 관련 스타일들
 export const OrderTotal = styled.div`
   width: 100%;
   display: flex;
@@ -183,4 +182,50 @@ export const OrderPriceDetailWrapper = styled.div`
 export const OrderConfirmationContainer = styled.div`
   max-width: 380px;
   margin: 0 auto;
+`;
+
+export const BOGOOfferNoticeWrapper = styled.div`
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  background: linear-gradient(135deg, #ffffff 0%, #f7f8fc 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+`;
+
+export const BOGOOfferText = styled.p`
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+
+  strong {
+    color: #ff446b;
+  }
+`;
+
+export const BOGOOfferInstruction = styled.p`
+  margin: 0;
+  text-align: center;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  line-height: 1.5;
+  color: #555;
+
+  em {
+    font-weight: 600;
+    color: #ff6b6b;
+    font-style: normal;
+  }
+
+  /* span 사이 간격 */
+  span + span {
+    margin-left: 4px;
+  }
 `;
