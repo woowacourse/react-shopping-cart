@@ -5,7 +5,7 @@ interface CartItemsResponse {
   content: CartProduct[];
 }
 
-export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
+export function useCartSelectionState(cartItems: CartItemsResponse | undefined) {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
@@ -22,6 +22,10 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
     });
   };
 
+  const handleEmptyCart = () => {
+    setCheckedItems([]);
+  };
+
   useEffect(() => {
     if (!cartItems?.content) {
       handleEmptyCart();
@@ -35,10 +39,6 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
     }
   }, [cartItems, isInitialLoad]);
 
-  const handleEmptyCart = () => {
-    setCheckedItems([]);
-  };
-
   const isAllChecked = Boolean(
     cartItems?.content &&
       cartItems.content.length > 0 &&
@@ -51,7 +51,7 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
     if (checked) {
       setCheckedItems([]);
     } else {
-      const allIds = cartItems.content.map((item: CartProduct) => item.id);
+      const allIds = cartItems.content.map((item) => item.id);
       setCheckedItems(allIds);
     }
   };
@@ -64,9 +64,8 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
 
   return {
     checkedItems,
-    setCheckedItems,
     isAllChecked,
     handleAllCheck,
     toggleItem,
   };
-};
+}
