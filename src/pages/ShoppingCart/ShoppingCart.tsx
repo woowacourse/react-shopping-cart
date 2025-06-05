@@ -19,6 +19,7 @@ import { Footer } from '../../components/layout/Footer/Footer';
 import useFetchCartItems from '../../hooks/useFetchCartItems';
 import { getCartItemSummary } from '../../utils/getCartItemSummary';
 import Spinner from '../../components/Common/Splinner/Splinner';
+import { setItem, SELECTED_CART_ITEM_IDS } from '../../utils/localStorage';
 
 export function ShoppingCart() {
   const navigate = useNavigate();
@@ -47,12 +48,18 @@ export function ShoppingCart() {
   };
 
   useEffect(() => {
+    setItem(
+      SELECTED_CART_ITEM_IDS,
+      cartItems.map((e) => e.id)
+    );
+  }, [cartItems]);
+
+  useEffect(() => {
     if (!isLoading && cartItems.length > 0) {
       setSelectedCartIds(cartItems.map((item) => item.id.toString()));
     }
   }, [isLoading]);
 
-  // 예시
   const shouldDisableButton =
     cartItems.length === 0 || selectedCartIds.length === 0;
 
