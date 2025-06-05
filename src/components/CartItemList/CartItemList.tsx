@@ -24,24 +24,22 @@ function CartItemList({ cartItems }: CartItemListProps) {
 
   return (
     <div css={styles.cartItemsAreaCss}>
-      <>
-        <div css={styles.allSelectCss}>
-          <CheckBox checked={isAllChecked} onChange={isAllChecked ? uncheckAll : checkAll} />
-          <p>전체 선택</p>
-        </div>
-        <div css={styles.cartItemsListCss} data-testid="cart-item-list">
-          {cartItems.map((item) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              checked={state.get(item.id) ?? false}
-              handleCheckBoxChange={() => toggle(item.id)}
-              handleDeleteCheck={() => deleteCheckedItems(item.id)}
-            />
-          ))}
-        </div>
-        <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
-      </>
+      <div css={styles.allSelectCss}>
+        <CheckBox checked={isAllChecked} onChange={isAllChecked ? uncheckAll : checkAll} />
+        <p>전체 선택</p>
+      </div>
+      <div css={styles.cartItemsListCss} data-testid="cart-item-list">
+        {cartItems.map((item) => (
+          <CartItem
+            key={item.id}
+            item={item}
+            checked={state.get(item.id) ?? false}
+            handleCheckBoxChange={() => toggle(item.id)}
+            handleDeleteCheck={() => deleteCheckedItems(item.id)}
+          />
+        ))}
+      </div>
+      <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
       <Button
         disabled={!Array.from(state.values()).some(Boolean)}
         onClick={() => {
@@ -49,7 +47,10 @@ function CartItemList({ cartItems }: CartItemListProps) {
             state: {
               totalQuantity,
               countOfItemType,
-              totalAmount
+              totalAmount,
+              checkedItems,
+              deliveryFee,
+              orderAmount
             }
           });
         }}

@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { ComponentProps } from 'react';
 
-function Button({ children, onClick, ...props }: ComponentProps<'button'>) {
+function Button({ children, ...props }: ComponentProps<'button'>) {
   return (
-    <button css={ButtonStyles} {...props} onClick={onClick}>
+    <button css={ButtonStyles} {...props}>
       {children}
     </button>
   );
@@ -18,9 +18,8 @@ const ButtonStyles = css({
   minHeight: '64px',
   fontSize: '16px',
   fontWeight: 'bold',
-  padding: '24px 0',
   textAlign: 'center',
-  position: 'sticky',
+  position: 'absolute',
   bottom: 0,
 
   '&:disabled': {

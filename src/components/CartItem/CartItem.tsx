@@ -1,4 +1,3 @@
-// src/components/CartItem/CartItem.tsx
 import * as styles from './CartItem.style';
 import Stepper from './Stepper';
 import { RemoveButton } from './RemoveButton';
@@ -14,7 +13,7 @@ interface CartItemProps {
   handleDeleteCheck: () => void;
 }
 
-export default function CartItem({ item, handleCheckBoxChange, checked, handleDeleteCheck }: CartItemProps) {
+function CartItem({ item, handleCheckBoxChange, checked, handleDeleteCheck }: CartItemProps) {
   const { id: cartItemId, product, quantity: cartQuantity } = item;
   const { name, price, imageUrl } = product;
 
@@ -59,3 +58,5 @@ export default function CartItem({ item, handleCheckBoxChange, checked, handleDe
     </div>
   );
 }
+
+export default CartItem;

@@ -4,7 +4,8 @@ export const cartItemsAreaCss = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: '100%'
+  width: '100%',
+  height: '100%'
 });
 
 export const allSelectCss = css({
@@ -17,5 +18,6 @@ export const allSelectCss = css({
 });
 
 export const cartItemsListCss = css({
-  width: '100%'
+  width: '100%',
+  overflow: 'auto'
 });

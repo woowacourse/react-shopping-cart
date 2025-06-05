@@ -37,5 +37,7 @@ export const descriptionCss = css({
 });
 
 export const priceAreaCss = css({
-  width: '100%'
+  width: '100%',
+  padding: '16px 0',
+  height: '100%'
 });

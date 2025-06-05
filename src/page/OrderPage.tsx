@@ -1,16 +1,27 @@
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { css } from '@emotion/react';
 import { useEffect } from 'react';
+import * as styles from '../styles/page.style';
+import OrderItem from '../components/CartItem/OrderItem';
+import PriceArea from '../components/PriceArea/PriceArea';
+import { CartItemType } from '../types/cartItem';
+import { css } from '@emotion/react';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { totalQuantity, countOfItemType, totalAmount } = location.state ?? {};
+  const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
 
   useEffect(() => {
-    if (!totalQuantity || !countOfItemType || !totalAmount) {
+    if (
+      !totalQuantity ||
+      !countOfItemType ||
+      !totalAmount ||
+      !checkedItems ||
+      !orderAmount ||
+      deliveryFee === undefined
+    ) {
       const isConfirmed = confirm('비정상적인 접근입니다. 장바구니로 이동하시겠습니까?');
       if (isConfirmed) {
         navigate('/');
@@ -30,51 +41,66 @@ function OrderPage() {
           </button>
         }
       />
-      <main css={layoutCss}>
-        <h1 css={titleCss}>주문 확인</h1>
-        <p css={descriptionCss}>
+      <main css={styles.layoutCss}>
+        <h1 css={styles.titleCss}>주문 확인</h1>
+        <p css={styles.descriptionCss}>
           총 {countOfItemType}종류의 상품 {totalQuantity}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </p>
-        <p css={priceTitleCss}>총 결제 금액</p>
-        <p css={priceCss}>{totalAmount?.toLocaleString()}원</p>
+        <div css={cartItemsAreaCss}>
+          <div css={cartItemsListCss}>
+            {checkedItems.map((item: CartItemType) => (
+              <OrderItem key={item.id} item={item} />
+            ))}
+          </div>
+          <Button css={couponApplyCss}>쿠폰 적용</Button>
+          <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
+          <Button>결제하기</Button>
+        </div>
       </main>
-      <Button>결제하기</Button>
     </>
   );
 }
 
 export default OrderPage;
 
-const layoutCss = css({
+// const priceTitleCss = css({
+//   fontSize: '16px',
+//   fontWeight: 'bold',
+//   marginBottom: '12px'
+// });
+
+// const priceCss = css({
+//   fontSize: '20px',
+//   fontWeight: 'bold'
+// });
+
+const cartItemsListCss = css({
+  width: '100%',
+  height: '100%',
+  overflow: 'auto'
+});
+
+const cartItemsAreaCss = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center',
-  padding: '36px 24px',
+  width: '100%',
   height: '100%'
 });
 
-const titleCss = css({
-  fontSize: '24px',
-  fontWeight: 'bold',
-  marginBottom: '24px'
-});
-
-const descriptionCss = css({
-  fontSize: '12px',
-  marginBottom: '24px',
-  textAlign: 'center'
-});
-
-const priceTitleCss = css({
+const couponApplyCss = css({
+  all: 'unset',
+  width: '100%',
+  backgroundColor: 'transparent',
+  border: '1px solid #cccccc',
+  color: '#555555',
   fontSize: '16px',
   fontWeight: 'bold',
-  marginBottom: '12px'
-});
-
-const priceCss = css({
-  fontSize: '20px',
-  fontWeight: 'bold'
+  padding: '16px 0',
+  textAlign: 'center',
+  borderRadius: '5px',
+  margin: '32px 0',
+  cursor: 'pointer'
 });
