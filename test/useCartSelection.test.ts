@@ -45,31 +45,18 @@ describe('useCartSelection', () => {
   it('전체 선택/해제가 정상적으로 동작해야 한다', () => {
     const { result } = renderHook(() => useCartSelection(mockCartItems));
 
-    // 전체 선택 해제
     act(() => {
-      result.current.handleAllCheck(true);
+      result.current.handleAllCheck();
     });
 
     expect(result.current.checkedItems).toEqual([]);
     expect(result.current.isAllChecked).toBe(false);
 
-    // 다시 전체 선택
     act(() => {
-      result.current.handleAllCheck(false);
+      result.current.handleAllCheck();
     });
 
     expect(result.current.checkedItems).toEqual([1, 2, 3]);
     expect(result.current.isAllChecked).toBe(true);
-  });
-
-  it('전체 선택 해제가 정상적으로 동작해야 한다', () => {
-    const { result } = renderHook(() => useCartSelection(mockCartItems));
-
-    act(() => {
-      result.current.handleAllCheck(true);
-    });
-
-    expect(result.current.checkedItems).toEqual([]);
-    expect(result.current.isAllChecked).toBe(false);
   });
 });
