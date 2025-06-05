@@ -9,6 +9,7 @@ const CouponButtonStyle = css`
   border: 1px solid #e0e0e0;
   border-radius: 0.8rem;
   margin-top: 1.2rem;
+  color: rgba(51, 51, 51, 0.75);
 `;
 
 export default CouponButtonStyle;

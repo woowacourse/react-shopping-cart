@@ -6,7 +6,9 @@ import { CheckboxContainerStyle, DeliverInfoStyle } from './DeliverInfo.styles';
 function DeliverInfo() {
   return (
     <div css={DeliverInfoStyle}>
-      <Text varient="body">{TEXT.DELIVERY_INFO}</Text>
+      <Text varient="body" textAlign="left">
+        {TEXT.DELIVERY_INFO}
+      </Text>
       <div css={CheckboxContainerStyle}>
         <input
           type="checkbox"

@@ -10,7 +10,7 @@ export const OrderCheckContainerStyle = css`
   gap: 2.4rem;
 `;
 
-export const orderPriceContainerStyle = css`
+export const OrderPriceContainerStyle = css`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;

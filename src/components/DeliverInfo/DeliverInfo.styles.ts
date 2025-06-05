@@ -4,7 +4,7 @@ export const DeliverInfoStyle = css`
   display: flex;
   gap: 0.8rem;
   flex-direction: column;
-  margin: 1.2rem 0;
+  margin: 2rem 0;
 `;
 
 export const CheckboxContainerStyle = css`
