@@ -5,7 +5,7 @@ import {
   FREE_SHIPPING_OVER,
   SHIPPING_FEE,
 } from "../src/constants/priceSetting";
-import { useCalculateOrder } from "../src/hooks/useCalculateOrder";
+import { useCalculateOrder } from "@/hooks/Cart/useCalculateOrder";
 
 // 테스트용 목 데이터
 const mockCartItems: CartItem[] = [
