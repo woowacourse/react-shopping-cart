@@ -9,14 +9,7 @@ import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
 import CartEmptyContent from './CartEmptyContent';
 
-function CartContents({
-  resource,
-  refetch,
-}: {
-  resource: { read: () => CartItemType[] };
-  refetch: () => void;
-}) {
-  const cartItems = resource.read();
+function CartContents({ cartItems }: { cartItems: CartItemType[] }) {
   const cartSelection = useCartSelection(cartItems);
   const navigate = useNavigate();
 
@@ -44,7 +37,6 @@ function CartContents({
         isAllItemSelected={cartSelection.states.isAllItemSelected}
         toggleSelect={cartSelection.actions.toggle}
         toggleAllSelect={cartSelection.actions.toggleAll}
-        refetch={refetch}
       />
       <CartPriceSummary value={orderPrice} />
       <FooterButton disabled={disabled} onClick={moveToOrderCheck}>

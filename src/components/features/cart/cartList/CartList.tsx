@@ -9,7 +9,6 @@ interface CartListProps {
   isAllItemSelected: boolean;
   toggleSelect: (index: number) => void;
   toggleAllSelect: () => void;
-  refetch: () => void;
 }
 
 function CartList({
@@ -18,7 +17,6 @@ function CartList({
   isAllItemSelected,
   toggleSelect,
   toggleAllSelect,
-  refetch,
 }: CartListProps) {
   return (
     <S.Container>
@@ -36,7 +34,6 @@ function CartList({
           cartItem={cartItem}
           isSelected={selectedCartItemIds.includes(cartItem.id)}
           toggleSelect={() => toggleSelect(cartItem.id)}
-          refetch={refetch}
         />
       ))}
     </S.Container>

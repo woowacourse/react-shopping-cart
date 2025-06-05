@@ -1,3 +1,5 @@
+import { refetchData } from '@/shared/data/dataStore';
+import { useJaeOMutation } from '@/shared/data/useJaeOMutation';
 import { showErrorToast } from '@/shared/toast/toastStore';
 import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
 import SelectBox from '../../../common/selectBox/SelectBox';
@@ -6,7 +8,6 @@ import { deleteCartItem } from '../api/deleteCartItem';
 import { updateCartItem } from '../api/updateCartItem';
 import CartQuantityControlButton from '../cartQuantityControlButton/CartQuantityControlButton';
 import { CartItemType } from '../types';
-import { handleCartActions } from '../utils/handleCartActions';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
 
@@ -14,15 +15,32 @@ interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
   toggleSelect: () => void;
-  refetch: () => void;
 }
 
-function CartItem({
-  cartItem,
-  isSelected,
-  toggleSelect,
-  refetch,
-}: CartItemProps) {
+function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
+  const { mutate: deleteCartItemMutate } = useJaeOMutation({
+    mutationFn: deleteCartItem,
+    options: {
+      onSuccess: () => {
+        refetchData('cartItems');
+      },
+      onError: () => {
+        showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.');
+      },
+    },
+  });
+  const { mutate: updateCartItemMutate } = useJaeOMutation({
+    mutationFn: updateCartItem,
+    options: {
+      onSuccess: () => {
+        refetchData('cartItems');
+      },
+      onError: () => {
+        showErrorToast('상품 수량 업데이트에 실패했습니다. 다시 시도해주세요.');
+      },
+    },
+  });
+
   return (
     <S.Container data-testid={`CartItem-${cartItem.id}`}>
       <Separator />
@@ -30,12 +48,7 @@ function CartItem({
         <SelectBox selected={isSelected} onClick={toggleSelect} />
         <S.DeleteButton
           onClick={() => {
-            handleCartActions(
-              () => deleteCartItem(cartItem.id),
-              refetch,
-              () =>
-                showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.')
-            );
+            deleteCartItemMutate(cartItem.id);
           }}
         >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
@@ -66,25 +79,17 @@ function CartItem({
               <CartQuantityControlButton
                 actionType="delete"
                 onClick={() => {
-                  handleCartActions(
-                    () => deleteCartItem(cartItem.id),
-                    refetch,
-                    () =>
-                      showErrorToast(
-                        '상품 삭제에 실패했습니다. 다시 시도해주세요.'
-                      )
-                  );
+                  deleteCartItemMutate(cartItem.id);
                 }}
               />
             ) : (
               <CartQuantityControlButton
                 actionType="minus"
                 onClick={() => {
-                  handleCartActions(
-                    () => updateCartItem(cartItem.id, cartItem.quantity - 1),
-                    refetch,
-                    () => showErrorToast('상품 수량을 줄이는 데 실패했습니다.')
-                  );
+                  updateCartItemMutate({
+                    id: cartItem.id,
+                    quantity: cartItem.quantity - 1,
+                  });
                 }}
               />
             )}
@@ -92,11 +97,10 @@ function CartItem({
             <CartQuantityControlButton
               actionType="plus"
               onClick={() => {
-                handleCartActions(
-                  () => updateCartItem(cartItem.id, cartItem.quantity + 1),
-                  refetch,
-                  () => showErrorToast('상품 수량을 늘리는 데 실패했습니다.')
-                );
+                updateCartItemMutate({
+                  id: cartItem.id,
+                  quantity: cartItem.quantity + 1,
+                });
               }}
             />
           </S.UpdateCartBox>
