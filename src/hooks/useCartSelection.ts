@@ -5,7 +5,7 @@ interface CartItemsResponse {
   content: CartProduct[];
 }
 
-export function useCartSelectionState(cartItems: CartItemsResponse | undefined) {
+export function useCartSelection(cartItems: CartItemsResponse | undefined) {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
@@ -40,19 +40,17 @@ export function useCartSelectionState(cartItems: CartItemsResponse | undefined) 
   }, [cartItems, isInitialLoad]);
 
   const isAllChecked = Boolean(
-    cartItems?.content &&
-      cartItems.content.length > 0 &&
-      checkedItems.length === cartItems.content.length,
+    cartItems?.content?.length && checkedItems.length === cartItems.content.length,
   );
 
   const handleAllCheck = (checked: boolean) => {
     if (!cartItems?.content) return;
 
     if (checked) {
-      setCheckedItems([]);
-    } else {
       const allIds = cartItems.content.map((item) => item.id);
       setCheckedItems(allIds);
+    } else {
+      setCheckedItems([]);
     }
   };
 
