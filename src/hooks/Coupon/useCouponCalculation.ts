@@ -40,10 +40,10 @@ const useCouponCalculation = ({
 
   /* 2. BOGO 쿠폰을 위한 가장 비싼 아이템 찾기 */
   const seekMostExpensiveBOGOItem = useCallback(
-    (buyQty: number): CartItem | null => {
-      // buyQty 이상인 아이템만 필터링
+    (buyQuantity: number): CartItem | null => {
+      // buyQuantity 이상인 아이템만 필터링
       const eligibleItems = selectedShoppingCartItems.filter(
-        (item) => item.quantity >= buyQty
+        (item) => item.quantity >= buyQuantity
       );
 
       if (eligibleItems.length === 0) {
@@ -79,21 +79,22 @@ const useCouponCalculation = ({
           break;
 
         case "buyXgetY": {
-          const buyQty = coupon.buyQuantity ?? 0;
-          const getQty = coupon.getQuantity ?? 0;
-          if (buyQty <= 0 || getQty <= 0) {
+          const buyQuantity = coupon.buyQuantity ?? 0;
+          const getQuantity = coupon.getQuantity ?? 0;
+          if (buyQuantity <= 0 || getQuantity <= 0) {
             item = 0;
             break;
           }
 
-          const maxItem = seekMostExpensiveBOGOItem(buyQty);
+          const maxItem = seekMostExpensiveBOGOItem(buyQuantity);
           if (!maxItem) {
             item = 0;
             break;
           }
 
-          const groupSize = buyQty + getQty;
-          const freeCount = Math.floor(maxItem.quantity / groupSize) * getQty;
+          const groupSize = buyQuantity + getQuantity;
+          const freeCount =
+            Math.floor(maxItem.quantity / groupSize) * getQuantity;
           item = maxItem.product.price * freeCount;
           console.log(
             `BOGO 할인 적용: ${maxItem.product.name} - ${freeCount}개 무료`

@@ -16,7 +16,7 @@ export interface CouponApplyResult {
 interface Props {
   coupons?: Coupon[];
   selectedShoppingCartItems: CartItem[];
-  isIsland?: boolean; // 제주·도서산간 여부 (추가 배송비 3,000원)
+  isIsland?: boolean;
 }
 
 const useBestCouponCombo = ({
@@ -44,7 +44,6 @@ const useBestCouponCombo = ({
   const bestCoupons = useMemo(() => {
     const baseShipping = getBaseShipping(orderTotal, isIsland);
 
-    // 각 쿠폰의 할인 효과를 개별적으로 계산
     const couponWithDiscount = Array.from(validCoupons).map((coupon) => {
       let itemDiscount = 0,
         shippingDiscount = 0;
@@ -60,13 +59,13 @@ const useBestCouponCombo = ({
           itemDiscount = (orderTotal * (coupon.discount ?? 0)) / 100;
           break;
         case "buyXgetY": {
-          const buyQty = coupon.buyQuantity ?? 0;
-          const getQty = coupon.getQuantity ?? 0;
+          const buyQuantity = coupon.buyQuantity ?? 0;
+          const getQuantity = coupon.getQuantity ?? 0;
 
-          if (buyQty > 0 && getQty > 0) {
-            // 가장 비싼 아이템 중 buyQty 이상인 것 찾기
+          if (buyQuantity > 0 && getQuantity > 0) {
+            // 가장 비싼 아이템 중 buyQuantity 이상인 것 찾기
             const eligibleItems = selectedShoppingCartItems.filter(
-              (item) => item.quantity >= buyQty
+              (item) => item.quantity >= buyQuantity
             );
 
             if (eligibleItems.length > 0) {
@@ -74,9 +73,9 @@ const useBestCouponCombo = ({
                 curr.product.price > prev.product.price ? curr : prev
               );
 
-              const groupSize = buyQty + getQty;
+              const groupSize = buyQuantity + getQuantity;
               const freeCount =
-                Math.floor(maxPriceItem.quantity / groupSize) * getQty;
+                Math.floor(maxPriceItem.quantity / groupSize) * getQuantity;
               itemDiscount = maxPriceItem.product.price * freeCount;
             }
           }

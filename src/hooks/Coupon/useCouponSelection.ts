@@ -1,69 +1,66 @@
 import { MAX_COUPON_COUNT } from "@/constants/priceSetting";
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { useErrorToast } from "@/contexts/ErrorToastContext";
+
+function areSetsEqual<T>(a: Set<T>, b: Set<T>) {
+  if (a.size !== b.size) return false;
+  for (const v of a) if (!b.has(v)) return false;
+  return true;
+}
 
 export interface UseCouponSelectionReturn {
   handleSelectCoupon: (id: string) => void;
-  selectedCouponIds: Set<string> | undefined;
+  selectedCouponIds: Set<string>;
   isSelectedToLimit: boolean;
 }
+
 function useCouponSelection(
-  initialSelectedIds: Set<string>
+  initialSelectedIds: Set<string> = new Set()
 ): UseCouponSelectionReturn {
-  const [selectedCouponIds, setSelectedCouponIds] = useState<Set<string>>(
-    initialSelectedIds ? new Set(initialSelectedIds) : new Set()
+  const { showError } = useErrorToast();
+  const [selectedCouponIds, setSelectedCouponIds] = useState(
+    () => new Set(initialSelectedIds)
   );
 
-  const prevInitialSelectedIds = useRef<Set<string> | undefined>(
-    initialSelectedIds
-  );
+  const showErrorRef = useRef(showError);
+  showErrorRef.current = showError;
+
+  const prevInitialIds = useRef(initialSelectedIds);
 
   useEffect(() => {
-    if (!initialSelectedIds) return;
-
-    const prevIds = prevInitialSelectedIds.current;
-    if (!prevIds) {
+    if (!areSetsEqual(prevInitialIds.current, initialSelectedIds)) {
       setSelectedCouponIds(new Set(initialSelectedIds));
-      prevInitialSelectedIds.current = initialSelectedIds;
-      return;
+      prevInitialIds.current = initialSelectedIds;
     }
-
-    const prevIdsArray = Array.from(prevIds).sort();
-    const newIdsArray = Array.from(initialSelectedIds).sort();
-
-    if (
-      prevIdsArray.length !== newIdsArray.length ||
-      prevIdsArray.some((id, index) => id !== newIdsArray[index])
-    ) {
-      setSelectedCouponIds(new Set(initialSelectedIds));
-    }
-
-    prevInitialSelectedIds.current = initialSelectedIds;
   }, [initialSelectedIds]);
 
   const handleSelectCoupon = useCallback((id: string) => {
     setSelectedCouponIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        if (newSet.size >= MAX_COUPON_COUNT) {
-          return prev;
-        }
-        newSet.add(id);
+      const isCurrentlySelected = prev.has(id);
+      const isTryingToAdd =
+        !isCurrentlySelected && prev.size >= MAX_COUPON_COUNT;
+
+      if (isTryingToAdd) {
+        showErrorRef.current(new Error("최대 쿠폰 선택 수를 초과했습니다."));
+        return prev;
       }
-      return newSet;
+
+      const next = new Set(prev);
+      if (isCurrentlySelected) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+
+      return next;
     });
   }, []);
 
-  const isSelectedToLimit = useMemo(() => {
-    return selectedCouponIds
-      ? selectedCouponIds.size >= MAX_COUPON_COUNT
-      : false;
-  }, [selectedCouponIds]);
-  return {
-    handleSelectCoupon,
-    selectedCouponIds,
-    isSelectedToLimit,
-  };
+  const isSelectedToLimit = useMemo(
+    () => selectedCouponIds.size >= MAX_COUPON_COUNT,
+    [selectedCouponIds]
+  );
+
+  return { handleSelectCoupon, selectedCouponIds, isSelectedToLimit };
 }
 export { useCouponSelection };

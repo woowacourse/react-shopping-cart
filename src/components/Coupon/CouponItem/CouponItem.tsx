@@ -1,5 +1,6 @@
 import * as Styled from "./CouponItem.style";
 import CheckBox from "@/components/common/CheckBox";
+import { useErrorToast } from "@/contexts/ErrorToastContext";
 
 import { Coupon } from "@/type/Coupon";
 
@@ -18,6 +19,7 @@ function CouponItem({
   isLimitReached,
   isInvalid,
 }: CouponItemProps) {
+  const { showError } = useErrorToast();
   const { expirationDate, description } = coupon;
   const startDate = new Date();
   const endDate = new Date();
@@ -29,19 +31,22 @@ function CouponItem({
     endDate.setHours(endHour, 0, 0, 0);
     period = startDate.getHours() < 12 ? "오전" : "오후";
   }
-  const isDisabled = isInvalid || (isLimitReached && !isSelected);
+  const isDisabled = isInvalid;
+
   const computedChecked = isDisabled ? false : isSelected;
+
   return (
     <Styled.Container disabled={isDisabled}>
       <Styled.CouponHeaderWrapper>
         <CheckBox
           id={`select-checkbox-coupon-${coupon.id}`}
           checked={computedChecked}
-          onChange={() => onSelect(coupon.id)}
+          onChange={() => {
+            onSelect(coupon.id);
+          }}
           label={`${coupon.code} 쿠폰 선택`}
           boxSize="medium"
           hidden={true}
-          disabled={isDisabled}
         />
         <Styled.CouponDescription>{description}</Styled.CouponDescription>
       </Styled.CouponHeaderWrapper>
