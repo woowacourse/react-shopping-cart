@@ -29,7 +29,7 @@ function TitleSection() {
       <CheckBox
         text={"전체선택"}
         isChecked={selectState.every((item) => item.selected)}
-        onClick={handlerSelectAll}
+        onChange={handlerSelectAll}
       />
     </div>
   );

@@ -24,7 +24,7 @@ const CartItem = ({ cart }: CartItemProps) => {
       <S.Line />
       <S.ItemContainer>
         <S.CartItemHeader>
-          <CheckBox isChecked={isSelected} onClick={handleSelect} />
+          <CheckBox isChecked={isSelected} onChange={handleSelect} />
           <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
         </S.CartItemHeader>
         <S.ItemInfo>
