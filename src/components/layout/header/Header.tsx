@@ -9,6 +9,7 @@ const Header = () => {
   const logo = {
     [ROUTE.CART]: IconLogo,
     [ROUTE.ORDER_COMPLETE]: backIcon,
+    [ROUTE.ORDER_CONFIRMATION]: backIcon,
   };
 
   return (

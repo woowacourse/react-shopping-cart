@@ -1,5 +1,5 @@
 import * as S from "./CartPage.styles";
-import { Title, Subtitle } from "../../styles/@common/title/Title.styles";
+import { Title, Description } from "../../styles/@common/title/Title.styles";
 import CartItem from "../../components/features/cartItem/CartItem";
 import CartPrice from "../../components/features/cartPrice/CartPrice";
 import { getCart } from "../../services/cartService";
@@ -24,6 +24,8 @@ import useData from "../../hooks/@common/useData";
 import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
 import type { CartItemType } from "../../types/response";
 import { getCartItemById } from "../../utils/getCartItemById";
+import { CartListContainer } from "../../styles/@common/page/Page.styles";
+import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
 
 const CartPage = () => {
   const { callApi, loadingState } = useData();
@@ -36,7 +38,6 @@ const CartPage = () => {
     updateIsCheckedSet,
     syncIsCheckedSet,
   } = useCheckedSet();
-  const isCheckedArray = Array.from(isCheckedSet);
 
   const {
     cartData,
@@ -65,7 +66,10 @@ const CartPage = () => {
     fetchCartData();
   }, []);
 
-  const orderItems = isCheckedArray.map((id) => getCartItemById(cartData, id));
+  const isCheckedArray = Array.from(isCheckedSet);
+  const orderItems = isCheckedArray
+    .map((id) => getCartItemById(cartData, id))
+    .filter((item) => item !== undefined);
   const orderPrice = calculateTotalCartItemPrice(cartData, isCheckedArray);
   const deliveryFee = calculateDeliveryFee(orderPrice);
   const totalPrice = calculateTotalPrice(orderPrice, deliveryFee);
@@ -86,23 +90,23 @@ const CartPage = () => {
         <p css={Title}>장바구니</p>
 
         {cartData.length === 0 ? (
-          <p css={Subtitle}>{NO_ITEM_IN_CART}</p>
+          <p css={Description}>{NO_ITEM_IN_CART}</p>
         ) : (
-          <p css={Subtitle}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
+          <p css={Description}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
         )}
       </div>
 
       {cartData.length > 0 && (
         <>
           <div css={S.cartList}>
-            <div css={S.cartCheckboxContainer}>
+            <div css={CheckboxContainer}>
               <Checkbox
                 checked={isCheckedArray.length === cartData.length}
                 onChange={() => controlAllCheckBox(cartData)}
               />
               <p>전체 선택</p>
             </div>
-            <div css={S.cartContentContainer}>
+            <div css={CartListContainer}>
               {cartData.map((item) => (
                 <CartItem
                   key={item.id}

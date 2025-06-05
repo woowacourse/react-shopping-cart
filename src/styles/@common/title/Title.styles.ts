@@ -18,6 +18,12 @@ export const Title = css`
 
 export const Subtitle = css`
   font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-subtitle);
+  color: var(--color-black);
+`;
+
+export const Description = css`
+  font-size: var(--font-size-subtitle);
   font-weight: var(--font-weight-body);
   color: var(--color-dark-grey);
 `;

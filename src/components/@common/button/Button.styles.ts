@@ -24,6 +24,10 @@ export const buttonColor = {
   white: css`
     background-color: var(--color-white);
     color: var(--color-black);
+    border: 1px solid var(--color-grey);
+    &:hover {
+      border: 1px solid var(--color-dark-grey);
+    }
   `,
 };
 
