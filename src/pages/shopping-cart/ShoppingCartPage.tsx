@@ -11,6 +11,7 @@ const ShoppingCartPage = () => {
     fetcher: getShoppingCartData,
     name: "cart",
   });
+
   const { selectionMap } = useOrderListContext(cartListData);
   const isDisabled = !Object.values(selectionMap).some(
     (isSelected) => isSelected

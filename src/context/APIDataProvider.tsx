@@ -6,6 +6,7 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
+import { uniqueIdentifier } from "../api/UniqueIdentifier";
 
 type APIStateMap = Record<
   string,
@@ -33,6 +34,7 @@ export function APIDataProvider({ children }: PropsWithChildren) {
     </APIContext.Provider>
   );
 }
+
 export function useAPIDataContext<T>({
   fetcher,
   name,
@@ -43,6 +45,13 @@ export function useAPIDataContext<T>({
   const { state, setState } = useContext(APIContext);
 
   const request = useCallback(async () => {
+    uniqueIdentifier.add(name);
+
+    setState((prev) => ({
+      ...prev,
+      [name]: { ...prev[name], loading: true, error: null },
+    }));
+
     try {
       const result = await fetcher();
       setState((prev) => ({
@@ -52,26 +61,26 @@ export function useAPIDataContext<T>({
     } catch (e) {
       setState((prev) => ({
         ...prev,
-        [name]: { data: null, loading: false, error: e },
+        [name]: { ...prev[name], loading: false, error: e },
       }));
-      throw new Error("데이터 요청에 실패하였습니다.");
+      throw new Error("데이터 요청 실패");
     }
-  }, [name, setState, fetcher]);
+  }, [name, setState, state]);
 
   useEffect(() => {
-    if (!state[name]) request();
-  }, [request, state, name]);
+    if (uniqueIdentifier.get(name)) {
+      return;
+    }
 
-  const resource = state[name] || {
-    data: null,
-    loading: false,
-    error: null,
-  };
+    if (!state[name]?.data && !state[name]?.loading) {
+      request();
+    }
+  }, [name]);
 
   return {
-    data: resource.data as T | undefined,
-    loading: resource.loading,
-    error: resource.error,
+    data: state[name]?.data as T | undefined,
+    loading: state[name]?.loading ?? false,
+    error: state[name]?.error,
     refetch: request,
   };
 }
