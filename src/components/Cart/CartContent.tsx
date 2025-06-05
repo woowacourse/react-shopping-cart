@@ -1,40 +1,25 @@
 import { useNavigate } from 'react-router';
 import { getCartItems } from '../../apis/cart';
 import { useData } from '../../context/DataContext';
-import { CartProduct } from '../../types/cart';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 import CartHeader from './CartHeader';
 import CartMain from './CartMain';
 import styled from '@emotion/styled';
 import { useCartSelectContext } from '../../context/CartSelectContext';
+import { calculateCartPrice } from '../../utils/calculator';
 
 function CartContent() {
   const { data: cartItems } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
   });
-
   const navigate = useNavigate();
   const { checkedItems } = useCartSelectContext();
-
-  const price = cartItems?.content
-    ? cartItems.content
-        .filter((item: CartProduct) => checkedItems.includes(item.id))
-        .reduce((sum: number, item: CartProduct) => sum + item.product.price * item.quantity, 0)
-    : 0;
-
-  const totalCount = cartItems?.content
-    ? cartItems.content
-        .filter((item: CartProduct) => checkedItems.includes(item.id))
-        .reduce((sum: number, item: CartProduct) => sum + item.quantity, 0)
-    : 0;
-
-  const hasItems = checkedItems.length > 0;
-  const needsShippingFee = price < 100000;
-  const shippingFee = hasItems && needsShippingFee ? 3000 : 0;
-
-  const totalPrice = price + shippingFee;
+  const { price, shippingFee, totalPrice, hasItems, totalCount } = calculateCartPrice(
+    cartItems,
+    checkedItems,
+  );
 
   if (!cartItems) {
     return null;
