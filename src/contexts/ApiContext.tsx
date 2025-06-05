@@ -1,77 +1,58 @@
-import { createContext, PropsWithChildren, useReducer } from "react";
-import { FetchActionType, FetchActionName } from "../type/FetchAction";
+import { createContext, PropsWithChildren, useReducer } from "react"
+import { FetchActionType } from "../type/FetchAction"
 
 type State = {
-  data: Record<string, unknown>;
-  loadingStates: Record<string, boolean>;
-  errorStates: Record<string, unknown>;
-};
+  data: unknown
+  loading: boolean
+  error: unknown
+}
 
 type Action =
-  | { type: FetchActionType.StartFetch; name: FetchActionName }
-  | {
-      type: FetchActionType.FetchSuccess;
-      name: FetchActionName;
-      payload: unknown;
-    }
-  | {
-      type: FetchActionType.FetchError;
-      name: FetchActionName;
-      error: unknown;
-    }
-  | { type: FetchActionType.EndFetch; name: FetchActionName };
+  | { type: FetchActionType.StartFetch }
+  | { type: FetchActionType.FetchSuccess; payload: unknown }
+  | { type: FetchActionType.FetchError; error: unknown }
+  | { type: FetchActionType.EndFetch }
 
 const initialState: State = {
-  data: {},
-  loadingStates: {},
-  errorStates: {},
-};
+  data: undefined,
+  loading: false,
+  error: undefined,
+}
 
 function apiReducer(state: State, action: Action): State {
   switch (action.type) {
     case FetchActionType.StartFetch:
-      return {
-        ...state,
-        loadingStates: { ...state.loadingStates, [action.name]: true },
-        errorStates: { ...state.errorStates, [action.name]: undefined },
-      };
+      return { ...state, loading: true, error: undefined }
     case FetchActionType.FetchSuccess:
       return {
         ...state,
-        data: { ...state.data, [action.name]: action.payload },
-        loadingStates: { ...state.loadingStates, [action.name]: false },
-        errorStates: { ...state.errorStates, [action.name]: undefined },
-      };
+        data: action.payload,
+        loading: false,
+        error: undefined,
+      }
     case FetchActionType.FetchError:
-      return {
-        ...state,
-        loadingStates: { ...state.loadingStates, [action.name]: false },
-        errorStates: { ...state.errorStates, [action.name]: action.error },
-      };
+      return { ...state, loading: false, error: action.error }
     case FetchActionType.EndFetch:
-      return {
-        ...state,
-        loadingStates: { ...state.loadingStates, [action.name]: false },
-      };
+      return { ...state, loading: false }
     default:
-      return state;
+      return state
   }
 }
 
 export const ApiContext = createContext<{
-  state: State;
-  dispatch: React.Dispatch<Action>;
+  state: State
+  dispatch: React.Dispatch<Action>
 }>({
   state: initialState,
   dispatch: () => {},
-});
+})
 
 export function ApiProvider({ children }: PropsWithChildren) {
-  const [state, dispatch] = useReducer(apiReducer, initialState);
+  const [state, dispatch] = useReducer(apiReducer, initialState)
 
   return (
     <ApiContext.Provider value={{ state, dispatch }}>
       {children}
     </ApiContext.Provider>
-  );
+  )
 }

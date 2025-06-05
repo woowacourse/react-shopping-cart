@@ -4,7 +4,3 @@ export enum FetchActionType {
   FetchError = "fetchError",
   EndFetch = "endFetch",
 }
-
-export enum FetchActionName {
-  CartItems = "cartItems",
-}
