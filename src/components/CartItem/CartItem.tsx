@@ -1,4 +1,3 @@
-import { DefaultCartImg } from "../../constants/images";
 import useQuantityControl from "../../hooks/cart/useQuantityControl";
 import { CartItemType } from "../../types/response";
 import CheckBox from "../CheckBox/CheckBox";
@@ -9,12 +8,10 @@ import {
   ItemContainer,
   ItemContent,
   ItemController,
-  ItemDetail,
   ItemInfo,
-  ItemPrice,
-  ItemTitle,
-  ProductImage,
 } from "./CartItem.styles";
+import CartItemImage from "./CartItemImage/CartItemImage";
+import CartItemInfo from "./CartItemInfo/CartItemInfo";
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -50,19 +47,9 @@ function CartItem({
           </button>
         </div>
         <div css={ItemInfo}>
-          <img
-            css={ProductImage}
-            src={product.imageUrl}
-            alt="상품 이미지"
-            onError={(error) => {
-              error.currentTarget.src = DefaultCartImg;
-            }}
-          />
+          <CartItemImage image={product.imageUrl} />
           <div css={ItemContent}>
-            <div css={ItemDetail}>
-              <h3 css={ItemTitle}>{product.name}</h3>
-              <p css={ItemPrice}>{product.price.toLocaleString()}원</p>
-            </div>
+            <CartItemInfo name={product.name} price={product.price} />
             <div css={CountContainer}>
               <QuantityControlButton
                 quantity={quantity}

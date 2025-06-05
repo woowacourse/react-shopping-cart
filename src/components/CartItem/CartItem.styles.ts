@@ -24,12 +24,6 @@ export const ItemInfo = css`
   gap: 24px;
 `;
 
-export const ItemDetail = css`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
 export const ItemContent = css`
   display: flex;
   flex-direction: column;
@@ -41,22 +35,6 @@ export const CountContainer = css`
   display: flex;
   gap: 4.5px;
   align-items: center;
-`;
-
-export const ProductImage = css`
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-  object-fit: fill;
-`;
-
-export const ItemTitle = css`
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-normal);
-`;
-export const ItemPrice = css`
-  font-size: var(--font-size-large);
-  font-weight: var(--font-weight-bold);
 `;
 
 export const CountControlButton = css`
