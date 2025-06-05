@@ -7,4 +7,5 @@ export const FEE = {
 export const ROUTE = {
   CART: "/",
   ORDER_COMPLETE: "/order-complete",
+  ORDER_CONFIRMATION: "/order-confirmation",
 };

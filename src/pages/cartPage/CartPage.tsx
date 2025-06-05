@@ -9,8 +9,8 @@ import Button from "../../components/@common/button/Button";
 import useEasyNavigate from "../../hooks/useEasyNavigate";
 import {
   calculateTotalPrice,
-  calculateTotalProductCount,
-  getCartItemNamePrice,
+  calculateDeliveryFee,
+  calculateTotalCartItemPrice,
 } from "../../utils/calculate";
 import useCartData from "../../hooks/useCartData";
 import useCheckedSet from "../../hooks/useCheckedSet";
@@ -23,6 +23,7 @@ import CartPageSkeleton from "./skeleton/CartPageSkeleton";
 import useData from "../../hooks/@common/useData";
 import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
 import type { CartItemType } from "../../types/response";
+import { getCartItemById } from "../../utils/getCartItemById";
 
 const CartPage = () => {
   const { callApi, loadingState } = useData();
@@ -45,7 +46,7 @@ const CartPage = () => {
     updateCartData,
   } = useCartData({ callApi, syncIsCheckedSet });
 
-  const { goOrderComplete } = useEasyNavigate();
+  const { goOrderConfirmation } = useEasyNavigate();
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -63,6 +64,11 @@ const CartPage = () => {
 
     fetchCartData();
   }, []);
+
+  const orderItems = isCheckedArray.map((id) => getCartItemById(cartData, id));
+  const orderPrice = calculateTotalCartItemPrice(cartData, isCheckedArray);
+  const deliveryFee = calculateDeliveryFee(orderPrice);
+  const totalPrice = calculateTotalPrice(orderPrice, deliveryFee);
 
   if (loadingState === "initialLoading") {
     return <CartPageSkeleton data-testid="cart-page-skeleton" />;
@@ -112,7 +118,9 @@ const CartPage = () => {
           </div>
 
           <CartPrice
-            cartItemNamePrice={getCartItemNamePrice(isCheckedArray, cartData)}
+            orderPrice={orderPrice}
+            deliveryFee={deliveryFee}
+            totalPrice={totalPrice}
           />
         </>
       )}
@@ -123,13 +131,7 @@ const CartPage = () => {
           color="black"
           disabled={isCheckedSet.size === 0}
           onClick={() =>
-            goOrderComplete(
-              isCheckedArray.length,
-              calculateTotalPrice(
-                getCartItemNamePrice(isCheckedArray, cartData)
-              ),
-              calculateTotalProductCount(cartData, isCheckedArray)
-            )
+            goOrderConfirmation(orderItems, orderPrice, deliveryFee, totalPrice)
           }
         >
           주문 확인

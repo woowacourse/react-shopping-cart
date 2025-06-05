@@ -1,5 +1,15 @@
 import { css } from "@emotion/react";
 
+export const TitleContainer = css`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  width: 100%;
+  gap: 1.2rem;
+`;
+
 export const Title = css`
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-title);
