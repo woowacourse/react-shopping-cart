@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { clearQueryPromise, getQueryPromise, setQueryPromise } from "./QueryPromises";
 import { setQueryData, setQueryStatus } from "./QueryStore";
 import { useQueryData, useQueryStatus } from "./useQueryData";
+import { Status } from "./types";
 
 interface UseQueryProps<T> {
   queryKey: string;
@@ -11,8 +12,20 @@ interface UseQueryProps<T> {
 
 const AUTO_REFETCH_INTERVAL = 5 * 60 * 1000; // 5분
 
+interface UseQueryCommonResult {
+  status: Status;
+  fetchData: () => void;
+  refetch: () => void;
+}
+
+export default function useQuery<T>(props: UseQueryProps<T> & { initialData: Partial<T> }): UseQueryCommonResult & {
+  data: T;
+};
+export default function useQuery<T>(props: UseQueryProps<T> & { initialData?: undefined }): UseQueryCommonResult & {
+  data: T | undefined;
+};
 export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQueryProps<T>) {
-  const data = useQueryData<T>(queryKey);
+  const data = useQueryData<T | undefined>(queryKey);
   const status = useQueryStatus(queryKey);
 
   const fetchData = async (forceFetch = false) => {
@@ -48,7 +61,7 @@ export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQuery
   const refetch = () => fetchData(true);
 
   return {
-    data: data ?? (initialData as T),
+    data: data ?? initialData,
     status,
     fetchData,
     refetch,
