@@ -13,11 +13,11 @@ const useHandleDeleteCartItem = (refetchCartItems: () => Promise<void>) => {
       } catch (error) {
         if (error instanceof ApiError) {
           showError(error);
+          return;
         }
       }
       try {
         await refetchCartItems();
-        return;
       } catch (error) {
         if (error instanceof ApiError) {
           showError(error);
