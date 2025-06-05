@@ -49,7 +49,7 @@ const mockCartItems = [
 describe("RTL Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockCartItemListApi.mockResolvedValue(mockCartItems);
+    mockCartItemListApi.mockResolvedValue({ content: mockCartItems });
     mockremoveProductItem.mockResolvedValue(undefined);
     mockupdateCartItem.mockResolvedValue(undefined);
   });
@@ -70,7 +70,7 @@ describe("RTL Test", () => {
 describe("장바구니 기능 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockCartItemListApi.mockResolvedValue(mockCartItems);
+    mockCartItemListApi.mockResolvedValue({ content: mockCartItems });
     mockremoveProductItem.mockResolvedValue(undefined);
     mockupdateCartItem.mockResolvedValue(undefined);
   });
@@ -145,8 +145,8 @@ describe("장바구니 기능 테스트", () => {
 
   it("상품 삭제가 가능하다", async () => {
     mockCartItemListApi
-      .mockResolvedValueOnce(mockCartItems)
-      .mockResolvedValueOnce([]);
+      .mockResolvedValueOnce({ content: mockCartItems })
+      .mockResolvedValueOnce({ content: [] });
 
     render(
       <CartProvider>
@@ -173,7 +173,7 @@ describe("장바구니 기능 테스트", () => {
   });
 
   it("장바구니가 비어있을 때 적절한 메시지가 표시된다", async () => {
-    mockCartItemListApi.mockResolvedValue([]);
+    mockCartItemListApi.mockResolvedValue({ content: [] });
 
     render(
       <CartProvider>
