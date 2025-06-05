@@ -1,20 +1,16 @@
 import { ArrowBackIcon, Button, Header, Spacing, Text, useFunnelContext } from "@/components";
-import { css } from "@emotion/react";
-import * as S from "./Step3.styles";
-import { useCartItem } from "@/hooks";
-import { useShoppingCartContext } from "../MainPage/context";
+import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
+import useCouponQuery from "@/hooks/useCouponQuery/useCouponQuery";
 import { CartItemService, CouponService } from "@/services";
-import { useQuery } from "@/modules";
-import { CouponApi } from "@/apis";
+import { css } from "@emotion/react";
+import { useShoppingCartContext } from "../MainPage/context";
+import * as S from "./Step3.styles";
 
 export default function Step3() {
   const { goPrevStep, goToStep } = useFunnelContext();
 
-  const { cartItems } = useCartItem();
-  const { data: coupons } = useQuery({
-    queryKey: "coupons",
-    queryFn: CouponApi.getAllCoupons,
-  });
+  const { data: cartItems } = useCartItemQuery();
+  const { data: coupons } = useCouponQuery();
   const { selectedCouponIds, isFar } = useShoppingCartContext();
 
   const cartItemService = new CartItemService(cartItems?.content ?? []);

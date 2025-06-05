@@ -1,38 +1,32 @@
 import {
-  Card,
-  Modal,
   ArrowBackIcon,
   Button,
+  Card,
   Checkbox,
   Header,
   Info,
+  Modal,
   Spacing,
   Text,
   useFunnelContext,
 } from "@/components";
-import { useCartItem } from "@/hooks";
+import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
+import useCouponQuery from "@/hooks/useCouponQuery/useCouponQuery";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
+import { useEffect, useMemo, useState } from "react";
+import { useShoppingCartContext } from "../MainPage/context";
 import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
 import { CouponModal } from "./components";
 import * as S from "./Step2.styles";
-import { useShoppingCartContext } from "../MainPage/context";
-import { QUERY_KEY } from "@/constants";
-import { useQuery } from "@/modules";
-import { CouponApi } from "@/apis";
-import { useEffect, useMemo, useState } from "react";
 
 export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();
   const { selectedItemIds, isFar, setIsFar, selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
-  const { data: coupons } = useQuery({
-    queryFn: CouponApi.getAllCoupons,
-    queryKey: QUERY_KEY.coupon,
-    initialData: [],
-  });
+  const { data: coupons } = useCouponQuery();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { cartItems } = useCartItem();
+  const { data: cartItems } = useCartItemQuery();
   const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
 
   const cartItemService = new CartItemService(selectedCartItems ?? []);

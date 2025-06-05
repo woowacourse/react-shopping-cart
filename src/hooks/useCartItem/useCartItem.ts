@@ -1,35 +1,20 @@
-import { CartItemApi, DeleteCartItemsParams, PatchCartItemsParams, PostCartItemsParams, ProductApi } from "@/apis";
 import { useError } from "@/context";
-import { useMutation, useQuery } from "@/modules/Query";
+import useCartItemDeleteMutation from "../useCartItemDeleteMutation/useCartItemDeleteMutation";
+import useCartItemPatchMutation from "../useCartItemPatchMutation/useCartItemPatchMutation";
+import useCartItemPostMutation from "../useCartItemPostMutation/useCartItemPostMutation";
+import useCartItemQuery from "../useCartItemQuery/useCartItemQuery";
+import useProductQuery from "../useProductQuery/useProductQuery";
 import { optimisticDecreaseCartItem, optimisticDeleteCartItem, optimisticIncreaseCartItem } from "./utils";
 
 export default function useCartItem() {
-  const { data: products, status: productsStatus } = useQuery({
-    queryFn: ProductApi.getAllProducts,
-    queryKey: "products",
-  });
-
-  const {
-    data: cartItems,
-    status: cartItemsStatus,
-    refetch: refetchCartItems,
-  } = useQuery({
-    queryFn: CartItemApi.getCartItems,
-    queryKey: "cartItems",
-    initialData: { content: [] },
-  });
+  const { data: cartItems, refetch: refetchCartItems } = useCartItemQuery();
+  const { data: products } = useProductQuery();
 
   const { showError, error } = useError();
 
-  const { mutate: mutatePostCartItem, status: postCartItemStatus } = useMutation<PostCartItemsParams, void>({
-    mutationFn: CartItemApi.postCartItems,
-  });
-  const { mutate: mutatePatchCartItem, status: patchCartItemStatus } = useMutation<PatchCartItemsParams, void>({
-    mutationFn: CartItemApi.patchCartItems,
-  });
-  const { mutate: mutateDeleteCartItem, status: deleteCartItemStatus } = useMutation<DeleteCartItemsParams, void>({
-    mutationFn: CartItemApi.deleteCartItems,
-  });
+  const { mutate: mutatePostCartItem, status: postCartItemStatus } = useCartItemPostMutation();
+  const { mutate: mutatePatchCartItem, status: patchCartItemStatus } = useCartItemPatchMutation();
+  const { mutate: mutateDeleteCartItem, status: deleteCartItemStatus } = useCartItemDeleteMutation();
 
   const increaseCartItem = async (productId: number) => {
     if (error) return;
@@ -44,7 +29,7 @@ export default function useCartItem() {
         { productId },
         { onError: () => showError({ type: "server", message: "재고가 부족합니다." }) },
       );
-      await refetchCartItems();
+      refetchCartItems();
     } else {
       mutatePatchCartItem(
         {
@@ -107,13 +92,8 @@ export default function useCartItem() {
     increaseCartItem,
     decreaseCartItem,
     deleteCartItem,
-    productsStatus,
-    cartItemsStatus,
-    products,
-    cartItems,
     postCartItemStatus,
     patchCartItemStatus,
     deleteCartItemStatus,
-    refetchCartItems,
   };
 }

@@ -3,6 +3,7 @@ import { useCartItem } from "@/hooks";
 import { css } from "@emotion/react";
 import Card from "../Card/Card";
 import * as S from "./CartItem.styles";
+import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
 
 interface CartItemProps {
   id: number;
@@ -11,7 +12,8 @@ interface CartItemProps {
 }
 
 export default function CartItem({ id, isSelected, handleCheckboxClick }: CartItemProps) {
-  const { cartItems, increaseCartItem, decreaseCartItem, deleteCartItem, cartItemsStatus } = useCartItem();
+  const { increaseCartItem, decreaseCartItem, deleteCartItem } = useCartItem();
+  const { data: cartItems, status: cartItemsStatus } = useCartItemQuery();
   const cartItem = cartItems.content.find((item) => item.id === id);
 
   if (!cartItem) return null;

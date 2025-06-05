@@ -1,9 +1,7 @@
-import { CouponApi } from "@/apis";
 import { Button, Modal, Spacing, Text } from "@/components";
 import { CloseIcon, Info } from "@/components/icons";
-import { QUERY_KEY } from "@/constants";
-import { useCartItem } from "@/hooks";
-import { useQuery } from "@/modules";
+import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
+import useCouponQuery from "@/hooks/useCouponQuery/useCouponQuery";
 import { useShoppingCartContext } from "@/pages/MainPage/context";
 import { CouponService } from "@/services";
 import { css } from "@emotion/react";
@@ -15,11 +13,8 @@ interface CouponModalProps {
 }
 
 export default function CouponModal({ closeModal }: CouponModalProps) {
-  const { data: coupons } = useQuery({
-    queryFn: CouponApi.getAllCoupons,
-    queryKey: QUERY_KEY.coupon,
-  });
-  const { cartItems } = useCartItem();
+  const { data: coupons } = useCouponQuery();
+  const { data: cartItems } = useCartItemQuery();
   const { selectedItemIds } = useShoppingCartContext();
   const selectedCartItems = cartItems?.content.filter((item) => selectedItemIds.includes(item.id));
 

@@ -1,12 +1,12 @@
 import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
-import { useCartItem } from "@/hooks";
+import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { useShoppingCartContext } from "../MainPage/context";
 import * as S from "./Step1.styles";
 
 export default function Step1() {
-  const { cartItems } = useCartItem();
+  const { data: cartItems } = useCartItemQuery();
   const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
 
   const { goNextStep } = useFunnelContext();
