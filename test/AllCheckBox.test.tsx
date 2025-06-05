@@ -6,6 +6,7 @@ import Cart from "../src/pages/Cart/Cart";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { CartItemType, ProductItemType } from "../src/types/response";
+import { DisabledCheck, EnabledCheck } from "../src/constants/images";
 
 const MOCK_PRODUCTS: ProductItemType[] = Array.from(
   { length: 20 },
@@ -54,13 +55,13 @@ describe("Cart 전체선택 동기화", () => {
   it("초기 렌더링 시 전체선택 버튼과 모든 아이템 체크박스가 체크된 상태여야 한다", async () => {
     const allBtn = screen.getByLabelText("전체선택");
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", "enabledCheck.svg");
+    expect(allImg).toHaveAttribute("src", EnabledCheck);
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
 
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", "enabledCheck.svg");
+      expect(img).toHaveAttribute("src", EnabledCheck);
     });
   });
 
@@ -70,12 +71,12 @@ describe("Cart 전체선택 동기화", () => {
     await user.click(allBtn);
 
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", "disabledCheck.svg");
+    expect(allImg).toHaveAttribute("src", DisabledCheck);
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", "disabledCheck.svg");
+      expect(img).toHaveAttribute("src", DisabledCheck);
     });
   });
 
@@ -86,12 +87,12 @@ describe("Cart 전체선택 동기화", () => {
     await user.click(allBtn);
 
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", "enabledCheck.svg");
+    expect(allImg).toHaveAttribute("src", EnabledCheck);
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", "enabledCheck.svg");
+      expect(img).toHaveAttribute("src", EnabledCheck);
     });
   });
 });

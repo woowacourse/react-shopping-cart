@@ -1,3 +1,4 @@
+import { DisabledCheck, EnabledCheck } from "../../constants/images";
 import { Button, Container, Label } from "./\bCheckBox.styles";
 
 interface CheckBoxProps {
@@ -8,7 +9,7 @@ interface CheckBoxProps {
 }
 
 function CheckBox({ label, id, isSelected, onClick }: CheckBoxProps) {
-  const imageSource = isSelected ? "enabledCheck.svg" : "disabledCheck.svg";
+  const imageSource = isSelected ? EnabledCheck : DisabledCheck;
 
   return (
     <div css={Container}>

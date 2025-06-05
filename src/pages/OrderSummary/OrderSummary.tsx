@@ -10,6 +10,7 @@ import {
 } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
+import { BackIcon } from "../../constants/images";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function OrderSummary() {
 
   return (
     <>
-      <Header icon="backIcon.svg" handleIconClick={() => navigate(-1)} />
+      <Header icon={BackIcon} handleIconClick={() => navigate(-1)} />
       <section css={Container}>
         <h2 css={Title}>주문 확인</h2>
         <p css={Summary}>

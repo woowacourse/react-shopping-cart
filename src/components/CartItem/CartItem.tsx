@@ -1,3 +1,4 @@
+import { DefaultCartImg } from "../../constants/images";
 import useQuantityControl from "../../hooks/cart/useQuantityControl";
 import { CartItemType } from "../../types/response";
 import CheckBox from "../CheckBox/CheckBox";
@@ -53,7 +54,7 @@ function CartItem({
             css={ProductImage}
             src={product.imageUrl}
             onError={(error) => {
-              error.currentTarget.src = "default-cartItem.png";
+              error.currentTarget.src = DefaultCartImg;
             }}
           ></img>
           <div css={ItemContent}>

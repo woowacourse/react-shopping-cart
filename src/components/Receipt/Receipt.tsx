@@ -1,6 +1,7 @@
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { Container, InfoText, Table } from "./Receipt.styles";
+import { Info } from "../../constants/images";
 
 interface ReceiptProps {
   selectedCartItems: CartItemType[];
@@ -13,7 +14,7 @@ function Receipt({ selectedCartItems }: ReceiptProps) {
   return (
     <div css={Container}>
       <div css={InfoText}>
-        <img src="public/info.svg" alt="info 아이콘" />
+        <img src={Info} alt="info 아이콘" />
         <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
       </div>
       <table css={Table}>

@@ -12,6 +12,7 @@ import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/cart/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
+import { CartLogo } from "../../constants/images";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -56,7 +57,7 @@ function Cart() {
 
   return (
     <>
-      <Header icon="logo.svg" handleIconClick={() => navigate("/")} />
+      <Header icon={CartLogo} handleIconClick={() => navigate("/")} />
       <section css={Container}>
         <Description cartItemCount={cartItems.length} />
 
