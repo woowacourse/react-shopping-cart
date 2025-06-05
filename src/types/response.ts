@@ -12,3 +12,13 @@ interface Product {
   category: string;
   stock: number;
 }
+export interface Coupon {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discount: number;
+  availableTime: { start: string; end: string };
+  minimumAmount: number;
+  discountType: string;
+}
