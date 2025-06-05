@@ -42,8 +42,7 @@ export default function CartItemCard({ cartItem }: CartItemCardProps) {
     addSelectedCartItem(cartItem, cartItem.quantity);
   };
 
-  const isSelected = SelectedCartItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
-
+  const isSelected = SelectedCartItems.find((item) => item.id === cartItem.id) !== undefined;
   const handleCartItemDelete = async () => {
     try {
       await deleteCartItem(cartItem.id);
