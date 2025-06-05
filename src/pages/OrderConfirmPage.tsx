@@ -4,55 +4,102 @@ import Text from "../components/@common/Text/Text";
 import { useCartItemContext } from "../contexts/useCartItemContext";
 import { useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
+import ToggleButton from "../components/@common/Button/ToggleButton/ToggleButton";
+import TextButton from "../components/@common/Button/TextButton/TextButton";
+import ConfirmCartItemCard from "../components/CartItemCard/ConfirmCartItemCard";
+import { PriceSummary } from "../components/PriceSummary/PriceSummary";
+import PageTitle from "../components/PageTitle/PageTitle";
+import { useState } from "react";
+import { CouponModal } from "../components/CouponModal/CouponModal";
 
 const OrderConfirmPage = () => {
-  const { selectedItemIds, totalPrice } = useCartItemContext();
+  const { selectedItemIds, orderPrice, shippingFee, totalPrice, cartItems } =
+    useCartItemContext();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className={OrderConfirmLayout}>
+      <Header
+        leadingIcon="./back-icon.svg"
+        onLeadingClick={() => {
+          navigate("/");
+        }}
+      />
       <div className={OrderConfirmPageStyles}>
-        <Header
-          leadingIcon="./back-icon.svg"
-          onLeadingClick={() => {
-            navigate("/");
+        <PageTitle
+          title="주문 확인"
+          titleCaption={
+            <>
+              <Text text={`총 ${selectedItemIds.size}개를 주문합니다.`} />
+              <Text text="최종 결제 금액을 확인해 주세요." />
+            </>
+          }
+        />
+
+        {cartItems.map((items) => (
+          <ConfirmCartItemCard
+            key={items.id}
+            name={items.product.name}
+            imgUrl={items.product.imageUrl}
+            price={items.product.price}
+            quantity={items.quantity}
+          />
+        ))}
+        <TextButton
+          text="쿠폰 적용"
+          onClick={() => {
+            setIsOpen(true);
+          }}
+          buttonStyled={{ width: "100%", height: "48px" }}
+          textStyled={{ color: "#666666", fontSize: "15px" }}
+        />
+        <section className={PriceInfoStyle}>
+          <Text text="배송 정보" type="medium" />
+          <div className={ShippingToggleStyle}>
+            <ToggleButton isSelected={true} />
+            <Text text="제주도 및 도서 산간 지역" />
+          </div>
+          <PriceSummary
+            orderPrice={orderPrice}
+            shippingFee={shippingFee}
+            couponDiscount={shippingFee}
+            totalPrice={totalPrice}
+          />
+        </section>
+
+        <CouponModal
+          isOpen={isOpen}
+          onModalClose={() => {
+            setIsOpen(false);
           }}
         />
-        <section className={ContentStyle}>
-          <Text text="주문 확인" type="large" />
-          <section className={Description}>
-            <Text text={`총 ${selectedItemIds.size}개의 상품을 주문합니다.`} />
-            <Text text="최종 결제 금액을 확인해 주세요." />
-          </section>
-          <Text text="총 결제 금액" type="medium" />
-          <Text text={`${totalPrice.toLocaleString()}원`} type="large" />
-        </section>
-        <ConfirmButton text="주문하기" onClick={() => {}} disabled={true} />
       </div>
-    </>
+      <ConfirmButton text="주문하기" onClick={() => {}} />
+    </div>
   );
 };
 
 export default OrderConfirmPage;
 
-const OrderConfirmPageStyles = css`
+const OrderConfirmLayout = css`
   min-height: 100dvh;
   background-color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
 `;
 
-const ContentStyle = css`
+const OrderConfirmPageStyles = css`
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  justify-content: center;
+`;
+
+const ShippingToggleStyle = css`
+  margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 5px;
   align-items: center;
 `;
 
-const Description = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+const PriceInfoStyle = css`
+  padding: 32px 0;
 `;
