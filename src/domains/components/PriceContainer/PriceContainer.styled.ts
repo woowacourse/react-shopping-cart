@@ -5,24 +5,6 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const InfoContainer = styled.div`
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  margin-bottom: 16px;
-`;
-
-export const InfoIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-export const InfoText = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  color: #0a0d13;
-`;
-
 export const PriceBox = styled.ul`
   display: flex;
   flex-direction: column;

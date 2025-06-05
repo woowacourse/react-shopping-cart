@@ -1,5 +1,5 @@
+import InfoText from "@/shared/components/InfoText/InfoText";
 import * as S from "./PriceContainer.styled";
-import InfoIcon from "@assets/icons/info.svg";
 import { FREE_DELIVERY_LIMIT } from "@/domains/constants/delivery";
 
 type Price = {
@@ -18,13 +18,10 @@ export default function PriceContainer({
 }: PriceContainerProps) {
   return (
     <S.Container>
-      <S.InfoContainer>
-        <S.InfoIcon src={InfoIcon} alt="배송비 무료 안내" />
-        <S.InfoText>
-          총 주문 금액이 {FREE_DELIVERY_LIMIT.toLocaleString()}원 이상일 경우
-          무료 배송됩니다.
-        </S.InfoText>
-      </S.InfoContainer>
+      <InfoText>
+        총 주문 금액이 {FREE_DELIVERY_LIMIT.toLocaleString()}원 이상일 경우 무료
+        배송됩니다.
+      </InfoText>
       <S.PriceBox>
         {priceList.map(({ title, price }) => (
           <S.PriceTextBox key={title}>
