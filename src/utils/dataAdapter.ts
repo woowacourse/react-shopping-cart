@@ -8,7 +8,7 @@ import {
   PercentageCouponDataType,
   PercentageCouponType,
 } from "../types/response";
-import { decideHourPeriod, splitTime } from "./time";
+import { convertTo12Hour, splitTime } from "./time";
 
 export const adaptFixedCoupon = (
   coupon: FixedCouponDataType
@@ -63,12 +63,13 @@ export const adaptPercentageCoupon = (
 ): PercentageCouponType => {
   const { expirationDate, availableTime } = coupon;
   const [year, month, day] = expirationDate.split("-");
-  const { hour: startHour, minute: startMinute } = splitTime(
+  const { hour: rowStartHour, minute: startMinute } = splitTime(
     availableTime.start
   );
-  const { hour: endHour, minute: endMinute } = splitTime(availableTime.end);
-  const startPeriod = decideHourPeriod(startHour);
-  const endPeriod = decideHourPeriod(endHour);
+  const { hour: rowEndHour, minute: endMinute } = splitTime(availableTime.end);
+  const { period: startPeriod, hour: startHour } =
+    convertTo12Hour(rowStartHour);
+  const { period: endPeriod, hour: endHour } = convertTo12Hour(rowEndHour);
 
   return {
     ...coupon,
@@ -78,8 +79,8 @@ export const adaptPercentageCoupon = (
       day,
     },
     availableTime: {
-      start: { hourPeriod: startPeriod, hour: startHour, minute: startMinute },
-      end: { hourPeriod: endPeriod, hour: endHour, minute: endMinute },
+      start: { period: startPeriod, hour: startHour, minute: startMinute },
+      end: { period: endPeriod, hour: endHour, minute: endMinute },
     },
   };
 };
