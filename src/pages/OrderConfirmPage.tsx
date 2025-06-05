@@ -17,6 +17,9 @@ const OrderConfirmPage = () => {
     useCartItemContext();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const selectedItems = cartItems.filter((cartItem) =>
+    selectedItemIds.has(cartItem.id)
+  );
 
   return (
     <div className={OrderConfirmLayout}>
@@ -36,8 +39,7 @@ const OrderConfirmPage = () => {
             </>
           }
         />
-
-        {cartItems.map((items) => (
+        {selectedItems.map((items) => (
           <ConfirmCartItemCard
             key={items.id}
             name={items.product.name}
