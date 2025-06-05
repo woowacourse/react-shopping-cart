@@ -1,16 +1,19 @@
+import { useState } from 'react';
 import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
 import Separator from '../../../common/separator/Separator';
 import { CartItemType } from '../../cart/types';
 import * as S from './OrderItem.styles';
 import defaultImage from '/assets/default_product.png';
+import CouponModal from '../couponModal/CouponModal';
 
 interface OrderItemProps extends CartItemType {}
 
 function OrderItem({ id, quantity, product }: OrderItemProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleModal = () => setIsOpen((prev) => !prev);
   return (
     <S.Container data-testid={`OrderItem-${id}`}>
       <Separator />
-
       <S.InfoContainer>
         <S.PreviewBox>
           <S.PreviewImage
@@ -32,7 +35,8 @@ function OrderItem({ id, quantity, product }: OrderItemProps) {
           <S.Text>{quantity}개</S.Text>
         </S.InfoBox>
       </S.InfoContainer>
-      <S.CouponButton>쿠폰 적용</S.CouponButton>
+      <S.CouponButton onClick={toggleModal}>쿠폰 적용</S.CouponButton>
+      {isOpen && <CouponModal />}
     </S.Container>
   );
 }
