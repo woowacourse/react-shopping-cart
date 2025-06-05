@@ -8,24 +8,34 @@ import {formatPrice} from '../../../../../utils/formatPrice';
 
 type Props = {
   cartItem: CartProduct;
-  isChecked: boolean;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-  onPatch: (id: number, quantity: number) => void;
+  interactive?: boolean;
+  isChecked?: boolean;
+  onToggle?: (id: number) => void;
+  onDelete?: (id: number) => void;
+  onPatch?: (id: number, quantity: number) => void;
 };
 
-const Card = ({cartItem, isChecked, onToggle, onDelete, onPatch}: Props) => {
+const Card = ({
+  cartItem,
+  interactive = true,
+  isChecked,
+  onToggle,
+  onDelete,
+  onPatch,
+}: Props) => {
   const {imageUrl, name, price} = cartItem.product;
 
   return (
     <S.CardContainer>
-      <S.ButtonSection>
-        <CheckBox
-          isChecked={isChecked}
-          onChange={() => onToggle(cartItem.id)}
-        />
-        <Button onClick={() => onDelete(cartItem.id)} title="삭제" />
-      </S.ButtonSection>
+      {interactive && (
+        <S.ButtonSection>
+          <CheckBox
+            isChecked={Boolean(isChecked)}
+            onChange={() => onToggle?.(cartItem.id)}
+          />
+          <Button onClick={() => onDelete?.(cartItem.id)} title="삭제" />
+        </S.ButtonSection>
+      )}
 
       <S.CardInfoSection>
         <S.ImgSection
@@ -38,11 +48,15 @@ const Card = ({cartItem, isChecked, onToggle, onDelete, onPatch}: Props) => {
             <S.ProductName>{name}</S.ProductName>
             <S.ProductPrice>{formatPrice(price)}</S.ProductPrice>
           </S.ProductDescription>
-          <CartCount
-            count={cartItem.quantity}
-            onPlusCount={() => onPatch(cartItem.id, cartItem.quantity + 1)}
-            onMinusCount={() => onPatch(cartItem.id, cartItem.quantity - 1)}
-          />
+          {interactive ? (
+            <CartCount
+              count={cartItem.quantity}
+              onPlusCount={() => onPatch?.(cartItem.id, cartItem.quantity + 1)}
+              onMinusCount={() => onPatch?.(cartItem.id, cartItem.quantity - 1)}
+            />
+          ) : (
+            <div>{cartItem.quantity}개</div>
+          )}
         </S.ProductInfoSection>
       </S.CardInfoSection>
       <Line />

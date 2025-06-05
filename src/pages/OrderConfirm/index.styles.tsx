@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const CartList = styled.div`
   overflow: scroll;
-  height: 400px;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -28,4 +28,8 @@ export const CartList = styled.div`
 
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
+`;
+
+export const Description = styled.div`
+  font-weight: 700;
 `;
