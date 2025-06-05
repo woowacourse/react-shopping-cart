@@ -2,7 +2,7 @@ import { getCheckedItems, getOrderPrice } from '../../src/utils';
 import getDiscountPrice from '../../src/utils/getDiscountPrice';
 import { mockCartItems } from '../mocks';
 
-describe('쿠폰 적용된 금액을 반환하는 함수 테스트', () => {
+describe('쿠폰이 적용되어 할인된 금액을 반환하는 함수 테스트', () => {
   const checkedCartIds = [2, 3, 4];
   const deliveryPrice = 3000;
   const fixedCoupon = {
@@ -50,47 +50,47 @@ describe('쿠폰 적용된 금액을 반환하는 함수 테스트', () => {
   describe('고정 쿠폰 테스트', () => {
     it('선택한 상품 목록과 배송비, 그리고 고정 쿠폰 정보를 제공하면 할인 금액을 반환한다.', () => {
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, fixedCoupon)).toBe(fixedCoupon.discount);
+      expect(getDiscountPrice(fixedCoupon, checkedItems, deliveryPrice)).toBe(fixedCoupon.discount);
     });
 
     it('선택한 상품 목록과 배송비, 그리고 고정 쿠폰 정보를 제공했을 때 최소 금액을 충족하지 못하면 할인 금액은 없다.', () => {
       const checkedCartIds = [3, 4];
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, fixedCoupon)).toBe(0);
+      expect(getDiscountPrice(fixedCoupon, checkedItems, deliveryPrice)).toBe(0);
     });
   });
 
   describe('X+Y 쿠폰 테스트', () => {
     it('선택한 상품 목록과 배송비, 그리고 X+Y 쿠폰 정보를 제공하면 할인 금액을 반환한다.', () => {
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, bogoCoupon)).toBe(fixedCoupon.discount);
+      expect(getDiscountPrice(bogoCoupon, checkedItems, deliveryPrice)).toBe(2000);
     });
 
     it('선택한 상품 목록과 배송비, 그리고 X+Y 쿠폰 정보를 제공했을 때 X+Y개의 상품이 없다면 할인 금액은 없다.', () => {
       const checkedCartIds = [4];
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, bogoCoupon)).toBe(0);
+      expect(getDiscountPrice(bogoCoupon, checkedItems, deliveryPrice)).toBe(0);
     });
   });
 
   describe('무료 배송 쿠폰 테스트', () => {
     it('선택한 상품 목록과 배송비, 그리고 무료 배송 쿠폰 정보를 제공하면 할인 금액을 반환한다.', () => {
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, freeShippingCoupon)).toBe(deliveryPrice);
+      expect(getDiscountPrice(freeShippingCoupon, checkedItems, deliveryPrice)).toBe(deliveryPrice);
     });
 
     it('선택한 상품 목록과 배송비, 그리고 무료 배송 쿠폰 정보를 제공했을 때 최소 금액을 충족하지 못하면 할인 금액은 없다.', () => {
       const checkedCartIds = [3, 4];
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, freeShippingCoupon)).toBe(0);
+      expect(getDiscountPrice(freeShippingCoupon, checkedItems, deliveryPrice)).toBe(0);
     });
   });
 
   describe('퍼센트 할인 쿠폰 테스트', () => {
     it('선택한 상품 목록과 배송비, 그리고 퍼센트 할인 쿠폰 정보를 제공하면 할인 금액을 반환한다.', () => {
       const checkedItems = getCheckedItems(mockCartItems, checkedCartIds);
-      expect(getDiscountPrice(checkedItems, deliveryPrice, percentageCoupon)).toBe(
-        getOrderPrice(mockCartItems, checkedCartIds) * (fixedCoupon.discount / 100)
+      expect(getDiscountPrice(percentageCoupon, checkedItems, deliveryPrice)).toBe(
+        getOrderPrice(checkedItems) * (percentageCoupon.discount / 100)
       );
     });
   });
