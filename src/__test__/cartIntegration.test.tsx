@@ -3,12 +3,23 @@ import { cartMockData } from "../__mocks__/cartData";
 import { productListMockData } from "../__mocks__/productListMockData";
 import App from "../App";
 import { formatKRWString } from "../utils/formatKRWString";
+import { APIDataProvider } from "../context/APIDataProvider";
+import { OrderListProvider } from "../pages/shopping-cart/context/OrderListProvider";
 
 let currentCart = [...cartMockData];
 
 jest.mock("../utils/getBrowserBaseUrl", () => {
   return {
     getBrowserBaseUrl: jest.fn(() => "/"),
+  };
+});
+
+jest.mock("../api/UniqueIdentifier", () => {
+  return {
+    uniqueIdentifier: {
+      add: jest.fn(),
+      get: jest.fn(),
+    },
   };
 });
 
@@ -67,7 +78,14 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("1. 장바구니 데이터를 불러오고 화면에 렌더링한다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
+
     expect(await screen.findByText(PRODUCT_NAME_1)).toBeInTheDocument();
     expect(screen.getByText(PRODUCT_NAME_2)).toBeInTheDocument();
 
@@ -79,7 +97,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("2. 상품 선택을 해제하면 결제 금액이 감소한다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const checkboxes = await screen.findAllByRole("cart-item-checkbox");
     fireEvent.click(checkboxes[0]);
 
@@ -89,7 +113,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
     });
   });
   it("3. 총 금액이 10만원 이상이면 배송비가 무료가 된다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const plusButton = (await screen.findAllByLabelText("수량 증가"))[0];
     for (let i = 1; i < 10; i++) {
       fireEvent.click(plusButton);
@@ -102,7 +132,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("4. 총 금액이 10만원 미만이면 배송비가 3,000원이다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
 
     await waitFor(() => {
       const shippingLabel = screen.getByLabelText("shipping-fee");
@@ -111,7 +147,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("5. 상품 수량을 증가시키면 금액이 반영된다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const plusButton = (await screen.findAllByLabelText("수량 증가"))[0];
     fireEvent.click(plusButton);
 
@@ -121,7 +163,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("6. 상품을 삭제하면 장바구니에서 사라진다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const deleteButtons = await screen.findAllByRole("button", {
       name: /삭제/i,
     });
@@ -133,7 +181,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("7. 장바구니가 비어 있으면 안내 메시지가 보인다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     let deleteButtons = await screen.findAllByRole("button", { name: /삭제/i });
     fireEvent.click(deleteButtons[0]);
     await waitFor(async () => {
@@ -149,7 +203,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("8. 전체 선택 버튼을 누르면 모두 해제되고, 주문금액/배송비 0, 주문확인 비활성화", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const allCheckbox = await screen.findByRole("cart-item-all-checkbox");
     fireEvent.click(allCheckbox);
 
@@ -173,7 +233,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("9. 개별 체크 해제하면 전체 선택도 해제된다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const checkboxes = await screen.findAllByRole("cart-item-checkbox");
     fireEvent.click(checkboxes[0]);
     const allCheckbox = await screen.findByRole("cart-item-all-checkbox");
@@ -181,7 +247,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it("10. 개별 체크 해제 상태에서 전체 선택 버튼 누르면 모두 다시 선택된다", async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const checkboxes = await screen.findAllByRole("cart-item-checkbox");
     fireEvent.click(checkboxes[0]);
     expect(checkboxes[0]).toHaveAttribute("aria-checked", "false");
@@ -191,7 +263,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
   });
 
   it('11. "주문하기" 버튼은 선택된 상품이 없으면 비활성화된다', async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     const orderConfirmButton = screen.getByRole("order-button");
     expect(orderConfirmButton).toBeDisabled();
 
@@ -200,7 +278,13 @@ describe("장바구니 주요 통합 기능 (커스텀 체크박스)", () => {
     expect(orderConfirmButton).toBeEnabled();
   });
   it('12. "주문하기" 버튼을 누르면 주문 확인 페이지로 이동하고, 주문 정보가 올바르게 표시된다', async () => {
-    render(<App />);
+    render(
+      <APIDataProvider>
+        <OrderListProvider>
+          <App />
+        </OrderListProvider>
+      </APIDataProvider>
+    );
     await screen.findByText(PRODUCT_NAME_1);
 
     const orderConfirmButton = screen.getByRole("order-button");
