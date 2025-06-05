@@ -1,10 +1,13 @@
 import { DataProvider } from '../context/DataContext';
 import CartContent from '../components/Cart/CartContent';
+import { CartSelectionProvider } from '../context/CartSelectContext';
 
 function CartPage() {
   return (
     <DataProvider>
-      <CartContent />
+      <CartSelectionProvider>
+        <CartContent />
+      </CartSelectionProvider>
     </DataProvider>
   );
 }

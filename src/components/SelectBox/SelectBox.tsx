@@ -1,15 +1,16 @@
 import styled from '@emotion/styled';
 import { CartProduct } from '../../types/cart';
 import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './SelectBox.styles';
+import { useCartSelectContext } from '../../context/CartSelectContext';
 
 interface SelectBoxProps {
   cartItem: CartProduct;
-  checkedItems: number[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
   onRemove: () => void;
 }
 
-function SelectBox({ cartItem, checkedItems, setCheckedItems, onRemove }: SelectBoxProps) {
+function SelectBox({ cartItem, onRemove }: SelectBoxProps) {
+  const { checkedItems, toggleItem } = useCartSelectContext();
+
   return (
     <ModifyRow>
       <CheckboxContainer>
@@ -17,11 +18,7 @@ function SelectBox({ cartItem, checkedItems, setCheckedItems, onRemove }: Select
           data-id={cartItem.id}
           type="checkbox"
           onChange={() => {
-            setCheckedItems((prev) =>
-              prev.includes(cartItem.id)
-                ? prev.filter((id) => id !== cartItem.id)
-                : [...prev, cartItem.id],
-            );
+            toggleItem(cartItem.id);
           }}
         />
         <StyledCheckbox checked={checkedItems.includes(cartItem.id)} />

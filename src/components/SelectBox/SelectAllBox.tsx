@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
 import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './SelectBox.styles';
+import { useCartSelectContext } from '../../context/CartSelectContext';
 
-interface SelectBoxProps {
-  isAllChecked: boolean;
-  handleAllCheck: (checked: boolean) => void;
-}
-
-function SelectAllBox({ isAllChecked, handleAllCheck }: SelectBoxProps) {
+function SelectAllBox() {
+  const { isAllChecked, handleAllCheck } = useCartSelectContext();
   return (
     <Container>
       <ModifyRow>
@@ -14,7 +11,7 @@ function SelectAllBox({ isAllChecked, handleAllCheck }: SelectBoxProps) {
           <HiddenCheckbox
             type="checkbox"
             checked={isAllChecked}
-            onChange={() => handleAllCheck(isAllChecked)}
+            onChange={() => handleAllCheck(!isAllChecked)}
           />
           <StyledCheckbox checked={isAllChecked} />
         </CheckboxContainer>

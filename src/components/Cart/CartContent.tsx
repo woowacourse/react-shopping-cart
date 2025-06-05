@@ -1,22 +1,22 @@
 import { useNavigate } from 'react-router';
 import { getCartItems } from '../../apis/cart';
 import { useData } from '../../context/DataContext';
-import { useCartSelection } from '../../hooks/useCartSelection';
 import { CartProduct } from '../../types/cart';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 import CartHeader from './CartHeader';
 import CartMain from './CartMain';
 import styled from '@emotion/styled';
+import { useCartSelectContext } from '../../context/CartSelectContext';
 
 function CartContent() {
   const { data: cartItems } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
   });
+
   const navigate = useNavigate();
-  const { checkedItems, setCheckedItems, isAllChecked, handleAllCheck } =
-    useCartSelection(cartItems);
+  const { checkedItems } = useCartSelectContext();
 
   const price = cartItems?.content
     ? cartItems.content
@@ -54,15 +54,7 @@ function CartContent() {
 
         {cartItems.content.length > 0 ? (
           <>
-            <CartMain
-              isAllChecked={isAllChecked}
-              checkedItems={checkedItems}
-              setCheckedItems={setCheckedItems}
-              price={price}
-              shippingFee={shippingFee}
-              totalPrice={totalPrice}
-              handleAllCheck={handleAllCheck}
-            />
+            <CartMain price={price} shippingFee={shippingFee} totalPrice={totalPrice} />
           </>
         ) : (
           <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>

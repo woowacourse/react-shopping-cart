@@ -4,12 +4,7 @@ import { getCartItems } from '../../apis/cart';
 import { CartProduct } from '../../types/cart';
 import styled from '@emotion/styled';
 
-interface CartListProps {
-  checkedItems: number[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
-}
-
-function CartList({ checkedItems, setCheckedItems }: CartListProps) {
+function CartList() {
   const { data: cartItems } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
@@ -18,12 +13,7 @@ function CartList({ checkedItems, setCheckedItems }: CartListProps) {
   return (
     <Container>
       {cartItems.content.map((item: CartProduct) => (
-        <CartItem
-          key={item.id}
-          cartItem={item}
-          checkedItems={checkedItems}
-          setCheckedItems={setCheckedItems}
-        />
+        <CartItem key={item.id} cartItem={item} />
       ))}
     </Container>
   );

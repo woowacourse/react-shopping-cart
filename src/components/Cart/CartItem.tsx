@@ -12,11 +12,9 @@ import styled from '@emotion/styled';
 
 interface CartItemProps {
   cartItem: CartProduct;
-  checkedItems: number[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
+function CartItem({ cartItem }: CartItemProps) {
   const { refetch } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
@@ -44,12 +42,7 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
 
   return (
     <CartItemContainer>
-      <SelectBox
-        cartItem={cartItem}
-        checkedItems={checkedItems}
-        setCheckedItems={setCheckedItems}
-        onRemove={handleRemoveCartItem}
-      />
+      <SelectBox cartItem={cartItem} onRemove={handleRemoveCartItem} />
       <ProductRow>
         <CartProductImage
           src={cartItem.product.imageUrl}
