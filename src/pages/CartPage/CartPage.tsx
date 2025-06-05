@@ -44,7 +44,10 @@ const CartPage = () => {
             </S.Content>
           )}
         </S.CartContentWrapper>
-        <S.OrderButton onClick={handleOrderCheck} disabled={orderPrice === 0}>
+        <S.OrderButton
+          onClick={handleOrderCheck}
+          disabled={selectedCartItem.length === 0}
+        >
           결제하기
         </S.OrderButton>
       </S.CartPageWrapper>
