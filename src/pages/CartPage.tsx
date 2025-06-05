@@ -1,13 +1,14 @@
 import Button from '../components/Button/Button';
 import Header from '../components/Header/Header';
 import CartHeader from '../components/Cart/CartHeader';
+import CartMain from '../components/Cart/CartMain';
+import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { getCartItems } from '../apis/cart';
 import { useData } from '../context/DataContext';
 import { CartProduct } from '../types/cart';
 import { useCartSelection } from '../hooks/useCartSelection';
-import styled from '@emotion/styled';
-import CartMain from '../components/Cart/CartMain';
+import { SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 
 function CartPage() {
   const { data: cartItems } = useData({
@@ -31,8 +32,8 @@ function CartPage() {
     : 0;
 
   const hasItems = checkedItems.length > 0;
-  const needsShippingFee = price < 100000;
-  const shippingFee = hasItems && needsShippingFee ? 3000 : 0;
+  const needsShippingFee = price < SHIPPING_FEE_THRESHOLD;
+  const shippingFee = hasItems && needsShippingFee ? SHIPPING_FEE : 0;
 
   const totalPrice = price + shippingFee;
 
