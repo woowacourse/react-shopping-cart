@@ -66,7 +66,7 @@ function Cart() {
         ) : (
           <div css={Wrap}>
             <CheckBox
-              id="234"
+              id="allCheckBox"
               label="전체선택"
               isSelected={isAllSelected()}
               onClick={toggleAllSelect}
