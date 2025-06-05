@@ -20,7 +20,7 @@ export interface CouponCalculationResult {
 interface Props {
   coupons: Coupon[];
   selectedShoppingCartItems: CartItem[];
-  isIsland?: boolean; // 제주·도서산간 여부 (추가 배송비 3,000원)
+  isIsland: boolean;
 }
 
 const useCouponCalculation = ({
@@ -102,7 +102,9 @@ const useCouponCalculation = ({
         }
 
         default:
-          console.warn(`Unknown coupon type: ${coupon.discountType}`);
+          console.warn(
+            `알수없는 쿠폰 유형: ${coupon.discountType}! 쿠폰을 무시합니다.`
+          );
           break;
       }
 
