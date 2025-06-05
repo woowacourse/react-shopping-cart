@@ -45,6 +45,16 @@ const useCartAPI = ({
           }))
         );
         isCheckDataInitialized.current = true;
+      } else {
+        setCartItemsCheckData((prev) =>
+          prev.map((item) => {
+            const updated = items.find(({ id }) => id === item.id);
+            return {
+              ...item,
+              quantity: updated?.quantity ?? item.quantity,
+            };
+          })
+        );
       }
     } catch (error) {
       if (error instanceof Error) setErrorMessage(error.message);
