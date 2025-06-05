@@ -1,14 +1,17 @@
-import { FooterButton, SelectBox, Separator } from '@/components/common';
+import { FooterButton, Loading, SelectBox } from '@/components/common';
 import BorderButton from '@/components/common/borderButton/BorderButton';
 import { CartItemType } from '@/components/features/cart/types';
 import { calculateOrderPrice } from '@/components/features/cart/utils/cartCalculations';
+import { getCoupons } from '@/components/features/coupon/api/getCoupons';
+import CouponItem from '@/components/features/coupon/couponItem/CouponItem';
 import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
 import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
 import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
-import { useState } from 'react';
-import * as S from './OrderCheckContents.styles';
+import { useJaeO } from '@/shared/data/useJaeO';
 import { Modal } from '@jae-o/modal-component-module';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import * as S from './OrderCheckContents.styles';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -17,6 +20,10 @@ interface OrderCheckContentsProps {
 function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
   const navigate = useNavigate();
+  const { data: coupons } = useJaeO({
+    fetchKey: 'coupons',
+    fetchFn: getCoupons,
+  });
 
   const orderPrice = calculateOrderPrice(orderItems);
 
@@ -36,6 +43,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
       },
     });
   };
+
+  if (!coupons) return <Loading />;
 
   return (
     <Modal>
@@ -73,50 +82,9 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
               </S.NoticeText>
             </S.NoticeBox>
             <S.CouponList>
-              <S.CouponItem>
-                <Separator />
-                <S.CouponTitleRow>
-                  <SelectBox selected={false} />
-                  <S.CouponTitle>무료배송 쿠폰</S.CouponTitle>
-                </S.CouponTitleRow>
-                <S.CouponDescriptionBox>
-                  <S.CouponDescription>
-                    만료일: 2024년 11월 30일
-                  </S.CouponDescription>
-                  <S.CouponDescription>
-                    최소 주문 금액: 100,000원
-                  </S.CouponDescription>
-                </S.CouponDescriptionBox>
-              </S.CouponItem>
-              <S.CouponItem>
-                <Separator />
-                <S.CouponTitleRow>
-                  <SelectBox selected={false} />
-                  <S.CouponTitle>2개 구매 시 1개 무료 쿠폰</S.CouponTitle>
-                </S.CouponTitleRow>
-                <S.CouponDescriptionBox>
-                  <S.CouponDescription>
-                    만료일: 2024년 5월 30일
-                  </S.CouponDescription>
-                </S.CouponDescriptionBox>
-              </S.CouponItem>
-              <S.CouponItem>
-                <Separator />
-                <S.CouponTitleRow>
-                  <SelectBox selected={true} />
-                  <S.CouponTitle>
-                    5만원 이상 구매 시 무료 배송 쿠폰
-                  </S.CouponTitle>
-                </S.CouponTitleRow>
-                <S.CouponDescriptionBox>
-                  <S.CouponDescription>
-                    만료일: 2024년 8월 31일
-                  </S.CouponDescription>
-                  <S.CouponDescription>
-                    최소 주문 금액: 50,000원
-                  </S.CouponDescription>
-                </S.CouponDescriptionBox>
-              </S.CouponItem>
+              {coupons.map((coupon) => (
+                <CouponItem key={coupon.id} item={coupon} />
+              ))}
             </S.CouponList>
           </S.CouponContainer>
           <Modal.CloseTrigger asChild>

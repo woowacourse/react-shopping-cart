@@ -64,32 +64,3 @@ export const CouponList = styled.div`
   flex-direction: column;
   gap: 24px;
 `;
-
-export const CouponItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-export const CouponTitleRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-export const CouponTitle = styled.label`
-  font-size: 16px;
-  font-weight: 700;
-`;
-
-export const CouponDescriptionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-export const CouponDescription = styled.p`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-`;

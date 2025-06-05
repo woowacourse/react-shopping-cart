@@ -1,4 +1,8 @@
 type CouponCodeType = 'FIXED' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
+type AvailableTime = {
+  start: string;
+  end: string;
+};
 
 interface CouponBaseType {
   id: number;
@@ -21,10 +25,7 @@ export interface FreeShippingCouponType extends CouponBaseType {
 }
 export interface MiracleCouponType extends CouponBaseType {
   discount: number;
-  availableTime: {
-    start: string;
-    end: string;
-  };
+  availableTime: AvailableTime;
 }
 
 export type CouponType =

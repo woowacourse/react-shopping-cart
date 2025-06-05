@@ -1,4 +1,4 @@
-import { isValidImageUrl } from '@/utils/isValidImageUrl';
+import { isValidImageUrl } from '@/shared/utils/isValidImageUrl';
 import { CartItemType } from '../../cart/types';
 import * as S from './OrderItem.styles';
 import defaultImage from '/assets/default_product.png';

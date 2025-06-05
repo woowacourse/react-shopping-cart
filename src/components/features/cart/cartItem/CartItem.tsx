@@ -1,7 +1,7 @@
 import { refetchData } from '@/shared/data/dataStore';
 import { useJaeOMutation } from '@/shared/data/useJaeOMutation';
 import { showErrorToast } from '@/shared/toast/toastStore';
-import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
+import { isValidImageUrl } from '../../../../shared/utils/isValidImageUrl';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
 import { deleteCartItem } from '../api/deleteCartItem';
