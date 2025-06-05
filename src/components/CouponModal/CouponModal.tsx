@@ -2,8 +2,9 @@ import { Modal } from "pongju-modal-component";
 import Text from "../@common/Text/Text";
 import { MAX_COUPON_COUNT } from "../../constants";
 import { InfoRow } from "../PriceSummary/PriceSummary";
+import { useCoupon } from "../../hooks/useCoupon";
+import { useEffect } from "react";
 import { CouponItem } from "./CouponItem";
-import { coupons } from "../../constants/Coupons";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -11,6 +12,15 @@ interface CouponModalProps {
 }
 
 export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
+  const { coupons, fetchCoupons } = useCoupon();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchCoupons();
+    };
+    fetchData();
+  }, []);
+
   return (
     <Modal isOpen={isOpen} onClose={onModalClose}>
       <Modal.Backdrop>
@@ -24,15 +34,27 @@ export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
                 text={`쿠폰은 최대 ${MAX_COUPON_COUNT}개까지 사용할 수 있습니다.`}
               />
             </div>
-            {coupons.map((coupon) => (
-              <CouponItem
-                name={coupon.name}
-                isSelected={true}
-                expiration={coupon.expiration}
-                availableTime={coupon.availableTime}
-                minOrderPrice={coupon.minOrderPrice}
-              />
-            ))}
+            {coupons.map((coupon) => {
+              return (
+                <CouponItem
+                  key={coupon.id}
+                  name={coupon.description}
+                  isSelected={true}
+                  expiration={coupon.expirationDate}
+                  availableTime={
+                    coupon.discountType === "percentage"
+                      ? coupon.availableTime
+                      : undefined
+                  }
+                  minOrderPrice={
+                    coupon.discountType === "fixed" ||
+                    coupon.discountType === "freeShipping"
+                      ? coupon.minimumAmount
+                      : undefined
+                  }
+                />
+              );
+            })}
           </Modal.Body>
           <Modal.Button
             title={"닫기"}
