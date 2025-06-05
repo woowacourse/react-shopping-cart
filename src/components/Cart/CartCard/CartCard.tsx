@@ -63,7 +63,7 @@ function CartCard({
           </Styled.DeleteButton>
         </Styled.ButtonWrapper>
         <Styled.Wrapper>
-          <CartCardImage imageUrl={imageUrl} />
+          <CartCardImage imageUrl={imageUrl} alt={name} />
           <Styled.ProductInfo>
             <Styled.ProductName>{name}</Styled.ProductName>
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
