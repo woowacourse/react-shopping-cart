@@ -1,32 +1,49 @@
 # react-shopping-cart
 
-# 최소 기능 목록
+## 기능 구현 목록
 
-- [ ] **`/cart-items`** API를 호출하여 장바구니 상품 데이터를 불러온다.
-  - [ ] UI 컴포넌트 : ShoppingCartPage
-  - [ ] API : cartAPI (get, delete, patch, post) ← API Provider 로 구현
-  - [ ] 서버의 카트 데이터로 장바구니 목록이 렌더링된다.
-- [ ] 불러온 데이터를 기반으로 클라이언트 상태를 구성하고 관리한다.
-  - API Provider 의 상태에 따라 개별 상품의 선택 여부, 결제 금액, 배송비 등의 상태를 관리한다.
-- [ ] 상품 선택에 따른 결제 금액, 배송비 등의 동적인 변경 사항을 처리한다.
-- 진입 시, 전체 선택 되어 있는 것이 디폴트이다.
-  → checkedItem 배열을 초기화, 장바구니에 있는 id를 저장
-- 상품 선택/해제 시 결제 금액을 동적으로 변경한다.
-  → orderPrice: checkedItem 배열에 있는 id를 가진 cartItem의 price와 quantity를 통해 변경
-- 결제 금액이 10만원 이상일 경우 배송비는 무료이다.
-  → orderPrice가 10만원이 넘으면 무료, 아니면 3000
-- [ ] 장바구니 상품의 수량을 변경할 수 있다.
-- [ ] 장바구니에 담긴 상품을 제거할 수 있다.
+## UI
 
-# UI 컴포넌트
+- [ ] 주문 확인서 페이지
 
-- [ ] ShoppingCartPage.tsx (Header, CartLayout, OrderConfirmButton)
-- [ ] Header <Logo>
-- [ ] CartLayout.tsx (CartTitle, CartCheckList, CartPrice)
-- [ ] CartTitle → TitleText, CartCountTitle
-- [ ] CartCheckList → CartItem(Checkbox(common), Button(common), Counter(common)로 만들어진 CartCounter(feature), PreviewImage)[]
-  - [ ] CartCheckList 가 관리하는 상태 → fetch한 cartList, [{cartId: boolean(checked)}]
-  - [ ] CartItem 에 있는 CartCounter는 CartAPI 요청을 함께 처리하는 feature component
-- [ ] CartPrice → props{orderPrice} → CartNotice, CartPriceRow[]
-- [ ] OrderConfirmButton
-  - [ ] 최종 CartCheckList의 cartId 들을 POST
+  - [ ] 주문 확인 페이지 타이틀
+  - [ ] 선택된 상품 정보와 개수 컴포넌트
+  - [ ] 쿠폰 적용 버튼 컴포넌트
+  - [ ] 제주도 및 도서산간 지역 체크 버튼 컴포넌트
+  - [ ] 주문 금액 정보 컴포넌트
+  - [ ] 결제 하기 버튼 컴포넌트
+
+- [ ] 쿠폰 선택 모달
+
+  - [ ] 쿠폰을 선택해주세요 title
+  - [ ] 쿠폰 규칙 안내 메세지
+  - [ ] 쿠폰 리스트
+    - [ ] 체크 박스
+    - [ ] 쿠폰 이름
+    - [ ] 만료일
+    - [ ] 최소 주문 금액 (선택적)
+    - [ ] 사용 가능 시간 (선택적)
+  - [ ] 쿠폰 사용 확인 버튼
+  - [ ] 쿠폰 비활성화인 경우
+
+- [ ] 결제 확인 페이지
+  - [ ] 상품 종류와 개수
+  - [ ] 총 결제 금액
+  - [ ] 장바구니로 돌아가기 버튼
+
+## 기능
+
+- [ ] 쿠폰 기능
+
+  - [ ] 최대 2개의 쿠폰 동시 사용 가능
+  - [ ] 가장 할인 효과가 큰 조합 자동 선택
+  - [ ] 쿠폰별 조건 및 효과에 맞게 할인 금액 계산
+    - [ ] FIXED5000: 5,000원 할인 (최소 주문 금액 100,000원, 11/30까지)
+    - [ ] BOGO: 동일 상품 3개 구매 시 1개 무료 (가장 비싼 상품 기준, 6/30까지)
+    - [ ] FREESHIPPING: 무료 배송 (최소 주문 금액 50,000원, 도서산간 포함, 8/31까지)
+    - [ ] MIRACLESALE: 오전 4시 ~ 7시 30% 할인 (7/31까지)
+
+- [ ] 배송비 정책
+  - [ ] 주문 금액이 100,000원 이상이면 무료 배송 적용 (쿠폰 적용 전 기준)
+  - [ ] 제주도 및 도서산간 지역 체크 시 3,000원 추가
+  - [ ] FREESHIPPING 쿠폰은 도서산간 추가 비용까지 포함하여 무료 처리
