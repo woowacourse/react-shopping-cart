@@ -6,11 +6,17 @@ import Card from '../../components/feature/CartSection/CartProducts/Card';
 import Button from '../../components/common/Button';
 import CheckBox from '../../components/common/CheckBox';
 import PriceSection from '../../components/feature/CartSection/PriceSection';
+import {useState} from 'react';
+import {Modal} from '@muffin2219/components';
+import Coupon from '../../components/feature/ModalContent/Coupon';
 
 const OrderConfirm = () => {
   const selectedItems = useSelectedItems();
   const {orderPrice, deliveryPrice, totalAmount, totalPrice} =
     calcOrderHistory(selectedItems);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -23,7 +29,7 @@ const OrderConfirm = () => {
             <Card key={cartItem.id} cartItem={cartItem} interactive={false} />
           ))}
         </S.CartList>
-        <Button title="쿠폰 적용" onClick={() => {}} />
+        <Button title="쿠폰 적용" onClick={() => setIsOpen(true)} />
         <S.Description>배송 정보</S.Description>
         <CheckBox
           label="제주도 및 도서 산간 지역"
@@ -36,6 +42,9 @@ const OrderConfirm = () => {
           totalPrice={totalPrice}
         />
       </S.Wrapper>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Coupon />
+      </Modal>
     </S.Container>
   );
 };
