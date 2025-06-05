@@ -30,7 +30,7 @@ interface CartItemCardProps {
 }
 
 export default function CartItemCard({ cartItem }: CartItemCardProps) {
-  const { SelectedCartItemsItems, addSelectedCartItem, removeSelectedCartItem } = useSelectedCartItemsContext();
+  const { SelectedCartItems, addSelectedCartItem, removeSelectedCartItem } = useSelectedCartItemsContext();
   const { fetchCartItems } = useCartItemsContext();
 
   const handleSelectedCartItemsItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ export default function CartItemCard({ cartItem }: CartItemCardProps) {
     addSelectedCartItem(cartItem, cartItem.quantity);
   };
 
-  const isSelected = SelectedCartItemsItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
+  const isSelected = SelectedCartItems.findIndex((item) => item.id === cartItem.id) === -1 ? false : true;
 
   const handleCartItemDelete = async () => {
     try {

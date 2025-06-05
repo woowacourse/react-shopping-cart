@@ -3,7 +3,7 @@ import { CartItem } from '../type/cart';
 import { useCartItemsContext } from './useCartItemsContext';
 
 interface SelectedCartItemsContextType {
-  SelectedCartItemsItems: CartItem[];
+  SelectedCartItems: CartItem[];
   addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
@@ -17,10 +17,14 @@ interface SelectedCartItemsProviderProps {
 
 export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProviderProps) => {
   const { cartItems } = useCartItemsContext();
-  const [SelectedCartItemsItems, setSelectedCartItemsItems] = useState<CartItem[]>([]);
+  const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    setSelectedCartItemsItems((prev) =>
+    setSelectedCartItems(cartItems);
+  }, []);
+
+  useEffect(() => {
+    setSelectedCartItems((prev) =>
       prev.map((selectedItem) => {
         const updatedItem = cartItems.find((item) => item.id === selectedItem.id);
         return updatedItem ? updatedItem : selectedItem;
@@ -29,21 +33,21 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
   }, [cartItems]);
 
   const addSelectedCartItem = (cartItem: CartItem) => {
-    setSelectedCartItemsItems((prevItems) => [...prevItems, cartItem]);
+    setSelectedCartItems((prevItems) => [...prevItems, cartItem]);
   };
 
   const removeSelectedCartItem = (cartItem: CartItem) => {
-    setSelectedCartItemsItems((prevItems) => prevItems.filter((item) => item.id !== cartItem.id));
+    setSelectedCartItems((prevItems) => prevItems.filter((item) => item.id !== cartItem.id));
   };
 
   const addAllCartItemsInSelected = (cartItems: CartItem[]) => {
-    setSelectedCartItemsItems(cartItems);
+    setSelectedCartItems(cartItems);
   };
 
   return (
     <SelectedCartItemsContext.Provider
       value={{
-        SelectedCartItemsItems,
+        SelectedCartItems,
         addSelectedCartItem,
         addAllCartItemsInSelected,
         removeSelectedCartItem,

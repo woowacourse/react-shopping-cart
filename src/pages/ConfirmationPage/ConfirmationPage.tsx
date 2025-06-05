@@ -27,16 +27,16 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { SelectedCartItemsItems } = useSelectedCartItemsContext();
+  const { SelectedCartItems } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(ROUTES.ROOT);
   };
 
-  const cartTypeQuantity = SelectedCartItemsItems.length;
-  const totalQuantity = SelectedCartItemsItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = SelectedCartItemsItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const cartTypeQuantity = SelectedCartItems.length;
+  const totalQuantity = SelectedCartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = SelectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   return (
     <S.ConfirmationContainer>
@@ -51,7 +51,7 @@ export default function ConfirmationPage() {
         <S.ConfirmationTotalPurchasePrice>{totalPrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
       </S.ConfirmationSection>
       <S.ConfirmationFooterContainer>
-        <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={SelectedCartItemsItems.length === 0} />
+        <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={SelectedCartItems.length === 0} />
       </S.ConfirmationFooterContainer>
     </S.ConfirmationContainer>
   );

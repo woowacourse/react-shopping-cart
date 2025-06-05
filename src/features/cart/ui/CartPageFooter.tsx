@@ -26,7 +26,7 @@ const ButtonCSS = css`
 `;
 
 export default function Footer({ cartItemQuantity }: { cartItemQuantity: number }) {
-  const { SelectedCartItemsItems } = useSelectedCartItemsContext();
+  const { SelectedCartItems } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ export default function Footer({ cartItemQuantity }: { cartItemQuantity: number 
         onClick={handleClick}
         title="주문 확인"
         css={ButtonCSS}
-        disabled={cartItemQuantity === 0 || SelectedCartItemsItems.length === 0}
+        disabled={cartItemQuantity === 0 || SelectedCartItems.length === 0}
       />
     </FooterContainer>
   );
