@@ -10,8 +10,7 @@ import {
   Text,
   useFunnelContext,
 } from "@/components";
-import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
-import useCouponQuery from "@/hooks/useCouponQuery/useCouponQuery";
+import { useCartItemQuery, useCouponQuery } from "@/hooks";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useEffect, useMemo, useState } from "react";

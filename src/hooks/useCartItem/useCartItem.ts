@@ -1,9 +1,11 @@
 import { useError } from "@/context";
-import useCartItemDeleteMutation from "../useCartItemDeleteMutation/useCartItemDeleteMutation";
-import useCartItemPatchMutation from "../useCartItemPatchMutation/useCartItemPatchMutation";
-import useCartItemPostMutation from "../useCartItemPostMutation/useCartItemPostMutation";
-import useCartItemQuery from "../useCartItemQuery/useCartItemQuery";
-import useProductQuery from "../useProductQuery/useProductQuery";
+import {
+  useCartItemDeleteMutation,
+  useCartItemPatchMutation,
+  useCartItemPostMutation,
+  useCartItemQuery,
+  useProductQuery,
+} from "@/hooks";
 import { optimisticDecreaseCartItem, optimisticDeleteCartItem, optimisticIncreaseCartItem } from "./utils";
 
 export default function useCartItem() {

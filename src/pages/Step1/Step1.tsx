@@ -1,5 +1,5 @@
 import { Button, CartItem, Checkbox, Header, Info, Spacing, Text, useFunnelContext } from "@/components";
-import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
+import { useCartItemQuery } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { useShoppingCartContext } from "../MainPage/context";

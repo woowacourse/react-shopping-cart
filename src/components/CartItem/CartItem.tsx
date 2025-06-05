@@ -3,7 +3,7 @@ import { useCartItem } from "@/hooks";
 import { css } from "@emotion/react";
 import Card from "../Card/Card";
 import * as S from "./CartItem.styles";
-import useCartItemQuery from "@/hooks/useCartItemQuery/useCartItemQuery";
+import { useCartItemQuery } from "@/hooks";
 
 interface CartItemProps {
   id: number;
