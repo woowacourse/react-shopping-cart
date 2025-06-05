@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "../src/App";
 import { CartProvider } from "../src/stores/CartContext";
 
-jest.mock("../src/api/cartItemListApi", () => ({
+jest.mock("../src/api/getCartList", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -17,13 +17,11 @@ jest.mock("../src/api/updateCartItem", () => ({
   default: jest.fn(),
 }));
 
-import cartItemListApi from "../src/api/getCartList";
+import getCartList from "../src/api/getCartList";
 import removeProductItem from "../src/api/removeProductItem";
 import updateCartItem from "../src/api/updateCartItem";
 
-const mockCartItemListApi = cartItemListApi as jest.MockedFunction<
-  typeof cartItemListApi
->;
+const mockgetCartList = getCartList as jest.MockedFunction<typeof getCartList>;
 const mockremoveProductItem = removeProductItem as jest.MockedFunction<
   typeof removeProductItem
 >;
@@ -49,7 +47,7 @@ const mockCartItems = [
 describe("RTL Test", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockCartItemListApi.mockResolvedValue({ content: mockCartItems });
+    mockgetCartList.mockResolvedValue({ content: mockCartItems });
     mockremoveProductItem.mockResolvedValue(undefined);
     mockupdateCartItem.mockResolvedValue(undefined);
   });
@@ -70,7 +68,7 @@ describe("RTL Test", () => {
 describe("장바구니 기능 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockCartItemListApi.mockResolvedValue({ content: mockCartItems });
+    mockgetCartList.mockResolvedValue({ content: mockCartItems });
     mockremoveProductItem.mockResolvedValue(undefined);
     mockupdateCartItem.mockResolvedValue(undefined);
   });
@@ -144,7 +142,7 @@ describe("장바구니 기능 테스트", () => {
   });
 
   it("상품 삭제가 가능하다", async () => {
-    mockCartItemListApi
+    mockgetCartList
       .mockResolvedValueOnce({ content: mockCartItems })
       .mockResolvedValueOnce({ content: [] });
 
@@ -173,7 +171,7 @@ describe("장바구니 기능 테스트", () => {
   });
 
   it("장바구니가 비어있을 때 적절한 메시지가 표시된다", async () => {
-    mockCartItemListApi.mockResolvedValue({ content: [] });
+    mockgetCartList.mockResolvedValue({ content: [] });
 
     render(
       <CartProvider>

@@ -5,12 +5,6 @@ import {
   formatPrice,
 } from "../src/utils/price";
 
-describe("jest test", () => {
-  it("should be true", () => {
-    expect(true).toBe(true);
-  });
-});
-
 describe("가격 계산 유틸리티 테스트", () => {
   describe("calculateTotalPrice", () => {
     it("선택된 상품들의 총 가격을 계산한다", () => {
