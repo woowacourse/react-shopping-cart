@@ -1,10 +1,10 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { CartItemsContext } from './CartItemsContext';
 import useCartItems from '../hooks/useCartItems';
 import useCheckedCartItems from '../hooks/useCheckedCartItems';
 
 const CartItemsProvider = ({ children }: { children: ReactNode }) => {
-  const [isFirstLoading, setIsFirstLoading] = useState(true);
+  const isFirstLoading = useRef(true);
 
   const {
     cartItems,
@@ -17,10 +17,10 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
     useCheckedCartItems();
 
   useEffect(() => {
-    if (!isFirstLoading) return;
+    if (!isFirstLoading.current) return;
 
     if (cartItems.length !== 0) {
-      setIsFirstLoading(false);
+      isFirstLoading.current = false;
     }
 
     init(cartItems);
