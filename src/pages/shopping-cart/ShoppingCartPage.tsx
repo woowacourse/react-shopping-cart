@@ -13,7 +13,7 @@ const ShoppingCartPage = () => {
   const navigate = useNavigate();
   const handleCheckout = () => {
     if (!isDisabled) {
-      navigate('/order-confirm');
+      navigate('/order-review');
     }
   };
   return (
