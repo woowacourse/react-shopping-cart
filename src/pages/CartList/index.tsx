@@ -14,7 +14,7 @@ import {patchCartProduct} from '../../api/cart/patchCartProduct';
 
 import * as S from './index.styles';
 import {css} from '@emotion/react';
-import {useSelectedItems} from '../../provider/selectedItemProvider';
+import {useSelectedItems} from '../../provider/cartItemsProvider';
 
 const styleButton = css`
   width: 100%;
@@ -39,7 +39,7 @@ const CartList = () => {
 
   const selectedItem = useSelectedItems();
 
-  const {orderPrice, deliveryPrice, totalAmount, totalPrice} =
+  const {orderPrice, deliveryPrice, totalPrice} =
     calcOrderHistory(selectedItem);
 
   const handleDelete = async (id: number) => {
@@ -109,15 +109,7 @@ const CartList = () => {
         testId="order-confirm-button"
         title="주문 확인"
         disabled={selectedItem?.length === 0}
-        onClick={() =>
-          navigate(ROUTE_PATHS.ORDER_CONFIRM, {
-            state: {
-              sort: selectedItem.length,
-              totalAmount: totalAmount,
-              totalPrice: totalPrice,
-            },
-          })
-        }
+        onClick={() => navigate(ROUTE_PATHS.ORDER_CONFIRM)}
         css={styleButton}
       />
     </S.Container>

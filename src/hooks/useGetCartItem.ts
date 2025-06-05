@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {getCartProduct} from '../api/cart/getCartProduct';
 import {useShowError} from '../provider/errorProvider';
-import {useCartItems} from '../provider/selectedItemProvider';
+import {useCartItems} from '../provider/cartItemsProvider';
 
 const useGetCartItem = () => {
   const {cartItems, setCartItems} = useCartItems();

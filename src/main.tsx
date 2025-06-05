@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Router from './route/index.tsx';
 import {ErrorProvider} from './provider/errorProvider.tsx';
-import {CartItemsProvider} from './provider/selectedItemProvider.tsx';
+import {CartItemsProvider} from './provider/cartItemsProvider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

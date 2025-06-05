@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react';
 import {CartProduct} from '../type/cart';
-import {useSelectedCartId} from '../provider/selectedItemProvider';
+import {useSelectedCartId} from '../provider/cartItemsProvider';
 
 export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
   const {selectedCartId, setSelectedCartId} = useSelectedCartId();
