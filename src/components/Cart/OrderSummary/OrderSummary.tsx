@@ -31,16 +31,9 @@ function OrderSummary({ cartItemsData, selectedCartIds }: OrderSummaryProps) {
           <Styled.TitleText>주문 금액</Styled.TitleText>
           <Styled.PriceText>{totalPrice.toLocaleString()}원</Styled.PriceText>
         </Styled.TotalPrice>
-
         <Styled.ShippingFee>
-          {shippingFee !== 0 && (
-            <>
-              <Styled.TitleText>배송비</Styled.TitleText>
-              <Styled.PriceText>
-                {shippingFee.toLocaleString()}원
-              </Styled.PriceText>
-            </>
-          )}
+          <Styled.TitleText>배송비</Styled.TitleText>
+          <Styled.PriceText>{shippingFee.toLocaleString()}원</Styled.PriceText>
         </Styled.ShippingFee>
       </Styled.PriceWrapper>
       <Styled.TotalPriceTitle>
