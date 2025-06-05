@@ -83,8 +83,8 @@ export default function Step1() {
                   isSelected={selectedItemIds.includes(item.id)}
                   onCheckboxClick={() => handleSelectItem(item.id)}
                   onDeleteClick={handleDeleteCartItem}
-                  onAddButtonClick={() => handleAddButtonClick(item.id)}
-                  onMinusButtonClick={() => handleMinusButtonClick(item.id)}
+                  onAddButtonClick={() => handleAddButtonClick(item.product.id)}
+                  onMinusButtonClick={() => handleMinusButtonClick(item.product.id)}
                 />
               ))}
             </S.CartItemList>
