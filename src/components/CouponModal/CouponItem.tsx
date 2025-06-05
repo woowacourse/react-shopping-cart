@@ -1,13 +1,14 @@
 import { css } from "@emotion/css";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
+import { AvailableTime } from "../../types/type";
 
 interface CouponItemProps {
   name: string;
   expiration: string;
   minOrderPrice?: number;
   isSelected: boolean;
-  availableTime?: string;
+  availableTime?: AvailableTime;
 }
 export const CouponItem = ({
   name,
@@ -16,6 +17,12 @@ export const CouponItem = ({
   availableTime,
   isSelected,
 }: CouponItemProps) => {
+  const parsedExpiration = (expiration: string) => {
+    return expiration.split("-");
+  };
+
+  const [year, month, date] = parsedExpiration(expiration);
+
   return (
     <div className={CouponItemStyle}>
       <hr className={Divider} />
@@ -26,7 +33,7 @@ export const CouponItem = ({
       {expiration && (
         <div className={RowStyle}>
           <Text text="만료일:" />
-          <Text text={`${expiration}`} />
+          <Text text={`${year}년 ${month}월 ${date}일`} />
         </div>
       )}
       {minOrderPrice && (
@@ -38,7 +45,11 @@ export const CouponItem = ({
       {availableTime && (
         <div className={RowStyle}>
           <Text text="사용 가능 시간:" />
-          <Text text={`${availableTime.start}부터 ${availableTime.end}까지`} />
+          <Text
+            text={`${availableTime.start.split(":")[0]}부터 ${
+              availableTime.end.split(":")[0]
+            }까지`}
+          />
         </div>
       )}
     </div>
