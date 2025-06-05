@@ -44,7 +44,7 @@ const Divider = css`
   border: 0.5px solid #e0e0e0;
 `;
 
-const InfoRow = css`
+export const InfoRow = css`
   display: flex;
   align-items: center;
   gap: 4px;
