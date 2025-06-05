@@ -1,7 +1,7 @@
 import { Checkbox, Spacing, Text } from "@/components";
 import { Coupon } from "@/types";
 import { formatDate, formatTime } from "@/utils";
-import { css } from "@emotion/react";
+import * as S from "./CouponItem.styles";
 
 interface CouponItemProps {
   coupon: Coupon;
@@ -12,26 +12,11 @@ interface CouponItemProps {
 
 export default function CouponItem({ coupon, isSelected, onSelect, isCouponAvailable }: CouponItemProps) {
   return (
-    <div
-      css={css`
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        padding: 16px;
-        cursor: pointer;
-        opacity: ${isCouponAvailable ? 1 : 0.5};
-      `}
-      onClick={() => isCouponAvailable && onSelect()}
-    >
-      <div
-        css={css`
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        `}
-      >
+    <S.CouponItemWrapper isCouponAvailable={isCouponAvailable} onClick={() => isCouponAvailable && onSelect()}>
+      <S.CheckboxWrapper>
         <Checkbox checked={isSelected} />
         <Text variant="title-2">{coupon.description}</Text>
-      </div>
+      </S.CheckboxWrapper>
 
       <Spacing size={16} />
 
@@ -51,6 +36,6 @@ export default function CouponItem({ coupon, isSelected, onSelect, isCouponAvail
           </Text>
         )}
       </div>
-    </div>
+    </S.CouponItemWrapper>
   );
 }
