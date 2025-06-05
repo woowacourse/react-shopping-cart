@@ -53,10 +53,11 @@ function CartItem({
           <img
             css={ProductImage}
             src={product.imageUrl}
+            alt="상품 이미지"
             onError={(error) => {
               error.currentTarget.src = DefaultCartImg;
             }}
-          ></img>
+          />
           <div css={ItemContent}>
             <div css={ItemDetail}>
               <h3 css={ItemTitle}>{product.name}</h3>
