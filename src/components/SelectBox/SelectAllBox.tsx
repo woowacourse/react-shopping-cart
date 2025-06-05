@@ -11,7 +11,7 @@ function SelectAllBox() {
           <HiddenCheckbox
             type="checkbox"
             checked={isAllChecked}
-            onChange={() => handleAllCheck(!isAllChecked)}
+            onChange={() => handleAllCheck()}
           />
           <StyledCheckbox checked={isAllChecked} />
         </CheckboxContainer>

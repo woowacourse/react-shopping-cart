@@ -6,7 +6,7 @@ import { getCartItems } from '../apis/cart';
 interface CartSelectionContextType {
   checkedItems: number[];
   isAllChecked: boolean;
-  handleAllCheck: (checked: boolean) => void;
+  handleAllCheck: () => void;
   toggleItem: (id: number) => void;
 }
 

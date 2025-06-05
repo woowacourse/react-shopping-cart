@@ -43,10 +43,10 @@ export function useCartSelection(cartItems: CartItemsResponse | undefined) {
     cartItems?.content?.length && checkedItems.length === cartItems.content.length,
   );
 
-  const handleAllCheck = (checked: boolean) => {
+  const handleAllCheck = () => {
     if (!cartItems?.content) return;
 
-    if (checked) {
+    if (!isAllChecked) {
       const allIds = cartItems.content.map((item) => item.id);
       setCheckedItems(allIds);
     } else {
