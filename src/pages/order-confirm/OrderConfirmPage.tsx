@@ -4,6 +4,7 @@ import { getShoppingCartData } from "../../api/cart";
 import { Flex, Header } from "../../components/common";
 import BackArrowButton from "../../components/common/BackArrowButton";
 import { useAPIDataContext } from "../../context/APIDataProvider";
+import { useOrderCalculation } from "../../hooks/order/useOrderCalculation";
 import { formatKRWString } from "../../utils/formatKRWString";
 import { useOrderListContext } from "../shopping-cart/context/OrderListProvider";
 
@@ -17,18 +18,10 @@ const OrderConfirmPage = () => {
     fetcher: getShoppingCartData,
   });
   const { selectionMap } = useOrderListContext(cartListData);
-  const orderList = (cartListData ?? []).filter(
-    (cart) => selectionMap[cart.id] === true
+  const { typeCount, totalCount, totalPrice } = useOrderCalculation(
+    cartListData,
+    selectionMap
   );
-  const typeCount = orderList.length;
-  const totalCount = orderList.reduce((acc, cart) => acc + cart.quantity, 0);
-  const totalCartPrice = orderList.reduce(
-    (acc, cart) => acc + cart.product.price * cart.quantity,
-    0
-  );
-  const shippingFee =
-    totalCartPrice >= 100000 || totalCartPrice === 0 ? 0 : 3000;
-  const totalPrice = totalCartPrice + shippingFee;
 
   return (
     <>

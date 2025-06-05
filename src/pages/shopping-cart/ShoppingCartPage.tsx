@@ -21,6 +21,7 @@ const ShoppingCartPage = () => {
       navigate("/order-confirm");
     }
   };
+
   return (
     <>
       <Header left="SHOP" />

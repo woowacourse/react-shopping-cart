@@ -5,9 +5,8 @@ import { useOrderListContext } from "../context/OrderListProvider";
 import { formatKRWString } from "../../../utils/formatKRWString";
 import { useAPIDataContext } from "../../../context/APIDataProvider";
 import { getShoppingCartData } from "../../../api/cart";
-
-const FREE_SHIPPING_STANDARD = 100000;
-const SHIPPING_FEE = 3000;
+import { useOrderCalculation } from "../../../hooks/order/useOrderCalculation";
+import { FREE_SHIPPING_STANDARD } from "../../../hooks/order/OrderConstants";
 
 const LabelPriceContainer = () => {
   const { data: cartListData } = useAPIDataContext({
@@ -15,15 +14,10 @@ const LabelPriceContainer = () => {
     name: "cart",
   });
   const { selectionMap } = useOrderListContext(cartListData);
-  const selectedItems = (cartListData ?? []).filter(
-    (item) => selectionMap[item.id]
+  const { shippingFee, totalPrice, totalCartPrice } = useOrderCalculation(
+    cartListData,
+    selectionMap
   );
-  const orderPrice = selectedItems.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
-  const shippingFee = orderPrice >= FREE_SHIPPING_STANDARD ? 0 : SHIPPING_FEE;
-  const totalPrice = orderPrice + shippingFee;
 
   return (
     <Container>
@@ -35,7 +29,7 @@ const LabelPriceContainer = () => {
         </InfoMessage>
       </InfoBox>
       <PriceWrapper>
-        <LabelPrice label="주문 금액" price={orderPrice} />
+        <LabelPrice label="주문 금액" price={totalCartPrice} />
         <LabelPrice
           ariaLabel="shipping-fee"
           label="배송비"
