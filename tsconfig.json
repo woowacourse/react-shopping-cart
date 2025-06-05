@@ -35,6 +35,9 @@
       "@assets/*": [
         "src/assets/*"
       ],
+      "@app/*": [
+        "src/app/*"
+      ],
       "@shared/components/*": [
         "src/shared/components/*"
       ]
