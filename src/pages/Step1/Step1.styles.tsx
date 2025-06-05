@@ -17,6 +17,7 @@ export const ReceiptTextWrapper = styled.p`
 export const ShoppingCartSection = styled.section`
   padding: 36px 18px;
   width: 100%;
+  height: 100%;
 `;
 
 export const EmptyCartWrapper = styled.div`

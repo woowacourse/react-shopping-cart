@@ -1,6 +1,6 @@
 import { CartItem, Coupon } from "@/types";
 import CartItemService from "../CartItemService/CartItemService";
-import { getTime } from "@/utils/time";
+import { getTime } from "@/utils";
 
 export default class CouponService {
   private readonly cartItemService: CartItemService;

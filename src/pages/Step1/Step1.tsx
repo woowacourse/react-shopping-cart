@@ -7,11 +7,11 @@ import * as S from "./Step1.styles";
 import { FREE_DELIVERY_PRICE } from "@/constants";
 
 export default function Step1() {
+  const { goNextStep, goToStep } = useFunnelContext();
+
   const { data: cartItems } = useCartItemQuery();
   const { deleteCartItem, increaseCartItem, decreaseCartItem } = useCartItem();
   const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
-
-  const { goNextStep } = useFunnelContext();
 
   // 개별 아이템 선택/해제
   const handleSelectItem = (itemId: number) => {
@@ -48,9 +48,20 @@ export default function Step1() {
 
   if (!cartItems) return null;
   return (
-    <main>
+    <main
+      css={css`
+        height: 100%;
+      `}
+    >
       <Header>
-        <Text variant="title-1" color="white">
+        <Text
+          variant="title-1"
+          color="white"
+          onClick={() => goToStep(1)}
+          css={css`
+            cursor: pointer;
+          `}
+        >
           SHOP
         </Text>
       </Header>
@@ -126,7 +137,7 @@ export default function Step1() {
             width: 100%;
           `}
           onClick={goNextStep}
-          disabled={cartItems.content.length === 0}
+          disabled={selectedCartItems.length === 0}
         >
           <Text variant="title-3" color="white">
             주문 확인
