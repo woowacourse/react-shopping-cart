@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "types": [
+      "vitest/globals",
+      "vitest",
+      "@testing-library/jest-dom",
+      "node",
+      "jest"
+    ]
+  },
+  "include": ["./**/*"]
+}
