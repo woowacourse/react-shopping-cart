@@ -1,10 +1,13 @@
 const deleteCartItems = async (id: number) => {
-  const response = await fetch(`https://localhost:5273/cart-items/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/cart-items/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
   if (!response.ok) {
     throw new Error('Failed to update cart item');
