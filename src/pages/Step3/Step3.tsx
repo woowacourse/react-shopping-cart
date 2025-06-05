@@ -1,4 +1,4 @@
-import { ArrowBackIcon, Button, Header, Spacing, Text, useFunnelContext } from "@/components";
+import { Button, Header, Spacing, Text, useFunnelContext } from "@/components";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
@@ -14,7 +14,7 @@ export default function Step3() {
 
   const cartItemService = new CartItemService(cartItems?.content ?? []);
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
-  const totalPriceWithDeliveryFee = cartItemService.calculateTotalPriceWithDeliveryFee(isFar);
+  const totalPrice = cartItemService.calculateTotalPrice();
 
   const totalType = cartItemService.calculateTotalType();
   const totalQuantity = cartItemService.calculateTotalQuantity();
@@ -34,15 +34,7 @@ export default function Step3() {
         height: 100%;
       `}
     >
-      <Header onClick={goPrevStep}>
-        <ArrowBackIcon
-          css={css`
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-          `}
-        />
-      </Header>
+      <Header onClick={goPrevStep} />
 
       <S.OrderCompletedSection>
         <Text variant="title-1">결제 확인</Text>
@@ -54,9 +46,7 @@ export default function Step3() {
         <Spacing size={24} />
         <Text variant="title-3">총 결제 금액</Text>
         <Spacing size={12} />
-        <Text variant="title-1">
-          {(totalPriceWithDeliveryFee - totalDiscountPrice + deliveryFee).toLocaleString()}원
-        </Text>
+        <Text variant="title-1">{(totalPrice - totalDiscountPrice + deliveryFee).toLocaleString()}원</Text>
       </S.OrderCompletedSection>
 
       <S.ButtonWrapper>
@@ -66,7 +56,9 @@ export default function Step3() {
           `}
           onClick={() => goToStep(1)}
         >
-          장바구니로 돌아가기
+          <Text variant="title-3" color="white">
+            장바구니로 돌아가기
+          </Text>
         </Button>
       </S.ButtonWrapper>
     </main>
