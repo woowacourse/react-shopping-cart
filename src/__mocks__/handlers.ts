@@ -1,8 +1,12 @@
 import { http, HttpResponse } from "msw";
 import { API_BASE_URL } from "../apis/config";
-import cartItems from "./cartItems.json";
+import cartItems from "./data/cartItems.json";
+import coupons from "./data/coupons.json";
 
-const END_POINT = "/cart-items";
+const END_POINT = {
+  CART_ITEMS: "/cart-items",
+  COUPONS: "coupons",
+};
 
 interface PatchCartItemsRequestBody {
   id: number;
@@ -15,49 +19,62 @@ export const handlers = [
   /**
    * CartItems API : GET
    */
-  http.get(`${API_BASE_URL}${END_POINT}`, async () => {
+  http.get(`${API_BASE_URL}${END_POINT.CART_ITEMS}`, async () => {
     return HttpResponse.json(currentCartItems);
   }),
 
   /**
    * CartItems API : DELETE
    */
-  http.delete(`${API_BASE_URL}${END_POINT}/:cartId`, async ({ params }) => {
-    const { cartId } = params;
+  http.delete(
+    `${API_BASE_URL}${END_POINT.CART_ITEMS}/:cartId`,
+    async ({ params }) => {
+      const { cartId } = params;
 
-    const initialLength = currentCartItems.content.length;
-    currentCartItems.content = currentCartItems.content.filter(
-      (item) => item.id !== Number(cartId)
-    );
+      const initialLength = currentCartItems.content.length;
+      currentCartItems.content = currentCartItems.content.filter(
+        (item) => item.id !== Number(cartId)
+      );
 
-    if (currentCartItems.content.length === initialLength) {
-      return new HttpResponse(null, {
-        status: 404,
-        statusText: "Not found",
-      });
+      if (currentCartItems.content.length === initialLength) {
+        return new HttpResponse(null, {
+          status: 404,
+          statusText: "Not found",
+        });
+      }
+
+      return new HttpResponse(null, { status: 204 });
     }
-
-    return new HttpResponse(null, { status: 204 });
-  }),
+  ),
 
   /**
    * CartItems API : PATCH
    */
-  http.patch(`${API_BASE_URL}${END_POINT}/:cartId`, async ({ request }) => {
-    const { id: cartId, quantity } =
-      (await request.json()) as PatchCartItemsRequestBody;
+  http.patch(
+    `${API_BASE_URL}${END_POINT.CART_ITEMS}/:cartId`,
+    async ({ request }) => {
+      const { id: cartId, quantity } =
+        (await request.json()) as PatchCartItemsRequestBody;
 
-    const item = currentCartItems.content.find((item) => item.id === cartId);
+      const item = currentCartItems.content.find((item) => item.id === cartId);
 
-    if (!item) {
-      return new HttpResponse(null, {
-        status: 404,
-        statusText: "Not found",
-      });
+      if (!item) {
+        return new HttpResponse(null, {
+          status: 404,
+          statusText: "Not found",
+        });
+      }
+
+      item.quantity = quantity;
+
+      return HttpResponse.json(item);
     }
+  ),
 
-    item.quantity = quantity;
-
-    return HttpResponse.json(item);
+  /**
+   * Coupons API : GET
+   */
+  http.get(`${API_BASE_URL}${END_POINT.COUPONS}`, async () => {
+    return HttpResponse.json(coupons);
   }),
 ];
