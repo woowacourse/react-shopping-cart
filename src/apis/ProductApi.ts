@@ -1,6 +1,6 @@
 import { API_PATH } from "@/constants";
 import { GetProductResponse } from "@/types";
-import BaseApi from "./BaseApi";
+import { baseApi } from "./BaseApi";
 
 interface GetProductParams {
   page?: number;
@@ -8,7 +8,7 @@ interface GetProductParams {
   sort?: "asc" | "desc";
 }
 
-export default class ProductApi extends BaseApi {
+export default class ProductApi {
   static async getAllProducts({
     page = 0,
     size = 20,
@@ -19,6 +19,6 @@ export default class ProductApi extends BaseApi {
       size: String(size),
       sort,
     });
-    return BaseApi.get(`${API_PATH.products}?${searchParams.toString()}`);
+    return baseApi.get(`${API_PATH.products}?${searchParams.toString()}`);
   }
 }

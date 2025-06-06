@@ -1,6 +1,6 @@
 import { API_PATH } from "@/constants";
 import { GetCartItemsResponse } from "@/types";
-import BaseApi from "./BaseApi";
+import { baseApi } from "./BaseApi";
 
 export interface GetCartItemsParams {
   page?: number;
@@ -22,7 +22,7 @@ export interface PatchCartItemsParams {
   quantity: number;
 }
 
-export default class CartItemApi extends BaseApi {
+export default class CartItemApi {
   static async getCartItems({
     page = 0,
     size = 20,
@@ -33,22 +33,22 @@ export default class CartItemApi extends BaseApi {
       size: String(size),
       sort,
     });
-    return BaseApi.get(`${API_PATH.cartItems}?${searchParams.toString()}`);
+    return baseApi.get(`${API_PATH.cartItems}?${searchParams.toString()}`);
   }
 
   static async postCartItems({ productId, quantity = 1 }: PostCartItemsParams) {
-    return BaseApi.post(`${API_PATH.cartItems}`, {
-      body: JSON.stringify({ productId, quantity }),
+    return baseApi.post(`${API_PATH.cartItems}`, {
+      body: { productId, quantity },
     });
   }
 
   static async deleteCartItems({ cartItemId }: DeleteCartItemsParams) {
-    return BaseApi.delete(`${API_PATH.cartItems}/${cartItemId}`);
+    return baseApi.delete(`${API_PATH.cartItems}/${cartItemId}`);
   }
 
   static async patchCartItems({ cartItemId, quantity }: PatchCartItemsParams) {
-    return BaseApi.patch(`${API_PATH.cartItems}/${cartItemId}`, {
-      body: JSON.stringify({ quantity }),
+    return baseApi.patch(`${API_PATH.cartItems}/${cartItemId}`, {
+      body: { quantity },
     });
   }
 }

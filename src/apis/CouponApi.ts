@@ -1,9 +1,9 @@
 import { API_PATH } from "@/constants";
 import { GetAllCouponsResponse } from "@/types";
-import BaseApi from "./BaseApi";
+import { baseApi } from "./BaseApi";
 
-export default class CouponApi extends BaseApi {
+export default class CouponApi {
   static async getAllCoupons(): Promise<GetAllCouponsResponse> {
-    return BaseApi.get(`${API_PATH.coupons}`);
+    return baseApi.get(`${API_PATH.coupons}`);
   }
 }
