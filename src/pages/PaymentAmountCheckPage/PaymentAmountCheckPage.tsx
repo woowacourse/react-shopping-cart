@@ -14,7 +14,7 @@ import * as Styled from "../ShoppingCartPage/ShoppingCartPage.styles";
 import CouponModal from "../../components/CouponModal/CouponModal";
 
 export default function PaymentAmountCheckPage() {
-  const [couponPrice, setCouponPrice] = useState(null);
+  const [couponPrice, _] = useState(null);
   const [toggle, setToggle] = useState<boolean>(true);
   const { isOpen, handleOpen, handleClose } = Modal.useModal();
 

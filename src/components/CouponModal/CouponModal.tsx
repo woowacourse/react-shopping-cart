@@ -1,6 +1,8 @@
 import { createPortal } from "react-dom";
 
 import { Modal } from "@kaori-killer/modal-component";
+import useCoupons from "../../hooks/useCoupons";
+import { describe } from "vitest";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -8,6 +10,8 @@ interface CouponModalProps {
 }
 
 function CouponModal({ isOpen, handleClose }: CouponModalProps) {
+  const { state, coupons } = useCoupons();
+
   return createPortal(
     <Modal isOpen={isOpen} onClose={handleClose}>
       <Modal.Content position="bottom" size="medium">
@@ -18,10 +22,19 @@ function CouponModal({ isOpen, handleClose }: CouponModalProps) {
           <Modal.CloseButton onClose={handleClose} />
         </Modal.Header>
 
-        <Modal.Body>안녕</Modal.Body>
+        <Modal.Body>
+          <p>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
+          {coupons.map((coupon) => (
+            <div key={coupon.id}>
+              <p>{coupon.description}</p>
+              <p>{coupon.expirationDate}</p>
+              <p>{coupon.minimumAmount}</p>
+            </div>
+          ))}
+        </Modal.Body>
 
         <Modal.Footer direction="column" align="start" justify="center">
-          안뇽뇽
+          <button>총 5000원 할인 쿠폰 사용하기</button>
         </Modal.Footer>
       </Modal.Content>
     </Modal>,
