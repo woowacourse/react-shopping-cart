@@ -73,12 +73,13 @@ export const ModalTitleStyle = (color: string) => css`
   line-height: normal;
 `;
 
-export const ModalBodyStyle = css`
+export const ModalBodyStyle = (height: number) => css`
   display: flex;
   flex-direction: column;
   gap: 18px;
   width: 100%;
-  max-height: 300px;
+  height: ${height}px;
+  max-height: 614px;
   overflow-y: auto;
 `;
 

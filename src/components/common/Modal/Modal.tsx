@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { createContext, useContext, useRef } from 'react';
 
+import { useFocusTrap } from '@/components/hooks/useFocusTrap';
+import useKeyPress from '@/components/hooks/useKeyPress';
 import BaseButton from '../Button';
 import CancelButton from './Button/CancelButton';
 import ConfirmButton from './Button/ConfirmButton';
@@ -15,15 +17,13 @@ import {
   ModalWrapperStyle,
 } from './styles';
 import {
-  ChildrenProps,
+  ModalBodyProps,
   ModalContextType,
   ModalFooterProps,
   ModalHeaderProps,
   ModalProps,
-  ModalTitleProps,
+  ModalTitleProps
 } from './types/Modal.types';
-import { useFocusTrap } from '@/components/hooks/useFocusTrap';
-import useKeyPress from '@/components/hooks/useKeyPress';
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
@@ -92,8 +92,8 @@ const ModalHeader = ({ closeButton = false, children }: ModalHeaderProps) => {
   );
 };
 
-const ModalBody = ({ children }: ChildrenProps) => {
-  return <div css={ModalBodyStyle}>{children}</div>;
+const ModalBody = ({ height, children }: ModalBodyProps) => {
+  return <div css={ModalBodyStyle(height ?? 0)}>{children}</div>;
 };
 
 const ModalFooter = ({ buttonAlign = 'left', children }: ModalFooterProps) => {
