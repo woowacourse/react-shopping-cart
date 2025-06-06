@@ -15,7 +15,7 @@ import InfoIcon from "/info.svg";
 
 const CartPage = () => {
   const {
-    cartItemsData,
+    cartItems,
     hasCheckedItem,
     cartItemCount,
     orderPrice,
@@ -43,8 +43,8 @@ const CartPage = () => {
             <S.CartContainer>
               <AllSelector />
               <S.CartItemsContainer>
-                {cartItemsData.map((cartItem) => (
-                  <CartItem key={cartItem.id} cartItem={cartItem} />
+                {cartItems.map((item) => (
+                  <CartItem key={item.id} item={item} />
                 ))}
               </S.CartItemsContainer>
             </S.CartContainer>

@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 32px 24px 36px;
   flex-grow: 1;
-  justify-content: center;
-  align-items: center;
+  height: calc(100vh - 128px);
 `;
 
 export const BackIcon = styled.img`
@@ -14,27 +14,45 @@ export const BackIcon = styled.img`
   cursor: pointer;
 `;
 
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  flex-grow: 1;
+  overflow: hidden;
+`;
+
 export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: center;
-  margin: 40px 0;
 `;
 
-export const PriceContainer = styled.div`
+export const OrderItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 32px 12px 32px 0;
+  gap: 20px;
+  overflow-y: auto;
+`;
+
+export const InfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+export const PriceSummary = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+`;
+
+export const PriceInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: center;
-`;
-
-export const Label = styled.div`
-  font-weight: 700;
-  font-size: 18px;
-`;
-
-export const Price = styled.div`
-  font-weight: 700;
-  font-size: 26px;
+  border-top: 1px solid #0000001a;
+  padding-top: 12px;
 `;
