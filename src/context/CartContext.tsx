@@ -1,23 +1,24 @@
 import { createContext, useContext } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import useCartList from '../hooks/useCartList';
+import useSelect from '../hooks/useSelect';
 
-type CartListContextType = {
+type CartContextType = {
   data: CartItemProps[];
   error: string;
   isLoading: boolean;
   increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   deleteCartItem: (cartItemId: number) => Promise<void>;
+  selectedItems: number[];
+  isAllSelected: boolean;
+  handleSelectItem: (cartItemId: number) => void;
+  handleSelectAllItems: () => void;
 };
 
-const CartListContext = createContext<CartListContextType | null>(null);
+const CartContext = createContext<CartContextType | null>(null);
 
-export const CartListProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const {
     data,
     error,
@@ -26,8 +27,14 @@ export const CartListProvider = ({
     decreaseCartItem,
     deleteCartItem,
   } = useCartList();
+  const {
+    selectedItems,
+    isAllSelected,
+    handleSelectItem,
+    handleSelectAllItems,
+  } = useSelect(data);
   return (
-    <CartListContext.Provider
+    <CartContext.Provider
       value={{
         data,
         error,
@@ -35,15 +42,19 @@ export const CartListProvider = ({
         increaseCartItem,
         decreaseCartItem,
         deleteCartItem,
+        selectedItems,
+        isAllSelected,
+        handleSelectItem,
+        handleSelectAllItems,
       }}
     >
       {children}
-    </CartListContext.Provider>
+    </CartContext.Provider>
   );
 };
 
-export const useCartListContext = () => {
-  const context = useContext(CartListContext);
+export const useCartContext = () => {
+  const context = useContext(CartContext);
   if (!context) {
     throw new Error(
       'useCartListContext must be used within a CartListProvider'

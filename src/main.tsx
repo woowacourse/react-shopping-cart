@@ -5,7 +5,7 @@ import { Global } from '@emotion/react';
 import globalStyles from './styles/global.styles';
 import './index.css';
 import { ToastProvider } from './context/ToastContext';
-import { CartListProvider } from './context/CartListContext';
+import { CartProvider } from './context/CartContext';
 
 async function enableMocking() {
   const { worker } = await import('./mocks/browser');
@@ -24,9 +24,9 @@ enableMocking().then(() => {
     <React.StrictMode>
       <Global styles={globalStyles} />
       <ToastProvider>
-        <CartListProvider>
+        <CartProvider>
           <Route />
-        </CartListProvider>
+        </CartProvider>
       </ToastProvider>
     </React.StrictMode>
   );

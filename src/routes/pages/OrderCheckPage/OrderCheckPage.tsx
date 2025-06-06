@@ -11,19 +11,19 @@ import OrderCartItem from '../../../components/CartItem/OrderCartItem';
 import CouponButton from '../../../components/CouponButton/CouponButton';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
-import { getLocalStorage } from '../../../utils/localStorage';
-import { useCartListContext } from '../../../context/CartListContext';
+// import { getLocalStorage } from '../../../utils/localStorage';
+// import { useCartListContext } from '../../../context/CartListContext';
+import { useCartContext } from '../../../context/CartContext';
 
 function OrderCheck() {
   const navigate = useNavigate();
 
-  const { data: cartList } = useCartListContext();
-  const selectedItems = getLocalStorage('selectedItems');
-  const selectedCartItems = cartList?.filter((item: CartItemProps) =>
-    selectedItems.includes(item.id)
+  const cart = useCartContext();
+  const selectedCartItems = cart.data?.filter((item: CartItemProps) =>
+    cart.selectedItems.includes(item.id)
   );
 
-  const typeCount = selectedItems.length;
+  const typeCount = cart.selectedItems.length;
   const totalCount = selectedCartItems.reduce(
     (acc: number, curr: CartItemProps) => {
       return acc + curr?.quantity;

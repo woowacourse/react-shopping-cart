@@ -12,7 +12,6 @@ import Toast from '../../../components/common/Toast/Toast';
 
 import { Logo } from '../../../assets';
 
-import useSelect from '../../../hooks/useSelect';
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
 import { cartPrice } from '../../../utils/cartPrice';
 import { useToastContext } from '../../../context/ToastContext';
@@ -20,46 +19,46 @@ import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
 import CartListHeader from '../../../components/CartList/CartList';
 import { TEXT } from '../../../constants/text';
-import { useCartListContext } from '../../../context/CartListContext';
+// import { useCartListContext } from '../../../context/CartListContext';
+// import { useSelectedItemsContext } from '../../../context/SelectedItemsContext';
+import { useCartContext } from '../../../context/CartContext';
 
 function CartPage() {
-  const cartList = useCartListContext();
-  const selectedList = useSelect(cartList.data);
+  // const cartList = useCartListContext();
+  // const selectedList = useSelectedItemsContext();
+  const cart = useCartContext();
   const { isVisible } = useToastContext();
   const navigate = useNavigate();
 
-  const totalPrice = cartPrice.totalPrice(
-    cartList.data,
-    selectedList.selectedItems
-  );
+  const totalPrice = cartPrice.totalPrice(cart.data, cart.selectedItems);
 
-  const selectedCartData = cartList.data.filter((item) =>
-    selectedList.selectedItems.includes(item.id)
+  const selectedCartData = cart.data.filter((item) =>
+    cart.selectedItems.includes(item.id)
   );
 
   const handleOrderButtonClick = () => {
-    navigate('/order-check', { state: { selectedCartData, totalPrice } });
+    navigate('/order-check');
   };
 
   const renderCartList = () => {
-    return cartList.data.length === 0 ? (
+    return cart.data.length === 0 ? (
       <EmptyCart />
     ) : (
       <>
         <CartListHeader
-          allSelected={selectedList.isAllSelected}
-          onAllSelectChange={selectedList.handleSelectAllItems}
+          allSelected={cart.isAllSelected}
+          onAllSelectChange={cart.handleSelectAllItems}
         />
         <ul css={CartListStyle}>
-          {cartList.data.map((cartItem) => (
+          {cart.data.map((cartItem) => (
             <CartItem
               key={cartItem.id}
               cartItem={cartItem}
-              selected={selectedList.selectedItems.includes(cartItem.id)}
-              onSelectChange={selectedList.handleSelectItem}
-              onIncreaseClick={cartList.increaseCartItem}
-              onDecreaseClick={cartList.decreaseCartItem}
-              onDeleteClick={cartList.deleteCartItem}
+              selected={cart.selectedItems.includes(cartItem.id)}
+              onSelectChange={cart.handleSelectItem}
+              onIncreaseClick={cart.increaseCartItem}
+              onDecreaseClick={cart.decreaseCartItem}
+              onDeleteClick={cart.deleteCartItem}
             />
           ))}
         </ul>
@@ -76,12 +75,12 @@ function CartPage() {
         </HeaderButton>
       </Header>
       <ContainerLayout>
-        {isVisible && <Toast message={cartList.error} />}
+        {isVisible && <Toast message={cart.error} />}
         <CartListTitle
           title={TEXT.CART_TITLE}
-          description={`현재 ${cartList.data.length}종류의 상품이 담겨있습니다.`}
+          description={`현재 ${cart.data.length}종류의 상품이 담겨있습니다.`}
         />
-        {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
+        {cart.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
       <OrderButton
         onClick={handleOrderButtonClick}
