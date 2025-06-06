@@ -3,7 +3,7 @@ import * as S from "./Text.styles";
 
 export type TextVariant = "title-1" | "title-2" | "title-3" | "title-4" | "body-0" | "body-1" | "body-2" | "body-3";
 
-interface TextProps extends HTMLAttributes<HTMLSpanElement> {
+interface TextProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   variant?: TextVariant;
   color?: string;

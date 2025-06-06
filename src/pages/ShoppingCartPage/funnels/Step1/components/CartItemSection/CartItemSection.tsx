@@ -1,9 +1,9 @@
-import { Checkbox, Info, Spacing, Text } from "@/components";
+import { Checkbox, Info, SpaceBetweenFlex, Spacing, Text } from "@/components";
 import { FREE_DELIVERY_PRICE } from "@/constants";
 import { useCartItemQuery } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
-import { useShoppingCartContext } from "../../../../contexts";
+import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import CartItem from "../CartItem/CartItem";
 import * as S from "./CartItemSection.styles";
 
@@ -73,18 +73,18 @@ export default function CartItemSection() {
 
           <hr />
 
-          <S.ReceiptTextWrapper>
+          <SpaceBetweenFlex>
             <Text variant="title-3">주문 금액</Text>
             <Text variant="title-1">{orderPrice.toLocaleString()}원</Text>
-          </S.ReceiptTextWrapper>
-          <S.ReceiptTextWrapper>
+          </SpaceBetweenFlex>
+          <SpaceBetweenFlex>
             <Text variant="title-3">배송비</Text>
             <Text variant="title-1">{deliveryFee.toLocaleString()}원</Text>
-          </S.ReceiptTextWrapper>
-          <S.ReceiptTextWrapper>
+          </SpaceBetweenFlex>
+          <SpaceBetweenFlex>
             <Text variant="title-3">총 결제 금액</Text>
             <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
-          </S.ReceiptTextWrapper>
+          </SpaceBetweenFlex>
         </>
       )}
     </S.CartItemSectionWrapper>

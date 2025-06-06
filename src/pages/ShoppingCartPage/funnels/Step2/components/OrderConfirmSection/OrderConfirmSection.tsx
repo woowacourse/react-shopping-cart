@@ -1,8 +1,7 @@
-import { Button, Card, Checkbox, Info, Modal, Spacing, Text } from "@/components";
+import { Button, Card, Checkbox, Info, Modal, SpaceBetweenFlex, Spacing, Text } from "@/components";
 import { FREE_DELIVERY_PRICE } from "@/constants";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
 import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
-import { ReceiptTextWrapper } from "@/pages/ShoppingCartPage/funnels/Step1/components/CartItemSection/CartItemSection.styles";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useEffect, useMemo, useState } from "react";
@@ -113,25 +112,25 @@ export default function OrderConfirmSection() {
       <hr />
 
       <S.ReceiptWrapper>
-        <ReceiptTextWrapper>
+        <SpaceBetweenFlex>
           <Text variant="title-3">주문 금액</Text>
           <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
-        </ReceiptTextWrapper>
-        <ReceiptTextWrapper>
+        </SpaceBetweenFlex>
+        <SpaceBetweenFlex>
           <Text variant="title-3">쿠폰 할인 금액</Text>
           <Text variant="title-1">{totalDiscountPrice?.toLocaleString()}원</Text>
-        </ReceiptTextWrapper>
-        <ReceiptTextWrapper>
+        </SpaceBetweenFlex>
+        <SpaceBetweenFlex>
           <Text variant="title-3">배송비</Text>
           <Text variant="title-1">{deliveryFee.toLocaleString()}원</Text>
-        </ReceiptTextWrapper>
+        </SpaceBetweenFlex>
 
         <hr />
 
-        <ReceiptTextWrapper>
+        <SpaceBetweenFlex>
           <Text variant="title-3">총 결제 금액</Text>
           <Text variant="title-1">{(totalPrice - totalDiscountPrice + deliveryFee).toLocaleString()}원</Text>
-        </ReceiptTextWrapper>
+        </SpaceBetweenFlex>
       </S.ReceiptWrapper>
     </S.OrderConfirmSectionWrapper>
   );

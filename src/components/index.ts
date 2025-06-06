@@ -1,5 +1,8 @@
 export { default as Button } from "./Button/Button";
 export { default as Checkbox } from "./Checkbox/Checkbox";
+export { default as Flex } from "./Flex/Flex";
+export * from "./Flex/Flex";
+
 export { default as Header } from "./Header/Header";
 export { default as PlusMinusButton } from "./PlusMinusButton/PlusMinusButton";
 export { default as Spacing } from "./Spacing/Spacing";

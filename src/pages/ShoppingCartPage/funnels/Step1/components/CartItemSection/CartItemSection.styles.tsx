@@ -11,12 +11,6 @@ export const CartItemList = styled.div`
   overflow: scroll;
 `;
 
-export const ReceiptTextWrapper = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 export const EmptyCartWrapper = styled.div`
   display: flex;
   flex-direction: column;
