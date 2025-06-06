@@ -1,3 +1,6 @@
+import { CART_RULE } from '../../cart/constants/cartRule';
+import { CartItemType } from '../../cart/types';
+import { calculateOrderPrice } from '../../cart/utils/cartCalculations';
 import {
   BOGOCouponType,
   CouponType,
@@ -105,7 +108,43 @@ class Coupon {
     return false;
   }
 
-  calculateDiscount() {}
+  calculateDiscount(orderItems: CartItemType[], isRemoteArea: boolean) {
+    const orderPrice = calculateOrderPrice(orderItems);
+
+    if (isFixedCoupon(this.#data)) {
+      return this.#data.discount;
+    }
+
+    if (isMiracleCoupon(this.#data)) {
+      return (this.#data.discount / 100) * orderPrice;
+    }
+
+    if (isBOGOCoupon(this.#data)) {
+      const eligibleItemsByPrice = orderItems
+        .filter((item) => item.quantity >= 2 + 1)
+        .sort((a, b) => b.product.price - a.product.price);
+
+      if (eligibleItemsByPrice.length === 0) {
+        return 0;
+      }
+
+      return eligibleItemsByPrice[0].product.price;
+    }
+
+    if (isFreeShippingCoupon(this.#data)) {
+      if (isRemoteArea) {
+        if (orderPrice >= CART_RULE.freeDeliveryThreshold) return 3_000;
+        return 6_000;
+      }
+
+      if (orderPrice >= CART_RULE.freeDeliveryThreshold) {
+        return CART_RULE.defaultDeliveryFee;
+      }
+      return 0;
+    }
+
+    return 0;
+  }
 }
 
 export default Coupon;
