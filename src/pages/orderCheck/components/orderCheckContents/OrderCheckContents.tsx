@@ -3,7 +3,7 @@ import BorderButton from '@/components/common/borderButton/BorderButton';
 import { CartItemType } from '@/components/features/cart/types';
 import { calculateOrderPrice } from '@/components/features/cart/utils/cartCalculations';
 import { getCoupons } from '@/components/features/coupon/api/getCoupons';
-import CouponItem from '@/components/features/coupon/couponItem/CouponItem';
+import CouponModal from '@/components/features/coupon/couponModal/CouponModal';
 import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
 import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
 import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
@@ -24,6 +24,20 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     fetchKey: 'coupons',
     fetchFn: getCoupons,
   });
+  const [couponSelectedIds, setCouponSelectedIds] = useState<number[]>([]);
+
+  const toggleSelect = (couponId: number) => {
+    setCouponSelectedIds((prev) => {
+      if (prev.includes(couponId)) {
+        return prev.filter((id) => id !== couponId);
+      }
+      if (prev.length < 2) {
+        return [...prev, couponId];
+      }
+
+      return prev;
+    });
+  };
 
   const orderPrice = calculateOrderPrice(orderItems);
 
@@ -73,24 +87,11 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         </S.ShippingOptionBox>
         <OrderPriceSummary value={orderPrice} />
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
-        <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
-          <S.CouponContainer>
-            <S.NoticeBox>
-              <img src="./assets/Notification.svg" alt="알림" />
-              <S.NoticeText>
-                쿠폰은 최대 2개까지 사용할 수 있습니다.
-              </S.NoticeText>
-            </S.NoticeBox>
-            <S.CouponList>
-              {coupons.map((coupon) => (
-                <CouponItem key={coupon.id} item={coupon} />
-              ))}
-            </S.CouponList>
-          </S.CouponContainer>
-          <Modal.CloseTrigger asChild>
-            <Modal.WideButton>총 6,000원 할인 쿠폰 사용하기</Modal.WideButton>
-          </Modal.CloseTrigger>
-        </Modal.Container>
+        <CouponModal
+          coupons={coupons}
+          couponSelectedIds={couponSelectedIds}
+          toggleSelect={toggleSelect}
+        />
       </S.Container>
     </Modal>
   );
