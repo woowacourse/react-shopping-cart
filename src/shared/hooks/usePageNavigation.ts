@@ -4,6 +4,10 @@ import { ROUTES } from '@shared/config/routes';
 
 interface OrderSuccessState {
   orderItems: CartItemType[];
+}
+
+interface PaymentSuccessState {
+  orderItems: CartItemType[];
   orderTotalPrice: number;
 }
 
@@ -11,18 +15,33 @@ export const usePageNavigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navigateToOrderSuccess = (state: OrderSuccessState) => {
-    navigate(ROUTES.ORDER_SUCCESS, { state });
-  };
-
   const navigateToCart = () => {
     navigate(ROUTES.CART);
   };
 
-  const validateOrderSuccessState = (): OrderSuccessState | null => {
+  const navigateToOrder = (state: OrderSuccessState) => {
+    navigate(ROUTES.ORDER, { state });
+  };
+
+  const navigateToPayment = (state: PaymentSuccessState) => {
+    navigate(ROUTES.PAYMENT, { state });
+  };
+
+  const getOrderSuccessState = (): OrderSuccessState | null => {
     if (!location.state) return null;
 
     const state = location.state as OrderSuccessState;
+    if (!state.orderItems || !Array.isArray(state.orderItems)) {
+      return null;
+    }
+
+    return state;
+  };
+
+  const getPaymentSuccessState = (): PaymentSuccessState | null => {
+    if (!location.state) return null;
+
+    const state = location.state as PaymentSuccessState;
     if (
       !state.orderItems ||
       !Array.isArray(state.orderItems) ||
@@ -35,8 +54,10 @@ export const usePageNavigation = () => {
   };
 
   return {
-    navigateToOrderSuccess,
     navigateToCart,
-    validateOrderSuccessState,
+    getOrderSuccessState,
+    navigateToOrder,
+    navigateToPayment,
+    getPaymentSuccessState,
   };
 };

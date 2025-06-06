@@ -1,5 +1,5 @@
 import EmptyCartContainer from '../EmptyCartContainer/EmptyCartContainer';
-import PriceContainer from '../PriceContainer/PriceContainer';
+import PriceContainer from '../PriceContainer';
 import CartList from '@/features/cart/ui/CartList/CartList';
 import CheckBox from '@shared/components/CheckBox/CheckBox';
 import * as S from './CartContent.styled';
@@ -17,7 +17,7 @@ export default function CartContent() {
     useOrderSelection(cartItems);
   const { orderPrice, deliveryFee, orderTotalPrice } = useOrderCalculation(cartItems, orderIdList);
 
-  const { navigateToOrderSuccess } = usePageNavigation();
+  const { navigateToOrder } = usePageNavigation();
 
   if (isLoading && !cartItems?.length) {
     return <LoadingContainer />;
@@ -33,7 +33,7 @@ export default function CartContent() {
 
   const handleOrderConfirmButtonClick = () => {
     const orderItems = cartItems?.filter((item) => orderIdList.includes(item.id)) ?? [];
-    navigateToOrderSuccess({ orderItems, orderTotalPrice });
+    navigateToOrder({ orderItems });
   };
 
   return (
