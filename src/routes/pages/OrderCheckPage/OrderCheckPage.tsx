@@ -15,21 +15,20 @@ import { getLocalStorage } from '../../../utils/localStorage';
 
 function OrderCheck() {
   const navigate = useNavigate();
-  // 1. 상품 종류와 총 개수 상태 세팅하기
-  // 1) 종류 개수 : typeCount
-  // - 체크된 id 개수 (selectedItems 필요)
-  // 2) 총 개수 : totalCount
-  // - 체크된 id의 상품 개수 (cartList, selectedItems 필요)
+
   const cartList = getLocalStorage('cartList');
   const selectedItems = getLocalStorage('selectedItems');
+  const selectedCartItems = cartList.filter((item: CartItemProps) =>
+    selectedItems.includes(item.id)
+  );
 
-  const typeCount = selectedItems.length; //
-  const totalCount = selectedItems.reduce((acc: number, curr: number) => {
-    const findCartItem = cartList.find(
-      (item: CartItemProps) => item.id === curr
-    );
-    return acc + findCartItem?.quantity;
-  }, 0);
+  const typeCount = selectedItems.length;
+  const totalCount = selectedCartItems.reduce(
+    (acc: number, curr: CartItemProps) => {
+      return acc + curr?.quantity;
+    },
+    0
+  );
 
   return (
     <>
@@ -44,8 +43,9 @@ function OrderCheck() {
           description={`총 ${typeCount}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
         />
         <ul>
-          <OrderCartItem />
-          <OrderCartItem />
+          {selectedCartItems.map((item: CartItemProps) => (
+            <OrderCartItem key={item.id} item={item} />
+          ))}
         </ul>
         <CouponButton />
         <DeliverInfo />

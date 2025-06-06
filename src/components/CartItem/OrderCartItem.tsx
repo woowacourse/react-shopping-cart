@@ -1,4 +1,5 @@
 import { Default } from '../../assets';
+import { CartItemProps } from '../../types/cartItem';
 import Text from '../common/Text/Text';
 import {
   CartInfo,
@@ -8,17 +9,22 @@ import {
   ImageStyle,
 } from './CartItem.styles';
 
-function OrderCartItem() {
+function OrderCartItem({ item }: { item: CartItemProps }) {
+  const { quantity, product } = item;
   return (
     <li css={CartItemStyle}>
       <div css={CartItemBodyStyle}>
-        <img css={ImageStyle} src={Default} alt={'[동적 상품 이미지 필요]'} />
+        <img
+          css={ImageStyle}
+          src={product.imageUrl || Default}
+          alt={product.name}
+        />
 
         <div css={CartInfo}>
-          <Text varient="caption">{'[동적 상품 이름 필요]'}</Text>
-          <Text varient="title">{'[동적 상품 가격 필요]'}</Text>
+          <Text varient="caption">{product.name}</Text>
+          <Text varient="title">{product.price.toLocaleString()}원</Text>
           <div css={ControllerBox}>
-            <Text varient="caption">{'[동적 상품 수량 필요]'}</Text>
+            <Text varient="caption">{quantity}개</Text>
           </div>
         </div>
       </div>
