@@ -4,6 +4,7 @@ import { ButtonSize, ButtonVariant } from "./type";
 export const Button = styled.button<{ variant: ButtonVariant; size: ButtonSize }>`
   ${(props) => selectVariant(props.variant)}
   ${(props) => selectSize(props.size)}
+  border-radius: 4px;
 `;
 
 const selectVariant = (variant: ButtonVariant) => {
@@ -18,7 +19,6 @@ const selectVariant = (variant: ButtonVariant) => {
         background-color: #fff;
         color: #000;
         border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
       `;
     case "disabled":
       return `
