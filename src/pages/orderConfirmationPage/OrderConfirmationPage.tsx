@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Title,
   TitleContainer,
@@ -26,6 +25,11 @@ import CouponModalContent from "../../components/@common/modal/contents/CouponMo
 import useCouponModal from "../../hooks/features/useCouponModal";
 import { getValidCoupons } from "../../domains/coupon/validateCoupon";
 import useCheckedCoupons from "../../hooks/features/useCheckedCoupons";
+import {
+  getBogoProductPrice,
+  getDiscountedTotalOrderPrice,
+  getTotalDiscountPrice,
+} from "../../domains/coupon/calculateCoupon";
 
 const OrderConfirmationPage = () => {
   const { ref, isVisible } = useVisibilityObserver({
@@ -41,12 +45,29 @@ const OrderConfirmationPage = () => {
 
   const {
     isRemoteArea,
-    finalDeliveryFee,
-    finalOrderPrice,
+    deliveryFeeWithRemoteArea,
+    totalPriceWithRemoteArea,
     toggleIsRemoteArea,
   } = useRemoteAreaFee({ deliveryFee, orderPrice });
 
-  const validCouponList = getValidCoupons(couponList, orderPrice, orderItems);
+  const validCouponList = getValidCoupons(couponList, {
+    originOrderPrice: orderPrice,
+    orderItems,
+    deliveryFee: deliveryFeeWithRemoteArea,
+  });
+  // TODO : 배송비 포함했을 때의 가격을 기준으로 연산 (기준은 주문 금액)
+  const bogoProductPrice = getBogoProductPrice(orderItems);
+
+  const totalDiscountPrice = getTotalDiscountPrice(isCheckedCoupons, {
+    originTotalPrice: totalPriceWithRemoteArea,
+    bogoProductPrice: bogoProductPrice,
+    deliveryFee: deliveryFeeWithRemoteArea,
+  });
+
+  const discountedTotalOrderPrice = getDiscountedTotalOrderPrice(
+    totalPriceWithRemoteArea,
+    totalDiscountPrice
+  );
 
   const getModalContent = () => {
     return loadingState === "initialLoading" ? (
@@ -97,8 +118,9 @@ const OrderConfirmationPage = () => {
       <div css={S.CartPriceContainer} ref={ref}>
         <CartPrice
           orderPrice={orderPrice}
-          deliveryFee={finalDeliveryFee}
-          totalPrice={finalOrderPrice}
+          deliveryFee={deliveryFeeWithRemoteArea}
+          discountPrice={totalDiscountPrice}
+          totalPrice={discountedTotalOrderPrice}
         />
       </div>
 

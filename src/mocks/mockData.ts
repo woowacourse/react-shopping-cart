@@ -4,7 +4,7 @@ export const mockCartData = [
     product: {
       id: 3,
       name: "조던 1 시카고",
-      price: 30000,
+      price: 33000,
       imageUrl: "/images/jordan1-chicago.jpg",
       category: "패션잡화",
       quantity: 12,
@@ -16,7 +16,7 @@ export const mockCartData = [
     product: {
       id: 5,
       name: "덩크 로우 판다",
-      price: 120000,
+      price: 24000,
       imageUrl: "/images/dunk-panda.jpg",
       category: "패션잡화",
       quantity: 33,

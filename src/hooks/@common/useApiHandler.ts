@@ -16,7 +16,6 @@ const useApiHandler = () => {
 
       const data = await apiFn();
       changeLoadingState("success");
-      console.log(data);
 
       openToast(successMessage, true);
       return data;

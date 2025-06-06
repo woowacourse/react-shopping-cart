@@ -6,13 +6,20 @@ import {
 import * as S from "./CartPrice.styles";
 import infoIcon from "/public/icon/ic_info.svg";
 import { FREE_DELIVERY_MESSAGE } from "../../../constants/systemMessages";
+
 interface CartPriceProps {
   orderPrice: number;
   deliveryFee: number;
+  discountPrice: number;
   totalPrice: number;
 }
 
-const CartPrice = ({ orderPrice, deliveryFee, totalPrice }: CartPriceProps) => {
+const CartPrice = ({
+  orderPrice,
+  deliveryFee,
+  discountPrice,
+  totalPrice,
+}: CartPriceProps) => {
   return (
     <div css={S.CartPriceWrapper}>
       <div css={S.InfoMessageContainer}>
@@ -28,6 +35,10 @@ const CartPrice = ({ orderPrice, deliveryFee, totalPrice }: CartPriceProps) => {
           <div css={S.CartPriceInfoContainer}>
             <div css={Subtitle}>배송비</div>
             <div css={Title}>{deliveryFee.toLocaleString()}원</div>
+          </div>
+          <div css={S.CartPriceInfoContainer}>
+            <div css={Subtitle}>쿠폰 할인 금액</div>
+            <div css={Title}>-{discountPrice.toLocaleString()}원</div>
           </div>
         </div>
       </div>

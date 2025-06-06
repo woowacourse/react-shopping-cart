@@ -9,11 +9,11 @@ interface RemoteAreaFeeProps {
 const useRemoteAreaFee = ({ deliveryFee, orderPrice }: RemoteAreaFeeProps) => {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
 
-  const finalDeliveryFee = isRemoteArea
+  const deliveryFeeWithRemoteArea = isRemoteArea
     ? deliveryFee + FEE.DELIVERY_FEE_REMOTE_AREA
     : deliveryFee;
 
-  const finalOrderPrice = orderPrice + finalDeliveryFee;
+  const totalPriceWithRemoteArea = orderPrice + deliveryFeeWithRemoteArea;
 
   const toggleIsRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
@@ -21,8 +21,8 @@ const useRemoteAreaFee = ({ deliveryFee, orderPrice }: RemoteAreaFeeProps) => {
 
   return {
     isRemoteArea,
-    finalDeliveryFee,
-    finalOrderPrice,
+    deliveryFeeWithRemoteArea,
+    totalPriceWithRemoteArea,
     toggleIsRemoteArea,
   };
 };

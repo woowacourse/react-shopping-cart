@@ -1,50 +1,67 @@
-export const calculateFixedDiscountCoupon = (
-  originTotalPrice: number,
-  discount: number
-) => {
-  return originTotalPrice - discount;
+import type {
+  BogoCoupon,
+  CouponType,
+  MiracleSaleCoupon,
+} from "../../types/response";
+import type { CartItemType } from "../../types/response";
+
+export const getBogoProductPrice = (orderItems: CartItemType[]) => {
+  return Math.max(
+    ...orderItems
+      .filter((item: CartItemType) => item.quantity >= 2)
+      .map((item) => item.product.price)
+  );
 };
 
-export const calculateBogoCoupon = (
-  originTotalPrice: number,
-  productPrice: number,
-  buyQuantity: number
+export const getBogoDiscountAmount = (
+  coupon: BogoCoupon,
+  { bogoProductPrice }: { bogoProductPrice: number }
 ) => {
-  const totalDiscount = productPrice * buyQuantity;
-  const totalPriceAfterDiscount = originTotalPrice - totalDiscount;
-  return {
-    totalDiscount,
-    totalPriceAfterDiscount,
-  };
+  const totalDiscount = bogoProductPrice * coupon.getQuantity;
+  return totalDiscount;
 };
 
-export const calculateFreeShippingCoupon = (
-  originTotalPrice: number,
-  freeShippingPrice: number
+export const getPercentageDiscountAmount = (
+  coupon: MiracleSaleCoupon,
+  { originTotalPrice }: { originTotalPrice: number }
 ) => {
-  const totalDiscount = freeShippingPrice;
-  const totalPriceAfterDiscount = originTotalPrice - totalDiscount;
-  return {
-    totalDiscount,
-    totalPriceAfterDiscount,
-  };
+  return originTotalPrice * (coupon.discount / 100);
 };
 
-export const calculatePercentageCoupon = (
-  originTotalPrice: number,
-  percentage: number
+interface CouponCalculateContext {
+  originTotalPrice: number;
+  bogoProductPrice: number;
+  deliveryFee: number;
+}
+
+export const getTotalDiscountPrice = (
+  checkedCoupons: Map<number, CouponType>,
+  { originTotalPrice, bogoProductPrice, deliveryFee }: CouponCalculateContext
 ) => {
-  const totalDiscount = originTotalPrice * (percentage / 100);
-  const totalPriceAfterDiscount = originTotalPrice - totalDiscount;
-  return {
-    totalDiscount,
-    totalPriceAfterDiscount,
-  };
+  const discountPrices = Array.from(checkedCoupons.values()).map((coupon) => {
+    if (coupon.discountType === "fixed") {
+      return coupon.discount;
+    }
+    if (coupon.discountType === "percentage") {
+      return getPercentageDiscountAmount(coupon, {
+        originTotalPrice,
+      });
+    }
+    if (coupon.discountType === "buyXgetY") {
+      return getBogoDiscountAmount(coupon, { bogoProductPrice });
+    }
+    if (coupon.discountType === "freeShipping") {
+      return deliveryFee;
+    }
+    return 0;
+  });
+
+  return discountPrices.reduce((acc, curr) => acc + curr, 0);
 };
 
-export const mappingCouponCalculator = {
-  fixed: calculateFixedDiscountCoupon,
-  buyXgetY: calculateBogoCoupon,
-  freeShipping: calculateFreeShippingCoupon,
-  percentage: calculatePercentageCoupon,
+export const getDiscountedTotalOrderPrice = (
+  originTotalPrice: number,
+  discountPrice: number
+) => {
+  return originTotalPrice - discountPrice;
 };
