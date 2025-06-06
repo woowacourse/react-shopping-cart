@@ -7,6 +7,7 @@ interface UseLocalStorageProps {
   setSelectedCartIds: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
+// 해당 부분은 수정중에 있습니다!
 export default function useLocalStorage({
   cartItemsData,
   selectedCartIds,
