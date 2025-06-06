@@ -62,13 +62,7 @@ const CartItemPage = () => {
               text="주문하기"
               disabled={selectedItem.size === 0}
               onClick={() => {
-                navigate("/order-confirm", {
-                  state: {
-                    selectedItemCount: selectedItem.size,
-                    totalPrice,
-                    selectedItemIds: Array.from(selectedItem),
-                  },
-                });
+                navigate("/order-confirm");
               }}
             />
           )}

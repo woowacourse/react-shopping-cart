@@ -9,9 +9,14 @@ import PageTitle from "../components/@common/PageTitle/PageTitle";
 import FullWidthButton from "../components/@common/Button/FullWidthButton/FullWidthButton";
 import LabeledCheckbox from "../components/@common/LabeledCheckbox/LabeledCheckbox";
 import SelectedItemCard from "../components/SelectedItemCard/SelectedItemCard";
+import { useSelectedItems } from "../hooks/useSelectedItems";
+import { useCartSummary } from "../hooks/useCartSummary";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
+  const { selectedItems, totalQuantity, selectedItemCount } =
+    useSelectedItems();
+  const { orderPrice, shippingFee, totalPrice } = useCartSummary();
 
   return (
     <>
@@ -19,14 +24,18 @@ const OrderConfirmPage = () => {
       <div className={CartItemPageStyles}>
         <PageTitle
           title="주문 확인"
-          description={`총 ${1}종류의 상품 ${2}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
+          description={`총 ${selectedItemCount}종류의 상품 ${totalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
-        <SelectedItemCard
-          imgUrl="/"
-          name="상품이름A"
-          price={35000}
-          quantity={2}
-        />
+        {selectedItems.map((item) => (
+          <SelectedItemCard
+            key={item.id}
+            imgUrl={item.product.imageUrl}
+            name={item.product.name}
+            price={item.product.price}
+            quantity={item.quantity}
+          />
+        ))}
+
         <FullWidthButton text="쿠폰 적용" onClick={() => {}} />
         <div className={ShippingInfo}>
           <Text text="배송 정보" type="medium" />
@@ -44,11 +53,11 @@ const OrderConfirmPage = () => {
         </div>
 
         <hr className={Divider} />
-        <PriceRow title="주문 금액" price={7000} testId="order-price" />
+        <PriceRow title="주문 금액" price={orderPrice} testId="order-price" />
         <PriceRow title="쿠폰 할인 금액" price={-6000} />
-        <PriceRow title="배송비" price={1000} testId="shipping-fee" />
+        <PriceRow title="배송비" price={shippingFee} testId="shipping-fee" />
         <hr className={Divider} />
-        <PriceRow title="총 결제 금액" price={3000} />
+        <PriceRow title="총 결제 금액" price={totalPrice} />
       </div>
       <ConfirmButton
         text="결제하기"

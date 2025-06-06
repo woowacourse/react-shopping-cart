@@ -3,12 +3,14 @@ import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
 import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCartSummary } from "../hooks/useCartSummary";
+import { useSelectedItems } from "../hooks/useSelectedItems";
 
 const PaymentConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { cartItems } = useCartItemContext();
+  const { totalQuantity, selectedItemCount } = useSelectedItems();
+  const { totalPrice } = useCartSummary();
 
   const isInvalidAccess =
     !location.state ||
@@ -36,16 +38,6 @@ const PaymentConfirmPage = () => {
       </div>
     );
   }
-
-  const { selectedItemCount, totalPrice, selectedItemIds } = location.state;
-
-  const selectedItems = cartItems.filter((item) =>
-    selectedItemIds.includes(item.id)
-  );
-  const totalQuantity = selectedItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
 
   return (
     <>
