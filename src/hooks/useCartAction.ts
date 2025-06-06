@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useCartDispatch } from "../stores/CartContext";
 import { ResponseCartItem } from "../types/types";
 
@@ -37,12 +38,15 @@ function useCartAction() {
     });
   };
 
-  const setCartInfo = ({ items }: { items: ResponseCartItem[] }) => {
-    dispatch({
-      type: "SET_CART",
-      payload: { items },
-    });
-  };
+  const setCartInfo = useCallback(
+    ({ items }: { items: ResponseCartItem[] }) => {
+      dispatch({
+        type: "SET_CART",
+        payload: { items },
+      });
+    },
+    [dispatch]
+  );
 
   return {
     increaseItemQuantity,
