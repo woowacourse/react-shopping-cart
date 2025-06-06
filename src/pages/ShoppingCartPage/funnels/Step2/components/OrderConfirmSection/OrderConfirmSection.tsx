@@ -4,9 +4,10 @@ import { useCartItemQuery, useCouponQuery } from "@/hooks";
 import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
 import * as S from "./OrderConfirmSection.styles";
+import { isEqual } from "@/utils";
 
 export default function OrderConfirmSection() {
   const { selectedItemIds, isFar, setIsFar, selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
@@ -31,20 +32,20 @@ export default function OrderConfirmSection() {
 
   const closeModal = () => setIsOpen(false);
 
-  const availableCoupons = useMemo(
-    () => coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
-    [coupons],
-  );
 
   useEffect(() => {
+    const availableCoupons = coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon));
     const mostDiscountCombination = CouponService.calculateMostDiscountCombination(
       selectedCartItems,
       availableCoupons,
       isFar,
     );
+    const newCouponIds = mostDiscountCombination?.map((coupon) => coupon.id) || [];
 
-    setSelectedCouponIds(mostDiscountCombination?.map((coupon) => coupon.id) || []);
-  }, [availableCoupons]);
+    if (isEqual(selectedCouponIds, newCouponIds)) return;
+
+    setSelectedCouponIds(newCouponIds);
+  }, [coupons, selectedCartItems, isFar, selectedCouponIds, setSelectedCouponIds]);
 
   return (
     <S.OrderConfirmSectionWrapper>
