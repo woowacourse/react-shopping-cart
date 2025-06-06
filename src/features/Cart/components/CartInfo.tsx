@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/shared/components/Button';
 import { CheckBox } from '@/shared/components/CheckBox';
@@ -10,30 +11,26 @@ import { Text } from '@/shared/components/Text';
 import { CartItemDetail } from './CartItemDetail';
 import { PriceSummary } from './PriceSummary';
 
-import { StepProps } from '../../../shared/types/funnel';
 import { CartListContainer } from '../container/CartListContainer';
-import { CartItem } from '../types/Cart.types';
+import { useCart } from '../hooks/useCart';
+import { CartDataState } from '../types/Cart.types';
 import { cartChecked } from '../utils/cartChecked';
 import { shippingProgress } from '../utils/shippingProgress';
 
-type CartInfoProps = {
-  cartItems: CartItem[];
-  onToggle: (id: number) => void;
-  onToggleAll: VoidFunction;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
-} & StepProps;
+export const CartInfo = ({ cart }: CartDataState) => {
+  const navigate = useNavigate();
+  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCart({
+    cart,
+  });
 
-export const CartInfo = ({
-  cartItems,
-  onNext,
-  onToggle,
-  onToggleAll,
-  onRemove,
-  onUpdateQuantity,
-}: CartInfoProps) => {
   const { allChecked, cartItemCount, selectedCartItemCount } = cartChecked({ cartItems });
   const { progressValue, remainingForFreeShipping } = shippingProgress({ cartItems });
+
+  const handleNavigateOrderCheckoutPage = () => {
+    navigate('/order-checkout', {
+      state: cartItems.filter((item) => item.isChecked),
+    });
+  };
 
   return (
     <>
@@ -86,7 +83,7 @@ export const CartInfo = ({
             gap="10px"
             margin="10px 0 0 0"
           >
-            <CheckBox checked={allChecked} onClick={onToggleAll} role="all-check" />
+            <CheckBox checked={allChecked} onClick={toggleAllCheck} role="all-check" />
             <Text type="Caption" weight="regular">
               {`전체선택  (${selectedCartItemCount}/${cartItemCount})`}
             </Text>
@@ -96,9 +93,9 @@ export const CartInfo = ({
           {cartItems?.map((item) => (
             <CartItemDetail
               key={item.id}
-              onToggle={onToggle}
-              onRemove={onRemove}
-              onUpdateQuantity={onUpdateQuantity}
+              onToggle={toggleCheck}
+              onRemove={removeCartItem}
+              onUpdateQuantity={updateQuantity}
               {...item}
             />
           ))}
@@ -113,7 +110,7 @@ export const CartInfo = ({
         css={css`
           position: sticky;
         `}
-        onClick={onNext}
+        onClick={handleNavigateOrderCheckoutPage}
         disabled={cartItems?.length === 0 || selectedCartItemCount === 0}
       >
         주문확인
