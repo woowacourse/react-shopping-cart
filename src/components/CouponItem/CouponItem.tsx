@@ -46,8 +46,8 @@ function CouponItem({ isChecked, onCheck, coupon }: CouponItemProps) {
         <Text varient="caption" textAlign="left">
           만료일: {year}년 {month}월 {day}일
         </Text>
-        {secondLine.map((line) => (
-          <Text varient="caption" textAlign="left">
+        {secondLine.map((line, index) => (
+          <Text key={index} varient="caption" textAlign="left">
             {line}
           </Text>
         ))}
