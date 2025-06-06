@@ -12,7 +12,6 @@ import Toast from '../../../components/common/Toast/Toast';
 
 import { Logo } from '../../../assets';
 
-import useCartList from '../../../hooks/useCartList';
 import useSelect from '../../../hooks/useSelect';
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
 import { cartPrice } from '../../../utils/cartPrice';
@@ -21,9 +20,10 @@ import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
 import CartListHeader from '../../../components/CartList/CartList';
 import { TEXT } from '../../../constants/text';
+import { useCartListContext } from '../../../context/CartListContext';
 
 function CartPage() {
-  const cartList = useCartList();
+  const cartList = useCartListContext();
   const selectedList = useSelect(cartList.data);
   const { isVisible } = useToastContext();
   const navigate = useNavigate();

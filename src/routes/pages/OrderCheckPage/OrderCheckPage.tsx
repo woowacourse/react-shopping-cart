@@ -12,13 +12,14 @@ import CouponButton from '../../../components/CouponButton/CouponButton';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
 import { getLocalStorage } from '../../../utils/localStorage';
+import { useCartListContext } from '../../../context/CartListContext';
 
 function OrderCheck() {
   const navigate = useNavigate();
 
-  const cartList = getLocalStorage('cartList');
+  const { data: cartList } = useCartListContext();
   const selectedItems = getLocalStorage('selectedItems');
-  const selectedCartItems = cartList.filter((item: CartItemProps) =>
+  const selectedCartItems = cartList?.filter((item: CartItemProps) =>
     selectedItems.includes(item.id)
   );
 

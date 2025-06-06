@@ -1,13 +1,14 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { CartItemProps } from '../types/cartItem';
+import useCartList from '../hooks/useCartList';
 
 type CartListContextType = {
-  cartList: CartItemProps[];
-  setCartList: React.Dispatch<React.SetStateAction<CartItemProps[]>>;
+  data: CartItemProps[];
   error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
+  deleteCartItem: (cartItemId: number) => Promise<void>;
 };
 
 const CartListContext = createContext<CartListContextType | null>(null);
@@ -17,19 +18,23 @@ export const CartListProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [cartList, setCartList] = useState<CartItemProps[]>([]);
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const {
+    data,
+    error,
+    isLoading,
+    increaseCartItem,
+    decreaseCartItem,
+    deleteCartItem,
+  } = useCartList();
   return (
     <CartListContext.Provider
       value={{
-        cartList,
-        setCartList,
+        data,
         error,
-        setError,
         isLoading,
-        setIsLoading,
+        increaseCartItem,
+        decreaseCartItem,
+        deleteCartItem,
       }}
     >
       {children}
@@ -46,5 +51,3 @@ export const useCartListContext = () => {
   }
   return context;
 };
-
-export default CartListContext;
