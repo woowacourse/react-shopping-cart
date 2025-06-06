@@ -6,15 +6,6 @@ export const CartPriceInfoContainerStyle = css`
   gap: 1.2rem;
 `;
 
-export const CartPriceInfoHeaderStyle = css`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.4rem;
-
-  width: 100%;
-`;
-
 export const CartPriceContainerStyle = css`
   display: flex;
   flex-direction: column;
