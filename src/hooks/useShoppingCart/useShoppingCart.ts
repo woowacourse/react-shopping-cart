@@ -1,25 +1,15 @@
-import { CartItem } from "../../type/CartItem"
 import { useCartItemsContext } from "../../contexts/CartItemsProvider"
-import fetchCartItems from "../../apis/fetchCartItems"
 import useHandleCartItemQuantity from "./useHandleCartItemQuantity"
 import useHandleDeleteCartItem from "./useHandleDeleteCartItem"
-
-const getCartItems = async () => {
-  const { content } = await fetchCartItems({
-    params: { page: "0", size: "20" },
-  })
-  return content
-}
 
 function useShoppingCart() {
   const {
     data: cartItemsData,
     error: cartItemsFetchError,
-    loading: cartFetchLoading,
+    isLoading: isCartItemsLoading,
+    isFetching: isCartItemsFetching,
     refetch: refetchCartItems,
-  } = useCartItemsContext<CartItem[]>({
-    fetcher: getCartItems,
-  })
+  } = useCartItemsContext()
 
   const { isLoading: isQuantityUpdateLoading, handleCartItemQuantity } =
     useHandleCartItemQuantity(refetchCartItems)
@@ -30,7 +20,8 @@ function useShoppingCart() {
   return {
     cartItemsData,
     cartItemsFetchError,
-    cartFetchLoading,
+    isCartItemsLoading,
+    isCartItemsFetching,
     refetchCartItems,
     isQuantityUpdateLoading,
     handleCartItemQuantity,

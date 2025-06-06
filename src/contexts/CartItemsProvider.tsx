@@ -1,71 +1,35 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useReducer,
-  useCallback,
-  useContext,
-  useEffect,
-} from "react"
-import { FetchActionType } from "../type/FetchAction"
+import { createContext, PropsWithChildren, useContext } from "react"
+import useFetchData from "../hooks/useFecthData"
+import { CartItem } from "../type/CartItem"
+import getCartItems from "../apis/helper/getCartItems"
 
-type State = {
-  data: unknown
-  loading: boolean
+type CartItemsContextType = {
+  data: CartItem[]
+  refetch: () => Promise<void>
+  isLoading: boolean
+  isFetching: boolean
   error: unknown
 }
 
-type Action =
-  | { type: FetchActionType.StartFetch }
-  | { type: FetchActionType.FetchSuccess; payload: unknown }
-  | { type: FetchActionType.FetchError; error: unknown }
-  | { type: FetchActionType.EndFetch }
-
-const initialState: State = {
-  data: undefined,
-  loading: false,
-  error: undefined,
-}
-
-function apiReducer(state: State, action: Action): State {
-  switch (action.type) {
-    case FetchActionType.StartFetch:
-      return { ...state, loading: true, error: undefined }
-    case FetchActionType.FetchSuccess:
-      return {
-        ...state,
-        data: action.payload,
-        loading: false,
-        error: undefined,
-      }
-    case FetchActionType.FetchError:
-      return { ...state, loading: false, error: action.error }
-    case FetchActionType.EndFetch:
-      return { ...state, loading: false }
-    default:
-      return state
-  }
-}
-
-const CartItemsContext = createContext<{
-  state: State
-  dispatch: React.Dispatch<Action>
-} | null>(null)
+const CartItemsContext = createContext<CartItemsContextType | null>(null)
 
 export function CartItemsProvider({ children }: PropsWithChildren) {
-  const [state, dispatch] = useReducer(apiReducer, initialState)
+  const { data, refetch, isLoading, isFetching, error } = useFetchData<
+    CartItem[]
+  >({
+    fetcher: getCartItems,
+  })
 
   return (
-    <CartItemsContext.Provider value={{ state, dispatch }}>
+    <CartItemsContext.Provider
+      value={{ data, refetch, isLoading, isFetching, error }}
+    >
       {children}
     </CartItemsContext.Provider>
   )
 }
 
-export function useCartItemsContext<T>({
-  fetcher,
-}: {
-  fetcher: () => Promise<T>
-}) {
+export function useCartItemsContext() {
   const context = useContext(CartItemsContext)
 
   if (!context) {
@@ -74,30 +38,5 @@ export function useCartItemsContext<T>({
     )
   }
 
-  const { state, dispatch } = context
-
-  const request = useCallback(async () => {
-    dispatch({ type: FetchActionType.StartFetch })
-    try {
-      const result = await fetcher()
-      dispatch({ type: FetchActionType.FetchSuccess, payload: result })
-    } catch (error) {
-      dispatch({ type: FetchActionType.FetchError, error })
-    } finally {
-      dispatch({ type: FetchActionType.EndFetch })
-    }
-  }, [fetcher, dispatch])
-
-  useEffect(() => {
-    const hasData = state.data
-    if (hasData) return
-    request()
-  }, [state.data, request])
-
-  return {
-    data: (state.data ?? []) as T,
-    refetch: request,
-    loading: state.loading ?? true,
-    error: state.error,
-  }
+  return context
 }
