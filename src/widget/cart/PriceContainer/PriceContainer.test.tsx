@@ -1,6 +1,6 @@
 import { act, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import PriceContainer from './PriceContainer';
+import PriceContainer from '.';
 
 describe('CartPage의 PriceContainer', () => {
   it('주문 목록에 담긴 상품의 개수 * 가격만큼 주문 금액이 나온다. 주문 금액이 10만원 미만인 경우 배송비가 3,000원이다.', async () => {
