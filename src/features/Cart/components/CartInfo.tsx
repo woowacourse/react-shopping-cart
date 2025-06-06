@@ -120,6 +120,7 @@ export const CartInfo = ({
             {cartItems?.map((item) => (
               <CartItemDetail
                 key={item.id}
+                variant="cart"
                 onToggle={onToggle}
                 onRemove={onRemove}
                 onUpdateQuantity={onUpdateQuantity}

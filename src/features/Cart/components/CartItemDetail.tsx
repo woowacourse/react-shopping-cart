@@ -9,13 +9,14 @@ import { Text } from '@/shared/components/Text/Text';
 import { QuantitySelector } from '@/features/Cart/components/QuantitySelector';
 
 import NoImage from '../../../../public/NoImage.svg';
-import { CartItem } from '@/features/Cart/types/Cart.types';
+import { CartItem } from '../types/Cart.types';
 
 type CartItemDetailProps = {
-  isChecked: boolean;
-  onToggle: (id: number) => void;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
+  variant: 'cart' | 'review';
+  isChecked?: boolean;
+  onToggle?: (id: number) => void;
+  onRemove?: (id: number) => void;
+  onUpdateQuantity?: (cartId: number, newQuantity: number) => void;
 } & CartItem;
 
 export const CartItemDetail = ({
@@ -26,7 +27,10 @@ export const CartItemDetail = ({
   onToggle,
   onRemove,
   onUpdateQuantity,
+  variant = 'cart',
 }: CartItemDetailProps) => {
+  const isCartMode = variant === 'cart';
+
   const imgUrl =
     !product.imageUrl || product.imageUrl === '' || product.imageUrl.includes('kream')
       ? NoImage
@@ -44,28 +48,31 @@ export const CartItemDetail = ({
         margin-top: 16px;
       `}
     >
-      <Flex
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        gap="0"
-        margin="10px 0 0 0 "
-      >
-        <CheckBox role="checkbox" checked={isChecked} onClick={() => onToggle(id)} />
-        <Button
-          variant="outlined"
-          size="xs"
-          color="#e5e5e5"
-          fontColor="black"
-          css={css`
-            margin-top: 8px;
-          `}
-          onClick={() => onRemove(id)}
+      {isCartMode && (
+        <Flex
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+          gap="0"
+          margin="10px 0 0 0 "
         >
-          삭제
-        </Button>
-      </Flex>
+          <CheckBox role="checkbox" checked={isChecked} onClick={() => onToggle?.(id)} />
+          <Button
+            variant="outlined"
+            size="xs"
+            color="#e5e5e5"
+            fontColor="black"
+            css={css`
+              margin-top: 8px;
+            `}
+            onClick={() => onRemove?.(id)}
+          >
+            삭제
+          </Button>
+        </Flex>
+      )}
+
       <Flex
         direction="row"
         justifyContent="flex-start"
@@ -93,11 +100,15 @@ export const CartItemDetail = ({
               {product.price.toLocaleString()}원
             </Text>
           </Flex>
-          <QuantitySelector
-            count={quantity}
-            onIncrease={() => onUpdateQuantity(id, quantity + 1)}
-            onDecrease={() => onUpdateQuantity(id, quantity - 1)}
-          />
+          {isCartMode ? (
+            <QuantitySelector
+              count={quantity}
+              onIncrease={() => onUpdateQuantity?.(id, quantity + 1)}
+              onDecrease={() => onUpdateQuantity?.(id, quantity - 1)}
+            />
+          ) : (
+            <Text type="Caption">{quantity}개</Text>
+          )}
         </Flex>
       </Flex>
     </Flex>

@@ -7,10 +7,12 @@ import { CartItem } from '@/features/Cart/types/Cart.types';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
 
 type PriceSummaryProps = {
+  variant?: "cart" | "review";
   cartItems: CartItem[];
 };
 
-export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
+export const PriceSummary = ({ variant = "cart", cartItems }: PriceSummaryProps) => {
+  const isCartMode = variant === 'cart';
   const { orderPrice, deliveryFee, totalPrice } = usePriceInfo(cartItems);
 
   return (
@@ -20,7 +22,7 @@ export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
       alignItems="flex-start"
       gap="10px"
       width="100%"
-      padding="20px"
+      padding={isCartMode ? "20px" : "0px"}
     >
       <Text type="Caption" weight="regular">
         🛍️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
@@ -36,6 +38,17 @@ export const PriceSummary = ({ cartItems }: PriceSummaryProps) => {
       >
         <Text type="Body">주문 금액</Text>
         <Text type="Heading">{orderPrice.toLocaleString()}원</Text>
+      </Flex>
+      <Flex
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        gap="0"
+        width="100%"
+        padding="0 10px"
+      >
+        <Text type="Body">쿠폰 할인 금액</Text>
+        <Text type="Heading">0원</Text>
       </Flex>
       <Flex
         direction="row"
