@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
-import OrderConfirmPage from "../pages/OrderConfirmPage";
+import PaymentConfirmPage from "../pages/PaymentConfirmPage";
 
 const router = createBrowserRouter(
   [
@@ -10,7 +10,7 @@ const router = createBrowserRouter(
     },
     {
       path: "/order-confirm",
-      element: <OrderConfirmPage />,
+      element: <PaymentConfirmPage />,
     },
   ],
   {

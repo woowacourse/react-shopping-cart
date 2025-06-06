@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import { useCartItemContext } from "../contexts/useCartItemContext";
 
-const OrderConfirmPage = () => {
+const PaymentConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { cartItems } = useCartItemContext();
@@ -29,7 +29,10 @@ const OrderConfirmPage = () => {
           <Text text="잘못된 접근입니다" type="large" />
           <Text text="장바구니에서 다시 주문해 주세요." />
         </section>
-        <ConfirmButton text="장바구니로 이동" onClick={() => navigate("/")} />
+        <ConfirmButton
+          text="장바구니로 돌아가기"
+          onClick={() => navigate("/")}
+        />
       </div>
     );
   }
@@ -48,13 +51,13 @@ const OrderConfirmPage = () => {
     <>
       <div className={OrderConfirmPageStyles}>
         <Header
-          leading="./back-icon.svg"
+          leading=""
           onLeadingClick={() => {
             navigate("/");
           }}
         />
         <section className={ContentStyle}>
-          <Text text="주문 확인" type="large" />
+          <Text text="결제 확인" type="large" />
           <section className={Description}>
             <Text
               text={`총 ${selectedItemCount}종류의 상품 ${totalQuantity}개를 주문합니다.`}
@@ -65,12 +68,12 @@ const OrderConfirmPage = () => {
           <Text text={`${totalPrice.toLocaleString()}원`} type="large" />
         </section>
       </div>
-      <ConfirmButton text="주문하기" onClick={() => {}} disabled={true} />
+      <ConfirmButton text="장바구니로 돌아가기" onClick={() => navigate("/")} />
     </>
   );
 };
 
-export default OrderConfirmPage;
+export default PaymentConfirmPage;
 
 const OrderConfirmPageStyles = css`
   min-height: 100dvh;

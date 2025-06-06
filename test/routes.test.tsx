@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "../src/App";
-import OrderConfirmPage from "../src/pages/OrderConfirmPage";
 import { CartItemProvider } from "../src/contexts/CartItemProvider";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import cartItemsApi from "../src/apis/cartItems";
+import PaymentConfirmPage from "../src/pages/PaymentConfirmPage";
 
 vi.mock("../src/apis/cartItems");
 
@@ -16,7 +16,7 @@ const routes = [
   },
   {
     path: "/order-confirm",
-    element: <OrderConfirmPage />,
+    element: <PaymentConfirmPage />,
   },
 ];
 
