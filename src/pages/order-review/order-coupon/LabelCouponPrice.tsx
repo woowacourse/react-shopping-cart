@@ -5,6 +5,7 @@ import LabelPrice from '../../../components/common/LabelPrice';
 import { calculateShippingFee } from '../../../utils/calculateShippingFee';
 import { calculateTotalCartItemPrice } from '../../../utils/calculateTotalCartItemPrice';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
+import InfoNotice from '@/components/common/InfoNotice';
 
 const LabelCouponPrice = () => {
   const { cartListData, selectionMap } = useOrderListContext();
@@ -17,15 +18,9 @@ const LabelCouponPrice = () => {
 
   return (
     <Container>
-      <InfoBox>
-        <InfoIcon
-          src={`${import.meta.env.BASE_URL}assets/icons/Info.svg`}
-          alt='info 아이콘'
-        />
-        <InfoMessage>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </InfoMessage>
-      </InfoBox>
+      <InfoNotice iconSrc={`${import.meta.env.BASE_URL}assets/icons/Info.svg`}>
+        총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+      </InfoNotice>
       <PriceWrapper>
         <LabelPrice label='주문 금액' price={orderPrice} />
         <LabelPrice label='쿠폰 할인 금액' price={orderPrice} />
@@ -38,23 +33,6 @@ const LabelCouponPrice = () => {
 };
 
 export default LabelCouponPrice;
-
-const InfoBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  gap: 4px;
-`;
-
-const InfoMessage = styled.p`
-  font-size: 12px;
-  font-weight: 500;
-`;
-
-const InfoIcon = styled.img`
-  width: 14px;
-  height: 14px;
-`;
 
 const Container = styled(Flex)`
   flex-direction: column;
