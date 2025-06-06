@@ -5,6 +5,6 @@ export const UlContainer = styled.ul`
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #0000001a;
-  max-height: 430px;
+  max-height: 220px;
   overflow-y: scroll;
 `;
