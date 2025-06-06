@@ -5,7 +5,7 @@ interface CouponListProps {
 }
 
 function CouponList({ children }: CouponListProps) {
-  return <section css={Container}>{children}</section>;
+  return <ul css={Container}>{children}</ul>;
 }
 
 export default CouponList;

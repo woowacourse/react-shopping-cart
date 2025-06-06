@@ -10,7 +10,7 @@ function Coupon({ coupon, children }: CouponProps) {
   const { description, expirationDate } = coupon;
 
   return (
-    <div css={Container}>
+    <li css={Container}>
       <h3 css={Description}>{description}</h3>
       <div css={Details}>
         <p>
@@ -18,7 +18,7 @@ function Coupon({ coupon, children }: CouponProps) {
         </p>
         {children}
       </div>
-    </div>
+    </li>
   );
 }
 

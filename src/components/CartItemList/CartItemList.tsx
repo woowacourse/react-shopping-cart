@@ -5,7 +5,7 @@ interface CartItemListProps {
 }
 
 function CartItemList({ children }: CartItemListProps) {
-  return <section css={Container}>{children}</section>;
+  return <ul css={Container}>{children}</ul>;
 }
 
 export default CartItemList;

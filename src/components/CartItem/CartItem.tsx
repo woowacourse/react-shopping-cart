@@ -35,7 +35,7 @@ function CartItem({
 
   return (
     <>
-      <div css={ItemContainer}>
+      <li css={ItemContainer}>
         <div css={ItemController}>
           {isSelected && toggleSelect && (
             <CheckBox
@@ -76,7 +76,7 @@ function CartItem({
             </div>
           </div>
         </div>
-      </div>
+      </li>
     </>
   );
 }
