@@ -48,14 +48,18 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const fetchData = useCallback(async () => {
     try {
       const items = await getCartItems();
-      setCartItems(() =>
-        items.map((item) => ({
-          ...item,
-          selected:
-            cartItemSelectionStorage.isItemSelected(item.id) ||
-            INITIAL_SELECTED,
-        }))
-      );
+      const itemsWithSelection = items.map((item) => ({
+        ...item,
+        selected:
+          cartItemSelectionStorage.isItemSelected(item.id) || INITIAL_SELECTED,
+      }));
+
+      setCartItems(itemsWithSelection);
+
+      if (itemsWithSelection.length > 0) {
+        const isAllSelected = itemsWithSelection.every((item) => item.selected);
+        setAllSelected(isAllSelected);
+      }
     } catch (error) {
       handleError(error);
     }
@@ -64,6 +68,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      setAllSelected(false);
+      return;
+    }
+
+    const isAllSelected = cartItems.every((item) => item.selected);
+    setAllSelected(isAllSelected);
+  }, [cartItems]);
 
   const deleteItem = useCallback(
     async (cartId: number) => {
