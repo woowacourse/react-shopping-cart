@@ -2,6 +2,8 @@ import { useLocation } from "react-router";
 
 import { useState } from "react";
 
+import { Modal } from "@kaori-killer/modal-component";
+
 import Header from "../../components/shoppingCart/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
 import Receipt from "../../components/shoppingCart/receipt/Receipt";
@@ -9,10 +11,12 @@ import Receipt from "../../components/shoppingCart/receipt/Receipt";
 import useCartItemList from "../../hooks/useCartItemList";
 
 import * as Styled from "../ShoppingCartPage/ShoppingCartPage.styles";
+import CouponModal from "../../components/CouponModal/CouponModal";
 
 export default function PaymentAmountCheckPage() {
   const [couponPrice, setCouponPrice] = useState(null);
   const [toggle, setToggle] = useState<boolean>(true);
+  const { isOpen, handleOpen, handleClose } = Modal.useModal();
 
   const { cartItemList } = useCartItemList();
   const location = useLocation();
@@ -54,7 +58,8 @@ export default function PaymentAmountCheckPage() {
                 </div>
               ))}
             <div>
-              <button>쿠폰 적용</button>
+              <CouponModal isOpen={isOpen} handleClose={handleClose} />
+              <button onClick={handleOpen}>쿠폰 적용</button>
             </div>
             <div>
               <p>베송 정보</p>
