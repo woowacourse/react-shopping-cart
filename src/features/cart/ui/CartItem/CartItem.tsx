@@ -1,5 +1,5 @@
 import * as S from './CartItem.styled';
-import CheckBox from '@/shared/components/CheckBox/CheckBox';
+import CheckBox from '@shared/components/CheckBox';
 import DefaultItemIcon from '@assets/icons/default-item.svg';
 import CartItemQuantityButton from './Button/Quantity/CartItemQuantityButton';
 import { CartItemType } from '@entities/cart';
