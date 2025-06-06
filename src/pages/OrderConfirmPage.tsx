@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import PageTitle from "../components/@common/PageTitle/PageTitle";
 import FullWidthButton from "../components/@common/Button/FullWidthButton/FullWidthButton";
 import LabeledCheckbox from "../components/@common/LabeledCheckbox/LabeledCheckbox";
+import SelectedItemCard from "../components/SelectedItemCard/SelectedItemCard";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -19,6 +20,12 @@ const OrderConfirmPage = () => {
         <PageTitle
           title="주문 확인"
           description={`총 ${1}종류의 상품 ${2}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
+        />
+        <SelectedItemCard
+          imgUrl="/"
+          name="상품이름A"
+          price={35000}
+          quantity={2}
         />
         <FullWidthButton text="쿠폰 적용" onClick={() => {}} />
         <div className={ShippingInfo}>
@@ -43,7 +50,10 @@ const OrderConfirmPage = () => {
         <hr className={Divider} />
         <PriceRow title="총 결제 금액" price={3000} />
       </div>
-      <ConfirmButton text="결제하기" onClick={() => {}} />
+      <ConfirmButton
+        text="결제하기"
+        onClick={() => navigate("/payment-confirm")}
+      />
     </>
   );
 };
