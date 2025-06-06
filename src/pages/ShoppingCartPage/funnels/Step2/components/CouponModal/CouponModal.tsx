@@ -30,7 +30,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
 
   const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
-  const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
+  const totalDiscountAmount = selectedCoupons?.reduce((acc, coupon) => {
     const couponService = new CouponService(selectedCartItems);
     return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
   }, 0);
@@ -89,7 +89,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
           `}
           onClick={closeModal}
         >
-          총 {totalDiscountPrice?.toLocaleString()}원 할인 쿠폰 사용하기
+          총 {totalDiscountAmount?.toLocaleString()}원 할인 쿠폰 사용하기
         </Button>
       </Modal.Bottom>
     </Modal>

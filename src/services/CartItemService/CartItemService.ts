@@ -4,7 +4,7 @@ import { CartItem } from "@/types";
 export default class CartItemService {
   constructor(private readonly cartItems: CartItem[] = []) {}
 
-  calculateTotalPrice() {
+  calculateOrderAmount() {
     return this.cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0) || 0;
   }
 
@@ -12,17 +12,17 @@ export default class CartItemService {
     return this.cartItems.reduce((acc, item) => acc + item.quantity, 0);
   }
 
-  calculateTotalType() {
+  calculateTypeCount() {
     return this.cartItems.length;
   }
 
   calculateDeliveryFee(isFar: boolean) {
-    if (this.calculateTotalPrice() >= FREE_DELIVERY_PRICE) return 0;
+    if (this.calculateOrderAmount() >= FREE_DELIVERY_PRICE) return 0;
     if (isFar) return FAR_DELIVERY_FEE;
     return DELIVERY_FEE;
   }
 
-  calculateTotalPriceWithDeliveryFee(isFar: boolean) {
-    return this.calculateTotalPrice() + this.calculateDeliveryFee(isFar);
+  calculateOrderAmountWithDeliveryFee(isFar: boolean) {
+    return this.calculateOrderAmount() + this.calculateDeliveryFee(isFar);
   }
 }

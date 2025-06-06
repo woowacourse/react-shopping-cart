@@ -11,8 +11,8 @@ export default class CouponService {
 
   canAdjustCoupon(coupon: Coupon) {
     if (coupon.discountType === "fixed" || coupon.discountType === "freeShipping") {
-      const totalPrice = this.cartItemService.calculateTotalPrice();
-      return totalPrice >= coupon.minimumAmount;
+      const orderAmount = this.cartItemService.calculateOrderAmount();
+      return orderAmount >= coupon.minimumAmount;
     }
 
     if (coupon.discountType === "percentage") {
@@ -53,13 +53,13 @@ export default class CouponService {
     }
 
     if (coupon.discountType === "percentage") {
-      return (this.cartItemService.calculateTotalPrice() * coupon.discount) / 100;
+      return (this.cartItemService.calculateOrderAmount() * coupon.discount) / 100;
     }
 
     return 0;
   }
 
-  static calculateTotalDiscountPrice(cartItems: CartItem[], coupons: Coupon[], isFar: boolean) {
+  static calculateTotalDiscountAmount(cartItems: CartItem[], coupons: Coupon[], isFar: boolean) {
     return coupons.reduce((acc, coupon) => {
       const couponService = new CouponService(cartItems);
       return acc + couponService.calculateDiscountPrice(coupon, isFar);

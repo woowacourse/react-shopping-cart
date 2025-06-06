@@ -14,12 +14,12 @@ export default function CartItemSection() {
   const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
 
   const cartItemService = new CartItemService(cartItems.content);
-  const totalType = cartItemService.calculateTotalType();
+  const typeCount = cartItemService.calculateTypeCount();
 
   const selectedCartItemService = new CartItemService(selectedCartItems);
-  const orderPrice = selectedCartItemService.calculateTotalPrice();
+  const orderPrice = selectedCartItemService.calculateOrderAmount();
   const deliveryFee = selectedCartItemService.calculateDeliveryFee(false);
-  const totalPrice = selectedCartItemService.calculateTotalPriceWithDeliveryFee(false);
+  const orderAmount = selectedCartItemService.calculateOrderAmountWithDeliveryFee(false);
 
   const isAllSelected = cartItems.content.length > 0 && selectedItemIds.length === cartItems.content.length;
 
@@ -40,7 +40,7 @@ export default function CartItemSection() {
         <>
           <Spacing size={8} />
 
-          <Text variant="body-2">현재 {totalType}종류의 상품이 담겨있습니다.</Text>
+          <Text variant="body-2">현재 {typeCount}종류의 상품이 담겨있습니다.</Text>
 
           <Spacing size={32} />
 
@@ -83,7 +83,7 @@ export default function CartItemSection() {
           </SpaceBetweenFlex>
           <SpaceBetweenFlex>
             <Text variant="title-3">총 결제 금액</Text>
-            <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
+            <Text variant="title-1">{orderAmount.toLocaleString()}원</Text>
           </SpaceBetweenFlex>
         </>
       )}

@@ -106,9 +106,9 @@ describe("CouponService", () => {
     });
   });
 
-  describe("calculateTotalDiscountPrice", () => {
+  describe("calculateTotalDiscountAmount", () => {
     it("총 할인 금액을 반환한다.", () => {
-      expect(CouponService.calculateTotalDiscountPrice(CART_ITEMS_DATA.content, COUPON_DATA.slice(1, 3), false)).toBe(
+      expect(CouponService.calculateTotalDiscountAmount(CART_ITEMS_DATA.content, COUPON_DATA.slice(1, 3), false)).toBe(
         33_000,
       );
     });

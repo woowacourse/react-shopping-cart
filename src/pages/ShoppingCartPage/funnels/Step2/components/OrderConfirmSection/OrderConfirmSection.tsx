@@ -18,14 +18,16 @@ export default function OrderConfirmSection() {
 
   const cartItemService = new CartItemService(selectedCartItems);
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
-  const totalPrice = cartItemService.calculateTotalPrice();
+  const orderAmount = cartItemService.calculateOrderAmount();
 
-  const totalType = cartItemService.calculateTotalType();
+  const typeCount = cartItemService.calculateTypeCount();
   const totalQuantity = cartItemService.calculateTotalQuantity();
 
   const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
-  const totalDiscountPrice = CouponService.calculateTotalDiscountPrice(selectedCartItems, selectedCoupons, isFar);
+  const totalDiscountAmount = CouponService.calculateTotalDiscountAmount(selectedCartItems, selectedCoupons, isFar);
+
+  const totalPaymentAmount = orderAmount - totalDiscountAmount + deliveryFee;
 
   const closeModal = () => setIsOpen(false);
 
@@ -51,7 +53,7 @@ export default function OrderConfirmSection() {
       <Spacing size={28} />
 
       <Text variant="body-1">
-        총 {totalType}종류의 상품 {totalQuantity}개를 주문합니다.
+        총 {typeCount}종류의 상품 {totalQuantity}개를 주문합니다.
         <br />
         최종 결제 금액을 확인해 주세요.
       </Text>
@@ -114,11 +116,11 @@ export default function OrderConfirmSection() {
       <S.ReceiptWrapper>
         <SpaceBetweenFlex>
           <Text variant="title-3">주문 금액</Text>
-          <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
+          <Text variant="title-1">{orderAmount.toLocaleString()}원</Text>
         </SpaceBetweenFlex>
         <SpaceBetweenFlex>
           <Text variant="title-3">쿠폰 할인 금액</Text>
-          <Text variant="title-1">{totalDiscountPrice?.toLocaleString()}원</Text>
+          <Text variant="title-1">{totalDiscountAmount?.toLocaleString()}원</Text>
         </SpaceBetweenFlex>
         <SpaceBetweenFlex>
           <Text variant="title-3">배송비</Text>
@@ -129,7 +131,7 @@ export default function OrderConfirmSection() {
 
         <SpaceBetweenFlex>
           <Text variant="title-3">총 결제 금액</Text>
-          <Text variant="title-1">{(totalPrice - totalDiscountPrice + deliveryFee).toLocaleString()}원</Text>
+          <Text variant="title-1">{totalPaymentAmount.toLocaleString()}원</Text>
         </SpaceBetweenFlex>
       </S.ReceiptWrapper>
     </S.OrderConfirmSectionWrapper>
