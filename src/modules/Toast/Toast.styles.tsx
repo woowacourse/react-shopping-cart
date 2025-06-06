@@ -47,10 +47,6 @@ export const ToastClose = styled.button`
   color: #888;
   font-size: 18px;
   cursor: pointer;
-  margin-left: 8px;
-  position: absolute;
-  top: 8px;
-  right: 12px;
 `;
 
 export const ToastProgress = styled.div`

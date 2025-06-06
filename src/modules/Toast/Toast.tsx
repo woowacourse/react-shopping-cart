@@ -20,7 +20,6 @@ export default function Toast({ id, variant, message, duration = 3000 }: ToastPr
   }, [duration, hideToast, id]);
 
   return (
-    <S.ToastWrapper variant={variant} isVisible={isVisible}>
     <S.Toast variant={variant} isVisible={isVisible}>
       <S.ToastIcon>
         <CheckIcon />
