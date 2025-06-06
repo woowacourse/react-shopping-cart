@@ -33,10 +33,6 @@ const CartPage = () => {
           ) : (
             <S.Content>
               <CartList />
-              <S.Description>
-                ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-              </S.Description>
-              <S.Line />
               <OrderPriceSection
                 orderPrice={orderPrice}
                 deliveryPrice={deliveryPrice}

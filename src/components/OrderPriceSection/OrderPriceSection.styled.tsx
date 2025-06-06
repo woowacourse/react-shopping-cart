@@ -24,3 +24,9 @@ export const Line = styled.hr`
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0;
 `;
+
+export const Description = styled.p`
+  font-size: 12px;
+  color: #666666;
+  margin: 13px 0px;
+`;

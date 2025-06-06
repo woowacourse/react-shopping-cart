@@ -9,6 +9,10 @@ function OrderPriceSection({
 }) {
   return (
     <div>
+      <S.Description>
+        ⚠️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+      </S.Description>
+      <S.Line />
       <S.PriceWrapper>
         <S.OrderText>주문 금액</S.OrderText>
         <S.OrderPrice>{orderPrice.toLocaleString("kr")}원</S.OrderPrice>
