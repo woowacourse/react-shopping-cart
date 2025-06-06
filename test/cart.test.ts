@@ -3,7 +3,7 @@ import {
   calculateTotalPrice,
   calculateShippingFee,
   formatPrice,
-} from "../src/utils/price";
+} from "../src/domains/price";
 
 describe("가격 계산 유틸리티 테스트", () => {
   describe("calculateTotalPrice", () => {

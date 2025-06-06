@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useCartContext, useCartDispatch } from "../stores/CartContext";
 import { useSelectContext, useSelectDispatch } from "../stores/SelectContext";
 import useCart from "./useCart";
-import { calculateTotalPrice, calculateShippingFee } from "../utils/price";
+import { calculateTotalPrice, calculateShippingFee } from "../domains/price";
 import { ResponseCartItem } from "../types/types";
 import { SelectState } from "../stores/SelectReducer";
 
