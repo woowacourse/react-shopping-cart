@@ -22,6 +22,7 @@ import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
 import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
 import Modal from "../../components/@common/modal/Modal";
 import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
+import { useState } from "react";
 
 const OrderConfirmationPage = () => {
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
@@ -37,10 +38,27 @@ const OrderConfirmationPage = () => {
     toggleIsRemoteArea,
   } = useRemoteAreaFee({ deliveryFee, orderPrice });
 
-  // TODO : 모달이 켜졌을 경우 스크롤 방지
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    console.log("작동");
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  console.log(isModalOpen);
   return (
     <div css={PageWrapper}>
-      <Modal title="제목" content={<CouponModalContent />} onClose={() => {}} />
+      {isModalOpen && (
+        <Modal
+          title="제목"
+          content={<CouponModalContent />}
+          onClose={closeModal}
+        />
+      )}
       <div css={TitleContainer}>
         <p css={Title}>주문 확정</p>
         <p css={Description}>{ORDER_CONFIRMATION_MESSAGE(1, 2)}</p>
@@ -52,7 +70,14 @@ const OrderConfirmationPage = () => {
         ))}
       </div>
 
-      <Button size="large" color="white" onClick={() => {}}>
+      <Button
+        size="large"
+        color="white"
+        onClick={(e) => {
+          e.stopPropagation();
+          openModal();
+        }}
+      >
         쿠폰 적용
       </Button>
 
