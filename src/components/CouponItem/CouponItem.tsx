@@ -1,5 +1,11 @@
 import { Coupon } from '../../types/coupon';
 import Text from '../common/Text/Text';
+import {
+  CheckboxStyle,
+  CouponItemDescriptionStyle,
+  CouponItemHeaderStyle,
+  CouponItemStyle,
+} from './CouponItem.styles';
 
 interface CouponItemProps {
   isChecked: boolean;
@@ -8,23 +14,43 @@ interface CouponItemProps {
 }
 
 function CouponItem({ isChecked, onCheck, coupon }: CouponItemProps) {
+  const { description, expirationDate } = coupon;
+  const [year, month, day] = expirationDate.split('-');
+
+  const secondLine = [];
+  if (coupon.minimumAmount) {
+    secondLine.push(
+      `최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`
+    );
+  } else if (coupon.availableTime) {
+    const start = coupon.availableTime.start.slice(1, 2);
+    const end = coupon.availableTime.end.slice(1, 2);
+
+    secondLine.push(`사용 가능 시간: 오전 ${start}시부터 ${end}시까지`);
+  }
+
   return (
-    <div>
-      <div>
-        <input type="checkbox" checked={isChecked} onChange={onCheck} />
+    <div css={CouponItemStyle}>
+      <div css={CouponItemHeaderStyle}>
+        <input
+          css={CheckboxStyle}
+          type="checkbox"
+          checked={isChecked}
+          onChange={onCheck}
+        />
         <Text varient="body" textAlign="left">
-          {coupon.code}
+          {description}
         </Text>
       </div>
-      <div>
-        <Text varient="body" textAlign="left">
-          {coupon.expirationDate}
+      <div css={CouponItemDescriptionStyle}>
+        <Text varient="caption" textAlign="left">
+          만료일: {year}년 {month}월 {day}일
         </Text>
-        {coupon.description && (
-          <Text varient="body" textAlign="left">
-            {coupon.description}
+        {secondLine.map((line) => (
+          <Text varient="caption" textAlign="left">
+            {line}
           </Text>
-        )}
+        ))}
       </div>
     </div>
   );
