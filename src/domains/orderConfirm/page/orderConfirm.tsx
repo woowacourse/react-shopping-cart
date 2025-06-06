@@ -1,11 +1,15 @@
-import Button from "../../components/Button/Button";
-import { Footer } from "../../layout/Footer/Footer";
-import Header from "../../layout/Header/Header";
-import Main from "../../layout/Main/Main";
-import { PageLayout } from "../../layout/PageLayout/PageLayout";
-import { subTitleStyle, titleBox, titleStyle } from "../common/common.style";
+import Button from "../../../components/Button/Button";
+import { Footer } from "../../../layout/Footer/Footer";
+import Header from "../../../layout/Header/Header";
+import Main from "../../../layout/Main/Main";
+import { PageLayout } from "../../../layout/PageLayout/PageLayout";
+import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
+import { useCart } from "../../shopping-cart/context/cartProvider";
+import { SelectedCartList } from "../component/SelectedCartList/SelectedCartList";
 
 export default function OrderConfirm() {
+  const { deleteCartItem, cartItems, error } = useCart();
+
   return (
     <PageLayout>
       <Header>
@@ -19,6 +23,7 @@ export default function OrderConfirm() {
             최종 결제 금액을 확인해 주세요..
           </p>
         </div>
+        <SelectedCartList />
       </Main>
       <Footer>
         <Button onClick={() => {}} type="submit" size="full" disabled={false}>

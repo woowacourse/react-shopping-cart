@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { ShoppingCart } from "../domains/shopping-cart/page/shoppingCart";
 import { PaymentComplete } from "../domains/paymentComplete/page/PaymentComplete";
 import NotFoundPage from "../page/NotFoundPage";
-import OrderConfirm from "../domains/orderConfirm/orderConfirm";
+import OrderConfirm from "../domains/orderConfirm/page/orderConfirm";
 
 export const shoppingCartRoute = createBrowserRouter(
   [
