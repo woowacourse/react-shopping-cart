@@ -9,8 +9,10 @@ export const Container = styled.header`
   align-items: center;
   padding-left: 24px;
   padding-right: 24px;
-  position: fixed;
-  z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 
   a {
     text-decoration: none;

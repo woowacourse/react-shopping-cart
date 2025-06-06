@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "@/contexts/ModalContext";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
-import { useEscapeClose } from "@/hooks/useEscapeClose";
+import { useFocusTrap } from "@/hooks/Modal/useFocusTrap";
+import { useEscapeClose } from "@/hooks/Modal/useEscapeClose";
 import Background from "./parts/Background";
 import Container from "./parts/Container";
 import Header from "./parts/Header";

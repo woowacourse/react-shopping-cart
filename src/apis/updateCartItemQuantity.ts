@@ -1,4 +1,4 @@
-import { apiPatch } from "../util/apiRequest";
+import { apiPatch } from "./apiRequest";
 
 interface updateCartItemsParams {
   params: {

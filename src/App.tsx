@@ -1,16 +1,48 @@
 import "./App.css";
 import { PAGE_URL } from "./constants/PageUrl";
-import Cart from "./page/Cart";
+import { steps } from "@/constants/steps";
 import { Route, Routes } from "react-router";
-import OrderConfirmation from "./page/OrderConfirmation";
+import OrderComplete from "./page/OrderComplete/OrderComplete";
+import OrderPage from "./page/OrderPage";
+import { useFunnel } from "./hooks/Funnel/useFunnel";
+import { CartProvider } from "./components/Cart/CartProvider";
 
 function App() {
+  const { Funnel, Step, setStep, currentStep } = useFunnel(steps[0]);
+
+  const nextClickHandler = (nextStep: string) => {
+    setStep(nextStep);
+  };
+  const prevClickHandler = (prevStep: string) => {
+    setStep(prevStep);
+  };
+  const resetClickHandler = () => {
+    setStep(steps[0]);
+  };
+
   return (
     <Routes>
-      <Route path={PAGE_URL.HOME} element={<Cart />} />
       <Route
-        path={PAGE_URL.ORDER_CONFIRMATION}
-        element={<OrderConfirmation />}
+        path={PAGE_URL.HOME}
+        element={
+          <CartProvider>
+            <OrderPage
+              nextClickHandler={nextClickHandler}
+              prevClickHandler={prevClickHandler}
+              Funnel={Funnel}
+              Step={Step}
+              currentStep={currentStep}
+            />
+          </CartProvider>
+        }
+      />
+      <Route
+        path={PAGE_URL.ORDER_COMPLETE}
+        element={
+          <CartProvider>
+            <OrderComplete onReset={resetClickHandler} />
+          </CartProvider>
+        }
       />
     </Routes>
   );

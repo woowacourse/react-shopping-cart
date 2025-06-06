@@ -10,7 +10,7 @@ function OrderConfirmationHeader({
   return (
     <Header>
       <Styled.GoBackButton onClick={handleGoBackToHomeButton}>
-        <Styled.GoBackIcon src={goBack} alt="Go back" />
+        <Styled.GoBackIcon src={goBack} alt="뒤로가기" />
       </Styled.GoBackButton>
     </Header>
   );

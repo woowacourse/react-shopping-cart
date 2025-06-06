@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { colors } from "../../../../styles/theme";
+import { colors, zIndex } from "../../../../styles/theme";
 
 const fadeIn = keyframes`
   from {
@@ -24,4 +24,5 @@ export const ModalBackground = styled.div<{
   animation: ${fadeIn} 0.3s ease-in-out;
   justify-content: center;
   align-items: ${(props) => (props.position === "center" ? "center" : "end")};
+  z-index: ${zIndex.modal};
 `;
