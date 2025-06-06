@@ -7,7 +7,7 @@ import { Footer } from "../../../layout/Footer/Footer";
 import Header from "../../../layout/Header/Header";
 import Main from "../../../layout/Main/Main";
 import { PageLayout } from "../../../layout/PageLayout/PageLayout";
-import { EmptyShoppingCart } from "../../paymentComplete/compoennt/EmptyShoppingCart/EmptyShoppingCart";
+import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
 import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
 import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
 import { useCart } from "../context/cartProvider";

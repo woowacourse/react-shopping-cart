@@ -8,7 +8,7 @@ import {
   subtitleText,
   titleText,
   totalPriceBox,
-} from "./paymentComplete/paymentCompletestyle";
+} from "./paymentComplete.style";
 
 export function PaymentComplete() {
   const { state } = useLocation();
