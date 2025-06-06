@@ -5,7 +5,7 @@ type UnknownRec = Record<string, unknown>;
 const isObj = (v: unknown): v is UnknownRec =>
   typeof v === "object" && v !== null;
 
-const isProduct = (u: unknown): u is Product => {
+export const isProduct = (u: unknown): u is Product => {
   if (!isObj(u)) return false;
   const o = u;
   return (
@@ -16,7 +16,8 @@ const isProduct = (u: unknown): u is Product => {
     typeof o.category === "string"
   );
 };
-const isProductWithQuantity = (u: unknown): u is ProductWithQuantity =>
+
+export const isProductWithQuantity = (u: unknown): u is ProductWithQuantity =>
   isProduct(u) && typeof (u as ProductWithQuantity).quantity === "number";
 
 export const isCartItem = (u: unknown): u is CartItem => {
