@@ -96,7 +96,10 @@ export function ShoppingCart() {
                   setSelectedCartIds={setSelectedCartIds}
                   isFetching={isFetching}
                 />
-                <PaymentSummary price={totalPrice} />
+                <PaymentSummary
+                  price={totalPrice}
+                  deliveryFee={10_0000 <= totalPrice ? 0 : 3000}
+                />
               </>
             )}
           </>
