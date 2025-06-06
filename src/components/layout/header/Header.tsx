@@ -8,14 +8,16 @@ const Header = () => {
   const location = useLocation();
   const logo = {
     [ROUTE.CART]: IconLogo,
-    [ROUTE.ORDER_COMPLETE]: backIcon,
+    [ROUTE.ORDER_COMPLETE]: "",
     [ROUTE.ORDER_CONFIRMATION]: backIcon,
   };
 
   return (
     <section css={headerContainer}>
       <a href={ROUTE.CART}>
-        <img src={logo[location.pathname]} alt="logo" />
+        {logo[location.pathname] && (
+          <img src={logo[location.pathname]} alt="logo" />
+        )}
       </a>
     </section>
   );
