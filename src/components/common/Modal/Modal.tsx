@@ -5,6 +5,7 @@ import {
   CloseButtonStyle,
 } from './Modal.styles.ts';
 import { ModalPropsType } from '../../../types/modal.ts';
+import Text from '../Text/Text.tsx';
 
 const Modal = ({
   children,
@@ -28,7 +29,9 @@ const Modal = ({
       >
         <div css={ModalContainerStyle(position)}>
           <div css={ModalHeaderStyle}>
-            <h2>{title}</h2>
+            <Text varient="subtitle" textAlign="left">
+              {title}
+            </Text>
             <button css={CloseButtonStyle(showCloseButton)} onClick={onClose}>
               X
             </button>

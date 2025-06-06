@@ -4,7 +4,7 @@ const Common = {
   colors: {
     white: '#ffffff',
     black: '#000000',
-    grey: '#00000080',
+    grey: 'rgba(0, 0, 0, 0.3)',
   },
   zIndex: {
     modalBackground: 100,
@@ -23,7 +23,7 @@ export const ModalBackgroundStyle = (
   display: flex;
   justify-content: center;
   background-color: ${Common.colors.grey};
-  backdrop-filter: blur(10px);
+
   width: 100%;
   min-width: 376px;
   height: 100%;
@@ -39,16 +39,16 @@ export const ModalContainerStyle = (position: 'center' | 'bottom') => css`
   position: relative;
   background-color: ${Common.colors.white};
   color: ${Common.colors.black};
-  height: 20%;
+  height: 75%;
   min-height: 150px;
-  padding: 30px 35px;
+  padding: 2.4rem 3.2rem;
   z-index: ${Common.zIndex.modalContainer};
   display: flex;
   flex-direction: column;
 
   ${position === 'center' &&
   css`
-    min-width: 250px;
+    min-width: 390px;
     border-radius: 16px;
   `}
 
@@ -66,10 +66,13 @@ export const ModalHeaderStyle = css`
   width: 100%;
   height: 26px;
   margin: 0 auto;
+  margin-bottom: 2.4rem;
 `;
 
 export const CloseButtonStyle = (showCloseButton: boolean) => css`
   background-color: transparent;
   cursor: pointer;
   display: ${showCloseButton ? 'block' : 'none'};
+  font-size: 2.4rem;
+  padding: 0;
 `;
