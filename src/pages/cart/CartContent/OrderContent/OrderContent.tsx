@@ -30,16 +30,6 @@ export default function OrderContent() {
   };
 
   const deliveryPrice = getDeliveryPrice(orderTotalPrice);
-  const priceList = [
-    {
-      title: "총 주문 금액",
-      price: orderTotalPrice,
-    },
-    {
-      title: "배송비",
-      price: deliveryPrice,
-    },
-  ];
   const paymentPrice = orderTotalPrice + deliveryPrice;
   return (
     <>
@@ -59,7 +49,19 @@ export default function OrderContent() {
             />
           ))}
         </CartList>
-        <PriceContainer priceList={priceList} paymentPrice={paymentPrice} />
+        <PriceContainer
+          priceList={[
+            {
+              title: "총 주문 금액",
+              price: orderTotalPrice,
+            },
+            {
+              title: "배송비",
+              price: deliveryPrice,
+            },
+          ]}
+          paymentPrice={paymentPrice}
+        />
       </S.ScrollContainer>
       <OrderConfirmButton orderList={orderList} paymentPrice={paymentPrice} />
     </>
