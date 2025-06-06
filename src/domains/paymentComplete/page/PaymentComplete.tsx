@@ -1,14 +1,14 @@
 import { useLocation } from "react-router-dom";
-import Header from "../../../../layout/Header/Header";
-import Main from "../../../../layout/Main/Main";
-import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
+import Header from "../../../layout/Header/Header";
+import Main from "../../../layout/Main/Main";
+import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import {
   bodyText,
   confirmLayout,
   subtitleText,
   titleText,
   totalPriceBox,
-} from "./paymentCompletestyle";
+} from "./paymentComplete/paymentCompletestyle";
 
 export function PaymentComplete() {
   const { state } = useLocation();

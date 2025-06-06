@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { resetCartItems } from "../../../shopping-cart/mocks/handlers";
-import { server } from "../../../shopping-cart/mocks/server";
+import { resetCartItems } from "../../shopping-cart/mocks/handlers";
+import { server } from "../../shopping-cart/mocks/server";
 import { PaymentComplete } from "./PaymentComplete";
 import { MemoryRouter } from "react-router-dom";
 

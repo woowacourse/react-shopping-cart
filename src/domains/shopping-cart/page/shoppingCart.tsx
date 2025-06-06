@@ -1,18 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../../../components/Button/Button";
-import { CheckBox } from "../../../../components/CheckBox/CheckBox";
-import Toast from "../../../../components/Toast/Toast";
-import { Footer } from "../../../../layout/Footer/Footer";
-import Header from "../../../../layout/Header/Header";
-import Main from "../../../../layout/Main/Main";
-import { PageLayout } from "../../../../layout/PageLayout/PageLayout";
-import { EmptyShoppingCart } from "../../../paymentComplete/compoennt/EmptyShoppingCart/EmptyShoppingCart";
-import CartProductContainer from "../../components/CartProductContainer/CartProductContainer";
-import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
-import { useCart } from "../../context/cartProvider";
-import { useSelectedCartIds } from "../../hooks/useSelectedCartIds";
-import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
+import Button from "../../../components/Button/Button";
+import { CheckBox } from "../../../components/CheckBox/CheckBox";
+import Toast from "../../../components/Toast/Toast";
+import { Footer } from "../../../layout/Footer/Footer";
+import Header from "../../../layout/Header/Header";
+import Main from "../../../layout/Main/Main";
+import { PageLayout } from "../../../layout/PageLayout/PageLayout";
+import { EmptyShoppingCart } from "../../paymentComplete/compoennt/EmptyShoppingCart/EmptyShoppingCart";
+import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
+import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
+import { useCart } from "../context/cartProvider";
+import { useSelectedCartIds } from "../hooks/useSelectedCartIds";
+import { getTotalPrice } from "../utils/getTotalPrice/getTotalPrice";
 import {
   CartProductContainerLayout,
   SelectAllLayout,
