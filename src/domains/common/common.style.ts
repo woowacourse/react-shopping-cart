@@ -14,6 +14,7 @@ const titleStyle = css`
 const subTitleStyle = css`
   font-weight: 500;
   font-size: 12px;
+  line-height: 1.2rem;
 `;
 
 export { titleBox, titleStyle, subTitleStyle };

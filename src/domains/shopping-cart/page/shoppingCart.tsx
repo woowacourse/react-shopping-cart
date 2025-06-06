@@ -16,10 +16,8 @@ import { getTotalPrice } from "../utils/getTotalPrice/getTotalPrice";
 import {
   CartProductContainerLayout,
   SelectAllLayout,
-  subTitleStyle,
-  titleBox,
-  titleStyle,
 } from "./shoppingCart.style";
+import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 
 export function ShoppingCart() {
   const isFirstMount = useRef(true);
