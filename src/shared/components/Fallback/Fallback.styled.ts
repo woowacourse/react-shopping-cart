@@ -6,7 +6,7 @@ export const Container = styled.div`
   gap: 30px;
   align-items: center;
   justify-content: center;
-  height: inherit;
+  /* height: inherit; */
 `;
 
 export const FallbackImage = styled.img`
