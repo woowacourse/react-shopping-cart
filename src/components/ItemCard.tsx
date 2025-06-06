@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Product } from '../types';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import CheckBox from './CheckBox';
+import { useCheckedCartItemsContext } from '../contexts/CheckedCartItemContext';
 
 type ItemCardProps = {
   id: number;
@@ -10,16 +11,19 @@ type ItemCardProps = {
 };
 
 const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
-  const {
-    increaseCartItemQuantity,
-    handleClickDecrease,
-    handleClickDelete,
-    checkedCartIds,
-    addCheckedCartItem,
-    removeCheckedCartItem,
-  } = useCartItemsContext();
+  const { increaseCartItemQuantity, deleteCartItem: handleClickDelete } =
+    useCartItemsContext();
+  const { checkedCartIds, addCheckedCartItem, removeCheckedCartItem } =
+    useCheckedCartItemsContext();
 
   const isChecked = checkedCartIds.includes(id);
+
+  const handleClickDecrease = (id: number) => {
+    if (quantity === 1) {
+      handleClickDelete(id);
+      return;
+    }
+  };
 
   const handleCheckBoxClick = () => {
     if (isChecked) {

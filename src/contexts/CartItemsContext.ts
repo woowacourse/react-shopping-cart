@@ -1,19 +1,17 @@
+// CartItemsContext.ts
 import { createContext, useContext } from 'react';
 import { CartItem } from '../types';
 
-interface CartItemContext {
+interface CartItemsContextType {
   cartItems: CartItem[];
   increaseCartItemQuantity: (id: number) => void;
-  handleClickDecrease: (id: number) => void;
-  handleClickDelete: (id: number) => void;
-  checkedCartIds: number[];
-  addCheckedCartItem: (id: number) => void;
-  removeCheckedCartItem: (id: number) => void;
-  isAllChecked: boolean;
-  toggleAllChecked: () => void;
+  decreaseCartItemQuantity: (id: number) => void;
+  deleteCartItem: (id: number) => void;
 }
 
-export const CartItemsContext = createContext<CartItemContext | null>(null);
+export const CartItemsContext = createContext<CartItemsContextType | null>(
+  null
+);
 
 export const useCartItemsContext = () => {
   const context = useContext(CartItemsContext);
