@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { useToastContext } from '../context/ToastContext';
-import { useCartListContext } from '../context/useCartListContext';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 function useCartList() {
-  const { cartList, setCartList, error, setError, isLoading, setIsLoading } =
-    useCartListContext();
+  const [cartList, setCartList] = useState<CartItemProps[]>([]);
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { showToast } = useToastContext();
   useEffect(() => {
@@ -17,8 +18,14 @@ function useCartList() {
   const loadCartList = async () => {
     setIsLoading(true);
     try {
-      const response = await cart.getCartList();
-      setCartList(response);
+      const localCartList = getLocalStorage('cartList');
+      if (localCartList.length > 0) {
+        setCartList(localCartList);
+      } else {
+        const response = await cart.getCartList();
+        setCartList(response);
+        setLocalStorage('cartList', response);
+      }
     } catch (error) {
       setError(ERROR_MESSAGE.CART_LIST);
       showToast(ERROR_MESSAGE.CART_LIST);
@@ -30,13 +37,13 @@ function useCartList() {
   const increaseCartItem = async (cartItem: CartItemProps) => {
     try {
       await cart.increaseCartItem(cartItem);
-      setCartList(
-        cartList.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
+      const increasedCartList = cartList.map((item) =>
+        item.id === cartItem.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
+      setCartList(increasedCartList);
+      setLocalStorage('cartList', increasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.INCREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.INCREASE_CART_ITEM);
@@ -46,13 +53,13 @@ function useCartList() {
   const decreaseCartItem = async (cartItem: CartItemProps) => {
     try {
       await cart.decreaseCartItem(cartItem);
-      setCartList(
-        cartList.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
+      const decreasedCartList = cartList.map((item) =>
+        item.id === cartItem.id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
       );
+      setCartList(decreasedCartList);
+      setLocalStorage('cartList', decreasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DECREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.DECREASE_CART_ITEM);
@@ -62,7 +69,9 @@ function useCartList() {
   const deleteCartItem = async (cartItemId: number) => {
     try {
       await cart.deleteCartItem(cartItemId);
-      setCartList(cartList.filter((item) => item.id !== cartItemId));
+      const deletedCartList = cartList.filter((item) => item.id !== cartItemId);
+      setCartList(deletedCartList);
+      setLocalStorage('cartList', deletedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DELETE_CART_ITEM);
       showToast(ERROR_MESSAGE.DELETE_CART_ITEM);

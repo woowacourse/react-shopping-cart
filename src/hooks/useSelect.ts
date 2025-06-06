@@ -1,34 +1,58 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CartItemProps } from '../types/cartItem';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 function useSelect(cartList: CartItemProps[]) {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const isAllSelected = selectedItems.length === cartList.length;
+
+  const checkCartItemIds = cartList
+    .filter((cartItem) => selectedItems.includes(cartItem.id))
+    .map((cartItem) => cartItem.id);
+  const isAllSelected = checkCartItemIds.length === cartList.length;
+  const AllCartItems = cartList.map((cartItem) => cartItem.id);
+
   const initialLoadRef = useRef(true);
 
-  const cartItemIds = cartList.map((cartItem) => cartItem.id);
-
   useEffect(() => {
+    const localSelectedItems = getLocalStorage('selectedItems');
     if (cartList.length > 0 && initialLoadRef.current) {
-      setSelectedItems(cartItemIds);
+      if (localSelectedItems.length > 0) {
+        setSelectedItems(localSelectedItems);
+      } else {
+        setSelectedItems(AllCartItems);
+        setLocalStorage('selectedItems', AllCartItems);
+      }
       initialLoadRef.current = false;
+    } else {
+      if (checkCartItemIds.length > 0) {
+        setSelectedItems(checkCartItemIds);
+        setLocalStorage('selectedItems', checkCartItemIds);
+      } else {
+        setSelectedItems(localSelectedItems);
+        setLocalStorage('selectedItems', localSelectedItems);
+      }
     }
-  }, [cartList]);
+  }, [cartList.length]);
 
   const handleSelectItem = (cartItemId: number) => {
     if (selectedItems.includes(cartItemId)) {
       const filtered = selectedItems.filter((item) => item !== cartItemId);
       setSelectedItems(filtered);
+      setLocalStorage('selectedItems', filtered);
     } else {
-      setSelectedItems((prev) => [...prev, cartItemId]);
+      const newSelectedItems = [...selectedItems, cartItemId];
+      setSelectedItems(newSelectedItems);
+      setLocalStorage('selectedItems', newSelectedItems);
     }
   };
 
   const handleSelectAllItems = () => {
     if (isAllSelected) {
       setSelectedItems([]);
+      setLocalStorage('selectedItems', []);
     } else {
-      setSelectedItems(cartItemIds);
+      setSelectedItems(AllCartItems);
+      setLocalStorage('selectedItems', AllCartItems);
     }
   };
 
