@@ -7,13 +7,16 @@ import { ToastProvider } from "./contexts/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
 import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
+import { ModalProvider } from "./contexts/ModalContext.tsx";
 
 const Layout = () => {
   return (
     <MobileLayout>
       <ToastProvider>
         <CartProvider>
-          <Outlet />
+          <ModalProvider>
+            <Outlet />
+          </ModalProvider>
         </CartProvider>
       </ToastProvider>
     </MobileLayout>
