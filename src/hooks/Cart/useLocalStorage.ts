@@ -23,7 +23,7 @@ export default function useLocalStorage({
     } catch {
       /* 파싱 실패 시 무시 */
     }
-  }, []); // ← 빈 의존성 배열
+  }, []);
 
   // 2. cartItemsData 변동 시 선택된 ID 중 유효하지 않은 것만 제거
   useEffect(() => {
