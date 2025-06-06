@@ -1,0 +1,18 @@
+import { CartItemTypes } from "../../types/cartItem";
+
+interface getTotalPriceProps {
+  cartItems: CartItemTypes[];
+  selectedCartIds: string[];
+}
+
+export function getTotalPrice({
+  cartItems,
+  selectedCartIds,
+}: getTotalPriceProps) {
+  return cartItems
+    .filter((e) => selectedCartIds.includes(e.id.toString()))
+    .reduce(
+      (totalPrice, item) => totalPrice + item.product.price * item.quantity,
+      0
+    );
+}
