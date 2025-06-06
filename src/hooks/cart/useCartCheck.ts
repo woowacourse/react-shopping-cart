@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
 const useCartCheck = (cartItemIds: number[]) => {
   const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
+  const hasInitialized = useRef(false);
 
   const isAllChecked = checkedIds.size === cartItemIds.length;
 
@@ -24,6 +25,16 @@ const useCartCheck = (cartItemIds: number[]) => {
     if (action === "all") allCheck();
     if (action === "each" && id) eachCheck(id);
   };
+
+  useEffect(() => {
+    if (cartItemIds.length === 0) return;
+
+    if (!hasInitialized.current) {
+      console.log("useCartItemCheck");
+      setCheckedIds(new Set(cartItemIds));
+      hasInitialized.current = true;
+    }
+  }, [cartItemIds]);
 
   return {
     checkedIds,

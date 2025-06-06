@@ -11,6 +11,7 @@
 - [ ] 불필요한 리렌더링 최적화하기 (CartPage)
 - [x] CartItem 훅 내부 로직 분리
 - [x] Checked ids 분리
+- [x] 초기진입시, 체크 박스 풀 체크
 - [ ] CartItem 훅 내부 로직 context API로 관리 -> CartContext
 - [ ] isChecked 값 {id:checked} 매치해서 배열로 관리?
 
