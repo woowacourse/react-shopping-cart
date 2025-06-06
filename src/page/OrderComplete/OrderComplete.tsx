@@ -4,7 +4,7 @@ import { OrderConfirmationLocationState } from "@/type/OrderConfirmation";
 import { PAGE_URL } from "@/constants/PageUrl";
 import ErrorPage from "../Error/ErrorPage";
 import Header from "@/components/common/Header/Header.tsx";
-import { isCartItem } from "@/util/validationTool.ts";
+import { isCartItem } from "@/util/validation/validationTool.ts";
 
 interface OrderCompleteProps {
   onReset: () => void;

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "../constants/ApiError";
+import { ERROR_MESSAGES } from "@/constants/ApiError";
 
 export function getErrorMessage(statusText: string, status?: number): string {
   if (ERROR_MESSAGES[statusText]) {

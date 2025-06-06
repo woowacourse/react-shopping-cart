@@ -1,4 +1,4 @@
-import { apiGet } from "../util/apiRequest";
+import { apiGet } from "./apiRequest";
 
 type fetchCartItemsParams = {
   params?: {

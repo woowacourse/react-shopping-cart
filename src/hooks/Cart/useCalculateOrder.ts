@@ -1,5 +1,5 @@
 import type { CartItem } from "@/type/CartItem";
-import { summarizeOrder } from "@/util/summarizeOrder";
+import { summarizeOrder } from "@/util/cart/summarizeOrder";
 import { useMemo } from "react";
 
 export function useCalculateOrder(

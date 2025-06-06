@@ -1,5 +1,5 @@
-import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "../constants/priceSetting";
-import { CartItem } from "../type/CartItem";
+import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "../../constants/priceSetting";
+import { CartItem } from "../../type/CartItem";
 
 export function summarizeOrder(items: CartItem[], selected: Set<string>) {
   const selectedItems = items.filter((item) => selected.has(item.id));

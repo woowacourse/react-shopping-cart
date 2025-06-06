@@ -1,7 +1,5 @@
 import * as Styled from "./CouponItem.style";
 import CheckBox from "@/components/common/CheckBox";
-import { useErrorToast } from "@/contexts/ErrorToastContext";
-
 import { Coupon } from "@/type/Coupon";
 
 interface CouponItemProps {
@@ -16,10 +14,8 @@ function CouponItem({
   coupon,
   onSelect,
   isSelected,
-  isLimitReached,
   isInvalid,
 }: CouponItemProps) {
-  const { showError } = useErrorToast();
   const { expirationDate, description } = coupon;
   const startDate = new Date();
   const endDate = new Date();

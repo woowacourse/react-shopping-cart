@@ -1,4 +1,5 @@
-import { ApiError, ERROR_MESSAGES, ErrorType } from "../constants/ApiError";
+import { ApiError, ERROR_MESSAGES, ErrorType } from "@/constants/ApiError";
+
 /**
  * @param {unknown} error
  *

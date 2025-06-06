@@ -1,7 +1,7 @@
-import { ApiError } from "../constants/ApiError";
-import { getErrorMessage } from "./getErrorMessage";
-import { getErrorTypeByStatus } from "./getErrorTypeByStatus";
-import { toApiError } from "./toApiError";
+import { ApiError } from "@/constants/ApiError";
+import { getErrorMessage } from "@/util/error/getErrorMessage";
+import { getErrorTypeByStatus } from "@/util/error/getErrorTypeByStatus";
+import { toApiError } from "@/util/error/toApiError";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const TOKEN = import.meta.env.VITE_TOKEN;

@@ -1,4 +1,4 @@
-import { ErrorType } from "../constants/ApiError";
+import { ErrorType } from "@/constants/ApiError";
 
 export function getErrorTypeByStatus(status: number): ErrorType {
   if (status >= 400 && status < 500) {

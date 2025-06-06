@@ -1,5 +1,5 @@
 import { CartItem } from "@/type/CartItem";
-import { apiPost } from "../util/apiRequest";
+import { apiPost } from "./apiRequest";
 
 interface OrderCartItemParams {
   cartItems: CartItem[];

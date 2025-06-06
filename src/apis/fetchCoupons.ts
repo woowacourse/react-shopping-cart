@@ -1,4 +1,4 @@
-import { apiGet } from "../util/apiRequest";
+import { apiGet } from "./apiRequest";
 
 const fetchCoupons = async () => {
   return apiGet("/coupons");
