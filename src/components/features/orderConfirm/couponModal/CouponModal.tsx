@@ -5,16 +5,23 @@ import * as S from './CouponModal.styles';
 import Separator from '../../../common/separator/Separator';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
+import { useCartSelectionContext } from '../../cart/contexts/CartSelectionContext';
+import { useBestCoupons } from '../hooks/useBestCoupons';
 
 function CouponModal({ onClose }: { onClose: () => void }) {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
-  const [selected, setSelected] = useState<number[]>([]);
+  const { selectCartItems } = useCartSelectionContext();
 
   useEffect(() => {
     fetchData<Coupon[]>()('/coupons').then((data) => {
       if (data) setCoupons(data);
     });
   }, []);
+
+  const { selected, setSelected, couponDiscounts } = useBestCoupons({
+    coupons,
+    cartItems: selectCartItems,
+  });
 
   const handleToggle = (id: number) => {
     setSelected((prev) =>
@@ -25,6 +32,10 @@ function CouponModal({ onClose }: { onClose: () => void }) {
         : prev
     );
   };
+
+  const totalDiscount = couponDiscounts
+    .filter((d) => selected.includes(d.coupon.id))
+    .reduce((sum, d) => sum + d.discount, 0);
 
   return (
     <S.Overlay>
@@ -46,42 +57,56 @@ function CouponModal({ onClose }: { onClose: () => void }) {
         {coupons.length === 0 ? (
           <S.DescriptionText>사용 가능한 쿠폰이 없습니다.</S.DescriptionText>
         ) : (
-          coupons.map((coupon) => (
-            <S.CouponContainer key={coupon.id}>
-              <Separator />
-              <S.CouponBox>
-                <SelectBox
-                  selected={selected.includes(coupon.id)}
-                  onClick={() => handleToggle(coupon.id)}
-                />
-                <S.Name>{coupon.description}</S.Name>
-              </S.CouponBox>
-              <S.Description>
-                <S.DescriptionText>
-                  만료일: {coupon.expirationDate}
-                </S.DescriptionText>
-                {'minimumAmount' in coupon && coupon.minimumAmount && (
+          coupons.map((coupon) => {
+            const discount =
+              couponDiscounts.find((d) => d.coupon.id === coupon.id)
+                ?.discount || 0;
+            return (
+              <S.CouponContainer key={coupon.id}>
+                <Separator />
+                <S.CouponBox>
+                  <SelectBox
+                    selected={selected.includes(coupon.id)}
+                    onClick={() => handleToggle(coupon.id)}
+                  />
+                  <S.Name>
+                    {coupon.description}
+                    {discount > 0 && (
+                      <span style={{ color: '#0a8', marginLeft: 6 }}>
+                        (-{discount.toLocaleString()}원)
+                      </span>
+                    )}
+                  </S.Name>
+                </S.CouponBox>
+                <S.Description>
                   <S.DescriptionText>
-                    최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
+                    만료일: {coupon.expirationDate}
                   </S.DescriptionText>
-                )}
-                {'buyQuantity' in coupon && 'getQuantity' in coupon && (
-                  <S.DescriptionText>
-                    {coupon.buyQuantity}개 구매 시 {coupon.getQuantity}개 무료
-                  </S.DescriptionText>
-                )}
-                {'availableTime' in coupon && coupon.availableTime && (
-                  <S.DescriptionText>
-                    사용 가능 시간: {coupon.availableTime.start}~
-                    {coupon.availableTime.end}
-                  </S.DescriptionText>
-                )}
-              </S.Description>
-            </S.CouponContainer>
-          ))
+                  {'minimumAmount' in coupon && coupon.minimumAmount && (
+                    <S.DescriptionText>
+                      최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
+                    </S.DescriptionText>
+                  )}
+                  {'buyQuantity' in coupon && 'getQuantity' in coupon && (
+                    <S.DescriptionText>
+                      {coupon.buyQuantity}개 구매 시 {coupon.getQuantity}개 무료
+                    </S.DescriptionText>
+                  )}
+                  {'availableTime' in coupon && coupon.availableTime && (
+                    <S.DescriptionText>
+                      사용 가능 시간: {coupon.availableTime.start}~
+                      {coupon.availableTime.end}
+                    </S.DescriptionText>
+                  )}
+                </S.Description>
+              </S.CouponContainer>
+            );
+          })
         )}
 
-        <S.Button>총 0원 할인 쿠폰 사용하기</S.Button>
+        <S.Button>
+          총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
+        </S.Button>
       </S.Container>
     </S.Overlay>
   );
