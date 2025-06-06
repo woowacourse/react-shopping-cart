@@ -50,7 +50,7 @@ export function ShoppingCart() {
   useEffect(() => {
     setItem(
       SELECTED_CART_ITEM_IDS,
-      cartItems.map((e) => e.id)
+      cartItems.map((e) => e.id.toString())
     );
   }, [cartItems]);
 

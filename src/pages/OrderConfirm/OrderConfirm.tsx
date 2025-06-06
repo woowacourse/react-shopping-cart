@@ -34,7 +34,11 @@ export function OrderConfirm() {
     navigate('/');
   };
 
-  const selectedCartItemIds = getItem(SELECTED_CART_ITEM_IDS, []);
+  const selectedCartItemIds = getItem<string[]>(SELECTED_CART_ITEM_IDS, []);
+
+  const selectedCartItems = cartItems.filter((cartItem) =>
+    selectedCartItemIds.includes(cartItem.id.toString())
+  );
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
@@ -71,7 +75,7 @@ export function OrderConfirm() {
             <p css={subTitleStyle}>최종 결제 금액을 확인해 주세요.</p>
           </div>
         </div>
-        <SelectedCartProductContainer cartItems={cartItems} />
+        <SelectedCartProductContainer cartItems={selectedCartItems} />
         <button css={applyButton} onClick={() => {}}>
           쿠폰 적용
         </button>
