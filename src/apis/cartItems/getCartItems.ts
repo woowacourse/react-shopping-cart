@@ -1,7 +1,7 @@
 import { CartItemContent } from "../../types/response";
 import { httpClient } from "../httpClient";
 
-const ERROR_MESSAGE = "징바구니를 가져오는 데 실패했습니다.";
+const ERROR_MESSAGE = "장바구니를 가져오는 데 실패했습니다.";
 
 export const getCartItems = async (): Promise<CartItemContent[]> => {
   const params = new URLSearchParams({
