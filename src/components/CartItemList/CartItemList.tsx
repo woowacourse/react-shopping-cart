@@ -3,7 +3,7 @@ import Text from "../@common/Text/Text";
 import CartItemCard from "../CartItemCard/CartItemCard";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
 import { useEffect } from "react";
-import CartItemCheckbox from "../CartItemCheckbox/CartItemCheckbox";
+import CheckBox from "../@common/CheckBox/CheckBox";
 
 const CartItemCardList = () => {
   const { cartItems, selectedItem, handleSelectedItem } = useCartItemContext();
@@ -38,7 +38,7 @@ const CartItemCardList = () => {
   return (
     <>
       <div className={AllSelectContainer}>
-        <CartItemCheckbox
+        <CheckBox
           isSelected={allSelected}
           onClick={handleAllSelected}
           testId="all-select-toggle"
