@@ -13,13 +13,18 @@ const Modal = ({
   title,
   showCloseButton = true,
   onClose,
-  onBackdropClick,
 }: ModalPropsType) => {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <>
       <div
         css={ModalBackgroundStyle(isOpen, position)}
-        onClick={(e) => onBackdropClick?.(e)}
+        onClick={(e) => handleBackdropClick(e)}
       >
         <div css={ModalContainerStyle(position)}>
           <div css={ModalHeaderStyle}>
