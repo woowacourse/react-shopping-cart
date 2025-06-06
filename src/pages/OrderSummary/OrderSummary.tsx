@@ -7,7 +7,7 @@ import {
   TotalCost,
   TotalCostLabel,
 } from "./OrderSummary.styles";
-import { CartItemType, CouponDataType, CouponType } from "../../types/response";
+import { CartItemType, CouponDataType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../utils/cost";
 import Description from "../../components/Description/Description";
 import CartItemList from "../../components/CartItemList/CartItemList";
@@ -19,6 +19,8 @@ import useFetch from "../../hooks/useFetch";
 import { getCoupons } from "../../api/coupon";
 import { adaptCoupon } from "../../utils/dataAdapter";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
+import CouponDetails from "../../components/Coupon/CouponDetails";
+import { CouponType } from "../../components/Coupon/types";
 import Coupon from "../../components/Coupon/Coupon";
 
 function OrderSummary() {
@@ -98,7 +100,11 @@ function OrderSummary() {
             handleModalButtonClick={() => ""}
           >
             {coupons.map((coupon) => {
-              return <Coupon key={coupon.id} coupon={coupon} />;
+              return (
+                <Coupon key={coupon.id} coupon={coupon}>
+                  <CouponDetails coupon={coupon} />
+                </Coupon>
+              );
             })}
           </Modal>,
           modalRoot
