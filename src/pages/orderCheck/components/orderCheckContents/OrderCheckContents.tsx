@@ -12,6 +12,7 @@ import { Modal } from '@jae-o/modal-component-module';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
+import Coupon from '@/components/features/coupon/models/coupon';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -60,6 +61,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
 
   if (!coupons) return <Loading />;
 
+  const couponModels = coupons.map((coupon) => new Coupon(coupon));
+
   return (
     <Modal>
       <S.Container>
@@ -88,7 +91,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         <OrderPriceSummary value={orderPrice} />
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
-          coupons={coupons}
+          coupons={couponModels}
           couponSelectedIds={couponSelectedIds}
           toggleSelect={toggleSelect}
         />

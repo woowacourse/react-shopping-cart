@@ -1,10 +1,10 @@
 import { Modal } from '@jae-o/modal-component-module';
-import * as S from './CouponModal.styles';
-import { CouponType } from '../types';
 import CouponItem from '../couponItem/CouponItem';
+import Coupon from '../models/coupon';
+import * as S from './CouponModal.styles';
 
 interface CouponModalProps {
-  coupons: CouponType[];
+  coupons: Coupon[];
   couponSelectedIds: number[];
   toggleSelect: (couponId: number) => void;
 }
@@ -23,13 +23,13 @@ function CouponModal({
         </S.NoticeBox>
         <S.CouponList>
           {coupons.map((coupon) => {
-            const isSelected = couponSelectedIds.includes(coupon.id);
+            const isSelected = couponSelectedIds.includes(coupon.data.id);
             return (
               <CouponItem
-                key={coupon.id}
+                key={coupon.data.id}
                 item={coupon}
                 isSelected={isSelected}
-                toggleSelect={() => toggleSelect(coupon.id)}
+                toggleSelect={() => toggleSelect(coupon.data.id)}
               />
             );
           })}
