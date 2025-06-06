@@ -1,4 +1,4 @@
-import { Checkbox, Info, SpaceBetweenFlex, Spacing, Text } from "@/components";
+import { Checkbox, InfoIcon, SpaceBetweenFlex, Spacing, Text } from "@/components";
 import { FREE_DELIVERY_PRICE } from "@/constants";
 import { useCartItemQuery } from "@/hooks";
 import { CartItemService } from "@/services";
@@ -67,7 +67,7 @@ export default function CartItemSection() {
               gap: 4px;
             `}
           >
-            <Info /> 총 주문 금액이 {FREE_DELIVERY_PRICE.toLocaleString()}원 이상일 경우 무료 배송됩니다.
+            <InfoIcon /> 총 주문 금액이 {FREE_DELIVERY_PRICE.toLocaleString()}원 이상일 경우 무료 배송됩니다.
           </Text>
           <Spacing size={16} />
 

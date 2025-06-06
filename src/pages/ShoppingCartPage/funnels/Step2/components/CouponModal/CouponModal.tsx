@@ -1,5 +1,5 @@
 import { Button, Modal, Spacing, Text } from "@/components";
-import { CloseIcon, Info } from "@/components/icons";
+import { CloseIcon, InfoIcon } from "@/components/icons";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
 import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import { CouponService } from "@/services";
@@ -58,7 +58,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
             gap: 4px;
           `}
         >
-          <Info /> 쿠폰은 최대 2개까지 사용할 수 있습니다.
+          <InfoIcon /> 쿠폰은 최대 2개까지 사용할 수 있습니다.
         </Text>
 
         <Spacing size={16} />
