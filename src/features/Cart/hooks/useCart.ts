@@ -9,8 +9,9 @@ import { CartDataState } from '../types/Cart.types';
 export const useCart = ({ cart }: CartDataState) => {
   const { showToast } = useContext(ToastContext);
   const [checkedItems, setCheckedItems] = useState<Set<number>>(
-    new Set(cart.data?.map((item) => item.id))
+    new Set(cart.data!.map((item) => item.id))
   );
+
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
@@ -25,18 +26,18 @@ export const useCart = ({ cart }: CartDataState) => {
 
   const toggleAllCheck = () => {
     setCheckedItems((prev) => {
-      if (prev.size === cart.data?.length) {
+      if (prev.size === cart.data!.length) {
         return new Set<number>();
       }
 
       const newSet = new Set<number>();
-      cart.data?.forEach((item) => newSet.add(item.id));
+      cart.data!.forEach((item) => newSet.add(item.id));
       return newSet;
     });
   };
 
   const updateQuantity = async (cartId: number, newQuantity: number) => {
-    const cartItem = cart.data?.find((item) => item.id === cartId);
+    const cartItem = cart.data!.find((item) => item.id === cartId);
     try {
       await cart.mutate(
         () => updateCartItem({ cartId: cartId, newQuantity: newQuantity }),
@@ -45,7 +46,9 @@ export const useCart = ({ cart }: CartDataState) => {
     } catch (error) {
       if (isError(error)) {
         showToast(
-          `"${cartItem?.product.name}" 상품의 최대 구매 수량은 ${cartItem?.product.quantity}개 입니다.`
+          `"${cartItem?.product.name}" 상품의 최대 구매 수량은 ${
+            cartItem!.product.quantity
+          }개 입니다.`
         );
       }
     }
@@ -63,14 +66,14 @@ export const useCart = ({ cart }: CartDataState) => {
       if (isError(error)) {
         showToast(
           `장바구니에서 ${
-            cart?.data?.find((item) => item.id === id)?.product?.name
+            cart.data!.find((item) => item.id === id)?.product?.name
           } 상품을 삭제할 수 없습니다.`
         );
       }
     }
   };
 
-  const cartItems = cart.data?.map((item) => ({
+  const cartItems = cart.data!.map((item) => ({
     ...item,
     isChecked: checkedItems.has(item.id),
   }));
