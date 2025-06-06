@@ -5,7 +5,7 @@ export const ModalBackdrop = styled.div`
   width: 100%;
   height: 100%;
   justify-content: center;
-  align-items: end;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   inset: 0;
   position: absolute;
@@ -13,13 +13,14 @@ export const ModalBackdrop = styled.div`
 
 export const ModalContainer = styled.div`
   display: flex;
+  width: 100%;
+  margin: 0 24px;
   flex-direction: column;
   gap: 5px;
-  margin: 0;
   padding: 24px 16px;
   background-color: #fff;
-  border-radius: 10px 10px 0 0;
-  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 
 export const ModalContent = styled.div`
