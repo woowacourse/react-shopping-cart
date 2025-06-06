@@ -6,4 +6,5 @@ export const InfoMessageStyle = css`
   justify-content: flex-start;
   gap: 0.4rem;
   width: 100%;
+  margin-bottom: 1.6rem;
 `;
