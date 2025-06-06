@@ -1,10 +1,12 @@
 import { useEffect, useMemo } from "react";
-import { useCartContext, useCartDispatch } from "../stores/CartContext";
-import { useSelectContext, useSelectDispatch } from "../stores/SelectContext";
+import { useCartContext } from "../stores/CartContext";
+import { useSelectContext } from "../stores/SelectContext";
 import useCart from "./useCart";
 import { calculateTotalPrice, calculateShippingFee } from "../domains/price";
 import { ResponseCartItem } from "../types/types";
 import { SelectState } from "../stores/SelectReducer";
+import useCartAction from "./useCartAction";
+import useSelectAction from "./useSelectAction";
 
 interface UseCartManagerReturn {
   cartData: ResponseCartItem[];
@@ -17,25 +19,19 @@ interface UseCartManagerReturn {
 }
 
 function useCartManager(): UseCartManagerReturn {
-  const dispatch = useCartDispatch();
-  const selectDispatch = useSelectDispatch();
   const selectData = useSelectContext();
   const cartData = useCartContext();
+
+  const { setCartInfo } = useCartAction();
+  const { setSelectInfo } = useSelectAction();
   const { cartItemList: cartItemRes, isLoading } = useCart();
 
   useEffect(() => {
     if (cartItemRes.length > 0) {
-      dispatch({
-        type: "SET_CART",
-        payload: { items: cartItemRes },
-      });
-
-      selectDispatch({
-        type: "SET_SELECT",
-        payload: { items: cartItemRes },
-      });
+      setCartInfo({ items: cartItemRes });
+      setSelectInfo({ items: cartItemRes });
     }
-  }, [cartItemRes, dispatch, selectDispatch]);
+  }, [cartItemRes, setCartInfo, setSelectInfo]);
 
   const selectedCartItem = useMemo((): ResponseCartItem[] => {
     return cartData?.filter((_, idx) => selectData[idx]?.selected) || [];

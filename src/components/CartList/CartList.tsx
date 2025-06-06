@@ -1,15 +1,13 @@
 import useCartManager from "../../hooks/useCartManager";
-import {
-  useSelectContext,
-  useSelectDispatch,
-} from "../../stores/SelectContext";
+import useSelectAction from "../../hooks/useSelectAction";
+import { useSelectContext } from "../../stores/SelectContext";
 import CartItem from "../CartItem/CartItem";
 import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CartList.styled";
 
 function CartList() {
   const selectState = useSelectContext();
-  const selectDispatch = useSelectDispatch();
+  const { selectAll, deselectAll } = useSelectAction();
 
   const { cartData, isLoading } = useCartManager();
 
@@ -18,17 +16,8 @@ function CartList() {
   }
 
   const handlerSelectAll = () => {
-    if (selectState.every((item) => item.selected)) {
-      selectDispatch({
-        type: "DESELECT_ALL",
-        payload: {},
-      });
-    } else {
-      selectDispatch({
-        type: "SELECT_ALL",
-        payload: {},
-      });
-    }
+    if (selectState.every((item) => item.selected)) selectAll();
+    else deselectAll();
   };
 
   return (
