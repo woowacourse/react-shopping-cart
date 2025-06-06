@@ -1,5 +1,13 @@
 import { css } from "@emotion/react";
 
+export const Container = css`
+  padding: 24px 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
 export const ModalHeader = css`
   display: flex;
   justify-content: space-between;

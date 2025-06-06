@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
-import { CloseButton, ModalHeader, SubmitButton, Title } from "./Modal.styles";
+import {
+  Container,
+  CloseButton,
+  ModalHeader,
+  SubmitButton,
+  Title,
+} from "./Modal.styles";
 
 interface ModalProps {
   title: string;
@@ -45,7 +51,7 @@ function Modal({
   }, [open]);
 
   return (
-    <dialog ref={modalRef} onClose={onClose}>
+    <dialog css={Container} ref={modalRef} onClose={onClose}>
       <div css={ModalHeader}>
         <h2 css={Title}>{title}</h2>
         <button css={CloseButton} onClick={handleCloseModal}>
