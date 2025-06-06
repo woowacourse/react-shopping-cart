@@ -1,7 +1,9 @@
-export default class Observer {
-  #listeners = new Set<() => void>();
+import { Listener } from "./type";
 
-  add(listener: () => void) {
+export default class Observer {
+  #listeners = new Set<Listener>();
+
+  add(listener: Listener) {
     this.#listeners.add(listener);
   }
 

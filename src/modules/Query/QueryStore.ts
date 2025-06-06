@@ -1,42 +1,37 @@
-import { Status } from "./types";
-
-type Listener = () => void;
-
-const emitChange = (listeners: Record<string, Set<Listener>>, key: string) => {
-  listeners[key]?.forEach((cb) => cb());
-};
+import { Listener, Observer } from "../Observer";
+import { QueryKey, Status } from "./types";
 
 // Data
-const dataStore: Record<string, unknown> = {};
-const dataListeners: Record<string, Set<Listener>> = {};
+const dataStore: Record<QueryKey, unknown> = {};
+const dataObservers: Record<QueryKey, Observer> = {};
 
-export const setQueryData = (key: string, value: unknown) => {
+export const setQueryData = (key: QueryKey, value: unknown) => {
   dataStore[key] = value;
-  emitChange(dataListeners, key);
+  dataObservers[key]?.notify();
 };
 
-export const getQueryData = (key: string) => dataStore[key];
+export const getQueryData = (key: QueryKey) => dataStore[key];
 
-export const subscribeQueryData = (key: string, cb: Listener) => {
-  if (!dataListeners[key]) dataListeners[key] = new Set();
-  dataListeners[key].add(cb);
-  return () => dataListeners[key].delete(cb);
+export const subscribeQueryData = (key: QueryKey, listener: Listener) => {
+  if (!dataObservers[key]) dataObservers[key] = new Observer();
+  dataObservers[key].add(listener);
+  return () => dataObservers[key].remove(listener);
 };
 
 // Status
 
-const statusStore: Record<string, Status> = {};
-const statusListeners: Record<string, Set<Listener>> = {};
+const statusStore: Record<QueryKey, Status> = {};
+const statusObservers: Record<QueryKey, Observer> = {};
 
-export const setQueryStatus = (key: string, status: Status) => {
+export const setQueryStatus = (key: QueryKey, status: Status) => {
   statusStore[key] = status;
-  emitChange(statusListeners, key);
+  statusObservers[key].notify();
 };
 
-export const getQueryStatus = (key: string): Status => statusStore[key] ?? "idle";
+export const getQueryStatus = (key: QueryKey): Status => statusStore[key] ?? "idle";
 
-export const subscribeQueryStatus = (key: string, cb: Listener) => {
-  if (!statusListeners[key]) statusListeners[key] = new Set();
-  statusListeners[key].add(cb);
-  return () => statusListeners[key].delete(cb);
+export const subscribeQueryStatus = (key: QueryKey, listener: Listener) => {
+  if (!statusObservers[key]) statusObservers[key] = new Observer();
+  statusObservers[key].add(listener);
+  return () => statusObservers[key].remove(listener);
 };
