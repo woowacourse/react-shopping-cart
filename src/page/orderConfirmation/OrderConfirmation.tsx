@@ -22,13 +22,8 @@ function OrderConfirmation() {
     );
   }
 
-  const {
-    selectedCartItemsLength,
-    selectedCartItemsCount,
-    totalPrice,
-    shippingFee,
-    selectedCartItemsData,
-  } = location.state as OrderConfirmationLocationState;
+  const { selectedCartItemsData } =
+    location.state as OrderConfirmationLocationState;
 
   return (
     <Styled.Container>
@@ -36,7 +31,7 @@ function OrderConfirmation() {
         <OrderConfirmationHeader
           handleGoBackToHomeButton={handleGoBackToHomeButton}
         />
-        <OrderConfirmationContent />
+        <OrderConfirmationContent selectedCartItems={selectedCartItemsData} />
       </Styled.Wrapper>
     </Styled.Container>
   );
