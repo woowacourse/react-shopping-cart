@@ -10,6 +10,7 @@ import DeliveryInformation from "../../components/Order/DeliveryInformation";
 import useBooleanState from "../../hooks/common/useBooleanState";
 import NotFoundPage from "../NotFoundPage";
 import CouponModal from "./components/CouponModal";
+import useOrder from "../../hooks/order/useOrder";
 
 // OrderConfirm 페이지가 받아야하는 정보
 // check된 상품들 정보
@@ -18,11 +19,15 @@ const OrderConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isCartModalOpen, handleCartModalOpen, handleCartModalClose] = useBooleanState(false);
+  const { finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea } = useOrder({
+    cartItems: location.state?.cartItems ?? [],
+    orderPrice: location.state?.orderPrice ?? 0,
+    deliveryPrice: location.state?.deliveryPrice ?? 0,
+  });
 
   if (!location.state) return <NotFoundPage />;
 
-  const { cartItems, orderPrice, deliveryPrice, totalPrice, cartItemsTotalQuantity, cartItemsCheckedCount } =
-    location.state;
+  const { cartItems, orderPrice, cartItemsTotalQuantity, cartItemsCheckedCount } = location.state;
 
   const handleNavigate = () => navigate("/payment-confirm", { state: location.state });
   return (
@@ -48,17 +53,17 @@ const OrderConfirmPage = () => {
           쿠폰 적용
         </Button>
 
-        <DeliveryInformation handleCheckChange={() => {}} />
+        <DeliveryInformation isRemoteArea={isRemoteArea} toggleRemoteArea={toggleRemoteArea} />
 
         <OrderPrice gap={12}>
           <OrderPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
           <OrderPrice.Wrap gap={8}>
             <OrderPrice.LabelWithPrice label="주문 금액" price={orderPrice} />
-            <OrderPrice.LabelWithPrice label="쿠폰 할인 금액" price={deliveryPrice} />
-            <OrderPrice.LabelWithPrice label="배송비" price={deliveryPrice} />
+            <OrderPrice.LabelWithPrice label="쿠폰 할인 금액" price={discountPrice} />
+            <OrderPrice.LabelWithPrice label="배송비" price={finalDeliveryPrice} />
           </OrderPrice.Wrap>
           <OrderPrice.Wrap>
-            <OrderPrice.LabelWithPrice label="총 결제 금액" price={totalPrice} />
+            <OrderPrice.LabelWithPrice label="총 결제 금액" price={finalTotalPrice} />
           </OrderPrice.Wrap>
         </OrderPrice>
 
