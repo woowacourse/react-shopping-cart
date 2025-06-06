@@ -1,47 +1,31 @@
 import { Checkbox, Info, Spacing, Text } from "@/components";
 import { FREE_DELIVERY_PRICE } from "@/constants";
+import { useCartItemQuery } from "@/hooks";
+import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
 import { useShoppingCartContext } from "../../../MainPage/context";
-import { useCartItem, useCartItemQuery } from "@/hooks";
-import { CartItemService } from "@/services";
-import * as S from "./CartItemSection.styles";
 import CartItem from "../CartItem/CartItem";
+import * as S from "./CartItemSection.styles";
 
 export default function CartItemSection() {
   const { data: cartItems } = useCartItemQuery();
   const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
 
-  const { deleteCartItem, increaseCartItem, decreaseCartItem } = useCartItem();
+  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
 
-  const handleSelectItem = (itemId: number) => {
-    setSelectedItemIds((prev) => (prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]));
-  };
+  const cartItemService = new CartItemService(cartItems.content);
+  const totalType = cartItemService.calculateTotalType();
+
+  const selectedCartItemService = new CartItemService(selectedCartItems);
+  const orderPrice = selectedCartItemService.calculateTotalPrice();
+  const deliveryFee = selectedCartItemService.calculateDeliveryFee(false);
+  const totalPrice = selectedCartItemService.calculateTotalPriceWithDeliveryFee(false);
+
+  const isAllSelected = cartItems.content.length > 0 && selectedItemIds.length === cartItems.content.length;
 
   const handleSelectAll = () => {
     if (cartItems.content.length === selectedItemIds.length) setSelectedItemIds([]);
     else setSelectedItemIds(cartItems.content.map((item) => item.id));
-  };
-
-  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
-
-  const cartItemService = new CartItemService(selectedCartItems);
-  const orderPrice = cartItemService.calculateTotalPrice();
-  const deliveryFee = cartItemService.calculateDeliveryFee(false);
-  const totalPrice = cartItemService.calculateTotalPriceWithDeliveryFee(false);
-
-  const isAllSelected = cartItems.content.length > 0 && selectedItemIds.length === cartItems.content.length;
-
-  const handleDeleteCartItem = (id: number) => {
-    setSelectedItemIds((prev) => prev.filter((itemId) => itemId !== id));
-    deleteCartItem(id);
-  };
-
-  const handleAddButtonClick = (id: number) => {
-    increaseCartItem(id);
-  };
-
-  const handleMinusButtonClick = (id: number) => {
-    decreaseCartItem(id);
   };
 
   return (
@@ -54,7 +38,9 @@ export default function CartItemSection() {
       ) : (
         <>
           <Spacing size={8} />
-          <Text variant="body-2">현재 {cartItems.content.length}종류의 상품이 담겨있습니다.</Text>
+
+          <Text variant="body-2">현재 {totalType}종류의 상품이 담겨있습니다.</Text>
+
           <Spacing size={32} />
 
           <S.CheckboxWrapper>
@@ -67,19 +53,12 @@ export default function CartItemSection() {
 
           <S.CartItemList>
             {cartItems.content.map((item) => (
-              <CartItem
-                key={item.id}
-                id={item.id}
-                isSelected={selectedItemIds.includes(item.id)}
-                onCheckboxClick={() => handleSelectItem(item.id)}
-                onDeleteClick={handleDeleteCartItem}
-                onAddButtonClick={() => handleAddButtonClick(item.product.id)}
-                onMinusButtonClick={() => handleMinusButtonClick(item.product.id)}
-              />
+              <CartItem key={item.id} id={item.id} />
             ))}
           </S.CartItemList>
 
           <Text
+            as="p"
             variant="body-1"
             css={css`
               display: flex;
@@ -92,6 +71,7 @@ export default function CartItemSection() {
           <Spacing size={16} />
 
           <hr />
+
           <S.ReceiptTextWrapper>
             <Text variant="title-3">주문 금액</Text>
             <Text variant="title-1">{orderPrice.toLocaleString()}원</Text>

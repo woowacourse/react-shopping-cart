@@ -1,29 +1,19 @@
-import { Button, Checkbox, PlusMinusButton } from "@/components";
-import { useCartItemQuery } from "@/hooks";
+import { Button, Card, Checkbox, PlusMinusButton } from "@/components";
+import { useCartItem, useCartItemQuery } from "@/hooks";
 import { css } from "@emotion/react";
-import Card from "../../../../components/Card/Card";
 import * as S from "./CartItem.styles";
+import { useShoppingCartContext } from "@/pages/MainPage/context";
 
 interface CartItemProps {
   id: number;
-  isSelected: boolean;
-  onCheckboxClick: () => void;
-  onDeleteClick: (id: number) => void;
-  onAddButtonClick: () => void;
-  onMinusButtonClick: () => void;
 }
 
-export default function CartItem({
-  id,
-  isSelected,
-  onCheckboxClick,
-  onDeleteClick,
-  onAddButtonClick,
-  onMinusButtonClick,
-}: CartItemProps) {
+export default function CartItem({ id }: CartItemProps) {
   const { data: cartItems, status: cartItemsStatus } = useCartItemQuery();
-  const cartItem = cartItems.content.find((item) => item.id === id);
+  const { deleteCartItem, increaseCartItem, decreaseCartItem } = useCartItem();
+  const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
 
+  const cartItem = cartItems.content.find((item) => item.id === id);
   if (!cartItem) return null;
 
   const {
@@ -31,13 +21,32 @@ export default function CartItem({
     quantity,
   } = cartItem;
 
+  const isSelected = selectedItemIds.includes(id);
+
+  const handleDeleteClick = () => {
+    setSelectedItemIds((prev) => prev.filter((itemId) => itemId !== cartItem.id));
+    deleteCartItem(id);
+  };
+
+  const handleAddButtonClick = () => {
+    increaseCartItem(cartItem.product.id);
+  };
+
+  const handleMinusButtonClick = () => {
+    decreaseCartItem(cartItem.product.id);
+  };
+
+  const handleCheckboxClick = (itemId: number) => {
+    setSelectedItemIds((prev) => (prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]));
+  };
+
   return (
     <S.ProductCardCartItemWrapper>
       <S.ButtonWrapper>
-        <Checkbox checked={isSelected} onClick={onCheckboxClick} />
+        <Checkbox checked={isSelected} onClick={() => handleCheckboxClick(id)} />
 
         <Button
-          onClick={() => onDeleteClick(cartItem.id)}
+          onClick={handleDeleteClick}
           css={css`
             background-color: #fff;
             width: fit-content;
@@ -59,8 +68,8 @@ export default function CartItem({
           <PlusMinusButton
             isLoading={cartItemsStatus === "loading"}
             quantity={quantity}
-            onAddButtonClick={onAddButtonClick}
-            onMinusButtonClick={onMinusButtonClick}
+            onAddButtonClick={handleAddButtonClick}
+            onMinusButtonClick={handleMinusButtonClick}
           />
         </Card.Info>
       </Card>

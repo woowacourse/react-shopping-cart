@@ -7,9 +7,9 @@ import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useEffect, useMemo, useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
-import * as S from "./OrderConfirm.styles";
+import * as S from "./OrderConfirmSection.styles";
 
-export default function OrderConfirm() {
+export default function OrderConfirmSection() {
   const { selectedItemIds, isFar, setIsFar, selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
   const { data: coupons } = useCouponQuery();
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +46,7 @@ export default function OrderConfirm() {
   }, [availableCoupons]);
 
   return (
-    <S.OrderConfirmPageWrapper>
+    <S.OrderConfirmSectionWrapper>
       <Text variant="title-1">주문 확인</Text>
       <Spacing size={28} />
       <Text variant="body-1">
@@ -125,6 +125,6 @@ export default function OrderConfirm() {
           <Text variant="title-1">{(totalPrice - totalDiscountPrice + deliveryFee).toLocaleString()}원</Text>
         </ReceiptTextWrapper>
       </S.ReceiptWrapper>
-    </S.OrderConfirmPageWrapper>
+    </S.OrderConfirmSectionWrapper>
   );
 }

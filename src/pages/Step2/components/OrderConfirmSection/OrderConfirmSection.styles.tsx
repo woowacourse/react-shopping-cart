@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const OrderConfirmPageWrapper = styled.div`
+export const OrderConfirmSectionWrapper = styled.section`
   padding: 36px 16px;
 `;
 

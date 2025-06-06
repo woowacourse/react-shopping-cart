@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const OrderCompletedSection = styled.div`
+export const OrderCompletedSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
