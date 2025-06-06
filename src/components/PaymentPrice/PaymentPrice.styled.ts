@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const OrderPrice = styled.div<{ direction: "row" | "column"; gap: number }>`
+export const PaymentPrice = styled.div<{ direction: "row" | "column"; gap: number }>`
   width: 100%;
   display: flex;
   flex-direction: ${(props) => props.direction};
