@@ -24,7 +24,7 @@ export default function OrderConfirmSection() {
   const typeCount = cartItemService.calculateTypeCount();
   const totalQuantity = cartItemService.calculateTotalQuantity();
 
-  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+  const selectedCoupons = coupons.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
   const totalDiscountAmount = CouponService.calculateTotalDiscountAmount(selectedCartItems, selectedCoupons, isFar);
 
@@ -32,15 +32,14 @@ export default function OrderConfirmSection() {
 
   const closeModal = () => setIsOpen(false);
 
-
   useEffect(() => {
-    const availableCoupons = coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon));
+    const availableCoupons = coupons.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon));
     const mostDiscountCombination = CouponService.calculateMostDiscountCombination(
       selectedCartItems,
       availableCoupons,
       isFar,
     );
-    const newCouponIds = mostDiscountCombination?.map((coupon) => coupon.id) || [];
+    const newCouponIds = mostDiscountCombination.map((coupon) => coupon.id);
 
     if (isEqual(selectedCouponIds, newCouponIds)) return;
 
@@ -121,7 +120,7 @@ export default function OrderConfirmSection() {
         </SpaceBetweenFlex>
         <SpaceBetweenFlex>
           <Text variant="title-3">쿠폰 할인 금액</Text>
-          <Text variant="title-1">{totalDiscountAmount?.toLocaleString()}원</Text>
+          <Text variant="title-1">{totalDiscountAmount.toLocaleString()}원</Text>
         </SpaceBetweenFlex>
         <SpaceBetweenFlex>
           <Text variant="title-3">배송비</Text>

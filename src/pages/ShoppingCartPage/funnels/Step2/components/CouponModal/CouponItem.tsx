@@ -27,7 +27,7 @@ export default function CouponItem({ coupon, isSelected, onSelect, isCouponAvail
         <Spacing size={4} />
         {(coupon.discountType === "fixed" || coupon.discountType === "freeShipping") && (
           <Text as="p" variant="body-1">
-            최소 주문 금액: {coupon.minimumAmount?.toLocaleString()}원
+            최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
           </Text>
         )}
         {coupon.discountType === "percentage" && (

@@ -28,15 +28,15 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
     });
   };
 
-  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+  const selectedCoupons = coupons.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
-  const totalDiscountAmount = selectedCoupons?.reduce((acc, coupon) => {
+  const totalDiscountAmount = selectedCoupons.reduce((acc, coupon) => {
     const couponService = new CouponService(selectedCartItems);
     return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
   }, 0);
 
   const availableCoupons = useMemo(
-    () => coupons?.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
+    () => coupons.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
     [coupons, selectedCartItems],
   );
 
@@ -70,13 +70,13 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
             gap: 8px;
           `}
         >
-          {coupons?.map((coupon) => (
+          {coupons.map((coupon) => (
             <CouponItem
               key={coupon.id}
               coupon={coupon}
               isSelected={selectedCouponIds.includes(coupon.id)}
               onSelect={() => handleSelectCoupon(coupon.id)}
-              isCouponAvailable={availableCoupons?.includes(coupon)}
+              isCouponAvailable={availableCoupons.includes(coupon)}
             />
           ))}
         </div>
