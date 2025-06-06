@@ -4,22 +4,13 @@ import Text from "../../components/common/Text";
 import Header from "../../components/Header";
 import PrevArrow from "../../components/icons/PrevArrow";
 import { useLocation, useNavigate } from "react-router";
+import NotFoundPage from "../NotFoundPage";
 
 const PaymentConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (!location.state)
-    return (
-      <S.Container>
-        <S.Information>
-          <Text variant="title-1">잘못된 접근입니다.</Text>
-          <Button variant="secondary" size="full" onClick={() => navigate("/")}>
-            돌아가기
-          </Button>
-        </S.Information>
-      </S.Container>
-    );
+  if (!location.state) return <NotFoundPage />;
 
   const { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice } = location.state;
 
