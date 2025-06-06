@@ -40,8 +40,8 @@ export default function useCartItem() {
         },
         {
           onMutate: () => {
-            showToast({ variant: "success", message: "장바구니에 추가되었습니다." });
             optimisticIncreaseCartItem(productId);
+            showToast({ variant: "success", message: "장바구니에 추가되었습니다." });
           },
           onError: () => {
             refetchCartItems();
