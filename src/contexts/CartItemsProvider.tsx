@@ -46,26 +46,32 @@ function apiReducer(state: State, action: Action): State {
   }
 }
 
-export const ApiContext = createContext<{
+const CartItemsContext = createContext<{
   state: State
   dispatch: React.Dispatch<Action>
 } | null>(null)
 
-export function ApiProvider({ children }: PropsWithChildren) {
+export function CartItemsProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(apiReducer, initialState)
 
   return (
-    <ApiContext.Provider value={{ state, dispatch }}>
+    <CartItemsContext.Provider value={{ state, dispatch }}>
       {children}
-    </ApiContext.Provider>
+    </CartItemsContext.Provider>
   )
 }
 
-export function useData<T>({ fetcher }: { fetcher: () => Promise<T> }) {
-  const context = useContext(ApiContext)
+export function useCartItemsContext<T>({
+  fetcher,
+}: {
+  fetcher: () => Promise<T>
+}) {
+  const context = useContext(CartItemsContext)
 
   if (!context) {
-    throw new Error("apiContext는 apiContextProvider 내부에 위치해야 합니다.")
+    throw new Error(
+      "cartItemsContext는 cartItemsContextProvider 내부에 위치해야 합니다.",
+    )
   }
 
   const { state, dispatch } = context

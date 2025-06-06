@@ -1,5 +1,5 @@
 import { CartItem } from "../../type/CartItem"
-import { useData } from "../useData"
+import { useCartItemsContext } from "../../contexts/CartItemsProvider"
 import fetchCartItems from "../../apis/fetchCartItems"
 import useHandleCartItemQuantity from "./useHandleCartItemQuantity"
 import useHandleDeleteCartItem from "./useHandleDeleteCartItem"
@@ -17,7 +17,7 @@ function useShoppingCart() {
     error: cartItemsFetchError,
     loading: cartFetchLoading,
     refetch: refetchCartItems,
-  } = useData<CartItem[]>({
+  } = useCartItemsContext<CartItem[]>({
     fetcher: getCartItems,
   })
 
