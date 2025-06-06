@@ -6,7 +6,7 @@ import CartCard from "../CartCard/CartCard";
 import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
 import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 import OrderSummary from "../OrderSummary/OrderSummary";
-import { EmptyCartContent } from "../EmptyCartContent/EmptyCartContent";
+import EmptyCartContent from "../EmptyCartContent/EmptyCartContent";
 import AllCheckBox from "../AllCheckBox/AllCheckBox";
 
 function CartContent() {

@@ -1,6 +1,6 @@
 import * as Styled from "./EmptyCartContent.style";
 
-export function EmptyCartContent() {
+function EmptyCartContent() {
   return (
     <>
       <Styled.EmptyCartMessage>
@@ -16,3 +16,5 @@ export function EmptyCartContent() {
     </>
   );
 }
+
+export default EmptyCartContent;
