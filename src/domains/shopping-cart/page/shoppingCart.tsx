@@ -45,7 +45,7 @@ export function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    navigate("/confirm", {
+    navigate("/payment-complete", {
       state: {
         selectedCartType: selectedCartIds.length,
         selectedCartItem: calculateCartItemQuantity(),

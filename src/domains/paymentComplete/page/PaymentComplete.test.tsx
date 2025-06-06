@@ -24,7 +24,7 @@ describe("주문확인 페이지 테스트", () => {
       <MemoryRouter
         initialEntries={[
           {
-            pathname: "/confirm",
+            pathname: "/payment-complete",
             state: fakeState,
           },
         ]}
