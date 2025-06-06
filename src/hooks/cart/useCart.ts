@@ -1,8 +1,8 @@
-import { CartItem } from "../types/cartItem";
-import useCartResource from "./cart/useCartResource";
-import useCartCheck from "./cart/useCartCheck";
-import calculateCartAmount from "../utils/cart/calculateCartAmount";
-import calculateCartPrice from "../utils/cart/calculateCartPrice";
+import { CartItem } from "../../types/cartItem";
+import useCartResource from "./useCartResource";
+import useCartCheck from "./useCartCheck";
+import calculateCartAmount from "../../utils/cart/calculateCartAmount";
+import calculateCartPrice from "../../utils/cart/calculateCartPrice";
 
 type HandleCartItemChangeType = ({
   action,

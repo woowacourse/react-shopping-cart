@@ -1,5 +1,5 @@
 import * as S from "./CartItemList.styled";
-import { UseCartReturnType } from "../../../hooks/useCart";
+import { UseCartReturnType } from "../../../hooks/cart/useCart";
 import Button from "../../common/Button";
 import CheckBox from "../../common/CheckBox";
 import QuantityRegulator from "../../QuantityRegulator";

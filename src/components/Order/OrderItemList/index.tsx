@@ -1,4 +1,4 @@
-import { UseCartReturnType } from "../../../hooks/useCart";
+import { UseCartReturnType } from "../../../hooks/cart/useCart";
 import Text from "../../common/Text";
 import ItemCard from "../../ItemCard";
 import * as S from "./OrderItemList.styled";

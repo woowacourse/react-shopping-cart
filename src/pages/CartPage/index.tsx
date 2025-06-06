@@ -2,7 +2,7 @@ import * as S from "./CartPage.styled";
 import CartItemList from "../../components/Cart/CartItemList";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
-import useCart from "../../hooks/useCart";
+import useCart from "../../hooks/cart/useCart";
 import { OrderPrice } from "../../components/Order/OrderPrice";
 import { useNavigate } from "react-router";
 import Header from "../../components/Header";
