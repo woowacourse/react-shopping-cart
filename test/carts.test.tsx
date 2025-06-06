@@ -127,10 +127,9 @@ describe("장바구니 기능 테스트", () => {
       expect(screen.getByText("상품1")).toBeInTheDocument();
     });
 
-    const increaseButtons = screen.getAllByRole("button");
-    const increaseButton = increaseButtons.find((button) =>
-      button.querySelector('svg path[d*="M7.5 13V1"]')
-    );
+    const increaseButton = screen.getByRole("button", {
+      name: /수량 증가/i,
+    });
 
     if (increaseButton) {
       fireEvent.click(increaseButton);

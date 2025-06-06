@@ -24,7 +24,11 @@ function QuantityButton({
         <MinusIcon />
       </S.QuantityButton>
       <S.QuantityButtonText>{quantity}</S.QuantityButtonText>
-      <S.QuantityButton onClick={onIncrease} disabled={disabled}>
+      <S.QuantityButton
+        onClick={onIncrease}
+        disabled={disabled}
+        aria-label="수량 증가"
+      >
         <PlusIcon />
       </S.QuantityButton>
     </S.QuantityButtonContainer>
