@@ -1,23 +1,17 @@
-import BackButton from '@/shared/components/BackButton/BackButton';
+import BackButton from '@shared/components/BackButton/BackButton';
 import * as S from './OrderSuccessPage.styled';
-import Header from '@/shared/components/Header/Header';
-import { useEffect } from 'react';
-import { usePageNavigation } from '@/shared/hooks/usePageNavigation';
-import { ROUTES } from '@/shared/config/routes';
+import Header from '@shared/components/Header/Header';
+import { usePageNavigation } from '@shared/hooks/usePageNavigation';
 
 export default function OrderSuccessPage() {
-  const { validateOrderSuccessState, navigateTo } = usePageNavigation();
-
-  useEffect(() => {
-    const state = validateOrderSuccessState();
-    if (!state) {
-      navigateTo(ROUTES.CART);
-      return;
-    }
-  }, []);
+  const { validateOrderSuccessState, navigateToCart } = usePageNavigation();
 
   const state = validateOrderSuccessState();
-  if (!state) return null;
+
+  if (!state) {
+    navigateToCart();
+    return null;
+  }
 
   const { orderItems, orderTotalPrice } = state;
   const orderItemsType = orderItems.length;
