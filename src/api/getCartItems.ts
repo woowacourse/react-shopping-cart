@@ -1,12 +1,13 @@
-const getCartItems = async () => {
-  const response = await fetch(`${import.meta.env.VITE_BASE_URL}/cart-items`);
-  const { content } = await response.json();
+import { CartItem } from '../types';
 
+const getCartItems = async (): Promise<CartItem[]> => {
+  const response = await fetch('/api/cart-items');
   if (!response.ok) {
-    throw new Error('Failed to delete cart item');
+    throw new Error('Failed to fetch cart items');
   }
 
-  return content;
+  const data: CartItem[] = await response.json();
+  return data;
 };
 
 export default getCartItems;
