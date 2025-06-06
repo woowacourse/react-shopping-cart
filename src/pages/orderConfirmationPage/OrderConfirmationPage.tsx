@@ -20,6 +20,8 @@ import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedCon
 import * as S from "./OrderConfirmationPage.styles";
 import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
 import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
+import Modal from "../../components/@common/modal/Modal";
+import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
 
 const OrderConfirmationPage = () => {
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
@@ -35,8 +37,10 @@ const OrderConfirmationPage = () => {
     toggleIsRemoteArea,
   } = useRemoteAreaFee({ deliveryFee, orderPrice });
 
+  // TODO : 모달이 켜졌을 경우 스크롤 방지
   return (
     <div css={PageWrapper}>
+      <Modal title="제목" content={<CouponModalContent />} onClose={() => {}} />
       <div css={TitleContainer}>
         <p css={Title}>주문 확정</p>
         <p css={Description}>{ORDER_CONFIRMATION_MESSAGE(1, 2)}</p>
