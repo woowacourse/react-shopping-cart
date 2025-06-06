@@ -23,8 +23,11 @@ import { validateCoupon } from "@/util/coupon/validateCoupon";
 import { CouponDiscountResult } from "@/hooks/Coupon/useCouponDiscount";
 import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
 import CheckBox from "@/components/common/CheckBox";
-import { FREE_SHIPPING_OVER } from "@/constants/priceSetting";
-import notice from "/notice.svg";
+import {
+  FREE_SHIPPING_OVER,
+  ISLAND_ADDITIONAL_SHIPPING_FEE,
+} from "@/constants/priceSetting";
+import noticeIcon from "/notice.svg";
 
 interface OrderConfirmationContextValue {
   selectedCartItems: CartItem[];
@@ -129,7 +132,7 @@ function BOGOOfferNotice() {
   return (
     <Styled.BOGOOfferNoticeWrapper>
       <Styled.BOGOOfferText>
-        지금 모든 품목들 {buyXgetYCoupon.buyQuantity}개 구매 시{" "}
+        지금 모든 품목들 {buyXgetYCoupon.buyQuantity}개 구매 시{"\n"}
         {buyXgetYCoupon.getQuantity}개 <strong>무료!</strong>
       </Styled.BOGOOfferText>
 
@@ -141,8 +144,8 @@ function BOGOOfferNotice() {
               (buyXgetYCoupon.getQuantity ?? 0)}
             개
           </em>
+          를 장바구니에 담아주세요.
         </span>
-        <span>를 장바구니에 담아주세요.</span>
       </Styled.BOGOOfferInstruction>
     </Styled.BOGOOfferNoticeWrapper>
   );
@@ -228,31 +231,83 @@ function CouponSelection({ children }: PropsWithChildren) {
 }
 
 function ShippingIsland() {
-  const { isInIsland, setIsInIsland } = useOrderConfirmationContext();
+  const { isInIsland, setIsInIsland, result } = useOrderConfirmationContext();
+  const shippingFee = result.shippingFee;
+
+  const notice = getShippingNotice({ isInIsland, shippingFee });
+
   return (
     <Styled.ShippingIsland>
       <Styled.ShippingIslandTitle>배송 정보</Styled.ShippingIslandTitle>
+
       <Styled.ShippingIslandWrapper>
         <CheckBox
           id="isInIsland"
           checked={isInIsland}
           onChange={() => setIsInIsland(!isInIsland)}
           label="제주도 및 도서 산간 지역"
-          hidden={true}
+          hidden
         />
         <Styled.ShippingIslandDescription>
           제주도 및 도서 산간 지역
         </Styled.ShippingIslandDescription>
       </Styled.ShippingIslandWrapper>
-      <CartListStyled.Notice>
-        <CartListStyled.NoticeIcon src={notice} />
-        <CartListStyled.FreeShippingText>
-          총 주문 금액이 {FREE_SHIPPING_OVER.toLocaleString()}원 이상일 경우
-          무료 배송됩니다.
-        </CartListStyled.FreeShippingText>
-      </CartListStyled.Notice>
+
+      {notice && (
+        <CartListStyled.Notice>
+          <CartListStyled.NoticeIcon src={noticeIcon} />
+          <CartListStyled.NoticeContent>{notice}</CartListStyled.NoticeContent>
+        </CartListStyled.Notice>
+      )}
     </Styled.ShippingIsland>
   );
+}
+
+// 이징도 helper가 나오면
+// 훅으로 분리할수도 있지만 일단 컴포넌트에다 두겠습니다!
+function getShippingNotice({
+  isInIsland,
+  shippingFee,
+}: {
+  isInIsland: boolean;
+  shippingFee: number;
+}) {
+  // 1) 도서‧산간 + 무료 배송(쿠폰 적용 등)
+  if (isInIsland && shippingFee === 0) {
+    return (
+      <CartListStyled.FreeShippingCouponAppliedNotice>
+        무료배송 쿠폰이 적용되어{"\n"}
+        제주도 및 도서 산간 지역 추가 배송비도 무료입니다!
+      </CartListStyled.FreeShippingCouponAppliedNotice>
+    );
+  }
+
+  // 2) 도서‧산간 + 추가 배송비 발생
+  if (isInIsland && shippingFee > 0) {
+    return (
+      <CartListStyled.FreeShippingNotice>
+        제주도 및 도서 산간 지역은{" "}
+        {ISLAND_ADDITIONAL_SHIPPING_FEE.toLocaleString()}원 배송비가 추가됩니다.
+      </CartListStyled.FreeShippingNotice>
+    );
+  }
+
+  // 3) 일반 지역 + 아직 무료 배송 조건 미충족
+  if (!isInIsland && shippingFee > 0) {
+    return (
+      <CartListStyled.FreeShippingNotice>
+        총 주문 금액이 {FREE_SHIPPING_OVER.toLocaleString()}원 이상일 경우 무료
+        배송됩니다.
+      </CartListStyled.FreeShippingNotice>
+    );
+  } else {
+    return (
+      <CartListStyled.FreeShippingNotice>
+        총 주문 금액이 {FREE_SHIPPING_OVER.toLocaleString()}원 이상일 경우 무료
+        배송됩니다.
+      </CartListStyled.FreeShippingNotice>
+    );
+  }
 }
 
 function PriceDetails() {

@@ -185,36 +185,34 @@ export const OrderConfirmationContainer = styled.div`
 `;
 
 export const BOGOOfferNoticeWrapper = styled.div`
-  margin-top: 8px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 
-  padding: 20px 24px;
+  padding: 10px 8px;
   border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
 
-  background: linear-gradient(135deg, #ffffff 0%, #f7f8fc 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  background-color: rgba(200, 200, 200, 0.2);
 `;
 
 export const BOGOOfferText = styled.p`
   margin: 0;
   text-align: center;
   font-weight: 700;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(1rem, 2.5vw, 1rem);
   letter-spacing: -0.01em;
   line-height: 1.4;
 
   strong {
-    color: #ff446b;
+    color: #ff6b6b;
   }
 `;
 
 export const BOGOOfferInstruction = styled.p`
   margin: 0;
   text-align: center;
-  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-size: 0.8rem;
   line-height: 1.5;
   color: #555;
 
