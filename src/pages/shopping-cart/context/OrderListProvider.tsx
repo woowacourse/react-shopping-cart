@@ -7,6 +7,8 @@ import {
 } from 'react';
 import { useAPIDataContext } from '../../../context/APIDataProvider';
 import { Cart, getShoppingCartData } from '../../../api/cart';
+import { calculateTotalCartItemPrice } from '@/utils/calculateTotalCartItemPrice';
+import { calculateShippingFee } from '@/utils/calculateShippingFee';
 
 const OrderListContext = createContext<{
   selectionMap: Record<string, boolean>;
@@ -15,11 +17,19 @@ const OrderListContext = createContext<{
   >;
   cartListData: Cart[] | undefined;
   cartRefetch: () => Promise<void>;
+  selectedItems: Cart[];
+  orderPrice: number;
+  shippingFee: number;
+  totalPrice: number;
 }>({
   selectionMap: {},
   setSelectionMap: () => {},
   cartListData: [],
   cartRefetch: async () => {},
+  selectedItems: [],
+  orderPrice: 0,
+  shippingFee: 0,
+  totalPrice: 0,
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
@@ -28,10 +38,25 @@ export const OrderListProvider = ({ children }: PropsWithChildren) => {
     name: 'cart',
   });
   const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
+  const selectedItems = (cartListData ?? []).filter(
+    (item) => selectionMap[item.id]
+  );
+  const orderPrice = calculateTotalCartItemPrice(selectedItems);
+  const shippingFee = calculateShippingFee(orderPrice);
+  const totalPrice = orderPrice + shippingFee;
 
   return (
     <OrderListContext.Provider
-      value={{ selectionMap, setSelectionMap, cartListData, cartRefetch }}
+      value={{
+        selectionMap,
+        setSelectionMap,
+        cartListData,
+        cartRefetch,
+        selectedItems,
+        orderPrice,
+        shippingFee,
+        totalPrice,
+      }}
     >
       {children}
     </OrderListContext.Provider>
@@ -47,7 +72,16 @@ export const useOrderListContext = () => {
     );
   }
 
-  const { selectionMap, setSelectionMap, cartListData, cartRefetch } = context;
+  const {
+    selectionMap,
+    setSelectionMap,
+    cartListData,
+    cartRefetch,
+    selectedItems,
+    orderPrice,
+    shippingFee,
+    totalPrice,
+  } = context;
 
   useEffect(() => {
     if (!cartListData) return;
@@ -66,5 +100,9 @@ export const useOrderListContext = () => {
     setSelectionMap,
     cartListData,
     cartRefetch,
+    selectedItems,
+    orderPrice,
+    shippingFee,
+    totalPrice,
   };
 };
