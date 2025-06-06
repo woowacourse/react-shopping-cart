@@ -8,9 +8,9 @@ import {
   subtitleText,
   titleText,
   totalPriceBox,
-} from "./orderConfirm.style";
+} from "./paymentCompletestyle";
 
-export function OrderConfirm() {
+export function PaymentComplete() {
   const { state } = useLocation();
 
   return (
