@@ -2,7 +2,7 @@ import { CheckBoxLayout } from "./CheckBox.style";
 
 interface CheckBoxProps {
   isChecked: boolean;
-  handleCheckBox: (id: string) => void;
+  handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
   dataTestId: string;
 }
@@ -19,7 +19,7 @@ export function CheckBox({
       css={CheckBoxLayout}
       id={id}
       checked={isChecked}
-      onChange={() => handleCheckBox(id)}
+      onChange={handleCheckBox}
       data-testid={dataTestId}
     />
   );

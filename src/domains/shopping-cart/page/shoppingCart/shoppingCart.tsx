@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
 import Toast from "../../../../components/Toast/Toast";
@@ -47,7 +47,8 @@ export function ShoppingCart() {
     });
   };
 
-  const handleCheckBox = (id: string) => {
+  const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
     if (id === "select-all") return toggleSelectAll();
     else toggleCartItem(id);
   };

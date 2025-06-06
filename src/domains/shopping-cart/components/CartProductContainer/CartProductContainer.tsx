@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "../../../../components/Button/Button";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { Line } from "../../../../components/Line/Line";
@@ -14,7 +15,7 @@ import {
 interface CartProductContainerProps {
   selectedCartIds: string[];
   onDelete: (id: string) => Promise<void>;
-  handleCheckBox: (id: string) => void;
+  handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function CartProductContainer({
