@@ -1,26 +1,21 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { Flex, Header } from '../../components/common';
 import BackArrowButton from '../../components/common/BackArrowButton';
-import { useNavigate } from 'react-router-dom';
-import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
-import { calculateShippingFee } from '../../utils/calculateShippingFee';
-import { calculateTotalCartItemPrice } from '../../utils/calculateTotalCartItemPrice';
+import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
   };
-  const { cartListData, selectionMap } = useOrderListContext();
-  const orderList = (cartListData ?? []).filter(
-    (cart) => selectionMap[cart.id] === true
+  const { selectedItems, totalPrice } = useOrderListContext();
+  const typeCount = selectedItems.length;
+  const totalCount = selectedItems.reduce(
+    (acc, cart) => acc + cart.quantity,
+    0
   );
-  const typeCount = orderList.length;
-  const totalCount = orderList.reduce((acc, cart) => acc + cart.quantity, 0);
-  const totalCartPrice = calculateTotalCartItemPrice(orderList);
-  const shippingFee = calculateShippingFee(totalCartPrice);
-  const totalPrice = totalCartPrice + shippingFee;
 
   return (
     <ErrorBoundary>

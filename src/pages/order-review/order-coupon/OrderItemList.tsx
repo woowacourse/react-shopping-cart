@@ -3,11 +3,8 @@ import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProv
 import Image from '@/components/common/Image';
 
 function OrderItemList() {
-  const { cartListData, selectionMap } = useOrderListContext();
+  const { selectedItems, cartListData } = useOrderListContext();
   const isCartEmpty = !cartListData || cartListData.length === 0;
-  const orderList = (cartListData ?? []).filter(
-    (cart) => selectionMap[cart.id] === true
-  );
 
   if (!cartListData) {
     return <LoadingCartItem>장바구니를 불러오는 중...</LoadingCartItem>;
@@ -28,7 +25,7 @@ function OrderItemList() {
             <EmptyCartText>주문 목록이 없습니다.</EmptyCartText>
           </EmptyCartBox>
         ) : (
-          orderList.map((order) => (
+          selectedItems.map((order) => (
             <ItemWithCheckboxContainer key={order.id}>
               <ItemContainer>
                 <Image

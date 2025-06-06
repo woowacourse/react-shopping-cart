@@ -2,19 +2,14 @@ import styled from '@emotion/styled';
 import Flex from '../../../components/common/Flex';
 import LabelPrice from '../../../components/common/LabelPrice';
 
-import { calculateShippingFee } from '../../../utils/calculateShippingFee';
-import { calculateTotalCartItemPrice } from '../../../utils/calculateTotalCartItemPrice';
-import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 import InfoNotice from '@/components/common/InfoNotice';
+import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 
 const LabelCouponPrice = () => {
-  const { cartListData, selectionMap } = useOrderListContext();
-  const selectedItems = (cartListData ?? []).filter(
-    (item) => selectionMap[item.id]
-  );
-  const orderPrice = calculateTotalCartItemPrice(selectedItems);
-  const shippingFee = calculateShippingFee(orderPrice);
-  const totalPrice = orderPrice + shippingFee;
+  const { orderPrice, shippingFee, totalPrice } = useOrderListContext();
+
+  // TODO: 쿠폰 할인 금액은 실제 할인 금액으로 교체 필요
+  const couponDiscount = 0;
 
   return (
     <Container>
@@ -23,7 +18,7 @@ const LabelCouponPrice = () => {
       </InfoNotice>
       <PriceWrapper>
         <LabelPrice label='주문 금액' price={orderPrice} />
-        <LabelPrice label='쿠폰 할인 금액' price={orderPrice} />
+        <LabelPrice label='쿠폰 할인 금액' price={couponDiscount} />
         <LabelPrice label='배송비' price={shippingFee} />
       </PriceWrapper>
 
