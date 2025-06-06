@@ -2,8 +2,6 @@ import { ReactNode } from "react";
 import { CartProvider as BaseCartProvider } from "./CartContext";
 import useShoppingCart from "@/hooks/Cart/useShoppingCart";
 import { useCartSelection } from "@/hooks/Cart/useCartSelection";
-
-import useLocalStorage from "@/hooks/Cart/useLocalStorage";
 import { useCalculateOrder } from "@/hooks/Cart/useCalculateOrder";
 
 interface CartProviderProps {
