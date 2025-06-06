@@ -21,7 +21,7 @@ const TextStyle = (type: TextType) => css`
   font-weight: ${type === "small" ? 500 : 700};
   font-size: ${type === "large" ? "24px" : type === "medium" ? "16px" : "12px"};
   line-height: ${type === "large"
-    ? "48px"
+    ? "40px"
     : type === "medium"
     ? "24px"
     : "8px"};

@@ -1,9 +1,7 @@
-import { css } from "@emotion/css";
-import Text from "../@common/Text/Text";
 import CartItemCard from "../CartItemCard/CartItemCard";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
 import { useEffect } from "react";
-import CheckBox from "../@common/CheckBox/CheckBox";
+import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
 
 const CartItemCardList = () => {
   const { cartItems, selectedItem, handleSelectedItem } = useCartItemContext();
@@ -37,14 +35,12 @@ const CartItemCardList = () => {
 
   return (
     <>
-      <div className={AllSelectContainer}>
-        <CheckBox
-          isSelected={allSelected}
-          onClick={handleAllSelected}
-          testId="all-select-toggle"
-        />
-        <Text text="전체선택" />
-      </div>
+      <LabeledCheckbox
+        label="전체선택"
+        isSelected={allSelected}
+        onClick={handleAllSelected}
+        testId="all-select-toggle"
+      />
       {cartItems.map((item) => (
         <CartItemCard
           cartItemId={item.id}
@@ -62,10 +58,3 @@ const CartItemCardList = () => {
 };
 
 export default CartItemCardList;
-
-const AllSelectContainer = css`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 20px;
-`;

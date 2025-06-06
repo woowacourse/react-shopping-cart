@@ -1,16 +1,16 @@
 import { css } from "@emotion/css";
 
-interface CheckBoxProps {
+interface CheckboxProps {
   isSelected: boolean;
   onClick?: () => void;
   testId?: string;
 }
 
-const CheckBox = ({ isSelected, onClick, testId }: CheckBoxProps) => {
+const Checkbox = ({ isSelected, onClick, testId }: CheckboxProps) => {
   return (
     <button
       onClick={onClick}
-      className={CheckBoxStyle(isSelected)}
+      className={CheckboxStyle(isSelected)}
       data-testid={testId}
     >
       <img src={isSelected ? "./checked-icon.svg" : "./unchecked-icon.svg"} />
@@ -18,9 +18,9 @@ const CheckBox = ({ isSelected, onClick, testId }: CheckBoxProps) => {
   );
 };
 
-export default CheckBox;
+export default Checkbox;
 
-const CheckBoxStyle = (isSelected: boolean) => css`
+const CheckboxStyle = (isSelected: boolean) => css`
   width: 24px;
   height: 24px;
   background-color: ${isSelected ? "#000000" : "#ffffff"};

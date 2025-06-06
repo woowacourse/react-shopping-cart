@@ -33,7 +33,6 @@ const CartItemPage = () => {
             ) : (
               <>
                 <CartItemCardList />
-
                 <div className={InfoRow}>
                   <img src="./info-icon.svg" alt="info" />
                   <Text
