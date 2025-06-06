@@ -1,12 +1,13 @@
-import * as Styled from "./CartContent.style"
-import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart"
-import CartList from "../CartList/CartList"
-import CartCard from "../CartCard/CartCard"
-import checked from "/checked.svg"
-import unChecked from "/unChecked.svg"
-import useSelectedCartIds from "../../../hooks/useSelectedCartIds"
-import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton"
-import OrderSummary from "../OrderSummary/OrderSummary"
+import * as Styled from "./CartContent.style";
+import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart";
+import CartList from "../CartList/CartList";
+import CartCard from "../CartCard/CartCard";
+
+import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
+import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
+import OrderSummary from "../OrderSummary/OrderSummary";
+import { EmptyCartContent } from "../EmptyCartContent/EmptyCartContent";
+import AllCheckBox from "../AllCheckBox/AllCheckBox";
 
 function CartContent() {
   const {
@@ -15,7 +16,7 @@ function CartContent() {
     handleDeleteCartItem,
     isQuantityUpdateLoading,
     isDeleteItemLoading,
-  } = useShoppingCart()
+  } = useShoppingCart();
 
   const {
     selectedCartIds,
@@ -23,7 +24,7 @@ function CartContent() {
     handleRemoveSelectCartItem,
     handleAddSelectCartItem,
     handleSelectAllCartItems,
-  } = useSelectedCartIds(cartItemsData)
+  } = useSelectedCartIds(cartItemsData);
 
   return (
     <Styled.CartContentContainer>
@@ -34,19 +35,10 @@ function CartContent() {
           <Styled.CartContentDescription>
             현재 {cartItemsData.length}종류의 상품이 담겨있습니다.
           </Styled.CartContentDescription>
-          <Styled.AllSelectWrapper>
-            <Styled.SelectButton
-              onClick={() => handleSelectAllCartItems(isAllSelected)}
-              type="button"
-              aria-label={isAllSelected ? "전체 선택 해제" : "전체 선택"}
-            >
-              <Styled.SelectIcon
-                src={isAllSelected ? checked : unChecked}
-                alt={isAllSelected ? "전체 선택됨" : "전체 선택 안 됨"}
-              />
-            </Styled.SelectButton>
-            <p>전체선택</p>
-          </Styled.AllSelectWrapper>
+          <AllCheckBox
+            isAllSelected={isAllSelected}
+            handleToggleAllSelection={handleSelectAllCartItems}
+          />
           <CartList>
             {cartItemsData.map((cartItem) => (
               <CartCard
@@ -66,18 +58,16 @@ function CartContent() {
             cartItemsData={cartItemsData}
             selectedCartIds={selectedCartIds}
           />
+          <OrderConfirmButton
+            selectedCartIds={selectedCartIds}
+            cartItemsData={cartItemsData}
+          />
         </>
       ) : (
-        <Styled.EmptyCartMessage>
-          장바구니에 담긴 상품이 없습니다.
-        </Styled.EmptyCartMessage>
+        <EmptyCartContent />
       )}
-      <OrderConfirmButton
-        selectedCartIds={selectedCartIds}
-        cartItemsData={cartItemsData}
-      />
     </Styled.CartContentContainer>
-  )
+  );
 }
 
-export default CartContent
+export default CartContent;
