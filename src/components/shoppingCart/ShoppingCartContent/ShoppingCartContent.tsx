@@ -67,7 +67,7 @@ export default function ShoppingCartContent({
   );
 
   const allProductPrice = selectedCartItemList.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + item.product.price * item.quantity,
     0
   );
 
