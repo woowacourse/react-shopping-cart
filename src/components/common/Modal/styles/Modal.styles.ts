@@ -27,7 +27,7 @@ export const backGroundStyle = (background: boolean) => css`
 `;
 
 export const ModalContainerStyle = (
-  position: string,
+  position: string
   // size: 'small' | 'medium' | 'large' = 'medium'
 ) => {
   const positionStyle = getPositionStyle(position);
@@ -82,10 +82,16 @@ export const ModalBodyStyle = css`
   overflow-y: auto;
 `;
 
-export const ModalFooterStyle = (align: 'left' | 'center' | 'right' = 'right') => css`
+export const ModalFooterStyle = (
+  align: 'left' | 'center' | 'right' = 'right'
+) => css`
   display: flex;
   flex-direction: column;
-  justify-content: ${align === 'left' ? 'flex-start' : align === 'center' ? 'center' : 'flex-end'};
+  justify-content: ${align === 'left'
+    ? 'flex-start'
+    : align === 'center'
+    ? 'center'
+    : 'flex-end'};
   gap: 10px;
 `;
 
@@ -104,7 +110,7 @@ export const getPositionStyle = (position: string) => {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%, -50%);
       `;
     case 'bottom':
       return css`
