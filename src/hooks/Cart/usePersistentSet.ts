@@ -4,8 +4,10 @@ export default function usePersistentSet(
   key: string,
   fallback: Set<string> = new Set()
 ) {
+  let hadInitialValue = false;
   const [value, setValue] = useState<Set<string>>(() => {
     try {
+      hadInitialValue = true;
       const raw = localStorage.getItem(key);
       return raw ? new Set<string>(JSON.parse(raw)) : fallback;
     } catch {
@@ -17,5 +19,5 @@ export default function usePersistentSet(
   const persist = (next: Set<string>) =>
     localStorage.setItem(key, JSON.stringify([...next]));
 
-  return [value, setValue, persist] as const;
+  return [value, setValue, persist, hadInitialValue] as const;
 }

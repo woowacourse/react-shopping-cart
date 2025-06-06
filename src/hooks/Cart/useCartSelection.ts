@@ -7,22 +7,19 @@ import useCleanupInvalidIds from "./useCleanupInvalidIds";
 const STORAGE_KEY = "selectedCartIds";
 
 export const useCartSelection = (cartItems: CartItem[]) => {
-  // ① 초기 세팅만 읽고, persist 는 수동 호출
-  const [selectedIds, setSelectedIds, persist] = usePersistentSet(STORAGE_KEY);
+  const [selectedIds, setSelectedIds, persist, hadStoredValue] =
+    usePersistentSet(STORAGE_KEY);
 
-  // ② 장바구니 변동 시 없는 ID 정리 (저장 X)
   useCleanupInvalidIds(cartItems, setSelectedIds);
 
-  // ③ “이번 변경이 사용자의 선택에 의한 것인가?” 플래그
   const shouldPersistRef = useRef(false);
+  const didAutoSelectRef = useRef(false);
 
-  // ④ 선택 계산
   const isAllSelected = useMemo(
     () => cartItems.length > 0 && cartItems.every((i) => selectedIds.has(i.id)),
     [cartItems, selectedIds]
   );
 
-  // ⑤ 사용자 액션: 토글할 때만 플래그 켜기
   const toggleAll = useCallback(() => {
     shouldPersistRef.current = true;
     setSelectedIds(
@@ -39,11 +36,25 @@ export const useCartSelection = (cartItems: CartItem[]) => {
     });
   };
 
-  // ⑥ 플래그가 켜져 있을 때만 localStorage 동기화
+  /* ★ ① 처음 로드 + storage 비어 있을 때만 자동 전체선택 */
+  useEffect(() => {
+    if (
+      !hadStoredValue &&
+      !didAutoSelectRef.current &&
+      cartItems.length &&
+      selectedIds.size === 0
+    ) {
+      const all = new Set(cartItems.map((i) => i.id));
+      setSelectedIds(all);
+      persist(all);
+      didAutoSelectRef.current = true; // 다시 안 실행되도록
+    }
+  }, [hadStoredValue, cartItems, selectedIds, setSelectedIds, persist]);
+
   useEffect(() => {
     if (!shouldPersistRef.current) return;
     shouldPersistRef.current = false;
-    persist(selectedIds); // 실제 저장
+    persist(selectedIds);
   }, [selectedIds, persist]);
 
   const selectedItems = cartItems.filter((i) => selectedIds.has(i.id));
@@ -55,7 +66,6 @@ export const useCartSelection = (cartItems: CartItem[]) => {
     isAllSelected,
     selectedItemsLength: selectedIds.size,
     selectedItems,
-
     setSelectedIds,
   };
 };
