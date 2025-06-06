@@ -3,7 +3,7 @@ import Checkbox from "../Checkbox/Checkbox";
 import Text from "../Text/Text";
 
 interface LabeledCheckboxProps {
-  label: string;
+  labelText: string;
   isSelected: boolean;
   onClick: () => void;
   textType?: "small" | "medium" | "large";
@@ -11,7 +11,7 @@ interface LabeledCheckboxProps {
 }
 
 const LabeledCheckbox = ({
-  label,
+  labelText,
   isSelected,
   onClick,
   textType = "small",
@@ -20,7 +20,7 @@ const LabeledCheckbox = ({
   return (
     <div className={containerStyle}>
       <Checkbox isSelected={isSelected} onClick={onClick} testId={testId} />
-      <Text text={label} type={textType} />
+      <Text text={labelText} type={textType} />
     </div>
   );
 };
@@ -31,5 +31,5 @@ const containerStyle = css`
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 10px 0 15px;
 `;

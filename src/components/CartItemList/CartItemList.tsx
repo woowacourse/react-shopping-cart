@@ -36,7 +36,7 @@ const CartItemCardList = () => {
   return (
     <>
       <LabeledCheckbox
-        label="전체선택"
+        labelText="전체선택"
         isSelected={allSelected}
         onClick={handleAllSelected}
         testId="all-select-toggle"
