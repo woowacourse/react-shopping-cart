@@ -61,14 +61,3 @@ export const Text = styled.p`
   text-align: center;
   vertical-align: middle;
 `;
-
-export const CouponButton = styled.button`
-  width: 100%;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  font-weight: 700;
-  border: 1px solid #33333340;
-`;
