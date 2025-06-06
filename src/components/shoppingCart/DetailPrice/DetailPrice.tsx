@@ -13,6 +13,7 @@ export default function DetailPrice({
   return (
     <S.DetailPrice>
       <Price name="주문 금액" price={allProductPrice} />
+      <Price name="쿠폰 할인 금액" price={-6000} />
       <Price name="배송비" price={shippingFee} />
     </S.DetailPrice>
   );
