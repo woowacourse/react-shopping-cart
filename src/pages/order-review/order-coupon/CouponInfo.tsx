@@ -1,5 +1,6 @@
 import { CouponContent } from '@/api/type';
 import CheckBox from '@/components/common/CheckBox';
+import { formatKoreanTime } from '@/utils/formatKoreanTime';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
@@ -10,23 +11,28 @@ const CouponInfo = ({ coupon }: { coupon: CouponContent }) => {
     setIsChecked((prev) => !prev);
   };
 
+  const expirationDate = coupon.expirationDate.split('-');
+
   return (
     <CouponInfoWrapper>
       <CouponInfoTitle>
         <CheckBox isChecked={isChecked} onToggle={handleOnToggle} />
-        <CouponName>{coupon.description}</CouponName>
+        <Title>{coupon.description}</Title>
       </CouponInfoTitle>
-      <CouponName>만료일: {coupon.expirationDate}</CouponName>
+      <Detail>
+        만료일: {expirationDate[0]}년 {expirationDate[1]}월 {expirationDate[2]}
+        일{' '}
+      </Detail>
       {coupon.minimumAmount && (
-        <CouponName>최소 주문 금액: {coupon.minimumAmount}</CouponName>
+        <Detail>
+          최소 주문 금액: {coupon.minimumAmount.toLocaleString()} 원
+        </Detail>
       )}
       {coupon.availableTime && (
-        <>
-          <CouponName>
-            사용 가능 시간: {coupon.availableTime.start} 부터{' '}
-            {coupon.availableTime.end}
-          </CouponName>
-        </>
+        <Detail>
+          사용 가능 시간: {formatKoreanTime(coupon.availableTime.start)}부터{' '}
+          {formatKoreanTime(coupon.availableTime.end)}까지
+        </Detail>
       )}
     </CouponInfoWrapper>
   );
@@ -48,10 +54,15 @@ const CouponInfoTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-bottom: 8px;
 `;
 
-const CouponName = styled.span`
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
+const Title = styled.span`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const Detail = styled.div`
+  font-size: 14px;
+  font-weight: 400;
 `;
