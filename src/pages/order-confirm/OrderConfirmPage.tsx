@@ -54,7 +54,7 @@ const OrderConfirmPage = () => {
 export default OrderConfirmPage;
 
 const Container = styled(Flex)`
-  padding: 36px 24px;
+  padding: 0 24px;
   height: calc(100vh - 116px);
 `;
 
