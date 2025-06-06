@@ -8,13 +8,12 @@ export default function DeliveryInfo() {
   return (
     <S.Container>
       <S.Title>배송 정보</S.Title>
-      <S.RegionCheckBox>
-        <CheckBox
-          isChecked={isChecked}
-          onClick={() => setIsChecked((prev) => !prev)}
-        />
+      <CheckBox
+        isChecked={isChecked}
+        onClick={() => setIsChecked((prev) => !prev)}
+      >
         제주도 및 도서 산간 지역
-      </S.RegionCheckBox>
+      </CheckBox>
     </S.Container>
   );
 }

@@ -12,9 +12,3 @@ export const Title = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
-
-export const RegionCheckBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;

@@ -1,27 +1,32 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, PropsWithChildren } from "react";
+import * as S from "./CheckBox.styled";
 
 type CheckBoxProps = {
   isChecked: boolean;
-} & ComponentProps<'button'>;
+} & ComponentProps<"button">;
 
 const palette = {
   checked: {
-    background: '#000000',
-    check: '#FFFFFF',
-    stroke: '#000000',
+    background: "#000000",
+    check: "#FFFFFF",
+    stroke: "#000000",
   },
   unchecked: {
-    background: '#FFFFFF',
-    check: '#E5E5E5',
-    stroke: '#E5E5E5',
+    background: "#FFFFFF",
+    check: "#E5E5E5",
+    stroke: "#E5E5E5",
   },
 };
 
-export default function CheckBox({ isChecked, ...rest }: CheckBoxProps) {
-  const checked = isChecked ? 'checked' : 'unchecked';
+export default function CheckBox({
+  isChecked,
+  children,
+  ...rest
+}: PropsWithChildren<CheckBoxProps>) {
+  const checked = isChecked ? "checked" : "unchecked";
 
   return (
-    <button type="button" {...rest} name={checked}>
+    <S.CheckBoxButton type="button" {...rest} name={checked}>
       <svg
         width="24"
         height="24"
@@ -50,6 +55,7 @@ export default function CheckBox({ isChecked, ...rest }: CheckBoxProps) {
           </clipPath>
         </defs>
       </svg>
-    </button>
+      {children}
+    </S.CheckBoxButton>
   );
 }
