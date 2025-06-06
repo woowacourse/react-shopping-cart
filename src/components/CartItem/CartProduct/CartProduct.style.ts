@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 const CartProductLayout = css`
   display: flex;
@@ -12,7 +12,7 @@ const ProductImg = (imageUrl: string) => {
     width: 112px;
     border-radius: 8px;
     background-image: ${`url(${imageUrl})`},
-      url("https:lh3.googleusercontent.com/proxy/3Fqjhno28S6v1khXPS44ukHF-8y2Kue7oKfnyqCR4_vX7ze7O20WFu7CzZTq_KQaLwDrpMUNFhUD345MdmKB9ZzzejPJCfHmRAf2rMIzQhkFy9n9kMPPAf4hi7wIZm0cmjLSnTkiaj3g9mAA");
+      url('https:lh3.googleusercontent.com/proxy/3Fqjhno28S6v1khXPS44ukHF-8y2Kue7oKfnyqCR4_vX7ze7O20WFu7CzZTq_KQaLwDrpMUNFhUD345MdmKB9ZzzejPJCfHmRAf2rMIzQhkFy9n9kMPPAf4hi7wIZm0cmjLSnTkiaj3g9mAA');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -41,6 +41,12 @@ const deleteButton = css`
   height: fit-content;
 `;
 
+const quantityText = css`
+  margin-top: 28px;
+  font-weight: 500;
+  font-size: 12px;
+`;
+
 export {
   CartProductLayout,
   ProductImg,
@@ -48,4 +54,5 @@ export {
   ProductName,
   ProductPrice,
   deleteButton,
+  quantityText,
 };

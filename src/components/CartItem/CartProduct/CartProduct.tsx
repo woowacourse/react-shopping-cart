@@ -6,17 +6,30 @@ import {
   ProductName,
   ProductPrice,
   TitleLayout,
+  quantityText,
 } from './CartProduct.style';
 
-interface CartProductProps {
+interface BaseProps {
   id: number;
   imageUrl: string;
   name: string;
   price: number;
   quantity: number;
+}
+
+interface ControlProps extends BaseProps {
+  mode: 'control';
   onChange: () => void;
   isFetching: boolean;
 }
+
+interface InfoProps extends BaseProps {
+  mode: 'info';
+  onChange?: () => void;
+  isFetching?: boolean;
+}
+
+type CartProductProps = ControlProps | InfoProps;
 
 export function CartProduct({
   id,
@@ -26,6 +39,7 @@ export function CartProduct({
   quantity,
   onChange,
   isFetching,
+  mode,
 }: CartProductProps) {
   return (
     <div
@@ -38,12 +52,16 @@ export function CartProduct({
       <div css={TitleLayout}>
         <p css={ProductName}>{name}</p>
         <p css={ProductPrice}>{price.toLocaleString()}원</p>
-        <QuantitySelector
-          quantity={quantity}
-          cartId={id}
-          onChange={onChange}
-          isFetching={isFetching}
-        />
+        {mode === 'control' ? (
+          <QuantitySelector
+            quantity={quantity}
+            cartId={id}
+            onChange={onChange}
+            isFetching={isFetching}
+          />
+        ) : (
+          <p css={quantityText}>{quantity}개</p>
+        )}
       </div>
     </div>
   );

@@ -104,6 +104,7 @@ export default function CartProductContainer({
                   quantity={item.quantity}
                   onChange={onChange}
                   isFetching={isFetching}
+                  mode="control"
                 />
               </div>
             );
