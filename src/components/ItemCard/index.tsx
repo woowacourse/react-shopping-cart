@@ -69,11 +69,11 @@ ItemCard.Information = ({
 };
 
 ItemCard.Title = ({ text }: { text: string }) => {
-  return <Text variant="title-2">{text}</Text>;
+  return <Text variant="body-3">{text}</Text>;
 };
 
 ItemCard.Price = ({ price }: { price: number }) => {
-  return <Text variant="body-2">{price.toLocaleString()}원</Text>;
+  return <Text>{price.toLocaleString()}원</Text>;
 };
 
 export default ItemCard;
