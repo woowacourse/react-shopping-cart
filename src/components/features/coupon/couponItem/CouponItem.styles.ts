@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const Container = styled.div<{ disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  color: ${({ disabled }) => (disabled ? '#33333340' : 'black')};
 `;
 
 export const TitleRow = styled.div`

@@ -7,11 +7,17 @@ import { CouponType } from '../models/coupon.types';
 
 interface CouponItemProps {
   item: Coupon;
-  isSelected: boolean;
+  selected: boolean;
+  disabled?: boolean;
   toggleSelect: () => void;
 }
 
-function CouponItem({ item, isSelected, toggleSelect }: CouponItemProps) {
+function CouponItem({
+  item,
+  selected,
+  disabled,
+  toggleSelect,
+}: CouponItemProps) {
   const hasMinimumAmount = (data: CouponType) => {
     return 'minimumAmount' in data;
   };
@@ -21,11 +27,18 @@ function CouponItem({ item, isSelected, toggleSelect }: CouponItemProps) {
   };
 
   return (
-    <S.Container>
+    <S.Container disabled={disabled}>
       <Separator />
       <S.TitleRow>
-        <SelectBox selected={isSelected} onClick={toggleSelect} />
-        <S.Title>{item.data.description}</S.Title>
+        <SelectBox
+          id={item.data.id.toString()}
+          selected={selected}
+          onClick={toggleSelect}
+          disabled={disabled}
+        />
+        <S.Title htmlFor={item.data.id.toString()}>
+          {item.data.description}
+        </S.Title>
       </S.TitleRow>
       <S.DescriptionBox>
         <S.Description>

@@ -92,6 +92,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
           coupons={couponModels}
+          orderPrice={orderPrice}
           couponSelectedIds={couponSelectedIds}
           toggleSelect={toggleSelect}
         />

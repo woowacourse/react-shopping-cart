@@ -5,12 +5,14 @@ import * as S from './CouponModal.styles';
 
 interface CouponModalProps {
   coupons: Coupon[];
+  orderPrice: number;
   couponSelectedIds: number[];
   toggleSelect: (couponId: number) => void;
 }
 
 function CouponModal({
   coupons,
+  orderPrice,
   couponSelectedIds,
   toggleSelect,
 }: CouponModalProps) {
@@ -23,12 +25,14 @@ function CouponModal({
         </S.NoticeBox>
         <S.CouponList>
           {coupons.map((coupon) => {
-            const isSelected = couponSelectedIds.includes(coupon.data.id);
+            const selected = couponSelectedIds.includes(coupon.data.id);
+            const disabled = coupon.isDisable(orderPrice);
             return (
               <CouponItem
                 key={coupon.data.id}
                 item={coupon}
-                isSelected={isSelected}
+                selected={selected}
+                disabled={disabled}
                 toggleSelect={() => toggleSelect(coupon.data.id)}
               />
             );
