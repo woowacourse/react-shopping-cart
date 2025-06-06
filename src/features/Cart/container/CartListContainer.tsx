@@ -8,7 +8,7 @@ export const CartListContainer = ({ children }: PropsWithChildren) => {
 const StyledCartListContainer = styled.div`
   position: relative;
   width: 100%;
-  min-height: 350px;
+  min-height: 250px;
   overflow-y: auto;
   padding: 0px 20px;
   flex: 2;
