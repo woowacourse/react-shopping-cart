@@ -32,15 +32,22 @@ import {
 } from "../../domains/coupon/calculateCoupon";
 
 const OrderConfirmationPage = () => {
-  const { ref, isVisible } = useVisibilityObserver({
-    threshold: 0.1,
-  });
+  const { ref: CartPriceRef, isVisible: isCartPriceVisible } =
+    useVisibilityObserver({
+      threshold: 0.1,
+    });
 
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
 
-  const { isModalOpen, openCouponModal, closeModal, couponList, loadingState } =
-    useCouponModal();
+  const {
+    isModalOpen,
+    openCouponModal,
+    closeCouponModal,
+    couponList,
+    loadingState,
+  } = useCouponModal();
 
+  // TODO : 초기값으로 최대 할인율 조합을 계산하여 삽입할 것
   const { isCheckedCoupons, toggleCheckedCoupon } = useCheckedCoupons();
 
   const {
@@ -55,12 +62,10 @@ const OrderConfirmationPage = () => {
     orderItems,
     deliveryFee: deliveryFeeWithRemoteArea,
   });
-  // TODO : 배송비 포함했을 때의 가격을 기준으로 연산 (기준은 주문 금액)
-  const bogoProductPrice = getBogoProductPrice(orderItems);
 
   const totalDiscountPrice = getTotalDiscountPrice(isCheckedCoupons, {
     originTotalPrice: totalPriceWithRemoteArea,
-    bogoProductPrice: bogoProductPrice,
+    bogoProductPrice: getBogoProductPrice(orderItems),
     deliveryFee: deliveryFeeWithRemoteArea,
   });
 
@@ -75,10 +80,12 @@ const OrderConfirmationPage = () => {
       <div>로딩 중 </div>
     ) : (
       <CouponModalContent
+        totalDiscountPrice={totalDiscountPrice}
         couponList={couponList}
         validCouponList={validCouponList}
         isCheckedCoupons={isCheckedCoupons}
         toggleCheckedCoupon={toggleCheckedCoupon}
+        onModalClose={closeCouponModal}
       />
     );
   };
@@ -89,7 +96,7 @@ const OrderConfirmationPage = () => {
         <Modal
           title="쿠폰을 선택해 주세요"
           content={getModalContent()}
-          onClose={closeModal}
+          onClose={closeCouponModal}
         />
       )}
       <div css={TitleContainer}>
@@ -115,7 +122,7 @@ const OrderConfirmationPage = () => {
         </div>
       </div>
 
-      <div css={S.CartPriceContainer} ref={ref}>
+      <div css={S.CartPriceContainer} ref={CartPriceRef}>
         <CartPrice
           orderPrice={orderPrice}
           deliveryFee={deliveryFeeWithRemoteArea}
@@ -125,7 +132,7 @@ const OrderConfirmationPage = () => {
       </div>
 
       <div css={buttonFixedContainer}>
-        {isVisible && (
+        {isCartPriceVisible && (
           <Button size="large" color="black" onClick={() => {}}>
             주문 확정
           </Button>

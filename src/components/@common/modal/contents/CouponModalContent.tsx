@@ -5,17 +5,21 @@ import type { CouponType } from "../../../../types/response";
 import { COUPON_LIMIT } from "../../../../constants/systemConstants";
 
 interface CouponModalContentProps {
+  totalDiscountPrice: number;
   couponList: CouponType[];
   validCouponList: CouponType[];
   isCheckedCoupons: Map<number, CouponType>;
   toggleCheckedCoupon: (couponInfo: CouponType) => void;
+  onModalClose: () => void;
 }
 
 const CouponModalContent = ({
+  totalDiscountPrice,
   couponList,
   validCouponList,
   isCheckedCoupons,
   toggleCheckedCoupon,
+  onModalClose,
 }: CouponModalContentProps) => {
   const isMaxCouponSelected = isCheckedCoupons.size >= COUPON_LIMIT;
   const isValid = (coupon: CouponType) =>
@@ -41,8 +45,8 @@ const CouponModalContent = ({
           onSelectCoupon={() => toggleCheckedCoupon(coupon)}
         />
       ))}
-      <Button size="large" color="black">
-        총 ${6000}원 할인 쿠폰 사용하기
+      <Button size="large" color="black" onClick={onModalClose}>
+        총 {totalDiscountPrice}원 할인 쿠폰 사용하기
       </Button>
     </div>
   );

@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { Title } from "../../../styles/@common/title/Title.styles";
 
 export const CartPriceInfoContainer = css`
   width: 100%;
@@ -6,6 +7,11 @@ export const CartPriceInfoContainer = css`
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 0;
+`;
+
+export const CartPriceTitle = css`
+  ${Title}
+  color: var(--color-dark-grey);
 `;
 
 export const CartPriceSubtitle = css`

@@ -38,7 +38,8 @@ export const getTotalDiscountPrice = (
   checkedCoupons: Map<number, CouponType>,
   { originTotalPrice, bogoProductPrice, deliveryFee }: CouponCalculateContext
 ) => {
-  const discountPrices = Array.from(checkedCoupons.values()).map((coupon) => {
+  const checkedCouponsArray = Array.from(checkedCoupons.values());
+  const discountPrices = checkedCouponsArray.map((coupon) => {
     if (coupon.discountType === "fixed") {
       return coupon.discount;
     }

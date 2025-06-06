@@ -29,7 +29,18 @@ const useCouponModal = () => {
     fetchData();
     openModal();
   };
-  return { isModalOpen, openCouponModal, closeModal, couponList, loadingState };
+
+  const closeCouponModal = () => {
+    closeModal();
+  };
+
+  return {
+    isModalOpen,
+    openCouponModal,
+    closeCouponModal,
+    couponList,
+    loadingState,
+  };
 };
 
 export default useCouponModal;

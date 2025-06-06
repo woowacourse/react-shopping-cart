@@ -29,17 +29,21 @@ const CartPrice = ({
       <div css={S.CartPriceDetailContainer}>
         <div>
           <div css={S.CartPriceInfoContainer}>
-            <div css={Subtitle}>주문금액</div>
-            <div css={Title}>{orderPrice.toLocaleString()}원</div>
+            <div css={S.CartPriceSubtitle}>주문금액</div>
+            <div css={S.CartPriceTitle}>{orderPrice.toLocaleString()}원</div>
           </div>
           <div css={S.CartPriceInfoContainer}>
-            <div css={Subtitle}>배송비</div>
-            <div css={Title}>{deliveryFee.toLocaleString()}원</div>
+            <div css={S.CartPriceSubtitle}>배송비</div>
+            <div css={S.CartPriceTitle}>{deliveryFee.toLocaleString()}원</div>
           </div>
-          <div css={S.CartPriceInfoContainer}>
-            <div css={Subtitle}>쿠폰 할인 금액</div>
-            <div css={Title}>-{discountPrice.toLocaleString()}원</div>
-          </div>
+          {discountPrice > 0 && (
+            <div css={S.CartPriceInfoContainer}>
+              <div css={S.CartPriceSubtitle}>쿠폰 할인 금액</div>
+              <div css={S.CartPriceTitle}>
+                -{discountPrice.toLocaleString()}원
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div css={S.CartPriceInfoContainer}>
