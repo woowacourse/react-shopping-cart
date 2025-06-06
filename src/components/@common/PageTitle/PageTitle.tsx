@@ -10,7 +10,10 @@ const PageTitle = ({ title, description }: PageTitleProps) => {
   return (
     <div className={pageTitleStyle}>
       <Text testId="page-title" text={title} type="large" />
-      {description && <Text text={description} />}
+      {description &&
+        description
+          .split("\n")
+          .map((line, index) => <Text key={index} text={line} />)}
     </div>
   );
 };
