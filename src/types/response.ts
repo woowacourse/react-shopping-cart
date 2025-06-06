@@ -36,3 +36,13 @@ export interface PaginatedCartResponseType {
   numberOfElements: number;
   empty: boolean;
 }
+
+export interface CouponType {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discountType: string;
+  discount: number;
+  minimumAmount: number;
+}

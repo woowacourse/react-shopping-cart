@@ -7,7 +7,7 @@ import {
 
 interface CouponItemProps {
   name: string;
-  dueDate: Date;
+  dueDate: string;
   minimumOrderPrice: number;
   isSelected: boolean;
 }
@@ -18,10 +18,15 @@ const CouponItem = ({
   minimumOrderPrice,
   isSelected,
 }: CouponItemProps) => {
-  const formattedDate = `만료일: ${dueDate.getFullYear()}년 ${
-    dueDate.getMonth() + 1
-  }월 ${dueDate.getDate()}일`;
-  const formattedMinimumOrderPrice = `최소주문금액:  ${minimumOrderPrice.toLocaleString()}원`;
+  const parsedDueDate = new Date(dueDate);
+
+  const formattedDate = `만료일: ${parsedDueDate.getFullYear()}년 ${
+    parsedDueDate.getMonth() + 1
+  }월 ${parsedDueDate.getDate()}일`;
+
+  const formattedMinimumOrderPrice = minimumOrderPrice
+    ? `최소주문금액:  ${minimumOrderPrice.toLocaleString()}원`
+    : "";
 
   return (
     <div css={S.couponItemContainer}>
