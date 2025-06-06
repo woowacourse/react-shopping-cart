@@ -64,7 +64,7 @@ export interface FreeShippingCoupon extends BaseCoupon {
   minimumAmount: number;
 }
 
-export interface PercentageCoupon extends BaseCoupon {
+export interface MiracleSaleCoupon extends BaseCoupon {
   discountType: "percentage";
   discount: number;
   availableTime: {
@@ -77,4 +77,4 @@ export type CouponType =
   | FixedCoupon
   | BogoCoupon
   | FreeShippingCoupon
-  | PercentageCoupon;
+  | MiracleSaleCoupon;

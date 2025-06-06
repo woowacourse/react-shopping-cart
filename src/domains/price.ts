@@ -23,3 +23,19 @@ export const calculateTotalCartItemPrice = (
     0
   );
 };
+
+export const getPriceSummary = (
+  cartData: CartItemType[],
+  isCheckedSet: Set<number>
+) => {
+  const isCheckedArray = Array.from(isCheckedSet);
+  const orderPrice = calculateTotalCartItemPrice(cartData, isCheckedArray);
+  const deliveryFee = calculateDeliveryFee(orderPrice);
+  const totalPrice = calculateTotalPrice(orderPrice, deliveryFee);
+
+  return {
+    orderPrice,
+    deliveryFee,
+    totalPrice,
+  };
+};

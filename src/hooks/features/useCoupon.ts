@@ -3,7 +3,7 @@ import useModal from "../@common/useModal";
 import type { CouponType } from "../../types/response";
 import { getCouponList } from "../../services/couponService";
 import useApiHandler from "../@common/useApiHandler";
-import { getValidExpirationCoupons } from "../../domains/coupon";
+import { getValidExpirationCoupons } from "../../domains/coupon/validateCoupon";
 
 const useCoupon = () => {
   const { callApi, loadingState } = useApiHandler();

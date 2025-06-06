@@ -26,7 +26,7 @@ import CouponModalContent from "../../components/@common/modal/contents/CouponMo
 import useCoupon from "../../hooks/features/useCoupon";
 import type { CouponType } from "../../types/response";
 import { COUPON_LIMIT } from "../../constants/systemConstants";
-import { getValidCoupons } from "../../domains/coupon";
+import { getValidCoupons } from "../../domains/coupon/validateCoupon";
 
 const OrderConfirmationPage = () => {
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;

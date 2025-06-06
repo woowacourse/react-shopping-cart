@@ -7,11 +7,6 @@ import { useEffect } from "react";
 import Checkbox from "../../components/@common/checkbox/Checkbox";
 import Button from "../../components/@common/button/Button";
 import useEasyNavigate from "../../hooks/useEasyNavigate";
-import {
-  calculateTotalPrice,
-  calculateDeliveryFee,
-  calculateTotalCartItemPrice,
-} from "../../domains/price";
 import useCartData from "../../hooks/useCartData";
 import useCheckedSet from "../../hooks/useCheckedSet";
 import {
@@ -26,6 +21,7 @@ import { getCartItemById } from "../../utils/getCartItemById";
 import { CartListContainer } from "../../styles/@common/page/Page.styles";
 import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
 import useApiHandler from "../../hooks/@common/useApiHandler";
+import { getPriceSummary } from "../../domains/price";
 
 const CartPage = () => {
   const { callApi, loadingState } = useApiHandler();
@@ -49,6 +45,14 @@ const CartPage = () => {
 
   const { goOrderConfirmation } = useEasyNavigate();
 
+  const { orderPrice, deliveryFee, totalPrice } = getPriceSummary(
+    cartData,
+    isCheckedSet
+  );
+  const orderItems = Array.from(isCheckedSet)
+    .map((id) => getCartItemById(cartData, id))
+    .filter((item) => item !== undefined);
+
   useEffect(() => {
     const fetchCartData = async () => {
       const initialCartData = await callApi<CartItemType[]>(
@@ -65,15 +69,6 @@ const CartPage = () => {
 
     fetchCartData();
   }, []);
-
-  // TODO : 정리 필요
-  const isCheckedArray = Array.from(isCheckedSet);
-  const orderItems = isCheckedArray
-    .map((id) => getCartItemById(cartData, id))
-    .filter((item) => item !== undefined);
-  const orderPrice = calculateTotalCartItemPrice(cartData, isCheckedArray);
-  const deliveryFee = calculateDeliveryFee(orderPrice);
-  const totalPrice = calculateTotalPrice(orderPrice, deliveryFee);
 
   if (loadingState === "initialLoading") {
     return <CartPageSkeleton data-testid="cart-page-skeleton" />;
@@ -102,7 +97,7 @@ const CartPage = () => {
           <div css={S.cartList}>
             <div css={CheckboxContainer}>
               <Checkbox
-                checked={isCheckedArray.length === cartData.length}
+                checked={isCheckedSet.size === cartData.length}
                 onChange={() => controlAllCheckBox(cartData)}
               />
               <p>전체 선택</p>
