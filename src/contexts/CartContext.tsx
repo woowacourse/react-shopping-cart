@@ -12,7 +12,7 @@ import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import useErrorHandler from "../hooks/useErrorHandler";
 import { CartItemWithCheck } from "../types/response";
 
-const INITIAL_CHECKED = true;
+const INITIAL_CHECKED = false;
 const FREE_SHIPPING_THRESHOLD = 100_000;
 const DEFAULT_SHIPPING_FEE = 3_000;
 
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
           const existingItem = prev.find((item) => item.id === newItem.id);
           return {
             ...newItem,
-            checked: existingItem ? existingItem.checked : true,
+            checked: existingItem ? existingItem.checked : INITIAL_CHECKED,
           };
         });
       });
