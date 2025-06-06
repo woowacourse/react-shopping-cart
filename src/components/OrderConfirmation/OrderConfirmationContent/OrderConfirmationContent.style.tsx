@@ -21,7 +21,7 @@ export const TextWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Description = styled.p`
+export const Text = styled.p`
   font-weight: 500;
   font-size: 12px;
 `;
