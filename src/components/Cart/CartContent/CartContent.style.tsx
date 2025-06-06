@@ -15,8 +15,3 @@ export const CartContentHeader = styled.h2`
   font-weight: 700;
   font-size: 24px;
 `;
-
-export const CartContentDescription = styled.p`
-  font-weight: 500;
-  font-size: 12px;
-`;
