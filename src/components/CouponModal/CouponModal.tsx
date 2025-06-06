@@ -3,6 +3,8 @@ import { Description } from "../@common/Description/Description.styles";
 import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
+import coupons from "../../__mocks__/data/coupons.json";
+import CouponItem from "../CouponItem/CouponItem";
 
 const price = 6000;
 
@@ -20,9 +22,9 @@ const CouponModal = () => {
         <Description>쿠폰은 최대 2개까지 사용할 수 있습니다.</Description>
       </S.InfoContainer>
       <S.CouponItemsContainer>
-        {/* {couponItems.map((item) => (
-          <CouponItemkey={item.id} />
-        ))} */}
+        {coupons.map((item) => (
+          <CouponItem key={item.id} item={item} />
+        ))}
       </S.CouponItemsContainer>
       <S.ApplyCouponButton onClick={() => closeModal()}>
         총 {price.toLocaleString()}원 할인 쿠폰 사용하기
