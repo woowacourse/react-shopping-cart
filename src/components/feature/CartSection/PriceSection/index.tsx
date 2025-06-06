@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 type Props = {
   cartItems: CartProduct[] | undefined;
   selectedCartIds: number[];
+  discount?: number;
 };
 
 export const getPrice = (items: CartProduct[] | undefined) => {
@@ -33,7 +34,7 @@ export const getPrice = (items: CartProduct[] | undefined) => {
   return { orderPrice, deliveryPrice, totalPrice, totalAmount };
 };
 
-const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
+const PriceSection = ({ cartItems, selectedCartIds, discount }: Props) => {
   const navigate = useNavigate();
   const selectedItems = cartItems?.filter(
     (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
@@ -53,6 +54,13 @@ const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
           <S.Label>주문 금액</S.Label>
           <S.Price>{formatPrice(price.orderPrice)}</S.Price>
         </S.PriceInfo>
+
+        {discount && (
+          <S.PriceInfo>
+            <S.Label>쿠폰 할인 금액</S.Label>
+            <S.Price>-{formatPrice(discount)}</S.Price>
+          </S.PriceInfo>
+        )}
 
         <S.PriceInfo>
           <S.Label>배송비</S.Label>
@@ -77,6 +85,8 @@ const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
               sort: selectedCartIds.length,
               totalAmount: price.totalAmount,
               totalPrice: price.totalPrice,
+              cartItems: cartItems,
+              selectedCartIds: selectedCartIds,
             },
           })
         }

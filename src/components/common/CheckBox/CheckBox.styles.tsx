@@ -16,4 +16,5 @@ export const CheckBox = styled.img`
 
 export const Label = styled.label`
   cursor: pointer;
+  font-size: 12px;
 `;

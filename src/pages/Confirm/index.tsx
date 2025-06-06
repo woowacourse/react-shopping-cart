@@ -1,12 +1,15 @@
 import * as S from "./confirm.styles";
-import { formatPrice } from "../../utils/formatPrice";
 import Button from "../../components/common/Button";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router";
+import OrderProduct from "../../components/feature/Order/Card";
+import { CartProduct } from "../../type/cart";
+import PriceSection from "../../components/feature/CartSection/PriceSection";
+import CheckBox from "../../components/common/CheckBox";
 
 const Confirm = () => {
   const location = useLocation();
-  const { sort, totalAmount, totalPrice } = location.state;
+  const { sort, totalAmount, cartItems, selectedCartIds } = location.state;
   return (
     <>
       <S.Container data-testid="order-confirm-description">
@@ -15,10 +18,30 @@ const Confirm = () => {
           총 {sort}종류의 상품 {totalAmount}개를 주문합니다.
           <br /> 최종 결제 금액을 확인해 주세요.
         </S.Description>
-        <S.PriceSection>
-          <S.PriceSection>총 결제 금액</S.PriceSection>
-          <S.Price>{formatPrice(totalPrice)}</S.Price>
-        </S.PriceSection>
+        <S.OrderList>
+          {cartItems.map((item: CartProduct) => (
+            <OrderProduct item={item} key={item.id} />
+          ))}
+        </S.OrderList>
+        <Button
+          title="쿠폰 적용"
+          onClick={() => {}}
+          css={css`
+            padding: 15px 0;
+            color:#333333BF
+            font-weight: 700;
+            font-size: 15px;
+          `}
+        />
+        <S.OrderInfo>
+          <S.OrderInfoTitle>배송 정보</S.OrderInfoTitle>
+          <CheckBox label="제주도 및 도서 산간 지역" />
+        </S.OrderInfo>
+        <PriceSection
+          cartItems={cartItems}
+          selectedCartIds={selectedCartIds}
+          discount={3000}
+        />
       </S.Container>
 
       <Button
@@ -27,7 +50,7 @@ const Confirm = () => {
         css={css`
           width: 100%;
           padding: 24px 0;
-          background-color: #bebebe;
+          background-color: #000;
           color: #fff;
           font-weight: 700;
           font-size: 16px;
