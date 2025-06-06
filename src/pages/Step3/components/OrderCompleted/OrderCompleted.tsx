@@ -1,0 +1,40 @@
+import { Spacing, Text } from "@/components";
+import { useCartItemQuery, useCouponQuery } from "@/hooks";
+import { useShoppingCartContext } from "@/pages/MainPage/context";
+import { CartItemService, CouponService } from "@/services";
+import * as S from "./OrderCompleted.styles";
+
+export default function OrderCompleted() {
+  const { data: cartItems } = useCartItemQuery();
+  const { data: coupons } = useCouponQuery();
+  const { selectedCouponIds, isFar } = useShoppingCartContext();
+
+  const cartItemService = new CartItemService(cartItems.content);
+  const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
+  const totalPrice = cartItemService.calculateTotalPrice();
+
+  const totalType = cartItemService.calculateTotalType();
+  const totalQuantity = cartItemService.calculateTotalQuantity();
+
+  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
+
+  const totalDiscountPrice = selectedCoupons?.reduce((acc, coupon) => {
+    const couponService = new CouponService(cartItems.content);
+    return acc + couponService.calculateDiscountPrice(coupon, isFar);
+  }, 0);
+
+  return (
+    <S.OrderCompletedSection>
+      <Text variant="title-1">결제 확인</Text>
+      <Spacing size={27} />
+      <Text variant="body-3">
+        총 {totalType}종류의 상품 {totalQuantity}개를 주문합니다. <br />
+        최종 결제 금액을 확인해 주세요.
+      </Text>
+      <Spacing size={24} />
+      <Text variant="title-3">총 결제 금액</Text>
+      <Spacing size={12} />
+      <Text variant="title-1">{(totalPrice - totalDiscountPrice + deliveryFee).toLocaleString()}원</Text>
+    </S.OrderCompletedSection>
+  );
+}
