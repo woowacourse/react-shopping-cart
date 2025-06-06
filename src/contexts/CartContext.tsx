@@ -11,6 +11,7 @@ import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import useErrorHandler from "../hooks/useErrorHandler";
 import { CartItemWithCheck } from "../types/response";
+import { cartItemSelectionStorage } from "../storages/CartItemSelectionStorage";
 
 const INITIAL_CHECKED = false;
 const FREE_SHIPPING_THRESHOLD = 100_000;
@@ -47,15 +48,13 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const fetchData = useCallback(async () => {
     try {
       const items = await getCartItems();
-      setCartItems((prev) => {
-        return items.map((newItem) => {
-          const existingItem = prev.find((item) => item.id === newItem.id);
-          return {
-            ...newItem,
-            checked: existingItem ? existingItem.checked : INITIAL_CHECKED,
-          };
-        });
-      });
+      setCartItems(() =>
+        items.map((item) => ({
+          ...item,
+          checked:
+            cartItemSelectionStorage.isItemSelected(item.id) || INITIAL_CHECKED,
+        }))
+      );
     } catch (error) {
       handleError(error);
     }
@@ -69,6 +68,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     async (cartId: number) => {
       try {
         await deleteCartItem(cartId);
+        cartItemSelectionStorage.removeSelection(cartId);
       } catch (error) {
         handleError(error);
       }
@@ -95,22 +95,35 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   // ------------------------------------------------------------------
 
   const toggleAllChecked = () => {
-    setAllChecked((prev) => !prev);
+    const newAllCheckedState = !allChecked;
 
-    setCartItems((prev) => {
-      return prev.map((item) => ({
+    setAllChecked(newAllCheckedState);
+    setCartItems((prevItems) => {
+      const newItems = prevItems.map((item) => ({
         ...item,
-        checked: !allChecked,
+        checked: newAllCheckedState,
       }));
+
+      const cartIds = newItems.map(({ id }) => id);
+      cartItemSelectionStorage.setAllSelections(cartIds, newAllCheckedState);
+
+      return newItems;
     });
   };
 
   const toggleItemChecked = (cartId: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
+    setCartItems((prevItems) => {
+      const newItems = prevItems.map((item) =>
         item.id === cartId ? { ...item, checked: !item.checked } : item
-      )
-    );
+      );
+
+      const targetItem = newItems.find((item) => item.id === cartId);
+      if (targetItem) {
+        cartItemSelectionStorage.setSelection(cartId, targetItem.checked);
+      }
+
+      return newItems;
+    });
   };
 
   // ------------------------------------------------------------------
