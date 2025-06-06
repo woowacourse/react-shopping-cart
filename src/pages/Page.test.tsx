@@ -10,7 +10,7 @@ describe("라우터 테스트", () => {
     });
 
     render(<RouterProvider router={testRouter} />);
-    expect(screen.getByText("SHOP")).toBeInTheDocument();
+    expect(screen.getByText("SHOP")).not.toBeNull();
   });
 
   it("/order-check 경로로 state를 넘기면 결제 정보가 보인다", () => {
@@ -30,7 +30,7 @@ describe("라우터 테스트", () => {
     });
 
     render(<RouterProvider router={testRouter} />);
-    expect(screen.getByText("결제하기")).toBeInTheDocument();
-    expect(screen.getByText("93,000원")).toBeInTheDocument();
+    expect(screen.getByText("결제하기")).not.toBeNull();
+    expect(screen.getByText("93,000원")).not.toBeNull();
   });
 });
