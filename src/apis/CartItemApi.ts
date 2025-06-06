@@ -1,6 +1,6 @@
 import { API_PATH } from "@/constants";
 import { GetCartItemsResponse } from "@/types";
-import { baseApi } from "./BaseApi";
+import { baseApi } from "./baseApi";
 
 export interface GetCartItemsParams {
   page?: number;

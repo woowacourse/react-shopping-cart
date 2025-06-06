@@ -1,10 +1,12 @@
 import { Funnel } from "@/components";
 import { ShoppingCartProvider } from "./contexts";
 import { Step1, Step2, Step3 } from "./funnels";
+import App from "@/modules/Toast/App";
 
 export default function ShoppingCartPage() {
   return (
     <ShoppingCartProvider>
+      <App />
       <Funnel initialStep={1}>
         <Funnel.Step index={1}>
           <Step1 />

@@ -1,11 +1,20 @@
 import styled from "@emotion/styled";
 import { ToastVariant } from "./ToastProvider";
 
-export const ToastWrapper = styled.div<{ variant: ToastVariant; isVisible: boolean }>`
+export const ToastContainer = styled.div`
   position: fixed;
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
+
+export const Toast = styled.div<{ variant: ToastVariant; isVisible: boolean }>`
   min-width: 300px;
   max-width: 350px;
   background: #fff;
@@ -15,7 +24,6 @@ export const ToastWrapper = styled.div<{ variant: ToastVariant; isVisible: boole
   display: flex;
   align-items: center;
   padding: 16px 20px 12px 16px;
-  z-index: 9999;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   background-color: ${({ variant }) => (variant === "success" ? "#22c55e" : "#ef4444")};
   transition: opacity 0.3s ease-in-out;

@@ -21,11 +21,12 @@ export default function Toast({ id, variant, message, duration = 3000 }: ToastPr
 
   return (
     <S.ToastWrapper variant={variant} isVisible={isVisible}>
+    <S.Toast variant={variant} isVisible={isVisible}>
       <S.ToastIcon>
         <CheckIcon />
       </S.ToastIcon>
       <S.ToastMessage>{message}</S.ToastMessage>
       <S.ToastClose onClick={() => setIsVisible(false)}>&times;</S.ToastClose>
-    </S.ToastWrapper>
+    </S.Toast>
   );
 }

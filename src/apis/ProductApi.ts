@@ -1,6 +1,6 @@
 import { API_PATH } from "@/constants";
 import { GetProductResponse } from "@/types";
-import { baseApi } from "./BaseApi";
+import { baseApi } from "./baseApi";
 
 interface GetProductParams {
   page?: number;
