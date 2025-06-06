@@ -7,6 +7,9 @@ import Button from "../../components/common/Button";
 import { OrderPrice } from "../../components/Order/OrderPrice";
 import OrderItemList from "../../components/Order/OrderItemList";
 import DeliveryInformation from "../../components/Order/DeliveryInformation";
+import useBooleanState from "../../hooks/common/useBooleanState";
+import NotFoundPage from "../NotFoundPage";
+import CouponModal from "./components/CouponModal";
 
 // OrderConfirm 페이지가 받아야하는 정보
 // check된 상품들 정보
@@ -14,18 +17,9 @@ import DeliveryInformation from "../../components/Order/DeliveryInformation";
 const OrderConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isCartModalOpen, handleCartModalOpen, handleCartModalClose] = useBooleanState(false);
 
-  if (!location.state)
-    return (
-      <S.Container>
-        <S.Information>
-          <Text variant="title-1">잘못된 접근입니다.</Text>
-          <Button variant="secondary" size="full" onClick={() => navigate("/")}>
-            돌아가기
-          </Button>
-        </S.Information>
-      </S.Container>
-    );
+  if (!location.state) return <NotFoundPage />;
 
   const { cartItems, orderPrice, deliveryPrice, totalPrice, cartItemsTotalQuantity, cartItemsCheckedCount } =
     location.state;
@@ -50,13 +44,7 @@ const OrderConfirmPage = () => {
 
         <OrderItemList orderItems={cartItems} />
 
-        <Button
-          variant="secondary"
-          size="full"
-          onClick={() => {
-            /** 모달 띄어야합니다. */
-          }}
-        >
+        <Button variant="secondary" size="full" onClick={handleCartModalOpen}>
           쿠폰 적용
         </Button>
 
@@ -80,6 +68,7 @@ const OrderConfirmPage = () => {
           </Button>
         </S.ButtonWrap>
       </S.Container>
+      <CouponModal isCartModalOpen={isCartModalOpen} handleCartModalClose={handleCartModalClose} />
     </>
   );
 };
