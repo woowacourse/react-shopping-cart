@@ -11,12 +11,14 @@ import OrderCartItem from '../../../components/CartItem/OrderCartItem';
 import CouponButton from '../../../components/CouponButton/CouponButton';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
-// import { getLocalStorage } from '../../../utils/localStorage';
-// import { useCartListContext } from '../../../context/CartListContext';
 import { useCartContext } from '../../../context/CartContext';
+import { useState } from 'react';
+import CouponModal from '../../../components/CouponModal/CouponModal';
 
 function OrderCheck() {
   const navigate = useNavigate();
+
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const cart = useCartContext();
   const selectedCartItems = cart.data?.filter((item: CartItemProps) =>
@@ -30,6 +32,14 @@ function OrderCheck() {
     },
     0
   );
+
+  const handleCouponButtonClick = () => {
+    setIsCouponModalOpen(true);
+  };
+
+  const handleCouponModalClose = () => {
+    setIsCouponModalOpen(false);
+  };
 
   return (
     <>
@@ -48,11 +58,15 @@ function OrderCheck() {
             <OrderCartItem key={item.id} item={item} />
           ))}
         </ul>
-        <CouponButton />
+        <CouponButton onClick={handleCouponButtonClick} />
         <DeliverInfo />
         <CartPriceCouponInfo />
       </ContainerLayout>
       <PayButton />
+      <CouponModal
+        isOpen={isCouponModalOpen}
+        onClose={handleCouponModalClose}
+      />
     </>
   );
 }
