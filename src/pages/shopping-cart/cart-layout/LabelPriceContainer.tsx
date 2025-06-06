@@ -52,6 +52,7 @@ const InfoIcon = styled.img`
   width: 14px;
   height: 14px;
 `;
+
 const Container = styled(Flex)`
   flex-direction: column;
   gap: 20px;
