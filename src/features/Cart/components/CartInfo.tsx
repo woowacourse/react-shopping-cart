@@ -41,7 +41,6 @@ export const CartInfo = ({ cart }: CartDataState) => {
           </Text>
         }
       />
-
       <>
         <Flex
           direction="column"
@@ -58,7 +57,7 @@ export const CartInfo = ({ cart }: CartDataState) => {
             direction="column"
             gap="10px"
             width="100%"
-            margin="10px 0 0 0"
+            margin="5px 0 0 0"
             justifyContent="center"
             alignItems="center"
           >
