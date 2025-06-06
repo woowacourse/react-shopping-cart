@@ -1,4 +1,4 @@
-import { AvailableTimeType } from "../../types/response";
+import { AvailableTimeType } from "./types";
 
 export const splitTime = (time: string) => {
   const [hour, minute] = time.split(":").map(Number);

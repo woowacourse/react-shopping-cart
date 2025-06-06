@@ -1,16 +1,18 @@
+import {
+  BuyXGetYCouponType,
+  FixedCouponType,
+  FreeShippingCouponType,
+  PercentageCouponType,
+} from "../components/Coupon/types";
+import { splitTime } from "../components/Coupon/utils";
 import { DISCOUNT_TYPE_KEY } from "../constants/coupon";
 import {
   BuyXGetYCouponDataType,
-  BuyXGetYCouponType,
   CouponDataType,
   FixedCouponDataType,
-  FixedCouponType,
   FreeShippingCouponDataType,
-  FreeShippingCouponType,
   PercentageCouponDataType,
-  PercentageCouponType,
 } from "../types/response";
-import { splitTime } from "./time";
 
 export const adaptFixedCoupon = (
   coupon: FixedCouponDataType

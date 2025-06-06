@@ -16,12 +16,6 @@ export interface CartItemType {
   quantity: number;
 }
 
-export interface ExpirationDateType {
-  year: string;
-  month: string;
-  day: string;
-}
-
 export type DiscountType = keyof typeof DISCOUNT_TYPE_KEY;
 
 export interface BaseCouponDataType {
@@ -38,16 +32,6 @@ export interface FixedCouponDataType extends BaseCouponDataType {
   minimumAmount: number;
 }
 
-export interface FixedCouponType {
-  id: number;
-  code: string;
-  description: string;
-  expirationDate: ExpirationDateType;
-  discountType: "fixed";
-  discount: number;
-  minimumAmount: number;
-}
-
 export interface BuyXGetYCouponDataType {
   id: number;
   code: string;
@@ -58,30 +42,11 @@ export interface BuyXGetYCouponDataType {
   getQuantity: number;
 }
 
-export interface BuyXGetYCouponType {
-  id: number;
-  code: string;
-  description: string;
-  expirationDate: ExpirationDateType;
-  discountType: "buyXgetY";
-  buyQuantity: number;
-  getQuantity: number;
-}
-
 export interface FreeShippingCouponDataType {
   id: number;
   code: string;
   description: string;
   expirationDate: string;
-  discountType: "freeShipping";
-  minimumAmount: number;
-}
-
-export interface FreeShippingCouponType {
-  id: number;
-  code: string;
-  description: string;
-  expirationDate: ExpirationDateType;
   discountType: "freeShipping";
   minimumAmount: number;
 }
@@ -99,35 +64,11 @@ export interface PercentageCouponDataType {
   };
 }
 
-export interface AvailableTimeType {
-  hour: number;
-  minute: number;
-}
-
-export interface PercentageCouponType {
-  id: number;
-  code: string;
-  description: string;
-  expirationDate: ExpirationDateType;
-  discountType: "percentage";
-  discount: number;
-  availableTime: {
-    start: AvailableTimeType;
-    end: AvailableTimeType;
-  };
-}
-
 export type CouponDataType =
   | FixedCouponDataType
   | BuyXGetYCouponDataType
   | FreeShippingCouponDataType
   | PercentageCouponDataType;
-
-export type CouponType =
-  | FixedCouponType
-  | BuyXGetYCouponType
-  | FreeShippingCouponType
-  | PercentageCouponType;
 
 export type FetchResponseType = {
   cartItems: CartItemType[];
