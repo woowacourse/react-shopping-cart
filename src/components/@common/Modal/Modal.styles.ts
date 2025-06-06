@@ -14,6 +14,8 @@ export const ModalBackdrop = styled.div`
 export const ModalContainer = styled.div`
   display: flex;
   width: 100%;
+  max-height: 70%;
+  overflow: hidden;
   margin: 0 24px;
   flex-direction: column;
   gap: 5px;
@@ -27,4 +29,5 @@ export const ModalContent = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `;

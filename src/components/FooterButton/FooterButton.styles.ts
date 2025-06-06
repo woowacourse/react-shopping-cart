@@ -15,7 +15,6 @@ export const FooterButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    transition: scale(0.99);
     background-color: rgb(35, 35, 35);
   }
 

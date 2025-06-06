@@ -13,14 +13,8 @@ export const OrderItem = styled.div`
   padding-top: 12px;
   border-top: 1px solid #0000001a;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-export const OrderItemWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
   align-items: center;
+  flex-direction: row;
   gap: 24px;
 `;
 

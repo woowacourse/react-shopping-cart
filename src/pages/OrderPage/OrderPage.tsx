@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import Checkbox from "../../components/@common/Checkbox/Checkbox";
 import Description from "../../components/@common/Description/Description";
 import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
+import CouponModal from "../../components/CouponModal/CouponModal";
 import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
 import OrderItem from "../../components/OrderItem/OrderItem";
 import PriceInfo from "../../components/PriceInfo/PriceInfo";
 import { ROUTES } from "../../constants/routes";
 import useCart from "../../hooks/contexts/useCart";
+import useModal from "../../hooks/contexts/useModal";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
-import Checkbox from "../../components/@common/Checkbox/Checkbox";
 
 const OrderPage = () => {
   const {
@@ -21,6 +23,9 @@ const OrderPage = () => {
     shippingFee,
     totalPrice,
   } = useCart();
+
+  const { openModal } = useModal();
+  const openCouponModal = () => openModal(<CouponModal />);
 
   const navigate = useNavigate();
   const navigateToCart = () => navigate(ROUTES.CART);
@@ -55,7 +60,7 @@ const OrderPage = () => {
               />
             ))}
           </S.OrderItemsContainer>
-          <S.CouponButton onClick={() => {}}>쿠폰 적용</S.CouponButton>
+          <S.CouponButton onClick={openCouponModal}>쿠폰 적용</S.CouponButton>
           <S.ShippingInfoContainer>
             <S.ShippingLabel>배송 정보</S.ShippingLabel>
             <S.ShippingSurchargeContainer>
