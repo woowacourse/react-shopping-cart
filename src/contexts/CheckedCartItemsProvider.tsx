@@ -3,8 +3,6 @@ import { ReactNode, useEffect, useRef } from 'react';
 import { useCartItemsContext } from './CartItemsContext';
 import useCheckedCartItems from '../hooks/useCheckedCartItems';
 import { CheckedCartItemsContext } from './CheckedCartItemContext';
-import useToggleAllChecked from '../hooks/useToggleAllChecked';
-import useDeleteCheckedCartItem from '../hooks/useDeleteCheckedCartItem';
 
 const CheckedCartItemsProvider = ({ children }: { children: ReactNode }) => {
   const isFirstLoading = useRef(true);
@@ -22,19 +20,13 @@ const CheckedCartItemsProvider = ({ children }: { children: ReactNode }) => {
   }, [cartItems, init]);
   console.log(cartItems, checkedCartIds);
 
-  const { isAllChecked, toggleAllChecked } = useToggleAllChecked();
-  const { handleClickDelete } = useDeleteCheckedCartItem();
-
   return (
     <CheckedCartItemsContext.Provider
       value={{
         checkedCartIds,
-        isAllChecked,
         init,
         addCheckedCartItem,
         removeCheckedCartItem,
-        toggleAllChecked,
-        handleClickDelete,
       }}
     >
       {children}

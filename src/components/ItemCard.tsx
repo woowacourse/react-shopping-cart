@@ -11,12 +11,16 @@ type ItemCardProps = {
 };
 
 const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
-  const { increaseCartItemQuantity, deleteCartItem: handleClickDelete } =
-    useCartItemsContext();
+  const { increaseCartItemQuantity, deleteCartItem } = useCartItemsContext();
   const { checkedCartIds, addCheckedCartItem, removeCheckedCartItem } =
     useCheckedCartItemsContext();
 
   const isChecked = checkedCartIds.includes(id);
+
+  const handleClickDelete = (id: number) => {
+    deleteCartItem(id);
+    removeCheckedCartItem(id);
+  };
 
   const handleClickDecrease = (id: number) => {
     if (quantity === 1) {

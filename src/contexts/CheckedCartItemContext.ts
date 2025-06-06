@@ -4,12 +4,9 @@ import { CartItem } from '../types';
 
 interface CheckedCartItemsContextType {
   checkedCartIds: number[];
-  isAllChecked: boolean;
   init: (cartItems: CartItem[]) => void;
   addCheckedCartItem: (id: number) => void;
   removeCheckedCartItem: (id: number) => void;
-  toggleAllChecked: () => void;
-  handleClickDelete: (id: number) => void;
 }
 
 export const CheckedCartItemsContext =
