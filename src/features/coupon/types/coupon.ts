@@ -8,4 +8,8 @@ export interface Coupon {
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
+  availableTime?: {
+    start: string;
+    end: string;
+  };
 }
