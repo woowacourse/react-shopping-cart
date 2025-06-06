@@ -13,16 +13,15 @@ const useApiHandler = () => {
   ): Promise<T | undefined> => {
     try {
       changeLoadingState(loadingType);
-      console.log("작동");
 
       const data = await apiFn();
       changeLoadingState("success");
+      console.log(data);
 
       openToast(successMessage, true);
       return data;
     } catch (error) {
       if (error instanceof Error) {
-        console.log("에러 발생");
         changeLoadingState("error");
         openToast(error.message, false);
       }

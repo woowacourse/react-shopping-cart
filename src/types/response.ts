@@ -37,12 +37,44 @@ export interface PaginatedCartResponseType {
   empty: boolean;
 }
 
-export interface CouponType {
+export type DiscountType = "fixed" | "buyXgetY" | "freeShipping" | "percentage";
+
+export interface BaseCoupon {
   id: number;
   code: string;
   description: string;
+  discountType: DiscountType;
   expirationDate: string;
-  discountType: string;
+}
+
+export interface FixedCoupon extends BaseCoupon {
+  discountType: "fixed";
   discount: number;
   minimumAmount: number;
 }
+
+export interface BogoCoupon extends BaseCoupon {
+  discountType: "buyXgetY";
+  buyQuantity: number;
+  getQuantity: number;
+}
+
+export interface FreeShippingCoupon extends BaseCoupon {
+  discountType: "freeShipping";
+  minimumAmount: number;
+}
+
+export interface PercentageCoupon extends BaseCoupon {
+  discountType: "percentage";
+  discount: number;
+  availableTime: {
+    start: string;
+    end: string;
+  };
+}
+
+export type CouponType =
+  | FixedCoupon
+  | BogoCoupon
+  | FreeShippingCoupon
+  | PercentageCoupon;

@@ -11,7 +11,7 @@ import {
   calculateTotalPrice,
   calculateDeliveryFee,
   calculateTotalCartItemPrice,
-} from "../../utils/calculate";
+} from "../../domains/price";
 import useCartData from "../../hooks/useCartData";
 import useCheckedSet from "../../hooks/useCheckedSet";
 import {
@@ -20,15 +20,15 @@ import {
 } from "../../constants/systemMessages";
 import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
 import CartPageSkeleton from "./skeleton/CartPageSkeleton";
-import useData from "../../hooks/@common/useData";
 import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
 import type { CartItemType } from "../../types/response";
 import { getCartItemById } from "../../utils/getCartItemById";
 import { CartListContainer } from "../../styles/@common/page/Page.styles";
 import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
+import useApiHandler from "../../hooks/@common/useApiHandler";
 
 const CartPage = () => {
-  const { callApi, loadingState } = useData();
+  const { callApi, loadingState } = useApiHandler();
 
   const {
     isCheckedSet,
@@ -51,7 +51,7 @@ const CartPage = () => {
 
   useEffect(() => {
     const fetchCartData = async () => {
-      const initialCartData = await callApi(
+      const initialCartData = await callApi<CartItemType[]>(
         () => getCart(),
         "장바구니 데이터를 불러왔습니다.",
         "initialLoading"

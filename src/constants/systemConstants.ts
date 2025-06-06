@@ -10,3 +10,5 @@ export const ROUTE = {
   ORDER_COMPLETE: "/order-complete",
   ORDER_CONFIRMATION: "/order-confirmation",
 };
+
+export const COUPON_LIMIT = 2;
