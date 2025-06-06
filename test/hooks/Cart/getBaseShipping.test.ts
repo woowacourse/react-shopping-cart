@@ -4,7 +4,7 @@ import { describe, it, expect } from "vitest";
 import { getBaseShipping } from "@/util/coupon/getBaseShipping";
 import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "@/constants/priceSetting";
 
-describe("getBaseShipping 함수", () => {
+describe("getBaseShipping 함수는", () => {
   it("subtotal이 FREE_SHIPPING_OVER와 같고 섬 지역이 아닐 때 0원을 반환해야 한다", () => {
     const subtotal = FREE_SHIPPING_OVER;
     const isIsland = false;

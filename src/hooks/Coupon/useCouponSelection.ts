@@ -25,13 +25,16 @@ function useCouponSelection(
   const showErrorRef = useRef(showError);
   showErrorRef.current = showError;
 
-  const prevInitialIds = useRef(initialSelectedIds);
+  const prevInitialIdsRef = useRef(initialSelectedIds);
 
   useEffect(() => {
-    if (!areSetsEqual(prevInitialIds.current, initialSelectedIds)) {
+    const prevInitialIds = prevInitialIdsRef.current;
+
+    if (!areSetsEqual(prevInitialIds, initialSelectedIds)) {
       setSelectedCouponIds(new Set(initialSelectedIds));
-      prevInitialIds.current = initialSelectedIds;
     }
+
+    prevInitialIdsRef.current = initialSelectedIds;
   }, [initialSelectedIds]);
 
   const handleSelectCoupon = useCallback((id: string) => {

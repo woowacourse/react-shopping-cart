@@ -4,6 +4,7 @@ import { Coupon } from "@/type/Coupon";
 import { partitionCoupons } from "@/util/coupon/partitionCoupons";
 import { useCouponCalculation } from "./useCouponCalculation";
 import { getBaseShipping } from "@/util/coupon/getBaseShipping";
+import { seekMostExpensiveBOGOItem } from "@/util/coupon/seekMostExpensiveBOGOItem";
 
 export interface CouponApplyResult {
   orderTotal: number;
@@ -63,20 +64,14 @@ const useBestCouponCombo = ({
           const getQuantity = coupon.getQuantity ?? 0;
 
           if (buyQuantity > 0 && getQuantity > 0) {
-            // 가장 비싼 아이템 중 buyQuantity 이상인 것 찾기
-            const eligibleItems = selectedShoppingCartItems.filter(
-              (item) => item.quantity >= buyQuantity
+            const result = seekMostExpensiveBOGOItem(
+              selectedShoppingCartItems,
+              buyQuantity,
+              getQuantity
             );
 
-            if (eligibleItems.length > 0) {
-              const maxPriceItem = eligibleItems.reduce((prev, curr) =>
-                curr.product.price > prev.product.price ? curr : prev
-              );
-
-              const groupSize = buyQuantity + getQuantity;
-              const freeCount =
-                Math.floor(maxPriceItem.quantity / groupSize) * getQuantity;
-              itemDiscount = maxPriceItem.product.price * freeCount;
+            if (result) {
+              itemDiscount = result.totalDiscount;
             }
           }
           break;
@@ -92,7 +87,10 @@ const useBestCouponCombo = ({
       };
     });
 
-    // 할인 효과가 큰 순으로 정렬하고 상위 2개 선택
+    // 할인 효과 기준 내림차순 정렬 후 상위 2개 선택
+    // 참고: 현재는 그리디 방식으로 최대 2개 쿠폰 조합을 선택하며,
+    // 이는 대부분의 실제 사용 사례에서 충분한 성능과 정확도를 제공합니다.
+    // 더 정확한 결과가 필요한 경우 모든 쿠폰 조합을 탐색하는 방식으로 확장 가능합니다.
     return couponWithDiscount
       .sort((a, b) => b.totalDiscount - a.totalDiscount)
       .slice(0, 2)

@@ -1,10 +1,10 @@
 import { renderHook } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { CartItem } from "../src/type/CartItem";
+import { CartItem } from "../../../src/type/CartItem";
 import {
   FREE_SHIPPING_OVER,
   SHIPPING_FEE,
-} from "../src/constants/priceSetting";
+} from "../../../src/constants/priceSetting";
 import { useCalculateOrder } from "@/hooks/Cart/useCalculateOrder";
 
 // 테스트용 목 데이터

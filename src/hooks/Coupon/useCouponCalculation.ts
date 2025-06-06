@@ -1,7 +1,8 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { CartItem } from "@/type/CartItem";
 import { Coupon } from "@/type/Coupon";
 import { getBaseShipping } from "@/util/coupon/getBaseShipping";
+import { seekMostExpensiveBOGOItem } from "@/util/coupon/seekMostExpensiveBOGOItem";
 
 export interface CouponApplied {
   coupon: Coupon;
@@ -38,25 +39,6 @@ const useCouponCalculation = ({
     [selectedShoppingCartItems]
   );
 
-  /* 2. BOGO 쿠폰을 위한 가장 비싼 아이템 찾기 */
-  const seekMostExpensiveBOGOItem = useCallback(
-    (buyQuantity: number): CartItem | null => {
-      // buyQuantity 이상인 아이템만 필터링
-      const eligibleItems = selectedShoppingCartItems.filter(
-        (item) => item.quantity >= buyQuantity
-      );
-
-      if (eligibleItems.length === 0) {
-        return null;
-      }
-
-      return eligibleItems.reduce((prev, curr) =>
-        curr.product.price > prev.product.price ? curr : prev
-      );
-    },
-    [selectedShoppingCartItems]
-  );
-
   /* 3. 쿠폰별 할인 계산 */
   const appliedCoupons = useMemo(() => {
     const baseShipping = getBaseShipping(orderTotal, isIsland);
@@ -86,22 +68,20 @@ const useCouponCalculation = ({
             break;
           }
 
-          const maxItem = seekMostExpensiveBOGOItem(buyQuantity);
-          if (!maxItem) {
-            item = 0;
-            break;
-          }
-
-          const groupSize = buyQuantity + getQuantity;
-          const freeCount =
-            Math.floor(maxItem.quantity / groupSize) * getQuantity;
-          item = maxItem.product.price * freeCount;
-          console.log(
-            `BOGO 할인 적용: ${maxItem.product.name} - ${freeCount}개 무료`
+          const result = seekMostExpensiveBOGOItem(
+            selectedShoppingCartItems,
+            buyQuantity,
+            getQuantity
           );
+
+          if (result) {
+            item = result.totalDiscount;
+          }
           break;
         }
 
+        // 사실상 도달하는게 불가하나,(never)
+        // sentry 같은걸로 처리 할수는 있겠죠.
         default:
           console.warn(
             `알수없는 쿠폰 유형: ${coupon.discountType}! 쿠폰을 무시합니다.`
@@ -115,7 +95,7 @@ const useCouponCalculation = ({
         discountShipping: shippingFee,
       };
     });
-  }, [coupons, orderTotal, isIsland, seekMostExpensiveBOGOItem]);
+  }, [coupons, orderTotal, isIsland, selectedShoppingCartItems]);
 
   /* 4. 할인 합계와 배송비 계산 */
   const { itemDiscount, shipDiscount } = useMemo(() => {
