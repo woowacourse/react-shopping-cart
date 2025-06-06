@@ -9,6 +9,7 @@ import ShoppingCartList from "../ShoppingCartList/ShoppingCartList";
 import CartItem from "../../../types/CartItem";
 import Coupon from "../Coupon/Coupon";
 import Shipping from "../Shipping/Shipping";
+import Modal from "../Coupon/Modal/Modal";
 
 interface ShoppingCartContentProps {
   cartItemList: CartItem[];
@@ -27,6 +28,10 @@ export default function ShoppingCartContent({
       isClicked: true,
     }))
   );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   const handleSelectedCartItem = (id: number) => {
     setCartItemCheckList((prev) =>
@@ -108,7 +113,8 @@ export default function ShoppingCartContent({
         }
         handleSelectedCartItemRemove={handleSelectedCartItemRemove}
       />
-      <Coupon />
+      <Coupon onClick={handleOpenModal} />
+      <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
       <Shipping />
       <Receipt allProductPrice={allProductPrice} shippingFee={shippingFee} />
       <Footer

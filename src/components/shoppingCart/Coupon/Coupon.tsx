@@ -1,9 +1,13 @@
 import * as S from "./Coupon.styles";
 
-export default function Coupon() {
+interface CouponProps {
+  onClick?: () => void;
+}
+
+export default function Coupon({ onClick }: CouponProps) {
   return (
     <section>
-      <S.Coupon>쿠폰 적용</S.Coupon>
+      <S.Coupon onClick={onClick}>쿠폰 적용</S.Coupon>
     </section>
   );
 }
