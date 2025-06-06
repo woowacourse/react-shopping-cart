@@ -33,7 +33,7 @@ export default function ToastProvider({ children }: PropsWithChildren<ToastProvi
   return (
     <ToastContext.Provider value={{ toasts, showToast, hideToast }}>
       {toasts.map(({ id, ...toastProps }) => (
-        <Toast key={id} {...toastProps} />
+        <Toast key={id} id={id} {...toastProps} />
       ))}
       {children}
     </ToastContext.Provider>

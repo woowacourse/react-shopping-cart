@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import * as S from "./Toast.styles";
-import { ToastVariant } from "./ToastProvider";
+import { ToastVariant, useToast } from "./ToastProvider";
 import { CheckIcon } from "@/components";
 
 interface ToastProps {
+  id: number;
   variant: ToastVariant;
   message: string;
   duration?: number;
 }
 
-export default function Toast({ variant, message, duration = 3000 }: ToastProps) {
+export default function Toast({ id, variant, message, duration = 3000 }: ToastProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const { hideToast } = useToast();
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(false), duration);
+    const timer = setTimeout(() => hideToast(id), duration);
     return () => clearTimeout(timer);
-  }, [duration]);
+  }, [duration, hideToast, id]);
 
   return (
     <S.ToastWrapper variant={variant} isVisible={isVisible}>

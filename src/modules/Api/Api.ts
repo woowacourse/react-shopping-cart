@@ -1,3 +1,7 @@
+type CustomRequestInit = Omit<RequestInit, "body"> & {
+  body?: unknown;
+};
+
 export default class Api {
   #baseUrl: string;
   #defaultOptions: RequestInit;
@@ -18,7 +22,7 @@ export default class Api {
     return response.json();
   }
 
-  async post(path: string, options?: RequestInit) {
+  async post(path: string, options?: CustomRequestInit) {
     const response = await fetch(`${this.#baseUrl}${path}`, {
       method: "POST",
       ...this.#defaultOptions,
@@ -28,7 +32,7 @@ export default class Api {
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
   }
 
-  async put(path: string, options?: RequestInit) {
+  async put(path: string, options?: CustomRequestInit) {
     const response = await fetch(`${this.#baseUrl}${path}`, {
       method: "PUT",
       ...this.#defaultOptions,
@@ -39,7 +43,7 @@ export default class Api {
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
   }
 
-  async patch(path: string, options?: RequestInit) {
+  async patch(path: string, options?: CustomRequestInit) {
     const response = await fetch(`${this.#baseUrl}${path}`, {
       method: "PATCH",
       ...this.#defaultOptions,
@@ -50,7 +54,7 @@ export default class Api {
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
   }
 
-  async delete(path: string, options?: RequestInit) {
+  async delete(path: string, options?: CustomRequestInit) {
     const response = await fetch(`${this.#baseUrl}${path}`, {
       method: "DELETE",
       ...this.#defaultOptions,

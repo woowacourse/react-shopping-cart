@@ -7,6 +7,7 @@ import {
 } from "@/hooks";
 import { optimisticDecreaseCartItem, optimisticDeleteCartItem, optimisticIncreaseCartItem } from "./utils";
 import { useToast } from "@/modules";
+import { ERROR_MESSAGE } from "@/constants";
 
 export default function useCartItem() {
   const { data: cartItems, refetch: refetchCartItems } = useCartItemQuery();
@@ -28,7 +29,7 @@ export default function useCartItem() {
       await mutatePostCartItem(
         { productId },
         {
-          onError: () => showToast({ variant: "error", message: "재고가 부족합니다." }),
+          onError: () => showToast({ variant: "error", message: ERROR_MESSAGE.api }),
         },
       );
       refetchCartItems();
@@ -39,15 +40,12 @@ export default function useCartItem() {
           quantity: cartItem.quantity + 1,
         },
         {
-          onMutate: () => {
-            optimisticIncreaseCartItem(productId);
-            showToast({ variant: "success", message: "장바구니에 추가되었습니다." });
-          },
+          onMutate: () => optimisticIncreaseCartItem(productId),
           onError: () => {
             refetchCartItems();
             showToast({
               variant: "error",
-              message: "재고가 부족합니다.",
+              message: ERROR_MESSAGE.api,
             });
           },
         },
@@ -78,7 +76,7 @@ export default function useCartItem() {
           onMutate: () => optimisticDecreaseCartItem(productId),
           onError: () => {
             refetchCartItems();
-            showToast({ variant: "error", message: "재고가 부족합니다." });
+            showToast({ variant: "error", message: ERROR_MESSAGE.api });
           },
         },
       );
