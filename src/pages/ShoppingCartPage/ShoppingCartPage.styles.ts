@@ -19,12 +19,6 @@ export const Flex = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Checkbox = styled.input`
-  width: 24px;
-  height: 24px;
-  accent-color: black;
-`;
-
 export const EmptyText = styled.p`
   display: flex;
   justify-content: center;

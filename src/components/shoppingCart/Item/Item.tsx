@@ -5,6 +5,7 @@ import * as S from "./Item.styles";
 import Hr from "../../common/Hr/Hr";
 
 import emptyIcon from "../../../assets/emptyIcon.png";
+import CheckBox from "../../common/CheckBox/CheckBox";
 
 interface ItemProps {
   id: number;
@@ -82,7 +83,7 @@ export default function Item({
       <Hr />
 
       <S.Content>
-        <S.Checkbox
+        <CheckBox
           type="checkbox"
           checked={isChecked}
           onChange={() => handleSelectedCartItem(id)}

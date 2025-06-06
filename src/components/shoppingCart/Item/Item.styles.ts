@@ -17,12 +17,6 @@ export const Content = styled.div`
   margin-bottom: 10px;
 `;
 
-export const Checkbox = styled.input`
-  width: 24px;
-  height: 24px;
-  accent-color: black;
-`;
-
 export const Button = styled.button<ButtonProps>`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;

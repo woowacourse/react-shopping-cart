@@ -7,9 +7,3 @@ export const Flex = styled.div`
   gap: 5px;
   margin-bottom: 20px;
 `;
-
-export const Checkbox = styled.input`
-  width: 24px;
-  height: 24px;
-  accent-color: black;
-`;

@@ -2,6 +2,7 @@ import CartItem from "../../../types/CartItem";
 import CartItemCheck from "../../../types/CartItemCheck";
 import * as S from "./ShoppingCartList.styles";
 import Item from "../Item/Item";
+import CheckBox from "../../common/CheckBox/CheckBox";
 
 interface ShoppingCartListProps {
   cartItemList: CartItem[];
@@ -25,7 +26,7 @@ export default function ShoppingCartList({
   return (
     <section>
       <S.Flex>
-        <S.Checkbox
+        <CheckBox
           id="check-all"
           type="checkbox"
           checked={allChecked}
