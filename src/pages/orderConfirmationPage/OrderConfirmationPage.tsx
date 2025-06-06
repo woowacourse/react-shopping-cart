@@ -25,6 +25,8 @@ import Modal from "../../components/@common/modal/Modal";
 import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
 import useCoupon from "../../hooks/features/useCoupon";
 import type { CouponType } from "../../types/response";
+import { COUPON_LIMIT } from "../../constants/systemConstants";
+import { getValidCoupons } from "../../domains/coupon";
 
 const OrderConfirmationPage = () => {
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
@@ -52,12 +54,25 @@ const OrderConfirmationPage = () => {
 
   const toggleCheckedCoupon = (couponInfo: CouponType) => {
     // TODO : 체킹된 애들이 2개 이상이라면 return (더 이상 넣으면 안됨)
+    if (isCheckedCoupons.size >= COUPON_LIMIT) return;
+
+    if (isCheckedCoupons.has(couponInfo.id)) {
+      setIsCheckedCoupons((prev: Map<number, CouponType>) => {
+        const newIsCheckedCoupons = new Map(prev);
+        newIsCheckedCoupons.delete(couponInfo.id);
+        return newIsCheckedCoupons;
+      });
+      return;
+    }
+
     setIsCheckedCoupons((prev: Map<number, CouponType>) => {
       const newIsCheckedCoupons = new Map(prev);
       newIsCheckedCoupons.set(couponInfo.id, couponInfo);
       return newIsCheckedCoupons;
     });
   };
+
+  const validCouponList = getValidCoupons(couponList, orderPrice, orderItems);
 
   const getModalContent = () => {
     return loadingState === "initialLoading" ? (
@@ -66,6 +81,7 @@ const OrderConfirmationPage = () => {
     ) : (
       <CouponModalContent
         couponList={couponList}
+        validCouponList={validCouponList}
         isCheckedCoupons={isCheckedCoupons}
         toggleCheckedCoupon={toggleCheckedCoupon}
       />

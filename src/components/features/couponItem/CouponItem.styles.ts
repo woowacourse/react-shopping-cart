@@ -11,6 +11,14 @@ export const couponItemContainer = css`
   width: 100%;
 `;
 
+export const couponItemContainerInvalid = css`
+  ${couponItemContainer}
+  color: var(--color-grey);
+  & * {
+    color: inherit;
+  }
+`;
+
 export const couponItemHeader = css`
   display: flex;
   width: 100%;

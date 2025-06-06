@@ -4,39 +4,47 @@ import {
   Subtitle,
   Description,
 } from "../../../styles/@common/title/Title.styles";
+import {
+  FORMATTED_DUE_DATE,
+  FORMATTED_MINIMUM_AMOUNT,
+} from "../../../constants/systemMessages";
 
 interface CouponItemProps {
-  name: string;
+  description: string;
   dueDate: string;
-  minimumOrderPrice: number;
+  minimumAmount?: number;
   isSelected: boolean;
+  isValid: boolean;
+  onSelectCoupon: () => void;
 }
 
 const CouponItem = ({
-  name,
+  description,
   dueDate,
-  minimumOrderPrice,
+  minimumAmount,
   isSelected,
+  isValid,
+  onSelectCoupon,
 }: CouponItemProps) => {
-  const parsedDueDate = new Date(dueDate);
-
-  const formattedDate = `만료일: ${parsedDueDate.getFullYear()}년 ${
-    parsedDueDate.getMonth() + 1
-  }월 ${parsedDueDate.getDate()}일`;
-
-  const formattedMinimumOrderPrice = minimumOrderPrice
-    ? `최소주문금액:  ${minimumOrderPrice.toLocaleString()}원`
+  const formattedDate = FORMATTED_DUE_DATE(dueDate);
+  const formattedMinimumAmount = minimumAmount
+    ? FORMATTED_MINIMUM_AMOUNT(minimumAmount)
     : "";
 
   return (
-    <div css={S.couponItemContainer}>
+    <div css={isValid ? S.couponItemContainer : S.couponItemContainerInvalid}>
       <div css={S.couponItemHeader}>
-        <Checkbox checked={isSelected} onChange={() => {}} />
-        <div css={Subtitle}>{name}</div>
+        <Checkbox
+          checked={isSelected}
+          onChange={onSelectCoupon}
+          tabIndex={isValid ? 0 : -1}
+          disabled={!isValid}
+        />
+        <div css={Subtitle}>{description}</div>
       </div>
       <div css={S.couponItemInfoContainer}>
         <div css={Description}>{formattedDate}</div>
-        <div css={Description}>{formattedMinimumOrderPrice}</div>
+        <div css={Description}>{formattedMinimumAmount}</div>
       </div>
     </div>
   );
