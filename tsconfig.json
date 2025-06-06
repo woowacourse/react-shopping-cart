@@ -38,6 +38,21 @@
       "@app/*": [
         "src/app/*"
       ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@widget/*": [
+        "src/widget/*"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
       "@shared/components/*": [
         "src/shared/components/*"
       ]
