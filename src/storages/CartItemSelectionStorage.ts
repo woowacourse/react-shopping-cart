@@ -2,7 +2,7 @@ import { LocalStorage } from "./LocalStorage";
 
 interface CartItemSelection {
   cartId: number;
-  checked: boolean;
+  selected: boolean;
 }
 
 class CartItemSelectionStorage {
@@ -17,16 +17,16 @@ class CartItemSelectionStorage {
     );
   }
 
-  setSelection(cartId: number, checked: boolean) {
+  setSelection(cartId: number, selected: boolean) {
     const selections = this.getSelections();
     const existingIndex = selections.findIndex(
       (item) => item.cartId === cartId
     );
 
     if (existingIndex >= 0) {
-      selections[existingIndex].checked = checked;
+      selections[existingIndex].selected = selected;
     } else {
-      selections.push({ cartId, checked });
+      selections.push({ cartId, selected });
     }
 
     this.storage.set<CartItemSelection[]>(
@@ -35,7 +35,7 @@ class CartItemSelectionStorage {
     );
   }
 
-  setAllSelections(cartIds: number[], checked: boolean) {
+  setAllSelections(cartIds: number[], selected: boolean) {
     const selections = this.getSelections();
     const updatedSelections = [...selections];
 
@@ -44,9 +44,9 @@ class CartItemSelectionStorage {
         (item) => item.cartId === cartId
       );
       if (existingIndex >= 0) {
-        updatedSelections[existingIndex].checked = checked;
+        updatedSelections[existingIndex].selected = selected;
       } else {
-        updatedSelections.push({ cartId, checked });
+        updatedSelections.push({ cartId, selected });
       }
     });
 
@@ -73,7 +73,7 @@ class CartItemSelectionStorage {
 
   isItemSelected(cartId: number): boolean {
     return (
-      this.getSelections().find((item) => item.cartId === cartId)?.checked ??
+      this.getSelections().find((item) => item.cartId === cartId)?.selected ??
       false
     );
   }

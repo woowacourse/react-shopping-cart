@@ -1,22 +1,22 @@
 import useCart from "../../hooks/contexts/useCart";
-import { CartItemWithCheck } from "../../types/response";
+import { CartItemWithSelection } from "../../types/response";
 import Checkbox from "../@common/Checkbox/Checkbox";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";
 import * as S from "./CartItem.styles";
 
 interface Props {
-  item: CartItemWithCheck;
+  item: CartItemWithSelection;
 }
 
 const MIN_QUANTITY = 1;
 
-const CartItem = ({ item: { id, quantity, product, checked } }: Props) => {
-  const { deleteItem, updateItemQuantity, toggleItemChecked } = useCart();
+const CartItem = ({ item: { id, quantity, product, selected } }: Props) => {
+  const { deleteItem, updateItemQuantity, toggleItemSelected } = useCart();
 
   return (
     <S.CartItem>
       <S.CartItemHeader>
-        <Checkbox checked={checked} onClick={() => toggleItemChecked(id)} />
+        <Checkbox selected={selected} onClick={() => toggleItemSelected(id)} />
         <S.DeleteButton onClick={() => deleteItem(id)}>삭제</S.DeleteButton>
       </S.CartItemHeader>
       <S.CartItemWrapper>

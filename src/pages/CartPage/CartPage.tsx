@@ -16,7 +16,7 @@ import InfoIcon from "/info.svg";
 const CartPage = () => {
   const {
     cartItems,
-    hasCheckedItem,
+    hasSelectedItem,
     cartItemCount,
     orderPrice,
     shippingFee,
@@ -69,7 +69,7 @@ const CartPage = () => {
         )}
       </S.Main>
       <FooterButton
-        disabled={cartItemCount === 0 || !hasCheckedItem}
+        disabled={cartItemCount === 0 || !hasSelectedItem}
         onClick={navigateToOrderPage}
         tabIndex={0}
       >

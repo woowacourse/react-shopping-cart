@@ -10,27 +10,27 @@ import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import useErrorHandler from "../hooks/useErrorHandler";
-import { CartItemWithCheck } from "../types/response";
+import { CartItemWithSelection } from "../types/response";
 import { cartItemSelectionStorage } from "../storages/CartItemSelectionStorage";
 
-const INITIAL_CHECKED = false;
+const INITIAL_SELECTED = false;
 const FREE_SHIPPING_THRESHOLD = 100_000;
 const DEFAULT_SHIPPING_FEE = 3_000;
 
 interface CartContextType {
-  cartItems: CartItemWithCheck[];
-  orderItems: CartItemWithCheck[];
+  cartItems: CartItemWithSelection[];
+  orderItems: CartItemWithSelection[];
 
   deleteItem: (cartId: number) => Promise<void>;
   updateItemQuantity: (cartId: number, quantity: number) => Promise<void>;
 
-  allChecked: boolean;
-  toggleAllChecked: () => void;
-  toggleItemChecked: (cartId: number) => void;
+  allSelected: boolean;
+  toggleAllSelected: () => void;
+  toggleItemSelected: (cartId: number) => void;
 
   cartItemCount: number;
   orderItemCount: number;
-  hasCheckedItem: boolean;
+  hasSelectedItem: boolean;
 
   orderQuantity: number;
   orderPrice: number;
@@ -41,8 +41,8 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [cartItems, setCartItems] = useState<CartItemWithCheck[]>([]);
-  const [allChecked, setAllChecked] = useState(INITIAL_CHECKED);
+  const [cartItems, setCartItems] = useState<CartItemWithSelection[]>([]);
+  const [allSelected, setAllSelected] = useState(INITIAL_SELECTED);
   const { handleError } = useErrorHandler();
 
   const fetchData = useCallback(async () => {
@@ -51,8 +51,9 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       setCartItems(() =>
         items.map((item) => ({
           ...item,
-          checked:
-            cartItemSelectionStorage.isItemSelected(item.id) || INITIAL_CHECKED,
+          selected:
+            cartItemSelectionStorage.isItemSelected(item.id) ||
+            INITIAL_SELECTED,
         }))
       );
     } catch (error) {
@@ -94,32 +95,32 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   // ------------------------------------------------------------------
 
-  const toggleAllChecked = () => {
-    const newAllCheckedState = !allChecked;
+  const toggleAllSelected = () => {
+    const newAllSelectedState = !allSelected;
 
-    setAllChecked(newAllCheckedState);
+    setAllSelected(newAllSelectedState);
     setCartItems((prevItems) => {
       const newItems = prevItems.map((item) => ({
         ...item,
-        checked: newAllCheckedState,
+        selected: newAllSelectedState,
       }));
 
       const cartIds = newItems.map(({ id }) => id);
-      cartItemSelectionStorage.setAllSelections(cartIds, newAllCheckedState);
+      cartItemSelectionStorage.setAllSelections(cartIds, newAllSelectedState);
 
       return newItems;
     });
   };
 
-  const toggleItemChecked = (cartId: number) => {
+  const toggleItemSelected = (cartId: number) => {
     setCartItems((prevItems) => {
       const newItems = prevItems.map((item) =>
-        item.id === cartId ? { ...item, checked: !item.checked } : item
+        item.id === cartId ? { ...item, selected: !item.selected } : item
       );
 
       const targetItem = newItems.find((item) => item.id === cartId);
       if (targetItem) {
-        cartItemSelectionStorage.setSelection(cartId, targetItem.checked);
+        cartItemSelectionStorage.setSelection(cartId, targetItem.selected);
       }
 
       return newItems;
@@ -129,7 +130,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   // ------------------------------------------------------------------
 
   const orderItems = useMemo(
-    () => cartItems.filter((item) => item.checked),
+    () => cartItems.filter((item) => item.selected),
     [cartItems]
   );
 
@@ -159,13 +160,13 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         deleteItem,
         updateItemQuantity,
 
-        allChecked,
-        toggleAllChecked,
-        toggleItemChecked,
+        allSelected,
+        toggleAllSelected,
+        toggleItemSelected,
 
         cartItemCount: cartItems.length,
         orderItemCount: orderItems.length,
-        hasCheckedItem: orderItems.length > 0,
+        hasSelectedItem: orderItems.length > 0,
 
         orderQuantity,
         orderPrice,

@@ -13,6 +13,6 @@ interface Product {
   stock: number;
 }
 
-export interface CartItemWithCheck extends CartItemContent {
-  checked: boolean;
+export interface CartItemWithSelection extends CartItemContent {
+  selected: boolean;
 }

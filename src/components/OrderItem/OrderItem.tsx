@@ -1,9 +1,9 @@
-import { CartItemWithCheck } from "../../types/response";
+import { CartItemWithSelection } from "../../types/response";
 import * as S from "./OrderItem.styles";
 
 interface Props {
-  quantity: CartItemWithCheck["quantity"];
-  product: CartItemWithCheck["product"];
+  quantity: CartItemWithSelection["quantity"];
+  product: CartItemWithSelection["product"];
 }
 
 const OrderItem = ({ quantity, product }: Props) => {
