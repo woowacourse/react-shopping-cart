@@ -62,10 +62,28 @@ export const CouponButton = styled.button`
   }
 `;
 
+export const ShippingInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const ShippingLabel = styled.p`
+  font-weight: 700;
+  font-size: 18px;
+`;
+
+export const ShippingSurchargeContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  line-height: 26px;
+`;
+
 export const InfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-top: 32px;
 `;
 
 export const PriceSummary = styled.div`

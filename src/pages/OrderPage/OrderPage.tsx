@@ -10,6 +10,7 @@ import useCart from "../../hooks/contexts/useCart";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
+import Checkbox from "../../components/@common/Checkbox/Checkbox";
 
 const OrderPage = () => {
   const {
@@ -55,6 +56,13 @@ const OrderPage = () => {
             ))}
           </S.OrderItemsContainer>
           <S.CouponButton onClick={() => {}}>쿠폰 적용</S.CouponButton>
+          <S.ShippingInfoContainer>
+            <S.ShippingLabel>배송 정보</S.ShippingLabel>
+            <S.ShippingSurchargeContainer>
+              <Checkbox selected={false} onClick={() => {}} />
+              <Description>제주도 및 도서 산간 지역</Description>
+            </S.ShippingSurchargeContainer>
+          </S.ShippingInfoContainer>
           <S.InfoContainer>
             <img src={InfoIcon} alt="info" />
             <Description>
