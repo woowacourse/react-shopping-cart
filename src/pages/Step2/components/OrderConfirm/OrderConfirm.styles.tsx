@@ -1,9 +1,7 @@
 import styled from "@emotion/styled";
 
 export const OrderConfirmPageWrapper = styled.div`
-  padding: 36px 18px;
-  width: 100%;
-  height: 100%;
+  padding: 36px 16px;
 `;
 
 export const CheckboxWrapper = styled.div`

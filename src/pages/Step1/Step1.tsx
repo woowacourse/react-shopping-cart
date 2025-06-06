@@ -1,15 +1,10 @@
-import { Text } from "@/components";
-import { CartItemList, Step1Footer, Step1Header } from "./components";
-import * as S from "./Step1.styles";
+import { CartItemSection, Step1Footer, Step1Header } from "./components";
 
 export default function Step1() {
   return (
     <>
       <Step1Header />
-      <S.ShoppingCartSection>
-        <Text variant="title-1">장바구니</Text>
-        <CartItemList />
-      </S.ShoppingCartSection>
+      <CartItemSection />
       <Step1Footer />
     </>
   );

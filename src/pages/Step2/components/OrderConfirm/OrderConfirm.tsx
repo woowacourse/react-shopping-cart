@@ -2,7 +2,7 @@ import { Button, Card, Checkbox, Info, Modal, Spacing, Text } from "@/components
 import { FREE_DELIVERY_PRICE } from "@/constants";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
 import { useShoppingCartContext } from "@/pages/MainPage/context";
-import { ReceiptTextWrapper } from "@/pages/Step1/components/CartItemList/CartItemList.styles";
+import { ReceiptTextWrapper } from "@/pages/Step1/components/CartItemSection/CartItemSection.styles";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useEffect, useMemo, useState } from "react";
@@ -101,7 +101,9 @@ export default function OrderConfirm() {
       >
         <Info /> 총 주문 금액이 {FREE_DELIVERY_PRICE.toLocaleString()}원 이상일 경우 무료 배송됩니다.
       </Text>
+
       <hr />
+
       <S.ReceiptWrapper>
         <ReceiptTextWrapper>
           <Text variant="title-3">주문 금액</Text>
