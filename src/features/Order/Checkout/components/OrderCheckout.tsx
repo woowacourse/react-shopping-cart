@@ -8,9 +8,9 @@ import { Flex } from '@/shared/components/Flex';
 import { Header } from '@/shared/components/Header';
 import { Text } from '@/shared/components/Text';
 
-import { CartConfirmDetail } from './CartConfirmDetail';
+import { CartConfirmDetail } from './CheckoutItemDetail';
 import { CouponModal } from './CouponModal';
-import { PriceConfirmSummary } from './PriceConfirmSummary';
+import { PriceConfirmSummary } from './PriceCheckoutSummary';
 
 import Back from '../../../../../public/Back.png';
 import { CartListContainer } from '../../../Cart/container/CartListContainer';
