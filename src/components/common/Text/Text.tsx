@@ -2,7 +2,7 @@ import { TextStyle } from './Text.styles';
 
 interface TextProps {
   children: React.ReactNode;
-  varient: 'title' | 'body' | 'caption';
+  varient: 'title' | 'subtitle' | 'body' | 'caption';
   whiteSpace?: 'pre-line' | 'normal';
   textAlign?: 'left' | 'center' | 'right';
 }
