@@ -1,8 +1,9 @@
 import useCouponList from '../../hooks/useCouponList';
+import Button from '../common/Button/Button';
 import Modal from '../common/Modal/Modal';
-import CouponAcceptButton from '../CouponAcceptButton/CouponAcceptButton';
 import CouponItem from '../CouponItem/CouponItem';
 import InfoMessage from '../InfoMessage/InfoMessage';
+import Text from '../common/Text/Text';
 
 function CouponModal({
   isOpen,
@@ -24,7 +25,9 @@ function CouponModal({
           onCheck={() => {}}
         />
       ))}
-      <CouponAcceptButton onClick={() => {}} />
+      <Button color="gray" variant="secondary" onClick={() => {}}>
+        <Text varient="body">총 [1,000원] 할인 쿠폰 사용하기</Text>
+      </Button>
     </Modal>
   );
 }

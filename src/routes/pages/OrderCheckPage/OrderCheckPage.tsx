@@ -3,17 +3,17 @@ import Header from '../../../components/common/Header/Header';
 import HeaderButton from '../../../components/common/Header/HeaderButton';
 import { Back } from '../../../assets';
 import { useNavigate } from 'react-router';
-import PayButton from '../../../components/PayButton/PayButton';
 import { TEXT } from '../../../constants/text';
 import CartListTitle from '../../../components/CartListTitle/CartListTitle';
 import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
 import OrderCartItem from '../../../components/CartItem/OrderCartItem';
-import CouponButton from '../../../components/CouponButton/CouponButton';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
 import { useCartContext } from '../../../context/CartContext';
 import { useState } from 'react';
 import CouponModal from '../../../components/CouponModal/CouponModal';
+import Button from '../../../components/common/Button/Button';
+import Text from '../../../components/common/Text/Text';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -58,11 +58,19 @@ function OrderCheck() {
             <OrderCartItem key={item.id} item={item} />
           ))}
         </ul>
-        <CouponButton onClick={handleCouponButtonClick} />
+        <Button
+          color="white"
+          variant="secondary"
+          onClick={handleCouponButtonClick}
+        >
+          <Text varient="body">쿠폰 적용</Text>
+        </Button>
         <DeliverInfo />
         <CartPriceCouponInfo />
       </ContainerLayout>
-      <PayButton />
+      <Button color="black" variant="primary" onClick={() => {}}>
+        <Text varient="body">결제하기</Text>
+      </Button>
       <CouponModal
         isOpen={isCouponModalOpen}
         onClose={handleCouponModalClose}

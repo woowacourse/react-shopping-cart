@@ -6,7 +6,6 @@ import ContainerLayout from '../../../components/common/ContainerLayout/Containe
 import CartListTitle from '../../../components/CartListTitle/CartListTitle';
 import CartItem from '../../../components/CartItem/CartItem';
 import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
-import OrderButton from '../../../components/OrderButton/OrderButton';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
 import Toast from '../../../components/common/Toast/Toast';
 
@@ -19,13 +18,11 @@ import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
 import CartListHeader from '../../../components/CartList/CartList';
 import { TEXT } from '../../../constants/text';
-// import { useCartListContext } from '../../../context/CartListContext';
-// import { useSelectedItemsContext } from '../../../context/SelectedItemsContext';
 import { useCartContext } from '../../../context/CartContext';
+import Button from '../../../components/common/Button/Button';
+import Text from '../../../components/common/Text/Text';
 
 function CartPage() {
-  // const cartList = useCartListContext();
-  // const selectedList = useSelectedItemsContext();
   const cart = useCartContext();
   const { isVisible } = useToastContext();
   const navigate = useNavigate();
@@ -82,10 +79,14 @@ function CartPage() {
         />
         {cart.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
-      <OrderButton
+      <Button
+        color="black"
+        variant="primary"
         onClick={handleOrderButtonClick}
-        canOrder={selectedCartData.length > 0}
-      />
+        disabled={selectedCartData.length <= 0}
+      >
+        <Text varient="body">주문 확인</Text>
+      </Button>
     </>
   );
 }

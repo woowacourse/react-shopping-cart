@@ -3,23 +3,15 @@ import HeaderButton from '../../../components/common/Header/HeaderButton';
 import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
 import Text from '../../../components/common/Text/Text';
 import { useNavigate } from 'react-router';
-import PayButton from '../../../components/PayButton/PayButton';
 import { TEXT } from '../../../constants/text';
 import {
   OrderCheckContainerStyle,
   OrderPriceContainerStyle,
 } from './OrderCompletePage.styles';
+import Button from '../../../components/common/Button/Button';
 
 function OrderCompletePage() {
   const navigate = useNavigate();
-  // const { selectedCartData, totalPrice } = useLocation().state as {
-  //   selectedCartData: CartItemProps[];
-  //   totalPrice: number;
-  // };
-  // const totalProductQuantity = selectedCartData.reduce(
-  //   (acc, curr) => acc + curr.quantity,
-  //   0
-  // );
 
   return (
     <>
@@ -42,7 +34,9 @@ function OrderCompletePage() {
           </div>
         </div>
       </ContainerLayout>
-      <PayButton />
+      <Button color="black" variant="primary" onClick={() => {}}>
+        <Text varient="body">장바구니로 돌아가기</Text>
+      </Button>
     </>
   );
 }
