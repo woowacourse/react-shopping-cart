@@ -3,7 +3,9 @@ import Header from "../../components/Header/Header";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import {
   Container,
+  ModalContentContainer,
   RedeemCouponButton,
+  RedeemInfo,
   TotalCost,
   TotalCostLabel,
 } from "./OrderSummary.styles";
@@ -100,15 +102,21 @@ function OrderSummary() {
             buttonLabel="총 6,000원 할인 쿠폰 사용하기"
             handleModalButtonClick={() => ""}
           >
-            <CouponList>
-              {coupons.map((coupon) => {
-                return (
-                  <Coupon key={coupon.id} coupon={coupon}>
-                    <CouponDetails coupon={coupon} />
-                  </Coupon>
-                );
-              })}
-            </CouponList>
+            <section css={ModalContentContainer}>
+              <aside css={RedeemInfo}>
+                <img src="info.svg" alt="info 아이콘" />
+                <p>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
+              </aside>
+              <CouponList>
+                {coupons.map((coupon) => {
+                  return (
+                    <Coupon key={coupon.id} coupon={coupon}>
+                      <CouponDetails coupon={coupon} />
+                    </Coupon>
+                  );
+                })}
+              </CouponList>
+            </section>
           </Modal>,
           modalRoot
         )}
