@@ -1,26 +1,21 @@
-import { CouponType } from "../../types/response";
-import { getAvailableTimeDescription } from "./utils";
+import { CouponType } from "./types";
 
 interface CouponProps {
   coupon: CouponType;
+  children?: React.ReactNode;
 }
 
-function Coupon({ coupon }: CouponProps) {
+function Coupon({ coupon, children }: CouponProps) {
+  const { description, expirationDate } = coupon;
+
   return (
     <div>
-      <p>{coupon.description}</p>
+      <p>{description}</p>
       <p>
         만료일:
-        {`${coupon.expirationDate.year}년 ${coupon.expirationDate.month}월 ${coupon.expirationDate.day}일`}
+        {`${expirationDate.year}년 ${expirationDate.month}월 ${expirationDate.day}일`}
       </p>
-      {"minimumAmount" in coupon && (
-        <p>최소 주문 금액: {coupon.minimumAmount.toLocaleString()}</p>
-      )}
-      {"availableTime" in coupon && (
-        <p>
-          사용 가능 시간: {getAvailableTimeDescription(coupon.availableTime)}
-        </p>
-      )}
+      {children}
     </div>
   );
 }
