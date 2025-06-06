@@ -9,6 +9,8 @@ interface ShoppingCartListProps {
   allChecked: boolean;
   toggleAll: () => void;
   handleSelectedCartItem: (id: number) => void;
+  handleSelectedCartItemQuantityUpdate: (id: number, quantity: number) => void;
+  handleSelectedCartItemRemove: (id: number) => void;
 }
 
 export default function ShoppingCartList({
@@ -17,6 +19,8 @@ export default function ShoppingCartList({
   allChecked,
   toggleAll,
   handleSelectedCartItem,
+  handleSelectedCartItemQuantityUpdate,
+  handleSelectedCartItemRemove,
 }: ShoppingCartListProps) {
   return (
     <section>
@@ -42,6 +46,10 @@ export default function ShoppingCartList({
             name={cart.product.name}
             price={cart.product.price}
             quantity={cart.quantity}
+            handleSelectedCartItemQuantityUpdate={
+              handleSelectedCartItemQuantityUpdate
+            }
+            handleSelectedCartItemRemove={handleSelectedCartItemRemove}
           />
         );
       })}

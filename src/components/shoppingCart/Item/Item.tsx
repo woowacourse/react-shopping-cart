@@ -6,8 +6,6 @@ import Hr from "../../common/Hr/Hr";
 
 import emptyIcon from "../../../assets/emptyIcon.png";
 
-import useCartItemList from "../../../hooks/useCartItemList";
-
 interface ItemProps {
   id: number;
   imageUrl: string;
@@ -16,6 +14,8 @@ interface ItemProps {
   quantity: number;
   isChecked: boolean;
   handleSelectedCartItem: (id: number) => void;
+  handleSelectedCartItemQuantityUpdate: (id: number, quantity: number) => void;
+  handleSelectedCartItemRemove: (id: number) => void;
 }
 
 export default function Item({
@@ -26,9 +26,9 @@ export default function Item({
   quantity,
   isChecked,
   handleSelectedCartItem,
+  handleSelectedCartItemQuantityUpdate,
+  handleSelectedCartItemRemove,
 }: ItemProps) {
-  const { patchCartItem, removeCartItem } = useCartItemList();
-
   const [isUpdating, setIsUpdating] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
 
@@ -37,7 +37,8 @@ export default function Item({
 
     try {
       setIsUpdating(true);
-      await patchCartItem(id, quantity + 1);
+      const updatedQuantity = quantity + 1;
+      handleSelectedCartItemQuantityUpdate(id, updatedQuantity);
     } catch (error) {
       console.log("수량 증가 실패:", error);
     } finally {
@@ -50,7 +51,12 @@ export default function Item({
 
     try {
       setIsUpdating(true);
-      await patchCartItem(id, quantity - 1);
+      const updatedQuantity = quantity - 1;
+      if (!updatedQuantity) {
+        handleSelectedCartItemRemove(id);
+        return;
+      }
+      handleSelectedCartItemQuantityUpdate(id, updatedQuantity);
     } catch (error) {
       console.log("수량 감소 실패:", error);
     } finally {
@@ -63,7 +69,7 @@ export default function Item({
 
     try {
       setIsRemoving(true);
-      await removeCartItem(id);
+      handleSelectedCartItemRemove(id);
     } catch (error) {
       console.error("삭제 실패:", error);
     } finally {
