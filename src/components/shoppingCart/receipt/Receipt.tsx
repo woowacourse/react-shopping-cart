@@ -9,11 +9,13 @@ import * as Styled from "./Receipt.styles";
 interface ReceiptProps {
   allProductPrice: number;
   shippingFee: number;
+  couponPrice?: number | null;
 }
 
 export default function Receipt({
   allProductPrice,
   shippingFee,
+  couponPrice,
 }: ReceiptProps) {
   return (
     <section>
@@ -22,8 +24,11 @@ export default function Receipt({
         <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
       </Styled.Container>
       <Hr />
-      <SubPrice allProductPrice={allProductPrice} shippingFee={shippingFee} />
-
+      <SubPrice
+        allProductPrice={allProductPrice}
+        shippingFee={shippingFee}
+        couponPrice={couponPrice}
+      />
       <Hr />
       <Price name="총 결제 금액" price={allProductPrice + shippingFee} />
     </section>

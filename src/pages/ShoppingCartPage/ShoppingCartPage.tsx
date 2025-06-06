@@ -13,7 +13,11 @@ import { useErrorContext } from "../../contexts/ErrorContext";
 import { CheckedMap } from "../../types/CheckMap";
 
 import * as Styled from "./ShoppingCartPage.styles";
-import { DEFAULT_SHIPPING_FEE, FREE_SHIPPING_FEE, MIN_PRICE_FOR_FREE_SHIPPING } from "../../constants/shipping";
+import {
+  DEFAULT_SHIPPING_FEE,
+  FREE_SHIPPING_FEE,
+  MIN_PRICE_FOR_FREE_SHIPPING,
+} from "../../constants/shipping";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
@@ -59,27 +63,30 @@ export default function ShoppingCartPage() {
     checkedMap.get(item.id)
   ).length;
 
-
-
   const allProductPrice = cartItemList.reduce((acc, item) => {
     return checkedMap.get(item.id)
       ? acc + item.product.price * item.quantity
       : acc;
   }, 0);
 
-  const shippingFee = allProductPrice >= MIN_PRICE_FOR_FREE_SHIPPING ? FREE_SHIPPING_FEE : DEFAULT_SHIPPING_FEE;
+  const shippingFee =
+    allProductPrice >= MIN_PRICE_FOR_FREE_SHIPPING
+      ? FREE_SHIPPING_FEE
+      : DEFAULT_SHIPPING_FEE;
 
   const handleOrderCheckButtonClick = () => {
     const cartItemCheckListTotalQuantity = cartItemList.reduce((acc, item) => {
       return checkedMap.get(item.id) ? acc + item.quantity : acc;
     }, 0);
-    const totalPrice = allProductPrice + shippingFee;
 
-    navigate("/order-check", {
+    navigate("/payment-amount-check", {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,
-        totalPrice,
+        allProductPrice,
+        shippingFee,
+        cartItemList,
+        checkedMap,
       },
     });
   };
@@ -90,7 +97,7 @@ export default function ShoppingCartPage() {
 
   return (
     <>
-      <Styled.ShoppingCart>
+      <Styled.Container>
         {errorMessage && <ErrorBox />}
         <Header
           title="장바구니"
@@ -117,7 +124,7 @@ export default function ShoppingCartPage() {
         ) : (
           <Styled.EmptyText>장바구니에 담은 상품이 없습니다.</Styled.EmptyText>
         )}
-      </Styled.ShoppingCart>
+      </Styled.Container>
       <Footer
         text="주문 확인"
         active={cartItemList.length ? "true" : "false"}

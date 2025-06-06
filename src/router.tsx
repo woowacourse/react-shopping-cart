@@ -1,7 +1,10 @@
 import { createBrowserRouter } from "react-router";
+
+import Layout from "./Layout";
+
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
-import Layout from "./Layout";
+import PaymentAmountCheckPage from "./pages/PaymentAmountCheckPage/PaymentAmountCheckPage";
 
 export const routes = [
   {
@@ -10,6 +13,10 @@ export const routes = [
       {
         path: "/",
         element: <ShoppingCartPage />,
+      },
+      {
+        path: "/payment-amount-check",
+        element: <PaymentAmountCheckPage />,
       },
       {
         path: "/order-check",

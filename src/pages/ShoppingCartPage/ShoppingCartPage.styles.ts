@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const ShoppingCart = styled.div`
+export const Container = styled.div`
   width: 100%;
   padding: 24px;
   display: flex;
