@@ -8,7 +8,9 @@ const useErrorHandler = () => {
   const handleError = useCallback(
     (error: unknown) => {
       const message =
-        error instanceof Error ? error.message : "알 수 없는 오류";
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 오류가 발생했습니다.";
       showToast({ message, type: TOAST_TYPES.ERROR });
     },
     [showToast]
