@@ -6,6 +6,7 @@ import OrderProduct from "../../components/feature/Order/Card";
 import { CartProduct } from "../../type/cart";
 import PriceSection from "../../components/feature/CartSection/PriceSection";
 import CheckBox from "../../components/common/CheckBox";
+import Modal from "../../components/common/Modal";
 
 const Confirm = () => {
   const location = useLocation();
@@ -58,6 +59,7 @@ const Confirm = () => {
           bottom: 0;
         `}
       />
+      <Modal onClose={() => {}} isOpen={true} />
     </>
   );
 };
