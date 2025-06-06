@@ -1,15 +1,13 @@
 import * as S from "./App.styles";
-import { ErrorPopup } from "./components";
-import { ErrorProvider } from "./context";
+import { ToastProvider } from "./modules";
 import { ShoppingCartPage } from "./pages";
 
 function App() {
   return (
     <S.AppWrapper>
-      <ErrorProvider>
-        <ErrorPopup />
+      <ToastProvider>
         <ShoppingCartPage />
-      </ErrorProvider>
+      </ToastProvider>
     </S.AppWrapper>
   );
 }

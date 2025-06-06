@@ -1,4 +1,3 @@
-import { useError } from "@/context";
 import {
   useCartItemDeleteMutation,
   useCartItemPatchMutation,
@@ -7,20 +6,19 @@ import {
   useProductQuery,
 } from "@/hooks";
 import { optimisticDecreaseCartItem, optimisticDeleteCartItem, optimisticIncreaseCartItem } from "./utils";
+import { useToast } from "@/modules";
 
 export default function useCartItem() {
   const { data: cartItems, refetch: refetchCartItems } = useCartItemQuery();
   const { data: products } = useProductQuery();
 
-  const { showError, error } = useError();
+  const { showToast } = useToast();
 
   const { mutate: mutatePostCartItem, status: postCartItemStatus } = useCartItemPostMutation();
   const { mutate: mutatePatchCartItem, status: patchCartItemStatus } = useCartItemPatchMutation();
   const { mutate: mutateDeleteCartItem, status: deleteCartItemStatus } = useCartItemDeleteMutation();
 
   const increaseCartItem = async (productId: number) => {
-    if (error) return;
-
     const cartItem = cartItems.content.find((item) => item.product.id === productId);
 
     const product = products.content.find((item) => item.id === productId);
@@ -29,7 +27,9 @@ export default function useCartItem() {
     if (!cartItem) {
       await mutatePostCartItem(
         { productId },
-        { onError: () => showError({ type: "server", message: "재고가 부족합니다." }) },
+        {
+          onError: () => showToast({ variant: "error", message: "재고가 부족합니다." }),
+        },
       );
       refetchCartItems();
     } else {
@@ -39,10 +39,16 @@ export default function useCartItem() {
           quantity: cartItem.quantity + 1,
         },
         {
-          onMutate: () => optimisticIncreaseCartItem(productId),
+          onMutate: () => {
+            showToast({ variant: "success", message: "장바구니에 추가되었습니다." });
+            optimisticIncreaseCartItem(productId);
+          },
           onError: () => {
             refetchCartItems();
-            showError({ type: "server", message: "재고가 부족합니다." });
+            showToast({
+              variant: "error",
+              message: "재고가 부족합니다.",
+            });
           },
         },
       );
@@ -50,8 +56,6 @@ export default function useCartItem() {
   };
 
   const decreaseCartItem = async (productId: number) => {
-    if (error) return;
-
     const cartItem = cartItems.content.find((item) => item.product.id === productId);
 
     if (!cartItem) return;
@@ -74,7 +78,7 @@ export default function useCartItem() {
           onMutate: () => optimisticDecreaseCartItem(productId),
           onError: () => {
             refetchCartItems();
-            showError({ type: "server", message: "재고가 부족합니다." });
+            showToast({ variant: "error", message: "재고가 부족합니다." });
           },
         },
       );
