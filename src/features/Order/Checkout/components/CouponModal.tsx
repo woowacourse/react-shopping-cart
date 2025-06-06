@@ -6,12 +6,25 @@ import { CheckBox } from '@/shared/components/CheckBox';
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
-import { useCoupons } from '../hooks/useCoupons';
+import { CouponResponse } from '../type/coupon.type';
 import { parseHour } from '../utils/parseHour';
 import { splitDate } from '../utils/splitDate';
 
-export const CouponModal = ({ isOpen, title, onClose }: ModalProps) => {
-  const { coupons } = useCoupons();
+type CouponModalProps = {
+  coupons: CouponResponse[];
+  couponDiscount: number;
+  onApplyCoupon: (id: number) => void;
+} & ModalProps;
+
+export const CouponModal = ({
+  coupons,
+  couponDiscount,
+  onApplyCoupon,
+  isOpen,
+  title,
+  onClose,
+}: CouponModalProps) => {
+  const allChecked = coupons.filter((item) => item.isChecked).length === 2;
 
   return (
     <Modal isOpen={isOpen} title={title} onClose={onClose}>
@@ -43,15 +56,21 @@ export const CouponModal = ({ isOpen, title, onClose }: ModalProps) => {
               gap="10px"
               padding="5px 0"
             >
-              <CheckBox checked={true} />
-              <Text type="Title">{item.description}</Text>
+              <CheckBox checked={item.isChecked} onClick={() => onApplyCoupon(item.id)} />
+              <Text type="Title" color={allChecked && !item.isChecked ? 'gray' : 'black'}>
+                {item.description}
+              </Text>
             </Flex>
-            <Text type="Caption">만료일: {splitDate(item.expirationDate)}</Text>
+            <Text type="Caption" color={allChecked && !item.isChecked ? 'gray' : 'black'}>
+              만료일: {splitDate(item.expirationDate)}
+            </Text>
             {item.minimumAmount && (
-              <Text type="Caption">최소 주문 금액: {item.minimumAmount.toLocaleString()}원</Text>
+              <Text type="Caption" color={allChecked && !item.isChecked ? 'gray' : 'black'}>
+                최소 주문 금액: {item.minimumAmount.toLocaleString()}원
+              </Text>
             )}
             {item.availableTime && (
-              <Text type="Caption" color="#0A0D13">
+              <Text type="Caption" color={allChecked && !item.isChecked ? 'gray' : 'black'}>
                 사용 가능 시간: 오전 {parseHour(item.availableTime.start)}시부터{' '}
                 {parseHour(item.availableTime.end)}시까지
               </Text>
@@ -61,7 +80,7 @@ export const CouponModal = ({ isOpen, title, onClose }: ModalProps) => {
         </>
       ))}
       <Button size="lg" width="100%" onClick={onClose}>
-        총 6,000원 할인 쿠폰 사용하기
+        {`총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
       </Button>
     </Modal>
   );
