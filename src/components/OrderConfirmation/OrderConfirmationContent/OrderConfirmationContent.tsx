@@ -4,6 +4,7 @@ import { CartItem } from "../../../type/CartItem";
 import { getSelectedCartItemsCount } from "../../../util/cart/getSelectedCartItemsCount";
 import OrderList from "../OrderList/OrderList";
 import OrderCard from "../OrderCard/OrderCard";
+import ApplyCouponButton from "../ApplyCouponButton/ApplyCouponButton";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];
@@ -30,7 +31,7 @@ function OrderConfirmationContent({
           <OrderCard key={cartItem.id} cartItem={cartItem} />
         ))}
       </OrderList>
-
+      <ApplyCouponButton />
       <PaymentConfirmButton
         selectedCartIds={selectedCartIds}
         cartItemsData={selectedCartItems}
