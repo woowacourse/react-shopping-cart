@@ -5,5 +5,12 @@ export interface Coupon {
   expirationDate: string;
   discountType: string;
   discount: number;
-  minimumAmount: number;
+
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: {
+    start: string;
+    end: string;
+  };
 }
