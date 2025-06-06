@@ -1,7 +1,6 @@
 import { css } from "@emotion/css";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import CartItemCardList from "../components/CartItemList/CartItemList";
-import CartPageTitle from "../components/CartPageTitle/CartPageTitle";
 import PriceRow from "../components/PriceRow/PriceRow";
 import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
@@ -9,6 +8,7 @@ import { useCartItemContext } from "../contexts/useCartItemContext";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
 import { useNavigate } from "react-router";
 import { useCartSummary } from "../hooks/useCartSummary";
+import PageTitle from "../components/@common/PageTitle/PageTitle";
 
 const CartItemPage = () => {
   const { cartItems, selectedItem, isLoading } = useCartItemContext();
@@ -24,7 +24,10 @@ const CartItemPage = () => {
       ) : (
         <>
           <div className={CartItemPageStyles}>
-            <CartPageTitle cartItemsTypeCount={cartItems.length} />
+            <PageTitle
+              title="장바구니"
+              description={`현재 ${cartItems.length}종류의 상품이 담겨있습니다.`}
+            />
             {cartItems.length === 0 ? (
               <Text text="장바구니에 담은 상품이 없습니다." />
             ) : (
