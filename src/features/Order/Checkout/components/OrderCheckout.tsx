@@ -15,6 +15,7 @@ import { PriceConfirmSummary } from './PriceCheckoutSummary';
 import Back from '../../../../../public/Back.png';
 import { CartListContainer } from '../../../Cart/container/CartListContainer';
 import { CartItem } from '../../../Cart/types/Cart.types';
+import { useCoupons } from '../hooks/useCoupons';
 
 type CartConfirmProps = {
   cartItems: CartItem[];
@@ -23,6 +24,17 @@ type CartConfirmProps = {
 export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
   const navigate = useNavigate();
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const {
+    coupons,
+    applyCoupon,
+    totalPrice,
+    couponDiscount,
+    deliveryFee,
+    specialDeliveryZone,
+    selectedSpecialDeliveryZone,
+  } = useCoupons({
+    cartItems,
+  });
 
   const handleNavigateCartPage = () => {
     navigate('/cart');
@@ -91,13 +103,16 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
             gap="10px"
             width="100%"
           >
-            <CheckBox checked={true} />
+            <CheckBox checked={specialDeliveryZone} onClick={selectedSpecialDeliveryZone} />
             <Text type="Caption">제주도 및 도서 산간 지역</Text>
           </Flex>
         </Flex>
-        <PriceConfirmSummary cartItems={cartItems ?? []} />
+        <PriceConfirmSummary
+          totalPrice={totalPrice}
+          couponDiscount={couponDiscount}
+          deliveryFee={deliveryFee}
+        />
       </>
-
       <Button
         width="100%"
         size="xl"
@@ -109,7 +124,14 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
       >
         결제확인
       </Button>
-      <CouponModal title="쿠폰을 선택해 주세요" isOpen={isOpen} onClose={handleCloseModal} />
+      <CouponModal
+        coupons={coupons ?? []}
+        couponDiscount={couponDiscount}
+        onApplyCoupon={applyCoupon}
+        title="쿠폰을 선택해 주세요"
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };
