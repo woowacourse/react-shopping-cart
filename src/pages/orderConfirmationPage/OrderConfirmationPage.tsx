@@ -30,6 +30,7 @@ import {
   getDiscountedTotalOrderPrice,
   getTotalDiscountPrice,
 } from "../../domains/coupon/calculateCoupon";
+import useEasyNavigate from "../../hooks/useEasyNavigate";
 
 const OrderConfirmationPage = () => {
   const { ref: CartPriceRef, isVisible: isCartPriceVisible } =
@@ -73,6 +74,8 @@ const OrderConfirmationPage = () => {
     totalPriceWithRemoteArea,
     totalDiscountPrice
   );
+
+  const { goOrderComplete } = useEasyNavigate();
 
   const getModalContent = () => {
     return loadingState === "initialLoading" ? (
@@ -133,7 +136,20 @@ const OrderConfirmationPage = () => {
 
       <div css={buttonFixedContainer}>
         {isCartPriceVisible && (
-          <Button size="large" color="black" onClick={() => {}}>
+          <Button
+            size="large"
+            color="black"
+            onClick={() => {
+              goOrderComplete(
+                orderItems.length,
+                orderItems.reduce(
+                  (acc: number, item: CartItemType) => acc + item.quantity,
+                  0
+                ),
+                discountedTotalOrderPrice
+              );
+            }}
+          >
             주문 확정
           </Button>
         )}

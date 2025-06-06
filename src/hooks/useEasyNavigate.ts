@@ -11,8 +11,8 @@ const useEasyNavigate = () => {
 
   const goOrderComplete = (
     productTypeCount: number,
-    totalPrice: number,
-    totalProductCount: number
+    totalProductCount: number,
+    totalPrice: number
   ) => {
     navigate(ROUTE.ORDER_COMPLETE, {
       state: { productTypeCount, totalPrice, totalProductCount },

@@ -10,7 +10,7 @@ import { FREE_DELIVERY_MESSAGE } from "../../../constants/systemMessages";
 interface CartPriceProps {
   orderPrice: number;
   deliveryFee: number;
-  discountPrice: number;
+  discountPrice?: number;
   totalPrice: number;
 }
 
@@ -36,7 +36,7 @@ const CartPrice = ({
             <div css={S.CartPriceSubtitle}>배송비</div>
             <div css={S.CartPriceTitle}>{deliveryFee.toLocaleString()}원</div>
           </div>
-          {discountPrice > 0 && (
+          {discountPrice != null && discountPrice > 0 && (
             <div css={S.CartPriceInfoContainer}>
               <div css={S.CartPriceSubtitle}>쿠폰 할인 금액</div>
               <div css={S.CartPriceTitle}>
