@@ -7,10 +7,13 @@ import { CartProduct } from "../../type/cart";
 import PriceSection from "../../components/feature/CartSection/PriceSection";
 import CheckBox from "../../components/common/CheckBox";
 import Modal from "../../components/common/Modal";
+import useGetCoupons from "../../hooks/useGetCoupons";
+import CouponList from "../../components/feature/Coupon/CouponList";
 
 const Confirm = () => {
   const location = useLocation();
   const { sort, totalAmount, cartItems, selectedCartIds } = location.state;
+  const { coupons } = useGetCoupons();
   return (
     <>
       <S.Container data-testid="order-confirm-description">
@@ -59,7 +62,9 @@ const Confirm = () => {
           bottom: 0;
         `}
       />
-      <Modal onClose={() => {}} isOpen={true} />
+      <Modal onClose={() => {}} isOpen={true}>
+        {coupons && <CouponList coupons={coupons} />}
+      </Modal>
     </>
   );
 };
