@@ -16,16 +16,16 @@ import {
   spinnerWrapper,
 } from './ShoppingCart.style';
 import { Footer } from '../../components/layout/Footer/Footer';
-import useFetchCartItems from '../../hooks/useFetchCartItems';
 import { getCartItemSummary } from '../../utils/getCartItemSummary';
 import Spinner from '../../components/Common/Spinner/Spinner';
 import { setItem, SELECTED_CART_ITEM_IDS } from '../../utils/localStorage';
+import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
 
 export function ShoppingCart() {
   const navigate = useNavigate();
 
   const { cartItems, error, isLoading, isFetching, getCartItemData, setError } =
-    useFetchCartItems();
+    useCartItemsContext();
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
   const { totalPrice, totalQuantity } = getCartItemSummary(
