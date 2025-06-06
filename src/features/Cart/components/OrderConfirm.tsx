@@ -13,6 +13,7 @@ import { CartListContainer } from '../container/CartListContainer';
 import { CartItemDetail } from './CartItemDetail';
 import { RemoteAreaCheckBox } from './RemoteAreaCheckBox';
 import { PriceSummary } from './PriceSummary';
+import { useCartInfo } from '../hooks/useCartInfo';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
@@ -20,6 +21,7 @@ type OrderConfirmProps = {
 
 export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
+  const { selectedCartItems } = useCartInfo(cartItems);
 
   return (
     <>
@@ -46,7 +48,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
           {`총 ${hasCheckCartLength}종류의 상품 ${totalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         </Text>
         <CartListContainer variant="review">
-          {cartItems?.map((item) => (
+          {selectedCartItems?.map((item) => (
             <CartItemDetail key={item.id} variant="review" {...item} />
           ))}
         </CartListContainer>

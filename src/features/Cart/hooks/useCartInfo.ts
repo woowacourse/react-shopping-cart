@@ -17,6 +17,7 @@ export const useCartInfo = (cartItems: CartItem[]) => {
   return {
     allChecked,
     cartItemCount,
+    selectedCartItems,
     selectedCartItemCount,
     selectedTotalAmount,
     progressValue,
