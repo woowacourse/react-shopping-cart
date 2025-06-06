@@ -1,33 +1,28 @@
-// CheckedCartItemsProvider.tsx
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useCartItemsContext } from './CartItemsContext';
-import useCheckedCartItems from '../hooks/useCheckedCartItems';
 import { CheckedCartItemsContext } from './CheckedCartItemContext';
+import getIdsFromCartItems from '../utils/getIdsFromCartItems';
 
 const CheckedCartItemsProvider = ({ children }: { children: ReactNode }) => {
-  const isFirstLoading = useRef(true);
+  const isFirstLoad = useRef(true);
   const { cartItems } = useCartItemsContext();
 
-  const { checkedCartIds, addCheckedCartItem, removeCheckedCartItem, init } =
-    useCheckedCartItems();
+  const [checkedCartIds, setCheckedCartIds] = useState<number[]>([]);
 
   useEffect(() => {
-    if (!isFirstLoading.current) return;
+    if (!isFirstLoad.current) return;
     if (cartItems.length > 0) {
-      isFirstLoading.current = false;
-      init(cartItems);
+      isFirstLoad.current = false;
+      setCheckedCartIds(getIdsFromCartItems(cartItems));
     }
-  }, [cartItems, init]);
-  console.log(cartItems, checkedCartIds);
+  }, [cartItems]);
+
+  const isAllChecked =
+    cartItems.length > 0 && checkedCartIds.length === cartItems.length;
 
   return (
     <CheckedCartItemsContext.Provider
-      value={{
-        checkedCartIds,
-        init,
-        addCheckedCartItem,
-        removeCheckedCartItem,
-      }}
+      value={{ checkedCartIds, setCheckedCartIds, isAllChecked }}
     >
       {children}
     </CheckedCartItemsContext.Provider>

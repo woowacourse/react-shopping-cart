@@ -4,9 +4,7 @@ import { CartItem } from '../types';
 
 interface CartItemsContextType {
   cartItems: CartItem[];
-  increaseCartItemQuantity: (id: number) => void;
-  decreaseCartItemQuantity: (id: number) => void;
-  deleteCartItem: (id: number) => void;
+  refetch: () => Promise<void>;
 }
 
 export const CartItemsContext = createContext<CartItemsContextType | null>(

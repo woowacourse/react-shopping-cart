@@ -4,20 +4,13 @@ import { CartItemsContext } from './CartItemsContext';
 import useCartItems from '../hooks/useCartItems';
 
 const CartItemsProvider = ({ children }: { children: ReactNode }) => {
-  const {
-    cartItems,
-    increaseCartItemQuantity,
-    decreaseCartItemQuantity,
-    deleteCartItem,
-  } = useCartItems();
+  const { cartItems, refetch } = useCartItems();
 
   return (
     <CartItemsContext.Provider
       value={{
         cartItems,
-        increaseCartItemQuantity,
-        decreaseCartItemQuantity,
-        deleteCartItem,
+        refetch,
       }}
     >
       {children}

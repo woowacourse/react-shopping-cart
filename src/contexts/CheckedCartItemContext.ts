@@ -1,12 +1,10 @@
 // CheckedCartItemsContext.ts
-import { createContext, useContext } from 'react';
-import { CartItem } from '../types';
+import React, { createContext, useContext } from 'react';
 
 interface CheckedCartItemsContextType {
   checkedCartIds: number[];
-  init: (cartItems: CartItem[]) => void;
-  addCheckedCartItem: (id: number) => void;
-  removeCheckedCartItem: (id: number) => void;
+  isAllChecked: boolean;
+  setCheckedCartIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 export const CheckedCartItemsContext =
