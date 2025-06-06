@@ -2,16 +2,14 @@ import { ReactNode } from "react";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
-import { ErrorToastContextProvider } from "../src/contexts/ErrorToastContext";
-import { testStateStore } from "../src/mock/handlers";
-
 import { BrowserRouter } from "react-router";
-import App from "../src/App";
-
 import "@testing-library/jest-dom";
-import { CartItem } from "../src/type/CartItem";
-import { products } from "../src/mock/data";
-import { CartProvider } from "../src/components/Cart/CartProvider";
+import { CartItem } from "@/type/CartItem";
+import { products } from "@/mock/data";
+import { ErrorToastContextProvider } from "@/contexts/ErrorToastContext";
+import { CartProvider } from "@/components/Cart/CartProvider";
+import { testStateStore } from "@/mock/handlers";
+import App from "@/App";
 
 const mockingCartItems: CartItem[] = [
   {

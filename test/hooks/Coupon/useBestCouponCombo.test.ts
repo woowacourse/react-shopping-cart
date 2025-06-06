@@ -199,7 +199,11 @@ describe("useBestCouponCombo는", () => {
         }),
         createCoupon("percentage", {
           id: "2",
+          // 이부분은 두가지 갈래로 갈릴거에요.
+          // 1. orderTotal에서 10% 할인
+          // 2. bogo를 적용하고 남은 금액에서 10% 할인
           // 남은 금액에서 10% 할인이 대개는 더 많이 본것 같은데...
+
           discount: 10, //6000원 할인
         }),
       ];

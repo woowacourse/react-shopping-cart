@@ -306,7 +306,7 @@ describe("useCouponCalculation", () => {
           code: "INVALID",
           description: "Invalid coupon",
           expirationDate: new Date("2025-12-31"),
-          discountType: "invalidType" as any,
+          discountType: "invalidType",
         };
 
         const cartItems = [createCartItem(50000, 1)];
