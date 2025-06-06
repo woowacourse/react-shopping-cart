@@ -21,32 +21,32 @@ export const CartProvider = ({ children, onNext }: CartProviderProps) => {
   } = useShoppingCart();
 
   const {
-    selectedCartIds,
-    handleSelectCartItem,
-    handleSelectAllCartItems,
-    selectedCartItemsLength,
+    selectedIds,
+    toggleOne,
+    toggleAll,
+    selectedItemsLength,
     isAllSelected,
-    selectedCartItems,
-    setSelectedCartIds,
+    selectedItems,
   } = useCartSelection(cartItemsData);
 
-  useLocalStorage({ cartItemsData, selectedCartIds, setSelectedCartIds });
-
-  const { subtotalPrice } = useCalculateOrder(cartItemsData, selectedCartIds);
+  const { subtotalPrice } = useCalculateOrder(cartItemsData, selectedIds);
 
   const contextValue = {
     cartItemsData,
     cartFetchLoading,
     handleCartItemQuantity,
     handleDeleteCartItem,
-    selectedCartIds,
-    handleSelectCartItem,
-    handleSelectAllCartItems,
     handleOrderCartItem,
-    selectedCartItemsLength,
+    // 선택 관련
+    selectedCartIds: selectedIds,
+    handleSelectCartItem: toggleOne,
+    handleSelectAllCartItems: toggleAll,
+    selectedCartItemsLength: selectedItemsLength,
     isAllSelected,
-    selectedCartItems,
+    selectedCartItems: selectedItems,
+    // 금액
     subtotalPrice,
+    // 외부 콜백 (예: “다음 단계” 버튼)
     onNext: onNext ?? (() => {}),
   };
 

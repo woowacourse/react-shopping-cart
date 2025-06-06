@@ -1,55 +1,61 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+/* hooks/Cart/useCartSelection.ts */
+import { useMemo, useCallback, useEffect, useRef } from "react";
 import { CartItem } from "@/type/CartItem";
+import usePersistentSet from "./usePersistentSet";
+import useCleanupInvalidIds from "./useCleanupInvalidIds";
+
+const STORAGE_KEY = "selectedCartIds";
 
 export const useCartSelection = (cartItems: CartItem[]) => {
-  const [selectedCartIds, setSelectedCartIds] = useState<Set<string>>(
-    new Set()
-  );
+  // ① 초기 세팅만 읽고, persist 는 수동 호출
+  const [selectedIds, setSelectedIds, persist] = usePersistentSet(STORAGE_KEY);
 
-  useEffect(() => {
-    if (cartItems.length === 0) return;
+  // ② 장바구니 변동 시 없는 ID 정리 (저장 X)
+  useCleanupInvalidIds(cartItems, setSelectedIds);
 
-    const currentIds = new Set(cartItems.map((i) => i.id));
-    setSelectedCartIds((prev) => {
-      const valid = Array.from(prev).filter((id) => currentIds.has(id));
+  // ③ “이번 변경이 사용자의 선택에 의한 것인가?” 플래그
+  const shouldPersistRef = useRef(false);
 
-      const wasAllSelected =
-        valid.length === currentIds.size && currentIds.size > 0;
-
-      return wasAllSelected ? new Set(currentIds) : new Set(valid);
-    });
-  }, [cartItems]);
-
+  // ④ 선택 계산
   const isAllSelected = useMemo(
-    () =>
-      cartItems.length > 0 &&
-      cartItems.every((item) => selectedCartIds.has(item.id)),
-    [cartItems, selectedCartIds]
+    () => cartItems.length > 0 && cartItems.every((i) => selectedIds.has(i.id)),
+    [cartItems, selectedIds]
   );
 
-  const handleSelectAllCartItems = useCallback(() => {
-    setSelectedCartIds(
+  // ⑤ 사용자 액션: 토글할 때만 플래그 켜기
+  const toggleAll = useCallback(() => {
+    shouldPersistRef.current = true;
+    setSelectedIds(
       isAllSelected ? new Set() : new Set(cartItems.map((i) => i.id))
     );
   }, [isAllSelected, cartItems]);
 
-  const handleSelectCartItem = (id: string) => {
-    setSelectedCartIds((prev) => {
+  const toggleOne = (id: string) => {
+    shouldPersistRef.current = true;
+    setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   };
 
-  const selectedCartItems = cartItems.filter((i) => selectedCartIds.has(i.id));
+  // ⑥ 플래그가 켜져 있을 때만 localStorage 동기화
+  useEffect(() => {
+    if (!shouldPersistRef.current) return;
+    shouldPersistRef.current = false;
+    persist(selectedIds); // 실제 저장
+  }, [selectedIds, persist]);
+
+  const selectedItems = cartItems.filter((i) => selectedIds.has(i.id));
 
   return {
-    selectedCartIds,
-    handleSelectCartItem,
-    handleSelectAllCartItems,
+    selectedIds,
+    toggleOne,
+    toggleAll,
     isAllSelected,
-    selectedCartItemsLength: selectedCartIds.size,
-    selectedCartItems,
-    setSelectedCartIds,
+    selectedItemsLength: selectedIds.size,
+    selectedItems,
+
+    setSelectedIds,
   };
 };
