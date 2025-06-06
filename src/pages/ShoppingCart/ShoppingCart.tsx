@@ -18,7 +18,7 @@ import {
 import { Footer } from '../../components/layout/Footer/Footer';
 import useFetchCartItems from '../../hooks/useFetchCartItems';
 import { getCartItemSummary } from '../../utils/getCartItemSummary';
-import Spinner from '../../components/Common/Splinner/Splinner';
+import Spinner from '../../components/Common/Spinner/Spinner';
 import { setItem, SELECTED_CART_ITEM_IDS } from '../../utils/localStorage';
 
 export function ShoppingCart() {
