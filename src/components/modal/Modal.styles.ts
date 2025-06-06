@@ -6,6 +6,9 @@ export const Container = css`
   display: flex;
   flex-direction: column;
   gap: 32px;
+
+  border: none;
+  border-radius: 8px;
 `;
 
 export const ModalHeader = css`
