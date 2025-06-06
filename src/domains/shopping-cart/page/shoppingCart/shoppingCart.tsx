@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
+import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import Toast from "../../../../components/Toast/Toast";
 import { Footer } from "../../../../layout/Footer/Footer";
 import Header from "../../../../layout/Header/Header";
@@ -12,7 +13,13 @@ import { PaymentSummary } from "../../components/PaymentSummary/PaymentSummary";
 import { useCart } from "../../context/cartProvider";
 import { useSelectedCartIds } from "../../hooks/useSelectedCartIds";
 import { getTotalPrice } from "../../utils/getTotalPrice/getTotalPrice";
-import { subTitleStyle, titleBox, titleStyle } from "./shoppingCart.style";
+import {
+  CartProductContainerLayout,
+  SelectAllLayout,
+  subTitleStyle,
+  titleBox,
+  titleStyle,
+} from "./shoppingCart.style";
 
 export function ShoppingCart() {
   const isFirstMount = useRef(true);
@@ -47,12 +54,6 @@ export function ShoppingCart() {
     });
   };
 
-  const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const id = e.target.id;
-    if (id === "select-all") return toggleSelectAll();
-    else toggleCartItem(id);
-  };
-
   useEffect(() => {
     if (isFirstMount.current && cartItems.length !== 0) {
       toggleSelectAll();
@@ -77,16 +78,32 @@ export function ShoppingCart() {
           <EmptyShoppingCart />
         ) : (
           <>
-            <CartProductContainer
-              selectedCartIds={selectedCartIds}
-              onDelete={async (id: string) => {
-                const response = await deleteCartItem(id);
-                if (response?.ok) {
-                  removeFromSelection(id);
+            <div css={CartProductContainerLayout}>
+              <div css={SelectAllLayout}>
+                <CheckBox
+                  isChecked={
+                    selectedCartIds.length === cartItems.length &&
+                    cartItems.length !== 0
+                  }
+                  dataTestId="select-all"
+                  id="select-all"
+                  handleCheckBox={() => toggleSelectAll()}
+                />
+                <label htmlFor="select-all">전체 선택</label>
+              </div>
+              <CartProductContainer
+                selectedCartIds={selectedCartIds}
+                onDelete={async (id: string) => {
+                  const response = await deleteCartItem(id);
+                  if (response?.ok) {
+                    removeFromSelection(id);
+                  }
+                }}
+                handleCheckBox={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  toggleCartItem(e.target.id)
                 }
-              }}
-              handleCheckBox={handleCheckBox}
-            />
+              />
+            </div>
             <PaymentSummary price={totalPrice} />
           </>
         )}
