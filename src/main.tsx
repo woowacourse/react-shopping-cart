@@ -9,9 +9,7 @@ async function enableMocking() {
   return worker.start({
     serviceWorker: {
       url:
-        process.env.NODE_ENV === "production"
-          ? "/react-shopping-products/mockServiceWorker.js"
-          : "/mockServiceWorker.js",
+        process.env.NODE_ENV === "production" ? "/react-shopping-cart/mockServiceWorker.js" : "/mockServiceWorker.js",
     },
   });
 }

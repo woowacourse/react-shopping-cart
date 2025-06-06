@@ -15,10 +15,11 @@ import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useEffect, useMemo, useState } from "react";
 import { useShoppingCartContext } from "../MainPage/context";
-import { ButtonWrapper, ReceiptTextWrapper } from "../Step1/Step1.styles";
+import { ButtonWrapper } from "../Step1/components/Step1Footer/Step1Footer.styles";
 import { CouponModal } from "./components";
 import * as S from "./Step2.styles";
 import { FREE_DELIVERY_PRICE } from "@/constants";
+import { ReceiptTextWrapper } from "../Step1/components/CartItemList/CartItemList.styles";
 
 export default function Step2() {
   const { goPrevStep, goNextStep } = useFunnelContext();

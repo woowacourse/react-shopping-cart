@@ -1,7 +1,7 @@
 import { Button, Checkbox, PlusMinusButton } from "@/components";
 import { useCartItemQuery } from "@/hooks";
 import { css } from "@emotion/react";
-import Card from "../Card/Card";
+import Card from "../../../../components/Card/Card";
 import * as S from "./CartItem.styles";
 
 interface CartItemProps {
