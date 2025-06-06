@@ -3,6 +3,7 @@ import closeIcon from "/icon/ic_close.svg";
 import { Title } from "../../../styles/@common/title/Title.styles";
 import useOutsideClick from "../../../hooks/@common/useOutsideClick";
 import ModalPortal from "./ModalPortal";
+import { useEffect } from "react";
 
 interface ModalProps {
   title: string;
@@ -12,6 +13,16 @@ interface ModalProps {
 
 const Modal = ({ title, content, onClose }: ModalProps) => {
   const { ref } = useOutsideClick({ callback: onClose });
+
+  useEffect(() => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleEscapeKey);
+    return () => window.removeEventListener("keydown", handleEscapeKey);
+  }, [onClose]);
 
   return (
     <ModalPortal>
