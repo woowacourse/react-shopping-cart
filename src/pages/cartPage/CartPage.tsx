@@ -66,6 +66,7 @@ const CartPage = () => {
     fetchCartData();
   }, []);
 
+  // TODO : 정리 필요
   const isCheckedArray = Array.from(isCheckedSet);
   const orderItems = isCheckedArray
     .map((id) => getCartItemById(cartData, id))

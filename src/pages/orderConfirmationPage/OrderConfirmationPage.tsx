@@ -44,30 +44,32 @@ const OrderConfirmationPage = () => {
     threshold: 0.1,
   });
 
+  // TODO : useCoupon 포함해서 네이밍 고려, 리팩토링 필요
   const [isCheckedCoupons, setIsCheckedCoupons] = useState<
     Map<number, CouponType>
   >(new Map());
 
-  // TODO : 처음 렌더링시 validate 해서 유효기간을 넘겼다면 없앰
-  // TODO : 처음 렌더링시 최소주문 금액을 넘기지 못했다면 dimmed 처리함
-  // TODO : 2개 이상 주문한 상품이 없다면 bogo dimmed 처리
-
   const toggleCheckedCoupon = (couponInfo: CouponType) => {
-    // TODO : 체킹된 애들이 2개 이상이라면 return (더 이상 넣으면 안됨)
-    if (isCheckedCoupons.size >= COUPON_LIMIT) return;
-
     if (isCheckedCoupons.has(couponInfo.id)) {
-      setIsCheckedCoupons((prev: Map<number, CouponType>) => {
-        const newIsCheckedCoupons = new Map(prev);
-        newIsCheckedCoupons.delete(couponInfo.id);
-        return newIsCheckedCoupons;
-      });
+      removeCheckedCoupon(couponInfo);
       return;
     }
+    addCheckedCoupon(couponInfo);
+  };
 
+  const addCheckedCoupon = (couponInfo: CouponType) => {
+    if (isCheckedCoupons.size >= COUPON_LIMIT) return;
     setIsCheckedCoupons((prev: Map<number, CouponType>) => {
       const newIsCheckedCoupons = new Map(prev);
       newIsCheckedCoupons.set(couponInfo.id, couponInfo);
+      return newIsCheckedCoupons;
+    });
+  };
+
+  const removeCheckedCoupon = (couponInfo: CouponType) => {
+    setIsCheckedCoupons((prev: Map<number, CouponType>) => {
+      const newIsCheckedCoupons = new Map(prev);
+      newIsCheckedCoupons.delete(couponInfo.id);
       return newIsCheckedCoupons;
     });
   };

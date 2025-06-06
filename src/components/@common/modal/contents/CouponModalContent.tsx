@@ -2,6 +2,7 @@ import * as S from "./CouponModalContent.styles";
 import CouponItem from "../../../features/couponItem/CouponItem";
 import Button from "../../button/Button";
 import type { CouponType } from "../../../../types/response";
+import { COUPON_LIMIT } from "../../../../constants/systemConstants";
 
 interface CouponModalContentProps {
   couponList: CouponType[];
@@ -16,6 +17,12 @@ const CouponModalContent = ({
   isCheckedCoupons,
   toggleCheckedCoupon,
 }: CouponModalContentProps) => {
+  const isMaxCouponSelected = isCheckedCoupons.size >= COUPON_LIMIT;
+  const isValid = (coupon: CouponType) =>
+    (validCouponList.includes(coupon) && !isMaxCouponSelected) ||
+    isCheckedCoupons.has(coupon.id);
+  const isSelected = (id: number) => isCheckedCoupons.has(id);
+
   return (
     <div css={S.couponModalContentContainer}>
       {couponList.map((coupon) => (
@@ -26,8 +33,8 @@ const CouponModalContent = ({
           minimumAmount={
             "minimumAmount" in coupon ? coupon.minimumAmount : undefined
           }
-          isValid={validCouponList.includes(coupon)}
-          isSelected={isCheckedCoupons.has(coupon.id)}
+          isValid={isValid(coupon)}
+          isSelected={isSelected(coupon.id)}
           onSelectCoupon={() => toggleCheckedCoupon(coupon)}
         />
       ))}
