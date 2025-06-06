@@ -15,7 +15,7 @@ interface CartItemProps {
 }
 
 function CartItem({ cartItem }: CartItemProps) {
-  const { refetch } = useData({
+  const { refetch, isLoading } = useData({
     fetcher: getCartItems,
     name: 'cartItems',
   });
@@ -42,7 +42,7 @@ function CartItem({ cartItem }: CartItemProps) {
 
   return (
     <CartItemContainer>
-      <SelectBox cartItem={cartItem} onRemove={handleRemoveCartItem} />
+      <SelectBox cartItem={cartItem} onRemove={handleRemoveCartItem} isLoading={isLoading} />
       <ProductRow>
         <CartProductImage
           src={cartItem.product.imageUrl}
@@ -55,11 +55,19 @@ function CartItem({ cartItem }: CartItemProps) {
           <ProductTitle>{cartItem.product.name}</ProductTitle>
           <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton data-testid="decrease-quantity-button" onClick={handleDecreaseQuantity}>
+            <StepperButton
+              disabled={isLoading}
+              data-testid="decrease-quantity-button"
+              onClick={handleDecreaseQuantity}
+            >
               −
             </StepperButton>
             <StepperQuantity data-testid="item-quantity">{cartItem.quantity}</StepperQuantity>
-            <StepperButton data-testid="increase-quantity-button" onClick={handleIncreaseQuantity}>
+            <StepperButton
+              disabled={isLoading}
+              data-testid="increase-quantity-button"
+              onClick={handleIncreaseQuantity}
+            >
               ＋
             </StepperButton>
           </StepperContainer>

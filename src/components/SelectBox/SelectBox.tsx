@@ -6,9 +6,10 @@ import { useCartSelectContext } from '../../context/CartSelectContext';
 interface SelectBoxProps {
   cartItem: CartProduct;
   onRemove: () => void;
+  isLoading: boolean;
 }
 
-function SelectBox({ cartItem, onRemove }: SelectBoxProps) {
+function SelectBox({ cartItem, onRemove, isLoading }: SelectBoxProps) {
   const { checkedItems, toggleItem } = useCartSelectContext();
 
   return (
@@ -23,7 +24,9 @@ function SelectBox({ cartItem, onRemove }: SelectBoxProps) {
         />
         <StyledCheckbox checked={checkedItems.includes(cartItem.id)} />
       </CheckboxContainer>
-      <DeleteButton onClick={onRemove}>삭제</DeleteButton>
+      <DeleteButton disabled={isLoading} onClick={onRemove}>
+        삭제
+      </DeleteButton>
     </ModifyRow>
   );
 }
