@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { CartItem } from "@/type/CartItem";
 
 export const useCartSelection = (cartItems: CartItem[]) => {
@@ -6,40 +6,49 @@ export const useCartSelection = (cartItems: CartItem[]) => {
     new Set()
   );
 
+  useEffect(() => {
+    if (cartItems.length === 0) return;
+
+    const currentIds = new Set(cartItems.map((i) => i.id));
+    setSelectedCartIds((prev) => {
+      const valid = Array.from(prev).filter((id) => currentIds.has(id));
+
+      const wasAllSelected =
+        valid.length === currentIds.size && currentIds.size > 0;
+
+      return wasAllSelected ? new Set(currentIds) : new Set(valid);
+    });
+  }, [cartItems]);
+
+  const isAllSelected = useMemo(
+    () =>
+      cartItems.length > 0 &&
+      cartItems.every((item) => selectedCartIds.has(item.id)),
+    [cartItems, selectedCartIds]
+  );
+
+  const handleSelectAllCartItems = useCallback(() => {
+    setSelectedCartIds(
+      isAllSelected ? new Set() : new Set(cartItems.map((i) => i.id))
+    );
+  }, [isAllSelected, cartItems]);
+
   const handleSelectCartItem = (id: string) => {
     setSelectedCartIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
     });
   };
 
-  const handleSelectAllCartItems = () => {
-    setSelectedCartIds((prev) => {
-      if (prev.size === cartItems.length) {
-        return new Set();
-      }
-      return new Set(cartItems.map((item) => item.id));
-    });
-  };
-
-  const selectedCartItemsLength = selectedCartIds.size;
-  const isAllSelected =
-    selectedCartIds.size === cartItems.length && cartItems.length > 0;
-  const selectedCartItems = cartItems.filter((item) =>
-    selectedCartIds.has(item.id)
-  );
+  const selectedCartItems = cartItems.filter((i) => selectedCartIds.has(i.id));
 
   return {
     selectedCartIds,
     handleSelectCartItem,
     handleSelectAllCartItems,
-    selectedCartItemsLength,
     isAllSelected,
+    selectedCartItemsLength: selectedCartIds.size,
     selectedCartItems,
     setSelectedCartIds,
   };
