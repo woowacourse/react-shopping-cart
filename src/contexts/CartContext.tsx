@@ -10,7 +10,7 @@ import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import useErrorHandler from "../hooks/useErrorHandler";
-import { CartItemWithSelection } from "../types/response";
+import { CartItemWithSelection } from "../types/response/cartItem";
 import { cartItemSelectionStorage } from "../storages/CartItemSelectionStorage";
 
 const INITIAL_SELECTED = false;
