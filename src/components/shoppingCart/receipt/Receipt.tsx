@@ -1,4 +1,4 @@
-import Vector from "../../../assets/Vector.png";
+import Info from "../../../assets/Info.png";
 import Hr from "../../common/Hr/Hr";
 
 import Price from "../Price/Price";
@@ -18,7 +18,7 @@ export default function Receipt({
   return (
     <section>
       <S.DescriptionContent>
-        <S.Img src={Vector} />
+        <S.Img src={Info} />
         <S.Description>
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </S.Description>
