@@ -1,21 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import { TotalCost, TotalCostLabel } from "./OrderSummary.styles";
 import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { BackIcon } from "../../constants/images";
 import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
 import Description from "../../components/Description/Description";
+import OrderItemList from "../../components/OrderItemList/OrderItemList";
+import CouponButton from "../../components/CouponButton/CouponButton";
+import CheckBox from "../../components/CheckBox/CheckBox";
+import Receipt from "../../components/Receipt/Receipt";
+import SubmitButton from "../../components/SubmitButton/SubmitButton";
 
 function OrderSummary() {
   const navigate = useNavigate();
 
   const cartItems = useSafeLocationState<CartItemType[]>();
 
-  const orderCost = getOrderCost(cartItems);
-  const totalCost = orderCost + getDeliveryCost(orderCost);
+  // const orderCost = getOrderCost(cartItems);
+  // const totalCost = orderCost + getDeliveryCost(orderCost);
 
   return (
     <>
@@ -29,8 +31,18 @@ function OrderSummary() {
 최종 결제 금액을 확인해 주세요.
           `}
         />
-        <p css={TotalCostLabel}>총 결제 금액</p>
-        <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
+        <OrderItemList />
+        <CouponButton />
+        <div>
+          <p>배송 정보</p>
+          <CheckBox
+            id="delivery"
+            isSelected={true}
+            onClick={() => console.log("클릭")}
+            label="제주도 및 도서 산간 지역"
+          />
+        </div>
+        <Receipt selectedCartItems={[]} discount={10000} />
       </section>
       <SubmitButton enabled={false} label="결제하기" />
     </>

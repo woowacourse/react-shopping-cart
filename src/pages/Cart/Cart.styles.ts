@@ -2,6 +2,9 @@ import { css } from "@emotion/react";
 
 export const Wrap = css`
   height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const NoCartItemText = css`

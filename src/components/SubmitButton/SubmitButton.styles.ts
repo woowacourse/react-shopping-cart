@@ -1,8 +1,6 @@
 import { css } from "@emotion/react";
 
 export const Button = css`
-  position: sticky;
-  bottom: 0;
   width: 100%;
   height: 7vh;
 

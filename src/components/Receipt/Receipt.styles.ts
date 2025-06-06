@@ -1,9 +1,5 @@
 import { css } from "@emotion/react";
 
-export const Container = css`
-  margin-top: 52px;
-`;
-
 export const InfoText = css`
   margin-bottom: 13px;
 
@@ -35,7 +31,7 @@ export const Table = css`
     text-align: end;
   }
 
-  & tr:nth-child(3) td {
+  & tr:nth-child(4) td {
     border-top: 1px solid var(--color-gray);
   }
 `;
