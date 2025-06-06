@@ -14,16 +14,17 @@ export function useShoppingCartApi() {
   async function withErrorHandling(
     fetchFunction: () => Promise<Response>,
     errorMessage: string,
-    updateLoading?: boolean
+    shouldRefetch?: boolean
   ): Promise<Response | undefined> {
     try {
       setLoading(true);
       const response = await fetchFunction();
-      setLoading(false);
-      if (updateLoading && response.ok) getCartItemData();
+      if (shouldRefetch && response.ok) getCartItemData();
       return response;
     } catch (error) {
       setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   }
 
