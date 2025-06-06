@@ -6,6 +6,8 @@ import { formatPrice } from "../../../../utils/formatPrice";
 
 interface Props {
   coupon: CouponResponse;
+  isChecked: boolean;
+  onSelect: (id: number) => void;
 }
 
 const formatDate = (dateString: string): string => {
@@ -39,14 +41,16 @@ const formatAvailableTime = (start: string, end: string): string => {
 };
 
 const Coupon = ({
-  coupon: { description, expirationDate, minimumAmount, availableTime },
+  coupon: { id, description, expirationDate, minimumAmount, availableTime },
+  isChecked,
+  onSelect,
 }: Props) => {
   return (
     <>
       <Line />
       <S.Container>
         <S.CouponTop>
-          <CheckBox />
+          <CheckBox isChecked={isChecked} onChange={() => onSelect(id)} />
           <S.Name>{description}</S.Name>
         </S.CouponTop>
 

@@ -9,11 +9,30 @@ import CheckBox from "../../components/common/CheckBox";
 import Modal from "../../components/common/Modal";
 import useGetCoupons from "../../hooks/useGetCoupons";
 import CouponList from "../../components/feature/Coupon/CouponList";
+import { useState } from "react";
+import { MAX_COUPON_COUNT } from "./constant";
 
 const Confirm = () => {
   const location = useLocation();
   const { sort, totalAmount, cartItems, selectedCartIds } = location.state;
   const { coupons } = useGetCoupons();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRemoteAreaChecked, setRemoteAreaChecked] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([1, 2]);
+
+  const handleSelectCoupon = (id: number) => {
+    const isSelected = selectedIds.includes(id);
+
+    if (!isSelected && selectedIds.length >= MAX_COUPON_COUNT) {
+      alert(`쿠폰은 ${MAX_COUPON_COUNT}개만 선택할 수 있습니다.`);
+      return;
+    }
+
+    setSelectedIds((prev) =>
+      isSelected ? prev.filter((prevId) => prevId !== id) : [...prev, id]
+    );
+  };
+
   return (
     <>
       <S.Container data-testid="order-confirm-description">
@@ -29,7 +48,7 @@ const Confirm = () => {
         </S.OrderList>
         <Button
           title="쿠폰 적용"
-          onClick={() => {}}
+          onClick={() => setIsModalOpen(true)}
           css={css`
             padding: 15px 0;
             color:#333333BF
@@ -39,7 +58,11 @@ const Confirm = () => {
         />
         <S.OrderInfo>
           <S.OrderInfoTitle>배송 정보</S.OrderInfoTitle>
-          <CheckBox label="제주도 및 도서 산간 지역" />
+          <CheckBox
+            label="제주도 및 도서 산간 지역"
+            isChecked={isRemoteAreaChecked}
+            onChange={() => setRemoteAreaChecked((prev) => !prev)}
+          />
         </S.OrderInfo>
         <PriceSection
           cartItems={cartItems}
@@ -62,8 +85,18 @@ const Confirm = () => {
           bottom: 0;
         `}
       />
-      <Modal onClose={() => {}} isOpen={true}>
-        {coupons && <CouponList coupons={coupons} />}
+      <Modal
+        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen}
+        size="large"
+      >
+        {coupons && (
+          <CouponList
+            coupons={coupons}
+            selectedIds={selectedIds}
+            onSelect={handleSelectCoupon}
+          />
+        )}
       </Modal>
     </>
   );

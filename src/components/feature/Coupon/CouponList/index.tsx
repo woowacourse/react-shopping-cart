@@ -3,18 +3,28 @@ import Coupon from "../Coupon";
 import { CouponResponse } from "../../../../type/coupon";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
+import { MAX_COUPON_COUNT } from "../../../../pages/Confirm/constant";
 
 interface Props {
   coupons: CouponResponse[];
+  selectedIds: number[];
+  onSelect: (id: number) => void;
 }
 
-const CouponList = ({ coupons }: Props) => {
+const CouponList = ({ coupons, selectedIds, onSelect }: Props) => {
   return (
     <S.Container>
       <S.Title>쿠폰을 선택해 주세요</S.Title>
-      <S.Notice>※ 쿠폰은 최대 2개까지 사용할 수 있습니다.</S.Notice>
+      <S.Notice>
+        ※ 쿠폰은 최대 {MAX_COUPON_COUNT}개까지 사용할 수 있습니다.
+      </S.Notice>
       {coupons.map((coupon) => (
-        <Coupon key={coupon.id} coupon={coupon} />
+        <Coupon
+          key={coupon.id}
+          coupon={coupon}
+          isChecked={selectedIds.includes(coupon.id)}
+          onSelect={onSelect}
+        />
       ))}
       <Button
         title="총 6,000원 할인 쿠폰 사용하기"
