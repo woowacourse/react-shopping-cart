@@ -20,7 +20,7 @@ vi.mock('react-router', async () => {
   };
 });
 
-const mockOrderList = [
+const mockOrderItems = [
   {
     id: 1,
     quantity: 2,
@@ -45,11 +45,11 @@ const mockOrderList = [
   },
 ];
 
-const mockPaymentAmount = 170_000;
+const mockOrderTotalPrice = 170_000;
 
 const mockState = {
-  orderList: mockOrderList,
-  paymentAmount: mockPaymentAmount,
+  orderItems: mockOrderItems,
+  orderTotalPrice: mockOrderTotalPrice,
 };
 
 describe('OrderSuccessPage', () => {
@@ -80,10 +80,13 @@ describe('OrderSuccessPage', () => {
       );
     });
 
-    const backButton = screen.getByRole('button', { name: '뒤로 가기' });
+    const backButton = screen.getByRole('img', { name: '뒤로 가기' });
     expect(backButton).toBeInTheDocument();
 
-    fireEvent.click(backButton);
+    const backButtonContainer = backButton.closest('button');
+    expect(backButtonContainer).toBeInTheDocument();
+
+    fireEvent.click(backButtonContainer!);
 
     expect(mockNavigate).toHaveBeenCalledWith(-1);
   });

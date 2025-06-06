@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import CartContent from './CartContent';
+import { CartProvider } from '@/features/cart/model/provider/CartProvider';
 
 let { mockCartItems } = vi.hoisted(() => {
   return {
@@ -45,11 +46,11 @@ let { mockCartItems } = vi.hoisted(() => {
   };
 });
 
-vi.mock('@/apis/cartItems/getCartItems', () => ({
+vi.mock('@entities/cart', () => ({
   getCartItems: vi.fn().mockImplementation(() => Promise.resolve([...mockCartItems])),
 }));
 
-vi.mock('@/apis/cartItems/deleteCartItem', () => ({
+vi.mock('@entities/cart', () => ({
   deleteCartItem: vi.fn().mockImplementation(({ id: cartItemId }) => {
     const cartItemIndex = mockCartItems.findIndex(({ id }) => id === Number(cartItemId));
 
@@ -58,7 +59,7 @@ vi.mock('@/apis/cartItems/deleteCartItem', () => ({
   }),
 }));
 
-vi.mock('@/apis/cartItems/updateCartItemQuantity', () => ({
+vi.mock('@entities/cart', () => ({
   updateCartItemQuantity: vi.fn().mockImplementation(({ id: cartItemId, quantity }) => {
     const cartItemIndex = mockCartItems.findIndex(({ id }) => id === Number(cartItemId));
 
@@ -124,7 +125,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -136,7 +139,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -148,7 +153,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -160,7 +167,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -174,7 +183,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -191,7 +202,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -209,7 +222,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -234,7 +249,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -251,7 +268,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -268,7 +287,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
@@ -299,7 +320,9 @@ describe('CartPage의 CartContent', () => {
     await act(async () => {
       render(
         <MemoryRouter initialEntries={['/']}>
-          <CartContent />
+          <CartProvider>
+            <CartContent />
+          </CartProvider>
         </MemoryRouter>,
       );
     });
