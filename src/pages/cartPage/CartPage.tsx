@@ -135,7 +135,7 @@ const CartPage = () => {
           color="black"
           disabled={isCheckedSet.size === 0}
           onClick={() =>
-            goOrderConfirmation(orderItems, orderPrice, deliveryFee, totalPrice)
+            goOrderConfirmation(orderItems, orderPrice, deliveryFee)
           }
         >
           주문 확인

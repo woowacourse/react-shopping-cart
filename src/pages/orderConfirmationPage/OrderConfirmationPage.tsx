@@ -17,33 +17,23 @@ import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles
 import Checkbox from "../../components/@common/checkbox/Checkbox";
 import CartPrice from "../../components/features/cartPrice/CartPrice";
 import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
-import { useRef, useState, useEffect } from "react";
 import * as S from "./OrderConfirmationPage.styles";
+import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
+import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
 
 const OrderConfirmationPage = () => {
-  const { orderItems, orderPrice, deliveryFee, totalPrice } =
-    useLocation().state;
+  const { orderItems, orderPrice, deliveryFee } = useLocation().state;
 
-  const cartPriceRef = useRef<HTMLDivElement>(null);
-  const [isCartPriceVisible, setIsCartPriceVisible] = useState(false);
+  const { ref, isVisible } = useVisibilityObserver({
+    threshold: 0.1,
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsCartPriceVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cartPriceRef.current) {
-      observer.observe(cartPriceRef.current);
-    }
-    return () => {
-      if (cartPriceRef.current) {
-        observer.unobserve(cartPriceRef.current);
-      }
-    };
-  }, [cartPriceRef]);
+  const {
+    isRemoteArea,
+    finalDeliveryFee,
+    finalOrderPrice,
+    toggleIsRemoteArea,
+  } = useRemoteAreaFee({ deliveryFee, orderPrice });
 
   return (
     <div css={PageWrapper}>
@@ -65,21 +55,21 @@ const OrderConfirmationPage = () => {
       <div css={TitleContainer}>
         <p css={Subtitle}>주문 금액</p>
         <div css={CheckboxContainer}>
-          <Checkbox checked={true} onChange={() => {}} />
+          <Checkbox checked={isRemoteArea} onChange={toggleIsRemoteArea} />
           <p css={Description}>제주도 및 도서 산간 지역</p>
         </div>
       </div>
 
-      <div css={S.CartPriceContainer} ref={cartPriceRef}>
+      <div css={S.CartPriceContainer} ref={ref}>
         <CartPrice
           orderPrice={orderPrice}
-          deliveryFee={deliveryFee}
-          totalPrice={totalPrice}
+          deliveryFee={finalDeliveryFee}
+          totalPrice={finalOrderPrice}
         />
       </div>
 
       <div css={buttonFixedContainer}>
-        {isCartPriceVisible && (
+        {isVisible && (
           <Button size="large" color="black" onClick={() => {}}>
             주문 확정
           </Button>

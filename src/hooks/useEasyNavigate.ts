@@ -22,11 +22,10 @@ const useEasyNavigate = () => {
   const goOrderConfirmation = (
     orderItems: CartItemType[],
     orderPrice: number,
-    deliveryFee: number,
-    totalPrice: number
+    deliveryFee: number
   ) => {
     navigate(ROUTE.ORDER_CONFIRMATION, {
-      state: { orderItems, orderPrice, deliveryFee, totalPrice },
+      state: { orderItems, orderPrice, deliveryFee },
     });
   };
 
