@@ -22,6 +22,7 @@ import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import CouponDetails from "../../components/Coupon/CouponDetails";
 import { CouponType } from "../../components/Coupon/types";
 import Coupon from "../../components/Coupon/Coupon";
+import CouponList from "../../components/CouponList/CouponList";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -99,13 +100,15 @@ function OrderSummary() {
             buttonLabel="총 6,000원 할인 쿠폰 사용하기"
             handleModalButtonClick={() => ""}
           >
-            {coupons.map((coupon) => {
-              return (
-                <Coupon key={coupon.id} coupon={coupon}>
-                  <CouponDetails coupon={coupon} />
-                </Coupon>
-              );
-            })}
+            <CouponList>
+              {coupons.map((coupon) => {
+                return (
+                  <Coupon key={coupon.id} coupon={coupon}>
+                    <CouponDetails coupon={coupon} />
+                  </Coupon>
+                );
+              })}
+            </CouponList>
           </Modal>,
           modalRoot
         )}
