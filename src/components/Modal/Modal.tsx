@@ -19,15 +19,6 @@ const ModalContext = createContext<ModalContext>({
   open: () => {},
 });
 
-/**
- * 모달 컴포넌트의 props
- *
- * @property position - 모달의 위치를 지정합니다. 'center'(기본값) 또는 'bottom'을 사용할 수 있습니다.
- * @property margin - 모달의 좌우 마진(px)입니다. 기본값은 20입니다.
- * @property zIndex - 모달의 z-index 값입니다. 기본값은 10입니다.
- * @property size - 모달의 크기 (small | medium | large)
- */
-
 interface WrapperProps {
   initialOpen?: boolean;
   isOpen?: boolean;

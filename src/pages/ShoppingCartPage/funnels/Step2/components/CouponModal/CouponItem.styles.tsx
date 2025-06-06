@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const CouponItemWrapper = styled.div<{ isCouponAvailable: boolean }>`
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 8px;
   padding: 16px;
   cursor: pointer;

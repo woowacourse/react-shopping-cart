@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { theme } from "@/styles";
 
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -10,10 +11,10 @@ export const ButtonWrapper = styled.div`
 export const controlButton = css`
   padding: 0;
   border-radius: 8px;
-  border: 1.5px solid #e5e5e5;
+  border: 1.5px solid ${theme.colors.gray};
   width: 20px;
   height: 20px;
-  background: #fff;
+  background: ${theme.colors.white};
   text-align: center;
   display: flex;
   align-items: center;
@@ -23,7 +24,7 @@ export const controlButton = css`
 export const controlButtonText = css`
   width: 100%;
   font-size: 24px;
-  color: #222;
+  color: ${theme.colors.black};
   text-align: center;
 `;
 

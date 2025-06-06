@@ -71,6 +71,6 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const ProductCardCartItemWrapper = styled.div`
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray};
   padding: 12px 0;
 `;

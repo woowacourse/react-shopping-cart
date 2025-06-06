@@ -3,6 +3,7 @@ import { useCartItem, useCartItemQuery } from "@/hooks";
 import { css } from "@emotion/react";
 import * as S from "./CartItem.styles";
 import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
+import { theme } from "@/styles";
 
 interface CartItemProps {
   id: number;
@@ -48,9 +49,9 @@ export default function CartItem({ id }: CartItemProps) {
         <Button
           onClick={handleDeleteClick}
           css={css`
-            background-color: #fff;
+            background-color: ${theme.colors.white};
             width: fit-content;
-            border: 1px solid #e5e5e5;
+            border: 1px solid ${theme.colors.gray};
             border-radius: 4px;
             padding: 4px 8px;
             color: black;

@@ -55,7 +55,7 @@ export const Title = styled.div`
 `;
 
 export const ModalBackdrop = styled.div<{ zIndex: number }>`
-  background-color: #000;
+  background-color: ${({ theme }) => theme.colors.black};
   opacity: 0.35;
 
   position: fixed;
