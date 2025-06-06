@@ -34,6 +34,14 @@ export default function useCartItem() {
       );
       refetchCartItems();
     } else {
+      if (cartItem.quantity >= product.stock) {
+        showToast({
+          variant: "error",
+          message: "최대 수량을 초과했습니다.",
+        });
+        return;
+      }
+
       mutatePatchCartItem(
         {
           cartItemId: cartItem.id,
