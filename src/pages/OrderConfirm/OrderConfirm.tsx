@@ -45,6 +45,15 @@ export function OrderConfirm() {
     selectedCartItemIds.map(String)
   );
 
+  const getDeliveryFee = () => {
+    if (10_0000 > totalPrice) {
+      return isChecked ? 6000 : 3000;
+    }
+    return 0;
+  };
+
+  const deliveryFee = getDeliveryFee();
+
   return (
     <PageLayout>
       <Header>
@@ -83,7 +92,7 @@ export function OrderConfirm() {
         <PaymentSummary
           price={totalPrice}
           CouponDiscountAmount={0}
-          deliveryFee={0}
+          deliveryFee={deliveryFee}
         />
       </Main>
       <Footer>
