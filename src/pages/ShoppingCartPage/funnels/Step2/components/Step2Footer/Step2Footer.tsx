@@ -1,6 +1,6 @@
 import { Button, Text } from "@/components";
 import { css } from "@emotion/react";
-import { ButtonWrapper } from "@/pages/Step1/components/Step1Footer/Step1Footer.styles";
+import { ButtonWrapper } from "@/pages/ShoppingCartPage/funnels/Step1/components/Step1Footer/Step1Footer.styles";
 import { useFunnelContext } from "@/components";
 
 export default function Step2Footer() {

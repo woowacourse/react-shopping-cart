@@ -1,6 +1,6 @@
 import { Spacing, Text } from "@/components";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
-import { useShoppingCartContext } from "@/pages/MainPage/context";
+import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import { CartItemService, CouponService } from "@/services";
 import * as S from "./OrderCompletedSection.styles";
 

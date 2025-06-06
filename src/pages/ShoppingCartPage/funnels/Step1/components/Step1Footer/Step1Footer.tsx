@@ -1,5 +1,5 @@
 import { Button, Text, useFunnelContext } from "@/components";
-import { useShoppingCartContext } from "../../../MainPage/context";
+import { useShoppingCartContext } from "../../../../contexts";
 import { css } from "@emotion/react";
 import * as S from "./Step1Footer.styles";
 

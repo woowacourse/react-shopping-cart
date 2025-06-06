@@ -1,8 +1,8 @@
 import { Button, Card, Checkbox, Info, Modal, Spacing, Text } from "@/components";
 import { FREE_DELIVERY_PRICE } from "@/constants";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
-import { useShoppingCartContext } from "@/pages/MainPage/context";
-import { ReceiptTextWrapper } from "@/pages/Step1/components/CartItemSection/CartItemSection.styles";
+import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
+import { ReceiptTextWrapper } from "@/pages/ShoppingCartPage/funnels/Step1/components/CartItemSection/CartItemSection.styles";
 import { CartItemService, CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useEffect, useMemo, useState } from "react";
@@ -48,12 +48,15 @@ export default function OrderConfirmSection() {
   return (
     <S.OrderConfirmSectionWrapper>
       <Text variant="title-1">주문 확인</Text>
+
       <Spacing size={28} />
+
       <Text variant="body-1">
         총 {totalType}종류의 상품 {totalQuantity}개를 주문합니다.
         <br />
         최종 결제 금액을 확인해 주세요.
       </Text>
+
       <Spacing size={28} />
 
       {selectedCartItems.map((item) => (
@@ -84,13 +87,18 @@ export default function OrderConfirmSection() {
       </Modal.Wrapper>
 
       <Spacing size={32} />
+
       <Text variant="title-3">배송 정보</Text>
+
       <Spacing size={16} />
+
       <S.CheckboxWrapper onClick={() => setIsFar(!isFar)}>
         <Checkbox checked={isFar} />
         <Text variant="body-1">제주도 및 도서 산간 지역</Text>
       </S.CheckboxWrapper>
+
       <Spacing size={32} />
+
       <Text
         variant="body-1"
         css={css`

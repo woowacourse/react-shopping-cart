@@ -2,7 +2,7 @@ import { Button, Card, Checkbox, PlusMinusButton } from "@/components";
 import { useCartItem, useCartItemQuery } from "@/hooks";
 import { css } from "@emotion/react";
 import * as S from "./CartItem.styles";
-import { useShoppingCartContext } from "@/pages/MainPage/context";
+import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 
 interface CartItemProps {
   id: number;

@@ -1,7 +1,7 @@
 import { Button, Modal, Spacing, Text } from "@/components";
 import { CloseIcon, Info } from "@/components/icons";
 import { useCartItemQuery, useCouponQuery } from "@/hooks";
-import { useShoppingCartContext } from "@/pages/MainPage/context";
+import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import { CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useMemo } from "react";

@@ -3,7 +3,7 @@ import { FREE_DELIVERY_PRICE } from "@/constants";
 import { useCartItemQuery } from "@/hooks";
 import { CartItemService } from "@/services";
 import { css } from "@emotion/react";
-import { useShoppingCartContext } from "../../../MainPage/context";
+import { useShoppingCartContext } from "../../../../contexts";
 import CartItem from "../CartItem/CartItem";
 import * as S from "./CartItemSection.styles";
 
@@ -31,6 +31,7 @@ export default function CartItemSection() {
   return (
     <S.CartItemSectionWrapper>
       <Text variant="title-1">장바구니</Text>
+
       {cartItems.content.length === 0 ? (
         <S.EmptyCartWrapper>
           <Text variant="body-1">장바구니에 담은 상품이 없습니다.</Text>

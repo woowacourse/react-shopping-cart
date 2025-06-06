@@ -1,8 +1,8 @@
 import { Funnel } from "@/components";
-import { Step1, Step2, Step3 } from "..";
-import { ShoppingCartProvider } from "./context";
+import { ShoppingCartProvider } from "./contexts";
+import { Step1, Step2, Step3 } from "./funnels";
 
-export default function MainPage() {
+export default function ShoppingCartPage() {
   return (
     <ShoppingCartProvider>
       <Funnel initialStep={1}>
