@@ -30,4 +30,5 @@ export const couponItemInfoContainer = css`
   flex-direction: column;
   justify-content: flex-start;
   gap: 0.8rem;
+  min-height: 3.2rem;
 `;

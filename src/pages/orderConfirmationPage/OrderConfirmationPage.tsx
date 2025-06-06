@@ -23,56 +23,28 @@ import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
 import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
 import Modal from "../../components/@common/modal/Modal";
 import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
-import useCoupon from "../../hooks/features/useCoupon";
-import type { CouponType } from "../../types/response";
-import { COUPON_LIMIT } from "../../constants/systemConstants";
+import useCouponModal from "../../hooks/features/useCouponModal";
 import { getValidCoupons } from "../../domains/coupon/validateCoupon";
+import useCheckedCoupons from "../../hooks/features/useCheckedCoupons";
 
 const OrderConfirmationPage = () => {
+  const { ref, isVisible } = useVisibilityObserver({
+    threshold: 0.1,
+  });
+
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
 
   const { isModalOpen, openCouponModal, closeModal, couponList, loadingState } =
-    useCoupon();
+    useCouponModal();
+
+  const { isCheckedCoupons, toggleCheckedCoupon } = useCheckedCoupons();
+
   const {
     isRemoteArea,
     finalDeliveryFee,
     finalOrderPrice,
     toggleIsRemoteArea,
   } = useRemoteAreaFee({ deliveryFee, orderPrice });
-
-  const { ref, isVisible } = useVisibilityObserver({
-    threshold: 0.1,
-  });
-
-  // TODO : useCoupon 포함해서 네이밍 고려, 리팩토링 필요
-  const [isCheckedCoupons, setIsCheckedCoupons] = useState<
-    Map<number, CouponType>
-  >(new Map());
-
-  const toggleCheckedCoupon = (couponInfo: CouponType) => {
-    if (isCheckedCoupons.has(couponInfo.id)) {
-      removeCheckedCoupon(couponInfo);
-      return;
-    }
-    addCheckedCoupon(couponInfo);
-  };
-
-  const addCheckedCoupon = (couponInfo: CouponType) => {
-    if (isCheckedCoupons.size >= COUPON_LIMIT) return;
-    setIsCheckedCoupons((prev: Map<number, CouponType>) => {
-      const newIsCheckedCoupons = new Map(prev);
-      newIsCheckedCoupons.set(couponInfo.id, couponInfo);
-      return newIsCheckedCoupons;
-    });
-  };
-
-  const removeCheckedCoupon = (couponInfo: CouponType) => {
-    setIsCheckedCoupons((prev: Map<number, CouponType>) => {
-      const newIsCheckedCoupons = new Map(prev);
-      newIsCheckedCoupons.delete(couponInfo.id);
-      return newIsCheckedCoupons;
-    });
-  };
 
   const validCouponList = getValidCoupons(couponList, orderPrice, orderItems);
 

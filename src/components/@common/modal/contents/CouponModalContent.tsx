@@ -29,10 +29,13 @@ const CouponModalContent = ({
         <CouponItem
           key={coupon.id}
           description={coupon.description}
-          dueDate={coupon.expirationDate}
-          minimumAmount={
-            "minimumAmount" in coupon ? coupon.minimumAmount : undefined
-          }
+          couponInfo={{
+            dueDate: coupon.expirationDate,
+            minimumAmount:
+              "minimumAmount" in coupon ? coupon.minimumAmount : undefined,
+            availableTime:
+              "availableTime" in coupon ? coupon.availableTime : undefined,
+          }}
           isValid={isValid(coupon)}
           isSelected={isSelected(coupon.id)}
           onSelectCoupon={() => toggleCheckedCoupon(coupon)}

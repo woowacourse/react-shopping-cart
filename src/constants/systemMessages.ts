@@ -13,12 +13,17 @@ export const ORDER_CONFIRMATION_MESSAGE = (
 export const CART_ITEM_TYPE_COUNT = (cartData: CartItemType[]) =>
   `현재 ${cartData.length}종류의 상품이 담겨있습니다.`;
 
-export const FORMATTED_DUE_DATE = (dueDate: string) => {
-  const parsedDueDate = new Date(dueDate);
-  return `만료일: ${parsedDueDate.getFullYear()}년 ${
-    parsedDueDate.getMonth() + 1
-  }월 ${parsedDueDate.getDate()}일`;
+export const FORMATTED_DUE_DATE = (
+  year: string,
+  month: string,
+  day: string
+) => {
+  return `만료일: ${year}년 ${month}월 ${day}일`;
 };
 
 export const FORMATTED_MINIMUM_AMOUNT = (minimumAmount: number) =>
-  `최소주문금액:  ${minimumAmount.toLocaleString()}원`;
+  `최소 주문 금액:  ${minimumAmount.toLocaleString()}원`;
+
+export const FORMATTED_AVAILABLE_TIME = (start: string, end: string) => {
+  return `사용 가능 시간 : ${start}부터 ${end}까지`;
+};

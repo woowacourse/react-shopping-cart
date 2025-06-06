@@ -5,7 +5,7 @@ import { getCouponList } from "../../services/couponService";
 import useApiHandler from "../@common/useApiHandler";
 import { getValidExpirationCoupons } from "../../domains/coupon/validateCoupon";
 
-const useCoupon = () => {
+const useCouponModal = () => {
   const { callApi, loadingState } = useApiHandler();
 
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -32,4 +32,4 @@ const useCoupon = () => {
   return { isModalOpen, openCouponModal, closeModal, couponList, loadingState };
 };
 
-export default useCoupon;
+export default useCouponModal;

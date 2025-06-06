@@ -64,13 +64,15 @@ export interface FreeShippingCoupon extends BaseCoupon {
   minimumAmount: number;
 }
 
+export interface AvailableTime {
+  start: string;
+  end: string;
+}
+
 export interface MiracleSaleCoupon extends BaseCoupon {
   discountType: "percentage";
   discount: number;
-  availableTime: {
-    start: string;
-    end: string;
-  };
+  availableTime: AvailableTime;
 }
 
 export type CouponType =

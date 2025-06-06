@@ -7,12 +7,20 @@ import {
 import {
   FORMATTED_DUE_DATE,
   FORMATTED_MINIMUM_AMOUNT,
+  FORMATTED_AVAILABLE_TIME,
 } from "../../../constants/systemMessages";
+import type { AvailableTime } from "../../../types/response";
+import { parseHour } from "../../../utils/parseTime";
+
+interface CouponItemInfo {
+  dueDate?: string;
+  minimumAmount?: number;
+  availableTime?: AvailableTime;
+}
 
 interface CouponItemProps {
   description: string;
-  dueDate: string;
-  minimumAmount?: number;
+  couponInfo: CouponItemInfo;
   isSelected: boolean;
   isValid: boolean;
   onSelectCoupon: () => void;
@@ -20,16 +28,29 @@ interface CouponItemProps {
 
 const CouponItem = ({
   description,
-  dueDate,
-  minimumAmount,
+  couponInfo,
   isSelected,
   isValid,
   onSelectCoupon,
 }: CouponItemProps) => {
-  const formattedDate = FORMATTED_DUE_DATE(dueDate);
-  const formattedMinimumAmount = minimumAmount
-    ? FORMATTED_MINIMUM_AMOUNT(minimumAmount)
-    : "";
+  const parsedDate = couponInfo?.dueDate ? new Date(couponInfo.dueDate) : null;
+  const formattedDate =
+    parsedDate &&
+    FORMATTED_DUE_DATE(
+      parsedDate.getFullYear().toString(),
+      (parsedDate.getMonth() + 1).toString(),
+      parsedDate.getDate().toString()
+    );
+  const formattedMinimumAmount =
+    couponInfo?.minimumAmount &&
+    FORMATTED_MINIMUM_AMOUNT(couponInfo.minimumAmount);
+
+  const formattedAvailableTime =
+    couponInfo?.availableTime &&
+    FORMATTED_AVAILABLE_TIME(
+      parseHour(couponInfo.availableTime.start),
+      parseHour(couponInfo.availableTime.end)
+    );
 
   return (
     <div css={isValid ? S.couponItemContainer : S.couponItemContainerInvalid}>
@@ -43,8 +64,13 @@ const CouponItem = ({
         <div css={Subtitle}>{description}</div>
       </div>
       <div css={S.couponItemInfoContainer}>
-        <div css={Description}>{formattedDate}</div>
-        <div css={Description}>{formattedMinimumAmount}</div>
+        {couponInfo?.dueDate && <div css={Description}>{formattedDate}</div>}
+        {couponInfo?.minimumAmount && (
+          <div css={Description}>{formattedMinimumAmount}</div>
+        )}
+        {couponInfo?.availableTime && (
+          <div css={Description}>{formattedAvailableTime}</div>
+        )}
       </div>
     </div>
   );
