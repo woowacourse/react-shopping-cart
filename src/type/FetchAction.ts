@@ -4,3 +4,8 @@ export enum FetchActionType {
   FetchError = "fetchError",
   EndFetch = "endFetch",
 }
+
+export enum InitialLoadingActionType {
+  StartInitialLoading = "startInitialLoading",
+  EndInitialLoading = "endInitialLoading",
+}
