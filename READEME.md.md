@@ -14,6 +14,8 @@
 - [x] 초기진입시, 체크 박스 풀 체크
 - [ ] CartItem 훅 내부 로직 context API로 관리 -> CartContext
 - [ ] isChecked 값 {id:checked} 매치해서 배열로 관리?
+- [ ] 각각의 페이지에서 context 적용
+- [ ] useQuery와 useMutation 적용
 
 ### 설계
 
@@ -35,13 +37,14 @@
 - [x] order-confirm -> payment-confirm 페이지로 변경
 
 - [ ] ui 퍼블리싱
-  - [ ] 주문확인 페이지 (orderConfirmPage)
-    - [ ] 쿠폰 적용 버튼
-    - [ ] 배송 정보 여부 체크
-    - [ ] OrderPrice 컴포넌트
+  - [x] 주문확인 페이지 (orderConfirmPage)
+    - [x] 쿠폰 적용 버튼
+    - [x] 배송 정보 여부 체크
+    - [x] OrderPrice 컴포넌트
   - [ ] 쿠폰 모달 (호이초이 모달 사용)
     - [ ] 체크 박스 및 쿠폰 정보
     - [ ] 쿠폰 적용 버튼
+    - [x] 쿠폰 컴포넌트
   - [ ] 결제 확인 페이지
     - [ ] 장바구니로 돌아가기 버튼
 - [ ] 훅 분리 (?)
