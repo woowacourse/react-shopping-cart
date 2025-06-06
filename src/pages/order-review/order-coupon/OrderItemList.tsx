@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 import Image from '@/components/common/Image';
 
-function CartCheckList() {
+function OrderItemList() {
   const { cartListData, selectionMap } = useOrderListContext();
   const isCartEmpty = !cartListData || cartListData.length === 0;
   const orderList = (cartListData ?? []).filter(
@@ -54,7 +54,7 @@ function CartCheckList() {
   );
 }
 
-export default CartCheckList;
+export default OrderItemList;
 
 const Container = styled.div`
   width: 100%;
@@ -71,12 +71,9 @@ const LoadingCartItem = styled.div`
 
 const ItemList = styled.div`
   height: 380px;
-  /* max-height: 380px; */
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-top: 16px;
-  margin-bottom: 32px;
   overflow-y: auto;
 `;
 
