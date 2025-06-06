@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
-import { PAGE_URL } from "../constants/PageUrl";
+import { PAGE_URL } from "../../constants/PageUrl";
 import * as Styled from "./OrderConfirmation.style";
-import OrderConfirmationHeader from "../components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
-import type { OrderConfirmationLocationState } from "../type/OrderConfirmation";
+import OrderConfirmationHeader from "../../components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
+import type { OrderConfirmationLocationState } from "../../type/OrderConfirmation";
 
 function OrderConfirmation() {
   const location = useLocation();

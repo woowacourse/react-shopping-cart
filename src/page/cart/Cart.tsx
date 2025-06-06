@@ -1,5 +1,5 @@
-import CartContent from "../components/Cart/CartContent/CartContent";
-import CartHeader from "../components/Cart/CartHeader/CartHeader";
+import CartContent from "../../components/Cart/CartContent/CartContent";
+import CartHeader from "../../components/Cart/CartHeader/CartHeader";
 import * as Styled from "./Cart.style";
 
 function Cart() {

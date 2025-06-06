@@ -1,8 +1,8 @@
 import "./App.css";
 import { PAGE_URL } from "./constants/PageUrl";
-import Cart from "./page/Cart";
+import Cart from "./page/cart/Cart";
 import { Route, Routes } from "react-router";
-import OrderConfirmation from "./page/OrderConfirmation";
+import OrderConfirmation from "./page/orderConfirmation/OrderConfirmation";
 
 function App() {
   return (
