@@ -18,7 +18,7 @@ export function PaymentSummary({ price }: PaymentSummaryProps) {
   return (
     <div css={paymentSummaryLayout}>
       <div css={deliveryInfoBox}>
-        <img src="./react-shopping-cart/info.png" css={imgLayout} />
+        <img src="./info.png" css={imgLayout} />
         <p css={deliveryInfo}>
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </p>
