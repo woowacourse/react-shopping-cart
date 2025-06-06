@@ -9,6 +9,7 @@ import { useCartContext } from '@features/cart/model/provider/CartProvider';
 import { useOrderSelection } from '@features/cart/model/useOrderSelection';
 import { useOrderCalculation } from '@features/cart/model/useOrderCalculation';
 import { usePageNavigation } from '@shared/hooks/usePageNavigation';
+import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
 
 export default function CartContent() {
   const { cartItems, isLoading, errorMessage } = useCartContext();
@@ -55,13 +56,11 @@ export default function CartContent() {
         deliveryFee={deliveryFee}
         orderTotalPrice={orderTotalPrice}
       />
-      <S.OrderConfirmButton
+      <BottomConfirmButton
+        buttonText="주문 확인"
         disabled={!orderIdList.length}
-        type="button"
         onClick={handleOrderConfirmButtonClick}
-      >
-        주문 확인
-      </S.OrderConfirmButton>
+      />
     </S.Container>
   );
 }
