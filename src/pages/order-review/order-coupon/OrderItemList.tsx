@@ -70,7 +70,8 @@ const LoadingCartItem = styled.div`
 `;
 
 const ItemList = styled.div`
-  height: 380px;
+  height: 260px;
+  max-height: 380px;
   display: flex;
   flex-direction: column;
   gap: 16px;
