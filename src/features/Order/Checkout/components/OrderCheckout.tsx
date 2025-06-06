@@ -62,24 +62,27 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
             <CartConfirmDetail key={item.id} {...item} />
           ))}
         </CartListContainer>
-        <Button
-          width="92%"
-          variant="outlined"
-          fontColor="black"
-          shape="square"
-          onClick={handleOpenModal}
-        >
-          쿠폰 적용
-        </Button>
+
         <Flex
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
           gap="5px"
           width="100%"
-          padding="0 20px"
+          padding="10px 20px 0 20px"
           margin="10px 0 0 0"
         >
+          <Button
+            width="100%"
+            size="lg"
+            variant="outlined"
+            color="#888888"
+            fontColor="black"
+            shape="rounded"
+            onClick={handleOpenModal}
+          >
+            쿠폰 적용
+          </Button>
           <Text type="Title">배송정보</Text>
           <Flex
             direction="row"
