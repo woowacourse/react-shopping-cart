@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import CartPage from '../src/pages/CartPage';
@@ -8,6 +8,7 @@ import { CartSelectionProvider } from '../src/context/CartSelectContext';
 import { CartProduct } from '../src/types/cart';
 
 const mockNavigate = vi.fn();
+
 vi.mock('react-router', async () => {
   const actual = await vi.importActual('react-router');
   return {
@@ -86,7 +87,9 @@ describe('CartPage', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: mockCartItems });
+    (cartApi.getCartItems as Mock).mockResolvedValue({
+      content: mockCartItems,
+    });
   });
 
   it('장바구니 아이템이 있을 때 올바르게 렌더링되어야 한다', async () => {
@@ -99,7 +102,9 @@ describe('CartPage', () => {
   });
 
   it('장바구니가 비어있을 때 빈 장바구니 메시지가 표시되어야 한다', async () => {
-    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: [] });
+    (cartApi.getCartItems as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+      content: [],
+    });
 
     renderComponent();
 
@@ -130,7 +135,9 @@ describe('CartPage', () => {
         },
       },
     ];
-    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: cheapItems });
+    (cartApi.getCartItems as Mock).mockResolvedValue({
+      content: cheapItems,
+    });
 
     renderComponent();
 
@@ -154,7 +161,9 @@ describe('CartPage', () => {
         },
       },
     ];
-    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: exactItems });
+    (cartApi.getCartItems as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+      content: exactItems,
+    });
 
     renderComponent();
 
@@ -206,7 +215,9 @@ describe('CartPage', () => {
   });
 
   it('선택된 아이템이 없을 때 주문확인 버튼이 비활성화되어야 한다', async () => {
-    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: [] });
+    (cartApi.getCartItems as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+      content: [],
+    });
 
     renderComponent();
 

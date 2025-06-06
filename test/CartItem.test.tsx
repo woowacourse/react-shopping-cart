@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import CartItem from '../src/components/Cart/CartItem';
 import { CartProduct } from '../src/types/cart';
@@ -37,8 +37,6 @@ describe('CartItem', () => {
     },
   };
 
-  const mockSetCheckedItems = vi.fn();
-
   const renderComponent = (cartItem = mockCartItem) => {
     return render(
       <DataProvider>
@@ -49,7 +47,9 @@ describe('CartItem', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (cartApi.getCartItems as jest.Mock).mockResolvedValue({ content: [] });
+    (cartApi.getCartItems as Mock).mockResolvedValue({
+      content: [],
+    });
   });
 
   it('상품 정보가 올바르게 표시되어야 한다', () => {
@@ -57,7 +57,7 @@ describe('CartItem', () => {
 
     expect(screen.getByText('테스트 상품')).toBeInTheDocument();
     expect(screen.getByText('10,000원')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByTestId('item-quantity')).toHaveTextContent('2');
   });
 
   it('수량 증가 버튼 클릭 시 API가 호출되어야 한다', async () => {
@@ -86,7 +86,7 @@ describe('CartItem', () => {
     const oneQuantityItem = { ...mockCartItem, quantity: 1 };
     renderComponent(oneQuantityItem);
 
-    const decreaseButton = screen.getByText('−');
+    const decreaseButton = screen.getByTestId('decrease-quantity-button');
     fireEvent.click(decreaseButton);
 
     await waitFor(() => {
