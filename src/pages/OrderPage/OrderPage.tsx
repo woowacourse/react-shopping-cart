@@ -54,6 +54,7 @@ const OrderPage = () => {
               />
             ))}
           </S.OrderItemsContainer>
+          <S.CouponButton onClick={() => {}}>쿠폰 적용</S.CouponButton>
           <S.InfoContainer>
             <img src={InfoIcon} alt="info" />
             <Description>

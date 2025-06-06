@@ -31,9 +31,35 @@ export const DescriptionContainer = styled.div`
 export const OrderItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 32px 12px 32px 0;
+  margin-top: 32px;
+  margin-right: 12px;
   gap: 20px;
   overflow-y: auto;
+  flex-grow: 1;
+  min-height: 0;
+`;
+
+export const CouponButton = styled.button`
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #33333340;
+  border-radius: 5px;
+  margin: 32px 0;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  font-weight: 700;
+  font-size: 15px;
+  color: #333333bf;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &:active {
+    transform: scale(0.995);
+    background-color: #ebebeb;
+  }
 `;
 
 export const InfoContainer = styled.div`
