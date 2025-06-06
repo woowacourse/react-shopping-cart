@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Title,
   TitleContainer,
@@ -22,20 +23,14 @@ import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
 import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
 import Modal from "../../components/@common/modal/Modal";
 import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
-import useModal from "../../hooks/@common/useModal";
-import { useState } from "react";
-import { getCouponList } from "../../services/couponService";
+import useCoupon from "../../hooks/features/useCoupon";
 import type { CouponType } from "../../types/response";
-import useData from "../../hooks/@common/useData";
 
 const OrderConfirmationPage = () => {
-  const { callApi, loadingState } = useData();
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
 
-  const { ref, isVisible } = useVisibilityObserver({
-    threshold: 0.1,
-  });
-
+  const { isModalOpen, openCouponModal, closeModal, couponList, loadingState } =
+    useCoupon();
   const {
     isRemoteArea,
     finalDeliveryFee,
@@ -43,33 +38,38 @@ const OrderConfirmationPage = () => {
     toggleIsRemoteArea,
   } = useRemoteAreaFee({ deliveryFee, orderPrice });
 
-  const { isModalOpen, openModal, closeModal } = useModal();
+  const { ref, isVisible } = useVisibilityObserver({
+    threshold: 0.1,
+  });
 
-  const [couponList, setCouponList] = useState<CouponType[]>([]);
-  const openCouponModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    const fetchData = async () => {
-      const couponList = await callApi(
-        getCouponList,
-        "쿠폰 목록을 불러왔습니다.",
-        "initialLoading"
-      );
-      if (!couponList) {
-        return;
-      }
-      setCouponList(couponList);
-    };
+  const [isCheckedCoupons, setIsCheckedCoupons] = useState<
+    Map<number, CouponType>
+  >(new Map());
 
-    fetchData();
-    openModal();
+  // TODO : 처음 렌더링시 validate 해서 유효기간을 넘겼다면 없앰
+  // TODO : 처음 렌더링시 최소주문 금액을 넘기지 못했다면 dimmed 처리함
+  // TODO : 2개 이상 주문한 상품이 없다면 bogo dimmed 처리
+
+  const toggleCheckedCoupon = (couponInfo: CouponType) => {
+    // TODO : 체킹된 애들이 2개 이상이라면 return (더 이상 넣으면 안됨)
+    setIsCheckedCoupons((prev: Map<number, CouponType>) => {
+      const newIsCheckedCoupons = new Map(prev);
+      newIsCheckedCoupons.set(couponInfo.id, couponInfo);
+      return newIsCheckedCoupons;
+    });
   };
 
   const getModalContent = () => {
-    if (loadingState === "initialLoading") {
+    return loadingState === "initialLoading" ? (
       //TODO : 로딩 스피너로 변경 필요
-      return <div>로딩 중 </div>;
-    }
-    return <CouponModalContent couponList={couponList} />;
+      <div>로딩 중 </div>
+    ) : (
+      <CouponModalContent
+        couponList={couponList}
+        isCheckedCoupons={isCheckedCoupons}
+        toggleCheckedCoupon={toggleCheckedCoupon}
+      />
+    );
   };
 
   return (
