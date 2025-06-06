@@ -2,6 +2,7 @@ export type CodeType = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
 
 export type CouponResponse = {
   id: number;
+  isChecked: boolean;
   code: CodeType;
   description: string;
   expirationDate: string;
