@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const CouponItem = styled.div`
+export const CouponCard = styled.div`
   width: 100%;
   height: 83px;
   padding-top: 12px;
@@ -10,7 +10,7 @@ export const CouponItem = styled.div`
   gap: 14px;
 `;
 
-export const CouponItemHeader = styled.div`
+export const CouponCardHeader = styled.div`
   display: flex;
   gap: 8px;
   line-height: 27px;

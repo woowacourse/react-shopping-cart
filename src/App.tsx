@@ -8,15 +8,18 @@ import { ToastProvider } from "./features/toast/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
 import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
+import { CouponProvider } from "./domains/coupon/contexts/CouponContext.tsx";
 
 const Layout = () => {
   return (
     <MobileLayout>
       <ToastProvider>
         <CartProvider>
-          <ModalProvider>
-            <Outlet />
-          </ModalProvider>
+          <CouponProvider>
+            <ModalProvider>
+              <Outlet />
+            </ModalProvider>
+          </CouponProvider>
         </CartProvider>
       </ToastProvider>
     </MobileLayout>

@@ -5,7 +5,7 @@ import coupons from "./data/coupons.json";
 
 const END_POINT = {
   CART_ITEMS: "/cart-items",
-  COUPONS: "coupons",
+  COUPONS: "/coupons",
 };
 
 interface PatchCartItemsRequestBody {

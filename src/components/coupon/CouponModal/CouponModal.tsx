@@ -1,7 +1,8 @@
-import coupons from "../../../__mocks__/data/coupons.json";
+import CouponInitializer from "../../../domains/coupon/contexts/CouponInitializer";
+import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
 import useModal from "../../../features/modal/useModal";
 import Description from "../../@common/Description/Description";
-import CouponItem from "../CouponItem/CouponItem";
+import CouponCard from "../CouponCard/CouponCard";
 import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
@@ -10,9 +11,11 @@ const price = 6000;
 
 const CouponModal = () => {
   const { closeModal } = useModal();
+  const { coupons } = useCoupon();
 
   return (
     <S.CouponModal>
+      <CouponInitializer />
       <S.HeaderContainer>
         <S.Title>쿠폰을 선택해 주세요</S.Title>
         <S.CloseButton src={Close} alt="close-modal" onClick={closeModal} />
@@ -22,8 +25,8 @@ const CouponModal = () => {
         <Description>쿠폰은 최대 2개까지 사용할 수 있습니다.</Description>
       </S.InfoContainer>
       <S.CouponItemsContainer>
-        {coupons.map((item) => (
-          <CouponItem key={item.id} item={item} />
+        {coupons.map((coupon) => (
+          <CouponCard key={coupon.id} coupon={coupon} />
         ))}
       </S.CouponItemsContainer>
       <S.ApplyCouponButton onClick={() => closeModal()}>
