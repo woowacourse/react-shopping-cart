@@ -1,29 +1,51 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CartItemType } from '@/apis/cartItems/cartItem.type';
+import { CartItemType } from '@entities/cart/type/cartItem.type';
+import { ROUTES } from '@shared/config/routes';
 
 interface OrderSuccessState {
-  orderList: CartItemType[];
-  paymentAmount: number;
+  orderItems: CartItemType[];
 }
 
-type RouteState = OrderSuccessState | undefined;
+interface PaymentSuccessState {
+  orderItems: CartItemType[];
+  orderTotalPrice: number;
+}
 
 export const usePageNavigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navigateTo = <T extends RouteState>(route: string, state?: T) => {
-    navigate(route, state ? { state } : undefined);
+  const navigateToCart = () => {
+    navigate(ROUTES.CART);
   };
 
-  const validateOrderSuccessState = (): OrderSuccessState | null => {
+  const navigateToOrder = (state: OrderSuccessState) => {
+    navigate(ROUTES.ORDER, { state });
+  };
+
+  const navigateToPayment = (state: PaymentSuccessState) => {
+    navigate(ROUTES.PAYMENT, { state });
+  };
+
+  const getOrderSuccessState = (): OrderSuccessState | null => {
     if (!location.state) return null;
 
     const state = location.state as OrderSuccessState;
+    if (!state.orderItems || !Array.isArray(state.orderItems)) {
+      return null;
+    }
+
+    return state;
+  };
+
+  const getPaymentSuccessState = (): PaymentSuccessState | null => {
+    if (!location.state) return null;
+
+    const state = location.state as PaymentSuccessState;
     if (
-      !state.orderList ||
-      !Array.isArray(state.orderList) ||
-      typeof state.paymentAmount !== 'number'
+      !state.orderItems ||
+      !Array.isArray(state.orderItems) ||
+      typeof state.orderTotalPrice !== 'number'
     ) {
       return null;
     }
@@ -32,7 +54,10 @@ export const usePageNavigation = () => {
   };
 
   return {
-    navigateTo,
-    validateOrderSuccessState,
+    navigateToCart,
+    getOrderSuccessState,
+    navigateToOrder,
+    navigateToPayment,
+    getPaymentSuccessState,
   };
 };
