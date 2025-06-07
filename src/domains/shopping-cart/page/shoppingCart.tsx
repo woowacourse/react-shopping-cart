@@ -18,6 +18,7 @@ import {
   CartProductContainerLayout,
   SelectAllLayout,
 } from "./shoppingCart.style";
+import { getDeliveryFee } from "../../orderConfirm/utils/getDeliveryFee";
 
 export function ShoppingCart() {
   const isFirstMount = useRef(true);
@@ -33,14 +34,6 @@ export function ShoppingCart() {
   } = useSelectedCartContext();
 
   const totalPrice = getTotalPrice({ cartItems: cartItems, selectedCartIds });
-
-  // const calculateCartItemQuantity = () => {
-  //   return cartItems.reduce((totalQuantity, item) => {
-  //     if (selectedCartIds.includes(item.id.toString()))
-  //       return totalQuantity + item.quantity;
-  //     return totalQuantity;
-  //   }, 0);
-  // };
 
   const handleConfirm = () => {
     navigate("/order-confirm");
@@ -96,7 +89,10 @@ export function ShoppingCart() {
                 }
               />
             </div>
-            <PaymentSummary price={totalPrice} />
+            <PaymentSummary
+              price={totalPrice}
+              deliveryFee={getDeliveryFee({ totalPrice })}
+            />
           </>
         )}
       </Main>

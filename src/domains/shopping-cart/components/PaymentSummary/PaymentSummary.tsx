@@ -6,17 +6,14 @@ import { paymentSummaryLayout, summaryRowBox } from "./PaymentSummary.style";
 interface PaymentSummaryProps {
   price: number;
   couponSale?: number;
-  isExtraDeliveryArea?: boolean;
+  deliveryFee: number;
 }
 
 export function PaymentSummary({
   price,
   couponSale,
-  isExtraDeliveryArea,
+  deliveryFee,
 }: PaymentSummaryProps) {
-  const deliveryFee = 10_0000 <= price ? 0 : 3000;
-  const deliveryFeeWithExtraArea = isExtraDeliveryArea ? 3000 : 0;
-
   return (
     <div css={paymentSummaryLayout}>
       <InfoText showImg>
@@ -26,16 +23,16 @@ export function PaymentSummary({
       <Line />
       <div css={summaryRowBox}>
         <SummaryRow text="주문 금액" price={price} dataTestId="orderPrice" />
-        {couponSale && (
+        {couponSale !== undefined && (
           <SummaryRow
             text="쿠폰 할인 금액"
-            price={couponSale}
+            price={-couponSale}
             dataTestId="couponSale"
           />
         )}
         <SummaryRow
           text="배송비"
-          price={deliveryFee + deliveryFeeWithExtraArea}
+          price={deliveryFee}
           dataTestId="deliveryFee"
         />
         <Line />
