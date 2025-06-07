@@ -25,7 +25,6 @@ const HeaderContainer = styled.header`
   align-items: center;
   padding: 16px 24px;
   background-color: black;
-  z-index: 999;
 `;
 
 const Logo = styled.div`
