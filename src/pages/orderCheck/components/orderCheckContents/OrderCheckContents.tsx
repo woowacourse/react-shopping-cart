@@ -9,7 +9,7 @@ import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
 import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
 import { useJaeO } from '@/shared/data/useJaeO';
 import { Modal } from '@jae-o/modal-component-module';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
 import Coupon from '@/components/features/coupon/models/coupon';
@@ -27,6 +27,18 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   });
   const [couponSelectedIds, setCouponSelectedIds] = useState<number[]>([]);
 
+  const couponModels = useMemo(
+    () => (coupons ? coupons.map((coupon) => new Coupon(coupon)) : []),
+    [coupons]
+  );
+  const orderPrice = calculateOrderPrice(orderItems);
+  const discountAmount = couponModels
+    .filter((item) => couponSelectedIds.includes(item.data.id))
+    .reduce(
+      (acc, item) => acc + item.calculateDiscount(orderItems, isRemoteArea),
+      0
+    );
+
   const toggleSelect = (couponId: number) => {
     setCouponSelectedIds((prev) => {
       if (prev.includes(couponId)) {
@@ -39,8 +51,6 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
       return prev;
     });
   };
-
-  const orderPrice = calculateOrderPrice(orderItems);
 
   const toggleRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
@@ -59,9 +69,20 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     });
   };
 
-  if (!coupons) return <Loading />;
+  useEffect(() => {
+    const couponsSortedByDiscountAmount = [...couponModels]
+      .sort(
+        (a, b) =>
+          b.calculateDiscount(orderItems, isRemoteArea) -
+          a.calculateDiscount(orderItems, isRemoteArea)
+      )
+      .slice(0, 2);
+    setCouponSelectedIds(
+      couponsSortedByDiscountAmount.map((coupon) => coupon.data.id)
+    );
+  }, [couponModels, isRemoteArea, orderItems]);
 
-  const couponModels = coupons.map((coupon) => new Coupon(coupon));
+  if (!coupons) return <Loading />;
 
   return (
     <Modal>
@@ -88,7 +109,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
             </S.ShippingOptionSelectText>
           </S.ShippingOptionSelectRow>
         </S.ShippingOptionBox>
-        <OrderPriceSummary value={orderPrice} />
+        <OrderPriceSummary value={orderPrice} discountAmount={discountAmount} />
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
           coupons={couponModels}
