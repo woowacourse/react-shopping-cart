@@ -6,7 +6,7 @@ import { getIsCouponDisabled } from "../utils/getCouponDisabled";
 import { getBestCouponCombination } from "../utils/getBestCouponCombination";
 import { MAX_SELECTED_COUPON_COUNT } from "@/domains/constants/coupon";
 import { getAvailableCoupons } from "../utils/getAvailableCoupons";
-import { getTotalCouponDiscountAmount } from "../utils/getTotalDiscountAmount";
+import { getTotalCouponDiscountAmount } from "../utils/getTotalCouponDiscountAmount";
 
 type UseCouponPrams = {
   orderList: CartItemType[];
