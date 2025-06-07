@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CartProduct } from '../types/cart';
-
-interface CartItemsResponse {
-  content: CartProduct[];
-}
+import { CartProduct, CartItemsResponse } from '../types/cart';
 
 export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);

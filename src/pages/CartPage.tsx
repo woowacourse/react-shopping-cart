@@ -6,12 +6,12 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { getCartItems } from '../apis/cart';
 import { useData } from '../context/DataContext';
-import { CartProduct } from '../types/cart';
+import { CartProduct, CartItemsResponse } from '../types/cart';
 import { useCartSelection } from '../hooks/useCartSelection';
 import { SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 
 function CartPage() {
-  const { data: cartItems } = useData({
+  const { data: cartItems } = useData<CartItemsResponse>({
     fetcher: getCartItems,
     name: 'cartItems',
   });
