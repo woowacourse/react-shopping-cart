@@ -12,12 +12,12 @@ export const shoppingCartRoute = createBrowserRouter(
       errorElement: <NotFoundPage />,
     },
     {
-      path: "/payment-complete",
-      element: <PaymentComplete />,
-    },
-    {
       path: "/order-confirm",
       element: <OrderConfirm />,
+    },
+    {
+      path: "/payment-complete",
+      element: <PaymentComplete />,
     },
   ],
   {
