@@ -1,4 +1,5 @@
 import { css } from "@emotion/css";
+import { useState } from "react";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
 import PriceRow from "../components/PriceRow/PriceRow";
 import Text from "../components/@common/Text/Text";
@@ -11,19 +12,25 @@ import LabeledCheckbox from "../components/@common/LabeledCheckbox/LabeledCheckb
 import SelectedItemCard from "../components/SelectedItemCard/SelectedItemCard";
 import { useSelectedItems } from "../hooks/useSelectedItems";
 import { useCartSummary } from "../hooks/useCartSummary";
-import InvalidAccessPage from "./InvalidAccesspage";
+import InvalidAccessPage from "./InvalidAccessPage";
+import CouponModal from "../components/CouponModal/CouponModal";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const { selectedItems, totalQuantity, selectedItemCount } =
     useSelectedItems();
   const { orderPrice, shippingFee, totalPrice } = useCartSummary();
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const isInvalidAccess = selectedItemCount === 0;
 
   if (isInvalidAccess) {
     return <InvalidAccessPage />;
   }
+
+  const handleCouponModalClose = () => {
+    setIsCouponModalOpen(false);
+  };
 
   return (
     <>
@@ -43,7 +50,11 @@ const OrderConfirmPage = () => {
           />
         ))}
 
-        <FullWidthButton text="쿠폰 적용" onClick={() => {}} />
+        <FullWidthButton
+          text="쿠폰 적용"
+          onClick={() => setIsCouponModalOpen(true)}
+        />
+
         <div className={ShippingInfo}>
           <Text text="배송 정보" type="medium" />
           <LabeledCheckbox
@@ -70,6 +81,13 @@ const OrderConfirmPage = () => {
         text="결제하기"
         onClick={() => navigate("/payment-confirm")}
       />
+
+      {isCouponModalOpen && (
+        <CouponModal
+          isOpen={isCouponModalOpen}
+          onClose={handleCouponModalClose}
+        />
+      )}
     </>
   );
 };
