@@ -1,11 +1,8 @@
 import styled from "@emotion/styled";
 
 export const CheckBoxWrapper = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
-  gap: 4.5px;
-  margin: 10px 0px;
 `;
 
 export const Input = styled.input<{ checked: boolean }>`

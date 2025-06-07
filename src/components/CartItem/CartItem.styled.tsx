@@ -70,6 +70,7 @@ export const CartItemHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const Line = styled.hr`

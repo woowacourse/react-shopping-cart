@@ -21,9 +21,8 @@ export const OrderResultWrapper = styled.div`
 
 export const CartItemWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 400px);
+  height: calc(100vh - 300px);
   padding: 0 24px;
-  margin-bottom: 100px;
   overflow-y: auto;
   position: relative;
 `;
