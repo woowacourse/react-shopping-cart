@@ -12,19 +12,29 @@ const titleCss = css({
   fontWeight: '700'
 });
 
-const descriptionCss = css({
-  fontSize: '12px',
+const fontSize12 = css({
+  fontSize: '12px'
+});
+
+const descriptionCss = css(fontSize12, {
   marginBottom: '16px'
 });
 
-const allSelectCss = css({
+const allSelectCss = css(fontSize12, {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   gap: '8px',
   width: '100%',
-  fontSize: '12px',
   marginBottom: '16px'
 });
 
-export { layoutCss, titleCss, descriptionCss, allSelectCss };
+const infoCss = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  width: '100%',
+  marginBottom: '16px'
+});
+
+export { layoutCss, titleCss, descriptionCss, allSelectCss, infoCss, fontSize12 };
