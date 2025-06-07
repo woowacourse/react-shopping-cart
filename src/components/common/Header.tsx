@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import Flex from "./Flex";
 
 interface HeaderProps {
-  left: ReactNode;
+  left?: ReactNode;
   right?: ReactNode;
 }
 function Header({ left, right }: HeaderProps) {
