@@ -1,3 +1,5 @@
+import { CartItemProps } from '../types/cartItem';
+
 export function isExpired(expirationDate: string): boolean {
   const today = new Date();
   const [y, m, d] = expirationDate.split('-').map(Number);
@@ -20,4 +22,8 @@ export function isMinimumAmount(
   subTotal: number
 ): boolean {
   return subTotal >= minimumAmount;
+}
+
+export function isQuantity(cartItems: CartItemProps[]): boolean {
+  return cartItems.some((item) => item.quantity >= 2);
 }
