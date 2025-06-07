@@ -18,6 +18,7 @@ interface UseCartAPIParams {
   setCartItemsCheckData: React.Dispatch<
     React.SetStateAction<CartItemCheckType[]>
   >;
+  setLocalStorageCheckedItems: (checkedItemIds: number[]) => void;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
   isCheckDataInitialized: React.MutableRefObject<boolean>;
 }
@@ -25,6 +26,7 @@ interface UseCartAPIParams {
 const useCartAPI = ({
   setCartItemsData,
   setCartItemsCheckData,
+  setLocalStorageCheckedItems,
   setErrorMessage,
   isCheckDataInitialized,
 }: UseCartAPIParams) => {
@@ -34,6 +36,11 @@ const useCartAPI = ({
       setCartItemsData(items);
 
       if (!isCheckDataInitialized.current && items.length > 0) {
+        const storedCheckedIds = localStorage.getItem("checkedItems");
+        const parsedCheckedIds: number[] = storedCheckedIds
+          ? JSON.parse(storedCheckedIds)
+          : [];
+
         setCartItemsCheckData(
           items.map(({ id, quantity, product }) => ({
             id,
@@ -41,10 +48,11 @@ const useCartAPI = ({
             name: product.name,
             imageUrl: product.imageUrl,
             price: product.price,
-            checked: true,
+            checked: parsedCheckedIds.includes(id),
           }))
         );
         isCheckDataInitialized.current = true;
+        setLocalStorageCheckedItems(parsedCheckedIds);
       } else {
         setCartItemsCheckData((prev) =>
           prev.map((item) => {
@@ -68,7 +76,13 @@ const useCartAPI = ({
       if (error instanceof Error) setErrorMessage(error.message);
     }
     await fetchData();
-    setCartItemsCheckData((prev) => prev.filter(({ id }) => id !== cartId));
+    const storedCheckedIds = localStorage.getItem("checkedItems");
+    const parsedCheckedIds: number[] = storedCheckedIds
+      ? JSON.parse(storedCheckedIds)
+      : [];
+
+    const updatedCheckedIds = parsedCheckedIds.filter((id) => id !== cartId);
+    setLocalStorageCheckedItems(updatedCheckedIds);
   };
 
   const increaseItemQuantity = async (
