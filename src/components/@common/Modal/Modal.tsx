@@ -2,12 +2,14 @@ import styled from "@emotion/styled";
 import { useFocusTrap } from "./hooks/useFocusTrap";
 import { useEscapeKey } from "./hooks/useEscapeKey";
 import { useOutsideClick } from "./hooks/useOutSideClick";
+import CloseButton from "../Button/CloseButton/CloseButton";
 
 type ModalProps = {
   position?: "center" | "bottom";
   size: "small" | "medium" | "large";
   title: string;
   content: React.ReactNode;
+  hasCloseButton?: boolean;
   onClose: () => void;
   buttonElements?: React.ReactNode;
 };
@@ -17,6 +19,7 @@ const Modal = ({
   size,
   title,
   content,
+  hasCloseButton = true,
   onClose,
   buttonElements,
 }: ModalProps) => {
@@ -35,6 +38,9 @@ const Modal = ({
         <ModalContainer className={`${position} ${size}`} ref={modalRef}>
           <ModalHeader>
             <ModalTitle id="modal-title">{title}</ModalTitle>
+            <CloseButtonWrapper>
+              {hasCloseButton && <CloseButton onClose={onClose} />}
+            </CloseButtonWrapper>
           </ModalHeader>
           <ModalContent id="modal-content">{content}</ModalContent>
           {buttonElements && <ModalFooter>{buttonElements}</ModalFooter>}
@@ -121,4 +127,8 @@ const ModalFooter = styled.div`
   justify-content: flex-end;
   gap: 12px;
   margin-top: 18px;
+`;
+
+const CloseButtonWrapper = styled.div`
+  cursor: pointer;
 `;

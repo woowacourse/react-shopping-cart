@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import { useCartSummary } from "../hooks/useCartSummary";
 import { useSelectedItems } from "../hooks/useSelectedItems";
-import InvalidAccessPage from "./InvalidAccesspage";
+import InvalidAccessPage from "./InvalidAccessPage";
 
 const PaymentConfirmPage = () => {
   const navigate = useNavigate();
