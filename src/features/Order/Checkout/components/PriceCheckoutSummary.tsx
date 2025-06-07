@@ -3,16 +3,17 @@ import styled from '@emotion/styled';
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
-import { CartItem } from '../../../Cart/types/Cart.types';
-import { cartPrice } from '../../../Cart/utils/cartPrice';
-
 type PriceSummaryProps = {
-  cartItems: CartItem[];
+  totalPrice: number;
+  couponDiscount: number;
+  deliveryFee: number;
 };
 
-export const PriceConfirmSummary = ({ cartItems }: PriceSummaryProps) => {
-  const { orderPrice, deliveryFee, totalPrice } = cartPrice({ cartItems });
-
+export const PriceConfirmSummary = ({
+  totalPrice,
+  couponDiscount,
+  deliveryFee,
+}: PriceSummaryProps) => {
   return (
     <Flex
       direction="column"
@@ -35,7 +36,7 @@ export const PriceConfirmSummary = ({ cartItems }: PriceSummaryProps) => {
         padding="0 10px"
       >
         <Text type="Body">주문 금액</Text>
-        <Text type="Heading">{orderPrice.toLocaleString()}원</Text>
+        <Text type="Heading">{totalPrice.toLocaleString()}원</Text>
       </Flex>
       <Flex
         direction="row"
@@ -46,7 +47,7 @@ export const PriceConfirmSummary = ({ cartItems }: PriceSummaryProps) => {
         padding="0 10px"
       >
         <Text type="Body">쿠폰 할인 금액</Text>
-        <Text type="Heading">{deliveryFee.toLocaleString()}원</Text>
+        <Text type="Heading">- {couponDiscount.toLocaleString()}원</Text>
       </Flex>
       <Flex
         direction="row"
@@ -69,7 +70,7 @@ export const PriceConfirmSummary = ({ cartItems }: PriceSummaryProps) => {
         padding="0 10px"
       >
         <Text type="Body">총 결제 금액</Text>
-        <Text type="Heading">{totalPrice.toLocaleString()}원</Text>
+        <Text type="Heading">{(totalPrice - couponDiscount + deliveryFee).toLocaleString()}원</Text>
       </Flex>
     </Flex>
   );
