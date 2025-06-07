@@ -16,17 +16,18 @@ type SelectedItem = {
 };
 
 function OrderPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
+
   const navigate = useNavigate();
   const items = getSelectedItemsFromStorage();
 
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
 
-  const orderAmount = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const isFreeShipping = orderAmount >= 100000;
-  const deliveryFee = isFreeShipping ? 0 : isRemoteArea ? 3000 : 0;
-  const [isOpen, setIsOpen] = useState(false);
+  const baseDeliveryFee = totalPrice >= 100000 ? 0 : 3000;
+  const extraRemoteFee = isRemoteArea ? 3000 : 0;
+  const deliveryFee = baseDeliveryFee + extraRemoteFee;
   return (
     <>
       <Header
@@ -48,10 +49,6 @@ function OrderPage() {
           <SelectedItemCard key={item.id} item={item} />
         ))}
 
-        <div css={styles.summaryCss}>
-          <p css={styles.priceTitleCss}>총 결제 금액</p>
-          <p css={styles.priceCss}>{totalPrice.toLocaleString()}원</p>
-        </div>
         <button onClick={() => setIsOpen(true)}>쿠폰 적용</button>
         <section css={styles.shippingCss}>
           <label>
@@ -62,8 +59,8 @@ function OrderPage() {
         </section>
         {isOpen && <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
         <div css={styles.summaryCss}>
-          <p css={styles.priceTitleCss}>총 주문 금액: {orderAmount.toLocaleString()}원</p>
-          <p css={styles.priceTitleCss}>배송비: {deliveryFee.toLocaleString()}원</p>
+          <p css={styles.priceCss}>총 주문 금액: {totalPrice.toLocaleString()}원</p>
+          <p css={styles.priceCss}>배송비: {deliveryFee.toLocaleString()}원</p>
           <p css={styles.priceCss}>총 결제 금액: {totalPrice.toLocaleString()}원</p>
         </div>
         <Button>결제하기</Button>
@@ -73,16 +70,6 @@ function OrderPage() {
 }
 
 export default OrderPage;
-
-function getSelectedItemsFromStorage(): SelectedItem[] {
-  try {
-    const data = localStorage.getItem('selectedItems');
-    if (!data) return [];
-    return JSON.parse(data) as SelectedItem[];
-  } catch {
-    return [];
-  }
-}
 
 function SelectedItemCard({ item }: { item: SelectedItem }) {
   return (
@@ -97,4 +84,14 @@ function SelectedItemCard({ item }: { item: SelectedItem }) {
       </div>
     </div>
   );
+}
+
+function getSelectedItemsFromStorage(): SelectedItem[] {
+  try {
+    const data = localStorage.getItem('selectedItems');
+    if (!data) return [];
+    return JSON.parse(data) as SelectedItem[];
+  } catch {
+    return [];
+  }
 }
