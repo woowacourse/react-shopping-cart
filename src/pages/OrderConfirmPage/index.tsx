@@ -19,7 +19,16 @@ const OrderConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isCartModalOpen, handleCartModalOpen, handleCartModalClose] = useBooleanState(false);
-  const { coupons, finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea } = useOrder({
+  const {
+    coupons,
+    availableCoupons,
+    toggleCoupon,
+    finalDeliveryPrice,
+    discountPrice,
+    finalTotalPrice,
+    isRemoteArea,
+    toggleRemoteArea,
+  } = useOrder({
     cartItems: location.state?.cartItems ?? [],
     orderPrice: location.state?.orderPrice ?? 0,
     deliveryPrice: location.state?.deliveryPrice ?? 0,
@@ -59,7 +68,10 @@ const OrderConfirmPage = () => {
           <OrderPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
           <OrderPrice.Wrap gap={8}>
             <OrderPrice.LabelWithPrice label="주문 금액" price={orderPrice} />
-            <OrderPrice.LabelWithPrice label="쿠폰 할인 금액" price={discountPrice} />
+            <OrderPrice.LabelWithPrice
+              label="쿠폰 할인 금액"
+              price={discountPrice === 0 ? discountPrice : -discountPrice}
+            />
             <OrderPrice.LabelWithPrice label="배송비" price={finalDeliveryPrice} />
           </OrderPrice.Wrap>
           <OrderPrice.Wrap>
@@ -73,7 +85,14 @@ const OrderConfirmPage = () => {
           </Button>
         </S.ButtonWrap>
       </S.Container>
-      <CouponModal coupons={coupons} isCartModalOpen={isCartModalOpen} handleCartModalClose={handleCartModalClose} />
+      <CouponModal
+        coupons={coupons}
+        discountPrice={discountPrice}
+        availableCoupons={availableCoupons}
+        toggleCoupon={toggleCoupon}
+        isCartModalOpen={isCartModalOpen}
+        handleCartModalClose={handleCartModalClose}
+      />
     </>
   );
 };

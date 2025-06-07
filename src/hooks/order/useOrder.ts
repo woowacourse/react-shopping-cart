@@ -1,4 +1,5 @@
 import { CartItem } from "../../types/cartItem";
+import useCouponApply from "./useCouponApply";
 import useCouponResource from "./useCouponResource";
 import useDeliveryInformation from "./useDeliveryInformation";
 
@@ -8,23 +9,29 @@ interface useOrderParams {
   deliveryPrice: number;
 }
 
-// 받아야하는 것
-// 상품 cartItems
-// orderPrice
-// deliveryPrice (real deliveryPrice)
-// 내보내야하는 것
-// (real deliveryPrice)
-// real TotalPrice (orderPrice + realDeliveryPrice + discountPrice)
 const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
   const { coupons } = useCouponResource();
 
+  const { availableCoupons, discountPrice, toggleCoupon } = useCouponApply({
+    cartItems,
+    orderPrice,
+    coupons,
+  });
   const { isRemoteArea, toggleRemoteArea } = useDeliveryInformation();
 
-  const discountPrice = -6000;
   const finalDeliveryPrice = isRemoteArea ? deliveryPrice + 3000 : deliveryPrice;
-  const finalTotalPrice = orderPrice + discountPrice + finalDeliveryPrice;
+  const finalTotalPrice = orderPrice - discountPrice + finalDeliveryPrice;
 
-  return { coupons, finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea };
+  return {
+    coupons,
+    availableCoupons,
+    toggleCoupon,
+    finalDeliveryPrice,
+    discountPrice,
+    finalTotalPrice,
+    isRemoteArea,
+    toggleRemoteArea,
+  };
 };
 
 export default useOrder;
