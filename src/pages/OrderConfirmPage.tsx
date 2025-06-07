@@ -20,7 +20,7 @@ const OrderConfirmPage = () => {
 
   return (
     <>
-      <Header onLeadingClick={() => navigate("/")} />
+      <Header leading={"back-icon.svg"} onLeadingClick={() => navigate("/")} />
       <div className={CartItemPageStyles}>
         <PageTitle
           title="주문 확인"
