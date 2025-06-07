@@ -1,23 +1,29 @@
 import { Coupon } from "@/apis/coupon/coupon.type";
 import * as S from "./CouponItem.styled";
 import CheckBox from "@/shared/components/CheckBox/CheckBox";
+import { getCouponInfo } from "@/pages/order-confirm/utils/getCouponInfo";
 
 type CouponItemProps = {
   coupon: Coupon;
-  couponInfoList: {
-    label: string;
-    value: string;
-  }[];
+  isDisabled: boolean;
+  isSelected: boolean;
+  onToggleSelect: (couponId: number) => void;
 };
 
 export default function CouponItem({
   coupon,
-  couponInfoList,
+  isDisabled,
+  isSelected,
+  onToggleSelect,
 }: CouponItemProps) {
   const { description } = coupon;
+  const couponInfoList = getCouponInfo(coupon);
   return (
-    <S.CouponItem>
-      <CheckBox isChecked>
+    <S.CouponItem isDisabled={isDisabled}>
+      <CheckBox
+        isChecked={isSelected}
+        onClick={() => onToggleSelect(coupon.id)}
+      >
         <S.CouponTitle>{description}</S.CouponTitle>
       </CheckBox>
       <S.CouponInfoList>

@@ -1,11 +1,17 @@
 import styled from "@emotion/styled";
 
-export const CouponItem = styled.li`
+export const CouponItem = styled.li<{ isDisabled: boolean }>`
   padding-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   border-top: 1px solid #e5e5e5;
+  ${({ isDisabled }) =>
+    isDisabled &&
+    `
+      opacity: 0.25;
+      pointer-events: none;
+    `}
 `;
 
 export const CouponTitle = styled.p`
