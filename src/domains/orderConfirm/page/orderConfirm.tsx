@@ -58,6 +58,7 @@ export default function OrderConfirm() {
         isOpen={isModalOpen}
         onClose={handleModalClose}
         size="sm"
+        backdropClosable
       >
         <Modal.Header hasCloseButton>쿠폰을 선택해주세요</Modal.Header>
         <Modal.Content>
