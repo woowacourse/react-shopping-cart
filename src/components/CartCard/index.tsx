@@ -1,13 +1,13 @@
-import Text from "../../common/Text";
-import * as S from "./CartItem.styled";
+import Text from "../common/Text";
+import * as S from "./CartCard.styled";
 
-interface CartItemProps {
+interface CartCardProps {
   children: React.ReactNode;
   direction?: "row" | "column";
   gap?: number;
 }
 
-const CartItem = ({ children, direction = "column", gap = 0 }: CartItemProps) => {
+const CartCard = ({ children, direction = "column", gap = 0 }: CartCardProps) => {
   return (
     <S.ListItem direction={direction} gap={gap}>
       {children}
@@ -15,11 +15,11 @@ const CartItem = ({ children, direction = "column", gap = 0 }: CartItemProps) =>
   );
 };
 
-CartItem.Top = ({ children }: { children: React.ReactNode }) => {
+CartCard.Top = ({ children }: { children: React.ReactNode }) => {
   return <S.Top>{children}</S.Top>;
 };
 
-CartItem.Content = ({
+CartCard.Content = ({
   children,
   direction = "row",
   verticalPosition = "center",
@@ -37,7 +37,7 @@ CartItem.Content = ({
   );
 };
 
-CartItem.Image = ({ src, alt }: { src: string; alt: string }) => {
+CartCard.Image = ({ src, alt }: { src: string; alt: string }) => {
   return (
     <S.Image>
       <img
@@ -52,7 +52,7 @@ CartItem.Image = ({ src, alt }: { src: string; alt: string }) => {
   );
 };
 
-CartItem.Information = ({
+CartCard.Information = ({
   children,
   direction = "column",
   gap = 0,
@@ -68,12 +68,12 @@ CartItem.Information = ({
   );
 };
 
-CartItem.Title = ({ text }: { text: string }) => {
+CartCard.Title = ({ text }: { text: string }) => {
   return <Text variant="title-2">{text}</Text>;
 };
 
-CartItem.Price = ({ price }: { price: number }) => {
+CartCard.Price = ({ price }: { price: number }) => {
   return <Text variant="body-2">{price.toLocaleString()}원</Text>;
 };
 
-export default CartItem;
+export default CartCard;
