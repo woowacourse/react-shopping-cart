@@ -2,16 +2,22 @@ import { CouponContent } from '@/api/type';
 import CheckBox from '@/components/common/CheckBox';
 import { formatKoreanTime } from '@/utils/formatKoreanTime';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CouponInfo = ({
   coupon,
   disabled = false,
+  isAutoSelected = false,
 }: {
   coupon: CouponContent;
   disabled?: boolean;
+  isAutoSelected?: boolean;
 }) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    setIsChecked(isAutoSelected);
+  }, [isAutoSelected]);
 
   const handleOnToggle = () => {
     if (!disabled) setIsChecked((prev) => !prev);
