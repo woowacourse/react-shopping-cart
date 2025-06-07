@@ -1,10 +1,11 @@
 import { useCallback, useContext } from "react";
-import { CartDispatchContext } from "../contexts/CartContext";
 import useErrorHandler from "../../../hooks/useErrorHandler";
 import { cartItemSelectionStorage } from "../../../storages/CartItemSelectionStorage";
-import { getCartItems } from "../apis/getCartItems";
 import { deleteCartItem } from "../apis/deleteCartItem";
+import { getCartItems } from "../apis/getCartItems";
 import { patchCartItem } from "../apis/patchCartItem";
+import { CartDispatchContext } from "../contexts/CartContext";
+import { CART_ACTION_TYPES } from "../types/cartAction";
 
 const useCartOperations = () => {
   const dispatch = useContext(CartDispatchContext);
@@ -24,7 +25,10 @@ const useCartOperations = () => {
           cartItemSelectionStorage.isItemSelected(item.id) || INITIAL_SELECTED,
       }));
 
-      dispatch({ type: "REPLACE_ITEMS", items: itemsWithSelection });
+      dispatch({
+        type: CART_ACTION_TYPES.REPLACE_ITEMS,
+        items: itemsWithSelection,
+      });
     } catch (error) {
       handleError(error);
     }

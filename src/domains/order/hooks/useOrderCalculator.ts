@@ -9,7 +9,6 @@ import {
 } from "../calculations";
 
 const useOrderCalculator = () => {
-  // TODO: 의존성 주입
   const items = useCartSelector((state) => state.items);
 
   return useMemo(() => {

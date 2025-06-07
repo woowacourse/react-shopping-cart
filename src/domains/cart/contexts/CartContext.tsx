@@ -1,5 +1,6 @@
 import { createContext, PropsWithChildren, useReducer } from "react";
-import { Action, State } from "../types/reducer";
+import { Action } from "../types/cartAction";
+import { State } from "../types/cartState";
 import cartReducer from "./cartReducer";
 
 export const CartStateContext = createContext<State | null>(null);
