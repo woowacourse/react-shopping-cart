@@ -4,7 +4,7 @@ import { getCartItems } from "../apis/cartItems/getCartItems";
 import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 import { CartItemContent } from "../types/response";
 
-interface CartItemCheckType {
+export interface CartItemCheckType {
   id: number;
   quantity: number;
   name: string;
