@@ -14,6 +14,7 @@ import { useState } from 'react';
 import CouponModal from '../../../components/CouponModal/CouponModal';
 import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
+import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ function OrderCheck() {
           title={TEXT.ORDER_CHECK}
           description={`총 ${typeCount}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
         />
-        <ul>
+        <ul css={OrderCheckCartListStyle}>
           {selectedCartItems.map((item: CartItemProps) => (
             <OrderCartItem key={item.id} item={item} />
           ))}

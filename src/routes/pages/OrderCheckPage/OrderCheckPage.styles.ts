@@ -15,3 +15,10 @@ export const OrderPriceContainerStyle = css`
   flex-direction: column;
   gap: 1.2rem;
 `;
+
+export const OrderCheckCartListStyle = css`
+  display: flex;
+  flex-direction: column;
+  max-height: 39rem;
+  overflow-y: auto;
+`;
