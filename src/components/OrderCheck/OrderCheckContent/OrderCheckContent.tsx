@@ -8,7 +8,7 @@ import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
 import OrderCheckList from "../OrderCheckList/OrderCheckList";
 import CartItem from "../../../types/CartItem";
 import CouponButton from "../Coupon/Button/CouponButton";
-import Shipping from "../../shoppingCart/Shipping/Shipping";
+import Shipping from "../Shipping/Shipping";
 import Modal from "../Modal/Modal";
 
 interface OrderCheckContentProps {
@@ -26,6 +26,7 @@ export default function OrderCheckContent({
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRemote, setIsRemote] = useState(false);
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
@@ -44,7 +45,10 @@ export default function OrderCheckContent({
     0
   );
 
-  const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
+  const baseShippingFee = allProductPrice >= 100000 ? 0 : 3000;
+  const remoteExtraFee = isRemote ? 3000 : 0;
+  const shippingFee = baseShippingFee + remoteExtraFee;
+
   const totalPrice = allProductPrice + shippingFee;
   const [couponDiscount] = useState(6000);
 
@@ -75,7 +79,10 @@ export default function OrderCheckContent({
       />
       <CouponButton onClick={handleOpenModal} />
       <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
-      <Shipping />
+      <Shipping
+        isRemote={isRemote}
+        onRemoteChange={(checked: boolean) => setIsRemote(checked)}
+      />
       <Receipt
         allProductPrice={allProductPrice}
         shippingFee={shippingFee}
