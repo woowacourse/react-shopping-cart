@@ -10,7 +10,7 @@ import GuideSign from "../../../../components/icons/GuideSign";
 interface CouponModalProps {
   coupons: CouponResponse[];
   availableCoupons: { code: string; discountAmount: number; selected: boolean }[];
-  toggleCoupon: (code: string) => void;
+  updateApplyCoupon: (coupons: { code: string; discountAmount: number; selected: boolean }[]) => void;
   isCartModalOpen: boolean;
   handleCartModalClose: () => void;
 }
@@ -18,13 +18,13 @@ interface CouponModalProps {
 const CouponModal = ({
   coupons,
   availableCoupons,
-  toggleCoupon,
+  updateApplyCoupon,
   isCartModalOpen,
   handleCartModalClose,
 }: CouponModalProps) => {
-  const { tempSelectedCoupons, discountPrice, handleTempToggleCoupon, handleApplyCoupon } = useTempCoupon({
+  const { tempSelectedCoupons, discountPrice, handleTempToggleCoupon, applySelectedCoupons } = useTempCoupon({
     availableCoupons,
-    toggleCoupon,
+    updateApplyCoupon,
   });
 
   return (
@@ -43,7 +43,6 @@ const CouponModal = ({
           </S.Wrap>
           <CouponList
             couponData={coupons}
-            availableCoupons={availableCoupons}
             selectedCoupons={tempSelectedCoupons}
             toggleCoupon={handleTempToggleCoupon}
           />
@@ -51,7 +50,7 @@ const CouponModal = ({
 
         <Modal.Footer>
           <Modal.Trigger>
-            <Button variant="primary" size="full" onClick={handleApplyCoupon}>
+            <Button variant="primary" size="full" onClick={applySelectedCoupons}>
               총 {discountPrice}원 할인 쿠폰 사용하기
             </Button>
           </Modal.Trigger>

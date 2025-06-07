@@ -12,7 +12,7 @@ interface useOrderParams {
 const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
   const { coupons } = useCouponResource();
 
-  const { availableCoupons, discountPrice, toggleCoupon } = useCouponApply({
+  const { availableCoupons, discountPrice, updateApplyCoupon } = useCouponApply({
     cartItems,
     orderPrice,
     coupons,
@@ -25,7 +25,7 @@ const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
   return {
     coupons,
     availableCoupons,
-    toggleCoupon,
+    updateApplyCoupon,
     finalDeliveryPrice,
     discountPrice,
     finalTotalPrice,

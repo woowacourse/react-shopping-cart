@@ -1,69 +1,60 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-interface AvailableCoupon {
+interface AvailableCouponType {
   code: string;
   discountAmount: number;
   selected: boolean;
 }
 
 interface UseTempCouponProps {
-  availableCoupons: AvailableCoupon[];
-  toggleCoupon: (code: string) => void;
+  availableCoupons: AvailableCouponType[];
+  updateApplyCoupon: (coupons: AvailableCouponType[]) => void;
 }
 
 interface UseTempCouponReturn {
-  tempSelectedCoupons: AvailableCoupon[];
+  tempSelectedCoupons: AvailableCouponType[];
   discountPrice: number;
   handleTempToggleCoupon: (code: string) => void;
-  handleApplyCoupon: () => void;
+  applySelectedCoupons: () => void;
 }
 
-export const useTempCoupon = ({ availableCoupons, toggleCoupon }: UseTempCouponProps): UseTempCouponReturn => {
-  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<AvailableCoupon[]>([]);
+export const useTempCoupon = ({ availableCoupons, updateApplyCoupon }: UseTempCouponProps): UseTempCouponReturn => {
+  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<AvailableCouponType[]>([]);
 
-  const discountPrice = tempSelectedCoupons.reduce((sum: number, coupon) => sum + coupon.discountAmount, 0);
+  const discountPrice = useMemo(
+    () =>
+      tempSelectedCoupons
+        .filter((coupon) => coupon.selected)
+        .reduce((sum: number, coupon) => sum + coupon.discountAmount, 0),
+    [tempSelectedCoupons],
+  );
 
   const handleTempToggleCoupon = (code: string) => {
     setTempSelectedCoupons((prev) => {
-      const isSelected = prev.some((coupon) => coupon.code === code);
-      if (isSelected) {
-        return prev.filter((coupon) => coupon.code !== code);
-      } else {
-        if (prev.length >= 2) return prev;
-        const couponToAdd = availableCoupons.find((coupon) => coupon.code === code);
-        return couponToAdd ? [...prev, couponToAdd] : prev;
-      }
-    });
-  };
-
-  const handleApplyCoupon = () => {
-    availableCoupons
-      .filter((coupon) => coupon.selected)
-      .forEach((coupon) => {
-        if (!tempSelectedCoupons.some((temp) => temp.code === coupon.code)) {
-          toggleCoupon(coupon.code);
+      const selectedCount = prev.filter((coupon) => coupon.selected).length;
+      return prev.map((coupon) => {
+        if (coupon.code === code) {
+          if (coupon.selected) {
+            return { ...coupon, selected: false };
+          } else if (selectedCount < 2) {
+            return { ...coupon, selected: true };
+          }
         }
+        return coupon;
       });
-
-    tempSelectedCoupons.forEach((coupon) => {
-      const isCurrentlySelected = availableCoupons.some(
-        (available) => available.code === coupon.code && available.selected,
-      );
-      if (!isCurrentlySelected) {
-        toggleCoupon(coupon.code);
-      }
     });
   };
+
+  const applySelectedCoupons = () => updateApplyCoupon(tempSelectedCoupons);
 
   useEffect(() => {
-    const selectedCoupons = availableCoupons.filter((coupon) => coupon.selected);
-    setTempSelectedCoupons(selectedCoupons);
+    setTempSelectedCoupons(availableCoupons);
   }, [availableCoupons]);
 
   return {
     tempSelectedCoupons,
     discountPrice,
     handleTempToggleCoupon,
-    handleApplyCoupon,
+    applySelectedCoupons,
   };
 };

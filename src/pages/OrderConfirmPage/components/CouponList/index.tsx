@@ -3,37 +3,32 @@ import Coupon from "../../../../components/Coupon";
 import { CouponResponse } from "../../../../types/coupon";
 import * as S from "./CouponList.styled";
 
+interface CouponWithSelection {
+  code: string;
+  discountAmount: number;
+  selected: boolean;
+}
+
 interface CouponListProps {
   couponData: CouponResponse[];
-  availableCoupons: { code: string; discountAmount: number; selected: boolean }[];
-  selectedCoupons: { code: string; discountAmount: number; selected: boolean }[];
+  selectedCoupons: CouponWithSelection[];
   toggleCoupon: (code: string) => void;
 }
 
-interface CouponAvailabilityParams {
-  coupon: CouponResponse;
-  availableCoupons: { code: string; discountAmount: number; selected: boolean }[];
-  selectedCoupons: { code: string; discountAmount: number; selected: boolean }[];
-}
+const CouponList = ({ couponData, selectedCoupons, toggleCoupon }: CouponListProps) => {
+  const getCouponStatus = (code: string) => {
+    const selectedCount = selectedCoupons.filter((coupon) => coupon.selected).length;
+    const isSelected = selectedCoupons.some((coupon) => coupon.code === code && coupon.selected);
+    const isAvailable = selectedCoupons.some((coupon) => coupon.code === code);
+    const isDisabled = !isAvailable || (!isSelected && selectedCount >= 2);
 
-const calculateCouponAvailability = ({ coupon, availableCoupons, selectedCoupons }: CouponAvailabilityParams) => {
-  const isSelected = selectedCoupons.some((selectedCoupon) => selectedCoupon.code === coupon.code);
-  const isAvailable = availableCoupons.some((availableCoupon) => availableCoupon.code === coupon.code);
-  const isMaxSelected = selectedCoupons.length === 2;
-  const isDisabled = (!isSelected && !isAvailable) || (!isSelected && isMaxSelected);
+    return { isSelected, isDisabled };
+  };
 
-  return { isSelected, isDisabled };
-};
-
-const CouponList = ({ couponData, availableCoupons, selectedCoupons, toggleCoupon }: CouponListProps) => {
   return (
     <S.List>
       {couponData.map((coupon) => {
-        const { isSelected, isDisabled } = calculateCouponAvailability({
-          coupon,
-          availableCoupons,
-          selectedCoupons,
-        });
+        const { isSelected, isDisabled } = getCouponStatus(coupon.code);
 
         return (
           <Coupon key={coupon.code} gap={12} disabled={isDisabled}>

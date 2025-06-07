@@ -86,25 +86,13 @@ const useCouponApply = ({ cartItems, orderPrice, coupons }: useCouponApplyParams
     }))
     .sort((a, b) => b.discountAmount - a.discountAmount);
 
-  const toggleCoupon = (couponCode: string) => {
-    setAvailableCoupons((prev) => {
-      const selectedCount = prev.filter((coupon) => coupon.selected).length;
-      return prev.map((coupon) => {
-        if (coupon.code === couponCode) {
-          if (coupon.selected) {
-            return { ...coupon, selected: false };
-          } else if (selectedCount < 2) {
-            return { ...coupon, selected: true };
-          }
-        }
-        return coupon;
-      });
-    });
-  };
-
   const discountPrice = availableCoupons
     .filter((coupon) => coupon.selected)
     .reduce((sum, coupon) => sum + coupon.discountAmount, 0);
+
+  const updateApplyCoupon = (tempSelectedCoupons: AvailableCouponType[]) => {
+    setAvailableCoupons(tempSelectedCoupons);
+  };
 
   useEffect(() => {
     if (availableCouponsWithDiscount.length === 0) return;
@@ -118,7 +106,7 @@ const useCouponApply = ({ cartItems, orderPrice, coupons }: useCouponApplyParams
   return {
     availableCoupons,
     discountPrice,
-    toggleCoupon,
+    updateApplyCoupon,
   };
 };
 

@@ -22,7 +22,7 @@ const OrderConfirmPage = () => {
   const {
     coupons,
     availableCoupons,
-    toggleCoupon,
+    updateApplyCoupon,
     finalDeliveryPrice,
     discountPrice,
     finalTotalPrice,
@@ -89,7 +89,7 @@ const OrderConfirmPage = () => {
       <CouponModal
         coupons={coupons}
         availableCoupons={availableCoupons}
-        toggleCoupon={toggleCoupon}
+        updateApplyCoupon={updateApplyCoupon}
         isCartModalOpen={isCartModalOpen}
         handleCartModalClose={handleCartModalClose}
       />
