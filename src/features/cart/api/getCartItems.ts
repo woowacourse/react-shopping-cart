@@ -1,5 +1,5 @@
 import { httpClient } from '../../../shared/api/httpClient';
-import { CartItem } from '../../../shared/type/cart';
+import { CartItem } from '../type/cart';
 
 interface CartItemsResponse {
   content: CartItem[];

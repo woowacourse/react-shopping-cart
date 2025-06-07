@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import Button from '../../../shared/ui/Button';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '../../../shared/constants/routeConstants';
-import { useSelectedCartItemsContext } from '../../../shared/context/useSelectedCartItemsContext';
+import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
 import styled from '@emotion/styled';
 
 const ButtonCSS = css`

@@ -1,6 +1,6 @@
 import * as S from './CartItemQuantitySelector.styles';
-import { CartItem } from '../../../shared/type/cart';
-import { useCartItemsContext } from '../../../shared/context/useCartItemsContext';
+import { CartItem } from '../type/cart';
+import { useCartItemsContext } from '../context/useCartItemsContext';
 
 interface CartItemQuantitySelectorProps {
   cartItem: CartItem;

@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { CartItem } from '../type/cart';
-import { getCartItems } from '../../features/cart/api/getCartItems';
-import { updateCartItem } from '../../features/cart/api/updateCartItem';
+import { getCartItems } from '../api/getCartItems';
+import { updateCartItem } from '../api/updateCartItem';
 
 interface CartItemsContextType {
   cartItems: CartItem[];

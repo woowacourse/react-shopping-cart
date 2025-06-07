@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router';
 import App from '../src/pages/CartPage/CartPage';
-import { CartItemsProvider } from '../src/shared/context/CartItemsProvider';
-import { SelectedCartItemsProvider } from '../src/shared/context/SelectedCartItemsProvider';
+import { CartItemsProvider } from '../src/features/cart/context/CartItemsProvider';
+import { SelectedCartItemsProvider } from '../src/features/cart/context/SelectedCartItemsProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it } from 'vitest';

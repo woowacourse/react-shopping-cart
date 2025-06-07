@@ -1,9 +1,9 @@
 import SelectInput from '../../../shared/ui/SelectInput';
 import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
-import { CartItem } from '../../../shared/type/cart';
-import { useCartItemsContext } from '../../../shared/context/useCartItemsContext';
-import { useSelectedCartItemsContext } from '../../../shared/context/useSelectedCartItemsContext';
+import { CartItem } from '../type/cart';
+import { useCartItemsContext } from '../context/useCartItemsContext';
+import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
 
 interface CartListProps {
   addAllCartItemsInSelected: (items: CartItem[]) => void;

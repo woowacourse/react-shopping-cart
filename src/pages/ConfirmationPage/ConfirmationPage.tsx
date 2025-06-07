@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react';
-import { useSelectedCartItemsContext } from '../../shared/context/useSelectedCartItemsContext';
+import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
 import Button from '../../shared/ui/Button';
 import Navbar from '../../shared/ui/Navbar';
 import * as S from './ConfirmationPage.styles';

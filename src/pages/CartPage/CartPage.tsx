@@ -2,8 +2,8 @@ import * as S from './CartPage.styles';
 import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui';
 import Navbar from '../../shared/ui/Navbar';
 import CartPageFooter from '../../features/cart/ui/CartPageFooter';
-import { useCartItemsContext } from '../../shared/context/useCartItemsContext';
-import { useSelectedCartItemsContext } from '../../shared/context/useSelectedCartItemsContext';
+import { useCartItemsContext } from '../../features/cart/context/useCartItemsContext';
+import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
 
