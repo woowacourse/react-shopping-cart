@@ -7,6 +7,7 @@ import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
 import { useBestCoupons } from '../hooks/useBestCoupons';
 import { CartItemType } from '../../cart/types';
+import { useEscapeKey } from '../hooks/useEscapeKey';
 
 interface CouponModalProps {
   products: CartItemType[];
@@ -40,6 +41,8 @@ function CouponModal({ products, onClose }: CouponModalProps) {
   const totalDiscount = couponDiscounts
     .filter((d) => selected.includes(d.coupon.id))
     .reduce((sum, d) => sum + d.discount, 0);
+
+  useEscapeKey(onClose);
 
   return (
     <S.Overlay>
