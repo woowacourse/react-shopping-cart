@@ -40,7 +40,7 @@ export default function ConfirmationPage() {
 
   return (
     <S.ConfirmationContainer>
-      <Navbar title="◀" url={ROUTES.CART} />
+      <Navbar title="◀" url={ROUTES.ROOT} />
       <S.ConfirmationSection>
         <S.ConfirmationTitle>주문 확인</S.ConfirmationTitle>
         <S.ConfirmationQuantity>
