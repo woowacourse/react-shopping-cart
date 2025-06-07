@@ -21,4 +21,5 @@ export const EmptyCartWrapper = styled.div`
 
 export const CartItemSectionWrapper = styled.section`
   padding: 36px 16px;
+  height: 100%;
 `;
