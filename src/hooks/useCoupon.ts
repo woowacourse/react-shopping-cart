@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getCouponData } from '@/api/coupon';
 import { useApiRequest } from '@/hooks/useApiRequest';
 import { CouponContent } from '@/api/type';
@@ -17,9 +17,13 @@ export const useCoupon = () => {
     });
   };
 
+  useEffect(() => {
+    fetchCoupons();
+  }, []);
+
   return {
     coupons,
     isLoading,
-    fetchCoupons,
+    refetchCoupon: fetchCoupons,
   };
 };
