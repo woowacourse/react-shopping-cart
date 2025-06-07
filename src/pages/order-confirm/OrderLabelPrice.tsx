@@ -3,6 +3,7 @@ import { Flex } from "../../components/common";
 import LabelPrice from "../../components/common/LabelPrice";
 import { FREE_SHIPPING_STANDARD } from "../../hooks/order/OrderConstants";
 import { formatKRWString } from "../../utils/formatKRWString";
+import InfoText from "../../components/common/InfoText";
 
 interface OrderLabelPridceProps {
   totalCartPrice: number;
@@ -15,15 +16,14 @@ const OrderLabelPridce = ({
   shippingFee,
   totalPrice,
 }: OrderLabelPridceProps) => {
+  const InfoTextContent = ` 총 주문 금액이 ${formatKRWString(
+    FREE_SHIPPING_STANDARD
+  )} 이상일 경우
+          무료 배송됩니다.`;
+
   return (
     <Container>
-      <InfoBox>
-        <InfoIcon src="./assets/icons/Info.svg" alt="info 아이콘" />
-        <InfoMessage>
-          총 주문 금액이 {formatKRWString(FREE_SHIPPING_STANDARD)} 이상일 경우
-          무료 배송됩니다.
-        </InfoMessage>
-      </InfoBox>
+      <InfoText contentText={InfoTextContent} />
       <PriceWrapper>
         <LabelPrice label="주문 금액" price={totalCartPrice} />
         <LabelPrice
@@ -40,21 +40,6 @@ const OrderLabelPridce = ({
 
 export default OrderLabelPridce;
 
-const InfoBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  gap: 4px;
-`;
-const InfoMessage = styled.p`
-  font-size: 12px;
-  font-weight: 500;
-`;
-
-const InfoIcon = styled.img`
-  width: 14px;
-  height: 14px;
-`;
 const Container = styled(Flex)`
   flex-direction: column;
   gap: 20px;
