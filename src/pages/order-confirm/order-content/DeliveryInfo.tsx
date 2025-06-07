@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { getShoppingCartData } from "../../api/cart";
-import { Flex } from "../../components/common";
-import CheckboxLabel from "../../components/common/CheckboxLabel";
-import { useAPIDataContext } from "../../context/APIDataProvider";
-import { useOrderListContext } from "../../context/OrderListProvider";
-import { useOrderCalculation } from "../../hooks/order/useOrderCalculation";
+import { getShoppingCartData } from "../../../api/cart";
+import { Flex } from "../../../components/common";
+import CheckboxLabel from "../../../components/common/CheckboxLabel";
+import { useAPIDataContext } from "../../../context/APIDataProvider";
+import { useOrderListContext } from "../../../context/OrderListProvider";
+import { useOrderCalculation } from "../../../hooks/order/useOrderCalculation";
 import OrderLabelPridce from "./OrderLabelPrice";
 
 function DeliveryInfo() {

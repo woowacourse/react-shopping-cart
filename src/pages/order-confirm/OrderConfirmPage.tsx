@@ -6,10 +6,10 @@ import BackArrowButton from "../../components/common/BackArrowButton";
 import { useAPIDataContext } from "../../context/APIDataProvider";
 import { useOrderListContext } from "../../context/OrderListProvider";
 import { useOrderCalculation } from "../../hooks/order/useOrderCalculation";
-import CouponModalButton from "./CouponModalButton";
-import DeliveryInfo from "./DeliveryInfo";
-import OrderInfoTitle from "./OrderInfoTitle";
-import OrderList from "./OrderList";
+import CouponModalButton from "./order-content/CouponModalButton";
+import DeliveryInfo from "./order-content/DeliveryInfo";
+import OrderInfoTitle from "./order-content/OrderInfoTitle";
+import OrderList from "./order-content/OrderList";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -26,6 +26,10 @@ const OrderConfirmPage = () => {
     selectionMap
   );
 
+  const navigateToSuccessPage = () => {
+    navigate("/success-confirm");
+  };
+
   return (
     <>
       <Header left={<BackArrowButton onClick={handleBackClick} />} />
@@ -35,7 +39,7 @@ const OrderConfirmPage = () => {
         <CouponModalButton />
         <DeliveryInfo />
       </Container>
-      <PayButton isDisabled={true} disabled>
+      <PayButton onClick={navigateToSuccessPage} isDisabled={false}>
         결제하기
       </PayButton>
     </>

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { Flex } from "../../components/common";
-import LabelPrice from "../../components/common/LabelPrice";
-import { FREE_SHIPPING_STANDARD } from "../../hooks/order/OrderConstants";
-import { formatKRWString } from "../../utils/formatKRWString";
-import InfoText from "../../components/common/InfoText";
+import { Flex } from "../../../components/common";
+import LabelPrice from "../../../components/common/LabelPrice";
+import { FREE_SHIPPING_STANDARD } from "../../../hooks/order/OrderConstants";
+import { formatKRWString } from "../../../utils/formatKRWString";
+import InfoText from "../../../components/common/InfoText";
 
 interface OrderLabelPridceProps {
   totalCartPrice: number;
