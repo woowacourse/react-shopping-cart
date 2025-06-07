@@ -3,8 +3,10 @@ import Modal from '../common/Modal/Modal';
 import CouponItem from '../CouponItem/CouponItem';
 import InfoMessage from '../InfoMessage/InfoMessage';
 import Text from '../common/Text/Text';
-import { Coupon, validatedCouponList } from '../../types/coupon';
+import { validatedCouponList } from '../../types/coupon';
 import { useEffect, useState } from 'react';
+import useCouponCombos from '../../hooks/useCouponCombos';
+import { useCartContext } from '../../context/CartContext';
 
 function CouponModal({
   isOpen,
@@ -19,6 +21,13 @@ function CouponModal({
   checkedCoupon: number[];
   onCouponAccept: (couponIds: number[]) => void;
 }) {
+  const {
+    data: cartItems,
+    selectedItems,
+    subTotal,
+    deliveryFee,
+  } = useCartContext();
+
   const [tempCoupon, setTempCoupon] = useState<number[]>(checkedCoupon);
 
   useEffect(() => {
@@ -39,6 +48,14 @@ function CouponModal({
     setTempCoupon(newTempCoupons);
   };
 
+  const modalResult = useCouponCombos(
+    tempCoupon,
+    cartItems.filter((item) => selectedItems.includes(item.id)),
+    validatedCouponList,
+    subTotal,
+    deliveryFee
+  );
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="쿠폰을 선택해 주세요">
       <InfoMessage message="쿠폰은 최대 2개까지 사용할 수 있습니다." />
@@ -56,7 +73,7 @@ function CouponModal({
         variant="secondary"
         onClick={() => onCouponAccept(tempCoupon)}
       >
-        <Text varient="body">총 [1,000원] 할인 쿠폰 사용하기</Text>
+        <Text varient="body">{`총 ${modalResult?.totalDiscount.toLocaleString()} 할인 쿠폰 사용하기`}</Text>
       </Button>
     </Modal>
   );

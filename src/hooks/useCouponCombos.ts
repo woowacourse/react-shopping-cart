@@ -15,7 +15,13 @@ const useCouponCombos = (
     const manualCoupons = couponList.filter((c) =>
       checkedCoupons.includes(c.id)
     );
-    return simulateCombo(cartItem, manualCoupons, subTotal, baseShippingFee);
+    const result = simulateCombo(
+      cartItem,
+      manualCoupons,
+      subTotal,
+      baseShippingFee
+    );
+    return result;
   }
 
   for (let i = 0; i < couponList.length; i++) {
