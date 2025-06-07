@@ -1,8 +1,13 @@
 import * as S from "./CartItem.styles";
 import type { CartItemType } from "../../../types/response";
 import { handleImageError } from "../../../utils/handleImageError";
+import { AccentText } from "../../../styles/@common/title/Title.styles";
+interface DisplayCartItemProps {
+  cartData: CartItemType;
+  bogoQuantity: number;
+}
 
-const DisplayCartItem = ({ cartData }: { cartData: CartItemType }) => {
+const DisplayCartItem = ({ cartData, bogoQuantity }: DisplayCartItemProps) => {
   return (
     <div css={S.cartItemWrapper}>
       <div css={S.cartItemStyle}>
@@ -18,7 +23,12 @@ const DisplayCartItem = ({ cartData }: { cartData: CartItemType }) => {
               {cartData.product.price.toLocaleString()}원
             </p>
           </div>
-          <p>{cartData.quantity}개</p>
+          <p>
+            {cartData.quantity}개{" "}
+            <span css={AccentText}>
+              {bogoQuantity > 0 && `(+${bogoQuantity}개 무료)`}
+            </span>
+          </p>
         </div>
       </div>
     </div>

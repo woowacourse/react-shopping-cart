@@ -36,3 +36,7 @@ export const Description = css`
   font-weight: var(--font-weight-body);
   color: var(--color-dark-grey);
 `;
+
+export const AccentText = css`
+  color: var(--color-red);
+`;

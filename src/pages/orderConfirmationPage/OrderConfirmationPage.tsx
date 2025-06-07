@@ -30,7 +30,7 @@ import useEasyNavigate from "../../hooks/useEasyNavigate";
 
 import { getValidCoupons } from "../../domains/coupon/validateCoupon";
 import {
-  getBogoProductPrice,
+  getBogoItems,
   getDiscountedTotalOrderPrice,
   getTotalDiscountPrice,
 } from "../../domains/coupon/calculateCoupon";
@@ -75,14 +75,24 @@ const OrderConfirmationPage = () => {
     deliveryFee: deliveryFeeWithRemoteArea,
   });
 
+  const checkedBogoCoupons = Array.from(isCheckedCoupons.values()).filter(
+    (couponInfo) => couponInfo.code === "BOGO"
+  );
+  const bogoItems = checkedBogoCoupons.flatMap((couponInfo) =>
+    "buyQuantity" in couponInfo
+      ? [getBogoItems(orderItems, couponInfo.buyQuantity)]
+      : []
+  );
+  const isBogoItem = (item: CartItemType) =>
+    bogoItems.some((bogoItem) => bogoItem.id === item.id);
+
   const totalDiscountPrice = getTotalDiscountPrice(isCheckedCoupons, {
     originTotalPrice: totalPriceWithRemoteArea,
-    bogoProductPrice: getBogoProductPrice(orderItems),
+    bogoItems: bogoItems,
     deliveryFee: deliveryFeeWithRemoteArea,
   });
-
   const discountedTotalOrderPrice = getDiscountedTotalOrderPrice(
-    totalPriceWithRemoteArea,
+    orderPrice,
     totalDiscountPrice
   );
 
@@ -129,7 +139,11 @@ const OrderConfirmationPage = () => {
 
       <div css={CartListContainer}>
         {orderItems.map((item: CartItemType) => (
-          <DisplayCartItem key={item.id} cartData={item} />
+          <DisplayCartItem
+            key={item.id}
+            cartData={item}
+            bogoQuantity={isBogoItem(item) ? checkedBogoCoupons.length : 0}
+          />
         ))}
       </div>
 

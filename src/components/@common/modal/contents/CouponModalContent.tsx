@@ -8,6 +8,7 @@ import {
   InfoMessageContainer,
   Description,
 } from "../../../../styles/@common/title/Title.styles";
+import { COUPON_LIMIT_MESSAGE } from "../../../../constants/systemMessages";
 
 interface CouponModalContentProps {
   totalDiscountPrice: number;
