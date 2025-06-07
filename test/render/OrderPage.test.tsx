@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import { mockCartItems } from '../mocks';
 import App from '../../src/App';
 
 describe('OrderPage 테스트', () => {
@@ -17,14 +16,19 @@ describe('OrderPage 테스트', () => {
     });
   });
 
-  it('주문 확인 페이지에선 주문한 상품의 종류와 개수가 표시된다.', async () => {
-    const cartLength = mockCartItems.length;
-    const quantity = mockCartItems.reduce((acc, item) => acc + item.quantity, 0);
+  it('주문 확인 페이지에선 쿠폰 적용 버튼이 표시된다.', async () => {
+    await waitFor(() => {
+      expect(screen.getByText('쿠폰 적용')).toBeInTheDocument();
+    });
+  });
+
+  it('주문 확인 페이지에선 제주도 및 도서 산간 지역을 확인하기 위한 체크박스가 표시된다.', async () => {
+    await waitFor(() => {
+      expect(screen.getByText('제주도 및 도서 산간 지역')).toBeInTheDocument();
+    });
 
     await waitFor(() => {
-      expect(
-        screen.getByText(`총 ${cartLength}종류의 상품 ${quantity}개를 주문합니다.`)
-      ).toBeInTheDocument();
+      expect(screen.getByTestId('checkBox')).toBeInTheDocument();
     });
   });
 

@@ -4,7 +4,7 @@ import PriceRow from './PriceRow';
 import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../../constants/config';
 import { getOrderPrice } from '../../utils';
 
-const PriceSection = () => {
+const PriceSection = ({ showDiscount }: { showDiscount: boolean }) => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
@@ -15,6 +15,7 @@ const PriceSection = () => {
     <>
       <S.CalculationContainer>
         <PriceRow title="주문 금액" price={orderPrice} data-testid="orderPrice" />
+        {showDiscount && <PriceRow title="쿠폰 할인 금액" price={0} data-testid="discountPrice" />}
         <PriceRow title="배송비" price={deliveryPrice} data-testid="deliveryPrice" />
       </S.CalculationContainer>
 

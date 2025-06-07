@@ -37,11 +37,11 @@ const CartPage = () => {
             <S.infoContainer>
               <img src="./info.svg" />
               <p>
-                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()} 이상인 경우 무료
+                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()}원 이상인 경우 무료
                 배송됩니다.
               </p>
             </S.infoContainer>
-            <PriceSection />
+            <PriceSection showDiscount={false} />
           </>
         )}
       </S.content>

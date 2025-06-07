@@ -3,6 +3,11 @@ import BottomButton from '../components/BottomButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CartItem } from '../types';
 import { BASE_URL, URL_LOCATION } from '../constants/url';
+import OrderPageMessage from '../components/OrderPageMessage';
+import DeliverySection from '../components/DeliverySection';
+import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
+import PriceSection from '../components/priceSection/PriceSection';
+import ItemInfoCard from '../components/ItemInfoCard';
 
 const OrderPage = () => {
   const { state } = useLocation();
@@ -18,12 +23,24 @@ const OrderPage = () => {
     <>
       <S.content data-testid="orderPage">
         <S.title>주문 확인</S.title>
-        <S.middleContainer>
-          <p>
-            총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를 주문합니다.
-          </p>
-          <p>최종 결제 금액을 확인해 주세요.</p>
-        </S.middleContainer>
+        <>
+          <OrderPageMessage cartLength={checkedCartIds.length} totalQuantity={totalQuantity} />
+          <S.itemCardList>
+            {cartItems.map((item) => (
+              <ItemInfoCard key={item.id} product={item.product} quantity={item.quantity} />
+            ))}
+          </S.itemCardList>
+          <S.CouponButton>쿠폰 적용</S.CouponButton>
+          <DeliverySection />
+          <S.infoContainer>
+            <img src="./info.svg" />
+            <p>
+              총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()}원 이상인 경우 무료
+              배송됩니다.
+            </p>
+          </S.infoContainer>
+          <PriceSection showDiscount={true} />
+        </>
       </S.content>
       <BottomButton
         title="결제하기"
@@ -43,42 +60,38 @@ const OrderPage = () => {
 export default OrderPage;
 
 const S = {
+  title: styled.p`
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  `,
+
   content: styled.div`
     padding: 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 24px;
     height: calc(100vh - 64px - 64px);
   `,
 
-  title: styled.p`
-    font-size: 24px;
+  itemCardList: styled.ul`
+    overflow-y: auto;
+  `,
+
+  CouponButton: styled.button`
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(51, 51, 51, 0.25);
+    color: rgba(51, 51, 51, 0.75);
+    text-align: center;
+    font-size: 15px;
     font-weight: 700;
   `,
 
-  middleContainer: styled.div`
+  infoContainer: styled.div`
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-  `,
-
-  bottomContainer: styled.div`
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 12px;
-  `,
-
-  totalPriceText: styled.p`
-    font-size: 16px;
-    font-weight: 700;
-  `,
-
-  totalPrice: styled.p`
-    font-size: 24px;
-    font-weight: 700;
+    gap: 4px;
+    padding: 12px 0px;
+    border-bottom: 2px solid #e6e6e6;
   `,
 };
