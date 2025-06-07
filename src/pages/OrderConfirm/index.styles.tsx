@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const CartList = styled.div`
   overflow: scroll;
-  max-height: 400px;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
   gap: 15px;

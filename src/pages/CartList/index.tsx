@@ -8,7 +8,7 @@ import Button from '../../components/common/Button';
 import Header from '../../components/feature/CartSection/Header';
 import PriceSection from '../../components/feature/CartSection/PriceSection';
 import {ROUTE_PATHS} from '../../route/path';
-import {calcOrderHistory} from '../../feature/calcOrderHistory';
+import {calcOrderHistory} from '../../feature/calcOrderPrice';
 import {deleteCartProduct} from '../../api/cart/deleteCartProduct';
 import {patchCartProduct} from '../../api/cart/patchCartProduct';
 
