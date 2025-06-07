@@ -6,7 +6,9 @@ const getCartItems = async (): Promise<CartItem[]> => {
     throw new Error('Failed to fetch cart items');
   }
 
-  const data: CartItem[] = await response.json();
+  const raw = await response.json();
+  const data: CartItem[] = raw.content;
+
   return data;
 };
 

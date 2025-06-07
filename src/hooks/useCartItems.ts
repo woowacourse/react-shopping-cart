@@ -6,8 +6,8 @@ const useCartItems = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const fetchData = async () => {
-    const content = await getCartItems();
-    setCartItems(content);
+    const data = await getCartItems();
+    setCartItems(data);
   };
 
   useEffect(() => {

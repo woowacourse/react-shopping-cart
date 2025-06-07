@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 const CartPage = () => {
   const { cartItems } = useCartItemsContext();
   const { setPage } = usePageContext();
+  console.log(cartItems);
 
   return (
     <>
