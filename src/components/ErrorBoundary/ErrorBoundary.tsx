@@ -20,16 +20,8 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
     return { hasError: true };
   }
 
-  componentDidCatch(error: unknown, errorInfo: unknown) {
-    void error;
-    void errorInfo;
-  }
-
   render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-
+    if (this.state.hasError) return this.props.fallback;
     return this.props.children;
   }
 }
