@@ -1,3 +1,5 @@
 export const QUERY_KEY = {
-  CART_ITEM: "cartItem",
+  cartItem: "cartItem",
+  product: "product",
+  coupon: "coupon",
 };

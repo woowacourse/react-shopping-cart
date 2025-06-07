@@ -1,24 +1,18 @@
-import { createHashRouter, RouterProvider } from "react-router";
+import { ThemeProvider } from "@emotion/react";
 import * as S from "./App.styles";
-import { PATH } from "./constants";
-import { OrderCompletedPage, ShoppingCartPage } from "./pages";
-
-const router = createHashRouter([
-  {
-    path: PATH.cart,
-    element: <ShoppingCartPage />,
-  },
-  {
-    path: PATH.orderCompleted,
-    element: <OrderCompletedPage />,
-  },
-]);
+import { ToastProvider } from "./modules";
+import { ShoppingCartPage } from "./pages";
+import { theme } from "./styles";
 
 function App() {
   return (
-    <S.AppWrapper>
-      <RouterProvider router={router} />
-    </S.AppWrapper>
+    <ThemeProvider theme={theme}>
+      <ToastProvider>
+        <S.AppWrapper>
+          <ShoppingCartPage />
+        </S.AppWrapper>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
 

@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import "./reset.css";
-import { QueryProvider } from "./modules/index.ts";
+import "./styles/main.css";
 
 async function enableMocking() {
   const { worker } = await import("./mocks/browser");
@@ -10,9 +9,7 @@ async function enableMocking() {
   return worker.start({
     serviceWorker: {
       url:
-        process.env.NODE_ENV === "production"
-          ? "/react-shopping-products/mockServiceWorker.js"
-          : "/mockServiceWorker.js",
+        process.env.NODE_ENV === "production" ? "/react-shopping-cart/mockServiceWorker.js" : "/mockServiceWorker.js",
     },
   });
 }
@@ -20,9 +17,7 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-      <QueryProvider>
-        <App />
-      </QueryProvider>
+      <App />
     </React.StrictMode>,
   );
 });

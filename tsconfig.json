@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest", "@testing-library/jest-dom"],
+    "types": ["jest", "@testing-library/jest-dom", "node"],
     "esModuleInterop": true,
 
     "jsx": "react-jsx",
@@ -31,6 +31,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "test", "__test__"],
+  "include": ["src", "test", "__test__", "emotion.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

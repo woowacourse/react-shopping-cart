@@ -6,9 +6,9 @@ export const CheckboxWrapper = styled.div<{ checked: boolean }>`
   justify-content: center;
   width: 24px;
   height: 24px;
-  background-color: ${(props) => (props.checked ? "#000" : "#fff")};
-  color: ${(props) => (props.checked ? "#fff" : "rgba(0, 0, 0, 0.1)")};
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: ${({ checked, theme }) => (checked ? theme.colors.black : theme.colors.white)};
+  color: ${({ checked, theme }) => (checked ? theme.colors.white : theme.colors.gray)};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 8px;
   cursor: pointer;
   position: relative;
