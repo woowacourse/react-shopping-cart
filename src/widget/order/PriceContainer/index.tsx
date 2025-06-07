@@ -17,7 +17,11 @@ export default function PriceContainer({
 }: PriceContainerProps) {
   const orderItems = [
     { title: '주문 금액', price: orderPrice, testId: 'order-price' },
-    { title: '쿠폰 할인 금액', price: couponDiscountPrice, testId: 'coupon-discount-price' },
+    {
+      title: '쿠폰 할인 금액',
+      price: couponDiscountPrice === 0 ? 0 : -couponDiscountPrice,
+      testId: 'coupon-discount-price',
+    },
     { title: '배송비', price: deliveryFee, testId: 'delivery-price' },
   ];
 
