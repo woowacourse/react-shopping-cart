@@ -11,7 +11,7 @@ function Header({ title, variant = 'default' }: HeaderProps) {
   const navigate = useNavigate();
   const isDefault = variant === 'default';
 
-  const handlePageBack = () => {
+  const goToBack = () => {
     navigate(-1);
   };
 
@@ -21,7 +21,7 @@ function Header({ title, variant = 'default' }: HeaderProps) {
         <Title>{title}</Title>
       ) : (
         <Button>
-          <BackArrow src={backArrow} alt="뒤로 가기" onClick={handlePageBack} />
+          <BackArrow src={backArrow} alt="뒤로 가기" onClick={goToBack} />
         </Button>
       )}
     </Container>
