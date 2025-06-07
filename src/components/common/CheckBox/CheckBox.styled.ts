@@ -20,10 +20,10 @@ export const CheckBox = styled.div<{ isChecked: boolean }>`
   background: ${(props) => (props.isChecked ? " #000" : "#fff")};
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ disabled: boolean }>`
   appearance: none;
   position: absolute;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
