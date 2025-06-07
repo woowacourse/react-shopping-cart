@@ -43,24 +43,39 @@ export function updateData<T>(key: string, newValue: Partial<Data<T>>) {
   listeners[key]?.forEach((cb) => cb());
 }
 
-export async function refetchData(key: string) {
-  const current = store[key];
-  if (!current || !current.fetchFn) return null;
+export async function refetchData<T>(
+  key: string,
+  options?: {
+    fetchFn?: () => Promise<T>;
+    onSuccess?: () => void;
+    onError?: () => void;
+  }
+) {
+  const storeItem = store[key] as Data<T> | undefined;
+
+  const finalFetchFn = options?.fetchFn ?? storeItem?.fetchFn;
+
+  if (!finalFetchFn) return null;
 
   updateData(key, { isLoading: true, isError: false });
 
   try {
-    const result = await current.fetchFn();
+    const result = await finalFetchFn();
     updateData(key, {
       data: result,
       isLoading: false,
       isError: false,
+      fetchFn: finalFetchFn,
     });
+    options?.onSuccess?.();
+    return result;
   } catch (error) {
     updateData(key, {
       data: null,
       isLoading: false,
       isError: true,
     });
+    options?.onError?.();
+    return null;
   }
 }

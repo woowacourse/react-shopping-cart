@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
-import { getSnapshot, subscribe, updateData } from './dataStore';
+import { getSnapshot, refetchData, subscribe } from './dataStore';
 
 interface useJaeOProps<T> {
   fetchKey: string;
@@ -19,28 +19,11 @@ export function useJaeO<T>({
   const onSuccessRef = useRef(onSuccess);
 
   const fetchAndUpdateData = useCallback(async () => {
-    updateData<T>(fetchKey, {
-      isLoading: true,
-      isError: false,
+    return refetchData<T>(fetchKey, {
+      fetchFn: fetchFnRef.current,
+      onError: onErrorRef.current,
+      onSuccess: onSuccessRef.current,
     });
-
-    try {
-      const data = await fetchFnRef.current();
-      updateData(fetchKey, {
-        data,
-        isLoading: false,
-        isError: false,
-        fetchFn: fetchFnRef.current,
-      });
-      onSuccessRef.current?.();
-    } catch {
-      updateData(fetchKey, {
-        data: null,
-        isLoading: false,
-        isError: true,
-      });
-      onErrorRef.current?.();
-    }
   }, [fetchKey]);
 
   const snapshot = useSyncExternalStore(
