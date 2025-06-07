@@ -10,11 +10,13 @@ function CouponModal({
   onClose,
   validatedCouponList,
   checkedCoupon,
+  onCouponCheckboxChange,
 }: {
   isOpen: boolean;
   onClose: () => void;
   validatedCouponList: validatedCouponList[];
   checkedCoupon: number[];
+  onCouponCheckboxChange: (id: number) => void;
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="쿠폰을 선택해 주세요">
@@ -24,7 +26,7 @@ function CouponModal({
           key={coupon.id}
           coupon={coupon}
           isChecked={checkedCoupon.includes(coupon.id)}
-          onCheck={() => {}}
+          onCheck={onCouponCheckboxChange}
           isDisabled={coupon.isExpired}
         />
       ))}

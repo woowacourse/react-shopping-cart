@@ -39,18 +39,9 @@ function OrderCheck() {
     (coupon) => !coupon.isExpired
   );
 
-  const result = useCouponCombos(
-    selectedCartItems,
-    availableCouponList,
-    cart.subTotal,
-    cart.deliveryFee
-  );
-
-  console.log('result', result);
-
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [checkedCoupon, setCheckedCoupon] = useState<number[]>([]);
+  const [checkedCoupons, setCheckedCoupons] = useState<number[]>([]);
 
   const typeCount = cart.selectedItems.length;
   const totalCount = selectedCartItems.reduce(
@@ -59,6 +50,15 @@ function OrderCheck() {
     },
     0
   );
+
+  const result = useCouponCombos(
+    checkedCoupons,
+    selectedCartItems,
+    availableCouponList,
+    cart.subTotal,
+    cart.deliveryFee
+  );
+  console.log(result);
 
   // const hasFreeShipping = result?.combo.some(
   //   (coupon) => coupon.discountType === 'freeShipping'
@@ -73,7 +73,7 @@ function OrderCheck() {
   const deliveryFee = isChecked ? cart.deliveryFee + 3000 : cart.deliveryFee;
 
   const handleCouponButtonClick = () => {
-    setCheckedCoupon(result.combo.map((coupon) => coupon.id));
+    setCheckedCoupons(result.combo.map((coupon) => coupon.id));
     setIsCouponModalOpen(true);
   };
 
@@ -83,6 +83,19 @@ function OrderCheck() {
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+  };
+
+  const handleCouponCheckboxChange = (id: number) => {
+    const newCheckedCoupons = checkedCoupons.includes(id)
+      ? checkedCoupons.filter((x) => x !== id)
+      : [...checkedCoupons, id];
+
+    if (newCheckedCoupons.length > 2) {
+      alert('최대 2개의 쿠폰만 적용할 수 있습니다.');
+      return;
+    }
+
+    setCheckedCoupons(newCheckedCoupons);
   };
 
   return (
@@ -126,7 +139,8 @@ function OrderCheck() {
         isOpen={isCouponModalOpen}
         onClose={handleCouponModalClose}
         validatedCouponList={validatedCouponList}
-        checkedCoupon={checkedCoupon}
+        checkedCoupon={checkedCoupons}
+        onCouponCheckboxChange={handleCouponCheckboxChange}
       />
     </>
   );

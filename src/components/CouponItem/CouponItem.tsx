@@ -9,7 +9,7 @@ import {
 
 interface CouponItemProps {
   isChecked: boolean;
-  onCheck: () => void;
+  onCheck: (id: number) => void;
   coupon: Coupon;
   isDisabled: boolean;
 }
@@ -42,7 +42,7 @@ function CouponItem({
           css={CheckboxStyle}
           type="checkbox"
           checked={isChecked}
-          onChange={onCheck}
+          onChange={() => onCheck(coupon.id)}
           disabled={isDisabled}
         />
         <Text varient="body" textAlign="left">
