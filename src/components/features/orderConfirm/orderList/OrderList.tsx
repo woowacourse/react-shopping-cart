@@ -17,7 +17,7 @@ function OrderList({ products }: OrderListProps) {
         <OrderItem key={product.id} {...product} />
       ))}
       <S.CouponButton onClick={toggleModal}>쿠폰 적용</S.CouponButton>
-      {isOpen && <CouponModal onClose={toggleModal} />}
+      {isOpen && <CouponModal products={products} onClose={toggleModal} />}
     </S.Container>
   );
 }

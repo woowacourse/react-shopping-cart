@@ -4,7 +4,7 @@ import { CartItemType } from '../../cart/types';
 
 interface UseBestCouponsProps {
   coupons: Coupon[];
-  cartItems: CartItemType[];
+  products: CartItemType[];
 }
 
 interface CouponDiscount {
@@ -12,10 +12,10 @@ interface CouponDiscount {
   discount: number;
 }
 
-export function useBestCoupons({ coupons, cartItems }: UseBestCouponsProps) {
+export function useBestCoupons({ coupons, products }: UseBestCouponsProps) {
   const couponDiscounts: CouponDiscount[] = coupons.map((coupon) => ({
     coupon,
-    discount: calculateCouponDiscount(coupon, cartItems),
+    discount: calculateCouponDiscount(coupon, products),
   }));
 
   const bestTwoIds = couponDiscounts
@@ -29,7 +29,7 @@ export function useBestCoupons({ coupons, cartItems }: UseBestCouponsProps) {
     setSelected(bestTwoIds);
   }, [
     JSON.stringify(coupons.map((c) => c.id)),
-    JSON.stringify(cartItems.map((i) => [i.id, i.quantity])),
+    JSON.stringify(products.map((i) => [i.id, i.quantity])),
   ]);
 
   return { selected, setSelected, couponDiscounts };
@@ -37,9 +37,9 @@ export function useBestCoupons({ coupons, cartItems }: UseBestCouponsProps) {
 
 function calculateCouponDiscount(
   coupon: Coupon,
-  cartItems: CartItemType[]
+  products: CartItemType[]
 ): number {
-  const cartTotal = cartItems.reduce(
+  const cartTotal = products.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
@@ -52,7 +52,7 @@ function calculateCouponDiscount(
       return Math.floor((cartTotal * (coupon.discount ?? 0)) / 100);
     }
     case 'buyXgetY': {
-      const eligibleItems = cartItems.filter(
+      const eligibleItems = products.filter(
         (item) => item.quantity >= (coupon.buyQuantity ?? 0)
       );
 

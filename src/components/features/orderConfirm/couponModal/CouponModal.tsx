@@ -5,12 +5,16 @@ import * as S from './CouponModal.styles';
 import Separator from '../../../common/separator/Separator';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
-import { useCartSelectionContext } from '../../cart/contexts/CartSelectionContext';
 import { useBestCoupons } from '../hooks/useBestCoupons';
+import { CartItemType } from '../../cart/types';
 
-function CouponModal({ onClose }: { onClose: () => void }) {
+interface CouponModalProps {
+  products: CartItemType[];
+  onClose: () => void;
+}
+
+function CouponModal({ products, onClose }: CouponModalProps) {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
-  const { selectCartItems } = useCartSelectionContext();
 
   useEffect(() => {
     fetchData<Coupon[]>()('/coupons').then((data) => {
@@ -20,7 +24,7 @@ function CouponModal({ onClose }: { onClose: () => void }) {
 
   const { selected, setSelected, couponDiscounts } = useBestCoupons({
     coupons,
-    cartItems: selectCartItems,
+    products,
   });
 
   const handleToggle = (id: number) => {
