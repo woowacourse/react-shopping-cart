@@ -3,21 +3,42 @@ import Modal from '../common/Modal/Modal';
 import CouponItem from '../CouponItem/CouponItem';
 import InfoMessage from '../InfoMessage/InfoMessage';
 import Text from '../common/Text/Text';
-import { validatedCouponList } from '../../types/coupon';
+import { Coupon, validatedCouponList } from '../../types/coupon';
+import { useEffect, useState } from 'react';
 
 function CouponModal({
   isOpen,
   onClose,
   validatedCouponList,
   checkedCoupon,
-  onCouponCheckboxChange,
+  onCouponAccept,
 }: {
   isOpen: boolean;
   onClose: () => void;
   validatedCouponList: validatedCouponList[];
   checkedCoupon: number[];
-  onCouponCheckboxChange: (id: number) => void;
+  onCouponAccept: (couponIds: number[]) => void;
 }) {
+  const [tempCoupon, setTempCoupon] = useState<number[]>(checkedCoupon);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTempCoupon(checkedCoupon);
+    }
+  }, [isOpen, checkedCoupon]);
+
+  const handleToggle = (id: number) => {
+    const newTempCoupons = tempCoupon.includes(id)
+      ? tempCoupon.filter((x) => x !== id)
+      : [...tempCoupon, id];
+
+    if (newTempCoupons.length > 2) {
+      alert('최대 2개의 쿠폰만 적용할 수 있습니다.');
+      return;
+    }
+    setTempCoupon(newTempCoupons);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="쿠폰을 선택해 주세요">
       <InfoMessage message="쿠폰은 최대 2개까지 사용할 수 있습니다." />
@@ -25,12 +46,16 @@ function CouponModal({
         <CouponItem
           key={coupon.id}
           coupon={coupon}
-          isChecked={checkedCoupon.includes(coupon.id)}
-          onCheck={onCouponCheckboxChange}
+          isChecked={tempCoupon.includes(coupon.id)}
+          onCheck={handleToggle}
           isDisabled={coupon.isExpired}
         />
       ))}
-      <Button color="gray" variant="secondary" onClick={() => {}}>
+      <Button
+        color="gray"
+        variant="secondary"
+        onClick={() => onCouponAccept(tempCoupon)}
+      >
         <Text varient="body">총 [1,000원] 할인 쿠폰 사용하기</Text>
       </Button>
     </Modal>

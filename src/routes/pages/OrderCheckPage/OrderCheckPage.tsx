@@ -10,7 +10,7 @@ import OrderCartItem from '../../../components/CartItem/OrderCartItem';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
 import { useCartContext } from '../../../context/CartContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CouponModal from '../../../components/CouponModal/CouponModal';
 import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
@@ -18,7 +18,6 @@ import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
 import useCouponList from '../../../hooks/useCouponList';
 import useValidateCoupon from '../../../hooks/useValidateCoupon';
 import useCouponCombos from '../../../hooks/useCouponCombos';
-import { Coupon } from '../../../types/coupon';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -58,7 +57,6 @@ function OrderCheck() {
     cart.subTotal,
     cart.deliveryFee
   );
-  console.log(result);
 
   // const hasFreeShipping = result?.combo.some(
   //   (coupon) => coupon.discountType === 'freeShipping'
@@ -85,17 +83,9 @@ function OrderCheck() {
     setIsChecked(!isChecked);
   };
 
-  const handleCouponCheckboxChange = (id: number) => {
-    const newCheckedCoupons = checkedCoupons.includes(id)
-      ? checkedCoupons.filter((x) => x !== id)
-      : [...checkedCoupons, id];
-
-    if (newCheckedCoupons.length > 2) {
-      alert('최대 2개의 쿠폰만 적용할 수 있습니다.');
-      return;
-    }
-
-    setCheckedCoupons(newCheckedCoupons);
+  const handleCouponAccept = (couponIds: number[]) => {
+    setCheckedCoupons(couponIds);
+    setIsCouponModalOpen(false);
   };
 
   return (
@@ -140,7 +130,7 @@ function OrderCheck() {
         onClose={handleCouponModalClose}
         validatedCouponList={validatedCouponList}
         checkedCoupon={checkedCoupons}
-        onCouponCheckboxChange={handleCouponCheckboxChange}
+        onCouponAccept={handleCouponAccept}
       />
     </>
   );
