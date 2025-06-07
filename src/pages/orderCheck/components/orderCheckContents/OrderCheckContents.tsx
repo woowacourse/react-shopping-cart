@@ -39,21 +39,12 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
       0
     );
 
-  const toggleSelect = (couponId: number) => {
-    setCouponSelectedIds((prev) => {
-      if (prev.includes(couponId)) {
-        return prev.filter((id) => id !== couponId);
-      }
-      if (prev.length < 2) {
-        return [...prev, couponId];
-      }
-
-      return prev;
-    });
-  };
-
   const toggleRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
+  };
+
+  const applyCoupons = (couponIds: number[]) => {
+    setCouponSelectedIds(couponIds);
   };
 
   const moveToPaymentCheck = () => {
@@ -119,7 +110,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
           coupons={couponModels}
           orderPrice={orderPrice}
           couponSelectedIds={couponSelectedIds}
-          toggleSelect={toggleSelect}
+          applyCoupons={applyCoupons}
         />
       </S.Container>
     </Modal>
