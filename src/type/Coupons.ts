@@ -9,7 +9,7 @@ export interface BaseCoupon {
 export interface FixedDiscountCoupon extends BaseCoupon {
   discountType: "fixed";
   discount: number;
-  minimumAmount?: number;
+  minimumAmount: number;
 }
 
 export interface BuyXGetYCoupon extends BaseCoupon {
@@ -20,14 +20,13 @@ export interface BuyXGetYCoupon extends BaseCoupon {
 
 export interface FreeShippingCoupon extends BaseCoupon {
   discountType: "freeShipping";
-  minimumAmount?: number;
+  minimumAmount: number;
 }
 
 export interface PercentageDiscountCoupon extends BaseCoupon {
   discountType: "percentage";
   discount: number;
-  minimumAmount?: number;
-  availableTime?: {
+  availableTime: {
     start: string; // HH:MM:SS 형식
     end: string; // HH:MM:SS 형식
   };
