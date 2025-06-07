@@ -24,11 +24,12 @@ function OrderPage() {
   const items = getSelectedItemsFromStorage();
 
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
+  const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const baseDeliveryFee = totalPrice >= 100000 ? 0 : 3000;
   const extraRemoteFee = isRemoteArea ? 3000 : 0;
   const deliveryFee = baseDeliveryFee + extraRemoteFee;
+
   return (
     <>
       <Header
@@ -87,7 +88,7 @@ function SelectedItemCard({ item }: { item: SelectedItem }) {
         <Image css={styles.cartItemImgCss} src={item.imageUrl} alt={item.name} />
         <div>
           <p>{item.name}</p>
-          <p css={styles.cartItemPriceCss}>{item.price.toLocaleString()}원</p>
+          <p css={styles.cartItemPriceCss}>{(item.price * item.quantity).toLocaleString()}원</p>
           <p>{item.quantity}개</p>
         </div>
       </div>

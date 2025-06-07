@@ -26,7 +26,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
       id: item.id,
       name: item.product.name,
       quantity: item.quantity,
-      price: item.product.price * item.quantity,
+      price: item.product.price,
       imageUrl: item.product.imageUrl
     }));
 

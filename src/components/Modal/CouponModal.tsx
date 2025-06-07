@@ -101,11 +101,16 @@ function calculateTotalDiscount(coupons: Coupon[] | undefined, selectedCoupons: 
   );
   const discountedDeliveryFee = isFreeShippingCouponApplied ? 0 : originalDeliveryFee;
 
+  const bogoDiscount = coupons?.filter((c) => selectedCoupons.includes(c.id) && c.discountType === 'buyXgetY').length
+    ? calculateBogoDiscount()
+    : 0;
+
   return (
     (coupons
       ?.filter((c) => selectedCoupons.includes(c.id))
       .reduce((acc, cur) => acc + (cur.discountType === 'fixed' && cur.discount ? cur.discount : 0), 0) ?? 0) +
-    (originalDeliveryFee - discountedDeliveryFee)
+    (originalDeliveryFee - discountedDeliveryFee) +
+    bogoDiscount
   );
 }
 
@@ -130,6 +135,25 @@ function getOrderAmountFromStorage(): number {
   } catch {
     return 0;
   }
+}
+
+function getOrderItemsFromStorage(): { price: number; quantity: number }[] {
+  try {
+    const data = localStorage.getItem('selectedItems');
+    if (!data) return [];
+    return JSON.parse(data) as { price: number; quantity: number }[];
+  } catch {
+    return [];
+  }
+}
+
+function calculateBogoDiscount(): number {
+  const items = getOrderItemsFromStorage();
+  const eligibleItems = items.filter((item) => item.quantity >= 2);
+  if (eligibleItems.length === 0) return 0;
+
+  const mostExpensiveItem = eligibleItems.reduce((prev, curr) => (curr.price > prev.price ? curr : prev));
+  return mostExpensiveItem.price;
 }
 
 function getShippingInfoFromStorage(): { isRemoteArea: boolean } {
