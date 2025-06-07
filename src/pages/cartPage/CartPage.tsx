@@ -43,7 +43,7 @@ const CartPage = () => {
     updateCartData,
   } = useCartData({ callApi, syncIsCheckedSet });
 
-  const { goOrderConfirmation } = useEasyNavigate();
+  const { goOrderConfirmation, goHome } = useEasyNavigate();
 
   const { orderPrice, deliveryFee, totalPrice } = getPriceSummary(
     cartData,
@@ -74,7 +74,13 @@ const CartPage = () => {
     return <CartPageSkeleton data-testid="cart-page-skeleton" />;
   }
   if (loadingState === "error") {
-    return <ErrorFallback data-testid="error-fallback" />;
+    return (
+      <ErrorFallback
+        data-testid="error-fallback"
+        callBack={goHome}
+        errorButtonText="홈으로 돌아가기"
+      />
+    );
   }
 
   return (

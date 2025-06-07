@@ -31,6 +31,8 @@ import {
   getTotalDiscountPrice,
 } from "../../domains/coupon/calculateCoupon";
 import useEasyNavigate from "../../hooks/useEasyNavigate";
+import Loading from "../../components/@common/loading/Loading";
+import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
 
 const OrderConfirmationPage = () => {
   const { ref: CartPriceRef, isVisible: isCartPriceVisible } =
@@ -78,19 +80,26 @@ const OrderConfirmationPage = () => {
   const { goOrderComplete } = useEasyNavigate();
 
   const getModalContent = () => {
-    return loadingState === "initialLoading" ? (
-      //TODO : 로딩 스피너로 변경 필요
-      <div>로딩 중 </div>
-    ) : (
-      <CouponModalContent
-        totalDiscountPrice={totalDiscountPrice}
-        couponList={couponList}
-        validCouponList={validCouponList}
-        isCheckedCoupons={isCheckedCoupons}
-        toggleCheckedCoupon={toggleCheckedCoupon}
-        onModalClose={closeCouponModal}
-      />
-    );
+    if (loadingState === "initialLoading") {
+      return <Loading />;
+    }
+    if (loadingState === "error") {
+      return (
+        <ErrorFallback callBack={closeCouponModal} errorButtonText="닫기" />
+      );
+    }
+    if (loadingState === "success") {
+      return (
+        <CouponModalContent
+          totalDiscountPrice={totalDiscountPrice}
+          couponList={couponList}
+          validCouponList={validCouponList}
+          isCheckedCoupons={isCheckedCoupons}
+          toggleCheckedCoupon={toggleCheckedCoupon}
+          onModalClose={closeCouponModal}
+        />
+      );
+    }
   };
 
   return (

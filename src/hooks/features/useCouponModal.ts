@@ -13,6 +13,8 @@ const useCouponModal = () => {
   const [couponList, setCouponList] = useState<CouponType[]>([]);
   const openCouponModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    openModal();
+
     const fetchData = async () => {
       const couponList = await callApi<CouponType[]>(
         getCouponList,
@@ -27,7 +29,6 @@ const useCouponModal = () => {
     };
 
     fetchData();
-    openModal();
   };
 
   const closeCouponModal = () => {

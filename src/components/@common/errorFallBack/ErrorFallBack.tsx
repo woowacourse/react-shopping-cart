@@ -1,10 +1,16 @@
-import useEasyNavigate from "../../../hooks/useEasyNavigate";
 import Button from "../../@common/button/Button";
 import * as S from "./ErrorFallBack.styles";
 import errorFallbackImage from "/public/error.png";
 
-const ErrorFallback = () => {
-  const { goHome } = useEasyNavigate();
+interface ErrorFallbackProps {
+  errorButtonText: string;
+  callBack: () => void;
+}
+
+const ErrorFallback = ({ errorButtonText, callBack }: ErrorFallbackProps) => {
+  const closeErrorFallback = () => {
+    callBack();
+  };
 
   return (
     <div css={S.errorFallbackContainer} data-testid="error-fallback">
@@ -14,8 +20,8 @@ const ErrorFallback = () => {
         alt="errorFallback"
       />
       <p css={S.errorFallbackMessage}>예기치 못한 에러가 발생했어요.</p>
-      <Button size="large" color="black" onClick={goHome}>
-        홈으로 돌아가기
+      <Button size="large" color="black" onClick={closeErrorFallback}>
+        {errorButtonText}
       </Button>
     </div>
   );
