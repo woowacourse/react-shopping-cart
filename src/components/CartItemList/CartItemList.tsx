@@ -21,8 +21,6 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   const deliveryFee = calculateDeliveryFee(orderAmount);
   const totalAmount = orderAmount + deliveryFee;
 
-  console.log(checkedItems);
-
   const handleConfirmButtonClick = () => {
     const selectedItems = checkedItems.map((item) => ({
       id: item.id,

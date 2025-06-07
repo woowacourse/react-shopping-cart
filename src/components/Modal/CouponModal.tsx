@@ -1,68 +1,65 @@
 import { css } from '@emotion/react';
 import Modal from './Modal';
 import { useState } from 'react';
+import { useApiContext } from '../../contexts/ApiContext';
+import getCoupons from '../../api/getCoupons';
+type TimeRange = {
+  start: string;
+  end: string;
+};
 
-const coupons = [
-  {
-    id: 'FIXED5000',
-    title: '5,000원 할인 쿠폰',
-    description: '최소 주문 금액: 100,000원',
-    expiry: '2024년 11월 30일',
-    disabled: false
-  },
-  {
-    id: 'BOGO',
-    title: '2개 구매 시 1개 무료 쿠폰',
-    description: '',
-    expiry: '2024년 5월 30일',
-    disabled: false
-  },
-  {
-    id: 'FREESHIPPING',
-    title: '5만원 이상 구매 시 무료 배송 쿠폰',
-    description: '최소 주문 금액: 50,000원',
-    expiry: '2024년 8월 31일',
-    disabled: false
-  },
-  {
-    id: 'MIRACLESALE',
-    title: '미라클모닝 30% 할인 쿠폰',
-    description: '사용 가능 시간: 오전 4시부터 7시까지',
-    expiry: '2024년 7월 31일',
-    disabled: false
-  }
-];
+export type Coupon = {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discountType: 'FIXED' | 'BOGO' | 'FREESHIPPING' | 'TIMED';
+  discount?: number;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: TimeRange;
+};
+export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const { data: coupons } = useApiContext<Coupon[]>({ fetchFn: getCoupons, key: 'getCoupons' });
+  const [selectedCoupons, setSelectedCoupons] = useState<number[]>([]);
 
-export default function CouponSelectModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const [selectedCoupons, setSelectedCoupons] = useState<string[]>([]);
-
-  const toggleCoupon = (id: string) => {
+  const toggleCoupon = (id: number) => {
     setSelectedCoupons((prev) =>
       prev.includes(id) ? prev.filter((c) => c !== id) : prev.length < 2 ? [...prev, id] : prev
     );
   };
 
-  const totalDiscount = 6000; // 예시용 정적 값
+  const formatCouponDescription = (coupon: Coupon) => {
+    const desc: string[] = [];
+    if (coupon.minimumAmount) {
+      desc.push(`최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`);
+    }
+    if (coupon.availableTime) {
+      desc.push(`사용 가능 시간: ${coupon.availableTime.start} ~ ${coupon.availableTime.end}`);
+    }
+    return desc.join(', ');
+  };
+
+  const totalDiscount = 6000;
 
   return (
     <Modal position="center" size="medium" isOpen={isOpen} onClose={onClose}>
-      <Modal.BackDrop />
+      <Modal.BackDrop css={backdropCss} />
       <Modal.Content>
-        <div css={modalContentStyle}>
+        <div>
           <Modal.Title>쿠폰을 선택해 주세요</Modal.Title>
           <p css={descStyle}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
           <ul css={couponListStyle}>
-            {coupons.map((coupon) => (
+            {coupons?.map((coupon) => (
               <li
                 key={coupon.id}
                 css={[couponItemStyle, selectedCoupons.includes(coupon.id) && selectedStyle]}
                 onClick={() => toggleCoupon(coupon.id)}
               >
-                <div>
-                  <strong>{coupon.title}</strong>
-                  <p>{coupon.description}</p>
-                  <small>만료일: {coupon.expiry}</small>
-                </div>
+                <p>{coupon.description || formatCouponDescription(coupon)}</p>
+                <small>만료일: {coupon.expirationDate}</small>
+                {coupon.minimumAmount && <small>최소 주문 금액: {coupon.minimumAmount}</small>}
               </li>
             ))}
           </ul>
@@ -74,48 +71,47 @@ export default function CouponSelectModal({ isOpen, onClose }: { isOpen: boolean
     </Modal>
   );
 }
+const backdropCss = css({
+  backgroundColor: 'rgba(0, 0, 0, 0.35)'
+});
 
-const modalContentStyle = css`
-  padding: 24px;
-`;
+const descStyle = css({
+  fontSize: '14px',
+  color: '#666',
+  margin: '8px 0 16px'
+});
 
-const descStyle = css`
-  font-size: 14px;
-  color: #666;
-  margin: 8px 0 16px;
-`;
+const couponListStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  marginBottom: '24px'
+});
 
-const couponListStyle = css`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-`;
-
-const couponItemStyle = css`
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 16px;
-  background: #fff;
-  cursor: pointer;
-  transition: border-color 0.2s ease;
-  &:hover {
-    border-color: #000;
+const couponItemStyle = css({
+  border: '1px solid #ccc',
+  borderRadius: '12px',
+  padding: '16px',
+  background: '#fff',
+  cursor: 'pointer',
+  transition: 'border-color 0.2s ease',
+  '&:hover': {
+    borderColor: '#000'
   }
-`;
+});
 
-const selectedStyle = css`
-  border-color: #000;
-  background: #f4f4f4;
-`;
+const selectedStyle = css({
+  borderColor: '#000',
+  background: '#f4f4f4'
+});
 
-const confirmButtonStyle = css`
-  width: 100%;
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-`;
+const confirmButtonStyle = css({
+  width: '100%',
+  background: '#000',
+  color: '#fff',
+  fontWeight: 'bold',
+  padding: '14px',
+  borderRadius: '10px',
+  fontSize: '16px',
+  cursor: 'pointer'
+});

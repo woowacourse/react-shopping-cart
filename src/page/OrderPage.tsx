@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
 import Image from '../components/Image/Image';
+import { useState } from 'react';
+import CouponModal from '../components/Modal/CouponModal';
 
 type SelectedItem = {
   id: number;
@@ -19,6 +21,7 @@ function OrderPage() {
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
 
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Header
@@ -44,6 +47,8 @@ function OrderPage() {
           <p css={priceTitleCss}>총 결제 금액</p>
           <p css={priceCss}>{totalPrice.toLocaleString()}원</p>
         </div>
+        <button onClick={() => setIsOpen(true)}>쿠폰 적용</button>
+        {isOpen && <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
         <Button>결제하기</Button>
       </main>
     </>
