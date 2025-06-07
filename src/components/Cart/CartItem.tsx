@@ -5,36 +5,36 @@ import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
 
 interface CartItemProps {
-  cartItem: CartProduct;
-  checkedItems: number[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
+  data: CartProduct;
+  checked: boolean;
+  onCheckChange: (checked: boolean) => void;
 }
 
-function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
-  const { removeItem, increaseQuantity, decreaseQuantity } = useCartItem(cartItem);
+function CartItem({ data, checked, onCheckChange }: CartItemProps) {
+  const { removeItem, increaseQuantity, decreaseQuantity } = useCartItem(data);
 
   return (
     <CartItemContainer>
       <SelectBox
-        cartItem={cartItem}
-        checkedItems={checkedItems}
-        setCheckedItems={setCheckedItems}
+        cartItem={data}
+        checked={checked}
+        onChange={onCheckChange}
         onDeleteClick={removeItem}
       />
       <ProductRow>
         <CartProductImage
-          src={cartItem.product.imageUrl}
+          src={data.product.imageUrl}
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = woowaLogo;
           }}
         />
         <CartContent>
-          <ProductTitle>{cartItem.product.name}</ProductTitle>
-          <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
+          <ProductTitle>{data.product.name}</ProductTitle>
+          <ProductPrice>{data.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
             <StepperButton onClick={decreaseQuantity}>−</StepperButton>
-            <StepperQuantity>{cartItem.quantity}</StepperQuantity>
+            <StepperQuantity>{data.quantity}</StepperQuantity>
             <StepperButton onClick={increaseQuantity}>＋</StepperButton>
           </StepperContainer>
         </CartContent>

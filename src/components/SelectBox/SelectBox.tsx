@@ -4,27 +4,22 @@ import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './
 
 interface SelectBoxProps {
   cartItem: CartProduct;
-  checkedItems: number[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
   onDeleteClick: () => void;
 }
 
-function SelectBox({ cartItem, checkedItems, setCheckedItems, onDeleteClick }: SelectBoxProps) {
+function SelectBox({ cartItem, checked, onChange, onDeleteClick }: SelectBoxProps) {
   return (
     <ModifyRow>
       <CheckboxContainer>
         <HiddenCheckbox
           data-id={cartItem.id}
           type="checkbox"
-          onChange={() => {
-            setCheckedItems((prev) =>
-              prev.includes(cartItem.id)
-                ? prev.filter((id) => id !== cartItem.id)
-                : [...prev, cartItem.id],
-            );
-          }}
+          checked={checked}
+          onChange={() => onChange(!checked)}
         />
-        <StyledCheckbox checked={checkedItems.includes(cartItem.id)} />
+        <StyledCheckbox checked={checked} />
       </CheckboxContainer>
       <DeleteButton onClick={onDeleteClick}>삭제</DeleteButton>
     </ModifyRow>

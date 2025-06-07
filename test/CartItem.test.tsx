@@ -25,12 +25,12 @@ describe('CartItem', () => {
     },
   };
 
-  const mockSetCheckedItems = vi.fn();
+  const mockOnCheckChange = vi.fn();
 
-  const renderComponent = (cartItem = mockCartItem) => {
+  const renderComponent = (cartItem = mockCartItem, checked = true) => {
     return render(
       <DataProvider>
-        <CartItem cartItem={cartItem} checkedItems={[1]} setCheckedItems={mockSetCheckedItems} />
+        <CartItem data={cartItem} checked={checked} onCheckChange={mockOnCheckChange} />
       </DataProvider>,
     );
   };
@@ -97,7 +97,7 @@ describe('CartItem', () => {
     expect(cartApi.removeCartItem).toHaveBeenCalledWith(mockCartItem);
   });
 
-  it('체크박스 클릭 시 setCheckedItems가 호출되어야 한다', async () => {
+  it('체크박스 클릭 시 onCheckChange가 호출되어야 한다', async () => {
     renderComponent();
 
     // data-id로 체크박스 찾기
@@ -107,6 +107,6 @@ describe('CartItem', () => {
       fireEvent.click(checkbox);
     });
 
-    expect(mockSetCheckedItems).toHaveBeenCalled();
+    expect(mockOnCheckChange).toHaveBeenCalled();
   });
 });

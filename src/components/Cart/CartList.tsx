@@ -1,7 +1,7 @@
 import CartItem from './CartItem';
 import { useData } from '../../context/DataContext';
 import { getCartItems } from '../../apis/cart';
-import { CartProduct } from '../../types/cart';
+import { CartProduct, CartItemsResponse } from '../../types/cart';
 import styled from '@emotion/styled';
 
 interface CartListProps {
@@ -10,19 +10,31 @@ interface CartListProps {
 }
 
 function CartList({ checkedItems, setCheckedItems }: CartListProps) {
-  const { data: cartItems } = useData({
+  const { data: cartItems } = useData<CartItemsResponse>({
     fetcher: getCartItems,
     name: 'cartItems',
   });
+
+  if (!cartItems) {
+    return null;
+  }
+
+  const handleItemCheck = (itemId: number, checked: boolean) => {
+    setCheckedItems((prev) => 
+      checked 
+        ? [...prev, itemId]
+        : prev.filter((id) => id !== itemId)
+    );
+  };
 
   return (
     <Container>
       {cartItems.content.map((item: CartProduct) => (
         <CartItem
           key={item.id}
-          cartItem={item}
-          checkedItems={checkedItems}
-          setCheckedItems={setCheckedItems}
+          data={item}
+          checked={checkedItems.includes(item.id)}
+          onCheckChange={(checked) => handleItemCheck(item.id, checked)}
         />
       ))}
     </Container>
