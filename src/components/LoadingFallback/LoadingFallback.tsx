@@ -1,4 +1,4 @@
-import * as S from "../ErrorFallback/ErrorFallback.styles";
+import * as S from "./LoadingFallback.styles";
 
 export default function LoadingFallback() {
   return (
