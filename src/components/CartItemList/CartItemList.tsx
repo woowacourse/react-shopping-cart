@@ -6,7 +6,7 @@ import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
-import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from './calculate';
+import { calculateDeliveryFee, calculateOrderAmount } from './calculate';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -20,9 +20,20 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   const orderAmount = calculateOrderAmount(checkedItems);
   const deliveryFee = calculateDeliveryFee(orderAmount);
   const totalAmount = orderAmount + deliveryFee;
-  const countOfItemType = checkedItems.length;
-  const countOfItem = calculateTotalQuantity(checkedItems);
 
+  console.log(checkedItems);
+
+  const handleConfirmButtonClick = () => {
+    const selectedItems = checkedItems.map((item) => ({
+      id: item.id,
+      name: item.product.name,
+      quantity: item.quantity,
+      price: item.product.price * item.quantity,
+      imageUrl: item.product.imageUrl
+    }));
+
+    localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+  };
   return (
     <div css={styles.cartItemsAreaCss}>
       {cartItems.length === 0 ? (
@@ -49,13 +60,8 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
       <Button
         disabled={!Array.from(state.values()).some(Boolean)}
         onClick={() => {
-          navigate('/order', {
-            state: {
-              countOfItem,
-              countOfItemType,
-              totalAmount
-            }
-          });
+          handleConfirmButtonClick();
+          navigate('/order');
         }}
       >
         주문 확인
