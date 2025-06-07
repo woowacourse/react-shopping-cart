@@ -45,7 +45,7 @@ export const ModalContainer = styled.div<{
 
 export const StyledTitle = styled.div`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 100%;
   margin: 10px 0;
 `;
