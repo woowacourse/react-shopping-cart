@@ -4,7 +4,7 @@ import { CartItem } from "../../../type/CartItem";
 import { getSelectedCartItemsCount } from "../../../util/cart/getSelectedCartItemsCount";
 import OrderList from "../OrderList/OrderList";
 import OrderCard from "../OrderCard/OrderCard";
-import ApplyCoupon from "../ApplyCoupon/ApplyCoupon";
+import ApplyCoupon from "../Coupon/ApplyCoupon/ApplyCoupon";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];
