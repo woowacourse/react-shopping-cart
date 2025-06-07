@@ -6,9 +6,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type?: "button" | "submit" | "reset";
 }
 
-function Button({ backgroundColor, children, ...props }: ButtonProps) {
+function Button({ backgroundColor, color, children, ...props }: ButtonProps) {
   return (
-    <ButtonContainer style={{ backgroundColor }} {...props}>
+    <ButtonContainer style={{ backgroundColor, color }} {...props}>
       {children}
     </ButtonContainer>
   );
