@@ -1,52 +1,54 @@
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { orderListStorageController } from "@/domains/controller/orderListStorageController";
 import useSelectedIds from "@/shared/hooks/useSelectedItem";
 import { useCallback, useMemo } from "react";
+import { useOrderListStorage } from "./useOrderListStorage";
 
 export const useSelectedOrderList = (cartItems: CartItemType[]) => {
-  const allIds = useMemo(
-    () => new Set(cartItems.map(({ id }) => id)),
-    [cartItems]
-  );
+  const allIds = useMemo(() => cartItems.map(({ id }) => id), [cartItems]);
+
+  const {
+    setOrderListStorage,
+    clearOrderListStorage,
+    addOrderListStorage,
+    removeOrderListStorage,
+  } = useOrderListStorage(allIds);
   const {
     addSelectedId,
     removeSelectedId,
     clearSelectedIds,
     getIsSelectedId,
     addSelectedIds,
-  } = useSelectedIds(allIds);
+  } = useSelectedIds(new Set(allIds));
 
   const isAllSelected = useMemo(
-    () => [...allIds].every((id) => getIsSelectedId(id)),
+    () => allIds.every((id) => getIsSelectedId(id)),
     [allIds, getIsSelectedId]
   );
-  const toggleAllSelection = useCallback(() => {
+  const toggleAllSelection = () => {
     if (isAllSelected) {
       clearSelectedIds();
-      orderListStorageController.clear();
+      clearOrderListStorage();
       return;
     }
 
-    addSelectedIds([...allIds]);
-    orderListStorageController.set([...allIds]);
-  }, [isAllSelected, clearSelectedIds, allIds, addSelectedIds]);
+    addSelectedIds(allIds);
+    setOrderListStorage(allIds);
+  };
 
   const addSelectedItem = useCallback(
     (id: number) => {
       addSelectedId(id);
-      orderListStorageController.set((prev) => [...prev, id]);
+      addOrderListStorage(id);
     },
-    [addSelectedId]
+    [addSelectedId, addOrderListStorage]
   );
 
   const removeSelectedItem = useCallback(
     (id: number) => {
       removeSelectedId(id);
-      orderListStorageController.set((prev) =>
-        prev.filter((itemId) => itemId !== id)
-      );
+      removeOrderListStorage(id);
     },
-    [removeSelectedId]
+    [removeSelectedId, removeOrderListStorage]
   );
 
   return {
