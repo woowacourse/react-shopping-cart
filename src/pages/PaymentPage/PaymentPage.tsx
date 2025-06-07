@@ -4,11 +4,11 @@ import FooterButton from "../../components/@common/FooterButton/FooterButton";
 import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../domains/cart/hooks/useCart";
+import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 import * as S from "./PaymentPage.styles";
 
 const PaymentPage = () => {
-  const { orderItemCount, orderQuantity, totalPrice } = useCart();
+  const { orderItemCount, orderQuantity, totalPrice } = useOrderCalculator();
   const navigate = useNavigate();
   const navigateToCart = () => navigate(ROUTES.CART);
 

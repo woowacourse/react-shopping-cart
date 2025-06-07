@@ -1,4 +1,5 @@
-import useCart from "../../../domains/cart/hooks/useCart";
+import useCartOperations from "../../../domains/cart/hooks/useCartOperations";
+import useCartToggle from "../../../domains/cart/hooks/useCartToggle";
 import { CartItemWithSelection } from "../../../domains/cart/types/response";
 import Checkbox from "../../@common/Checkbox/Checkbox";
 import QuantityCounter from "../../@shared/QuantityCounter/QuantityCounter";
@@ -11,7 +12,8 @@ interface Props {
 const MIN_QUANTITY = 1;
 
 const CartItem = ({ item: { id, quantity, product, selected } }: Props) => {
-  const { deleteItem, updateItemQuantity, toggleItemSelected } = useCart();
+  const { deleteItem, updateItemQuantity } = useCartOperations();
+  const { toggleItemSelected } = useCartToggle();
 
   return (
     <S.CartItem>

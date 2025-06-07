@@ -8,11 +8,11 @@ import Title from "../../components/@common/Title/Title";
 import CouponModal from "../../components/coupon/CouponModal/CouponModal";
 import OrderItem from "../../components/order/OrderItem/OrderItem";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../domains/cart/hooks/useCart";
 import useModal from "../../features/modal/useModal";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
+import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 
 const OrderPage = () => {
   const {
@@ -22,7 +22,7 @@ const OrderPage = () => {
     orderPrice,
     shippingFee,
     totalPrice,
-  } = useCart();
+  } = useOrderCalculator();
 
   const { openModal } = useModal();
   const openCouponModal = () => openModal(<CouponModal />);

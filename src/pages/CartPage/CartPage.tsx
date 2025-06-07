@@ -10,19 +10,15 @@ import AllSelector from "../../components/cart/AllSelector/AllSelector";
 import CartItem from "../../components/cart/CartItem/CartItem";
 import { ROUTES } from "../../constants/routes";
 import CartInitializer from "../../domains/cart/contexts/CartInitializer";
-import useCart from "../../domains/cart/hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
+import { useCartState } from "../../domains/cart/hooks/useCartState";
+import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 
 const CartPage = () => {
-  const {
-    cartItems,
-    hasSelectedItem,
-    cartItemCount,
-    orderPrice,
-    shippingFee,
-    totalPrice,
-  } = useCart();
+  const { items, cartItemCount } = useCartState();
+  const { hasSelectedItem, orderPrice, shippingFee, totalPrice } =
+    useOrderCalculator();
 
   const navigate = useNavigate();
   const navigateToOrderPage = () => {
@@ -45,7 +41,7 @@ const CartPage = () => {
             <S.CartContainer>
               <AllSelector />
               <S.CartItemsContainer>
-                {cartItems.map((item) => (
+                {items.map((item) => (
                   <CartItem key={item.id} item={item} />
                 ))}
               </S.CartItemsContainer>

@@ -1,10 +1,12 @@
-import useCart from "../../../domains/cart/hooks/useCart";
+import { useCartState } from "../../../domains/cart/hooks/useCartState";
+import useCartToggle from "../../../domains/cart/hooks/useCartToggle";
 import Checkbox from "../../@common/Checkbox/Checkbox";
 import Description from "../../@common/Description/Description";
 import * as S from "./AllSelector.styles";
 
 const AllSelector = () => {
-  const { allSelected, toggleAllSelected } = useCart();
+  const { allSelected } = useCartState();
+  const { toggleAllSelected } = useCartToggle();
 
   return (
     <S.AllSelector>
