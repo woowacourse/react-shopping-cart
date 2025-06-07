@@ -1,9 +1,7 @@
-import { Coupon } from '../types/coupon';
-
-export function isExpired(coupon: Coupon): boolean {
+export function isExpired(expirationDate: string): boolean {
   const today = new Date();
-  const [y, m, d] = coupon.expirationDate.split('-').map(Number);
-  return today >= new Date(y, m - 1, d);
+  const [y, m, d] = expirationDate.split('-').map(Number);
+  return today > new Date(y, m - 1, d);
 }
 
 export function isMiracleMorning(): boolean {
@@ -15,4 +13,11 @@ export function isMiracleMorning(): boolean {
   end.setHours(7, 0, 0, 0);
 
   return now >= start && now <= end;
+}
+
+export function isMinimumAmount(
+  minimumAmount: number,
+  subTotal: number
+): boolean {
+  return subTotal >= minimumAmount;
 }
