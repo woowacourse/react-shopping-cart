@@ -12,7 +12,9 @@ export const Container = styled.div`
 `;
 
 export const CouponText = styled.p`
-  font-weight: 500;
+  font-weight: 400;
   font-size: 12px;
   line-height: 15px;
+  color: #0a0d13;
+  margin-left: 6px;
 `;

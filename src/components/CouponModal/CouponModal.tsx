@@ -41,6 +41,9 @@ export default function CouponModal({ onClose }: ModalProps) {
           <p>쿠폰을 선택해 주세요</p>
           <S.XButton onClick={onClose}>x</S.XButton>
         </S.ModalTitle>
+        <S.Description>
+          ⚠️ 쿠폰은 최대 2개까지 사용할 수 있습니다.
+        </S.Description>
         <CouponList />
         <S.CloseButton onClick={onClose}>
           {`총 ${6000}원 할인 쿠폰 사용하기`}

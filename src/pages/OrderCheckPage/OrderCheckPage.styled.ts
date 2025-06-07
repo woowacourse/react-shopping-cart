@@ -79,6 +79,7 @@ export const CouponButton = styled.button`
   font-weight: bold;
   border-radius: 5px;
   color: rgb(51, 51, 51, 0.75);
+  cursor: pointer;
 `;
 
 export const OrderText = styled.h3`

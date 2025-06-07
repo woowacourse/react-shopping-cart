@@ -27,6 +27,7 @@ export const ModalContainer = styled.div`
 export const ModalTitle = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 22px;
   font-size: 18px;
   font-weight: 700;
@@ -36,6 +37,10 @@ export const ModalTitle = styled.div`
 export const XButton = styled.button`
   border: none;
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 `;
 
 export const CloseButton = styled.button`
@@ -47,4 +52,10 @@ export const CloseButton = styled.button`
   font-size: 15px;
   font-weight: 700;
   margin-top: 32px;
+`;
+
+export const Description = styled.p`
+  font-size: 12px;
+  color: #666666;
+  margin: 13px 0px;
 `;

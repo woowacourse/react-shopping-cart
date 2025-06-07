@@ -79,5 +79,5 @@ export const Line = styled.hr`
 
 export const ItemQuantity = styled.p`
   font-size: 12px;
-  padding: 10px 0px;
+  padding: 5px 0px;
 `;

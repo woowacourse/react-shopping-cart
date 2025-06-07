@@ -2,19 +2,18 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import * as S from "./OrderCheckPage.styled";
 import BackArrow from "../../components/Icon/BackArrow";
-import { useCouponContext } from "../../stores/CouponContext";
 import CartItem from "../../components/CartItem/CartItem";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import useCartManager from "../../hooks/useCartManager";
+import { useState } from "react";
+import CouponModal from "../../components/CouponModal/CouponModal";
 
 function OrderCheckPage() {
   const navigate = useNavigate();
-
   const { cartData } = useCartManager();
-  const { coupons } = useCouponContext();
 
-  console.log(coupons);
+  const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
 
   return (
     <S.Root>
@@ -38,7 +37,9 @@ function OrderCheckPage() {
               <CartItem key={cart.id} cart={cart} type="check" />
             ))}
           </S.CartListContainer>
-          <S.CouponButton>쿠폰 적용</S.CouponButton>
+          <S.CouponButton onClick={() => setIsOpenCouponModal(true)}>
+            쿠폰 적용
+          </S.CouponButton>
           <S.OrderText>배송 정보</S.OrderText>
           <CheckBox text="제주도 및 도서 산간 지역" isChecked={false} />
           <br />
@@ -52,6 +53,9 @@ function OrderCheckPage() {
           결제하기
         </S.OrderButton>
       </S.CartPageWrapper>
+      {isOpenCouponModal && (
+        <CouponModal onClose={() => setIsOpenCouponModal(false)} />
+      )}
     </S.Root>
   );
 }
