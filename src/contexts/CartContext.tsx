@@ -9,9 +9,9 @@ import {
 import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
 import { getCartItems } from "../apis/cartItems/getCartItems";
 import { patchCartItem } from "../apis/cartItems/patchCartItem";
-import useErrorHandler from "../hooks/useErrorHandler";
-import { CartItemWithSelection } from "../types/response/cartItem";
+import useErrorHandler from "../hooks/common/useErrorHandler";
 import { cartItemSelectionStorage } from "../storages/CartItemSelectionStorage";
+import { CartItemWithSelection } from "../types/response/cartItem";
 
 const INITIAL_SELECTED = false;
 const FREE_SHIPPING_THRESHOLD = 100_000;
