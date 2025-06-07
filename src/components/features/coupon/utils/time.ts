@@ -13,6 +13,11 @@ export const formatTimeToKorean = (timeStr: string) => {
   return `${period} ${hour12}시${minutePart}`;
 };
 
+export const convertTimeToSecond = (timeString: string) => {
+  const [hours, minutes, seconds] = timeString.split(':').map(Number);
+  return hours * 3600 + minutes * 60 + seconds;
+};
+
 export const formatAvailableTime = (avail: { start: string; end: string }) => {
   const startKorean = formatTimeToKorean(avail.start);
   const endKorean = formatTimeToKorean(avail.end);

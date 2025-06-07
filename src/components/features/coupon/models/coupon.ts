@@ -1,6 +1,7 @@
 import { CART_RULE } from '../../cart/constants/cartRule';
 import { CartItemType } from '../../cart/types';
 import { calculateOrderPrice } from '../../cart/utils/cartCalculations';
+import { convertTimeToSecond } from '../utils/time';
 import {
   BOGOCouponType,
   CouponType,
@@ -93,9 +94,12 @@ class Coupon {
 
     if ('availableTime' in this.#data) {
       const { start, end } = this.#data.availableTime;
-      const startTime = new Date(start);
-      const endTime = new Date(end);
-      if (now < startTime || now > endTime) return true;
+      const nowSecond = convertTimeToSecond(
+        `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+      );
+      const startSecond = convertTimeToSecond(start);
+      const endSecond = convertTimeToSecond(end);
+      if (nowSecond < startSecond || nowSecond > endSecond) return true;
     }
 
     if (
@@ -110,6 +114,7 @@ class Coupon {
 
   calculateDiscount(orderItems: CartItemType[], isRemoteArea: boolean) {
     const orderPrice = calculateOrderPrice(orderItems);
+    if (this.isDisable(orderPrice)) return 0;
 
     if (isFixedCoupon(this.#data)) {
       return this.#data.discount;
@@ -133,14 +138,15 @@ class Coupon {
 
     if (isFreeShippingCoupon(this.#data)) {
       if (isRemoteArea) {
-        if (orderPrice >= CART_RULE.freeDeliveryThreshold) return 3_000;
-        return 6_000;
+        if (orderPrice >= CART_RULE.freeDeliveryThreshold)
+          return CART_RULE.remoteAreaDeliveryFee;
+        return CART_RULE.remoteAreaDeliveryFee + CART_RULE.defaultDeliveryFee;
       }
 
       if (orderPrice >= CART_RULE.freeDeliveryThreshold) {
-        return CART_RULE.defaultDeliveryFee;
+        return 0;
       }
-      return 0;
+      return CART_RULE.defaultDeliveryFee;
     }
 
     return 0;

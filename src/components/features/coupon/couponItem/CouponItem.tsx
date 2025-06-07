@@ -1,9 +1,9 @@
 import { SelectBox, Separator } from '@/components/common';
-import { formatAvailableTime } from '@/shared/utils/formatAvailableTime';
-import { formatDateToKorean } from '@/shared/utils/formatDate';
-import * as S from './CouponItem.styles';
 import Coupon from '../models/coupon';
 import { CouponType } from '../models/coupon.types';
+import { formatDateToKorean } from '../utils/date';
+import { formatAvailableTime } from '../utils/time';
+import * as S from './CouponItem.styles';
 
 interface CouponItemProps {
   item: Coupon;

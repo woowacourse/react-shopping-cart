@@ -1,4 +1,4 @@
-export function formatDateToKorean(dateInput: Date | string): string {
+export const formatDateToKorean = (dateInput: Date | string) => {
   const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
 
   const year = date.getFullYear();
@@ -6,4 +6,4 @@ export function formatDateToKorean(dateInput: Date | string): string {
   const day = date.getDate();
 
   return `${year}년 ${month}월 ${day}일`;
-}
+};
