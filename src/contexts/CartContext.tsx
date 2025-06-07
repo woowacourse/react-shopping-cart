@@ -9,8 +9,6 @@ import {
 import { CartItemContent } from "../types/response";
 import useCartAPI from "../hooks/useCartAPI";
 
-const INITIAL_CHECKED = true;
-
 interface CartContextType {
   cartItemsData: CartItemContent[];
   cartItemsCheckData: CartItemCheckType[];
@@ -67,33 +65,22 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     [cartItemsCheckData]
   );
 
+  const setLocalStorageCheckedItems = (checkedItemIds: number[]) => {
+    localStorage.setItem("checkedItems", JSON.stringify(checkedItemIds));
+  };
+
   const { fetchData, deleteItem, increaseItemQuantity, decreaseItemQuantity } =
     useCartAPI({
       setCartItemsData,
       setCartItemsCheckData,
       setErrorMessage,
+      setLocalStorageCheckedItems,
       isCheckDataInitialized,
     });
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  useEffect(() => {
-    if (cartItemsData.length > 0 && !isCheckDataInitialized.current) {
-      const data = cartItemsData.map(({ id, quantity, product }) => ({
-        id,
-        quantity,
-        name: product.name,
-        imageUrl: product.imageUrl,
-        price: product.price,
-        checked: INITIAL_CHECKED,
-      }));
-
-      setCartItemsCheckData(data);
-      isCheckDataInitialized.current = true;
-    }
-  }, [cartItemsData]);
 
   const toggleAllChecked = () => {
     setCartItemsCheckData((prev) =>
@@ -113,11 +100,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   };
 
   const toggleItemChecked = (cartId: number) => {
-    setCartItemsCheckData((prev) =>
-      prev.map((item) =>
+    setCartItemsCheckData((prev) => {
+      const updated = prev.map((item) =>
         item.id === cartId ? { ...item, checked: !item.checked } : item
-      )
-    );
+      );
+      const newCheckedIds = updated
+        .filter(({ checked }) => checked)
+        .map(({ id }) => id);
+      setLocalStorageCheckedItems(newCheckedIds);
+      return updated;
+    });
   };
 
   const checkedItemsId = cartItemsCheckData
