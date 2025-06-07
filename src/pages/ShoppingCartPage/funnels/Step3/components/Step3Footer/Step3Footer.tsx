@@ -1,6 +1,7 @@
-import { Button, Text, useFunnelContext } from "@/components";
+import { Button, Text } from "@/components";
 import { css } from "@emotion/react";
 import * as S from "./Step3Footer.styles";
+import { useFunnelContext } from "@/modules";
 
 export default function Step3Footer() {
   const { resetStep } = useFunnelContext();

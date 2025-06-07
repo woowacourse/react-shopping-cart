@@ -1,7 +1,8 @@
-import { Button, Text, useFunnelContext } from "@/components";
+import { Button, Text } from "@/components";
 import { useShoppingCartContext } from "../../../../contexts";
 import { css } from "@emotion/react";
 import * as S from "./Step1Footer.styles";
+import { useFunnelContext } from "@/modules";
 
 export default function Step1Footer() {
   const { selectedItemIds } = useShoppingCartContext();

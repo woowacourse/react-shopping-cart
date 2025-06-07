@@ -1,6 +1,6 @@
-import { Funnel } from "@/components";
 import { ShoppingCartProvider } from "./contexts";
 import { Step1, Step2, Step3 } from "./funnels";
+import { Funnel } from "@/modules";
 
 export default function ShoppingCartPage() {
   return (

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { PropsWithChildren, createContext, useContext } from "react";
+import { getCurrentStep } from "./util";
+import { History } from "../History";
 
 interface FunnelContextType {
   step: number;
@@ -11,38 +13,36 @@ interface FunnelContextType {
 
 export const FunnelContext = createContext<FunnelContextType | null>(null);
 
-const getCurrentStep = () => Number(new URLSearchParams(window.location.search).get("step"));
 interface FunnelProps {
   initialStep?: number;
 }
+
 export default function Funnel({ children, initialStep = 1 }: PropsWithChildren<FunnelProps>) {
   const [step, setStep] = useState(initialStep);
 
   const goNextStep = () => {
     setStep((step) => step + 1);
-    history.pushState(null, "", `?step=${step + 1}`);
+    History.push({ url: `?step=${step + 1}` });
   };
 
   const goPrevStep = () => {
     setStep((step) => step - 1);
-    history.back();
+    History.back();
   };
 
   const resetStep = () => {
     setStep(initialStep);
+    History.push({ url: `?step=${initialStep}` });
   };
 
   useEffect(() => {
-    setStep(getCurrentStep() || initialStep);
+    setStep(getCurrentStep(initialStep));
 
-    const handlePopState = () => {
-      setStep(getCurrentStep() || initialStep);
-    };
+    const handlePopState = () => setStep(getCurrentStep(initialStep));
+
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, [initialStep]);
-
-  console.log(step);
 
   return (
     <FunnelContext.Provider value={{ step, goNextStep, goPrevStep, resetStep }}>{children}</FunnelContext.Provider>
