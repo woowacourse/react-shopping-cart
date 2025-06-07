@@ -11,9 +11,15 @@ interface useJaeOProps<T> {
   fetchKey: string;
   fetchFn: () => Promise<T>;
   onError?: () => void;
+  onSuccess?: () => void;
 }
 
-export function useJaeO<T>({ fetchKey, fetchFn, onError }: useJaeOProps<T>) {
+export function useJaeO<T>({
+  fetchKey,
+  fetchFn,
+  onError,
+  onSuccess,
+}: useJaeOProps<T>) {
   const data = useSyncExternalStore(
     useCallback((cb) => subscribe(fetchKey, cb), [fetchKey]),
     () => getSnapshot<T>(fetchKey)
@@ -23,6 +29,7 @@ export function useJaeO<T>({ fetchKey, fetchFn, onError }: useJaeOProps<T>) {
 
   const fetchFnRef = useRef(fetchFn);
   const onErrorRef = useRef(onError);
+  const onSuccessRef = useRef(onSuccess);
 
   const fetchAndUpdateData = useCallback(async () => {
     setIsLoading(true);
@@ -34,6 +41,7 @@ export function useJaeO<T>({ fetchKey, fetchFn, onError }: useJaeOProps<T>) {
         data,
         fetchFn: fetchFnRef.current,
       });
+      onSuccessRef.current?.();
     } catch {
       setIsError(true);
       onErrorRef.current?.();
@@ -49,6 +57,10 @@ export function useJaeO<T>({ fetchKey, fetchFn, onError }: useJaeOProps<T>) {
   useEffect(() => {
     onErrorRef.current = onError;
   }, [onError]);
+
+  useEffect(() => {
+    onSuccessRef.current = onSuccess;
+  }, [onSuccess]);
 
   useEffect(() => {
     if (!data) {
