@@ -19,7 +19,7 @@ const OrderConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isCartModalOpen, handleCartModalOpen, handleCartModalClose] = useBooleanState(false);
-  const { finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea } = useOrder({
+  const { coupons, finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea } = useOrder({
     cartItems: location.state?.cartItems ?? [],
     orderPrice: location.state?.orderPrice ?? 0,
     deliveryPrice: location.state?.deliveryPrice ?? 0,
@@ -73,7 +73,7 @@ const OrderConfirmPage = () => {
           </Button>
         </S.ButtonWrap>
       </S.Container>
-      <CouponModal isCartModalOpen={isCartModalOpen} handleCartModalClose={handleCartModalClose} />
+      <CouponModal coupons={coupons} isCartModalOpen={isCartModalOpen} handleCartModalClose={handleCartModalClose} />
     </>
   );
 };

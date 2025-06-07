@@ -1,4 +1,5 @@
 import { CartItem } from "../../types/cartItem";
+import useCouponResource from "./useCouponResource";
 import useDeliveryInformation from "./useDeliveryInformation";
 
 interface useOrderParams {
@@ -15,13 +16,15 @@ interface useOrderParams {
 // (real deliveryPrice)
 // real TotalPrice (orderPrice + realDeliveryPrice + discountPrice)
 const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
+  const { coupons } = useCouponResource();
+
   const { isRemoteArea, toggleRemoteArea } = useDeliveryInformation();
 
   const discountPrice = -6000;
   const finalDeliveryPrice = isRemoteArea ? deliveryPrice + 3000 : deliveryPrice;
   const finalTotalPrice = orderPrice + discountPrice + finalDeliveryPrice;
 
-  return { finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea };
+  return { coupons, finalDeliveryPrice, discountPrice, finalTotalPrice, isRemoteArea, toggleRemoteArea };
 };
 
 export default useOrder;
