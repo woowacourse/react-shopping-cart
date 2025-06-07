@@ -1,11 +1,11 @@
 import * as Styled from "./CommonCoupon.style";
-import { BaseCoupon } from "../../../../../../type/Coupons";
+import type { BaseCoupon as BaseCouponType } from "../../../../../../type/Coupons";
 import CheckBox from "../../../../../common/CheckBox/CheckBox";
 
 interface CommonCouponProps {
-  coupon: BaseCoupon; // BaseCoupon 타입을 받도록 함
-  isSelected: boolean; // 쿠폰 선택 여부
-  handleSelectCoupon: (id: number) => void; // 쿠폰 선택 핸들러
+  coupon: BaseCouponType;
+  isSelected: boolean;
+  handleSelectCoupon: (id: number) => void;
 }
 
 function CommonCoupon({
