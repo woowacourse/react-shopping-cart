@@ -1,5 +1,5 @@
 import { IconButton } from "../../../../components/IconButton/IconButton";
-import { useCart } from "../../context/cartProvider";
+import { useCartContext } from "../../../common/context/cartProvider";
 import { QuantitySelectorLayout } from "./QuantitySelector.style";
 
 interface QuantitySelectorProps {
@@ -8,7 +8,7 @@ interface QuantitySelectorProps {
 }
 
 export function QuantitySelector({ cartId, quantity }: QuantitySelectorProps) {
-  const { patchCartItem } = useCart();
+  const { patchCartItem } = useCartContext();
 
   const handleAddCount = async () => {
     await patchCartItem(cartId, quantity + 1);

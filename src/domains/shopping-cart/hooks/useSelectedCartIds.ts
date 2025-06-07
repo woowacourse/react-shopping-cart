@@ -2,12 +2,12 @@ import { useState } from "react";
 
 import { CartItemTypes } from "../types/cartItem";
 
-export function useSelectedCartIds(cartItem: CartItemTypes[]) {
+export function useSelectedCartIds() {
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
-  const toggleSelectAll = () => {
-    if (cartItem && selectedCartIds.length === 0) {
-      setSelectedCartIds(cartItem.map((item) => item.id.toString()));
+  const toggleSelectAll = (cartItems: CartItemTypes[]) => {
+    if (cartItems && selectedCartIds.length === 0) {
+      setSelectedCartIds(cartItems.map((item) => item.id.toString()));
     } else if (selectedCartIds.length !== 0) setSelectedCartIds([]);
   };
 

@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
-import { useShoppingCartApi } from "../hooks/useShoppingCartApi";
-import { CartItemTypes } from "../types/cartItem";
+import { createContext, useContext, useMemo } from "react";
+import { useShoppingCartApi } from "../../shopping-cart/hooks/useShoppingCartApi";
+import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
 interface CartContextType {
   cartItems: CartItemTypes[];
@@ -26,21 +26,24 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     error,
   } = useShoppingCartApi();
 
-  const contextValue: CartContextType = {
-    cartItems,
-    loading,
-    error,
-    getCartItemData,
-    deleteCartItem,
-    patchCartItem,
-  };
+  const contextValue: CartContextType = useMemo(
+    () => ({
+      cartItems,
+      loading,
+      error,
+      getCartItemData,
+      deleteCartItem,
+      patchCartItem,
+    }),
+    [cartItems, loading, error, getCartItemData, deleteCartItem, patchCartItem]
+  );
 
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
 
-export function useCart() {
+export function useCartContext() {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart는 CartProvider 내부에서만 사용할 수 있습니다.");

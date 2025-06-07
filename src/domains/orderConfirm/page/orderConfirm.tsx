@@ -4,11 +4,18 @@ import Header from "../../../layout/Header/Header";
 import Main from "../../../layout/Main/Main";
 import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
-import { useCart } from "../../shopping-cart/context/cartProvider";
+import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
+import { useCartContext } from "../../common/context/cartProvider";
+import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
 import { SelectedCartList } from "../component/SelectedCartList/SelectedCartList";
 
 export default function OrderConfirm() {
-  const { deleteCartItem, cartItems, error } = useCart();
+  const { deleteCartItem, cartItems, error } = useCartContext();
+
+  const totalPrice = getTotalPrice({
+    cartItems: cartItems,
+    selectedCartIds: ["14018"],
+  }); // todo : selectedCartIds를 context로 분리하기
 
   return (
     <PageLayout>
@@ -24,6 +31,7 @@ export default function OrderConfirm() {
           </p>
         </div>
         <SelectedCartList />
+        <PaymentSummary price={totalPrice} />
       </Main>
       <Footer>
         <Button onClick={() => {}} type="submit" size="full" disabled={false}>

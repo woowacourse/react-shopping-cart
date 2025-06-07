@@ -1,10 +1,12 @@
 import { Line } from "../../../../components/Line/Line";
 import { CartProduct } from "../../../shopping-cart/components/CartProduct/CartProduct";
-import { useCart } from "../../../shopping-cart/context/cartProvider";
+import { useCartContext } from "../../../common/context/cartProvider";
 import { cartListLayout } from "./SelectedCartList.style";
 
 export function SelectedCartList() {
-  const { deleteCartItem, cartItems, error } = useCart();
+  const { deleteCartItem, cartItems, error } = useCartContext();
+
+  // todo : cartProduct에서 값만 보여주도록 수정
   return (
     <div css={cartListLayout}>
       {cartItems.map((item) => {

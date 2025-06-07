@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../../../components/Button/Button";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { Line } from "../../../../components/Line/Line";
-import { useCart } from "../../context/cartProvider";
+import { useCartContext } from "../../../common/context/cartProvider";
 import { CartProduct } from "../CartProduct/CartProduct";
 import {
   CartItemBox,
@@ -21,7 +21,7 @@ export default function CartProductContainer({
   onDelete,
   handleCheckBox,
 }: CartProductContainerProps) {
-  const { getCartItemData, cartItems } = useCart();
+  const { getCartItemData, cartItems } = useCartContext();
 
   return (
     <section css={CartProductList}>

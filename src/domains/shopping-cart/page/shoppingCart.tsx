@@ -7,30 +7,30 @@ import { Footer } from "../../../layout/Footer/Footer";
 import Header from "../../../layout/Header/Header";
 import Main from "../../../layout/Main/Main";
 import { PageLayout } from "../../../layout/PageLayout/PageLayout";
-import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
+import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
+import { useCartContext } from "../../common/context/cartProvider";
+import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
+import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
 import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
-import { useCart } from "../context/cartProvider";
-import { useSelectedCartIds } from "../hooks/useSelectedCartIds";
 import { getTotalPrice } from "../utils/getTotalPrice/getTotalPrice";
 import {
   CartProductContainerLayout,
   SelectAllLayout,
 } from "./shoppingCart.style";
-import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 
 export function ShoppingCart() {
   const isFirstMount = useRef(true);
   const navigate = useNavigate();
 
-  const { deleteCartItem, cartItems, error } = useCart();
+  const { deleteCartItem, cartItems, error } = useCartContext();
 
   const {
     toggleSelectAll,
     toggleCartItem,
     removeFromSelection,
     selectedCartIds,
-  } = useSelectedCartIds(cartItems);
+  } = useSelectedCartContext();
 
   const totalPrice = getTotalPrice({ cartItems: cartItems, selectedCartIds });
 
@@ -54,7 +54,7 @@ export function ShoppingCart() {
 
   useEffect(() => {
     if (isFirstMount.current && cartItems.length !== 0) {
-      toggleSelectAll();
+      toggleSelectAll(cartItems);
       isFirstMount.current = false;
     }
   }, [isFirstMount, cartItems]);
@@ -85,7 +85,7 @@ export function ShoppingCart() {
                   }
                   dataTestId="select-all"
                   id="select-all"
-                  handleCheckBox={() => toggleSelectAll()}
+                  handleCheckBox={() => toggleSelectAll(cartItems)}
                 />
                 <label htmlFor="select-all">전체 선택</label>
               </div>
