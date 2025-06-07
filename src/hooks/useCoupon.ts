@@ -10,7 +10,6 @@ function useCoupon() {
     deps: [],
   });
 
-  console.log("data", data);
   return {
     couponList: data || [],
     isLoading: loading,
