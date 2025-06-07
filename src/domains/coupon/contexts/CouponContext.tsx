@@ -11,7 +11,7 @@ import { MAX_COUPON_SELECTION } from "../constants";
 import { Coupon } from "../types/response";
 import useToast from "../../../features/toast/useToast";
 
-interface CouponType {
+export interface CouponType {
   coupons: Coupon[];
   fetchData: () => Promise<void>;
   selectedCoupons: Coupon[];
@@ -73,17 +73,27 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
     [selectedCouponIds]
   );
 
+  const contextValue = useMemo(
+    () => ({
+      coupons,
+      fetchData,
+      selectedCoupons,
+      hasNoSelectedCoupons,
+      toggleCouponSelection,
+      isCouponSelected,
+    }),
+    [
+      coupons,
+      fetchData,
+      selectedCoupons,
+      hasNoSelectedCoupons,
+      toggleCouponSelection,
+      isCouponSelected,
+    ]
+  );
+
   return (
-    <CouponContext.Provider
-      value={{
-        coupons,
-        fetchData,
-        selectedCoupons,
-        hasNoSelectedCoupons,
-        toggleCouponSelection,
-        isCouponSelected,
-      }}
-    >
+    <CouponContext.Provider value={contextValue}>
       {children}
     </CouponContext.Provider>
   );

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useCoupon } from "../hooks/useCoupon";
+import { useCouponSelector } from "../hooks/useCoupon";
 
 const CouponInitializer = () => {
-  const { fetchData } = useCoupon();
+  const fetchData = useCouponSelector((state) => state.fetchData);
 
   useEffect(() => {
     fetchData();
