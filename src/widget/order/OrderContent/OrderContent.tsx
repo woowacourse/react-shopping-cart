@@ -11,6 +11,10 @@ import {
   calculateOrderPrice,
 } from '@features/cart/utils/cartPriceCalculator';
 import { CartItemType } from '@entities/cart';
+import CouponModal from '@widget/order/CouponModal';
+import { useClientCoupon } from '@features/coupon/model/useClientCoupon';
+import { useModal } from '@shared/components/Modal/hook/useModal';
+import { calculateCouponDiscountTotalPrice } from '@features/coupon/utils/calculateCoupon';
 
 interface OrderContentProps {
   orderItems: CartItemType[];
@@ -18,19 +22,24 @@ interface OrderContentProps {
 
 export default function OrderContent({ orderItems }: OrderContentProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
+
+  const { clientCoupons, handleCouponCheck } = useClientCoupon({
+    orderItems,
+    isRemoteArea,
+    onError: (message) => {
+      alert(message);
+    },
+  });
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const { navigateToPayment } = usePageNavigation();
 
   const orderItemsType = orderItems.length;
   const orderTotalQuantity = orderItems.reduce((acc, { quantity }) => (acc += quantity), 0);
 
   const orderPrice = calculateOrderPrice(orderItems);
-  const couponDiscountPrice = -6000;
+  const couponDiscountPrice = calculateCouponDiscountTotalPrice(clientCoupons);
   const deliveryFee = calculateDeliveryFee(orderPrice) + (isRemoteArea ? 3000 : 0);
-  const orderTotalPrice = orderPrice + deliveryFee + couponDiscountPrice;
-
-  const handleOrderConfirmButtonClick = () => {
-    console.log('handleOrderConfirmButtonClick');
-  };
+  const orderTotalPrice = orderPrice + deliveryFee - couponDiscountPrice;
 
   const handleRemoteAreaClick = () => {
     setIsRemoteArea(!isRemoteArea);
@@ -50,7 +59,13 @@ export default function OrderContent({ orderItems }: OrderContentProps) {
       <S.ScrollContainer>
         <OrderList orderItems={orderItems} />
       </S.ScrollContainer>
-      <CommonButton buttonText="쿠폰 적용" onClick={handleOrderConfirmButtonClick} />
+      <CommonButton colorType="white" buttonText="쿠폰 적용" onClick={handleModalOpen} />
+      <CouponModal
+        isOpen={isOpen}
+        onClose={handleModalClose}
+        clientCoupons={clientCoupons}
+        onCouponCheck={handleCouponCheck}
+      />
       <RemoteArea isChecked={isRemoteArea} onClick={handleRemoteAreaClick} />
       <PriceContainer
         orderPrice={orderPrice}
