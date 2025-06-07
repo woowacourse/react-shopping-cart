@@ -5,24 +5,24 @@ type BaseCoupon = {
   expirationDate: string;
 };
 
-type FixedCoupon = BaseCoupon & {
+export type FixedCoupon = BaseCoupon & {
   discountType: "fixed";
   discount: number;
   minimumAmount: number;
 };
 
-type BuyXGetYCoupon = BaseCoupon & {
+export type BuyXGetYCoupon = BaseCoupon & {
   discountType: "buyXgetY";
   buyQuantity: number;
   getQuantity: number;
 };
 
-type FreeShippingCoupon = BaseCoupon & {
+export type FreeShippingCoupon = BaseCoupon & {
   discountType: "freeShipping";
   minimumAmount: number;
 };
 
-type PercentageCoupon = BaseCoupon & {
+export type PercentageCoupon = BaseCoupon & {
   discountType: "percentage";
   discount: number;
   availableTime: {
