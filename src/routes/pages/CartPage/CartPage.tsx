@@ -57,9 +57,9 @@ function CartPage() {
           ))}
         </ul>
         <CartPriceInfo
-          totalPrice={cart.totalPrice}
+          subTotal={cart.subTotal}
           deliveryFee={cart.deliveryFee}
-          totalPriceWithDeliveryFee={cart.totalPriceWithDeliveryFee}
+          totalBeforeDiscount={cart.totalBeforeDiscount}
         />
       </>
     );

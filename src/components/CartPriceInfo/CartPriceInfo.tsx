@@ -9,13 +9,13 @@ import { TEXT } from '../../constants/text';
 import InfoMessage from '../InfoMessage/InfoMessage';
 
 function CartPriceInfo({
-  totalPrice,
+  subTotal,
   deliveryFee,
-  totalPriceWithDeliveryFee,
+  totalBeforeDiscount,
 }: {
-  totalPrice: number;
+  subTotal: number;
   deliveryFee: number;
-  totalPriceWithDeliveryFee: number;
+  totalBeforeDiscount: number;
 }) {
   return (
     <div css={CartPriceInfoContainerStyle}>
@@ -25,7 +25,7 @@ function CartPriceInfo({
       <div css={CartPriceContainerStyle}>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.ORDER_PRICE}</Text>
-          <Text varient="title">{totalPrice.toLocaleString()}원</Text>
+          <Text varient="title">{subTotal.toLocaleString()}원</Text>
         </div>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.DELIVERY_FEE}</Text>
@@ -35,9 +35,7 @@ function CartPriceInfo({
       <div css={CartPriceContainerStyle}>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.TOTAL_PRICE}</Text>
-          <Text varient="title">
-            {totalPriceWithDeliveryFee.toLocaleString()}원
-          </Text>
+          <Text varient="title">{totalBeforeDiscount.toLocaleString()}원</Text>
         </div>
       </div>
     </div>

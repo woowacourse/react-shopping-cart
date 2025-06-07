@@ -18,9 +18,9 @@ type CartContextType = {
   handleSelectItem: (cartItemId: number) => void;
   handleSelectAllItems: () => void;
 
-  totalPrice: number;
+  subTotal: number;
   deliveryFee: number;
-  totalPriceWithDeliveryFee: number;
+  totalBeforeDiscount: number;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -41,10 +41,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     handleSelectAllItems,
   } = useSelect(data);
 
-  const totalPrice = cartPrice.totalPrice(data, selectedItems);
+  const subTotal = cartPrice.totalPrice(data, selectedItems);
   const deliveryFee =
-    totalPrice >= CART.FREE_DELIVERY_THRESHOLD ? 0 : CART.DELIVERY_FEE;
-  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
+    subTotal >= CART.FREE_DELIVERY_THRESHOLD ? 0 : CART.DELIVERY_FEE;
+  const totalBeforeDiscount = subTotal + deliveryFee;
 
   return (
     <CartContext.Provider
@@ -61,9 +61,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         handleSelectItem,
         handleSelectAllItems,
 
-        totalPrice,
+        subTotal,
         deliveryFee,
-        totalPriceWithDeliveryFee,
+        totalBeforeDiscount,
       }}
     >
       {children}
