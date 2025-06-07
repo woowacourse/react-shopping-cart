@@ -103,11 +103,7 @@ export default function PaymentAmountCheckPage() {
         <Receipt
           allProductPrice={allProductPrice}
           shippingFee={
-            allProductPrice >= 100000
-              ? 0
-              : isIslandArea
-              ? shippingFee + DEFAULT_SHIPPING_FEE
-              : shippingFee
+            isIslandArea ? shippingFee + DEFAULT_SHIPPING_FEE : shippingFee
           }
           couponPrice={couponPrice}
         />

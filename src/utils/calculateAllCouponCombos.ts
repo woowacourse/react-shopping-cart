@@ -58,9 +58,13 @@ function calcFreeShipping(
   orderAmount: number,
   isIslandArea: boolean
 ): number {
-  if (orderAmount >= 100000) return 0;
+  let shippingCost;
+  shippingCost = isIslandArea ? 6000 : 3000;
 
-  const shippingCost = isIslandArea ? 6000 : 3000;
+  if (orderAmount >= 100000) {
+    shippingCost -= 3000;
+  }
+
   return "minimumAmount" in coupon && orderAmount >= coupon.minimumAmount
     ? shippingCost
     : 0;
