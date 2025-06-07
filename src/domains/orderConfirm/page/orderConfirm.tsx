@@ -13,10 +13,13 @@ import { SelectedCartContainer } from "../components/SelectedCartContainer/Selec
 import Modal from "compoents-modal-test-kangoll";
 import { InfoText } from "../../../components/InfoText/InfoText";
 import { CouponList } from "../components/CouponList/CouponList";
+import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
+  const { selectedCartIds } = useSelectedCartContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCoupons, setSelectedCoupons] = useState<string[]>([]);
 
   const handleModalOpen = () => {
     console.log("쿠폰 선택 모달 열기");
@@ -26,9 +29,20 @@ export default function OrderConfirm() {
     setIsModalOpen(false);
   };
 
+  const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const couponId = e.target.id;
+    setSelectedCoupons((prev) => {
+      if (prev.includes(couponId)) return prev.filter((id) => id !== couponId);
+      if (prev.length < 2) {
+        return [...prev, couponId];
+      }
+      return prev;
+    });
+  };
+
   const totalPrice = getTotalPrice({
     cartItems: cartItems,
-    selectedCartIds: ["14018"],
+    selectedCartIds,
   });
 
   return (
@@ -63,10 +77,11 @@ export default function OrderConfirm() {
         <Modal.Header hasCloseButton>쿠폰을 선택해주세요</Modal.Header>
         <Modal.Content>
           <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
-
-          <CouponList />
+          <CouponList
+            handleCouponSelect={handleCouponSelect}
+            selectedCoupons={selectedCoupons}
+          />
         </Modal.Content>
-
         <Modal.Footer>
           <Button onClick={handleModalClose} size="full">
             총 6,000원 할인 쿠폰 사용하기

@@ -5,17 +5,19 @@ import { checkBoxLayout, couponLayout, infoTextLayout } from "./Coupon.style";
 
 interface CouponProps {
   item: CouponType;
+  isSelected: boolean;
+  handleCouponSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Coupon({ item }: CouponProps) {
+export function Coupon({ item, isSelected, handleCouponSelect }: CouponProps) {
   return (
-    <div css={couponLayout}>
+    <div css={couponLayout} id={item.code}>
       <div css={checkBoxLayout}>
         <CheckBox
-          isChecked={false}
-          dataTestId={`${item.id}-coupon`}
-          id={`${item.id}-coupon`}
-          handleCheckBox={() => {}}
+          isChecked={isSelected}
+          dataTestId={`${item.code}`}
+          id={`${item.code}`}
+          handleCheckBox={handleCouponSelect}
         />
         <p>{item.description}</p>
       </div>

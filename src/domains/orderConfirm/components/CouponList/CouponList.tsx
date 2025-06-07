@@ -5,7 +5,15 @@ import { getCouponItems } from "../../api/coupon";
 import { CouponType } from "../../types/coupon";
 import { Coupon } from "../Coupon/Coupon";
 
-export function CouponList() {
+interface CouponListProps {
+  selectedCoupons: string[];
+  handleCouponSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function CouponList({
+  selectedCoupons,
+  handleCouponSelect,
+}: CouponListProps) {
   const [coupons, setCoupons] = useState<CouponType[]>([]);
 
   useEffect(() => {
@@ -21,7 +29,11 @@ export function CouponList() {
         return (
           <>
             <Line />
-            <Coupon item={coupon} />
+            <Coupon
+              item={coupon}
+              isSelected={selectedCoupons.includes(coupon.code)}
+              handleCouponSelect={handleCouponSelect}
+            />
           </>
         );
       })}
