@@ -54,11 +54,13 @@ export function simulateCombo(
 ): {
   combo: Coupon[];
   breakdown: Record<string, number>;
-  totalCouponDiscount: number;
+  totalDiscount: number;
+  PriceWithDiscount: number;
   finalShipping: number;
   finalPayable: number;
 } {
   let remaining = subTotal;
+  let totalDiscount = 0;
   let shipping = baseShipping;
   const breakdown: Record<string, number> = {};
 
@@ -66,10 +68,13 @@ export function simulateCombo(
 
   for (const c of combo) {
     if (c.discountType === 'fixed') {
+      totalDiscount += calFixedDiscount(c.discount);
       remaining -= calFixedDiscount(c.discount);
     } else if (c.discountType === 'percentage') {
-      remaining -= calPercentageDiscount(c.discount, remaining);
+      totalDiscount += calPercentageDiscount(c.discount, subTotal);
+      remaining -= calPercentageDiscount(c.discount, subTotal);
     } else if (c.discountType === 'buyXgetY') {
+      totalDiscount += calBuyXgetYDiscount(maxUnitPrice);
       remaining -= calBuyXgetYDiscount(maxUnitPrice);
     }
 
@@ -81,11 +86,12 @@ export function simulateCombo(
     shipping = 0;
   }
 
-  const totalCouponDiscount = Math.min(...Object.values(breakdown));
+  const PriceWithDiscount = Math.min(...Object.values(breakdown));
   return {
     combo,
     breakdown,
-    totalCouponDiscount,
+    totalDiscount,
+    PriceWithDiscount,
     finalShipping: shipping,
     finalPayable: remaining + shipping,
   };
