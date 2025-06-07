@@ -31,9 +31,9 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const couponModels = useMemo(
     () =>
       coupons
-        ? coupons.map((coupon) => new Coupon(coupon, orderItems, isRemoteArea))
+        ? coupons.map((coupon) => new Coupon(coupon, orderItems, false))
         : [],
-    [coupons, isRemoteArea, orderItems]
+    [coupons, orderItems]
   );
   const orderPrice = calculateOrderPrice(orderItems);
   const discountAmount = couponModels
@@ -43,6 +43,9 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const paymentPrice = orderPrice - discountAmount + deliveryFee;
 
   const toggleRemoteArea = () => {
+    couponModels.forEach((coupon) =>
+      coupon.updateDiscountAmount(orderItems, !isRemoteArea)
+    );
     setIsRemoteArea((prev) => !prev);
   };
 
@@ -73,7 +76,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     setCouponSelectedIds(
       couponsSortedByDiscountAmount.map((coupon) => coupon.data.id)
     );
-  }, [couponModels, isRemoteArea, orderItems]);
+  }, [couponModels, orderItems]);
 
   if (!coupons) return <Loading />;
 

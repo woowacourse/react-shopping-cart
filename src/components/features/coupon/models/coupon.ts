@@ -47,8 +47,8 @@ class Coupon {
 
   #evaluateDisable(orderItems: CartItemType[]): boolean {
     const orderPrice = calculateOrderPrice(orderItems);
-    const now = new Date();
 
+    const now = new Date();
     if (this.#data.expirationDate < now) return true;
 
     if (isBOGOCoupon(this.#data)) {
@@ -110,6 +110,15 @@ class Coupon {
     }
 
     return 0;
+  }
+
+  updateDiscountAmount(orderItems: CartItemType[], isRemoteArea: boolean) {
+    this.#disable = this.#evaluateDisable(orderItems);
+    if (!this.#disable) {
+      this.#discountAmount = this.#calculateDiscount(orderItems, isRemoteArea);
+    } else {
+      this.#discountAmount = 0;
+    }
   }
 }
 
