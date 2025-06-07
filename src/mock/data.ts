@@ -196,4 +196,14 @@ export const cartItems: CartItem[] = [
     quantity: 2,
     product: products[4],
   },
+  {
+    id: 5,
+    quantity: 1,
+    product: products[14],
+  },
+  {
+    id: 6,
+    quantity: 1,
+    product: products[16],
+  },
 ];
