@@ -4,16 +4,22 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useState,
+  useReducer,
 } from "react";
+import useErrorHandler from "../../../hooks/useErrorHandler";
+import { cartItemSelectionStorage } from "../../../storages/CartItemSelectionStorage";
 import { deleteCartItem } from "../apis/deleteCartItem";
 import { getCartItems } from "../apis/getCartItems";
 import { patchCartItem } from "../apis/patchCartItem";
-import useErrorHandler from "../hooks/useErrorHandler";
-import { cartItemSelectionStorage } from "../../../storages/CartItemSelectionStorage";
 import { CartItemWithSelection } from "../types/response";
+import cartReducer from "./cartReducer";
 
 const INITIAL_SELECTED = false;
+const initialState = {
+  items: [],
+  allSelected: INITIAL_SELECTED,
+};
+
 const FREE_SHIPPING_THRESHOLD = 100_000;
 const DEFAULT_SHIPPING_FEE = 3_000;
 
@@ -41,8 +47,7 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [cartItems, setCartItems] = useState<CartItemWithSelection[]>([]);
-  const [allSelected, setAllSelected] = useState(INITIAL_SELECTED);
+  const [state, dispatch] = useReducer(cartReducer, initialState);
   const { handleError } = useErrorHandler();
 
   const fetchData = useCallback(async () => {
@@ -54,12 +59,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
           cartItemSelectionStorage.isItemSelected(item.id) || INITIAL_SELECTED,
       }));
 
-      setCartItems(itemsWithSelection);
-
-      if (itemsWithSelection.length > 0) {
-        const isAllSelected = itemsWithSelection.every((item) => item.selected);
-        setAllSelected(isAllSelected);
-      }
+      dispatch({ type: "REPLACE_ITEMS", items: itemsWithSelection });
     } catch (error) {
       handleError(error);
     }
@@ -68,16 +68,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  useEffect(() => {
-    if (cartItems.length === 0) {
-      setAllSelected(false);
-      return;
-    }
-
-    const isAllSelected = cartItems.every((item) => item.selected);
-    setAllSelected(isAllSelected);
-  }, [cartItems]);
 
   const deleteItem = useCallback(
     async (cartId: number) => {
@@ -110,42 +100,24 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   // ------------------------------------------------------------------
 
   const toggleAllSelected = () => {
-    const newAllSelectedState = !allSelected;
-
-    setAllSelected(newAllSelectedState);
-    setCartItems((prevItems) => {
-      const newItems = prevItems.map((item) => ({
-        ...item,
-        selected: newAllSelectedState,
-      }));
-
-      const cartIds = newItems.map(({ id }) => id);
-      cartItemSelectionStorage.setAllSelections(cartIds, newAllSelectedState);
-
-      return newItems;
-    });
+    const cartIds = state.items.map(({ id }) => id);
+    cartItemSelectionStorage.setAllSelections(cartIds, !state.allSelected);
+    dispatch({ type: "TOGGLE_ALL_SELECTED" });
   };
 
   const toggleItemSelected = (cartId: number) => {
-    setCartItems((prevItems) => {
-      const newItems = prevItems.map((item) =>
-        item.id === cartId ? { ...item, selected: !item.selected } : item
-      );
-
-      const targetItem = newItems.find((item) => item.id === cartId);
-      if (targetItem) {
-        cartItemSelectionStorage.setSelection(cartId, targetItem.selected);
-      }
-
-      return newItems;
-    });
+    const targetItem = state.items.find((item) => item.id === cartId);
+    if (targetItem) {
+      cartItemSelectionStorage.setSelection(cartId, !targetItem.selected);
+    }
+    dispatch({ type: "TOGGLE_ITEM_SELECTED", id: cartId });
   };
 
   // ------------------------------------------------------------------
 
   const orderItems = useMemo(
-    () => cartItems.filter((item) => item.selected),
-    [cartItems]
+    () => state.items.filter((item) => item.selected),
+    [state.items]
   );
 
   const { orderQuantity, orderPrice } = useMemo(() => {
@@ -168,17 +140,17 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   return (
     <CartContext.Provider
       value={{
-        cartItems,
+        cartItems: state.items,
         orderItems,
 
         deleteItem,
         updateItemQuantity,
 
-        allSelected,
+        allSelected: state.allSelected,
         toggleAllSelected,
         toggleItemSelected,
 
-        cartItemCount: cartItems.length,
+        cartItemCount: state.items.length,
         orderItemCount: orderItems.length,
         hasSelectedItem: orderItems.length > 0,
 
