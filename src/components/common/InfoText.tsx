@@ -16,6 +16,7 @@ const InfoBox = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 4px;
+  margin-bottom: 14px;
 `;
 const InfoMessage = styled.p`
   font-size: 12px;
