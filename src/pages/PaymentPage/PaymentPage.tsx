@@ -4,7 +4,7 @@ import FooterButton from "../../components/@common/FooterButton/FooterButton";
 import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../hooks/contexts/useCart";
+import useCart from "../../domains/cart/hooks/useCart";
 import * as S from "./PaymentPage.styles";
 
 const PaymentPage = () => {

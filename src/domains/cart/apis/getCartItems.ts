@@ -1,5 +1,5 @@
-import { CartItemContent } from "../../types/response/cartItem";
-import { httpClient } from "../httpClient";
+import { CartItemContent } from "../types/response";
+import { httpClient } from "../../../apis/httpClient";
 
 const ERROR_MESSAGE = "장바구니를 가져오는 데 실패했습니다.";
 

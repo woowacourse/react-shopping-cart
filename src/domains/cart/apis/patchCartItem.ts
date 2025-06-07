@@ -1,4 +1,4 @@
-import { httpClient } from "../httpClient";
+import { httpClient } from "../../../apis/httpClient";
 
 interface Props {
   cartId: number;

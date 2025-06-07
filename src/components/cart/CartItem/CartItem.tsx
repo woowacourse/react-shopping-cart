@@ -1,5 +1,5 @@
-import useCart from "../../../hooks/contexts/useCart";
-import { CartItemWithSelection } from "../../../types/response/cartItem";
+import useCart from "../../../domains/cart/hooks/useCart";
+import { CartItemWithSelection } from "../../../domains/cart/types/response";
 import Checkbox from "../../@common/Checkbox/Checkbox";
 import QuantityCounter from "../../@shared/QuantityCounter/QuantityCounter";
 import * as S from "./CartItem.styles";

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { TOAST_TYPES } from "../../components/@common/Toast/type";
-import useToast from "../contexts/useToast";
+import { TOAST_TYPES } from "../../../features/toast/type";
+import useToast from "../../../features/toast/useToast";
 
 const useErrorHandler = () => {
   const { showToast } = useToast();

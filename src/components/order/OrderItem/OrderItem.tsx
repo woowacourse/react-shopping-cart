@@ -1,4 +1,4 @@
-import { CartItemWithSelection } from "../../../types/response/cartItem";
+import { CartItemWithSelection } from "../../../domains/cart/types/response";
 import * as S from "./OrderItem.styles";
 
 interface Props {

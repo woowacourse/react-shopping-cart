@@ -6,12 +6,12 @@ import {
   useMemo,
   useState,
 } from "react";
-import { deleteCartItem } from "../apis/cartItems/deleteCartItem";
-import { getCartItems } from "../apis/cartItems/getCartItems";
-import { patchCartItem } from "../apis/cartItems/patchCartItem";
-import useErrorHandler from "../hooks/common/useErrorHandler";
-import { cartItemSelectionStorage } from "../storages/CartItemSelectionStorage";
-import { CartItemWithSelection } from "../types/response/cartItem";
+import { deleteCartItem } from "../apis/deleteCartItem";
+import { getCartItems } from "../apis/getCartItems";
+import { patchCartItem } from "../apis/patchCartItem";
+import useErrorHandler from "../hooks/useErrorHandler";
+import { cartItemSelectionStorage } from "../../../storages/CartItemSelectionStorage";
+import { CartItemWithSelection } from "../types/response";
 
 const INITIAL_SELECTED = false;
 const FREE_SHIPPING_THRESHOLD = 100_000;

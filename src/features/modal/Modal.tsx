@@ -1,4 +1,4 @@
-import Portal from "../Portal/Portal";
+import Portal from "../../components/@common/Portal/Portal";
 import * as S from "./Modal.styles";
 
 type Props = React.PropsWithChildren<{

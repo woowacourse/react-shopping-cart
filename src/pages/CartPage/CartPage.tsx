@@ -4,12 +4,12 @@ import Description from "../../components/@common/Description/Description";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
 import { FooterButton } from "../../components/@common/FooterButton/FooterButton.styles";
 import { Header } from "../../components/@common/Header/Header.styles";
-import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
 import Title from "../../components/@common/Title/Title";
-import AllSelector from "../../components/cart/AllSelector/AlllSelector";
+import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
+import AllSelector from "../../components/cart/AllSelector/AllSelector";
 import CartItem from "../../components/cart/CartItem/CartItem";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../hooks/contexts/useCart";
+import useCart from "../../domains/cart/hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 

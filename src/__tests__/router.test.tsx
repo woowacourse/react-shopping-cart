@@ -1,11 +1,11 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { getCartItems } from "../apis/cartItems/getCartItems";
 import { ROUTES } from "../constants/routes";
-import { CartProvider } from "../contexts/CartContext";
-import { ToastProvider } from "../contexts/ToastContext";
+import { getCartItems } from "../domains/cart/apis/getCartItems";
+import { CartProvider } from "../domains/cart/contexts/CartContext";
 import CartPage from "../pages/CartPage/CartPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
+import { ToastProvider } from "../features/toast/ToastContext";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
