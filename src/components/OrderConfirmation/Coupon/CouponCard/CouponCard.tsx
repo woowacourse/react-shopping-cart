@@ -35,8 +35,8 @@ function CouponCard({
       <Styled.Container>
         <CommonCoupon
           coupon={coupon}
-          isSelected={true}
-          handleSelectCoupon={() => {}}
+          isSelected={isSelected}
+          handleSelectCoupon={handleSelectCoupon}
         />
         {renderSpecificCoupon()}
       </Styled.Container>
