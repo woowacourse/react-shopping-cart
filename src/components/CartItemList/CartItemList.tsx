@@ -3,7 +3,6 @@ import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import { CartItem } from "../../types/type";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
-import { useEffect } from "react";
 import EditableCartItemCard from "../CartItemCard/EditableCartItemCard";
 
 interface CartItemCardListProps {
@@ -27,10 +26,6 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   const handleAllSelected = () => {
     replaceSelectedItemIds(allSelected ? [] : cartItems.map((item) => item.id));
   };
-
-  useEffect(() => {
-    replaceSelectedItemIds(cartItems.map((item) => item.id));
-  }, [cartItems]);
 
   return (
     <>
