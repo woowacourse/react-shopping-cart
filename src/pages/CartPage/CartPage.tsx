@@ -12,15 +12,15 @@ import { ROUTES } from "../../constants/routes";
 import CartInitializer from "../../domains/cart/contexts/CartInitializer";
 import { useCartState } from "../../domains/cart/hooks/useCartState";
 import { FREE_SHIPPING_THRESHOLD } from "../../domains/order/constants";
-import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
+import useOrderSummary from "../../domains/order/hooks/useOrderSummary";
 import { formatCurrency } from "../../utils/formatters";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
 const CartPage = () => {
   const { items, cartItemCount } = useCartState();
-  const { hasSelectedItem, orderPrice, shippingFee, totalPrice } =
-    useOrderCalculator();
+  const { hasSelectedItem, orderPrice, baseShippingFee, baseTotalPrice } =
+    useOrderSummary();
 
   const navigate = useNavigate();
   const navigateToOrderPage = () => {
@@ -58,10 +58,10 @@ const CartPage = () => {
             <S.PriceSummary>
               <S.PriceInfoWrapper>
                 <PriceInfo label="주문 금액" price={orderPrice} />
-                <PriceInfo label="배송비" price={shippingFee} />
+                <PriceInfo label="배송비" price={baseShippingFee} />
               </S.PriceInfoWrapper>
               <S.PriceInfoWrapper>
-                <PriceInfo label="총 결제 금액" price={totalPrice} />
+                <PriceInfo label="총 결제 금액" price={baseTotalPrice} />
               </S.PriceInfoWrapper>
             </S.PriceSummary>
           </S.ContentContainer>

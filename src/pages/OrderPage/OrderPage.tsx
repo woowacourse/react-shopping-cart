@@ -10,7 +10,7 @@ import OrderItem from "../../components/order/OrderItem/OrderItem";
 import { ROUTES } from "../../constants/routes";
 import CouponInitializer from "../../domains/coupon/contexts/CouponInitializer";
 import { FREE_SHIPPING_THRESHOLD } from "../../domains/order/constants";
-import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
+import useOrderSummary from "../../domains/order/hooks/useOrderSummary";
 import useModal from "../../features/modal/useModal";
 import { formatCurrency } from "../../utils/formatters";
 import * as S from "./OrderPage.styles";
@@ -23,9 +23,10 @@ const OrderPage = () => {
     orderItemCount,
     orderQuantity,
     orderPrice,
-    shippingFee,
-    totalPrice,
-  } = useOrderCalculator();
+    totalDiscount,
+    finalShippingFee,
+    finalTotalPrice,
+  } = useOrderSummary();
 
   const { openModal } = useModal();
   const openCouponModal = () => openModal(<CouponModal />);
@@ -82,11 +83,15 @@ const OrderPage = () => {
           <S.PriceSummary>
             <S.PriceInfoWrapper>
               <PriceInfo label="주문 금액" price={orderPrice} />
-              <PriceInfo label="쿠폰 할인 금액" price={0} isNegative={true} />
-              <PriceInfo label="배송비" price={shippingFee} />
+              <PriceInfo
+                label="쿠폰 할인 금액"
+                price={totalDiscount}
+                isNegative={true}
+              />
+              <PriceInfo label="배송비" price={finalShippingFee} />
             </S.PriceInfoWrapper>
             <S.PriceInfoWrapper>
-              <PriceInfo label="총 결제 금액" price={totalPrice} />
+              <PriceInfo label="총 결제 금액" price={finalTotalPrice} />
             </S.PriceInfoWrapper>
           </S.PriceSummary>
         </S.ContentContainer>

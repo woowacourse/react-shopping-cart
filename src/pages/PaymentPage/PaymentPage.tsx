@@ -4,12 +4,12 @@ import FooterButton from "../../components/@common/FooterButton/FooterButton";
 import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
 import { ROUTES } from "../../constants/routes";
-import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
-import * as S from "./PaymentPage.styles";
+import useOrderSummary from "../../domains/order/hooks/useOrderSummary";
 import { formatCurrency } from "../../utils/formatters";
+import * as S from "./PaymentPage.styles";
 
 const PaymentPage = () => {
-  const { orderItemCount, orderQuantity, totalPrice } = useOrderCalculator();
+  const { orderItemCount, orderQuantity, finalTotalPrice } = useOrderSummary();
   const navigate = useNavigate();
   const navigateToCart = () => navigate(ROUTES.CART);
 
@@ -26,7 +26,7 @@ const PaymentPage = () => {
         </S.DescriptionContainer>
         <S.PriceContainer>
           <S.Label>총 결제 금액</S.Label>
-          <S.Price>{formatCurrency(totalPrice)}</S.Price>
+          <S.Price>{formatCurrency(finalTotalPrice)}</S.Price>
         </S.PriceContainer>
       </S.Main>
       <FooterButton onClick={navigateToCart}>장바구니로 돌아가기</FooterButton>

@@ -1,7 +1,7 @@
 import { MAX_COUPON_SELECTION } from "../../../domains/coupon/constants";
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
 import useCouponValidation from "../../../domains/coupon/hooks/useCouponValidation";
-import useOrderCalculator from "../../../domains/order/hooks/useOrderCalculator";
+import useOrderSummary from "../../../domains/order/hooks/useOrderSummary";
 import useModal from "../../../features/modal/useModal";
 import { formatCurrency } from "../../../utils/formatters";
 import Description from "../../@common/Description/Description";
@@ -10,12 +10,9 @@ import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
 
-// TODO: 실제로 쿠폰 적용에 따른 계산된 값 불러오기
-const price = 6000;
-
 const CouponModal = () => {
   const { closeModal } = useModal();
-  const { orderPrice } = useOrderCalculator();
+  const { orderPrice, totalDiscount } = useOrderSummary();
   const { validateCoupon } = useCouponValidation({ orderPrice });
   const {
     coupons,
@@ -51,7 +48,7 @@ const CouponModal = () => {
         onClick={() => closeModal()}
         disabled={hasNoSelectedCoupons}
       >
-        총 {formatCurrency(price)} 할인 쿠폰 사용하기
+        총 {formatCurrency(totalDiscount)} 할인 쿠폰 사용하기
       </S.ApplyCouponButton>
     </S.CouponModal>
   );
