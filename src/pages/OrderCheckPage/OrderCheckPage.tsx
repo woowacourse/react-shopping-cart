@@ -41,7 +41,11 @@ function OrderCheckPage() {
             쿠폰 적용
           </S.CouponButton>
           <S.OrderText>배송 정보</S.OrderText>
-          <CheckBox text="제주도 및 도서 산간 지역" isChecked={false} />
+          <CheckBox
+            text="제주도 및 도서 산간 지역"
+            isChecked={false}
+            onChange={() => {}}
+          />
           <br />
           <OrderPriceSection
             orderPrice={3000}

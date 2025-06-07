@@ -11,7 +11,7 @@ export const Container = styled.div`
   margin-top: 24px;
 `;
 
-export const CouponText = styled.p`
+export const CouponText = styled.div`
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;

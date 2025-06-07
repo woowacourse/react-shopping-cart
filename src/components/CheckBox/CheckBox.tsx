@@ -10,7 +10,7 @@ function CheckBox({
   id?: number;
   isChecked: boolean;
   text?: string;
-  onChange?: () => void;
+  onChange: () => void;
   size?: "small" | "large";
 }) {
   return (

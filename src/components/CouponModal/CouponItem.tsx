@@ -1,4 +1,5 @@
 import { CouponType } from "../../types/types";
+import formatPrice from "../../utils/formatPrice";
 import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CouponItem.styled";
 
@@ -19,31 +20,19 @@ export default function CouponItem({ data }: { data: CouponType }) {
 
     switch (discountType) {
       case "fixed":
-        if (data.minimumAmount) {
-          lines.push(
-            `최소 주문 금액: ${data.minimumAmount.toLocaleString()}원`
-          );
-        }
-        break;
-
-      case "buyXgetY":
-        break;
-
       case "freeShipping":
-        if (data.minimumAmount) {
-          lines.push(
-            `최소 주문 금액: ${data.minimumAmount.toLocaleString()}원`
-          );
-        }
+        lines.push(`최소 주문 금액: ${formatPrice(data.minimumAmount)}원`);
         break;
-
-      case "percentage":
-        if (data.availableTime) {
-          lines.push(
-            `사용 가능 시간: 오전 ${data.availableTime.start}부터 ${data.availableTime.end}까지`
-          );
-        }
+      case "percentage": {
+        const start = data.availableTime.start.split(":")[0];
+        const end = data.availableTime.end.split(":")[0];
+        lines.push(
+          `사용 가능 시간: 오전 ${start[0] === "0" ? start[1] : start}시부터 ${
+            end[0] === "0" ? end[1] : end
+          }시까지`
+        );
         break;
+      }
 
       default:
         break;
