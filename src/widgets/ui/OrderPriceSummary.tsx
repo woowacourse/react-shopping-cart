@@ -1,7 +1,7 @@
-import { useCartContext } from '../../../shared/context/useCartContext';
-import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../constants/orderPriceSummary';
+import { useCartContext } from '../../shared/context/useCartContext';
+import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../features/cart/constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
-import SelectInput from '../../../shared/ui/SelectInput';
+import SelectInput from '../../shared/ui/SelectInput';
 
 export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: boolean }) {
   const { selectedCartItems } = useCartContext();

@@ -7,11 +7,13 @@ interface CartContextType {
   updateCartItems: (item: CartItem[]) => void;
   updateCartItemQuantity: (item: CartItem, quantity: number) => void;
   selectedCartItems: CartItem[];
+  selectedCoupons: Coupon[];
+  totalDiscountPrice: number;
   updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
   updateSelectedCoupons: (coupons: Coupon) => void;
-  selectedCoupons: Coupon[];
+  updateTotalDiscountPrice: (totalDiscountPrice: number) => void;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,6 +26,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
+  const [totalDiscountPrice, setTotalDiscountPrice] = useState<number>(0);
 
   const updateCartItems = (cartItems: CartItem[]) => {
     setCartItems(cartItems);
@@ -67,6 +70,10 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     });
   };
 
+  const updateTotalDiscountPrice = (totalDiscountPrice: number) => {
+    setTotalDiscountPrice(totalDiscountPrice);
+  };
+
   const value = useMemo(
     () => ({
       cartItems,
@@ -74,12 +81,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       updateCartItemQuantity,
       selectedCartItems,
       selectedCoupons,
+      totalDiscountPrice,
       updateSelectedCartItem,
       addAllCartItemsInSelected,
       removeSelectedCartItem,
       updateSelectedCoupons,
+      updateTotalDiscountPrice,
     }),
-    [cartItems, selectedCartItems, selectedCoupons]
+    [cartItems, selectedCartItems, selectedCoupons, totalDiscountPrice]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

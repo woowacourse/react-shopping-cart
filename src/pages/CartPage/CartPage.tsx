@@ -1,17 +1,14 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import * as S from './CartPage.styles';
-import { CartHeader } from '../../features/cart/ui';
+import { CartHeader, CartListSkeleton, CartPageFooter, EmptyCartItemUI } from '../../features/cart/ui';
 import Navbar from '../../shared/ui/Navbar';
-import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import { getCartItems } from '../../features/cart/api/getCartItems';
-import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
-import CartListSkeleton from '../../features/cart/ui/CartListSkeleton';
 import { useCartContext } from '../../shared/context/useCartContext';
 import { saveSelectedCartItemsToLocalStorage } from '../../features/cart/utils/localStorageService';
 
 const CartList = React.lazy(() => import('../../features/cart/ui/CartList'));
-const OrderPriceSummary = React.lazy(() => import('../../features/cart/ui/OrderPriceSummary'));
+const OrderPriceSummary = React.lazy(() => import('../../widgets/ui/OrderPriceSummary'));
 
 function CartPage() {
   const { cartItems, updateCartItems, selectedCartItems, updateSelectedCartItem, removeSelectedCartItem } =
