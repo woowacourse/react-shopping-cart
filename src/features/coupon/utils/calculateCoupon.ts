@@ -17,7 +17,7 @@ const calculateBogoDiscount = (orderItems: CartItemType[]) => {
       current.product.price > max.product.price ? current : max,
     );
 
-    return highestPricedItem.product.price * (highestPricedItem.quantity / 3);
+    return highestPricedItem.product.price * Math.floor(highestPricedItem.quantity / 3);
   }
   return 0;
 };
@@ -37,7 +37,7 @@ export const calculateCouponDiscount = ({
     case 'FREESHIPPING':
       return deliveryFee;
     case 'MIRACLESALE':
-      return (orderPrice * coupon.discount) / 100;
+      return Math.floor((orderPrice * coupon.discount) / 100);
     default:
       return 0;
   }
