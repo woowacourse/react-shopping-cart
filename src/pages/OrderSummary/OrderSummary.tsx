@@ -13,15 +13,19 @@ import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import CouponModal from "../../components/CouponModal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
 import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
+import { useState } from "react";
 
 function OrderSummary() {
+  const [isJejuOrIslandSelected, setIsJejuOrIslandSelected] = useState(false);
+
   const { isOpen, modalClose, modalOpen } = useModal();
   const navigate = useNavigate();
 
   const cartItems = useSafeLocationState<CartItemType[]>();
 
   const orderCost = getOrderCost(cartItems);
-  const deliveryCost = getDeliveryCost(orderCost);
+  const deliveryCost =
+    getDeliveryCost(orderCost) + (isJejuOrIslandSelected ? 3000 : 0);
 
   return (
     <>
@@ -41,8 +45,8 @@ function OrderSummary() {
           <p>배송 정보</p>
           <CheckBox
             id="delivery"
-            isSelected={true}
-            onClick={() => console.log("클릭")}
+            isSelected={isJejuOrIslandSelected}
+            onClick={() => setIsJejuOrIslandSelected((prev) => !prev)}
             label="제주도 및 도서 산간 지역"
           />
         </div>
