@@ -27,9 +27,8 @@ export const useCoupon = ({
     deliveryPrice,
     couponCount: MAX_SELECTED_COUPON_COUNT,
   });
-
   const { getIsSelectedId, toggleSelectedId, getSelectedIdsCount } =
-    useSelectedIds(new Set([...bestCombo].map((coupon) => coupon.id)));
+    useSelectedIds(new Set(bestCombo.map((coupon) => coupon.id)));
 
   const getIsCouponIdDisabled = createCouponDisabledChecker({
     notAvailableCoupons: couponList.filter((coupon) =>
