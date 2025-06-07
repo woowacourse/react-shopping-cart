@@ -1,14 +1,15 @@
 import ApplyCouponButton from "./ApplyCouponButton/ApplyCouponButton";
 import DeliveryInfo from "./DeliveryInfo/DeliveryInfo";
-import PriceContainer from "@/domains/components/PriceContainer/PriceContainer";
 import PaymentButton from "./PaymentButton/PaymentButton";
 import ApplyCouponModal from "./ApplyCouponModal/ApplyCouponModal";
-import useBooleanState from "@/shared/hooks/useBooleanState";
 import { getOrderTotalPrice } from "@/domains/utils/getOrderTotalPrice";
-import { getDeliveryPrice } from "@/domains/utils/getDeliveryPrice";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { useGetCoupon } from "./hooks/useGetCoupon";
+import { useGetCoupon } from "../../hooks/useGetCoupon";
 import Fallback from "@/shared/components/Fallback";
+import { usePaymentPrice } from "../../hooks/usePaymentPrice";
+import { useCouponModal } from "../../hooks/useCouponModal";
+import { useDeliveryPrice } from "../../hooks/useDeliveryPrice";
+import PaymentPriceContainer from "./PaymentPriceContainer/PaymentPriceContainer";
 
 type PaymentContentProps = {
   orderList: CartItemType[];
@@ -16,53 +17,48 @@ type PaymentContentProps = {
 
 export default function PaymentContent({ orderList }: PaymentContentProps) {
   const { couponList, isLoading, errorMessage } = useGetCoupon();
-  const [isOpenApplyCouponModal, openApplyCouponModal, closeApplyCouponModal] =
-    useBooleanState(false);
+  const { deliveryPrice, isRegionDelivery, toggleRegionDelivery } =
+    useDeliveryPrice(getOrderTotalPrice(orderList));
+  const [isOpenCouponModal, openCouponModal, closeCouponModal] =
+    useCouponModal();
+  const { couponDiscount, paymentPrice, applyCouponDiscount } = usePaymentPrice(
+    { orderTotalPrice: getOrderTotalPrice(orderList), deliveryPrice }
+  );
 
   if (errorMessage) {
     return <Fallback type="error" message={errorMessage} />;
   }
 
-  const paymentResultPrice =
-    getOrderTotalPrice(orderList) +
-    getDeliveryPrice(getOrderTotalPrice(orderList));
-
   return (
     <>
       {isLoading ? (
-        <Fallback type="loading" message="쿠폰 정보를 불러오는 중입니다." />
+        <Fallback type="loading" message="쿠폰 정보를 적용하는 중입니다." />
       ) : (
         <>
-          <ApplyCouponButton onClick={openApplyCouponModal} />
+          <ApplyCouponButton onClick={openCouponModal} />
           <ApplyCouponModal
-            isOpen={isOpenApplyCouponModal}
+            isOpen={isOpenCouponModal}
+            orderList={orderList}
             couponList={couponList}
-            onRequestClose={closeApplyCouponModal}
-            onApplyCoupon={() => {}}
+            deliveryPrice={deliveryPrice}
+            onRequestClose={closeCouponModal}
+            onApplyCoupon={applyCouponDiscount}
           />
-          <DeliveryInfo />
-          <PriceContainer
-            priceList={[
-              {
-                title: "주문 금액",
-                price: getOrderTotalPrice(orderList),
-              },
-              {
-                title: "쿠폰 할인 금액",
-                price: -0,
-              },
-              {
-                title: "배송비",
-                price: getDeliveryPrice(getOrderTotalPrice(orderList)),
-              },
-            ]}
-            paymentPrice={paymentResultPrice}
+          <DeliveryInfo
+            isChecked={isRegionDelivery}
+            onClick={toggleRegionDelivery}
+          />
+          <PaymentPriceContainer
+            orderTotalPrice={getOrderTotalPrice(orderList)}
+            deliveryPrice={deliveryPrice}
+            couponDiscount={couponDiscount}
+            paymentPrice={paymentPrice}
           />
         </>
       )}
       <PaymentButton
         orderList={orderList}
-        paymentPrice={paymentResultPrice}
+        paymentPrice={paymentPrice}
         disabled={isLoading || !!errorMessage}
       />
     </>
