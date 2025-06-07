@@ -4,17 +4,7 @@ import { Flex } from '@/shared/components/Flex/Flex';
 import { Text } from '@/shared/components/Text/Text';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { PropsWithChildren } from 'react';
-
-type Coupon = {
-  id: number;
-  title: string;
-  description: string;
-  expirationDate: string;
-  minimumAmount?: number;
-  availableTime?: string;
-  checked: boolean;
-};
+import { Coupon } from '../types/Coupon.types';
 
 type CouponModalProps = {
   coupons: Coupon[];
@@ -35,7 +25,13 @@ export const CouponModal = ({
     <Overlay>
       <Modal>
         <Flex direction="row" justifyContent="space-between" alignItems="center" gap="0">
-          <Text type="Body" weight="bold">
+          <Text
+            type="Body"
+            weight="bold"
+            css={css`
+              font-size: 18px;
+            `}
+          >
             쿠폰을 선택해 주세요
           </Text>
           <Button
@@ -65,19 +61,21 @@ export const CouponModal = ({
               checked={coupon.checked}
               onClick={() => onToggleCoupon(coupon.id)}
             >
-              {/* <CouponCheck checked={coupon.checked} /> */}
               <CheckBox />
               <CouponContent>
-                <CouponTitle>{coupon.title}</CouponTitle>
-                <CouponDesc>{coupon.description}</CouponDesc>
-                <CouponDetail>만료일: {coupon.expirationDate}</CouponDetail>
+                <Text type="Body" weight="bold">
+                  {coupon.description}
+                </Text>
+                <StyledCouponDetailText>만료일: {coupon.expirationDate}</StyledCouponDetailText>
                 {coupon.minimumAmount && (
-                  <CouponDetail>
+                  <StyledCouponDetailText>
                     최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
-                  </CouponDetail>
+                  </StyledCouponDetailText>
                 )}
                 {coupon.availableTime && (
-                  <CouponDetail>사용 가능 시간: {coupon.availableTime}</CouponDetail>
+                  <StyledCouponDetailText>
+                    사용 가능 시간: {coupon.availableTime.start}
+                  </StyledCouponDetailText>
                 )}
               </CouponContent>
             </CouponItem>
@@ -142,17 +140,15 @@ const CouponContent = styled.div`
   flex: 1;
 `;
 
-const CouponTitle = styled.div`
-  font-weight: bold;
-  font-size: 15px;
-`;
-
-const CouponDesc = styled.div`
-  font-size: 13px;
-  margin: 4px 0;
-`;
-
-const CouponDetail = styled.div`
-  font-size: 12px;
-  color: #666;
-`;
+const StyledCouponDetailText = ({ children }: { children: React.ReactNode }) => (
+  <Text
+    type="Caption"
+    weight="regular"
+    css={css`
+      font-size: 12px;
+      color: #666;
+    `}
+  >
+    {children}
+  </Text>
+);

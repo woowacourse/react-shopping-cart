@@ -14,8 +14,13 @@ import { CartItemDetail } from './CartItemDetail';
 import { RemoteAreaCheckBox } from './RemoteAreaCheckBox';
 import { PriceSummary } from './PriceSummary';
 import { useCartInfo } from '../hooks/useCartInfo';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CouponModal } from '@/features/Coupon/components/CouponModal';
+import { getCouponList } from '@/features/Coupon/api/coupon';
+import { useFetchData } from '@/shared/hooks/useFetchData';
+import { CouponResponse } from '@/features/Coupon/types/Coupon.types';
+import { isError } from '@/shared/utils/isError';
+import { ToastContext } from '@/shared/context/ToastProvider';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
@@ -24,7 +29,19 @@ type OrderConfirmProps = {
 export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
   const { selectedCartItems } = useCartInfo(cartItems);
+  const { showToast } = useContext(ToastContext);
   const [showCouponList, setShowCouponList] = useState(false);
+  const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
+  const coupons = (coupon.data ?? []).map((c) => ({
+    ...c,
+    checked: false,
+  }));
+
+  useEffect(() => {
+      if (coupon.error && isError(coupon.error)) {
+        showToast('쿠폰 정보를 불러올 수 없습니다.');
+      }
+    }, [coupon.error, showToast]);
 
   return (
     <>
@@ -85,7 +102,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
       >
         결제하기
       </Button>
-      { showCouponList && <CouponModal coupons={[]} onClose={function (): void {
+      { showCouponList && <CouponModal coupons={coupons} onClose={function (): void {
         throw new Error('Function not implemented.');
       } } onToggleCoupon={function (id: number): void {
         throw new Error('Function not implemented.');
