@@ -8,9 +8,9 @@ import {
   ModalTitleProps,
   ModalFooterProps
 } from './Modal.types';
-import useEscKeydown from '../../../hooks/useEscKeydown';
-import useScrollBlock from '../../../hooks/useScrollBlock';
-import { useClickAway } from '../../../hooks/useClickAway';
+import useEscKeydown from '../../hooks/useEscKeydown';
+import useScrollBlock from '../../hooks/useScrollBlock';
+import { useClickAway } from '../../hooks/useClickAway';
 
 function ModalMain({ isOpen, size, onClose, position, children, ...props }: ModalMainProps) {
   useEscKeydown(onClose);
