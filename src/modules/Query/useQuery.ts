@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { clearQueryPromise, getQueryPromise, setQueryPromise } from "./QueryPromises";
-import { setQueryData, setQueryStatus } from "./QueryStore";
+import { getQueryData, setQueryData, setQueryStatus } from "./QueryStore";
 import { useQueryData, useQueryStatus } from "./useQueryData";
 import { Status } from "./types";
 
@@ -47,6 +47,7 @@ export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQuery
       clearQueryPromise(queryKey);
     } catch (error) {
       setQueryStatus(queryKey, "error");
+      setQueryData(queryKey, error);
       clearQueryPromise(queryKey);
     }
   };
@@ -60,6 +61,7 @@ export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQuery
 
   const refetch = () => fetchData(true);
 
+  if (status === "error") throw getQueryData(queryKey);
   return {
     data: data ?? initialData,
     status,
