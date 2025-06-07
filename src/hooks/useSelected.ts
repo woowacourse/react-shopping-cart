@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "selectedItemIds";
-
-export const useSelected = () => {
+interface useSelectedProps {
+  enableStorage?: boolean;
+  storageKey?: string;
+}
+export const useSelected = ({
+  enableStorage = false,
+  storageKey = "default",
+}: useSelectedProps) => {
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!enableStorage) return new Set();
+    const stored = localStorage.getItem(storageKey);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
@@ -27,7 +33,7 @@ export const useSelected = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...selectedItemIds]));
+    localStorage.setItem(storageKey, JSON.stringify([...selectedItemIds]));
   }, [selectedItemIds]);
 
   return {

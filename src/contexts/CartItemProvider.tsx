@@ -36,7 +36,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     handleLoadingStatus,
   } = useCartItems();
   const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
-    useSelected();
+    useSelected({ enableStorage: true, storageKey: "selectedCartItemIds" });
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {
     if (selectedItemIds.has(cartItem.id)) {
