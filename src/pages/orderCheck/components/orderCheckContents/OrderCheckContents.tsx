@@ -109,7 +109,11 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
             </S.ShippingOptionSelectText>
           </S.ShippingOptionSelectRow>
         </S.ShippingOptionBox>
-        <OrderPriceSummary value={orderPrice} discountAmount={discountAmount} />
+        <OrderPriceSummary
+          orderPrice={orderPrice}
+          discountAmount={discountAmount}
+          isRemoteArea={isRemoteArea}
+        />
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
           coupons={couponModels}

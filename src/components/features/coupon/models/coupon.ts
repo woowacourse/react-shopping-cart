@@ -1,5 +1,5 @@
-import { CART_RULE } from '../../cart/constants/cartRule';
 import { CartItemType } from '../../cart/types';
+import { calculateDeliveryFee } from '../../cart/utils/calculateDeliveryFee';
 import { calculateOrderPrice } from '../../cart/utils/cartCalculations';
 import { convertTimeToSecond } from '../utils/time';
 import {
@@ -137,16 +137,7 @@ class Coupon {
     }
 
     if (isFreeShippingCoupon(this.#data)) {
-      if (isRemoteArea) {
-        if (orderPrice >= CART_RULE.freeDeliveryThreshold)
-          return CART_RULE.remoteAreaDeliveryFee;
-        return CART_RULE.remoteAreaDeliveryFee + CART_RULE.defaultDeliveryFee;
-      }
-
-      if (orderPrice >= CART_RULE.freeDeliveryThreshold) {
-        return 0;
-      }
-      return CART_RULE.defaultDeliveryFee;
+      return calculateDeliveryFee(orderPrice, isRemoteArea);
     }
 
     return 0;

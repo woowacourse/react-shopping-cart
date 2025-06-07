@@ -1,22 +1,27 @@
 import { PriceSummary } from '@/components/common/priceSummary';
 import { CART_RULE } from '../../cart/constants/cartRule';
+import { calculateDeliveryFee } from '../../cart/utils/calculateDeliveryFee';
 
 interface OrderPriceSummaryProps {
-  value: number;
+  orderPrice: number;
   discountAmount: number;
+  isRemoteArea: boolean;
 }
 
-function OrderPriceSummary({ value, discountAmount }: OrderPriceSummaryProps) {
-  const deliveryFee =
-    value >= CART_RULE.freeDeliveryThreshold ? 0 : CART_RULE.defaultDeliveryFee;
-  const totalPrice = value - discountAmount + deliveryFee;
+function OrderPriceSummary({
+  orderPrice,
+  discountAmount,
+  isRemoteArea,
+}: OrderPriceSummaryProps) {
+  const deliveryFee = calculateDeliveryFee(orderPrice, isRemoteArea);
+  const totalPrice = orderPrice - discountAmount + deliveryFee;
 
   return (
     <PriceSummary
       notice={`총 주문 금액이 ${CART_RULE.freeDeliveryThreshold.toLocaleString()}원
             이상일 경우 무료 배송됩니다.`}
       items={[
-        { label: '주문 금액', amount: value },
+        { label: '주문 금액', amount: orderPrice },
         { label: '쿠폰 할인 금액', amount: discountAmount, isDiscount: true },
         { label: '배송비', amount: deliveryFee },
       ]}
