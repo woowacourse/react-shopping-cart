@@ -40,17 +40,17 @@ export default function ApplyCouponModal({
     [onApplyCoupon, discountAmount]
   );
 
-  if (!isOpen) {
-    return null;
-  }
-
   const handleApplyCouponButtonClick = () => {
     onApplyCoupon(discountAmount);
     onRequestClose();
   };
 
   return (
-    <Modal title="쿠폰을 선택해 주세요" onRequestClose={onRequestClose}>
+    <Modal
+      isOpen={isOpen}
+      title="쿠폰을 선택해 주세요"
+      onRequestClose={onRequestClose}
+    >
       <S.ApplyCouponModalContainer>
         <InfoText>
           쿠폰은 최대 {MAX_SELECTED_COUPON_COUNT}개까지 사용할 수 있습니다.
@@ -62,7 +62,7 @@ export default function ApplyCouponModal({
               coupon={coupon}
               isSelected={getIsSelectedId(coupon.id)}
               isDisabled={getIsCouponIdDisabled(coupon.id)}
-              onToggleSelect={toggleSelectedId}
+              onClick={toggleSelectedId}
             />
           ))}
         </CouponList>

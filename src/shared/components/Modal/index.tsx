@@ -5,17 +5,23 @@ import useKeyDown from "@/shared/hooks/useKeyDown";
 import useClickOutsideRef from "@/shared/hooks/useClickOutsideRef";
 
 type ModalProps = {
+  isOpen: boolean;
   title: string;
   onRequestClose: () => void;
 };
 
 function Modal({
+  isOpen,
   title,
   onRequestClose,
   children,
 }: PropsWithChildren<ModalProps>) {
   useKeyDown({ keys: ["Escape"], callback: onRequestClose });
   const ref = useClickOutsideRef<HTMLDivElement>(onRequestClose);
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <S.Backdrop>

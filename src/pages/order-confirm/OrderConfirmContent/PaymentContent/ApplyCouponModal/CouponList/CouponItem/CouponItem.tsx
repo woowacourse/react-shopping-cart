@@ -7,23 +7,20 @@ type CouponItemProps = {
   coupon: Coupon;
   isDisabled: boolean;
   isSelected: boolean;
-  onToggleSelect: (couponId: number) => void;
+  onClick: (couponId: number) => void;
 };
 
 export default function CouponItem({
   coupon,
   isDisabled,
   isSelected,
-  onToggleSelect,
+  onClick,
 }: CouponItemProps) {
   const { description } = coupon;
   const couponInfoList = getCouponInfo(coupon);
   return (
     <S.CouponItem isDisabled={isDisabled}>
-      <CheckBox
-        isChecked={isSelected}
-        onClick={() => onToggleSelect(coupon.id)}
-      >
+      <CheckBox isChecked={isSelected} onClick={() => onClick(coupon.id)}>
         <S.CouponTitle>{description}</S.CouponTitle>
       </CheckBox>
       <S.CouponInfoList>
