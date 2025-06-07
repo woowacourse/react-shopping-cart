@@ -21,6 +21,29 @@ const CloseButtonCSS = css`
   &:hover {
     background-color: #e0e0e0;
   }
+
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
+`;
+
+const CouponButtonCSS = css`
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: #333;
+  }
+
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
 `;
 
 interface CouponListProps {
@@ -61,6 +84,10 @@ export default function CouponList({ onClose }: CouponListProps) {
     updateSelectedCoupons(selectedCoupon);
   };
 
+  const handleCouponUsage = () => {
+    onClose();
+  };
+
   console.log('쿠폰 목록:', coupons);
 
   return (
@@ -93,7 +120,9 @@ export default function CouponList({ onClose }: CouponListProps) {
         ))}
       </S.CouponListContent>
       <S.CouponListFooterContainer>
-        <S.UseCouponButton>할인 쿠폰 사용하기</S.UseCouponButton>
+        <S.UseCouponButton onClick={handleCouponUsage} disabled={selectedCoupons.length === 0} css={CouponButtonCSS}>
+          할인 쿠폰 사용하기
+        </S.UseCouponButton>
       </S.CouponListFooterContainer>
     </S.CouponListContainer>
   );
