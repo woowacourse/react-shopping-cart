@@ -15,6 +15,6 @@ export interface Coupon {
   };
 }
 
-export interface AvailableCoupon extends Coupon {
+export interface validatedCouponList extends Coupon {
   isExpired: boolean;
 }

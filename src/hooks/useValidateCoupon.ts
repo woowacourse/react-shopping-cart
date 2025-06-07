@@ -1,5 +1,5 @@
 import { CartItemProps } from '../types/cartItem';
-import { AvailableCoupon, Coupon } from '../types/coupon';
+import { Coupon, validatedCouponList } from '../types/coupon';
 import {
   isExpired,
   isMiracleMorning,
@@ -12,10 +12,10 @@ function useValidateCoupon(
   subTotal: number,
   selectedItems: CartItemProps[]
 ) {
-  const availableCouponList: AvailableCoupon[] = [];
+  const validatedCouponList: validatedCouponList[] = [];
 
   couponList.forEach((coupon) => {
-    let expiredFlag = isExpired(coupon.expirationDate);
+    let expiredFlag = !isExpired(coupon.expirationDate);
 
     if (coupon.description.includes('미라클모닝')) {
       expiredFlag = !isMiracleMorning();
@@ -32,10 +32,10 @@ function useValidateCoupon(
       expiredFlag = !isQuantity(selectedItems);
     }
 
-    availableCouponList.push({ ...coupon, isExpired: expiredFlag });
+    validatedCouponList.push({ ...coupon, isExpired: expiredFlag });
   });
 
-  return { availableCouponList };
+  return { validatedCouponList: validatedCouponList };
 }
 
 export default useValidateCoupon;
