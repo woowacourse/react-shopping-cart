@@ -16,8 +16,8 @@ interface Props {
 
 const CouponCard = ({ coupon, enable, selected, onToggle }: Props) => {
   return (
-    <S.CouponCard $disabled={!enable}>
-      <S.CouponCardHeader>
+    <S.CouponCard>
+      <S.CouponCardHeader $disabled={!enable}>
         <Checkbox
           selected={selected}
           onClick={() => enable && onToggle(coupon.id)}
@@ -25,7 +25,7 @@ const CouponCard = ({ coupon, enable, selected, onToggle }: Props) => {
         />
         <S.Title>{coupon.description}</S.Title>
       </S.CouponCardHeader>
-      <S.CouponInfo>
+      <S.CouponInfo $disabled={!enable}>
         <p>만료일: {formatDate(coupon.expirationDate)}</p>
         {coupon.minimumAmount && (
           <p>최소 주문 금액: {formatCurrency(coupon.minimumAmount)}</p>
