@@ -5,7 +5,7 @@ export const theme = {
     gray: "#e5e5e5",
     primary: "#22c55e",
     secondary: "#ef4444",
-    success: "#22c55e",
+    success: "#93d27a",
     error: "#ef4444",
     warning: "#f59e0b",
   },

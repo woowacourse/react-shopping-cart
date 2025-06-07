@@ -1,12 +1,15 @@
-import { ErrorBoundary, ErrorFallback } from "@/components";
+import { ErrorBoundary, ErrorFallback, LoadingFallback } from "@/components";
 import { CartItemSection, Step1Footer, Step1Header } from "./components";
+import { Suspense } from "react";
 
 export default function Step1() {
   return (
     <>
       <Step1Header />
       <ErrorBoundary fallback={<ErrorFallback />}>
-        <CartItemSection />
+        <Suspense fallback={<LoadingFallback />}>
+          <CartItemSection />
+        </Suspense>
       </ErrorBoundary>
       <Step1Footer />
     </>

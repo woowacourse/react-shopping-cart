@@ -62,6 +62,7 @@ export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQuery
   const refetch = () => fetchData(true);
 
   if (status === "error") throw getQueryData(queryKey);
+  if (status === "loading") throw getQueryPromise(queryKey);
   return {
     data: data ?? initialData,
     status,
