@@ -4,11 +4,7 @@ import { ComponentProps } from 'react';
 type ButtonProps = ComponentProps<'button'>;
 
 function Button({ children, ...props }: ButtonProps) {
-  return (
-    <BaseButton {...props}>
-      {children}
-    </BaseButton>
-  );
+  return <BaseButton {...props}>{children}</BaseButton>;
 }
 
 export default Button;

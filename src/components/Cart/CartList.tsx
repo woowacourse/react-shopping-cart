@@ -20,11 +20,7 @@ function CartList({ checkedItems, setCheckedItems }: CartListProps) {
   }
 
   const handleItemCheck = (itemId: number, checked: boolean) => {
-    setCheckedItems((prev) => 
-      checked 
-        ? [...prev, itemId]
-        : prev.filter((id) => id !== itemId)
-    );
+    setCheckedItems((prev) => (checked ? [...prev, itemId] : prev.filter((id) => id !== itemId)));
   };
 
   return (
