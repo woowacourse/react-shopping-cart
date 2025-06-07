@@ -1,16 +1,21 @@
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 
 const useCheckedCartIdsActions = () => {
-  const { cartItems, checkedCartIds, addCheckedCartItem, removeCheckedCartItem, init } =
-    useCartItemsContext();
+  const {
+    cartItems,
+    checkedCartIds,
+    addCheckedCartItem,
+    removeCheckedCartItem,
+    initCheckedCartIds,
+  } = useCartItemsContext();
 
   const isAllChecked = cartItems.length > 0 && checkedCartIds.length === cartItems.length;
 
   const toggleAllChecked = () => {
     if (isAllChecked) {
-      init([]); // 전체 해제
+      initCheckedCartIds([]); // 전체 해제
     } else {
-      init(cartItems); // 전체 선택
+      initCheckedCartIds(cartItems); // 전체 선택
     }
   };
 

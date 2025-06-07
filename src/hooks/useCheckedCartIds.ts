@@ -13,7 +13,7 @@ const useCheckedCartIds = () => {
     setCheckedCartIds((prev) => prev.filter((itemId) => itemId !== id));
   };
 
-  const init = useCallback((cartItems: CartItem[]) => {
+  const initCheckedCartIds = useCallback((cartItems: CartItem[]) => {
     setCheckedCartIds(getIdsFromCartItems(cartItems));
   }, []);
 
@@ -21,7 +21,7 @@ const useCheckedCartIds = () => {
     checkedCartIds,
     addCheckedCartItem,
     removeCheckedCartItem,
-    init,
+    initCheckedCartIds,
   };
 };
 

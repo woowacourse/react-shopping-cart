@@ -10,15 +10,15 @@ const CartItemsProvider = ({ children }: { children: ReactNode }) => {
   const checkedCartItemsState = useCheckedCartIds();
 
   const { cartItems } = cartItemsState;
-  const { init } = checkedCartItemsState;
+  const { initCheckedCartIds } = checkedCartItemsState;
 
   useEffect(() => {
     if (!isFirstLoading) return;
     if (cartItems.length !== 0) {
       setIsFirstLoading(false);
-      init(cartItems);
+      initCheckedCartIds(cartItems);
     }
-  }, [cartItems, init, isFirstLoading]);
+  }, [cartItems, initCheckedCartIds, isFirstLoading]);
 
   return (
     <CartItemsContext.Provider
