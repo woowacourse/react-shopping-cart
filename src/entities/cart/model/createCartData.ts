@@ -16,11 +16,10 @@ export const useCartData = () => {
   const [errorMessage, setError] = useState<string | null>(null);
 
   return {
-    // 상태
     items,
     isLoading,
     errorMessage,
-    // 상태 변경 함수
+
     setItems,
     setLoading,
     setError,
