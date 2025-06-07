@@ -12,7 +12,8 @@ type ItemCardProps = {
 };
 
 const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
-  const { increaseCartItemQuantity, deleteCartItem } = useCartActions();
+  const { increaseCartItemQuantity, deleteCartItem, decreaseCartItemQuantity } =
+    useCartActions();
   const { checkedCartIds } = useCheckedCartItemsContext();
   const { addCheckedCartItem, removeCheckedCartItem } = useCheckedCartActions();
 
@@ -28,6 +29,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
       handleClickDelete(id);
       return;
     }
+    decreaseCartItemQuantity(id);
   };
 
   const handleCheckBoxClick = () => {
