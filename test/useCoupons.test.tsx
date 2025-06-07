@@ -4,6 +4,8 @@ import * as checkedCtx from '../src/contexts/CheckedCartIdsContext';
 import { ErrorToastProvider } from '../src/contexts/ErrorToastProvider';
 import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import CheckCartIdsProvider from '../src/contexts/CheckedCartIdsProvider';
+import { act } from 'react';
+import { mockCoupons } from './mocks';
 type ProvidersProps = {
   children: React.ReactNode;
 };
@@ -219,7 +221,55 @@ describe('useCoupons 테스트', () => {
     });
   });
 
-  it('쿠폰을 선택할 수 있다, 단 최대 2개까지 선택 가능하다', () => {});
+  test('쿠폰을 선택할 수 있다, 단 최대 2개까지 선택 가능하다', async () => {
+    const { result } = renderHook(() => useCoupons(), {
+      wrapper: ({ children }) => <Providers>{children}</Providers>,
+    });
+    await waitFor(() => {
+      expect(result.current.coupons).toHaveLength(mockCoupons.length);
+    });
 
-  it('선택한 쿠폰에 따른 할인 금액을 반환한다', () => {});
+    act(() => {
+      result.current.selectCoupon(1);
+    });
+    expect(
+      result.current.selectedCoupons.find((c) => c.id === 1)
+    ).toBeDefined();
+
+    act(() => {
+      result.current.selectCoupon(2);
+    });
+    expect(
+      result.current.selectedCoupons.find((c) => c.id === 2)
+    ).toBeDefined();
+    expect(result.current.selectedCoupons).toHaveLength(2);
+
+    act(() => {
+      result.current.selectCoupon(3);
+    });
+    expect(result.current.selectedCoupons).toHaveLength(2);
+  });
+
+  test('쿠폰을 선택 해제할 수 있다', async () => {
+    const { result } = renderHook(() => useCoupons(), {
+      wrapper: ({ children }) => <Providers>{children}</Providers>,
+    });
+    await waitFor(() => {
+      expect(result.current.coupons).toHaveLength(mockCoupons.length);
+    });
+    act(() => {
+      result.current.selectCoupon(1);
+    });
+    expect(
+      result.current.selectedCoupons.find((c) => c.id === 1)
+    ).toBeDefined();
+    act(() => {
+      result.current.deselectCoupon(1);
+    });
+    expect(
+      result.current.selectedCoupons.find((c) => c.id === 1)
+    ).toBeUndefined();
+  });
+
+  test('선택한 쿠폰에 따른 할인 금액을 반환한다', () => {});
 });

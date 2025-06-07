@@ -10,8 +10,8 @@ const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
   const { cartItems } = useCartItemsContext();
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const { showError } = useErrorToast();
-  console.log(checkedCartIds);
 
   const fetchCoupons = async () => {
     try {
@@ -35,10 +35,6 @@ const useCoupons = () => {
     [selectedCartItems]
   );
   const currentHour = new Date().getHours();
-
-  useEffect(() => {
-    fetchCoupons();
-  }, []);
 
   const validCoupons = useMemo(() => {
     const now = new Date();
@@ -75,9 +71,30 @@ const useCoupons = () => {
     });
   }, [coupons, orderPrice, maxQuantity, currentHour]);
 
+  const selectCoupon = (id: number) => {
+    setSelectedCoupons((prev) => {
+      if (prev.some((c) => c.id === id)) return prev;
+      if (prev.length >= 2) return prev;
+
+      const coupon = validCoupons.find((c) => c.id === id);
+      return coupon ? [...prev, coupon] : prev;
+    });
+  };
+
+  const deselectCoupon = (id: number) => {
+    setSelectedCoupons((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  useEffect(() => {
+    fetchCoupons();
+  }, []);
+
   return {
     coupons,
     validCoupons,
+    selectedCoupons,
+    selectCoupon,
+    deselectCoupon,
   };
 };
 
