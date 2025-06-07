@@ -1,0 +1,14 @@
+import { useContext, useMemo } from "react";
+import { CartStateContext } from "../contexts/CartContext";
+import { State } from "../types/reducer";
+
+export function useCartState() {
+  const state = useContext(CartStateContext);
+  if (!state) throw new Error("useCartState must be used within CartProvider");
+  return state;
+}
+
+export function useCartSelector<T>(selector: (state: State) => T): T {
+  const state = useCartState();
+  return useMemo(() => selector(state), [state, selector]);
+}
