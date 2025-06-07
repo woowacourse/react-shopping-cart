@@ -5,9 +5,9 @@ import {
   Description,
 } from "../../../styles/@common/title/Title.styles";
 import {
-  FORMATTED_DUE_DATE,
-  FORMATTED_MINIMUM_AMOUNT,
-  FORMATTED_AVAILABLE_TIME,
+  getFormattedDueDateMessage,
+  getFormattedMinimumAmountMessage,
+  getFormattedAvailableTimeMessage,
 } from "../../../constants/systemMessages";
 import type { AvailableTime } from "../../../types/response";
 import { parseHour } from "../../../utils/parseTime";
@@ -36,18 +36,18 @@ const CouponItem = ({
   const parsedDate = couponInfo?.dueDate ? new Date(couponInfo.dueDate) : null;
   const formattedDate =
     parsedDate &&
-    FORMATTED_DUE_DATE(
+    getFormattedDueDateMessage(
       parsedDate.getFullYear().toString(),
       (parsedDate.getMonth() + 1).toString(),
       parsedDate.getDate().toString()
     );
   const formattedMinimumAmount =
     couponInfo?.minimumAmount &&
-    FORMATTED_MINIMUM_AMOUNT(couponInfo.minimumAmount);
+    getFormattedMinimumAmountMessage(couponInfo.minimumAmount);
 
   const formattedAvailableTime =
     couponInfo?.availableTime &&
-    FORMATTED_AVAILABLE_TIME(
+    getFormattedAvailableTimeMessage(
       parseHour(couponInfo.availableTime.start),
       parseHour(couponInfo.availableTime.end)
     );

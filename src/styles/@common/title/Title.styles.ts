@@ -10,6 +10,15 @@ export const TitleContainer = css`
   gap: 1.2rem;
 `;
 
+export const InfoMessageContainer = css`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.4rem;
+
+  width: 100%;
+`;
+
 export const Title = css`
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-title);

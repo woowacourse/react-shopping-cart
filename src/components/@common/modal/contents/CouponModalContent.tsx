@@ -3,6 +3,11 @@ import CouponItem from "../../../features/couponItem/CouponItem";
 import Button from "../../button/Button";
 import type { CouponType } from "../../../../types/response";
 import { COUPON_LIMIT } from "../../../../constants/systemConstants";
+import infoIcon from "/public/icon/ic_info.svg";
+import {
+  InfoMessageContainer,
+  Description,
+} from "../../../../styles/@common/title/Title.styles";
 
 interface CouponModalContentProps {
   totalDiscountPrice: number;
@@ -29,6 +34,10 @@ const CouponModalContent = ({
 
   return (
     <div css={S.couponModalContentContainer}>
+      <div css={InfoMessageContainer}>
+        <img src={infoIcon} alt="info" />
+        <p css={Description}>{COUPON_LIMIT_MESSAGE}</p>
+      </div>
       {couponList.map((coupon) => (
         <CouponItem
           key={coupon.id}

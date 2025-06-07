@@ -1,38 +1,42 @@
+import { useLocation } from "react-router-dom";
+
+import Button from "../../components/@common/button/Button";
+import Checkbox from "../../components/@common/checkbox/Checkbox";
+import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
+import Loading from "../../components/@common/loading/Loading";
+import Modal from "../../components/@common/modal/Modal";
+import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
+import CartPrice from "../../components/features/cartPrice/CartPrice";
+import DisplayCartItem from "../../components/features/cartItem/DisplayCartItem";
+import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
+import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
+import {
+  PageWrapper,
+  CartListContainer,
+} from "../../styles/@common/page/Page.styles";
 import {
   Title,
   TitleContainer,
   Description,
   Subtitle,
 } from "../../styles/@common/title/Title.styles";
-import { ORDER_CONFIRMATION_MESSAGE } from "../../constants/systemMessages";
-import { useLocation } from "react-router-dom";
-import DisplayCartItem from "../../components/features/cartItem/DisplayCartItem";
-import type { CartItemType } from "../../types/response";
-import {
-  PageWrapper,
-  CartListContainer,
-} from "../../styles/@common/page/Page.styles";
-import Button from "../../components/@common/button/Button";
-import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
-import Checkbox from "../../components/@common/checkbox/Checkbox";
-import CartPrice from "../../components/features/cartPrice/CartPrice";
-import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
 import * as S from "./OrderConfirmationPage.styles";
+
+import useCheckedCoupons from "../../hooks/features/useCheckedCoupons";
+import useCouponModal from "../../hooks/features/useCouponModal";
 import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
 import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
-import Modal from "../../components/@common/modal/Modal";
-import CouponModalContent from "../../components/@common/modal/contents/CouponModalContent";
-import useCouponModal from "../../hooks/features/useCouponModal";
+import useEasyNavigate from "../../hooks/useEasyNavigate";
+
 import { getValidCoupons } from "../../domains/coupon/validateCoupon";
-import useCheckedCoupons from "../../hooks/features/useCheckedCoupons";
 import {
   getBogoProductPrice,
   getDiscountedTotalOrderPrice,
   getTotalDiscountPrice,
 } from "../../domains/coupon/calculateCoupon";
-import useEasyNavigate from "../../hooks/useEasyNavigate";
-import Loading from "../../components/@common/loading/Loading";
-import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
+import { getOrderConfirmationMessage } from "../../constants/systemMessages";
+
+import type { CartItemType } from "../../types/response";
 
 const OrderConfirmationPage = () => {
   const { ref: CartPriceRef, isVisible: isCartPriceVisible } =
@@ -41,6 +45,11 @@ const OrderConfirmationPage = () => {
     });
 
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
+  const productTypeCount = orderItems.length;
+  const totalProductCount = orderItems.reduce(
+    (acc: number, item: CartItemType) => acc + item.quantity,
+    0
+  );
 
   const {
     isModalOpen,
@@ -113,7 +122,9 @@ const OrderConfirmationPage = () => {
       )}
       <div css={TitleContainer}>
         <p css={Title}>주문 확정</p>
-        <p css={Description}>{ORDER_CONFIRMATION_MESSAGE(1, 2)}</p>
+        <p css={Description}>
+          {getOrderConfirmationMessage(productTypeCount, totalProductCount)}
+        </p>
       </div>
 
       <div css={CartListContainer}>
@@ -150,11 +161,8 @@ const OrderConfirmationPage = () => {
             color="black"
             onClick={() => {
               goOrderComplete(
-                orderItems.length,
-                orderItems.reduce(
-                  (acc: number, item: CartItemType) => acc + item.quantity,
-                  0
-                ),
+                productTypeCount,
+                totalProductCount,
                 discountedTotalOrderPrice
               );
             }}

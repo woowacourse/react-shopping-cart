@@ -28,6 +28,7 @@ export const modalContainer = css`
   gap: 3.2rem;
   max-width: 38.2rem;
   width: 100%;
+  min-height: 40rem;
 `;
 
 export const modalHeaderContainer = css`

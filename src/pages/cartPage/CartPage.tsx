@@ -1,27 +1,32 @@
-import * as S from "./CartPage.styles";
-import { Title, Description } from "../../styles/@common/title/Title.styles";
+import { useEffect } from "react";
+
+import Button from "../../components/@common/button/Button";
+import Checkbox from "../../components/@common/checkbox/Checkbox";
+import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
 import CartItem from "../../components/features/cartItem/CartItem";
 import CartPrice from "../../components/features/cartPrice/CartPrice";
-import { getCart } from "../../services/cartService";
-import { useEffect } from "react";
-import Checkbox from "../../components/@common/checkbox/Checkbox";
-import Button from "../../components/@common/button/Button";
-import useEasyNavigate from "../../hooks/useEasyNavigate";
-import useCartData from "../../hooks/useCartData";
+import CartPageSkeleton from "./skeleton/CartPageSkeleton";
+import * as S from "./CartPage.styles";
+import { CartListContainer } from "../../styles/@common/page/Page.styles";
+import { Title, Description } from "../../styles/@common/title/Title.styles";
+import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
+import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
+
+import useApiHandler from "../../hooks/@common/useApiHandler";
 import useCheckedSet from "../../hooks/useCheckedSet";
+import useCartData from "../../hooks/useCartData";
+import useEasyNavigate from "../../hooks/useEasyNavigate";
+
+import { getCart } from "../../services/cartService";
+import { getCartItemById } from "../../utils/getCartItemById";
+import { getPriceSummary } from "../../domains/price";
+
 import {
   NO_ITEM_IN_CART,
-  CART_ITEM_TYPE_COUNT,
+  getCartItemTypeCountMessage,
 } from "../../constants/systemMessages";
-import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
-import CartPageSkeleton from "./skeleton/CartPageSkeleton";
-import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
+
 import type { CartItemType } from "../../types/response";
-import { getCartItemById } from "../../utils/getCartItemById";
-import { CartListContainer } from "../../styles/@common/page/Page.styles";
-import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
-import useApiHandler from "../../hooks/@common/useApiHandler";
-import { getPriceSummary } from "../../domains/price";
 
 const CartPage = () => {
   const { callApi, loadingState } = useApiHandler();
@@ -94,7 +99,7 @@ const CartPage = () => {
         {cartData.length === 0 ? (
           <p css={Description}>{NO_ITEM_IN_CART}</p>
         ) : (
-          <p css={Description}>{CART_ITEM_TYPE_COUNT(cartData)}</p>
+          <p css={Description}>{getCartItemTypeCountMessage(cartData)}</p>
         )}
       </div>
 

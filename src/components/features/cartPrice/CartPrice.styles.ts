@@ -46,12 +46,3 @@ export const CartPriceWrapper = css`
   width: 100%;
   gap: 1.2rem;
 `;
-
-export const InfoMessageContainer = css`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.4rem;
-
-  width: 100%;
-`;

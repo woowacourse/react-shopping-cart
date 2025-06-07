@@ -2,6 +2,7 @@ import {
   Description,
   Title,
   Subtitle,
+  InfoMessageContainer,
 } from "../../../styles/@common/title/Title.styles";
 import * as S from "./CartPrice.styles";
 import infoIcon from "/public/icon/ic_info.svg";
@@ -22,7 +23,7 @@ const CartPrice = ({
 }: CartPriceProps) => {
   return (
     <div css={S.CartPriceWrapper}>
-      <div css={S.InfoMessageContainer}>
+      <div css={InfoMessageContainer}>
         <img src={infoIcon} alt="info" />
         <p css={Description}>{FREE_DELIVERY_MESSAGE}</p>
       </div>
