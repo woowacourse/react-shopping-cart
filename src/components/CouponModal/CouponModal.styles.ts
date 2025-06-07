@@ -38,6 +38,7 @@ export const CouponItemsContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   overflow-y: auto;
+  flex: 1;
   min-height: 0;
 `;
 
