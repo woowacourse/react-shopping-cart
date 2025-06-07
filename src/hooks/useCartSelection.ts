@@ -27,10 +27,10 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
     if (!cartItems?.content) return;
 
     if (checked) {
-      setCheckedItems([]);
-    } else {
       const allIds = cartItems.content.map((item: CartProduct) => item.id);
       setCheckedItems(allIds);
+    } else {
+      setCheckedItems([]);
     }
   };
 

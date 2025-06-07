@@ -2,21 +2,17 @@ import styled from '@emotion/styled';
 import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './SelectBox.styles';
 
 interface SelectBoxProps {
-  isAllChecked: boolean;
-  checkAll: (checked: boolean) => void;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
 }
 
-function SelectAllBox({ isAllChecked, checkAll }: SelectBoxProps) {
+function SelectAllBox({ checked, onChange }: SelectBoxProps) {
   return (
     <Container>
       <ModifyRow>
         <CheckboxContainer>
-          <HiddenCheckbox
-            type="checkbox"
-            checked={isAllChecked}
-            onChange={() => checkAll(isAllChecked)}
-          />
-          <StyledCheckbox checked={isAllChecked} />
+          <HiddenCheckbox type="checkbox" checked={checked} onChange={() => onChange(!checked)} />
+          <StyledCheckbox checked={checked} />
         </CheckboxContainer>
         <span>전체 선택</span>
       </ModifyRow>

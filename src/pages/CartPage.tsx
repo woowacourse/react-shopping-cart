@@ -57,13 +57,13 @@ function CartPage() {
         {cartItems.content.length > 0 ? (
           <>
             <CartMain
-              isAllChecked={isAllChecked}
+              checked={isAllChecked}
               checkedItems={checkedItems}
               setCheckedItems={setCheckedItems}
               price={price}
               shippingFee={shippingFee}
               totalPrice={totalPrice}
-              handleAllCheck={checkAll}
+              onChange={checkAll}
             />
           </>
         ) : (

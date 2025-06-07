@@ -5,27 +5,27 @@ import { infoIcon } from '../../assets';
 import styled from '@emotion/styled';
 
 interface CartMainProps {
-  isAllChecked: boolean;
+  checked: boolean;
   checkedItems: number[];
   setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
   price: number;
   shippingFee: number;
   totalPrice: number;
-  checkAll: (checked: boolean) => void;
+  onChange: (checked: boolean) => void;
 }
 
 function CartMain({
-  isAllChecked,
+  checked,
   checkedItems,
   setCheckedItems,
   price,
   shippingFee,
   totalPrice,
-  checkAll,
+  onChange,
 }: CartMainProps) {
   return (
     <>
-      <SelectAllBox isAllChecked={isAllChecked} checkAll={checkAll} />
+      <SelectAllBox checked={checked} onChange={onChange} />
       <CartList checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
 
       <CartInfo>
