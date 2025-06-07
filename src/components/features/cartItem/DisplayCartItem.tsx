@@ -2,6 +2,7 @@ import * as S from "./CartItem.styles";
 import type { CartItemType } from "../../../types/response";
 import { handleImageError } from "../../../utils/handleImageError";
 import { AccentText } from "../../../styles/@common/title/Title.styles";
+
 interface DisplayCartItemProps {
   cartData: CartItemType;
   bogoQuantity: number;

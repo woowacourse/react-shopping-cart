@@ -2,13 +2,13 @@ import * as S from "./CouponModalContent.styles";
 import CouponItem from "../../../features/couponItem/CouponItem";
 import Button from "../../button/Button";
 import type { CouponType } from "../../../../types/response";
-import { COUPON_LIMIT } from "../../../../constants/systemConstants";
 import infoIcon from "/public/icon/ic_info.svg";
 import {
   InfoMessageContainer,
   Description,
 } from "../../../../styles/@common/title/Title.styles";
 import { COUPON_LIMIT_MESSAGE } from "../../../../constants/systemMessages";
+import { isValid } from "../../../../domains/coupon/validateCoupon";
 
 interface CouponModalContentProps {
   totalDiscountPrice: number;
@@ -31,12 +31,6 @@ const CouponModalContent = (props: CouponModalContentProps) => {
     onModalClose,
   } = props;
 
-  const isMaxCouponSelected = checkedCoupons.size >= COUPON_LIMIT;
-  const isValid = (coupon: CouponType) =>
-    (validCouponList.includes(coupon) && !isMaxCouponSelected) ||
-    checkedCoupons.has(coupon.id);
-  const isSelected = (id: number) => checkedCoupons.has(id);
-
   return (
     <div css={S.couponModalContentContainer}>
       <div css={InfoMessageContainer}>
@@ -54,13 +48,13 @@ const CouponModalContent = (props: CouponModalContentProps) => {
             availableTime:
               "availableTime" in coupon ? coupon.availableTime : undefined,
           }}
-          isValid={isValid(coupon)}
-          isSelected={isSelected(coupon.id)}
+          isValid={isValid(validCouponList, checkedCoupons, coupon.id)}
+          isSelected={checkedCoupons.has(coupon.id)}
           onSelectCoupon={() => toggleCheckedCoupon(coupon)}
         />
       ))}
       <Button size="large" color="black" onClick={onModalClose}>
-        총 {totalDiscountPrice}원 할인 / {bogoQuantity}개 추가
+        총 {totalDiscountPrice.toLocaleString()}원 할인 / {bogoQuantity}개 추가
       </Button>
     </div>
   );

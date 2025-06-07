@@ -1,3 +1,4 @@
+import { COUPON_LIMIT } from "../../constants/systemConstants";
 import type {
   CartItemType,
   CouponType,
@@ -104,5 +105,20 @@ export const getAllValidCoupons = (
     (filtered, validate) =>
       validate(filtered, { originOrderPrice, orderItems, deliveryFee }),
     couponList
+  );
+};
+
+const isMaxCouponSelected = (checkedCoupons: Map<number, CouponType>) => {
+  return checkedCoupons.size >= COUPON_LIMIT;
+};
+
+export const isValid = (
+  validCouponList: CouponType[],
+  checkedCoupons: Map<number, CouponType>,
+  couponId: number
+) => {
+  return (
+    validCouponList.some((coupon) => coupon.id === couponId) &&
+    !isMaxCouponSelected(checkedCoupons)
   );
 };
