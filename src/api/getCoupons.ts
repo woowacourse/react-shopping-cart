@@ -1,5 +1,5 @@
-import { Coupon } from '../components/Modal/CouponModal';
 import { URLS } from '../constants/url';
+import { Coupon } from '../types/response';
 import { httpClient } from './httpClient';
 
 const getCoupons = async (): Promise<Coupon[]> => {

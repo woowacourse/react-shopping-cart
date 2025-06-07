@@ -43,3 +43,21 @@ interface Sort {
   sorted: boolean;
   unsorted: boolean;
 }
+
+type TimeRange = {
+  start: string;
+  end: string;
+};
+
+export type Coupon = {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discountType: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+  discount?: number;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: TimeRange;
+};
