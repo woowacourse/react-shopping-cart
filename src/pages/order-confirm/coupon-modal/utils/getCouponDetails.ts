@@ -1,33 +1,36 @@
 import { Coupon } from "../../../../api/coupon";
 
-export const getCouponDetails = (coupon: Coupon) => {
+export const getCouponDetails = (coupon: Coupon): Array<[string, string]> => {
+  const details: Array<[string, string]> = [];
+
   switch (coupon.discountType) {
     case "fixed":
-      return [
-        ["최소 주문 금액", `${coupon.minimumAmount?.toLocaleString()}원`],
-        ["할인 금액", `${coupon.discount?.toLocaleString()}원`],
-      ];
+      details.push(
+        ["최소 주문 금액", `${coupon.minimumAmount.toLocaleString()}원`],
+        ["할인 금액", `${coupon.discount.toLocaleString()}원`]
+      );
+      break;
     case "buyXgetY":
-      return [
+      details.push(
         ["구매 조건", `${coupon.buyQuantity}개 구매 시`],
-        ["증정", `${coupon.getQuantity}개 추가 증정`],
-      ];
+        ["증정 수량", `${coupon.getQuantity}개`]
+      );
+      break;
     case "freeShipping":
-      return [
-        ["최소 주문 금액", `${coupon.minimumAmount?.toLocaleString()}원`],
-        ["혜택", "무료 배송"],
-      ];
+      details.push([
+        "최소 주문 금액",
+        `${coupon.minimumAmount.toLocaleString()}원`,
+      ]);
+      break;
     case "percentage":
-      return [
-        ["할인율", `${coupon.discount}%`],
-        coupon.availableTime
-          ? [
-              "사용 가능 시간",
-              `${coupon.availableTime.start} ~ ${coupon.availableTime.end}`,
-            ]
-          : null,
-      ].filter(Boolean);
-    default:
-      return [];
+      details.push(["할인율", `${coupon.discount}%`]);
+      if (coupon.availableTime) {
+        details.push([
+          "사용 가능 시간",
+          `${coupon.availableTime.start} ~ ${coupon.availableTime.end}`,
+        ]);
+      }
+      break;
   }
+  return details;
 };
