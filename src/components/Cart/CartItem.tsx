@@ -22,19 +22,19 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
     name: 'cartItems',
   });
 
-  const handleRemoveCartItem = async () => {
+  const removeItem = async () => {
     await removeCartItem(cartItem);
     refetch();
   };
 
-  const handleIncreaseQuantity = async () => {
+  const increaseQuantity = async () => {
     await patchIncreaseQuantity(cartItem);
     refetch();
   };
 
-  const handleDecreaseQuantity = async () => {
+  const decreaseQuantity = async () => {
     if (cartItem.quantity === 1) {
-      handleRemoveCartItem();
+      await removeItem();
       return;
     }
 
@@ -48,7 +48,7 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
         cartItem={cartItem}
         checkedItems={checkedItems}
         setCheckedItems={setCheckedItems}
-        onRemove={handleRemoveCartItem}
+        onRemove={removeItem}
       />
       <ProductRow>
         <CartProductImage
@@ -62,9 +62,9 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
           <ProductTitle>{cartItem.product.name}</ProductTitle>
           <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton onClick={handleDecreaseQuantity}>−</StepperButton>
+            <StepperButton onClick={decreaseQuantity}>−</StepperButton>
             <StepperQuantity>{cartItem.quantity}</StepperQuantity>
-            <StepperButton onClick={handleIncreaseQuantity}>＋</StepperButton>
+            <StepperButton onClick={increaseQuantity}>＋</StepperButton>
           </StepperContainer>
         </CartContent>
       </ProductRow>
