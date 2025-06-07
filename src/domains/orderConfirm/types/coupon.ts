@@ -1,6 +1,6 @@
 export interface CouponType {
   id: number;
-  code: string;
+  code: CouponCode;
   description: string;
   expirationDate: string;
   discount?: number;
@@ -15,3 +15,5 @@ export interface AvailableTime {
   start: string;
   end: string;
 }
+
+export type CouponCode = "FIXED5000" | "BOGO" | "FREESHIPPING" | "MIRACLESALE";
