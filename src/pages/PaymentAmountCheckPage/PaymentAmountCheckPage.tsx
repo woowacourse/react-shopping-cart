@@ -1,4 +1,4 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import { useState } from "react";
 
@@ -20,6 +20,7 @@ export default function PaymentAmountCheckPage() {
 
   const { cartItemList } = useCartItemList();
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!location.state) {
     return (
@@ -37,6 +38,16 @@ export default function PaymentAmountCheckPage() {
     shippingFee,
     checkedMap,
   } = location.state;
+
+  const handlePayment = () => {
+    navigate("/order-check", {
+      state: {
+        checkedProductsLength,
+        cartItemCheckListTotalQuantity,
+        totalPrice: 1000,
+      },
+    });
+  };
 
   return (
     <>
@@ -85,7 +96,7 @@ export default function PaymentAmountCheckPage() {
           <Styled.EmptyText>장바구니에 담은 상품이 없습니다.</Styled.EmptyText>
         )}
       </Styled.Container>
-      <Footer text="결제하기" active="false" handleClick={() => {}} />
+      <Footer text="결제하기" active="false" handleClick={handlePayment} />
     </>
   );
 }

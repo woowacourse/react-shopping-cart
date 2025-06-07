@@ -2,7 +2,6 @@ import { createPortal } from "react-dom";
 import { Modal } from "@kaori-killer/modal-component";
 import useCoupons from "../../hooks/useCoupons";
 import { useState } from "react";
-
 interface CouponModalProps {
   isOpen: boolean;
   handleClose: () => void;
