@@ -2,24 +2,23 @@ import styled from "@emotion/styled";
 import CheckboxLabel from "../CheckboxLabel";
 import Flex from "../Flex";
 import LabelTextPair, { labelTextPairType } from "./LabelTextPair";
-
-type ExpiryDateTuple = [Year, Month, Day];
+import { useState } from "react";
 
 interface CouponCheckItemProps {
-  isChecked: boolean;
-  onToggle: () => void;
-  expiryDate: ExpiryDateTuple;
+  expiryDate: [number, number, number];
   titleText: string;
   details?: labelTextPairType[];
 }
 
 function CouponCheckItem({
-  isChecked,
-  onToggle,
   expiryDate,
   titleText,
   details,
 }: CouponCheckItemProps) {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckToggle = () => {
+    setIsChecked((prev) => !prev);
+  };
   const [year, month, day] = expiryDate;
   return (
     <Container
@@ -28,11 +27,11 @@ function CouponCheckItem({
       gap="sm"
       as={"li"}
     >
-      <CheckboxLabel isChecked={isChecked} onToggle={onToggle}>
+      <CheckboxLabel isChecked={isChecked} onToggle={handleCheckToggle}>
         <CouponTitle>{titleText}</CouponTitle>
       </CheckboxLabel>
       <LabelTextPair
-        labelTextPairArray={["만료일", `20${year}년 ${month}월 ${day}일`]}
+        labelTextPairArray={["만료일", `${year}년 ${month}월 ${day}일`]}
       />
       {details &&
         details.map((detail, index) => (
@@ -54,38 +53,3 @@ const CouponTitle = styled.p`
   font-weight: 700;
   color: black;
 `;
-
-type Year = number;
-type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-type Day =
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | 10
-  | 11
-  | 12
-  | 13
-  | 14
-  | 15
-  | 16
-  | 17
-  | 18
-  | 19
-  | 20
-  | 21
-  | 22
-  | 23
-  | 24
-  | 25
-  | 26
-  | 27
-  | 28
-  | 29
-  | 30
-  | 31;

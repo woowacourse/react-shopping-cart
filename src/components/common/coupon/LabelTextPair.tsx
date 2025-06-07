@@ -1,10 +1,11 @@
-export type labelTextPairType = [string, string];
+export type labelTextPairType = [string, string] | null;
 
 function LabelTextPair({
   labelTextPairArray,
 }: {
-  labelTextPairArray: [string, string];
+  labelTextPairArray: labelTextPairType;
 }) {
+  if (!labelTextPairArray) return null;
   const [label, text] = labelTextPairArray;
   return (
     <p style={{ fontSize: "14px" }}>

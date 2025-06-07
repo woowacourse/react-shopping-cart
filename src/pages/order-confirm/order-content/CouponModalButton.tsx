@@ -1,6 +1,6 @@
 import { BasicModal } from "@dev-dino22/modal-components";
-import Button from "../../../components/common/Button";
 import { useState } from "react";
+import Button from "../../../components/common/Button";
 import CouponModalContent from "../coupon-modal/CouponModalContent";
 
 function CouponModalButton() {
@@ -16,7 +16,7 @@ function CouponModalButton() {
       <Button onClick={handleOpen}>쿠폰 적용</Button>
       {isOpen && (
         <BasicModal
-          modalSize="large"
+          modalSize="medium"
           modalPosition="center"
           closeType="top"
           onClose={handleClose}
