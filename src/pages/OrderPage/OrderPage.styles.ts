@@ -31,6 +31,7 @@ export const PriceContainer = styled.div`
 export const Label = styled.div`
   font-weight: 700;
   font-size: 18px;
+  margin-bottom: 8px;
 `;
 
 export const Price = styled.div`

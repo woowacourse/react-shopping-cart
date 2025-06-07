@@ -11,6 +11,10 @@ import PriceSummary from "../../components/PriceSummary/PriceSummary";
 import Checkbox from "../../components/@common/Checkbox/Checkbox";
 import Description from "../../components/@common/Description/Description";
 import InfoIcon from "/Info.svg";
+import { useState } from "react";
+import { getCoupons } from "../../apis/coupons/getCoupons";
+import { Coupon } from "../../types/response";
+import CouponModal from "../../CouponModal/CouponModal";
 
 const IMG_BASE_URL = "/react-shopping-cart";
 const DEFAULT_IMAGE_URL = "/planet-default-image.svg";
@@ -18,11 +22,28 @@ const DEFAULT_IMAGE_URL = "/planet-default-image.svg";
 const OrderPage = () => {
   const { orderItemCount, cartItemsCheckData } = useCart();
   const { orderQuantity } = useCartCalculations();
+  const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
   const navigateToBack = () => {
     navigate(-1);
+  };
+
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+
+  const handleModalOpen = async () => {
+    try {
+      const data = await getCoupons();
+      setCoupons(data);
+      setIsOpen(true);
+    } catch (error) {
+      console.error("쿠폰 가져오기 실패:", error);
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -70,8 +91,17 @@ const OrderPage = () => {
             ))}
         </S.CartItemsContainer>
         <S.ButtonContainer>
-          <S.Button onClick={() => {}}>쿠폰 적용</S.Button>
+          <S.Button onClick={handleModalOpen}>쿠폰 적용</S.Button>
         </S.ButtonContainer>
+        <CouponModal
+          isOpen={isOpen}
+          coupons={coupons}
+          onClose={handleModalClose}
+          onApply={(selectedCoupons) => {
+            // 선택된 쿠폰 처리 로직
+            console.log("사용할 쿠폰:", selectedCoupons);
+          }}
+        />
         <S.ShippingInfo>
           <S.Label>배송 정보</S.Label>
           <S.CheckboxContainer>
