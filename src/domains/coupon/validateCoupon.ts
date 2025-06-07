@@ -118,7 +118,8 @@ export const isValid = (
   couponId: number
 ) => {
   return (
-    validCouponList.some((coupon) => coupon.id === couponId) &&
-    !isMaxCouponSelected(checkedCoupons)
+    (validCouponList.some((coupon) => coupon.id === couponId) &&
+      !isMaxCouponSelected(checkedCoupons)) ||
+    checkedCoupons.has(couponId)
   );
 };
