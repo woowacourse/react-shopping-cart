@@ -194,7 +194,7 @@ describe('useCoupons 테스트', () => {
         // 시스템 시각을 2025-08-01T12:00:00+09:00 으로 고정
         jest.setSystemTime(new Date('2025-08-01T12:00:00+09:00'));
         jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1, 2, 3, 4],
+          checkedCartIds: [1, 2, 3, 4, 5],
           setCheckedCartIds: jest.fn(),
           isAllChecked: false,
         });
@@ -271,5 +271,21 @@ describe('useCoupons 테스트', () => {
     ).toBeUndefined();
   });
 
-  test('선택한 쿠폰에 따른 할인 금액을 반환한다', () => {});
+  test('선택한 쿠폰에 따른 할인 금액을 반환한다', async () => {
+    const { result } = renderHook(() => useCoupons(), {
+      wrapper: ({ children }) => <Providers>{children}</Providers>,
+    });
+    await waitFor(() => {
+      expect(result.current.coupons).toHaveLength(mockCoupons.length);
+    });
+
+    act(() => {
+      result.current.selectCoupon(1); // FIXED5000
+      result.current.selectCoupon(2); // BOGO
+    });
+
+    await waitFor(() => {
+      expect(result.current.couponDiscount).toBe(5000 + 1000); // FIXED5000 + BOGO
+    });
+  });
 });

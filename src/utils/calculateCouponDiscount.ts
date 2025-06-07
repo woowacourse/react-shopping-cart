@@ -1,11 +1,18 @@
 import { CartItem, Coupon } from '../types';
 
-const calculateCouponDiscount = (
-  coupons: Coupon[], // 유효성 필터된 쿠폰만 전달
-  CheckedCartItems: CartItem[],
-  orderPrice: number,
-  deliveryPrice: number
-): number => {
+type CalculateCouponDiscountParams = {
+  coupons: Coupon[]; // 유효성 필터된 쿠폰만 전달
+  checkedCartItems: CartItem[];
+  orderPrice: number;
+  deliveryPrice: number;
+};
+
+const calculateCouponDiscount = ({
+  coupons,
+  checkedCartItems,
+  orderPrice,
+  deliveryPrice,
+}: CalculateCouponDiscountParams): number => {
   if (!coupons || coupons.length === 0) return 0;
 
   // 단일 순서로 쿠폰을 적용해 할인액 계산
@@ -36,10 +43,12 @@ const calculateCouponDiscount = (
           const getQ = coupon.getQuantity ?? 0;
           const threshold = buyQ + getQ;
 
-          const eligible = CheckedCartItems.map((item) => ({
-            item,
-            freeCount: Math.floor(item.quantity / threshold) * getQ,
-          })).filter((x) => x.freeCount > 0);
+          const eligible = checkedCartItems
+            .map((item) => ({
+              item,
+              freeCount: Math.floor(item.quantity / threshold) * getQ,
+            }))
+            .filter((x) => x.freeCount > 0);
 
           if (eligible.length > 0) {
             // 단가가 가장 높은 상품부터 할인 적용

@@ -5,6 +5,8 @@ import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
 import getOrderPrice from '../utils/getOrderPrice';
 import { useErrorToast } from '../contexts/ErrorToastContext';
 import { Coupon } from '../types';
+import calculateCouponDiscount from '../utils/calculateCouponDiscount';
+import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
 
 const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
@@ -71,6 +73,15 @@ const useCoupons = () => {
     });
   }, [coupons, orderPrice, maxQuantity, currentHour]);
 
+  const deliveryPrice = calculateDeliveryPrice(orderPrice);
+
+  const couponDiscount = calculateCouponDiscount({
+    coupons: selectedCoupons,
+    checkedCartItems: selectedCartItems,
+    orderPrice,
+    deliveryPrice,
+  });
+
   const selectCoupon = (id: number) => {
     setSelectedCoupons((prev) => {
       if (prev.some((c) => c.id === id)) return prev;
@@ -95,6 +106,7 @@ const useCoupons = () => {
     selectedCoupons,
     selectCoupon,
     deselectCoupon,
+    couponDiscount,
   };
 };
 
