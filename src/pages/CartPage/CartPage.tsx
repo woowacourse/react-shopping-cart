@@ -12,7 +12,7 @@ function CartPage() {
   const navigate = useNavigate();
 
   const handleOrderCheck = (): void => {
-    navigate("/complete", {
+    navigate("/check", {
       state: {
         selectedCartItem,
         totalPrice: orderPrice + deliveryPrice,
