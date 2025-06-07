@@ -4,10 +4,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import MobileLayout from './components/common/mobileLayout/MobileLayout.tsx';
 import reset from './global/reset.ts';
+import { worker } from './mocks/browser';
 
 async function enableMocking() {
-  const { worker } = await import('./mocks/browser');
-
   await worker.start({
     serviceWorker: {
       url: '/react-shopping-cart/mockServiceWorker.js',
