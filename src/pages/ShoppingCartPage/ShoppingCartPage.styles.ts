@@ -10,13 +10,3 @@ export const Container = styled.div`
   height: 686px;
   margin-top: 64px;
 `;
-
-export const EmptyText = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 750px;
-  font-size: 16px;
-  font-weight: 400;
-`;

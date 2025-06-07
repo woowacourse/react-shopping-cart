@@ -1,5 +1,5 @@
 export interface FooterProps {
   text: string;
-  active: "true" | "false";
+  active: boolean;
   handleClick: () => void;
 }

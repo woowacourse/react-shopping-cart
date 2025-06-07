@@ -1,16 +1,13 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import "@testing-library/jest-dom";
 
-
-import ShoppingCartList from "./ShoppingCartList";
-
+import CartList from "./CartList";
 
 import { CartItemListProvider } from "../../../contexts/CartItemListContext";
 import { ErrorProvider } from "../../../contexts/ErrorContext";
-
-import TestProvider from "../../../utils/TestProvider";
 
 import CartItem from "../../../types/CartItem";
 
@@ -23,7 +20,6 @@ function Provider({ children }: { children: React.ReactNode }) {
     </MemoryRouter>
   );
 }
-
 
 const cartItemList = [
   {
@@ -91,9 +87,14 @@ const cartItemList = [
   },
 ] as CartItem[];
 
-const toggleAll = vi.fn();
-const handleSelectedCartItem = vi.fn();
+let toggleAll: ReturnType<typeof vi.fn>;
+let handleSelectedCartItem: ReturnType<typeof vi.fn>;
 const allChecked = true;
+
+beforeEach(() => {
+  toggleAll = vi.fn();
+  handleSelectedCartItem = vi.fn();
+});
 
 describe("ShoppingCartList 컴포넌트는", () => {
   const checkedMap = new Map<number, boolean>(
@@ -103,7 +104,7 @@ describe("ShoppingCartList 컴포넌트는", () => {
   it("페이지를 실행시켰을 때, ShoppingCartList가 보여진다.", () => {
     render(
       <Provider>
-        <ShoppingCartList
+        <CartList
           cartItemList={cartItemList}
           checkedMap={checkedMap}
           allChecked={allChecked}
@@ -118,7 +119,7 @@ describe("ShoppingCartList 컴포넌트는", () => {
   it("페이지를 실행시켰을 때, 모든 항목의 체크박스가 활성화된다.", () => {
     render(
       <Provider>
-        <ShoppingCartList
+        <CartList
           cartItemList={cartItemList}
           checkedMap={checkedMap}
           allChecked={allChecked}
@@ -135,7 +136,7 @@ describe("ShoppingCartList 컴포넌트는", () => {
   it("전체 선택 체크박스를 클릭하면 toggleAll이 호출된다", () => {
     render(
       <Provider>
-        <ShoppingCartList
+        <CartList
           cartItemList={cartItemList}
           checkedMap={checkedMap}
           allChecked={false}
@@ -153,21 +154,21 @@ describe("ShoppingCartList 컴포넌트는", () => {
 
   it("체크박스 클릭 시, 해당하는 상품의 체크 박스가 해제된다.", () => {
     render(
-      <TestProvider>
-        <ShoppingCartList
+      <Provider>
+        <CartList
           cartItemList={cartItemList}
           checkedMap={checkedMap}
           allChecked={false}
           toggleAll={toggleAll}
           handleSelectedCartItem={handleSelectedCartItem}
         />
-      </TestProvider>
+      </Provider>
     );
 
     const checkboxes = screen.getAllByRole("checkbox");
-    const itemCheckbox = checkboxes[1]; // 첫 번째 아이템 체크박스 (0은 전체 선택)
+    const itemCheckbox = checkboxes[1];
     fireEvent.click(itemCheckbox);
 
-    expect(handleSelectedCartItem).toHaveBeenCalledWith(9704);
+    expect(handleSelectedCartItem).toHaveBeenCalledWith(cartItemList[0].id);
   });
 });

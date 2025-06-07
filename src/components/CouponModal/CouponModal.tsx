@@ -5,9 +5,10 @@ import { useState } from "react";
 interface CouponModalProps {
   isOpen: boolean;
   handleClose: () => void;
+  onApplyCoupon: () => void;
 }
 
-function CouponModal({ isOpen, handleClose }: CouponModalProps) {
+function CouponModal({ isOpen, handleClose, onApplyCoupon }: CouponModalProps) {
   const { coupons } = useCoupons();
   const [selectedCoupons, setSelectedCoupons] = useState<Map<number, boolean>>(
     new Map()

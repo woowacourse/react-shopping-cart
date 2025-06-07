@@ -85,7 +85,7 @@ const useCoupons = (): useCouponsReturn => {
 
   return {
     state,
-    coupons: coupons,
+    coupons,
   };
 };
 export default useCoupons;

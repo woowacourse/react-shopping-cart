@@ -24,6 +24,7 @@ const fetchPatchProduct = async ({ method, params }: fetchAddProductParams) => {
   };
 
   const response = await fetch(url, options);
+
   if (!response.ok) {
     throw new Error("상품 수량을 변경할 수 없습니다.");
   }

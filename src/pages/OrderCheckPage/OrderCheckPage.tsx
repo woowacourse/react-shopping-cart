@@ -1,4 +1,4 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import Footer from "../../components/layout/Footer/Footer";
 
@@ -6,6 +6,13 @@ import * as Styled from "./OrderCheckPage.styles";
 
 export default function OrderCheckPage() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const {
+    checkedProductsLength = 0,
+    cartItemCheckListTotalQuantity = 0,
+    totalPrice = 0,
+  } = location.state || {};
 
   if (!location.state) {
     return (
@@ -16,8 +23,15 @@ export default function OrderCheckPage() {
     );
   }
 
-  const { checkedProductsLength, cartItemCheckListTotalQuantity, totalPrice } =
-    location.state;
+  const handlePayment = () => {
+    navigate("/order-success", {
+      state: {
+        checkedProductsLength,
+        cartItemCheckListTotalQuantity,
+        totalPrice,
+      },
+    });
+  };
 
   return (
     <>
@@ -35,7 +49,7 @@ export default function OrderCheckPage() {
           {Number(totalPrice).toLocaleString()}원
         </Styled.TotalPrice>
       </Styled.Container>
-      <Footer text="결제하기" active="false" handleClick={() => {}} />
+      <Footer text="결제하기" active={true} handleClick={handlePayment} />
     </>
   );
 }

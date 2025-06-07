@@ -1,5 +1,6 @@
-import Coupon from "../types/Coupon";
 import { HttpMethod } from "../types/HttpMethod";
+
+import { Coupon } from "../types/Coupon";
 
 type fetchCouponsParams = {
   method: HttpMethod;
@@ -10,7 +11,7 @@ const TOKEN = import.meta.env.VITE_TOKEN;
 
 const fetchCoupons = async ({
   method,
-}: fetchCouponsParams): Promise<{ content: Coupon[] }> => {
+}: fetchCouponsParams): Promise<Coupon[]> => {
   const url = new URL(BASE_URL);
 
   const options = {
