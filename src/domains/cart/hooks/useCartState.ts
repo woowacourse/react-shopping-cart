@@ -5,7 +5,8 @@ import { State } from "../types/reducer";
 export function useCartState() {
   const state = useContext(CartStateContext);
   if (!state) throw new Error("useCartState must be used within CartProvider");
-  return state;
+
+  return { ...state, cartItemCount: state.items.length };
 }
 
 export function useCartSelector<T>(selector: (state: State) => T): T {
