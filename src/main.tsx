@@ -8,6 +8,7 @@ import { ToastProvider } from "./contexts/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
 import "./styles/reset.css";
+import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
 
 const Layout = () => {
   return (
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       children: [
         { path: "/", element: <CartPage /> },
         { path: "/order", element: <OrderPage /> },
+        { path: "/payment", element: <PaymentPage /> },
       ],
     },
   ],
