@@ -1,5 +1,7 @@
 type Data<T> = {
-  data: T;
+  data: T | null;
+  isLoading: boolean;
+  isError: boolean;
   fetchFn?: () => Promise<T>;
 };
 
@@ -10,6 +12,8 @@ const store: Store = {};
 const listeners: Record<string, Set<Listener>> = {};
 
 export function subscribe(key: string, callback: Listener) {
+  // console.log(`subscribe called for key: ${key}`);
+  // console.log(`Current listeners:`, listeners);
   if (!listeners[key]) {
     listeners[key] = new Set();
   }
@@ -23,33 +27,40 @@ export function subscribe(key: string, callback: Listener) {
 }
 
 export function getSnapshot<T>(key: string) {
+  // console.log(`getSnapshot called for key: ${key}`);
+  // console.log(`Current store:`, store);
   return store[key] as Data<T>;
 }
 
-export function updateData<T>(key: string, newValue: Data<T>) {
-  store[key] = newValue;
+export function updateData<T>(key: string, newValue: Partial<Data<T>>) {
+  const prev = store[key] as Data<T>;
+
+  store[key] = {
+    ...prev,
+    ...newValue,
+  };
 
   listeners[key]?.forEach((cb) => cb());
 }
 
 export async function refetchData(key: string) {
-  const data = store[key];
-  if (!data) return null;
+  const current = store[key];
+  if (!current || !current.fetchFn) return null;
 
-  if (!data.fetchFn) return null;
+  updateData(key, { isLoading: true, isError: false });
 
   try {
-    const result = await data.fetchFn();
+    const result = await current.fetchFn();
     updateData(key, {
       data: result,
-      fetchFn: data.fetchFn,
+      isLoading: false,
+      isError: false,
     });
   } catch (error) {
     updateData(key, {
       data: null,
-      fetchFn: data.fetchFn,
+      isLoading: false,
+      isError: true,
     });
   }
-
-  return store[key].data;
 }
