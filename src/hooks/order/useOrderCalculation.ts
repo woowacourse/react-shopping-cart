@@ -1,10 +1,15 @@
 import { useMemo } from "react";
 import { Cart } from "../../api/cart";
-import { FREE_SHIPPING_STANDARD, SHIPPING_FEE } from "./OrderConstants";
+import {
+  FREE_SHIPPING_STANDARD,
+  ISLAND_SHIPPING_FEE,
+  SHIPPING_FEE,
+} from "./OrderConstants";
 
 export function useOrderCalculation(
   cartListData: Cart[] | undefined,
-  selectionMap: Record<string, boolean>
+  selectionMap: Record<string, boolean>,
+  isIsland?: boolean
 ) {
   return useMemo(() => {
     const orderList = (cartListData ?? []).filter(
@@ -17,9 +22,9 @@ export function useOrderCalculation(
       0
     );
     const shippingFee =
-      totalCartPrice >= FREE_SHIPPING_STANDARD || totalCartPrice === 0
+      (totalCartPrice >= FREE_SHIPPING_STANDARD || totalCartPrice === 0
         ? 0
-        : SHIPPING_FEE;
+        : SHIPPING_FEE) + (isIsland ? ISLAND_SHIPPING_FEE : 0);
     const totalPrice = totalCartPrice + shippingFee;
 
     return {
@@ -29,5 +34,5 @@ export function useOrderCalculation(
       shippingFee,
       totalPrice,
     };
-  }, [cartListData, selectionMap]);
+  }, [cartListData, selectionMap, isIsland]);
 }
