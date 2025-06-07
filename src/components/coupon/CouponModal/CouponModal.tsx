@@ -1,6 +1,7 @@
 import { MAX_COUPON_SELECTION } from "../../../domains/coupon/constants";
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
 import useCouponValidation from "../../../domains/coupon/hooks/useCouponValidation";
+import useOrderCalculator from "../../../domains/order/hooks/useOrderCalculator";
 import useModal from "../../../features/modal/useModal";
 import { formatCurrency } from "../../../utils/formatters";
 import Description from "../../@common/Description/Description";
@@ -14,7 +15,8 @@ const price = 6000;
 
 const CouponModal = () => {
   const { closeModal } = useModal();
-  const { validateCoupon } = useCouponValidation();
+  const { orderPrice } = useOrderCalculator();
+  const { validateCoupon } = useCouponValidation({ orderPrice });
   const {
     coupons,
     toggleCouponSelection,

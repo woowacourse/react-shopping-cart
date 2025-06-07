@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import useOrderCalculator from "../../order/hooks/useOrderCalculator";
 import { Coupon } from "../types/response";
 
-const useCouponValidation = () => {
-  const { orderPrice } = useOrderCalculator();
+interface OrderCalculator {
+  orderPrice: number;
+}
 
+const useCouponValidation = (calculator: OrderCalculator) => {
   const now = new Date();
   const currentDate = now.toISOString().split("T")[0];
   const currentTime = now.toTimeString().substring(0, 8);
@@ -15,7 +16,7 @@ const useCouponValidation = () => {
       if (!isNotExpired) return false;
 
       const meetsMinimumAmount =
-        !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+        !coupon.minimumAmount || calculator.orderPrice >= coupon.minimumAmount;
       if (!meetsMinimumAmount) return false;
 
       if (coupon.availableTime) {
@@ -26,7 +27,7 @@ const useCouponValidation = () => {
 
       return true;
     };
-  }, [currentDate, currentTime, orderPrice]);
+  }, [currentDate, currentTime, calculator.orderPrice]);
 
   return {
     validateCoupon,
