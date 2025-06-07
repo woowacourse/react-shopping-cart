@@ -6,10 +6,10 @@ interface SelectBoxProps {
   cartItem: CartProduct;
   checkedItems: number[];
   setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
-  onRemove: () => void;
+  onDeleteClick: () => void;
 }
 
-function SelectBox({ cartItem, checkedItems, setCheckedItems, onRemove }: SelectBoxProps) {
+function SelectBox({ cartItem, checkedItems, setCheckedItems, onDeleteClick }: SelectBoxProps) {
   return (
     <ModifyRow>
       <CheckboxContainer>
@@ -26,7 +26,7 @@ function SelectBox({ cartItem, checkedItems, setCheckedItems, onRemove }: Select
         />
         <StyledCheckbox checked={checkedItems.includes(cartItem.id)} />
       </CheckboxContainer>
-      <DeleteButton onClick={onRemove}>삭제</DeleteButton>
+      <DeleteButton onClick={onDeleteClick}>삭제</DeleteButton>
     </ModifyRow>
   );
 }

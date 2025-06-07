@@ -48,7 +48,7 @@ function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
         cartItem={cartItem}
         checkedItems={checkedItems}
         setCheckedItems={setCheckedItems}
-        onRemove={removeItem}
+        onDeleteClick={removeItem}
       />
       <ProductRow>
         <CartProductImage
