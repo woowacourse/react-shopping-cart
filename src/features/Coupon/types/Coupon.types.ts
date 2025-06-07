@@ -16,4 +16,5 @@ export type CouponResponse = {
 
 export type Coupon = {
   checked: boolean;
+  disabled: boolean;
 } & CouponResponse;

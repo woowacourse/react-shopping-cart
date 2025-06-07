@@ -21,6 +21,7 @@ import { useFetchData } from '@/shared/hooks/useFetchData';
 import { Coupon, CouponResponse } from '@/features/Coupon/types/Coupon.types';
 import { isError } from '@/shared/utils/isError';
 import { ToastContext } from '@/shared/context/ToastProvider';
+import { isCouponValid } from '@/features/Coupon/utils/validateCoupon';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
@@ -36,10 +37,14 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
 
   useEffect(() => {
     if (coupon.data) {
-      setCoupons(coupon.data.map((c) => ({ ...c, checked: false })));
+      const validated = coupon.data.map((c) => ({
+        ...c,
+        checked: false,
+        disabled: !isCouponValid(c, selectedCartItems, totalPrice),
+      }));
+      setCoupons(validated);
     }
   }, [coupon.data]);
-  
 
   useEffect(() => {
     if (coupon.error && isError(coupon.error)) {
@@ -53,7 +58,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
         coupon.id === id ? { ...coupon, checked: !coupon.checked } : coupon
       )
     );
-  }
+  };
 
   return (
     <>

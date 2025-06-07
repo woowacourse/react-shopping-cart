@@ -62,11 +62,12 @@ export const CouponModal = ({
             const checkboxId = `coupon-${coupon.id}`;
             return (
               <label key={coupon.id} htmlFor={checkboxId}>
-                <CouponItem checked={coupon.checked}>
+                <CouponItem checked={coupon.checked} disabled={coupon.disabled}>
                   <CheckBox
                     id={checkboxId}
                     checked={coupon.checked}
                     onChange={() => onToggleCoupon(coupon.id)}
+                    disabled={coupon.disabled}
                   />
                   <CouponContent>
                     <Text type="Body" weight="bold">
@@ -139,7 +140,7 @@ const CouponList = styled.ul`
   padding: 0;
 `;
 
-const CouponItem = styled.li<{ checked: boolean }>`
+const CouponItem = styled.li<{ checked: boolean; disabled: boolean }>`
   height: 100px;
   display: flex;
   align-items: flex-start;
@@ -147,7 +148,10 @@ const CouponItem = styled.li<{ checked: boolean }>`
   padding: 12px 0;
   margin-bottom: 12px;
   border-top: 1px solid #e5e5e5;
-  cursor: pointer;
+
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `;
 
 const CouponContent = styled.div`
