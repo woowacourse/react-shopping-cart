@@ -1,4 +1,4 @@
-import * as S from "./Coupon.styles";
+import * as S from "./CouponButton.styles";
 
 interface CouponProps {
   onClick?: () => void;

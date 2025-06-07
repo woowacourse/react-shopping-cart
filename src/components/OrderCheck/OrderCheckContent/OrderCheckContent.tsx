@@ -7,7 +7,7 @@ import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
 import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
 import OrderCheckList from "../OrderCheckList/OrderCheckList";
 import CartItem from "../../../types/CartItem";
-import Coupon from "../Coupon/Coupon";
+import CouponButton from "../Coupon/Button/CouponButton";
 import Shipping from "../../shoppingCart/Shipping/Shipping";
 import Modal from "../Modal/Modal";
 
@@ -67,13 +67,13 @@ export default function OrderCheckContent({
     <>
       <ContentHeader
         title="주문 확인"
-        description={`현재 ${selectedCartItemList.length}종류의 상품이 담겨있습니다.\n최종 결제 금액을 확인해 주세요.`}
+        description={`총 ${selectedCartItemList.length}종류의 상품 ${cartItemCheckListTotalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
       />
       <OrderCheckList
         cartItemList={cartItemList}
         cartItemCheckList={cartItemCheckList}
       />
-      <Coupon onClick={handleOpenModal} />
+      <CouponButton onClick={handleOpenModal} />
       <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
       <Shipping />
       <Receipt
