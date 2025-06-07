@@ -4,7 +4,7 @@ import { productListMockData } from "../__mocks__/productListMockData";
 import App from "../App";
 import { formatKRWString } from "../utils/formatKRWString";
 import { APIDataProvider } from "../context/APIDataProvider";
-import { OrderListProvider } from "../pages/shopping-cart/context/OrderListProvider";
+import { OrderListProvider } from "../context/OrderListProvider";
 
 let currentCart = [...cartMockData];
 

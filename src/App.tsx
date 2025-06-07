@@ -4,9 +4,9 @@ import "./App.css";
 import { MobileLayout } from "./components/common";
 import { APIDataProvider } from "./context/APIDataProvider";
 import { ToastProvider } from "./context/ToastProvider";
-import reset from "./global/style/reset";
+import reset from "./style/reset";
 import OrderConfirmPage from "./pages/order-confirm/OrderConfirmPage";
-import { OrderListProvider } from "./pages/shopping-cart/context/OrderListProvider";
+import { OrderListProvider } from "./context/OrderListProvider";
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
 import { getBrowserBaseUrl } from "./utils/getBrowserBaseUrl";
 import ErrorBoundary from "./components/features/error-boundary/ErrorBoundary";
@@ -33,7 +33,6 @@ function App() {
                     path="/order-confirm"
                     element={
                       <ErrorBoundary>
-                        {" "}
                         <OrderConfirmPage />
                       </ErrorBoundary>
                     }

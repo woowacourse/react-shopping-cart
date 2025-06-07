@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Cart } from "../../../api/cart";
+import { Cart } from "../api/cart";
 
 const OrderListContext = createContext<{
   selectionMap: Record<string, boolean>;

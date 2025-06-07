@@ -1,7 +1,7 @@
 import { getShoppingCartData } from "../../../../../api/cart";
 import CheckBox from "../../../../../components/common/CheckBox";
 import { useAPIDataContext } from "../../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../context/OrderListProvider";
+import { useOrderListContext } from "../../../../../context/OrderListProvider";
 
 function CartItemCheckbox({ cartId }: { cartId: string }) {
   const { data: cartListData } = useAPIDataContext({

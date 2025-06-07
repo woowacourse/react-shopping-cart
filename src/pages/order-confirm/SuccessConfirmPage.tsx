@@ -8,7 +8,7 @@ import { useOrderCalculation } from "../../hooks/order/useOrderCalculation";
 import { formatKRWString } from "../../utils/formatKRWString";
 import { useOrderListContext } from "../../context/OrderListProvider";
 
-const OrderConfirmPage = () => {
+const SuccessConfirmPage = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
@@ -52,7 +52,7 @@ const OrderConfirmPage = () => {
   );
 };
 
-export default OrderConfirmPage;
+export default SuccessConfirmPage;
 
 const Container = styled(Flex)`
   padding: 36px 24px;
