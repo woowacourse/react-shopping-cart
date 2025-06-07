@@ -10,6 +10,10 @@ function useValidateCoupon(couponList: Coupon[]) {
     } else {
       availableCouponList.push({ ...coupon, isExpired: true });
     }
+
+    if (coupon.description.includes('미라클모닝')) {
+      availableCouponList.push({ ...coupon, isExpired: true });
+    }
   });
 
   return { availableCouponList };
