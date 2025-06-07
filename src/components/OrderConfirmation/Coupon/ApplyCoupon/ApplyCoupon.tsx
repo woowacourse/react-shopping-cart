@@ -59,7 +59,11 @@ function ApplyCoupon() {
     <article>
       <ApplyCouponButton onClick={handleOpenModal} />
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
-        <Modal.Container position="center" size="small">
+        <Modal.Container
+          position="center"
+          size="small"
+          containerStyle={{ maxHeight: "500px" }}
+        >
           <Modal.CloseButton />
           <Styled.Title>쿠폰을 선택해 주세요</Styled.Title>
           <Styled.Notice>
