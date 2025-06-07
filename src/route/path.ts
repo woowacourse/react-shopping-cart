@@ -1,4 +1,5 @@
 export const PATH = {
   MAIN: "/",
-  CONFIRM: "/confirm",
+  ORDER_CONFIRM: "/orderConfirm",
+  PAYMENT_CONFIRM: "/paymentConfirm",
 };

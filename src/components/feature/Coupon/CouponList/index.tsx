@@ -3,7 +3,7 @@ import Coupon from "../Coupon";
 import { CouponResponse } from "../../../../type/coupon";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
-import { MAX_COUPON_COUNT } from "../../../../pages/Confirm/constant";
+import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 
 interface Props {
   coupons: CouponResponse[];

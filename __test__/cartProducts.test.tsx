@@ -5,7 +5,7 @@ import * as cartUpdateAPI from "../src/api/cart/updateCartProduct";
 import { createMemoryRouter, MemoryRouter, RouterProvider } from "react-router";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import Confirm from "../src/pages/Confirm";
+import OrderConfirm from "../src/pages/OrderConfirm";
 import NavBar from "../src/components/layout/NavBar";
 import Main from "../src/pages/Main";
 import { formatPrice } from "../src/utils/formatPrice";
@@ -181,7 +181,7 @@ describe("주문확인 페이지 로딩 테스트", () => {
         element: <NavBar />,
         children: [
           { path: "", element: <Main /> },
-          { path: "confirm", element: <Confirm /> },
+          { path: "orderConfirm", element: <OrderConfirm /> },
         ],
       },
     ];

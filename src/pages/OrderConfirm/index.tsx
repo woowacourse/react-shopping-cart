@@ -1,4 +1,4 @@
-import * as S from "./confirm.styles";
+import * as S from "./orderConfirm.styles";
 import Button from "../../components/common/Button";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router";
@@ -11,14 +11,16 @@ import useGetCoupons from "../../hooks/useGetCoupons";
 import CouponList from "../../components/feature/Coupon/CouponList";
 import { useState } from "react";
 import { MAX_COUPON_COUNT } from "./constant";
+import { useNavigate } from "react-router";
 
-const Confirm = () => {
+const OrderConfirm = () => {
   const location = useLocation();
   const { sort, totalAmount, cartItems, selectedCartIds } = location.state;
   const { coupons } = useGetCoupons();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRemoteAreaChecked, setRemoteAreaChecked] = useState(false);
   const [selectedIds, setSelectedIds] = useState([1, 2]);
+  const navigate = useNavigate();
 
   const handleSelectCoupon = (id: number) => {
     const isSelected = selectedIds.includes(id);
@@ -73,7 +75,13 @@ const Confirm = () => {
 
       <Button
         title="결제하기"
-        onClick={() => {}}
+        onClick={() =>
+          navigate("/paymentConfirm", {
+            state: {
+              totalAmount: 7000,
+            },
+          })
+        }
         css={css`
           width: 100%;
           padding: 24px 0;
@@ -102,4 +110,4 @@ const Confirm = () => {
   );
 };
 
-export default Confirm;
+export default OrderConfirm;

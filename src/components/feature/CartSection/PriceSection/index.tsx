@@ -80,7 +80,7 @@ const PriceSection = ({ cartItems, selectedCartIds, discount }: Props) => {
         title="주문 확인"
         disabled={selectedCartIds.length === 0}
         onClick={() =>
-          navigate("/confirm", {
+          navigate("/orderConfirm", {
             state: {
               sort: selectedCartIds.length,
               totalAmount: price.totalAmount,
