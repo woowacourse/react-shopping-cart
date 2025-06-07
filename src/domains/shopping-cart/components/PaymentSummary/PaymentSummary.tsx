@@ -1,9 +1,8 @@
 import { Line } from "../../../../components/Line/Line";
+import { infoImgLayout, intoText } from "../../../common/common.style";
 import { SummaryRow } from "../SummaryRow/SummaryRow";
 import {
-  deliveryInfo,
   deliveryInfoBox,
-  imgLayout,
   paymentSummaryLayout,
   summaryRowBox,
 } from "./PaymentSummary.style";
@@ -18,8 +17,8 @@ export function PaymentSummary({ price }: PaymentSummaryProps) {
   return (
     <div css={paymentSummaryLayout}>
       <div css={deliveryInfoBox}>
-        <img src="./info.png" css={imgLayout} />
-        <p css={deliveryInfo}>
+        <img src="./info.png" css={infoImgLayout} />
+        <p css={intoText}>
           총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
         </p>
       </div>

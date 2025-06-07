@@ -11,15 +11,6 @@ const summaryRowBox = css`
   flex-direction: column;
   gap: 12px;
 `;
-const imgLayout = css`
-  width: 16px;
-  height: 16px;
-`;
-
-const deliveryInfo = css`
-  font-weight: 500;
-  font-size: 12px;
-`;
 
 const deliveryInfoBox = css`
   display: flex;
@@ -27,10 +18,4 @@ const deliveryInfoBox = css`
   gap: 4px;
 `;
 
-export {
-  paymentSummaryLayout,
-  summaryRowBox,
-  imgLayout,
-  deliveryInfo,
-  deliveryInfoBox,
-};
+export { paymentSummaryLayout, summaryRowBox, deliveryInfoBox };
