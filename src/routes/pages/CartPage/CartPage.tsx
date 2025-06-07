@@ -12,7 +12,6 @@ import Toast from '../../../components/common/Toast/Toast';
 import { Logo } from '../../../assets';
 
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
-import { cartPrice } from '../../../utils/cartPrice';
 import { useToastContext } from '../../../context/ToastContext';
 import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
@@ -26,8 +25,6 @@ function CartPage() {
   const cart = useCartContext();
   const { isVisible } = useToastContext();
   const navigate = useNavigate();
-
-  const totalPrice = cartPrice.totalPrice(cart.data, cart.selectedItems);
 
   const selectedCartData = cart.data.filter((item) =>
     cart.selectedItems.includes(item.id)
@@ -59,7 +56,11 @@ function CartPage() {
             />
           ))}
         </ul>
-        <CartPriceInfo totalPrice={totalPrice} />
+        <CartPriceInfo
+          totalPrice={cart.totalPrice}
+          deliveryFee={cart.deliveryFee}
+          totalPriceWithDeliveryFee={cart.totalPriceWithDeliveryFee}
+        />
       </>
     );
   };

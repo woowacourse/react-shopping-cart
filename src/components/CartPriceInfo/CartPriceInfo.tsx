@@ -8,11 +8,15 @@ import { CART } from '../../constants/cart';
 import { TEXT } from '../../constants/text';
 import InfoMessage from '../InfoMessage/InfoMessage';
 
-function CartPriceInfo({ totalPrice }: { totalPrice: number }) {
-  const deliveryFee =
-    totalPrice >= CART.FREE_DELIVERY_THRESHOLD ? 0 : CART.DELIVERY_FEE;
-  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
-
+function CartPriceInfo({
+  totalPrice,
+  deliveryFee,
+  totalPriceWithDeliveryFee,
+}: {
+  totalPrice: number;
+  deliveryFee: number;
+  totalPriceWithDeliveryFee: number;
+}) {
   return (
     <div css={CartPriceInfoContainerStyle}>
       <InfoMessage

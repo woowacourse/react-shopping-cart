@@ -2,6 +2,8 @@ import { createContext, useContext } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import useCartList from '../hooks/useCartList';
 import useSelect from '../hooks/useSelect';
+import { cartPrice } from '../utils/cartPrice';
+import { CART } from '../constants/cart';
 
 type CartContextType = {
   data: CartItemProps[];
@@ -10,10 +12,15 @@ type CartContextType = {
   increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   deleteCartItem: (cartItemId: number) => Promise<void>;
+
   selectedItems: number[];
   isAllSelected: boolean;
   handleSelectItem: (cartItemId: number) => void;
   handleSelectAllItems: () => void;
+
+  totalPrice: number;
+  deliveryFee: number;
+  totalPriceWithDeliveryFee: number;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -33,6 +40,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     handleSelectItem,
     handleSelectAllItems,
   } = useSelect(data);
+
+  const totalPrice = cartPrice.totalPrice(data, selectedItems);
+  const deliveryFee =
+    totalPrice >= CART.FREE_DELIVERY_THRESHOLD ? 0 : CART.DELIVERY_FEE;
+  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
+
   return (
     <CartContext.Provider
       value={{
@@ -42,10 +55,15 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         increaseCartItem,
         decreaseCartItem,
         deleteCartItem,
+
         selectedItems,
         isAllSelected,
         handleSelectItem,
         handleSelectAllItems,
+
+        totalPrice,
+        deliveryFee,
+        totalPriceWithDeliveryFee,
       }}
     >
       {children}
