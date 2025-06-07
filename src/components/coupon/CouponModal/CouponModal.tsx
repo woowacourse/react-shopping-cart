@@ -8,6 +8,8 @@ import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
 
+const MAX_COUPON_SELECTION = 2;
+
 // TODO: 실제로 쿠폰 적용에 따른 계산된 값 불러오기
 const price = 6000;
 
@@ -24,7 +26,9 @@ const CouponModal = () => {
       </S.HeaderContainer>
       <S.InfoContainer>
         <img src={InfoIcon} alt="info" />
-        <Description>쿠폰은 최대 2개까지 사용할 수 있습니다.</Description>
+        <Description>
+          쿠폰은 최대 {MAX_COUPON_SELECTION}개까지 사용할 수 있습니다.
+        </Description>
       </S.InfoContainer>
       <S.CouponItemsContainer>
         {coupons.map((coupon) => (
