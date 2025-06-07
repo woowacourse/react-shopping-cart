@@ -10,10 +10,16 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
   const [selectedCoupons, setSelectedCoupons] = useState<number[]>([]);
 
+  const orderAmount = getOrderAmountFromStorage();
+
   const toggleCoupon = (id: number) => {
     setSelectedCoupons((prev) =>
       prev.includes(id) ? prev.filter((c) => c !== id) : prev.length < 2 ? [...prev, id] : prev
     );
+  };
+
+  const isCouponDisabled = (coupon: Coupon) => {
+    return coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount;
   };
 
   const formatCouponDescription = (coupon: Coupon) => {
@@ -26,7 +32,7 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
     }
 
     if (coupon.availableTime) {
-      desc.push(`사용 가능 시간: ${coupon.availableTime.start} ~ ${coupon.availableTime.end}`);
+      desc.push(`사용 가능 시간 ${formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}`);
     }
 
     return desc.join('\n');
@@ -47,27 +53,22 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
         <ul css={styles.couponListStyle}>
           {coupons?.map((coupon) => {
             const isSelected = selectedCoupons.includes(coupon.id);
+            const disabled = isCouponDisabled(coupon);
+
             return (
               <li
                 key={coupon.id}
-                css={[styles.couponItemStyle, isSelected && styles.selectedStyle]}
-                onClick={() => toggleCoupon(coupon.id)}
+                css={[styles.couponItemStyle, isSelected && styles.selectedStyle, disabled && styles.disabledStyle]}
+                onClick={() => !disabled && toggleCoupon(coupon.id)}
               >
                 <CheckBox
                   checked={isSelected}
                   onChange={() => toggleCoupon(coupon.id)}
-                  onClick={(e) => e.stopPropagation()} // 체크박스 클릭 시 li onClick 중복 방지
+                  onClick={(e) => e.stopPropagation()}
+                  disabled={disabled}
                   id={`coupon-${coupon.id}`}
                 />
-
-                <label
-                  htmlFor={`coupon-${coupon.id}`}
-                  css={styles.couponLabelStyle}
-                  onClick={(e) => {
-                    e.stopPropagation(); // label 자체 클릭 시 중복 방지
-                    toggleCoupon(coupon.id);
-                  }}
-                >
+                <label htmlFor={`coupon-${coupon.id}`} css={styles.couponLabelStyle}>
                   <p>{coupon.description}</p>
                   <small>{formatCouponDescription(coupon)}</small>
                 </label>
@@ -81,4 +82,27 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
       </Modal.Content>
     </Modal>
   );
+}
+
+function formatTimeRange(start: string, end: string): string {
+  const format = (time: string) => {
+    const [hourStr] = time.split(':');
+    const hour = parseInt(hourStr, 10);
+    const period = hour < 12 ? '오전' : '오후';
+    const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+    return `${period} ${displayHour}시`;
+  };
+
+  return `${format(start)}부터 ${format(end)}까지`;
+}
+
+function getOrderAmountFromStorage(): number {
+  try {
+    const data = localStorage.getItem('selectedItems');
+    if (!data) return 0;
+    const items = JSON.parse(data) as { price: number }[];
+    return items.reduce((sum, item) => sum + item.price, 0);
+  } catch {
+    return 0;
+  }
 }

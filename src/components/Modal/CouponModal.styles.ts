@@ -52,3 +52,7 @@ export const couponLabelStyle = css({
   flexGrow: 1,
   cursor: 'pointer'
 });
+export const disabledStyle = css({
+  opacity: 0.5,
+  pointerEvents: 'none' // 클릭 방지
+});

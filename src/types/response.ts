@@ -51,7 +51,7 @@ type TimeRange = {
 
 export type Coupon = {
   id: number;
-  code: string;
+  code: 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
   description: string;
   expirationDate: string;
   discountType: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
