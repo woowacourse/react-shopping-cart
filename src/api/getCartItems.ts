@@ -3,6 +3,7 @@ import { CartItem } from '../types';
 
 const getCartItems = async (): Promise<CartItem[]> => {
   const response = await fetch(`${VITE_BASE_URL}/cart-items`);
+
   if (!response.ok) {
     throw new Error('Failed to fetch cart items');
   }

@@ -27,4 +27,19 @@ export const handlers = [
     };
     return HttpResponse.json({ ok: true }, { status: 200 });
   }),
+
+  http.get('*/cart-items-error', () => {
+    return HttpResponse.json(
+      { message: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }),
+
+  http.delete('*/cart-items/:id-error', async () => {
+    return HttpResponse.json({ message: 'Bad Request' }, { status: 400 });
+  }),
+
+  http.patch('*/cart-items/:id-error', async () => {
+    return HttpResponse.json({ message: 'Bad Request' }, { status: 400 });
+  }),
 ];

@@ -3,17 +3,20 @@ import CartItemsProvider from './contexts/CartItemsProvider';
 import PageProvider from './contexts/PageProvider';
 import PageController from './pages/PageController';
 import CheckedCartItemsProvider from './contexts/CheckedCartItemsProvider';
+import { ErrorToastProvider } from './contexts/ErrorToastProvider';
 
 function App() {
   return (
     <S.layout>
-      <PageProvider>
-        <CartItemsProvider>
-          <CheckedCartItemsProvider>
-            <PageController />
-          </CheckedCartItemsProvider>
-        </CartItemsProvider>
-      </PageProvider>
+      <ErrorToastProvider>
+        <PageProvider>
+          <CartItemsProvider>
+            <CheckedCartItemsProvider>
+              <PageController />
+            </CheckedCartItemsProvider>
+          </CartItemsProvider>
+        </PageProvider>
+      </ErrorToastProvider>
     </S.layout>
   );
 }
