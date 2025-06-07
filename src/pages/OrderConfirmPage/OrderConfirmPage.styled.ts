@@ -3,24 +3,23 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   height: calc(100% - 150px);
   display: flex;
+  flex-direction: column;
+  padding: 36px 24px 0;
+  gap: 12px;
 `;
 
 export const Information = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 46px;
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  min-height: 0;
 `;
 
-export const TextWrap = styled.div<{ gap?: number }>`
+export const DeliveryInformation = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => (props.gap ? `${props.gap}px` : "2px")};
-  & * {
-    text-align: center;
-  }
+  gap: 20px;
 `;
 
 export const ButtonWrap = styled.div`

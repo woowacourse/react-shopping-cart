@@ -4,6 +4,7 @@ import { ButtonStyleProps } from "./type";
 export const Button = styled.button<{ styles: ButtonStyleProps }>`
   ${(props) => selectVariant(props.styles.variant)}
   ${(props) => selectSize(props.styles.size)}
+  border-radius: ${(props) => props.styles.radius || 0}px;
 `;
 
 const selectVariant = (variant: ButtonStyleProps["variant"]) => {
