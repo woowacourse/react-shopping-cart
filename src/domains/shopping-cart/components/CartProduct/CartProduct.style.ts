@@ -22,13 +22,19 @@ const ProductImg = (imageUrl: string) => {
 const TitleLayout = css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 8px 0;
+`;
+
+const ProductBox = css`
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 `;
 
 const ProductPrice = css`
   font-weight: 700;
-  font-size: 16px;
+  font-size: 24px;
 `;
 
 const ProductName = css`
@@ -44,6 +50,7 @@ const deleteButton = css`
 export {
   CartProductLayout,
   ProductImg,
+  ProductBox,
   TitleLayout,
   ProductName,
   ProductPrice,
