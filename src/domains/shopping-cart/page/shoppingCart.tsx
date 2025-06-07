@@ -54,7 +54,7 @@ export function ShoppingCart() {
 
   useEffect(() => {
     if (isFirstMount.current && cartItems.length !== 0) {
-      toggleSelectAll(cartItems);
+      toggleSelectAll(cartItems, true);
       isFirstMount.current = false;
     }
   }, [isFirstMount, cartItems]);

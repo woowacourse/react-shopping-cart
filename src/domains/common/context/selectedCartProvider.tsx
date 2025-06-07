@@ -5,7 +5,7 @@ import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
 interface SelectedCartContextType {
   selectedCartIds: string[];
-  toggleSelectAll: (cartItems: CartItemTypes[]) => void;
+  toggleSelectAll: (cartItems: CartItemTypes[], init?: boolean) => void;
   toggleCartItem: (id: string) => void;
   removeFromSelection: (id: string) => void;
 }
