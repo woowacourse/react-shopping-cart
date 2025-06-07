@@ -15,7 +15,7 @@ interface CouponModalContentProps {
   bogoQuantity: number;
   couponList: CouponType[];
   validCouponList: CouponType[];
-  isCheckedCoupons: Map<number, CouponType>;
+  checkedCoupons: Map<number, CouponType>;
   toggleCheckedCoupon: (couponInfo: CouponType) => void;
   onModalClose: () => void;
 }
@@ -26,16 +26,16 @@ const CouponModalContent = (props: CouponModalContentProps) => {
     bogoQuantity,
     couponList,
     validCouponList,
-    isCheckedCoupons,
+    checkedCoupons,
     toggleCheckedCoupon,
     onModalClose,
   } = props;
 
-  const isMaxCouponSelected = isCheckedCoupons.size >= COUPON_LIMIT;
+  const isMaxCouponSelected = checkedCoupons.size >= COUPON_LIMIT;
   const isValid = (coupon: CouponType) =>
     (validCouponList.includes(coupon) && !isMaxCouponSelected) ||
-    isCheckedCoupons.has(coupon.id);
-  const isSelected = (id: number) => isCheckedCoupons.has(id);
+    checkedCoupons.has(coupon.id);
+  const isSelected = (id: number) => checkedCoupons.has(id);
 
   return (
     <div css={S.couponModalContentContainer}>

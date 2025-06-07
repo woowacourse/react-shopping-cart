@@ -18,9 +18,9 @@ interface UseCouponProps {
 
 const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
   const [couponList, setCouponList] = useState<CouponType[]>([]);
-  const [isCheckedCoupons, setIsCheckedCoupons] = useState<
-    Map<number, CouponType>
-  >(new Map());
+  const [checkedCoupons, setCheckedCoupons] = useState<Map<number, CouponType>>(
+    new Map()
+  );
 
   const { callApi, loadingState } = useApiHandler();
 
@@ -48,9 +48,8 @@ const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
           deliveryFee,
         }
       );
-      console.log(maxDiscountCombination);
 
-      setIsCheckedCoupons(
+      setCheckedCoupons(
         new Map(maxDiscountCombination.map((coupon) => [coupon.id, coupon]))
       );
     };
@@ -59,7 +58,7 @@ const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
   }, []);
 
   const toggleCheckedCoupon = (couponInfo: CouponType) => {
-    if (isCheckedCoupons.has(couponInfo.id)) {
+    if (checkedCoupons.has(couponInfo.id)) {
       removeCheckedCoupon(couponInfo);
       return;
     }
@@ -67,19 +66,19 @@ const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
   };
 
   const addCheckedCoupon = (couponInfo: CouponType) => {
-    if (isCheckedCoupons.size >= COUPON_LIMIT) return;
-    setIsCheckedCoupons((prev: Map<number, CouponType>) => {
-      const newIsCheckedCoupons = new Map(prev);
-      newIsCheckedCoupons.set(couponInfo.id, couponInfo);
-      return newIsCheckedCoupons;
+    if (checkedCoupons.size >= COUPON_LIMIT) return;
+    setCheckedCoupons((prev: Map<number, CouponType>) => {
+      const newCheckedCoupons = new Map(prev);
+      newCheckedCoupons.set(couponInfo.id, couponInfo);
+      return newCheckedCoupons;
     });
   };
 
   const removeCheckedCoupon = (couponInfo: CouponType) => {
-    setIsCheckedCoupons((prev: Map<number, CouponType>) => {
-      const newIsCheckedCoupons = new Map(prev);
-      newIsCheckedCoupons.delete(couponInfo.id);
-      return newIsCheckedCoupons;
+    setCheckedCoupons((prev: Map<number, CouponType>) => {
+      const newCheckedCoupons = new Map(prev);
+      newCheckedCoupons.delete(couponInfo.id);
+      return newCheckedCoupons;
     });
   };
 
@@ -91,7 +90,7 @@ const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
       deliveryFee,
     }),
     loadingState,
-    isCheckedCoupons,
+    checkedCoupons,
     toggleCheckedCoupon,
   };
 };

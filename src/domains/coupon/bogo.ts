@@ -18,7 +18,6 @@ const getBogoItemInfo = (
   return { bogoItem: maxPriceBogoItem, bogoQuantity: getQuantity };
 };
 
-// TODO : isCheckedCoupons -> checkedCoupons로 네이밍 변경
 export const getBogoItemsInfo = (
   checkedCoupons: Map<number, CouponType>,
   orderItems: CartItemType[]

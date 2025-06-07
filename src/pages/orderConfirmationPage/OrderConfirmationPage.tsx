@@ -63,7 +63,7 @@ const OrderConfirmationPage = () => {
     couponList,
     validCouponList,
     loadingState,
-    isCheckedCoupons,
+    checkedCoupons,
     toggleCheckedCoupon,
   } = useCoupon({
     orderPrice,
@@ -71,7 +71,7 @@ const OrderConfirmationPage = () => {
     deliveryFee: deliveryFeeWithRemoteArea,
   });
 
-  const bogoItemsInfo = getBogoItemsInfo(isCheckedCoupons, orderItems);
+  const bogoItemsInfo = getBogoItemsInfo(checkedCoupons, orderItems);
   const totalBogoGetQuantity = bogoItemsInfo.reduce(
     (acc: number, item: BogoItemInfoType) => acc + item.bogoQuantity,
     0
@@ -82,7 +82,7 @@ const OrderConfirmationPage = () => {
     (acc: number, item: CartItemType) => acc + item.quantity,
     0
   );
-  const totalDiscountPrice = getTotalDiscountPrice(isCheckedCoupons, {
+  const totalDiscountPrice = getTotalDiscountPrice(checkedCoupons, {
     originOrderPrice: orderPriceWithRemoteArea,
     deliveryFee: deliveryFeeWithRemoteArea,
   });
@@ -105,7 +105,7 @@ const OrderConfirmationPage = () => {
           bogoQuantity={totalBogoGetQuantity}
           couponList={couponList}
           validCouponList={validCouponList}
-          isCheckedCoupons={isCheckedCoupons}
+          checkedCoupons={checkedCoupons}
           toggleCheckedCoupon={toggleCheckedCoupon}
           onModalClose={closeModal}
         />
