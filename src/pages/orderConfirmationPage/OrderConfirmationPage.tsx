@@ -22,100 +22,92 @@ import {
 } from "../../styles/@common/title/Title.styles";
 import * as S from "./OrderConfirmationPage.styles";
 
-import useCheckedCoupons from "../../hooks/features/useCheckedCoupons";
-import useCouponModal from "../../hooks/features/useCouponModal";
 import useRemoteAreaFee from "../../hooks/features/useRemoteAreaFee";
 import useVisibilityObserver from "../../hooks/@common/useVisibilityObserver";
 import useEasyNavigate from "../../hooks/useEasyNavigate";
 
-import { getValidCoupons } from "../../domains/coupon/validateCoupon";
 import {
-  getBogoItems,
-  getDiscountedTotalOrderPrice,
   getTotalDiscountPrice,
+  getDiscountedTotalPrice,
 } from "../../domains/coupon/calculateCoupon";
+import {
+  isBogoItem,
+  getBogoItemsInfo,
+  getBogoGetQuantity,
+} from "../../domains/coupon/bogo";
 import { getOrderConfirmationMessage } from "../../constants/systemMessages";
 
 import type { CartItemType } from "../../types/response";
+import useCoupon from "../../hooks/features/useCoupon";
+import useModal from "../../hooks/@common/useModal";
+import type { BogoItemInfoType } from "../../types/bogo";
 
 const OrderConfirmationPage = () => {
   const { ref: CartPriceRef, isVisible: isCartPriceVisible } =
     useVisibilityObserver({
       threshold: 0.1,
     });
+  const { isModalOpen, openModal, closeModal } = useModal();
+  const { goOrderComplete } = useEasyNavigate();
 
   const { orderItems, orderPrice, deliveryFee } = useLocation().state;
+
+  const {
+    isRemoteArea,
+    toggleIsRemoteArea,
+    deliveryFeeWithRemoteArea,
+    orderPriceWithRemoteArea,
+  } = useRemoteAreaFee({ deliveryFee, orderPrice });
+
+  const {
+    couponList,
+    validCouponList,
+    loadingState,
+    isCheckedCoupons,
+    toggleCheckedCoupon,
+  } = useCoupon({
+    orderPrice,
+    orderItems,
+    deliveryFee: deliveryFeeWithRemoteArea,
+  });
+
+  const bogoItemsInfo = getBogoItemsInfo(isCheckedCoupons, orderItems);
+  const totalBogoGetQuantity = bogoItemsInfo.reduce(
+    (acc: number, item: BogoItemInfoType) => acc + item.bogoQuantity,
+    0
+  );
+
   const productTypeCount = orderItems.length;
   const totalProductCount = orderItems.reduce(
     (acc: number, item: CartItemType) => acc + item.quantity,
     0
   );
-
-  const {
-    isModalOpen,
-    openCouponModal,
-    closeCouponModal,
-    couponList,
-    loadingState,
-  } = useCouponModal();
-
-  // TODO : 초기값으로 최대 할인율 조합을 계산하여 삽입할 것
-  const { isCheckedCoupons, toggleCheckedCoupon } = useCheckedCoupons();
-
-  const {
-    isRemoteArea,
-    deliveryFeeWithRemoteArea,
-    totalPriceWithRemoteArea,
-    toggleIsRemoteArea,
-  } = useRemoteAreaFee({ deliveryFee, orderPrice });
-
-  const validCouponList = getValidCoupons(couponList, {
-    originOrderPrice: orderPrice,
-    orderItems,
-    deliveryFee: deliveryFeeWithRemoteArea,
-  });
-
-  const checkedBogoCoupons = Array.from(isCheckedCoupons.values()).filter(
-    (couponInfo) => couponInfo.code === "BOGO"
-  );
-  const bogoItems = checkedBogoCoupons.flatMap((couponInfo) =>
-    "buyQuantity" in couponInfo
-      ? [getBogoItems(orderItems, couponInfo.buyQuantity)]
-      : []
-  );
-  const isBogoItem = (item: CartItemType) =>
-    bogoItems.some((bogoItem) => bogoItem.id === item.id);
-
   const totalDiscountPrice = getTotalDiscountPrice(isCheckedCoupons, {
-    originTotalPrice: totalPriceWithRemoteArea,
-    bogoItems: bogoItems,
+    originOrderPrice: orderPriceWithRemoteArea,
     deliveryFee: deliveryFeeWithRemoteArea,
   });
-  const discountedTotalOrderPrice = getDiscountedTotalOrderPrice(
-    orderPrice,
+  const discountedTotalPrice = getDiscountedTotalPrice(
+    orderPriceWithRemoteArea,
     totalDiscountPrice
   );
-
-  const { goOrderComplete } = useEasyNavigate();
 
   const getModalContent = () => {
     if (loadingState === "initialLoading") {
       return <Loading />;
     }
     if (loadingState === "error") {
-      return (
-        <ErrorFallback callBack={closeCouponModal} errorButtonText="닫기" />
-      );
+      return <ErrorFallback callBack={closeModal} errorButtonText="닫기" />;
     }
     if (loadingState === "success") {
       return (
         <CouponModalContent
           totalDiscountPrice={totalDiscountPrice}
+          bogoQuantity={totalBogoGetQuantity}
           couponList={couponList}
           validCouponList={validCouponList}
           isCheckedCoupons={isCheckedCoupons}
           toggleCheckedCoupon={toggleCheckedCoupon}
-          onModalClose={closeCouponModal}
+          onModalClose={closeModal}
         />
       );
     }
@@ -127,7 +119,7 @@ const OrderConfirmationPage = () => {
         <Modal
           title="쿠폰을 선택해 주세요"
           content={getModalContent()}
-          onClose={closeCouponModal}
+          onClose={closeModal}
         />
       )}
       <div css={TitleContainer}>
@@ -142,12 +134,24 @@ const OrderConfirmationPage = () => {
           <DisplayCartItem
             key={item.id}
             cartData={item}
-            bogoQuantity={isBogoItem(item) ? checkedBogoCoupons.length : 0}
+            bogoQuantity={
+              isBogoItem(item, bogoItemsInfo)
+                ? getBogoGetQuantity(bogoItemsInfo, item)
+                : 0
+            }
           />
         ))}
       </div>
 
-      <Button size="large" color="white" onClick={openCouponModal}>
+      <Button
+        type="button"
+        size="large"
+        color="white"
+        onClick={(e) => {
+          e.stopPropagation();
+          openModal();
+        }}
+      >
         쿠폰 적용
       </Button>
 
@@ -164,20 +168,21 @@ const OrderConfirmationPage = () => {
           orderPrice={orderPrice}
           deliveryFee={deliveryFeeWithRemoteArea}
           discountPrice={totalDiscountPrice}
-          totalPrice={discountedTotalOrderPrice}
+          totalPrice={discountedTotalPrice}
         />
       </div>
 
       <div css={buttonFixedContainer}>
         {isCartPriceVisible && (
           <Button
+            type="button"
             size="large"
             color="black"
             onClick={() => {
               goOrderComplete(
                 productTypeCount,
                 totalProductCount,
-                discountedTotalOrderPrice
+                discountedTotalPrice
               );
             }}
           >

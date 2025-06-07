@@ -93,7 +93,7 @@ type CouponValidator = (
   context: CouponValidatorContext
 ) => CouponType[];
 
-export const getValidCoupons = (
+export const getAllValidCoupons = (
   couponList: CouponType[],
   { originOrderPrice, orderItems, deliveryFee }: CouponValidatorContext
 ): CouponType[] => {

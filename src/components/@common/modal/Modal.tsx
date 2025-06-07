@@ -20,13 +20,13 @@ const Modal = ({ title, content, onClose }: ModalProps) => {
         onClose();
       }
     };
-    window.addEventListener("keydown", handleEscapeKey);
-    return () => window.removeEventListener("keydown", handleEscapeKey);
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => document.removeEventListener("keydown", handleEscapeKey);
   }, [onClose]);
 
   return (
     <ModalPortal>
-      <div css={S.modalBackground}>
+      <div css={S.modalBackground} tabIndex={-1}>
         <div css={S.modalContainer} ref={ref}>
           <div css={S.modalHeaderContainer}>
             <p css={Title}>{title}</p>

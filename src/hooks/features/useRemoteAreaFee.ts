@@ -13,7 +13,7 @@ const useRemoteAreaFee = ({ deliveryFee, orderPrice }: RemoteAreaFeeProps) => {
     ? deliveryFee + FEE.DELIVERY_FEE_REMOTE_AREA
     : deliveryFee;
 
-  const totalPriceWithRemoteArea = orderPrice + deliveryFeeWithRemoteArea;
+  const orderPriceWithRemoteArea = orderPrice + deliveryFeeWithRemoteArea;
 
   const toggleIsRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
@@ -22,7 +22,7 @@ const useRemoteAreaFee = ({ deliveryFee, orderPrice }: RemoteAreaFeeProps) => {
   return {
     isRemoteArea,
     deliveryFeeWithRemoteArea,
-    totalPriceWithRemoteArea,
+    orderPriceWithRemoteArea,
     toggleIsRemoteArea,
   };
 };

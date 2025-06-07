@@ -12,6 +12,7 @@ import { COUPON_LIMIT_MESSAGE } from "../../../../constants/systemMessages";
 
 interface CouponModalContentProps {
   totalDiscountPrice: number;
+  bogoQuantity: number;
   couponList: CouponType[];
   validCouponList: CouponType[];
   isCheckedCoupons: Map<number, CouponType>;
@@ -19,14 +20,17 @@ interface CouponModalContentProps {
   onModalClose: () => void;
 }
 
-const CouponModalContent = ({
-  totalDiscountPrice,
-  couponList,
-  validCouponList,
-  isCheckedCoupons,
-  toggleCheckedCoupon,
-  onModalClose,
-}: CouponModalContentProps) => {
+const CouponModalContent = (props: CouponModalContentProps) => {
+  const {
+    totalDiscountPrice,
+    bogoQuantity,
+    couponList,
+    validCouponList,
+    isCheckedCoupons,
+    toggleCheckedCoupon,
+    onModalClose,
+  } = props;
+
   const isMaxCouponSelected = isCheckedCoupons.size >= COUPON_LIMIT;
   const isValid = (coupon: CouponType) =>
     (validCouponList.includes(coupon) && !isMaxCouponSelected) ||
@@ -56,7 +60,7 @@ const CouponModalContent = ({
         />
       ))}
       <Button size="large" color="black" onClick={onModalClose}>
-        총 {totalDiscountPrice}원 할인 쿠폰 사용하기
+        총 {totalDiscountPrice}원 할인 / {bogoQuantity}개 추가
       </Button>
     </div>
   );

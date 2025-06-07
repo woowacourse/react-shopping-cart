@@ -1,59 +1,97 @@
 import type { CouponType, MiracleSaleCoupon } from "../../types/response";
-import type { CartItemType } from "../../types/response";
 
-export const getBogoItems = (
-  orderItems: CartItemType[],
-  buyQuantity: number
+const getCouponCombinations = (coupons: CouponType[]) => {
+  if (coupons.length === 1) return [coupons];
+
+  const combinations = [];
+  for (let i = 0; i < coupons.length; i++) {
+    for (let j = i + 1; j < coupons.length; j++) {
+      combinations.push([coupons[i], coupons[j]]);
+    }
+  }
+  return combinations;
+};
+
+export const getMaxDiscountCombinations = (
+  validCoupons: CouponType[],
+  context: {
+    originOrderPrice: number;
+    deliveryFee: number;
+  }
 ) => {
-  const bogoItems = orderItems.filter((item) => item.quantity >= buyQuantity);
-  const maxPriceBogoItems = bogoItems.reduce((maxItem, currentItem) =>
-    currentItem.product.price > maxItem.product.price ? currentItem : maxItem
+  const coupons = validCoupons.filter(
+    (coupon) => coupon.discountType !== "buyXgetY"
   );
-  return maxPriceBogoItems;
+  const combinations = getCouponCombinations(coupons);
+  if (combinations.length === 0) return [];
+
+  const maxDiscountCombination = combinations.reduce((best, current) => {
+    const currentDiscount = current[1]
+      ? getDiscountAmountByType(current[0], context) +
+        getDiscountAmountByType(current[1], context)
+      : getDiscountAmountByType(current[0], context);
+    const bestDiscount = best[1]
+      ? getDiscountAmountByType(best[0], context) +
+        getDiscountAmountByType(best[1], context)
+      : getDiscountAmountByType(best[0], context);
+
+    return currentDiscount > bestDiscount ? current : best;
+  }, combinations[0]);
+
+  return maxDiscountCombination;
 };
 
 export const getPercentageDiscountAmount = (
   coupon: MiracleSaleCoupon,
-  { originTotalPrice }: { originTotalPrice: number }
+  { originOrderPrice }: { originOrderPrice: number }
 ) => {
-  return originTotalPrice * (coupon.discount / 100);
+  return originOrderPrice * (coupon.discount / 100);
+};
+
+const getDiscountAmountByType = (
+  coupon: CouponType,
+  {
+    originOrderPrice,
+    deliveryFee,
+  }: { originOrderPrice: number; deliveryFee: number }
+) => {
+  if (coupon.discountType === "fixed") {
+    return coupon.discount;
+  }
+  if (coupon.discountType === "percentage") {
+    return getPercentageDiscountAmount(coupon, {
+      originOrderPrice,
+    });
+  }
+  if (coupon.discountType === "freeShipping") {
+    return deliveryFee;
+  }
+  if (coupon.discountType === "buyXgetY") {
+    return 0;
+  }
+  return 0;
 };
 
 interface CouponCalculateContext {
-  originTotalPrice: number;
-  bogoItems: CartItemType[];
+  originOrderPrice: number;
   deliveryFee: number;
 }
 
 export const getTotalDiscountPrice = (
   checkedCoupons: Map<number, CouponType>,
-  { originTotalPrice, deliveryFee }: CouponCalculateContext
+  { originOrderPrice, deliveryFee }: CouponCalculateContext
 ) => {
   const checkedCouponsArray = Array.from(checkedCoupons.values());
-  const discountPrices = checkedCouponsArray.map((coupon) => {
-    if (coupon.discountType === "fixed") {
-      return coupon.discount;
-    }
-    if (coupon.discountType === "percentage") {
-      return getPercentageDiscountAmount(coupon, {
-        originTotalPrice,
-      });
-    }
-    if (coupon.discountType === "freeShipping") {
-      return deliveryFee;
-    }
-    if (coupon.discountType === "buyXgetY") {
-      return 0;
-    }
-    return 0;
-  });
+  const discountPrices = checkedCouponsArray.map((coupon) =>
+    getDiscountAmountByType(coupon, { originOrderPrice, deliveryFee })
+  );
 
   return discountPrices.reduce((acc, curr) => acc + curr, 0);
 };
 
-export const getDiscountedTotalOrderPrice = (
-  originTotalPrice: number,
+export const getDiscountedTotalPrice = (
+  originOrderPrice: number,
   discountPrice: number
 ) => {
-  return originTotalPrice - discountPrice;
+  return originOrderPrice - discountPrice;
 };
