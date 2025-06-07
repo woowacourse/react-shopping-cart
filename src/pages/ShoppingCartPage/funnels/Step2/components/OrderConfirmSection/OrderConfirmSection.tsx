@@ -44,7 +44,8 @@ export default function OrderConfirmSection() {
     if (isEqual(selectedCouponIds, newCouponIds)) return;
 
     setSelectedCouponIds(newCouponIds);
-  }, [coupons, selectedCartItems, isFar, selectedCouponIds, setSelectedCouponIds]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coupons]);
 
   return (
     <S.OrderConfirmSectionWrapper>
