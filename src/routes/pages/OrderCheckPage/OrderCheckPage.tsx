@@ -15,17 +15,27 @@ import CouponModal from '../../../components/CouponModal/CouponModal';
 import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
 import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
+import useCouponList from '../../../hooks/useCouponList';
+import useValidateCoupon from '../../../hooks/useValidateCoupon';
 
 function OrderCheck() {
   const navigate = useNavigate();
 
-  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-
   const cart = useCartContext();
+  const { couponList } = useCouponList();
+
   const selectedCartItems = cart.data?.filter((item: CartItemProps) =>
     cart.selectedItems.includes(item.id)
   );
+
+  const { availableCouponList } = useValidateCoupon(
+    couponList,
+    cart.subTotal,
+    selectedCartItems
+  );
+
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const typeCount = cart.selectedItems.length;
   const totalCount = selectedCartItems.reduce(
@@ -88,6 +98,7 @@ function OrderCheck() {
       <CouponModal
         isOpen={isCouponModalOpen}
         onClose={handleCouponModalClose}
+        availableCouponList={availableCouponList}
       />
     </>
   );
