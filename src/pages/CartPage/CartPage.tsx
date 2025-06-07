@@ -9,6 +9,7 @@ import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
 import AllSelector from "../../components/cart/AllSelector/AllSelector";
 import CartItem from "../../components/cart/CartItem/CartItem";
 import { ROUTES } from "../../constants/routes";
+import CartInitializer from "../../domains/cart/contexts/CartInitializer";
 import useCart from "../../domains/cart/hooks/useCart";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
@@ -30,6 +31,7 @@ const CartPage = () => {
 
   return (
     <>
+      <CartInitializer />
       <Header>
         <S.Logo href={CLIENT_BASE_PATH}>SHOP</S.Logo>
       </Header>
