@@ -13,10 +13,15 @@ export default function SubPrice({
   shippingFee,
   couponPrice,
 }: SubPriceProps) {
+  const CouponComponent =
+    couponPrice !== null && couponPrice !== undefined ? (
+      <Price name="쿠폰 할인 금액" price={couponPrice} />
+    ) : null;
+
   return (
     <Styled.Container>
       <Price name="주문 금액" price={allProductPrice} />
-      {couponPrice && <Price name="쿠폰 할인 금액" price={couponPrice} />}
+      {CouponComponent}
       <Price name="배송비" price={shippingFee} />
     </Styled.Container>
   );

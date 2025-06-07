@@ -15,9 +15,10 @@ import useCartItemList from "../../hooks/useCartItemList";
 import CartItem from "../../types/CartItem";
 
 import * as Styled from "../ShoppingCartPage/ShoppingCartPage.styles";
+import { DEFAULT_SHIPPING_FEE } from "../../constants/shipping";
 
 export default function PaymentAmountCheckPage() {
-  const [couponPrice] = useState<number>(0);
+  const [couponPrice, setApplyCouponPrice] = useState<number>(0);
   const [isIslandArea, setIsIslandArea] = useState<boolean>(false);
   const { isOpen, handleOpen, handleClose } = Modal.useModal();
   const { cartItemList } = useCartItemList();
@@ -41,17 +42,21 @@ export default function PaymentAmountCheckPage() {
     checkedMap,
   } = location.state;
 
+  const totalPrice = allProductPrice + shippingFee - (couponPrice || 0);
+
   const handlePayment = () => {
     navigate("/order-check", {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,
-        totalPrice: 1000,
+        totalPrice,
       },
     });
   };
 
-  const handleApplyCouponPrice = () => {};
+  const handleApplyCouponPrice = (price: number) => {
+    setApplyCouponPrice(price);
+  };
 
   function CartItemList({ cartItemList }: { cartItemList: CartItem[] }) {
     return (
@@ -70,7 +75,12 @@ export default function PaymentAmountCheckPage() {
           <CouponModal
             isOpen={isOpen}
             handleClose={handleClose}
-            onApplyCoupon={handleApplyCouponPrice}
+            handleApplyCouponPrice={handleApplyCouponPrice}
+            cartItemList={cartItemList.filter((cart) =>
+              checkedMap.get(cart.id)
+            )}
+            orderAmount={allProductPrice}
+            isIslandArea={isIslandArea}
           />
           <button onClick={handleOpen}>쿠폰 적용</button>
         </div>
@@ -92,7 +102,9 @@ export default function PaymentAmountCheckPage() {
 
         <Receipt
           allProductPrice={allProductPrice}
-          shippingFee={shippingFee}
+          shippingFee={
+            isIslandArea ? shippingFee + DEFAULT_SHIPPING_FEE : shippingFee
+          }
           couponPrice={couponPrice}
         />
       </div>
@@ -115,7 +127,7 @@ export default function PaymentAmountCheckPage() {
         )}
       </Styled.Container>
 
-      <Footer text="결제하기" active={false} handleClick={handlePayment} />
+      <Footer text="결제하기" active={true} handleClick={handlePayment} />
     </div>
   );
 }

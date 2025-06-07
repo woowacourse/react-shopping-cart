@@ -18,6 +18,7 @@ import { isAllChecked } from "../../utils/isAllChecked";
 import { getCheckedProductsLength } from "../../utils/getCheckedProductsLength";
 import { getCheckedProductsTotalPrice } from "../../utils/getCheckedProductsTotalPrice";
 import { getShippingFee } from "../../utils/getShippingFee";
+import Receipt from "../../components/shoppingCart/Receipt/Receipt";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
@@ -56,6 +57,10 @@ export default function ShoppingCartPage() {
     });
   }, [cartItemList]);
 
+  if (state.isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
   const handleSelectedCartItem = (id: number) => {
     setCheckedMap((prevMap) => {
       const newMap = new Map(prevMap);
@@ -84,10 +89,6 @@ export default function ShoppingCartPage() {
 
   const isCartEmpty = cartItemList.length === 0;
 
-  if (state.isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
   return (
     <div>
       <Styled.Container>
@@ -103,18 +104,25 @@ export default function ShoppingCartPage() {
         {isCartEmpty ? (
           <EmptyText text="장바구니에 담은 상품이 없습니다." />
         ) : (
-          <CartList
-            cartItemList={cartItemList}
-            checkedMap={checkedMap}
-            allChecked={allChecked}
-            toggleAll={toggleAll}
-            handleSelectedCartItem={handleSelectedCartItem}
-          />
+          <>
+            <CartList
+              cartItemList={cartItemList}
+              checkedMap={checkedMap}
+              allChecked={allChecked}
+              toggleAll={toggleAll}
+              handleSelectedCartItem={handleSelectedCartItem}
+            />
+            <Receipt
+              allProductPrice={allProductPrice}
+              shippingFee={shippingFee}
+            />
+          </>
         )}
       </Styled.Container>
+
       <Footer
         text="주문 확인"
-        active={!isCartEmpty}
+        active={!!checkedProductsLength}
         handleClick={handleOrderCheckButtonClick}
       />
     </div>

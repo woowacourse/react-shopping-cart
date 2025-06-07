@@ -17,6 +17,8 @@ export default function Receipt({
   shippingFee,
   couponPrice,
 }: ReceiptProps) {
+  const totalPrice = allProductPrice + shippingFee - (couponPrice || 0);
+
   return (
     <section>
       <Styled.Container>
@@ -30,7 +32,7 @@ export default function Receipt({
         couponPrice={couponPrice}
       />
       <Hr />
-      <Price name="총 결제 금액" price={allProductPrice + shippingFee} />
+      <Price name="총 결제 금액" price={totalPrice} />
     </section>
   );
 }
