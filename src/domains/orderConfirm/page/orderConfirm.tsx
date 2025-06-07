@@ -4,18 +4,18 @@ import Header from "../../../layout/Header/Header";
 import Main from "../../../layout/Main/Main";
 import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
-import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { useCartContext } from "../../common/context/cartProvider";
+import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
 import { SelectedCartList } from "../component/SelectedCartList/SelectedCartList";
 
 export default function OrderConfirm() {
-  const { deleteCartItem, cartItems, error } = useCartContext();
+  const { cartItems } = useCartContext();
 
   const totalPrice = getTotalPrice({
     cartItems: cartItems,
     selectedCartIds: ["14018"],
-  }); // todo : selectedCartIds를 context로 분리하기
+  });
 
   return (
     <PageLayout>

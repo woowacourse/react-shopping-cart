@@ -34,22 +34,16 @@ export function ShoppingCart() {
 
   const totalPrice = getTotalPrice({ cartItems: cartItems, selectedCartIds });
 
-  const calculateCartItemQuantity = () => {
-    return cartItems.reduce((totalQuantity, item) => {
-      if (selectedCartIds.includes(item.id.toString()))
-        return totalQuantity + item.quantity;
-      return totalQuantity;
-    }, 0);
-  };
+  // const calculateCartItemQuantity = () => {
+  //   return cartItems.reduce((totalQuantity, item) => {
+  //     if (selectedCartIds.includes(item.id.toString()))
+  //       return totalQuantity + item.quantity;
+  //     return totalQuantity;
+  //   }, 0);
+  // };
 
   const handleConfirm = () => {
-    navigate("/payment-complete", {
-      state: {
-        selectedCartType: selectedCartIds.length,
-        selectedCartItem: calculateCartItemQuantity(),
-        totalPrice,
-      },
-    });
+    navigate("/order-confirm");
   };
 
   useEffect(() => {

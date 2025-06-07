@@ -9,6 +9,7 @@ import {
   CartItemHeader,
   CartProductList,
 } from "./CartProductContainer.style";
+import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 
 interface CartProductContainerProps {
   selectedCartIds: string[];
@@ -52,8 +53,12 @@ export default function CartProductContainer({
               imageUrl={item.product.imageUrl}
               name={item.product.name}
               price={item.product.price}
-              quantity={item.quantity}
-            />
+            >
+              <QuantitySelector
+                quantity={item.quantity}
+                cartId={item.id.toString()}
+              />
+            </CartProduct>
           </div>
         );
       })}
