@@ -48,7 +48,7 @@ function OrderCheckPage() {
             couponPrice={3000}
           />
         </S.CartContentWrapper>
-        <S.OrderButton onClick={() => {}} disabled={true}>
+        <S.OrderButton onClick={() => {}} disabled={false}>
           결제하기
         </S.OrderButton>
       </S.CartPageWrapper>
