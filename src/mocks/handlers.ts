@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { coupons, fetchedData } from '../../test/mocks';
+import { mockCoupons, fetchedData } from '../../test/mocks';
 
 export const handlers = [
   http.get('*/cart-items', () => {
@@ -44,7 +44,7 @@ export const handlers = [
   }),
   http.get('*/coupons', () => {
     return HttpResponse.json({
-      content: coupons,
+      content: mockCoupons,
     });
   }),
 ];

@@ -16,7 +16,7 @@ type Coupon = {
   discountType: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
 };
 
-const getCartItems = async (): Promise<Coupon[]> => {
+const getCoupons = async (): Promise<Coupon[]> => {
   const response = await fetch(`${VITE_BASE_URL}/coupons`);
 
   if (!response.ok) {
@@ -29,4 +29,4 @@ const getCartItems = async (): Promise<Coupon[]> => {
   return data;
 };
 
-export default getCartItems;
+export default getCoupons;

@@ -70,7 +70,7 @@ export const initFetchedData = () => {
   };
 };
 
-export const coupons: Coupon[] = [
+export const mockCoupons: Coupon[] = [
   {
     id: 1,
     code: 'FIXED5000',

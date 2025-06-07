@@ -1,7 +1,7 @@
 import calculateCouponDiscount from '../src/utils/calculateCouponDiscount';
 import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
 import getOrderPrice from '../src/utils/getOrderPrice';
-import { coupons, mockCartItems } from './mocks';
+import { mockCoupons, mockCartItems } from './mocks';
 
 describe('calculateCouponDiscount 함수 테스트', () => {
   const orderPrice = getOrderPrice(
@@ -13,7 +13,7 @@ describe('calculateCouponDiscount 함수 테스트', () => {
   describe('쿠폰이 1개만 적용되는 경우', () => {
     test('FIXED5000 - 고정 5000원 할인', () => {
       const result = calculateCouponDiscount(
-        [coupons.find((c) => c.code === 'FIXED5000')!],
+        [mockCoupons.find((c) => c.code === 'FIXED5000')!],
         mockCartItems,
         orderPrice,
         deliveryFee
@@ -26,7 +26,7 @@ describe('calculateCouponDiscount 함수 테스트', () => {
 
     test('MIRACLESALE - 30% 할인', () => {
       const result = calculateCouponDiscount(
-        [coupons.find((c) => c.code === 'MIRACLESALE')!],
+        [mockCoupons.find((c) => c.code === 'MIRACLESALE')!],
         mockCartItems,
         orderPrice,
         deliveryFee
@@ -39,7 +39,7 @@ describe('calculateCouponDiscount 함수 테스트', () => {
 
     test('BOGO - 2+1 단가가 더 높은 상품에 적용', () => {
       const result = calculateCouponDiscount(
-        [coupons.find((c) => c.code === 'BOGO')!],
+        [mockCoupons.find((c) => c.code === 'BOGO')!],
         mockCartItems,
         orderPrice,
         deliveryFee
@@ -51,7 +51,7 @@ describe('calculateCouponDiscount 함수 테스트', () => {
 
     test('FREESHIPPING - 배송비 무료 ', () => {
       const result = calculateCouponDiscount(
-        [coupons.find((c) => c.code === 'FREESHIPPING')!],
+        [mockCoupons.find((c) => c.code === 'FREESHIPPING')!],
         mockCartItems,
         orderPrice,
         deliveryFee + 3000
@@ -66,8 +66,8 @@ describe('calculateCouponDiscount 함수 테스트', () => {
     test('FIXED5000 + MIRACLESALE - 고정 5000원 할인 + 30% 할인', () => {
       const result = calculateCouponDiscount(
         [
-          coupons.find((c) => c.code === 'FIXED5000')!,
-          coupons.find((c) => c.code === 'MIRACLESALE')!,
+          mockCoupons.find((c) => c.code === 'FIXED5000')!,
+          mockCoupons.find((c) => c.code === 'MIRACLESALE')!,
         ],
         mockCartItems,
         orderPrice,
@@ -88,8 +88,8 @@ describe('calculateCouponDiscount 함수 테스트', () => {
     test('BOGO + MIRACLESALE - 2+1 + 무료 배송', () => {
       const result = calculateCouponDiscount(
         [
-          coupons.find((c) => c.code === 'BOGO')!,
-          coupons.find((c) => c.code === 'MIRACLESALE')!,
+          mockCoupons.find((c) => c.code === 'BOGO')!,
+          mockCoupons.find((c) => c.code === 'MIRACLESALE')!,
         ],
         mockCartItems,
         orderPrice,
