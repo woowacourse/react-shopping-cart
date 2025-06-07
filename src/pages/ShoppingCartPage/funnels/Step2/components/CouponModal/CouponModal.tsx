@@ -6,6 +6,8 @@ import { CouponService } from "@/services";
 import { css } from "@emotion/react";
 import { useMemo } from "react";
 import CouponItem from "./CouponItem";
+import { MAX_COUPON_COUNT } from "@/constants";
+import { useToast } from "@/modules";
 
 interface CouponModalProps {
   closeModal: () => void;
@@ -16,6 +18,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
   const { data: cartItems } = useCartItemQuery();
   const { selectedItemIds } = useShoppingCartContext();
   const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
+  const { showToast } = useToast();
 
   const { selectedCouponIds, setSelectedCouponIds, isFar } = useShoppingCartContext();
 
@@ -23,7 +26,13 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
     setSelectedCouponIds((prev) => {
       const isSelected = prev.includes(couponId);
 
-      if (prev.length === 2 && !isSelected) return prev;
+      if (prev.length === MAX_COUPON_COUNT && !isSelected) {
+        showToast({
+          message: `쿠폰은 최대 ${MAX_COUPON_COUNT}개까지 사용할 수 있습니다.`,
+          variant: "error",
+        });
+        return prev;
+      }
       return isSelected ? prev.filter((id) => id !== couponId) : [...prev, couponId];
     });
   };
@@ -58,7 +67,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
             gap: 4px;
           `}
         >
-          <InfoIcon /> 쿠폰은 최대 2개까지 사용할 수 있습니다.
+          <InfoIcon /> 쿠폰은 최대 {MAX_COUPON_COUNT}개까지 사용할 수 있습니다.
         </Text>
 
         <Spacing size={16} />
