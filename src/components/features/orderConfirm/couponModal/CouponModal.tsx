@@ -1,32 +1,17 @@
-import { useEffect, useState } from 'react';
-import fetchData from '../../cart/utils/fetchData';
-import { Coupon } from '../types';
 import * as S from './CouponModal.styles';
 import Separator from '../../../common/separator/Separator';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
-import { useBestCoupons } from '../hooks/useBestCoupons';
-import { CartItemType } from '../../cart/types';
 import { useEscapeKey } from '../hooks/useEscapeKey';
+import { useCouponContext } from '../../../../global/contexts/CouponContext';
 
 interface CouponModalProps {
-  products: CartItemType[];
   onClose: () => void;
 }
 
-function CouponModal({ products, onClose }: CouponModalProps) {
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
-
-  useEffect(() => {
-    fetchData<Coupon[]>()('/coupons').then((data) => {
-      if (data) setCoupons(data);
-    });
-  }, []);
-
-  const { selected, setSelected, couponDiscounts } = useBestCoupons({
-    coupons,
-    products,
-  });
+function CouponModal({ onClose }: CouponModalProps) {
+  const { coupons, selected, setSelected, couponDiscounts, totalDiscount } =
+    useCouponContext();
 
   const handleToggle = (id: number) => {
     setSelected((prev) =>
@@ -37,10 +22,6 @@ function CouponModal({ products, onClose }: CouponModalProps) {
         : prev
     );
   };
-
-  const totalDiscount = couponDiscounts
-    .filter((d) => selected.includes(d.coupon.id))
-    .reduce((sum, d) => sum + d.discount, 0);
 
   useEscapeKey(onClose);
 

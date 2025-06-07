@@ -7,9 +7,9 @@ import {
   ReactNode,
   useMemo,
 } from 'react';
-import { PaginationResponse } from '../../../../api/type';
-import { CartItemType } from '../types';
-import fetchData from '../utils/fetchData';
+import { PaginationResponse } from '../../api/type';
+import { CartItemType } from '../../components/features/cart/types';
+import fetchData from '../../components/features/cart/utils/fetchData';
 
 interface CartContextValue {
   cartItems: CartItemType[];

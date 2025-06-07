@@ -1,8 +1,8 @@
 import SelectBox from '../../../common/selectBox/SelectBox';
 import CartItem from '../cartItem/CartItem';
 import * as S from './CartList.styles';
-import { useCartSelectionContext } from '../contexts/CartSelectionContext';
-import { useCartContext } from '../contexts/CartContext';
+import { useCartSelectionContext } from '../../../../global/contexts/CartSelectionContext';
+import { useCartContext } from '../../../../global/contexts/CartContext';
 
 function CartList() {
   const selection = useCartSelectionContext();

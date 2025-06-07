@@ -2,8 +2,8 @@ import FooterButton from '../../../common/footerButton/FooterButton';
 import CartList from '../cartList/CartList';
 import CartPrice from '../cartPrice/CartPrice';
 import CartTitle from '../cartTitle/CartTitle';
-import { useCartContext } from '../contexts/CartContext';
-import { useCartSelectionContext } from '../contexts/CartSelectionContext';
+import { useCartContext } from '../../../../global/contexts/CartContext';
+import { useCartSelectionContext } from '../../../../global/contexts/CartSelectionContext';
 import * as S from './CartContents.styles';
 import { useNavigate } from 'react-router';
 

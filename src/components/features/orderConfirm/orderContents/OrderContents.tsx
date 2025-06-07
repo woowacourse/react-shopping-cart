@@ -5,6 +5,7 @@ import OrderList from '../orderList/OrderList';
 import OrderPrice from '../orderPrice/OrderPrice';
 import OrderTitle from '../orderTitle/OrderTitle';
 import * as S from './OrderContents.styles';
+import { CouponProvider } from '../../../../global/contexts/CouponContext';
 function OrderContents() {
   const order = useOrderSummary();
 
@@ -16,13 +17,15 @@ function OrderContents() {
 
   return (
     <S.Container>
-      <OrderTitle
-        quantity={order.quantity}
-        productQuantity={order.totalProductQuantity}
-      />
-      <OrderList products={order.products} />
-      <OrderPrice />
-      <FooterButton onClick={moveToPayment}>결제하기</FooterButton>
+      <CouponProvider products={order.products}>
+        <OrderTitle
+          quantity={order.quantity}
+          productQuantity={order.totalProductQuantity}
+        />
+        <OrderList products={order.products} />
+        <OrderPrice />
+        <FooterButton onClick={moveToPayment}>결제하기</FooterButton>
+      </CouponProvider>
     </S.Container>
   );
 }

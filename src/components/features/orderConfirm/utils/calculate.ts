@@ -1,41 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Coupon } from '../types';
 import { CartItemType } from '../../cart/types';
+import { Coupon } from '../types';
 
-interface UseBestCouponsProps {
-  coupons: Coupon[];
-  products: CartItemType[];
-}
-
-interface CouponDiscount {
-  coupon: Coupon;
-  discount: number;
-}
-
-export function useBestCoupons({ coupons, products }: UseBestCouponsProps) {
-  const couponDiscounts: CouponDiscount[] = coupons.map((coupon) => ({
-    coupon,
-    discount: calculateCouponDiscount(coupon, products),
-  }));
-
-  const bestTwoIds = couponDiscounts
-    .sort((a, b) => b.discount - a.discount)
-    .slice(0, 2)
-    .map((d) => d.coupon.id);
-
-  const [selected, setSelected] = useState<number[]>(bestTwoIds);
-
-  useEffect(() => {
-    setSelected(bestTwoIds);
-  }, [
-    JSON.stringify(coupons.map((c) => c.id)),
-    JSON.stringify(products.map((i) => [i.id, i.quantity])),
-  ]);
-
-  return { selected, setSelected, couponDiscounts };
-}
-
-function calculateCouponDiscount(
+export function calculateCouponDiscount(
   coupon: Coupon,
   products: CartItemType[]
 ): number {
