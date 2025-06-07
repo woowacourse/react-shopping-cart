@@ -1,4 +1,5 @@
 import useAllSelect from "./useAllSelect";
+import useLimitSelect from "./useLimitSelect";
 import useSelect from "./useSelect";
 
 interface CheckboxItemType {
@@ -21,18 +22,25 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
     autoSelectAll = true,
   } = options;
   const { selectedIds, toggleSelect, isSelected } = useSelect();
-  const allCheckboxHandler = useAllSelect({
+  const allSelectHandler = useAllSelect({
     items,
     toggleSelect,
     selectedIds,
     autoSelectAll,
   });
+  const { limitedToggleSelect, ...limitSelectHandler } = useLimitSelect({
+    selectedIds,
+    toggleSelect,
+    maxSelectableCount,
+  });
 
   return {
     selectedIds,
-    toggleSelect,
     isSelected,
-    ...(enableAllSelectBox ? allCheckboxHandler : {}),
+    ...(enableAllSelectBox ? allSelectHandler : {}),
+    ...(maxSelectableCount
+      ? { ...limitSelectHandler, toggleSelect: limitedToggleSelect }
+      : { toggleSelect }),
   };
 };
 
