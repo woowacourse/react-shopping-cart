@@ -18,7 +18,7 @@ export interface ResponseData<T> {
   content: T[];
 }
 
-type DiscountType = "fixed" | "buyXgetY" | "freeShipping" | "percentage";
+export type DiscountType = "fixed" | "buyXgetY" | "freeShipping" | "percentage";
 
 interface BaseCoupon {
   id: number;

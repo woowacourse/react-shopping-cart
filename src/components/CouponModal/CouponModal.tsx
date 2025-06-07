@@ -1,12 +1,19 @@
 import { useCallback, useEffect } from "react";
 import CouponList from "./CouponList";
 import * as S from "./CouponModal.styled";
+import { ResponseCartItem } from "../../types/types";
 
 interface ModalProps {
+  orderPrice: number;
+  orderProducts: ResponseCartItem[];
   onClose: () => void;
 }
 
-export default function CouponModal({ onClose }: ModalProps) {
+export default function CouponModal({
+  orderPrice,
+  orderProducts,
+  onClose,
+}: ModalProps) {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -44,7 +51,7 @@ export default function CouponModal({ onClose }: ModalProps) {
         <S.Description>
           ⚠️ 쿠폰은 최대 2개까지 사용할 수 있습니다.
         </S.Description>
-        <CouponList />
+        <CouponList orderPrice={orderPrice} orderProducts={orderProducts} />
         <S.CloseButton onClick={onClose}>
           {`총 ${6000}원 할인 쿠폰 사용하기`}
         </S.CloseButton>

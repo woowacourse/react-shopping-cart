@@ -4,6 +4,7 @@ import BackArrow from "../../components/Icon/BackArrow";
 import { useLocation, useNavigate } from "react-router-dom";
 import OrderResult from "../../components/OrderResult/OrderResult";
 import { ResponseCartItem } from "../../types/types";
+
 interface LocationState {
   selectedCartItem: ResponseCartItem[];
   totalPrice: number;

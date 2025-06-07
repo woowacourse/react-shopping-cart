@@ -1,7 +1,14 @@
 import { useCouponContext } from "../../stores/CouponContext";
+import { ResponseCartItem } from "../../types/types";
 import CouponItem from "./CouponItem";
 
-export default function CouponList() {
+export default function CouponList({
+  orderPrice,
+  orderProducts,
+}: {
+  orderPrice: number;
+  orderProducts: ResponseCartItem[];
+}) {
   const { coupons, isLoading } = useCouponContext();
 
   if (isLoading) {
@@ -11,7 +18,12 @@ export default function CouponList() {
   return (
     <div>
       {coupons.map((coupon) => (
-        <CouponItem key={coupon.id} data={coupon} />
+        <CouponItem
+          key={coupon.id}
+          data={coupon}
+          orderPrice={orderPrice}
+          orderProducts={orderProducts}
+        />
       ))}
     </div>
   );

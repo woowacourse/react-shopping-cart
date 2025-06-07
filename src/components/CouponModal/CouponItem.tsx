@@ -1,9 +1,21 @@
-import { CouponType } from "../../types/types";
+import {
+  useSelectedCouponContext,
+  useSelectedCouponDispatch,
+} from "../../stores/SelectedCouponContext";
+import { CouponType, DiscountType, ResponseCartItem } from "../../types/types";
 import formatPrice from "../../utils/formatPrice";
 import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CouponItem.styled";
 
-export default function CouponItem({ data }: { data: CouponType }) {
+export default function CouponItem({
+  data,
+  orderPrice,
+  orderProducts,
+}: {
+  data: CouponType;
+  orderPrice: number;
+  orderProducts: ResponseCartItem[];
+}) {
   const getCouponText = (): string[] => {
     const discountType = data.discountType;
     const lines: string[] = [];
@@ -41,13 +53,82 @@ export default function CouponItem({ data }: { data: CouponType }) {
     return lines;
   };
 
+  const selectedCoupons = useSelectedCouponContext();
+  const selectedCouponDispatch = useSelectedCouponDispatch();
+
+  const handleChange = (discountType: DiscountType) => {
+    if (selectedCoupons.includes(discountType)) {
+      selectedCouponDispatch({
+        type: "REMOVE_COUPON",
+        payload: { coupon: discountType },
+      });
+    } else {
+      if (selectedCoupons.length >= 2) return;
+      selectedCouponDispatch({
+        type: "ADD_COUPON",
+        payload: { coupon: discountType },
+      });
+    }
+  };
+
+  const getPossibleToUse = () => {
+    if (selectedCoupons.length === 2) {
+      return selectedCoupons.includes(data.discountType);
+    }
+
+    if (new Date(data.expirationDate) < new Date()) {
+      return false;
+    }
+
+    switch (data.discountType) {
+      case "fixed": {
+        if (orderPrice < data.minimumAmount) {
+          return false;
+        }
+        return true;
+      }
+      case "percentage": {
+        const currentHour = new Date().getHours();
+        const startHour = parseInt(data.availableTime.start.split(":")[0]);
+        const endHour = parseInt(data.availableTime.end.split(":")[0]);
+
+        if (currentHour < startHour || currentHour >= endHour) {
+          return false;
+        }
+
+        return true;
+      }
+      case "buyXgetY": {
+        const moreThanThreeProducts = orderProducts.filter(
+          (product) => product.quantity >= 3
+        );
+
+        if (moreThanThreeProducts.length === 0) {
+          return false;
+        }
+
+        return true;
+      }
+
+      case "freeShipping": {
+        if (orderPrice < data.minimumAmount) {
+          return false;
+        }
+
+        return true;
+      }
+      default:
+        return true;
+    }
+  };
+
   return (
-    <S.Container>
+    <S.Container getPossibleToUse={getPossibleToUse()}>
       <CheckBox
         text={data.description}
-        isChecked={true}
+        isChecked={selectedCoupons.includes(data.discountType)}
         size="large"
-        onChange={() => {}}
+        onChange={() => handleChange(data.discountType)}
       />
       <S.CouponText>
         <div>
