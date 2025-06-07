@@ -6,14 +6,20 @@ const STORAGE_KEY = 'cart_order_selection';
 export const useOrderSelection = (cartItems: CartItemType[] | undefined) => {
   const [orderIdList, setOrderIdList] = useState<OrderItemType>(() => {
     const savedSelection = localStorage.getItem(STORAGE_KEY);
-    return savedSelection ? JSON.parse(savedSelection) : [];
+    if (savedSelection) {
+      return JSON.parse(savedSelection);
+    }
+    return cartItems?.map((item) => item.id) || [];
   });
   const isFirstLoad = useRef(true);
 
   useEffect(() => {
-    if (cartItems && cartItems.length > 0 && !isFirstLoad.current) {
-      const orderIds = cartItems.map((item) => item.id);
-      setOrderIdList(orderIds);
+    if (cartItems && cartItems.length > 0 && isFirstLoad.current) {
+      const savedSelection = localStorage.getItem(STORAGE_KEY);
+      if (!savedSelection) {
+        const orderIds = cartItems.map((item) => item.id);
+        setOrderIdList(orderIds);
+      }
       isFirstLoad.current = false;
     }
   }, [cartItems]);
