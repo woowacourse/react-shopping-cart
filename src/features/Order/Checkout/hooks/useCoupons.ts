@@ -1,26 +1,65 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { getCoupons } from '@/api/order';
 import { CartItemList } from '@/features/Cart/types/Cart.types';
 import { useFetchData } from '@/shared/hooks/useFetchData';
 
 import { CouponResponse } from '../type/coupon.type';
+import {
+  calculateBOGODiscount,
+  getAvailableCoupons,
+  getDiscountAmount,
+  getOptimalCoupons,
+} from '../utils/calculateCoupons';
+import { getCouponDisableStatus } from '../utils/couponDisable';
 
-// TODO
-// 1. 초기 최적 함수 계산 -> 페이지 첫 진입이라는 것을 어떻게 알 것 인지? -> isInitialLoading을 통해서
-// 2. 계산 함수
-// 3. 쿠폰 적용 시 할인 금액
-// 4. 어떻게 처음에 최적의 쿠폰을 선택할 것인가?
 export const useCoupons = ({ cartItems }: CartItemList) => {
   const coupons = useFetchData<CouponResponse[]>({ autoFetch: getCoupons });
   const [checkedCoupons, setCheckedCoupons] = useState<Set<number>>(new Set());
   const [specialDeliveryZone, setSpecialDeliveryZone] = useState(false);
 
+  const isAutoMode = checkedCoupons.size === 0;
   const totalPrice = cartItems.reduce((acc, cur) => {
     return acc + cur.product.price * cur.quantity;
   }, 0);
-  const couponDiscount = 0;
-  const deliveryFee = 0;
+
+  const deliveryFee = useMemo(() => {
+    const baseFee = totalPrice >= 100000 ? 0 : 3000;
+    const extraFee = specialDeliveryZone ? 3000 : 0;
+    return baseFee + extraFee;
+  }, [totalPrice, specialDeliveryZone]);
+
+  const optimalCoupons = useMemo(() => {
+    if (!coupons.data || coupons.isInitialLoading) return [];
+
+    const available = getAvailableCoupons({
+      coupons: coupons.data,
+      totalPrice,
+      cartItems,
+    });
+
+    return getOptimalCoupons({
+      availableCoupons: available,
+      totalPrice,
+      cartItems,
+      specialDeliveryZone,
+    });
+  }, [cartItems, coupons.data, coupons.isInitialLoading, totalPrice, specialDeliveryZone]);
+
+  const activeCoupons = useMemo(() => {
+    return isAutoMode
+      ? optimalCoupons
+      : coupons.data?.filter((c) => checkedCoupons.has(c.id)) || [];
+  }, [isAutoMode, optimalCoupons, coupons.data, checkedCoupons]);
+
+  const couponDiscount = useMemo(() => {
+    return activeCoupons.reduce((total, coupon) => {
+      return (
+        total +
+        getDiscountAmount(coupon, totalPrice, calculateBOGODiscount(cartItems), specialDeliveryZone)
+      );
+    }, 0);
+  }, [activeCoupons, cartItems, totalPrice, specialDeliveryZone]);
 
   const applyCoupon = (id: number) => {
     if (!checkedCoupons.has(id) && checkedCoupons.size === 2) return;
@@ -39,9 +78,13 @@ export const useCoupons = ({ cartItems }: CartItemList) => {
   const selectedSpecialDeliveryZone = () => setSpecialDeliveryZone(!specialDeliveryZone);
 
   const couponItems = coupons.data?.map((item) => {
+    const isChecked = isAutoMode
+      ? optimalCoupons.some((optimal) => optimal.id === item.id)
+      : checkedCoupons.has(item.id);
     return {
       ...item,
-      isChecked: checkedCoupons.has(item.id),
+      isChecked: isChecked,
+      isDisabled: getCouponDisableStatus(item, totalPrice, cartItems, specialDeliveryZone) ?? false,
     };
   });
 
@@ -50,7 +93,7 @@ export const useCoupons = ({ cartItems }: CartItemList) => {
     totalPrice,
     applyCoupon,
     couponDiscount,
-    deliveryFee: totalPrice > 100000 ? 0 : specialDeliveryZone ? 6000 : 3000,
+    deliveryFee,
     specialDeliveryZone,
     selectedSpecialDeliveryZone,
   };
