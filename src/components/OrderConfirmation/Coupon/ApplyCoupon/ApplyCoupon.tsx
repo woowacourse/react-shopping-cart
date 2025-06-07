@@ -6,54 +6,28 @@ import * as Styled from "./ApplyCoupon.style";
 import CouponList from "../CouponList/CouponList";
 import CouponCard from "../CouponCard/CouponCard";
 import { Coupon } from "../../../../type/Coupons";
-
-const coupons: Coupon[] = [
-  {
-    id: 1,
-    code: "FIXED5000",
-    description: "5,000원 할인 쿠폰",
-    expirationDate: "2025-11-30",
-    discount: 5000,
-    minimumAmount: 100000,
-    discountType: "fixed",
-  },
-  {
-    id: 2,
-    code: "BOGO",
-    description: "2개 구매 시 1개 무료 쿠폰",
-    expirationDate: "2025-06-30",
-    buyQuantity: 2,
-    getQuantity: 1,
-    discountType: "buyXgetY",
-  },
-  {
-    id: 3,
-    code: "FREESHIPPING",
-    description: "5만원 이상 구매 시 무료 배송 쿠폰",
-    expirationDate: "2025-08-31",
-    minimumAmount: 50000,
-    discountType: "freeShipping",
-  },
-  {
-    id: 4,
-    code: "MIRACLESALE",
-    description: "미라클모닝 30% 할인 쿠폰",
-    expirationDate: "2025-07-31",
-    discount: 30,
-    availableTime: {
-      start: "04:00:00",
-      end: "07:00:00",
-    },
-    discountType: "percentage",
-  },
-];
+import { CartItem } from "../../../../type/CartItem";
+import { calculateTotalPrice } from "../../../../util/cart/calculateTotalPrice";
 
 const COUPON_RULE = {
   maxCoupons: 2,
 } as const;
 
-function ApplyCoupon() {
+interface ApplyCouponProps {
+  coupons: Coupon[];
+  selectedCartItems: CartItem[];
+  handleUseCoupons: () => void;
+}
+
+function ApplyCoupon({
+  coupons,
+  selectedCartItems,
+  handleUseCoupons,
+}: ApplyCouponProps) {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const totalPrice = calculateTotalPrice(selectedCartItems);
+
+  const totalPriceWithCoupons = totalPrice;
 
   return (
     <article>
@@ -82,6 +56,9 @@ function ApplyCoupon() {
               />
             ))}
           </CouponList>
+          <Styled.Button type="button" onClick={handleUseCoupons}>
+            총 {totalPriceWithCoupons.toLocaleString()}원 할인 쿠폰 사용하기
+          </Styled.Button>
         </Modal.Container>
       </Modal>
     </article>
