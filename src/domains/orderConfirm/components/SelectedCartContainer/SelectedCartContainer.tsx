@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "../../../../components/Button/Button";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { SelectedCartList } from "../SelectedCartList/SelectedCartList";
@@ -11,15 +10,13 @@ import {
 
 export function SelectedCartContainer({
   handleModalOpen,
+  isExtraDeliveryArea,
+  handleCheckBox,
 }: {
   handleModalOpen: () => void;
+  isExtraDeliveryArea: boolean;
+  handleCheckBox: () => void;
 }) {
-  const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
-
-  const handleCheckBox = () => {
-    setIsExtraDeliveryArea((prev) => !prev);
-  };
-
   return (
     <section css={selectedCartContainerLayout}>
       <SelectedCartList />

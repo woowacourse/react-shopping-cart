@@ -14,12 +14,21 @@ import Modal from "compoents-modal-test-kangoll";
 import { InfoText } from "../../../components/InfoText/InfoText";
 import { CouponList } from "../components/CouponList/CouponList";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
+import { useNavigate } from "react-router-dom";
+import { pressBackButton } from "./orderConfirm.style";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
   const { selectedCartIds } = useSelectedCartContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCoupons, setSelectedCoupons] = useState<string[]>([]);
+  const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handlePressBack = () => {
+    navigate("/");
+  };
 
   const handleModalOpen = () => {
     console.log("쿠폰 선택 모달 열기");
@@ -27,6 +36,9 @@ export default function OrderConfirm() {
   };
   const handleModalClose = () => {
     setIsModalOpen(false);
+  };
+  const handleExtraDeliveryAreaChange = () => {
+    setIsExtraDeliveryArea((prev) => !prev);
   };
 
   const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +52,8 @@ export default function OrderConfirm() {
     });
   };
 
+  const couponSale = 100;
+
   const totalPrice = getTotalPrice({
     cartItems: cartItems,
     selectedCartIds,
@@ -48,7 +62,9 @@ export default function OrderConfirm() {
   return (
     <PageLayout>
       <Header>
-        <img src="./arrowBack.png" alt="뒤로가기" />
+        <button css={pressBackButton} onClick={handlePressBack}>
+          <img src="./arrowBack.png" alt="뒤로가기" />
+        </button>
       </Header>
       <Main>
         <div css={titleBox}>
@@ -59,14 +75,23 @@ export default function OrderConfirm() {
           </p>
           {/** toto : 변수 설정 필요 */}
         </div>
-        <SelectedCartContainer handleModalOpen={handleModalOpen} />
-        <PaymentSummary price={totalPrice} />
+        <SelectedCartContainer
+          handleModalOpen={handleModalOpen}
+          isExtraDeliveryArea={isExtraDeliveryArea}
+          handleCheckBox={handleExtraDeliveryAreaChange}
+        />
+        <PaymentSummary
+          price={totalPrice}
+          couponSale={couponSale}
+          isExtraDeliveryArea={isExtraDeliveryArea}
+        />
       </Main>
       <Footer>
         <Button onClick={() => {}} type="submit" size="full" disabled={false}>
           결제하기
         </Button>
       </Footer>
+
       <Modal
         position="center"
         isOpen={isModalOpen}
