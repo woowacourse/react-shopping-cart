@@ -57,6 +57,7 @@
   - [x] useCouponApply 훅 제작
   - [x] useCouponApply 적용
     - [x] 쿠폰 로직 ui 반영
+  - [x] isRemoteArea 값에 의한 쿠폰 로직 적용
 - [x] msw 쿠폰 조회 로직 작성
 - [ ] 테스트 코드 작성
 

@@ -1,12 +1,14 @@
 import { CartItem } from "../../types/cartItem";
 import { CouponResponse } from "../../types/coupon";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import createTodayTime from "../../utils/\bcoupon/createTodayTime";
 
 interface useCouponApplyParams {
   cartItems: CartItem[];
   orderPrice: number;
   coupons: CouponResponse[];
+  deliveryPrice: number;
+  isRemoteArea: boolean;
 }
 
 interface AvailableCouponType {
@@ -15,7 +17,7 @@ interface AvailableCouponType {
   selected: boolean;
 }
 
-const useCouponApply = ({ cartItems, orderPrice, coupons }: useCouponApplyParams) => {
+const useCouponApply = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemoteArea }: useCouponApplyParams) => {
   const [availableCoupons, setAvailableCoupons] = useState<AvailableCouponType[]>([]);
 
   const validateCouponDate = (coupon: CouponResponse): boolean => {
@@ -54,7 +56,7 @@ const useCouponApply = ({ cartItems, orderPrice, coupons }: useCouponApplyParams
         return coupon.discount || 0;
       }
       case "freeShipping": {
-        return 0; // 배송비 우선 제외
+        return isRemoteArea ? deliveryPrice + 3000 : deliveryPrice;
       }
       case "buyXgetY": {
         if (!coupon.buyQuantity || !coupon.getQuantity) return 0;
@@ -71,20 +73,24 @@ const useCouponApply = ({ cartItems, orderPrice, coupons }: useCouponApplyParams
     }
   };
 
-  const availableCouponsWithDiscount = coupons
-    .filter(
-      (coupon) =>
-        validateCouponDate(coupon) &&
-        validateMinimumAmount(coupon) &&
-        validateBuyQuantity(coupon) &&
-        validateAvailableTime(coupon),
-    )
-    .map((coupon) => ({
-      code: coupon.code,
-      discountAmount: calculateDiscount(coupon),
-      selected: false,
-    }))
-    .sort((a, b) => b.discountAmount - a.discountAmount);
+  const availableCouponsWithDiscount = useMemo(
+    () =>
+      coupons
+        .filter(
+          (coupon) =>
+            validateCouponDate(coupon) &&
+            validateMinimumAmount(coupon) &&
+            validateBuyQuantity(coupon) &&
+            validateAvailableTime(coupon),
+        )
+        .map((coupon) => ({
+          code: coupon.code,
+          discountAmount: calculateDiscount(coupon),
+          selected: false,
+        }))
+        .sort((a, b) => b.discountAmount - a.discountAmount),
+    [coupons, isRemoteArea],
+  );
 
   const discountPrice = availableCoupons
     .filter((coupon) => coupon.selected)
@@ -102,6 +108,18 @@ const useCouponApply = ({ cartItems, orderPrice, coupons }: useCouponApplyParams
     }));
     setAvailableCoupons(initialCoupons);
   }, [coupons]);
+
+  useEffect(() => {
+    setAvailableCoupons((prevCoupons) =>
+      prevCoupons.map((coupon) => {
+        const newDiscountInfo = availableCouponsWithDiscount.find((newCoupon) => newCoupon.code === coupon.code);
+        return {
+          ...coupon,
+          discountAmount: newDiscountInfo?.discountAmount || 0,
+        };
+      }),
+    );
+  }, [availableCouponsWithDiscount]);
 
   return {
     availableCoupons,

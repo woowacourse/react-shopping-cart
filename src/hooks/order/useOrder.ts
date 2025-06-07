@@ -12,12 +12,15 @@ interface useOrderParams {
 const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
   const { coupons } = useCouponResource();
 
+  const { isRemoteArea, toggleRemoteArea } = useDeliveryInformation();
+
   const { availableCoupons, discountPrice, updateApplyCoupon } = useCouponApply({
     cartItems,
     orderPrice,
     coupons,
+    deliveryPrice,
+    isRemoteArea,
   });
-  const { isRemoteArea, toggleRemoteArea } = useDeliveryInformation();
 
   const finalDeliveryPrice = isRemoteArea ? deliveryPrice + 3000 : deliveryPrice;
   const finalTotalPrice = orderPrice - discountPrice + finalDeliveryPrice;
