@@ -3,14 +3,14 @@ import { useNavigate } from "react-router";
 import Receipt from "../../shoppingCart/receipt/Receipt";
 import Footer from "../../layout/Footer/Footer";
 import CartItemCheck from "../../../types/CartItemCheck";
-import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
 import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
-import OrderCheckList from "../OrderCheckList/OrderCheckList";
+import OrderList from "../OrderList/OrderList";
 import CartItem from "../../../types/CartItem";
 import CouponButton from "../Coupon/Button/CouponButton";
 import Shipping from "../Shipping/Shipping";
 import Modal from "../Modal/Modal";
-
+import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 interface OrderCheckContentProps {
   cartItemList: CartItem[];
 }
@@ -18,25 +18,22 @@ interface OrderCheckContentProps {
 export default function OrderCheckContent({
   cartItemList,
 }: OrderCheckContentProps) {
-  const [cartItemCheckList] = useState<CartItemCheck[]>(
-    cartItemList.map((item) => ({
-      ...item,
-      isClicked: true,
-    }))
+  const [selectedItems] = useLocalStorage<CartItemCheck[]>(
+    "selectedCartItems",
+    []
   );
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isRemote, setIsRemote] = useState(false);
+  const [isRemote, setIsRemote] = useLocalStorage<boolean>("isRemote", false);
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const cartItemCheckListTotalQuantity = cartItemCheckList
+  const cartItemCheckListTotalQuantity = selectedItems
     .filter((item) => item.isClicked)
     .reduce((acc, item) => acc + item.quantity, 0);
 
   const cartItemListLength = cartItemList.length;
 
-  const selectedCartItemList = cartItemCheckList.filter(
+  const selectedCartItemList = selectedItems.filter(
     ({ isClicked }) => isClicked
   );
 
@@ -46,11 +43,11 @@ export default function OrderCheckContent({
   );
 
   const baseShippingFee = allProductPrice >= 100000 ? 0 : 3000;
-  const remoteExtraFee = isRemote ? 3000 : 0;
-  const shippingFee = baseShippingFee + remoteExtraFee;
+  const shippingFee = baseShippingFee + (isRemote ? 3_000 : 0);
 
-  const totalPrice = allProductPrice + shippingFee;
-  const [couponDiscount] = useState(6000);
+  const [couponDiscount] = useState(6_000);
+
+  const totalPrice = allProductPrice + shippingFee - couponDiscount;
 
   const navigate = useNavigate();
   const handlePaymentButtonClick = () => {
@@ -73,15 +70,12 @@ export default function OrderCheckContent({
         title="주문 확인"
         description={`총 ${selectedCartItemList.length}종류의 상품 ${cartItemCheckListTotalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
       />
-      <OrderCheckList
-        cartItemList={cartItemList}
-        cartItemCheckList={cartItemCheckList}
-      />
+      <OrderList items={selectedItems} />
       <CouponButton onClick={handleOpenModal} />
       <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
       <Shipping
         isRemote={isRemote}
-        onRemoteChange={(checked: boolean) => setIsRemote(checked)}
+        onRemoteChange={(checked) => setIsRemote(checked)}
       />
       <Receipt
         allProductPrice={allProductPrice}

@@ -1,7 +1,7 @@
 import Header from "../../components/layout/Header/Header";
 import BackButton from "../../components/layout/Header/BackButton";
 import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
-import OrderCheckContent from "../../components/OrderCheck/OrderCheckContent/OrderCheckContent";
+import OrderCheckContent from "../../components/OrderList/OrderListContent/OrderListContent";
 
 import useCartItemList from "../../hooks/useCartItemList";
 import { useErrorContext } from "../../contexts/ErrorContext";
