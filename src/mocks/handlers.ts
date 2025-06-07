@@ -3,6 +3,7 @@ import { API_PATH, CONFIG } from "@/constants";
 import { http, HttpResponse } from "msw";
 import { CART_ITEMS_DATA } from "./datas/cartItems";
 import { PRODUCTS_DATA } from "./datas/products";
+import { COUPON_DATA } from "./datas/coupons";
 
 export let cartItems = [...CART_ITEMS_DATA.content];
 
@@ -130,5 +131,15 @@ export const handlers = [
 
     item.quantity = quantity;
     return HttpResponse.json(item);
+  }),
+
+  /** Mocking coupons API */
+  http.get(`${CONFIG.baseUrl}${API_PATH.coupons}`, async () => {
+    if (maybeError()) {
+      await delay(MOCK_DELAY);
+      return HttpResponse.json({ message: "랜덤 에러 발생!" }, { status: 500 });
+    }
+    await delay(MOCK_DELAY);
+    return HttpResponse.json(COUPON_DATA);
   }),
 ];
