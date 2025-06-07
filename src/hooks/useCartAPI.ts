@@ -48,11 +48,10 @@ const useCartAPI = ({
             name: product.name,
             imageUrl: product.imageUrl,
             price: product.price,
-            checked: parsedCheckedIds.includes(id),
+            checked: parsedCheckedIds ? parsedCheckedIds.includes(id) : true,
           }))
         );
         isCheckDataInitialized.current = true;
-        setLocalStorageCheckedItems(parsedCheckedIds);
       } else {
         setCartItemsCheckData((prev) =>
           prev.map((item) => {
