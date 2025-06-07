@@ -1,3 +1,5 @@
+import { Coupon } from '../src/types';
+
 export const mockCartItems = [
   {
     id: 1,
@@ -47,11 +49,11 @@ export const mockCartItems = [
   },
   {
     id: 5,
-    quantity: 2,
+    quantity: 3,
     product: {
       id: 28,
       name: '아트 포스터',
-      price: 350,
+      price: 1000,
       imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/art-poster.jpg',
       category: '인테리어소품',
     },
@@ -68,7 +70,7 @@ export const initFetchedData = () => {
   };
 };
 
-export const coupons = [
+export const coupons: Coupon[] = [
   {
     id: 1,
     code: 'FIXED5000',
