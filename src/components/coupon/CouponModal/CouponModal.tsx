@@ -1,6 +1,5 @@
 import { MAX_COUPON_SELECTION } from "../../../domains/coupon/constants";
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
-import { useCouponSelection } from "../../../domains/coupon/hooks/useCouponSelection";
 import useCouponValidation from "../../../domains/coupon/hooks/useCouponValidation";
 import useModal from "../../../features/modal/useModal";
 import { formatCurrency } from "../../../utils/formatters";
@@ -15,10 +14,13 @@ const price = 6000;
 
 const CouponModal = () => {
   const { closeModal } = useModal();
-  const { coupons } = useCoupon();
   const { validateCoupon } = useCouponValidation();
-  const { toggleCouponSelection, isCouponSelected, hasNoSelectedCoupons } =
-    useCouponSelection();
+  const {
+    coupons,
+    toggleCouponSelection,
+    isCouponSelected,
+    hasNoSelectedCoupons,
+  } = useCoupon();
 
   return (
     <S.CouponModal>
