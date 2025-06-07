@@ -8,6 +8,7 @@ function App() {
     <BrowserRouter basename="/react-shopping-cart">
       <Routes>
         <Route path="/" element={<CartPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/order-check" element={<OrderCheckPage />} />
         <Route path="/payment-check" element={<PaymentCheckPage />} />
       </Routes>

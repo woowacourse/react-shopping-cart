@@ -9,7 +9,7 @@ function PaymentCheckPage() {
 
   return (
     <>
-      <Header showBackButton={true} />
+      <Header />
       <PaymentCheckContents
         orderItemsQuantity={orderItemQuantity}
         totalProductQuantity={totalProductQuantity}

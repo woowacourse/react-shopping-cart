@@ -1,5 +1,6 @@
 import { FooterButton } from '@/components/common';
 import * as S from './PaymentCheckContents.styles';
+import { useNavigate } from 'react-router';
 
 interface PaymentCheckContentsProps {
   orderItemsQuantity: number;
@@ -12,6 +13,12 @@ function PaymentCheckContents({
   totalProductQuantity,
   paymentPrice,
 }: PaymentCheckContentsProps) {
+  const navigate = useNavigate();
+
+  const moveToCart = () => {
+    navigate('/cart');
+  };
+
   return (
     <S.Container>
       <S.InfoBox>
@@ -27,7 +34,7 @@ function PaymentCheckContents({
           <S.Price>{paymentPrice.toLocaleString()}원</S.Price>
         </S.PriceBox>
       </S.InfoBox>
-      <FooterButton onClick={() => {}}>장바구니로 돌아가기</FooterButton>
+      <FooterButton onClick={moveToCart}>장바구니로 돌아가기</FooterButton>
     </S.Container>
   );
 }

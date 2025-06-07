@@ -5,12 +5,12 @@ import Header from '../../components/common/header/Header';
 import LoadingContents from './components/loadingContents/LoadingContents';
 
 function CartPage() {
-  const { data: cartItems, isLoading } = useJaeO({
+  const { data: cartItems } = useJaeO({
     fetchKey: 'cartItems',
     fetchFn: getCartItems,
   });
 
-  if (isLoading) {
+  if (!cartItems) {
     return <LoadingContents />;
   }
 
