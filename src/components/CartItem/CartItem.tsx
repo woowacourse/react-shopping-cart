@@ -6,9 +6,10 @@ import useCartItemManager from "../../hooks/useCartItemManager";
 
 interface CartItemProps {
   cart: ResponseCartItem;
+  type: "cart" | "check";
 }
 
-const CartItem = ({ cart }: CartItemProps) => {
+const CartItem = ({ cart, type }: CartItemProps) => {
   const { price, name, imageUrl } = cart.product;
 
   const {
@@ -23,20 +24,26 @@ const CartItem = ({ cart }: CartItemProps) => {
     <>
       <S.Line />
       <S.ItemContainer>
-        <S.CartItemHeader>
-          <CheckBox isChecked={isSelected} onChange={handleSelect} />
-          <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
-        </S.CartItemHeader>
+        {type === "cart" && (
+          <S.CartItemHeader>
+            <CheckBox isChecked={isSelected} onChange={handleSelect} />
+            <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
+          </S.CartItemHeader>
+        )}
         <S.ItemInfo>
           <S.ProductImage src={imageUrl} alt={name} />
           <S.ItemContent>
             <S.ItemTitle>{name}</S.ItemTitle>
             <S.ItemPrice>{price}원</S.ItemPrice>
-            <QuantityButton
-              quantity={cart.quantity}
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
-            />
+            {type === "cart" ? (
+              <QuantityButton
+                quantity={cart.quantity}
+                onIncrease={handleIncrease}
+                onDecrease={handleDecrease}
+              />
+            ) : (
+              <S.ItemQuantity>{cart.quantity}개</S.ItemQuantity>
+            )}
           </S.ItemContent>
         </S.ItemInfo>
       </S.ItemContainer>

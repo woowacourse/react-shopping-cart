@@ -32,7 +32,7 @@ function CartList() {
       />
       <S.CartItemList>
         {cartData.map((cart) => (
-          <CartItem key={cart.product.id} cart={cart} />
+          <CartItem key={cart.product.id} cart={cart} type="cart" />
         ))}
       </S.CartItemList>
     </>

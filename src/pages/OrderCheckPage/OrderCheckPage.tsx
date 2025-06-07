@@ -1,0 +1,60 @@
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import * as S from "./OrderCheckPage.styled";
+import BackArrow from "../../components/Icon/BackArrow";
+import { useCouponContext } from "../../stores/CouponContext";
+import CartItem from "../../components/CartItem/CartItem";
+import CheckBox from "../../components/CheckBox/CheckBox";
+import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
+import useCartManager from "../../hooks/useCartManager";
+
+function OrderCheckPage() {
+  const navigate = useNavigate();
+
+  const { coupons } = useCouponContext();
+
+  console.log(coupons);
+
+  const { cartData } = useCartManager();
+
+  return (
+    <S.Root>
+      <S.CartPageWrapper>
+        <Header>
+          <S.HeaderTitle>
+            <S.HeaderIcon onClick={() => navigate("/")}>
+              <BackArrow />
+            </S.HeaderIcon>
+          </S.HeaderTitle>
+        </Header>
+        <S.CartContentWrapper>
+          <S.HeaderTitle>주문 확인</S.HeaderTitle>
+          <S.Content>
+            총 1종류의 상품 2개를 주문합니다.
+            <br />
+            최종 결제 금액을 확인해 주세요.
+          </S.Content>
+          <S.CartListContainer>
+            {cartData.map((cart) => (
+              <CartItem key={cart.id} cart={cart} type="check" />
+            ))}
+          </S.CartListContainer>
+          <S.CouponButton>쿠폰 적용</S.CouponButton>
+          <S.OrderText>배송 정보</S.OrderText>
+          <CheckBox text="제주도 및 도서 산간 지역" isChecked={false} />
+          <br />
+          <OrderPriceSection
+            orderPrice={3000}
+            deliveryPrice={3000}
+            couponPrice={3000}
+          />
+        </S.CartContentWrapper>
+        <S.OrderButton onClick={() => {}} disabled={true}>
+          결제하기
+        </S.OrderButton>
+      </S.CartPageWrapper>
+    </S.Root>
+  );
+}
+
+export default OrderCheckPage;

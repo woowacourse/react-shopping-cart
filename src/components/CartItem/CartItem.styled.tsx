@@ -36,8 +36,7 @@ export const ProductImage = styled.img`
 `;
 
 export const ItemTitle = styled.div`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -45,8 +44,8 @@ export const ItemTitle = styled.div`
 `;
 
 export const ItemPrice = styled.div`
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 700;
 `;
 
 export const CountControlButton = styled.button`
@@ -76,4 +75,9 @@ export const Line = styled.hr`
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0;
+`;
+
+export const ItemQuantity = styled.p`
+  font-size: 12px;
+  padding: 10px 0px;
 `;

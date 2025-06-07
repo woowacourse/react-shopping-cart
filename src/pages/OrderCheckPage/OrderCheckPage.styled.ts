@@ -14,7 +14,10 @@ export const CartPageWrapper = styled.div`
 `;
 
 export const Content = styled.div`
+  font-size: 12px;
   height: 100%;
+  line-height: 1.5;
+  padding: 10px 0px;
 `;
 
 export const Line = styled.hr`
@@ -65,4 +68,33 @@ export const HeaderIcon = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
+`;
+
+export const CouponButton = styled.button`
+  width: 100%;
+  height: 48px;
+  border: 1px solid rgb(51, 51, 51, 0.25);
+  background-color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  color: rgb(51, 51, 51, 0.75);
+`;
+
+export const OrderText = styled.h3`
+  font-weight: 700;
+  padding: 30px 0 0;
+`;
+
+export const Description = styled.p`
+  font-size: 12px;
+  color: #666666;
+  margin: 13px 0px;
+`;
+
+export const CartListContainer = styled.ul`
+  list-style: none;
+  overflow-y: auto;
+  height: calc(100vh - 687px);
+  padding: 10px 0;
 `;
