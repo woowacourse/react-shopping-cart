@@ -1,6 +1,7 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const CouponCard = styled.div`
+export const CouponCard = styled.div<{ $disabled: boolean }>`
   width: 100%;
   height: 83px;
   padding-top: 12px;
@@ -8,6 +9,12 @@ export const CouponCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
+
+  ${({ $disabled }) =>
+    $disabled &&
+    css`
+      opacity: 0.3;
+    `}
 `;
 
 export const CouponCardHeader = styled.div`

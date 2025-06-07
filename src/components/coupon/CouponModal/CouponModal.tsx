@@ -7,6 +7,7 @@ import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
 
+// TODO: 실제로 쿠폰 적용에 따른 계산된 값 불러오기
 const price = 6000;
 
 const CouponModal = () => {
@@ -25,7 +26,13 @@ const CouponModal = () => {
       </S.InfoContainer>
       <S.CouponItemsContainer>
         {coupons.map((coupon) => (
-          <CouponCard key={coupon.id} coupon={coupon} />
+          <CouponCard
+            key={coupon.id}
+            coupon={coupon}
+            enable={true}
+            selected={false}
+            onToggle={() => {}}
+          />
         ))}
       </S.CouponItemsContainer>
       <S.ApplyCouponButton onClick={() => closeModal()}>

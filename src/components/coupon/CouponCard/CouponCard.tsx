@@ -9,13 +9,20 @@ import * as S from "./CouponCard.styles";
 
 interface Props {
   coupon: Coupon;
+  enable: boolean;
+  selected: boolean;
+  onToggle: (id: number) => void;
 }
 
-const CouponCard = ({ coupon }: Props) => {
+const CouponCard = ({ coupon, enable, selected, onToggle }: Props) => {
   return (
-    <S.CouponCard>
+    <S.CouponCard $disabled={!enable}>
       <S.CouponCardHeader>
-        <Checkbox selected={false} onClick={() => {}} />
+        <Checkbox
+          selected={selected}
+          onClick={() => enable && onToggle(coupon.id)}
+          disabled={!enable}
+        />
         <S.Title>{coupon.description}</S.Title>
       </S.CouponCardHeader>
       <S.CouponInfo>
