@@ -3,10 +3,10 @@ import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './
 
 interface SelectBoxProps {
   isAllChecked: boolean;
-  handleAllCheck: (checked: boolean) => void;
+  checkAll: (checked: boolean) => void;
 }
 
-function SelectAllBox({ isAllChecked, handleAllCheck }: SelectBoxProps) {
+function SelectAllBox({ isAllChecked, checkAll }: SelectBoxProps) {
   return (
     <Container>
       <ModifyRow>
@@ -14,7 +14,7 @@ function SelectAllBox({ isAllChecked, handleAllCheck }: SelectBoxProps) {
           <HiddenCheckbox
             type="checkbox"
             checked={isAllChecked}
-            onChange={() => handleAllCheck(isAllChecked)}
+            onChange={() => checkAll(isAllChecked)}
           />
           <StyledCheckbox checked={isAllChecked} />
         </CheckboxContainer>

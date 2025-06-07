@@ -16,8 +16,7 @@ function CartPage() {
     name: 'cartItems',
   });
   const navigate = useNavigate();
-  const { checkedItems, setCheckedItems, isAllChecked, handleAllCheck } =
-    useCartSelection(cartItems);
+  const { checkedItems, setCheckedItems, isAllChecked, checkAll } = useCartSelection(cartItems);
 
   const price = cartItems?.content
     ? cartItems.content
@@ -64,7 +63,7 @@ function CartPage() {
               price={price}
               shippingFee={shippingFee}
               totalPrice={totalPrice}
-              handleAllCheck={handleAllCheck}
+              handleAllCheck={checkAll}
             />
           </>
         ) : (

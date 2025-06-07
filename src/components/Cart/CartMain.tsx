@@ -11,7 +11,7 @@ interface CartMainProps {
   price: number;
   shippingFee: number;
   totalPrice: number;
-  handleAllCheck: (checked: boolean) => void;
+  checkAll: (checked: boolean) => void;
 }
 
 function CartMain({
@@ -21,11 +21,11 @@ function CartMain({
   price,
   shippingFee,
   totalPrice,
-  handleAllCheck,
+  checkAll,
 }: CartMainProps) {
   return (
     <>
-      <SelectAllBox isAllChecked={isAllChecked} handleAllCheck={handleAllCheck} />
+      <SelectAllBox isAllChecked={isAllChecked} checkAll={checkAll} />
       <CartList checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
 
       <CartInfo>

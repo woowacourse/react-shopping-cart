@@ -23,7 +23,7 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
       checkedItems.length === cartItems.content.length,
   );
 
-  const handleAllCheck = (checked: boolean) => {
+  const checkAll = (checked: boolean) => {
     if (!cartItems?.content) return;
 
     if (checked) {
@@ -44,7 +44,7 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
     checkedItems,
     setCheckedItems,
     isAllChecked,
-    handleAllCheck,
+    checkAll,
     toggleItem,
   };
 };
