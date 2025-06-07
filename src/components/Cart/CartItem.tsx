@@ -1,12 +1,6 @@
 import { CartProduct } from '../../types/cart';
-import { woowaLogo } from '../../assets/index';
-import {
-  getCartItems,
-  patchDecreaseQuantity,
-  patchIncreaseQuantity,
-  removeCartItem,
-} from '../../apis/cart';
-import { useData } from '../../context/DataContext';
+import { woowaLogo } from '../../assets';
+import { useCartItem } from '../../hooks/useCartItem';
 import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
 
@@ -17,30 +11,7 @@ interface CartItemProps {
 }
 
 function CartItem({ cartItem, checkedItems, setCheckedItems }: CartItemProps) {
-  const { refetch } = useData({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
-
-  const removeItem = async () => {
-    await removeCartItem(cartItem);
-    refetch();
-  };
-
-  const increaseQuantity = async () => {
-    await patchIncreaseQuantity(cartItem);
-    refetch();
-  };
-
-  const decreaseQuantity = async () => {
-    if (cartItem.quantity === 1) {
-      await removeItem();
-      return;
-    }
-
-    await patchDecreaseQuantity(cartItem);
-    refetch();
-  };
+  const { removeItem, increaseQuantity, decreaseQuantity } = useCartItem(cartItem);
 
   return (
     <CartItemContainer>
