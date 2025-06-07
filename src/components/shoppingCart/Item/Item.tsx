@@ -14,9 +14,9 @@ interface ItemProps {
   price: number;
   quantity: number;
   isChecked: boolean;
-  handleSelectedCartItem: (id: number) => void;
-  handleSelectedCartItemQuantityUpdate: (id: number, quantity: number) => void;
-  handleSelectedCartItemRemove: (id: number) => void;
+  handleSelectedCartItem?: (id: number) => void;
+  handleSelectedCartItemQuantityUpdate?: (id: number, quantity: number) => void;
+  handleSelectedCartItemRemove?: (id: number) => void;
 }
 
 export default function Item({
@@ -39,7 +39,7 @@ export default function Item({
     try {
       setIsUpdating(true);
       const updatedQuantity = quantity + 1;
-      handleSelectedCartItemQuantityUpdate(id, updatedQuantity);
+      handleSelectedCartItemQuantityUpdate?.(id, updatedQuantity);
     } catch (error) {
       console.log("수량 증가 실패:", error);
     } finally {
@@ -54,10 +54,10 @@ export default function Item({
       setIsUpdating(true);
       const updatedQuantity = quantity - 1;
       if (!updatedQuantity) {
-        handleSelectedCartItemRemove(id);
+        handleSelectedCartItemRemove?.(id);
         return;
       }
-      handleSelectedCartItemQuantityUpdate(id, updatedQuantity);
+      handleSelectedCartItemQuantityUpdate?.(id, updatedQuantity);
     } catch (error) {
       console.log("수량 감소 실패:", error);
     } finally {
@@ -70,7 +70,7 @@ export default function Item({
 
     try {
       setIsRemoving(true);
-      handleSelectedCartItemRemove(id);
+      handleSelectedCartItemRemove?.(id);
     } catch (error) {
       console.error("삭제 실패:", error);
     } finally {
@@ -83,14 +83,18 @@ export default function Item({
       <Hr />
 
       <S.Content>
-        <CheckBox
-          type="checkbox"
-          checked={isChecked}
-          onChange={() => handleSelectedCartItem(id)}
-        />
-        <S.Button width="40" height="24" onClick={onRemove}>
-          삭제
-        </S.Button>
+        {handleSelectedCartItem && (
+          <CheckBox
+            type="checkbox"
+            checked={isChecked}
+            onChange={() => handleSelectedCartItem(id)}
+          />
+        )}
+        {handleSelectedCartItemRemove && (
+          <S.Button width="40" height="24" onClick={onRemove}>
+            삭제
+          </S.Button>
+        )}
       </S.Content>
 
       <S.Content>
@@ -105,15 +109,20 @@ export default function Item({
               <S.ItemName>{name}</S.ItemName>
               <S.ItemPrice>{price.toLocaleString()}원</S.ItemPrice>
             </S.Flex>
-
             <S.Flex direction="row">
-              <S.Button width="24" height="24" onClick={onDecrease}>
-                -
-              </S.Button>
-              <S.Quantity>{quantity}</S.Quantity>
-              <S.Button width="24" height="24" onClick={onIncrease}>
-                +
-              </S.Button>
+              {handleSelectedCartItemQuantityUpdate ? (
+                <>
+                  <S.Button width="24" height="24" onClick={onDecrease}>
+                    –
+                  </S.Button>
+                  <S.Quantity>{quantity}</S.Quantity>
+                  <S.Button width="24" height="24" onClick={onIncrease}>
+                    +
+                  </S.Button>
+                </>
+              ) : (
+                <S.Quantity>{quantity}개</S.Quantity>
+              )}
             </S.Flex>
           </S.A>
         </S.ButtonContainer>

@@ -9,11 +9,13 @@ import * as S from "./Receipt.styles";
 interface ReceiptProps {
   allProductPrice: number;
   shippingFee: number;
+  couponDiscount?: number;
 }
 
 export default function Receipt({
   allProductPrice,
   shippingFee,
+  couponDiscount = 0,
 }: ReceiptProps) {
   return (
     <section>
@@ -26,10 +28,14 @@ export default function Receipt({
       <Hr />
       <DetailPrice
         allProductPrice={allProductPrice}
+        couponDiscount={couponDiscount}
         shippingFee={shippingFee}
       />
       <Hr />
-      <Price name="총 결제 금액" price={allProductPrice + shippingFee} />
+      <Price
+        name="총 결제 금액"
+        price={allProductPrice + shippingFee - couponDiscount}
+      />
     </section>
   );
 }

@@ -1,28 +1,24 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import Receipt from "../../../shoppingCart/receipt/Receipt";
-import Footer from "../../../layout/Footer/Footer";
-import CartItemCheck from "../../../../types/CartItemCheck";
-import * as S from "../../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
-import ShoppingCartHeader from "../../../shoppingCart/ShoppingCartHeader/ShoppingCartHeader";
-import ShoppingCartList from "../../../shoppingCart/ShoppingCartList/ShoppingCartList";
-import CartItem from "../../../../types/CartItem";
-import Coupon from "../Coupon";
-import Shipping from "../../../shoppingCart/Shipping/Shipping";
+import Receipt from "../../shoppingCart/receipt/Receipt";
+import Footer from "../../layout/Footer/Footer";
+import CartItemCheck from "../../../types/CartItemCheck";
+import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
+import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
+import OrderCheckList from "../OrderCheckList/OrderCheckList";
+import CartItem from "../../../types/CartItem";
+import Coupon from "../Coupon/Coupon";
+import Shipping from "../../shoppingCart/Shipping/Shipping";
 import Modal from "../Modal/Modal";
 
 interface OrderCheckContentProps {
   cartItemList: CartItem[];
-  patchCartItem: (id: number, quantity: number) => Promise<void>;
-  removeCartItem: (id: number) => Promise<void>;
 }
 
 export default function OrderCheckContent({
   cartItemList,
-  patchCartItem,
-  removeCartItem,
 }: OrderCheckContentProps) {
-  const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
+  const [cartItemCheckList] = useState<CartItemCheck[]>(
     cartItemList.map((item) => ({
       ...item,
       isClicked: true,
@@ -32,36 +28,6 @@ export default function OrderCheckContent({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-
-  const handleSelectedCartItem = (id: number) => {
-    setCartItemCheckList((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, isClicked: !item.isClicked } : item
-      )
-    );
-  };
-
-  const handleSelectedCartItemRemove = async (id: number) => {
-    await removeCartItem(id);
-    setCartItemCheckList((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const handleSelectedCartItemQuantityUpdate = async (
-    id: number,
-    quantity: number
-  ) => {
-    await patchCartItem(id, quantity);
-    setCartItemCheckList((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
-  };
-
-  const allChecked = cartItemCheckList.every((item) => item.isClicked);
-  const toggleAll = () => {
-    setCartItemCheckList((prev) =>
-      prev.map((item) => ({ ...item, isClicked: !allChecked }))
-    );
-  };
 
   const cartItemCheckListTotalQuantity = cartItemCheckList
     .filter((item) => item.isClicked)
@@ -98,20 +64,13 @@ export default function OrderCheckContent({
 
   return (
     <>
-      <ShoppingCartHeader
+      <ContentHeader
         title="주문 확인"
         description={`현재 ${selectedCartItemList.length}종류의 상품이 담겨있습니다.\n최종 결제 금액을 확인해 주세요.`}
       />
-      <ShoppingCartList
+      <OrderCheckList
         cartItemList={cartItemList}
         cartItemCheckList={cartItemCheckList}
-        allChecked={allChecked}
-        toggleAll={toggleAll}
-        handleSelectedCartItem={handleSelectedCartItem}
-        handleSelectedCartItemQuantityUpdate={
-          handleSelectedCartItemQuantityUpdate
-        }
-        handleSelectedCartItemRemove={handleSelectedCartItemRemove}
       />
       <Coupon onClick={handleOpenModal} />
       <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
