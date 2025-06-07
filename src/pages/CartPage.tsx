@@ -4,49 +4,27 @@ import CartHeader from '../components/Cart/CartHeader';
 import CartMain from '../components/Cart/CartMain';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
-import { getCartItems } from '../apis/cart';
-import { useData } from '../context/DataContext';
-import { CartProduct, CartItemsResponse } from '../types/cart';
-import { useCartSelection } from '../hooks/useCartSelection';
-import { SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
+import { useCart } from '../hooks/useCart';
 
 function CartPage() {
-  const { data: cartItems } = useData<CartItemsResponse>({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
   const navigate = useNavigate();
-  const { checkedItems, setCheckedItems, isAllChecked, checkAll } = useCartSelection(cartItems);
-
-  const price = cartItems?.content
-    ? cartItems.content
-        .filter((item: CartProduct) => checkedItems.includes(item.id))
-        .reduce((sum: number, item: CartProduct) => sum + item.product.price * item.quantity, 0)
-    : 0;
-
-  const totalCount = cartItems?.content
-    ? cartItems.content
-        .filter((item: CartProduct) => checkedItems.includes(item.id))
-        .reduce((sum: number, item: CartProduct) => sum + item.quantity, 0)
-    : 0;
-
-  const hasItems = checkedItems.length > 0;
-  const needsShippingFee = price < SHIPPING_FEE_THRESHOLD;
-  const shippingFee = hasItems && needsShippingFee ? SHIPPING_FEE : 0;
-
-  const totalPrice = price + shippingFee;
+  const {
+    cartItems,
+    checkedItems,
+    setCheckedItems,
+    isAllChecked,
+    checkAll,
+    price,
+    totalCount,
+    shippingFee,
+    totalPrice,
+    descriptionMessage,
+    isDisabled,
+  } = useCart();
 
   if (!cartItems) {
     return null;
   }
-
-  const descriptionMessage = () => {
-    if (cartItems.content.length > 0) {
-      return `현재 ${cartItems.content.length}종류의 상품이 담겨있습니다.`;
-    }
-  };
-
-  const isDisabled = checkedItems.length === 0;
 
   return (
     <>
