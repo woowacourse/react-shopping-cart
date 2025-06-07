@@ -115,12 +115,48 @@ describe("CouponService", () => {
   });
 
   describe("calculateMostDiscountCombination", () => {
-    it("가장 할인 금액이 높은 쿠폰 2개를 반환한다.", () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+    it("모든 쿠폰을 적용할 수 있다면, 그 중에서 가장 할인 금액이 높은 쿠폰 2개를 반환한다.", () => {
+      jest.setSystemTime(new Date("2024-01-01T05:00:00"));
       expect(
-        CouponService.calculateMostDiscountCombination(CART_ITEMS_DATA.content, COUPON_DATA, false).map(
-          (coupon) => coupon.id,
-        ),
-      ).toEqual([2, 4]);
+        CouponService.calculateMostDiscountCombination(
+          [
+            {
+              id: 1,
+              quantity: 3,
+              product: {
+                id: 24,
+                name: "스파이더맨",
+                price: 30000,
+                imageUrl: "/images/spiderman.png",
+                category: "굿즈",
+                stock: 10,
+              },
+            },
+            {
+              id: 2,
+              quantity: 3,
+              product: {
+                id: 25,
+                name: "캐릭터 키링",
+                price: 5000,
+                imageUrl: "/images/keyring.png",
+                category: "굿즈",
+                stock: 10,
+              },
+            },
+          ],
+          COUPON_DATA,
+          true,
+        ).map((coupon) => coupon.id),
+        // 5,000 / 30,000 / 0 / 31,500
+      ).toEqual([4, 2]);
     });
   });
 });
