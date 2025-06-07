@@ -5,11 +5,16 @@ import LabelPrice from '../../../components/common/LabelPrice';
 import InfoNotice from '@/components/common/InfoNotice';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 
-const LabelCouponPrice = () => {
-  const { orderPrice, shippingFee, totalPrice } = useOrderListContext();
+interface LabelCouponPriceProps {
+  totalDiscount: number;
+  actualShippingFee: number;
+}
 
-  // TODO: 쿠폰 할인 금액은 실제 할인 금액으로 교체 필요
-  const couponDiscount = 0;
+const LabelCouponPrice = ({
+  totalDiscount,
+  actualShippingFee,
+}: LabelCouponPriceProps) => {
+  const { orderPrice } = useOrderListContext();
 
   return (
     <Container>
@@ -18,11 +23,14 @@ const LabelCouponPrice = () => {
       </InfoNotice>
       <PriceWrapper>
         <LabelPrice label='주문 금액' price={orderPrice} />
-        <LabelPrice label='쿠폰 할인 금액' price={couponDiscount} />
-        <LabelPrice label='배송비' price={shippingFee} />
+        <LabelPrice label='쿠폰 할인 금액' price={-totalDiscount} />
+        <LabelPrice label='배송비' price={actualShippingFee} />
       </PriceWrapper>
 
-      <LabelPrice label='총 결제 금액' price={totalPrice} />
+      <LabelPrice
+        label='총 결제 금액'
+        price={orderPrice + actualShippingFee - totalDiscount}
+      />
     </Container>
   );
 };
