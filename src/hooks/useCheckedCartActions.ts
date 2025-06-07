@@ -7,8 +7,9 @@ import { useCartItemsContext } from '../contexts/CartItemsContext';
 
 const useCheckedCartActions = () => {
   const { cartItems } = useCartItemsContext();
+  const { checkedCartIds, setCheckedCartIds, isAllChecked } =
+    useCheckedCartItemsContext();
   const { deleteCartItem } = useCartActions();
-  const { checkedCartIds, setCheckedCartIds } = useCheckedCartItemsContext();
 
   const addCheckedCartItem = useCallback(
     (id: number) => {
@@ -32,9 +33,6 @@ const useCheckedCartActions = () => {
     },
     [setCheckedCartIds]
   );
-
-  const isAllChecked =
-    cartItems.length > 0 && checkedCartIds.length === cartItems.length;
 
   const toggleAllChecked = useCallback(() => {
     if (isAllChecked) init([]);
