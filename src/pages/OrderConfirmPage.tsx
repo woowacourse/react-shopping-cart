@@ -3,11 +3,11 @@ import BottomButton from '../components/BottomButton';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import getOrderPrice from '../utils/getOrderPrice';
 import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
-import { useCheckedCartItemsContext } from '../contexts/CheckedCartItemContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
 
 const OrderConfirmPage = () => {
   const { cartItems } = useCartItemsContext();
-  const { checkedCartIds } = useCheckedCartItemsContext();
+  const { checkedCartIds } = useCheckCartIdsContext();
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
   const deliveryPrice =
     orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;

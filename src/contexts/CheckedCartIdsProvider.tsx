@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useCartItemsContext } from './CartItemsContext';
-import { CheckedCartItemsContext } from './CheckedCartItemContext';
+import { CheckCartIdsContext } from './CheckedCartIdsContext';
 import getIdsFromCartItems from '../utils/getIdsFromCartItems';
 
-const CheckedCartItemsProvider = ({ children }: { children: ReactNode }) => {
+const CheckCartIdsProvider = ({ children }: { children: ReactNode }) => {
   const isFirstLoad = useRef(true);
   const { cartItems } = useCartItemsContext();
 
@@ -21,12 +21,12 @@ const CheckedCartItemsProvider = ({ children }: { children: ReactNode }) => {
     cartItems.length > 0 && checkedCartIds.length === cartItems.length;
 
   return (
-    <CheckedCartItemsContext.Provider
+    <CheckCartIdsContext.Provider
       value={{ checkedCartIds, setCheckedCartIds, isAllChecked }}
     >
       {children}
-    </CheckedCartItemsContext.Provider>
+    </CheckCartIdsContext.Provider>
   );
 };
 
-export default CheckedCartItemsProvider;
+export default CheckCartIdsProvider;

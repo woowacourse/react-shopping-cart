@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import CartItemsProvider from './contexts/CartItemsProvider';
 import PageProvider from './contexts/PageProvider';
 import PageController from './pages/PageController';
-import CheckedCartItemsProvider from './contexts/CheckedCartItemsProvider';
 import { ErrorToastProvider } from './contexts/ErrorToastProvider';
+import CheckCartIdsProvider from './contexts/CheckedCartIdsProvider';
 
 function App() {
   return (
@@ -11,9 +11,9 @@ function App() {
       <ErrorToastProvider>
         <PageProvider>
           <CartItemsProvider>
-            <CheckedCartItemsProvider>
+            <CheckCartIdsProvider>
               <PageController />
-            </CheckedCartItemsProvider>
+            </CheckCartIdsProvider>
           </CartItemsProvider>
         </PageProvider>
       </ErrorToastProvider>

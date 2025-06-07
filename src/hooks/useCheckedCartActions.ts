@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { CartItem } from '../types';
 import getIdsFromCartItems from '../utils/getIdsFromCartItems';
-import { useCheckedCartItemsContext } from '../contexts/CheckedCartItemContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
 import useCartActions from './useCartItemsActions';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 
 const useCheckedCartActions = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds, setCheckedCartIds, isAllChecked } =
-    useCheckedCartItemsContext();
+    useCheckCartIdsContext();
   const { deleteCartItem } = useCartActions();
 
   const addCheckedCartItem = useCallback(

@@ -6,11 +6,11 @@ import {
   DELIVERY_PRICE,
   DELIVERY_PRICE_THRESHOLD,
 } from '../../constants/config';
-import { useCheckedCartItemsContext } from '../../contexts/CheckedCartItemContext';
+import { useCheckCartIdsContext } from '../../contexts/CheckedCartIdsContext';
 
 const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
-  const { checkedCartIds } = useCheckedCartItemsContext();
+  const { checkedCartIds } = useCheckCartIdsContext();
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 

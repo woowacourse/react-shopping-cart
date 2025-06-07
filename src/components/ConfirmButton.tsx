@@ -1,13 +1,13 @@
 import { ButtonHTMLAttributes } from 'react';
 import BottomButton from './BottomButton';
-import { useCheckedCartItemsContext } from '../contexts/CheckedCartItemContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
 
 interface ConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
 }
 
 const ConfirmButton = ({ title, ...rest }: ConfirmButtonProps) => {
-  const { checkedCartIds } = useCheckedCartItemsContext();
+  const { checkedCartIds } = useCheckCartIdsContext();
   const isDisabled = checkedCartIds.length === 0;
 
   return <BottomButton disabled={isDisabled} title={title} {...rest} />;
