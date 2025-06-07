@@ -3,6 +3,7 @@ import * as Styled from "./CouponCard.style";
 import CommonCoupon from "./SubCouponCards/CommonCoupon/CommonCoupon";
 import FixedDiscountCoupon from "./SubCouponCards/FixedDiscountCoupon/FixedDiscountCoupon";
 import FreeShippingCoupon from "./SubCouponCards/FreeShippingCoupon/FreeShippingCoupon";
+import PercentageDiscountCoupon from "./SubCouponCards/PercentageDiscountCoupon/PercentageDiscountCoupon";
 
 interface CouponCardProps {
   coupon: Coupon;
@@ -21,7 +22,8 @@ function CouponCard({
         return <FixedDiscountCoupon coupon={coupon} />;
       case CouponType.FREE_SHIPPING:
         return <FreeShippingCoupon coupon={coupon} />;
-
+      case CouponType.PERCENTAGE:
+        return <PercentageDiscountCoupon coupon={coupon} />;
       case CouponType.BUY_X_GET_Y:
       default:
         return null;
