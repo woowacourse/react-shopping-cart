@@ -74,7 +74,11 @@ export default function ShoppingCartContent({
   const totalPrice = allProductPrice + shippingFee;
 
   const navigate = useNavigate();
-  const handleOrderCheckButtonClick = () => {
+  const handleOrderListButtonClick = () => {
+    localStorage.setItem(
+      "selectedCartItems",
+      JSON.stringify(selectedCartItemList)
+    );
     navigate("/order-check", {
       state: {
         checkedProductsLength: selectedCartItemList.length,
@@ -109,7 +113,7 @@ export default function ShoppingCartContent({
       <Footer
         text="주문 확인"
         active={cartItemListLength ? "true" : "false"}
-        handleClick={handleOrderCheckButtonClick}
+        handleClick={handleOrderListButtonClick}
       />
     </>
   );
