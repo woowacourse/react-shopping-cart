@@ -14,3 +14,7 @@ export interface Coupon {
     end: string;
   };
 }
+
+export interface AvailableCoupon extends Coupon {
+  isExpired: boolean;
+}
