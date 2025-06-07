@@ -12,7 +12,7 @@ function ApplyCoupon() {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   return (
-    <div>
+    <article>
       <ApplyCouponButton onClick={handleOpenModal} />
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <Modal.Container position="center" size="small">
@@ -27,7 +27,7 @@ function ApplyCoupon() {
           </Styled.Notice>
         </Modal.Container>
       </Modal>
-    </div>
+    </article>
   );
 }
 
