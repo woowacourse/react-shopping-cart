@@ -1,11 +1,15 @@
-import CouponItem from "./CouponItem";
+import { useCouponContext } from "../../contexts/CouponProvider";
+import { DiscountType } from "../../types/coupon";
+import CouponItem from "./CouponItem/CouponItem";
 
 export default function CouponList() {
+  const { coupons } = useCouponContext();
+
   return (
     <div>
-      <CouponItem />
-      <CouponItem />
-      <CouponItem />
+      {Object.entries(coupons).map(([type, couponList]) => (
+        <CouponItem type={type as DiscountType} couponList={couponList} />
+      ))}
     </div>
   );
 }

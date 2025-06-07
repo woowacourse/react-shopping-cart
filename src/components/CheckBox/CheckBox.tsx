@@ -2,6 +2,7 @@ import { DisabledCheck, EnabledCheck } from "../../constants/images";
 import { BigText, Button, Container, SmallText } from "./\bCheckBox.styles";
 
 interface CheckBoxProps {
+  disabled?: boolean;
   label?: string;
   id: string;
   isSelected: boolean;
@@ -10,6 +11,7 @@ interface CheckBoxProps {
 }
 
 function CheckBox({
+  disabled = false,
   label,
   id,
   isSelected,
@@ -20,7 +22,13 @@ function CheckBox({
 
   return (
     <div css={Container}>
-      <button css={Button} id={id} type="button" onClick={onClick}>
+      <button
+        css={Button}
+        id={id}
+        type="button"
+        onClick={onClick}
+        disabled={disabled}
+      >
         <img src={imageSource} alt="체크 박스" />
       </button>
       {label && (
