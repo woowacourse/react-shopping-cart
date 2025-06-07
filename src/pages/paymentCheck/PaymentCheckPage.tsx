@@ -4,7 +4,7 @@ import PaymentCheckContents from './components/paymentCheckContents';
 
 function PaymentCheckPage() {
   const location = useLocation();
-  const { orderItemQuantity, totalProductQuantity, orderPrice } =
+  const { orderItemQuantity, totalProductQuantity, paymentPrice } =
     location.state;
 
   return (
@@ -13,7 +13,7 @@ function PaymentCheckPage() {
       <PaymentCheckContents
         orderItemsQuantity={orderItemQuantity}
         totalProductQuantity={totalProductQuantity}
-        orderPrice={orderPrice}
+        paymentPrice={paymentPrice}
       />
     </>
   );

@@ -4,13 +4,13 @@ import * as S from './PaymentCheckContents.styles';
 interface PaymentCheckContentsProps {
   orderItemsQuantity: number;
   totalProductQuantity: number;
-  orderPrice: number;
+  paymentPrice: number;
 }
 
 function PaymentCheckContents({
   orderItemsQuantity,
   totalProductQuantity,
-  orderPrice,
+  paymentPrice,
 }: PaymentCheckContentsProps) {
   return (
     <S.Container>
@@ -24,7 +24,7 @@ function PaymentCheckContents({
         </S.Description>
         <S.PriceBox>
           <S.PriceText>총 결제 금액</S.PriceText>
-          <S.Price>{orderPrice.toLocaleString()}원</S.Price>
+          <S.Price>{paymentPrice.toLocaleString()}원</S.Price>
         </S.PriceBox>
       </S.InfoBox>
       <FooterButton onClick={() => {}}>장바구니로 돌아가기</FooterButton>

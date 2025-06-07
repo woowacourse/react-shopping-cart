@@ -13,6 +13,7 @@ import { Modal } from '@jae-o/modal-component-module';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
+import { calculateDeliveryFee } from '@/components/features/cart/utils/calculateDeliveryFee';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -38,6 +39,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const discountAmount = couponModels
     .filter((item) => couponSelectedIds.includes(item.data.id))
     .reduce((acc, item) => acc + item.discountAmount, 0);
+  const deliveryFee = calculateDeliveryFee(orderPrice, isRemoteArea);
+  const paymentPrice = orderPrice - discountAmount + deliveryFee;
 
   const toggleRemoteArea = () => {
     setIsRemoteArea((prev) => !prev);
@@ -55,7 +58,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
           (acc, item) => acc + item.quantity,
           0
         ),
-        orderPrice,
+        paymentPrice,
       },
     });
   };
@@ -102,7 +105,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         <OrderPriceSummary
           orderPrice={orderPrice}
           discountAmount={discountAmount}
-          isRemoteArea={isRemoteArea}
+          deliveryFee={deliveryFee}
+          paymentPrice={paymentPrice}
         />
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
