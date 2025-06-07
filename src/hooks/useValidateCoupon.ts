@@ -18,7 +18,10 @@ function useValidateCoupon(
     let expiredFlag = !isExpired(coupon.expirationDate);
 
     if (coupon.description.includes('미라클모닝')) {
-      expiredFlag = !isMiracleMorning();
+      expiredFlag = !isMiracleMorning(
+        coupon.availableTime?.start || '',
+        coupon.availableTime?.end || ''
+      );
     }
 
     if (

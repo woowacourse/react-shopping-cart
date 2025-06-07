@@ -7,15 +7,20 @@ export function isExpired(expirationDate: string): boolean {
   return today <= new Date(y, m - 1, d);
 }
 
-export function isMiracleMorning(): boolean {
+export function isMiracleMorning(start: string, end: string): boolean {
   const now = new Date();
 
-  const start = new Date(now);
-  start.setHours(4, 0, 0, 0);
-  const end = new Date(now);
-  end.setHours(7, 0, 0, 0);
+  const startDate = new Date(now);
+  startDate.setHours(
+    Number(start.split(':')[0]),
+    Number(start.split(':')[1]),
+    0,
+    0
+  );
+  const endDate = new Date(now);
+  endDate.setHours(Number(end.split(':')[0]), Number(end.split(':')[1]), 0, 0);
 
-  return now >= start && now <= end;
+  return now >= startDate && now <= endDate;
 }
 
 export function isMinimumAmount(
