@@ -12,25 +12,25 @@ interface UseTempCouponProps {
 }
 
 interface UseTempCouponReturn {
-  tempSelectedCoupons: AvailableCouponType[];
+  tempAvailableCoupons: AvailableCouponType[];
   discountPrice: number;
   handleTempToggleCoupon: (code: string) => void;
   applySelectedCoupons: () => void;
 }
 
 export const useTempCoupon = ({ availableCoupons, updateApplyCoupon }: UseTempCouponProps): UseTempCouponReturn => {
-  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<AvailableCouponType[]>([]);
+  const [tempAvailableCoupons, setTempAvailableCoupons] = useState<AvailableCouponType[]>([]);
 
   const discountPrice = useMemo(
     () =>
-      tempSelectedCoupons
+      tempAvailableCoupons
         .filter((coupon) => coupon.selected)
         .reduce((sum: number, coupon) => sum + coupon.discountAmount, 0),
-    [tempSelectedCoupons],
+    [tempAvailableCoupons],
   );
 
   const handleTempToggleCoupon = (code: string) => {
-    setTempSelectedCoupons((prev) => {
+    setTempAvailableCoupons((prev) => {
       const selectedCount = prev.filter((coupon) => coupon.selected).length;
       return prev.map((coupon) => {
         if (coupon.code === code) {
@@ -45,14 +45,14 @@ export const useTempCoupon = ({ availableCoupons, updateApplyCoupon }: UseTempCo
     });
   };
 
-  const applySelectedCoupons = () => updateApplyCoupon(tempSelectedCoupons);
+  const applySelectedCoupons = () => updateApplyCoupon(tempAvailableCoupons);
 
   useEffect(() => {
-    setTempSelectedCoupons(availableCoupons);
+    setTempAvailableCoupons(availableCoupons);
   }, [availableCoupons]);
 
   return {
-    tempSelectedCoupons,
+    tempAvailableCoupons,
     discountPrice,
     handleTempToggleCoupon,
     applySelectedCoupons,

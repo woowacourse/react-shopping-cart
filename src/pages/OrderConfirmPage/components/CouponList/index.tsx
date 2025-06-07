@@ -3,7 +3,7 @@ import Coupon from "../../../../components/Coupon";
 import { CouponResponse } from "../../../../types/coupon";
 import * as S from "./CouponList.styled";
 
-interface CouponWithSelection {
+interface AvailableCouponType {
   code: string;
   discountAmount: number;
   selected: boolean;
@@ -11,15 +11,15 @@ interface CouponWithSelection {
 
 interface CouponListProps {
   couponData: CouponResponse[];
-  selectedCoupons: CouponWithSelection[];
+  availableCoupons: AvailableCouponType[];
   toggleCoupon: (code: string) => void;
 }
 
-const CouponList = ({ couponData, selectedCoupons, toggleCoupon }: CouponListProps) => {
+const CouponList = ({ couponData, availableCoupons, toggleCoupon }: CouponListProps) => {
   const getCouponStatus = (code: string) => {
-    const selectedCount = selectedCoupons.filter((coupon) => coupon.selected).length;
-    const isSelected = selectedCoupons.some((coupon) => coupon.code === code && coupon.selected);
-    const isAvailable = selectedCoupons.some((coupon) => coupon.code === code);
+    const selectedCount = availableCoupons.filter((coupon) => coupon.selected).length;
+    const isSelected = availableCoupons.some((coupon) => coupon.code === code && coupon.selected);
+    const isAvailable = availableCoupons.some((coupon) => coupon.code === code);
     const isDisabled = !isAvailable || (!isSelected && selectedCount >= 2);
 
     return { isSelected, isDisabled };

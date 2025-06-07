@@ -22,7 +22,7 @@ const CouponModal = ({
   isCartModalOpen,
   handleCartModalClose,
 }: CouponModalProps) => {
-  const { tempSelectedCoupons, discountPrice, handleTempToggleCoupon, applySelectedCoupons } = useTempCoupon({
+  const { tempAvailableCoupons, discountPrice, handleTempToggleCoupon, applySelectedCoupons } = useTempCoupon({
     availableCoupons,
     updateApplyCoupon,
   });
@@ -43,7 +43,7 @@ const CouponModal = ({
           </S.Wrap>
           <CouponList
             couponData={coupons}
-            selectedCoupons={tempSelectedCoupons}
+            availableCoupons={tempAvailableCoupons}
             toggleCoupon={handleTempToggleCoupon}
           />
         </Modal.Body>
