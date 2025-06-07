@@ -12,6 +12,7 @@ import { SelectedCartContainer } from "../components/SelectedCartContainer/Selec
 
 import Modal from "compoents-modal-test-kangoll";
 import { InfoText } from "../../../components/InfoText/InfoText";
+import { CouponList } from "../components/CouponList/CouponList";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
@@ -61,6 +62,8 @@ export default function OrderConfirm() {
         <Modal.Header hasCloseButton>쿠폰을 선택해주세요</Modal.Header>
         <Modal.Content>
           <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
+
+          <CouponList />
         </Modal.Content>
 
         <Modal.Footer>
