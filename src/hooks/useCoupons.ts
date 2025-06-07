@@ -1,90 +1,106 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getCoupons } from "../apis/coupons/getCoupons";
 import { Coupon } from "../types/response";
-import getCurrentTime, { CurrentTime } from "../utils/getCurrentTIme";
 import useCartCalculations from "./useCartCaculations";
+import useCart from "./useCart";
+import { CartItemCheckType } from "./useCartAPI";
+import {
+  isCouponAvailable,
+  isFreeShippingAvailable,
+} from "../utils/coupons/isCouponAvailable";
+
+type CouponWithAvailability = Coupon & {
+  isAvailable: boolean;
+};
+
+const SHIPPING_FEE = 3000;
 
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [couponsWithAvailability, setCouponsWithAvailability] = useState<
+    CouponWithAvailability[]
+  >([]);
   const { orderPrice } = useCartCalculations();
+  const { cartItemsCheckData } = useCart();
 
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
         const couponsData = await getCoupons();
-        const couponsWithAvailability = couponsData.map((coupon) => ({
-          ...coupon,
-          isAvailable: isCouponAvailable(coupon),
-        }));
-        setCoupons(couponsWithAvailability);
+        setCoupons(couponsData);
       } catch (error) {
         console.error("Failed to fetch coupons:", error);
       }
     };
-
     fetchCoupons();
-  }, [orderPrice]);
+  }, []);
 
-  const isExpired = (
-    expirationDate: string,
-    currentTime: Omit<CurrentTime, "currentHour">
-  ): boolean => {
-    const { currentYear, currentMonth, currentDate } = currentTime;
+  useEffect(() => {
+    const updatedCoupons = coupons.map((coupon) => ({
+      ...coupon,
+      isAvailable: isCouponAvailable(cartItemsCheckData, coupon, orderPrice),
+    }));
+    setCouponsWithAvailability(updatedCoupons);
+  }, [coupons, orderPrice]);
 
-    const [yearStr, monthStr, dayStr] = expirationDate.split("-");
-    const year = Number(yearStr);
-    const month = Number(monthStr);
-    const day = Number(dayStr);
+  const getTotalCombinedDiscount = (
+    coupon1: Coupon,
+    coupon2: Coupon,
+    orderPrice: number,
+    cartItems: CartItemCheckType[]
+  ): number => {
+    const getDiscountAmount = (
+      coupon: Coupon,
+      currentPrice: number
+    ): number => {
+      switch (coupon.discountType) {
+        case "fixed":
+          return coupon.discount || 0;
+        case "percentage":
+          return (currentPrice * (coupon.discount || 0)) / 100;
+        case "buyXgetY":
+          return getBuyXGetYDiscount(coupon, cartItems);
+        case "freeShipping":
+          return isFreeShippingAvailable(coupon, orderPrice) ? SHIPPING_FEE : 0;
+        default:
+          return 0;
+      }
+    };
 
-    if (year < currentYear) return true;
-    if (year === currentYear && month < currentMonth) return true;
-    if (year === currentYear && month === currentMonth && day < currentDate)
-      return true;
+    const firstDiscount = getDiscountAmount(coupon1, orderPrice);
+    const afterFirst =
+      coupon1.discountType === "buyXgetY"
+        ? orderPrice
+        : orderPrice - firstDiscount;
 
-    return false;
+    const secondDiscount = getDiscountAmount(coupon2, afterFirst);
+
+    return firstDiscount + secondDiscount;
   };
 
-  const isMorningTime = (
-    availableTime: { start: string; end: string },
-    currentHour: number
+  const getBuyXGetYDiscount = (
+    coupon: Coupon,
+    cartItems: CartItemCheckType[]
   ) => {
-    const [startHour] = availableTime.start.split(":").map(Number);
-    const [endHour] = availableTime.end.split(":").map(Number);
+    const { buyQuantity, getQuantity } = coupon;
 
-    return currentHour >= startHour && currentHour < endHour;
-  };
+    if (typeof buyQuantity !== "number" || typeof getQuantity !== "number") {
+      return 0;
+    }
 
-  const isMoreThanMinimumAmount = (
-    minimumAmount: number,
-    orderPrice: number
-  ) => {
-    if (!minimumAmount) return true;
-
-    return minimumAmount <= orderPrice;
-  };
-
-  const isCouponAvailable = (coupon: Coupon) => {
-    const { expirationDate, availableTime } = coupon;
-
-    const { currentYear, currentMonth, currentDate, currentHour } =
-      getCurrentTime();
-
-    const notExpired = !isExpired(expirationDate, {
-      currentYear,
-      currentMonth,
-      currentDate,
-    });
-
-    const withinAvailableTime = availableTime
-      ? isMorningTime(availableTime, currentHour)
-      : true;
-
-    const moreThanMinimumAmount = isMoreThanMinimumAmount(
-      Number(coupon.minimumAmount),
-      orderPrice
+    const eligibleItems = cartItems.filter(
+      (item) => item.quantity === buyQuantity + getQuantity
     );
 
-    return notExpired && withinAvailableTime && moreThanMinimumAmount;
+    if (eligibleItems.length === 0) return 0;
+
+    const mostExpensiveItem = eligibleItems.reduce((prev, curr) =>
+      curr.price > prev.price ? curr : prev
+    );
+
+    const discount = getQuantity * mostExpensiveItem.price;
+
+    return discount;
   };
 
   const getBestCouponCombination = (coupons: Coupon[], orderPrice: number) => {
@@ -92,73 +108,96 @@ const useCoupons = () => {
     let bestCombination: Coupon[] = [];
 
     for (let i = 0; i < coupons.length; i++) {
-      const coupon = coupons[i];
-      const discount =
-        coupon.discountType === "amount"
-          ? coupon.discount || 0
-          : (orderPrice * (coupon.discount || 0)) / 100;
-      if (discount > maxDiscount) {
-        maxDiscount = discount;
-        bestCombination = [coupon];
-      }
-    }
+      const coupon1 = coupons[i];
+      const discount1 =
+        coupon1.discountType === "fixed"
+          ? coupon1.discount || 0
+          : coupon1.discountType === "percentage"
+          ? (orderPrice * (coupon1.discount || 0)) / 100
+          : coupon1.discountType === "buyXgetY"
+          ? getBuyXGetYDiscount(coupon1, cartItemsCheckData)
+          : 0;
 
-    for (let i = 0; i < coupons.length; i++) {
-      for (let j = i + 1; j < coupons.length; j++) {
-        const coupon1 = coupons[i];
+      if (discount1 > maxDiscount) {
+        maxDiscount = discount1;
+        bestCombination = [coupon1];
+      }
+
+      for (let j = 0; j < coupons.length; j++) {
+        if (i === j) continue;
         const coupon2 = coupons[j];
 
-        const discount1 =
-          coupon1.discountType === "amount"
-            ? coupon1.discount || 0
-            : (orderPrice * (coupon1.discount || 0)) / 100;
+        const discountA = getTotalCombinedDiscount(
+          coupon1,
+          coupon2,
+          orderPrice,
+          cartItemsCheckData
+        );
 
-        const discount2 =
-          coupon2.discountType === "amount"
-            ? coupon2.discount || 0
-            : (orderPrice * (coupon2.discount || 0)) / 100;
+        const discountB = getTotalCombinedDiscount(
+          coupon2,
+          coupon1,
+          orderPrice,
+          cartItemsCheckData
+        );
 
-        const totalDiscount = discount1 + discount2;
-
-        if (totalDiscount > maxDiscount) {
-          maxDiscount = totalDiscount;
+        if (discountA > maxDiscount) {
+          maxDiscount = discountA;
           bestCombination = [coupon1, coupon2];
+        }
+        if (discountB > maxDiscount) {
+          maxDiscount = discountB;
+          bestCombination = [coupon2, coupon1];
         }
       }
     }
+
     return {
       bestCombination,
       maxDiscount,
     };
   };
 
-  const applyCoupons = (selectedCoupons: Coupon[]) => {
-    if (selectedCoupons.length === 0) {
-      const { bestCombination, maxDiscount } = getBestCouponCombination(
-        coupons,
-        orderPrice
-      );
-      return {
-        appliedCoupons: bestCombination,
-        totalDiscount: maxDiscount,
-      };
-    } else {
-      const totalDiscount = selectedCoupons.reduce((acc, coupon) => {
-        if (coupon.discountType === "amount") {
-          return acc + (coupon.discount || 0);
-        } else if (coupon.discountType === "percentage") {
-          return acc + (orderPrice * (coupon.discount || 0)) / 100;
-        }
-        return acc;
-      }, 0);
+  const applyCoupons = useCallback(
+    (selectedCoupons: Coupon[]) => {
+      if (selectedCoupons.length === 0) {
+        const { bestCombination, maxDiscount } = getBestCouponCombination(
+          coupons,
+          orderPrice
+        );
+        return {
+          appliedCoupons: bestCombination,
+          totalDiscount: maxDiscount,
+        };
+      } else {
+        const totalDiscount = selectedCoupons.reduce((acc, coupon) => {
+          if (coupon.discountType === "fixed") {
+            return acc + (coupon.discount || 0);
+          } else if (coupon.discountType === "percentage") {
+            const discountPercent = Math.min(coupon.discount || 0, 100);
+            return acc + (orderPrice * discountPercent) / 100;
+          } else if (coupon.discountType === "buyXgetY") {
+            return acc + getBuyXGetYDiscount(coupon, cartItemsCheckData);
+          } else if (coupon.discountType === "freeShipping") {
+            return acc + SHIPPING_FEE;
+          } else {
+            return acc;
+          }
+        }, 0);
+        return {
+          appliedCoupons: selectedCoupons,
+          totalDiscount,
+        };
+      }
+    },
+    [orderPrice, cartItemsCheckData, getBestCouponCombination]
+  );
 
-      return {
-        appliedCoupons: selectedCoupons,
-        totalDiscount,
-      };
-    }
+  return {
+    coupons: couponsWithAvailability,
+    applyCoupons,
+    getBestCouponCombination,
   };
-  return { coupons, applyCoupons };
 };
 
 export default useCoupons;
