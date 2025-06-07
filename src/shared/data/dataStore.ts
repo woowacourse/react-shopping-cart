@@ -17,7 +17,6 @@ export function subscribe(key: string, callback: Listener) {
     listeners[key].add(callback);
   }
 
-  // cleanup export function 반환
   return () => {
     listeners[key]?.delete(callback);
   };
@@ -30,7 +29,6 @@ export function getSnapshot<T>(key: string) {
 export function updateData<T>(key: string, newValue: Data<T>) {
   store[key] = newValue;
 
-  // 해당 key에 연결된 listener만 실행
   listeners[key]?.forEach((cb) => cb());
 }
 

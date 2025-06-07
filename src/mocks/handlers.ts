@@ -4,7 +4,6 @@ import cartItemsMockData from './data/mock-cart-items.json';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-// 메모리 내에서 변경 가능한 배열로 복사
 let inMemoryCartItems: CartItemType[] = [...cartItemsMockData];
 
 export function resetCartItems() {

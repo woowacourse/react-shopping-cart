@@ -64,6 +64,5 @@ export const createCoupon = (config: CouponType): CouponType => {
     };
   }
 
-  // If the coupon type does not match any known types, throw an error
   throw new Error('쿠폰 code가 존재하지 않습니다.');
 };
