@@ -9,13 +9,16 @@ import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
 import "./styles/reset.css";
 import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
+import { CouponProvider } from "./contexts/CouponContext.tsx";
 
 const Layout = () => {
   return (
     <MobileLayout>
       <ToastProvider>
         <CartProvider>
-          <Outlet />
+          <CouponProvider>
+            <Outlet />
+          </CouponProvider>
         </CartProvider>
       </ToastProvider>
     </MobileLayout>
