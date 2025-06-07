@@ -10,7 +10,7 @@ import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/useFetch";
 import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
-import useCheckboxHandler from "../../hooks/useCheckboxHandler";
+import useCheckboxHandler from "../../hooks/checkbox/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import useQuantityControl from "../../hooks/useQuantityControl";
 import CartItem from "../../components/CartItem/CartItem";
