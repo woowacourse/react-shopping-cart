@@ -55,7 +55,6 @@ const GlobalStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    scroll-behavior: smooth;
   }
   a {
     text-decoration: none;
