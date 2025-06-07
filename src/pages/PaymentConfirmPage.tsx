@@ -1,42 +1,21 @@
 import { css } from "@emotion/css";
 import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import { useCartSummary } from "../hooks/useCartSummary";
 import { useSelectedItems } from "../hooks/useSelectedItems";
+import InvalidAccessPage from "./InvalidAccesspage";
 
 const PaymentConfirmPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const { totalQuantity, selectedItemCount } = useSelectedItems();
   const { totalPrice } = useCartSummary();
 
-  const isInvalidAccess =
-    !location.state ||
-    !location.state.selectedItemCount ||
-    !location.state.totalPrice ||
-    !location.state.selectedItemIds;
+  const isInvalidAccess = selectedItemCount === 0;
 
   if (isInvalidAccess) {
-    return (
-      <div className={OrderConfirmPageStyles}>
-        <Header
-          leading="./back-icon.svg"
-          onLeadingClick={() => {
-            navigate("/");
-          }}
-        />
-        <section className={ContentStyle}>
-          <Text text="잘못된 접근입니다" type="large" />
-          <Text text="장바구니에서 다시 주문해 주세요." />
-        </section>
-        <ConfirmButton
-          text="장바구니로 돌아가기"
-          onClick={() => navigate("/")}
-        />
-      </div>
-    );
+    return <InvalidAccessPage />;
   }
 
   return (

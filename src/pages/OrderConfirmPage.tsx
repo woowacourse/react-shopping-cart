@@ -11,12 +11,19 @@ import LabeledCheckbox from "../components/@common/LabeledCheckbox/LabeledCheckb
 import SelectedItemCard from "../components/SelectedItemCard/SelectedItemCard";
 import { useSelectedItems } from "../hooks/useSelectedItems";
 import { useCartSummary } from "../hooks/useCartSummary";
+import InvalidAccessPage from "./InvalidAccesspage";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const { selectedItems, totalQuantity, selectedItemCount } =
     useSelectedItems();
   const { orderPrice, shippingFee, totalPrice } = useCartSummary();
+
+  const isInvalidAccess = selectedItemCount === 0;
+
+  if (isInvalidAccess) {
+    return <InvalidAccessPage />;
+  }
 
   return (
     <>
