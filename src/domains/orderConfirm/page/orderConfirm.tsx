@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "../../../components/Button/Button";
 import { Footer } from "../../../layout/Footer/Footer";
 import Header from "../../../layout/Header/Header";
@@ -8,10 +9,18 @@ import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
 import { SelectedCartContainer } from "../component/SelectedCartContainer/SelectedCartContainer";
-import { SelectedCartList } from "../component/SelectedCartList/SelectedCartList";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    console.log("쿠폰 선택 모달 열기");
+    setIsModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   const totalPrice = getTotalPrice({
     cartItems: cartItems,
@@ -30,8 +39,9 @@ export default function OrderConfirm() {
             총 1종류의 상품 2개를 주문합니다. <br />
             최종 결제 금액을 확인해 주세요..
           </p>
+          {/** toto : 변수 설정 필요 */}
         </div>
-        <SelectedCartContainer />
+        <SelectedCartContainer handleModalOpen={handleModalOpen} />
         <PaymentSummary price={totalPrice} />
       </Main>
       <Footer>
