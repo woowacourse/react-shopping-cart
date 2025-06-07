@@ -1,54 +1,59 @@
 import { useCallback, useState } from "react";
 
-const useSelectedItemIds = (initialSelectedIds: Set<number>) => {
-  const [selectedItemIds, setSelectedItemIds] =
+const useSelectedIds = (initialSelectedIds: Set<number>) => {
+  const [selectedIds, setSelectedIds] =
     useState<Set<number>>(initialSelectedIds);
 
-  const addSelectedItem = useCallback((id: number) => {
-    setSelectedItemIds((prev) => new Set([...prev, id]));
+  const addSelectedId = useCallback((id: number) => {
+    setSelectedIds((prev) => new Set([...prev, id]));
   }, []);
 
-  const removeSelectedItem = useCallback((id: number) => {
-    setSelectedItemIds((prev) => {
+  const removeSelectedId = useCallback((id: number) => {
+    setSelectedIds((prev) => {
       const newSet = new Set(prev);
       newSet.delete(id);
       return newSet;
     });
   }, []);
 
-  const clearSelectedItems = useCallback(() => {
-    setSelectedItemIds(new Set());
+  const clearSelectedIds = useCallback(() => {
+    setSelectedIds(new Set());
   }, []);
 
-  const getIsSelected = useCallback(
-    (id: number) => selectedItemIds.has(id),
-    [selectedItemIds]
+  const getIsSelectedId = useCallback(
+    (id: number) => selectedIds.has(id),
+    [selectedIds]
   );
 
-  const toggleSelectedItem = useCallback(
+  const toggleSelectedId = useCallback(
     (id: number) => {
-      if (getIsSelected(id)) {
-        removeSelectedItem(id);
+      if (getIsSelectedId(id)) {
+        removeSelectedId(id);
         return;
       }
 
-      addSelectedItem(id);
+      addSelectedId(id);
     },
-    [getIsSelected, addSelectedItem, removeSelectedItem]
+    [getIsSelectedId, addSelectedId, removeSelectedId]
   );
 
-  const addSelectedItemIds = useCallback((ids: number[]) => {
-    setSelectedItemIds((prev) => new Set([...prev, ...ids]));
+  const addSelectedIds = useCallback((ids: number[]) => {
+    setSelectedIds((prev) => new Set([...prev, ...ids]));
   }, []);
 
+  const getSelectedIdsCount = useCallback(() => {
+    return selectedIds.size;
+  }, [selectedIds]);
+
   return {
-    addSelectedItem,
-    removeSelectedItem,
-    clearSelectedItems,
-    getIsSelected,
-    toggleSelectedItem,
-    addSelectedItemIds,
+    addSelectedId,
+    removeSelectedId,
+    clearSelectedIds,
+    getIsSelectedId,
+    toggleSelectedId,
+    addSelectedIds,
+    getSelectedIdsCount,
   };
 };
 
-export default useSelectedItemIds;
+export default useSelectedIds;
