@@ -2,17 +2,14 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { getShoppingCartData } from "../../api/cart";
 import { Flex, Header } from "../../components/common";
-import BackArrowButton from "../../components/common/BackArrowButton";
 import { useAPIDataContext } from "../../context/APIDataProvider";
+import { useOrderListContext } from "../../context/OrderListProvider";
 import { useOrderCalculation } from "../../hooks/order/useOrderCalculation";
 import { formatKRWString } from "../../utils/formatKRWString";
-import { useOrderListContext } from "../../context/OrderListProvider";
 
 const SuccessConfirmPage = () => {
   const navigate = useNavigate();
-  const handleBackClick = () => {
-    navigate(-1);
-  };
+
   const { data: cartListData } = useAPIDataContext({
     name: "cart",
     fetcher: getShoppingCartData,
@@ -23,17 +20,21 @@ const SuccessConfirmPage = () => {
     selectionMap
   );
 
+  const navigateToCart = () => {
+    navigate("/");
+  };
+
   return (
     <>
-      <Header left={<BackArrowButton onClick={handleBackClick} />} />
+      <Header />
       <Container>
         <Flex justifyContent="center" alignItems="center" gap="lg">
-          <InfoTitle>주문 확인</InfoTitle>
+          <InfoTitle>결제 확인</InfoTitle>
           <div>
             <Description
               aria-label={`총 ${typeCount}종류의 상품 ${totalCount}개를 주문합니다.`}
             >
-              총 {typeCount}종류의 상품 {totalCount}개를 주문합니다.
+              총 {typeCount}종류의 상품 {totalCount}개를 주문했습니다.
             </Description>
             <Description>최종 결제 금액을 확인해 확인해 주세요.</Description>
           </div>
@@ -45,8 +46,8 @@ const SuccessConfirmPage = () => {
           </InfoTitle>
         </Flex>
       </Container>
-      <PayButton isDisabled={true} disabled>
-        결제하기
+      <PayButton onClick={navigateToCart} isDisabled={false}>
+        장바구니로 돌아가기
       </PayButton>
     </>
   );
