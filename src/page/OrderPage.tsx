@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as styles from '../styles/page.style';
 import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
@@ -9,21 +9,19 @@ import { CartItemType } from '../types/cartItem';
 import { css } from '@emotion/react';
 import CheckBox from '../components/common/CheckBox';
 import { useCoupons } from '../hooks/useCoupons';
+import { useToggle } from '../hooks/useToggle';
+import Modal from '../components/Modal/Modal';
+import CouponItem from '../components/Modal/CouponItem';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
-  const [includeSpecialRegions, setIncludeSpecialRegions] = useState<boolean>(false);
+  const { value: includeSpecialRegions, toggle } = useToggle(false);
   const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
   const realTotalAmount = orderAmount + totalDeliveryFee;
   const { data: coupons } = useCoupons();
-
-  useEffect(() => {
-    if (coupons) {
-      console.log(coupons);
-    }
-  }, [coupons]);
+  const { value: isOpen, on, off } = useToggle(false);
 
   useEffect(() => {
     if (
@@ -65,13 +63,12 @@ function OrderPage() {
               <OrderItem key={item.id} item={item} />
             ))}
           </div>
-          <Button css={couponApplyCss}>쿠폰 적용</Button>
+          <Button css={couponApplyCss} onClick={on}>
+            쿠폰 적용
+          </Button>
           <div css={priceTitleCss}>배송 정보</div>
           <div css={styles.allSelectCss}>
-            <CheckBox
-              checked={includeSpecialRegions}
-              onChange={() => setIncludeSpecialRegions(!includeSpecialRegions)}
-            />
+            <CheckBox checked={includeSpecialRegions} onChange={toggle} />
             <p>제주도 및 도서 산간 지역</p>
           </div>
           <PriceArea
@@ -95,6 +92,18 @@ function OrderPage() {
           </Button>
         </div>
       </main>
+      <Modal isOpen={isOpen} handleClose={off}>
+        <div css={styles.infoCss}>
+          <img src="./assets/info.svg" alt="info icon" />
+          <p css={styles.fontSize12}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
+        </div>
+        {coupons?.map((coupon) => (
+          <CouponItem key={coupon.id} coupon={coupon} />
+        ))}
+        <Button css={buttonCss} onClick={off}>
+          총 {}원 할인쿠폰 사용하기
+        </Button>
+      </Modal>
     </>
   );
 }
@@ -107,11 +116,6 @@ const priceTitleCss = css({
   marginBottom: '12px',
   width: '100%'
 });
-
-// const priceCss = css({
-//   fontSize: '20px',
-//   fontWeight: 'bold'
-// });
 
 const cartItemsListCss = css({
   width: '100%',
@@ -140,4 +144,18 @@ const couponApplyCss = css({
   borderRadius: '5px',
   margin: '16px 0',
   cursor: 'pointer'
+});
+
+const buttonCss = css({
+  all: 'unset',
+  borderRadius: '5px',
+  backgroundColor: '#333333',
+  textAlign: 'center',
+  width: '100%',
+  cursor: 'pointer',
+  border: 'none',
+  minHeight: '44px',
+  color: 'white',
+  fontSize: '15px',
+  fontWeight: 'bold'
 });
