@@ -2,18 +2,17 @@ import { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { Modal, type ModalProps } from '@sebin0580/modal';
 
-import { CartItemList } from '@/features/Cart/types/Cart.types';
 import { Button } from '@/shared/components/Button';
 import { CheckBox } from '@/shared/components/CheckBox';
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
-import { CouponResponse } from '../type/coupon.type';
+import { CouponItem } from '../type/coupon.type';
 import { parseHour } from '../utils/parseHour';
 import { splitDate } from '../utils/splitDate';
 
 type CouponModalProps = {
-  coupons: CouponResponse[];
+  coupons: CouponItem[];
   couponDiscount: number;
   totalPrice: number;
   onApplyCoupon: (id: number) => void;

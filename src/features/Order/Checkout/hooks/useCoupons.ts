@@ -33,7 +33,11 @@ export const useCoupons = ({ cartItems }: CartItemList) => {
     if (!coupons.data || coupons.isInitialLoading) return [];
 
     const available = getAvailableCoupons({
-      coupons: coupons.data,
+      coupons: coupons.data?.map((item) => ({
+        ...item,
+        isChecked: false,
+        isDisabled: false,
+      })),
       totalPrice,
       cartItems,
     });
