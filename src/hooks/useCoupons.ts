@@ -7,10 +7,12 @@ import { useErrorToast } from '../contexts/ErrorToast/ErrorToastContext';
 import { Coupon } from '../types';
 import calculateCouponDiscount from '../utils/calculateCouponDiscount';
 import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
+import { useShippingContext } from '../contexts/Shipping/ShippingContext';
 
 const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
   const { cartItems } = useCartItemsContext();
+  const { isRemoteArea } = useShippingContext();
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const { showError } = useErrorToast();
@@ -73,7 +75,8 @@ const useCoupons = () => {
     });
   }, [coupons, orderPrice, maxQuantity, currentHour]);
 
-  const deliveryPrice = calculateDeliveryPrice(orderPrice);
+  const deliveryPrice = calculateDeliveryPrice(orderPrice, isRemoteArea);
+  console.log('Delivery Price:', deliveryPrice);
 
   const couponDiscount = calculateCouponDiscount({
     coupons: selectedCoupons,

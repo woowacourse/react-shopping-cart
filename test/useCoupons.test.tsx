@@ -1,11 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import useCoupons from '../src/hooks/useCoupons';
 import * as checkedCtx from '../src/contexts/CheckedCartIds/CheckedCartIdsContext';
+import * as shippingCtx from '../src/contexts/Shipping/ShippingContext';
 import { ErrorToastProvider } from '../src/contexts/ErrorToast/ErrorToastProvider';
 import CartItemsProvider from '../src/contexts/CartItems/CartItemsProvider';
 import CheckCartIdsProvider from '../src/contexts/CheckedCartIds/CheckedCartIdsProvider';
 import { act } from 'react';
 import { mockCoupons } from './mocks';
+import { ShippingProvider } from '../src/contexts/Shipping/ShippingProvider';
 type ProvidersProps = {
   children: React.ReactNode;
 };
@@ -14,7 +16,9 @@ const Providers = ({ children }: ProvidersProps) => {
   return (
     <ErrorToastProvider>
       <CartItemsProvider>
-        <CheckCartIdsProvider>{children}</CheckCartIdsProvider>
+        <CheckCartIdsProvider>
+          <ShippingProvider>{children}</ShippingProvider>
+        </CheckCartIdsProvider>
       </CartItemsProvider>
     </ErrorToastProvider>
   );
@@ -271,21 +275,52 @@ describe('useCoupons 테스트', () => {
     ).toBeUndefined();
   });
 
-  test('선택한 쿠폰에 따른 할인 금액을 반환한다', async () => {
-    const { result } = renderHook(() => useCoupons(), {
-      wrapper: ({ children }) => <Providers>{children}</Providers>,
-    });
-    await waitFor(() => {
-      expect(result.current.coupons).toHaveLength(mockCoupons.length);
-    });
+  describe('선택한 쿠폰에 따른 할인 금액을 반환한다', () => {
+    test('FIXED5000 + BOGO ', async () => {
+      const { result } = renderHook(() => useCoupons(), {
+        wrapper: ({ children }) => <Providers>{children}</Providers>,
+      });
+      await waitFor(() => {
+        expect(result.current.coupons).toHaveLength(mockCoupons.length);
+      });
 
-    act(() => {
-      result.current.selectCoupon(1); // FIXED5000
-      result.current.selectCoupon(2); // BOGO
-    });
+      act(() => {
+        result.current.selectCoupon(1); // FIXED5000
+        result.current.selectCoupon(2); // BOGO
+      });
 
-    await waitFor(() => {
-      expect(result.current.couponDiscount).toBe(5000 + 1000); // FIXED5000 + BOGO
+      await waitFor(() => {
+        expect(result.current.couponDiscount).toBe(5000 + 1000); // FIXED5000 + BOGO
+      });
+    });
+    test('제주도 및 도서산간 지역일때 배송비 할인은 6000원', async () => {
+      jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
+        checkedCartIds: [6],
+        setCheckedCartIds: jest.fn(),
+        isAllChecked: false,
+      });
+      jest.spyOn(shippingCtx, 'useShippingContext').mockReturnValue({
+        isRemoteArea: true,
+        setIsRemoteArea: jest.fn(),
+      });
+
+      const { result } = renderHook(() => useCoupons(), {
+        wrapper: ({ children }) => <Providers>{children}</Providers>,
+      });
+
+      await waitFor(() => {
+        expect(result.current.coupons).toHaveLength(mockCoupons.length);
+      });
+
+      act(() => {
+        result.current.selectCoupon(3);
+      });
+      console.log('validCoupons:', result.current.validCoupons);
+      console.log('Selected Coupons:', result.current.selectedCoupons);
+
+      await waitFor(() => {
+        expect(result.current.couponDiscount).toBe(6000);
+      });
     });
   });
 });

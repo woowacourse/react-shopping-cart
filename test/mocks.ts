@@ -58,6 +58,17 @@ export const mockCartItems = [
       category: '인테리어소품',
     },
   },
+  {
+    id: 6,
+    quantity: 1,
+    product: {
+      id: 29,
+      name: '모던 화병',
+      price: 50000,
+      imageUrl: 'https://cafe24.poxo.com/ec01/dmswo9075/modern-vase.jpg',
+      category: '홈데코',
+    },
+  },
 ];
 
 export let fetchedData = {
