@@ -5,6 +5,7 @@ import CartPage from '../pages/CartPage';
 import OrderConfirmPage from '../pages/OrderConfirmPage';
 import { BASE_URL, URL_LOCATION } from '../constants/url';
 import ErrorPage from '../pages/ErrorPage';
+import OrderPage from '../pages/OrderPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,16 @@ const router = createBrowserRouter([
         <Header />
         <CartPage />
       </CartItemsProvider>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: BASE_URL + URL_LOCATION.ORDER,
+    element: (
+      <>
+        <Header />
+        <OrderPage />
+      </>
     ),
     errorElement: <ErrorPage />,
   },

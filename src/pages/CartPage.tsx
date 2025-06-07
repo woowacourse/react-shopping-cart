@@ -48,7 +48,7 @@ const CartPage = () => {
       <ConfirmButton
         title="주문 확인"
         onClick={() =>
-          navigate(BASE_URL + URL_LOCATION.CONFIRM, {
+          navigate(BASE_URL + URL_LOCATION.ORDER, {
             state: {
               cartItems,
               checkedCartIds,
