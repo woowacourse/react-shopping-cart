@@ -14,6 +14,8 @@ import { CartItemDetail } from './CartItemDetail';
 import { RemoteAreaCheckBox } from './RemoteAreaCheckBox';
 import { PriceSummary } from './PriceSummary';
 import { useCartInfo } from '../hooks/useCartInfo';
+import { useState } from 'react';
+import { CouponModal } from '@/features/Coupon/components/CouponModal';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
@@ -22,6 +24,7 @@ type OrderConfirmProps = {
 export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
   const { selectedCartItems } = useCartInfo(cartItems);
+  const [showCouponList, setShowCouponList] = useState(false);
 
   return (
     <>
@@ -63,7 +66,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
             border: 1px solid gray;
             font-size: medium;
           `}
-          // onClick={onNext}
+          onClick={() => setShowCouponList((prev) => !prev)}
           // disabled={cartItems?.length === 0 || selectedCartItemCount === 0}
         >
           쿠폰 적용
@@ -82,6 +85,13 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
       >
         결제하기
       </Button>
+      { showCouponList && <CouponModal coupons={[]} onClose={function (): void {
+        throw new Error('Function not implemented.');
+      } } onToggleCoupon={function (id: number): void {
+        throw new Error('Function not implemented.');
+      } } onApply={function (): void {
+        throw new Error('Function not implemented.');
+      } } totalDiscount={0} />}
     </>
   );
 };
