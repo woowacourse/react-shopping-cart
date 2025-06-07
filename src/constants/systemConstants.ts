@@ -12,3 +12,7 @@ export const ROUTE = {
 };
 
 export const COUPON_LIMIT = 2;
+
+export const STORAGE_KEY = {
+  CHECKED_CART_ITEMS: "checkedCartItems",
+};

@@ -36,7 +36,7 @@ const CartPage = () => {
     justifyIsChecked,
     controlCheckBox,
     controlAllCheckBox,
-    updateIsCheckedSet,
+    initIsCheckedSet,
     syncIsCheckedSet,
   } = useCheckedSet();
 
@@ -45,7 +45,7 @@ const CartPage = () => {
     updateCartItem,
     increaseCartItem,
     removeCartItem,
-    updateCartData,
+    initCartData,
   } = useCartData({ callApi, syncIsCheckedSet });
 
   const { goOrderConfirmation, goHome } = useEasyNavigate();
@@ -68,8 +68,8 @@ const CartPage = () => {
       if (!initialCartData) {
         return;
       }
-      updateCartData(initialCartData);
-      updateIsCheckedSet(initialCartData.map((item: CartItemType) => item.id));
+      initCartData(initialCartData);
+      initIsCheckedSet(initialCartData.map((item: CartItemType) => item.id));
     };
 
     fetchCartData();

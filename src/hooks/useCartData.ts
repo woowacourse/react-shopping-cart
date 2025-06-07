@@ -77,7 +77,7 @@ const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
     }
   };
 
-  const updateCartData = (updateData: CartItemType[]) => {
+  const initCartData = (updateData: CartItemType[]) => {
     setCartData(updateData);
   };
 
@@ -86,7 +86,7 @@ const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
     updateCartItem,
     increaseCartItem,
     removeCartItem,
-    updateCartData,
+    initCartData,
   };
 };
 
