@@ -1,6 +1,7 @@
 import useCartOperations from "../../../domains/cart/hooks/useCartOperations";
 import useCartToggle from "../../../domains/cart/hooks/useCartToggle";
 import { CartItemWithSelection } from "../../../domains/cart/types/response";
+import { formatCurrency } from "../../../utils/formatters";
 import Checkbox from "../../@common/Checkbox/Checkbox";
 import QuantityCounter from "../../@shared/QuantityCounter/QuantityCounter";
 import * as S from "./CartItem.styles";
@@ -25,7 +26,7 @@ const CartItem = ({ item: { id, quantity, product, selected } }: Props) => {
         <S.CartItemImage $url={product.imageUrl} />
         <S.CartItemInfo>
           <S.CartItemName>{product.name}</S.CartItemName>
-          <S.CartItemPrice>{product.price.toLocaleString()}원</S.CartItemPrice>
+          <S.CartItemPrice>{formatCurrency(product.price)}</S.CartItemPrice>
           <QuantityCounter
             quantity={quantity}
             onIncrease={() => updateItemQuantity(id, quantity + 1)}

@@ -1,4 +1,5 @@
 import { CartItemWithSelection } from "../../../domains/cart/types/response";
+import { formatCurrency } from "../../../utils/formatters";
 import * as S from "./OrderItem.styles";
 
 interface Props {
@@ -12,7 +13,7 @@ const OrderItem = ({ quantity, product }: Props) => {
       <S.OrderItemImage $url={product.imageUrl} />
       <S.OrderItemInfo>
         <S.OrderItemName>{product.name}</S.OrderItemName>
-        <S.OrderItemPrice>{product.price.toLocaleString()}원</S.OrderItemPrice>
+        <S.OrderItemPrice>{formatCurrency(product.price)}</S.OrderItemPrice>
         <S.OrderItemQuantity>{quantity}개</S.OrderItemQuantity>
       </S.OrderItemInfo>
     </S.OrderItem>

@@ -1,5 +1,9 @@
 import { Coupon } from "../../../domains/coupon/types/response";
-import { formatDate, formatTimeRange } from "../../../utils/formatters";
+import {
+  formatCurrency,
+  formatDate,
+  formatTimeRange,
+} from "../../../utils/formatters";
 import Checkbox from "../../@common/Checkbox/Checkbox";
 import * as S from "./CouponCard.styles";
 
@@ -17,7 +21,7 @@ const CouponCard = ({ coupon }: Props) => {
       <S.CouponInfo>
         <p>만료일: {formatDate(coupon.expirationDate)}</p>
         {coupon.minimumAmount && (
-          <p>최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원</p>
+          <p>최소 주문 금액: {formatCurrency(coupon.minimumAmount)}</p>
         )}
         {coupon.availableTime && (
           <p>

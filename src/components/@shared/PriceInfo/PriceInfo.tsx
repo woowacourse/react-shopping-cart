@@ -1,3 +1,4 @@
+import { formatCurrency } from "../../../utils/formatters";
 import * as S from "./PriceInfo.styles";
 
 interface Props {
@@ -12,7 +13,7 @@ const PriceInfo = ({ label, price, isNegative = false }: Props) => {
       <S.Label>{label}</S.Label>
       <S.Price>
         {isNegative && "-"}
-        {price.toLocaleString()}원
+        {formatCurrency(price)}
       </S.Price>
     </S.PriceInfo>
   );

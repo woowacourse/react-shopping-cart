@@ -1,5 +1,6 @@
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
 import useModal from "../../../features/modal/useModal";
+import { formatCurrency } from "../../../utils/formatters";
 import Description from "../../@common/Description/Description";
 import CouponCard from "../CouponCard/CouponCard";
 import * as S from "./CouponModal.styles";
@@ -28,7 +29,7 @@ const CouponModal = () => {
         ))}
       </S.CouponItemsContainer>
       <S.ApplyCouponButton onClick={() => closeModal()}>
-        총 {price.toLocaleString()}원 할인 쿠폰 사용하기
+        총 {formatCurrency(price)} 할인 쿠폰 사용하기
       </S.ApplyCouponButton>
     </S.CouponModal>
   );

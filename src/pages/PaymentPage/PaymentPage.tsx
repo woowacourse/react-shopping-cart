@@ -6,6 +6,7 @@ import Title from "../../components/@common/Title/Title";
 import { ROUTES } from "../../constants/routes";
 import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 import * as S from "./PaymentPage.styles";
+import { formatCurrency } from "../../utils/formatters";
 
 const PaymentPage = () => {
   const { orderItemCount, orderQuantity, totalPrice } = useOrderCalculator();
@@ -25,7 +26,7 @@ const PaymentPage = () => {
         </S.DescriptionContainer>
         <S.PriceContainer>
           <S.Label>총 결제 금액</S.Label>
-          <S.Price>{totalPrice.toLocaleString()}원</S.Price>
+          <S.Price>{formatCurrency(totalPrice)}</S.Price>
         </S.PriceContainer>
       </S.Main>
       <FooterButton onClick={navigateToCart}>장바구니로 돌아가기</FooterButton>
