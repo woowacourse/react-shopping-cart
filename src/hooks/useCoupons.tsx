@@ -4,8 +4,7 @@ import fetchCoupons from "../api/fetchCoupon";
 
 import { useErrorContext } from "../contexts/ErrorContext";
 
-import Coupon from "../types/Coupon";
-import { C } from "vitest/dist/chunks/reporters.d.C-cu31ET.js";
+import { Coupon } from "../types/Coupon";
 
 const INIT_STATE = {
   isLoading: false,
@@ -58,7 +57,7 @@ const reducer = (state: typeof INIT_STATE, action: { type: string }) => {
 
 interface useCouponsReturn {
   state: typeof INIT_STATE;
-  Coupons: Coupon[];
+  coupons: Coupon[];
 }
 
 const useCoupons = (): useCouponsReturn => {
@@ -86,7 +85,7 @@ const useCoupons = (): useCouponsReturn => {
 
   return {
     state,
-    coupons,
+    coupons: coupons,
   };
 };
 export default useCoupons;
