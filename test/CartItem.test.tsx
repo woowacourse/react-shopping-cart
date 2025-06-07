@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import CartItem from '../src/components/Cart/CartItem';
 import { CartProduct } from '../src/types/cart';
 import * as cartApi from '../src/apis/cart';
@@ -64,22 +64,24 @@ describe('CartItem', () => {
     renderComponent();
 
     const increaseButton = screen.getByText('＋');
-    fireEvent.click(increaseButton);
-
-    await waitFor(() => {
-      expect(cartApi.patchIncreaseQuantity).toHaveBeenCalledWith(mockCartItem);
+    
+    await act(async () => {
+      fireEvent.click(increaseButton);
     });
+
+    expect(cartApi.patchIncreaseQuantity).toHaveBeenCalledWith(mockCartItem);
   });
 
   it('수량 감소 버튼 클릭 시 API가 호출되어야 한다', async () => {
     renderComponent();
 
     const decreaseButton = screen.getByText('−');
-    fireEvent.click(decreaseButton);
-
-    await waitFor(() => {
-      expect(cartApi.patchDecreaseQuantity).toHaveBeenCalledWith(mockCartItem);
+    
+    await act(async () => {
+      fireEvent.click(decreaseButton);
     });
+
+    expect(cartApi.patchDecreaseQuantity).toHaveBeenCalledWith(mockCartItem);
   });
 
   it('수량이 1일 때 감소 버튼 클릭 시 삭제 API가 호출되어야 한다', async () => {
@@ -87,10 +89,11 @@ describe('CartItem', () => {
     renderComponent(oneQuantityItem);
 
     const decreaseButton = screen.getByText('−');
-    fireEvent.click(decreaseButton);
-
-    await waitFor(() => {
-      expect(cartApi.removeCartItem).toHaveBeenCalledWith(oneQuantityItem);
+    
+    await act(async () => {
+      fireEvent.click(decreaseButton);
     });
+
+    expect(cartApi.removeCartItem).toHaveBeenCalledWith(oneQuantityItem);
   });
 });

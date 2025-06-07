@@ -47,7 +47,7 @@ describe('useCartSelection', () => {
 
     // 전체 선택 해제
     act(() => {
-      result.current.handleAllCheck(true);
+      result.current.checkAll(false);
     });
 
     expect(result.current.checkedItems).toEqual([]);
@@ -55,7 +55,7 @@ describe('useCartSelection', () => {
 
     // 다시 전체 선택
     act(() => {
-      result.current.handleAllCheck(false);
+      result.current.checkAll(true);
     });
 
     expect(result.current.checkedItems).toEqual([1, 2, 3]);
@@ -66,7 +66,7 @@ describe('useCartSelection', () => {
     const { result } = renderHook(() => useCartSelection(mockCartItems));
 
     act(() => {
-      result.current.handleAllCheck(true);
+      result.current.checkAll(false);
     });
 
     expect(result.current.checkedItems).toEqual([]);

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import CartPage from '../src/pages/CartPage';
 import * as cartApi from '../src/apis/cart';
@@ -167,7 +167,10 @@ describe('CartPage', () => {
     });
 
     const orderButton = screen.getByText('주문확인');
-    fireEvent.click(orderButton);
+    
+    act(() => {
+      fireEvent.click(orderButton);
+    });
 
     expect(mockNavigate).toHaveBeenCalledWith('/orderConfirm', {
       state: {
