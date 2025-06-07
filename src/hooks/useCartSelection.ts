@@ -26,12 +26,7 @@ export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
   const checkAll = (checked: boolean) => {
     if (!cartItems?.content) return;
 
-    if (checked) {
-      const allIds = cartItems.content.map((item: CartProduct) => item.id);
-      setCheckedItems(allIds);
-    } else {
-      setCheckedItems([]);
-    }
+    setCheckedItems(checked ? cartItems.content.map((item: CartProduct) => item.id) : []);
   };
 
   const toggleItem = (id: number) => {
