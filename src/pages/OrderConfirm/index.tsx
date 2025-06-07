@@ -6,10 +6,14 @@ import Card from '../../components/feature/CartSection/CartProducts/Card';
 import Button from '../../components/common/Button';
 import CheckBox from '../../components/common/CheckBox';
 import PriceSection from '../../components/feature/CartSection/PriceSection';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Modal} from '@muffin2219/components';
 import Coupon from '../../components/feature/ModalContent/Coupon';
 import {css} from '@emotion/react';
+import {useShowError} from '../../provider/errorProvider';
+import {CouponType} from '../../type/coupon';
+import {getCoupons} from '../../api/coupon/getCoupon';
+import {findCanApplyCoupon} from '../../feature/calcCouponPrice';
 
 const buttonStyle = css`
   padding: 24px 0;
@@ -18,6 +22,7 @@ const buttonStyle = css`
   font-weight: 700;
   font-size: 16px;
 `;
+const ADDITIONAL_DELIVERY_PRICE = 3_000;
 
 const OrderConfirm = () => {
   const selectedItems = useSelectedItems();
@@ -26,7 +31,41 @@ const OrderConfirm = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
+  const [isCouponChecked, setIsCouponChecked] = useState({
+    FIXED5000: false,
+    BOGO: false,
+    FREESHIPPING: false,
+    MIRACLESALE: false,
+  });
 
+  const showError = useShowError();
+  const [coupons, setCoupons] = useState<CouponType[]>();
+
+  useEffect(() => {
+    const getCouponData = async () => {
+      try {
+        const data = await getCoupons();
+        setCoupons(data);
+      } catch (e) {
+        showError('쿠폰 정보를 불러올 수 없습니다.');
+      }
+    };
+
+    getCouponData();
+  }, [showError]);
+
+  const calcDeliveryPrice = () => {
+    if (isCouponChecked.FREESHIPPING) return 0;
+    if (isAdditionalDelivery) return deliveryPrice + ADDITIONAL_DELIVERY_PRICE;
+    return deliveryPrice;
+  };
+
+  const canApplyCoupons = findCanApplyCoupon(
+    coupons,
+    Number(orderPrice),
+    selectedItems,
+    calcDeliveryPrice()
+  );
   return (
     <S.Container>
       <S.Wrapper>
@@ -50,12 +89,22 @@ const OrderConfirm = () => {
         />
         <PriceSection
           orderPrice={orderPrice}
-          deliveryPrice={deliveryPrice}
+          deliveryPrice={calcDeliveryPrice()}
           totalPrice={totalPrice}
         />
       </S.Wrapper>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Coupon />
+        <Coupon
+          couponInfo={coupons}
+          canApplyCouponCode={canApplyCoupons?.map((coupon) => coupon.code)}
+          isCouponChecked={isCouponChecked}
+          onChange={(e) => {
+            setIsCouponChecked((prev) => ({
+              ...prev,
+              [e.target.name]: !isCouponChecked[e.target.name],
+            }));
+          }}
+        />
       </Modal>
       <Button title="결제하기" css={buttonStyle} onClick={() => {}} />
     </S.Container>

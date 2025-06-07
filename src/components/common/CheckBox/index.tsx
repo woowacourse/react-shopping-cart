@@ -1,26 +1,37 @@
-import * as S from "./CheckBox.styles";
+import * as S from './CheckBox.styles';
 
 type Props = {
   isChecked: boolean;
   onChange: () => void;
   label?: string;
   testId?: string;
+  name?: string;
+  disabled?: boolean;
 };
 
-const CheckBox = ({ isChecked, onChange, label, testId }: Props) => {
+const CheckBox = ({
+  name,
+  disabled,
+  isChecked,
+  onChange,
+  label,
+  testId,
+}: Props) => {
   return (
     <S.Container>
       <S.HiddenCheckBox
         type="checkbox"
         checked={isChecked}
         onChange={onChange}
-        id="checkbox"
+        id={`checkbox-${name}`}
         data-testid={testId}
+        name={name}
+        disabled={disabled}
       />
       <S.CheckBox
-        src={isChecked ? "./checked-icon.svg" : "./unchecked-icon.svg"}
+        src={isChecked ? './checked-icon.svg' : './unchecked-icon.svg'}
       />
-      {label && <S.Label htmlFor="checkbox">{label}</S.Label>}
+      {label && <S.Label htmlFor={`checkbox-${name}`}>{label}</S.Label>}
     </S.Container>
   );
 };
