@@ -5,11 +5,8 @@ export const cartPrice = {
     return cartItem.quantity * cartItem.product.price;
   },
 
-  totalPrice: (cartList: CartItemProps[], selectedItems: Set<number>) => {
-    const filtered = cartList.filter((cartItem) =>
-      selectedItems.has(cartItem.id)
-    );
-    return filtered.reduce(
+  totalPrice: (cartList: CartItemProps[]) => {
+    return cartList.reduce(
       (acc, curr) => acc + curr.product.price * curr.quantity,
       0
     );

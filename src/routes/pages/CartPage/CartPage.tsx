@@ -35,6 +35,7 @@ function CartPage() {
   } = useSelect(cartList);
 
   const totalPrice = cartPrice.totalPrice(cartList, selectedItems);
+  const totalPrice = cartPrice.totalPrice(selectedCartList);
 
   return (
     <>
