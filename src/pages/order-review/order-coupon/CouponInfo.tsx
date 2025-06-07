@@ -4,11 +4,17 @@ import { formatKoreanTime } from '@/utils/formatKoreanTime';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-const CouponInfo = ({ coupon }: { coupon: CouponContent }) => {
-  const [isChecked, setIsChecked] = useState(false); // TODO: 밖에서 넘겨줘야 함 2개 체크 알아야 하니까
+const CouponInfo = ({
+  coupon,
+  disabled = false,
+}: {
+  coupon: CouponContent;
+  disabled?: boolean;
+}) => {
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleOnToggle = () => {
-    setIsChecked((prev) => !prev);
+    if (!disabled) setIsChecked((prev) => !prev);
   };
 
   const expirationDate = coupon.expirationDate.split('-');
@@ -16,20 +22,24 @@ const CouponInfo = ({ coupon }: { coupon: CouponContent }) => {
   return (
     <CouponInfoWrapper>
       <CouponInfoTitle>
-        <CheckBox isChecked={isChecked} onToggle={handleOnToggle} />
-        <Title>{coupon.description}</Title>
+        <CheckBox
+          isChecked={isChecked}
+          onToggle={handleOnToggle}
+          disabled={disabled}
+        />
+        <Title $disabled={disabled}>{coupon.description}</Title>
       </CouponInfoTitle>
-      <Detail>
+      <Detail $disabled={disabled}>
         만료일: {expirationDate[0]}년 {expirationDate[1]}월 {expirationDate[2]}
-        일{' '}
+        일
       </Detail>
       {coupon.minimumAmount && (
-        <Detail>
+        <Detail $disabled={disabled}>
           최소 주문 금액: {coupon.minimumAmount.toLocaleString()} 원
         </Detail>
       )}
       {coupon.availableTime && (
-        <Detail>
+        <Detail $disabled={disabled}>
           사용 가능 시간: {formatKoreanTime(coupon.availableTime.start)}부터{' '}
           {formatKoreanTime(coupon.availableTime.end)}까지
         </Detail>
@@ -57,12 +67,14 @@ const CouponInfoTitle = styled.div`
   padding-bottom: 8px;
 `;
 
-const Title = styled.span`
+const Title = styled.span<{ $disabled?: boolean }>`
   font-size: 18px;
   font-weight: 700;
+  color: ${({ $disabled }) => ($disabled ? '#bbb' : '#000000')};
 `;
 
-const Detail = styled.div`
+const Detail = styled.div<{ $disabled?: boolean }>`
   font-size: 14px;
   font-weight: 400;
+  color: ${({ $disabled }) => ($disabled ? '#bbb' : '#000000')};
 `;
