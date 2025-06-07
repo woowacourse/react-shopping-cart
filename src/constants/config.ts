@@ -1,2 +1,3 @@
 export const DELIVERY_PRICE_THRESHOLD = 100_000;
 export const DELIVERY_PRICE = 3_000;
+export const MAX_COUPON_AMOUNT = 2;
