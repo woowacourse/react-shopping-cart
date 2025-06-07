@@ -1,4 +1,3 @@
-import CouponInitializer from "../../../domains/coupon/contexts/CouponInitializer";
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
 import useModal from "../../../features/modal/useModal";
 import Description from "../../@common/Description/Description";
@@ -15,7 +14,6 @@ const CouponModal = () => {
 
   return (
     <S.CouponModal>
-      <CouponInitializer />
       <S.HeaderContainer>
         <S.Title>쿠폰을 선택해 주세요</S.Title>
         <S.CloseButton src={Close} alt="close-modal" onClick={closeModal} />

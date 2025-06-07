@@ -3,16 +3,17 @@ import Checkbox from "../../components/@common/Checkbox/Checkbox";
 import Description from "../../components/@common/Description/Description";
 import { FooterButton } from "../../components/@common/FooterButton/FooterButton.styles";
 import Header from "../../components/@common/Header/Header";
-import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
 import Title from "../../components/@common/Title/Title";
+import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
 import CouponModal from "../../components/coupon/CouponModal/CouponModal";
 import OrderItem from "../../components/order/OrderItem/OrderItem";
 import { ROUTES } from "../../constants/routes";
+import CouponInitializer from "../../domains/coupon/contexts/CouponInitializer";
+import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 import useModal from "../../features/modal/useModal";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
-import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 
 const OrderPage = () => {
   const {
@@ -33,6 +34,7 @@ const OrderPage = () => {
 
   return (
     <>
+      <CouponInitializer />
       <Header>
         <S.BackIcon
           role="button"

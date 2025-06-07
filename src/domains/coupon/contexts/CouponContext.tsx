@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
-import { Coupon } from "../types/response";
-import { getCoupons } from "../apis/getCoupons";
 import useErrorHandler from "../../../hooks/useErrorHandler";
+import { getCoupons } from "../apis/getCoupons";
+import { Coupon } from "../types/response";
 
 interface CouponType {
   coupons: Coupon[];
@@ -21,8 +21,6 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
       handleError(error);
     }
   }, [handleError]);
-
-  console.log(coupons);
 
   return (
     <CouponContext.Provider value={{ coupons, fetchData }}>
