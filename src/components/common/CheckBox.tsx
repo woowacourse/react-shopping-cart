@@ -38,4 +38,8 @@ const CheckButton = styled.button<{ isChecked: boolean }>`
     isChecked ? "black solid 1px" : "#BDBDBD solid 1px"};
   border-radius: 6px;
   cursor: pointer;
+  &:hover {
+    border: ${({ isChecked }) =>
+      isChecked ? "black solid 1px" : "#BDBDBD solid 1px"};
+  }
 `;
