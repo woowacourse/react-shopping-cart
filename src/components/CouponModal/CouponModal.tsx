@@ -5,6 +5,7 @@ import CouponItem from '../CouponItem/CouponItem';
 import InfoMessage from '../InfoMessage/InfoMessage';
 import Text from '../common/Text/Text';
 import useValidateCoupon from '../../hooks/useValidateCoupon';
+import { useCartContext } from '../../context/CartContext';
 
 function CouponModal({
   isOpen,
@@ -13,8 +14,9 @@ function CouponModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { subTotal } = useCartContext();
   const { couponList } = useCouponList();
-  const { availableCouponList } = useValidateCoupon(couponList);
+  const { availableCouponList } = useValidateCoupon(couponList, subTotal);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="쿠폰을 선택해 주세요">
