@@ -6,6 +6,7 @@ export const cartItemFrameCss = css({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
+  height: '100%',
   borderTop: '1px solid #ccc',
   padding: '16px 0'
 });
@@ -24,6 +25,7 @@ export const cartItemInfoCss = css({
   alignItems: 'center',
   gap: '16px',
   width: '100%',
+  height: '100%',
   marginTop: '8px'
 });
 
@@ -37,4 +39,16 @@ export const cartItemImgCss = css({
 export const cartItemPriceCss = css({
   fontSize: '24px',
   fontWeight: 'bold'
+});
+
+export const cartItemQuantityCss = css({
+  fontSize: '12px'
+});
+
+export const cartItemInfoTextCss = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  height: '100%',
+  padding: '10px 0'
 });

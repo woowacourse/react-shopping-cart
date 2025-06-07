@@ -20,9 +20,12 @@ function OrderItem({ item }: OrderItemProps) {
             e.currentTarget.src = './assets/default.png';
           }}
         />
-        <div>
-          <p>{name}</p>
-          <p css={styles.cartItemPriceCss}>{(price * cartQuantity).toLocaleString()}원</p>
+        <div css={styles.cartItemInfoTextCss}>
+          <div>
+            <p css={styles.cartItemQuantityCss}>{name}</p>
+            <p css={styles.cartItemPriceCss}>{(price * cartQuantity).toLocaleString()}원</p>
+          </div>
+          <p css={styles.cartItemQuantityCss}>{cartQuantity}개</p>
         </div>
       </div>
     </div>
