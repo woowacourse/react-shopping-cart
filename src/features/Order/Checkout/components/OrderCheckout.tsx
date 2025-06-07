@@ -36,6 +36,10 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
     cartItems,
   });
 
+  const totalItemLength = cartItems.reduce((acc, cur) => {
+    return acc + cur.quantity;
+  }, 0);
+
   const handleNavigateCartPage = () => {
     navigate('/cart');
   };
@@ -65,7 +69,7 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
           주문 확인
         </Text>
         <Text type="Caption" weight="regular">
-          {`총 1종류의 상품 2개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
+          {`총 ${cartItems.length}종류의 상품 ${totalItemLength}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         </Text>
       </Flex>
       <>
@@ -127,6 +131,7 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
       <CouponModal
         coupons={coupons ?? []}
         couponDiscount={couponDiscount}
+        totalPrice={totalPrice}
         onApplyCoupon={applyCoupon}
         title="쿠폰을 선택해 주세요"
         isOpen={isOpen}
