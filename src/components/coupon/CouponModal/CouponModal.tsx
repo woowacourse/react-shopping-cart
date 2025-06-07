@@ -1,4 +1,5 @@
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
+import { useCouponSelection } from "../../../domains/coupon/hooks/useCouponSelection";
 import useCouponValidation from "../../../domains/coupon/hooks/useCouponValidation";
 import useModal from "../../../features/modal/useModal";
 import { formatCurrency } from "../../../utils/formatters";
@@ -17,6 +18,8 @@ const CouponModal = () => {
   const { closeModal } = useModal();
   const { coupons } = useCoupon();
   const { validateCoupon } = useCouponValidation();
+  const { toggleCouponSelection, isCouponSelected, hasNoSelectedCoupons } =
+    useCouponSelection();
 
   return (
     <S.CouponModal>
@@ -36,12 +39,15 @@ const CouponModal = () => {
             key={coupon.id}
             coupon={coupon}
             enable={validateCoupon(coupon)}
-            selected={false}
-            onToggle={() => {}}
+            selected={isCouponSelected(coupon.id)}
+            onToggle={toggleCouponSelection}
           />
         ))}
       </S.CouponItemsContainer>
-      <S.ApplyCouponButton onClick={() => closeModal()}>
+      <S.ApplyCouponButton
+        onClick={() => closeModal()}
+        disabled={hasNoSelectedCoupons}
+      >
         총 {formatCurrency(price)} 할인 쿠폰 사용하기
       </S.ApplyCouponButton>
     </S.CouponModal>
