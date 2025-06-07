@@ -8,6 +8,7 @@ interface CouponModalProps {
   onHide: () => void;
   coupons: CouponContent[];
   isLoading: boolean;
+  availableCoupons: CouponContent[];
 }
 
 const CouponModal = ({
@@ -15,6 +16,7 @@ const CouponModal = ({
   onHide,
   coupons,
   isLoading,
+  availableCoupons,
 }: CouponModalProps) => (
   <Modal show={show} onHide={onHide} position='center'>
     <Modal.Header closeButton>
@@ -27,7 +29,18 @@ const CouponModal = ({
       {isLoading ? (
         <p>쿠폰을 불러오는 중입니다...</p>
       ) : coupons.length > 0 ? (
-        coupons.map((coupon) => <CouponInfo coupon={coupon} key={coupon.id} />)
+        coupons.map((coupon) => {
+          const isAvailable = availableCoupons.some(
+            (av) => av.id === coupon.id
+          );
+          return (
+            <CouponInfo
+              coupon={coupon}
+              key={coupon.id}
+              disabled={!isAvailable}
+            />
+          );
+        })
       ) : (
         <p>사용 가능한 쿠폰이 없습니다.</p>
       )}
