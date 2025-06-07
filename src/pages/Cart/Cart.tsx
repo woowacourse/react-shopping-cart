@@ -26,12 +26,16 @@ function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>("cartItems");
   const {
-    selectedCartIds,
+    selectedIds: selectedCartIds,
     toggleAllSelect,
     toggleSelect,
     isAllSelected,
     isSelected,
-  } = useCheckboxHandler(cartItems);
+  } = useCheckboxHandler(cartItems, {
+    maxSelectableCount: null,
+    enableAllSelectBox: true,
+    autoSelectAll: true,
+  });
   const navigate = useNavigate();
 
   const updateCartItem = (cartId: number, newItem: CartItemType) => {
