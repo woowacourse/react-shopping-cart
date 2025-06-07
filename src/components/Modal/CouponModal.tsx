@@ -19,7 +19,16 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
   };
 
   const isCouponDisabled = (coupon: Coupon) => {
-    return coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount;
+    if (coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount) {
+      return true;
+    }
+    if (coupon.availableTime && !isInAvailableTimeRange(coupon.availableTime)) {
+      return true;
+    }
+    if (isExpired(coupon.expirationDate)) {
+      return true;
+    }
+    return false;
   };
 
   const formatCouponDescription = (coupon: Coupon) => {
@@ -38,10 +47,8 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
     return desc.join('\n');
   };
 
-  const totalDiscount =
-    coupons
-      ?.filter((c) => selectedCoupons.includes(c.id))
-      .reduce((acc, cur) => acc + (cur.discountType === 'fixed' && cur.discount ? cur.discount : 0), 0) ?? 0;
+  // 배송비 계산
+  const totalDiscount = calculateTotalDiscount(coupons, selectedCoupons, orderAmount);
 
   return (
     <Modal position="center" size="medium" isOpen={isOpen} onClose={onClose}>
@@ -84,6 +91,24 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
   );
 }
 
+function calculateTotalDiscount(coupons: Coupon[] | undefined, selectedCoupons: number[], orderAmount: number): number {
+  const shippingInfo = getShippingInfoFromStorage();
+  const baseFee = orderAmount >= 100000 ? 0 : 3000;
+  const extraFee = shippingInfo.isRemoteArea ? 3000 : 0;
+  const originalDeliveryFee = baseFee + extraFee;
+  const isFreeShippingCouponApplied = coupons?.find(
+    (c) => selectedCoupons.includes(c.id) && c.discountType === 'freeShipping'
+  );
+  const discountedDeliveryFee = isFreeShippingCouponApplied ? 0 : originalDeliveryFee;
+
+  return (
+    (coupons
+      ?.filter((c) => selectedCoupons.includes(c.id))
+      .reduce((acc, cur) => acc + (cur.discountType === 'fixed' && cur.discount ? cur.discount : 0), 0) ?? 0) +
+    (originalDeliveryFee - discountedDeliveryFee)
+  );
+}
+
 function formatTimeRange(start: string, end: string): string {
   const format = (time: string) => {
     const [hourStr] = time.split(':');
@@ -105,4 +130,32 @@ function getOrderAmountFromStorage(): number {
   } catch {
     return 0;
   }
+}
+
+function getShippingInfoFromStorage(): { isRemoteArea: boolean } {
+  try {
+    const data = localStorage.getItem('isRemoteArea');
+    return { isRemoteArea: data === 'true' };
+  } catch {
+    return { isRemoteArea: false };
+  }
+}
+
+function isInAvailableTimeRange({ start, end }: { start: string; end: string }): boolean {
+  const now = new Date();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+  const [startHour, startMinute] = start.split(':').map(Number);
+  const [endHour, endMinute] = end.split(':').map(Number);
+  const startMinutes = startHour * 60 + startMinute;
+  const endMinutes = endHour * 60 + endMinute;
+
+  return nowMinutes >= startMinutes && nowMinutes <= endMinutes;
+}
+
+function isExpired(expirationDate: string): boolean {
+  const now = new Date();
+  const expiration = new Date(expirationDate);
+
+  return now > expiration;
 }

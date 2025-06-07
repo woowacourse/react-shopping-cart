@@ -18,10 +18,7 @@ type SelectedItem = {
 function OrderPage() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isRemoteArea, setIsRemoteArea] = useState(() => {
-    const stored = localStorage.getItem('isRemoteArea');
-    return stored ? JSON.parse(stored).checked : false;
-  });
+  const [isRemoteArea, setIsRemoteArea] = useState(() => localStorage.getItem('isRemoteArea') === 'true');
 
   const navigate = useNavigate();
   const items = getSelectedItemsFromStorage();
@@ -62,7 +59,7 @@ function OrderPage() {
               onChange={(e) => {
                 const checked = e.target.checked;
                 setIsRemoteArea((prev: boolean) => !prev);
-                localStorage.setItem('isRemoteArea', JSON.stringify({ checked }));
+                localStorage.setItem('isRemoteArea', JSON.stringify(checked));
               }}
             />
             제주도 및 도서 산간 지역
