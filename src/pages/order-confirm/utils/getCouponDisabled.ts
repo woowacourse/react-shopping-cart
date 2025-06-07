@@ -6,7 +6,6 @@ import {
   FreeShippingCoupon,
   PercentageCoupon,
 } from "@/apis/coupon/coupon.type";
-import { FREE_DELIVERY_LIMIT } from "@/domains/constants/delivery";
 import { getOrderTotalPrice } from "@/domains/utils/getOrderTotalPrice";
 import { getIsExpiredDate } from "@/shared/utils/getIsExpiredDate";
 import { getIsTimeAvailable } from "@/shared/utils/getIsTimeAvailable";
@@ -80,10 +79,6 @@ const getIsFreeShippingCouponDisabled = (
 
   const orderTotalPrice = getOrderTotalPrice(orderList);
   if (orderTotalPrice < minimumAmount) {
-    return true;
-  }
-
-  if (orderTotalPrice >= FREE_DELIVERY_LIMIT) {
     return true;
   }
 

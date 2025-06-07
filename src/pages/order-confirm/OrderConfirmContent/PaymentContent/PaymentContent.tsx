@@ -17,10 +17,11 @@ type PaymentContentProps = {
 
 export default function PaymentContent({ orderList }: PaymentContentProps) {
   const { couponList, isLoading, errorMessage } = useGetCoupon();
-  const { deliveryPrice, isRegionDelivery, toggleRegionDelivery } =
-    useDeliveryPrice(getOrderTotalPrice(orderList));
   const [isOpenCouponModal, openCouponModal, closeCouponModal] =
     useCouponModal();
+
+  const { deliveryPrice, isRegionDelivery, toggleRegionDelivery } =
+    useDeliveryPrice(getOrderTotalPrice(orderList));
   const { couponDiscount, paymentPrice, applyCouponDiscount } = usePaymentPrice(
     { orderTotalPrice: getOrderTotalPrice(orderList), deliveryPrice }
   );
