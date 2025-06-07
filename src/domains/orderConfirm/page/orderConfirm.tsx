@@ -7,6 +7,7 @@ import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
+import { SelectedCartContainer } from "../component/SelectedCartContainer/SelectedCartContainer";
 import { SelectedCartList } from "../component/SelectedCartList/SelectedCartList";
 
 export default function OrderConfirm() {
@@ -30,7 +31,7 @@ export default function OrderConfirm() {
             최종 결제 금액을 확인해 주세요..
           </p>
         </div>
-        <SelectedCartList />
+        <SelectedCartContainer />
         <PaymentSummary price={totalPrice} />
       </Main>
       <Footer>
