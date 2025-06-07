@@ -28,11 +28,6 @@ const CartItemCardList = () => {
     }
   };
 
-  useEffect(() => {
-    const cartItemIds = cartItems.map((item) => item.id);
-    handleSelectedItem(new Set(cartItemIds));
-  }, []);
-
   return (
     <>
       <LabeledCheckbox
