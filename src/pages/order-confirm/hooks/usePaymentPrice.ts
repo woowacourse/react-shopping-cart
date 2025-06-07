@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 type UsePaymentPriceParams = {
   orderTotalPrice: number;
@@ -11,9 +11,9 @@ export const usePaymentPrice = ({
 }: UsePaymentPriceParams) => {
   const [couponDiscount, setCouponDiscount] = useState(0);
 
-  const applyCouponDiscount = (discountAmount: number) => {
+  const applyCouponDiscount = useCallback((discountAmount: number) => {
     setCouponDiscount(discountAmount);
-  };
+  }, []);
 
   return {
     couponDiscount,
