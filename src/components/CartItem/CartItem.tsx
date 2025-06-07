@@ -1,5 +1,4 @@
 import * as styles from './CartItem.style';
-import Stepper from './Stepper';
 import { RemoveButton } from './RemoveButton';
 import CheckBox from '../common/CheckBox';
 import { CartItemType } from '../../types/cartItem';
@@ -8,7 +7,8 @@ import { useApiContext } from '../../contexts/ApiContext';
 import getCartItems from '../../api/getCartItem';
 import { deleteCartItem } from '../../api/deleteCartItem';
 import { useErrorContext } from '../../contexts/ErrorContext';
-import Image from '../Image/Image';
+import * as Card from '../Card/Card';
+import Stepper from '../Stepper/Stepper';
 
 interface CartItemProps {
   item: CartItemType;
@@ -61,14 +61,14 @@ export default function CartItem({ item, handleCheckBoxChange, checked }: CartIt
         <CheckBox onChange={handleCheckBoxChange} checked={checked} />
         <RemoveButton onClick={handleDeleteCart} />
       </div>
-      <div css={styles.cartItemInfoCss}>
-        <Image css={styles.cartItemImgCss} src={imageUrl} alt={name} />
-        <div>
-          <p>{name}</p>
-          <p css={styles.cartItemPriceCss}>{(price * cartQuantity).toLocaleString()}원</p>
+      <Card.Root>
+        <Card.CardImage src={imageUrl} alt={name} />
+        <Card.Content>
+          <Card.Title>{name}</Card.Title>
+          <Card.Price>{(price * cartQuantity).toLocaleString()}원</Card.Price>
           <Stepper value={cartQuantity} onDecrement={handleMinus} onIncrement={handlePlus} />
-        </div>
-      </div>
+        </Card.Content>
+      </Card.Root>
     </div>
   );
 }
