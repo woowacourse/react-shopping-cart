@@ -10,8 +10,11 @@ import CouponButton from "../../components/CouponButton/CouponButton";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import CouponModal from "../../components/CouponModal/CouponModal";
+import useModal from "../../hooks/modal/useModal";
 
 function OrderSummary() {
+  const { isOpen, modalClose, modalOpen } = useModal();
   const navigate = useNavigate();
 
   const cartItems = useSafeLocationState<CartItemType[]>();
@@ -32,7 +35,7 @@ function OrderSummary() {
           `}
         />
         <OrderItemList />
-        <CouponButton />
+        <CouponButton onClick={modalOpen} />
         <div>
           <p>배송 정보</p>
           <CheckBox
@@ -45,6 +48,7 @@ function OrderSummary() {
         <Receipt selectedCartItems={[]} discount={10000} />
       </section>
       <SubmitButton enabled={false} label="결제하기" />
+      {isOpen && <CouponModal onClose={modalClose} />}
     </>
   );
 }

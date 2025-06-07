@@ -1,14 +1,21 @@
 import { DisabledCheck, EnabledCheck } from "../../constants/images";
-import { Button, Container, Label } from "./\bCheckBox.styles";
+import { BigText, Button, Container, SmallText } from "./\bCheckBox.styles";
 
 interface CheckBoxProps {
   label?: string;
   id: string;
   isSelected: boolean;
   onClick: () => void;
+  textSize?: "small" | "big";
 }
 
-function CheckBox({ label, id, isSelected, onClick }: CheckBoxProps) {
+function CheckBox({
+  label,
+  id,
+  isSelected,
+  onClick,
+  textSize = "small",
+}: CheckBoxProps) {
   const imageSource = isSelected ? EnabledCheck : DisabledCheck;
 
   return (
@@ -17,7 +24,7 @@ function CheckBox({ label, id, isSelected, onClick }: CheckBoxProps) {
         <img src={imageSource} alt="체크 박스" />
       </button>
       {label && (
-        <label css={Label} htmlFor={id}>
+        <label css={textSize === "big" ? BigText : SmallText} htmlFor={id}>
           {label}
         </label>
       )}
