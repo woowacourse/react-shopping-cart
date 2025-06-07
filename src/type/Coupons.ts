@@ -37,3 +37,10 @@ export type Coupon =
   | BuyXGetYCoupon
   | FreeShippingCoupon
   | PercentageDiscountCoupon;
+
+export enum CouponType {
+  FIXED = "fixed",
+  BUY_X_GET_Y = "buyXgetY",
+  FREE_SHIPPING = "freeShipping",
+  PERCENTAGE = "percentage",
+}
