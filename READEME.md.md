@@ -56,8 +56,7 @@
   - [x] coupons 상태 (기존 서버에서 쿠폰정보 받아오고, 여기에 isChecked 값 부여)
   - [x] useCouponApply 훅 제작
   - [x] useCouponApply 적용
-    - 이렇게 할 경우, 계산 로직이 복잡해질 수 있다.
-    - [ ]
+    - [x] 쿠폰 로직 ui 반영
 - [x] msw 쿠폰 조회 로직 작성
 - [ ] 테스트 코드 작성
 
