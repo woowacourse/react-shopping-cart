@@ -37,7 +37,8 @@ export default function ApplyCouponModal({
     function autoSelectMaxDiscount() {
       onApplyCoupon(discountAmount);
     },
-    [onApplyCoupon, discountAmount]
+    // 배송비에 따라 쿠폰 할인율이 달라질 수 있으므로 의존성 배열에 배송비 추가
+    [deliveryPrice]
   );
 
   const handleApplyCouponButtonClick = () => {
