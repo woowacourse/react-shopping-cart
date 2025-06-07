@@ -29,10 +29,21 @@ export const apiClient = async <T = unknown>(
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  // DELETE 요청이나 204 No Content 응답의 경우 빈 응답 처리
-  if (method === 'DELETE' || response.status === 204) {
+  // 204 No Content 응답의 경우 빈 응답 처리
+  if (response.status === 204) {
     return {} as T;
   }
 
-  return await response.json();
+  // 응답 본문이 비어있는지 확인
+  const text = await response.text();
+  if (!text) {
+    return {} as T;
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch (error) {
+    console.error('JSON parsing error:', error);
+    throw new Error('Invalid JSON response');
+  }
 };
