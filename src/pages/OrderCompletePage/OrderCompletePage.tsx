@@ -10,6 +10,7 @@ import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSect
 import CouponModal from "../../components/CouponModal/CouponModal";
 import { Coupon } from "../../api/couponApi";
 import { CouponSelectProvider } from "../../stores/CouponContext";
+import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 
 interface OrderCompleteState {
   selectedCartItem: ResponseCartItem[];
@@ -24,10 +25,16 @@ const OrderCompletePage = () => {
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [appliedCoupons, setAppliedCoupons] = useState<Coupon[]>([]);
-  const [totalCouponDiscount, setTotalCouponDiscount] = useState(0);
-  const [isJejudo, setIsJejudo] = useState(false);
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
 
   const state = location.state as OrderCompleteState;
+
+  const { selectedCouponResult, finalTotalAmount, orderAmount } =
+    useCouponCalculation({
+      cartItems: state?.selectedCartItem || [],
+      isRemoteArea,
+      selectedCoupons: appliedCoupons,
+    });
 
   useEffect(() => {
     if (!state) {
@@ -43,11 +50,13 @@ const OrderCompletePage = () => {
     navigate("/check-payment", {
       state: {
         selectedCartItem: state.selectedCartItem,
-        totalPrice: state.totalPrice,
-        orderPrice: state.orderPrice,
-        deliveryPrice: state.deliveryPrice,
+        totalPrice: finalTotalAmount,
+        orderPrice: orderAmount,
+        deliveryPrice: selectedCouponResult.finalDeliveryFee,
         appliedCoupons,
-        totalCouponDiscount,
+        couponDiscount: selectedCouponResult.totalDiscount,
+        deliveryDiscount: selectedCouponResult.deliveryDiscount,
+        isRemoteArea,
       },
     });
   };
@@ -62,18 +71,6 @@ const OrderCompletePage = () => {
 
   const handleApplyCoupons = (selectedCoupons: Coupon[]): void => {
     setAppliedCoupons(selectedCoupons);
-
-    let totalDiscount = 0;
-    selectedCoupons.forEach((coupon) => {
-      if (coupon.discountType === "fixed" && coupon.discount) {
-        totalDiscount += coupon.discount;
-      } else if (coupon.discountType === "percentage" && coupon.discount) {
-        totalDiscount += Math.floor(state.orderPrice * (coupon.discount / 100));
-      }
-      // freeShipping, buyXgetY 등은 별도 로직으로 처리 가능
-    });
-
-    setTotalCouponDiscount(totalDiscount);
   };
 
   return (
@@ -87,7 +84,7 @@ const OrderCompletePage = () => {
           <S.OrderResultWrapper>
             <OrderResult
               selectedCartItem={state.selectedCartItem}
-              totalPrice={state.totalPrice}
+              totalPrice={finalTotalAmount}
               orderStatus="order-complete"
             />
           </S.OrderResultWrapper>
@@ -103,17 +100,18 @@ const OrderCompletePage = () => {
             <S.DeliveryInfo>
               <S.DeliveryInfoTitle>배송 정보</S.DeliveryInfoTitle>
               <CheckBox
-                isChecked={isJejudo}
+                isChecked={isRemoteArea}
                 text="제주도 및 도서 산간 지역"
                 onClick={() => {
-                  setIsJejudo(!isJejudo);
+                  setIsRemoteArea(!isRemoteArea);
                 }}
               />
             </S.DeliveryInfo>
             <OrderPriceSection
-              orderPrice={state.orderPrice}
-              deliveryPrice={state.deliveryPrice}
-              couponPrice={totalCouponDiscount}
+              orderPrice={orderAmount}
+              couponPrice={selectedCouponResult.totalDiscount}
+              isDeliveryFree={selectedCouponResult.finalDeliveryFee === 0}
+              isRemoteArea={isRemoteArea}
             />
           </S.CartItemWrapper>
 
@@ -127,6 +125,8 @@ const OrderCompletePage = () => {
             isOpen={isCouponModalOpen}
             onClose={handleCloseCouponModal}
             onApplyCoupons={handleApplyCoupons}
+            cartItems={state?.selectedCartItem || []}
+            isRemoteArea={isRemoteArea}
           />
         </S.OrderCompletePageWrapper>
       </S.Root>

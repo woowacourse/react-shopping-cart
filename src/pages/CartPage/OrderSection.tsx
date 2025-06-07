@@ -40,7 +40,9 @@ const OrderSection = () => {
     <>
       <OrderPriceSection
         orderPrice={orderPrice}
-        deliveryPrice={deliveryPrice}
+        couponPrice={0}
+        isDeliveryFree={false}
+        isRemoteArea={false}
       />
       <S.OrderButton onClick={handleOrderCheck} disabled={orderPrice === 0}>
         주문 확인

@@ -17,3 +17,13 @@ export const calculateShippingFee = (totalPrice: number) => {
 export const formatPrice = (price: number) => {
   return price.toLocaleString("ko-KR");
 };
+
+export const calculateDeliveryPrice = (
+  totalPrice: number,
+  isRemoteArea: boolean
+) => {
+  if (totalPrice >= 100000) {
+    return 0;
+  }
+  return isRemoteArea ? 6000 : 3000;
+};
