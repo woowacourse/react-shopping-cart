@@ -2,7 +2,6 @@ import { FooterButton } from "../../components/FooterButton/FooterButton.styles"
 import Header from "../../components/@common/Header/Header";
 import BackIcon from "/left-arrow.svg";
 import * as S from "./OrderPage.styles";
-import Title from "../../components/@common/Title/Title";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import useCartCalculations from "../../hooks/useCartCaculations";
@@ -12,9 +11,9 @@ import Checkbox from "../../components/@common/Checkbox/Checkbox";
 import Description from "../../components/@common/Description/Description";
 import InfoIcon from "/Info.svg";
 import { useState } from "react";
-import { getCoupons } from "../../apis/coupons/getCoupons";
-import { Coupon } from "../../types/response";
 import CouponModal from "../../CouponModal/CouponModal";
+import Title from "../../components/@common/Title/Title";
+import useToast from "../../hooks/useToast";
 
 const IMG_BASE_URL = "/react-shopping-cart";
 const DEFAULT_IMAGE_URL = "/planet-default-image.svg";
@@ -24,21 +23,22 @@ const OrderPage = () => {
   const { orderQuantity } = useCartCalculations();
   const [isOpen, setIsOpen] = useState(false);
 
+  const { showToast } = useToast();
+
   const navigate = useNavigate();
 
   const navigateToBack = () => {
     navigate(-1);
   };
 
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
-
   const handleModalOpen = async () => {
     try {
-      const data = await getCoupons();
-      setCoupons(data);
       setIsOpen(true);
     } catch (error) {
-      console.error("쿠폰 가져오기 실패:", error);
+      showToast({
+        message: "쿠폰을 불러오는 데 실패했습니다.",
+        type: "error",
+      });
     }
   };
 
@@ -93,15 +93,7 @@ const OrderPage = () => {
         <S.ButtonContainer>
           <S.Button onClick={handleModalOpen}>쿠폰 적용</S.Button>
         </S.ButtonContainer>
-        <CouponModal
-          isOpen={isOpen}
-          coupons={coupons}
-          onClose={handleModalClose}
-          onApply={(selectedCoupons) => {
-            // 선택된 쿠폰 처리 로직
-            console.log("사용할 쿠폰:", selectedCoupons);
-          }}
-        />
+        <CouponModal isOpen={isOpen} onClose={handleModalClose} />
         <S.ShippingInfo>
           <S.Label>배송 정보</S.Label>
           <S.CheckboxContainer>
