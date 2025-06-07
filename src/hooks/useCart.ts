@@ -1,39 +1,22 @@
-import { useData } from '../context/DataContext';
-import { getCartItems } from '../apis/cart';
-import { CartItemsResponse } from '../types/cart';
+import { useCartData } from './useCartData';
 import { useCartSelection } from './useCartSelection';
-import {
-  filterCheckedItems,
-  calculateTotalPrice,
-  calculateTotalQuantity,
-  calculateShippingFee,
-  getCartDescription,
-} from '../utils/cartCalculations';
+import { useCartCalculations } from './useCartCalculations';
+import { useCartUI } from './useCartUI';
 
 export const useCart = () => {
-  const { data: cartItems } = useData<CartItemsResponse>({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
+  const cartItems = useCartData();
 
   const { checkedItems, setCheckedItems, isAllChecked, checkAll } = useCartSelection(cartItems);
 
-  const checkedCartItems = cartItems?.content
-    ? filterCheckedItems(cartItems.content, checkedItems)
-    : [];
+  const { price, totalCount, shippingFee, totalPrice } = useCartCalculations({
+    items: cartItems?.content,
+    checkedIds: checkedItems,
+  });
 
-  const price = calculateTotalPrice(checkedCartItems);
-  const totalCount = calculateTotalQuantity(checkedCartItems);
-  const hasItems = checkedItems.length > 0;
-  const shippingFee = calculateShippingFee(price, hasItems);
-  const totalPrice = price + shippingFee;
-
-  const descriptionMessage = () => {
-    const itemCount = cartItems?.content?.length ?? 0;
-    return getCartDescription(itemCount);
-  };
-
-  const isDisabled = checkedItems.length === 0;
+  const { descriptionMessage, isDisabled } = useCartUI({
+    itemCount: cartItems?.content?.length ?? 0,
+    checkedItemsCount: checkedItems.length,
+  });
 
   return {
     cartItems,
