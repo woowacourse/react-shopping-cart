@@ -1,13 +1,13 @@
 import { Button, Text } from "@/components";
 import { css } from "@emotion/react";
-import { ButtonWrapper } from "@/pages/ShoppingCartPage/funnels/Step1/components/Step1Footer/Step1Footer.styles";
+import * as S_Page from "@/pages/ShoppingCartPage/ShoppingCartPage.styles";
 import { useFunnelContext } from "@/modules";
 
 export default function Step2Footer() {
   const { goNextStep } = useFunnelContext();
 
   return (
-    <ButtonWrapper>
+    <S_Page.ButtonWrapper>
       <Button
         css={css`
           width: 100%;
@@ -18,6 +18,6 @@ export default function Step2Footer() {
           결제하기
         </Text>
       </Button>
-    </ButtonWrapper>
+    </S_Page.ButtonWrapper>
   );
 }

@@ -1,15 +1,15 @@
 import { Button, Text } from "@/components";
-import { useShoppingCartContext } from "../../../../contexts";
 import { css } from "@emotion/react";
-import * as S from "./Step1Footer.styles";
+import * as S_Page from "@/pages/ShoppingCartPage/ShoppingCartPage.styles";
 import { useFunnelContext } from "@/modules";
+import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 
 export default function Step1Footer() {
   const { selectedItemIds } = useShoppingCartContext();
   const { goNextStep } = useFunnelContext();
 
   return (
-    <S.ButtonWrapper>
+    <S_Page.ButtonWrapper>
       <Button
         css={css`
           width: 100%;
@@ -21,6 +21,6 @@ export default function Step1Footer() {
           주문 확인
         </Text>
       </Button>
-    </S.ButtonWrapper>
+    </S_Page.ButtonWrapper>
   );
 }
