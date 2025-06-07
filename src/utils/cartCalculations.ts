@@ -1,5 +1,5 @@
 import { CartProduct } from '../types/cart';
-import { SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
+import { FREE_SHIPPING_FEE, SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 
 export const filterCheckedItems = (items: CartProduct[], checkedIds: number[]): CartProduct[] => {
   return items.filter((item) => checkedIds.includes(item.id));
@@ -15,7 +15,7 @@ export const calculateTotalQuantity = (items: CartProduct[]): number => {
 
 export const calculateShippingFee = (price: number, hasItems: boolean): number => {
   const needsShippingFee = price < SHIPPING_FEE_THRESHOLD;
-  return hasItems && needsShippingFee ? SHIPPING_FEE : 0;
+  return hasItems && needsShippingFee ? SHIPPING_FEE : FREE_SHIPPING_FEE;
 };
 
 export const getCartDescription = (itemCount: number): string | undefined => {
