@@ -51,7 +51,7 @@ const CartPage = () => {
             <S.InfoContainer>
               <img src={InfoIcon} alt="info" />
               <Description>
-                총 주문 금액이 {formatCurrency(FREE_SHIPPING_THRESHOLD)}원
+                총 주문 금액이 {formatCurrency(FREE_SHIPPING_THRESHOLD)}
                 이상일 경우 무료 배송됩니다.
               </Description>
             </S.InfoContainer>
