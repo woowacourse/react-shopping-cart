@@ -4,7 +4,7 @@ import useCheckedCartIds from '../../src/hooks/useCheckedCartIds';
 import { act } from 'react';
 import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 
-describe('선택된 요소 상태 관리 훅 테스트', () => {
+describe('선택된 장바구니 요소 ID 상태 관리 훅 테스트', () => {
   it('장바구니 배열이 주어지면 초기 상태로 장바구니 상품의 id 배열을 담는다.', async () => {
     const { result } = renderHook(() => useCheckedCartIds());
     act(() => result.current.initCheckedCartIds(mockCartItems));
