@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { Line } from "../../../../components/Line/Line";
-import { getCouponItems } from "../../api/coupon";
 
 import { CouponType } from "../../types/coupon";
 import { Coupon } from "../Coupon/Coupon";
@@ -8,28 +6,22 @@ import { Coupon } from "../Coupon/Coupon";
 interface CouponListProps {
   selectedCoupons: string[];
   handleCouponSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  coupons: CouponType[];
 }
 
 export function CouponList({
   selectedCoupons,
   handleCouponSelect,
+  coupons,
 }: CouponListProps) {
-  const [coupons, setCoupons] = useState<CouponType[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const data = await getCouponItems();
-      setCoupons(data);
-    })();
-  }, []);
-
   return (
     <>
       {coupons.map((coupon: CouponType) => {
         return (
           <>
-            <Line />
+            <Line key="line" />
             <Coupon
+              key={coupon.code}
               item={coupon}
               isSelected={selectedCoupons.includes(coupon.code)}
               handleCouponSelect={handleCouponSelect}

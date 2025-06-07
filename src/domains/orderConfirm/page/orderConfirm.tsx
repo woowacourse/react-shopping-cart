@@ -11,17 +11,23 @@ import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalP
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
 
 import Modal from "compoents-modal-test-kangoll";
-import { InfoText } from "../../../components/InfoText/InfoText";
-import { CouponList } from "../components/CouponList/CouponList";
-import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import { useNavigate } from "react-router-dom";
+import { InfoText } from "../../../components/InfoText/InfoText";
+import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
+import { CouponList } from "../components/CouponList/CouponList";
+import { useSaleCoupon } from "../hooks/useSaleCoupon";
 import { pressBackButton } from "./orderConfirm.style";
+import { getDeliveryFee } from "../utils/getDeliveryFee";
+import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
+import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
+import { getDisCountedPrice } from "../utils/getDisCountedPrice";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
   const { selectedCartIds } = useSelectedCartContext();
+  const { handleCouponSelect, selectedCoupons, coupons, validateCoupon } =
+    useSaleCoupon();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCoupons, setSelectedCoupons] = useState<string[]>([]);
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
 
   const navigate = useNavigate();
@@ -31,7 +37,6 @@ export default function OrderConfirm() {
   };
 
   const handleModalOpen = () => {
-    console.log("쿠폰 선택 모달 열기");
     setIsModalOpen(true);
   };
   const handleModalClose = () => {
@@ -41,21 +46,25 @@ export default function OrderConfirm() {
     setIsExtraDeliveryArea((prev) => !prev);
   };
 
-  const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const couponId = e.target.id;
-    setSelectedCoupons((prev) => {
-      if (prev.includes(couponId)) return prev.filter((id) => id !== couponId);
-      if (prev.length < 2) {
-        return [...prev, couponId];
-      }
-      return prev;
-    });
-  };
-
-  const couponSale = 100;
-
   const totalPrice = getTotalPrice({
     cartItems: cartItems,
+    selectedCartIds,
+  });
+
+  const deliveryFee = getDeliveryFee({ totalPrice, isExtraDeliveryArea });
+
+  const discountedPrice = getDisCountedPrice({
+    deliveryFee,
+    totalPrice,
+    maxPriceInSelectedCart: getMaxPriceInSelectedCart({
+      cartItems,
+      selectedCartIds,
+    }),
+    selectedCoupons,
+  });
+
+  const selectedCartItemCount = calculateCartItemQuantity({
+    cartItems,
     selectedCartIds,
   });
 
@@ -70,10 +79,10 @@ export default function OrderConfirm() {
         <div css={titleBox}>
           <p css={titleStyle}>주문 확인</p>
           <p css={subTitleStyle}>
-            총 1종류의 상품 2개를 주문합니다. <br />
+            총 {selectedCartIds.length}종류의 상품 {selectedCartItemCount}
+            개를 주문합니다. <br />
             최종 결제 금액을 확인해 주세요..
           </p>
-          {/** toto : 변수 설정 필요 */}
         </div>
         <SelectedCartContainer
           handleModalOpen={handleModalOpen}
@@ -82,8 +91,8 @@ export default function OrderConfirm() {
         />
         <PaymentSummary
           price={totalPrice}
-          couponSale={couponSale}
-          isExtraDeliveryArea={isExtraDeliveryArea}
+          couponSale={discountedPrice}
+          deliveryFee={deliveryFee}
         />
       </Main>
       <Footer>
@@ -103,13 +112,16 @@ export default function OrderConfirm() {
         <Modal.Content>
           <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
           <CouponList
-            handleCouponSelect={handleCouponSelect}
+            handleCouponSelect={(e) => {
+              if (validateCoupon(e, totalPrice)) handleCouponSelect(e);
+            }}
             selectedCoupons={selectedCoupons}
+            coupons={coupons}
           />
         </Modal.Content>
         <Modal.Footer>
           <Button onClick={handleModalClose} size="full">
-            총 6,000원 할인 쿠폰 사용하기
+            총 {discountedPrice.toLocaleString()}원 할인 쿠폰 사용하기
           </Button>
         </Modal.Footer>
       </Modal>
