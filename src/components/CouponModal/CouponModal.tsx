@@ -2,25 +2,26 @@ import { Modal } from "pongju-modal-component";
 import Text from "../@common/Text/Text";
 import { MAX_COUPON_COUNT } from "../../constants";
 import { InfoRow } from "../PriceSummary/PriceSummary";
-import { useCoupon } from "../../hooks/useCoupon";
-import { useEffect } from "react";
 import { CouponItem } from "./CouponItem";
+import { Coupon } from "../../types/type";
 
 interface CouponModalProps {
   isOpen: boolean;
   onModalClose: () => void;
+  coupons: Coupon[];
+  couponDiscountAmount: number;
+  selectedCouponIds: Set<number>;
+  toggleCouponId: (id: number) => void;
 }
 
-export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
-  const { coupons, fetchCoupons, couponDiscount } = useCoupon();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchCoupons();
-    };
-    fetchData();
-  }, []);
-
+export const CouponModal = ({
+  isOpen,
+  onModalClose,
+  coupons,
+  couponDiscountAmount,
+  selectedCouponIds,
+  toggleCouponId,
+}: CouponModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onModalClose}>
       <Modal.Backdrop>
@@ -35,11 +36,13 @@ export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
               />
             </div>
             {coupons.map((coupon) => {
+              const isSelected = selectedCouponIds.has(coupon.id);
               return (
                 <CouponItem
                   key={coupon.id}
                   name={coupon.description}
-                  isSelected={true}
+                  isSelected={isSelected}
+                  onClick={() => toggleCouponId(coupon.id)}
                   expiration={coupon.expirationDate}
                   availableTime={
                     coupon.discountType === "percentage"
@@ -57,7 +60,7 @@ export const CouponModal = ({ isOpen, onModalClose }: CouponModalProps) => {
             })}
           </Modal.Body>
           <Modal.Button
-            title={`총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
+            title={`총 ${couponDiscountAmount.toLocaleString()}원 할인 쿠폰 사용하기`}
             onClick={onModalClose}
             size="large"
             styled={{ height: "44px" }}

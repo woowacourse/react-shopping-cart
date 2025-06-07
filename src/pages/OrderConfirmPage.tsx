@@ -11,15 +11,19 @@ import { PriceSummary } from "../components/PriceSummary/PriceSummary";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { useState } from "react";
 import { CouponModal } from "../components/CouponModal/CouponModal";
+import { useCoupon } from "../hooks/useCoupon";
 
 const OrderConfirmPage = () => {
-  const { selectedItemIds, orderPrice, shippingFee, totalPrice, cartItems } =
+  const { selectedItemIds, orderPrice, shippingFee, cartItems } =
     useCartItemContext();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isRemoteArea, setIsRemoteArea] = useState<boolean>(false);
   const selectedItems = cartItems.filter((cartItem) =>
     selectedItemIds.has(cartItem.id)
   );
+  const { coupons, couponDiscountAmount, selectedCouponIds, toggleCouponId } =
+    useCoupon({ orderPrice, isRemoteArea, selectedItems });
 
   return (
     <div className={OrderConfirmLayout}>
@@ -59,14 +63,17 @@ const OrderConfirmPage = () => {
         <section className={PriceInfoStyle}>
           <Text text="배송 정보" type="medium" />
           <div className={ShippingToggleStyle}>
-            <ToggleButton isSelected={true} />
+            <ToggleButton
+              isSelected={isRemoteArea}
+              onClick={() => setIsRemoteArea((prev: boolean) => !prev)}
+            />
             <Text text="제주도 및 도서 산간 지역" />
           </div>
           <PriceSummary
             orderPrice={orderPrice}
             shippingFee={shippingFee}
-            couponDiscount={shippingFee}
-            totalPrice={totalPrice}
+            couponDiscount={couponDiscountAmount}
+            totalPrice={orderPrice - couponDiscountAmount}
           />
         </section>
 
@@ -75,6 +82,10 @@ const OrderConfirmPage = () => {
           onModalClose={() => {
             setIsOpen(false);
           }}
+          coupons={coupons}
+          couponDiscountAmount={couponDiscountAmount}
+          selectedCouponIds={selectedCouponIds}
+          toggleCouponId={toggleCouponId}
         />
       </div>
       <ConfirmButton

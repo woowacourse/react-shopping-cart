@@ -19,27 +19,29 @@ export interface AvailableTime {
   end: string;
 }
 
+export type DiscountType = "fixed" | "buyXgetY" | "freeShipping" | "percentage";
+
 type BaseCoupon = {
   id: number;
   code: string;
   description: string;
   expirationDate: string;
-  discountType: "fixed" | "buyXgetY" | "freeShipping" | "percentage";
+  discountType: DiscountType;
 };
 
-type FixedDiscountCoupon = BaseCoupon & {
+export type FixedDiscountCoupon = BaseCoupon & {
   discountType: "fixed";
   discount: number;
   minimumAmount: number;
 };
 
-type BuyXGetYCoupon = BaseCoupon & {
+export type BuyXGetYCoupon = BaseCoupon & {
   discountType: "buyXgetY";
   buyQuantity: number;
   getQuantity: number;
 };
 
-type FreeShippingCoupon = BaseCoupon & {
+export type FreeShippingCoupon = BaseCoupon & {
   discountType: "freeShipping";
   minimumAmount: number;
 };
