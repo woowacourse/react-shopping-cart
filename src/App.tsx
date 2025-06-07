@@ -7,11 +7,11 @@ import { theme } from "./styles";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <S.AppWrapper>
-        <ToastProvider>
+      <ToastProvider>
+        <S.AppWrapper>
           <ShoppingCartPage />
-        </ToastProvider>
-      </S.AppWrapper>
+        </S.AppWrapper>
+      </ToastProvider>
     </ThemeProvider>
   );
 }
