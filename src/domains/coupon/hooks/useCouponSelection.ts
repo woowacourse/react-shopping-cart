@@ -1,8 +1,7 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 // import { useCoupon } from "./useCoupon";
 import useToast from "../../../features/toast/useToast";
-
-const MAX_COUPON_SELECTION = 2;
+import { MAX_COUPON_SELECTION } from "../constants";
 
 export const useCouponSelection = () => {
   const { showToast } = useToast();
@@ -18,7 +17,7 @@ export const useCouponSelection = () => {
 
         if (prev.length >= MAX_COUPON_SELECTION) {
           showToast({
-            message: "쿠폰은 최대 2개까지 적용 가능합니다.",
+            message: `쿠폰은 최대 ${MAX_COUPON_SELECTION}개까지 적용 가능합니다.`,
             type: "error",
           });
           return prev;

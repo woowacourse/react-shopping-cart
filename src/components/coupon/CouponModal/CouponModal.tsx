@@ -1,3 +1,4 @@
+import { MAX_COUPON_SELECTION } from "../../../domains/coupon/constants";
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
 import { useCouponSelection } from "../../../domains/coupon/hooks/useCouponSelection";
 import useCouponValidation from "../../../domains/coupon/hooks/useCouponValidation";
@@ -8,8 +9,6 @@ import CouponCard from "../CouponCard/CouponCard";
 import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
-
-const MAX_COUPON_SELECTION = 2;
 
 // TODO: 실제로 쿠폰 적용에 따른 계산된 값 불러오기
 const price = 6000;
