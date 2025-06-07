@@ -12,6 +12,7 @@ import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import CouponModal from "../../components/CouponModal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
+import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
 
 function OrderSummary() {
   const { isOpen, modalClose, modalOpen } = useModal();
@@ -19,8 +20,8 @@ function OrderSummary() {
 
   const cartItems = useSafeLocationState<CartItemType[]>();
 
-  // const orderCost = getOrderCost(cartItems);
-  // const totalCost = orderCost + getDeliveryCost(orderCost);
+  const orderCost = getOrderCost(cartItems);
+  const deliveryCost = getDeliveryCost(orderCost);
 
   return (
     <>
@@ -45,7 +46,11 @@ function OrderSummary() {
             label="제주도 및 도서 산간 지역"
           />
         </div>
-        <Receipt selectedCartItems={[]} discount={10000} />
+        <Receipt
+          orderCost={orderCost}
+          deliveryCost={deliveryCost}
+          discount={10000}
+        />
       </section>
       <SubmitButton enabled={false} label="결제하기" />
       {isOpen && <CouponModal onClose={modalClose} />}

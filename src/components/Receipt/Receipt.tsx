@@ -1,16 +1,14 @@
-import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { InfoText, Table } from "./Receipt.styles";
 import { Info } from "../../constants/images";
 
 interface ReceiptProps {
-  selectedCartItems: CartItemType[];
+  orderCost: number;
+  deliveryCost: number;
   discount?: number;
 }
 
-function Receipt({ selectedCartItems, discount }: ReceiptProps) {
-  const orderCost = getOrderCost(selectedCartItems);
-  const deliveryCost = getDeliveryCost(orderCost);
+function Receipt({ orderCost, deliveryCost, discount }: ReceiptProps) {
+  const totalCost = orderCost + deliveryCost - (discount || 0);
 
   return (
     <div>
@@ -36,7 +34,7 @@ function Receipt({ selectedCartItems, discount }: ReceiptProps) {
           </tr>
           <tr>
             <td>총 결제 금액</td>
-            <td>{(orderCost + deliveryCost).toLocaleString()}원</td>
+            <td>{totalCost.toLocaleString()}원</td>
           </tr>
         </tbody>
       </table>

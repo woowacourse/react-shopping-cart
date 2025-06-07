@@ -14,6 +14,7 @@ import useCheckboxHandler from "../../hooks/cart/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import { CartLogo } from "../../constants/images";
 import { NoCartItemText, Wrap } from "./Cart.styles";
+import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -61,6 +62,10 @@ function Cart() {
       ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.`
       : "";
 
+  const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
+  const orderCost = getOrderCost(selectedCartItems);
+  const deliveryCost = getDeliveryCost(orderCost);
+
   return (
     <>
       <Header icon={CartLogo} handleIconClick={() => navigate("/")} />
@@ -83,12 +88,7 @@ function Cart() {
               isSelected={isSelected}
               toggleSelect={toggleSelect}
             />
-            <Receipt
-              selectedCartItems={getSelectedCartItems(
-                cartItems,
-                selectedCartIds
-              )}
-            />
+            <Receipt deliveryCost={deliveryCost} orderCost={orderCost} />
           </div>
         )}
       </section>
