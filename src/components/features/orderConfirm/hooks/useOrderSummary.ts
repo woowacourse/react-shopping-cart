@@ -12,7 +12,13 @@ export default function useOrderSummary() {
   const quantity = products.length;
   const totalProductQuantity = calculateTotalProductQuantity(products);
   const price = calculateOrderPrice(products);
-  const { totalPrice } = calculateTotalPrice(price);
+  const { deliveryFee } = calculateTotalPrice(price);
 
-  return { products, quantity, totalProductQuantity, totalPrice };
+  return {
+    products,
+    quantity,
+    totalProductQuantity,
+    price,
+    deliveryFee,
+  };
 }

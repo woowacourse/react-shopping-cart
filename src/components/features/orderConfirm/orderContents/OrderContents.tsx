@@ -23,7 +23,7 @@ function OrderContents() {
           productQuantity={order.totalProductQuantity}
         />
         <OrderList products={order.products} />
-        <OrderPrice />
+        <OrderPrice price={order.price} deliveryFee={order.deliveryFee} />
         <FooterButton onClick={moveToPayment}>결제하기</FooterButton>
       </CouponProvider>
     </S.Container>
