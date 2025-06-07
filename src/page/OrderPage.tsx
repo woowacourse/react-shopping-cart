@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as styles from '../styles/page.style';
 import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
@@ -13,6 +13,9 @@ function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
+  const [includeSpecialRegions, setIncludeSpecialRegions] = useState<boolean>(false);
+  const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
+  const realTotalAmount = orderAmount + totalDeliveryFee;
 
   useEffect(() => {
     if (
@@ -58,16 +61,31 @@ function OrderPage() {
           <Button css={couponApplyCss}>쿠폰 적용</Button>
           <div css={priceTitleCss}>배송 정보</div>
           <div css={styles.allSelectCss}>
-            <CheckBox checked={true} onChange={() => {}} />
+            <CheckBox
+              checked={includeSpecialRegions}
+              onChange={() => setIncludeSpecialRegions(!includeSpecialRegions)}
+            />
             <p>제주도 및 도서 산간 지역</p>
           </div>
           <PriceArea
             orderAmount={orderAmount}
-            deliveryFee={deliveryFee}
-            totalAmount={totalAmount}
+            deliveryFee={totalDeliveryFee}
+            totalAmount={realTotalAmount}
             couponDiscount={6000}
           />
-          <Button>결제하기</Button>
+          <Button
+            onClick={() => {
+              navigate('/complete', {
+                state: {
+                  totalQuantity,
+                  countOfItemType,
+                  realTotalAmount
+                }
+              });
+            }}
+          >
+            결제하기
+          </Button>
         </div>
       </main>
     </>
