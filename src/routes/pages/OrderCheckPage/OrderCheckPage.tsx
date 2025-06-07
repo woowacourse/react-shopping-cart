@@ -10,13 +10,15 @@ import OrderCartItem from '../../../components/CartItem/OrderCartItem';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
 import { useCartContext } from '../../../context/CartContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CouponModal from '../../../components/CouponModal/CouponModal';
 import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
 import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
 import useCouponList from '../../../hooks/useCouponList';
 import useValidateCoupon from '../../../hooks/useValidateCoupon';
+import useCouponCombos from '../../../hooks/useCouponCombos';
+import { Coupon } from '../../../types/coupon';
 
 function OrderCheck() {
   const navigate = useNavigate();
@@ -28,14 +30,27 @@ function OrderCheck() {
     cart.selectedItems.includes(item.id)
   );
 
-  const { availableCouponList } = useValidateCoupon(
+  const { validatedCouponList } = useValidateCoupon(
     couponList,
     cart.subTotal,
     selectedCartItems
   );
+  const availableCouponList = validatedCouponList.filter(
+    (coupon) => !coupon.isExpired
+  );
+
+  const result = useCouponCombos(
+    selectedCartItems,
+    availableCouponList,
+    cart.subTotal,
+    cart.deliveryFee
+  );
+
+  console.log('result', result);
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [checkedCoupon, setCheckedCoupon] = useState<number[]>([]);
 
   const typeCount = cart.selectedItems.length;
   const totalCount = selectedCartItems.reduce(
@@ -44,9 +59,21 @@ function OrderCheck() {
     },
     0
   );
+
+  // const hasFreeShipping = result?.combo.some(
+  //   (coupon) => coupon.discountType === 'freeShipping'
+  // );
+
+  // const deliveryFee = hasFreeShipping
+  //   ? 0
+  //   : isChecked
+  //   ? result.finalShipping + 3000
+  //   : result.finalShipping;
+
   const deliveryFee = isChecked ? cart.deliveryFee + 3000 : cart.deliveryFee;
 
   const handleCouponButtonClick = () => {
+    setCheckedCoupon(result.combo.map((coupon) => coupon.id));
     setIsCouponModalOpen(true);
   };
 
@@ -98,7 +125,8 @@ function OrderCheck() {
       <CouponModal
         isOpen={isCouponModalOpen}
         onClose={handleCouponModalClose}
-        availableCouponList={availableCouponList}
+        validatedCouponList={validatedCouponList}
+        checkedCoupon={checkedCoupon}
       />
     </>
   );
