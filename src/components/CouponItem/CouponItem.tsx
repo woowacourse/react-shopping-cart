@@ -11,9 +11,15 @@ interface CouponItemProps {
   isChecked: boolean;
   onCheck: () => void;
   coupon: Coupon;
+  isDisabled: boolean;
 }
 
-function CouponItem({ isChecked, onCheck, coupon }: CouponItemProps) {
+function CouponItem({
+  isChecked,
+  onCheck,
+  coupon,
+  isDisabled,
+}: CouponItemProps) {
   const { description, expirationDate } = coupon;
   const [year, month, day] = expirationDate.split('-');
 
@@ -30,13 +36,14 @@ function CouponItem({ isChecked, onCheck, coupon }: CouponItemProps) {
   }
 
   return (
-    <div css={CouponItemStyle}>
+    <div css={CouponItemStyle(isDisabled)}>
       <div css={CouponItemHeaderStyle}>
         <input
           css={CheckboxStyle}
           type="checkbox"
           checked={isChecked}
           onChange={onCheck}
+          disabled={isDisabled}
         />
         <Text varient="body" textAlign="left">
           {description}
