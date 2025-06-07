@@ -1,11 +1,7 @@
+import { InfoText } from "../../../../components/InfoText/InfoText";
 import { Line } from "../../../../components/Line/Line";
-import { infoImgLayout, intoText } from "../../../common/common.style";
 import { SummaryRow } from "../SummaryRow/SummaryRow";
-import {
-  deliveryInfoBox,
-  paymentSummaryLayout,
-  summaryRowBox,
-} from "./PaymentSummary.style";
+import { paymentSummaryLayout, summaryRowBox } from "./PaymentSummary.style";
 
 interface PaymentSummaryProps {
   price: number;
@@ -16,12 +12,10 @@ export function PaymentSummary({ price }: PaymentSummaryProps) {
 
   return (
     <div css={paymentSummaryLayout}>
-      <div css={deliveryInfoBox}>
-        <img src="./info.png" css={infoImgLayout} />
-        <p css={intoText}>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </p>
-      </div>
+      <InfoText showImg>
+        총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+      </InfoText>
+
       <Line />
       <div css={summaryRowBox}>
         <SummaryRow text="주문 금액" price={price} dataTestId="orderPrice" />

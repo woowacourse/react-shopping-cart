@@ -8,7 +8,10 @@ import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
-import { SelectedCartContainer } from "../component/SelectedCartContainer/SelectedCartContainer";
+import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
+
+import Modal from "compoents-modal-test-kangoll";
+import { InfoText } from "../../../components/InfoText/InfoText";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
@@ -49,6 +52,23 @@ export default function OrderConfirm() {
           결제하기
         </Button>
       </Footer>
+      <Modal
+        position="center"
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        size="sm"
+      >
+        <Modal.Header hasCloseButton>쿠폰을 선택해주세요</Modal.Header>
+        <Modal.Content>
+          <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
+        </Modal.Content>
+
+        <Modal.Footer>
+          <Button onClick={handleModalClose} size="full">
+            총 6,000원 할인 쿠폰 사용하기
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </PageLayout>
   );
 }
