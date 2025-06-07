@@ -1,14 +1,11 @@
 import styled from '@emotion/styled';
+import { ComponentProps } from 'react';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  disabled: boolean;
-  onClick?: () => void;
-}
+type ButtonProps = ComponentProps<'button'>;
 
-function Button({ children, onClick, disabled }: ButtonProps) {
+function Button({ children, ...props }: ButtonProps) {
   return (
-    <BaseButton onClick={onClick} disabled={disabled}>
+    <BaseButton {...props}>
       {children}
     </BaseButton>
   );
