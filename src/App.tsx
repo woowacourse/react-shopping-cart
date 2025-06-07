@@ -10,6 +10,7 @@ import { OrderListProvider } from "./context/OrderListProvider";
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
 import { getBrowserBaseUrl } from "./utils/getBrowserBaseUrl";
 import ErrorBoundary from "./components/features/error-boundary/ErrorBoundary";
+import SuccessConfirmPage from "./pages/success-confirm/SuccessConfirmPage";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
                       <div>
                         <h1>Page Not Found</h1>
                       </div>
+                    }
+                  />
+                  <Route
+                    path="/success-confirm"
+                    element={
+                      <ErrorBoundary>
+                        <SuccessConfirmPage />
+                      </ErrorBoundary>
                     }
                   />
                 </Routes>
