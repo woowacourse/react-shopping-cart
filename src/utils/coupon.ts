@@ -4,7 +4,7 @@ import { Coupon } from '../types/coupon';
 export function isExpired(expirationDate: string): boolean {
   const today = new Date();
   const [y, m, d] = expirationDate.split('-').map(Number);
-  return today > new Date(y, m - 1, d);
+  return today <= new Date(y, m - 1, d);
 }
 
 export function isMiracleMorning(): boolean {
