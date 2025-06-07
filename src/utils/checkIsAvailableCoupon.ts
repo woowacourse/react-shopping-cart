@@ -1,8 +1,8 @@
 import { CartItem, Coupon } from '../types';
 import getOrderPrice from './getOrderPrice';
 
-const checkIsAvailableCoupon = (coupon: Coupon, cartItems: CartItem[]) => {
-  const orderPrice = getOrderPrice(cartItems);
+const checkIsAvailableCoupon = (coupon: Coupon, checkedCartItems: CartItem[]) => {
+  const orderPrice = getOrderPrice(checkedCartItems);
   if (orderPrice < (coupon.minimumAmount ?? 0)) return false;
   if (checkIsStaleCouponNow(coupon)) return false;
 
