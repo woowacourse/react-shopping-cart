@@ -6,7 +6,7 @@ import Image from '../components/Image/Image';
 import { useState } from 'react';
 import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
-import { setLocalStorage } from '../utils/localStorage';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 type SelectedItem = {
   id: number;
@@ -22,7 +22,7 @@ function OrderPage() {
   const [isRemoteArea, setIsRemoteArea] = useState(() => localStorage.getItem('isRemoteArea') === 'true');
 
   const navigate = useNavigate();
-  const items = getSelectedItemsFromStorage();
+  const items = getLocalStorage<SelectedItem[]>('selectedItems', []);
 
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -95,14 +95,4 @@ function SelectedItemCard({ item }: { item: SelectedItem }) {
       </div>
     </div>
   );
-}
-
-function getSelectedItemsFromStorage(): SelectedItem[] {
-  try {
-    const data = localStorage.getItem('selectedItems');
-    if (!data) return [];
-    return JSON.parse(data) as SelectedItem[];
-  } catch {
-    return [];
-  }
 }

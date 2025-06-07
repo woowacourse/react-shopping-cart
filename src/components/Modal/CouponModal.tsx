@@ -48,7 +48,6 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
     return desc.join('\n');
   };
 
-  // 배송비 계산
   const totalDiscount = calculateTotalDiscount(coupons, selectedCoupons, orderAmount);
 
   return (
@@ -146,8 +145,8 @@ function calculateBogoDiscount(): number {
 }
 
 function getShippingInfoFromStorage(): { isRemoteArea: boolean } {
-  const value = localStorage.getItem('isRemoteArea');
-  return { isRemoteArea: value === 'true' };
+  const value = getLocalStorage<boolean>('isRemoteArea', false);
+  return { isRemoteArea: value === true };
 }
 
 function isInAvailableTimeRange({ start, end }: { start: string; end: string }): boolean {
