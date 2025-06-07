@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 function Loading() {
   return (
@@ -8,13 +8,16 @@ function Loading() {
   );
 }
 const Container = styled.div`
-  width: 120px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LoadingImg = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 120px;
+  height: 60px;
 
   object-fit: cover;
 `;
