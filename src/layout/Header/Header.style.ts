@@ -17,7 +17,7 @@ const headerLayout = css`
   font-size: 20px;
   font-weight: 800;
 
-  z-index: 0;
+  z-index: 1;
 `;
 
 export { headerLayout };
