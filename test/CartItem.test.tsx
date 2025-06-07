@@ -1,8 +1,8 @@
+import CartItem from '../src/components/Cart/CartItem';
+import * as cartApi from '../src/apis/cart';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import CartItem from '../src/components/Cart/CartItem';
 import { CartProduct } from '../src/types/cart';
-import * as cartApi from '../src/apis/cart';
 import { DataProvider } from '../src/context/DataContext';
 
 vi.mock('../src/apis/cart', () => ({
@@ -10,18 +10,6 @@ vi.mock('../src/apis/cart', () => ({
   patchIncreaseQuantity: vi.fn(),
   patchDecreaseQuantity: vi.fn(),
   removeCartItem: vi.fn(),
-}));
-
-vi.mock('../src/components/SelectBox/SelectBox', () => ({
-  default: function MockSelectBox({ onRemove }: { onRemove: () => void }) {
-    return (
-      <div data-testid="select-box">
-        <button onClick={onRemove} data-testid="remove-button">
-          Remove
-        </button>
-      </div>
-    );
-  },
 }));
 
 describe('CartItem', () => {
@@ -64,7 +52,7 @@ describe('CartItem', () => {
     renderComponent();
 
     const increaseButton = screen.getByText('＋');
-    
+
     await act(async () => {
       fireEvent.click(increaseButton);
     });
@@ -76,7 +64,7 @@ describe('CartItem', () => {
     renderComponent();
 
     const decreaseButton = screen.getByText('−');
-    
+
     await act(async () => {
       fireEvent.click(decreaseButton);
     });
@@ -89,11 +77,36 @@ describe('CartItem', () => {
     renderComponent(oneQuantityItem);
 
     const decreaseButton = screen.getByText('−');
-    
+
     await act(async () => {
       fireEvent.click(decreaseButton);
     });
 
     expect(cartApi.removeCartItem).toHaveBeenCalledWith(oneQuantityItem);
+  });
+
+  it('삭제 버튼 클릭 시 삭제 API가 호출되어야 한다', async () => {
+    renderComponent();
+
+    const deleteButton = screen.getByText('삭제');
+
+    await act(async () => {
+      fireEvent.click(deleteButton);
+    });
+
+    expect(cartApi.removeCartItem).toHaveBeenCalledWith(mockCartItem);
+  });
+
+  it('체크박스 클릭 시 setCheckedItems가 호출되어야 한다', async () => {
+    renderComponent();
+
+    // data-id로 체크박스 찾기
+    const checkbox = screen.getByRole('checkbox', { hidden: true });
+
+    await act(async () => {
+      fireEvent.click(checkbox);
+    });
+
+    expect(mockSetCheckedItems).toHaveBeenCalled();
   });
 });
