@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Checkbox from "../../components/@common/Checkbox/Checkbox";
 import Description from "../../components/@common/Description/Description";
+import { FooterButton } from "../../components/@common/FooterButton/FooterButton.styles";
 import Header from "../../components/@common/Header/Header";
+import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
 import Title from "../../components/@common/Title/Title";
-import CouponModal from "../../components/CouponModal/CouponModal";
-import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import OrderItem from "../../components/OrderItem/OrderItem";
-import PriceInfo from "../../components/PriceInfo/PriceInfo";
+import CouponModal from "../../components/coupon/CouponModal/CouponModal";
+import OrderItem from "../../components/order/OrderItem/OrderItem";
 import { ROUTES } from "../../constants/routes";
 import useCart from "../../hooks/contexts/useCart";
 import useModal from "../../hooks/contexts/useModal";

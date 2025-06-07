@@ -1,5 +1,5 @@
-import { Coupon } from "../../types/response/coupon";
-import Checkbox from "../@common/Checkbox/Checkbox";
+import { Coupon } from "../../../types/response/coupon";
+import Checkbox from "../../@common/Checkbox/Checkbox";
 import * as S from "./CouponItem.styles";
 
 interface Props {

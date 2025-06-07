@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Description from "../../components/@common/Description/Description";
+import FooterButton from "../../components/@common/FooterButton/FooterButton";
 import Header from "../../components/@common/Header/Header";
 import Title from "../../components/@common/Title/Title";
-import FooterButton from "../../components/FooterButton/FooterButton";
 import { ROUTES } from "../../constants/routes";
 import useCart from "../../hooks/contexts/useCart";
 import * as S from "./PaymentPage.styles";

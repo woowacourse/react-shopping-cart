@@ -1,13 +1,13 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { CLIENT_BASE_PATH } from "./apis/config.ts";
-import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
+import MobileLayout from "./components/@common/MobileLayout/MobileLayout.tsx";
 import { ROUTES } from "./constants/routes.ts";
 import { CartProvider } from "./contexts/CartContext.tsx";
+import { ModalProvider } from "./contexts/ModalContext.tsx";
 import { ToastProvider } from "./contexts/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
 import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
-import { ModalProvider } from "./contexts/ModalContext.tsx";
 
 const Layout = () => {
   return (

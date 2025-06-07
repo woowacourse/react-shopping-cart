@@ -6,7 +6,7 @@ import { patchCartItem } from "../apis/cartItems/patchCartItem";
 import CartPage from "../pages/CartPage/CartPage";
 import { ToastProvider } from "../contexts/ToastContext";
 import { CartProvider } from "../contexts/CartContext";
-import MobileLayout from "../components/MobileLayout/MobileLayout";
+import MobileLayout from "../components/@common/MobileLayout/MobileLayout";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",

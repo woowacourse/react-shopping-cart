@@ -1,10 +1,10 @@
-import useModal from "../../hooks/contexts/useModal";
-import { Description } from "../@common/Description/Description.styles";
+import coupons from "../../../__mocks__/data/coupons.json";
+import useModal from "../../../hooks/contexts/useModal";
+import Description from "../../@common/Description/Description";
+import CouponItem from "../CouponItem/CouponItem";
 import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
-import coupons from "../../__mocks__/data/coupons.json";
-import CouponItem from "../CouponItem/CouponItem";
 
 const price = 6000;
 
