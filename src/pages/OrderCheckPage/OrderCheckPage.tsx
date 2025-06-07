@@ -11,11 +11,10 @@ import useCartManager from "../../hooks/useCartManager";
 function OrderCheckPage() {
   const navigate = useNavigate();
 
+  const { cartData } = useCartManager();
   const { coupons } = useCouponContext();
 
   console.log(coupons);
-
-  const { cartData } = useCartManager();
 
   return (
     <S.Root>

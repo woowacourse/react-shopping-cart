@@ -95,6 +95,6 @@ export const Description = styled.p`
 export const CartListContainer = styled.ul`
   list-style: none;
   overflow-y: auto;
-  height: calc(100vh - 687px);
+  height: calc(100vh - 667px);
   padding: 10px 0;
 `;

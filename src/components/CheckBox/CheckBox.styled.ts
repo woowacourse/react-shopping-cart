@@ -5,7 +5,6 @@ export const CheckBoxWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4.5px;
-  margin: 10px 0px;
 `;
 
 export const Input = styled.input<{ checked: boolean }>`
