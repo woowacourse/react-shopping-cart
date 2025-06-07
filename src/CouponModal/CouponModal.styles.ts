@@ -6,7 +6,7 @@ export const CouponContainer = styled.div`
   padding: 20px 0;
 `;
 
-export const CouponItem = styled.div`
+export const CouponItem = styled.div<{ $disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -14,6 +14,12 @@ export const CouponItem = styled.div`
   border-top: 1px solid rgba(51, 51, 51, 0.25);
   border-radius: 5px;
   gap: 10px;
+
+  /* disabled 스타일 */
+  opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
+  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
+  background-color: ${({ $disabled }) =>
+    $disabled ? "#ffffff" : "transparent"};
 `;
 
 export const CouponDescription = styled.p`

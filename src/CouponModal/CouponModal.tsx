@@ -6,9 +6,13 @@ import { Coupon } from "../types/response";
 import * as S from "./CouponModal.styles";
 import CloseImage from "/close-button.png";
 import InfoIcon from "/Info.svg";
+
+type CouponWithAvailability = Coupon & {
+  isAvailable: boolean;
+};
 interface CouponModalProps {
   isOpen: boolean;
-  coupons: Coupon[];
+  coupons: CouponWithAvailability[];
   onClose: () => void;
   onApply: (selectedCoupons: Coupon[]) => void;
 }
@@ -41,7 +45,7 @@ const CouponModal = ({
       />
       <S.CouponContainer>
         {coupons.map((coupon) => (
-          <S.CouponItem key={coupon.id}>
+          <S.CouponItem key={coupon.id} $disabled={!coupon.isAvailable}>
             <S.LabelContainer>
               <Checkbox checked={false} />
               <S.Label>{coupon.description}</S.Label>
