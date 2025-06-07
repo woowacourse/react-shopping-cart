@@ -7,6 +7,7 @@ import { Coupon } from '../types/coupon';
 import SelectInput from '../../../shared/ui/SelectInput';
 import Button from '../../../shared/ui/Button';
 import { css } from '@emotion/react';
+import { useCartContext } from '../../../shared/context/useCartContext';
 
 const CloseButtonCSS = css`
   width: 20px;
@@ -28,8 +29,9 @@ interface CouponListProps {
 
 export default function CouponList({ onClose }: CouponListProps) {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const { selectedCoupons, updateSelectedCoupons } = useCartContext();
 
-  console.log('쿠폰 목록', coupons);
+  console.log('선택된 쿠폰 목록', selectedCoupons);
 
   useEffect(() => {
     const fetchCoupons = async () => {
@@ -50,6 +52,15 @@ export default function CouponList({ onClose }: CouponListProps) {
     onClose();
   };
 
+  const handleCouponSelection = (selectedCoupon: Coupon) => {
+    if (selectedCoupons.length >= 2 && !selectedCoupons.some((coupon) => coupon.id === selectedCoupon.id)) {
+      alert('최대 2개의 쿠폰만 선택할 수 있습니다.');
+      return;
+    }
+
+    updateSelectedCoupons(selectedCoupon);
+  };
+
   console.log('쿠폰 목록:', coupons);
 
   return (
@@ -67,12 +78,16 @@ export default function CouponList({ onClose }: CouponListProps) {
         {coupons.map((coupon) => (
           <S.CouponContainer key={coupon.id}>
             <S.CouponHeader>
-              <SelectInput type='checkbox' />
+              <SelectInput
+                type='checkbox'
+                onChange={() => handleCouponSelection(coupon)}
+                checked={selectedCoupons.some((selectedCoupon) => selectedCoupon.id === coupon.id)}
+              />
               {coupon.description}
             </S.CouponHeader>
             <S.CouponInfo>
               <span>만료일: {coupon.expirationDate}</span>
-              {coupon.minimumAmount && <span>최소 주문 금액: {coupon.minimumAmount}</span>}
+              {coupon.minimumAmount && <span>최소 주문 금액: {coupon.minimumAmount.toLocaleString()}</span>}
             </S.CouponInfo>
           </S.CouponContainer>
         ))}
