@@ -18,7 +18,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CouponModal } from '@/features/Coupon/components/CouponModal';
 import { getCouponList } from '@/features/Coupon/api/coupon';
 import { useFetchData } from '@/shared/hooks/useFetchData';
-import { CouponResponse } from '@/features/Coupon/types/Coupon.types';
+import { Coupon, CouponResponse } from '@/features/Coupon/types/Coupon.types';
 import { isError } from '@/shared/utils/isError';
 import { ToastContext } from '@/shared/context/ToastProvider';
 
@@ -30,18 +30,30 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
   const { selectedCartItems } = useCartInfo(cartItems);
   const { showToast } = useContext(ToastContext);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [showCouponList, setShowCouponList] = useState(false);
   const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
-  const coupons = (coupon.data ?? []).map((c) => ({
-    ...c,
-    checked: false,
-  }));
 
   useEffect(() => {
-      if (coupon.error && isError(coupon.error)) {
-        showToast('쿠폰 정보를 불러올 수 없습니다.');
-      }
-    }, [coupon.error, showToast]);
+    if (coupon.data) {
+      setCoupons(coupon.data.map((c) => ({ ...c, checked: false })));
+    }
+  }, [coupon.data]);
+  
+
+  useEffect(() => {
+    if (coupon.error && isError(coupon.error)) {
+      showToast('쿠폰 정보를 불러올 수 없습니다.');
+    }
+  }, [coupon.error, showToast]);
+
+  const onToggleCoupon = (id: number) => {
+    setCoupons((prevCoupons) =>
+      prevCoupons.map((coupon) =>
+        coupon.id === id ? { ...coupon, checked: !coupon.checked } : coupon
+      )
+    );
+  }
 
   return (
     <>
@@ -89,7 +101,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
           쿠폰 적용
         </Button>
         <RemoteAreaCheckBox />
-        <PriceSummary variant="review" cartItems={cartItems}/>
+        <PriceSummary variant="review" cartItems={cartItems} />
       </Flex>
       <Button
         width="100%"
@@ -102,13 +114,19 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
       >
         결제하기
       </Button>
-      { showCouponList && <CouponModal coupons={coupons} onClose={function (): void {
-        throw new Error('Function not implemented.');
-      } } onToggleCoupon={function (id: number): void {
-        throw new Error('Function not implemented.');
-      } } onApply={function (): void {
-        throw new Error('Function not implemented.');
-      } } totalDiscount={0} />}
+      {showCouponList && (
+        <CouponModal
+          coupons={coupons}
+          onClose={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+          onToggleCoupon={onToggleCoupon}
+          onApply={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+          totalDiscount={0}
+        />
+      )}
     </>
   );
 };

@@ -38,6 +38,7 @@ export const CouponModal = ({
           <Button
             color="white"
             fontColor="black"
+            onClick={onClose}
             css={css`
               padding: 0 0 8px 16px;
             `}
@@ -45,6 +46,7 @@ export const CouponModal = ({
             ✕
           </Button>
         </Flex>
+
         <Text
           type="Caption"
           weight="regular"
@@ -56,38 +58,43 @@ export const CouponModal = ({
         </Text>
 
         <CouponList>
-          {coupons.map((coupon) => (
-            <CouponItem
-              key={coupon.id}
-              checked={coupon.checked}
-              onClick={() => onToggleCoupon(coupon.id)}
-            >
-              <CheckBox />
-              <CouponContent>
-                <Text type="Body" weight="bold">
-                  {coupon.description}
-                </Text>
-                {coupon.expirationDate && (
-                  <StyledCouponDetailText>
-                    만료일: {formatDate(coupon.expirationDate)}
-                  </StyledCouponDetailText>
-                )}
-                {coupon.minimumAmount && (
-                  <StyledCouponDetailText>
-                    최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
-                  </StyledCouponDetailText>
-                )}
-
-                {coupon.availableTime && (
-                  <StyledCouponDetailText>
-                    사용 가능 시간: {formatTime(coupon.availableTime.start)}부터{' '}
-                    {formatTime(coupon.availableTime.end)}까지
-                  </StyledCouponDetailText>
-                )}
-              </CouponContent>
-            </CouponItem>
-          ))}
+          {coupons.map((coupon) => {
+            const checkboxId = `coupon-${coupon.id}`;
+            return (
+              <label key={coupon.id} htmlFor={checkboxId}>
+                <CouponItem checked={coupon.checked}>
+                  <CheckBox
+                    id={checkboxId}
+                    checked={coupon.checked}
+                    onChange={() => onToggleCoupon(coupon.id)}
+                  />
+                  <CouponContent>
+                    <Text type="Body" weight="bold">
+                      {coupon.description}
+                    </Text>
+                    {coupon.expirationDate && (
+                      <StyledCouponDetailText>
+                        만료일: {formatDate(coupon.expirationDate)}
+                      </StyledCouponDetailText>
+                    )}
+                    {coupon.minimumAmount && (
+                      <StyledCouponDetailText>
+                        최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
+                      </StyledCouponDetailText>
+                    )}
+                    {coupon.availableTime && (
+                      <StyledCouponDetailText>
+                        사용 가능 시간: {formatTime(coupon.availableTime.start)}부터{' '}
+                        {formatTime(coupon.availableTime.end)}까지
+                      </StyledCouponDetailText>
+                    )}
+                  </CouponContent>
+                </CouponItem>
+              </label>
+            );
+          })}
         </CouponList>
+
         <Button
           onClick={onApply}
           width="100%"
