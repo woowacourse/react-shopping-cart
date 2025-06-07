@@ -19,6 +19,7 @@ function OrderCheck() {
   const navigate = useNavigate();
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const cart = useCartContext();
   const selectedCartItems = cart.data?.filter((item: CartItemProps) =>
@@ -32,6 +33,7 @@ function OrderCheck() {
     },
     0
   );
+  const deliveryFee = isChecked ? cart.deliveryFee + 3000 : cart.deliveryFee;
 
   const handleCouponButtonClick = () => {
     setIsCouponModalOpen(true);
@@ -39,6 +41,10 @@ function OrderCheck() {
 
   const handleCouponModalClose = () => {
     setIsCouponModalOpen(false);
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -65,11 +71,14 @@ function OrderCheck() {
         >
           <Text varient="body">쿠폰 적용</Text>
         </Button>
-        <DeliverInfo />
+        <DeliverInfo
+          isChecked={isChecked}
+          onCheckboxChange={handleCheckboxChange}
+        />
         <CartPriceCouponInfo
-          totalPrice={cart.totalPrice}
-          deliveryFee={cart.deliveryFee}
-          totalPriceWithDeliveryFee={cart.totalPriceWithDeliveryFee}
+          subTotal={cart.subTotal}
+          deliveryFee={deliveryFee}
+          totalBeforeDiscount={cart.totalBeforeDiscount}
         />
       </ContainerLayout>
       <Button color="black" variant="primary" onClick={() => {}}>

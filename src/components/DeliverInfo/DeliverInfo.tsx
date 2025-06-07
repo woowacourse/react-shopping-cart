@@ -3,7 +3,13 @@ import { CheckboxStyle } from '../CartItem/CartItem.styles';
 import Text from '../common/Text/Text';
 import { CheckboxContainerStyle, DeliverInfoStyle } from './DeliverInfo.styles';
 
-function DeliverInfo() {
+function DeliverInfo({
+  isChecked,
+  onCheckboxChange,
+}: {
+  isChecked: boolean;
+  onCheckboxChange: () => void;
+}) {
   return (
     <div css={DeliverInfoStyle}>
       <Text varient="body" textAlign="left">
@@ -13,8 +19,8 @@ function DeliverInfo() {
         <input
           type="checkbox"
           css={CheckboxStyle}
-          name="delivery-info"
-          id="delivery-info"
+          checked={isChecked}
+          onChange={onCheckboxChange}
         />
         <Text varient="caption">{TEXT.DELIVERY_INFO_DESCRIPTION}</Text>
       </div>
