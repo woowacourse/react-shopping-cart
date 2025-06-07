@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import { useNavigate } from "react-router-dom";
 import CartList from "../../components/CartList/CartList";
+import CouponModal from "../../components/CouponModal/CouponModal";
 
 const CartPage = () => {
   const { selectedCartItem, orderPrice, deliveryPrice, isCartEmpty } =
@@ -22,6 +23,7 @@ const CartPage = () => {
 
   return (
     <S.Root>
+      <CouponModal onClose={() => {}} />
       <S.CartPageWrapper>
         <Header>
           <S.HeaderTitle>SHOP</S.HeaderTitle>
