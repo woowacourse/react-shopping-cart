@@ -38,7 +38,8 @@ const OrderConfirmPage = () => {
 
   const { cartItems, orderPrice, cartItemsTotalQuantity, cartItemsCheckedCount } = location.state;
 
-  const handleNavigate = () => navigate("/payment-confirm", { state: location.state });
+  const handleNavigate = () =>
+    navigate("/payment-confirm", { state: { cartItemsTotalQuantity, cartItemsCheckedCount, finalTotalPrice } });
   return (
     <>
       <Header>
@@ -87,7 +88,6 @@ const OrderConfirmPage = () => {
       </S.Container>
       <CouponModal
         coupons={coupons}
-        discountPrice={discountPrice}
         availableCoupons={availableCoupons}
         toggleCoupon={toggleCoupon}
         isCartModalOpen={isCartModalOpen}

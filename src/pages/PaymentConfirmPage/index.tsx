@@ -12,7 +12,7 @@ const PaymentConfirmPage = () => {
 
   if (!location.state) return <NotFoundPage />;
 
-  const { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice } = location.state;
+  const { cartItemsTotalQuantity, cartItemsCheckedCount, finalTotalPrice } = location.state;
 
   const handleNavigate = () => navigate("/");
 
@@ -32,7 +32,7 @@ const PaymentConfirmPage = () => {
           </S.TextWrap>
           <S.TextWrap gap={12}>
             <Text variant="body-1">총 결제 금액</Text>
-            <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
+            <Text variant="title-1">{finalTotalPrice.toLocaleString()}원</Text>
           </S.TextWrap>
         </S.Information>
         <S.ButtonWrap>
