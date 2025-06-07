@@ -17,7 +17,11 @@ type SelectedItem = {
 
 function OrderPage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
+
+  const [isRemoteArea, setIsRemoteArea] = useState(() => {
+    const stored = localStorage.getItem('isRemoteArea');
+    return stored ? JSON.parse(stored).checked : false;
+  });
 
   const navigate = useNavigate();
   const items = getSelectedItemsFromStorage();
@@ -52,7 +56,15 @@ function OrderPage() {
         <button onClick={() => setIsOpen(true)}>쿠폰 적용</button>
         <section css={styles.shippingCss}>
           <label>
-            <CheckBox type="checkbox" checked={isRemoteArea} onChange={(e) => setIsRemoteArea(e.target.checked)} />
+            <CheckBox
+              type="checkbox"
+              checked={isRemoteArea}
+              onChange={(e) => {
+                const checked = e.target.checked;
+                setIsRemoteArea((prev: boolean) => !prev);
+                localStorage.setItem('isRemoteArea', JSON.stringify({ checked }));
+              }}
+            />
             제주도 및 도서 산간 지역
           </label>
           <p css={styles.shippingNoticeCss}>※ 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.</p>
