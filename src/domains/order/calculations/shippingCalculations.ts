@@ -1,5 +1,4 @@
-const FREE_SHIPPING_THRESHOLD = 100_000;
-const DEFAULT_SHIPPING_FEE = 3_000;
+import { DEFAULT_SHIPPING_FEE, FREE_SHIPPING_THRESHOLD } from "../constants";
 
 /**
  * 주문 금액에 따른 배송비 계산

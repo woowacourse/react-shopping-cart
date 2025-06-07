@@ -10,10 +10,12 @@ import AllSelector from "../../components/cart/AllSelector/AllSelector";
 import CartItem from "../../components/cart/CartItem/CartItem";
 import { ROUTES } from "../../constants/routes";
 import CartInitializer from "../../domains/cart/contexts/CartInitializer";
+import { useCartState } from "../../domains/cart/hooks/useCartState";
+import { FREE_SHIPPING_THRESHOLD } from "../../domains/order/constants";
+import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
+import { formatCurrency } from "../../utils/formatters";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
-import { useCartState } from "../../domains/cart/hooks/useCartState";
-import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 
 const CartPage = () => {
   const { items, cartItemCount } = useCartState();
@@ -49,7 +51,8 @@ const CartPage = () => {
             <S.InfoContainer>
               <img src={InfoIcon} alt="info" />
               <Description>
-                총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+                총 주문 금액이 {formatCurrency(FREE_SHIPPING_THRESHOLD)}원
+                이상일 경우 무료 배송됩니다.
               </Description>
             </S.InfoContainer>
             <S.PriceSummary>

@@ -9,8 +9,10 @@ import CouponModal from "../../components/coupon/CouponModal/CouponModal";
 import OrderItem from "../../components/order/OrderItem/OrderItem";
 import { ROUTES } from "../../constants/routes";
 import CouponInitializer from "../../domains/coupon/contexts/CouponInitializer";
+import { FREE_SHIPPING_THRESHOLD } from "../../domains/order/constants";
 import useOrderCalculator from "../../domains/order/hooks/useOrderCalculator";
 import useModal from "../../features/modal/useModal";
+import { formatCurrency } from "../../utils/formatters";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
@@ -73,7 +75,8 @@ const OrderPage = () => {
           <S.InfoContainer>
             <img src={InfoIcon} alt="info" />
             <Description>
-              총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+              총 주문 금액이 {formatCurrency(FREE_SHIPPING_THRESHOLD)}원 이상일
+              경우 무료 배송됩니다.
             </Description>
           </S.InfoContainer>
           <S.PriceSummary>
