@@ -22,8 +22,13 @@ const OrderConfirmPage = () => {
   const selectedItems = cartItems.filter((cartItem) =>
     selectedItemIds.has(cartItem.id)
   );
-  const { coupons, couponDiscountAmount, selectedCouponIds, toggleCouponId } =
-    useCoupon({ orderPrice, isRemoteArea, selectedItems });
+  const {
+    coupons,
+    couponDiscountAmount,
+    selectedCouponIds,
+    toggleCouponId,
+    calculateCouponDiscount,
+  } = useCoupon({ orderPrice, isRemoteArea, selectedItems });
 
   return (
     <div className={OrderConfirmLayout}>
@@ -71,9 +76,11 @@ const OrderConfirmPage = () => {
           </div>
           <PriceSummary
             orderPrice={orderPrice}
-            shippingFee={shippingFee}
+            shippingFee={shippingFee + (isRemoteArea ? 3000 : 0)}
             couponDiscount={couponDiscountAmount}
-            totalPrice={orderPrice - couponDiscountAmount}
+            totalPrice={
+              orderPrice - couponDiscountAmount + (isRemoteArea ? 3000 : 0)
+            }
           />
         </section>
 
@@ -86,6 +93,7 @@ const OrderConfirmPage = () => {
           couponDiscountAmount={couponDiscountAmount}
           selectedCouponIds={selectedCouponIds}
           toggleCouponId={toggleCouponId}
+          calculateCouponDiscount={calculateCouponDiscount}
         />
       </div>
       <ConfirmButton

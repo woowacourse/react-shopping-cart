@@ -9,6 +9,8 @@ interface CouponItemProps {
   minOrderPrice?: number;
   isSelected: boolean;
   availableTime?: AvailableTime;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 export const CouponItem = ({
   name,
@@ -16,6 +18,8 @@ export const CouponItem = ({
   minOrderPrice,
   availableTime,
   isSelected,
+  disabled = false,
+  onClick,
 }: CouponItemProps) => {
   const parsedExpiration = (expiration: string) => {
     return expiration.split("-");
@@ -27,7 +31,11 @@ export const CouponItem = ({
     <div className={CouponItemStyle}>
       <hr className={Divider} />
       <div className={RowStyle}>
-        <ToggleButton isSelected={isSelected} />
+        <ToggleButton
+          isSelected={isSelected}
+          onClick={onClick}
+          disabled={disabled}
+        />
         <Text text={name} type="medium" />
       </div>
       {expiration && (

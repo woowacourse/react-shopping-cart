@@ -4,6 +4,7 @@ import { MAX_COUPON_COUNT } from "../../constants";
 import { InfoRow } from "../PriceSummary/PriceSummary";
 import { CouponItem } from "./CouponItem";
 import { Coupon } from "../../types/type";
+import { useCartItemContext } from "../../contexts/useCartItemContext";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface CouponModalProps {
   couponDiscountAmount: number;
   selectedCouponIds: Set<number>;
   toggleCouponId: (id: number) => void;
+  calculateCouponDiscount: (coupon: Coupon, price: number) => number;
 }
 
 export const CouponModal = ({
@@ -21,7 +23,10 @@ export const CouponModal = ({
   couponDiscountAmount,
   selectedCouponIds,
   toggleCouponId,
+  calculateCouponDiscount,
 }: CouponModalProps) => {
+  const { orderPrice } = useCartItemContext();
+
   return (
     <Modal isOpen={isOpen} onClose={onModalClose}>
       <Modal.Backdrop>
@@ -54,6 +59,9 @@ export const CouponModal = ({
                     coupon.discountType === "freeShipping"
                       ? coupon.minimumAmount
                       : undefined
+                  }
+                  disabled={
+                    calculateCouponDiscount(coupon, orderPrice) ? false : true
                   }
                 />
               );

@@ -4,15 +4,22 @@ interface ToggleButtonProps {
   isSelected: boolean;
   onClick?: () => void;
   testId?: string;
+  disabled?: boolean;
 }
 
-const ToggleButton = ({ isSelected, onClick, testId }: ToggleButtonProps) => {
+const ToggleButton = ({
+  isSelected,
+  onClick,
+  testId,
+  disabled = false,
+}: ToggleButtonProps) => {
   return (
     <button
       onClick={onClick}
       className={ToggleButtonStyle(isSelected)}
       data-testid={testId}
       aria-pressed={isSelected}
+      disabled={disabled}
     >
       <img src={isSelected ? "./checked-icon.svg" : "./unchecked-icon.svg"} />
     </button>
@@ -30,4 +37,8 @@ const ToggleButtonStyle = (isSelected: boolean) => css`
   justify-content: center;
   border-radius: 8px;
   display: flex;
+  &:disabled {
+    color: #e5e5e5;
+    cursor: not-allowed;
+  }
 `;
