@@ -2,7 +2,7 @@ import { PercentageDiscountCoupon } from "../types/type";
 import { isValidExpiration } from "./isValidExpiration";
 
 export const calculatePercentageDiscount = (
-  orderPrice: number,
+  price: number,
   coupon: PercentageDiscountCoupon
 ) => {
   if (!isValidExpiration(coupon.expirationDate)) return 0;
@@ -22,5 +22,5 @@ export const calculatePercentageDiscount = (
 
   if (now < startTime || now > endTime) return 0;
 
-  return orderPrice * coupon.discount;
+  return price * coupon.discount;
 };
