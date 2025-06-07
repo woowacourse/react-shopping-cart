@@ -1,6 +1,6 @@
 import { CartItem } from '../api/types/cart';
 
-export const getSelectedCartItemsFromLocalStorage = () => {
+export const getSelectedCartItemsFromLocalStorage = (): CartItem[] => {
   const cartItems = localStorage.getItem('selected-cart-items');
   return cartItems ? JSON.parse(cartItems) : [];
 };
