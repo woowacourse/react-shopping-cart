@@ -1,6 +1,5 @@
 import CartItemCard from "../CartItemCard/CartItemCard";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
-import { useEffect } from "react";
 import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
 
 const CartItemCardList = () => {
