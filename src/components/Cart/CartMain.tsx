@@ -1,8 +1,9 @@
 import SelectAllBox from '../SelectBox/SelectAllBox';
 import CartList from './CartList';
 import CartFooter from './CartFooter';
-import { infoIcon } from '../../assets';
 import styled from '@emotion/styled';
+import { infoIcon } from '../../assets';
+import { SHIPPING_FEE_THRESHOLD } from '../../constants/cartConfig';
 
 interface CartMainProps {
   checked: boolean;
@@ -30,7 +31,9 @@ function CartMain({
 
       <CartInfo>
         <InfoIconImage src={infoIcon} alt="infoIcon" />
-        <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
+        <p>
+          총 주문 금액이 {SHIPPING_FEE_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.
+        </p>
       </CartInfo>
 
       <CartFooter price={price} shippingFee={shippingFee} totalPrice={totalPrice} />
