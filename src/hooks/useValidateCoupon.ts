@@ -1,7 +1,17 @@
+import { CartItemProps } from '../types/cartItem';
 import { AvailableCoupon, Coupon } from '../types/coupon';
-import { isExpired, isMiracleMorning, isMinimumAmount } from '../utils/coupon';
+import {
+  isExpired,
+  isMiracleMorning,
+  isMinimumAmount,
+  isQuantity,
+} from '../utils/coupon';
 
-function useValidateCoupon(couponList: Coupon[], subTotal: number) {
+function useValidateCoupon(
+  couponList: Coupon[],
+  subTotal: number,
+  selectedItems: CartItemProps[]
+) {
   const availableCouponList: AvailableCoupon[] = [];
 
   couponList.forEach((coupon) => {
@@ -16,6 +26,10 @@ function useValidateCoupon(couponList: Coupon[], subTotal: number) {
       !isMinimumAmount(coupon.minimumAmount, subTotal)
     ) {
       expiredFlag = true;
+    }
+
+    if (coupon.buyQuantity !== undefined && coupon.getQuantity !== undefined) {
+      expiredFlag = !isQuantity(selectedItems);
     }
 
     availableCouponList.push({ ...coupon, isExpired: expiredFlag });
