@@ -1,6 +1,7 @@
 import useAllSelect from "./useAllSelect";
 import useLimitSelect from "./useLimitSelect";
 import useSelect from "./useSelect";
+import { validateOptions } from "./validate";
 
 interface CheckboxItemType {
   id: number;
@@ -16,6 +17,11 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
   items: T[],
   options: CheckboxOptions = {}
 ) => {
+  validateOptions({
+    options,
+    items,
+  });
+
   const {
     maxSelectableCount = null,
     enableAllSelectBox = true,
