@@ -3,6 +3,7 @@ import {
   PropsWithChildren,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { Cart } from "../api/cart";
@@ -12,9 +13,11 @@ const OrderListContext = createContext<{
   setSelectionMap: React.Dispatch<
     React.SetStateAction<Record<string, boolean>>
   >;
+  orderIdList?: string[];
 }>({
   selectionMap: {},
   setSelectionMap: () => {},
+  orderIdList: [],
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
@@ -47,8 +50,17 @@ export const useOrderListContext = (cartListData: Cart[] | undefined) => {
     });
   }, [cartListData, setSelectionMap]);
 
+  const orderIdList = useMemo(
+    () =>
+      Object.entries(selectionMap)
+        .filter(([_, isInCart]) => isInCart)
+        .map(([id]) => id),
+    [selectionMap]
+  );
+
   return {
     selectionMap,
     setSelectionMap,
+    orderIdList,
   };
 };
