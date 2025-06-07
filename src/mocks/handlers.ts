@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { fetchedData } from '../../test/mocks';
+import { coupons, fetchedData } from '../../test/mocks';
 
 export const handlers = [
   http.get('*/cart-items', () => {
@@ -41,5 +41,10 @@ export const handlers = [
 
   http.patch('*/cart-items/:id-error', async () => {
     return HttpResponse.json({ message: 'Bad Request' }, { status: 400 });
+  }),
+  http.get('*/coupons', () => {
+    return HttpResponse.json({
+      content: coupons,
+    });
   }),
 ];
