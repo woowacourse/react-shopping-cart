@@ -8,6 +8,7 @@ import PriceArea from '../components/PriceArea/PriceArea';
 import { CartItemType } from '../types/cartItem';
 import { css } from '@emotion/react';
 import CheckBox from '../components/common/CheckBox';
+import { useCoupons } from '../hooks/useCoupons';
 
 function OrderPage() {
   const navigate = useNavigate();
@@ -16,6 +17,13 @@ function OrderPage() {
   const [includeSpecialRegions, setIncludeSpecialRegions] = useState<boolean>(false);
   const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
   const realTotalAmount = orderAmount + totalDeliveryFee;
+  const { data: coupons } = useCoupons();
+
+  useEffect(() => {
+    if (coupons) {
+      console.log(coupons);
+    }
+  }, [coupons]);
 
   useEffect(() => {
     if (
@@ -30,7 +38,6 @@ function OrderPage() {
       if (isConfirmed) {
         navigate('/');
       }
-      return;
     }
     // totalQuantity, countOfItemType, totalAmount가 모두 불변값이므로 useEffect의 의존성 배열에 포함하지 않음
     // eslint-disable-next-line react-hooks/exhaustive-deps
