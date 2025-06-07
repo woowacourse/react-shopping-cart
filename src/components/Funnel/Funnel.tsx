@@ -6,7 +6,7 @@ interface FunnelContextType {
   step: number;
   goNextStep: () => void;
   goPrevStep: () => void;
-  goToStep: (step: number) => void;
+  resetStep: () => void;
 }
 
 export const FunnelContext = createContext<FunnelContextType | null>(null);
@@ -28,9 +28,8 @@ export default function Funnel({ children, initialStep = 1 }: PropsWithChildren<
     history.back();
   };
 
-  const goToStep = (step: number) => {
-    setStep(step);
-    history.pushState(null, "", `?step=${step}`);
+  const resetStep = () => {
+    setStep(initialStep);
   };
 
   useEffect(() => {
@@ -45,7 +44,9 @@ export default function Funnel({ children, initialStep = 1 }: PropsWithChildren<
 
   console.log(step);
 
-  return <FunnelContext.Provider value={{ step, goNextStep, goPrevStep, goToStep }}>{children}</FunnelContext.Provider>;
+  return (
+    <FunnelContext.Provider value={{ step, goNextStep, goPrevStep, resetStep }}>{children}</FunnelContext.Provider>
+  );
 }
 
 export const useFunnelContext = () => {

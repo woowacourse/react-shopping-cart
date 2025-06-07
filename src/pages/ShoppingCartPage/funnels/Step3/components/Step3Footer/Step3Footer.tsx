@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import * as S from "./Step3Footer.styles";
 
 export default function Step3Footer() {
-  const { goToStep } = useFunnelContext();
+  const { resetStep } = useFunnelContext();
 
   return (
     <S.ButtonWrapper>
@@ -11,7 +11,7 @@ export default function Step3Footer() {
         css={css`
           width: 100%;
         `}
-        onClick={() => goToStep(1)}
+        onClick={resetStep}
       >
         <Text variant="title-3" color="white">
           장바구니로 돌아가기
