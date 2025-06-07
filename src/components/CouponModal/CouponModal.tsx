@@ -7,17 +7,41 @@ import {
   useCouponSelectContext,
   useCouponSelectDispatch,
 } from "../../stores/CouponContext";
+import { useCouponCalculation } from "../../hooks/useCouponCalculation";
+import { ResponseCartItem } from "../../types/types";
 
 interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
   onApplyCoupons: (selectedCoupons: Coupon[]) => void;
+  cartItems: ResponseCartItem[];
+  isRemoteArea: boolean;
 }
 
-function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
+function CouponModal({
+  isOpen,
+  onClose,
+  onApplyCoupons,
+  cartItems,
+  isRemoteArea,
+}: CouponModalProps) {
   const { couponList, isLoading, error } = useCoupon();
   const couponSelectState = useCouponSelectContext();
   const couponSelectDispatch = useCouponSelectDispatch();
+
+  const selectedCouponIds = couponSelectState
+    .filter((item) => item.selected)
+    .map((item) => item.id);
+  const selectedCoupons = couponList.filter((coupon) =>
+    selectedCouponIds.includes(coupon.id)
+  );
+
+  const { selectedCouponResult } = useCouponCalculation({
+    cartItems,
+    isRemoteArea,
+    selectedCoupons,
+    availableCoupons: couponList,
+  });
 
   useEffect(() => {
     if (couponList.length > 0) {
@@ -52,15 +76,7 @@ function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
   };
 
   const handleApply = () => {
-    const selectedCouponIds = couponSelectState
-      .filter((item) => item.selected)
-      .map((item) => item.id);
-
-    const selectedCouponData = couponList.filter((coupon) =>
-      selectedCouponIds.includes(coupon.id)
-    );
-
-    onApplyCoupons(selectedCouponData);
+    onApplyCoupons(selectedCoupons);
     onClose();
   };
 
@@ -78,7 +94,7 @@ function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
   };
 
   const formatTime = (timeString: string) => {
-    const [hours, minutes] = timeString.split(":");
+    const [hours] = timeString.split(":");
     const hour = parseInt(hours);
     const ampm = hour < 12 ? "오전" : "오후";
     const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
@@ -98,38 +114,23 @@ function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
       details.push(`사용 가능 시간: ${startTime}부터 ${endTime}까지`);
     }
 
+    if (coupon.discountType === "buyXgetY") {
+      details.push(
+        `${coupon.buyQuantity}개 구매 시 ${coupon.getQuantity}개 무료`
+      );
+    }
+
+    if (coupon.discountType === "freeShipping") {
+      details.push("도서산간 추가 배송비 포함 무료");
+    }
+
     return details;
-  };
-
-  const calculateTotalDiscount = () => {
-    let totalDiscount = 0;
-    const selectedCouponIds = couponSelectState
-      .filter((item) => item.selected)
-      .map((item) => item.id);
-
-    const selectedCouponData = couponList.filter((coupon) =>
-      selectedCouponIds.includes(coupon.id)
-    );
-
-    selectedCouponData.forEach((coupon) => {
-      if (coupon.discountType === "fixed" && coupon.discount) {
-        totalDiscount += coupon.discount;
-      } else if (coupon.discountType === "percentage" && coupon.discount) {
-        //임시로 10만원 주문 기준으로 계산
-        totalDiscount += Math.floor(100000 * (coupon.discount / 100));
-      }
-    });
-
-    return totalDiscount;
   };
 
   if (!isOpen) return null;
 
-  const totalDiscount = calculateTotalDiscount();
-  const selectedCount = couponSelectState.filter(
-    (item) => item.selected
-  ).length;
-  const hasSelectedCoupons = selectedCount > 0;
+  const totalDiscount = selectedCouponResult.totalDiscount;
+  const hasSelectedCoupons = selectedCoupons.length > 0;
 
   return (
     <S.ModalOverlay onClick={handleClose}>
