@@ -2,38 +2,41 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { DiscountType } from "../types/coupon";
 
 interface CouponContextType {
-  selectedCoupon: Set<DiscountType>;
+  selectedCoupon: DiscountType[];
   addCoupon: (couponType: DiscountType) => void;
   removeCoupon: (couponType: DiscountType) => void;
   isSelected: (couponType: DiscountType) => boolean;
 }
 
 const couponContext = createContext<CouponContextType>({
-  selectedCoupon: new Set<DiscountType>(),
+  selectedCoupon: [],
   addCoupon: () => {},
   removeCoupon: () => {},
   isSelected: () => false,
 });
 
 export function CouponManagerProvider({ children }: PropsWithChildren) {
-  const [selectedCoupon, setSelectedCoupon] = useState(new Set<DiscountType>());
+  const [selectedCoupon, setSelectedCoupon] = useState<DiscountType[]>([]);
 
   function addCoupon(couponType: DiscountType) {
     setSelectedCoupon((prev) => {
-      prev.add(couponType);
-      return new Set(prev);
+      prev.push(couponType);
+      return [...prev];
     });
   }
 
   function removeCoupon(couponType: DiscountType) {
     setSelectedCoupon((prev) => {
-      prev.delete(couponType);
-      return new Set(prev);
+      const index = prev.indexOf(couponType);
+      if (index > -1) {
+        prev.splice(index, 1);
+      }
+      return [...prev];
     });
   }
 
   function isSelected(couponType: DiscountType) {
-    return selectedCoupon.has(couponType);
+    return selectedCoupon.includes(couponType);
   }
 
   return (

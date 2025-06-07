@@ -29,7 +29,8 @@ export default function CouponItem({ type, couponList }: CouponItemProps) {
   const [firstCoupon] = couponList;
 
   const isExpired = !isAvailableDate(firstCoupon.expirationDate);
-  const isOverLimit = selectedCoupon.size >= 2 && !selectedCoupon.has(type);
+  const isOverLimit =
+    selectedCoupon.length >= 2 && !selectedCoupon.includes(type);
   const isOutOfTime =
     type === "percentage" &&
     !isAvailableTime(
@@ -41,7 +42,7 @@ export default function CouponItem({ type, couponList }: CouponItemProps) {
 
   const checked = isSelected(type);
   return (
-    <div css={[Container, disabled && { opacity: 0.5 }]}>
+    <div css={[Container, disabled && { opacity: 0.3 }]}>
       <CheckBox
         disabled={disabled}
         label={couponList[0].description}
