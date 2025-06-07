@@ -17,14 +17,4 @@ const subTitleStyle = css`
   line-height: 1.2rem;
 `;
 
-const infoImgLayout = css`
-  width: 16px;
-  height: 16px;
-`;
-
-const intoText = css`
-  font-weight: 500;
-  font-size: 12px;
-`;
-
-export { titleBox, titleStyle, subTitleStyle, infoImgLayout, intoText };
+export { titleBox, titleStyle, subTitleStyle };

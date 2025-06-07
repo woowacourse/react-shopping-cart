@@ -12,10 +12,4 @@ const summaryRowBox = css`
   gap: 12px;
 `;
 
-const deliveryInfoBox = css`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-
-export { paymentSummaryLayout, summaryRowBox, deliveryInfoBox };
+export { paymentSummaryLayout, summaryRowBox };
