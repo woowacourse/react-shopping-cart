@@ -3,12 +3,20 @@ import { Coupon } from '../types/coupon';
 import { simulateCombo } from '../utils/coupon';
 
 const useCouponCombos = (
+  checkedCoupons: number[],
   cartItem: CartItemProps[],
   couponList: Coupon[],
   subTotal: number,
   baseShippingFee: number
 ) => {
   const combos: Coupon[][] = [];
+
+  if (checkedCoupons.length > 0) {
+    const manualCoupons = couponList.filter((c) =>
+      checkedCoupons.includes(c.id)
+    );
+    return simulateCombo(cartItem, manualCoupons, subTotal, baseShippingFee);
+  }
 
   for (let i = 0; i < couponList.length; i++) {
     combos.push([couponList[i]]);
