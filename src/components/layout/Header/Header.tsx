@@ -1,7 +1,7 @@
 import * as S from "./Header.styles";
 
 interface HeaderProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function Header({ children }: HeaderProps) {

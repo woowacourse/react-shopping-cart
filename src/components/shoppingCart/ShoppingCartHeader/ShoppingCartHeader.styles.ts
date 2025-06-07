@@ -16,4 +16,6 @@ export const Description = styled.p`
   font-size: 12px;
   font-weight: 500;
   color: #0a0d13;
+  white-space: pre-line;
+  line-height: 1.5;
 `;

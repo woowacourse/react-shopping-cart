@@ -1,12 +1,12 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import Header from "../../components/layout/Header/Header";
-import BackButton from "../../components/layout/Header/BackButton";
 import Footer from "../../components/layout/Footer/Footer";
 import * as S from "./PaymentConfirmPage.styles";
 
 export default function PaymentConfirmPage() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!location.state) {
     return (
@@ -26,9 +26,7 @@ export default function PaymentConfirmPage() {
 
   return (
     <>
-      <Header>
-        <BackButton />
-      </Header>
+      <Header />
       <S.Container>
         <S.Title>결제 확인</S.Title>
         <S.Description>
@@ -44,7 +42,7 @@ export default function PaymentConfirmPage() {
       <Footer
         text="장바구니로 돌아가기"
         active="false"
-        handleClick={() => {}}
+        handleClick={() => navigate("/")}
       />
     </>
   );
