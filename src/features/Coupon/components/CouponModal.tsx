@@ -5,6 +5,7 @@ import { Text } from '@/shared/components/Text/Text';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Coupon } from '../types/Coupon.types';
+import { formatDate, formatTime } from '@/shared/utils/date';
 
 type CouponModalProps = {
   coupons: Coupon[];
@@ -66,15 +67,21 @@ export const CouponModal = ({
                 <Text type="Body" weight="bold">
                   {coupon.description}
                 </Text>
-                <StyledCouponDetailText>만료일: {coupon.expirationDate}</StyledCouponDetailText>
+                {coupon.expirationDate && (
+                  <StyledCouponDetailText>
+                    만료일: {formatDate(coupon.expirationDate)}
+                  </StyledCouponDetailText>
+                )}
                 {coupon.minimumAmount && (
                   <StyledCouponDetailText>
                     최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
                   </StyledCouponDetailText>
                 )}
+
                 {coupon.availableTime && (
                   <StyledCouponDetailText>
-                    사용 가능 시간: {coupon.availableTime.start}
+                    사용 가능 시간: {formatTime(coupon.availableTime.start)}부터{' '}
+                    {formatTime(coupon.availableTime.end)}까지
                   </StyledCouponDetailText>
                 )}
               </CouponContent>
