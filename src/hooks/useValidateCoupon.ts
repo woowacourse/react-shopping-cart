@@ -35,7 +35,7 @@ function useValidateCoupon(
     validatedCouponList.push({ ...coupon, isExpired: expiredFlag });
   });
 
-  return { validatedCouponList: validatedCouponList };
+  return { validatedCouponList };
 }
 
 export default useValidateCoupon;
