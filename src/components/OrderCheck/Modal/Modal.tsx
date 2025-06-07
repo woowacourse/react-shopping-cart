@@ -1,4 +1,4 @@
-import Close from "../../../../assets/Close.png";
+import Close from "../../../assets/Close.png";
 import * as S from "./Modal.styles";
 
 interface ModalProps {

@@ -1,10 +1,10 @@
-import * as S from "./ShoppingCartHeader.styles";
+import * as S from "./ContentHeader.styles";
 interface HeaderProps {
   title: string;
   description?: string;
 }
 
-export default function ShoppingCartHeader({
+export default function ContentHeader({
   title,
   description = "",
 }: HeaderProps) {

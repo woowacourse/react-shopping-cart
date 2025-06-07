@@ -4,7 +4,7 @@ import Receipt from "../receipt/Receipt";
 import Footer from "../../layout/Footer/Footer";
 import CartItemCheck from "../../../types/CartItemCheck";
 import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
-import ShoppingCartHeader from "../ShoppingCartHeader/ShoppingCartHeader";
+import ContentHeader from "../ContentHeader/ContentHeader";
 import ShoppingCartList from "../ShoppingCartList/ShoppingCartList";
 import CartItem from "../../../types/CartItem";
 interface ShoppingCartContentProps {
@@ -90,7 +90,7 @@ export default function ShoppingCartContent({
 
   return (
     <>
-      <ShoppingCartHeader
+      <ContentHeader
         title="장바구니"
         description={`현재 ${selectedCartItemList.length}종류의 상품이 담겨있습니다.`}
       />

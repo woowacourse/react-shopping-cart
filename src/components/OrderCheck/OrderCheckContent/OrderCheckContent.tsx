@@ -46,6 +46,7 @@ export default function OrderCheckContent({
 
   const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
   const totalPrice = allProductPrice + shippingFee;
+  const [couponDiscount] = useState(6000);
 
   const navigate = useNavigate();
   const handlePaymentButtonClick = () => {
@@ -53,7 +54,7 @@ export default function OrderCheckContent({
       state: {
         checkedProductsLength: selectedCartItemList.length,
         cartItemCheckListTotalQuantity,
-        totalPrice,
+        totalPrice: totalPrice - couponDiscount,
       },
     });
   };
@@ -75,7 +76,11 @@ export default function OrderCheckContent({
       <Coupon onClick={handleOpenModal} />
       <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
       <Shipping />
-      <Receipt allProductPrice={allProductPrice} shippingFee={shippingFee} />
+      <Receipt
+        allProductPrice={allProductPrice}
+        shippingFee={shippingFee}
+        couponDiscount={couponDiscount}
+      />
       <Footer
         text="결제하기"
         active={cartItemListLength ? "true" : "false"}
