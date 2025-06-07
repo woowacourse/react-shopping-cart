@@ -1,10 +1,21 @@
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CartPage from "./pages/CartPage/CartPage";
+import { CartProvider } from "./stores/CartContext";
+import { SelectProvider } from "./stores/SelectContext";
+import OrderCompletePage from "./pages/OrderCompletePage/OrderCompletePage";
 
 function App() {
   return (
-    <>
-      <h1>react-shopping-cart</h1>
-    </>
+    <BrowserRouter>
+      <CartProvider>
+        <SelectProvider>
+          <Routes>
+            <Route path="/" element={<CartPage />} />
+            <Route path="/complete" element={<OrderCompletePage />} />
+          </Routes>
+        </SelectProvider>
+      </CartProvider>
+    </BrowserRouter>
   );
 }
 
