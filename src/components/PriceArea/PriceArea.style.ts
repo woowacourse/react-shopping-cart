@@ -18,6 +18,7 @@ export const hrSss = css({
 export const priceRowCss = css({
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   width: '100%',
   margin: '8px 0'
 });
@@ -38,6 +39,6 @@ export const descriptionCss = css({
 
 export const priceAreaCss = css({
   width: '100%',
-  padding: '16px 0',
-  height: '100%'
+  height: '100%',
+  padding: '16px 0'
 });

@@ -14,6 +14,7 @@ export const allSelectCss = css({
   alignItems: 'center',
   gap: '8px',
   width: '100%',
+  fontSize: '12px',
   marginBottom: '16px'
 });
 

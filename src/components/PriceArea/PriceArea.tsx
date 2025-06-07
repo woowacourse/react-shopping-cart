@@ -5,9 +5,10 @@ interface PriceAreaProps {
   orderAmount: number;
   deliveryFee: number;
   totalAmount: number;
+  couponDiscount?: number;
 }
 
-function PriceArea({ orderAmount, deliveryFee, totalAmount }: PriceAreaProps) {
+function PriceArea({ orderAmount, deliveryFee, totalAmount, couponDiscount }: PriceAreaProps) {
   return (
     <section css={styles.priceAreaCss}>
       <div css={styles.infoDeliveryFeeCss}>
@@ -23,6 +24,14 @@ function PriceArea({ orderAmount, deliveryFee, totalAmount }: PriceAreaProps) {
           {orderAmount.toLocaleString()}원
         </p>
       </div>
+      {couponDiscount !== undefined && (
+        <div css={styles.priceRowCss}>
+          <p css={styles.priceTitleCss}>쿠폰 할인 금액</p>
+          <p css={styles.priceCss} data-testid="coupon-discount">
+            -{couponDiscount.toLocaleString()}원
+          </p>
+        </div>
+      )}
       <div css={styles.priceRowCss}>
         <p css={styles.priceTitleCss}>배송비</p>
         <p css={styles.priceCss}>{deliveryFee.toLocaleString()}원</p>

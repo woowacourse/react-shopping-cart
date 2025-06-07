@@ -19,7 +19,7 @@ const ButtonStyles = css({
   fontSize: '16px',
   fontWeight: 'bold',
   textAlign: 'center',
-  position: 'absolute',
+  position: 'fixed',
   bottom: 0,
 
   '&:disabled': {

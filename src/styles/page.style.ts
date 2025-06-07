@@ -17,4 +17,14 @@ const descriptionCss = css({
   marginBottom: '16px'
 });
 
-export { layoutCss, titleCss, descriptionCss };
+const allSelectCss = css({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '8px',
+  width: '100%',
+  fontSize: '12px',
+  marginBottom: '16px'
+});
+
+export { layoutCss, titleCss, descriptionCss, allSelectCss };

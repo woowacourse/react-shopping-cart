@@ -7,6 +7,7 @@ import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
 import { CartItemType } from '../types/cartItem';
 import { css } from '@emotion/react';
+import CheckBox from '../components/common/CheckBox';
 
 function OrderPage() {
   const navigate = useNavigate();
@@ -55,7 +56,17 @@ function OrderPage() {
             ))}
           </div>
           <Button css={couponApplyCss}>쿠폰 적용</Button>
-          <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
+          <div css={priceTitleCss}>배송 정보</div>
+          <div css={styles.allSelectCss}>
+            <CheckBox checked={true} onChange={() => {}} />
+            <p>제주도 및 도서 산간 지역</p>
+          </div>
+          <PriceArea
+            orderAmount={orderAmount}
+            deliveryFee={deliveryFee}
+            totalAmount={totalAmount}
+            couponDiscount={6000}
+          />
           <Button>결제하기</Button>
         </div>
       </main>
@@ -65,11 +76,12 @@ function OrderPage() {
 
 export default OrderPage;
 
-// const priceTitleCss = css({
-//   fontSize: '16px',
-//   fontWeight: 'bold',
-//   marginBottom: '12px'
-// });
+const priceTitleCss = css({
+  fontSize: '16px',
+  fontWeight: 'bold',
+  marginBottom: '12px',
+  width: '100%'
+});
 
 // const priceCss = css({
 //   fontSize: '20px',
@@ -78,7 +90,7 @@ export default OrderPage;
 
 const cartItemsListCss = css({
   width: '100%',
-  height: '100%',
+  height: '50%',
   overflow: 'auto'
 });
 
@@ -98,9 +110,9 @@ const couponApplyCss = css({
   color: '#555555',
   fontSize: '16px',
   fontWeight: 'bold',
-  padding: '16px 0',
+  padding: '10px 0',
   textAlign: 'center',
   borderRadius: '5px',
-  margin: '32px 0',
+  margin: '16px 0',
   cursor: 'pointer'
 });
