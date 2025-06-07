@@ -5,22 +5,12 @@ import {
   waitFor,
   within,
 } from '@testing-library/react';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
+import App from '../src/App';
 
 describe('전체 선택 테스트', () => {
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<App />));
   });
 
   it('초기 상태는 전체 선택이 체크되어있다.', async () => {

@@ -7,24 +7,14 @@ import {
 } from '@testing-library/react';
 
 import { mockCartItems } from './mocks';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { act } from 'react';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
+import App from '../src/App';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;
 
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<App />));
     const ItemCardList = screen.getAllByTestId('item-card');
     firstItemCard = ItemCardList[0];
   });

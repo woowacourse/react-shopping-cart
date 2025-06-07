@@ -5,29 +5,19 @@ import {
   waitFor,
   within,
 } from '@testing-library/react';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { mockCartItems } from './mocks';
 import getOrderPrice from '../src/utils/getOrderPrice';
 import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
 import { act } from 'react';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
 import {
   DELIVERY_PRICE,
   DELIVERY_PRICE_THRESHOLD,
 } from '../src/constants/config';
+import App from '../src/App';
 
 describe('PriceSection 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<App />));
   });
 
   describe('OrderPrice 컴포넌트', () => {

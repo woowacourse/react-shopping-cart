@@ -1,23 +1,13 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { mockCartItems } from './mocks';
 import getOrderPrice from '../src/utils/getOrderPrice';
 import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
+import App from '../src/App';
 
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<App />));
   });
 
   it('주문 확인 버튼을 클릭하면 주문 확인 페이지로 전환된다.', async () => {

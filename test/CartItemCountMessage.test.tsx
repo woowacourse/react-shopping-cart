@@ -1,21 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
 import { mockCartItems } from './mocks';
 import { act } from 'react';
-import PageProvider from '../src/contexts/PageProvider';
-import PageController from '../src/pages/PageController';
+import App from '../src/App';
 
 describe('CartItemCountMessage 컴포넌트 테스트', () => {
   beforeEach(async () => {
-    await act(() =>
-      render(
-        <PageProvider>
-          <CartItemsProvider>
-            <PageController />
-          </CartItemsProvider>
-        </PageProvider>
-      )
-    );
+    await act(() => render(<App />));
   });
 
   it('장바구니에 담긴 상품 종류 개수를 반영해서 표시한다', async () => {
