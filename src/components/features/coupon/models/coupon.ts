@@ -74,23 +74,52 @@ export const createCoupon = (config: CouponType): CouponType => {
 
 class Coupon {
   #data: CouponType;
+  #discountAmount: number = 0;
+  #disable: boolean = false;
 
-  constructor(couponData: CouponType) {
+  constructor(
+    couponData: CouponType,
+    orderItems: CartItemType[],
+    isRemoteArea: boolean
+  ) {
     const coupon = createCoupon(couponData);
     if (!coupon) {
       throw new Error('유효하지 않은 쿠폰 데이터입니다.');
     }
 
     this.#data = coupon;
+    this.#disable = this.#evaluateDisable(orderItems);
+    if (!this.#disable) {
+      this.#discountAmount = this.#calculateDiscount(orderItems, isRemoteArea);
+    }
   }
 
   get data() {
     return { ...this.#data };
   }
 
-  isDisable(orderPrice: number) {
+  get discountAmount() {
+    return this.#discountAmount;
+  }
+
+  get disable() {
+    return this.#disable;
+  }
+
+  #evaluateDisable(orderItems: CartItemType[]): boolean {
+    const orderPrice = calculateOrderPrice(orderItems);
     const now = new Date();
+
     if (this.#data.expirationDate < now) return true;
+
+    if (isBOGOCoupon(this.#data)) {
+      const totalQuantity = this.#data.buyQuantity + this.#data.getQuantity;
+      const eligibleItemsByPrice = orderItems.filter(
+        (item) => item.quantity >= totalQuantity
+      );
+
+      return eligibleItemsByPrice.length === 0;
+    }
 
     if ('availableTime' in this.#data) {
       const { start, end } = this.#data.availableTime;
@@ -112,9 +141,11 @@ class Coupon {
     return false;
   }
 
-  calculateDiscount(orderItems: CartItemType[], isRemoteArea: boolean) {
+  #calculateDiscount(
+    orderItems: CartItemType[],
+    isRemoteArea: boolean
+  ): number {
     const orderPrice = calculateOrderPrice(orderItems);
-    if (this.isDisable(orderPrice)) return 0;
 
     if (isFixedCoupon(this.#data)) {
       return this.#data.discount;
@@ -125,13 +156,12 @@ class Coupon {
     }
 
     if (isBOGOCoupon(this.#data)) {
+      const totalQuantity = this.#data.buyQuantity + this.#data.getQuantity;
       const eligibleItemsByPrice = orderItems
-        .filter((item) => item.quantity >= 2 + 1)
+        .filter((item) => item.quantity >= totalQuantity)
         .sort((a, b) => b.product.price - a.product.price);
 
-      if (eligibleItemsByPrice.length === 0) {
-        return 0;
-      }
+      if (eligibleItemsByPrice.length === 0) return 0;
 
       return eligibleItemsByPrice[0].product.price;
     }

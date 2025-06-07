@@ -6,18 +6,19 @@ import { useEffect, useState } from 'react';
 
 interface CouponModalProps {
   coupons: Coupon[];
-  orderPrice: number;
   couponSelectedIds: number[];
   applyCoupons: (couponIds: number[]) => void;
 }
 
 function CouponModal({
   coupons,
-  orderPrice,
   couponSelectedIds,
   applyCoupons,
 }: CouponModalProps) {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const totalDiscount = coupons
+    .filter((coupon) => selectedIds.includes(coupon.data.id))
+    .reduce((acc, coupon) => acc + coupon.discountAmount, 0);
 
   const toggleSelect = (couponId: number) => {
     setSelectedIds((prev) => {
@@ -48,7 +49,7 @@ function CouponModal({
               key={coupon.data.id}
               item={coupon}
               selected={selectedIds.includes(coupon.data.id)}
-              disabled={coupon.isDisable(orderPrice)}
+              disabled={coupon.disable}
               toggleSelect={() => toggleSelect(coupon.data.id)}
             />
           ))}
@@ -56,7 +57,7 @@ function CouponModal({
       </S.CouponContainer>
       <Modal.CloseTrigger asChild>
         <Modal.WideButton onClick={() => applyCoupons(selectedIds)}>
-          총 6,000원 할인 쿠폰 사용하기
+          {`총 ${totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
         </Modal.WideButton>
       </Modal.CloseTrigger>
     </Modal.Container>
