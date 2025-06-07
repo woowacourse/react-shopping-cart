@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Coupon } from "../../api/couponApi";
 import useCoupon from "../../hooks/useCoupon";
 import * as S from "./CouponModal.styled";
 import CheckBox from "../CheckBox/CheckBox";
+import {
+  useCouponSelectContext,
+  useCouponSelectDispatch,
+} from "../../stores/CouponContext";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -11,33 +15,60 @@ interface CouponModalProps {
 }
 
 function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
-  const [selectedCoupons, setSelectedCoupons] = useState<number[]>([]);
   const { couponList, isLoading, error } = useCoupon();
+  const couponSelectState = useCouponSelectContext();
+  const couponSelectDispatch = useCouponSelectDispatch();
+
+  useEffect(() => {
+    if (couponList.length > 0) {
+      couponSelectDispatch({
+        type: "SET_COUPON_SELECT",
+        payload: { coupons: couponList },
+      });
+    }
+  }, [couponList, couponSelectDispatch]);
 
   const handleCouponSelect = (couponId: number) => {
-    setSelectedCoupons((prev) => {
-      if (prev.includes(couponId)) {
-        return prev.filter((id) => id !== couponId);
-      } else {
-        if (prev.length >= 2) {
-          alert("쿠폰은 최대 2개까지만 사용할 수 있습니다.");
-          return prev;
-        }
-        return [...prev, couponId];
+    const currentItem = couponSelectState.find((item) => item.id === couponId);
+    const selectedCount = couponSelectState.filter(
+      (item) => item.selected
+    ).length;
+
+    if (currentItem?.selected) {
+      couponSelectDispatch({
+        type: "REMOVE_COUPON_SELECT",
+        payload: { id: couponId },
+      });
+    } else {
+      if (selectedCount >= 2) {
+        alert("쿠폰은 최대 2개까지만 사용할 수 있습니다.");
+        return;
       }
-    });
+      couponSelectDispatch({
+        type: "ADD_COUPON_SELECT",
+        payload: { id: couponId },
+      });
+    }
   };
 
   const handleApply = () => {
+    const selectedCouponIds = couponSelectState
+      .filter((item) => item.selected)
+      .map((item) => item.id);
+
     const selectedCouponData = couponList.filter((coupon) =>
-      selectedCoupons.includes(coupon.id)
+      selectedCouponIds.includes(coupon.id)
     );
+
     onApplyCoupons(selectedCouponData);
     onClose();
   };
 
   const handleClose = () => {
-    setSelectedCoupons([]);
+    couponSelectDispatch({
+      type: "CLEAR_COUPON_SELECT",
+      payload: {},
+    });
     onClose();
   };
 
@@ -72,14 +103,19 @@ function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
 
   const calculateTotalDiscount = () => {
     let totalDiscount = 0;
+    const selectedCouponIds = couponSelectState
+      .filter((item) => item.selected)
+      .map((item) => item.id);
+
     const selectedCouponData = couponList.filter((coupon) =>
-      selectedCoupons.includes(coupon.id)
+      selectedCouponIds.includes(coupon.id)
     );
 
     selectedCouponData.forEach((coupon) => {
       if (coupon.discountType === "fixed" && coupon.discount) {
         totalDiscount += coupon.discount;
       } else if (coupon.discountType === "percentage" && coupon.discount) {
+        //임시로 10만원 주문 기준으로 계산
         totalDiscount += Math.floor(100000 * (coupon.discount / 100));
       }
     });
@@ -90,7 +126,10 @@ function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
   if (!isOpen) return null;
 
   const totalDiscount = calculateTotalDiscount();
-  const hasSelectedCoupons = selectedCoupons.length > 0;
+  const selectedCount = couponSelectState.filter(
+    (item) => item.selected
+  ).length;
+  const hasSelectedCoupons = selectedCount > 0;
 
   return (
     <S.ModalOverlay onClick={handleClose}>
@@ -118,32 +157,39 @@ function CouponModal({ isOpen, onClose, onApplyCoupons }: CouponModalProps) {
               </S.CouponDescription>
 
               <S.CouponList>
-                {couponList.map((coupon) => (
-                  <div key={coupon.id}>
-                    <S.CouponDivider />
+                {couponList.map((coupon) => {
+                  const selectState = couponSelectState.find(
+                    (item) => item.id === coupon.id
+                  );
+                  const isSelected = selectState?.selected || false;
 
-                    <S.CouponItem
-                      selected={selectedCoupons.includes(coupon.id)}
-                      onClick={() => handleCouponSelect(coupon.id)}
-                    >
-                      <S.CouponCheckboxWrapper>
-                        <CheckBox
-                          isChecked={selectedCoupons.includes(coupon.id)}
-                          onClick={() => handleCouponSelect(coupon.id)}
-                        />
-                        <S.CouponName>{coupon.description}</S.CouponName>
-                      </S.CouponCheckboxWrapper>
-                      <S.CouponContent>
-                        <S.CouponExpiry>
-                          만료일: {formatDate(coupon.expirationDate)}
-                        </S.CouponExpiry>
-                        {renderCouponDetails(coupon).map((detail, idx) => (
-                          <S.CouponDetail key={idx}>{detail}</S.CouponDetail>
-                        ))}
-                      </S.CouponContent>
-                    </S.CouponItem>
-                  </div>
-                ))}
+                  return (
+                    <div key={coupon.id}>
+                      <S.CouponDivider />
+
+                      <S.CouponItem
+                        selected={isSelected}
+                        onClick={() => handleCouponSelect(coupon.id)}
+                      >
+                        <S.CouponCheckboxWrapper>
+                          <CheckBox
+                            isChecked={isSelected}
+                            onClick={() => handleCouponSelect(coupon.id)}
+                          />
+                          <S.CouponName>{coupon.description}</S.CouponName>
+                        </S.CouponCheckboxWrapper>
+                        <S.CouponContent>
+                          <S.CouponExpiry>
+                            만료일: {formatDate(coupon.expirationDate)}
+                          </S.CouponExpiry>
+                          {renderCouponDetails(coupon).map((detail, idx) => (
+                            <S.CouponDetail key={idx}>{detail}</S.CouponDetail>
+                          ))}
+                        </S.CouponContent>
+                      </S.CouponItem>
+                    </div>
+                  );
+                })}
               </S.CouponList>
             </>
           )}
