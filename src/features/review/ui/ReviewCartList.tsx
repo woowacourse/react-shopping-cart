@@ -1,10 +1,8 @@
 import * as S from './ReviewCartList.styles';
-import { useCartContext } from '../../../shared/context/useCartContext';
 import ReviewCartItemCard from './ReviewCartItemCard';
+import { CartItem } from '../../cart/api/types/cart';
 
-export default function ReviewCartList() {
-  const { selectedCartItems } = useCartContext();
-
+export default function ReviewCartList({ selectedCartItems }: { selectedCartItems: CartItem[] }) {
   return (
     <S.ReviewCartListContainer>
       <S.ReviewCartItemCardContainer>

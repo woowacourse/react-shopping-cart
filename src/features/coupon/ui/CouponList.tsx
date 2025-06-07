@@ -29,6 +29,8 @@ interface CouponListProps {
 export default function CouponList({ onClose }: CouponListProps) {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
 
+  console.log('쿠폰 목록', coupons);
+
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
@@ -70,7 +72,7 @@ export default function CouponList({ onClose }: CouponListProps) {
             </S.CouponHeader>
             <S.CouponInfo>
               <span>만료일: {coupon.expirationDate}</span>
-              {coupon.minimumAmount && <span>최소 주문 금액: {coupon.expirationDate}</span>}
+              {coupon.minimumAmount && <span>최소 주문 금액: {coupon.minimumAmount}</span>}
             </S.CouponInfo>
           </S.CouponContainer>
         ))}

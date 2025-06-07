@@ -4,15 +4,16 @@ import * as S from './OrderReviewPage.styles';
 import { CartHeader, OrderPriceSummary } from '../../features/cart/ui';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
-import { useCartContext } from '../../shared/context/useCartContext';
 import Navbar from '../../shared/ui/Navbar';
 import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import ReviewCartList from '../../features/review/ui/ReviewCartList';
 import Button from '../../shared/ui/Button';
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomModal from '../../shared/ui/CustomModal';
 import CouponList from '../../features/coupon/ui/CouponList';
+import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
+import { CartItem } from '../../features/cart/api/types/cart';
 
 const CouponButtonCSS = css`
   width: 100%;
@@ -30,8 +31,13 @@ const CouponButtonCSS = css`
 `;
 
 export default function OrderReviewPage() {
-  const { selectedCartItems } = useCartContext();
+  const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    setSelectedCartItems(getSelectedCartItemsFromLocalStorage());
+  }, []);
 
   return (
     <S.OrderPageContainer>
@@ -40,7 +46,7 @@ export default function OrderReviewPage() {
         <CartHeader cartTypeQuantity={selectedCartItems.length} />
         {selectedCartItems.length > 0 ? (
           <>
-            <ReviewCartList />
+            <ReviewCartList selectedCartItems={selectedCartItems} />
             <Button onClick={() => setIsModalOpen(!isModalOpen)} title='쿠폰 적용' css={CouponButtonCSS} />
             <OrderPriceSummary useCoupon={true} />
           </>
@@ -48,7 +54,12 @@ export default function OrderReviewPage() {
           <EmptyCartItemUI />
         )}
       </S.OrderPageContent>
-      <CartPageFooter title='결제하기' url={ROUTES.CONFIRMATION} cartItemQuantity={selectedCartItems.length} />
+      <CartPageFooter
+        title='결제하기'
+        url={ROUTES.CONFIRMATION}
+        cartItemQuantity={selectedCartItems.length}
+        selectedCartItems={selectedCartItems}
+      />
       {isModalOpen && (
         <CustomModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} position='center'>
           <CouponList onClose={() => setIsModalOpen(false)} />

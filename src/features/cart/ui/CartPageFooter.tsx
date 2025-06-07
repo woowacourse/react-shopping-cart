@@ -3,13 +3,14 @@
 import { css } from '@emotion/react';
 import Button from '../../../shared/ui/Button';
 import { useNavigate } from 'react-router';
-import { useCartContext } from '../../../shared/context/useCartContext';
 import styled from '@emotion/styled';
+import { CartItem } from '../api/types/cart';
 
 interface FooterProps {
   title: string;
   url: string;
   cartItemQuantity: number;
+  selectedCartItems: CartItem[];
 }
 
 const ButtonCSS = css`
@@ -30,9 +31,7 @@ const ButtonCSS = css`
   }
 `;
 
-export default function Footer({ title, url, cartItemQuantity }: FooterProps) {
-  const { selectedCartItems } = useCartContext();
-
+export default function Footer({ title, url, cartItemQuantity, selectedCartItems }: FooterProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {

@@ -8,6 +8,7 @@ import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import CartListSkeleton from '../../features/cart/ui/CartListSkeleton';
 import { useCartContext } from '../../shared/context/useCartContext';
+import { saveSelectedCartItemsToLocalStorage } from '../../features/cart/utils/localStorageService';
 
 const CartList = React.lazy(() => import('../../features/cart/ui/CartList'));
 const OrderPriceSummary = React.lazy(() => import('../../features/cart/ui/OrderPriceSummary'));
@@ -48,6 +49,8 @@ function CartPage() {
         updateSelectedCartItem(item, currentItemQuantity);
       }
     });
+
+    saveSelectedCartItemsToLocalStorage(selectedCartItems);
   }, [cartItems]);
 
   return (
@@ -66,7 +69,12 @@ function CartPage() {
           <EmptyCartItemUI />
         )}
       </S.CartPageContent>
-      <CartPageFooter title='주문 확인' url={ROUTES.REVIEW} cartItemQuantity={cartItems.length} />
+      <CartPageFooter
+        title='주문 확인'
+        url={ROUTES.REVIEW}
+        cartItemQuantity={cartItems.length}
+        selectedCartItems={selectedCartItems}
+      />
     </S.CartPageContainer>
   );
 }

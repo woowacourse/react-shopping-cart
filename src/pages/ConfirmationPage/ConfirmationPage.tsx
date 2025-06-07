@@ -5,7 +5,9 @@ import Button from '../../shared/ui/Button';
 import * as S from './ConfirmationPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import { useNavigate } from 'react-router';
-import { useCartContext } from '../../shared/context/useCartContext';
+import { useEffect, useState } from 'react';
+import { CartItem } from '../../features/cart/api/types/cart';
+import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 
 const ButtonCSS = css`
   width: 100%;
@@ -26,7 +28,11 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { selectedCartItems } = useCartContext();
+  const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    setSelectedCartItems(getSelectedCartItemsFromLocalStorage());
+  }, []);
 
   const navigate = useNavigate();
   const handleClick = () => {
