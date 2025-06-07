@@ -9,6 +9,8 @@ interface CouponModalProps {
   coupons: CouponContent[];
   isLoading: boolean;
   availableCoupons: CouponContent[];
+  bestCouponIds: number[];
+  totalDiscount: number;
 }
 
 const CouponModal = ({
@@ -17,6 +19,8 @@ const CouponModal = ({
   coupons,
   isLoading,
   availableCoupons,
+  bestCouponIds,
+  totalDiscount,
 }: CouponModalProps) => (
   <Modal show={show} onHide={onHide} position='center'>
     <Modal.Header closeButton>
@@ -33,11 +37,13 @@ const CouponModal = ({
           const isAvailable = availableCoupons.some(
             (av) => av.id === coupon.id
           );
+          const isAutoSelected = bestCouponIds.includes(coupon.id);
           return (
             <CouponInfo
               coupon={coupon}
               key={coupon.id}
               disabled={!isAvailable}
+              isAutoSelected={isAutoSelected}
             />
           );
         })
@@ -47,7 +53,7 @@ const CouponModal = ({
     </Modal.Body>
     <Modal.Footer buttonAlign='center'>
       <Modal.CancelButton onClick={onHide} width='100%'>
-        총 {'???'}원 할인 쿠폰 사용하기
+        총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
       </Modal.CancelButton>
     </Modal.Footer>
   </Modal>
