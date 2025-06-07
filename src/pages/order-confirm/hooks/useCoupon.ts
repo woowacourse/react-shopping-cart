@@ -3,9 +3,10 @@ import useSelectedIds from "@/shared/hooks/useSelectedItem";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { createCouponDisabledChecker } from "../utils/createCouponDisabledChecker";
 import { getIsCouponDisabled } from "../utils/getCouponDisabled";
-import { getCouponDiscountAmount } from "../utils/getCouponDiscountAmount";
 import { getBestCouponCombination } from "../utils/getBestCouponCombination";
 import { MAX_SELECTED_COUPON_COUNT } from "@/domains/constants/coupon";
+import { getAvailableCoupons } from "../utils/getAvailableCoupons";
+import { getTotalCouponDiscountAmount } from "../utils/getTotalDiscountAmount";
 
 type UseCouponPrams = {
   orderList: CartItemType[];
@@ -18,9 +19,8 @@ export const useCoupon = ({
   couponList,
   deliveryPrice,
 }: UseCouponPrams) => {
-  const availableCoupons = couponList.filter(
-    (coupon) => !getIsCouponDisabled(coupon, orderList)
-  );
+  const availableCoupons = getAvailableCoupons(couponList, orderList);
+
   const bestCombo = getBestCouponCombination({
     availableCoupons,
     orderList,
@@ -42,11 +42,11 @@ export const useCoupon = ({
   const selectedCoupons = availableCoupons.filter((coupon) =>
     getIsSelectedId(coupon.id)
   );
-  const discountAmount = selectedCoupons.reduce(
-    (total, coupon) =>
-      total + getCouponDiscountAmount({ coupon, orderList, deliveryPrice }),
-    0
-  );
+  const discountAmount = getTotalCouponDiscountAmount({
+    couponList: selectedCoupons,
+    orderList,
+    deliveryPrice,
+  });
 
   return {
     getIsSelectedId,
