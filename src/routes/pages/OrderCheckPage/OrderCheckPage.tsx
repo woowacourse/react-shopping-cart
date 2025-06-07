@@ -66,7 +66,11 @@ function OrderCheck() {
           <Text varient="body">쿠폰 적용</Text>
         </Button>
         <DeliverInfo />
-        <CartPriceCouponInfo />
+        <CartPriceCouponInfo
+          totalPrice={cart.totalPrice}
+          deliveryFee={cart.deliveryFee}
+          totalPriceWithDeliveryFee={cart.totalPriceWithDeliveryFee}
+        />
       </ContainerLayout>
       <Button color="black" variant="primary" onClick={() => {}}>
         <Text varient="body">결제하기</Text>
