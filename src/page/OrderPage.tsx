@@ -6,6 +6,7 @@ import Image from '../components/Image/Image';
 import { useState } from 'react';
 import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
+import { setLocalStorage } from '../utils/localStorage';
 
 type SelectedItem = {
   id: number;
@@ -60,7 +61,7 @@ function OrderPage() {
               onChange={(e) => {
                 const checked = e.target.checked;
                 setIsRemoteArea((prev: boolean) => !prev);
-                localStorage.setItem('isRemoteArea', JSON.stringify(checked));
+                setLocalStorage('isRemoteArea', checked);
               }}
             />
             제주도 및 도서 산간 지역

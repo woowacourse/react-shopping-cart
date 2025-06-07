@@ -7,6 +7,7 @@ import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
 import { calculateDeliveryFee, calculateOrderAmount } from './calculate';
+import { setLocalStorage } from '../../utils/localStorage';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -30,7 +31,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
       imageUrl: item.product.imageUrl
     }));
 
-    localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+    setLocalStorage('selectedItems', selectedItems);
   };
   return (
     <div css={styles.cartItemsAreaCss}>

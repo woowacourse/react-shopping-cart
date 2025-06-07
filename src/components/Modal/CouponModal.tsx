@@ -5,6 +5,7 @@ import { useApiContext } from '../../contexts/ApiContext';
 import getCoupons from '../../api/getCoupons';
 import { Coupon } from '../../types/response';
 import CheckBox from '../common/CheckBox';
+import { getLocalStorage } from '../../utils/localStorage';
 
 export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
@@ -127,24 +128,12 @@ function formatTimeRange(start: string, end: string): string {
 }
 
 function getOrderAmountFromStorage(): number {
-  try {
-    const data = localStorage.getItem('selectedItems');
-    if (!data) return 0;
-    const items = JSON.parse(data) as { price: number }[];
-    return items.reduce((sum, item) => sum + item.price, 0);
-  } catch {
-    return 0;
-  }
+  const items = getLocalStorage<{ price: number }[]>('selectedItems', []);
+  return items.reduce((sum, item) => sum + item.price, 0);
 }
 
 function getOrderItemsFromStorage(): { price: number; quantity: number }[] {
-  try {
-    const data = localStorage.getItem('selectedItems');
-    if (!data) return [];
-    return JSON.parse(data) as { price: number; quantity: number }[];
-  } catch {
-    return [];
-  }
+  return getLocalStorage<{ price: number; quantity: number }[]>('selectedItems', []);
 }
 
 function calculateBogoDiscount(): number {
@@ -157,12 +146,8 @@ function calculateBogoDiscount(): number {
 }
 
 function getShippingInfoFromStorage(): { isRemoteArea: boolean } {
-  try {
-    const data = localStorage.getItem('isRemoteArea');
-    return { isRemoteArea: data === 'true' };
-  } catch {
-    return { isRemoteArea: false };
-  }
+  const value = localStorage.getItem('isRemoteArea');
+  return { isRemoteArea: value === 'true' };
 }
 
 function isInAvailableTimeRange({ start, end }: { start: string; end: string }): boolean {
