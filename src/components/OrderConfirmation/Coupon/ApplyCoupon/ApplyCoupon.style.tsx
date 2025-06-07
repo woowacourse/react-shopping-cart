@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 
+export const Title = styled.h3`
+  font-weight: 700;
+  font-size: 18px;
+`;
+
 export const Notice = styled.div`
   display: flex;
   width: 100%;
