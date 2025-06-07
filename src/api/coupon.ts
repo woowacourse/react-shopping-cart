@@ -34,14 +34,45 @@ interface PercentageCoupon extends BaseCoupon {
   };
 }
 
-export type Coupon =
+export type CouponResponse =
   | FixedDiscountCoupon
   | BuyXGetYCoupon
   | FreeShippingCoupon
   | PercentageCoupon;
 
+export type Coupon = {
+  id: string;
+  code: string;
+  description: string;
+  expirationDate: [number, number, number];
+  discountType: "fixed" | "buyXgetY" | "freeShipping" | "percentage";
+} & (
+  | {
+      discountType: "fixed";
+      discount: number;
+      minimumAmount: number;
+    }
+  | {
+      discountType: "buyXgetY";
+      buyQuantity: number;
+      getQuantity: number;
+    }
+  | {
+      discountType: "freeShipping";
+      minimumAmount: number;
+    }
+  | {
+      discountType: "percentage";
+      discount: number;
+      availableTime?: {
+        start: string;
+        end: string;
+      };
+    }
+);
+
 export async function getCouponData() {
-  const response = await baseAPI<Coupon[]>({
+  const response = await baseAPI<CouponResponse[]>({
     method: "GET",
     path: "/coupons",
   });
@@ -51,7 +82,7 @@ export async function getCouponData() {
   return couponsData;
 }
 
-function convertResponseToCoupon(coupon: Coupon) {
+function convertResponseToCoupon(coupon: CouponResponse) {
   const { id, code, description, expirationDate, discountType } = coupon;
   const date = new Date(expirationDate);
 
@@ -69,7 +100,7 @@ function convertResponseToCoupon(coupon: Coupon) {
 
   switch (discountType) {
     case "fixed": {
-      const { discount, minimumAmount } = coupon as FixedDiscountCoupon;
+      const { discount, minimumAmount } = coupon;
       return {
         ...base,
         discount: Number(discount),
@@ -77,7 +108,7 @@ function convertResponseToCoupon(coupon: Coupon) {
       };
     }
     case "buyXgetY": {
-      const { buyQuantity, getQuantity } = coupon as BuyXGetYCoupon;
+      const { buyQuantity, getQuantity } = coupon;
       return {
         ...base,
         buyQuantity: Number(buyQuantity),
@@ -85,14 +116,14 @@ function convertResponseToCoupon(coupon: Coupon) {
       };
     }
     case "freeShipping": {
-      const { minimumAmount } = coupon as FreeShippingCoupon;
+      const { minimumAmount } = coupon;
       return {
         ...base,
         minimumAmount: Number(minimumAmount),
       };
     }
     case "percentage": {
-      const { discount, availableTime } = coupon as PercentageCoupon;
+      const { discount, availableTime } = coupon;
       return {
         ...base,
         discount: Number(discount),
