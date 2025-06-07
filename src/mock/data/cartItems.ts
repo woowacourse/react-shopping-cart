@@ -1,5 +1,5 @@
-import { CartItem } from "../type/CartItem";
-import type { ProductWithQuantity } from "../type/Product";
+import { CartItem } from "../../type/CartItem";
+import type { ProductWithQuantity } from "../../type/Product";
 
 export const products: ProductWithQuantity[] = [
   {

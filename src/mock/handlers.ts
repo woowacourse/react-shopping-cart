@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { cartItems, products } from "./data";
+import { cartItems, products } from "./data/cartItems";
 
 export const testStateStore = {
   shouldFailCart: false,
@@ -12,7 +12,7 @@ export const testStateStore = {
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const CART_URL = `${BASE_URL}/cart-items`;
-const getCartItems = http.get(CART_URL, ({}) => {
+const getCartItems = http.get(CART_URL, () => {
   const response = {
     content: [...cartItems],
   };
