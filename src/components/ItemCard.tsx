@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Product } from '../types';
 import CheckBox from './CheckBox';
-import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
 import useCartActions from '../hooks/useCartItemsActions';
 import useCheckedCartActions from '../hooks/useCheckedCartActions';
 

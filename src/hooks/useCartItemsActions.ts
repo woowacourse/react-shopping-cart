@@ -1,9 +1,9 @@
 // hooks/useCartActions.ts
 import { useCallback } from 'react';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 import patchCartItems from '../api/patchCartItems';
 import deleteCartItems from '../api/deleteCartItems';
-import { useErrorToast } from '../contexts/ErrorToastContext';
+import { useErrorToast } from '../contexts/ErrorToast/ErrorToastContext';
 
 const useCartActions = () => {
   const { cartItems, refetch } = useCartItemsContext();

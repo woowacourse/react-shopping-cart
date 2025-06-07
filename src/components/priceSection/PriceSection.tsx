@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { useCartItemsContext } from '../../contexts/CartItemsContext';
+import { useCartItemsContext } from '../../contexts/CartItems/CartItemsContext';
 import getOrderPrice from '../../utils/getOrderPrice';
 import PriceRow from './PriceRow';
-import { useCheckCartIdsContext } from '../../contexts/CheckedCartIdsContext';
+import { useCheckCartIdsContext } from '../../contexts/CheckedCartIds/CheckedCartIdsContext';
 import calculateDeliveryPrice from '../../utils/calculateDeliveryPrice';
 
 const PriceSection = () => {

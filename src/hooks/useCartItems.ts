@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import getCartItems from '../api/getCartItems';
 import { CartItem } from '../types';
-import { useErrorToast } from '../contexts/ErrorToastContext';
+import { useErrorToast } from '../contexts/ErrorToast/ErrorToastContext';
 
 const useCartItems = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);

@@ -1,7 +1,7 @@
 // CartItemsProvider.tsx
 import { ReactNode } from 'react';
 import { CartItemsContext } from './CartItemsContext';
-import useCartItems from '../hooks/useCartItems';
+import useCartItems from '../../hooks/useCartItems';
 
 const CartItemsProvider = ({ children }: { children: ReactNode }) => {
   const { cartItems, refetch } = useCartItems();

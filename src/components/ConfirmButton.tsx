@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 import BottomButton from './BottomButton';
-import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
 
 interface ConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;

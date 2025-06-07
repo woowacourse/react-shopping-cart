@@ -5,8 +5,8 @@ import ItemCard from '../components/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
-import { usePageContext } from '../contexts/PageContext';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
+import { usePageContext } from '../contexts/Page/PageContext';
 import styled from '@emotion/styled';
 
 const CartPage = () => {

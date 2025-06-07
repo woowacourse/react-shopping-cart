@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import getCoupons from '../api/getCoupons';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
-import { useCheckCartIdsContext } from '../contexts/CheckedCartIdsContext';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
 import getOrderPrice from '../utils/getOrderPrice';
-import { useErrorToast } from '../contexts/ErrorToastContext';
+import { useErrorToast } from '../contexts/ErrorToast/ErrorToastContext';
 import { Coupon } from '../types';
 import calculateCouponDiscount from '../utils/calculateCouponDiscount';
 import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
@@ -92,7 +92,7 @@ const useCoupons = () => {
     });
   };
 
-  const deselectCoupon = (id: number) => {
+  const unselectCoupon = (id: number) => {
     setSelectedCoupons((prev) => prev.filter((c) => c.id !== id));
   };
 
@@ -104,9 +104,9 @@ const useCoupons = () => {
     coupons,
     validCoupons,
     selectedCoupons,
-    selectCoupon,
-    deselectCoupon,
     couponDiscount,
+    selectCoupon,
+    unselectCoupon,
   };
 };
 

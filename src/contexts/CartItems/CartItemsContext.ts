@@ -1,6 +1,6 @@
 // CartItemsContext.ts
 import { createContext, useContext } from 'react';
-import { CartItem } from '../types';
+import { CartItem } from '../../types';
 
 interface CartItemsContextType {
   cartItems: CartItem[];

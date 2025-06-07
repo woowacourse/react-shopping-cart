@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 
 const CartItemCountMessage = () => {
   const { cartItems } = useCartItemsContext();

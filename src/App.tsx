@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import CartItemsProvider from './contexts/CartItemsProvider';
-import PageProvider from './contexts/PageProvider';
+import CartItemsProvider from './contexts/CartItems/CartItemsProvider';
+import PageProvider from './contexts/Page/PageProvider';
 import PageController from './pages/PageController';
-import { ErrorToastProvider } from './contexts/ErrorToastProvider';
-import CheckCartIdsProvider from './contexts/CheckedCartIdsProvider';
+import { ErrorToastProvider } from './contexts/ErrorToast/ErrorToastProvider';
+import CheckCartIdsProvider from './contexts/CheckedCartIds/CheckedCartIdsProvider';
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { usePageContext } from '../contexts/PageContext';
+import { usePageContext } from '../contexts/Page/PageContext';
 import CartPage from './CartPage';
 import OrderConfirmPage from './OrderConfirmPage';
 import Header from '../components/Header';
@@ -10,8 +10,8 @@ const PageController = () => {
   return (
     <S.container>
       <Header />
-        {page === 'cart' && <CartPage />}
-        {page === 'orderConfirm' && <OrderConfirmPage />}
+      {page === 'cart' && <CartPage />}
+      {page === 'orderConfirm' && <OrderConfirmPage />}
     </S.container>
   );
 };

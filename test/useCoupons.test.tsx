@@ -1,9 +1,9 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import useCoupons from '../src/hooks/useCoupons';
-import * as checkedCtx from '../src/contexts/CheckedCartIdsContext';
-import { ErrorToastProvider } from '../src/contexts/ErrorToastProvider';
-import CartItemsProvider from '../src/contexts/CartItemsProvider';
-import CheckCartIdsProvider from '../src/contexts/CheckedCartIdsProvider';
+import * as checkedCtx from '../src/contexts/CheckedCartIds/CheckedCartIdsContext';
+import { ErrorToastProvider } from '../src/contexts/ErrorToast/ErrorToastProvider';
+import CartItemsProvider from '../src/contexts/CartItems/CartItemsProvider';
+import CheckCartIdsProvider from '../src/contexts/CheckedCartIds/CheckedCartIdsProvider';
 import { act } from 'react';
 import { mockCoupons } from './mocks';
 type ProvidersProps = {
@@ -264,7 +264,7 @@ describe('useCoupons 테스트', () => {
       result.current.selectedCoupons.find((c) => c.id === 1)
     ).toBeDefined();
     act(() => {
-      result.current.deselectCoupon(1);
+      result.current.unselectCoupon(1);
     });
     expect(
       result.current.selectedCoupons.find((c) => c.id === 1)

@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { useCartItemsContext } from './CartItemsContext';
+import { useCartItemsContext } from '../CartItems/CartItemsContext';
 import { CheckCartIdsContext } from './CheckedCartIdsContext';
-import getIdsFromCartItems from '../utils/getIdsFromCartItems';
+import getIdsFromCartItems from '../../utils/getIdsFromCartItems';
 
 const CheckCartIdsProvider = ({ children }: { children: ReactNode }) => {
   const isFirstLoad = useRef(true);
