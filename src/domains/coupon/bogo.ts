@@ -1,4 +1,8 @@
-import type { CartItemType, CouponType } from "../../types/response";
+import type {
+  BogoCoupon,
+  CartItemType,
+  CouponType,
+} from "../../types/response";
 import type { BogoItemInfoType } from "../../types/bogo";
 
 const getCheckedBogoCoupons = (checkedCoupons: CouponType[]) => {
@@ -18,16 +22,15 @@ const getBogoItemInfo = (
   return { bogoItem: maxPriceBogoItem, bogoQuantity: getQuantity };
 };
 
-export const getBogoItemsInfo = (
+export const collectBogoItemInfos = (
   checkedCoupons: Map<number, CouponType>,
   orderItems: CartItemType[]
 ) => {
-  return getCheckedBogoCoupons(Array.from(checkedCoupons.values())).flatMap(
-    (coupon) =>
-      "buyQuantity" in coupon
-        ? [getBogoItemInfo(orderItems, coupon.buyQuantity, coupon.getQuantity)]
-        : []
-  );
+  return getCheckedBogoCoupons(Array.from(checkedCoupons.values()))
+    .filter((coupon): coupon is BogoCoupon => "buyQuantity" in coupon)
+    .map((coupon) =>
+      getBogoItemInfo(orderItems, coupon.buyQuantity, coupon.getQuantity)
+    );
 };
 
 export const getBogoGetQuantity = (

@@ -32,7 +32,7 @@ import {
 } from "../../domains/coupon/calculateCoupon";
 import {
   isBogoItem,
-  getBogoItemsInfo,
+  collectBogoItemInfos,
   getBogoGetQuantity,
 } from "../../domains/coupon/bogo";
 import { getOrderConfirmationMessage } from "../../constants/systemMessages";
@@ -71,7 +71,7 @@ const OrderConfirmationPage = () => {
     deliveryFee: deliveryFeeWithRemoteArea,
   });
 
-  const bogoItemsInfo = getBogoItemsInfo(checkedCoupons, orderItems);
+  const bogoItemsInfo = collectBogoItemInfos(checkedCoupons, orderItems);
   const totalBogoGetQuantity = bogoItemsInfo.reduce(
     (acc: number, item: BogoItemInfoType) => acc + item.bogoQuantity,
     0

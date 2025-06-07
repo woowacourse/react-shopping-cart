@@ -88,24 +88,19 @@ interface CouponValidatorContext {
   deliveryFee: number;
 }
 
-type CouponValidator = (
-  couponList: CouponType[],
-  context: CouponValidatorContext
-) => CouponType[];
+const COUPON_VALIDATORS = [
+  getValidExpirationCoupons,
+  getValidMinimumAmountCoupons,
+  getValidBogoCoupons,
+  getValidMiracleHourCoupons,
+  getValidFreeShippingCoupons,
+];
 
 export const getAllValidCoupons = (
   couponList: CouponType[],
   { originOrderPrice, orderItems, deliveryFee }: CouponValidatorContext
 ): CouponType[] => {
-  const validators: CouponValidator[] = [
-    getValidExpirationCoupons,
-    getValidMinimumAmountCoupons,
-    getValidBogoCoupons,
-    getValidMiracleHourCoupons,
-    getValidFreeShippingCoupons,
-  ];
-
-  return validators.reduce(
+  return COUPON_VALIDATORS.reduce(
     (filtered, validate) =>
       validate(filtered, { originOrderPrice, orderItems, deliveryFee }),
     couponList
