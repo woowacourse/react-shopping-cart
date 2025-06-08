@@ -4,18 +4,19 @@ import { getShoppingCartData } from "../../../../api/cart";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
 import { useOrderCalculation } from "../../../../hooks/order/useOrderCalculation";
+import { useCouponContext } from "../../context/CouponProvider";
 
 function PayButton() {
   const { data: cartListData } = useAPIDataContext({
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectedCartItems, isIsland, discount } =
-    useOrderListContext(cartListData);
+  const { selectedCartItems, isIsland } = useOrderListContext(cartListData);
+  const { selectedCoupons } = useCouponContext();
   const { totalPrice, typeCount, totalCount } = useOrderCalculation(
     selectedCartItems,
     isIsland,
-    discount
+    selectedCoupons
   );
   const navigate = useNavigate();
   const navigateToSuccessPage = () => {

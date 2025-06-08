@@ -7,7 +7,6 @@ import { useOrderListContext } from "../../../../../context/OrderListProvider";
 import { useToastContext } from "../../../../../context/ToastProvider";
 import { useOrderCalculation } from "../../../../../hooks/order/useOrderCalculation";
 import { useCouponContext } from "../../../context/CouponProvider";
-import { calculateCouponDiscount } from "./utils/couponCalculator";
 
 function CouponApplyButton({
   onClose,
@@ -21,20 +20,14 @@ function CouponApplyButton({
   });
   const { selectedCartItems, isIsland, handleDiscountSetting } =
     useOrderListContext(cartListData);
-  const { totalCartPrice, shippingFee } = useOrderCalculation(
+  const { selectedCoupons } = useCouponContext();
+  const { finalDiscount } = useOrderCalculation(
     selectedCartItems,
-    isIsland
+    isIsland,
+    selectedCoupons
   );
 
   const { showToast } = useToastContext();
-  const { selectedCoupons } = useCouponContext();
-
-  const { finalDiscount } = calculateCouponDiscount(
-    selectedCoupons,
-    totalCartPrice,
-    shippingFee,
-    selectedCartItems
-  );
 
   const handleCouponApply = useCallback(() => {
     handleDiscountSetting(finalDiscount);

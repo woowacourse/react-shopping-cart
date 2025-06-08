@@ -4,6 +4,7 @@ import { useAPIDataContext } from "../../../context/APIDataProvider";
 import { getShoppingCartData } from "../../../api/cart";
 import { useOrderListContext } from "../../../context/OrderListProvider";
 import { useOrderCalculation } from "../../../hooks/order/useOrderCalculation";
+import { useCouponContext } from "../context/CouponProvider";
 
 function OrderInfoTitle() {
   const { data: cartListData } = useAPIDataContext({
@@ -11,9 +12,11 @@ function OrderInfoTitle() {
     fetcher: getShoppingCartData,
   });
   const { selectedCartItems } = useOrderListContext(cartListData);
+  const { selectedCoupons } = useCouponContext();
   const { typeCount, totalCount } = useOrderCalculation(
-    cartListData,
-    selectedCartItems
+    selectedCartItems,
+    false,
+    selectedCoupons
   );
   return (
     <Flex justifyContent="flex-start" alignItems="flex-start" gap="xs">

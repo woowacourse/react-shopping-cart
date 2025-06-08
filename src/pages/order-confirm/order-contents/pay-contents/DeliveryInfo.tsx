@@ -6,19 +6,21 @@ import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
 import { useOrderCalculation } from "../../../../hooks/order/useOrderCalculation";
 import OrderLabelPridce from "../OrderLabelPrice";
+import { useCouponContext } from "../../context/CouponProvider";
 
 function DeliveryInfo() {
   const { data: cartListData } = useAPIDataContext({
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectedCartItems, isIsland, handleIsIslandToggle, discount } =
+  const { selectedCartItems, isIsland, handleIsIslandToggle } =
     useOrderListContext(cartListData);
+  const { selectedCoupons } = useCouponContext();
 
-  const { totalCartPrice, shippingFee, totalPrice } = useOrderCalculation(
+  const { totalCartPrice, shippingFee, totalPrice, finalDiscount } = useOrderCalculation(
     selectedCartItems,
     isIsland,
-    discount
+    selectedCoupons
   );
 
   return (
@@ -31,7 +33,7 @@ function DeliveryInfo() {
         totalCartPrice={totalCartPrice}
         shippingFee={shippingFee}
         totalPrice={totalPrice}
-        couponDiscount={-discount}
+        couponDiscount={-finalDiscount}
       />
     </Container>
   );
