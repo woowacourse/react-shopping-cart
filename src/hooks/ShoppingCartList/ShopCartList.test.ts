@@ -5,12 +5,12 @@ import { describe, it, expect, vi } from "vitest";
 
 import ShoppingCartList from "../../../contexts/ShoppingCartList/ShoppingCartList";
 
-import { CartItemListProvider } from "../../../contexts/CartItemListContext";
-import { ErrorProvider } from "../../../contexts/ErrorContext";
+import { CartItemListProvider } from "../../contexts/CartItemListContext";
+import { ErrorProvider } from "../../contexts/ErrorContext";
 
-import TestProvider from "../../../utils/TestProvider";
+import TestProvider from "../../utils/TestProvider";
 
-import CartItem from "../../../types/CartItem";
+import CartItem from "../../types/CartItem";
 
 function Provider({ children }: { children: React.ReactNode }) {
   return (
