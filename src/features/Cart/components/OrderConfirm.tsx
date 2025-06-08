@@ -121,6 +121,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
       </Button>
       {showCouponList && (
         <CouponModal
+          cartItems={cartItems}
           coupons={coupons}
           onClose={function (): void {
             throw new Error('Function not implemented.');
@@ -129,7 +130,6 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
           onApply={function (): void {
             throw new Error('Function not implemented.');
           }}
-          totalDiscount={0}
         />
       )}
     </>
