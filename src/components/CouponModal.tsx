@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import Modal from './commons/Modal';
 import InlineNotice from './InlineNotice';
-import useCoupons from '../hooks/useCoupons';
 import CouponCard from './couponCard/CouponCard';
+import { useCouponsContext } from '../contexts/Coupons/CouponsContext';
 
 type CouponModalProps = {
   isOpen: boolean;
@@ -17,7 +17,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     couponDiscount,
     selectCoupon,
     unselectCoupon,
-  } = useCoupons();
+  } = useCouponsContext();
 
   const toggleCoupon = (couponId: number) => {
     const isSelected = selectedCoupons.some((coupon) => coupon.id === couponId);

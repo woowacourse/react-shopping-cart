@@ -4,16 +4,17 @@ import getOrderPrice from '../../utils/getOrderPrice';
 import PriceRow from './PriceRow';
 import { useCheckCartIdsContext } from '../../contexts/CheckedCartIds/CheckedCartIdsContext';
 import calculateDeliveryPrice from '../../utils/calculateDeliveryPrice';
-import useCoupons from '../../hooks/useCoupons';
+import { useCouponsContext } from '../../contexts/Coupons/CouponsContext';
 
 const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds } = useCheckCartIdsContext();
-  const { couponDiscount } = useCoupons();
+  const { couponDiscount } = useCouponsContext();
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
   const deliveryPrice = calculateDeliveryPrice(orderPrice);
+  console.log(couponDiscount);
 
   return (
     <>
