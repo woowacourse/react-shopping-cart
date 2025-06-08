@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { usePageContext } from '../contexts/PageContext';
+import { usePageContext } from '../contexts/Page/PageContext';
 
 const Header = () => {
   const { page, setPage } = usePageContext();
