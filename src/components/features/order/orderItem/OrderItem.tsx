@@ -1,8 +1,8 @@
+import { Separator } from '@/components/common';
 import { isValidImageUrl } from '@/shared';
-import { CartItemType } from '../../cart/types';
+import { CartItemType } from '../../cart';
 import * as S from './OrderItem.styles';
 import defaultImage from '/assets/default_product.png';
-import { Separator } from '@/components/common';
 
 interface OrderItemProps {
   cartItem: CartItemType;

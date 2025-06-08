@@ -1,4 +1,4 @@
-import { CartItemType } from '../types';
+import { CartItemType } from '..';
 
 export const calculateOrderPrice = (cartItems: CartItemType[]) =>
   cartItems.reduce((acc, item) => acc + item.quantity * item.product.price, 0);

@@ -1,4 +1,4 @@
-import Coupon from '../models/coupon';
+import { Coupon } from '../models';
 
 export function selectTopDiscountCoupons(
   coupons: Coupon[],

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-function useAppliedCoupons() {
+export function useAppliedCoupons() {
   const [applied, setApplied] = useState<Set<number>>(new Set());
 
   const applyCouponIds = useCallback((ids: Set<number>) => {
@@ -15,5 +15,3 @@ function useAppliedCoupons() {
     isCouponApplied: isApplied,
   };
 }
-
-export default useAppliedCoupons;

@@ -1,5 +1,5 @@
 import { PriceSummary } from '@/components/common';
-import { CART_RULE } from '../../cart/constants/cartRule';
+import { CART_RULE } from '../../cart';
 
 interface OrderPriceSummaryProps {
   orderPrice: number;

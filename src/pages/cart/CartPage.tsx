@@ -1,8 +1,7 @@
-import { getCartItems } from '@/components/features/cart/api/getCartItems';
+import { Header } from '@/components/common';
+import { CartContents, getCartItems } from '@/components/features/cart';
 import { useJaeO } from '@/shared';
-import Header from '../../components/common/header/Header';
 import LoadingPage from './CartLoadingPage';
-import CartContents from '@/components/features/cart/cartContents/CartContents';
 
 function CartPage() {
   const { data: cartItems } = useJaeO({

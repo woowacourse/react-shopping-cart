@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
-import { CartItemType } from '../types';
 import {
+  CartItemType,
   loadSelectedCartItemIds,
   saveSelectedCartItemIds,
-} from '../utils/localSelectedCartItemIds';
+} from '..';
 
-function useCartSelection(cartItems: CartItemType[]) {
+export function useCartSelection(cartItems: CartItemType[]) {
   const [selectedCartItemIds, setSelectedCartItemIds] = useState<Set<number>>(
     () => {
       const localSelected = loadSelectedCartItemIds();
@@ -66,4 +66,3 @@ function useCartSelection(cartItems: CartItemType[]) {
     },
   };
 }
-export default useCartSelection;

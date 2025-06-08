@@ -1,4 +1,4 @@
-import CartTitle from '../cartTitle/CartTitle';
+import { CartTitle } from '..';
 import * as S from './CartContents.styles';
 
 function CartEmptyContent() {

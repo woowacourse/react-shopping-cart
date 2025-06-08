@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
-import { calculateOrderPrice } from '../../cart/utils/cartCalculations';
-import { calculateDeliveryFee } from '../../cart/utils/calculateDeliveryFee';
-import { CartItemType } from '../../cart/types';
+import {
+  calculateOrderPrice,
+  calculateDeliveryFee,
+  type CartItemType,
+} from '../../cart';
 import Coupon from '../models/coupon';
 
 interface UseOrderPriceSummaryParams {
@@ -11,7 +13,7 @@ interface UseOrderPriceSummaryParams {
   isCouponApplied: (id: number) => boolean;
 }
 
-function useOrderPriceSummary({
+export function useOrderPriceSummary({
   orderItems,
   isRemoteArea,
   coupons,
@@ -47,5 +49,3 @@ function useOrderPriceSummary({
     paymentPrice,
   };
 }
-
-export default useOrderPriceSummary;

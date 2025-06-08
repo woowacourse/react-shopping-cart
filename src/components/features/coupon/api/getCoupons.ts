@@ -1,5 +1,5 @@
 import { baseAPI } from '@/api/baseAPI';
-import { CouponType } from '../models/coupon.types';
+import { CouponType } from '..';
 
 export async function getCoupons() {
   const basePath = `/coupons`;

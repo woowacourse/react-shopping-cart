@@ -4,21 +4,21 @@ import {
   Loading,
   SelectBox,
 } from '@/components/common';
-import { CartItemType } from '@/components/features/cart/types';
-import { getCoupons } from '@/components/features/coupon/api/getCoupons';
-import CouponModal from '@/components/features/coupon/couponModal/CouponModal';
-import useAppliedCoupons from '@/components/features/coupon/hooks/useAppliedCoupons';
-import useOrderPriceSummary from '@/components/features/coupon/hooks/useOrderSummary';
-import Coupon from '@/components/features/coupon/models/coupon';
-import { CouponType } from '@/components/features/coupon/models/coupon.types';
-import { selectTopDiscountCoupons } from '@/components/features/coupon/utils/selectTopDiscountCoupons';
-import OrderItem from '@/components/features/order/orderItem/OrderItem';
 import { ROUTE, useJaeO, useToggle } from '@/shared';
 import { Modal } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import OrderCheckTitle from '../orderCheckTitle/OrderCheckTitle';
-import OrderPriceSummary from '../orderPriceSummary/OrderPriceSummary';
+import { OrderCheckTitle, OrderItem, OrderPriceSummary } from '..';
+import { CartItemType } from '../../cart';
+import {
+  Coupon,
+  CouponModal,
+  CouponType,
+  getCoupons,
+  selectTopDiscountCoupons,
+  useAppliedCoupons,
+  useOrderPriceSummary,
+} from '../../coupon';
 import * as S from './OrderCheckContents.styles';
 
 interface OrderCheckContentsProps {

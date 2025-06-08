@@ -1,5 +1,5 @@
 import { Header } from '@/components/common';
-import PaymentCheckContents from '@/components/features/payment/PaymentCheckContents/PaymentCheckContents';
+import { PaymentCheckContents } from '@/components/features/payment';
 import { useLocation } from 'react-router';
 
 function PaymentCheckPage() {

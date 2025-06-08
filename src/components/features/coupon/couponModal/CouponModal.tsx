@@ -1,8 +1,7 @@
 import { useSelection } from '@/shared';
 import { Modal, useModalContext } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
-import CouponItem from '../couponItem/CouponItem';
-import Coupon from '../models/coupon';
+import { CouponItem, Coupon } from '..';
 import * as S from './CouponModal.styles';
 
 interface CouponModalProps {

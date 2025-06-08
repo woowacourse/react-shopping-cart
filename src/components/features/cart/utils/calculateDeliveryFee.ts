@@ -1,4 +1,4 @@
-import { CART_RULE } from '../constants/cartRule';
+import { CART_RULE } from '..';
 
 export const calculateDeliveryFee = (
   orderPrice: number,

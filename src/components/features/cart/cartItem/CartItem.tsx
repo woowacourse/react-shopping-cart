@@ -5,9 +5,7 @@ import {
   showErrorToast,
   useJaeOMutation,
 } from '@/shared';
-import { deleteCartItem } from '../api/deleteCartItem';
-import { updateCartItem } from '../api/updateCartItem';
-import CartQuantityControlButton from '../cartQuantityControlButton/CartQuantityControlButton';
+import { CartQuantityControlButton, deleteCartItem, updateCartItem } from '..';
 import { CartItemType } from '../types';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
