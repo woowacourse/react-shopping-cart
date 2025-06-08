@@ -8,6 +8,7 @@ import { CartItemType } from '../types';
 import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
 import CartEmptyContent from './CartEmptyContent';
+import { ROUTE } from '@/shared/constants/route';
 
 function CartContents({ cartItems }: { cartItems: CartItemType[] }) {
   const cartSelection = useCartSelection(cartItems);
@@ -19,7 +20,7 @@ function CartContents({ cartItems }: { cartItems: CartItemType[] }) {
   const disabled = !cartSelection.states.isSomeItemSelected;
 
   const moveToOrderCheck = () => {
-    navigate('/order-check', {
+    navigate(ROUTE.orderCheck, {
       state: { orderProducts: selectCartItems },
     });
   };

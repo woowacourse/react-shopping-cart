@@ -3,13 +3,14 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 import { resetCartItems } from '../src/mocks/handlers';
 import CartPage from '../src/pages/cart/CartPage';
 import OrderCheckPage from '@/pages/orderCheck/OrderCheckPage';
+import { ROUTE } from '@/shared/constants/route';
 
 describe('OrderCheckPage 테스트', () => {
   beforeEach(() => {
     resetCartItems();
 
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter initialEntries={[ROUTE.home]}>
         <Routes>
           <Route path="/" element={<CartPage />} />
           <Route path="/order-check" element={<OrderCheckPage />} />

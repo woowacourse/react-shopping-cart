@@ -1,6 +1,7 @@
 import { FooterButton } from '@/components/common';
 import * as S from './PaymentCheckContents.styles';
 import { useNavigate } from 'react-router';
+import { ROUTE } from '@/shared/constants/route';
 
 interface PaymentCheckContentsProps {
   orderItemsQuantity: number;
@@ -16,7 +17,7 @@ function PaymentCheckContents({
   const navigate = useNavigate();
 
   const moveToCart = () => {
-    navigate('/cart');
+    navigate(ROUTE.cart);
   };
 
   return (

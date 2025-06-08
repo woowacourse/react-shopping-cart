@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
 import { calculateDeliveryFee } from '@/components/features/cart/utils/calculateDeliveryFee';
+import { ROUTE } from '@/shared/constants/route';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -54,7 +55,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   };
 
   const moveToPaymentCheck = () => {
-    navigate('/payment-check', {
+    navigate(ROUTE.paymentCheck, {
       state: {
         orderItemQuantity: orderItems.length,
         totalProductQuantity: orderItems.reduce(
