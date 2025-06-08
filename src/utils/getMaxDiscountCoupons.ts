@@ -8,6 +8,9 @@ const getMaxDiscountCoupons = (
   couponAmount: number
 ) => {
   let maxDiscountCoupons: Coupon[] = [];
+
+  if (coupons.length < couponAmount) return coupons;
+
   let maxDiscountPrice = 0;
   const visited = new Array(coupons.length).fill(false);
 
