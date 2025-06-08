@@ -12,6 +12,8 @@ import * as S from './OrderConfirmationPage.style';
 import Button from '../../shared/ui/Button';
 import CouponModal from '../../features/cart/ui/CouponModal';
 import { useModal } from '@sanghee01/modal';
+import DeliveryInfo from '../../features/cart/ui/DeliveryInfo';
+import { useState } from 'react';
 
 export default function OrderConfirmationPage() {
   const { cartTypeQuantity, SelectedCartItems } = useSelectedCartItemsContext();
@@ -20,6 +22,11 @@ export default function OrderConfirmationPage() {
     handleOpen: handleOpenCouponModal,
     handleClose: handleCloseCouponModal,
   } = useModal();
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
+
+  const handleRemoteArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsRemoteArea(e.target.checked);
+  };
 
   const navigate = useNavigate();
 
@@ -43,6 +50,7 @@ export default function OrderConfirmationPage() {
             ))}
           </S.CartListContainer>
           <Button onClick={handleOpenCouponModal} title="쿠폰 적용" css={S.ButtonCSS} />
+          <DeliveryInfo onChange={handleRemoteArea} />
           <OrderPriceSummary couponPriceItem={true} />
         </S.OrderConfirmationPageContent>
         <NavFooter title="결제하기" onClick={handleClick} />
