@@ -8,17 +8,14 @@ import {
 
 export function useOrderCalculation(
   cartListData: Cart[] | undefined,
-  selectionMap: Record<string, boolean>,
+  selectedCartItems: Cart[],
   isIsland?: boolean,
   discount: number = 0
 ) {
   return useMemo(() => {
-    const orderList = (cartListData ?? []).filter(
-      (cart) => selectionMap[cart.id]
-    );
-    const typeCount = orderList.length;
-    const totalCount = orderList.reduce((acc, cart) => acc + cart.quantity, 0);
-    const totalCartPrice = orderList.reduce(
+    const typeCount = selectedCartItems.length;
+    const totalCount = selectedCartItems.reduce((acc, cart) => acc + cart.quantity, 0);
+    const totalCartPrice = selectedCartItems.reduce(
       (acc, cart) => acc + cart.product.price * cart.quantity,
       0
     );
@@ -35,5 +32,5 @@ export function useOrderCalculation(
       shippingFee,
       totalPrice,
     };
-  }, [cartListData, selectionMap, isIsland, discount]);
+  }, [cartListData, selectedCartItems, isIsland, discount]);
 }

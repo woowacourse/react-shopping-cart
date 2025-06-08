@@ -13,7 +13,7 @@ export function optimizeCouponSelection(
   coupons: Coupon[],
   totalCartPrice: number,
   shippingFee: number,
-  cartItems: Cart[] | undefined
+  selectedCartItems: Cart[] | undefined
 ): OptimizedCouponResult {
   // 사용 가능한 쿠폰만 필터링
   const availableCoupons = coupons.filter((coupon) => {
@@ -22,7 +22,9 @@ export function optimizeCouponSelection(
       case "freeShipping":
         return totalCartPrice >= coupon.minimumAmount;
       case "buyXgetY":
-        return cartItems?.some((item) => item.quantity >= coupon.buyQuantity);
+        return selectedCartItems?.some(
+          (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+        );
       case "percentage":
         return true;
       default:
@@ -60,7 +62,7 @@ export function optimizeCouponSelection(
         selectedCouponIds,
         totalCartPrice,
         shippingFee,
-        cartItems
+        selectedCartItems
       );
 
       if (result.finalDiscount > bestResult.totalDiscount) {

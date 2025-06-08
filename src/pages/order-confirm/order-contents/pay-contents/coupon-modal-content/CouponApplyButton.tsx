@@ -19,11 +19,11 @@ function CouponApplyButton({
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap, isIsland, handleDiscountSetting } =
+  const { selectedCartItems, isIsland, handleDiscountSetting } =
     useOrderListContext(cartListData);
   const { totalCartPrice, shippingFee } = useOrderCalculation(
     cartListData,
-    selectionMap,
+    selectedCartItems,
     isIsland
   );
 
@@ -35,7 +35,7 @@ function CouponApplyButton({
     selectedCoupon,
     totalCartPrice,
     shippingFee,
-    cartListData
+    selectedCartItems
   );
 
   const handleCouponApply = useCallback(() => {

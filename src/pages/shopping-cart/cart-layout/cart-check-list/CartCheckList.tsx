@@ -11,20 +11,20 @@ function CartCheckList() {
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap, setSelectionMap } = useOrderListContext(cartListData);
+  const { selectedCartItems, setSelectedCartItems } = useOrderListContext(cartListData);
 
   const isCartEmpty = !cartListData || cartListData.length === 0;
 
-  const isSelectAll = Object.values(selectionMap).every(
-    (isSelected) => isSelected
-  );
+  const isSelectAll = cartListData?.length === selectedCartItems.length;
 
   const handleSelectAll = () => {
-    const nextMap: Record<string, boolean> = {};
-    for (const cart of cartListData ?? []) {
-      nextMap[cart.id] = !isSelectAll;
+    if (!cartListData) return;
+
+    if (isSelectAll) {
+      setSelectedCartItems([]);
+    } else {
+      setSelectedCartItems([...cartListData]);
     }
-    setSelectionMap(nextMap);
   };
 
   return (

@@ -14,10 +14,10 @@ const LabelPriceContainer = () => {
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap } = useOrderListContext(cartListData);
+  const { selectedCartItems } = useOrderListContext(cartListData);
   const { shippingFee, totalPrice, totalCartPrice } = useOrderCalculation(
     cartListData,
-    selectionMap
+    selectedCartItems
   );
 
   const InfoTextContent = ` 총 주문 금액이 ${formatKRWString(

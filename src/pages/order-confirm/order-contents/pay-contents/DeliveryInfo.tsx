@@ -12,12 +12,12 @@ function DeliveryInfo() {
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap, isIsland, handleIsIslandToggle, discount } =
+  const { selectedCartItems, isIsland, handleIsIslandToggle, discount } =
     useOrderListContext(cartListData);
 
   const { totalCartPrice, shippingFee, totalPrice } = useOrderCalculation(
     cartListData,
-    selectionMap,
+    selectedCartItems,
     isIsland,
     discount
   );

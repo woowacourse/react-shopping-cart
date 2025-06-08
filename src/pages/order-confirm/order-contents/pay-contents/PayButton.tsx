@@ -10,11 +10,11 @@ function PayButton() {
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap, isIsland, discount } =
+  const { selectedCartItems, isIsland, discount } =
     useOrderListContext(cartListData);
   const { totalPrice, typeCount, totalCount } = useOrderCalculation(
     cartListData,
-    selectionMap,
+    selectedCartItems,
     isIsland,
     discount
   );

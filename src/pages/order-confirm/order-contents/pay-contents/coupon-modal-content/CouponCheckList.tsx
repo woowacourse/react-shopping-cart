@@ -20,30 +20,30 @@ function CouponCheckList({
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap, isIsland } = useOrderListContext(cartListData);
+  const { selectedCartItems, isIsland } = useOrderListContext(cartListData);
 
   const { totalCartPrice, shippingFee } = useOrderCalculation(
     cartListData,
-    selectionMap,
+    selectedCartItems,
     isIsland
   );
 
   const { autoSelectOptimalCoupon } = useCouponContext();
 
   useEffect(() => {
-    if (coupons.length > 0 && (cartListData ?? []).length > 0) {
+    if (coupons.length > 0 && selectedCartItems.length > 0) {
       autoSelectOptimalCoupon(
         coupons,
         totalCartPrice,
         shippingFee,
-        cartListData
+        selectedCartItems
       );
     }
   }, [
     coupons,
     totalCartPrice,
     shippingFee,
-    cartListData,
+    selectedCartItems,
     autoSelectOptimalCoupon,
   ]);
 
@@ -54,7 +54,7 @@ function CouponCheckList({
           const isAvailable = isCouponAvailable(
             coupon,
             totalCartPrice,
-            cartListData
+            selectedCartItems
           );
           return (
             <CouponCheckItem

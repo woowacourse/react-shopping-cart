@@ -9,21 +9,19 @@ import {
 } from "react";
 import { Cart } from "../api/cart";
 
-const STORAGE_KEY = "cart-selection-map";
+const STORAGE_KEY = "selected-cart-items";
 
 const OrderListContext = createContext<{
-  selectionMap: Record<string, boolean>;
-  setSelectionMap: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
+  selectedCartItems: Cart[];
+  setSelectedCartItems: React.Dispatch<React.SetStateAction<Cart[]>>;
   orderIdList?: string[];
   isIsland: boolean;
   handleIsIslandToggle: () => void;
   discount: number;
   handleDiscountSetting: (discountAmount: number) => void;
 }>({
-  selectionMap: {},
-  setSelectionMap: () => { },
+  selectedCartItems: [],
+  setSelectedCartItems: () => { },
   orderIdList: [],
   isIsland: false,
   handleIsIslandToggle: () => { },
@@ -32,16 +30,16 @@ const OrderListContext = createContext<{
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
-  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>(() => {
-    const savedMap = localStorage.getItem(STORAGE_KEY);
-    return savedMap ? JSON.parse(savedMap) : {};
+  const [selectedCartItems, setSelectedCartItems] = useState<Cart[]>(() => {
+    const savedItems = localStorage.getItem(STORAGE_KEY);
+    return savedItems ? JSON.parse(savedItems) : [];
   });
   const [isIsland, setIsIsland] = useState(false);
   const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(selectionMap));
-  }, [selectionMap]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedCartItems));
+  }, [selectedCartItems]);
 
   const handleIsIslandToggle = useCallback(() => {
     setIsIsland((prev) => !prev);
@@ -57,8 +55,8 @@ export const OrderListProvider = ({ children }: PropsWithChildren) => {
   return (
     <OrderListContext.Provider
       value={{
-        selectionMap,
-        setSelectionMap,
+        selectedCartItems,
+        setSelectedCartItems,
         isIsland,
         handleIsIslandToggle,
         discount,
@@ -72,14 +70,14 @@ export const OrderListProvider = ({ children }: PropsWithChildren) => {
 
 export const useOrderListContext = (cartListData: Cart[] | undefined) => {
   const {
-    selectionMap,
-    setSelectionMap,
+    selectedCartItems,
+    setSelectedCartItems,
     isIsland,
     handleIsIslandToggle,
     discount,
     handleDiscountSetting,
   } = useContext(OrderListContext);
-  if (!selectionMap) {
+  if (!selectedCartItems) {
     throw new Error(
       "useOrderListContext 는 반드시 OrderListProvider 안에서 사용되어야합니다."
     );
@@ -88,26 +86,20 @@ export const useOrderListContext = (cartListData: Cart[] | undefined) => {
   useEffect(() => {
     if (!cartListData) return;
 
-    setSelectionMap((prev) => {
-      const nextMap: Record<string, boolean> = {};
-      for (const cart of cartListData) {
-        nextMap[cart.id] = prev[cart.id] ?? true;
-      }
-      return nextMap;
-    });
-  }, [cartListData, setSelectionMap]);
+    // 현재 선택된 아이템 중에서 cartListData에 없는 아이템을 제거
+    setSelectedCartItems(prev =>
+      prev.filter(item => cartListData.some(cart => cart.id === item.id))
+    );
+  }, [cartListData, setSelectedCartItems]);
 
   const orderIdList = useMemo(
-    () =>
-      Object.entries(selectionMap)
-        .filter(([, isInCart]) => isInCart)
-        .map(([id]) => id),
-    [selectionMap]
+    () => selectedCartItems.map(item => item.id),
+    [selectedCartItems]
   );
 
   return {
-    selectionMap,
-    setSelectionMap,
+    selectedCartItems,
+    setSelectedCartItems,
     orderIdList,
     isIsland,
     handleIsIslandToggle,

@@ -14,7 +14,7 @@ export function calculateCouponDiscount(
   selectedCouponIds: string[],
   totalCartPrice: number,
   shippingFee: number,
-  cartItems: Cart[] | undefined
+  selectedCartItems: Cart[] | undefined
 ): CouponCalculationResult {
   const selectedCoupons = coupons.filter((coupon) =>
     selectedCouponIds.includes(coupon.id)
@@ -37,8 +37,8 @@ export function calculateCouponDiscount(
         break;
 
       case "buyXgetY":
-        if (cartItems && cartItems.length > 0) {
-          const eligibleItems = cartItems.filter(
+        if (selectedCartItems && selectedCartItems.length > 0) {
+          const eligibleItems = selectedCartItems.filter(
             (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
           );
           if (eligibleItems.length > 0) {

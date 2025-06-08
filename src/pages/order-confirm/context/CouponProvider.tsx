@@ -16,7 +16,7 @@ interface CouponContextInterface {
     coupons: Coupon[],
     totalCartPrice: number,
     shippingFee: number,
-    cartItems: Cart[] | undefined
+    selectedCartItems: Cart[] | undefined
   ) => void;
 }
 
@@ -53,13 +53,13 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
       coupons: Coupon[],
       totalCartPrice: number,
       shippingFee: number,
-      cartItems: Cart[] | undefined
+      selectedCartItems: Cart[] | undefined
     ) => {
       const result = optimizeCouponSelection(
         coupons,
         totalCartPrice,
         shippingFee,
-        cartItems
+        selectedCartItems
       );
       setSelectedCoupon(result.selectedCouponIds);
     },

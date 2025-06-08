@@ -9,14 +9,14 @@ export interface ValidationResult {
 export function isCouponAvailable(
   coupon: Coupon,
   totalCartPrice: number,
-  cartItems: Cart[] | undefined
+  selectedCartItems: Cart[] | undefined
 ): boolean {
   switch (coupon.discountType) {
     case "fixed":
     case "freeShipping":
       return totalCartPrice >= coupon.minimumAmount;
     case "buyXgetY":
-      return (cartItems ?? []).some(
+      return (selectedCartItems ?? []).some(
         (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
       );
     case "percentage":

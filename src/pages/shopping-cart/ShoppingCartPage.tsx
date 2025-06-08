@@ -12,10 +12,8 @@ const ShoppingCartPage = () => {
     name: "cart",
   });
 
-  const { selectionMap } = useOrderListContext(cartListData);
-  const isDisabled = !Object.values(selectionMap).some(
-    (isSelected) => isSelected
-  );
+  const { selectedCartItems } = useOrderListContext(cartListData);
+  const isDisabled = selectedCartItems.length === 0;
   const navigate = useNavigate();
   const handleCheckout = () => {
     if (!isDisabled) {

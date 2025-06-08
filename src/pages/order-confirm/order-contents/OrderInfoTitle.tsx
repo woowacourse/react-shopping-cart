@@ -10,10 +10,10 @@ function OrderInfoTitle() {
     name: "cart",
     fetcher: getShoppingCartData,
   });
-  const { selectionMap } = useOrderListContext(cartListData);
+  const { selectedCartItems } = useOrderListContext(cartListData);
   const { typeCount, totalCount } = useOrderCalculation(
     cartListData,
-    selectionMap
+    selectedCartItems
   );
   return (
     <Flex justifyContent="flex-start" alignItems="flex-start" gap="xs">
