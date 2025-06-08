@@ -5,11 +5,13 @@ import { CartItemService, CouponService } from "@/services";
 import * as S from "./OrderCompletedSection.styles";
 
 export default function OrderCompletedSection() {
-  const { selectedCouponIds, isFar } = useShoppingCartContext();
+  const { selectedCouponIds, isFar, selectedItemIds } = useShoppingCartContext();
   const { data: cartItems } = useCartItemQuery();
   const { data: coupons } = useCouponQuery();
 
-  const cartItemService = new CartItemService(cartItems.content);
+  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
+
+  const cartItemService = new CartItemService(selectedCartItems);
 
   const typeCount = cartItemService.calculateTypeCount();
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
