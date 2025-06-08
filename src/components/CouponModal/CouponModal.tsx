@@ -9,6 +9,7 @@ import {
 } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 import { ResponseCartItem } from "../../types/types";
+import { formatDate, getCouponDetails } from "../../utils/couponFormatter";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -88,45 +89,6 @@ function CouponModal({
     onClose();
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-  };
-
-  const formatTime = (timeString: string) => {
-    const [hours] = timeString.split(":");
-    const hour = parseInt(hours);
-    const ampm = hour < 12 ? "오전" : "오후";
-    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-    return `${ampm} ${displayHour}시`;
-  };
-
-  const renderCouponDetails = (coupon: Coupon) => {
-    const details = [];
-
-    if (coupon.minimumAmount) {
-      details.push(`최소 주문금액: ${coupon.minimumAmount.toLocaleString()}원`);
-    }
-
-    if (coupon.availableTime) {
-      const startTime = formatTime(coupon.availableTime.start);
-      const endTime = formatTime(coupon.availableTime.end);
-      details.push(`사용 가능 시간: ${startTime}부터 ${endTime}까지`);
-    }
-
-    if (coupon.discountType === "buyXgetY") {
-      details.push(
-        `${coupon.buyQuantity}개 구매 시 ${coupon.getQuantity}개 무료`
-      );
-    }
-
-    if (coupon.discountType === "freeShipping") {
-      details.push("도서산간 추가 배송비 포함 무료");
-    }
-
-    return details;
-  };
-
   if (!isOpen) return null;
 
   const totalDiscount = selectedCouponResult.totalDiscount;
@@ -183,7 +145,7 @@ function CouponModal({
                           <S.CouponExpiry>
                             만료일: {formatDate(coupon.expirationDate)}
                           </S.CouponExpiry>
-                          {renderCouponDetails(coupon).map((detail, idx) => (
+                          {getCouponDetails(coupon).map((detail, idx) => (
                             <S.CouponDetail key={idx}>{detail}</S.CouponDetail>
                           ))}
                         </S.CouponContent>
