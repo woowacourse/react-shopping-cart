@@ -9,7 +9,9 @@ interface PageTitleProps {
 const PageTitle = ({ title, description }: PageTitleProps) => {
   return (
     <div className={pageTitleStyle}>
-      <Text testId="page-title" text={title} type="large" />
+      <div className={titleTextStyle}>
+        <Text testId="page-title" text={title} type="large" />
+      </div>
       {description &&
         description
           .split("\n")
@@ -23,6 +25,9 @@ export default PageTitle;
 const pageTitleStyle = css`
   display: flex;
   flex-direction: column;
-  gap: 12px;
   margin-bottom: 36px;
+`;
+
+const titleTextStyle = css`
+  margin-bottom: 8px;
 `;

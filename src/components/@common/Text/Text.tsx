@@ -24,5 +24,5 @@ const TextStyle = (type: TextType) => css`
     ? "40px"
     : type === "medium"
     ? "24px"
-    : "8px"};
+    : "20px"};
 `;
