@@ -4,11 +4,13 @@ import { OrderConfirm } from '../features/Order/Confirm/components/OrderConfirm'
 
 export const OrderConfirmPage = () => {
   const location = useLocation();
-  const cartItems = location.state;
+  const confirm = location.state;
+
+  const { cartItems, totalDiscountPrice } = confirm || {};
 
   if (location.state === null) {
     return <div>존재하지 않습니다.</div>;
   }
 
-  return <OrderConfirm cartItems={cartItems} />;
+  return <OrderConfirm cartItems={cartItems} totalDiscountPrice={totalDiscountPrice} />;
 };

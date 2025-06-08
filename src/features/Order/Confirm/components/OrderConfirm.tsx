@@ -9,9 +9,12 @@ import { Text } from '@/shared/components/Text';
 
 import { orderConfirm } from '../../../Cart/utils/orderConfirm';
 
-export const OrderConfirm = ({ cartItems }: CartItemList) => {
+export const OrderConfirm = ({
+  cartItems,
+  totalDiscountPrice,
+}: CartItemList & { totalDiscountPrice: number }) => {
   const navigate = useNavigate();
-  const { hasCheckCartLength, totalQuantity, totalPrice } = orderConfirm({ cartItems });
+  const { hasCheckCartLength, totalQuantity } = orderConfirm({ cartItems });
 
   const handleNavigateCartPage = () => {
     navigate('/cart');
@@ -28,7 +31,7 @@ export const OrderConfirm = ({ cartItems }: CartItemList) => {
           {`총 ${hasCheckCartLength}종류의 상품 ${totalQuantity}개를 주문합니다.\n 최종 결제 금액을 확인해 주세요.`}
         </Text>
         <Text type="Heading" weight="bold">
-          {`총 결제 금액 ${totalPrice?.toLocaleString()}원`}
+          {`총 결제 금액 ${totalDiscountPrice?.toLocaleString()}원`}
         </Text>
       </Flex>
       <Button

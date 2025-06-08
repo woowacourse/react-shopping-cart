@@ -42,7 +42,12 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
   };
 
   const handleNavigateConfirmPage = () => {
-    navigate('/order-confirm');
+    navigate('/order-confirm', {
+      state: {
+        cartItems,
+        totalDiscountPrice: totalPrice - couponDiscount + deliveryFee,
+      },
+    });
   };
 
   return (
