@@ -1,11 +1,9 @@
 import { CheckBoxLayout } from "./CheckBox.style";
 
-interface CheckBoxProps {
-  isChecked: boolean;
+interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  isChecked?: boolean;
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  id: string;
   dataTestId: string;
-  disabled?: boolean;
 }
 
 export function CheckBox({

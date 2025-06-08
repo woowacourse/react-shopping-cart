@@ -1,3 +1,4 @@
+import React from "react";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { InfoText } from "../../../../components/InfoText/InfoText";
 import { CouponType } from "../../types/coupon";
