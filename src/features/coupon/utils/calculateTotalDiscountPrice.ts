@@ -6,12 +6,14 @@ interface CalculateTotalDiscountPriceProps {
   selectedCoupons: Coupon[];
   highestPriceCartItem: CartItem;
   totalPrice: number;
+  deliveryFee: number;
 }
 
 export const calculateTotalDiscountPrice = ({
   selectedCoupons,
   highestPriceCartItem,
   totalPrice,
+  deliveryFee,
 }: CalculateTotalDiscountPriceProps) => {
   return selectedCoupons.reduce(
     (acc, coupon) =>
@@ -20,6 +22,7 @@ export const calculateTotalDiscountPrice = ({
         coupon,
         cartItem: highestPriceCartItem,
         totalPrice,
+        deliveryFee,
       }),
     0
   );

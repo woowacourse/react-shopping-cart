@@ -5,9 +5,8 @@ import Button from '../../shared/ui/Button';
 import * as S from './ConfirmationPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
-import { CartItem } from '../../features/cart/api/types/cart';
 import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
+import { useCartContext } from '../../shared/context/useCartContext';
 
 const ButtonCSS = css`
   width: 100%;
@@ -28,11 +27,8 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    setSelectedCartItems(getSelectedCartItemsFromLocalStorage());
-  }, []);
+  const selectedCartItems = getSelectedCartItemsFromLocalStorage();
+  const { totalPurchasePrice } = useCartContext();
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -41,7 +37,6 @@ export default function ConfirmationPage() {
 
   const cartTypeQuantity = selectedCartItems.length;
   const totalQuantity = selectedCartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   return (
     <S.ConfirmationContainer>
@@ -52,7 +47,7 @@ export default function ConfirmationPage() {
         </S.ConfirmationQuantity>
         <S.ConfirmationQuantity>최종 결제 금액을 확인해 주세요.</S.ConfirmationQuantity>
         <S.ConfirmationTotalPurchasePriceLabel>총 결제 금액</S.ConfirmationTotalPurchasePriceLabel>
-        <S.ConfirmationTotalPurchasePrice>{totalPrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
+        <S.ConfirmationTotalPurchasePrice>{totalPurchasePrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
       </S.ConfirmationSection>
       <S.ConfirmationFooterContainer>
         <Button onClick={handleClick} title='결제하기' css={ButtonCSS} disabled={selectedCartItems.length === 0} />

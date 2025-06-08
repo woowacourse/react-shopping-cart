@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as S from './CouponList.styles';
-import { getCoupons } from '../api/getCoupons';
 import { Coupon } from '../types/coupon';
 import SelectInput from '../../../shared/ui/SelectInput';
 import Button from '../../../shared/ui/Button';
@@ -10,6 +9,7 @@ import { css } from '@emotion/react';
 import { useCartContext } from '../../../shared/context/useCartContext';
 import { getSelectedCartItemsFromLocalStorage } from '../../cart/utils/localStorageService';
 import { calculateTotalDiscountPrice } from '../utils/calculateTotalDiscountPrice';
+import useCoupons from '../hooks/useCoupons';
 
 const CloseButtonCSS = css`
   width: 20px;
@@ -53,27 +53,32 @@ interface CouponListProps {
 }
 
 export default function CouponList({ onClose }: CouponListProps) {
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
-  const { selectedCoupons, updateSelectedCoupons, totalDiscountPrice, updateTotalDiscountPrice } = useCartContext();
+  const { selectedCoupons, updateSelectedCoupons, totalDiscountPrice, deliveryFee, updateTotalDiscountPrice } =
+    useCartContext();
+  const { coupons, getInvalidCouponIds, getBestTwoCoupons } = useCoupons();
+
   const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   const highestPrice = Math.max(...selectedCartItems.map((i) => i.product.price));
   const highestPriceCartItem = selectedCartItems.filter((item) => item.product.price === highestPrice)[0];
 
-  useEffect(() => {
-    const fetchCoupons = async () => {
-      try {
-        const response = await getCoupons();
-        setCoupons(response);
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error('쿠폰 목록을 가져오는 중 오류 발생:', error.message);
-        }
-      }
-    };
+  const bestTwoCoupons = getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee);
+  const invalidCouponIds = getInvalidCouponIds(totalPrice);
 
-    fetchCoupons();
+  useEffect(() => {
+    bestTwoCoupons.forEach((coupon) => {
+      updateSelectedCoupons(coupon);
+    });
+
+    updateTotalDiscountPrice(
+      calculateTotalDiscountPrice({
+        selectedCoupons: bestTwoCoupons,
+        highestPriceCartItem,
+        totalPrice,
+        deliveryFee,
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -82,6 +87,7 @@ export default function CouponList({ onClose }: CouponListProps) {
         selectedCoupons: selectedCoupons,
         highestPriceCartItem,
         totalPrice,
+        deliveryFee,
       })
     );
   }, [selectedCoupons]);
@@ -103,8 +109,6 @@ export default function CouponList({ onClose }: CouponListProps) {
     onClose();
   };
 
-  console.log('쿠폰 목록:', coupons);
-
   return (
     <S.CouponListContainer>
       <S.CouponListHeader>
@@ -118,18 +122,25 @@ export default function CouponList({ onClose }: CouponListProps) {
       </S.CouponLabel>
       <S.CouponListContent>
         {coupons.map((coupon) => (
-          <S.CouponContainer key={coupon.id}>
+          <S.CouponContainer key={coupon.id} isInvalid={invalidCouponIds.includes(coupon.id)}>
             <S.CouponHeader>
               <SelectInput
                 type='checkbox'
                 onChange={() => handleCouponSelection(coupon)}
-                checked={selectedCoupons.some((selectedCoupon) => selectedCoupon.id === coupon.id)}
+                // checked={selectedCoupons.some((selectedCoupon) => selectedCoupon.id === coupon.id)}
+                checked={bestTwoCoupons.some((c) => c.id === coupon.id)}
+                disabled={invalidCouponIds.includes(coupon.id)}
               />
               {coupon.description}
             </S.CouponHeader>
             <S.CouponInfo>
               <span>만료일: {coupon.expirationDate}</span>
               {coupon.minimumAmount && <span>최소 주문 금액: {coupon.minimumAmount.toLocaleString()}</span>}
+              {coupon.availableTime && (
+                <span>
+                  사용 가능 시간: 오전 {coupon.availableTime.start[1]}시부터 {coupon.availableTime.end[1]}까지
+                </span>
+              )}
             </S.CouponInfo>
           </S.CouponContainer>
         ))}

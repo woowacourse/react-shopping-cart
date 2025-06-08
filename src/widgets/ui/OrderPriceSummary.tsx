@@ -2,30 +2,37 @@ import { useCartContext } from '../../shared/context/useCartContext';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../features/cart/constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
 import SelectInput from '../../shared/ui/SelectInput';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: boolean }) {
-  const { selectedCartItems } = useCartContext();
-  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const {
+    selectedCartItems,
+    totalDiscountPrice,
+    deliveryFee,
+    updateDeliveryFee,
+    totalPurchasePrice,
+    updateTotalPurchasePrice,
+  } = useCartContext();
+
+  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   useEffect(() => {
     const newTotalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     if (newTotalPrice < DELIVERY_FEE_THRESHOLD) {
-      setDeliveryFee(DELIVERY_FEE);
+      updateDeliveryFee(DELIVERY_FEE);
     } else {
-      setDeliveryFee(0);
+      updateDeliveryFee(0);
     }
-  }, [selectedCartItems]);
 
-  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  const totalPurchasePrice = totalPrice + deliveryFee;
+    updateTotalPurchasePrice(newTotalPrice + deliveryFee);
+  }, [selectedCartItems]);
 
   const handleSuburbExtraFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e?.target.checked;
     if (isChecked) {
-      setDeliveryFee((prevFee) => prevFee + DELIVERY_FEE);
+      updateDeliveryFee(deliveryFee + DELIVERY_FEE);
     } else {
-      setDeliveryFee((prevFee) => Math.max(prevFee - DELIVERY_FEE, 0));
+      updateDeliveryFee(Math.max(deliveryFee - DELIVERY_FEE, 0));
     }
   };
 
@@ -51,7 +58,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
       {useCoupon && (
         <S.CouponDiscountAmount data-testid='coupon-discount-amount'>
           쿠폰 할인 금액
-          <S.PriceBox>-0원</S.PriceBox>
+          <S.PriceBox>-{totalDiscountPrice}원</S.PriceBox>
         </S.CouponDiscountAmount>
       )}
       <S.DeliveryFee data-testid='delivery-fee'>

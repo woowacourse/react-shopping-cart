@@ -1,6 +1,9 @@
-export const validateExpirationDate = (couponDate: string) => {
-  const today = new Date();
-  const currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+export const validateExpirationDate = (currentDate: Date, couponDate: string) => {
+  const currentDateWithYearMonthDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate()
+  );
   const couponExpirationDate = new Date(couponDate);
-  return currentDate <= couponExpirationDate;
+  return currentDateWithYearMonthDate <= couponExpirationDate;
 };

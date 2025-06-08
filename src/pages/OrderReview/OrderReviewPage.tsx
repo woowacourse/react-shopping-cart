@@ -31,7 +31,6 @@ const CouponButtonCSS = css`
 
 export default function OrderReviewPage() {
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {

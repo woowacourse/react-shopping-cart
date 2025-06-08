@@ -5,9 +5,10 @@ interface CouponDiscountPriceProps {
   totalPrice: number;
   cartItem: CartItem;
   coupon: Coupon;
+  deliveryFee: number;
 }
 
-export const getCouponDiscountPrice = ({ coupon, cartItem, totalPrice }: CouponDiscountPriceProps) => {
+export const getCouponDiscountPrice = ({ coupon, cartItem, totalPrice, deliveryFee }: CouponDiscountPriceProps) => {
   switch (coupon.discountType) {
     case 'fixed': {
       return 5000;
@@ -17,7 +18,7 @@ export const getCouponDiscountPrice = ({ coupon, cartItem, totalPrice }: CouponD
       return cartItem.product.price;
     }
     case 'freeShipping': {
-      return 3000;
+      return deliveryFee;
     }
     case 'percentage': {
       if (!coupon.discount) return 0;

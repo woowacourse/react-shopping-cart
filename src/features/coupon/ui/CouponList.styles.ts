@@ -44,7 +44,7 @@ export const CouponLabel = styled.span`
   padding-top: 25px;
 `;
 
-export const CouponContainer = styled.div`
+export const CouponContainer = styled.div<{ isInvalid: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,8 @@ export const CouponContainer = styled.div`
 
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   padding: 15px 0;
+
+  color: ${({ isInvalid }) => (isInvalid ? 'rgba(0, 0, 0, 0.4)' : '#000')};
 `;
 
 export const CouponHeader = styled.div`
