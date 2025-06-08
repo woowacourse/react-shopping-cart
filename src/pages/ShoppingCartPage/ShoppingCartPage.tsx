@@ -24,22 +24,10 @@ export default function ShoppingCartPage() {
   }, [data]);
 
   const handleNavigateClick = () => {
-    navigate('/completed', {
-      state: {
-        kind: selectedItemIds.length,
-        quantity: selectedItemIds.reduce((prev, cur) => {
-          const currentCartItem = data?.content.find((it) => it.id === cur);
-          if (!currentCartItem) return prev;
-          return prev + currentCartItem.quantity;
-        }, 0),
-        totalPrice: selectedItemIds.reduce((prev, cur) => {
-          const currentCartItem = data?.content.find((it) => it.id === cur);
-          if (!currentCartItem) return prev;
-          return prev + currentCartItem.product.price * currentCartItem.quantity;
-        }, 0),
-      },
-    });
+    const selectedItems = data?.content.filter((item) => selectedItemIds.includes(item.id));
+    navigate('/confirm', { state: { selectedItems } });
   };
+
   if (isLoading) return <Text variant="title-1">로딩중입니다</Text>;
   if (!data) return <Text variant="title-1">데이터가 없습니다</Text>;
   return (
