@@ -5,6 +5,7 @@ type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: num
 const useCartCheck = (cartItemIds: number[]) => {
   const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
   const hasInitialized = useRef(false);
+  const prevCartItemIds = useRef<number[]>([]);
 
   const isAllChecked = checkedIds.size === cartItemIds.length;
 
@@ -30,10 +31,21 @@ const useCartCheck = (cartItemIds: number[]) => {
     if (cartItemIds.length === 0) return;
 
     if (!hasInitialized.current) {
-      console.log("useCartItemCheck");
       setCheckedIds(new Set(cartItemIds));
       hasInitialized.current = true;
+      prevCartItemIds.current = cartItemIds;
+      return;
     }
+
+    const deletedItems = prevCartItemIds.current.filter((id) => !cartItemIds.includes(id));
+    if (deletedItems.length > 0) {
+      setCheckedIds((prev) => {
+        const newSet = new Set(prev);
+        deletedItems.forEach((id) => newSet.delete(id));
+        return newSet;
+      });
+    }
+    prevCartItemIds.current = cartItemIds;
   }, [cartItemIds]);
 
   return {
