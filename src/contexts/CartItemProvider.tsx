@@ -38,6 +38,28 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   const { isLoading, fetchError } = useFetchCartItems(setCartItems);
 
+  const currentOrderPrice = cartItems.reduce((acc, cartItem) => {
+    if (selectedItem.has(cartItem.id)) {
+      return acc + cartItem.product.price * cartItem.quantity;
+    }
+    return acc;
+  }, 0);
+
+  const isCouponValid = (coupon: Coupon, orderPrice: number): boolean => {
+    switch (coupon.discountType) {
+      case "fixed":
+        return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+      case "freeShipping":
+        return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+      case "percentage":
+        return true;
+      case "buyXgetY":
+        return true;
+      default:
+        return true;
+    }
+  };
+
   useEffect(() => {
     if (cartItems.length > 0 && selectedItem.size > 0) {
       const validCartItemIds = new Set(cartItems.map((item) => item.id));
@@ -52,6 +74,19 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
       }
     }
   }, [cartItems, selectedItem, handleSelectedItem]);
+
+  useEffect(() => {
+    if (appliedCoupons.length > 0) {
+      const validCoupons = appliedCoupons.filter((coupon) =>
+        isCouponValid(coupon, currentOrderPrice)
+      );
+
+      if (validCoupons.length !== appliedCoupons.length) {
+        setAppliedCoupons(validCoupons);
+        setSelectedCoupons(validCoupons);
+      }
+    }
+  }, [currentOrderPrice, appliedCoupons]);
 
   return (
     <CartItemContext.Provider

@@ -32,9 +32,12 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   useEffect(() => {
     if (isOpen) {
       fetchCoupons();
-      setTempSelectedCoupons([...selectedCoupons]);
+      const validSelectedCoupons = selectedCoupons.filter((coupon) =>
+        isCouponAvailable(coupon)
+      );
+      setTempSelectedCoupons(validSelectedCoupons);
     }
-  }, [isOpen, selectedCoupons]);
+  }, [isOpen, selectedCoupons, orderPrice]);
 
   const isCouponAvailable = (coupon: Coupon): boolean => {
     switch (coupon.discountType) {
