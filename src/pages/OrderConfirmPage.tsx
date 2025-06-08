@@ -14,7 +14,7 @@ import { useSelectedItems } from "../hooks/useSelectedItems";
 import { useCartSummary } from "../hooks/useCartSummary";
 import InvalidAccessPage from "./InvalidAccessPage";
 import CouponModal from "../components/CouponModal/CouponModal";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useShippingContext } from "../contexts/ShippingContext";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const OrderConfirmPage = () => {
   const { orderPrice, shippingFee, totalPrice, couponDiscount } =
     useCartSummary();
   const { isRemoteAreaShipping, setIsRemoteAreaShipping } =
-    useCartItemContext();
+    useShippingContext();
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const isInvalidAccess = selectedItemCount === 0;

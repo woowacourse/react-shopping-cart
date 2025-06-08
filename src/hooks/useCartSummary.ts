@@ -1,4 +1,5 @@
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCartItemContext } from "../contexts/CartItemContext";
+import { useShippingContext } from "../contexts/ShippingContext";
 import {
   FREE_SHIPPING_MIN_AMOUNT,
   SHIPPING_FEE,
@@ -7,8 +8,8 @@ import {
 import { useCouponDiscount } from "./useCouponDiscount";
 
 export const useCartSummary = () => {
-  const { cartItems, selectedItem, isRemoteAreaShipping } =
-    useCartItemContext();
+  const { cartItems, selectedItem } = useCartItemContext();
+  const { isRemoteAreaShipping } = useShippingContext();
   const { couponDiscount } = useCouponDiscount();
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {

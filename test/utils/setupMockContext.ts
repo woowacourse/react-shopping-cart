@@ -1,5 +1,5 @@
+import { useCartItemContext } from "../../src/contexts/CartItemContext";
 import { CartItem } from "../../src/types/type";
-import { useCartItemContext } from "../../src/contexts/useCartItemContext";
 import { vi } from "vitest";
 
 export const mockCartItems: CartItem[] = [

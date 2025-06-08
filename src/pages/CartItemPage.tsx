@@ -4,7 +4,7 @@ import CartItemCardList from "../components/CartItemList/CartItemList";
 import PriceRow from "../components/PriceRow/PriceRow";
 import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCartItemContext } from "../contexts/CartItemContext";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
 import { useNavigate } from "react-router";
 import { useCartSummary } from "../hooks/useCartSummary";

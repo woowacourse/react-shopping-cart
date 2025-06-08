@@ -5,7 +5,7 @@ import { vi } from "vitest";
 import { CartItem } from "../../src/types/type";
 import { MemoryRouter } from "react-router";
 import CartItemPage from "../../src/pages/CartItemPage";
-import { CartItemProvider } from "../../src/contexts/CartItemProvider";
+import { CartItemProvider } from "../../src/contexts/CartItemContext";
 
 export const setupCartPageTest = (mockItems: CartItem[]) => {
   cartItemsApi.get = vi.fn(async () => [...mockItems]);

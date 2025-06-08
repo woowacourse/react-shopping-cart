@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCouponContext } from "../contexts/CouponContext";
 import { useSelectedItems } from "./useSelectedItems";
 import { Coupon } from "../apis/coupons";
 
 export const useCouponDiscount = () => {
-  const { appliedCoupons } = useCartItemContext();
+  const { appliedCoupons } = useCouponContext();
   const { selectedItems } = useSelectedItems();
 
   const orderPrice = useMemo(() => {

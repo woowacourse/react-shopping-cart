@@ -1,6 +1,6 @@
 import { useState } from "react";
 import cartItemsApi from "../apis/cartItems";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCartItemContext } from "../contexts/CartItemContext";
 
 export const useUpdateCartItem = () => {
   const { cartItems, setCartItems } = useCartItemContext();

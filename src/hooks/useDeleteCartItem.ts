@@ -1,6 +1,6 @@
 import { useState } from "react";
 import cartItemsApi from "../apis/cartItems";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCartItemContext } from "../contexts/CartItemContext";
 
 export const useDeleteCartItem = () => {
   const { cartItems, setCartItems, selectedItem, handleSelectedItem } =

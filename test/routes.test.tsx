@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "../src/App";
-import { CartItemProvider } from "../src/contexts/CartItemProvider";
+import { CartItemProvider } from "../src/contexts/CartItemContext";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import cartItemsApi from "../src/apis/cartItems";

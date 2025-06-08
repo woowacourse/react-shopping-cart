@@ -10,7 +10,7 @@ import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
 import { MAX_COUPON_COUNT } from "../../constants";
 import { formatDate } from "../../utils/formatDate";
 import { formatTimeRange } from "../../utils/formatTimeRange";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
+import { useCouponContext } from "../../contexts/CouponContext";
 import { useSelectedItems } from "../../hooks/useSelectedItems";
 
 interface CouponModalProps {
@@ -21,7 +21,7 @@ interface CouponModalProps {
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons, isLoading, fetchError, fetchCoupons } = useFetchCoupons();
   const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
-    useCartItemContext();
+    useCouponContext();
   const { selectedItems } = useSelectedItems();
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
@@ -32,24 +32,19 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   useEffect(() => {
     if (isOpen) {
       fetchCoupons();
-      const validSelectedCoupons = selectedCoupons.filter((coupon) =>
-        isCouponAvailable(coupon)
-      );
-      setTempSelectedCoupons(validSelectedCoupons);
+      setTempSelectedCoupons([...selectedCoupons]);
     }
-  }, [isOpen, selectedCoupons, orderPrice]);
+  }, [isOpen, selectedCoupons]);
 
   const isCouponAvailable = (coupon: Coupon): boolean => {
     switch (coupon.discountType) {
       case "fixed":
         return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
       case "percentage":
-        // TODO: 시간 조건은 나중에 추가
         return true;
       case "freeShipping":
         return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
       case "buyXgetY":
-        // TODO: 수량 조건은 나중에 추가
         return true;
       default:
         return true;

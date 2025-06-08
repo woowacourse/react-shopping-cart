@@ -1,6 +1,6 @@
 import CartItemCard from "../CartItemCard/CartItemCard";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
 import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
+import { useCartItemContext } from "../../contexts/CartItemContext";
 
 const CartItemCardList = () => {
   const { cartItems, selectedItem, handleSelectedItem } = useCartItemContext();
