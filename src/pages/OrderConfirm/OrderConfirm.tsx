@@ -40,7 +40,9 @@ export function OrderConfirm() {
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
-  const [couponDiscountAmount, setCouponDiscountAmount] = useState(0);
+  const [finalSelectedCouponIds, setFinalSelectedCouponIds] = useState<
+    string[]
+  >([]);
 
   const navigate = useNavigate();
 
@@ -88,15 +90,6 @@ export function OrderConfirm() {
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
-    setCouponDiscountAmount(
-      calculateCouponPrice({
-        couponIds: selectedCouponIds,
-        coupons,
-        selectedCartItems,
-        deliveryFee: getDeliveryFee(!isChecked, totalPrice),
-        nowDate: new Date(),
-      })
-    );
   };
 
   const handleBackClick = () => {
@@ -109,15 +102,7 @@ export function OrderConfirm() {
 
   const handleUseClick = () => {
     setOpen(false);
-    setCouponDiscountAmount(
-      calculateCouponPrice({
-        couponIds: selectedCouponIds,
-        coupons,
-        selectedCartItems,
-        deliveryFee,
-        nowDate: new Date(),
-      })
-    );
+    setFinalSelectedCouponIds(selectedCouponIds);
   };
 
   const { totalPrice } = getCartItemSummary(
@@ -126,6 +111,18 @@ export function OrderConfirm() {
   );
 
   const deliveryFee = getDeliveryFee(isChecked, totalPrice);
+
+  const deliveryFreeCoupon = finalSelectedCouponIds.find((e) => e === '3')
+    ? deliveryFee
+    : 0;
+
+  const couponDiscountAmount = calculateCouponPrice({
+    couponIds: finalSelectedCouponIds,
+    coupons,
+    selectedCartItems,
+    deliveryFee: getDeliveryFee(isChecked, totalPrice),
+    nowDate: new Date(),
+  });
 
   const couponPrice = calculateCouponPrice({
     couponIds: selectedCouponIds,
@@ -190,8 +187,8 @@ export function OrderConfirm() {
           </div>
           <PaymentSummary
             price={totalPrice}
-            couponDiscountAmount={couponDiscountAmount}
-            deliveryFee={deliveryFee}
+            couponDiscountAmount={couponDiscountAmount - deliveryFreeCoupon}
+            deliveryFee={deliveryFee - deliveryFreeCoupon}
           />
         </Main>
         <Footer>
