@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "@kaori-killer/modal-component";
 
-import * as CartListStyled from "../../components/ShoppingCart/CartList/CartList.styles";
-import * as ItemStyled from "../../components/ShoppingCart/Item/Item.styles";
+import * as CartListStyled from "../ShoppingCart/CartList/CartList.styles";
+import * as ItemStyled from "../ShoppingCart/Item/Item.styles";
 import WarningBox from "../common/WarningBox/WarningBox";
 import Hr from "../common/Hr/Hr";
 
