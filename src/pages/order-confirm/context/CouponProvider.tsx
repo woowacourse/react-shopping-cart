@@ -28,6 +28,12 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
   const [selectedCoupon, setSelectedCoupon] = useState<string[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
+  useEffect(() => {
+    return () => {
+      setIsInitialized(false);
+    };
+  }, []);
+
   const handleCouponToggle = useCallback(
     (couponId: string) => {
       setSelectedCoupon((prev) => {
@@ -58,7 +64,7 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
       shippingFee: number,
       selectedCartItems: Cart[] | undefined
     ): boolean => {
-      if (!isInitialized) {
+      if (!isInitialized && coupons.length > 0) {
         const result = optimizeCouponSelection(
           coupons,
           totalCartPrice,

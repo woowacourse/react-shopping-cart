@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { use, useEffect } from "react";
+import { use, useEffect, useRef } from "react";
 import { getShoppingCartData } from "../../../../../api/cart";
 import { Coupon } from "../../../../../api/coupon";
 import CouponCheckItem from "../../../../../components/common/coupon/CouponCheckItem";
@@ -22,6 +22,7 @@ function CouponCheckList({
     name: "cart",
   });
   const { selectedCartItems, isIsland } = useOrderListContext(cartListData);
+  const hasShownToast = useRef(false);
 
   const { totalCartPrice, shippingFee } = useOrderCalculation(
     cartListData,
@@ -33,17 +34,20 @@ function CouponCheckList({
   const { showToast } = useToastContext();
 
   useEffect(() => {
-    const hasSelectedCoupons = initializeCoupons(
-      coupons,
-      totalCartPrice,
-      shippingFee,
-      selectedCartItems
-    );
+    if (!hasShownToast.current) {
+      const hasSelectedCoupons = initializeCoupons(
+        coupons,
+        totalCartPrice,
+        shippingFee,
+        selectedCartItems
+      );
 
-    if (hasSelectedCoupons) {
-      showToast("최적의 쿠폰이 자동으로 선택되었습니다.", "info");
+      if (hasSelectedCoupons) {
+        showToast("최적의 쿠폰이 자동으로 선택되었습니다.", "info");
+        hasShownToast.current = true;
+      }
     }
-  }, [coupons, totalCartPrice, shippingFee, selectedCartItems]);
+  }, [coupons]);
 
   return (
     <>
