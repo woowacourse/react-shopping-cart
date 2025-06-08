@@ -115,7 +115,7 @@ function CouponModal({
             <p>사용 가능한 쿠폰이 없습니다.</p>
           ) : (
             coupons.map((coupon) => (
-              <Styled.CouponContainer>
+              <Styled.CouponContainer key={coupon.id}>
                 <Hr />
                 <CartListStyled.Checkbox key={coupon.id}>
                   <CartListStyled.Input
