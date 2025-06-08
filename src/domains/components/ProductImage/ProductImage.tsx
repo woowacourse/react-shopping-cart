@@ -2,10 +2,10 @@ import * as S from "./ProductImage.styled";
 import DefaultItemIcon from "@assets/icons/default-item.svg";
 import { SyntheticEvent } from "react";
 
-interface ProductImageProps {
+type ProductImageProps = {
   imageUrl: string;
   name: string;
-}
+};
 
 export default function ProductImage({ imageUrl, name }: ProductImageProps) {
   const imageLoadError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
