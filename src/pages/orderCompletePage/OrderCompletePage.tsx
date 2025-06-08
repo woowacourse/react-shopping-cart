@@ -13,9 +13,11 @@ import { CouponList } from '../../components/features/couponList';
 import { useCoupons } from '../../hooks/useCoupons';
 import {
   calculateOptimalCouponCombination,
+  calculateSelectedCoupons,
   CartItem,
 } from '../../utils/couponCalculator';
 import useEasyNavigate from '../../hooks/useEasyNavigate';
+import { Coupon } from '../../types/coupon';
 
 interface OrderCompleteState {
   productTypeCount: number;
@@ -28,6 +30,7 @@ const OrderCompletePage = () => {
   const { cartData, fetchCartData } = useCartData();
   const { coupons } = useCoupons();
   const [isRemoteArea, setIsRemoteArea] = useState(false);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const { goPaymentConfirmation } = useEasyNavigate();
 
   useEffect(() => {
@@ -42,16 +45,49 @@ const OrderCompletePage = () => {
     }));
   }, [cartData]);
 
-  const calculationResult = useMemo(() => {
+  // 자동 최적화 결과
+  const autoOptimizationResult = useMemo(() => {
     return calculateOptimalCouponCombination(cartItems, coupons, isRemoteArea);
   }, [cartItems, coupons, isRemoteArea]);
+
+  // 선택된 쿠폰들의 계산 결과
+  const calculationResult = useMemo(() => {
+    if (selectedCoupons.length > 0) {
+      return calculateSelectedCoupons(cartItems, selectedCoupons, isRemoteArea);
+    }
+    return calculateSelectedCoupons(cartItems, [], isRemoteArea);
+  }, [cartItems, selectedCoupons, isRemoteArea]);
 
   const handleRemoteAreaChange = () => {
     setIsRemoteArea(!isRemoteArea);
   };
 
+  const handleCouponSelect = (coupon: Coupon | null) => {
+    if (!coupon) return;
+
+    setSelectedCoupons((prevSelected) => {
+      const isAlreadySelected = prevSelected.some((c) => c.id === coupon.id);
+
+      if (isAlreadySelected) {
+        // 이미 선택된 쿠폰이면 제거
+        return prevSelected.filter((c) => c.id !== coupon.id);
+      } else {
+        // 최대 2개까지만 선택 가능
+        if (prevSelected.length >= 2) {
+          // 가장 오래된 것을 제거하고 새로운 것 추가
+          return [prevSelected[1], coupon];
+        } else {
+          return [...prevSelected, coupon];
+        }
+      }
+    });
+  };
+
+  const handleUseAutoOptimization = () => {
+    setSelectedCoupons(autoOptimizationResult.appliedCoupons);
+  };
+
   const handleConfirmPayment = () => {
-    // 결제 확인 페이지로 이동
     goPaymentConfirmation(
       productTypeCount,
       totalProductCount,
@@ -95,10 +131,10 @@ const OrderCompletePage = () => {
                     선택했습니다.
                   </p>
 
-                  {calculationResult.appliedCoupons.length > 0 ? (
+                  {autoOptimizationResult.appliedCoupons.length > 0 ? (
                     <div css={S.OptimalResult}>
-                      <h4>적용된 쿠폰:</h4>
-                      {calculationResult.discountBreakdown.map(
+                      <h4>추천 쿠폰:</h4>
+                      {autoOptimizationResult.discountBreakdown.map(
                         (item, index) => (
                           <div key={index} css={S.CouponBreakdown}>
                             <span>{item.coupon.code}</span>
@@ -110,8 +146,16 @@ const OrderCompletePage = () => {
                       )}
                       <div css={S.TotalSavings}>
                         총 절약 금액:{' '}
-                        {calculationResult.discountAmount.toLocaleString()}원
+                        {autoOptimizationResult.discountAmount.toLocaleString()}
+                        원
                       </div>
+                      <Button
+                        variant="coupon"
+                        onClick={handleUseAutoOptimization}
+                        css={S.AutoOptimizeButton}
+                      >
+                        자동 최적화 적용하기
+                      </Button>
                     </div>
                   ) : (
                     <p css={S.NoOptimization}>
@@ -120,12 +164,35 @@ const OrderCompletePage = () => {
                   )}
                 </div>
 
-                <CouponList />
+                <div css={S.ManualSelectSection}>
+                  <h3>직접 선택 (최대 2개)</h3>
+                  <p>
+                    원하는 쿠폰을 직접 선택할 수 있습니다. 선택된 쿠폰:{' '}
+                    {selectedCoupons.length}/2
+                  </p>
+                  {selectedCoupons.length > 0 && (
+                    <div css={S.SelectedCouponsPreview}>
+                      {selectedCoupons.map((coupon) => (
+                        <div key={coupon.id} css={S.SelectedCouponPreview}>
+                          <span>{coupon.code}</span>
+                          <button
+                            onClick={() => handleCouponSelect(coupon)}
+                            css={S.RemoveCouponButton}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <CouponList onCouponSelect={handleCouponSelect} />
 
                 <div css={S.DialogActions}>
-                  <Button variant="largeBlack" onClick={handleConfirmPayment}>
-                    {calculationResult.finalAmount.toLocaleString()}원 결제하기
-                  </Button>
+                  <Dialog.CloseButton>
+                    <Button variant="largeBlack">쿠폰 적용하기</Button>
+                  </Dialog.CloseButton>
                 </div>
               </div>
             </Dialog.Content>
@@ -140,9 +207,13 @@ const OrderCompletePage = () => {
             {calculationResult.discountBreakdown.map((item, index) => (
               <p key={index} css={S.SelectedCouponInfo}>
                 <strong>{item.coupon.code}</strong> - {item.coupon.description}
-                <span css={S.DiscountAmount}>
-                  (-{item.discountAmount.toLocaleString()}원)
-                </span>
+                {item.discountAmount > 0 ? (
+                  <span css={S.DiscountAmount}>
+                    (-{item.discountAmount.toLocaleString()}원)
+                  </span>
+                ) : item.coupon.discountType === 'freeShipping' ? (
+                  <span css={S.DiscountAmount}>(배송비 무료)</span>
+                ) : null}
               </p>
             ))}
           </div>
