@@ -47,7 +47,7 @@ describe("itemCalculations 테스트", () => {
     },
   ];
 
-  describe("filterSelectedItems 함수 테스트", () => {
+  describe("filterSelectedItems 함수", () => {
     it("빈 배열을 전달하면 빈 배열을 반환한다", () => {
       const result = filterSelectedItems([]);
       expect(result).toEqual([]);
@@ -84,7 +84,7 @@ describe("itemCalculations 테스트", () => {
     });
   });
 
-  describe("calculateOrderQuantity 함수 테스트", () => {
+  describe("calculateOrderQuantity 함수", () => {
     it("빈 배열을 전달하면 0을 반환한다", () => {
       const result = calculateOrderQuantity([]);
       expect(result).toBe(0);
