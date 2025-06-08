@@ -42,7 +42,7 @@ export const getCouponInfo = (coupon: Coupon) => {
         ...defaultInfo,
         {
           label: "사용 가능 시간",
-          value: `오전 ${startHour}시부터 ${endHour}시까지`,
+          value: `오전 ${startHour}부터 ${endHour}까지`,
         },
       ];
     }
