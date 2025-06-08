@@ -1,7 +1,7 @@
 import { STEP_NAME } from "@/constants/steps";
 
 import { useMemo, useState } from "react";
-import { useCartContext } from "@/components/Cart/CartContext";
+import { useCartContext } from "@/components/Cart/CartProvider";
 import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
 import { useBestCouponCombo } from "@/hooks/Coupon/useBestCouponCombo";
 import { useCouponSelection } from "@/hooks/Coupon/useCouponSelection";

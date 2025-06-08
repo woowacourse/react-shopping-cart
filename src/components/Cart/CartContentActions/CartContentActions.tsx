@@ -1,4 +1,4 @@
-import { useCartContext } from "../CartContext";
+import { useCartContext } from "../CartProvider";
 import * as Styled from "../CartContent/CartContent.style";
 const CartContentActions = ({ onNext }: { onNext: () => void }) => {
   const { selectedCartItems } = useCartContext();

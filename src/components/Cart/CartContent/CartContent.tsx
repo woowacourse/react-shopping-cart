@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { useCartContext } from "../CartContext";
+import { useCartContext } from "../CartProvider";
 import * as Styled from "./CartContent.style";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
