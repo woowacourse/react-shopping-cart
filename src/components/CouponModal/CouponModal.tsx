@@ -10,31 +10,41 @@ import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
 import { MAX_COUPON_COUNT } from "../../constants";
 import { formatDate } from "../../utils/formatDate";
 import { formatTimeRange } from "../../utils/formatTimeRange";
+import { useCartItemContext } from "../../contexts/useCartItemContext";
 
 interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onCouponSelect?: (coupon: Coupon) => void;
 }
 
-const CouponModal = ({ isOpen, onClose, onCouponSelect }: CouponModalProps) => {
+const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons, isLoading, fetchError, fetchCoupons } = useFetchCoupons();
-  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+  const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
+    useCartItemContext();
+  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
   useEffect(() => {
     if (isOpen) {
       fetchCoupons();
+      setTempSelectedCoupons([...selectedCoupons]);
     }
-  }, [isOpen]);
+  }, [isOpen, selectedCoupons]);
 
-  const handleCouponSelect = (coupon: Coupon) => {
-    setSelectedCoupon(coupon);
+  const handleCouponToggle = (coupon: Coupon) => {
+    const isSelected = tempSelectedCoupons.some((c) => c.id === coupon.id);
+
+    if (isSelected) {
+      setTempSelectedCoupons((prev) => prev.filter((c) => c.id !== coupon.id));
+    } else {
+      if (tempSelectedCoupons.length < MAX_COUPON_COUNT) {
+        setTempSelectedCoupons((prev) => [...prev, coupon]);
+      }
+    }
   };
 
   const handleConfirm = () => {
-    if (selectedCoupon && onCouponSelect) {
-      onCouponSelect(selectedCoupon);
-    }
+    setSelectedCoupons(tempSelectedCoupons);
+    setAppliedCoupons(tempSelectedCoupons);
     onClose();
   };
 
@@ -57,36 +67,39 @@ const CouponModal = ({ isOpen, onClose, onCouponSelect }: CouponModalProps) => {
             />
           </div>
           <div className={CouponList}>
-            {coupons.map((coupon) => (
-              <div
-                key={coupon.id}
-                className={`${CouponItem} ${
-                  selectedCoupon?.id === coupon.id ? "selected" : ""
-                }`}
-                onClick={() => handleCouponSelect(coupon)}
-              >
-                <LabeledCheckbox
-                  labelText={coupon.description}
-                  isSelected={true}
-                  textType="medium"
-                  onClick={() => {}}
-                />
-                <Text text={`만료일: ${formatDate(coupon.expirationDate)}`} />
-                {coupon.minimumAmount && (
-                  <Text
-                    text={`최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`}
+            {coupons.map((coupon) => {
+              const isSelected = tempSelectedCoupons.some(
+                (c) => c.id === coupon.id
+              );
+              return (
+                <div
+                  key={coupon.id}
+                  className={`${CouponItem} ${isSelected ? "selected" : ""}`}
+                  onClick={() => handleCouponToggle(coupon)}
+                >
+                  <LabeledCheckbox
+                    labelText={coupon.description}
+                    isSelected={isSelected}
+                    textType="medium"
+                    onClick={() => handleCouponToggle(coupon)}
                   />
-                )}
-                {coupon.availableTime && (
-                  <Text
-                    text={`사용 가능 시간: ${formatTimeRange(
-                      coupon.availableTime.start,
-                      coupon.availableTime.end
-                    )}`}
-                  />
-                )}
-              </div>
-            ))}
+                  <Text text={`만료일: ${formatDate(coupon.expirationDate)}`} />
+                  {coupon.minimumAmount && (
+                    <Text
+                      text={`최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`}
+                    />
+                  )}
+                  {coupon.availableTime && (
+                    <Text
+                      text={`사용 가능 시간: ${formatTimeRange(
+                        coupon.availableTime.start,
+                        coupon.availableTime.end
+                      )}`}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         </>
       )}
@@ -136,6 +149,7 @@ const CouponList = css`
 const CouponItem = css`
   border-top: 1px solid #e0e0e0;
   padding: 12px 0;
+  cursor: pointer;
 `;
 
 const InfoRow = css`

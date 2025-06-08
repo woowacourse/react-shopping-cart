@@ -3,6 +3,7 @@ import { CartItem } from "../types/type";
 import { useFetchCartItems } from "../hooks/useFetchCartItems";
 import { useLocalStorageSet } from "../hooks/useLocalStorageSet";
 import { SELECTED_ITEMS_KEY } from "../constants";
+import { Coupon } from "../apis/coupons";
 
 interface CartItemContext {
   cartItems: CartItem[];
@@ -13,6 +14,10 @@ interface CartItemContext {
   fetchError: string;
   isRemoteAreaShipping: boolean;
   setIsRemoteAreaShipping: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedCoupons: Coupon[];
+  setSelectedCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
+  appliedCoupons: Coupon[];
+  setAppliedCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
 }
 
 interface CartItemProviderProps {
@@ -25,6 +30,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isRemoteAreaShipping, setIsRemoteAreaShipping] =
     useState<boolean>(false);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
+  const [appliedCoupons, setAppliedCoupons] = useState<Coupon[]>([]);
 
   const { value: selectedItem, updateValue: handleSelectedItem } =
     useLocalStorageSet<number>(SELECTED_ITEMS_KEY, new Set<number>());
@@ -57,6 +64,10 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         fetchError,
         isRemoteAreaShipping,
         setIsRemoteAreaShipping,
+        selectedCoupons,
+        setSelectedCoupons,
+        appliedCoupons,
+        setAppliedCoupons,
       }}
     >
       {children}
