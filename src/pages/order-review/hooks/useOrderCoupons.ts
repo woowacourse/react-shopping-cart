@@ -16,7 +16,6 @@ export const useOrderCoupons = (isJejuOrRemoteArea: boolean) => {
   const [allCouponCombinationIds, setAllCouponCombinationIds] = useState<
     number[][]
   >([]);
-  const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
 
   const isManual = useRef(false);
 
@@ -26,16 +25,19 @@ export const useOrderCoupons = (isJejuOrRemoteArea: boolean) => {
     isJejuOrRemoteArea
   );
 
+  const [selectedCouponIds, setSelectedCouponIds] =
+    useState<number[]>(bestCouponIds); //이거 지울 수 있음
+
   // 2. availableCoupons 값이 바뀌면 갱신
   useEffect(() => {
     setAllCouponCombinationIds(getAllCouponCombinationIds(availableCoupons));
   }, [availableCoupons]);
 
-  useEffect(() => {
-    if (!isManual.current) {
-      setSelectedCouponIds(bestCouponIds);
-    }
-  }, [bestCouponIds]);
+  // useEffect(() => {
+  //   if (!isManual.current) {
+  //     setSelectedCouponIds(bestCouponIds);
+  //   }
+  // }, [bestCouponIds]);
 
   const handleUpdateCouponCombinations = (coupons: CouponContent[]) => {
     const combinations = getAllCouponCombinationIds(coupons);
