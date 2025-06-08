@@ -12,8 +12,9 @@ import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
 import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
 import { ROUTE } from '@/shared/constants/route';
 import { useJaeO } from '@/shared/data/useJaeO';
+import useToggle from '@/shared/hooks/useToggle';
 import { Modal } from '@jae-o/modal-component-module';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
 
@@ -22,7 +23,7 @@ interface OrderCheckContentsProps {
 }
 
 function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
+  const [isRemoteArea, toggleRemoteArea] = useToggle(false);
   const { data: coupons, isLoading } = useJaeO<CouponType[], Coupon[]>({
     fetchKey: 'coupons',
     fetchFn: getCoupons,
@@ -40,11 +41,11 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     });
   const navigate = useNavigate();
 
-  const toggleRemoteArea = () => {
+  const handleShippingOptionChange = () => {
     coupons?.forEach((coupon) =>
       coupon.updateDiscountAmount(orderItems, !isRemoteArea)
     );
-    setIsRemoteArea((prev) => !prev);
+    toggleRemoteArea();
   };
 
   const moveToPaymentCheck = () => {
@@ -92,7 +93,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
             <SelectBox
               id="shippingOption"
               selected={isRemoteArea}
-              onClick={toggleRemoteArea}
+              onClick={handleShippingOptionChange}
             />
             <S.ShippingOptionSelectText htmlFor="shippingOption">
               제주도 및 도서 산간 지역

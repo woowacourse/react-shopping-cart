@@ -1,8 +1,9 @@
+import useSelection from '@/shared/hooks/useSelection';
 import { Modal } from '@jae-o/modal-component-module';
+import { useEffect } from 'react';
 import CouponItem from '../couponItem/CouponItem';
 import Coupon from '../models/coupon';
 import * as S from './CouponModal.styles';
-import { useEffect, useState } from 'react';
 
 interface CouponModalProps {
   coupons: Coupon[];
@@ -15,26 +16,19 @@ function CouponModal({
   couponAppliedIds,
   applyCoupons,
 }: CouponModalProps) {
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const {
+    selected: selectedIds,
+    set: setSelectedIds,
+    toggle: toggleSelect,
+    isSelected,
+  } = useSelection(new Set(couponAppliedIds), 2);
   const totalDiscount = coupons
-    .filter((coupon) => selectedIds.has(coupon.data.id))
+    .filter((coupon) => isSelected(coupon.data.id))
     .reduce((acc, coupon) => acc + coupon.discountAmount, 0);
-
-  const toggleSelect = (couponId: number) => {
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(couponId)) {
-        next.delete(couponId);
-      } else if (next.size < 2) {
-        next.add(couponId);
-      }
-      return next;
-    });
-  };
 
   useEffect(() => {
     setSelectedIds(couponAppliedIds);
-  }, [couponAppliedIds]);
+  }, [couponAppliedIds, setSelectedIds]);
 
   return (
     <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
@@ -48,7 +42,7 @@ function CouponModal({
             <CouponItem
               key={coupon.data.id}
               item={coupon}
-              selected={selectedIds.has(coupon.data.id)}
+              selected={isSelected(coupon.data.id)}
               disabled={coupon.disable}
               toggleSelect={() => toggleSelect(coupon.data.id)}
             />
