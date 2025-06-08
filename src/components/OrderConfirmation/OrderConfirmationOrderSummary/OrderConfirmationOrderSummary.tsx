@@ -22,8 +22,7 @@ function OrderConfirmationOrderSummary({
   isRemoteAreaShipping,
 }: OrderConfirmationOrderSummaryProps) {
   const { totalPrice, shippingFee, totalPriceWithShipping } = getOrderSummary({
-    cartItemsData: selectedCartItems,
-    selectedCartIds: selectedCartItems.map((item) => item.id),
+    selectedCartItems,
   });
 
   const remoteAreaShippingFee = isRemoteAreaShipping

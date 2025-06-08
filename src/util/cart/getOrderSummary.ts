@@ -1,4 +1,3 @@
-import { getSelectedCartItems } from "./getSelectedCartItems";
 import { calculateTotalPrice } from "./calculateTotalPrice";
 import { calculateShippingFee } from "./calculateShippingFee";
 import { calculateTotalPriceWithShipping } from "./calculateTotalPriceWithShipping";
@@ -7,16 +6,10 @@ import { getSelectedCartItemsLength } from "./getSelectedCartItemsLength";
 import { getSelectedCartItemsCount } from "./getSelectedCartItemsCount";
 
 export function getOrderSummary({
-  cartItemsData,
-  selectedCartIds,
+  selectedCartItems,
 }: {
-  cartItemsData: CartItem[];
-  selectedCartIds: number[];
+  selectedCartItems: CartItem[];
 }) {
-  const selectedCartItems = getSelectedCartItems({
-    cartItemsData,
-    selectedCartIds,
-  });
   const totalPrice = calculateTotalPrice(selectedCartItems);
 
   const shippingFee = calculateShippingFee(totalPrice);

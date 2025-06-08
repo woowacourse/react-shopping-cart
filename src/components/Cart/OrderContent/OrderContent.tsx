@@ -8,6 +8,7 @@ import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 import { CartItem } from "../../../type/CartItem";
 
 import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
+import { getSelectedCartItems } from "../../../util/cart/getSelectedCartItems";
 
 interface OrderContentProps {
   cartItemsData: CartItem[];
@@ -60,12 +61,16 @@ function OrderContent({
         ))}
       </CartList>
       <CartOrderSummary
-        cartItemsData={cartItemsData}
-        selectedCartIds={selectedCartIds}
+        selectedCartItems={getSelectedCartItems({
+          cartItemsData,
+          selectedCartIds,
+        })}
       />
       <OrderConfirmButton
-        selectedCartIds={selectedCartIds}
-        cartItemsData={cartItemsData}
+        selectedCartItems={getSelectedCartItems({
+          cartItemsData,
+          selectedCartIds,
+        })}
       />
     </>
   );

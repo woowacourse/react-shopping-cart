@@ -9,17 +9,12 @@ import OrderShippingFee from "../../OrderSummary/OrderShippingFee/OrderShippingF
 import OrderTotalPriceWithShipping from "../../OrderSummary/OrderTotalPriceWithShipping/OrderTotalPriceWithShipping";
 
 interface CartOrderSummaryProps {
-  cartItemsData: CartItem[];
-  selectedCartIds: number[];
+  selectedCartItems: CartItem[];
 }
 
-function CartOrderSummary({
-  cartItemsData,
-  selectedCartIds,
-}: CartOrderSummaryProps) {
+function CartOrderSummary({ selectedCartItems }: CartOrderSummaryProps) {
   const { totalPrice, shippingFee, totalPriceWithShipping } = getOrderSummary({
-    cartItemsData,
-    selectedCartIds,
+    selectedCartItems,
   });
 
   return (

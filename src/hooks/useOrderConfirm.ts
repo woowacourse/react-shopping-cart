@@ -4,17 +4,12 @@ import type { OrderConfirmationLocationState } from "../type/OrderConfirmation";
 import { CartItem } from "../type/CartItem";
 import { useCallback } from "react";
 import { getOrderSummary } from "../util/cart/getOrderSummary";
-import { getSelectedCartItems } from "../util/cart/getSelectedCartItems";
 
 interface UseOrderConfirmParams {
-  cartItemsData: CartItem[];
-  selectedCartIds: number[];
+  selectedCartItems: CartItem[];
 }
 
-const useOrderConfirm = ({
-  cartItemsData,
-  selectedCartIds,
-}: UseOrderConfirmParams) => {
+const useOrderConfirm = ({ selectedCartItems }: UseOrderConfirmParams) => {
   const navigate = useNavigate();
 
   const handleOrderConfirm = useCallback(() => {
@@ -25,23 +20,19 @@ const useOrderConfirm = ({
       totalPrice,
       shippingFee,
     } = getOrderSummary({
-      cartItemsData,
-      selectedCartIds,
+      selectedCartItems,
     });
 
     const state: OrderConfirmationLocationState = {
       selectedCartItemsLength,
       selectedCartItemsCount,
       totalPriceWithShipping,
-      selectedCartItemsData: getSelectedCartItems({
-        cartItemsData,
-        selectedCartIds,
-      }),
+      selectedCartItemsData: selectedCartItems,
       totalPrice,
       shippingFee,
     };
     navigate(PAGE_URL.ORDER_CONFIRMATION, { state });
-  }, [cartItemsData, navigate, selectedCartIds]);
+  }, [navigate, selectedCartItems]);
 
   return {
     handleOrderConfirm,
