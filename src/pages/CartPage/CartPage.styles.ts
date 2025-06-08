@@ -15,4 +15,5 @@ export const CartPageContent = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 30px 24px;
+  margin-bottom: 64px;
 `;

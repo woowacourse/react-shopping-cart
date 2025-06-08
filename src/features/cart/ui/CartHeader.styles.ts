@@ -16,4 +16,7 @@ export const CartHeaderTitle = styled.h1`
 export const CartHeaderContent = styled.span`
   font-size: 12px;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 `;

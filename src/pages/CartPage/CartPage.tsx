@@ -15,7 +15,11 @@ function CartPage() {
     <S.CartPageContainer>
       <Navbar title={'SHOP'} url={ROUTES.ROOT} />
       <S.CartPageContent>
-        <CartHeader cartTypeQuantity={cartItems.length} />
+        <CartHeader
+          title="장바구니"
+          cartTypeQuantity={cartItems.length}
+          content={`현재 ${cartItems.length}개의 상품이 담겨있습니다.`}
+        />
         {cartItems.length > 0 ? (
           <>
             <CartList addAllCartItemsInSelected={addAllCartItemsInSelected} />
