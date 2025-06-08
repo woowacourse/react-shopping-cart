@@ -9,12 +9,21 @@ import {
 } from './OrderCompletePage.styles';
 import Button from '../../../components/common/Button/Button';
 import { useCartContext } from '../../../context/CartContext';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 function OrderCompletePage() {
+  const { clearCart } = useCartContext();
   const { typeCount, totalCount } = useCartContext();
+
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { finalPrice } = location.state;
+
+  const handleNavigate = () => {
+    clearCart();
+    navigate('/');
+  };
 
   return (
     <>
@@ -36,7 +45,7 @@ function OrderCompletePage() {
           </div>
         </div>
       </ContainerLayout>
-      <Button color="black" variant="primary" onClick={() => {}}>
+      <Button color="black" variant="primary" onClick={handleNavigate}>
         <Text varient="body">장바구니로 돌아가기</Text>
       </Button>
     </>
