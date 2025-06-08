@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
 import Button from '../../shared/ui/Button';
 import Navbar from '../../shared/ui/Navbar';
-import * as S from './ConfirmationPage.styles';
+import * as S from './OrderSuccessPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import { useNavigate } from 'react-router';
 
@@ -26,7 +26,7 @@ const ButtonCSS = css`
   }
 `;
 
-export default function ConfirmationPage() {
+export default function OrderSuccessPage() {
   const { SelectedCartItems, cartTypeQuantity, totalQuantity, totalPurchasePrice } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
@@ -35,20 +35,20 @@ export default function ConfirmationPage() {
   };
 
   return (
-    <S.ConfirmationContainer>
+    <S.OrderSuccessContainer>
       <Navbar title="◀" url={ROUTES.ROOT} />
-      <S.ConfirmationSection>
-        <S.ConfirmationTitle>주문 확인</S.ConfirmationTitle>
-        <S.ConfirmationQuantity>
+      <S.OrderSuccessSection>
+        <S.OrderSuccessTitle>주문 확인</S.OrderSuccessTitle>
+        <S.OrderSuccessQuantity>
           총 {cartTypeQuantity}종류의 상품 {totalQuantity}개를 주문합니다.
-        </S.ConfirmationQuantity>
-        <S.ConfirmationQuantity>최종 결제 금액을 확인해 주세요.</S.ConfirmationQuantity>
-        <S.ConfirmationTotalPurchasePriceLabel>총 결제 금액</S.ConfirmationTotalPurchasePriceLabel>
-        <S.ConfirmationTotalPurchasePrice>{totalPurchasePrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
-      </S.ConfirmationSection>
-      <S.ConfirmationFooterContainer>
+        </S.OrderSuccessQuantity>
+        <S.OrderSuccessQuantity>최종 결제 금액을 확인해 주세요.</S.OrderSuccessQuantity>
+        <S.OrderSuccessTotalPurchasePriceLabel>총 결제 금액</S.OrderSuccessTotalPurchasePriceLabel>
+        <S.OrderSuccessTotalPurchasePrice>{totalPurchasePrice.toLocaleString()}원</S.OrderSuccessTotalPurchasePrice>
+      </S.OrderSuccessSection>
+      <S.OrderSuccessFooterContainer>
         <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={SelectedCartItems.length === 0} />
-      </S.ConfirmationFooterContainer>
-    </S.ConfirmationContainer>
+      </S.OrderSuccessFooterContainer>
+    </S.OrderSuccessContainer>
   );
 }

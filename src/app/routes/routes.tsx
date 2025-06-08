@@ -3,13 +3,13 @@ import { ROUTES } from '../../shared/constants/routeConstants';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import CartPage from '../../pages/CartPage/CartPage';
 import Layout from '../layout/Layout';
-import ConfirmationPage from '../../pages/ConfirmationPage/ConfirmationPage';
+import OrderSuccessPage from '../../pages/OrderSuccessPage/OrderSuccessPage';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={ROUTES.ROOT} element={<Layout />}>
       <Route index element={<CartPage />} />
-      <Route path={ROUTES.CONFIRMATION} element={<ConfirmationPage />} />
+      <Route path={ROUTES.ORDER_SUCCESS} element={<OrderSuccessPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   ),

@@ -31,7 +31,7 @@ export default function Footer({ cartItemQuantity }: { cartItemQuantity: number 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(ROUTES.CONFIRMATION);
+    navigate(ROUTES.ORDER_SUCCESS);
   };
 
   return (
