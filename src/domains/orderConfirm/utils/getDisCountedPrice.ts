@@ -1,5 +1,7 @@
 import { CouponCode } from "../types/coupon";
 
+// ================== 계산 관련 인터페이스 ==================
+
 interface getDisCountedPriceProps {
   deliveryFee: number;
   orderPrice: number;
@@ -26,7 +28,8 @@ interface couponCalculatorProps {
  */
 
 export function getDisCountedPrice(props: getDisCountedPriceProps) {
-  if (props.selectedCoupons.length === 0) return getTotalDiscount([0], props);
+  if (props.selectedCoupons.length === 0) return 0;
+  if (props.selectedCoupons.length === 1) return getTotalDiscount([0], props);
 
   const firstDiscount = getTotalDiscount([0, 1], props);
   const secondDiscount = getTotalDiscount([1, 0], props);
