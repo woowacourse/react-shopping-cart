@@ -6,6 +6,26 @@ export interface ValidationResult {
   message?: string;
 }
 
+export function isCouponAvailable(
+  coupon: Coupon,
+  totalCartPrice: number,
+  cartItems: Cart[] | undefined
+): boolean {
+  switch (coupon.discountType) {
+    case "fixed":
+    case "freeShipping":
+      return totalCartPrice >= coupon.minimumAmount;
+    case "buyXgetY":
+      return (cartItems ?? []).some(
+        (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+      );
+    case "percentage":
+      return true;
+    default:
+      return false;
+  }
+}
+
 export function validateCoupon(
   coupon: Coupon,
   totalCartPrice: number,
