@@ -13,12 +13,14 @@ function CouponModal({
   onClose,
   validatedCouponList,
   checkedCoupon,
+  totalDiscount,
   onCouponAccept,
 }: {
   isOpen: boolean;
   onClose: () => void;
   validatedCouponList: validatedCouponList[];
   checkedCoupon: number[];
+  totalDiscount: number;
   onCouponAccept: (couponIds: number[]) => void;
 }) {
   const {
@@ -29,6 +31,14 @@ function CouponModal({
   } = useCartContext();
 
   const [tempCoupon, setTempCoupon] = useState<number[]>(checkedCoupon);
+
+  const modalResult = useCouponCombos(
+    tempCoupon,
+    cartItems.filter((item) => selectedItems.includes(item.id)),
+    validatedCouponList,
+    subTotal,
+    deliveryFee
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -47,14 +57,6 @@ function CouponModal({
     }
     setTempCoupon(newTempCoupons);
   };
-
-  const modalResult = useCouponCombos(
-    tempCoupon,
-    cartItems.filter((item) => selectedItems.includes(item.id)),
-    validatedCouponList,
-    subTotal,
-    deliveryFee
-  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="쿠폰을 선택해 주세요">

@@ -35,7 +35,7 @@ function OrderCheckPage() {
   );
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
   const [checkedCoupons, setCheckedCoupons] = useState<number[]>([]);
 
   const result = useCouponCombos(
@@ -53,13 +53,13 @@ function OrderCheckPage() {
 
   const deliveryFee = hasFreeShipping
     ? 0
-    : isChecked
+    : isRemotedAreaChecked
     ? (result?.finalShipping ?? cart.deliveryFee) + 3000
     : result?.finalShipping ?? cart.deliveryFee;
 
   const finalPrice = result?.PriceWithDiscount + deliveryFee;
 
-  const handleApplyCoupon = () => {
+  const handleCouponModalOpen = () => {
     setCheckedCoupons(result.combo.map((coupon) => coupon.id));
     setIsCouponModalOpen(true);
   };
@@ -68,8 +68,8 @@ function OrderCheckPage() {
     setIsCouponModalOpen(false);
   };
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+  const handleRemotedAreaChange = () => {
+    setIsRemotedAreaChecked(!isRemotedAreaChecked);
   };
 
   const handleCouponAccept = (couponIds: number[]) => {
@@ -94,12 +94,16 @@ function OrderCheckPage() {
             <OrderCartItem key={item.id} item={item} />
           ))}
         </ul>
-        <Button color="white" variant="secondary" onClick={handleApplyCoupon}>
+        <Button
+          color="white"
+          variant="secondary"
+          onClick={handleCouponModalOpen}
+        >
           <Text varient="body">쿠폰 적용</Text>
         </Button>
         <DeliverInfo
-          isChecked={isChecked}
-          onCheckboxChange={handleCheckboxChange}
+          isChecked={isRemotedAreaChecked}
+          onCheckboxChange={handleRemotedAreaChange}
         />
         <CartPriceCouponInfo
           subTotal={cart.subTotal}
