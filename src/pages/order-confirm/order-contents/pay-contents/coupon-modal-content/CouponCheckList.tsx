@@ -60,9 +60,7 @@ function CouponCheckList({
           return (
             <CouponCheckItem
               key={coupon.id}
-              couponId={coupon.id}
-              titleText={coupon.description}
-              expiryDate={coupon.expirationDate}
+              coupon={coupon}
               details={getCouponDetails(coupon)}
               disabled={!isAvailable}
             />

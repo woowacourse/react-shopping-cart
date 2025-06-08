@@ -3,24 +3,21 @@ import { useCouponContext } from "../../../pages/order-confirm/context/CouponPro
 import CheckboxLabel from "../CheckboxLabel";
 import Flex from "../Flex";
 import LabelTextPair, { labelTextPairType } from "./LabelTextPair";
+import { Coupon } from "../../../api/coupon";
 
 interface CouponCheckItemProps {
-  couponId: string;
-  expiryDate: [number, number, number];
-  titleText: string;
+  coupon: Coupon;
   details?: labelTextPairType[];
   disabled?: boolean;
 }
 
 function CouponCheckItem({
-  couponId,
-  expiryDate,
-  titleText,
+  coupon,
   details,
   disabled = false,
 }: CouponCheckItemProps) {
-  const { selectedCoupon, handleCouponToggle } = useCouponContext();
-  const [year, month, day] = expiryDate;
+  const { selectedCoupons, handleCouponToggle } = useCouponContext();
+  const [year, month, day] = coupon.expirationDate;
 
   return (
     <Container
@@ -31,10 +28,12 @@ function CouponCheckItem({
       disabled={disabled}
     >
       <CheckboxLabel
-        isChecked={selectedCoupon.includes(couponId)}
-        onToggle={() => !disabled && handleCouponToggle(couponId)}
+        isChecked={selectedCoupons.some(
+          (selectedCoupon) => selectedCoupon.id === coupon.id
+        )}
+        onToggle={() => !disabled && handleCouponToggle(coupon)}
       >
-        <CouponTitle>{titleText}</CouponTitle>
+        <CouponTitle>{coupon.description}</CouponTitle>
       </CheckboxLabel>
       <LabelTextPair
         labelTextPairArray={["만료일", `${year}년 ${month}월 ${day}일`]}

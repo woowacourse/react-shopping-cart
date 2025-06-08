@@ -4,7 +4,7 @@ import { calculateCouponDiscount } from "./couponCalculator";
 import { isCouponAvailable } from "./couponValidation";
 
 export interface OptimizedCouponResult {
-  selectedCouponIds: string[];
+  selectedCoupons: Coupon[];
   totalDiscount: number;
   finalShippingFee: number;
   hasFreeShipping: boolean;
@@ -36,7 +36,7 @@ export function optimizeCouponSelection(
 
   // 최적의 쿠폰 조합 찾기
   let bestResult: OptimizedCouponResult = {
-    selectedCouponIds: [],
+    selectedCoupons: [],
     totalDiscount: 0,
     finalShippingFee: shippingFee,
     hasFreeShipping: false,
@@ -45,8 +45,7 @@ export function optimizeCouponSelection(
   // 단일 쿠폰 최적화
   for (const coupon of sortedCoupons) {
     const result = calculateCouponDiscount(
-      sortedCoupons,
-      [coupon.id],
+      [coupon],
       totalCartPrice,
       shippingFee,
       selectedCartItems
@@ -54,7 +53,7 @@ export function optimizeCouponSelection(
 
     if (result.finalDiscount > bestResult.totalDiscount) {
       bestResult = {
-        selectedCouponIds: [coupon.id],
+        selectedCoupons: [coupon],
         totalDiscount: result.finalDiscount,
         finalShippingFee: result.finalShippingFee,
         hasFreeShipping: result.hasFreeShipping,
@@ -65,10 +64,8 @@ export function optimizeCouponSelection(
   // 두 개의 쿠폰 조합 최적화
   for (let i = 0; i < sortedCoupons.length; i++) {
     for (let j = i + 1; j < sortedCoupons.length; j++) {
-      const selectedCouponIds = [sortedCoupons[i].id, sortedCoupons[j].id];
       const result = calculateCouponDiscount(
-        sortedCoupons,
-        selectedCouponIds,
+        [sortedCoupons[i], sortedCoupons[j]],
         totalCartPrice,
         shippingFee,
         selectedCartItems
@@ -76,7 +73,7 @@ export function optimizeCouponSelection(
 
       if (result.finalDiscount > bestResult.totalDiscount) {
         bestResult = {
-          selectedCouponIds,
+          selectedCoupons: [sortedCoupons[i], sortedCoupons[j]],
           totalDiscount: result.finalDiscount,
           finalShippingFee: result.finalShippingFee,
           hasFreeShipping: result.hasFreeShipping,

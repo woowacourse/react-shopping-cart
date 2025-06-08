@@ -11,9 +11,9 @@ import { Coupon } from "../../../api/coupon";
 import { optimizeCouponSelection } from "../order-contents/pay-contents/coupon-modal-content/utils/couponOptimizer";
 
 interface CouponContextInterface {
-  selectedCoupon: string[];
-  handleCouponToggle: (couponId: string) => void;
-  handleCouponSelectionIds: (couponIds: string[]) => void;
+  selectedCoupons: Coupon[];
+  handleCouponToggle: (coupon: Coupon) => void;
+  handleCouponSelection: (coupons: Coupon[]) => void;
   initializeCoupons: (
     coupons: Coupon[],
     totalCartPrice: number,
@@ -25,7 +25,7 @@ interface CouponContextInterface {
 const CouponContext = createContext<CouponContextInterface | null>(null);
 
 export const CouponProvider = ({ children }: PropsWithChildren) => {
-  const [selectedCoupon, setSelectedCoupon] = useState<string[]>([]);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
@@ -35,26 +35,26 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const handleCouponToggle = useCallback(
-    (couponId: string) => {
-      setSelectedCoupon((prev) => {
-        if (prev.includes(couponId)) {
-          return prev.filter((id) => id !== couponId);
+    (coupon: Coupon) => {
+      setSelectedCoupons((prev) => {
+        if (prev.some((c) => c.id === coupon.id)) {
+          return prev.filter((c) => c.id !== coupon.id);
         } else {
           if (prev.length >= 2) {
             return prev;
           }
-          return [...prev, couponId];
+          return [...prev, coupon];
         }
       });
     },
-    [setSelectedCoupon]
+    [setSelectedCoupons]
   );
 
-  const handleCouponSelectionIds = useCallback(
-    (couponIds: string[]) => {
-      setSelectedCoupon(couponIds);
+  const handleCouponSelection = useCallback(
+    (coupons: Coupon[]) => {
+      setSelectedCoupons(coupons);
     },
-    [setSelectedCoupon]
+    [setSelectedCoupons]
   );
 
   const initializeCoupons = useCallback(
@@ -71,9 +71,9 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
           shippingFee,
           selectedCartItems
         );
-        setSelectedCoupon(result.selectedCouponIds);
+        setSelectedCoupons(result.selectedCoupons);
         setIsInitialized(true);
-        return result.selectedCouponIds.length > 0;
+        return result.selectedCoupons.length > 0;
       }
       return false;
     },
@@ -83,9 +83,9 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
   return (
     <CouponContext.Provider
       value={{
-        selectedCoupon,
+        selectedCoupons,
         handleCouponToggle,
-        handleCouponSelectionIds,
+        handleCouponSelection,
         initializeCoupons,
       }}
     >

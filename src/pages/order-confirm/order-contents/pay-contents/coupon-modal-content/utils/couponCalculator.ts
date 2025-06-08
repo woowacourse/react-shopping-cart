@@ -5,21 +5,15 @@ export interface CouponCalculationResult {
   totalDiscount: number;
   finalShippingFee: number;
   hasFreeShipping: boolean;
-  selectedCoupons: Coupon[];
   finalDiscount: number;
 }
 
 export function calculateCouponDiscount(
-  coupons: Coupon[],
-  selectedCouponIds: string[],
+  selectedCoupons: Coupon[],
   totalCartPrice: number,
   shippingFee: number,
   selectedCartItems: Cart[] | undefined
 ): CouponCalculationResult {
-  const selectedCoupons = coupons.filter((coupon) =>
-    selectedCouponIds.includes(coupon.id)
-  );
-
   let totalDiscount = 0;
   let finalShippingFee = shippingFee;
   let hasFreeShipping = false;
@@ -70,7 +64,6 @@ export function calculateCouponDiscount(
     totalDiscount,
     finalShippingFee,
     hasFreeShipping,
-    selectedCoupons,
     finalDiscount,
   };
 }
