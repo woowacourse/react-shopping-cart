@@ -75,9 +75,8 @@ ui 퍼블리싱
     - [x] calculateCartPrice utils 함수 테스트
   - [ ] order
     - [x] useCouponResource 훅 테스트
-    - [ ] useDeliveryInformation 훅 테스트
     - [ ] useCoupon 훅 테스트
-    - [ ] utils 함수들 테스트
+    - [x] utils 함수들 테스트
 
 ### 응집도와 결합도 측면에서의 대화
 
