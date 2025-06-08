@@ -1,6 +1,6 @@
 import { Coupon } from "@/apis/coupon/coupon.type";
 import InfoText from "@/shared/components/InfoText/InfoText";
-import Modal from "@/shared/components/Modal";
+import Modal from "@/shared/components/Modal/Modal";
 import * as S from "./ApplyCouponModal.styled";
 import CouponList from "./CouponList/CouponList";
 import CouponItem from "./CouponList/CouponItem/CouponItem";
