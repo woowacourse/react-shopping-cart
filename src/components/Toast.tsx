@@ -61,5 +61,6 @@ const S = {
     font-size: 12px;
     font-weight: 500;
     animation: ${active} 2s ease forwards;
+    z-index: 100;
   `,
 };
