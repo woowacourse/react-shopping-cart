@@ -1,8 +1,10 @@
-import { CouponType } from "../../type/Coupons";
+import { Coupon, CouponType } from "../../type/Coupons";
 import { validateFixedDiscountCoupon } from "./FixedDiscountCoupon/validate";
 import { validateBuyXGetYCoupon } from "./BuyXGetYCoupon/validate";
 import { validateFreeShippingCoupon } from "./FreeShippingCoupon/validate";
 import { validatePercentageDiscountCoupon } from "./PercentageDiscountCoupon/validate";
+import { CartItem } from "../../type/CartItem";
+import { calculateTotalPrice } from "../cart/calculateTotalPrice";
 
 export const validateExpirationDate = (expirationDate: string): boolean => {
   const today = new Date();
@@ -10,9 +12,40 @@ export const validateExpirationDate = (expirationDate: string): boolean => {
   return expiration >= today;
 };
 
-export const VALIDATE_COUPONS = {
-  [CouponType.FIXED]: validateFixedDiscountCoupon,
-  [CouponType.BUY_X_GET_Y]: validateBuyXGetYCoupon,
-  [CouponType.FREE_SHIPPING]: validateFreeShippingCoupon,
-  [CouponType.PERCENTAGE]: validatePercentageDiscountCoupon,
+export const validateCoupons = ({
+  cartItems,
+  coupon,
+}: {
+  cartItems: CartItem[];
+  coupon: Coupon;
+}) => {
+  const totalPrice = calculateTotalPrice(cartItems);
+
+  switch (coupon.discountType) {
+    case CouponType.FIXED: {
+      return validateFixedDiscountCoupon({
+        totalPrice,
+        coupon,
+      });
+    }
+    case CouponType.FREE_SHIPPING: {
+      return validateFreeShippingCoupon({
+        totalPrice,
+        coupon,
+      });
+    }
+    case CouponType.PERCENTAGE: {
+      return validatePercentageDiscountCoupon({
+        coupon,
+      });
+    }
+    case CouponType.BUY_X_GET_Y: {
+      return validateBuyXGetYCoupon({
+        coupon,
+        cartItems,
+      });
+    }
+    default:
+      return false;
+  }
 };
