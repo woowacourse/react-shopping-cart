@@ -36,4 +36,12 @@ export interface OrderPageState {
   isOptimized: boolean;
   canSelectMore: boolean;
   toggleCoupon: (couponId: number) => void;
+  calculation: OrderCalculationResult;
+}
+
+export interface OrderCalculationResult {
+  orderAmount: number;
+  couponDiscount: number;
+  shippingFee: number;
+  finalAmount: number;
 }

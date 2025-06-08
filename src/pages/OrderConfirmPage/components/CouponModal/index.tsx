@@ -56,7 +56,9 @@ const CouponModal = ({ onClose, orderState }: orderStateProps) => {
           </S.CouponList>
         </S.ModalMiddle>
         <Button variant="primary" size="full" radius={8} onClick={() => {}}>
-          총 6,000원 할인 쿠폰 사용하기
+          {orderState.calculation.couponDiscount > 0
+            ? `총 ${orderState.calculation.couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`
+            : "쿠폰 선택하기"}
         </Button>
       </S.StyledModalContent>
     </Modal>

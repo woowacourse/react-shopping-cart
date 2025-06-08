@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useCouponApi } from "../../../hooks/useCouponApi";
-import { GetCouponResponse } from "../../../apis/couponApi";
+import { CouponData } from "../types";
 
 export const useCoupons = () => {
-  const [coupons, setCoupons] = useState<GetCouponResponse[]>([]);
+  const [coupons, setCoupons] = useState<CouponData[]>([]);
   const { isLoading, getCoupons } = useCouponApi();
 
   useEffect(() => {

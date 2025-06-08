@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { CouponData, OrderItem } from "../types";
+import { OrderItem } from "../types";
 import { useCoupons } from "./useCoupons";
 import { useCouponSelection } from "./useCouponSelection";
+import { useOrderCalculation } from "./useOrderCalculation";
 
 interface UseOrderStateParams {
   orderItems: OrderItem[];
@@ -13,6 +14,13 @@ export const useOrderState = ({ orderItems }: UseOrderStateParams) => {
 
   const { selectedCouponIds, isOptimized, canSelectMore, toggleCoupon } = useCouponSelection();
 
+  const calculation = useOrderCalculation({
+    orderItems,
+    selectedCouponIds,
+    coupons,
+    isIsolatedAreaSelected,
+  });
+
   const toggleIsolatedArea = () => {
     setIsIsolatedAreaSelected((prev) => !prev);
   };
@@ -20,12 +28,13 @@ export const useOrderState = ({ orderItems }: UseOrderStateParams) => {
   return {
     orderItems,
     isLoading,
-    availableCoupons: coupons as CouponData[],
+    availableCoupons: coupons,
     isIsolatedAreaSelected,
     toggleIsolatedArea,
     selectedCouponIds,
     isOptimized,
     canSelectMore,
     toggleCoupon,
+    calculation,
   };
 };
