@@ -23,16 +23,18 @@ import { useState } from 'react';
 import { PaymentSummary } from '../../components/Payment/PaymentSummary/PaymentSummary';
 import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
 import { getCartItemSummary } from '../../utils/getCartItemSummary';
+import { Modal } from '../../components/Common/Modal/Modal';
+import ModalContent from '../../components/Common/ModalContent/ModalContent';
+import { ModalOverlay } from '../../components/Common/ModalOverlay/ModalOverlay';
+import { CouponModalContent } from '../../components/CouponModal/CouponModalContent/CouponModalContent';
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
 
   const [isChecked, setIsChecked] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
   const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate('/');
-  };
 
   const selectedCartItemIds = getItem<string[]>(SELECTED_CART_ITEM_IDS, []);
 
@@ -42,6 +44,30 @@ export function OrderConfirm() {
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
+  };
+
+  const handleBackClick = () => {
+    navigate('/');
+  };
+
+  const handleCouponIdsChange = (id: string) => {
+    const index = selectedCouponIds.findIndex((e) => e === id);
+
+    if (index === -1) {
+      setSelectedCouponIds((prev) => [...prev, id]);
+    } else {
+      const copy = [...selectedCouponIds];
+      copy.splice(index, 1);
+      setSelectedCouponIds(copy);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleUseClick = () => {
+    setOpen(false);
   };
 
   const { totalPrice } = getCartItemSummary(
@@ -59,51 +85,64 @@ export function OrderConfirm() {
   const deliveryFee = getDeliveryFee();
 
   return (
-    <PageLayout>
-      <Header>
-        <button css={backButton} onClick={handleBackClick}>
-          <img css={backImg} src="./back.png" />
-        </button>
-      </Header>
-      <Main>
-        <div css={titleBox}>
-          <p css={titleStyle}>주문 확인</p>
-          <div css={subTitleBox}>
-            <p css={subTitleStyle}>
-              현재 {selectedCartItemIds.length}종류의 상품 {}개를 주문합니다.
-            </p>
-            <p css={subTitleStyle}>최종 결제 금액을 확인해 주세요.</p>
+    <>
+      <PageLayout>
+        <Header>
+          <button css={backButton} onClick={handleBackClick}>
+            <img css={backImg} src="./back.png" />
+          </button>
+        </Header>
+        <Main>
+          <div css={titleBox}>
+            <p css={titleStyle}>주문 확인</p>
+            <div css={subTitleBox}>
+              <p css={subTitleStyle}>
+                현재 {selectedCartItemIds.length}종류의 상품 {}개를 주문합니다.
+              </p>
+              <p css={subTitleStyle}>최종 결제 금액을 확인해 주세요.</p>
+            </div>
           </div>
-        </div>
-        <SelectedCartProductContainer cartItems={selectedCartItems} />
-        <button css={applyButton} onClick={() => {}}>
-          쿠폰 적용
-        </button>
-        <div>
-          <p css={deliveryText}>배송 정보</p>
-          <div css={checkBoxWrapper}>
-            <CheckBox
-              id="mountainousArea"
-              isChecked={isChecked}
-              onChange={handleCheckBoxChange}
-              dataTestId="mountainousArea"
-            />
-            <label htmlFor="mountainousArea" css={labelText}>
-              제주도 및 도서 산간 지역
-            </label>
+          <SelectedCartProductContainer cartItems={selectedCartItems} />
+          <button css={applyButton} onClick={() => setOpen(true)}>
+            쿠폰 적용
+          </button>
+          <div>
+            <p css={deliveryText}>배송 정보</p>
+            <div css={checkBoxWrapper}>
+              <CheckBox
+                id="mountainousArea"
+                isChecked={isChecked}
+                onChange={handleCheckBoxChange}
+                dataTestId="mountainousArea"
+              />
+              <label htmlFor="mountainousArea" css={labelText}>
+                제주도 및 도서 산간 지역
+              </label>
+            </div>
           </div>
-        </div>
-        <PaymentSummary
-          price={totalPrice}
-          CouponDiscountAmount={0}
-          deliveryFee={deliveryFee}
-        />
-      </Main>
-      <Footer>
-        <Button onClick={() => {}} type="submit" size="full" style="primary">
-          결제하기
-        </Button>
-      </Footer>
-    </PageLayout>
+          <PaymentSummary
+            price={totalPrice}
+            CouponDiscountAmount={0}
+            deliveryFee={deliveryFee}
+          />
+        </Main>
+        <Footer>
+          <Button onClick={() => {}} type="submit" size="full" style="primary">
+            결제하기
+          </Button>
+        </Footer>
+      </PageLayout>
+      <Modal open={open}>
+        <ModalOverlay setOpen={setOpen} />
+        <ModalContent>
+          <CouponModalContent
+            onChange={handleCouponIdsChange}
+            selectedCouponIds={selectedCouponIds}
+            handleClose={handleClose}
+            handleUseClick={handleUseClick}
+          />
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
