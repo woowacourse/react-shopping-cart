@@ -79,3 +79,8 @@ export const CouponList = styled.div`
   flex-direction: column;
   gap: 8px;
 `;
+
+export const CouponListWrapper = styled.div`
+  height: 400px;
+  overflow: scroll;
+`;
