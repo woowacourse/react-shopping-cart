@@ -69,4 +69,18 @@ describe('주문 확인 페이지를 렌더링 한다.', () => {
     // Then: 무료배송 쿠폰이 적용되어 배송비가 0원으로 표시된다.
     expect(screen.getByText('0원')).toBeInTheDocument();
   });
+
+  it('제주도 및 도서 산간 지역의 경우, 배송비가 3000원으로 표시된다.', async () => {
+    // Given: 주문 결제 페이지를 렌더링한다.
+    await act(async () => {
+      renderOrderCheckoutPage();
+    });
+
+    // When: 제주도 및 도서 산간 지역을 클릭
+    const deliveryZoneButton = screen.getByText('제주도 및 도서 산간 지역');
+    await user.click(deliveryZoneButton);
+
+    // Then: 제주도 및 도서 산간 지역의 경우, 배송비가 3000원으로 표시된다.
+    expect(screen.getByText('3,000원')).toBeInTheDocument();
+  });
 });
