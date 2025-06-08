@@ -4,6 +4,7 @@ import Text from "../@common/Text/Text";
 import { CartItem } from "../../types/type";
 import EditableCartItemCard from "../CartItemCard/EditableCartItemCard";
 import { useSelectedCartItemContext } from "../../contexts/selectedCartItem/useSelectedCartItemContext";
+import { useEffect } from "react";
 
 interface CartItemCardListProps {
   cartItems: CartItem[];
@@ -12,6 +13,12 @@ interface CartItemCardListProps {
 const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
     useSelectedCartItemContext();
+
+  useEffect(() => {
+    if (selectedItemIds.size === 0 && cartItems.length > 0) {
+      replaceSelectedItemIds(cartItems.map((item) => item.id));
+    }
+  }, [cartItems]);
 
   const isSelectedItem = (cartItemId: number) => {
     return selectedItemIds.has(cartItemId);

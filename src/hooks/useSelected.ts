@@ -22,6 +22,10 @@ export const useSelected = ({
     return new Set();
   });
 
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify([...selectedItemIds]));
+  }, [selectedItemIds]);
+
   const toggleSelectedItemId = (id: number) => {
     const newSet = new Set(selectedItemIds);
     newSet.has(id) ? newSet.delete(id) : newSet.add(id);
@@ -31,10 +35,6 @@ export const useSelected = ({
   const replaceSelectedItemIds = (ids: number[]) => {
     setSelectedItemIds(new Set(ids));
   };
-
-  useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify([...selectedItemIds]));
-  }, [selectedItemIds]);
 
   return {
     selectedItemIds,
