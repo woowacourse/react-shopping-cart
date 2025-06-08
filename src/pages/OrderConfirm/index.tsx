@@ -12,6 +12,7 @@ import CouponList from "../../components/feature/Coupon/CouponList";
 import { useState } from "react";
 import { MAX_COUPON_COUNT } from "./constant";
 import { useNavigate } from "react-router";
+import { CouponResponse } from "../../type/coupon";
 
 const OrderConfirm = () => {
   const location = useLocation();
@@ -45,10 +46,11 @@ const OrderConfirm = () => {
     if (coupon.minimumAmount) return coupon.minimumAmount <= totalPrice;
 
     if (coupon.buyQuantity) {
-      cartItems.filter((item: CartProduct) =>
-        selectedCartIds.includes(item.product.id)
+      const selectedCartItems = cartItems.filter((item: CartProduct) =>
+        selectedCartIds.includes(item.id)
       );
-      return cartItems.some(
+
+      return selectedCartItems.some(
         (item: CartProduct) => item.quantity > coupon.buyQuantity
       );
     }
@@ -76,6 +78,42 @@ const OrderConfirm = () => {
     const endTime = endHour * 60 + endMin;
 
     return nowTime >= startTime && nowTime <= endTime;
+  };
+
+  const calculateDiscount = (coupon: CouponResponse) => {
+    if (coupon.discountType === "fixed") return coupon.discount;
+
+    if (coupon.discountType === "buyXgetY") {
+      const selectedCartItems = cartItems.filter((item: CartProduct) =>
+        selectedCartIds.includes(item.id)
+      );
+
+      const eligibleItems = selectedCartItems.filter(
+        (item: CartProduct) => item.quantity > coupon.buyQuantity
+      );
+
+      eligibleItems.sort(
+        (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
+      );
+
+      return eligibleItems[0].product.price;
+    }
+
+    if (coupon.discountType === "freeShipping") return 3000;
+
+    if (coupon.discountType === "percentage") return totalPrice * 0.3;
+  };
+
+  const getTotalDiscount = () => {
+    if (selectedIds.length === 0) return;
+
+    const selectedCoupons = coupons?.filter((coupon) =>
+      selectedIds.includes(coupon.id)
+    );
+
+    return selectedCoupons?.reduce((total, current) => {
+      return (total += calculateDiscount(current));
+    }, 0);
   };
 
   const getValidCoupons = () => {
@@ -118,7 +156,7 @@ const OrderConfirm = () => {
         <PriceSection
           cartItems={cartItems}
           selectedCartIds={selectedCartIds}
-          discount={3000}
+          discount={getTotalDiscount()}
         />
       </S.Container>
 
