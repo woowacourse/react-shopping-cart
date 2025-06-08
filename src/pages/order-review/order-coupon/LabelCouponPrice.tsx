@@ -8,11 +8,13 @@ import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProv
 interface LabelCouponPriceProps {
   totalDiscount: number;
   actualShippingFee: number;
+  payment: number;
 }
 
 const LabelCouponPrice = ({
   totalDiscount,
   actualShippingFee,
+  payment,
 }: LabelCouponPriceProps) => {
   const { orderPrice } = useOrderListContext();
 
@@ -27,10 +29,7 @@ const LabelCouponPrice = ({
         <LabelPrice label='배송비' price={actualShippingFee} />
       </PriceWrapper>
 
-      <LabelPrice
-        label='총 결제 금액'
-        price={orderPrice + actualShippingFee - totalDiscount}
-      />
+      <LabelPrice label='총 결제 금액' price={payment} />
     </Container>
   );
 };
