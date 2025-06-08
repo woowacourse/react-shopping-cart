@@ -80,7 +80,11 @@ function OrderCheck() {
           couponDiscount={couponDiscount}
         />
       </ContainerLayout>
-      <PayButton />
+      <PayButton
+        orderItemsQuantity={totalProductQuantity}
+        productTypeCount={selectedCartData.length}
+        orderPrice={totalPrice - couponDiscount}
+      />
       <CouponModal
         isOpen={isOpen}
         couponList={couponList}

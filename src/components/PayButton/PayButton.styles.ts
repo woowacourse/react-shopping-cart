@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
 
+import { theme } from '../../styles';
+
 export const ButtonStyle = css`
-  background: #000;
-  color: #ffffff;
+  background: ${theme.color.black};
+  color: ${theme.color.white};
   width: 100%;
   height: 6.4rem;
   padding: 2.4rem;
