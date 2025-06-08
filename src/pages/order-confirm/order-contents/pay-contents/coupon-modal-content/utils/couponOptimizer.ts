@@ -1,6 +1,7 @@
 import { Cart } from "../../../../../../api/cart";
 import { Coupon } from "../../../../../../api/coupon";
 import { calculateCouponDiscount } from "./couponCalculator";
+import { isCouponAvailable } from "./couponValidation";
 
 export interface OptimizedCouponResult {
   selectedCouponIds: string[];
@@ -16,21 +17,9 @@ export function optimizeCouponSelection(
   selectedCartItems: Cart[] | undefined
 ): OptimizedCouponResult {
   // 사용 가능한 쿠폰만 필터링
-  const availableCoupons = coupons.filter((coupon) => {
-    switch (coupon.discountType) {
-      case "fixed":
-      case "freeShipping":
-        return totalCartPrice >= coupon.minimumAmount;
-      case "buyXgetY":
-        return selectedCartItems?.some(
-          (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
-        );
-      case "percentage":
-        return true;
-      default:
-        return false;
-    }
-  });
+  const availableCoupons = coupons.filter((coupon) =>
+    isCouponAvailable(coupon, totalCartPrice, selectedCartItems)
+  );
 
   // 쿠폰 타입별 우선순위 설정
   const priorityMap: Record<Coupon["discountType"], number> = {

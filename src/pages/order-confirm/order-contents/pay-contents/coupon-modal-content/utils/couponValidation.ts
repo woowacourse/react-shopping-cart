@@ -20,6 +20,13 @@ export function isCouponAvailable(
         (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
       );
     case "percentage":
+      if (coupon.availableTime) {
+        const now = new Date();
+        const currentHour = now.getHours();
+        const startHour = parseInt(coupon.availableTime.start);
+        const endHour = parseInt(coupon.availableTime.end);
+        return currentHour >= startHour && currentHour < endHour;
+      }
       return true;
     default:
       return false;
