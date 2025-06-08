@@ -83,4 +83,25 @@ describe('주문 확인 페이지를 렌더링 한다.', () => {
     // Then: 제주도 및 도서 산간 지역의 경우, 배송비가 3000원으로 표시된다.
     expect(screen.getByText('3,000원')).toBeInTheDocument();
   });
+
+  it('오늘 날짜가 만료일 내에 존재하지 않는 경우, 쿠폰이 비활성화된다.', async () => {
+    mockExpiredCouponsScenario();
+    mockCouponApi.getCoupons.mockImplementation(async () => {
+      return Promise.resolve([...Coupons]);
+    });
+
+    await act(async () => {
+      renderOrderCheckoutPage();
+    });
+
+    expect(mockCouponApi.getCoupons).toHaveBeenCalled();
+
+    const couponButton = screen.getByText('쿠폰 적용');
+    expect(screen.getByText('쿠폰 적용')).toBeInTheDocument();
+    await user.click(couponButton);
+
+    expect(screen.getByText('쿠폰을 선택해 주세요')).toBeInTheDocument();
+
+    expectAllCheckboxesDisabled();
+  });
 });
