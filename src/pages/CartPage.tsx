@@ -9,10 +9,17 @@ import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 import { usePageContext } from '../contexts/Page/PageContext';
 import S from './page.Style';
 import InlineNotice from '../components/InlineNotice';
+import { useCouponsContext } from '../contexts/Coupons/CouponsContext';
+import { useEffect } from 'react';
 
 const CartPage = () => {
   const { cartItems } = useCartItemsContext();
   const { setPage } = usePageContext();
+  const { init: initCoupon } = useCouponsContext();
+
+  useEffect(() => {
+    initCoupon();
+  }, [initCoupon]);
 
   return (
     <>

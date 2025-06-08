@@ -12,7 +12,7 @@ const PageController = () => {
     <S.container>
       <Header />
       {page === 'cart' && <CartPage />}
-      {page && <OrderConfirmPage />}
+      {page === 'orderConfirm' && <OrderConfirmPage />}
       {page === 'orderPriceConfirm' && <OrderPriceConfirmPage />}
     </S.container>
   );
