@@ -1,9 +1,4 @@
-import {
-  CouponType,
-  FixedCoupon,
-  PercentageCoupon,
-  BuyXGetYCoupon,
-} from "../types/coupon";
+import { CouponType, FixedCoupon, PercentageCoupon } from "../types/coupon";
 import { CartItemType } from "../types/response";
 
 export function calculateDiscountAmount({
@@ -77,20 +72,25 @@ function getDiscountAmount(
     }
 
     case "buyXgetY": {
-      const { buyQuantity, getQuantity } = coupon as BuyXGetYCoupon;
-      const biggestPrice = Math.max(
-        ...cartItems
-          .filter((item) => item.quantity >= buyQuantity + getQuantity)
-          .map((item) => item.product.price)
-      );
-      const biggestPriceItem = cartItems.find(
-        (item) => item.product.price === biggestPrice
+      const { buyQuantity, getQuantity } = coupon;
+
+      const eligibleItems = cartItems.filter(
+        (item) => item.quantity >= buyQuantity + getQuantity
       );
 
-      const freeQuantity =
-        biggestPriceItem!.quantity / (buyQuantity + getQuantity);
+      const sorted = eligibleItems.sort((a, b) => {
+        if (b.product.price !== a.product.price) {
+          return b.product.price - a.product.price;
+        }
+        return b.quantity - a.quantity;
+      });
 
-      return freeQuantity * biggestPrice;
+      const topItem = sorted[0];
+      const setCount = Math.floor(
+        topItem.quantity / (buyQuantity + getQuantity)
+      );
+
+      return setCount * topItem.product.price;
     }
 
     default:
