@@ -1,9 +1,9 @@
-import { ComponentProps } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
 import * as Styled from "../styles/ModalHeader.style";
 
-interface ModalHeaderProps extends ComponentProps<"header"> {
-  children: React.ReactNode;
-}
+interface ModalHeaderProps
+  extends PropsWithChildren,
+    ComponentProps<"header"> {}
 
 function Header({ children, ...props }: ModalHeaderProps) {
   return (

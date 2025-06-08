@@ -13,7 +13,6 @@ import {
   useState,
   createContext,
   useContext,
-  ReactNode,
   PropsWithChildren,
 } from "react";
 import Modal from "@/components/common/Modal/Modal";
@@ -54,9 +53,8 @@ const useOrderConfirmationContext = () => {
   return context;
 };
 
-interface OrderConfirmationProps {
+interface OrderConfirmationProps extends PropsWithChildren {
   selectedCartItems: CartItem[];
-  children: ReactNode;
   isInIsland: boolean;
   setIsInIsland: (inIsland: boolean) => void;
   couponsData: Coupon[] | null;

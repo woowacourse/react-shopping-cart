@@ -1,8 +1,7 @@
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { ReactElement, PropsWithChildren, useEffect, useState } from "react";
 
-export interface StepProps {
+export interface StepProps extends PropsWithChildren {
   name: string;
-  children: ReactNode;
 }
 export interface FunnelProps {
   children: Array<ReactElement<StepProps>>;

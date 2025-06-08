@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { CartItem } from "@/type/CartItem";
 import { Coupon } from "@/type/Coupon";
 import { useCouponCalculation } from "./useCouponCalculation";
@@ -27,15 +26,12 @@ const useCouponDiscount = ({
     isIsland,
   });
 
-  return useMemo(
-    () => ({
-      orderTotal: calculationResult.orderTotal,
-      shippingFee: calculationResult.shippingFee,
-      discountTotal: calculationResult.discountTotal,
-      finalTotal: calculationResult.finalTotal,
-    }),
-    [calculationResult]
-  );
+  return {
+    orderTotal: calculationResult.orderTotal,
+    shippingFee: calculationResult.shippingFee,
+    discountTotal: calculationResult.discountTotal,
+    finalTotal: calculationResult.finalTotal,
+  };
 };
 
 export { useCouponDiscount };

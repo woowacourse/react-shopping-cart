@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { renderHook, waitFor, act } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { ErrorToastContextProvider } from "@/contexts/ErrorToastContext";
@@ -7,7 +7,7 @@ import useShoppingCart from "@/hooks/Cart/useShoppingCart";
 import { cartItems } from "@/mock/data";
 
 // 테스트용 래퍼 컴포넌트
-function TestWrapper({ children }: { children: ReactNode }) {
+function TestWrapper({ children }: PropsWithChildren) {
   return <ErrorToastContextProvider>{children}</ErrorToastContextProvider>;
 }
 

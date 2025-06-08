@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "@/contexts/ModalContext";
 import { useFocusTrap } from "@/hooks/Modal/useFocusTrap";
@@ -8,11 +8,10 @@ import Container from "./parts/Container";
 import Header from "./parts/Header";
 import Content from "./parts/Content";
 
-export interface ModalProps {
+export interface ModalProps extends PropsWithChildren {
   isOpen: boolean;
   onClose: () => void;
   position: "bottom" | "center";
-  children: React.ReactNode;
 }
 
 function Modal({ isOpen, onClose, position = "center", children }: ModalProps) {

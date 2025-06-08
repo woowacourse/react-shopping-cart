@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, PropsWithChildren } from "react";
 import { CartItem } from "@/type/CartItem";
 
 interface CartContextValue {
@@ -33,8 +33,7 @@ export const useCartContext = () => {
   return context;
 };
 
-interface CartProviderProps {
-  children: ReactNode;
+interface CartProviderProps extends PropsWithChildren {
   value: CartContextValue;
 }
 

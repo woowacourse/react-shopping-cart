@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, PropsWithChildren } from "react";
 import { useFunnel } from "@/hooks/Funnel/useFunnel";
 import { steps } from "@/constants/steps";
 import { StepProps, FunnelProps } from "@/hooks/Funnel/useFunnel";
@@ -23,9 +23,7 @@ export const useFunnelContext = () => {
   return context;
 };
 
-interface FunnelProviderProps {
-  children: ReactNode;
-}
+interface FunnelProviderProps extends PropsWithChildren {}
 
 export const FunnelProvider = ({ children }: FunnelProviderProps) => {
   const { Funnel, Step, setStep, currentStep } = useFunnel(steps[0]);

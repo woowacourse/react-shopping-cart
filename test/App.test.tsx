@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
@@ -29,7 +29,7 @@ const mockingCartItems: CartItem[] = [
   },
 ];
 
-function TestWrapper({ children }: { children: ReactNode }) {
+function TestWrapper({ children }: PropsWithChildren) {
   return (
     <ErrorToastContextProvider>
       <BrowserRouter>

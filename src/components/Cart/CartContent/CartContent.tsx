@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { useCartContext } from "../CartContext";
 import * as Styled from "./CartContent.style";
 import CartList from "../CartList/CartList";
@@ -6,15 +6,12 @@ import CartCard from "../CartCard/CartCard";
 import CheckBox from "@/components/common/CheckBox";
 import Spinner from "@/components/common/Spinner";
 
-interface CartContentRootProps {
-  children: ReactNode;
-}
+interface CartContentRootProps extends PropsWithChildren {}
 
 const CartContentRoot = ({ children }: CartContentRootProps) => {
   return <Styled.CartContentContainer>{children}</Styled.CartContentContainer>;
 };
 
-// Loading Component
 const CartContentLoading = () => {
   const { cartFetchLoading } = useCartContext();
 
