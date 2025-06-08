@@ -15,11 +15,12 @@ import { useNavigate } from "react-router";
 
 const OrderConfirm = () => {
   const location = useLocation();
-  const { sort, totalAmount, cartItems, selectedCartIds } = location.state;
+  const { sort, totalAmount, cartItems, selectedCartIds, totalPrice } =
+    location.state;
   const { coupons } = useGetCoupons();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRemoteAreaChecked, setRemoteAreaChecked] = useState(false);
-  const [selectedIds, setSelectedIds] = useState([1, 2]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const navigate = useNavigate();
 
   const handleSelectCoupon = (id: number) => {
@@ -34,6 +35,56 @@ const OrderConfirm = () => {
       isSelected ? prev.filter((prevId) => prevId !== id) : [...prev, id]
     );
   };
+
+  const isAvailable = (id: number): boolean => {
+    const coupon = coupons?.find((c) => c.id === id);
+    if (!coupon) return false;
+
+    if (!isValidDate(coupon?.expirationDate)) return false;
+
+    if (coupon.minimumAmount) return coupon.minimumAmount <= totalPrice;
+
+    if (coupon.buyQuantity) {
+      cartItems.filter((item: CartProduct) =>
+        selectedCartIds.includes(item.product.id)
+      );
+      return cartItems.some(
+        (item: CartProduct) => item.quantity > coupon.buyQuantity
+      );
+    }
+
+    if (coupon.availableTime) return isValidTime(coupon.availableTime);
+
+    return true;
+  };
+
+  const isValidDate = (expirationDate: string): boolean => {
+    const today = new Date();
+    const expiration = new Date(expirationDate);
+
+    return expiration >= today;
+  };
+
+  const isValidTime = (availableTime: { start: string; end: string }) => {
+    const now = new Date();
+    const nowTime = now.getHours() * 60 + now.getMinutes();
+
+    const [startHour, startMin] = availableTime.start.split(":").map(Number);
+    const [endHour, endMin] = availableTime.end.split(":").map(Number);
+
+    const startTime = startHour * 60 + startMin;
+    const endTime = endHour * 60 + endMin;
+
+    return nowTime >= startTime && nowTime <= endTime;
+  };
+
+  const getValidCoupons = () => {
+    if (!coupons) return;
+    const couponIds = coupons.map((coupon) => coupon.id);
+    return couponIds.filter((id) => isAvailable(id));
+  };
+
+  console.log(getValidCoupons());
 
   return (
     <>

@@ -4,7 +4,7 @@ import { useShowError } from "../provider/errorProvider";
 import { CouponResponse } from "../type/coupon";
 
 const useGetCoupons = () => {
-  const [coupons, setCoupons] = useState<CouponResponse>();
+  const [coupons, setCoupons] = useState<CouponResponse[]>();
   const showError = useShowError();
 
   const request = async () => {
