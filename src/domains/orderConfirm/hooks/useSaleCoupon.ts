@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react";
-import { CouponCode, CouponType } from "../types/coupon";
+import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 import { getCouponItems } from "../api/coupon";
+import { CouponCode, CouponCodes, CouponType } from "../types/coupon";
 import {
   validateDate,
   validateMinimumAmount,
   validateTime,
 } from "./utils/validateCoupons";
-import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
 export function useSaleCoupon() {
   const [selectedCoupons, setSelectedCoupons] = useState<CouponCode[]>([]);
   const [coupons, setCoupons] = useState<CouponType[]>([]);
 
   const today = new Date();
+
+  const isValidCoupon = ({
+    orderPrice,
+    twoPlusOneApplicableItems,
+  }: {
+    orderPrice: number;
+    twoPlusOneApplicableItems: CartItemTypes[];
+  }): Record<CouponCode, boolean> => {
+    return Object.values(CouponCodes).reduce((acc, code) => {
+      return {
+        ...acc,
+        [code]: validateCoupon(code, orderPrice, twoPlusOneApplicableItems),
+      };
+    }, {} as Record<CouponCode, boolean>);
+  };
 
   const validateCoupon = (
     couponCode: CouponCode,
@@ -60,6 +75,7 @@ export function useSaleCoupon() {
   return {
     handleCouponSelect,
     validateCoupon,
+    isValidCoupon,
     selectedCoupons,
     coupons,
   };

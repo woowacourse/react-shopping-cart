@@ -7,35 +7,39 @@ import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
-import { getOrderPrice } from "../../common/utils/getOrderPrice/getOrderPrice";
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
 
 import Modal from "compoents-modal-test-kangoll";
 import { useNavigate } from "react-router-dom";
 import { InfoText } from "../../../components/InfoText/InfoText";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
-import { CouponList } from "../components/CouponList/CouponList";
-import { useSaleCoupon } from "../hooks/useSaleCoupon";
-import { pressBackButton } from "./orderConfirm.style";
-import { getDeliveryFee } from "../utils/getDeliveryFee";
 import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity/calculateCartItemQuantity";
-import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
-import { getDisCountedPrice } from "../utils/getDisCountedPrice";
-import { CouponCode, CouponCodes } from "../types/coupon";
+import { CouponList } from "../components/CouponList/CouponList";
+import { usePaymentSummary } from "../hooks/usePaymentsummary";
+import { useSaleCoupon } from "../hooks/useSaleCoupon";
+import { useTwoPlusOneApplicableItems } from "../hooks/useTwoPlusOneApplicableItems";
+import { pressBackButton } from "./orderConfirm.style";
 
 export default function OrderConfirm() {
-  const { cartItems } = useCartContext();
-  const { selectedCartIds } = useSelectedCartContext();
-  const { handleCouponSelect, selectedCoupons, coupons, validateCoupon } =
-    useSaleCoupon();
+  const navigate = useNavigate();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
 
-  const twoPlusOneApplicableItems = cartItems.filter(
-    (item) => selectedCartIds.includes(item.id.toString()) && item.quantity >= 3
-  );
-
-  const navigate = useNavigate();
+  const { cartItems } = useCartContext();
+  const { selectedCartIds } = useSelectedCartContext();
+  const twoPlusOneApplicableItems = useTwoPlusOneApplicableItems({
+    cartItems,
+    selectedCartIds,
+  });
+  const { handleCouponSelect, isValidCoupon, selectedCoupons, coupons } =
+    useSaleCoupon();
+  const { deliveryFee, orderPrice, discountedPrice, totalPrice } =
+    usePaymentSummary({
+      isExtraDeliveryArea,
+      selectedCoupons,
+      twoPlusOneApplicableItems,
+    });
 
   const handlePressBack = () => {
     navigate("/");
@@ -47,49 +51,11 @@ export default function OrderConfirm() {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  const handleExtraDeliveryAreaChange = () => {
-    setIsExtraDeliveryArea((prev) => !prev);
-  };
-
-  const orderPrice = getOrderPrice({
-    cartItems: cartItems,
-    selectedCartIds,
-  });
-
-  const deliveryFee = getDeliveryFee({ orderPrice, isExtraDeliveryArea });
-
-  const discountedPrice = getDisCountedPrice({
-    deliveryFee,
-    orderPrice,
-    maxPriceInSelectedCart: getMaxPriceInSelectedCart({
-      selectedCartItems: twoPlusOneApplicableItems,
-    }),
-    selectedCoupons,
-  });
 
   const selectedCartItemCount = calculateCartItemQuantity({
     cartItems,
     selectedCartIds,
   });
-
-  const isValidCoupon: Record<CouponCode, boolean> = Object.values(
-    CouponCodes
-  ).reduce(
-    (acc, code) => {
-      return {
-        ...acc,
-        [code]: validateCoupon(code, orderPrice, twoPlusOneApplicableItems),
-      };
-    },
-    {
-      FIXED5000: false,
-      BOGO: false,
-      FREESHIPPING: false,
-      MIRACLESALE: false,
-    }
-  );
-
-  const totalPrice = orderPrice + deliveryFee - (discountedPrice || 0);
 
   const handleCompleteOrder = () => {
     navigate("/payment-complete", {
@@ -120,7 +86,7 @@ export default function OrderConfirm() {
         <SelectedCartContainer
           handleModalOpen={handleModalOpen}
           isExtraDeliveryArea={isExtraDeliveryArea}
-          handleCheckBox={handleExtraDeliveryAreaChange}
+          handleCheckBox={() => setIsExtraDeliveryArea((prev) => !prev)}
         />
         <PaymentSummary
           orderPrice={orderPrice}
@@ -152,7 +118,10 @@ export default function OrderConfirm() {
           <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
           <CouponList
             handleCouponSelect={handleCouponSelect}
-            validateCoupon={isValidCoupon}
+            validateCoupon={isValidCoupon({
+              orderPrice,
+              twoPlusOneApplicableItems,
+            })}
             selectedCoupons={selectedCoupons}
             coupons={coupons}
           />
