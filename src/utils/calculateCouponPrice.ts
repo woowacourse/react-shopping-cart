@@ -48,7 +48,7 @@ export const calculateCouponPrice = ({
               getQuantity
           );
           const maxPrice = Math.max(...prices);
-          sum = maxPrice;
+          sum += maxPrice;
         }
         break;
       }
