@@ -71,13 +71,13 @@ export type Coupon = {
     }
 );
 
-export async function getCouponData() {
+export async function getCouponData(): Promise<Coupon[]> {
   const response = await baseAPI<CouponResponse[]>({
     method: "GET",
     path: "/coupons",
   });
-  const couponsData = (response ?? []).map((coupon) =>
-    convertResponseToCoupon(coupon)
+  const couponsData = (response ?? []).map(
+    (coupon) => convertResponseToCoupon(coupon) as Coupon
   );
   return couponsData;
 }
