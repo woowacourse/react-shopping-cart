@@ -72,31 +72,3 @@ function filterByTime(coupon: CouponType) {
 function filterByBogo(selectedItems: CartProduct[]) {
   return selectedItems.find((item) => item.quantity >= 3);
 }
-
-// 적용된 쿠폰으로 할인 가격 계산
-
-function findMaxXbuygetY(selectedItems: CartProduct[]) {
-  let maxPrice = 0;
-  const XbuygetY = selectedItems.filter((item) => item.quantity >= 3);
-  XbuygetY.map((item) => {
-    if (item.product.price > maxPrice) maxPrice = item.product.price;
-  });
-
-  return maxPrice;
-}
-
-export function discountByBOGO(price: number, selectedItems: CartProduct[]) {
-  return price - findMaxXbuygetY(selectedItems);
-}
-
-export function discountByMIRACLESALE(price: number) {
-  return price * 0.7;
-}
-
-export function discountByFIXED5000(price: number) {
-  return price - 5000;
-}
-
-export function discountByFREESHIPPING(price: number, deliveryPrice: number) {
-  return price - deliveryPrice;
-}

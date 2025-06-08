@@ -10,10 +10,11 @@ import {useState} from 'react';
 import {Modal} from '@muffin2219/components';
 import Coupon from '../../components/feature/ModalContent/Coupon';
 import {css} from '@emotion/react';
-import {findCanApplyCoupon} from '../../feature/calcCouponPrice';
-import {useCalcDiscount} from '../../hooks/useCalcDiscount';
+import {findCanApplyCoupon} from '../../feature/findApplyCoupon';
+import {useCoupons} from '../../hooks/useCalcDiscount';
 import {useNavigate} from 'react-router';
 import {ROUTE_PATHS} from '../../route/path';
+import {calcDiscountPrice} from '../../feature/calcDiscountPrice';
 
 const buttonStyle = css`
   padding: 24px 0;
@@ -33,8 +34,7 @@ const OrderConfirm = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
-  const {isCouponChecked, coupons, handleCouponsChecked, calcDiscount} =
-    useCalcDiscount();
+  const {isCouponChecked, coupons, handleCouponsChecked} = useCoupons();
 
   const calcDeliveryPrice = () => {
     if (isCouponChecked.FREESHIPPING) return 0;
@@ -52,7 +52,8 @@ const OrderConfirm = () => {
   );
 
   const totalPaymentPrice =
-    calcDiscount(Number(orderPrice)) + calcDeliveryPrice();
+    calcDiscountPrice(Number(orderPrice), isCouponChecked, selectedItems) +
+    calcDeliveryPrice();
 
   return (
     <S.Container>
