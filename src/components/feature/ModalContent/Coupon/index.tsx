@@ -6,19 +6,38 @@ import Button from '../../../common/Button';
 import {formatPrice} from '../../../../utils/formatPrice';
 import {formatTime} from '../../../../utils/formatTime';
 import {css} from '@emotion/react';
+import {CouponCode, CouponType} from '../../../../type/coupon';
+import {ChangeEvent} from 'react';
 
 const buttonStyle = css`
   background-color: #333;
   color: #fff;
 `;
 
+type Props = {
+  couponInfo: CouponType[] | undefined;
+  canApplyCouponCode: CouponCode[] | undefined;
+  isCouponChecked: Record<CouponCode, boolean>;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  discountPrice: number;
+};
+
 const Coupon = ({
   couponInfo,
   canApplyCouponCode,
   isCouponChecked,
   onChange,
-}) => {
-  console.log(canApplyCouponCode);
+  discountPrice,
+}: Props) => {
+  const buttonTitle = () => {
+    if (discountPrice > 0 && isCouponChecked.FREESHIPPING)
+      return `총 ${formatPrice(discountPrice)} 할인 + 무료배달 쿠폰 사용하기`;
+    if (discountPrice > 0)
+      return `총 ${formatPrice(discountPrice)} 할인 쿠폰 사용하기`;
+    if (isCouponChecked.FREESHIPPING) return `무료배달 쿠폰 사용하기`;
+    return `쿠폰 사용하기`;
+  };
+
   return (
     <S.Container>
       <Header
@@ -52,11 +71,7 @@ const Coupon = ({
           <Line />
         </S.CouponList>
       ))}
-      <Button
-        title={`총 ${'6000'}원 할인 쿠폰 사용하기`}
-        onClick={() => {}}
-        css={buttonStyle}
-      />
+      <Button title={buttonTitle()} onClick={() => {}} css={buttonStyle} />
     </S.Container>
   );
 };

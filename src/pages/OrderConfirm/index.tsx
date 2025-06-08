@@ -6,14 +6,12 @@ import Card from '../../components/feature/CartSection/CartProducts/Card';
 import Button from '../../components/common/Button';
 import CheckBox from '../../components/common/CheckBox';
 import PriceSection from '../../components/feature/CartSection/PriceSection';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Modal} from '@muffin2219/components';
 import Coupon from '../../components/feature/ModalContent/Coupon';
 import {css} from '@emotion/react';
-import {useShowError} from '../../provider/errorProvider';
-import {CouponType} from '../../type/coupon';
-import {getCoupons} from '../../api/coupon/getCoupon';
 import {findCanApplyCoupon} from '../../feature/calcCouponPrice';
+import {useCalcDiscount} from '../../hooks/useCalcDiscount';
 
 const buttonStyle = css`
   padding: 24px 0;
@@ -26,33 +24,13 @@ const ADDITIONAL_DELIVERY_PRICE = 3_000;
 
 const OrderConfirm = () => {
   const selectedItems = useSelectedItems();
-  const {orderPrice, deliveryPrice, totalAmount, totalPrice} =
+  const {orderPrice, deliveryPrice, totalAmount} =
     calcOrderHistory(selectedItems);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
-  const [isCouponChecked, setIsCouponChecked] = useState({
-    FIXED5000: false,
-    BOGO: false,
-    FREESHIPPING: false,
-    MIRACLESALE: false,
-  });
-
-  const showError = useShowError();
-  const [coupons, setCoupons] = useState<CouponType[]>();
-
-  useEffect(() => {
-    const getCouponData = async () => {
-      try {
-        const data = await getCoupons();
-        setCoupons(data);
-      } catch (e) {
-        showError('쿠폰 정보를 불러올 수 없습니다.');
-      }
-    };
-
-    getCouponData();
-  }, [showError]);
+  const {isCouponChecked, coupons, handleCouponsChecked, calcDiscount} =
+    useCalcDiscount();
 
   const calcDeliveryPrice = () => {
     if (isCouponChecked.FREESHIPPING) return 0;
@@ -64,8 +42,14 @@ const OrderConfirm = () => {
     coupons,
     Number(orderPrice),
     selectedItems,
-    calcDeliveryPrice()
+    isAdditionalDelivery
+      ? deliveryPrice + ADDITIONAL_DELIVERY_PRICE
+      : deliveryPrice
   );
+
+  const totalPaymentPrice =
+    calcDiscount(Number(orderPrice)) + calcDeliveryPrice();
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -89,8 +73,9 @@ const OrderConfirm = () => {
         />
         <PriceSection
           orderPrice={orderPrice}
+          discountPrice={orderPrice - totalPaymentPrice + calcDeliveryPrice()}
           deliveryPrice={calcDeliveryPrice()}
-          totalPrice={totalPrice}
+          totalPrice={totalPaymentPrice}
         />
       </S.Wrapper>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -98,12 +83,8 @@ const OrderConfirm = () => {
           couponInfo={coupons}
           canApplyCouponCode={canApplyCoupons?.map((coupon) => coupon.code)}
           isCouponChecked={isCouponChecked}
-          onChange={(e) => {
-            setIsCouponChecked((prev) => ({
-              ...prev,
-              [e.target.name]: !isCouponChecked[e.target.name],
-            }));
-          }}
+          onChange={handleCouponsChecked}
+          discountPrice={orderPrice - totalPaymentPrice + calcDeliveryPrice()}
         />
       </Modal>
       <Button title="결제하기" css={buttonStyle} onClick={() => {}} />

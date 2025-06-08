@@ -1,8 +1,9 @@
+import {ChangeEvent} from 'react';
 import * as S from './CheckBox.styles';
 
 type Props = {
   isChecked: boolean;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   testId?: string;
   name?: string;

@@ -1,6 +1,6 @@
 export type CouponType = {
   id: number;
-  code: string;
+  code: CouponCode;
   description: string;
   expirationDate: string;
   discount: number;
@@ -11,3 +11,5 @@ export type CouponType = {
     end: string;
   };
 };
+
+export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
