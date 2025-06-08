@@ -1,19 +1,23 @@
 import styled from "@emotion/styled";
 import Button from "../../components/common/Button";
 import { css } from "@emotion/react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import { formatPrice } from "../../utils/formatPrice";
 
 const PaymentConfirm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { totalPrice, sort, totalAmount } = location.state;
+
   return (
     <Container>
       <LargeText>결제 확인</LargeText>
       <SmallText>
-        총 1종류의 상품 2개를 주문했습니다. <br />
+        총 {sort}종류의 상품 {totalAmount}개를 주문했습니다. <br />
         최종 결제 금액을 확인해 주세요.
       </SmallText>
       <MediumText>총 결제 금액</MediumText>
-      <LargeText>7,000원</LargeText>
+      <LargeText>{formatPrice(totalPrice)}</LargeText>
 
       <Button
         title="장바구니로 돌아가기"

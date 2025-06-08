@@ -4,7 +4,7 @@ import { formatPrice } from "../../../../utils/formatPrice";
 import { CartProduct } from "../../../../type/cart";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 type Props = {
   cartItems: CartProduct[] | undefined;
@@ -75,6 +75,9 @@ const PriceSection = ({
   isRemoteArea,
 }: Props) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
+  const isOrderConfirmPage = pathname === "/orderConfirm";
   const selectedItems = cartItems?.filter(
     (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
   );
@@ -114,33 +117,60 @@ const PriceSection = ({
           </S.Price>
         </S.PriceInfo>
       </S.Container>
-      <Button
-        testId="order-confirm-button"
-        title="주문 확인"
-        disabled={selectedCartIds.length === 0}
-        onClick={() =>
-          navigate("/orderConfirm", {
-            state: {
-              sort: selectedCartIds.length,
-              totalAmount: price.totalAmount,
-              totalPrice: price.totalPrice,
-              cartItems: cartItems,
-              selectedCartIds: selectedCartIds,
-            },
-          })
-        }
-        css={css`
-          width: 100%;
-          height: 50px;
-          background-color: #000;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-        `}
-      />
+      {isOrderConfirmPage && (
+        <Button
+          title="결제하기"
+          onClick={() =>
+            navigate("/paymentConfirm", {
+              state: {
+                totalPrice: price.totalPrice,
+                totalAmount: price.totalAmount,
+                sort: selectedCartIds.length,
+              },
+            })
+          }
+          css={css`
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+          `}
+        />
+      )}
+      {isHomePage && (
+        <Button
+          testId="order-confirm-button"
+          title="주문 확인"
+          disabled={selectedCartIds.length === 0}
+          onClick={() =>
+            navigate("/orderConfirm", {
+              state: {
+                sort: selectedCartIds.length,
+                totalAmount: price.totalAmount,
+                totalPrice: price.orderPrice,
+                cartItems: cartItems,
+                selectedCartIds: selectedCartIds,
+              },
+            })
+          }
+          css={css`
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+          `}
+        />
+      )}
     </>
   );
 };

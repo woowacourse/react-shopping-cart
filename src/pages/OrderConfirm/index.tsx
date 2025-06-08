@@ -10,9 +10,6 @@ import Modal from "../../components/common/Modal";
 import useGetCoupons from "../../hooks/useGetCoupons";
 import CouponList from "../../components/feature/Coupon/CouponList";
 import { useState } from "react";
-import { MAX_COUPON_COUNT } from "./constant";
-import { useNavigate } from "react-router";
-import { CouponResponse } from "../../type/coupon";
 
 const OrderConfirm = () => {
   const location = useLocation();
@@ -21,116 +18,11 @@ const OrderConfirm = () => {
   const { coupons } = useGetCoupons();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRemoteAreaChecked, setRemoteAreaChecked] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const navigate = useNavigate();
+  const [discount, setDiscount] = useState(0);
 
-  const handleSelectCoupon = (id: number) => {
-    const isSelected = selectedIds.includes(id);
-
-    if (!isSelected && selectedIds.length >= MAX_COUPON_COUNT) {
-      alert(`쿠폰은 ${MAX_COUPON_COUNT}개만 선택할 수 있습니다.`);
-      return;
-    }
-
-    setSelectedIds((prev) =>
-      isSelected ? prev.filter((prevId) => prevId !== id) : [...prev, id]
-    );
-  };
-
-  const isAvailable = (id: number): boolean => {
-    const coupon = coupons?.find((c) => c.id === id);
-    if (!coupon) return false;
-
-    if (!isValidDate(coupon?.expirationDate)) return false;
-
-    if (
-      coupon.discountType === "freeShipping" &&
-      totalPrice >= 100_000 &&
-      !isRemoteAreaChecked
-    )
-      return false;
-
-    if (coupon.minimumAmount) return coupon.minimumAmount <= totalPrice;
-
-    if (coupon.buyQuantity) {
-      const selectedCartItems = cartItems.filter((item: CartProduct) =>
-        selectedCartIds.includes(item.id)
-      );
-
-      return selectedCartItems.some(
-        (item: CartProduct) => item.quantity > coupon.buyQuantity
-      );
-    }
-
-    if (coupon.availableTime) return isValidTime(coupon.availableTime);
-
-    return true;
-  };
-
-  const isValidDate = (expirationDate: string): boolean => {
-    const today = new Date();
-    const expiration = new Date(expirationDate);
-
-    return expiration >= today;
-  };
-
-  const isValidTime = (availableTime: { start: string; end: string }) => {
-    const now = new Date();
-    const nowTime = now.getHours() * 60 + now.getMinutes();
-
-    const [startHour, startMin] = availableTime.start.split(":").map(Number);
-    const [endHour, endMin] = availableTime.end.split(":").map(Number);
-
-    const startTime = startHour * 60 + startMin;
-    const endTime = endHour * 60 + endMin;
-
-    return nowTime >= startTime && nowTime <= endTime;
-  };
-
-  const calculateDiscount = (coupon: CouponResponse) => {
-    if (coupon.discountType === "fixed") return coupon.discount;
-
-    if (coupon.discountType === "buyXgetY") {
-      const selectedCartItems = cartItems.filter((item: CartProduct) =>
-        selectedCartIds.includes(item.id)
-      );
-
-      const eligibleItems = selectedCartItems.filter(
-        (item: CartProduct) => item.quantity > coupon.buyQuantity
-      );
-
-      eligibleItems.sort(
-        (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
-      );
-
-      return eligibleItems[0].product.price;
-    }
-
-    if (coupon.discountType === "freeShipping") {
-      const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
-      if (isRemoteAreaChecked) return 3000 + deliveryPrice;
-      return deliveryPrice;
-    }
-
-    if (coupon.discountType === "percentage") return totalPrice * 0.3;
-  };
-
-  const getTotalDiscount = () => {
-    if (selectedIds.length === 0) return 0;
-
-    const selectedCoupons = coupons?.filter((coupon) =>
-      selectedIds.includes(coupon.id)
-    );
-
-    return selectedCoupons?.reduce((total, current) => {
-      return (total += calculateDiscount(current));
-    }, 0);
-  };
-
-  const getValidCoupons = () => {
-    if (!coupons) return [];
-    const couponIds = coupons.map((coupon) => coupon.id);
-    return couponIds.filter((id) => isAvailable(id));
+  const handleApplyDiscount = (discountPrice: number) => {
+    setIsModalOpen(false);
+    setDiscount(discountPrice);
   };
 
   return (
@@ -167,31 +59,11 @@ const OrderConfirm = () => {
         <PriceSection
           cartItems={cartItems}
           selectedCartIds={selectedCartIds}
-          discount={getTotalDiscount()}
+          discount={discount}
           isRemoteArea={isRemoteAreaChecked}
         />
       </S.Container>
 
-      <Button
-        title="결제하기"
-        onClick={() =>
-          navigate("/paymentConfirm", {
-            state: {
-              totalAmount: 7000,
-            },
-          })
-        }
-        css={css`
-          width: 100%;
-          padding: 24px 0;
-          background-color: #000;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-          position: absolute;
-          bottom: 0;
-        `}
-      />
       <Modal
         onClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
@@ -200,9 +72,11 @@ const OrderConfirm = () => {
         {coupons && (
           <CouponList
             coupons={coupons}
-            selectedIds={selectedIds}
-            onSelect={handleSelectCoupon}
-            validCoupons={getValidCoupons()}
+            totalPrice={totalPrice}
+            isRemoteArea={isRemoteAreaChecked}
+            cartItems={cartItems}
+            selectedCartIds={selectedCartIds}
+            onApplyDiscount={handleApplyDiscount}
           />
         )}
       </Modal>
