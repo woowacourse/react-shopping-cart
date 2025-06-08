@@ -5,6 +5,7 @@ interface CheckBoxProps {
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
   dataTestId: string;
+  disabled?: boolean;
 }
 
 export function CheckBox({
@@ -12,6 +13,7 @@ export function CheckBox({
   id,
   handleCheckBox,
   dataTestId,
+  disabled = false,
 }: CheckBoxProps) {
   return (
     <input
@@ -21,6 +23,7 @@ export function CheckBox({
       checked={isChecked}
       onChange={handleCheckBox}
       data-testid={dataTestId}
+      disabled={disabled}
     />
   );
 }

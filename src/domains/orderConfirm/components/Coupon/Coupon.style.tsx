@@ -1,12 +1,15 @@
 import { css } from "@emotion/react";
 
-const couponLayout = css`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px 0;
-  min-height: 82px;
-`;
+const couponLayout = (isDisabled: boolean) => {
+  return css`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 0;
+    min-height: 82px;
+    opacity: ${isDisabled ? 0.3 : 1};
+  `;
+};
 
 const checkBoxLayout = css`
   display: flex;

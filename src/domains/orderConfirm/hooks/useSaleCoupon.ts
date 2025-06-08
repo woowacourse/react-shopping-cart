@@ -6,8 +6,7 @@ import {
   validateMinimumAmount,
   validateTime,
 } from "./utils/vaildateCoupons";
-
-// 오늘 날짜, 오늘 시간, 총 결제 금액, selectedCartIds, 배송비
+import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
 export function useSaleCoupon() {
   const [selectedCoupons, setSelectedCoupons] = useState<CouponCode[]>([]);
@@ -16,13 +15,15 @@ export function useSaleCoupon() {
   const today = new Date();
 
   const validateCoupon = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    totalPrice: number
+    couponCode: CouponCode,
+    totalPrice: number,
+    selectedCartItems: CartItemTypes[]
   ) => {
-    const couponItem = coupons.find(
-      (item) => item.code === (e.target.id as CouponCode)
-    );
+    const couponItem = coupons.find((item) => item.code === couponCode);
     if (!couponItem) return false;
+
+    if (couponItem.code === "BOGO" && selectedCartItems.length === 0)
+      return false;
 
     return (
       validateDate(couponItem.expirationDate, today) &&

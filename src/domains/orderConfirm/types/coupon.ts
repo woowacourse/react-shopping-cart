@@ -16,4 +16,11 @@ export interface AvailableTime {
   end: string;
 }
 
-export type CouponCode = "FIXED5000" | "BOGO" | "FREESHIPPING" | "MIRACLESALE";
+export const CouponCodes = {
+  FIXED5000: "FIXED5000",
+  BOGO: "BOGO",
+  FREESHIPPING: "FREESHIPPING",
+  MIRACLESALE: "MIRACLESALE",
+} as const;
+
+export type CouponCode = keyof typeof CouponCodes;

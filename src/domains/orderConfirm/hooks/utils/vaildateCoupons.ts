@@ -1,3 +1,4 @@
+import { CartItemTypes } from "../../../shopping-cart/types/cartItem";
 import { AvailableTime } from "../../types/coupon";
 import { getHours, getMinutes } from "../../utils/getDateInfo";
 
@@ -20,4 +21,13 @@ function validateMinimumAmount(minimumAmount: number, totalPrice: number) {
   return totalPrice >= minimumAmount;
 }
 
-export { validateDate, validateMinimumAmount, validateTime };
+function validateTwoPlusOne(selectedCartItems: CartItemTypes[]) {
+  return selectedCartItems.length > 0;
+}
+
+export {
+  validateDate,
+  validateMinimumAmount,
+  validateTime,
+  validateTwoPlusOne,
+};

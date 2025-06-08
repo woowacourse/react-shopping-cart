@@ -1,17 +1,21 @@
+import React from "react";
 import { Line } from "../../../../components/Line/Line";
 
-import { CouponType } from "../../types/coupon";
+import { CouponCode, CouponType } from "../../types/coupon";
 import { Coupon } from "../Coupon/Coupon";
 
+type validateCouponType = Record<CouponCode, boolean>;
 interface CouponListProps {
-  selectedCoupons: string[];
   handleCouponSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedCoupons: string[];
+  validateCoupon: validateCouponType;
   coupons: CouponType[];
 }
 
 export function CouponList({
-  selectedCoupons,
   handleCouponSelect,
+  selectedCoupons,
+  validateCoupon,
   coupons,
 }: CouponListProps) {
   return (
@@ -25,6 +29,7 @@ export function CouponList({
               item={coupon}
               isSelected={selectedCoupons.includes(coupon.code)}
               handleCouponSelect={handleCouponSelect}
+              isDisabled={!validateCoupon[coupon.code]}
             />
           </>
         );

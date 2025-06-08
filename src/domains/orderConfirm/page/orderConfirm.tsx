@@ -21,6 +21,7 @@ import { getDeliveryFee } from "../utils/getDeliveryFee";
 import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
 import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
 import { getDisCountedPrice } from "../utils/getDisCountedPrice";
+import { CouponCode, CouponCodes } from "../types/coupon";
 
 export default function OrderConfirm() {
   const { cartItems } = useCartContext();
@@ -29,6 +30,10 @@ export default function OrderConfirm() {
     useSaleCoupon();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
+
+  const selectedCartItems = cartItems.filter(
+    (item) => selectedCartIds.includes(item.id.toString()) && item.quantity >= 3
+  );
 
   const navigate = useNavigate();
 
@@ -56,10 +61,7 @@ export default function OrderConfirm() {
   const discountedPrice = getDisCountedPrice({
     deliveryFee,
     totalPrice,
-    maxPriceInSelectedCart: getMaxPriceInSelectedCart({
-      cartItems,
-      selectedCartIds,
-    }),
+    maxPriceInSelectedCart: getMaxPriceInSelectedCart({ selectedCartItems }),
     selectedCoupons,
   });
 
@@ -67,6 +69,23 @@ export default function OrderConfirm() {
     cartItems,
     selectedCartIds,
   });
+
+  const isValidCoupon: Record<CouponCode, boolean> = Object.values(
+    CouponCodes
+  ).reduce(
+    (acc, code) => {
+      return {
+        ...acc,
+        [code]: validateCoupon(code, totalPrice, selectedCartItems),
+      };
+    },
+    {
+      FIXED5000: false,
+      BOGO: false,
+      FREESHIPPING: false,
+      MIRACLESALE: false,
+    }
+  );
 
   return (
     <PageLayout>
@@ -112,9 +131,8 @@ export default function OrderConfirm() {
         <Modal.Content>
           <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
           <CouponList
-            handleCouponSelect={(e) => {
-              if (validateCoupon(e, totalPrice)) handleCouponSelect(e);
-            }}
+            handleCouponSelect={handleCouponSelect}
+            validateCoupon={isValidCoupon}
             selectedCoupons={selectedCoupons}
             coupons={coupons}
           />

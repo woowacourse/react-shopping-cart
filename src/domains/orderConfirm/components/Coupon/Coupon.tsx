@@ -8,17 +8,24 @@ interface CouponProps {
   item: CouponType;
   isSelected: boolean;
   handleCouponSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isDisabled: boolean;
 }
 
-export function Coupon({ item, isSelected, handleCouponSelect }: CouponProps) {
+export function Coupon({
+  item,
+  isSelected,
+  handleCouponSelect,
+  isDisabled = false,
+}: CouponProps) {
   return (
-    <div css={couponLayout} id={item.code}>
+    <div css={couponLayout(isDisabled)} id={item.code}>
       <div css={checkBoxLayout}>
         <CheckBox
           isChecked={isSelected}
           dataTestId={`${item.code}`}
           id={`${item.code}`}
           handleCheckBox={handleCouponSelect}
+          disabled={isDisabled}
         />
         <p>{item.description}</p>
       </div>
