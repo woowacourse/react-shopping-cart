@@ -67,6 +67,7 @@ export const closeButton = css`
   cursor: pointer;
   font-size: 18px;
   color: #666;
+  width: 100%;
 
   &:hover {
     color: #000;
