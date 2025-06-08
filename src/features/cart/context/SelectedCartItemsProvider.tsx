@@ -13,6 +13,7 @@ interface SelectedCartItemsContextType {
   totalPrice: number;
   deliveryFee: number;
   totalPurchasePrice: number;
+  couponDiscountPrice: number;
 }
 
 export const SelectedCartItemsContext = createContext<SelectedCartItemsContextType | undefined>(undefined);
@@ -26,7 +27,7 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
   const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [init, setInit] = useState(false);
 
-  const { cartTypeQuantity, totalQuantity, totalPrice, deliveryFee, totalPurchasePrice } =
+  const { cartTypeQuantity, totalQuantity, totalPrice, deliveryFee, totalPurchasePrice, couponDiscountPrice } =
     calculatePrices(SelectedCartItems);
 
   useEffect(() => {
@@ -69,6 +70,7 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
         totalPrice,
         deliveryFee,
         totalPurchasePrice,
+        couponDiscountPrice,
       }}
     >
       {children}

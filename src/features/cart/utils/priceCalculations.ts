@@ -6,6 +6,7 @@ export const calculatePrices = (selectedCartItems: CartItem[]) => {
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
   const totalPurchasePrice = totalPrice + deliveryFee;
+  const couponDiscountPrice = 0;
 
-  return { cartTypeQuantity, totalQuantity, totalPrice, deliveryFee, totalPurchasePrice };
+  return { cartTypeQuantity, totalQuantity, totalPrice, deliveryFee, totalPurchasePrice, couponDiscountPrice };
 };

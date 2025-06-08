@@ -1,8 +1,13 @@
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
 import OrderPriceItem from './OrderPriceItem';
 import * as S from './OrderPriceSummary.styles';
-export default function OrderPriceSummary() {
-  const { totalPrice, deliveryFee, totalPurchasePrice } = useSelectedCartItemsContext();
+
+interface OrderPriceSummaryProps {
+  couponPriceItem?: boolean;
+}
+
+export default function OrderPriceSummary({ couponPriceItem }: OrderPriceSummaryProps) {
+  const { totalPrice, deliveryFee, totalPurchasePrice, couponDiscountPrice } = useSelectedCartItemsContext();
 
   return (
     <S.OrderPriceSummaryContainer>
@@ -12,7 +17,7 @@ export default function OrderPriceSummary() {
       </S.DeliveryFeeLabel>
       <S.CalaculateList>
         <OrderPriceItem title="주문 금액" price={totalPrice} />
-        <OrderPriceItem title="쿠폰 할인 금액" price={0} />
+        {couponPriceItem && <OrderPriceItem title="쿠폰 할인 금액" price={couponDiscountPrice} />}
         <OrderPriceItem title="배송비" price={deliveryFee} data-testid="delivery-fee" />
       </S.CalaculateList>
       <OrderPriceItem title="총 결제 금액" price={totalPurchasePrice} data-testid="total-purchase-price" />

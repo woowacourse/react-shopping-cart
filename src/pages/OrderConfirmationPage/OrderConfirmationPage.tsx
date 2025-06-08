@@ -23,7 +23,7 @@ export default function OrderConfirmationPage() {
             />
           ))}
         </S.CartListContainer>
-        <OrderPriceSummary />
+        <OrderPriceSummary couponPriceItem={true} />
       </S.OrderConfirmationPageContent>
     </S.OrderConfirmationPageContainer>
   );
