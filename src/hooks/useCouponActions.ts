@@ -1,11 +1,14 @@
+import { MAX_COUPON_AMOUNT } from '../constants/config';
 import { useCartItemsContext } from '../contexts/CartItemsContext';
 import { useCouponContext } from '../contexts/CouponContext';
+import { useToastContext } from '../contexts/ToastContext';
 import { getAvailableCoupons, getCheckedItems } from '../utils';
 
 const useCouponActions = (id: number) => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
   const { coupons, checkedCouponIds, addCheckedCouponIds, removeCheckedCouponIds } =
     useCouponContext();
+  const { showToast } = useToastContext();
 
   const isEnable = getAvailableCoupons(coupons, getCheckedItems(cartItems, checkedCartIds))
     .map((item) => item.id)
@@ -16,6 +19,11 @@ const useCouponActions = (id: number) => {
   const handleCheckBoxClick = () => {
     if (isChecked) {
       removeCheckedCouponIds(id);
+      return;
+    }
+
+    if (checkedCouponIds.length >= MAX_COUPON_AMOUNT) {
+      showToast(`쿠폰은 ${MAX_COUPON_AMOUNT}개 이상 사용할 수 없습니다!`);
       return;
     }
     addCheckedCouponIds(id);
