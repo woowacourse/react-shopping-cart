@@ -10,6 +10,7 @@ interface CartItemContext {
   addCheckedCartItem: (id: number) => void;
   removeCheckedCartItem: (id: number) => void;
   initCheckedCartIds: (cartItems: CartItem[]) => void;
+  loadCheckedCartIdsFromStorage: (cartItems: CartItem[]) => void;
 }
 
 export const CartItemsContext = createContext<CartItemContext | null>(null);

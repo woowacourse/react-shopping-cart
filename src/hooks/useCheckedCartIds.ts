@@ -1,9 +1,17 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import getIdsFromCartItems from '../utils/getIdsFromCartItems';
 import { CartItem } from '../types';
+import LocalStorage from '../utils/LocalStorage';
 
 const useCheckedCartIds = () => {
-  const [checkedCartIds, setCheckedCartIds] = useState<number[]>([]);
+  const CHECKED_CART_ID_STORAGE_KEY = 'checkedCartIds';
+  const [checkedCartIds, setCheckedCartIds] = useState<number[]>(() => {
+    return LocalStorage.getJSON<number[]>(CHECKED_CART_ID_STORAGE_KEY) ?? [];
+  });
+
+  useEffect(() => {
+    LocalStorage.setJSON(CHECKED_CART_ID_STORAGE_KEY, checkedCartIds);
+  }, [checkedCartIds]);
 
   const addCheckedCartItem = (id: number) => {
     setCheckedCartIds((prev) => [...prev, id]);
@@ -17,11 +25,24 @@ const useCheckedCartIds = () => {
     setCheckedCartIds(getIdsFromCartItems(cartItems));
   }, []);
 
+  const loadCheckedCartIdsFromStorage = useCallback(
+    (cartItems: CartItem[]) => {
+      const storedCartIds = LocalStorage.getJSON<number[]>(CHECKED_CART_ID_STORAGE_KEY);
+      if (storedCartIds) {
+        setCheckedCartIds(storedCartIds);
+      } else {
+        initCheckedCartIds(cartItems);
+      }
+    },
+    [initCheckedCartIds]
+  );
+
   return {
     checkedCartIds,
     addCheckedCartItem,
     removeCheckedCartItem,
     initCheckedCartIds,
+    loadCheckedCartIdsFromStorage,
   };
 };
 
