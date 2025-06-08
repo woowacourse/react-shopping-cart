@@ -25,9 +25,9 @@ function CartItem({
   cartItem: CartItemProps;
   selected: boolean;
   onSelectChange: (cartItemId: number) => void;
-  onIncreaseClick: (cartItem: CartItemProps) => Promise<void>;
-  onDecreaseClick: (cartItem: CartItemProps) => Promise<void>;
-  onDeleteClick: (cartItemId: number) => Promise<void>;
+  onIncreaseClick: (cartItem: CartItemProps) => void;
+  onDecreaseClick: (cartItem: CartItemProps) => void;
+  onDeleteClick: (cartItemId: number) => void;
 }) {
   return (
     <li css={CartItemStyle}>
