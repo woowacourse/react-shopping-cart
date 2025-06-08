@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export const OrderConfirmationPageContainer = styled.div`
   width: 100%;
@@ -30,4 +31,19 @@ export const CartListContainer = styled.section`
 export const CartItemInfoQuantity = styled.span`
   font-size: 12px;
   font-weight: 500;
+`;
+
+export const ButtonCSS = css`
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  border: 1px solid rgba(3, 3, 3, 0.25);
+  border-radius: 5px;
+  margin: 20px 0;
+
+  transition: background-color 0.1s ease;
+
+  &:hover {
+    background-color: rgba(3, 3, 3, 0.05);
+  }
 `;
