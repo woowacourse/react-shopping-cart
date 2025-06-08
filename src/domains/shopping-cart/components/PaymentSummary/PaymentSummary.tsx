@@ -38,7 +38,7 @@ export function PaymentSummary({
         <Line />
         <SummaryRow
           text="총 결제 금액"
-          price={price + deliveryFee}
+          price={price + deliveryFee - (couponSale || 0)}
           dataTestId="totalPrice"
         />
       </div>
