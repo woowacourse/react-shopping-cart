@@ -14,10 +14,11 @@ const LabelPriceContainer = () => {
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectedCartItems } = useOrderListContext(cartListData);
+  const { selectedCartItems, isIsland, discount } = useOrderListContext(cartListData);
   const { shippingFee, totalPrice, totalCartPrice } = useOrderCalculation(
-    cartListData,
-    selectedCartItems
+    selectedCartItems,
+    isIsland,
+    discount
   );
 
   const InfoTextContent = ` 총 주문 금액이 ${formatKRWString(
@@ -44,15 +45,14 @@ const LabelPriceContainer = () => {
 
 export default LabelPriceContainer;
 
-const Container = styled(Flex)`
+const Container = styled.div`
+  display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 180px;
+  gap: 16px;
+  padding: 16px;
 `;
 
 const PriceWrapper = styled(Flex)`
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-  padding: 16px 0;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
 `;

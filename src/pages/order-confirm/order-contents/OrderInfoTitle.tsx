@@ -10,10 +10,11 @@ function OrderInfoTitle() {
     name: "cart",
     fetcher: getShoppingCartData,
   });
-  const { selectedCartItems } = useOrderListContext(cartListData);
+  const { selectedCartItems, isIsland, discount } = useOrderListContext(cartListData);
   const { typeCount, totalCount } = useOrderCalculation(
-    cartListData,
-    selectedCartItems
+    selectedCartItems,
+    isIsland,
+    discount
   );
   return (
     <Flex justifyContent="flex-start" alignItems="flex-start" gap="xs">
@@ -30,12 +31,13 @@ function OrderInfoTitle() {
 
 export default OrderInfoTitle;
 
-const InfoTitle = styled.h2`
+const InfoTitle = styled.h1`
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 12px;
+  color: black;
 `;
 
 const Description = styled.p`
-  font-size: 12px;
+  font-size: 14px;
+  color: #888;
 `;
