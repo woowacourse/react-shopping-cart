@@ -19,9 +19,10 @@ const IMG_BASE_URL = "/react-shopping-cart";
 const DEFAULT_IMAGE_URL = "/planet-default-image.svg";
 
 const OrderPage = () => {
-  const { orderItemCount, cartItemsCheckData } = useCart();
-  const { orderQuantity } = useCartCalculations();
   const [isOpen, setIsOpen] = useState(false);
+  const { orderItemCount, cartItemsCheckData, setIsRemoteArea, isRemoteArea } =
+    useCart();
+  const { orderQuantity } = useCartCalculations();
 
   const { showToast } = useToast();
 
@@ -44,6 +45,10 @@ const OrderPage = () => {
 
   const handleModalClose = () => {
     setIsOpen(false);
+  };
+
+  const handleRemoteCheckbox = () => {
+    setIsRemoteArea((prev) => !prev);
   };
 
   return (
@@ -97,7 +102,7 @@ const OrderPage = () => {
         <S.ShippingInfo>
           <S.Label>배송 정보</S.Label>
           <S.CheckboxContainer>
-            <Checkbox checked={true} onClick={() => {}} />
+            <Checkbox checked={isRemoteArea} onClick={handleRemoteCheckbox} />
             <Description>제주도 및 도서 산간 지역</Description>
           </S.CheckboxContainer>
         </S.ShippingInfo>
