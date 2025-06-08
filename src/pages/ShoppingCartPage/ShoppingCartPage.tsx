@@ -6,23 +6,30 @@ import Footer from "../../components/layout/Footer/Footer";
 import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
 import EmptyText from "../../components/common/EmptyText/EmptyText";
 import CartList from "../../components/shoppingCart/CartList/CartList";
-
-import useCartItemList from "../../hooks/useCartItemList";
+import Receipt from "../../components/shoppingCart/Receipt/Receipt";
 
 import { useErrorContext } from "../../contexts/ErrorContext";
 
-import { CheckedMap } from "../../types/CheckMap";
+import useCartItemList from "../../hooks/useCartItemList";
 
-import * as Styled from "./ShoppingCartPage.styles";
 import { isAllChecked } from "../../utils/isAllChecked";
 import { getCheckedProductsLength } from "../../utils/getCheckedProductsLength";
 import { getCheckedProductsTotalPrice } from "../../utils/getCheckedProductsTotalPrice";
 import { getShippingFee } from "../../utils/getShippingFee";
-import Receipt from "../../components/shoppingCart/Receipt/Receipt";
+import { CheckedMap } from "../../types/CheckMap";
+import {
+  saveCheckedMapToStorage,
+  loadCheckedMapFromStorage,
+} from "../../utils/localStorageCheckedMap";
+
+import * as Styled from "./ShoppingCartPage.styles";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
-  const [checkedMap, setCheckedMap] = useState<CheckedMap>(new Map());
+  const [checkedMap, setCheckedMap] = useState<CheckedMap>(
+    loadCheckedMapFromStorage
+  );
+
   const { errorMessage } = useErrorContext();
   const navigate = useNavigate();
 
@@ -42,17 +49,20 @@ export default function ShoppingCartPage() {
       cartItemList.forEach((item) => {
         newMap.set(item.id, !allChecked);
       });
+      saveCheckedMapToStorage(newMap);
       return newMap;
     });
   };
 
   useEffect(() => {
     setCheckedMap((prevMap) => {
-      const newMap = new Map<number, boolean>();
+      const newMap = new Map(prevMap);
       cartItemList.forEach((item) => {
-        const prev = prevMap.get(item.id);
-        newMap.set(item.id, prev ?? true);
+        if (!newMap.has(item.id)) {
+          newMap.set(item.id, true);
+        }
       });
+      saveCheckedMapToStorage(newMap);
       return newMap;
     });
   }, [cartItemList]);
@@ -66,6 +76,7 @@ export default function ShoppingCartPage() {
       const newMap = new Map(prevMap);
       const prev = newMap.get(id) ?? true;
       newMap.set(id, !prev);
+      saveCheckedMapToStorage(newMap);
       return newMap;
     });
   };
