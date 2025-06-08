@@ -68,6 +68,7 @@ ui 퍼블리싱
 - [x] cartPage / orderPage -> provider 적용 후, export
 - [x] modal 상태 context 적용
 - [x] useCouponValidation 및 useCouponDiscount 훅 제거 -> 일반 util 함수로 변경
+- [ ] localstorage로 체크 상태 유지시키기
 - [ ] 테스트 코드 작성
   - [ ] cart
     - [x] useCartResource 훅 테스트
@@ -77,6 +78,8 @@ ui 퍼블리싱
   - [ ] order
     - [x] useCouponResource 훅 테스트
     - [ ] useCoupon 훅 테스트
+      - [ ] generateCouponDiscount 테스트
+      - [ ] validateCoupon 테스트
     - [x] utils 함수들 테스트
 
 ### 응집도와 결합도 측면에서의 대화
