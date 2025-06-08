@@ -1,24 +1,16 @@
+import { CartItem } from "../../types/type";
 import Text from "../@common/Text/Text";
 import CartItemCard from "./CartItemCard";
 
 interface ConfirmCartItemCardProps {
-  imgUrl: string;
-  name: string;
-  price: number;
-  quantity: number;
+  cartItem: CartItem;
 }
 
-const ConfirmCartItemCard = ({
-  imgUrl,
-  name,
-  price,
-  quantity,
-}: ConfirmCartItemCardProps) => {
+const ConfirmCartItemCard = ({ cartItem }: ConfirmCartItemCardProps) => {
+  const quantity = cartItem.quantity;
   return (
     <CartItemCard
-      imgUrl={imgUrl}
-      name={name}
-      price={price}
+      product={cartItem.product}
       quantityContent={<Text text={`${quantity}개`} />}
     />
   );

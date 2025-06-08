@@ -1,23 +1,24 @@
 import { css } from "@emotion/css";
 import Text from "../@common/Text/Text";
+import { Product } from "../../types/type";
 
 interface CartItemCardProps {
-  imgUrl: string;
-  name: string;
-  price: number;
+  product: Product;
   quantityContent?: React.ReactNode;
   topRightContent?: React.ReactNode;
   topLeftContent?: React.ReactNode;
 }
 
 const CartItemCard = ({
-  imgUrl,
-  name,
-  price,
+  product,
   quantityContent,
   topRightContent,
   topLeftContent,
 }: CartItemCardProps) => {
+  const imgUrl = product.imageUrl;
+  const name = product.name;
+  const price = product.price;
+
   return (
     <div className={CartItemStyled}>
       <hr className={Divider} />

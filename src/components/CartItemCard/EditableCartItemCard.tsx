@@ -3,33 +3,26 @@ import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import TextButton from "../@common/Button/TextButton/TextButton";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
 import CartItemCard from "./CartItemCard";
+import { CartItem } from "../../types/type";
 
 interface EditableCartItemCardProps {
-  cartItemId: number;
-  imgUrl: string;
-  name: string;
-  price: number;
-  quantity: number;
+  cartItem: CartItem;
   isSelected: boolean;
   handleToggle: (cartItemId: number) => void;
 }
 
 const EditableCartItemCard = ({
-  cartItemId,
-  imgUrl,
-  name,
-  price,
-  quantity,
+  cartItem,
   isSelected,
   handleToggle,
 }: EditableCartItemCardProps) => {
   const { deleteCartItem, updateCartItem } = useCartItemContext();
+  const cartItemId = cartItem.id;
+  const quantity = cartItem.quantity;
 
   return (
     <CartItemCard
-      imgUrl={imgUrl}
-      name={name}
-      price={price}
+      product={cartItem.product}
       topLeftContent={
         <ToggleButton
           isSelected={isSelected}

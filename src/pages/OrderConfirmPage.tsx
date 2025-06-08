@@ -29,6 +29,7 @@ const OrderConfirmPage = () => {
     toggleCouponId,
     calculateCouponDiscount,
   } = useCoupon({ orderPrice, isRemoteArea, selectedItems });
+  const remoteAreaShippingFee = isRemoteArea ? 3000 : 0;
 
   return (
     <div className={OrderConfirmLayout}>
@@ -48,14 +49,8 @@ const OrderConfirmPage = () => {
             </>
           }
         />
-        {selectedItems.map((items) => (
-          <ConfirmCartItemCard
-            key={items.id}
-            name={items.product.name}
-            imgUrl={items.product.imageUrl}
-            price={items.product.price}
-            quantity={items.quantity}
-          />
+        {selectedItems.map((item) => (
+          <ConfirmCartItemCard key={item.id} cartItem={item} />
         ))}
         <TextButton
           text="쿠폰 적용"
@@ -76,10 +71,10 @@ const OrderConfirmPage = () => {
           </div>
           <PriceSummary
             orderPrice={orderPrice}
-            shippingFee={shippingFee + (isRemoteArea ? 3000 : 0)}
+            shippingFee={shippingFee + remoteAreaShippingFee}
             couponDiscount={couponDiscountAmount}
             totalPrice={
-              orderPrice - couponDiscountAmount + (isRemoteArea ? 3000 : 0)
+              orderPrice - couponDiscountAmount + remoteAreaShippingFee
             }
           />
         </section>

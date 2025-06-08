@@ -39,12 +39,8 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
       </div>
       {cartItems.map((item) => (
         <EditableCartItemCard
-          cartItemId={item.id}
           key={item.id}
-          imgUrl={item.product.imageUrl}
-          name={item.product.name}
-          price={item.product.price}
-          quantity={item.quantity}
+          cartItem={item}
           isSelected={isSelectedItem(item.id)}
           handleToggle={handleToggle}
         />
