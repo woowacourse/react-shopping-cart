@@ -16,8 +16,8 @@ function CartList() {
   }
 
   const handlerSelectAll = () => {
-    if (selectState.every((item) => item.selected)) selectAll();
-    else deselectAll();
+    if (selectState.every((item) => item.selected)) deselectAll();
+    else selectAll();
   };
 
   return (
