@@ -14,7 +14,7 @@ import useCheckboxHandler from "../../hooks/cart/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import { CartLogo } from "../../constants/images";
 import { NoCartItemText, Wrap } from "./Cart.styles";
-import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
+import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],

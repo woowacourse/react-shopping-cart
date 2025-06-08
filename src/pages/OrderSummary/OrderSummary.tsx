@@ -12,9 +12,9 @@ import Receipt from "../../components/Receipt/Receipt";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import CouponModal from "../../components/CouponModal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
-import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
+import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { useState } from "react";
-import { calculateDiscountAmount } from "../../\bdomains/discount";
+import { calculateDiscountAmount } from "../../domains/discount";
 import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
 import useResetCouponOnUnmount from "../../hooks/orderSummary/useResetCouponOnUnmount";
 
