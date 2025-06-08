@@ -36,8 +36,10 @@ const useOrderSummary = () => {
     [selectedCoupons, orderItems, orderPrice, finalShippingFee]
   );
 
-  const finalTotalPrice =
-    Math.max(0, orderPrice - totalDiscount) + finalShippingFee;
+  const finalTotalPrice = Math.max(
+    0,
+    orderPrice - totalDiscount + finalShippingFee
+  );
 
   return {
     orderItems,
