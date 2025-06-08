@@ -26,11 +26,14 @@ export const useCartSummary = () => {
     : 0;
   const shippingFee = baseShippingFee + remoteAreaShippingFee;
   const totalPrice = orderPrice - couponDiscount + shippingFee;
+  const baseTotalPrice = orderPrice + baseShippingFee;
 
   return {
     orderPrice,
     shippingFee,
     totalPrice,
     couponDiscount,
+    baseShippingFee,
+    baseTotalPrice,
   };
 };

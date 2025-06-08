@@ -12,7 +12,7 @@ import PageTitle from "../components/@common/PageTitle/PageTitle";
 
 const CartItemPage = () => {
   const { cartItems, selectedItem, isLoading } = useCartItemContext();
-  const { orderPrice, totalPrice, shippingFee } = useCartSummary();
+  const { orderPrice, baseShippingFee, baseTotalPrice } = useCartSummary();
   const navigate = useNavigate();
 
   return (
@@ -48,11 +48,11 @@ const CartItemPage = () => {
                 />
                 <PriceRow
                   title="배송비"
-                  price={shippingFee}
+                  price={baseShippingFee}
                   testId="shipping-fee"
                 />
                 <hr className={Divider} />
-                <PriceRow title="총 결제 금액" price={totalPrice} />
+                <PriceRow title="총 결제 금액" price={baseTotalPrice} />
               </>
             )}
           </div>
