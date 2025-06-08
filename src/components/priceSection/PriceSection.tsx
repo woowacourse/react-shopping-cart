@@ -10,6 +10,7 @@ const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds } = useCheckCartIdsContext();
   const { couponDiscount } = useCouponsContext();
+  console.log(couponDiscount);
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
@@ -39,7 +40,7 @@ const PriceSection = () => {
 
       <PriceRow
         title="총 결제 금액"
-        price={orderPrice + deliveryPrice}
+        price={orderPrice + deliveryPrice - couponDiscount}
         data-testid="totalPrice"
       />
     </>
