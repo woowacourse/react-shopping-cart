@@ -1,6 +1,7 @@
-import { ErrorBoundary, ErrorFallback, LoadingFallback } from "@/components";
+import { ErrorBoundary, ErrorFallback, LoadingFallback, Spacing } from "@/components";
 import { OrderConfirmSection, Step2Footer, Step2Header } from "./components";
 import { Suspense } from "react";
+import { size } from "@/styles";
 
 export default function Step2() {
   return (
@@ -12,6 +13,7 @@ export default function Step2() {
         </Suspense>
       </ErrorBoundary>
       <Step2Footer />
+      <Spacing size={size.mobileFooterHeight} />
     </>
   );
 }

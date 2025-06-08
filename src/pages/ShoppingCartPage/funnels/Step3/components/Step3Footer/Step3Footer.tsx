@@ -1,13 +1,13 @@
 import { Button, Text } from "@/components";
 import { css } from "@emotion/react";
-import * as S from "./Step3Footer.styles";
+import * as S_Page from "@/pages/ShoppingCartPage/ShoppingCartPage.styles";
 import { useFunnelContext } from "@/modules";
 
 export default function Step3Footer() {
   const { resetStep } = useFunnelContext();
 
   return (
-    <S.ButtonWrapper>
+    <S_Page.ButtonWrapper>
       <Button
         css={css`
           width: 100%;
@@ -18,6 +18,6 @@ export default function Step3Footer() {
           장바구니로 돌아가기
         </Text>
       </Button>
-    </S.ButtonWrapper>
+    </S_Page.ButtonWrapper>
   );
 }
