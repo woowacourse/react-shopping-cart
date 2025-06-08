@@ -1,14 +1,13 @@
 import { CouponContent } from '@/api/type';
-import { useCoupon } from '@/hooks/useCoupon';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { Flex, Header } from '../../components/common';
 import BackArrowButton from '../../components/common/BackArrowButton';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
-import { useAvailableCoupons } from './hooks/useAvailableCoupons';
-import { useBestCouponCombination } from './hooks/useBestCouponCombination';
+import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 import { useModal } from './hooks/useModal';
 import { useNavigation } from './hooks/useNavigation';
+import { useOrderCoupons } from './hooks/useOrderCoupons';
 import { useOrderInfo } from './hooks/useOrderInfo';
 import { useShipping } from './hooks/useShipping';
 import CouponModal from './order-coupon/CouponModal';
@@ -17,61 +16,59 @@ import LabelCouponPrice from './order-coupon/LabelCouponPrice';
 import OrderItemList from './order-coupon/OrderItemList';
 import DeliveryRegionSection from './order-delivery/DeliveryRegionSection';
 import OrderPageInfo from './OrderPageInfo';
-import { getAllCouponCombinationIds } from './utils/getAllCouponCombinationIds';
+import { getDiscountByCouponId } from './utils/getDiscountByCouponId';
 
 const OrderReviewPage = () => {
   const { typeCount, totalCount, isDisabled } = useOrderInfo();
-  const { coupons, isLoading } = useCoupon();
+
   const {
     isJejuOrRemoteArea,
     actualShippingFee,
     handleJejuOrRemoteAreaToggle,
   } = useShipping();
 
-  const { availableCoupons } = useAvailableCoupons(
-    coupons ?? [],
-    isJejuOrRemoteArea
-  );
-
-  const [allCouponCombinationIds, setAllCouponCombinationIds] = useState<
-    number[][]
-  >([]);
-  const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
-
-  const { bestCouponIds, totalDiscount } = useBestCouponCombination(
+  const {
+    coupons,
+    isLoading,
     availableCoupons,
-    allCouponCombinationIds,
-    isJejuOrRemoteArea
-  );
+    selectedCouponIds,
+
+    // 핸들러
+    handleSelectCoupons,
+  } = useOrderCoupons(isJejuOrRemoteArea);
+
+  const { selectedItems, orderPrice } = useOrderListContext();
+  const currentDiscount = useMemo(() => {
+    const selectedCoupons = selectedCouponIds
+      .map((id) => availableCoupons.find((c) => c.id === id))
+      .filter(Boolean) as CouponContent[];
+
+    return selectedCoupons.reduce((total, coupon) => {
+      return (
+        total +
+        getDiscountByCouponId(
+          coupon,
+          orderPrice,
+          selectedItems,
+          isJejuOrRemoteArea
+        )
+      );
+    }, 0);
+  }, [
+    selectedCouponIds,
+    availableCoupons,
+    orderPrice,
+    selectedItems,
+    isJejuOrRemoteArea,
+  ]);
+
+  const payment = orderPrice + actualShippingFee - currentDiscount;
 
   const { showCouponModal, handleShowCouponModal } = useModal();
-  const { handleBackClick, handleCheckout } = useNavigation(isDisabled);
-
-  // 2. availableCoupons 값이 바뀌면 갱신
-  useEffect(() => {
-    setAllCouponCombinationIds(getAllCouponCombinationIds(availableCoupons));
-  }, [availableCoupons]);
-
-  useEffect(() => {
-    setSelectedCouponIds(bestCouponIds);
-  }, [bestCouponIds]);
-
-  const handleUpdateCouponCombinations = (coupons: CouponContent[]) => {
-    const combinations = getAllCouponCombinationIds(coupons);
-    setAllCouponCombinationIds(combinations);
-  };
-
-  const handleSelectCoupons = (newCoupons: number[]) => {
-    setSelectedCouponIds(newCoupons);
-
-    // ID로 쿠폰 객체 찾아서 조합 업데이트
-    if (coupons) {
-      const selectedCouponObjects = coupons.filter((coupon) =>
-        newCoupons.includes(coupon.id)
-      );
-      handleUpdateCouponCombinations(selectedCouponObjects);
-    }
-  };
+  const { handleBackClick, handleCheckout } = useNavigation(
+    isDisabled,
+    payment
+  );
 
   return (
     <ErrorBoundary>
@@ -87,8 +84,9 @@ const OrderReviewPage = () => {
           onToggle={handleJejuOrRemoteAreaToggle}
         />
         <LabelCouponPrice
-          totalDiscount={totalDiscount}
+          totalDiscount={currentDiscount}
           actualShippingFee={actualShippingFee}
+          payment={payment}
         />
         <CouponModal
           show={showCouponModal}
@@ -96,8 +94,8 @@ const OrderReviewPage = () => {
           coupons={coupons ?? []}
           isLoading={isLoading}
           availableCoupons={availableCoupons}
-          bestCouponIds={selectedCouponIds} // 자동 계산된 쿠폰 ID들 추가
-          totalDiscount={totalDiscount}
+          bestCouponIds={selectedCouponIds}
+          totalDiscount={currentDiscount}
           handleApply={handleSelectCoupons}
           isJejuOrRemoteArea={isJejuOrRemoteArea}
         />
@@ -106,9 +104,9 @@ const OrderReviewPage = () => {
         $isDisabled={isDisabled}
         disabled={isDisabled}
         onClick={handleCheckout}
-        aria-label='주문 확인'
+        aria-label='결제하기'
       >
-        주문 확인
+        결제하기
       </CheckoutButton>
     </ErrorBoundary>
   );
