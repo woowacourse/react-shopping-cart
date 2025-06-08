@@ -9,15 +9,11 @@ import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
 
-import Modal from "compoents-modal-test-kangoll";
 import { useNavigate } from "react-router-dom";
-import { InfoText } from "../../../components/InfoText/InfoText";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
-import { CouponList } from "../components/CouponList/CouponList";
 import { usePaymentSummary } from "../hooks/usePaymentsummary";
-import { useSaleCoupon } from "../hooks/useSaleCoupon";
-import { useTwoPlusOneApplicableItems } from "../hooks/useTwoPlusOneApplicableItems";
+import { CouponModal } from "./couponModal";
 import { pressBackButton } from "./orderConfirm.style";
 
 export default function OrderConfirm() {
@@ -25,21 +21,14 @@ export default function OrderConfirm() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
+  const [receivedDiscountedPrice, setReceivedDiscountedPrice] = useState(0);
 
   const { cartItems } = useCartContext();
   const { selectedCartIds } = useSelectedCartContext();
-  const twoPlusOneApplicableItems = useTwoPlusOneApplicableItems({
-    cartItems,
-    selectedCartIds,
+  const { deliveryFee, orderPrice, totalPrice } = usePaymentSummary({
+    isExtraDeliveryArea,
+    receivedDiscountedPrice,
   });
-  const { handleCouponSelect, isValidCoupon, selectedCoupons, coupons } =
-    useSaleCoupon();
-  const { deliveryFee, orderPrice, discountedPrice, totalPrice } =
-    usePaymentSummary({
-      isExtraDeliveryArea,
-      selectedCoupons,
-      twoPlusOneApplicableItems,
-    });
 
   const handlePressBack = () => {
     navigate("/");
@@ -90,7 +79,7 @@ export default function OrderConfirm() {
         />
         <PaymentSummary
           orderPrice={orderPrice}
-          couponSale={discountedPrice}
+          couponSale={receivedDiscountedPrice}
           deliveryFee={deliveryFee}
           totalPrice={totalPrice}
         />
@@ -106,32 +95,13 @@ export default function OrderConfirm() {
         </Button>
       </Footer>
 
-      <Modal
-        position="center"
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        size="sm"
-        backdropClosable
-      >
-        <Modal.Header hasCloseButton>쿠폰을 선택해주세요</Modal.Header>
-        <Modal.Content>
-          <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
-          <CouponList
-            handleCouponSelect={handleCouponSelect}
-            validateCoupon={isValidCoupon({
-              orderPrice,
-              twoPlusOneApplicableItems,
-            })}
-            selectedCoupons={selectedCoupons}
-            coupons={coupons}
-          />
-        </Modal.Content>
-        <Modal.Footer>
-          <Button onClick={handleModalClose} size="full">
-            총 {discountedPrice.toLocaleString()}원 할인 쿠폰 사용하기
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <CouponModal
+        isModalOpen={isModalOpen}
+        handleModalClose={handleModalClose}
+        deliveryFee={deliveryFee}
+        orderPrice={orderPrice}
+        setReceivedDiscountedPrice={setReceivedDiscountedPrice}
+      />
     </PageLayout>
   );
 }

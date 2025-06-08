@@ -8,8 +8,7 @@ import {
   validateTime,
 } from "./utils/validateCoupons";
 
-export function useSaleCoupon() {
-  const [selectedCoupons, setSelectedCoupons] = useState<CouponCode[]>([]);
+export function useCoupons() {
   const [coupons, setCoupons] = useState<CouponType[]>([]);
 
   const today = new Date();
@@ -59,23 +58,6 @@ export function useSaleCoupon() {
   };
 
   /**
-   * 쿠폰 선택 핸들러 - 최대 2개의 쿠폰을 선택할 수 있도록 관리
-   * @param e 이벤트 객체
-   */
-  const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const couponCode = e.target.id as CouponCode;
-
-    setSelectedCoupons((prev) => {
-      if (prev.includes(couponCode))
-        return prev.filter((id) => id !== couponCode);
-      if (prev.length < 2) {
-        return [...prev, couponCode];
-      }
-      return prev;
-    });
-  };
-
-  /**
    * 쿠폰 목록을 가져오는 함수
    */
   useEffect(() => {
@@ -86,10 +68,7 @@ export function useSaleCoupon() {
   }, []);
 
   return {
-    handleCouponSelect,
-    validateCoupon,
     isValidCoupon,
-    selectedCoupons,
     coupons,
   };
 }

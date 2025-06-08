@@ -8,14 +8,14 @@ type validateCouponType = Record<CouponCode, boolean>;
 interface CouponListProps {
   handleCouponSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
   selectedCoupons: string[];
-  validateCoupon: validateCouponType;
+  isValidCoupon: validateCouponType;
   coupons: CouponType[];
 }
 
 export function CouponList({
   handleCouponSelect,
   selectedCoupons,
-  validateCoupon,
+  isValidCoupon,
   coupons,
 }: CouponListProps) {
   return (
@@ -29,7 +29,7 @@ export function CouponList({
               item={coupon}
               isSelected={selectedCoupons.includes(coupon.code)}
               handleCouponSelect={handleCouponSelect}
-              isDisabled={!validateCoupon[coupon.code]}
+              isDisabled={!isValidCoupon[coupon.code]}
             />
           </>
         );
