@@ -26,7 +26,7 @@ export const couponListStyles = {
 
   count: css`
     font-size: 14px;
-    color: var(--color-grey);
+    color: var(--color-white);
     background-color: var(--color-light-grey);
     padding: 4px 8px;
     border-radius: 12px;

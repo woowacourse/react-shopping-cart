@@ -7,4 +7,5 @@ export const FEE = {
 export const ROUTE = {
   HOME: '/',
   ORDER_COMPLETE: '/order-complete',
+  PAYMENT_CONFIRMATION: '/payment-confirmation',
 };
