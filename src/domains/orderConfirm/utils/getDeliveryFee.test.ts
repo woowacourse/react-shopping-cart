@@ -3,7 +3,7 @@ import { getDeliveryFee } from "./getDeliveryFee";
 
 describe("getDeliveryFee 함수 테스트", () => {
   it.each([
-    [100_000, false, 0],
+    [100_000, false, 0], //경계값
     [150_000, false, 0],
     [99_999, false, 3000],
     [50_000, false, 3000],

@@ -25,6 +25,14 @@ describe("validateDate", () => {
     });
     expect(result).toBe(false);
   });
+
+  it("만료일이 오늘과 같으면 true", () => {
+    const result = validateDate({
+      expirationDate: "2025-06-01",
+      today: new Date("2025-06-01"),
+    });
+    expect(result).toBe(true);
+  });
 });
 
 describe("validateTime", () => {
@@ -40,6 +48,46 @@ describe("validateTime", () => {
 
   it("현재 시간이 사용 가능 시간 밖이면 false", () => {
     const today = new Date("2025-06-01T08:30:00");
+    const availableTime: AvailableTime = {
+      start: "06:00:00",
+      end: "07:00:00",
+    };
+    const result = validateTime({ availableTime, today });
+    expect(result).toBe(false);
+  });
+
+  it("현재 시간이 시작 시간과 같으면 true (경계값)", () => {
+    const today = new Date("2025-06-01T06:00:00");
+    const availableTime: AvailableTime = {
+      start: "06:00:00",
+      end: "07:00:00",
+    };
+    const result = validateTime({ availableTime, today });
+    expect(result).toBe(true);
+  });
+
+  it("현재 시간이 종료 시간과 같으면 true (경계값)", () => {
+    const today = new Date("2025-06-01T07:00:00");
+    const availableTime: AvailableTime = {
+      start: "06:00:00",
+      end: "07:00:00",
+    };
+    const result = validateTime({ availableTime, today });
+    expect(result).toBe(true);
+  });
+
+  it("현재 시간이 시작 시간보다 1초 빠르면 false (경계값)", () => {
+    const today = new Date("2025-06-01T05:59:59");
+    const availableTime: AvailableTime = {
+      start: "06:00:00",
+      end: "07:00:00",
+    };
+    const result = validateTime({ availableTime, today });
+    expect(result).toBe(false);
+  });
+
+  it("현재 시간이 종료 시간보다 1분 늦으면 false (경계값)", () => {
+    const today = new Date("2025-06-01T07:01:00");
     const availableTime: AvailableTime = {
       start: "06:00:00",
       end: "07:00:00",
