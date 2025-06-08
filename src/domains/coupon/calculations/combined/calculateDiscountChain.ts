@@ -15,9 +15,11 @@ export const calculateDiscountChain = (
     orderPrice,
     shippingFee
   );
+
   const remainingPrice = Math.max(0, orderPrice - firstDiscount);
   const shippingAfterFirst =
     first.discountType === "freeShipping" ? 0 : shippingFee;
+
   const secondDiscount = calculateCouponDiscount(
     second,
     orderItems,
