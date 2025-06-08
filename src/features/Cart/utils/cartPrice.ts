@@ -1,3 +1,5 @@
+import { DELIVERY_FEES, PRICE_THRESHOLDS } from '@/features/Order/Checkout/constants/coupons';
+
 import { CartItemList } from '../types/Cart.types';
 
 export const cartPrice = ({ cartItems }: CartItemList) => {
@@ -7,7 +9,7 @@ export const cartPrice = ({ cartItems }: CartItemList) => {
       return acc + Number(cart.product.price) * Number(cart.quantity);
     }, 0);
 
-  const deliveryFee = orderPrice >= 100000 ? 0 : 3000;
+  const deliveryFee = orderPrice >= PRICE_THRESHOLDS.FREE_SHIPPING_MAX ? 0 : DELIVERY_FEES.STANDARD;
   const totalPrice = orderPrice + deliveryFee;
 
   return { orderPrice, deliveryFee, totalPrice };

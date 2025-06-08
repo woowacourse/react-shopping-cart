@@ -72,7 +72,7 @@ export const CartInfo = ({ cart }: CartDataState) => {
               </Text>
             ) : (
               <Text type="Caption" color="black" weight="semibold">
-                🎉🎉 무료 배송이 가능합니다 🎉🎉
+                🎉 무료 배송이 가능합니다 🎉
               </Text>
             )}
             <Progress
