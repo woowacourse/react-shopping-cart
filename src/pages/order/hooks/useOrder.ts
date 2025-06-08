@@ -1,5 +1,5 @@
 import { CartItem } from "../../../shared/types/cartItem";
-import useCouponApply from "./useCouponApply";
+import useCoupon from "./useCoupon";
 import useCouponResource from "./useCouponResource";
 import useDeliveryInformation from "./useDeliveryInformation";
 
@@ -12,7 +12,7 @@ interface useOrderParams {
 const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
   const { coupons } = useCouponResource();
   const { isRemoteArea, toggleRemoteArea } = useDeliveryInformation();
-  const { availableCoupons, discountPrice, updateApplyCoupon } = useCouponApply({
+  const { availableCoupons, discountPrice, updateApplyCoupon } = useCoupon({
     cartItems,
     orderPrice,
     coupons,

@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import useCouponDiscount from "./useCouponDiscount";
 import useCouponValidation from "./useCouponValidation";
 
-interface useCouponApplyParams {
+interface useCouponParams {
   cartItems: CartItem[];
   orderPrice: number;
   coupons: CouponResponse[];
@@ -12,7 +12,7 @@ interface useCouponApplyParams {
   isRemoteArea: boolean;
 }
 
-const useCouponApply = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemoteArea }: useCouponApplyParams) => {
+const useCoupon = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemoteArea }: useCouponParams) => {
   const validCoupons = useCouponValidation({ cartItems, orderPrice, coupons });
   const couponsWithDiscount = useCouponDiscount({
     coupons: validCoupons,
@@ -60,4 +60,4 @@ const useCouponApply = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemot
   };
 };
 
-export default useCouponApply;
+export default useCoupon;
