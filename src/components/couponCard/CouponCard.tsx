@@ -66,7 +66,6 @@ const CouponCard = ({
   onClick,
 }: CouponCardProps) => {
   const handleClick = (event: React.MouseEvent) => {
-    console.log('CouponCard clicked');
     event.stopPropagation(); // 이벤트 버블링 방지
     onClick();
   };

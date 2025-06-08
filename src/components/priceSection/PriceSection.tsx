@@ -14,7 +14,6 @@ const PriceSection = () => {
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
   const deliveryPrice = calculateDeliveryPrice(orderPrice);
-  console.log(couponDiscount);
 
   return (
     <>
