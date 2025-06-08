@@ -66,7 +66,7 @@ ui 퍼블리싱
   - [x] cartPage context api 적용
   - [x] orderPage context api 적용
 - [x] cartPage / orderPage -> provider 적용 후, export
-- [ ] modal 상태 context 적용
+- [x] modal 상태 context 적용
 - [ ] 테스트 코드 작성
 
 ### 응집도와 결합도 측면에서의 대화

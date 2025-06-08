@@ -7,13 +7,10 @@ import Text from "../../../../shared/components/common/Text";
 import GuideSign from "../../../../shared/components/icons/GuideSign";
 import { useOrderContext } from "../../contexts/OrderContext";
 import { MAX_SELECTABLE_COUPONS } from "../../constants";
+import { useCouponModalContext } from "../../contexts/CouponModalContext";
 
-interface CouponModalProps {
-  isCartModalOpen: boolean;
-  handleCartModalClose: () => void;
-}
-
-const CouponModal = ({ isCartModalOpen, handleCartModalClose }: CouponModalProps) => {
+const CouponModal = () => {
+  const { isCouponModalOpen, handleCouponModalClose } = useCouponModalContext();
   const { coupons, availableCoupons, updateApplyCoupon } = useOrderContext();
   const { tempAvailableCoupons, discountPrice, handleTempToggleCoupon, applySelectedCoupons } = useTempCoupon({
     availableCoupons,
@@ -21,7 +18,7 @@ const CouponModal = ({ isCartModalOpen, handleCartModalClose }: CouponModalProps
   });
 
   return (
-    <Modal show={isCartModalOpen} onHide={handleCartModalClose}>
+    <Modal show={isCouponModalOpen} onHide={handleCouponModalClose}>
       <Modal.BackDrop />
       <Modal.Container style={{ width: "calc(100% - 48px)" }} gap={32}>
         <Modal.Header closeButton>

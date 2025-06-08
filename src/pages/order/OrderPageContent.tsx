@@ -1,6 +1,5 @@
 import * as S from "./OrderPageContent.styled";
 import { useNavigate } from "react-router";
-import useBooleanState from "../../shared/hooks/common/useBooleanState";
 import { useOrderContext } from "./contexts/OrderContext";
 import Header from "../../shared/components/Header";
 import PrevArrow from "../../shared/components/icons/PrevArrow";
@@ -9,11 +8,11 @@ import OrderItemList from "./components/OrderItemList";
 import Button from "../../shared/components/common/Button";
 import DeliveryInformation from "./components/DeliveryInformation";
 import OrderPrice from "./components/OrderPrice";
-import CouponModal from "./components/CouponModal";
+import { useCouponModalContext } from "./contexts/CouponModalContext";
 
 const OrderPageContent = () => {
   const navigate = useNavigate();
-  const [isCartModalOpen, handleCartModalOpen, handleCartModalClose] = useBooleanState(false);
+  const { handleCouponModalOpen } = useCouponModalContext();
   const { cartItemsTotalQuantity, cartItemsCheckedCount, finalTotalPrice } = useOrderContext();
 
   const handleNavigate = () =>
@@ -35,7 +34,7 @@ const OrderPageContent = () => {
           </S.TextWrap>
         </S.TextWrap>
         <OrderItemList />
-        <Button variant="secondary" size="full" onClick={handleCartModalOpen}>
+        <Button variant="secondary" size="full" onClick={handleCouponModalOpen}>
           쿠폰 적용
         </Button>
         <DeliveryInformation />
@@ -46,7 +45,6 @@ const OrderPageContent = () => {
           </Button>
         </S.ButtonWrap>
       </S.Container>
-      <CouponModal isCartModalOpen={isCartModalOpen} handleCartModalClose={handleCartModalClose} />
     </>
   );
 };
