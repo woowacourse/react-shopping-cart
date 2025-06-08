@@ -59,9 +59,13 @@ function CouponModal({ onClose }: CouponModalProps) {
                   />
                   <S.Name>
                     {coupon.description}
-                    {discount > 0 && (
+                    {discount > 0 ? (
                       <span style={{ color: '#0a8', marginLeft: 6 }}>
                         (-{discount.toLocaleString()}원)
+                      </span>
+                    ) : (
+                      <span style={{ color: '#0a8', marginLeft: 6 }}>
+                        (0원)
                       </span>
                     )}
                   </S.Name>
