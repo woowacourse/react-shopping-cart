@@ -27,7 +27,7 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { SelectedCartItems, cartTypeQuantity, totalQuantity, totalPrice } = useSelectedCartItemsContext();
+  const { SelectedCartItems, cartTypeQuantity, totalQuantity, totalPurchasePrice } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -44,7 +44,7 @@ export default function ConfirmationPage() {
         </S.ConfirmationQuantity>
         <S.ConfirmationQuantity>최종 결제 금액을 확인해 주세요.</S.ConfirmationQuantity>
         <S.ConfirmationTotalPurchasePriceLabel>총 결제 금액</S.ConfirmationTotalPurchasePriceLabel>
-        <S.ConfirmationTotalPurchasePrice>{totalPrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
+        <S.ConfirmationTotalPurchasePrice>{totalPurchasePrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
       </S.ConfirmationSection>
       <S.ConfirmationFooterContainer>
         <Button onClick={handleClick} title="결제하기" css={ButtonCSS} disabled={SelectedCartItems.length === 0} />
