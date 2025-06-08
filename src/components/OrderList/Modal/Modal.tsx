@@ -1,31 +1,44 @@
+import { useEffect } from "react";
 import Close from "../../../assets/Close.png";
 import Info from "../../../assets/Info.png";
 import Hr from "../../common/Hr/Hr";
 import CheckBox from "../../common/CheckBox/CheckBox";
 import * as S from "./Modal.styles";
-import { CouponResponse } from "../../../api/fetchCouponList";
 import {
   formatDate,
   formatCurrency,
   formatAvailableTime,
 } from "../../../utils/format";
+import { useCouponListContext } from "../../../contexts/CouponContext";
+import { fetchCouponList } from "../../../api/fetchCouponList";
 
 interface ModalProps {
   isModalOpen: boolean;
   onClose: () => void;
-  couponList: CouponResponse[];
 }
 
-export default function Modal({
-  isModalOpen,
-  onClose,
-  couponList,
-}: ModalProps) {
+export default function Modal({ isModalOpen, onClose }: ModalProps) {
   if (!isModalOpen) {
     return null;
   }
 
-  console.log(couponList[0].id);
+  const { couponList, checkedCoupons, updateCouponList, checkCoupon } =
+    useCouponListContext();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const list = await fetchCouponList();
+        updateCouponList(list);
+      } catch (err: any) {
+        console.error("쿠폰 조회 중 오류 발생:", err);
+      }
+    })();
+  }, [updateCouponList]);
+
+  useEffect(() => {
+    console.log("checkCoupon:", checkCoupon);
+  }, [checkCoupon]);
 
   return (
     <>
@@ -45,30 +58,41 @@ export default function Modal({
               </S.InfoDescription>
             </S.Info>
             <S.CouponList>
-              {couponList.map((coupon) => (
-                <S.Item key={coupon.id}>
-                  <Hr />
-                  <S.ItemTitleWrapper>
-                    <CheckBox type="checkbox" />
-                    <S.ItemTitle>{coupon.description}</S.ItemTitle>
-                  </S.ItemTitleWrapper>
-                  <S.ItemInfoWrapper>
-                    <S.CouponInfo>
-                      만료일: {formatDate(coupon.expirationDate)}
-                    </S.CouponInfo>
-                    {coupon.minimumAmount && (
+              {couponList.map((coupon) => {
+                const isChecked = checkedCoupons.some(
+                  (c) => c.id === coupon.id
+                );
+                const isDisabled = !isChecked && checkedCoupons.length >= 2;
+
+                return (
+                  <S.Item key={coupon.id} disabled={isDisabled}>
+                    <Hr />
+                    <S.ItemTitleWrapper>
+                      <CheckBox
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => checkCoupon(coupon)}
+                      />
+                      <S.ItemTitle>{coupon.description}</S.ItemTitle>
+                    </S.ItemTitleWrapper>
+                    <S.ItemInfoWrapper>
                       <S.CouponInfo>
-                        최소 주문 금액: {formatCurrency(coupon.minimumAmount)}
+                        만료일: {formatDate(coupon.expirationDate)}
                       </S.CouponInfo>
-                    )}
-                    {coupon.availableTime && (
-                      <S.CouponInfo>
-                        {formatAvailableTime(coupon.availableTime)}
-                      </S.CouponInfo>
-                    )}
-                  </S.ItemInfoWrapper>
-                </S.Item>
-              ))}
+                      {coupon.minimumAmount && (
+                        <S.CouponInfo>
+                          최소 주문 금액: {formatCurrency(coupon.minimumAmount)}
+                        </S.CouponInfo>
+                      )}
+                      {coupon.availableTime && (
+                        <S.CouponInfo>
+                          {formatAvailableTime(coupon.availableTime)}
+                        </S.CouponInfo>
+                      )}
+                    </S.ItemInfoWrapper>
+                  </S.Item>
+                );
+              })}
             </S.CouponList>
           </S.ModalBody>
           <S.ModalButton>총 6,000원 할인 쿠폰 사용하기</S.ModalButton>

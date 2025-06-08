@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import Receipt from "../../shoppingCart/receipt/Receipt";
 import Footer from "../../layout/Footer/Footer";
@@ -11,8 +11,6 @@ import Shipping from "../Shipping/Shipping";
 import Modal from "../Modal/Modal";
 import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
 import useLocalStorage from "../../../hooks/useLocalStorage";
-import { useCouponListContext } from "../../../contexts/CouponContext";
-import { fetchCouponList } from "../../../api/fetchCouponList";
 interface OrderListContentProps {
   cartItemList: CartItem[];
 }
@@ -26,23 +24,6 @@ export default function OrderListContent({
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRemote, setIsRemote] = useLocalStorage<boolean>("isRemote", false);
-
-  const { couponList, updateCouponList } = useCouponListContext();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const list = await fetchCouponList();
-        updateCouponList(list);
-      } catch (err: any) {
-        console.error("쿠폰 조회 중 오류 발생:", err);
-      }
-    })();
-  }, [updateCouponList]);
-
-  useEffect(() => {
-    console.log("쿠폰", couponList);
-  }, [couponList]);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -92,11 +73,7 @@ export default function OrderListContent({
       />
       <OrderList items={selectedItems} />
       <CouponButton onClick={handleOpenModal} />
-      <Modal
-        isModalOpen={isModalOpen}
-        onClose={handleCloseModal}
-        couponList={couponList}
-      />
+      <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
       <Shipping
         isRemote={isRemote}
         onRemoteChange={(checked) => setIsRemote(checked)}
