@@ -7,6 +7,7 @@ import CartPage from "../pages/CartPage/CartPage";
 import { ToastProvider } from "../contexts/ToastContext";
 import { CartProvider } from "../contexts/CartContext";
 import MobileLayout from "../components/MobileLayout/MobileLayout";
+import { CouponProvider } from "../contexts/CouponContext";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -43,6 +44,16 @@ const mockCartItems = [
   },
 ];
 
+const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <ToastProvider>
+      <CartProvider>
+        <CouponProvider>{children}</CouponProvider>
+      </CartProvider>
+    </ToastProvider>
+  );
+};
+
 describe("Error 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -57,11 +68,9 @@ describe("Error 테스트", () => {
       render(
         <MemoryRouter>
           <MobileLayout>
-            <ToastProvider>
-              <CartProvider>
-                <CartPage />
-              </CartProvider>
-            </ToastProvider>
+            <TestWrapper>
+              <CartPage />
+            </TestWrapper>
           </MobileLayout>
         </MemoryRouter>
       );
@@ -80,11 +89,9 @@ describe("Error 테스트", () => {
       render(
         <MemoryRouter>
           <MobileLayout>
-            <ToastProvider>
-              <CartProvider>
-                <CartPage />
-              </CartProvider>
-            </ToastProvider>
+            <TestWrapper>
+              <CartPage />
+            </TestWrapper>
           </MobileLayout>
         </MemoryRouter>
       );
@@ -112,11 +119,9 @@ describe("Error 테스트", () => {
       render(
         <MemoryRouter>
           <MobileLayout>
-            <ToastProvider>
-              <CartProvider>
-                <CartPage />
-              </CartProvider>
-            </ToastProvider>
+            <TestWrapper>
+              <CartPage />
+            </TestWrapper>
           </MobileLayout>
         </MemoryRouter>
       );
