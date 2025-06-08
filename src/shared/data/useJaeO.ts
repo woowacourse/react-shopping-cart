@@ -1,20 +1,29 @@
-import { useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+} from 'react';
 import { getSnapshot, refetchData, subscribe } from './dataStore';
 
-interface useJaeOProps<T> {
+interface useJaeOProps<T, R = T> {
   fetchKey: string;
   fetchFn: () => Promise<T>;
+  convertFn?: (raw: T) => R;
   onError?: () => void;
   onSuccess?: () => void;
 }
 
-export function useJaeO<T>({
+export function useJaeO<T, R = T>({
   fetchKey,
   fetchFn,
+  convertFn,
   onError,
   onSuccess,
-}: useJaeOProps<T>) {
+}: useJaeOProps<T, R>) {
   const fetchFnRef = useRef(fetchFn);
+  const convertFnRef = useRef(convertFn);
   const onErrorRef = useRef(onError);
   const onSuccessRef = useRef(onSuccess);
 
@@ -43,6 +52,10 @@ export function useJaeO<T>({
   }, [fetchFn]);
 
   useEffect(() => {
+    convertFnRef.current = convertFn;
+  }, [convertFn]);
+
+  useEffect(() => {
     onErrorRef.current = onError;
   }, [onError]);
 
@@ -50,8 +63,16 @@ export function useJaeO<T>({
     onSuccessRef.current = onSuccess;
   }, [onSuccess]);
 
+  const convertedData = useMemo(
+    () =>
+      snapshot && snapshot.data !== null && snapshot.data !== undefined
+        ? convertFnRef.current?.(snapshot.data) ?? (snapshot.data as R)
+        : null,
+    [snapshot]
+  );
+
   return {
-    data: snapshot?.data,
+    data: convertedData,
     isLoading: snapshot?.isLoading ?? false,
     isError: snapshot?.isError ?? false,
     refetch: fetchAndUpdateData,
