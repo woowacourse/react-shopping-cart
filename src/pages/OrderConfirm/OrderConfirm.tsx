@@ -162,7 +162,9 @@ export function OrderConfirm() {
             <p css={titleStyle}>주문 확인</p>
             <div css={subTitleBox}>
               <p css={subTitleStyle}>
-                현재 {selectedCartItemIds.length}종류의 상품 {}개를 주문합니다.
+                현재 {selectedCartItemIds.length}종류의 상품{' '}
+                {selectedCartItems.reduce((a, b) => a + b.quantity, 0)}개를
+                주문합니다.
               </p>
               <p css={subTitleStyle}>최종 결제 금액을 확인해 주세요.</p>
             </div>
