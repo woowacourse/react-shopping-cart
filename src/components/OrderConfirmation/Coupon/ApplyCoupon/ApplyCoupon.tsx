@@ -7,9 +7,9 @@ import CouponList from "../CouponList/CouponList";
 import CouponCard from "../CouponCard/CouponCard";
 import { Coupon } from "../../../../type/Coupons";
 import { CartItem } from "../../../../type/CartItem";
-import { calculateTotalPrice } from "../../../../util/cart/calculateTotalPrice";
 import useSelectedCoupons from "../../../../hooks/useCoupons/useSelectedCoupons";
 import useAvailableCoupons from "../../../../hooks/useCoupons/useAvailableCoupons";
+import { calculateCoupons } from "../../../../util/coupons/calculateCoupons";
 
 const COUPON_RULE = {
   maxCoupons: 2,
@@ -29,9 +29,6 @@ function ApplyCoupon({
   handleUseCoupons,
 }: ApplyCouponProps) {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const totalPrice = calculateTotalPrice(selectedCartItems);
-
-  const totalPriceWithCoupons = totalPrice;
 
   const {
     selectedCouponIds,
@@ -42,6 +39,12 @@ function ApplyCoupon({
   const { availableCouponsIdList } = useAvailableCoupons({
     cartItems: selectedCartItems,
     coupons,
+  });
+
+  const { maxDiscountedPrice } = calculateCoupons({
+    cartItems: selectedCartItems,
+    coupons: coupons.filter((coupon) => selectedCouponIds.includes(coupon.id)),
+    hasRemoteAreaShipping: false,
   });
 
   return (
@@ -91,7 +94,7 @@ function ApplyCoupon({
               handleCloseModal();
             }}
           >
-            총 {totalPriceWithCoupons.toLocaleString()}원 할인 쿠폰 사용하기
+            총 {maxDiscountedPrice.toLocaleString()}원 할인 쿠폰 사용하기
           </Styled.Button>
         </Modal.Container>
       </Modal>
