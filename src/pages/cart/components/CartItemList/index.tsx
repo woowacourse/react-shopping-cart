@@ -20,7 +20,10 @@ const CartItemList = () => {
           return (
             <ItemCard gap={12} key={id}>
               <ItemCard.Top>
-                <CheckBox isChecked={checkedIds.has(id)} onClick={() => handleCheckChange({ id, action: "each" })} />
+                <CheckBox
+                  isChecked={checkedIds.includes(id)}
+                  onClick={() => handleCheckChange({ id, action: "each" })}
+                />
                 <Button variant="secondary" size="auto" onClick={() => handleCartItemChange({ id, action: "delete" })}>
                   삭제
                 </Button>

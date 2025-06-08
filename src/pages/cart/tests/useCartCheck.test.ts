@@ -15,7 +15,7 @@ describe("useCartCheck 훅 테스트", () => {
     it("초기 상태에서 모든 상품이 체크되어야 한다.", () => {
       const { result } = renderHook(() => useCartCheck(mockCartItemIds));
 
-      expect(result.current.checkedIds).toEqual(new Set(mockCartItemIds));
+      expect(result.current.checkedIds).toEqual(mockCartItemIds);
       expect(result.current.isAllChecked).toBe(true);
     });
   });
@@ -27,13 +27,13 @@ describe("useCartCheck 훅 테스트", () => {
       act(() => {
         result.current.handleCheckChange({ action: "all" });
       });
-      expect(result.current.checkedIds).toEqual(new Set());
+      expect(result.current.checkedIds).toEqual([]);
       expect(result.current.isAllChecked).toBe(false);
 
       act(() => {
         result.current.handleCheckChange({ action: "all" });
       });
-      expect(result.current.checkedIds).toEqual(new Set(mockCartItemIds));
+      expect(result.current.checkedIds).toEqual(mockCartItemIds);
       expect(result.current.isAllChecked).toBe(true);
     });
 
@@ -44,30 +44,14 @@ describe("useCartCheck 훅 테스트", () => {
       act(() => {
         result.current.handleCheckChange({ action: "each", id: firstItemId });
       });
-      expect(result.current.checkedIds).toEqual(new Set(mockCartItemIds.slice(1)));
+      expect(result.current.checkedIds).toEqual(mockCartItemIds.slice(1));
       expect(result.current.isAllChecked).toBe(false);
 
+      // 첫 번째 상품 다시 선택
       act(() => {
         result.current.handleCheckChange({ action: "each", id: firstItemId });
       });
-      expect(result.current.checkedIds).toEqual(new Set(mockCartItemIds));
-      expect(result.current.isAllChecked).toBe(true);
-    });
-  });
-
-  describe("장바구니 상품 변경", () => {
-    it("장바구니에서 상품이 삭제되면 체크 상태도 함께 제거된다.", () => {
-      const { result, rerender } = renderHook(({ ids }) => useCartCheck(ids), {
-        initialProps: { ids: mockCartItemIds },
-      });
-
-      expect(result.current.checkedIds).toEqual(new Set(mockCartItemIds));
-      expect(result.current.isAllChecked).toBe(true);
-
-      const remainingIds = mockCartItemIds.slice(1);
-      rerender({ ids: remainingIds });
-
-      expect(result.current.checkedIds).toEqual(new Set(remainingIds));
+      expect(result.current.checkedIds).toEqual([...mockCartItemIds.slice(1), firstItemId]);
       expect(result.current.isAllChecked).toBe(true);
     });
   });

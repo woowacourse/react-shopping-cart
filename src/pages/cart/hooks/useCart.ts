@@ -23,7 +23,7 @@ export interface UseCartReturnType {
   >;
   cartItemListProps: {
     cartItems: CartItem[];
-    checkedIds: Set<number>;
+    checkedIds: number[];
     handleCartItemChange: HandleCartItemChangeType;
     handleCheckChange: HandleCheckChangeType;
     isAllChecked: boolean;

@@ -1,11 +1,11 @@
 import { CartItem } from "../../../shared/types/cartItem";
 
-const calculateCartAmount = (cartItems: CartItem[], checkedIds: Set<number>) => {
+const calculateCartAmount = (cartItems: CartItem[], checkedIds: number[]) => {
   const cartItemsCount = cartItems.length;
-  const cartItemsCheckedCount = checkedIds.size;
+  const cartItemsCheckedCount = checkedIds.length;
 
   const cartItemsTotalQuantity = cartItems.reduce((acc, item) => {
-    if (checkedIds.has(item.id)) acc += item.quantity;
+    if (checkedIds.includes(item.id)) acc += item.quantity;
     return acc;
   }, 0);
 

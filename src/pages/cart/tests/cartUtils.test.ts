@@ -7,7 +7,7 @@ import MOCKING_CART_ITEMS_DATA from "../../../shared/apis/mocks/data/cartItems.j
 
 describe("장바구니 유틸리티 함수 테스트", () => {
   const mockCartItems: CartItem[] = MOCKING_CART_ITEMS_DATA.content;
-  const checkedIds = new Set([1629, 1965]);
+  const checkedIds = [1629, 1965];
 
   describe("calculateCartAmount 테스트", () => {
     const result = calculateCartAmount(mockCartItems, checkedIds);
@@ -34,7 +34,7 @@ describe("장바구니 유틸리티 함수 테스트", () => {
       });
 
       it("주문 금액이 무료 배송 기준 미만일 때 배송비가 포함된다.", () => {
-        const checkedIds = new Set([1965]);
+        const checkedIds = [1965];
         const result = calculateCartPrice(mockCartItems, checkedIds);
 
         // 달 무드등(1개 * 28000원) = 28000원 < 무료 배송 기준(100000원)
@@ -47,7 +47,7 @@ describe("장바구니 유틸리티 함수 테스트", () => {
       });
 
       it("상품들의 총 주문 금액(배송비 + 주문금액)을 올바르게 계산한다.", () => {
-        const checkedIds = new Set([1965]);
+        const checkedIds = [1965];
         const result = calculateCartPrice(mockCartItems, checkedIds);
 
         // 달 무드등(1개 * 28000원) = 28000원 < 무료 배송 기준(100000원)

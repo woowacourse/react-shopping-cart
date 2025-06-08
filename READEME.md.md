@@ -68,7 +68,8 @@ ui 퍼블리싱
 - [x] cartPage / orderPage -> provider 적용 후, export
 - [x] modal 상태 context 적용
 - [x] useCouponValidation 및 useCouponDiscount 훅 제거 -> 일반 util 함수로 변경
-- [ ] localstorage로 체크 상태 유지시키기
+- [x] localstorage로 체크 상태 유지시키기
+- [x] set 자료구조 -> 배열로 변경
 - [ ] 테스트 코드 작성
   - [ ] cart
     - [x] useCartResource 훅 테스트
@@ -115,3 +116,5 @@ page 딴에서 데이터를 전달하는게 맞을까?
 useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
 
 어차피 무료배송인경우, 쿠폰을 활성화 시켜야하는지? 비활성화 시켜야하는지?
+
+자료구조 set은 localstorage에 들어가면 객체로 변경된다.

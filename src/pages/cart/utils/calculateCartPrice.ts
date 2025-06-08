@@ -1,9 +1,9 @@
 import { CartItem } from "../../../shared/types/cartItem";
 import { DEFAULT_DELIVERY_PRICE, FREE_DELIVERY_MINIMUM_ORDER_PRICE } from "../constants";
 
-const calculateCartPrice = (cartItems: CartItem[], checkedIds: Set<number>) => {
+const calculateCartPrice = (cartItems: CartItem[], checkedIds: number[]) => {
   const orderPrice = cartItems.reduce((acc, item) => {
-    if (checkedIds.has(item.id)) acc += item.quantity * item.product.price;
+    if (checkedIds.includes(item.id)) acc += item.quantity * item.product.price;
     return acc;
   }, 0);
 

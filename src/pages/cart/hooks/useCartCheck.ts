@@ -1,25 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useLocalStorage } from "../../../shared/hooks/common/useLocalStorage";
 
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
+const STORAGE_KEY = "cartItemIds";
+
 const useCartCheck = (cartItemIds: number[]) => {
-  const [checkedIds, setCheckedIds] = useState<Set<number>>(new Set());
-  const hasInitialized = useRef(false);
+  const [checkedIds, setCheckedIds] = useLocalStorage<number[]>(STORAGE_KEY, []);
   const prevCartItemIds = useRef<number[]>([]);
 
-  const isAllChecked = checkedIds.size === cartItemIds.length;
+  const isAllChecked = checkedIds.length === cartItemIds.length;
 
   const allCheck = () => {
-    setCheckedIds((prev) => (prev.size === cartItemIds.length ? new Set() : new Set(cartItemIds)));
+    setCheckedIds((prev) => (prev.length === cartItemIds.length ? [] : [...cartItemIds]));
   };
 
   const eachCheck = (id: number) => {
-    setCheckedIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) newSet.delete(id);
-      else newSet.add(id);
-      return newSet;
-    });
+    setCheckedIds((prev) => (prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]));
   };
 
   const handleCheckChange: HandleCheckChangeType = ({ action, id }) => {
@@ -28,22 +25,15 @@ const useCartCheck = (cartItemIds: number[]) => {
   };
 
   useEffect(() => {
-    if (cartItemIds.length === 0) return;
-
-    if (!hasInitialized.current) {
-      setCheckedIds(new Set(cartItemIds));
-      hasInitialized.current = true;
+    if (checkedIds.length === 0) {
+      setCheckedIds([...cartItemIds]);
       prevCartItemIds.current = cartItemIds;
       return;
     }
 
     const deletedItems = prevCartItemIds.current.filter((id) => !cartItemIds.includes(id));
     if (deletedItems.length > 0) {
-      setCheckedIds((prev) => {
-        const newSet = new Set(prev);
-        deletedItems.forEach((id) => newSet.delete(id));
-        return newSet;
-      });
+      setCheckedIds((prev) => prev.filter((id) => !deletedItems.includes(id)));
     }
     prevCartItemIds.current = cartItemIds;
   }, [cartItemIds]);
