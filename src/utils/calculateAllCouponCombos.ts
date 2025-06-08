@@ -1,3 +1,7 @@
+import {
+  DEFAULT_SHIPPING_FEE,
+  LAND_AREA_DEFAULT_SHIPPING_FEE,
+} from "../constants/shipping";
 import CartItem from "../types/CartItem";
 import type { Coupon } from "../types/Coupon";
 
@@ -59,7 +63,9 @@ function calcFreeShipping(
   isIslandArea: boolean
 ): number {
   let shippingCost;
-  shippingCost = isIslandArea ? 6000 : 3000;
+  shippingCost = isIslandArea
+    ? LAND_AREA_DEFAULT_SHIPPING_FEE
+    : DEFAULT_SHIPPING_FEE;
 
   if (orderAmount >= 100000) {
     shippingCost -= 3000;
