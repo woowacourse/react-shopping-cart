@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import CartItem from "../CartItem/CartItem";
 import * as S from "./CartItemSection.styles";
+import { RenderIfItemsExist } from "@/modules";
 
 export default function CartItemSection() {
   const { data: cartItems } = useCartItemQuery();
@@ -32,11 +33,14 @@ export default function CartItemSection() {
     <S.CartItemSectionWrapper>
       <Text variant="title-1">장바구니</Text>
 
-      {cartItems.content.length === 0 ? (
-        <S.EmptyCartWrapper>
-          <Text variant="body-1">장바구니에 담은 상품이 없습니다.</Text>
-        </S.EmptyCartWrapper>
-      ) : (
+      <RenderIfItemsExist
+        items={cartItems.content}
+        fallback={
+          <S.EmptyCartWrapper>
+            <Text variant="body-1">장바구니에 담은 상품이 없습니다.</Text>
+          </S.EmptyCartWrapper>
+        }
+      >
         <>
           <Spacing size={8} />
 
@@ -86,7 +90,7 @@ export default function CartItemSection() {
             <Text variant="title-1">{orderAmount.toLocaleString()}원</Text>
           </SpaceBetweenFlex>
         </>
-      )}
+      </RenderIfItemsExist>
     </S.CartItemSectionWrapper>
   );
 }
