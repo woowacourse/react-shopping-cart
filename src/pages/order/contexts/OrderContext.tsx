@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import useOrder from "../hooks/useOrder";
 import { AvailableCouponType, CouponResponse } from "../../../types/coupon";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { CartItem } from "../../../types/cartItem";
 
 interface OrderContextType {
@@ -23,8 +23,7 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
 export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-
-  const { cartItems, orderPrice, deliveryPrice, cartItemsTotalQuantity, cartItemsCheckedCount } = location.state;
+  const navigate = useNavigate();
 
   const {
     coupons,
@@ -36,10 +35,17 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     isRemoteArea,
     toggleRemoteArea,
   } = useOrder({
-    cartItems,
-    orderPrice,
-    deliveryPrice,
+    cartItems: location.state?.cartItems ?? [],
+    orderPrice: location.state?.orderPrice ?? 0,
+    deliveryPrice: location.state?.deliveryPrice ?? 0,
   });
+
+  if (!location.state) {
+    navigate("/404");
+    return null;
+  }
+
+  const { cartItems, orderPrice, cartItemsTotalQuantity, cartItemsCheckedCount } = location.state;
 
   return (
     <OrderContext.Provider

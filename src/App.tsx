@@ -1,10 +1,11 @@
 import * as S from "./styles/Layout.styled";
 import { BrowserRouter, Route, Routes } from "react-router";
 import CartPage from "./pages/cart";
-import PaymentConfirmPage from "./pages/PaymentConfirmPage";
-import { ErrorProvider } from "./contexts/ErrorContext";
-import ErrorPopup from "./components/common/Error/Popup";
 import OrderPage from "./pages/order";
+import PaymentPage from "./pages/payment";
+import NotFoundPage from "./pages/notFound";
+import ErrorPopup from "./components/common/Error/Popup";
+import { ErrorProvider } from "./contexts/ErrorContext";
 import { CartProvider } from "./pages/cart/contexts/CartContext";
 import { OrderProvider } from "./pages/order/contexts/OrderContext";
 
@@ -31,7 +32,8 @@ function App() {
                 </OrderProvider>
               }
             />
-            <Route path="/payment-confirm" element={<PaymentConfirmPage />} />
+            <Route path="/payment-confirm" element={<PaymentPage />} />
+            <Route path="/404" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </S.Layout>
