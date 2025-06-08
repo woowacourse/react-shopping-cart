@@ -43,7 +43,7 @@ function CartMain({
 
 export default CartMain;
 
-const CartInfo = styled.div`
+export const CartInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -51,7 +51,7 @@ const CartInfo = styled.div`
   margin: 52px 0 13px 0;
 `;
 
-const InfoIconImage = styled.img`
+export const InfoIconImage = styled.img`
   width: 13px;
   height: 13px;
 `;
