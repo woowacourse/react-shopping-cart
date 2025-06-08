@@ -8,6 +8,8 @@ import SelectInput from '../../../shared/ui/SelectInput';
 import Button from '../../../shared/ui/Button';
 import { css } from '@emotion/react';
 import { useCartContext } from '../../../shared/context/useCartContext';
+import { getSelectedCartItemsFromLocalStorage } from '../../cart/utils/localStorageService';
+import { calculateTotalDiscountPrice } from '../utils/calculateTotalDiscountPrice';
 
 const CloseButtonCSS = css`
   width: 20px;
@@ -52,9 +54,12 @@ interface CouponListProps {
 
 export default function CouponList({ onClose }: CouponListProps) {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
-  const { selectedCoupons, updateSelectedCoupons } = useCartContext();
+  const { selectedCoupons, updateSelectedCoupons, totalDiscountPrice, updateTotalDiscountPrice } = useCartContext();
+  const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
-  console.log('선택된 쿠폰 목록', selectedCoupons);
+  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const highestPrice = Math.max(...selectedCartItems.map((i) => i.product.price));
+  const highestPriceCartItem = selectedCartItems.filter((item) => item.product.price === highestPrice)[0];
 
   useEffect(() => {
     const fetchCoupons = async () => {
@@ -70,6 +75,16 @@ export default function CouponList({ onClose }: CouponListProps) {
 
     fetchCoupons();
   }, []);
+
+  useEffect(() => {
+    updateTotalDiscountPrice(
+      calculateTotalDiscountPrice({
+        selectedCoupons: selectedCoupons,
+        highestPriceCartItem,
+        totalPrice,
+      })
+    );
+  }, [selectedCoupons]);
 
   const handleCloseModal = () => {
     onClose();
@@ -121,7 +136,7 @@ export default function CouponList({ onClose }: CouponListProps) {
       </S.CouponListContent>
       <S.CouponListFooterContainer>
         <S.UseCouponButton onClick={handleCouponUsage} disabled={selectedCoupons.length === 0} css={CouponButtonCSS}>
-          할인 쿠폰 사용하기
+          총 {totalDiscountPrice.toLocaleString()}원 할인 쿠폰 사용하기
         </S.UseCouponButton>
       </S.CouponListFooterContainer>
     </S.CouponListContainer>

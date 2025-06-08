@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import * as S from './OrderReviewPage.styles';
-import { CartHeader, OrderPriceSummary } from '../../features/cart/ui';
-import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
+import { CartHeader, CartPageFooter, EmptyCartItemUI } from '../../features/cart/ui';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import Navbar from '../../shared/ui/Navbar';
-import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import ReviewCartList from '../../features/review/ui/ReviewCartList';
 import Button from '../../shared/ui/Button';
 import { css } from '@emotion/react';
@@ -14,6 +12,7 @@ import CustomModal from '../../shared/ui/CustomModal';
 import CouponList from '../../features/coupon/ui/CouponList';
 import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 import { CartItem } from '../../features/cart/api/types/cart';
+import { OrderPriceSummary } from '../../widgets/ui';
 
 const CouponButtonCSS = css`
   width: 100%;
