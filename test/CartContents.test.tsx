@@ -11,6 +11,7 @@ import { resetCartItems } from '../src/mocks/handlers';
 
 describe('CartContents 테스트', () => {
   beforeEach(() => {
+    localStorage.clear();
     resetCartItems();
 
     render(
@@ -89,19 +90,6 @@ describe('CartContents 테스트', () => {
     });
   });
 
-  it('전체 선택 버튼을 누르면 모든 상품의 선택이 해제된다.', async () => {
-    const buttons = await screen.findAllByRole('button');
-    const allSelectButton = buttons[0];
-
-    fireEvent.click(allSelectButton);
-
-    const cartItems = await screen.findAllByTestId(/CartItem/);
-    cartItems.forEach((item) => {
-      const buttons = within(item).getAllByRole('button');
-      expect(buttons[0]).toHaveAttribute('aria-checked', 'false');
-    });
-  });
-
   it('선택된 상품의 가격이 10만원 이상이면 배송비가 0원이다.', async () => {
     const priceRows = await screen.findAllByTestId('price-row');
     const deliveryFee = priceRows[1];
@@ -122,8 +110,25 @@ describe('CartContents 테스트', () => {
     expect(deliveryFee).toHaveTextContent('3,000원');
   });
 
+  it('전체 선택 버튼을 누르면 모든 상품의 선택이 해제된다.', async () => {
+    const buttons = await screen.findAllByRole('button');
+
+    const allSelectButton = buttons[0];
+
+    fireEvent.click(allSelectButton);
+
+    await waitFor(async () => {
+      const cartItems = await screen.findAllByTestId(/CartItem/);
+      for (const item of cartItems) {
+        const itemButtons = await within(item).findAllByRole('button');
+        expect(itemButtons[0]).toHaveAttribute('aria-checked', 'false');
+      }
+    });
+  });
+
   it('선택된 상품이 없을 때 하단 주문 확인 버튼이 비활성화된다.', async () => {
     const buttons = await screen.findAllByRole('button');
+
     const allSelectButton = buttons[0];
 
     fireEvent.click(allSelectButton);
