@@ -15,58 +15,38 @@ const useOrderSummary = () => {
   const { selectedCoupons } = useCoupon();
   const { isRemoteArea } = useOrder();
 
-  const orderCalculation = useMemo(() => {
-    const orderItems = filterSelectedItems(items);
-    const orderQuantity = calculateOrderQuantity(orderItems);
-    const orderPrice = calculateOrderPrice(orderItems);
-
-    const baseShippingFee = calculateShippingFee(orderPrice);
-    const remoteAreaFee = isRemoteArea ? 3000 : 0;
-    const finalShippingFee = baseShippingFee + remoteAreaFee;
-    const baseTotalPrice = orderPrice + baseShippingFee;
-
-    return {
-      orderItems,
-      orderItemCount: orderItems.length,
-      hasSelectedItem: orderItems.length > 0,
-      orderQuantity,
-      orderPrice,
-      baseShippingFee,
-      remoteAreaFee,
-      finalShippingFee,
-      baseTotalPrice,
-    };
-  }, [items, isRemoteArea]);
+  const orderItems = filterSelectedItems(items);
+  const orderQuantity = calculateOrderQuantity(orderItems);
+  const orderPrice = calculateOrderPrice(orderItems);
+  const baseShippingFee = calculateShippingFee(orderPrice);
+  const remoteAreaFee = isRemoteArea ? 3000 : 0;
+  const finalShippingFee = baseShippingFee + remoteAreaFee;
+  const baseTotalPrice = orderPrice + baseShippingFee;
 
   const totalDiscount = useMemo(
     () =>
       calculateOptimalTotalDiscount(
         selectedCoupons,
-        orderCalculation.orderItems,
-        orderCalculation.orderPrice,
-        orderCalculation.finalShippingFee
+        orderItems,
+        orderPrice,
+        finalShippingFee
       ),
-    [
-      selectedCoupons,
-      orderCalculation.orderItems,
-      orderCalculation.orderPrice,
-      orderCalculation.finalShippingFee,
-    ]
+    [selectedCoupons, orderItems, orderPrice, finalShippingFee]
   );
 
-  const finalTotalPrice = useMemo(() => {
-    return (
-      Math.max(0, orderCalculation.orderPrice - totalDiscount) +
-      orderCalculation.finalShippingFee
-    );
-  }, [
-    orderCalculation.orderPrice,
-    orderCalculation.finalShippingFee,
-    totalDiscount,
-  ]);
+  const finalTotalPrice =
+    Math.max(0, orderPrice - totalDiscount) + finalShippingFee;
 
   return {
-    ...orderCalculation,
+    orderItems,
+    orderItemCount: orderItems.length,
+    hasSelectedItem: orderItems.length > 0,
+    orderQuantity,
+    orderPrice,
+    baseShippingFee,
+    remoteAreaFee,
+    finalShippingFee,
+    baseTotalPrice,
     totalDiscount,
     finalTotalPrice,
   };
