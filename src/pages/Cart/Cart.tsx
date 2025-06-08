@@ -66,8 +66,6 @@ function Cart() {
   const orderCost = getOrderCost(selectedCartItems);
   const deliveryCost = getDeliveryCost(orderCost);
 
-  console.log(cartItems);
-
   return (
     <>
       <Header icon={CartLogo} handleIconClick={() => navigate("/")} />

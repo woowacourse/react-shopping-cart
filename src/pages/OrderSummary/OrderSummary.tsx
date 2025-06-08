@@ -70,7 +70,18 @@ function OrderSummary() {
           discount={discountAmount}
         />
       </section>
-      <SubmitButton enabled={false} label="결제하기" />
+      <SubmitButton
+        enabled={true}
+        label="결제하기"
+        onClick={() =>
+          navigate("/orderComplete", {
+            state: {
+              cartItems,
+              totalCost: orderCost + deliveryCost - discountAmount,
+            },
+          })
+        }
+      />
       {isOpen && (
         <CouponModal
           onClose={modalClose}
@@ -85,6 +96,6 @@ function OrderSummary() {
 }
 export default OrderSummary;
 
-function getAllQuantity(cartItems: CartItemType[]) {
+export function getAllQuantity(cartItems: CartItemType[]) {
   return cartItems.reduce((total, item) => total + item.quantity, 0);
 }
