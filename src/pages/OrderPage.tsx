@@ -64,6 +64,7 @@ const OrderPage = () => {
             state: {
               cartItems,
               checkedCartIds,
+              totalPrice: orderPrice + deliveryPrice - discountPrice,
             },
           })
         }

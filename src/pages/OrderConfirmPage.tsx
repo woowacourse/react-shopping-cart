@@ -1,17 +1,16 @@
 import styled from '@emotion/styled';
 import BottomButton from '../components/BottomButton';
-import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CartItem } from '../types';
-import { getOrderPrice } from '../utils';
 import { BASE_URL, URL_LOCATION } from '../constants/url';
 
 const OrderConfirmPage = () => {
   const { state } = useLocation();
-  const { cartItems, checkedCartIds }: { cartItems: CartItem[]; checkedCartIds: number[] } = state;
-  const orderPrice = getOrderPrice(cartItems, checkedCartIds);
-  const deliveryPrice = orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;
-  const totalPrice = orderPrice + deliveryPrice;
+  const {
+    cartItems,
+    checkedCartIds,
+    totalPrice,
+  }: { cartItems: CartItem[]; checkedCartIds: number[]; totalPrice: number } = state;
   const checkedSet = new Set(checkedCartIds);
   const totalQuantity = cartItems.reduce(
     (acc, item) => (checkedSet.has(item.id) ? acc + item.quantity : acc),

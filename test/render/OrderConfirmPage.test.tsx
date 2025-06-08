@@ -1,9 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import { mockCartItems } from '../mocks';
+import { mockCartItems, mockCoupons } from '../mocks';
 import getOrderPrice from '../../src/utils/getOrderPrice';
-import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 import App from '../../src/App';
+import { applyCouponsToItems, getAvailableCoupons, getMaxDiscountCoupons } from '../../src/utils';
+import { Coupon } from '../../src/types';
 
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(async () => {
@@ -38,7 +39,15 @@ describe('OrderConfirmPage 테스트', () => {
   });
 
   it('결제 확인 페이지에선 주문한 상품의 총 결제 금액이 표시된다.', async () => {
-    const price = getOrderPrice(mockCartItems, getIdsFromCartItems(mockCartItems));
+    const maxDiscountCoupons = getMaxDiscountCoupons(
+      mockCartItems,
+      getAvailableCoupons(mockCoupons as Coupon[], mockCartItems),
+      0,
+      2
+    );
+    const discountPrice = applyCouponsToItems(mockCartItems, 0, maxDiscountCoupons);
+
+    const price = getOrderPrice(mockCartItems) - discountPrice;
 
     await waitFor(() => {
       expect(screen.getByText(price.toLocaleString() + '원')).toBeInTheDocument();
