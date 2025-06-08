@@ -73,7 +73,6 @@ function CartPage() {
         </HeaderButton>
       </Header>
       <ContainerLayout>
-        {isVisible && <Toast message={cart.error} />}
         <CartListTitle
           title={TEXT.CART_TITLE}
           description={`현재 ${cart.data.length}종류의 상품이 담겨있습니다.`}

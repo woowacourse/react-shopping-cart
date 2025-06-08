@@ -1,4 +1,6 @@
 import { createContext, useContext, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import Toast from '../components/common/Toast/Toast';
 
 interface ToastProviderProps {
   toast: string;
@@ -15,9 +17,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const timerRef = useRef<number>();
 
   const showToast = (msg: string) => {
-    console.log('showToast', msg);
     if (timerRef.current) {
-      console.log('clearTimeout', timerRef.current);
       clearTimeout(timerRef.current);
     }
 
@@ -26,7 +26,6 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     setIsVisible(true);
 
     timerRef.current = window.setTimeout(() => {
-      console.log('setTimeout', timerRef.current);
       setIsVisible(false);
       timerRef.current = undefined;
     }, 3000);
@@ -35,6 +34,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast, isVisible, setToast, showToast }}>
       {children}
+      {isVisible && createPortal(<Toast>{toast}</Toast>, document.body)}
     </ToastContext.Provider>
   );
 }
