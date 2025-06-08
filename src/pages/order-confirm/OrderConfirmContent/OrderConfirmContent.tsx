@@ -16,16 +16,14 @@ export default function OrderConfirmContent({
   orderQuantity,
 }: OrderConfirmContentProps) {
   return (
-    <>
-      <S.Container>
-        <OrderSummary
-          title="주문 확인"
-          orderListCount={orderListCount}
-          orderQuantity={orderQuantity}
-        />
-        <OrderList orderList={orderList} />
-        <PaymentContent orderList={orderList} />
-      </S.Container>
-    </>
+    <S.Container>
+      <OrderSummary
+        title="주문 확인"
+        orderListCount={orderListCount}
+        orderQuantity={orderQuantity}
+      />
+      <OrderList orderList={orderList} />
+      <PaymentContent orderList={orderList} />
+    </S.Container>
   );
 }
