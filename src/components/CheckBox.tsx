@@ -6,7 +6,7 @@ interface CheckBoxProps extends React.ComponentProps<'button'> {
 
 const CheckBox = ({ isChecked, ...rest }: CheckBoxProps) => {
   return (
-    <S.ButtonContainer {...rest}>
+    <S.ButtonContainer {...rest} disabled={rest.disabled}>
       {isChecked ? (
         <S.CheckBox
           isChecked={isChecked}
@@ -28,10 +28,15 @@ const CheckBox = ({ isChecked, ...rest }: CheckBoxProps) => {
 
 export default CheckBox;
 
+type ButtonContainerProps = {
+  disabled?: boolean;
+};
+
 const S = {
-  ButtonContainer: styled.button``,
+  ButtonContainer: styled.button<ButtonContainerProps>`
+    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  `,
   CheckBox: styled.img<CheckBoxProps>`
-    cursor: pointer;
     background-color: ${({ isChecked }) =>
       isChecked ? '#000000' : 'transparent'};
     border: ${({ isChecked }) =>

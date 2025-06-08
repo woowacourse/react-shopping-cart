@@ -65,10 +65,15 @@ const CouponCard = ({
   isValid = true,
   onClick,
 }: CouponCardProps) => {
+  const handleClick = (event: React.MouseEvent) => {
+    console.log('CouponCard clicked');
+    event.stopPropagation(); // 이벤트 버블링 방지
+    onClick();
+  };
   return (
-    <S.container onClick={onClick} isValid={isValid}>
+    <S.container onClick={handleClick} isValid={isValid}>
       <S.couponNameContainer>
-        <CheckBox isChecked={isSelected} />
+        <CheckBox isChecked={isSelected} disabled={!isValid} />
         <S.couponName>{CouponNameMap[coupon.code]}</S.couponName>
       </S.couponNameContainer>
       <div>
