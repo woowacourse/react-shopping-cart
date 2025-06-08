@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { PAGE_URL } from "../../constants/PageUrl";
 import * as Styled from "./PaymentConfirmation.style";
+import { OrderConfirmationLocationState } from "../../type/OrderConfirmation";
 
 function PaymentConfirmation() {
   const location = useLocation();
@@ -19,8 +20,11 @@ function PaymentConfirmation() {
     );
   }
 
-  const { selectedCartItemsLength, selectedCartItemsCount, totalPrice } =
-    location.state;
+  const {
+    selectedCartItemsLength,
+    selectedCartItemsCount,
+    totalPriceWithShipping,
+  } = location.state as OrderConfirmationLocationState;
 
   return (
     <Styled.Container>
@@ -39,7 +43,7 @@ function PaymentConfirmation() {
         <Styled.PriceSection>
           <Styled.PriceLabel>총 결제 금액</Styled.PriceLabel>
           <Styled.PriceAmount>
-            {totalPrice.toLocaleString()}원
+            {totalPriceWithShipping.toLocaleString()}원
           </Styled.PriceAmount>
         </Styled.PriceSection>
       </Styled.Wrapper>
