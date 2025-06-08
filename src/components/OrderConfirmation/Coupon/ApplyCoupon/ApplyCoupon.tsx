@@ -9,6 +9,7 @@ import { Coupon } from "../../../../type/Coupons";
 import { CartItem } from "../../../../type/CartItem";
 import { calculateTotalPrice } from "../../../../util/cart/calculateTotalPrice";
 import useSelectedCoupons from "../../../../hooks/useCoupons/useSelectedCoupons";
+import useAvailableCoupons from "../../../../hooks/useCoupons/useAvailableCoupons";
 
 const COUPON_RULE = {
   maxCoupons: 2,
@@ -37,6 +38,11 @@ function ApplyCoupon({
     handleToggleSelectedCouponId,
     handleRollbackSelectedCoupons,
   } = useSelectedCoupons(initialSelectedCouponIds);
+
+  const { availableCouponsIdList } = useAvailableCoupons({
+    cartItems: selectedCartItems,
+    coupons,
+  });
 
   return (
     <article>
@@ -68,8 +74,9 @@ function ApplyCoupon({
                 coupon={coupon}
                 isSelected={selectedCouponIds.includes(coupon.id)}
                 isDisabled={
-                  selectedCouponIds.length === COUPON_RULE.maxCoupons &&
-                  !selectedCouponIds.includes(coupon.id)
+                  !availableCouponsIdList.includes(coupon.id) ||
+                  (selectedCouponIds.length === COUPON_RULE.maxCoupons &&
+                    !selectedCouponIds.includes(coupon.id))
                 }
                 handleSelectCoupon={() =>
                   handleToggleSelectedCouponId(coupon.id)
