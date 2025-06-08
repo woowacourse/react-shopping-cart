@@ -104,4 +104,25 @@ describe('주문 확인 페이지를 렌더링 한다.', () => {
 
     expectAllCheckboxesDisabled();
   });
+
+  it('장바구니에 담긴 상품의 총 금액이 10만원을 넘었을 때, FIXED5000 할인 쿠폰이 적용된다.', async () => {
+    // Given: 주문 결제 페이지를 렌더링한다.
+    const cartItems = [createCartItem(1, '상품 1', 60000), createCartItem(2, '상품 2', 50000)];
+    // When: 주문 결제 페이지에 진입했을 때, 상품의 총 금액이 10만원을 넘었을 때 5000원 할인 쿠폰이 적용된다.
+    await act(async () => {
+      renderOrderCheckoutPage(cartItems);
+    });
+
+    const couponButton = screen.getByText('쿠폰 적용');
+    await user.click(couponButton);
+
+    expectCouponState('5,000원 할인 쿠폰');
+
+    expect(screen.getByText('총 5,000원 할인 쿠폰 사용하기')).toBeInTheDocument();
+
+    // Then: 5000원 할인 쿠폰이 적용되어 최종 결제 금액이 95000원으로 표시된다.
+    expect(screen.getByText('110,000원')).toBeInTheDocument();
+    expect(screen.getByText('105,000원')).toBeInTheDocument();
+    expect(screen.getByText('0원')).toBeInTheDocument();
+  });
 });
