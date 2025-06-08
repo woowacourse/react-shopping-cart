@@ -81,7 +81,7 @@ describe('쿠폰 로직 테스트', () => {
       const available = getAvailableCoupons(
         10000,
         3000,
-        mockCart(2, 5000),
+        mockCart(3, 5000),
         new Date()
       );
       expect(available.some((c) => c.id === 'BOGO')).toBe(true);
