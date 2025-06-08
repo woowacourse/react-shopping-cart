@@ -74,6 +74,7 @@ function OrderSummary() {
           orderCost={orderCost}
           cartItems={cartItems}
           discount={discountAmount}
+          deliveryCost={deliveryCost}
         />
       )}
     </>

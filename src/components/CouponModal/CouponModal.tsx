@@ -17,6 +17,7 @@ interface ModalProps {
   orderCost: number;
   cartItems: CartItemType[];
   discount: number;
+  deliveryCost: number;
 }
 
 let copyInitSelectedCoupon: CouponType[] = [];
@@ -26,6 +27,7 @@ export default function CouponModal({
   orderCost,
   cartItems,
   discount,
+  deliveryCost,
 }: ModalProps) {
   const { onClickOverlay } = useModalClose({ closeModal: onClose });
   const { selectedCoupon, changeSelectedCoupon } = useCouponManagerProvider();
@@ -62,7 +64,11 @@ export default function CouponModal({
             x
           </button>
         </div>
-        <CouponList orderCost={orderCost} cartItems={cartItems} />
+        <CouponList
+          orderCost={orderCost}
+          cartItems={cartItems}
+          deliveryCost={deliveryCost}
+        />
         <button css={CloseButton} onClick={onClose}>
           {`총 ${discount.toLocaleString()}원 할인 쿠폰 사용하기`}
         </button>

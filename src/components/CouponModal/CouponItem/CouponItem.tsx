@@ -18,6 +18,7 @@ interface CouponItemProps {
   couponData: CouponType;
   orderCost: number;
   cartItems: CartItemType[];
+  deliveryCost: number;
 }
 
 export default function CouponItem({
@@ -25,6 +26,7 @@ export default function CouponItem({
   couponData,
   orderCost,
   cartItems,
+  deliveryCost,
 }: CouponItemProps) {
   const { isSelected, addCoupon, removeCoupon, selectedCoupon } =
     useCouponManagerProvider();
@@ -35,6 +37,7 @@ export default function CouponItem({
     orderCost,
     cartItems,
     selectedCoupon,
+    deliveryCost,
   });
 
   const checked = isSelected(couponData);

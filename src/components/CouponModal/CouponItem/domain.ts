@@ -7,12 +7,14 @@ export function isCouponDisabled({
   orderCost,
   cartItems,
   selectedCoupon,
+  deliveryCost,
 }: {
   type: DiscountType;
   coupon: CouponType;
   orderCost: number;
   cartItems: CartItemType[];
   selectedCoupon: CouponType[];
+  deliveryCost: number;
 }) {
   const isExpired = !isAvailableDate(coupon.expirationDate);
   const isOverLimit = isOverCouponLimit(coupon, selectedCoupon);
@@ -22,13 +24,15 @@ export function isCouponDisabled({
   const isBelowMinimumAmount =
     (type === "fixed" || type === "freeShipping") &&
     isCouponBelowMinimumAmount(coupon, orderCost);
+  const isZeroDeliveryCost = type === "freeShipping" && deliveryCost === 0;
 
   return (
     isExpired ||
     isOverLimit ||
     isOutOfTime ||
     isOverQuantity ||
-    isBelowMinimumAmount
+    isBelowMinimumAmount ||
+    isZeroDeliveryCost
   );
 }
 

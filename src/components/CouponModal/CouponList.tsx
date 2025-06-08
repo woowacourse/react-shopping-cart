@@ -5,9 +5,14 @@ import CouponItem from "./CouponItem/CouponItem";
 interface CouponListProps {
   orderCost: number;
   cartItems: CartItemType[];
+  deliveryCost: number;
 }
 
-export default function CouponList({ orderCost, cartItems }: CouponListProps) {
+export default function CouponList({
+  orderCost,
+  cartItems,
+  deliveryCost,
+}: CouponListProps) {
   const { coupons } = useCouponContext();
 
   return (
@@ -18,6 +23,7 @@ export default function CouponList({ orderCost, cartItems }: CouponListProps) {
           couponData={coupon}
           cartItems={cartItems}
           orderCost={orderCost}
+          deliveryCost={deliveryCost}
         />
       ))}
     </div>
