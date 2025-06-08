@@ -1,4 +1,5 @@
 import { cartItemSelectionStorage } from "../../../storages/CartItemSelectionStorage";
+import { CART_ACTION_TYPES } from "./../types/cartAction";
 import useCartOperations from "./useCartOperations";
 import { useCartState } from "./useCartState";
 
@@ -9,7 +10,7 @@ const useCartToggle = () => {
   const toggleAllSelected = () => {
     const cartIds = state.items.map(({ id }) => id);
     cartItemSelectionStorage.setAllSelections(cartIds, !state.allSelected);
-    dispatch({ type: "TOGGLE_ALL_SELECTED" });
+    dispatch({ type: CART_ACTION_TYPES.TOGGLE_ALL_SELECTED });
   };
 
   const toggleItemSelected = (cartId: number) => {
@@ -17,7 +18,7 @@ const useCartToggle = () => {
     if (targetItem) {
       cartItemSelectionStorage.setSelection(cartId, !targetItem.selected);
     }
-    dispatch({ type: "TOGGLE_ITEM_SELECTED", id: cartId });
+    dispatch({ type: CART_ACTION_TYPES.TOGGLE_ITEM_SELECTED, id: cartId });
   };
 
   return {
