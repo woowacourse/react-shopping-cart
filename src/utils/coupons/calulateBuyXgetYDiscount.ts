@@ -11,7 +11,9 @@ export const calculateBuyXgetYDiscount = (
   for (const cartItem of selectedItems) {
     const canGetY =
       cartItem.quantity >= coupon.buyQuantity + coupon.getQuantity;
-    const tmpDiscount = canGetY ? cartItem.product.price : 0;
+    const tmpDiscount = canGetY
+      ? cartItem.product.price * coupon.getQuantity
+      : 0;
 
     totalDiscount = totalDiscount < tmpDiscount ? tmpDiscount : totalDiscount;
   }
