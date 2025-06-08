@@ -5,7 +5,6 @@ export const CartListContainer = styled.section`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   margin-top: 20px;
 `;
 
@@ -14,6 +13,7 @@ export const AllSelectContainer = styled.div`
   height: 24px;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 export const AllSelectInputBox = styled.input`
@@ -29,5 +29,4 @@ export const CartItemCardContainer = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
 `;
