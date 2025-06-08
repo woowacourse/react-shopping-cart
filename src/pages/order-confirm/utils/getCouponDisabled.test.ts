@@ -7,6 +7,8 @@ import {
   PercentageCoupon,
 } from "@/apis/coupon/coupon.type";
 import { getIsCouponDisabled } from "./getCouponDisabled";
+import { formatDate } from "@/shared/utils/formatDate";
+import { parseDate } from "@/shared/utils/parseDate";
 
 const createMockCartItem = (price: number, quantity: number): CartItemType => ({
   id: 1,
@@ -22,16 +24,6 @@ const createMockCartItem = (price: number, quantity: number): CartItemType => ({
 
 const baseCoupon = { id: 1, code: "", description: "Test Coupon" };
 const createMockCoupon = <T extends Coupon>(coupon: T): T => coupon;
-
-const formatDate = (date: Date) =>
-  `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-
-const parseDate = (dateStr: string) => {
-  const [year, month, day] = dateStr.split("-").map(Number);
-  return new Date(year, month - 1, day);
-};
 
 const generateSafeTestDate = () => {
   const today = new Date();
