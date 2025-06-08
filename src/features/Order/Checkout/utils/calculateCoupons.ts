@@ -1,5 +1,14 @@
 import { CartItem, CartItemList } from '@/features/Cart/types/Cart.types';
 
+import {
+  COUPON_CODES,
+  DELIVERY_FEES,
+  DISCOUNT_RATES,
+  FIXED_DISCOUNT_AMOUNT,
+  MIRACLE_MORNING_HOURS,
+  PRICE_THRESHOLDS,
+  QUANTITY_LIMITS,
+} from '../constants/coupons';
 import { CouponResponse, Coupons } from '../type/coupon.type';
 
 type CalculateCouponsProps = {
@@ -16,20 +25,32 @@ export const getAvailableCoupons = ({ coupons, totalPrice, cartItems }: Calculat
   });
 
   availableCoupons.forEach((coupon) => {
-    if (coupon.code === 'MIRACLESALE' && [4, 5, 6, 7].includes(today.getHours())) {
+    if (
+      coupon.code === COUPON_CODES.MIRACLE_SALE &&
+      MIRACLE_MORNING_HOURS.includes(today.getHours())
+    ) {
       selectedCoupons.push(coupon);
     }
 
-    if (coupon.code === 'FIXED5000' && totalPrice >= 100000) {
+    if (
+      coupon.code === COUPON_CODES.FIXED_5000 &&
+      totalPrice >= PRICE_THRESHOLDS.FIXED_DISCOUNT_MIN
+    ) {
       selectedCoupons.push(coupon);
     }
 
-    if (coupon.code === 'FREESHIPPING' && totalPrice < 100000 && totalPrice >= 50000) {
+    if (
+      coupon.code === COUPON_CODES.FREE_SHIPPING &&
+      totalPrice < PRICE_THRESHOLDS.FREE_SHIPPING_MAX &&
+      totalPrice >= PRICE_THRESHOLDS.FREE_SHIPPING_MIN
+    ) {
       selectedCoupons.push(coupon);
     }
 
-    if (coupon.code === 'BOGO') {
-      const hasEligibleItem = cartItems?.some((item) => item.quantity >= 3);
+    if (coupon.code === COUPON_CODES.BUY_ONE_GET_ONE) {
+      const hasEligibleItem = cartItems?.some(
+        (item) => item.quantity >= DISCOUNT_RATES.MIRACLE_SALE
+      );
       if (hasEligibleItem) selectedCoupons.push(coupon);
     }
   });
@@ -65,23 +86,25 @@ export const getDiscountAmount = (
   bogoDiscount: number,
   specialDeliveryZone: boolean
 ) => {
-  if (coupons.code === 'FIXED5000') return 5000;
+  if (coupons.code === 'FIXED5000') return FIXED_DISCOUNT_AMOUNT;
   if (coupons.code === 'BOGO') return bogoDiscount;
   if (coupons.code === 'FREESHIPPING')
-    return totalPrice >= 100000
+    return totalPrice >= PRICE_THRESHOLDS.FREE_SHIPPING_MAX
       ? specialDeliveryZone
-        ? 3000
+        ? DELIVERY_FEES.STANDARD
         : 0
       : specialDeliveryZone
-      ? 6000
-      : 3000;
-  if (coupons.code === 'MIRACLESALE') return totalPrice * 0.3;
+      ? DELIVERY_FEES.SPECIAL_ZONE
+      : DELIVERY_FEES.STANDARD;
+  if (coupons.code === 'MIRACLESALE') return totalPrice * DISCOUNT_RATES.MIRACLE_SALE;
 
   return 0;
 };
 
 export const calculateBOGODiscount = (cartItems: CartItem[]): number => {
-  const eligibleItems = cartItems.filter((item) => item.quantity >= 3);
+  const eligibleItems = cartItems.filter(
+    (item) => item.quantity >= QUANTITY_LIMITS.BOGO_MIN_QUANTITY
+  );
   if (eligibleItems.length === 0) return 0;
 
   return Math.max(...eligibleItems.map((item) => item.product.price));

@@ -1,5 +1,6 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
 
+import { MIRACLE_MORNING_HOURS, PRICE_THRESHOLDS, QUANTITY_LIMITS } from '../constants/coupons';
 import { CouponResponse } from '../type/coupon.type';
 
 export const getCouponDisableStatus = (
@@ -10,18 +11,21 @@ export const getCouponDisableStatus = (
 ) => {
   if (coupon.code === 'MIRACLESALE') {
     const today = new Date();
-    return ![4, 5, 6, 7].includes(today.getHours());
+    return !MIRACLE_MORNING_HOURS.includes(today.getHours());
   }
 
   if (coupon.code === 'FIXED5000') {
-    return totalPrice < 100000;
+    return totalPrice < PRICE_THRESHOLDS.FIXED_DISCOUNT_MIN;
   }
 
   if (coupon.code === 'BOGO') {
-    return !cartItems.some((item) => item.quantity >= 3);
+    return !cartItems.some((item) => item.quantity >= QUANTITY_LIMITS.BOGO_MIN_QUANTITY);
   }
 
   if (coupon.code === 'FREESHIPPING') {
-    return totalPrice < 50000 || (totalPrice > 100000 && !specialDeliveryZone);
+    return (
+      totalPrice < PRICE_THRESHOLDS.FREE_SHIPPING_MIN ||
+      (totalPrice > PRICE_THRESHOLDS.FREE_SHIPPING_MAX && !specialDeliveryZone)
+    );
   }
 };
