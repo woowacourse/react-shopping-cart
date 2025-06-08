@@ -1,19 +1,22 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
-import cartItemsApi from "../src/apis/cartItems";
+import cartItemsApi from "../src/apis/cartItemsApi";
 import { fireEvent, render, screen } from "@testing-library/react";
 import CartItemPage from "../src/pages/CartItemPage";
-import { CartItemProvider } from "../src/contexts/CartItemProvider";
+import { CartItemProvider } from "../src/contexts/carItem/CartItemProvider";
 import { MemoryRouter } from "react-router";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../src/constants";
+import { SelectedCartItemProvider } from "../src/contexts/selectedCartItem/SelectedCartItemProvider";
 
-vi.mock("../apis/cartItems");
+vi.mock("../src/apis/cartItemsApi");
 
 const renderWithProviders = () =>
   render(
     <MemoryRouter>
       <CartItemProvider>
-        <CartItemPage />
+        <SelectedCartItemProvider>
+          <CartItemPage />
+        </SelectedCartItemProvider>
       </CartItemProvider>
     </MemoryRouter>
   );
@@ -21,6 +24,7 @@ const renderWithProviders = () =>
 describe("장바구니 페이지 테스트", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    localStorage.clear();
   });
 
   describe("초기 렌더링 테스트", () => {
@@ -50,9 +54,7 @@ describe("장바구니 페이지 테스트", () => {
     ];
 
     it("페이지에 장바구니 상품이 렌더링이 된다.", async () => {
-      cartItemsApi.get = vi
-        .fn()
-        .mockImplementation(async () => [{ ...mockItems[0] }]);
+      cartItemsApi.get = vi.fn().mockImplementation(async () => [...mockItems]);
 
       renderWithProviders();
       expect(await screen.findByText("콜라")).toBeInTheDocument();
@@ -62,6 +64,7 @@ describe("장바구니 페이지 테스트", () => {
       cartItemsApi.get = vi.fn().mockImplementation(async () => [...mockItems]);
 
       renderWithProviders();
+
       const allSelectedButton = await screen.findByTestId("all-select-toggle");
       expect(allSelectedButton).toHaveAttribute("aria-pressed", "true");
     });
