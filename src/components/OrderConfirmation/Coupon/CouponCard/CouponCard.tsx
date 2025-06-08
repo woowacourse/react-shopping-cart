@@ -8,12 +8,14 @@ import PercentageDiscountCoupon from "./SubCouponCards/PercentageDiscountCoupon/
 interface CouponCardProps {
   coupon: Coupon;
   isSelected: boolean;
+  isDisabled: boolean;
   handleSelectCoupon: (id: number) => void;
 }
 
 function CouponCard({
   coupon,
   isSelected,
+  isDisabled,
   handleSelectCoupon,
 }: CouponCardProps) {
   const renderSpecificCoupon = () => {
@@ -32,10 +34,11 @@ function CouponCard({
 
   return (
     <li>
-      <Styled.Container>
+      <Styled.Container isSelected={isSelected}>
         <CommonCoupon
           coupon={coupon}
           isSelected={isSelected}
+          isDisabled={isDisabled}
           handleSelectCoupon={handleSelectCoupon}
         />
         {renderSpecificCoupon()}

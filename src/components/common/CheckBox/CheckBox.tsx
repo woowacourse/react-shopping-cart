@@ -4,15 +4,17 @@ import checked from "/checked.svg";
 
 interface CheckBoxProps {
   isChecked: boolean;
+  isDisabled: boolean;
   onClick: () => void;
 }
 
-function CheckBox({ isChecked, onClick }: CheckBoxProps) {
+function CheckBox({ isChecked, isDisabled, onClick }: CheckBoxProps) {
   return (
     <Styled.Button
       onClick={onClick}
       type="button"
       aria-label={isChecked ? "선택 해제" : "선택"}
+      disabled={isDisabled}
     >
       <Styled.Icon
         src={isChecked ? checked : unChecked}

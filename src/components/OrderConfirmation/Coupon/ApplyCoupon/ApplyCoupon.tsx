@@ -67,6 +67,10 @@ function ApplyCoupon({
                 key={coupon.id}
                 coupon={coupon}
                 isSelected={selectedCouponIds.includes(coupon.id)}
+                isDisabled={
+                  selectedCouponIds.length === COUPON_RULE.maxCoupons &&
+                  !selectedCouponIds.includes(coupon.id)
+                }
                 handleSelectCoupon={() =>
                   handleToggleSelectedCouponId(coupon.id)
                 }

@@ -6,6 +6,10 @@ export const Button = styled.button`
   width: 24px;
   height: 24px;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const Icon = styled.img`

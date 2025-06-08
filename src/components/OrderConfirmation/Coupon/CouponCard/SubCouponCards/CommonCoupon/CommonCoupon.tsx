@@ -5,12 +5,14 @@ import CheckBox from "../../../../../common/CheckBox/CheckBox";
 interface CommonCouponProps {
   coupon: BaseCouponType;
   isSelected: boolean;
+  isDisabled: boolean;
   handleSelectCoupon: (id: number) => void;
 }
 
 function CommonCoupon({
   coupon,
   isSelected,
+  isDisabled,
   handleSelectCoupon,
 }: CommonCouponProps) {
   const { id, description, expirationDate } = coupon;
@@ -26,6 +28,7 @@ function CommonCoupon({
         <CheckBox
           onClick={() => handleSelectCoupon(id)}
           isChecked={isSelected}
+          isDisabled={isDisabled}
         />
         <Styled.Title>{description}</Styled.Title>
       </Styled.Wrapper>
