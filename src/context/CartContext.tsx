@@ -25,6 +25,7 @@ type CartContextType = {
   totalBeforeDiscount: number;
   typeCount: number;
   totalCount: number;
+  selectedCartItems: CartItemProps[];
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -57,6 +58,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
     return acc;
   }, 0);
+  const selectedCartItems = data.filter((item: CartItemProps) =>
+    selectedItems.includes(item.id)
+  );
 
   const clearCart = () => {
     const items = data.filter((item) => !selectedItems.includes(item.id));
@@ -89,6 +93,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         totalBeforeDiscount,
         typeCount,
         totalCount,
+        selectedCartItems,
       }}
     >
       {children}

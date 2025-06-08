@@ -19,20 +19,16 @@ import useCouponList from '../../../hooks/useCouponList';
 import useValidateCoupon from '../../../hooks/useValidateCoupon';
 import useCouponCombos from '../../../hooks/useCouponCombos';
 
-function OrderCheck() {
+function OrderCheckPage() {
   const navigate = useNavigate();
 
   const cart = useCartContext();
   const { couponList } = useCouponList();
 
-  const selectedCartItems = cart.data?.filter((item: CartItemProps) =>
-    cart.selectedItems.includes(item.id)
-  );
-
   const { validatedCouponList } = useValidateCoupon(
     couponList,
     cart.subTotal,
-    selectedCartItems
+    cart.selectedCartItems
   );
   const availableCouponList = validatedCouponList.filter(
     (coupon) => !coupon.isExpired
@@ -44,7 +40,7 @@ function OrderCheck() {
 
   const result = useCouponCombos(
     checkedCoupons,
-    selectedCartItems,
+    cart.selectedCartItems,
     availableCouponList,
     cart.subTotal,
     cart.deliveryFee
@@ -63,7 +59,7 @@ function OrderCheck() {
 
   const finalPrice = result?.PriceWithDiscount + deliveryFee;
 
-  const handleCouponButtonClick = () => {
+  const handleApplyCoupon = () => {
     setCheckedCoupons(result.combo.map((coupon) => coupon.id));
     setIsCouponModalOpen(true);
   };
@@ -94,15 +90,11 @@ function OrderCheck() {
           description={`총 ${cart.typeCount}종류의 상품 ${cart.totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
         />
         <ul css={OrderCheckCartListStyle}>
-          {selectedCartItems.map((item: CartItemProps) => (
+          {cart.selectedCartItems.map((item: CartItemProps) => (
             <OrderCartItem key={item.id} item={item} />
           ))}
         </ul>
-        <Button
-          color="white"
-          variant="secondary"
-          onClick={handleCouponButtonClick}
-        >
+        <Button color="white" variant="secondary" onClick={handleApplyCoupon}>
           <Text varient="body">쿠폰 적용</Text>
         </Button>
         <DeliverInfo
@@ -140,4 +132,4 @@ function OrderCheck() {
   );
 }
 
-export default OrderCheck;
+export default OrderCheckPage;
