@@ -7,7 +7,8 @@ import CheckBox from "../../components/CheckBox/CheckBox";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import { useState } from "react";
 import CouponModal from "../../components/CouponModal/CouponModal";
-import { ResponseCartItem } from "../../types/types";
+import { CouponType, ResponseCartItem } from "../../types/types";
+import { useSelectedCouponContext } from "../../stores/SelectedCouponContext";
 
 interface LocationState {
   selectedCartItem: ResponseCartItem[];
@@ -20,9 +21,14 @@ function OrderCheckPage() {
   const state = location.state as LocationState;
   const [isSelectJejuChecked, setIsSelectJejuChecked] = useState(false);
   const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
+  const selectedCoupon = useSelectedCouponContext();
 
   const handleJejuCheckboxChange = () => {
     setIsSelectJejuChecked((prev) => !prev);
+  };
+
+  const handleCouponModalClose = () => {
+    setIsOpenCouponModal(false);
   };
 
   const deliveryPrice =
@@ -32,6 +38,70 @@ function OrderCheckPage() {
     (acc, cart) => acc + cart.quantity,
     0
   );
+
+  const getDiscountPriceByType = (coupon: CouponType, orderPrice: number) => {
+    if (coupon.discountType === "fixed") {
+      return coupon.discount;
+    } else if (coupon.discountType === "percentage") {
+      return Math.floor((orderPrice * coupon.discount) / 100);
+    } else if (coupon.discountType === "freeShipping") {
+      return deliveryPrice;
+    } else if (coupon.discountType === "buyXgetY") {
+      const moreThanMinimumQuantity = state.selectedCartItem
+        .filter(
+          (cart) => cart.quantity >= coupon.buyQuantity + coupon.getQuantity
+        )
+        .sort((a, b) => b.product.price - a.product.price);
+
+      const discountQuantity = Math.floor(
+        moreThanMinimumQuantity[0].quantity /
+          (coupon.buyQuantity + coupon.getQuantity)
+      );
+
+      return moreThanMinimumQuantity[0].product.price * discountQuantity;
+    }
+
+    return 0;
+  };
+
+  const getDiscountPrice = () => {
+    if (selectedCoupon.length === 0) return 0;
+
+    if (selectedCoupon.length === 1) {
+      return getDiscountPriceByType(selectedCoupon[0], state.totalPrice);
+    }
+
+    const firstCoupon = selectedCoupon[0];
+    const secondCoupon = selectedCoupon[1];
+
+    if (selectedCoupon.length === 2) {
+      const applyFirstCoupon = getDiscountPriceByType(
+        firstCoupon,
+        state.totalPrice
+      );
+      const applySecondCoupon = getDiscountPriceByType(
+        secondCoupon,
+        state.totalPrice - applyFirstCoupon
+      );
+
+      const applyFirstCouponReverse = getDiscountPriceByType(
+        secondCoupon,
+        state.totalPrice
+      );
+      const applySecondCouponReverse = getDiscountPriceByType(
+        firstCoupon,
+        state.totalPrice - applyFirstCouponReverse
+      );
+
+      return Math.max(
+        applyFirstCoupon + applySecondCoupon,
+        applyFirstCouponReverse + applySecondCouponReverse
+      );
+    }
+    return 0;
+  };
+
+  const discountPrice = getDiscountPrice();
 
   return (
     <S.Root>
@@ -69,7 +139,7 @@ function OrderCheckPage() {
           <OrderPriceSection
             orderPrice={state.totalPrice}
             deliveryPrice={deliveryPrice}
-            couponPrice={3000}
+            couponPrice={discountPrice}
           />
         </S.CartContentWrapper>
         <S.OrderButton onClick={() => {}} disabled={false}>
@@ -78,9 +148,11 @@ function OrderCheckPage() {
       </S.CartPageWrapper>
       {isOpenCouponModal && (
         <CouponModal
-          onClose={() => setIsOpenCouponModal(false)}
+          onClose={handleCouponModalClose}
+          deliveryPrice={deliveryPrice}
           orderPrice={state.totalPrice}
           orderProducts={state.selectedCartItem}
+          discountPrice={discountPrice}
         />
       )}
     </S.Root>
