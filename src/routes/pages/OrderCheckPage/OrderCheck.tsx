@@ -15,6 +15,7 @@ import CouponModal from '../../../components/CouponModal/CouponModal';
 
 import useModal from '../../../hooks/useModal';
 import useCoupon from '../../../hooks/useCoupon';
+import useSelectCoupon from '../../../hooks/useSelectCoupon';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
@@ -28,6 +29,8 @@ import {
 function OrderCheck() {
   const { isOpen, openModal, closeModal } = useModal();
   const { couponList } = useCoupon();
+  const { selectedCoupon, handleSelectCoupon } = useSelectCoupon();
+
   const navigate = useNavigate();
   const { selectedCartData, totalPrice } = useLocation().state as {
     selectedCartData: CartItemProps[];
@@ -81,9 +84,9 @@ function OrderCheck() {
       <CouponModal
         isOpen={isOpen}
         couponList={couponList}
-        selectedCoupon={new Set()}
+        selectedCoupon={selectedCoupon}
         onClose={closeModal}
-        onSelectCoupon={() => {}}
+        onSelectCoupon={handleSelectCoupon}
         onConfirm={closeModal}
         availableCoupons={availableCoupons}
       />
