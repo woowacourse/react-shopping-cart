@@ -78,11 +78,6 @@ const OrderCompletePage = () => {
     state.selectedCartItem
   );
 
-  const deliveryPrice = OrderCalculator.calculateBaseDeliveryFee(
-    orderAmount,
-    isRemoteArea
-  );
-
   return (
     <CouponSelectProvider>
       <S.Root>
@@ -117,7 +112,7 @@ const OrderCompletePage = () => {
             <OrderPriceSection
               priceInfo={{
                 orderPrice: orderAmount,
-                deliveryPrice,
+                deliveryPrice: selectedCouponResult.finalDeliveryFee,
                 couponDiscount: selectedCouponResult.totalDiscount,
                 totalPrice: finalTotalAmount,
               }}
