@@ -39,42 +39,77 @@ export const useCouponDiscount = ({
   const optimalCouponSelection = useMemo(() => {
     if (coupons.length === 0) return { selectedCoupons: [], totalDiscount: 0 };
 
-    const combinations: Coupon[][] = [];
-    coupons.forEach((coupon) => combinations.push([coupon]));
-
-    for (let i = 0; i < coupons.length; i++) {
-      for (let j = i + 1; j < coupons.length; j++) {
-        combinations.push([coupons[i], coupons[j]]);
-      }
+    if (coupons.length === 1) {
+      const discount = calculateCouponDiscount(coupons[0]);
+      return { selectedCoupons: [coupons[0]], totalDiscount: discount };
     }
 
-    const results = combinations.map((couponSet) => {
-      const totalDiscount = couponSet.reduce(
-        (sum, coupon) => sum + calculateCouponDiscount(coupon),
-        0
-      );
-      return { selectedCoupons: couponSet, totalDiscount };
-    });
+    if (coupons.length === 2) {
+      const [couponA, couponB] = coupons;
 
-    return results.reduce(
-      (best, current) => {
-        return current.totalDiscount > best.totalDiscount ? current : best;
-      },
-      { selectedCoupons: [], totalDiscount: 0 }
-    );
-  }, [coupons, calculateCouponDiscount]);
+      const applyCoupon = (
+        coupon: Coupon,
+        currentPrice: number,
+        currentShipping: number
+      ): number => {
+        switch (coupon.discountType) {
+          case "fixed":
+            return calculateFixedDiscount(coupon, currentPrice);
+          case "percentage":
+            return calculatePercentageDiscount(coupon, currentPrice);
+          case "buyXgetY":
+            return calculateBuyXGetYDiscount(coupon, orderItems);
+          case "freeShipping":
+            return calculateShippingDiscount(
+              coupon,
+              currentPrice,
+              currentShipping
+            );
+          default:
+            return 0;
+        }
+      };
+
+      const calculateDiscountChain = (
+        first: Coupon,
+        second: Coupon
+      ): { totalDiscount: number; order: Coupon[] } => {
+        const firstDiscount = calculateCouponDiscount(first);
+        const remainingPrice = Math.max(0, orderPrice - firstDiscount);
+        const shippingAfterFirst =
+          first.discountType === "freeShipping" ? 0 : shippingFee;
+        const secondDiscount = applyCoupon(
+          second,
+          remainingPrice,
+          shippingAfterFirst
+        );
+
+        return {
+          totalDiscount: firstDiscount + secondDiscount,
+          order: [first, second],
+        };
+      };
+
+      const resultAB = calculateDiscountChain(couponA, couponB);
+      const resultBA = calculateDiscountChain(couponB, couponA);
+
+      return resultAB.totalDiscount >= resultBA.totalDiscount
+        ? {
+            selectedCoupons: resultAB.order,
+            totalDiscount: resultAB.totalDiscount,
+          }
+        : {
+            selectedCoupons: resultBA.order,
+            totalDiscount: resultBA.totalDiscount,
+          };
+    }
+
+    return { selectedCoupons: [], totalDiscount: 0 };
+  }, [coupons, calculateCouponDiscount, orderItems, orderPrice, shippingFee]);
 
   return {
+    selectedCoupons: optimalCouponSelection.selectedCoupons,
     totalDiscount: optimalCouponSelection.totalDiscount,
-    discountedPrice: Math.max(
-      0,
-      orderPrice - optimalCouponSelection.totalDiscount
-    ),
-    finalShippingFee: optimalCouponSelection.selectedCoupons.some(
-      (c) => c.discountType === "freeShipping"
-    )
-      ? 0
-      : shippingFee,
   };
 };
 
