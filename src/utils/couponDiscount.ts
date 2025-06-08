@@ -99,3 +99,30 @@ export function getBestCouponCombo(
   results.sort((a, b) => a.finalPayable - b.finalPayable);
   return results[0];
 }
+
+export function getAvailableCoupons(
+  validatedList: validatedCouponList[]
+): validatedCouponList[] {
+  return validatedList.filter((c) => !c.isExpired);
+}
+
+export function hasFreeShippingCoupon(combo: Coupon[]): boolean {
+  return combo.some((c) => c.discountType === 'freeShipping');
+}
+
+export function calculateShippingFee(
+  baseFee: number,
+  hasFreeShipping: boolean,
+  isRemoteAreaChecked: boolean,
+  remoteExtra = 3000
+): number {
+  if (hasFreeShipping) return 0;
+  return isRemoteAreaChecked ? baseFee + remoteExtra : baseFee;
+}
+
+export function calculateFinalPrice(
+  priceWithDiscount: number,
+  shippingFee: number
+): number {
+  return priceWithDiscount + shippingFee;
+}

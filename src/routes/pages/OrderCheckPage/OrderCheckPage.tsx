@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 
 import { useCartContext } from '../../../context/CartContext';
 import useCouponList from '../../../hooks/useCouponList';
-import { getBestCouponCombo, validateCoupons } from '../../../utils/coupon';
 
 import Header from '../../../components/common/Header/Header';
 import HeaderButton from '../../../components/common/Header/HeaderButton';
@@ -20,6 +19,14 @@ import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
 import { Back } from '../../../assets';
 import { TEXT } from '../../../constants/text';
 import { CartItemProps } from '../../../types/cartItem';
+import { validateCoupons } from '../../../utils/couponValidate';
+import {
+  calculateFinalPrice,
+  calculateShippingFee,
+  getAvailableCoupons,
+  getBestCouponCombo,
+  hasFreeShippingCoupon,
+} from '../../../utils/couponDiscount';
 
 function OrderCheckPage() {
   const navigate = useNavigate();
@@ -35,9 +42,8 @@ function OrderCheckPage() {
     cart.subTotal,
     cart.selectedCartItems
   );
-  const availableCouponList = validatedCouponList.filter(
-    (coupon) => !coupon.isExpired
-  );
+
+  const availableCouponList = getAvailableCoupons(validatedCouponList);
 
   const result = getBestCouponCombo(
     checkedCoupons,
@@ -47,17 +53,17 @@ function OrderCheckPage() {
     cart.deliveryFee
   );
 
-  const hasFreeShipping =
-    result?.combo?.some((coupon) => coupon.discountType === 'freeShipping') ??
-    false;
+  const hasFreeShipping = hasFreeShippingCoupon(result?.combo ?? []);
+  const deliveryFee = calculateShippingFee(
+    cart.deliveryFee,
+    hasFreeShipping,
+    isRemotedAreaChecked
+  );
 
-  const deliveryFee = hasFreeShipping
-    ? 0
-    : isRemotedAreaChecked
-    ? (result?.finalShipping ?? cart.deliveryFee) + 3000
-    : result?.finalShipping ?? cart.deliveryFee;
-
-  const finalPrice = result?.PriceWithDiscount + deliveryFee;
+  const finalPrice = calculateFinalPrice(
+    result?.PriceWithDiscount ?? 0,
+    deliveryFee
+  );
 
   const handleCouponModalOpen = () => {
     setCheckedCoupons(result.combo.map((coupon) => coupon.id));
