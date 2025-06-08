@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-export const useNavigation = (isDisabled: boolean) => {
+export const useNavigation = (isDisabled: boolean, payment: number) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -9,7 +9,9 @@ export const useNavigation = (isDisabled: boolean) => {
 
   const handleCheckout = () => {
     if (!isDisabled) {
-      navigate('/order-confirm');
+      navigate('/order-confirm', {
+        state: { payment },
+      });
     }
   };
 
