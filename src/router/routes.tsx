@@ -3,6 +3,8 @@ import Layout from '../pages/layout/Layout';
 import CartPage from '../pages/cartPage/CartPage';
 import OrderCompletePage from '../pages/orderCompletePage/OrderCompletePage';
 import { ROUTE } from '../constants/systemConstants';
+import Header from '../components/layout/header/Header';
+import HeaderWithBack from '../components/layout/headerWithBack/HeaderWithBack';
 const router = createBrowserRouter([
   {
     path: ROUTE.HOME,
@@ -10,11 +12,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTE.HOME,
-        element: <CartPage />,
+        element: (
+          <>
+            <Header />
+            <CartPage />
+          </>
+        ),
       },
       {
         path: ROUTE.ORDER_COMPLETE,
-        element: <OrderCompletePage />,
+        element: (
+          <>
+            <HeaderWithBack />
+            <OrderCompletePage />
+          </>
+        ),
       },
     ],
   },

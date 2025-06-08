@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const buttonStyles = {
   smallBlack: css`
@@ -23,5 +23,14 @@ export const buttonStyles = {
       color: var(--color-white);
       cursor: not-allowed;
     }
+  `,
+  coupon: css`
+    width: 100%;
+    padding: 12px 0;
+    background-color: var(--color-white);
+    color: var(--color-black);
+
+    border-radius: 5px;
+    border: 1px solid rgba(51, 51, 51, 0.25);
   `,
 };
