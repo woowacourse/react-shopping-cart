@@ -45,6 +45,10 @@ export function calculateCouponDiscount({
 }) {
   let totalDiscount = 0;
 
+  if (selectedCoupon.has('MIRACLESALE')) {
+    totalDiscount += totalPrice * 0.3;
+  }
+
   if (selectedCoupon.has('BOGO')) {
     const mostExpensiveProductPrice = Math.max(
       ...discountableProducts.map((item) => item.product.price)
