@@ -1,5 +1,5 @@
 import useSelection from '@/shared/hooks/useSelection';
-import { Modal } from '@jae-o/modal-component-module';
+import { Modal, useModalContext } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
 import CouponItem from '../couponItem/CouponItem';
 import Coupon from '../models/coupon';
@@ -16,6 +16,7 @@ function CouponModal({
   couponAppliedIds,
   applyCoupons,
 }: CouponModalProps) {
+  const { open } = useModalContext();
   const {
     selected: selectedIds,
     set: setSelectedIds,
@@ -27,8 +28,10 @@ function CouponModal({
     .reduce((acc, coupon) => acc + coupon.discountAmount, 0);
 
   useEffect(() => {
+    if (!open) return;
+
     setSelectedIds(couponAppliedIds);
-  }, [couponAppliedIds, setSelectedIds]);
+  }, [couponAppliedIds, setSelectedIds, open]);
 
   return (
     <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
