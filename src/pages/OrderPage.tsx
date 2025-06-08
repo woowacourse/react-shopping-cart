@@ -8,6 +8,8 @@ import DeliverySection from '../components/DeliverySection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import PriceSection from '../components/priceSection/PriceSection';
 import ItemInfoCard from '../components/ItemInfoCard';
+import CouponModal from '../components/Modal/CouponModal';
+import { useState } from 'react';
 
 const OrderPage = () => {
   const { state } = useLocation();
@@ -18,10 +20,12 @@ const OrderPage = () => {
     0
   );
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <S.content data-testid="orderPage">
+        <CouponModal isOpen={isOpen} handleClose={() => setIsOpen(false)} />
         <S.title>주문 확인</S.title>
         <>
           <OrderPageMessage cartLength={checkedCartIds.length} totalQuantity={totalQuantity} />
@@ -30,7 +34,7 @@ const OrderPage = () => {
               <ItemInfoCard key={item.id} product={item.product} quantity={item.quantity} />
             ))}
           </S.itemCardList>
-          <S.CouponButton>쿠폰 적용</S.CouponButton>
+          <S.CouponButton onClick={() => setIsOpen(true)}>쿠폰 적용</S.CouponButton>
           <DeliverySection />
           <S.infoContainer>
             <img src="./info.svg" />
