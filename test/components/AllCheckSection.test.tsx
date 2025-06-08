@@ -6,7 +6,7 @@ import {
   within,
 } from '@testing-library/react';
 import { act } from 'react';
-import App from '../src/App';
+import App from '../../src/App';
 
 describe('전체 선택 테스트', () => {
   beforeEach(async () => {

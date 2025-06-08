@@ -1,13 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import useCoupons from '../src/hooks/useCoupons';
-import * as checkedCtx from '../src/contexts/CheckedCartIds/CheckedCartIdsContext';
-import * as shippingCtx from '../src/contexts/Shipping/ShippingContext';
-import { ErrorToastProvider } from '../src/contexts/ErrorToast/ErrorToastProvider';
-import CartItemsProvider from '../src/contexts/CartItems/CartItemsProvider';
-import CheckCartIdsProvider from '../src/contexts/CheckedCartIds/CheckedCartIdsProvider';
+import useCoupons from '../../src/hooks/useCoupons';
+import * as checkedCtx from '../../src/contexts/CheckedCartIds/CheckedCartIdsContext';
+import * as shippingCtx from '../../src/contexts/Shipping/ShippingContext';
+import { ErrorToastProvider } from '../../src/contexts/ErrorToast/ErrorToastProvider';
+import CartItemsProvider from '../../src/contexts/CartItems/CartItemsProvider';
+import CheckCartIdsProvider from '../../src/contexts/CheckedCartIds/CheckedCartIdsProvider';
 import { act } from 'react';
-import { mockCoupons } from './mocks';
-import { ShippingProvider } from '../src/contexts/Shipping/ShippingProvider';
+import { mockCoupons } from '../mocks';
+import { ShippingProvider } from '../../src/contexts/Shipping/ShippingProvider';
 type ProvidersProps = {
   children: React.ReactNode;
 };

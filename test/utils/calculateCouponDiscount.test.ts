@@ -1,7 +1,7 @@
-import calculateCouponDiscount from '../src/utils/calculateCouponDiscount';
-import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
-import getOrderPrice from '../src/utils/getOrderPrice';
-import { mockCoupons, mockCartItems } from './mocks';
+import calculateCouponDiscount from '../../src/utils/calculateCouponDiscount';
+import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
+import getOrderPrice from '../../src/utils/getOrderPrice';
+import { mockCoupons, mockCartItems } from '../mocks';
 
 describe('calculateCouponDiscount 함수 테스트', () => {
   const orderPrice = getOrderPrice(

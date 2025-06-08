@@ -6,9 +6,9 @@ import {
   within,
 } from '@testing-library/react';
 
-import { mockCartItems } from './mocks';
+import { mockCartItems } from '../mocks';
 import { act } from 'react';
-import App from '../src/App';
+import App from '../../src/App';
 
 describe('ItemCard 테스트', () => {
   let firstItemCard: HTMLElement;

@@ -1,9 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import { mockCartItems } from './mocks';
-import getOrderPrice from '../src/utils/getOrderPrice';
-import getIdsFromCartItems from '../src/utils/getIdsFromCartItems';
-import App from '../src/App';
+import { mockCartItems } from '../mocks';
+import getOrderPrice from '../../src/utils/getOrderPrice';
+import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
+import App from '../../src/App';
 
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(async () => {

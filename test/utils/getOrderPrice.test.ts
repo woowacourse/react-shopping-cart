@@ -1,5 +1,5 @@
-import getOrderPrice from '../src/utils/getOrderPrice';
-import { mockCartItems } from './mocks';
+import getOrderPrice from '../../src/utils/getOrderPrice';
+import { mockCartItems } from '../mocks';
 
 describe('getOrderPrice 유틸 함수 테스트', () => {
   it('상품 목록과 선택 여부를 받아서 주문 금액을 계산한다.', () => {

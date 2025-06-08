@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
-import App from '../src/App';
+import App from '../../src/App';
 
 describe('NoCartItems 컴포넌트 테스트', () => {
   beforeEach(async () => {

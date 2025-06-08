@@ -1,8 +1,8 @@
 import {
   DELIVERY_PRICE,
   DELIVERY_PRICE_THRESHOLD,
-} from '../src/constants/config';
-import calculateDeliveryPrice from '../src/utils/calculateDeliveryPrice';
+} from '../../src/constants/config';
+import calculateDeliveryPrice from '../../src/utils/calculateDeliveryPrice';
 
 describe('calculateDeliveryPrice 테스트', () => {
   test('주문 금액이 0원인 경우 배송비는 0원이어야 한다', () => {
