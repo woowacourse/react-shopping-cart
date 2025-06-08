@@ -42,6 +42,26 @@ const useCoupons = () => {
     setCouponsWithAvailability(updatedCoupons);
   }, [coupons, orderPrice]);
 
+  const getSingleCouponDiscount = useCallback(
+    (coupon: Coupon, currentShippingFee: number): number => {
+      switch (coupon.discountType) {
+        case "fixed":
+          return coupon.discount || 0;
+        case "percentage":
+          return (orderPrice * (coupon.discount || 0)) / 100;
+        case "buyXgetY":
+          return getBuyXGetYDiscount(coupon, cartItemsCheckData);
+        case "freeShipping":
+          return isFreeShippingAvailable(coupon, orderPrice)
+            ? currentShippingFee
+            : 0;
+        default:
+          return 0;
+      }
+    },
+    [orderPrice, cartItemsCheckData]
+  );
+
   const getTotalCombinedDiscount = (
     coupon1: Coupon,
     coupon2: Coupon,
@@ -60,7 +80,9 @@ const useCoupons = () => {
         case "buyXgetY":
           return getBuyXGetYDiscount(coupon, cartItems);
         case "freeShipping":
-          return isFreeShippingAvailable(coupon, orderPrice) ? shippingFee : 0;
+          return isFreeShippingAvailable(coupon, currentPrice)
+            ? shippingFee
+            : 0;
         default:
           return 0;
       }
@@ -131,7 +153,6 @@ const useCoupons = () => {
       maxDiscount,
     };
   };
-
   const applyCoupons = useCallback(
     (selectedCoupons: Coupon[]) => {
       if (selectedCoupons.length === 0) {
@@ -143,31 +164,57 @@ const useCoupons = () => {
           appliedCoupons: bestCombination,
           totalDiscount: maxDiscount,
         };
-      } else {
-        const totalDiscount = selectedCoupons.reduce((acc, coupon) => {
-          if (coupon.discountType === "fixed") {
-            return acc + (coupon.discount || 0);
-          } else if (coupon.discountType === "percentage") {
-            const discountPercent = Math.min(coupon.discount || 0, 100);
-            return acc + (orderPrice * discountPercent) / 100;
-          } else if (coupon.discountType === "buyXgetY") {
-            return acc + getBuyXGetYDiscount(coupon, cartItemsCheckData);
-          } else if (coupon.discountType === "freeShipping") {
-            return (
-              acc +
-              (isFreeShippingAvailable(coupon, orderPrice) ? shippingFee : 0)
-            );
-          } else {
-            return acc;
-          }
-        }, 0);
+      } else if (selectedCoupons.length > 2) {
+        const { bestCombination, maxDiscount } = getBestCouponCombination(
+          selectedCoupons,
+          orderPrice
+        );
         return {
-          appliedCoupons: selectedCoupons,
-          totalDiscount,
+          appliedCoupons: bestCombination,
+          totalDiscount: maxDiscount,
+        };
+      } else if (selectedCoupons.length === 2) {
+        const [coupon1, coupon2] = selectedCoupons;
+        const discountA = getTotalCombinedDiscount(
+          coupon1,
+          coupon2,
+          orderPrice,
+          cartItemsCheckData
+        );
+        const discountB = getTotalCombinedDiscount(
+          coupon2,
+          coupon1,
+          orderPrice,
+          cartItemsCheckData
+        );
+
+        if (discountA >= discountB) {
+          return {
+            appliedCoupons: [coupon1, coupon2],
+            totalDiscount: discountA,
+          };
+        } else {
+          return {
+            appliedCoupons: [coupon2, coupon1],
+            totalDiscount: discountB,
+          };
+        }
+      } else {
+        const coupon = selectedCoupons[0];
+        const discount = getSingleCouponDiscount(coupon, shippingFee);
+        return {
+          appliedCoupons: [coupon],
+          totalDiscount: discount,
         };
       }
     },
-    [orderPrice, cartItemsCheckData, getBestCouponCombination]
+    [
+      orderPrice,
+      cartItemsCheckData,
+      getBestCouponCombination,
+      coupons,
+      shippingFee,
+    ]
   );
 
   return {
