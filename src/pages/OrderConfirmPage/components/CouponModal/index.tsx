@@ -4,11 +4,23 @@ import CloseSign from "../../../../components/icons/CloseSign";
 import GuideSign from "../../../../components/icons/GuideSign";
 import CheckBox from "../../../../components/common/CheckBox";
 import Button from "../../../../components/common/Button";
-import { Modal } from "@seo_dev/react-modal";
-import { GetCouponResponse } from "../../../../apis/couponApi";
 import CouponSummary from "../../utils/CouponSummary";
+import { Modal } from "@seo_dev/react-modal";
+import { OrderPageState } from "../../types";
+import { useCouponModal } from "./hooks/useCouponModal";
 
-const CouponModal = ({ onClose, coupons }: { onClose: () => void; coupons: GetCouponResponse[] }) => {
+interface orderStateProps {
+  orderState: OrderPageState;
+  onClose: () => void;
+}
+
+const CouponModal = ({ onClose, orderState }: orderStateProps) => {
+  const { couponStates } = useCouponModal({
+    coupons: orderState.availableCoupons,
+    orderItems: orderState.orderItems,
+    selectedCouponIds: orderState.selectedCouponIds,
+    isIsolatedAreaSelected: orderState.isIsolatedAreaSelected,
+  });
   return (
     <Modal onClose={onClose}>
       <Modal.BackDrop />
@@ -27,11 +39,14 @@ const CouponModal = ({ onClose, coupons }: { onClose: () => void; coupons: GetCo
             <Text variant="body-2">쿠폰은 최대 2개까지 사용할 수 있습니다.</Text>
           </S.CouponInfo>
           <S.CouponList>
-            {coupons.map((coupon) => {
+            {couponStates.map(({ coupon, isSelected, isUsable }) => {
               const { id, description } = coupon;
+              const canSelect = orderState.canSelectMore || isSelected;
+              const finalEnabled = isUsable && canSelect;
+
               return (
                 <S.CouponCard key={id}>
-                  <CheckBox isChecked={false} onClick={() => {}}>
+                  <CheckBox isChecked={isSelected} onClick={() => finalEnabled && orderState.toggleCoupon(id)}>
                     <Text variant="title-2">{description}</Text>
                   </CheckBox>
                   {CouponSummary({ coupon })}

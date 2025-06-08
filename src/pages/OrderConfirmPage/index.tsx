@@ -37,7 +37,7 @@ const OrderConfirmPage = () => {
       />
       <PaymentPriceList orderItems={orderItems} />
       {orderState.isLoading && <LoadingSpinner />}
-      {isOpen && <CouponModal onClose={() => setIsOpen(false)} coupons={coupons} />}
+      {isOpen && <CouponModal onClose={() => setIsOpen(false)} orderState={orderState} />}
     </S.Container>
   );
 };
