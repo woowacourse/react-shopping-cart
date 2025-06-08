@@ -10,6 +10,7 @@ import { Modal } from '../components/Modal';
 import { COUPONS } from '../constants/couponConfig';
 import { HiddenCheckbox } from '../components/SelectBox/SelectBox.styles';
 import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
+import { formatDate, formatTimeRange } from '../utils/dateTimeFormatter';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -93,10 +94,20 @@ function OrderConfirmPage() {
                     <CouponStyledCheckbox checked={false} />
                   </CouponCheckboxContainer>
                   <CouponContent>
-                    <CouponTitle>{coupon.name}</CouponTitle>
+                    <CouponTitle>{coupon.description}</CouponTitle>
                     <CouponInfo>
-                      <CouponDetail>만료일: {coupon.expirationDate}</CouponDetail>
-                      {coupon.description && <CouponDetail>{coupon.description}</CouponDetail>}
+                      <CouponDetail>만료일: {formatDate(coupon.expirationDate)}</CouponDetail>
+                      {coupon.availableTime && (
+                        <CouponDetail>
+                          사용 가능 시간:{' '}
+                          {formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}
+                        </CouponDetail>
+                      )}
+                      {coupon.minimumAmount && (
+                        <CouponDetail>
+                          최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
+                        </CouponDetail>
+                      )}
                     </CouponInfo>
                   </CouponContent>
                 </CouponContainer>
