@@ -166,7 +166,7 @@ export function OrderConfirm() {
           </div>
           <PaymentSummary
             price={totalPrice}
-            CouponDiscountAmount={couponDiscountAmount}
+            couponDiscountAmount={couponDiscountAmount}
             deliveryFee={deliveryFee}
           />
         </Main>

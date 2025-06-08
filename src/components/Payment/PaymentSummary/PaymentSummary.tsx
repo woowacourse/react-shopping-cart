@@ -10,13 +10,13 @@ import {
 
 interface PaymentSummaryProps {
   price: number;
-  CouponDiscountAmount?: number;
+  couponDiscountAmount?: number;
   deliveryFee: number;
 }
 
 export function PaymentSummary({
   price,
-  CouponDiscountAmount,
+  couponDiscountAmount,
   deliveryFee,
 }: PaymentSummaryProps) {
   return (
@@ -30,10 +30,10 @@ export function PaymentSummary({
       <Line />
       <div css={summaryRowBox}>
         <SummaryRow text="주문 금액" price={price} dataTestId="orderPrice" />
-        {CouponDiscountAmount !== undefined ? (
+        {couponDiscountAmount !== undefined ? (
           <SummaryRow
             text="쿠폰 할인 금액"
-            price={CouponDiscountAmount === 0 ? 0 : CouponDiscountAmount * -1}
+            price={couponDiscountAmount === 0 ? 0 : couponDiscountAmount * -1}
             dataTestId="CouponDiscountAmount"
           />
         ) : null}
@@ -45,7 +45,7 @@ export function PaymentSummary({
         <Line />
         <SummaryRow
           text="총 결제 금액"
-          price={price + deliveryFee}
+          price={price + deliveryFee - (couponDiscountAmount ?? 0)}
           dataTestId="totalPrice"
         />
       </div>
