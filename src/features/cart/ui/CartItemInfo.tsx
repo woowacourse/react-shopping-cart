@@ -1,4 +1,4 @@
-import { CartItem } from '../type/cart';
+import { CartItem } from '../types/cart';
 import * as S from './CartItemInfo.style';
 
 interface CartItemInfoProps {

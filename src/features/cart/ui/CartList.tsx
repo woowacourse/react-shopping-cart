@@ -1,7 +1,7 @@
 import SelectInput from '../../../shared/ui/SelectInput';
 import CartItemCard from './CartItemCard';
 import * as S from './CartList.styles';
-import { CartItem } from '../type/cart';
+import { CartItem } from '../types/cart';
 import { useCartItemsContext } from '../context/useCartItemsContext';
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
 

@@ -1,6 +1,6 @@
 import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
-import { CartItem } from '../type/cart';
+import { CartItem } from '../types/cart';
 import CartItemInfo from './CartItemInfo';
 import CartItemHeader from './CartItemHeader';
 

@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { CartItem } from '../type/cart';
+import { CartItem } from '../types/cart';
 import { getCartItems } from '../api/getCartItems';
 import { updateCartItem } from '../api/updateCartItem';
 
