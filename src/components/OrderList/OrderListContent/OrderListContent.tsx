@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import Receipt from "../../shoppingCart/receipt/Receipt";
-import Footer from "../../layout/Footer/Footer";
-import CartItemCheck from "../../../types/CartItemCheck";
-import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
-import OrderList from "../OrderList/OrderList";
-import CartItem from "../../../types/CartItem";
-import CouponButton from "../Coupon/Button/CouponButton";
-import Shipping from "../Shipping/Shipping";
-import Modal from "../Modal/Modal";
+import { useCouponListContext } from "../../../contexts/CouponContext";
+import { useReceipt } from "../../../hooks/useReceipt";
 import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+import CartItem from "../../../types/CartItem";
+import Footer from "../../layout/Footer/Footer";
+import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
+import Receipt from "../../shoppingCart/receipt/Receipt";
+import CouponButton from "../Coupon/Button/CouponButton";
+import Modal from "../Modal/Modal";
+import OrderList from "../OrderList/OrderList";
+import Shipping from "../Shipping/Shipping";
 interface OrderListContentProps {
   cartItemList: CartItem[];
 }
@@ -18,50 +18,39 @@ interface OrderListContentProps {
 export default function OrderListContent({
   cartItemList,
 }: OrderListContentProps) {
-  const [selectedItems] = useLocalStorage<CartItemCheck[]>(
-    "selectedCartItems",
-    []
-  );
+  const {
+    selectedItems,
+    isRemote,
+    setIsRemote,
+    cartItemCheckListTotalQuantity,
+    allProductPrice,
+    shippingFee,
+    calculateDiscounts,
+  } = useReceipt();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isRemote, setIsRemote] = useLocalStorage<boolean>("isRemote", false);
+
+  const { checkedCoupons } = useCouponListContext();
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const cartItemCheckListTotalQuantity = selectedItems
-    .filter((item) => item.isClicked)
-    .reduce((acc, item) => acc + item.quantity, 0);
+  const totalCouponDiscount = calculateDiscounts(checkedCoupons);
 
-  const cartItemListLength = cartItemList.length;
-
-  const selectedCartItemList = selectedItems.filter(
-    ({ isClicked }) => isClicked
-  );
-
-  const allProductPrice = selectedCartItemList.reduce(
-    (acc, item) => acc + item.product.price * item.quantity,
-    0
-  );
-
-  const baseShippingFee = allProductPrice >= 100000 ? 0 : 3000;
-  const shippingFee = baseShippingFee + (isRemote ? 3_000 : 0);
-
-  const [couponDiscount] = useState(6_000);
-
-  const totalPrice = allProductPrice + shippingFee - couponDiscount;
+  const totalPrice = allProductPrice + shippingFee - totalCouponDiscount;
 
   const navigate = useNavigate();
   const handlePaymentButtonClick = () => {
     navigate("/payment-confirm", {
       state: {
-        checkedProductsLength: selectedCartItemList.length,
+        checkedProductsLength: selectedItems.length,
         cartItemCheckListTotalQuantity,
-        totalPrice: totalPrice - couponDiscount,
+        totalPrice: totalPrice,
       },
     });
   };
 
-  if (!cartItemListLength) {
+  if (!cartItemList.length) {
     return <S.EmptyText>장바구니에 담은 상품이 없습니다.</S.EmptyText>;
   }
 
@@ -69,7 +58,7 @@ export default function OrderListContent({
     <>
       <ContentHeader
         title="주문 확인"
-        description={`총 ${selectedCartItemList.length}종류의 상품 ${cartItemCheckListTotalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
+        description={`총 ${selectedItems.length}종류의 상품 ${cartItemCheckListTotalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
       />
       <OrderList items={selectedItems} />
       <CouponButton onClick={handleOpenModal} />
@@ -81,11 +70,11 @@ export default function OrderListContent({
       <Receipt
         allProductPrice={allProductPrice}
         shippingFee={shippingFee}
-        couponDiscount={couponDiscount}
+        couponDiscount={totalCouponDiscount}
       />
       <Footer
         text="결제하기"
-        active={cartItemListLength ? "true" : "false"}
+        active={cartItemList.length ? "true" : "false"}
         handleClick={handlePaymentButtonClick}
       />
     </>

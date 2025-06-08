@@ -1,18 +1,11 @@
-import {
-  createContext,
-  ReactNode,
-  useState,
-  useCallback,
-  useContext,
-  useMemo,
-} from "react";
-import { CouponResponse } from "../api/fetchCouponList";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { CouponResponse } from "../types/Coupon";
 
 interface CouponListContextType {
   couponList: CouponResponse[];
-  checkedCoupons: CouponResponse[];
-  updateCouponList: (list: CouponResponse[]) => void;
-  checkCoupon: (coupon: CouponResponse) => void;
+  checkedCoupons: CouponResponse["id"][];
+  setCouponList: (list: CouponResponse[]) => void;
+  setCheckedCoupons: (couponId: CouponResponse["id"][]) => void;
 }
 
 export const CouponListContext = createContext<
@@ -21,33 +14,18 @@ export const CouponListContext = createContext<
 
 export const CouponListProvider = ({ children }: { children: ReactNode }) => {
   const [couponList, setCouponList] = useState<CouponResponse[]>([]);
-  const [checkedCoupons, setcheckedCoupons] = useState<CouponResponse[]>([]);
-
-  const updateCouponList = useCallback((list: CouponResponse[]) => {
-    setCouponList(list);
-  }, []);
-
-  const checkCoupon = useCallback((coupon: CouponResponse) => {
-    setcheckedCoupons((prev) => {
-      const already = prev.some((c) => c.id === coupon.id);
-      if (already) {
-        return prev.filter((c) => c.id !== coupon.id);
-      }
-      if (prev.length >= 2) {
-        return prev;
-      }
-      return [...prev, coupon];
-    });
-  }, []);
+  const [checkedCoupons, setCheckedCoupons] = useState<CouponResponse["id"][]>(
+    []
+  );
 
   const value = useMemo<CouponListContextType>(
     () => ({
       couponList,
       checkedCoupons,
-      updateCouponList,
-      checkCoupon,
+      setCouponList,
+      setCheckedCoupons,
     }),
-    [couponList, checkedCoupons, updateCouponList, checkCoupon]
+    [couponList, checkedCoupons, setCouponList, setCheckedCoupons]
   );
 
   return (

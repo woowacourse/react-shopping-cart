@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { fetchCouponList } from "../../../api/fetchCouponList";
 import Close from "../../../assets/Close.png";
 import Info from "../../../assets/Info.png";
-import Hr from "../../common/Hr/Hr";
-import CheckBox from "../../common/CheckBox/CheckBox";
-import * as S from "./Modal.styles";
-import {
-  formatDate,
-  formatCurrency,
-  formatAvailableTime,
-} from "../../../utils/format";
 import { useCouponListContext } from "../../../contexts/CouponContext";
-import { fetchCouponList } from "../../../api/fetchCouponList";
+import { useReceipt } from "../../../hooks/useReceipt";
+import { CouponResponse } from "../../../types/Coupon";
+import {
+  formatAvailableTime,
+  formatCurrency,
+  formatDate,
+} from "../../../utils/format";
+import CheckBox from "../../common/CheckBox/CheckBox";
+import Hr from "../../common/Hr/Hr";
+import * as S from "./Modal.styles";
 
 interface ModalProps {
   isModalOpen: boolean;
@@ -18,23 +20,27 @@ interface ModalProps {
 }
 
 export default function Modal({ isModalOpen, onClose }: ModalProps) {
-  if (!isModalOpen) {
-    return null;
-  }
+  const [couponIds, setCouponIds] = useState<CouponResponse["id"][]>([]);
+  const { calculateDiscounts, selectedItems, shippingFee, allProductPrice } =
+    useReceipt();
 
-  const { couponList, checkedCoupons, updateCouponList, checkCoupon } =
+  const { couponList, setCouponList, setCheckedCoupons } =
     useCouponListContext();
 
   useEffect(() => {
     (async () => {
       try {
         const list = await fetchCouponList();
-        updateCouponList(list);
+        setCouponList(list);
       } catch (err: any) {
         console.error("쿠폰 조회 중 오류 발생:", err);
       }
     })();
-  }, [updateCouponList]);
+  }, [setCouponList]);
+
+  if (!isModalOpen) {
+    return null;
+  }
 
   return (
     <>
@@ -55,10 +61,8 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
             </S.Info>
             <S.CouponList>
               {couponList.map((coupon) => {
-                const isChecked = checkedCoupons.some(
-                  (c) => c.id === coupon.id
-                );
-                const isDisabled = !isChecked && checkedCoupons.length >= 2;
+                const isChecked = couponIds.includes(coupon.id);
+                const isDisabled = !isChecked && couponIds.length >= 2;
 
                 return (
                   <S.Item key={coupon.id} disabled={isDisabled}>
@@ -67,7 +71,13 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
                       <CheckBox
                         type="checkbox"
                         checked={isChecked}
-                        onChange={() => checkCoupon(coupon)}
+                        onChange={() =>
+                          setCouponIds((prev) =>
+                            prev.includes(coupon.id)
+                              ? prev.filter((id) => id !== coupon.id)
+                              : [...prev, coupon.id]
+                          )
+                        }
                       />
                       <S.ItemTitle>{coupon.description}</S.ItemTitle>
                     </S.ItemTitleWrapper>
@@ -75,12 +85,13 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
                       <S.CouponInfo>
                         만료일: {formatDate(coupon.expirationDate)}
                       </S.CouponInfo>
-                      {coupon.minimumAmount && (
+                      {(coupon.discountType === "fixed" ||
+                        coupon.discountType === "freeShipping") && (
                         <S.CouponInfo>
                           최소 주문 금액: {formatCurrency(coupon.minimumAmount)}
                         </S.CouponInfo>
                       )}
-                      {coupon.availableTime && (
+                      {coupon.discountType === "percentage" && (
                         <S.CouponInfo>
                           {formatAvailableTime(coupon.availableTime)}
                         </S.CouponInfo>
@@ -91,7 +102,14 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
               })}
             </S.CouponList>
           </S.ModalBody>
-          <S.ModalButton>총 6,000원 할인 쿠폰 사용하기</S.ModalButton>
+          <S.ModalButton
+            onClick={() => {
+              setCheckedCoupons(couponIds);
+              onClose();
+            }}
+          >
+            총 {calculateDiscounts(couponIds)}원 할인 쿠폰 사용하기
+          </S.ModalButton>
         </S.ModalContainer>
       </S.ModalBackground>
     </>
