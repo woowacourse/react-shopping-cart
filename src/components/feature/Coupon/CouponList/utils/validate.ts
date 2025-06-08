@@ -1,20 +1,30 @@
-import { CouponResponse } from "../../../../type/coupon";
-import { CartProduct } from "../../../../type/cart";
-import { getDeliveryPrice } from "../../CartSection/PriceSection/utils";
+import { CouponResponse } from "../../../../../type/coupon";
+import { CartProduct } from "../../../../../type/cart";
+import { getDeliveryPrice } from "../../../CartSection/PriceSection/utils";
+import { getSelectedCartItems } from "../../../CartSection/utils/getSelectedCartItems";
 
-export const getSelectedCartItems = (
-  cartItems: CartProduct[],
-  selectedCartIds: number[]
-) => {
-  return cartItems.filter((item: CartProduct) =>
-    selectedCartIds.includes(item.id)
+export const getValidCoupons = ({
+  coupons,
+  totalPrice,
+  isRemoteArea,
+  cartItems,
+  selectedCartIds,
+}: {
+  coupons: CouponResponse[];
+  totalPrice: number;
+  isRemoteArea: boolean;
+  cartItems: CartProduct[];
+  selectedCartIds: number[];
+}) => {
+  return coupons.filter((coupon: CouponResponse) =>
+    isValidCoupon(
+      coupon,
+      totalPrice,
+      isRemoteArea,
+      getSelectedCartItems(cartItems, selectedCartIds)
+    )
   );
 };
-
-export const getSelectedCoupons = (
-  coupons: CouponResponse[],
-  selectedIds: number[]
-) => coupons?.filter((coupon) => selectedIds.includes(coupon.id));
 
 export const isValidCoupon = (
   coupon: CouponResponse,
@@ -95,48 +105,4 @@ const isValidTime = (availableTime: { start: string; end: string }) => {
   const endTime = endHour * 60 + endMin;
 
   return nowTime >= startTime && nowTime <= endTime;
-};
-
-export const calculateDiscount = (
-  selectedCartItems: CartProduct[],
-  coupon: CouponResponse,
-  totalPrice: number,
-  isRemoteArea: boolean
-) => {
-  switch (coupon.discountType) {
-    case "fixed":
-      return coupon.discount;
-
-    case "buyXgetY": {
-      return calculateBuyXGetY(selectedCartItems, coupon.buyQuantity);
-    }
-
-    case "freeShipping": {
-      return getDeliveryPrice({
-        orderPrice: totalPrice,
-        isRemoteArea,
-      });
-    }
-
-    case "percentage":
-      return (totalPrice * coupon.discount) / 100;
-
-    default:
-      return 0;
-  }
-};
-
-const calculateBuyXGetY = (
-  selectedCartItems: CartProduct[],
-  buyQuantity: number
-) => {
-  const eligibleItems = selectedCartItems.filter(
-    (item: CartProduct) => item.quantity > buyQuantity
-  );
-
-  eligibleItems.sort(
-    (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
-  );
-
-  return eligibleItems[0].product.price;
 };

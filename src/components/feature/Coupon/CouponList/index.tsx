@@ -6,12 +6,8 @@ import { css } from "@emotion/react";
 import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 import { CartProduct } from "../../../../type/cart";
 import useSelectedCoupon from "../../../../hooks/useSelectedCoupon";
-import {
-  isValidCoupon,
-  calculateDiscount,
-  getSelectedCartItems,
-  getSelectedCoupons,
-} from "./utils";
+import { getTotalDiscount } from "./utils/calculate";
+import { getValidCoupons } from "./utils/validate";
 
 interface Props {
   coupons: CouponResponse[];
@@ -31,28 +27,14 @@ const CouponList = ({
   onApplyDiscount,
 }: Props) => {
   const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
-
-  const getValidCoupons = () => {
-    return coupons.filter((coupon: CouponResponse) =>
-      isValidCoupon(
-        coupon,
-        totalPrice,
-        isRemoteArea,
-        getSelectedCartItems(cartItems, selectedCartIds)
-      )
-    );
-  };
-
-  const getTotalDiscount = () => {
-    return getSelectedCoupons(coupons, selectedIds).reduce((total, current) => {
-      return (total += calculateDiscount(
-        getSelectedCartItems(cartItems, selectedCartIds),
-        current,
-        totalPrice,
-        isRemoteArea
-      ));
-    }, 0);
-  };
+  const totalDiscount = getTotalDiscount({
+    coupons,
+    selectedIds,
+    cartItems,
+    selectedCartIds,
+    totalPrice,
+    isRemoteArea,
+  });
 
   return (
     <S.Container>
@@ -66,13 +48,19 @@ const CouponList = ({
           coupon={coupon}
           isChecked={selectedIds.includes(coupon.id)}
           onSelect={() => handleSelectCoupon(coupon.id)}
-          isValid={getValidCoupons().includes(coupon)}
+          isValid={getValidCoupons({
+            coupons,
+            totalPrice,
+            isRemoteArea,
+            cartItems,
+            selectedCartIds,
+          }).includes(coupon)}
         />
       ))}
       <Button
-        title={`총 ${getTotalDiscount()}원 할인 쿠폰 사용하기`}
+        title={`총 ${totalDiscount}원 할인 쿠폰 사용하기`}
         onClick={() => {
-          onApplyDiscount(getTotalDiscount());
+          onApplyDiscount(totalDiscount);
         }}
         css={css`
           width: 100%;

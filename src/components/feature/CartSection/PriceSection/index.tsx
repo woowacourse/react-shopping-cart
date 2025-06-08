@@ -6,7 +6,7 @@ import Button from "../../../common/Button";
 import { css } from "@emotion/react";
 import { useNavigate, useLocation } from "react-router";
 import { getPrice } from "./utils";
-import { getSelectedCartItems } from "../../Coupon/CouponList/utils";
+import { getSelectedCartItems } from "../utils/getSelectedCartItems";
 
 type Props = {
   cartItems: CartProduct[];
