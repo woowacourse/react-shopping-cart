@@ -57,7 +57,7 @@ const ContentStyle = css`
   gap: 20px;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 128px);
+  min-height: calc(100vh - 64px);
 `;
 
 const Description = css`

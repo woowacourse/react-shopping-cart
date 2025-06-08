@@ -155,6 +155,8 @@ export default CouponModal;
 
 const CouponModalContent = css`
   min-height: 200px;
+  max-height: 60vh;
+  overflow-y: auto;
 `;
 
 const SpinnerWrapper = css`
