@@ -7,6 +7,12 @@ import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
 
 async function enableMocking() {
+  const shouldUseMSW = import.meta.env.VITE_USE_MSW === 'true';
+
+  if (!shouldUseMSW) {
+    return Promise.resolve();
+  }
+
   const isLocalhost = location.hostname === 'localhost';
 
   const { worker } = await import('./mocks/browser');
@@ -17,6 +23,7 @@ async function enableMocking() {
     onUnhandledRequest: 'bypass',
   });
 }
+
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
