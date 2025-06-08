@@ -1,9 +1,11 @@
 import { http, HttpResponse } from 'msw';
 import rawCartItems from './cartItems.json';
+import rawCoupons from './coupons.json';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 let cartItems = [...rawCartItems];
+const coupons = [...rawCoupons];
 
 export const mockGetCartItems = http.get(`${BASE_URL}/cart-items*`, () => {
   return HttpResponse.json({ content: cartItems });
@@ -25,4 +27,8 @@ export const mockDeleteCartItem = http.delete(`${BASE_URL}/cart-items/:id`, ({ p
   const id = Number(params.id);
   cartItems = cartItems.filter((item) => item.id !== id);
   return new HttpResponse(null, { status: 204 });
+});
+
+export const mockGetCoupons = http.get(`${BASE_URL}/coupons`, () => {
+  return HttpResponse.json(coupons);
 });
