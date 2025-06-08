@@ -8,15 +8,29 @@ import * as S from './Modal.styles';
 interface Props {
   coupon: CouponsResponse;
   isChecked: boolean;
+  isDisabled?: boolean;
   onToggle: () => void;
 }
 
-export default function CouponListItem({ coupon, isChecked, onToggle }: Props) {
+export default function CouponListItem({ coupon, isChecked, onToggle, isDisabled }: Props) {
+  const handleClick = () => {
+    if (!isDisabled) {
+      onToggle();
+    }
+  };
+
   return (
-    <S.CouponList>
-      <S.CheckboxWrapper>
+    <S.CouponList
+      style={{
+        opacity: isDisabled ? 0.5 : 1,
+        pointerEvents: isDisabled ? 'none' : 'auto',
+      }}
+    >
+      <S.CheckboxWrapper onClick={handleClick} style={{ cursor: isDisabled ? 'not-allowed' : 'pointer' }}>
         <Checkbox checked={isChecked} onClick={onToggle} />
-        <Text variant="title-2">{coupon.description || `${coupon.discount ?? ''}원 할인 쿠폰`}</Text>
+        <Text variant="title-2" color={isDisabled ? 'gray' : 'black'}>
+          {coupon.description || `${coupon.discount ?? ''}원 할인 쿠폰`}
+        </Text>
       </S.CheckboxWrapper>
       <Spacing size={10} />
       <S.ReceiptTextWrapper>

@@ -15,7 +15,7 @@ export const Backdrop = styled.div`
 export const Modal = styled.div`
   position: relative;
   background: white;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 24px 16px;
   width: 90%;
   max-width: 600px;
@@ -52,16 +52,6 @@ export const CloseButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-`;
-
-export const TotalPriceWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-  margin-bottom: 24px;
-  font-family: 'Noto Sans KR';
-  font-size: 16px;
 `;
 
 export const CheckboxWrapper = styled.div`

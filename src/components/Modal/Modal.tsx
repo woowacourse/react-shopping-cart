@@ -4,15 +4,25 @@ import Text from '../Text/Text';
 import * as S from './Modal.styles';
 import { CouponsResponse } from '../../types/coupons';
 import CouponList from './CouponList';
+import { Content } from '../../types/cartItems';
 
 interface CouponModalProps {
   onClose: () => void;
   selectedCoupons: CouponsResponse[];
   setSelectedCoupons: (coupons: CouponsResponse[]) => void;
   totalDiscount: number;
+  orderPrice: number;
+  selectedItems: Content[];
 }
 
-export default function CouponModal({ onClose, selectedCoupons, setSelectedCoupons, totalDiscount }: CouponModalProps) {
+export default function CouponModal({
+  onClose,
+  selectedCoupons,
+  setSelectedCoupons,
+  totalDiscount,
+  orderPrice,
+  selectedItems,
+}: CouponModalProps) {
   return (
     <S.Backdrop onClick={onClose}>
       <S.Modal onClick={(e) => e.stopPropagation()}>
@@ -23,7 +33,12 @@ export default function CouponModal({ onClose, selectedCoupons, setSelectedCoupo
         <Spacing size={34} />
         <InfoIcon /> 쿠폰은 최대 2개까지 사용할 수 있습니다.
         <S.ModalTitleLine />
-        <CouponList selectedCoupons={selectedCoupons} setSelectedCoupons={setSelectedCoupons} />
+        <CouponList
+          selectedCoupons={selectedCoupons}
+          setSelectedCoupons={setSelectedCoupons}
+          orderPrice={orderPrice}
+          selectedItems={selectedItems}
+        />
         <S.CompleteButton onClick={onClose}>총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기</S.CompleteButton>
       </S.Modal>
     </S.Backdrop>

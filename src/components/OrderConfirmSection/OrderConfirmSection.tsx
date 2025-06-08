@@ -17,8 +17,10 @@ interface OrderConfirmSectionProps {
   setIsIslandChecked: Dispatch<SetStateAction<boolean>>;
   orderPrice: number;
   shippingFee: number;
-  totalPrice: number;
+  orderTotalPrice: number;
+  totalDiscount: number;
   totalQuantity: number;
+  totalPrice: number;
 }
 
 export default function OrderConfirmSection({
@@ -29,8 +31,9 @@ export default function OrderConfirmSection({
   setIsIslandChecked,
   orderPrice,
   shippingFee,
-  totalPrice,
+  totalDiscount,
   totalQuantity,
+  totalPrice,
 }: OrderConfirmSectionProps) {
   const handleCheckboxChange = () => {
     setIsIslandChecked((prev) => !prev);
@@ -81,19 +84,19 @@ export default function OrderConfirmSection({
           <hr />
           <S.ReceiptTextWrapper>
             <Text variant="title-2">주문 금액</Text>
-            <Text variant="title-1">{orderPrice}원</Text>
+            <Text variant="title-1">{orderPrice.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">쿠폰 할인 금액</Text>
-            <Text variant="title-1">0원</Text>
+            <Text variant="title-1">{'-' + totalDiscount.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">배송비</Text>
-            <Text variant="title-1">{shippingFee}원</Text>
+            <Text variant="title-1">{shippingFee.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">총 결제 금액</Text>
-            <Text variant="title-1">{totalPrice}원</Text>
+            <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
           </S.ReceiptTextWrapper>
         </>
       )}

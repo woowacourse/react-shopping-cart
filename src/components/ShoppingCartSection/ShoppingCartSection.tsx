@@ -25,16 +25,16 @@ export default function ShoppingCartSection({
     return items?.content.length > 0 && selectedItemIds.length === items.content.length;
   }, [items, selectedItemIds]);
 
-  const { orderPrice, shippingFee, totalPrice } = useMemo(() => {
+  const { orderPrice, shippingFee, orderTotalPrice } = useMemo(() => {
     const orderPrice =
       items?.content.reduce((total, item) => {
         return selectedItemIds.includes(item.id) ? total + item.product.price * item.quantity : total;
       }, 0) || 0;
 
     const shippingFee = orderPrice >= 100000 ? 0 : 3000;
-    const totalPrice = orderPrice + shippingFee;
+    const orderTotalPrice = orderPrice + shippingFee;
 
-    return { orderPrice, shippingFee, totalPrice };
+    return { orderPrice, shippingFee, orderTotalPrice };
   }, [items, selectedItemIds]);
 
   const handleCheckboxClick = (itemId: number) => {
@@ -94,7 +94,7 @@ export default function ShoppingCartSection({
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">총 결제 금액</Text>
-            <Text variant="title-1">{totalPrice}원</Text>
+            <Text variant="title-1">{orderTotalPrice}원</Text>
           </S.ReceiptTextWrapper>
         </>
       )}

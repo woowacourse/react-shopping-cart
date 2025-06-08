@@ -1,14 +1,18 @@
 import { getCoupon } from '../../apis/coupon';
 import { useAPI } from '../../context/APIContext';
 import { CouponsResponse } from '../../types/coupons';
+import { Content } from '../../types/cartItems';
 import Text from '../Text/Text';
 import CouponListItem from './CouponListItem';
 
 interface Props {
   selectedCoupons: CouponsResponse[];
   setSelectedCoupons: (selected: CouponsResponse[]) => void;
+  orderPrice: number;
+  selectedItems: Content[];
 }
-export default function CouponList({ selectedCoupons, setSelectedCoupons }: Props) {
+
+export default function CouponList({ selectedCoupons, setSelectedCoupons, orderPrice, selectedItems }: Props) {
   const {
     data: coupons,
     isLoading,
@@ -20,7 +24,35 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons }: Prop
 
   const selectedIds = selectedCoupons.map((c) => c.id);
 
+  const isCouponDisabled = (coupon: CouponsResponse): boolean => {
+    const currentHour = new Date().getHours();
+
+    switch (coupon.description) {
+      case '5,000원 할인 쿠폰':
+        return orderPrice < 100000;
+      case '2개 구매 시 1개 무료 쿠폰': {
+        const sameProductCounts = new Map<number, number>();
+        selectedItems.forEach((item) => {
+          const id = item.product.id;
+          sameProductCounts.set(id, (sameProductCounts.get(id) ?? 0) + item.quantity);
+        });
+        return !Array.from(sameProductCounts.values()).some((count) => count >= 2 && count % 2 === 0);
+      }
+
+      case '5만원 이상 구매 시 무료 배송 쿠폰':
+        return orderPrice < 50000;
+
+      case '미라클모닝 30% 할인 쿠폰':
+        return !(4 < currentHour && currentHour < 7);
+
+      default:
+        return false;
+    }
+  };
+
   const toggleCoupon = (coupon: CouponsResponse) => {
+    if (isCouponDisabled(coupon)) return;
+
     const isSelected = selectedIds.includes(coupon.id);
 
     let updated: CouponsResponse[];
@@ -40,14 +72,19 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons }: Prop
 
   return (
     <>
-      {coupons?.map((coupon) => (
-        <CouponListItem
-          key={coupon.id}
-          coupon={coupon}
-          isChecked={selectedIds.includes(coupon.id)}
-          onToggle={() => toggleCoupon(coupon)}
-        />
-      ))}
+      {coupons?.map((coupon) => {
+        const disabled = isCouponDisabled(coupon);
+
+        return (
+          <CouponListItem
+            key={coupon.id}
+            coupon={coupon}
+            isChecked={selectedIds.includes(coupon.id)}
+            onToggle={() => toggleCoupon(coupon)}
+            isDisabled={disabled}
+          />
+        );
+      })}
     </>
   );
 }
