@@ -5,13 +5,14 @@ import { getOrderPrice } from '../../utils';
 import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../../constants/config';
 
 interface PriceSectionProps {
+  orderPrice?: number;
   discountPrice?: number;
   deliveryPrice?: number;
 }
 
-const PriceSection = ({ discountPrice, deliveryPrice }: PriceSectionProps) => {
+const PriceSection = ({ orderPrice, discountPrice, deliveryPrice }: PriceSectionProps) => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
-  const orderPrice = getOrderPrice(cartItems, checkedCartIds);
+  if (!orderPrice) orderPrice = getOrderPrice(cartItems, checkedCartIds);
   if (!deliveryPrice)
     deliveryPrice = orderPrice >= DELIVERY_PRICE_THRESHOLD || orderPrice === 0 ? 0 : DELIVERY_PRICE;
 

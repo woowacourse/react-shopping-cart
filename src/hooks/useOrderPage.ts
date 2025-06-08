@@ -35,7 +35,7 @@ const useOrderPage = () => {
 
   const handleClickDeliveryCheckbox = () => setDeliveryChecked((prev) => !prev);
 
-  return { deliveryChecked, handleClickDeliveryCheckbox, deliveryPrice, discountPrice };
+  return { deliveryChecked, handleClickDeliveryCheckbox, orderPrice, deliveryPrice, discountPrice };
 };
 
 export default useOrderPage;

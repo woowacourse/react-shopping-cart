@@ -16,7 +16,7 @@ import useOrderPage from '../hooks/useOrderPage';
 const OrderPage = () => {
   const navigate = useNavigate();
   const { cartItems, checkedCartIds } = useCartItemsContext();
-  const { deliveryChecked, handleClickDeliveryCheckbox, deliveryPrice, discountPrice } =
+  const { deliveryChecked, handleClickDeliveryCheckbox, orderPrice, deliveryPrice, discountPrice } =
     useOrderPage();
 
   const checkedSet = new Set(checkedCartIds);
@@ -50,7 +50,11 @@ const OrderPage = () => {
               배송됩니다.
             </p>
           </S.infoContainer>
-          <PriceSection discountPrice={discountPrice} deliveryPrice={deliveryPrice} />
+          <PriceSection
+            orderPrice={orderPrice}
+            discountPrice={discountPrice}
+            deliveryPrice={deliveryPrice}
+          />
         </>
       </S.content>
       <BottomButton
