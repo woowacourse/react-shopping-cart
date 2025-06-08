@@ -55,8 +55,13 @@ ui 퍼블리싱
   - [x] useCouponValidation 훅 생성
     - [x] validation 관련 util 함수로 분리
   - [x] 타입 정리
+- [ ] orderPrice 컴포넌트 네이밍 변경 -> Price
+- [ ] order-confirm 페이지 ui 정리
+- [ ] 상수 값 분리
 - [ ] 코로케이션 폴더 구조 적용
+  - [x] cartPage 코로케이션 적용
 - [ ] 각각의 페이지에서 context api 적용
+  - [x] cartPage context api 적용
 - [ ] 테스트 코드 작성
 
 ### 응집도와 결합도 측면에서의 대화

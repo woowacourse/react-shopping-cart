@@ -1,11 +1,12 @@
 import * as S from "./CartItemList.styled";
-import { UseCartReturnType } from "../../../hooks/cart/useCart";
-import Button from "../../common/Button";
-import CheckBox from "../../common/CheckBox";
-import QuantityRegulator from "../../QuantityRegulator";
-import ItemCard from "../../ItemCard/index";
+import Button from "../../../../components/common/Button";
+import CheckBox from "../../../../components/common/CheckBox";
+import QuantityRegulator from "../../../../components/QuantityRegulator";
+import ItemCard from "../../../../components/ItemCard/index";
+import { useCartContext } from "../../contexts/CartContext";
 
-const CartItemList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnType["cartItemListProps"] }) => {
+const CartItemList = () => {
+  const { cartItemListProps } = useCartContext();
   const { cartItems, checkedIds, handleCartItemChange, isAllChecked, handleCheckChange } = cartItemListProps;
 
   return (

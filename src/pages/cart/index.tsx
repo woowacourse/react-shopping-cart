@@ -1,15 +1,15 @@
 import * as S from "./CartPage.styled";
-import CartItemList from "../../components/Cart/CartItemList";
+import CartItemList from "./components/CartItemList";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
-import useCart from "../../hooks/cart/useCart";
-import { OrderPrice } from "../../components/Order/OrderPrice";
 import { useNavigate } from "react-router";
 import Header from "../../components/Header";
 import Logo from "../../components/icons/Logo";
+import CartPrice from "./components/CartPrice";
+import { useCartContext } from "./contexts/CartContext";
 
 const CartPage = () => {
-  const { cartItemsInfo, cartItemListProps, orderConfirmPageData } = useCart();
+  const { cartItemsInfo, orderConfirmPageData } = useCartContext();
 
   const navigate = useNavigate();
   const handleNavigate = () => navigate("/order-confirm", { state: orderConfirmPageData });
@@ -23,17 +23,8 @@ const CartPage = () => {
         {cartItemsInfo.cartItemsCount > 0 ? (
           <S.Information>
             <Text variant="body-3">현재 {cartItemsInfo.cartItemsCount}종류의 상품이 담겨있습니다.</Text>
-            <CartItemList cartItemListProps={cartItemListProps} />
-            <OrderPrice gap={12}>
-              <OrderPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
-              <OrderPrice.Wrap gap={8}>
-                <OrderPrice.LabelWithPrice label="주문 금액" price={cartItemsInfo.orderPrice} />
-                <OrderPrice.LabelWithPrice label="배송비" price={cartItemsInfo.deliveryPrice} />
-              </OrderPrice.Wrap>
-              <OrderPrice.Wrap>
-                <OrderPrice.LabelWithPrice label="총 결제 금액" price={cartItemsInfo.totalPrice} />
-              </OrderPrice.Wrap>
-            </OrderPrice>
+            <CartItemList />
+            <CartPrice />
           </S.Information>
         ) : (
           <S.NoInformation>

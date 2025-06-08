@@ -1,4 +1,4 @@
-import useCart from "../src/hooks/cart/useCart";
+import useCart from "../src/pages/cart/hooks/useCart";
 import MOCKING_CART_ITEMS_DATA from "../src/apis/mocks/data/cartItems.json";
 import { server } from "../src/apis/mocks/node";
 import { act, renderHook, waitFor } from "@testing-library/react";

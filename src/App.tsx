@@ -1,10 +1,11 @@
 import * as S from "./styles/Layout.styled";
 import { BrowserRouter, Route, Routes } from "react-router";
-import CartPage from "./pages/CartPage";
+import CartPage from "./pages/cart";
 import PaymentConfirmPage from "./pages/PaymentConfirmPage";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import ErrorPopup from "./components/common/Error/Popup";
 import OrderConfirmPage from "./pages/OrderConfirmPage";
+import { CartProvider } from "./pages/cart/contexts/CartContext";
 
 function App() {
   return (
@@ -13,7 +14,14 @@ function App() {
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <ErrorPopup />
           <Routes>
-            <Route path="/" element={<CartPage />} />
+            <Route
+              path="/"
+              element={
+                <CartProvider>
+                  <CartPage />
+                </CartProvider>
+              }
+            />
             <Route path="/order-confirm" element={<OrderConfirmPage />} />
             <Route path="/payment-confirm" element={<PaymentConfirmPage />} />
           </Routes>
