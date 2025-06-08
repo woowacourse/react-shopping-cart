@@ -8,57 +8,51 @@
 ### step2 시작전 리팩토링
 
 - [x] CartItem 컴포넌트 네이밍 변경 (범용적)
-- [ ] 불필요한 리렌더링 최적화하기 (CartPage)
 - [x] CartItem 훅 내부 로직 분리
 - [x] Checked ids 분리
 - [x] 초기진입시, 체크 박스 풀 체크
-- [ ] CartItem 훅 내부 로직 context API로 관리 -> CartContext
-- [ ] isChecked 값 {id:checked} 매치해서 배열로 관리?
+- [x] isChecked 값 {id:checked} 매치해서 배열로 관리
+- [ ] 불필요한 리렌더링 최적화하기 (CartPage)
 - [ ] 각각의 페이지에서 context 적용
 - [ ] useQuery와 useMutation 적용
-
-### 설계
-
-"코로케이션 폴더"라는 용어는 일반적으로 웹 개발, 특히 Next.js와 같은 프레임워크에서 사용되는 "코로케이션(colocation)"이라는 디자인 패턴과 관련되어 있습니다. 이는 파일을 폴더 구조 내에 함께 위치시켜 관련 코드, 데이터, 페이지를 연결하여 관리 효율성을 높이는 방식입니다.
-
-- context 생성
-
-  - 상위에서 useCart, useInformation(도서산간지역 여부), useCoupon(인자 - cart상태, 총 가격)
-    - or usePrice?
-  - useCart에서 현재 내려주는 값을 그대로 유지할지 (context로 다 내려주기)
-  - 필수로 필요핝 cart상태만 내려주고, 페이지에서 필요한 값들 가공해서 사용하게 할지
-
-- 뭔가 계산 하는 로직들은 utils로 분리해서 관리해야할듯 (함수)
-
-그럼 로컬스토리지에 저장해야하는 값은 무엇인가 -> 카트 상태만 관리한다?
 
 ### 기능명세서
 
 - [x] order-confirm -> payment-confirm 페이지로 변경
 
-- [ ] ui 퍼블리싱
-  - [x] 주문확인 페이지 (orderConfirmPage)
-    - [x] 쿠폰 적용 버튼
-    - [x] 배송 정보 여부 체크
-    - [x] OrderPrice 컴포넌트
-  - [x] 쿠폰 모달 (호이초이 모달 사용)
-    - [x] 체크 박스 및 쿠폰 정보
-    - [x] 쿠폰 적용 버튼
-    - [x] 쿠폰 컴포넌트
-  - [ ] 결제 확인 페이지
-    - [ ] 장바구니로 돌아가기 버튼
-- [ ] 훅 분리 (?)
-  - [ ] useCart (장바구니 상품 아이템들)
-  - [ ] usePrice (가격들만 관리)
-  - [x] useOrder
-- [x] 상태 추가
-  - [x] isRemoteArea (제주도 및 도서 산간 지역) (이건 배송지 정보로 들어가지 않을까?)
-  - [x] coupons 상태 (기존 서버에서 쿠폰정보 받아오고, 여기에 isChecked 값 부여)
-  - [x] useCouponApply 훅 제작
-  - [x] useCouponApply 적용
-    - [x] 쿠폰 로직 ui 반영
+ui 퍼블리싱
+
+- [x] 주문확인 페이지 (orderConfirmPage)
+- [x] 쿠폰 적용 버튼
+- [x] 배송 정보 여부 체크
+- [x] OrderPrice 컴포넌트
+- [x] 쿠폰 모달 (호이초이 모달 사용)
+- [x] 체크 박스 및 쿠폰 정보
+- [x] 쿠폰 적용 버튼
+- [x] 쿠폰 컴포넌트
+- [x] 결제 확인 페이지
+- [x] 장바구니로 돌아가기 버튼
+
+훅
+
+- cart
+- [x] useCart (wrapper 훅)
+- [ ] useCartCheck (id 배열 바탕으로 상품 체크 관련 훅)
+- [ ] useCartResource (cart 기본 초기값 받아오는 훅)
+- order
+- [x] useOrder (wrapper 훅)
+- [x] useCouponResource (쿠폰 초기값 받아오는 훅)
+- [x] useCouponApply (쿠폰 실제 값에 적용하는 훅)
   - [x] isRemoteArea 값에 의한 쿠폰 로직 적용
+- [x] useDeliveryInformation (배송 관련 정보 훅 (현재는 산간지역 배송여부만 존재))
+  - [x] isRemoteArea (제주도 및 도서 산간 지역) (이건 배송지 정보로 들어가지 않을까?)
+- [x] useTempCoupon (쿠폰 모달에서만 적용되는 훅 (임시 훅 느낌))
+
 - [x] msw 쿠폰 조회 로직 작성
+- [ ] order 훅 리팩토링
+  - [ ] useCouponApply 훅 내부 utils 함수로 분리
+- [ ] 코로케이션 폴더 구조 적용
+- [ ] 각각의 페이지에서 context api 적용
 - [ ] 테스트 코드 작성
 
 ### 응집도와 결합도 측면에서의 대화
