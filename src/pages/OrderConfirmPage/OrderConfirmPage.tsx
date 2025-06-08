@@ -6,8 +6,12 @@ import { useNavigate, useLocation } from 'react-router';
 import OrderConfirmSection from '../../components/OrderConfirmSection/OrderConfirmSection';
 import { Content } from '../../types/cartItems';
 import Text from '../../components/Text/Text';
+import { useState } from 'react';
+import CouponModal from '../../components/Modal/Modal';
 
 export default function OrderConfirmPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const selectedItems: Content[] = location.state?.selectedItems ?? [];
@@ -59,6 +63,7 @@ export default function OrderConfirmPage() {
         refetch={() => {}}
         selectedItemIds={selectedItemIds}
         setSelectedItemIds={() => {}}
+        setIsModalOpen={setIsModalOpen}
       />
       <S.ButtonWrapper>
         <Button
@@ -70,6 +75,7 @@ export default function OrderConfirmPage() {
           결제하기
         </Button>
       </S.ButtonWrapper>
+      {isModalOpen && <CouponModal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 }

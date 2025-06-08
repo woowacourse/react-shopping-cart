@@ -11,15 +11,20 @@ interface OrderConfirmSectionProps {
   items: CartItemsResponse;
 
   refetch: () => void;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   selectedItemIds: number[];
   setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
 }
 
-export default function OrderConfirmSection({ items, selectedItemIds }: OrderConfirmSectionProps) {
+export default function OrderConfirmSection({ items, selectedItemIds, setIsModalOpen }: OrderConfirmSectionProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked((prev) => !prev);
+  };
+
+  const handleCouponButtonClick = () => {
+    setIsModalOpen(true);
   };
 
   const { orderPrice, shippingFee, totalPrice, totalQuantity } = useMemo(() => {
@@ -67,7 +72,7 @@ export default function OrderConfirmSection({ items, selectedItemIds }: OrderCon
               ))}
           </S.OrderItemList>
 
-          <S.ApplyCouponButton>쿠폰 적용</S.ApplyCouponButton>
+          <S.ApplyCouponButton onClick={handleCouponButtonClick}>쿠폰 적용</S.ApplyCouponButton>
           <Spacing size={32} />
 
           <Text variant="title-3">배송 정보</Text>
@@ -76,7 +81,7 @@ export default function OrderConfirmSection({ items, selectedItemIds }: OrderCon
             <Checkbox checked={isChecked} onClick={handleCheckboxChange}></Checkbox>
             <Text variant="body-1">제주도 및 도서 산간 지역</Text>
           </S.CheckboxWrapper>
-          <Spacing size={36} />
+          <Spacing size={32} />
           <p>
             <InfoIcon /> 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
           </p>
