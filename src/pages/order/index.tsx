@@ -10,16 +10,11 @@ import useBooleanState from "../../shared/hooks/common/useBooleanState";
 import CouponModal from "./components/CouponModal";
 import OrderPrice from "./components/OrderPrice";
 import { useOrderContext } from "./contexts/OrderContext";
-// import NotFoundPage from "../NotFoundPage";
-
-// OrderConfirm 페이지가 받아야하는 정보
-// check된 상품들 정보
 
 const OrderPage = () => {
   const navigate = useNavigate();
   const [isCartModalOpen, handleCartModalOpen, handleCartModalClose] = useBooleanState(false);
   const { cartItemsTotalQuantity, cartItemsCheckedCount, finalTotalPrice } = useOrderContext();
-  // if (!location.state) return <NotFoundPage />;
 
   const handleNavigate = () =>
     navigate("/payment-confirm", { state: { cartItemsTotalQuantity, cartItemsCheckedCount, finalTotalPrice } });
