@@ -53,11 +53,18 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   }, [coupon.error, showToast]);
 
   const onToggleCoupon = (id: number) => {
-    setCoupons((prevCoupons) =>
-      prevCoupons.map((coupon) =>
+    setCoupons((prevCoupons) => {
+      const selectCouponCount = prevCoupons.filter((c) => c.checked).length;
+      const target = prevCoupons.find((c) => c.id === id);
+
+      if (!target) return prevCoupons;
+
+      if (!target.checked && selectCouponCount >= 2) return prevCoupons;
+
+      return prevCoupons.map((coupon) =>
         coupon.id === id ? { ...coupon, checked: !coupon.checked } : coupon
-      )
-    );
+      );
+    });
   };
 
   return (
