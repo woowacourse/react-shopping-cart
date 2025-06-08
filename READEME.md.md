@@ -68,6 +68,16 @@ ui 퍼블리싱
 - [x] cartPage / orderPage -> provider 적용 후, export
 - [x] modal 상태 context 적용
 - [ ] 테스트 코드 작성
+  - [ ] cart
+    - [ ] useCartResource 훅 테스트
+    - [ ] useCartCheck 훅 테스트
+    - [ ] calculateCartAmount utils 함수 테스트
+    - [ ] calculateCartPrice utils 함수 테스트
+  - [ ] order
+    - [ ] useCouponResource 훅 테스트
+    - [ ] useDeliveryInformation 훅 테스트
+    - [ ] useCoupon 훅 테스트
+    - [ ] utils 함수들 테스트
 
 ### 응집도와 결합도 측면에서의 대화
 
@@ -100,3 +110,5 @@ page 딴에서 데이터를 전달하는게 맞을까?
 기존의 경우) 페이지 이동할 때, 해당 데이터를 서버의 DB에 저장을 해두고, 페이지 딴에서 서버 요청을 해서 최신 데이터를 가지고 오고 이를 UI상에 뿌려주는게 맞지 않을까? 라는 생각
 
 useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
+
+어차피 무료배송인경우, 쿠폰을 활성화 시켜야하는지? 비활성화 시켜야하는지?
