@@ -5,6 +5,7 @@ import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProv
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
 import CouponInfo from './CouponInfo';
+import { useOrderCoupons } from '../hooks/useOrderCoupons';
 
 interface CouponModalProps {
   show: boolean;
@@ -12,7 +13,7 @@ interface CouponModalProps {
   coupons: CouponContent[];
   isLoading: boolean;
   availableCoupons: CouponContent[];
-  bestCouponIds: number[];
+  // bestCouponIds: number[];
   totalDiscount: number;
   handleApply: (couponIds: number[]) => void;
   isJejuOrRemoteArea: boolean;
@@ -24,20 +25,19 @@ const CouponModal = ({
   coupons,
   isLoading,
   availableCoupons,
-  bestCouponIds,
+  // bestCouponIds,
   handleApply,
   isJejuOrRemoteArea,
 }: CouponModalProps) => {
-  console.log(bestCouponIds);
+  const { bestCouponIds } = useOrderCoupons(isJejuOrRemoteArea);
   const [selectedCouponIds, setSelectedCouponIds] =
     useState<number[]>(bestCouponIds);
   const isManual = useRef(false);
   useEffect(() => {
-    if (!isManual.current) {
+    if (!isManual.current && bestCouponIds.length > 0) {
       setSelectedCouponIds(bestCouponIds);
     }
   }, [bestCouponIds]);
-  console.log(selectedCouponIds);
 
   const handleApplyClick = () => {
     handleApply(selectedCouponIds);
