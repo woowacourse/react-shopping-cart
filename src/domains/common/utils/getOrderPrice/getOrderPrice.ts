@@ -1,4 +1,4 @@
-import { CartItemTypes } from "../../types/cartItem";
+import { CartItemTypes } from "../../../shopping-cart/types/cartItem";
 
 interface getTotalPriceProps {
   cartItems: CartItemTypes[];

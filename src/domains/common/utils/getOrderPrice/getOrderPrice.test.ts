@@ -1,5 +1,5 @@
-import { mockShoppingCartResponse } from "../../mocks/mockShoppingCartResponse";
-import { getTotalPrice } from "./getTotalPrice";
+import { mockShoppingCartResponse } from "../../../shopping-cart/mocks/mockShoppingCartResponse";
+import { getTotalPrice } from "./getOrderPrice";
 
 describe("getTotalPrice 함수 동작을 검증한다", () => {
   it.each([

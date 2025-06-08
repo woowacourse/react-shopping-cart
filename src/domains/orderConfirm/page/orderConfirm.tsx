@@ -7,7 +7,7 @@ import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
-import { getOrderPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
+import { getOrderPrice } from "../../common/utils/getOrderPrice/getOrderPrice";
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
 
 import Modal from "compoents-modal-test-kangoll";
@@ -18,7 +18,7 @@ import { CouponList } from "../components/CouponList/CouponList";
 import { useSaleCoupon } from "../hooks/useSaleCoupon";
 import { pressBackButton } from "./orderConfirm.style";
 import { getDeliveryFee } from "../utils/getDeliveryFee";
-import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
+import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity/calculateCartItemQuantity";
 import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
 import { getDisCountedPrice } from "../utils/getDisCountedPrice";
 import { CouponCode, CouponCodes } from "../types/coupon";

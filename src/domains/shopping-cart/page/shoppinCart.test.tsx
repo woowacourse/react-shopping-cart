@@ -3,7 +3,7 @@ import { ShoppingCart } from "./shoppingCart";
 import { MemoryRouter } from "react-router-dom";
 import { server } from "../mocks/server";
 import { mockShoppingCartResponse } from "../mocks/mockShoppingCartResponse";
-import { getTotalPrice } from "../utils/getTotalPrice/getTotalPrice";
+import { getOrderPrice } from "../../common/utils/getOrderPrice/getOrderPrice";
 import { CartItemTypes } from "../types/cartItem";
 import { resetCartItems } from "../mocks/handlers";
 
@@ -45,7 +45,7 @@ describe("장바구니 페이지 테스트", () => {
     const selectedId = mockShoppingCartResponse.content.map((e) =>
       e.id.toString()
     );
-    const prevTotalPrice = getTotalPrice({
+    const prevTotalPrice = getOrderPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartIds: selectedId,
     });
@@ -81,7 +81,7 @@ describe("장바구니 페이지 테스트", () => {
     const selectedId = mockShoppingCartResponse.content.map((e) =>
       e.id.toString()
     );
-    const prevTotalPrice = getTotalPrice({
+    const prevTotalPrice = getOrderPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartIds: selectedId,
     });
@@ -122,7 +122,7 @@ describe("장바구니 페이지 테스트", () => {
     const selectedId = mockShoppingCartResponse.content.map((e) =>
       e.id.toString()
     );
-    const prevTotalPrice = getTotalPrice({
+    const prevTotalPrice = getOrderPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartIds: selectedId,
     });
@@ -165,7 +165,7 @@ describe("장바구니 페이지 테스트", () => {
       .map((e) => e.id.toString())
       .filter((e) => e !== item.id.toString());
 
-    const prevTotalPrice = getTotalPrice({
+    const prevTotalPrice = getOrderPrice({
       cartItems: mockShoppingCartResponse.content as CartItemTypes[],
       selectedCartIds: selectedId,
     });
