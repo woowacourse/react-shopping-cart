@@ -21,6 +21,8 @@ type CartContextType = {
   subTotal: number;
   deliveryFee: number;
   totalBeforeDiscount: number;
+  typeCount: number;
+  totalCount: number;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -45,6 +47,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const deliveryFee =
     subTotal >= CART.FREE_DELIVERY_THRESHOLD ? 0 : CART.DELIVERY_FEE;
   const totalBeforeDiscount = subTotal + deliveryFee;
+  const typeCount = selectedItems.length;
+  const totalCount = data.reduce((acc: number, curr: CartItemProps) => {
+    return acc + curr?.quantity;
+  }, 0);
 
   return (
     <CartContext.Provider
@@ -64,6 +70,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         subTotal,
         deliveryFee,
         totalBeforeDiscount,
+        typeCount,
+        totalCount,
       }}
     >
       {children}
