@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { CouponData, OrderItem } from "../types";
 import { findOptimalCouponCombination } from "../utils/couponCalculations";
+import { COUPON_LIMIT } from "../constants";
 
 interface UseCouponSelectionParams {
   coupons: CouponData[];
@@ -28,7 +29,7 @@ export const useCouponSelection = ({ coupons, orderItems, isIsolatedAreaSelected
       if (prev.includes(couponId)) {
         return prev.filter((id) => id !== couponId);
       }
-      if (prev.length >= 2) {
+      if (prev.length >= COUPON_LIMIT) {
         return [prev[1], couponId];
       }
       return [...prev, couponId];
@@ -38,7 +39,7 @@ export const useCouponSelection = ({ coupons, orderItems, isIsolatedAreaSelected
   return {
     selectedCouponIds,
     isOptimized,
-    canSelectMore: selectedCouponIds.length < 2,
+    canSelectMore: selectedCouponIds.length < COUPON_LIMIT,
     toggleCoupon,
     selectOptimalCoupons,
   };

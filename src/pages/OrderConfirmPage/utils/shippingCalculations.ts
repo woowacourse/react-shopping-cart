@@ -1,3 +1,5 @@
+import { ISOLATED_AREA_FEE, ISOLATED_AREA_THRESHOLD } from "../constants";
+
 export interface ShippingCalculationParams {
   orderAmount: number;
   isIsolatedAreaSelected: boolean;
@@ -41,12 +43,15 @@ export function calculateShippingFee({
   }
 
   const basicFee = 3000;
-  const jejuAdditionalFee = 3000;
-  const totalFee = basicFee + (isIsolatedAreaSelected ? jejuAdditionalFee : 0);
+  const totalFee = basicFee + (isIsolatedAreaSelected ? ISOLATED_AREA_FEE : 0);
 
   return {
     fee: totalFee,
     description: isIsolatedAreaSelected ? "일반 + 제주도 배송비" : "일반 배송비",
     isFree: false,
   };
+}
+
+export function canApplyShippingCoupon(orderAmount: number, isIsolatedAreaSelected: boolean): boolean {
+  return orderAmount < ISOLATED_AREA_THRESHOLD || (orderAmount >= ISOLATED_AREA_THRESHOLD && isIsolatedAreaSelected);
 }

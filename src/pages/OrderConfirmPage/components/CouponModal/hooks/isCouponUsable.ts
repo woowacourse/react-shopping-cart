@@ -1,6 +1,11 @@
 import { CouponData } from "../../../types";
 
-export function isCouponUsable({ coupon, currentAmount = 0 }: { coupon: CouponData; currentAmount?: number }): boolean {
+interface IsCouponUsableProps {
+  coupon: CouponData;
+  currentAmount?: number;
+}
+
+export function isCouponUsable({ coupon, currentAmount = 0 }: IsCouponUsableProps): boolean {
   const now = new Date();
 
   const expirationDate = new Date(coupon.expirationDate);

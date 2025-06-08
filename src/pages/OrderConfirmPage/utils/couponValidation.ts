@@ -1,4 +1,5 @@
 import { CouponData, OrderItem } from "../types";
+import { canApplyShippingCoupon } from "./shippingCalculations";
 
 export interface CouponValidationResult {
   isValid: boolean;
@@ -106,15 +107,21 @@ export function validateCouponUsage({
       return validateBogoCondition(orderItems);
 
     case "freeShipping":
-      return orderAmount < 100000 || (orderAmount >= 100000 && isIsolatedAreaSelected)
-        ? {
-            isValid: false,
-            reason: "이미 무료 배송이 적용되어 있습니다.",
-            warningMessage: "제주도 선택 시 사용 가능합니다.",
-          }
-        : { isValid: true };
+      return validateShippingCoupon(orderAmount, isIsolatedAreaSelected);
 
     default:
       return { isValid: true };
   }
+}
+
+function validateShippingCoupon(orderAmount: number, isIsolatedAreaSelected: boolean): CouponValidationResult {
+  if (!canApplyShippingCoupon(orderAmount, isIsolatedAreaSelected)) {
+    return {
+      isValid: false,
+      reason: "이미 무료 배송이 적용되어 있습니다.",
+      warningMessage: "제주도 선택 시 사용 가능합니다.",
+    };
+  }
+
+  return { isValid: true };
 }

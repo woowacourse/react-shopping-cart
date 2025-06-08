@@ -36,7 +36,6 @@ export const useCouponModal = ({
         orderAmount,
         isIsolatedAreaSelected,
       });
-
       const isSelected = selectedCouponIds.includes(coupon.id);
 
       return {
