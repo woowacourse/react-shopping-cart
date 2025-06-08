@@ -1,10 +1,10 @@
 export type ToastType = "success" | "error" | "warning" | "info";
 
-export interface ToastInfo {
+export type ToastInfo = {
   id: string;
   type: ToastType;
   message: string;
-}
+};
 
 type ToastObserver = (toastInfo: ToastInfo) => void;
 
