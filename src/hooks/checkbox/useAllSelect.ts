@@ -29,16 +29,12 @@ const useAllSelect = <T extends CheckboxItemType>({
 
   const toggleAllSelect = useCallback(() => {
     const allIds = items.map((item) => item.id);
-    const isAll = isAllSelected();
-    allIds.forEach((id) => {
-      if (isAll) {
-        toggleSelect(id);
-      } else {
-        if (!selectedIds.includes(id)) {
-          toggleSelect(id);
-        }
-      }
-    });
+    if (isAllSelected()) {
+      allIds.forEach((id) => toggleSelect(id));
+    } else {
+      const deselected = allIds.filter((id) => !selectedIds.includes(id));
+      deselected.forEach((id) => toggleSelect(id));
+    }
   }, [isAllSelected, items, selectedIds, toggleSelect]);
 
   return { toggleAllSelect, isAllSelected };
