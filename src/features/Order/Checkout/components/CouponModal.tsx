@@ -2,31 +2,45 @@ import { Fragment } from 'react';
 import styled from '@emotion/styled';
 import { Modal, type ModalProps } from '@sebin0580/modal';
 
+import { CartItem } from '@/features/Cart/types/Cart.types';
 import { Button } from '@/shared/components/Button';
 import { CheckBox } from '@/shared/components/CheckBox';
 import { Flex } from '@/shared/components/Flex';
 import { Text } from '@/shared/components/Text';
 
+import { useModalSelectCoupon } from '../hooks/useModalSelectCoupon';
 import { CouponItem } from '../type/coupon.type';
 import { parseHour } from '../utils/parseHour';
 import { splitDate } from '../utils/splitDate';
 
 type CouponModalProps = {
+  cartItems: CartItem[];
   coupons: CouponItem[];
-  couponDiscount: number;
   totalPrice: number;
   onApplyCoupon: (id: number) => void;
+  specialDeliveryZone: boolean;
 } & ModalProps;
 
 export const CouponModal = ({
   coupons,
-  couponDiscount,
   onApplyCoupon,
   isOpen,
+  totalPrice,
+  cartItems,
   title,
+  specialDeliveryZone,
   onClose,
 }: CouponModalProps) => {
-  const allChecked = coupons.filter((item) => item.isChecked).length === 2;
+  const { modalCoupons, handleTempToggle, disCountPrice, handleConfirm } = useModalSelectCoupon({
+    coupons,
+    onApplyCoupon,
+    totalPrice,
+    isOpen,
+    onClose,
+    cartItems,
+    specialDeliveryZone,
+  });
+  const allChecked = modalCoupons.filter((item) => item.isChecked).length === 2;
 
   return (
     <Modal isOpen={isOpen} title={title} onClose={onClose}>
@@ -41,7 +55,7 @@ export const CouponModal = ({
         <Text type="Caption">🥸 쿠폰은 최대 2개까지 사용할 수 있습니다.</Text>
       </Flex>
       <StyledSpacing />
-      {coupons?.map((item) => {
+      {modalCoupons?.map((item) => {
         const isGrayedOut = (allChecked && !item.isChecked) || item.isDisabled;
         return (
           <Fragment key={item.id}>
@@ -62,7 +76,7 @@ export const CouponModal = ({
               >
                 <CheckBox
                   checked={item.isChecked}
-                  onClick={() => !item.isDisabled && onApplyCoupon(item.id)}
+                  onClick={() => !item.isDisabled && handleTempToggle(item.id)}
                 />
                 <Text type="Title" color={isGrayedOut ? 'gray' : 'black'}>
                   {item.description}
@@ -87,8 +101,8 @@ export const CouponModal = ({
           </Fragment>
         );
       })}
-      <Button size="lg" width="100%" onClick={onClose}>
-        {`총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
+      <Button size="lg" width="100%" onClick={handleConfirm}>
+        {`총 ${disCountPrice.toLocaleString()}원 할인 쿠폰 사용하기`}
       </Button>
     </Modal>
   );
