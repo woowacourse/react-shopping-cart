@@ -14,7 +14,7 @@ const CartItems = async ({
   method,
   params = { page: "0", size: "50" },
 }: CartItemsParams): Promise<FetchCartItemListResult> => {
-  const url = new URL(BASE_URL);
+  const url = new URL(`${BASE_URL}/cart-items`);
 
   url.search = new URLSearchParams(params).toString();
 
