@@ -7,13 +7,13 @@ import errorToastIcon from "@assets/icons/error-toast.svg";
 import warningToastIcon from "@assets/icons/warning-toast.svg";
 import infoToastIcon from "@assets/icons/info-toast.svg";
 
-interface ToastContentProps {
+type ToastContentProps = {
   id: string;
   type: ToastType;
   message: string;
   duration: number;
   onClose: (id: string) => void;
-}
+};
 
 const ToastEffect = {
   success: {
