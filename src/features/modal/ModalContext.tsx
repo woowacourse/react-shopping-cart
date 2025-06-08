@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, PropsWithChildren, useState } from "react";
 import Modal from "./Modal";
 
 interface ModalContextType {
@@ -8,7 +8,7 @@ interface ModalContextType {
 
 export const ModalContext = createContext<ModalContextType | null>(null);
 
-export const ModalProvider = ({ children }: React.PropsWithChildren) => {
+export const ModalProvider = ({ children }: PropsWithChildren) => {
   const [modalContent, setModalContent] = useState<React.ReactNode | null>(
     null
   );
