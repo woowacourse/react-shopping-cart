@@ -3,7 +3,6 @@ import { CartItem, Coupon } from '../types';
 
 interface CouponContext {
   coupons: Coupon[];
-  getAvailableCoupons: (checkedCartItems: CartItem[]) => Coupon[];
   checkedCouponIds: number[];
   addCheckedCouponIds: (id: number) => void;
   removeCheckedCouponIds: (id: number) => void;

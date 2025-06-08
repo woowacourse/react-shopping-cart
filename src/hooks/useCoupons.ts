@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CartItem, Coupon } from '../types';
+import { Coupon } from '../types';
 import getCoupons from '../api/getCoupons';
-import { checkIsAvailableCoupon } from '../utils';
 
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
@@ -15,11 +14,7 @@ const useCoupons = () => {
     fetchData();
   }, []);
 
-  const getAvailableCoupons = (checkedCartItems: CartItem[]) => {
-    return coupons.filter((coupon) => checkIsAvailableCoupon(coupon, checkedCartItems));
-  };
-
-  return { coupons, getAvailableCoupons };
+  return { coupons };
 };
 
 export default useCoupons;
