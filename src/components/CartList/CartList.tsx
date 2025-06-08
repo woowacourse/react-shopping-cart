@@ -1,6 +1,7 @@
 import useCartManager from "../../hooks/useCartManager";
 import useSelectAction from "../../hooks/useSelectAction";
 import { useSelectContext } from "../../stores/SelectContext";
+import { setLocalStorage } from "../../utils/storage";
 import CartItem from "../CartItem/CartItem";
 import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CartList.styled";
@@ -16,8 +17,30 @@ function CartList() {
   }
 
   const handlerSelectAll = () => {
-    if (selectState.every((item) => item.selected)) deselectAll();
-    else selectAll();
+    if (selectState.every((item) => item.selected)) {
+      deselectAll();
+
+      setLocalStorage(
+        "selectedInfo",
+        selectState.map((state) => {
+          return {
+            id: state.id,
+            selected: false,
+          };
+        })
+      );
+    } else {
+      selectAll();
+      setLocalStorage(
+        "selectedInfo",
+        selectState.map((state) => {
+          return {
+            id: state.id,
+            selected: true,
+          };
+        })
+      );
+    }
   };
 
   return (

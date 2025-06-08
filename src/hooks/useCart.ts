@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ResponseCartItem } from "../types/types";
-import getCartItemList from "../api/getCartList";
+import getCartItemList from "../api/getCartItemList";
 
 function useCart() {
   const [cartItemList, setCartItemList] = useState<ResponseCartItem[]>([]);

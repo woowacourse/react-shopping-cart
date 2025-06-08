@@ -4,6 +4,7 @@ import { ResponseCartItem } from "../types/types";
 import useSelectAction from "./useSelectAction";
 import useCartAction from "./useCartAction";
 import { useCartContext } from "../stores/CartContext";
+import { setLocalStorage } from "../utils/storage";
 
 interface UseCartItemManagerProps {
   cart: ResponseCartItem;
@@ -25,8 +26,38 @@ function useCartItemManager({ cart }: UseCartItemManagerProps) {
     selectState.find((item) => item.id === cart.id)?.selected || false;
 
   const handleSelect = (): void => {
-    if (isSelected) removeSelect({ id: cart.id });
-    else addSelect({ id: cart.id });
+    if (isSelected) {
+      removeSelect({ id: cart.id });
+      setLocalStorage(
+        "selectedInfo",
+        selectState.map((state) => {
+          if (state.id === cart.id) {
+            return {
+              id: state.id,
+              selected: false,
+            };
+          }
+
+          return state;
+        })
+      );
+    } else {
+      addSelect({ id: cart.id });
+
+      setLocalStorage(
+        "selectedInfo",
+        selectState.map((state) => {
+          if (state.id === cart.id) {
+            return {
+              id: state.id,
+              selected: true,
+            };
+          }
+
+          return state;
+        })
+      );
+    }
   };
 
   const handleIncrease = async (): Promise<void> => {

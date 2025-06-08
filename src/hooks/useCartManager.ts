@@ -7,6 +7,7 @@ import { ResponseCartItem } from "../types/types";
 import { SelectState } from "../stores/SelectReducer";
 import useCartAction from "./useCartAction";
 import useSelectAction from "./useSelectAction";
+import { getLocalStorage, setLocalStorage } from "../utils/storage";
 
 interface UseCartManagerReturn {
   cartData: ResponseCartItem[];
@@ -29,7 +30,27 @@ function useCartManager(): UseCartManagerReturn {
   useEffect(() => {
     if (cartItemRes.length > 0) {
       setCartInfo({ items: cartItemRes });
-      setSelectInfo({ items: cartItemRes });
+
+      const selectedInfo = getLocalStorage<SelectState[]>("selectedInfo");
+      const initialState = cartItemRes.map((item) => {
+        return {
+          id: item.id,
+          selected: false,
+        };
+      });
+
+      if (!selectedInfo) {
+        setSelectInfo({
+          items: initialState,
+        });
+
+        setLocalStorage<SelectState[]>("selectedInfo", initialState);
+        return;
+      }
+
+      setSelectInfo({
+        items: selectedInfo,
+      });
     }
   }, [cartItemRes, setCartInfo, setSelectInfo]);
 
