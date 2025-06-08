@@ -1,16 +1,12 @@
-/* hooks/Cart/useCartSelection.ts */
 import { useMemo, useCallback, useEffect, useRef } from "react";
 import { CartItem } from "@/type/CartItem";
 import usePersistentSet from "./usePersistentSet";
-import useCleanupInvalidIds from "./useCleanupInvalidIds";
 
 const STORAGE_KEY = "selectedCartIds";
 
 export const useCartSelection = (cartItems: CartItem[]) => {
   const [selectedIds, setSelectedIds, persist, hadStoredValue] =
     usePersistentSet(STORAGE_KEY);
-
-  useCleanupInvalidIds(cartItems, setSelectedIds);
 
   const shouldPersistRef = useRef(false);
   const didAutoSelectRef = useRef(false);
@@ -36,20 +32,15 @@ export const useCartSelection = (cartItems: CartItem[]) => {
     });
   };
 
-  /* ★ ① 처음 로드 + storage 비어 있을 때만 자동 전체선택 */
+  /* ★ 처음 로드 시 localStorage에 아무것도 없으면 전체 선택 */
   useEffect(() => {
-    if (
-      !hadStoredValue &&
-      !didAutoSelectRef.current &&
-      cartItems.length &&
-      selectedIds.size === 0
-    ) {
+    if (!hadStoredValue && !didAutoSelectRef.current && cartItems.length > 0) {
       const all = new Set(cartItems.map((i) => i.id));
       setSelectedIds(all);
       persist(all);
-      didAutoSelectRef.current = true; // 다시 안 실행되도록
+      didAutoSelectRef.current = true;
     }
-  }, [hadStoredValue, cartItems, selectedIds, setSelectedIds, persist]);
+  }, [hadStoredValue, cartItems, setSelectedIds, persist]);
 
   useEffect(() => {
     if (!shouldPersistRef.current) return;

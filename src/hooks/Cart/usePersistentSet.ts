@@ -4,12 +4,23 @@ export default function usePersistentSet(
   key: string,
   fallback: Set<string> = new Set()
 ) {
-  let hadInitialValue = false;
+  const [hadInitialValue] = useState<boolean>(() => {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw !== null; // raw가 null이 아니면 저장된 값이 있었다는 뜻
+    } catch {
+      return false;
+    }
+  });
+
   const [value, setValue] = useState<Set<string>>(() => {
     try {
-      hadInitialValue = true;
       const raw = localStorage.getItem(key);
-      return raw ? new Set<string>(JSON.parse(raw)) : fallback;
+      if (raw) {
+        return new Set<string>(JSON.parse(raw));
+      } else {
+        return fallback;
+      }
     } catch {
       return fallback;
     }
