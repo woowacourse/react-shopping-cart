@@ -76,7 +76,7 @@ function Cart() {
   return (
     <>
       <Header icon="logo.svg" handleIconClick={() => navigate("/")} />
-      <section css={Container}>
+      <main css={Container}>
         <Description
           title="장바구니"
           subtitle={
@@ -117,7 +117,7 @@ function Cart() {
             />
           </div>
         )}
-      </section>
+      </main>
       <SubmitButton
         label="주문 확인"
         enabled={selectedCartIds.length !== 0}
