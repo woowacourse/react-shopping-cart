@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Modal } from '../components/Modal';
 import { COUPONS } from '../constants/couponConfig';
 import { HiddenCheckbox } from '../components/SelectBox/SelectBox.styles';
-import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
+import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { formatDate, formatTimeRange } from '../utils/dateTimeFormatter';
 
 function OrderConfirmPage() {
@@ -17,6 +17,7 @@ function OrderConfirmPage() {
   const navigate = useNavigate();
   const { price, count, totalCount } = location.state;
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [remoteArea, setRemoteArea] = useState(false);
 
   // 임시 데이터 - 실제로는 location.state에서 받아와야 함
   const productName = '이름';
@@ -24,8 +25,16 @@ function OrderConfirmPage() {
   const productQuantity = 2;
   const productTotal = productPrice * productQuantity;
   const couponDiscount = 6000;
-  const shippingFee = price >= 100000 ? 0 : 6000;
-  const finalTotal = productTotal - couponDiscount + shippingFee;
+  const baseShippingFee = productTotal >= SHIPPING_FEE_THRESHOLD ? 0 : 3000;
+
+  const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
+  const totalShippingFee = baseShippingFee + remoteAreaFee;
+
+  const finalTotal = productTotal - couponDiscount + totalShippingFee;
+
+  const handleRemoteAreaChange = () => {
+    setRemoteArea(!remoteArea);
+  };
 
   return (
     <>
@@ -51,8 +60,12 @@ function OrderConfirmPage() {
           <SectionTitle>배송 정보</SectionTitle>
           <DeliveryItem>
             <CouponCheckboxContainer>
-              <HiddenCheckbox type="checkbox" checked={false} onChange={() => {}} />
-              <CouponStyledCheckbox checked={false} />
+              <HiddenCheckbox
+                type="checkbox"
+                checked={remoteArea}
+                onChange={handleRemoteAreaChange}
+              />
+              <CouponStyledCheckbox checked={remoteArea} />
             </CouponCheckboxContainer>
             <DeliveryText>제주도 및 도서 산간 지역</DeliveryText>
           </DeliveryItem>
@@ -65,7 +78,7 @@ function OrderConfirmPage() {
         <CartFooter
           price={productTotal}
           couponDiscount={couponDiscount}
-          shippingFee={shippingFee}
+          shippingFee={totalShippingFee}
           totalPrice={finalTotal}
         />
       </Container>
