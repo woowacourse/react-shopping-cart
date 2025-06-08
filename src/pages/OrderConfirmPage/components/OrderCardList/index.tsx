@@ -1,9 +1,9 @@
 import * as S from "./OrderCardList.styled";
 import CartCard from "../../../../components/CartCard";
 import Text from "../../../../components/common/Text";
-import { CartItemContent } from "../../../../types/cartItem";
+import { OrderItem } from "../../types";
 
-const OrderCardList = ({ orderItems }: { orderItems: CartItemContent[] }) => {
+const OrderCardList = ({ orderItems }: { orderItems: OrderItem[] }) => {
   return (
     <S.Container>
       <S.List>
