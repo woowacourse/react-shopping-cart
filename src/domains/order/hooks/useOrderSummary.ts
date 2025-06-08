@@ -47,9 +47,16 @@ const useOrderSummary = ({ isRemoteArea = false }: Props = {}) => {
     shippingFee: orderCalculation.finalShippingFee,
   });
 
-  const finalTotalPrice =
-    Math.max(0, orderCalculation.orderPrice - totalDiscount) +
-    orderCalculation.finalShippingFee;
+  const finalTotalPrice = useMemo(() => {
+    return (
+      Math.max(0, orderCalculation.orderPrice - totalDiscount) +
+      orderCalculation.finalShippingFee
+    );
+  }, [
+    orderCalculation.orderPrice,
+    orderCalculation.finalShippingFee,
+    totalDiscount,
+  ]);
 
   return {
     ...orderCalculation,
