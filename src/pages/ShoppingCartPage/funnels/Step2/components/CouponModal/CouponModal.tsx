@@ -8,6 +8,7 @@ import { useMemo } from "react";
 import CouponItem from "./CouponItem";
 import { MAX_COUPON_COUNT } from "@/constants";
 import { useToast } from "@/modules";
+import * as S from "./CouponModal.styles";
 
 interface CouponModalProps {
   closeModal: () => void;
@@ -72,13 +73,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
 
         <Spacing size={16} />
 
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-          `}
-        >
+        <S.CouponList>
           {coupons.map((coupon) => (
             <CouponItem
               key={coupon.id}
@@ -88,7 +83,7 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
               isCouponAvailable={availableCoupons.includes(coupon)}
             />
           ))}
-        </div>
+        </S.CouponList>
       </Modal.Content>
 
       <Modal.Bottom>
