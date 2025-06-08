@@ -76,7 +76,6 @@ const useCoupons = () => {
   }, [coupons, orderPrice, maxQuantity, currentHour]);
 
   const deliveryPrice = calculateDeliveryPrice(orderPrice, isRemoteArea);
-  console.log('Delivery Price:', deliveryPrice);
 
   const couponDiscount = calculateCouponDiscount({
     coupons: selectedCoupons,

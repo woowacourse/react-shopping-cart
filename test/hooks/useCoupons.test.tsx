@@ -315,8 +315,6 @@ describe('useCoupons 테스트', () => {
       act(() => {
         result.current.selectCoupon(3);
       });
-      console.log('validCoupons:', result.current.validCoupons);
-      console.log('Selected Coupons:', result.current.selectedCoupons);
 
       await waitFor(() => {
         expect(result.current.couponDiscount).toBe(6000);
