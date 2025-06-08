@@ -1,11 +1,6 @@
-import {
-  Description,
-  Title,
-  Subtitle,
-  InfoMessageContainer,
-} from "../../../styles/@common/title/Title.styles";
+import { Title, Subtitle } from "../../../styles/@common/title/Title.styles";
 import * as S from "./CartPrice.styles";
-import infoIcon from "/public/icon/ic_info.svg";
+import { InfoMessage } from "../../@common/infoMessage/InfoMessage";
 import { FREE_DELIVERY_MESSAGE } from "../../../constants/systemMessages";
 
 interface CartPriceProps {
@@ -23,10 +18,7 @@ const CartPrice = ({
 }: CartPriceProps) => {
   return (
     <div css={S.CartPriceWrapper}>
-      <div css={InfoMessageContainer}>
-        <img src={infoIcon} alt="info" />
-        <p css={Description}>{FREE_DELIVERY_MESSAGE}</p>
-      </div>
+      <InfoMessage message={FREE_DELIVERY_MESSAGE} />
       <div css={S.CartPriceDetailContainer}>
         <div>
           <div css={S.CartPriceInfoContainer}>

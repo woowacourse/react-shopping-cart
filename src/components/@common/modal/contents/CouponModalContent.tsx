@@ -2,11 +2,7 @@ import * as S from "./CouponModalContent.styles";
 import CouponItem from "../../../features/couponItem/CouponItem";
 import Button from "../../button/Button";
 import type { CouponType } from "../../../../types/response";
-import infoIcon from "/public/icon/ic_info.svg";
-import {
-  InfoMessageContainer,
-  Description,
-} from "../../../../styles/@common/title/Title.styles";
+import { InfoMessage } from "../../infoMessage/InfoMessage";
 import { COUPON_LIMIT_MESSAGE } from "../../../../constants/systemMessages";
 import { isValid } from "../../../../domains/coupon/validateCoupon";
 
@@ -33,10 +29,7 @@ const CouponModalContent = (props: CouponModalContentProps) => {
 
   return (
     <div css={S.couponModalContentContainer}>
-      <div css={InfoMessageContainer}>
-        <img src={infoIcon} alt="info" />
-        <p css={Description}>{COUPON_LIMIT_MESSAGE}</p>
-      </div>
+      <InfoMessage message={COUPON_LIMIT_MESSAGE} />
       {couponList.map((coupon) => (
         <CouponItem
           key={coupon.id}
