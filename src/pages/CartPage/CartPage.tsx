@@ -1,15 +1,21 @@
 import * as S from './CartPage.styles';
 import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui';
 import Navbar from '../../shared/ui/Navbar';
-import CartPageFooter from '../../features/cart/ui/CartPageFooter';
 import { useCartItemsContext } from '../../features/cart/context/useCartItemsContext';
 import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
+import { useNavigate } from 'react-router';
+import NavFooter from '../../shared/ui/NavFooter';
 
 function CartPage() {
-  const { addAllCartItemsInSelected } = useSelectedCartItemsContext();
+  const { addAllCartItemsInSelected, SelectedCartItems } = useSelectedCartItemsContext();
   const { cartItems } = useCartItemsContext();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(ROUTES.ORDER_CONFIRMATION);
+  };
 
   return (
     <S.CartPageContainer>
@@ -30,7 +36,11 @@ function CartPage() {
         )}
       </S.CartPageContent>
 
-      <CartPageFooter cartItemQuantity={cartItems.length} />
+      <NavFooter
+        title="주문 확인"
+        isDisabled={cartItems.length === 0 || SelectedCartItems.length === 0}
+        onClick={handleClick}
+      />
     </S.CartPageContainer>
   );
 }
