@@ -23,10 +23,10 @@ const getDiscount = ({
 
 export const calculateFreeShippingCoupon = ({
   hasDefaultShipping,
-  hasRemoteAreaShipping = false,
+  hasRemoteAreaShipping,
 }: {
   hasDefaultShipping: boolean;
-  hasRemoteAreaShipping?: boolean;
+  hasRemoteAreaShipping: boolean;
 }) => {
   const discount = getDiscount({ hasDefaultShipping, hasRemoteAreaShipping });
 
