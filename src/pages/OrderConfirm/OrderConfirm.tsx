@@ -125,6 +125,8 @@ export function OrderConfirm() {
           <CouponModalContent
             handleClose={handleClose}
             handleUseClick={handleUseClick}
+            selectedCartItems={selectedCartItems}
+            deliveryFee={deliveryFee}
           />
         </ModalContent>
       </Modal>

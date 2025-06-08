@@ -13,31 +13,51 @@ import Button from '../../Common/Button/Button';
 import { css } from '@emotion/react';
 import { CouponItem } from '../CouponItem/CouponItem';
 import useFetchCoupons from '../../../hooks/useFetchCoupons';
+import { CartItemTypes } from '../../../types/cartItem';
+import { calculateCouponPrice } from '../../../utils/calculateCouponPrice';
 
 interface CouponModalContentProps {
   handleUseClick: () => void;
   handleClose: () => void;
+  selectedCartItems: CartItemTypes[];
+  deliveryFee: number;
 }
 
 export function CouponModalContent({
   handleUseClick,
   handleClose,
+  selectedCartItems,
+  deliveryFee,
 }: CouponModalContentProps) {
   const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
-
-  const totalPrice = 6000;
+  const [couponPrice, setCouponPrice] = useState(0);
   const { coupons } = useFetchCoupons();
 
   const handleCouponIdsChange = (id: string) => {
     const index = selectedCouponIds.findIndex((e) => e === id);
 
+    const copy = [...selectedCouponIds];
     if (index === -1) {
-      setSelectedCouponIds((prev) => [...prev, id]);
+      copy.push(id);
+      setSelectedCouponIds(copy);
     } else {
-      const copy = [...selectedCouponIds];
       copy.splice(index, 1);
       setSelectedCouponIds(copy);
     }
+
+    const forward = calculateCouponPrice({
+      couponIds: copy,
+      coupons,
+      selectedCartItems,
+      deliveryFee,
+    });
+    const reverse = calculateCouponPrice({
+      couponIds: copy.reverse(),
+      coupons,
+      selectedCartItems,
+      deliveryFee,
+    });
+    setCouponPrice(forward > reverse ? forward : reverse);
   };
 
   return (
@@ -69,7 +89,7 @@ export function CouponModalContent({
           font-size: 15px;
         `}
       >
-        총 {totalPrice.toLocaleString('ko')}원 할인 쿠폰 사용하기
+        총 {couponPrice.toLocaleString('ko')}원 할인 쿠폰 사용하기
       </Button>
     </>
   );
