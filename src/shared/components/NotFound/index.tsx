@@ -6,6 +6,7 @@ import woowa from '../../../../public/행성이.png';
 import { AppLayout } from '../AppLayout';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
+import { Header } from '../Header';
 import { Text } from '../Text';
 
 export const NotFound = () => {
@@ -15,6 +16,7 @@ export const NotFound = () => {
   };
   return (
     <AppLayout>
+      <Header />
       <Flex
         direction="column"
         justifyContent="center"
