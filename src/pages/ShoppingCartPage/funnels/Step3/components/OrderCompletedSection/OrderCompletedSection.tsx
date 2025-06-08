@@ -10,6 +10,7 @@ export default function OrderCompletedSection() {
   const { data: coupons } = useCouponQuery();
 
   const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
+  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
   const cartItemService = new CartItemService(selectedCartItems);
 
@@ -17,11 +18,7 @@ export default function OrderCompletedSection() {
   const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
   const orderAmount = cartItemService.calculateOrderAmount();
   const totalQuantity = cartItemService.calculateTotalQuantity();
-  const selectedCoupons = coupons?.filter((coupon) => selectedCouponIds.includes(coupon.id));
-  const totalDiscountAmount = selectedCoupons?.reduce((acc, coupon) => {
-    const couponService = new CouponService(cartItems.content);
-    return acc + couponService.calculateDiscountPrice(coupon, isFar);
-  }, 0);
+  const totalDiscountAmount = CouponService.calculateTotalDiscountAmount(selectedCartItems, selectedCoupons, isFar);
 
   return (
     <S.OrderCompletedSection>
