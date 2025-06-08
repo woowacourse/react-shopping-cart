@@ -27,7 +27,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     fetchKey: 'coupons',
     fetchFn: getCoupons,
   });
-  const [couponSelectedIds, setCouponSelectedIds] = useState<number[]>([]);
+  const [appliedCoupons, setAppliedCoupons] = useState<Set<number>>(new Set());
 
   const couponModels = useMemo(
     () =>
@@ -38,7 +38,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   );
   const orderPrice = calculateOrderPrice(orderItems);
   const discountAmount = couponModels
-    .filter((item) => couponSelectedIds.includes(item.data.id))
+    .filter((item) => appliedCoupons.has(item.data.id))
     .reduce((acc, item) => acc + item.discountAmount, 0);
   const deliveryFee = calculateDeliveryFee(orderPrice, isRemoteArea);
   const paymentPrice = orderPrice - discountAmount + deliveryFee;
@@ -50,8 +50,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     setIsRemoteArea((prev) => !prev);
   };
 
-  const applyCoupons = (couponIds: number[]) => {
-    setCouponSelectedIds(couponIds);
+  const applyCoupons = (couponIds: Set<number>) => {
+    setAppliedCoupons(couponIds);
   };
 
   const moveToPaymentCheck = () => {
@@ -74,8 +74,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
       .sort((a, b) => b.discountAmount - a.discountAmount)
       .slice(0, 2)
       .filter((coupon) => !coupon.disable);
-    setCouponSelectedIds(
-      couponsSortedByDiscountAmount.map((coupon) => coupon.data.id)
+    setAppliedCoupons(
+      new Set(couponsSortedByDiscountAmount.map((coupon) => coupon.data.id))
     );
   }, [couponModels, orderItems]);
 
@@ -115,7 +115,7 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
           coupons={couponModels}
-          couponSelectedIds={couponSelectedIds}
+          couponAppliedIds={appliedCoupons}
           applyCoupons={applyCoupons}
         />
       </S.Container>

@@ -6,35 +6,35 @@ import { useEffect, useState } from 'react';
 
 interface CouponModalProps {
   coupons: Coupon[];
-  couponSelectedIds: number[];
-  applyCoupons: (couponIds: number[]) => void;
+  couponAppliedIds: Set<number>;
+  applyCoupons: (couponIds: Set<number>) => void;
 }
 
 function CouponModal({
   coupons,
-  couponSelectedIds,
+  couponAppliedIds,
   applyCoupons,
 }: CouponModalProps) {
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const totalDiscount = coupons
-    .filter((coupon) => selectedIds.includes(coupon.data.id))
+    .filter((coupon) => selectedIds.has(coupon.data.id))
     .reduce((acc, coupon) => acc + coupon.discountAmount, 0);
 
   const toggleSelect = (couponId: number) => {
     setSelectedIds((prev) => {
-      if (prev.includes(couponId)) {
-        return prev.filter((id) => id !== couponId);
+      const next = new Set(prev);
+      if (next.has(couponId)) {
+        next.delete(couponId);
+      } else if (next.size < 2) {
+        next.add(couponId);
       }
-      if (prev.length < 2) {
-        return [...prev, couponId];
-      }
-      return prev;
+      return next;
     });
   };
 
   useEffect(() => {
-    setSelectedIds(couponSelectedIds);
-  }, [couponSelectedIds]);
+    setSelectedIds(couponAppliedIds);
+  }, [couponAppliedIds]);
 
   return (
     <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
@@ -48,7 +48,7 @@ function CouponModal({
             <CouponItem
               key={coupon.data.id}
               item={coupon}
-              selected={selectedIds.includes(coupon.data.id)}
+              selected={selectedIds.has(coupon.data.id)}
               disabled={coupon.disable}
               toggleSelect={() => toggleSelect(coupon.data.id)}
             />
