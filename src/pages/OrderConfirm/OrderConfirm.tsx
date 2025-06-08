@@ -37,7 +37,6 @@ export function OrderConfirm() {
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
-  const [couponPrice, setCouponPrice] = useState(0);
 
   const navigate = useNavigate();
 
@@ -76,7 +75,9 @@ export function OrderConfirm() {
       selectedCartItems,
       deliveryFee,
     });
-    setCouponPrice(forward > reverse ? forward : reverse);
+    if (forward < reverse) {
+      setSelectedCouponIds(copy.reverse());
+    }
   };
 
   const handleCheckBoxChange = () => {
@@ -109,6 +110,13 @@ export function OrderConfirm() {
   };
 
   const deliveryFee = getDeliveryFee();
+
+  const couponPrice = calculateCouponPrice({
+    couponIds: selectedCouponIds,
+    coupons,
+    selectedCartItems,
+    deliveryFee,
+  });
 
   return (
     <>
