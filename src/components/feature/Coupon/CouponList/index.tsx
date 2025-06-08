@@ -6,7 +6,12 @@ import { css } from "@emotion/react";
 import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 import { CartProduct } from "../../../../type/cart";
 import useSelectedCoupon from "../../../../hooks/useSelectedCoupon";
-import { isAvailable, getSelectedCartItems } from "./utils";
+import {
+  isValidCoupon,
+  calculateDiscount,
+  getSelectedCartItems,
+  getSelectedCoupons,
+} from "./utils";
 
 interface Props {
   coupons: CouponResponse[];
@@ -27,58 +32,22 @@ const CouponList = ({
 }: Props) => {
   const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
 
-  const calculateDiscount = (coupon: CouponResponse) => {
-    switch (coupon.discountType) {
-      case "fixed":
-        return coupon.discount;
-
-      case "buyXgetY": {
-        const selectedCartItems = cartItems.filter((item: CartProduct) =>
-          selectedCartIds.includes(item.id)
-        );
-
-        const eligibleItems = selectedCartItems.filter(
-          (item: CartProduct) => item.quantity > coupon.buyQuantity
-        );
-
-        eligibleItems.sort(
-          (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
-        );
-
-        return eligibleItems[0].product.price;
-      }
-
-      case "freeShipping": {
-        const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
-        return isRemoteArea ? 3000 + deliveryPrice : deliveryPrice;
-      }
-
-      case "percentage":
-        return totalPrice * 0.3;
-
-      default:
-        return 0;
-    }
+  const getValidCoupons = () => {
+    const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
+    return coupons.filter((coupon: CouponResponse) =>
+      isValidCoupon(coupon, totalPrice, isRemoteArea, selectedCartItems)
+    );
   };
 
   const getTotalDiscount = () => {
-    if (selectedIds.length === 0) return 0;
-
-    const selectedCoupons = coupons?.filter((coupon) =>
-      selectedIds.includes(coupon.id)
-    );
-
-    return selectedCoupons?.reduce((total, current) => {
-      return (total += calculateDiscount(current));
+    return getSelectedCoupons(coupons, selectedIds).reduce((total, current) => {
+      return (total += calculateDiscount(
+        getSelectedCartItems(cartItems, selectedCartIds),
+        current,
+        totalPrice,
+        isRemoteArea
+      ));
     }, 0);
-  };
-
-  const getValidCoupons = () => {
-    if (!coupons) return [];
-    const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
-    return coupons.filter((coupon: CouponResponse) =>
-      isAvailable(coupon, totalPrice, isRemoteArea, selectedCartItems)
-    );
   };
 
   return (
