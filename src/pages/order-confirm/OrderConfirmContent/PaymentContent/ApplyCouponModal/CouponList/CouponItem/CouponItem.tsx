@@ -19,17 +19,17 @@ export default function CouponItem({
   const { description } = coupon;
   const couponInfoList = getCouponInfo(coupon);
   return (
-    <S.CouponItem isDisabled={isDisabled}>
+    <S.CouponItem isDisabled={isDisabled} aria-disabled={isDisabled}>
       <CheckBox isChecked={isSelected} onClick={() => onCheck(coupon.id)}>
         <S.CouponTitle>{description}</S.CouponTitle>
       </CheckBox>
-      <S.CouponInfoList>
+      <S.CouponInfoBox>
         {couponInfoList.map(({ label, value }) => (
-          <S.CouponInfoItem key={label}>
+          <S.CouponInfoText key={label}>
             {label}: {value}
-          </S.CouponInfoItem>
+          </S.CouponInfoText>
         ))}
-      </S.CouponInfoList>
+      </S.CouponInfoBox>
     </S.CouponItem>
   );
 }

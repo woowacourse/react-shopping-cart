@@ -20,13 +20,13 @@ export const CouponTitle = styled.p`
   font-weight: 700;
 `;
 
-export const CouponInfoList = styled.ul`
+export const CouponInfoBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
 `;
 
-export const CouponInfoItem = styled.li`
+export const CouponInfoText = styled.p`
   color: #0a0d13;
   font-size: 12px;
   font-weight: 500;
