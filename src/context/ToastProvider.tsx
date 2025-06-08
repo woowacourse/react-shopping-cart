@@ -1,30 +1,73 @@
-import { createContext, PropsWithChildren, useRef, useState } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useContext,
+} from "react";
+import ToastMessage from "../components/common/toast/ToastMessage";
 
-import { Toast } from "../components/common/toast";
+type ToastType = "error" | "info";
 
-export const ToastContext = createContext({ showToast(_message: string) {} });
+export interface ToastItem {
+  id: string;
+  type: ToastType;
+  message: string;
+}
 
-export const ToastProvider = ({ children }: PropsWithChildren) => {
-  const [toast, setToast] = useState("");
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+interface ToastContextType {
+  showToast: (message: string, type: ToastType) => void;
+  removeToast: (id: string) => void;
+}
 
-  const showToast = (message: string) => {
-    setToast(message);
+export const ToastContext = createContext<ToastContextType | undefined>(
+  undefined
+);
 
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
+export function ToastProvider({ children }: { children: ReactNode }) {
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-    setTimeout(() => {
-      setToast("");
-      timerRef.current = null;
-    }, 3000);
-  };
+  const showToast = useCallback((message: string, type: ToastType) => {
+    const id = Math.random().toString();
+    setToasts((prev) => [...prev, { id, message, type }]);
+  }, []);
+
+  const removeToast = useCallback((id: string) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  }, []);
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext.Provider value={{ showToast, removeToast }}>
       {children}
-      {toast && <Toast message={toast} />}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "40px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          display: "flex",
+          gap: "8px",
+          flexDirection: "column",
+        }}
+      >
+        {toasts.map((toast) => (
+          <ToastMessage
+            key={toast.id}
+            message={toast.message}
+            type={toast.type}
+            onClose={() => removeToast(toast.id)}
+          />
+        ))}
+      </div>
     </ToastContext.Provider>
   );
-};
+}
+
+export function useToastContext() {
+  const context = useContext(ToastContext);
+  if (!context) {
+    throw new Error("컨텍스트는 Provider 내부에서만 사용할 수 있습니다.");
+  }
+  return context;
+}

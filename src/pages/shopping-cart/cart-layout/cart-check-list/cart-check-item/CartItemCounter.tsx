@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   Cart,
   getShoppingCartData,
@@ -6,7 +5,7 @@ import {
 } from "../../../../../api/cart";
 import Counter from "../../../../../components/common/Counter";
 import { useAPIDataContext } from "../../../../../context/APIDataProvider";
-import { ToastContext } from "../../../../../context/ToastProvider";
+import { useToastContext } from "../../../../../context/ToastProvider";
 
 interface CartItemCounterProps {
   cart: Cart;
@@ -18,7 +17,7 @@ function CartItemCounter({ cart }: CartItemCounterProps) {
     name: "cart",
   });
 
-  const { showToast } = useContext(ToastContext);
+  const { showToast } = useToastContext();
 
   const handlePlusQuantity = async (cartId: string) => {
     try {
@@ -28,7 +27,7 @@ function CartItemCounter({ cart }: CartItemCounterProps) {
       await patchCartItem(cartId, cart.quantity + 1);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니에 추가하는 데 실패했습니다.");
+      showToast("장바구니에 추가하는 데 실패했습니다.", "error");
     }
   };
 
@@ -40,7 +39,7 @@ function CartItemCounter({ cart }: CartItemCounterProps) {
       await patchCartItem(cartId, cart.quantity - 1);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니에서 뺴는 데 실패했습니다.");
+      showToast("장바구니에서 뺴는 데 실패했습니다.", "error");
     }
   };
   return (

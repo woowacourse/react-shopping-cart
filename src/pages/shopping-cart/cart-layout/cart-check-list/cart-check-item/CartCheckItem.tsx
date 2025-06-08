@@ -6,11 +6,10 @@ import {
 } from "../../../../../api/cart";
 import Image from "../../../../../components/common/Image";
 import { useAPIDataContext } from "../../../../../context/APIDataProvider";
+import { useToastContext } from "../../../../../context/ToastProvider";
 import { formatKRWString } from "../../../../../utils/formatKRWString";
 import CartItemCheckbox from "./CartItemCheckbox";
 import CartItemCounter from "./CartItemCounter";
-import { useContext } from "react";
-import { ToastContext } from "../../../../../context/ToastProvider";
 
 interface CartCheckItemProps {
   cart: Cart;
@@ -21,14 +20,14 @@ function CartCheckItem({ cart }: CartCheckItemProps) {
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { showToast } = useContext(ToastContext);
+  const { showToast } = useToastContext();
 
   const removeItem = async (id: string) => {
     try {
       await deleteCartItem(id);
       await cartRefetch();
     } catch (e) {
-      showToast("장바구니 아이템 삭제에 실패했습니다.");
+      showToast("장바구니 아이템 삭제에 실패했습니다.", "error");
     }
   };
 
