@@ -56,7 +56,7 @@ const CartPage = () => {
   );
   const orderItems = Array.from(isCheckedSet)
     .map((id) => getCartItemById(cartData, id))
-    .filter((item) => item !== undefined);
+    .filter((item): item is CartItemType => item !== undefined);
 
   useEffect(() => {
     const fetchCartData = async () => {

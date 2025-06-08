@@ -35,7 +35,9 @@ const CartPrice = ({
           </div>
           <div css={S.CartPriceInfoContainer}>
             <div css={S.CartPriceSubtitle}>배송비</div>
-            <div css={S.CartPriceTitle}>{deliveryFee.toLocaleString()}원</div>
+            <div css={S.CartPriceTitle} data-testid="delivery-fee">
+              {deliveryFee.toLocaleString()}원
+            </div>
           </div>
           {discountPrice != null && discountPrice > 0 && (
             <div css={S.CartPriceInfoContainer}>
@@ -49,7 +51,9 @@ const CartPrice = ({
       </div>
       <div css={S.CartPriceInfoContainer}>
         <div css={Subtitle}>총 결제 금액</div>
-        <div css={Title}>{totalPrice.toLocaleString()}원</div>
+        <div css={Title} data-testid="total-price">
+          {totalPrice.toLocaleString()}원
+        </div>
       </div>
     </div>
   );

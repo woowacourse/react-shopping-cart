@@ -114,7 +114,7 @@ const OrderConfirmationPage = () => {
   };
 
   return (
-    <div css={PageWrapper}>
+    <div css={PageWrapper} data-testid="order-confirmation-page">
       {isModalOpen && (
         <Modal
           title="쿠폰을 선택해 주세요"
@@ -158,8 +158,15 @@ const OrderConfirmationPage = () => {
       <div css={TitleContainer}>
         <p css={Subtitle}>주문 금액</p>
         <div css={CheckboxContainer}>
-          <Checkbox checked={isRemoteArea} onChange={toggleIsRemoteArea} />
-          <p css={Description}>제주도 및 도서 산간 지역</p>
+          <Checkbox
+            checked={isRemoteArea}
+            onChange={toggleIsRemoteArea}
+            id="remote-area-checkbox"
+            data-testid="remote-area-checkbox"
+          />
+          <label htmlFor="remote-area-checkbox" css={Description}>
+            제주도 및 도서 산간 지역
+          </label>
         </div>
       </div>
 

@@ -26,7 +26,7 @@ const Modal = ({ title, content, onClose }: ModalProps) => {
 
   return (
     <ModalPortal>
-      <div css={S.modalBackground} tabIndex={-1}>
+      <div css={S.modalBackground} tabIndex={-1} data-testid="modal">
         <div css={S.modalContainer} ref={ref}>
           <div css={S.modalHeaderContainer}>
             <p css={Title}>{title}</p>
