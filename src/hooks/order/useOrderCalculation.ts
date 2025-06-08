@@ -9,7 +9,8 @@ import {
 export function useOrderCalculation(
   cartListData: Cart[] | undefined,
   selectionMap: Record<string, boolean>,
-  isIsland?: boolean
+  isIsland?: boolean,
+  discount: number = 0
 ) {
   return useMemo(() => {
     const orderList = (cartListData ?? []).filter(
@@ -25,7 +26,7 @@ export function useOrderCalculation(
       (totalCartPrice >= FREE_SHIPPING_STANDARD || totalCartPrice === 0
         ? 0
         : SHIPPING_FEE) + (isIsland ? ISLAND_SHIPPING_FEE : 0);
-    const totalPrice = totalCartPrice + shippingFee;
+    const totalPrice = totalCartPrice + shippingFee - discount;
 
     return {
       typeCount,
@@ -34,5 +35,5 @@ export function useOrderCalculation(
       shippingFee,
       totalPrice,
     };
-  }, [cartListData, selectionMap, isIsland]);
+  }, [cartListData, selectionMap, isIsland, discount]);
 }
