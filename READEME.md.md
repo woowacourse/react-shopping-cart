@@ -49,12 +49,12 @@ ui 퍼블리싱
 - [x] useTempCoupon (쿠폰 모달에서만 적용되는 훅 (임시 훅 느낌))
 
 - [x] msw 쿠폰 조회 로직 작성
-- [ ] order 훅 리팩토링
+- [x] order 훅 리팩토링
   - [x] useCouponApply 훅 내부 정리
   - [x] useCouponDiscount 훅 생성
   - [x] useCouponValidation 훅 생성
     - [x] validation 관련 util 함수로 분리
-  - [ ] 타입 정리
+  - [x] 타입 정리
 - [ ] 코로케이션 폴더 구조 적용
 - [ ] 각각의 페이지에서 context api 적용
 - [ ] 테스트 코드 작성

@@ -16,3 +16,9 @@ export interface CouponResponse {
     end: string;
   };
 }
+
+export interface AvailableCouponType {
+  code: string;
+  discountAmount: number;
+  selected: boolean;
+}

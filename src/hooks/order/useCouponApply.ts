@@ -1,5 +1,5 @@
 import { CartItem } from "../../types/cartItem";
-import { CouponResponse } from "../../types/coupon";
+import { AvailableCouponType, CouponResponse } from "../../types/coupon";
 import { useState, useEffect, useMemo } from "react";
 import useCouponValidation from "./useCouponValidation";
 import useCouponDiscount from "./useCouponDiscount";
@@ -12,17 +12,8 @@ interface useCouponApplyParams {
   isRemoteArea: boolean;
 }
 
-interface AvailableCouponType {
-  code: string;
-  discountAmount: number;
-  selected: boolean;
-}
-
 const useCouponApply = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemoteArea }: useCouponApplyParams) => {
-  const [availableCoupons, setAvailableCoupons] = useState<AvailableCouponType[]>([]);
-
   const validCoupons = useCouponValidation({ cartItems, orderPrice, coupons });
-
   const couponsWithDiscount = useCouponDiscount({
     coupons: validCoupons,
     cartItems,
@@ -30,6 +21,8 @@ const useCouponApply = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemot
     deliveryPrice,
     isRemoteArea,
   });
+
+  const [availableCoupons, setAvailableCoupons] = useState<AvailableCouponType[]>([]);
 
   const discountPrice = useMemo(() => {
     return availableCoupons.filter((coupon) => coupon.selected).reduce((sum, coupon) => sum + coupon.discountAmount, 0);

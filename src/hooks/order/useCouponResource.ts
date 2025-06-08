@@ -20,6 +20,7 @@ const useCouponResource = () => {
   useEffect(() => {
     getCoupons();
   }, []);
+
   return { coupons };
 };
 

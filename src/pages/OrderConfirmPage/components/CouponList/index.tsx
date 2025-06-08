@@ -1,13 +1,7 @@
 import CheckBox from "../../../../components/common/CheckBox";
 import Coupon from "../../../../components/Coupon";
-import { CouponResponse } from "../../../../types/coupon";
+import { AvailableCouponType, CouponResponse } from "../../../../types/coupon";
 import * as S from "./CouponList.styled";
-
-interface AvailableCouponType {
-  code: string;
-  discountAmount: number;
-  selected: boolean;
-}
 
 interface CouponListProps {
   couponData: CouponResponse[];

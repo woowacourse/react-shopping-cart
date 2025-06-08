@@ -11,9 +11,7 @@ interface useOrderParams {
 
 const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
   const { coupons } = useCouponResource();
-
   const { isRemoteArea, toggleRemoteArea } = useDeliveryInformation();
-
   const { availableCoupons, discountPrice, updateApplyCoupon } = useCouponApply({
     cartItems,
     orderPrice,

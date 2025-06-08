@@ -1,10 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-
-interface AvailableCouponType {
-  code: string;
-  discountAmount: number;
-  selected: boolean;
-}
+import { AvailableCouponType } from "../../types/coupon";
 
 interface UseTempCouponProps {
   availableCoupons: AvailableCouponType[];
