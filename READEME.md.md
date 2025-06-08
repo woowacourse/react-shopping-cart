@@ -65,6 +65,7 @@ ui 퍼블리싱
 - [x] 각각의 페이지에서 context api 적용
   - [x] cartPage context api 적용
   - [x] orderPage context api 적용
+- [x] cartPage / orderPage -> provider 적용 후, export
 - [ ] modal 상태 context 적용
 - [ ] 테스트 코드 작성
 

@@ -6,8 +6,6 @@ import PaymentPage from "./pages/payment";
 import NotFoundPage from "./pages/notFound";
 import ErrorPopup from "./shared/components/common/Error/Popup";
 import { ErrorProvider } from "./shared/contexts/ErrorContext";
-import { CartProvider } from "./pages/cart/contexts/CartContext";
-import { OrderProvider } from "./pages/order/contexts/OrderContext";
 
 function App() {
   return (
@@ -16,22 +14,8 @@ function App() {
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <ErrorPopup />
           <Routes>
-            <Route
-              path="/"
-              element={
-                <CartProvider>
-                  <CartPage />
-                </CartProvider>
-              }
-            />
-            <Route
-              path="/order-confirm"
-              element={
-                <OrderProvider>
-                  <OrderPage />
-                </OrderProvider>
-              }
-            />
+            <Route path="/" element={<CartPage />} />
+            <Route path="/order-confirm" element={<OrderPage />} />
             <Route path="/payment-confirm" element={<PaymentPage />} />
             <Route path="/404" element={<NotFoundPage />} />
           </Routes>
