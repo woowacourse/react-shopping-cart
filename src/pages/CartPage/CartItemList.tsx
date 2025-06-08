@@ -12,10 +12,10 @@ const CartItemList = () => {
 
   return (
     <S.Content>
-      <TitleSection />
+      <TitleSection itemTypeCount={cartData.length} />
       <S.CartItemList>
         {cartData.map((cart) => (
-          <CartItem key={cart.product.id} cart={cart} />
+          <CartItem key={cart.product.id} cart={cart} isReadOnly={false} />
         ))}
       </S.CartItemList>
       <S.Description>

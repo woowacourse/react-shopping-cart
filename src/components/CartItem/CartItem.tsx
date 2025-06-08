@@ -3,18 +3,13 @@ import QuantityButton from "../QuantityButton/QuantityButton";
 import CheckBox from "../CheckBox/CheckBox";
 import { ResponseCartItem } from "../../types/types";
 import useCartItemManager from "./useCartItemManager";
-import { useLocation } from "react-router-dom";
 
 interface CartItemProps {
   cart: ResponseCartItem;
+  isReadOnly?: boolean;
 }
 
-const CartItem = ({ cart }: CartItemProps) => {
-  //라우터가 /order-complete일때는 수량버튼이 안보이고
-  //아닐때는 수량버튼이 보이게 하고 싶음
-  const location = useLocation();
-  const isOrderComplete = location.pathname === "/order-complete";
-
+const CartItem = ({ cart, isReadOnly = false }: CartItemProps) => {
   const { price, name, imageUrl } = cart.product;
 
   const {
@@ -23,7 +18,6 @@ const CartItem = ({ cart }: CartItemProps) => {
     handleIncrease,
     handleDecrease,
     handleDelete,
-    orderStatus,
   } = useCartItemManager({ cart });
 
   return (
@@ -31,9 +25,7 @@ const CartItem = ({ cart }: CartItemProps) => {
       <S.Line />
       <S.ItemContainer>
         <S.CartItemHeader>
-          {orderStatus === "order-complete" ? (
-            <></>
-          ) : (
+          {!isReadOnly && (
             <>
               <CheckBox isChecked={isSelected} onClick={handleSelect} />
               <S.DeleteButton onClick={handleDelete}>삭제</S.DeleteButton>
@@ -45,7 +37,7 @@ const CartItem = ({ cart }: CartItemProps) => {
           <S.ItemContent>
             <S.ItemTitle>{name}</S.ItemTitle>
             <S.ItemPrice>{price.toLocaleString("ko-KR")}원</S.ItemPrice>
-            {isOrderComplete ? (
+            {isReadOnly ? (
               <S.ItemTitle>{cart.quantity}개</S.ItemTitle>
             ) : (
               <QuantityButton

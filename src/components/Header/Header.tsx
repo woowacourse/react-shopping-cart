@@ -1,24 +1,27 @@
+// components/Header/Header.tsx
 import BackArrow from "../Icon/BackArrow";
 import * as S from "./Header.styled";
 
+interface HeaderProps {
+  title?: string;
+  showBackButton?: boolean;
+  onBackClick?: () => void;
+}
+
 function Header({
-  orderStatus,
-  setIsOrderComplete,
-}: {
-  orderStatus: "order" | "order-complete" | "check-payment";
-  setIsOrderComplete?: (value: boolean) => void;
-}) {
+  title = "SHOP",
+  showBackButton = false,
+  onBackClick,
+}: HeaderProps) {
   return (
     <S.HeaderContainer>
       <S.HeaderTitle>
-        {orderStatus === "order-complete" ? (
-          <S.HeaderIcon onClick={() => setIsOrderComplete?.(false)}>
+        {showBackButton ? (
+          <S.HeaderIcon onClick={onBackClick}>
             <BackArrow />
           </S.HeaderIcon>
-        ) : orderStatus === "check-payment" ? (
-          <></>
         ) : (
-          "SHOP"
+          title
         )}
       </S.HeaderTitle>
     </S.HeaderContainer>
