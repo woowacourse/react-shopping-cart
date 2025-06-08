@@ -35,6 +35,12 @@ export const useOrderState = ({ orderItems }: UseOrderStateParams) => {
     }
   }, [isOptimized, selectOptimalCoupons]);
 
+  const navigateState = {
+    orderItemsKind: orderItems.length,
+    totalOrderItemsCount: orderItems.reduce((acc, item) => acc + item.quantity, 0),
+    totalPrice: calculation.finalAmount,
+  };
+
   return {
     orderItems,
     isLoading,
@@ -46,5 +52,6 @@ export const useOrderState = ({ orderItems }: UseOrderStateParams) => {
     canSelectMore,
     toggleCoupon,
     calculation,
+    navigateState,
   };
 };

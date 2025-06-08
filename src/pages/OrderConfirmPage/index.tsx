@@ -15,7 +15,7 @@ const OrderConfirmPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const orderState = useOrderState({ orderItems });
-  const handleNavigate = () => navigate("/payment-success");
+  const handleNavigate = () => navigate("/payment-success", { state: orderState.navigateState });
   return (
     <S.Container>
       <Text variant="title-1">주문 확인</Text>

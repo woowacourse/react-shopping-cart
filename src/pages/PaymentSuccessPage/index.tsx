@@ -4,7 +4,7 @@ import Text from "../../components/common/Text";
 import { useLocation, useNavigate } from "react-router";
 
 const PaymentSuccessPage = () => {
-  const { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice } = useLocation().state;
+  const { state: orderItems } = useLocation();
   const navigate = useNavigate();
   const handleNavigate = () => navigate("/");
   return (
@@ -13,13 +13,13 @@ const PaymentSuccessPage = () => {
         <Text variant="title-1">결제확인</Text>
         <S.TextWrap>
           <Text variant="body-3">
-            총 {cartItemsCheckedCount}종류의 상품 {cartItemsTotalQuantity}개를 주문했습니다.
+            총 {orderItems.orderItemsKind}종류의 상품 {orderItems.totalOrderItemsCount}개를 주문했습니다.
           </Text>
           <Text variant="body-3">최종 결제 금액을 확인해 주세요.</Text>
         </S.TextWrap>
         <S.TextWrap gap={12}>
           <Text variant="body-1">총 결제 금액</Text>
-          <Text variant="title-1">{totalPrice.toLocaleString()}원</Text>
+          <Text variant="title-1">{orderItems.totalPrice.toLocaleString()}원</Text>
         </S.TextWrap>
       </S.Information>
       <S.ButtonWrap>
