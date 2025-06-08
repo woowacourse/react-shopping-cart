@@ -12,6 +12,8 @@ import Coupon from '../../components/feature/ModalContent/Coupon';
 import {css} from '@emotion/react';
 import {findCanApplyCoupon} from '../../feature/calcCouponPrice';
 import {useCalcDiscount} from '../../hooks/useCalcDiscount';
+import {useNavigate} from 'react-router';
+import {ROUTE_PATHS} from '../../route/path';
 
 const buttonStyle = css`
   padding: 24px 0;
@@ -23,6 +25,8 @@ const buttonStyle = css`
 const ADDITIONAL_DELIVERY_PRICE = 3_000;
 
 const OrderConfirm = () => {
+  const navigate = useNavigate();
+
   const selectedItems = useSelectedItems();
   const {orderPrice, deliveryPrice, totalAmount} =
     calcOrderHistory(selectedItems);
@@ -87,7 +91,19 @@ const OrderConfirm = () => {
           discountPrice={orderPrice - totalPaymentPrice + calcDeliveryPrice()}
         />
       </Modal>
-      <Button title="결제하기" css={buttonStyle} onClick={() => {}} />
+      <Button
+        title="결제하기"
+        css={buttonStyle}
+        onClick={() => {
+          navigate(ROUTE_PATHS.PAYMENT_CONFIRM, {
+            state: {
+              sort: selectedItems.length,
+              totalAmount: totalAmount,
+              totalPrice: totalPaymentPrice,
+            },
+          });
+        }}
+      />
     </S.Container>
   );
 };
