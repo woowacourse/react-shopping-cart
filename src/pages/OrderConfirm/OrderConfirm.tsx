@@ -29,6 +29,7 @@ import { ModalOverlay } from '../../components/Common/ModalOverlay/ModalOverlay'
 import { CouponModalContent } from '../../components/CouponModal/CouponModalContent/CouponModalContent';
 import useFetchCoupons from '../../hooks/useFetchCoupons';
 import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
+import { getDeliveryFee } from '../../utils/getDeliveryFee';
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
@@ -37,6 +38,7 @@ export function OrderConfirm() {
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
+  const [couponDiscountAmount, setCouponDiscountAmount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -82,6 +84,14 @@ export function OrderConfirm() {
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
+    setCouponDiscountAmount(
+      calculateCouponPrice({
+        couponIds: selectedCouponIds,
+        coupons,
+        selectedCartItems,
+        deliveryFee: getDeliveryFee(!isChecked, totalPrice),
+      })
+    );
   };
 
   const handleBackClick = () => {
@@ -94,6 +104,14 @@ export function OrderConfirm() {
 
   const handleUseClick = () => {
     setOpen(false);
+    setCouponDiscountAmount(
+      calculateCouponPrice({
+        couponIds: selectedCouponIds,
+        coupons,
+        selectedCartItems,
+        deliveryFee,
+      })
+    );
   };
 
   const { totalPrice } = getCartItemSummary(
@@ -101,15 +119,7 @@ export function OrderConfirm() {
     selectedCartItemIds.map(String)
   );
 
-  const getDeliveryFee = () => {
-    if (10_0000 > totalPrice) {
-      return isChecked ? 6000 : 3000;
-    } else {
-      return isChecked ? 3000 : 0;
-    }
-  };
-
-  const deliveryFee = getDeliveryFee();
+  const deliveryFee = getDeliveryFee(isChecked, totalPrice);
 
   const couponPrice = calculateCouponPrice({
     couponIds: selectedCouponIds,
@@ -156,7 +166,7 @@ export function OrderConfirm() {
           </div>
           <PaymentSummary
             price={totalPrice}
-            CouponDiscountAmount={0}
+            CouponDiscountAmount={couponDiscountAmount}
             deliveryFee={deliveryFee}
           />
         </Main>
