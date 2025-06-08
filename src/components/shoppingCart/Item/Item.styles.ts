@@ -30,25 +30,48 @@ export const ButtonContainer = styled.div`
   ${wrapper}
 `;
 
+export const QuantityInfo = styled.div`
+  ${wrapper}
+`;
+
 export const Input = styled.input`
   width: 24px;
   height: 24px;
   accent-color: black;
+  cursor: pointer;
 `;
 
-export const Button = styled.button<ButtonProps>`
+interface StyledButtonProps extends ButtonProps {
+  variant?: "dark" | "white";
+}
+
+const ButtonColors = {
+  dark: {
+    color: "#e5e5e5",
+    border: "1px solid #0a0d13",
+    background: "#0a0d13",
+  },
+  white: {
+    color: "#0a0d13",
+    border: "1px solid #e5e5e5",
+    background: "#fff",
+  },
+};
+
+export const Button = styled.button<StyledButtonProps>`
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
-  color: #0a0d13;
-  font-size: 12px;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  background-color: transparent;
+  color: ${(props) => ButtonColors[props.variant || "white"].color};
+  border: ${(props) => ButtonColors[props.variant || "white"].border};
+  background: ${(props) => ButtonColors[props.variant || "white"].background};
 `;
 
 export const ItemContainer = styled.div`
   ${wrapper}
-  width: 60%;
+  width: 290px;
 `;
 
 export const Image = styled.img`
@@ -60,6 +83,8 @@ export const Image = styled.img`
 export const InfoContainer = styled.div<FlexProps>`
   ${(props) => flex(props)}
   height: 100%;
+  width: 150px;
+  padding-top: 15px;
 `;
 
 export const Name = styled.p`

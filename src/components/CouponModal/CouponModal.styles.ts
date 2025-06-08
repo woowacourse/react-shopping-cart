@@ -1,5 +1,20 @@
 import styled from "@emotion/styled";
 
+export const CouponContainer = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  label {
+    font-weight: 700;
+  }
+`;
+
+export const CouponDescribe = styled.div`
+  p {
+    margin-top: 10px;
+  }
+`;
+
 export const List = styled.ul`
   width: 100%;
   padding: 0;

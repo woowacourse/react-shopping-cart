@@ -1,10 +1,8 @@
-import Vector from "../../../assets/Vector.svg";
+import WarningBox from "../../common/WarningBox/WarningBox";
 import Hr from "../../common/Hr/Hr";
 
 import Price from "../Price/Price";
 import SubPrice from "../SubPrice/SubPrice";
-
-import * as Styled from "./Receipt.styles";
 
 interface ReceiptProps {
   allProductPrice: number;
@@ -21,10 +19,7 @@ export default function Receipt({
 }: ReceiptProps) {
   return (
     <section>
-      <Styled.Container>
-        <Styled.WarningIcon src={Vector} />
-        <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
-      </Styled.Container>
+      <WarningBox text="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." />
       <Hr />
       <SubPrice
         allProductPrice={allProductPrice}
