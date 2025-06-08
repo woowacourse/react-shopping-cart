@@ -10,6 +10,8 @@ import {
 } from "../calculations";
 import { useOrder } from "./useOrder";
 
+const REMOTE_AREA_ADDITIONAL_FEE = 3_000;
+
 const useOrderSummary = () => {
   const items = useCartSelector((state) => state.items);
   const { selectedCoupons } = useCoupon();
@@ -19,7 +21,7 @@ const useOrderSummary = () => {
   const orderQuantity = calculateOrderQuantity(orderItems);
   const orderPrice = calculateOrderPrice(orderItems);
   const baseShippingFee = calculateShippingFee(orderPrice);
-  const remoteAreaFee = isRemoteArea ? 3000 : 0;
+  const remoteAreaFee = isRemoteArea ? REMOTE_AREA_ADDITIONAL_FEE : 0;
   const finalShippingFee = baseShippingFee + remoteAreaFee;
   const baseTotalPrice = orderPrice + baseShippingFee;
 
