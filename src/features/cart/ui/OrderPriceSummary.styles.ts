@@ -37,6 +37,11 @@ export const TotalOrderPrice = styled.div`
   padding-top: 10px;
 `;
 
+export const CouponDiscountPrice = styled.div`
+  ${baseStyle}
+  padding: 10px 0;
+`;
+
 export const DeliveryFee = styled.div`
   ${baseStyle}
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
@@ -50,4 +55,10 @@ export const TotalPurchasePrice = styled.div`
 
 export const PriceBox = styled.span`
   font-size: 24px;
+`;
+
+export const CalaculateList = styled.div`
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
 `;

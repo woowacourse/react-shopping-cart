@@ -1,4 +1,5 @@
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
+import OrderPriceItem from './OrderPriceItem';
 import * as S from './OrderPriceSummary.styles';
 export default function OrderPriceSummary() {
   const { totalPrice, deliveryFee, totalPurchasePrice } = useSelectedCartItemsContext();
@@ -9,18 +10,12 @@ export default function OrderPriceSummary() {
         <S.DeliveryFeeIcon src="./infoLabelIcon.svg" alt="Delivery Fee Label Icon" />총 주문 금액이 100,000원 이상일
         경우 무료 배송됩니다.
       </S.DeliveryFeeLabel>
-      <S.TotalOrderPrice>
-        주문 금액
-        <S.PriceBox>{totalPrice.toLocaleString()}원</S.PriceBox>
-      </S.TotalOrderPrice>
-      <S.DeliveryFee data-testid="delivery-fee">
-        배송비
-        <S.PriceBox>{deliveryFee.toLocaleString()}원</S.PriceBox>
-      </S.DeliveryFee>
-      <S.TotalPurchasePrice data-testid="total-purchase-price">
-        총 결제 금액
-        <S.PriceBox>{totalPurchasePrice.toLocaleString()}원</S.PriceBox>
-      </S.TotalPurchasePrice>
+      <S.CalaculateList>
+        <OrderPriceItem title="주문 금액" price={totalPrice} />
+        <OrderPriceItem title="쿠폰 할인 금액" price={0} />
+        <OrderPriceItem title="배송비" price={deliveryFee} data-testid="delivery-fee" />
+      </S.CalaculateList>
+      <OrderPriceItem title="총 결제 금액" price={totalPurchasePrice} data-testid="total-purchase-price" />
     </S.OrderPriceSummaryContainer>
   );
 }
