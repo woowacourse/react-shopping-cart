@@ -127,3 +127,39 @@ export function simulateCombo(
     finalPayable: remaining + shipping,
   };
 }
+
+export type SimulationResult = ReturnType<typeof simulateCombo>;
+
+export function generateCombos(couponList: Coupon[]): Coupon[][] {
+  const combos: Coupon[][] = [];
+  for (let i = 0; i < couponList.length; i++) {
+    combos.push([couponList[i]]);
+
+    for (let j = i + 1; j < couponList.length; j++) {
+      combos.push([couponList[i], couponList[j]]);
+    }
+  }
+  return combos;
+}
+
+export function getBestCouponCombo(
+  checkedCoupons: number[],
+  cartItems: CartItemProps[],
+  couponList: Coupon[],
+  subTotal: number,
+  baseShippingFee: number
+): SimulationResult {
+  if (checkedCoupons.length > 0) {
+    const manualCoupons = couponList.filter((c) =>
+      checkedCoupons.includes(c.id)
+    );
+    return simulateCombo(cartItems, manualCoupons, subTotal, baseShippingFee);
+  }
+
+  const combos = generateCombos(couponList);
+  const results = combos.map((combo) =>
+    simulateCombo(cartItems, combo, subTotal, baseShippingFee)
+  );
+  results.sort((a, b) => a.finalPayable - b.finalPayable);
+  return results[0];
+}

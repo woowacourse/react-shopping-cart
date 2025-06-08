@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useCartContext } from '../../../context/CartContext';
-import useCouponCombos from '../../../hooks/useCouponCombos';
 import useCouponList from '../../../hooks/useCouponList';
-import { validateCoupons } from '../../../utils/coupon';
+import { getBestCouponCombo, validateCoupons } from '../../../utils/coupon';
 
 import Header from '../../../components/common/Header/Header';
 import HeaderButton from '../../../components/common/Header/HeaderButton';
@@ -24,25 +23,23 @@ import { CartItemProps } from '../../../types/cartItem';
 
 function OrderCheckPage() {
   const navigate = useNavigate();
-
   const cart = useCartContext();
   const couponList = useCouponList();
+
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
+  const [checkedCoupons, setCheckedCoupons] = useState<number[]>([]);
 
   const validatedCouponList = validateCoupons(
     couponList.data,
     cart.subTotal,
     cart.selectedCartItems
   );
-
   const availableCouponList = validatedCouponList.filter(
     (coupon) => !coupon.isExpired
   );
 
-  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
-  const [checkedCoupons, setCheckedCoupons] = useState<number[]>([]);
-
-  const result = useCouponCombos(
+  const result = getBestCouponCombo(
     checkedCoupons,
     cart.selectedCartItems,
     availableCouponList,
