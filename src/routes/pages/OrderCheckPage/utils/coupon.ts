@@ -3,9 +3,11 @@ import { CartItemProps } from '../../../../types/cartItem';
 export function getAvailableCoupons({
   selectedCartData,
   totalPrice,
+  deliveryFee,
 }: {
   selectedCartData: CartItemProps[];
   totalPrice: number;
+  deliveryFee: number;
 }) {
   const availableCoupons = [];
   const maxQuantity = Math.max(
@@ -17,7 +19,7 @@ export function getAvailableCoupons({
     availableCoupons.push('FIXED5000');
   }
 
-  if (isFreeShipping(totalPrice)) {
+  if (isFreeShipping(totalPrice, deliveryFee)) {
     availableCoupons.push('FREESHIPPING');
   }
 
@@ -40,8 +42,8 @@ export function isBogo(maxQuantity: number) {
   return maxQuantity >= 3;
 }
 
-export function isFreeShipping(totalPrice: number) {
-  return totalPrice >= 50000 && totalPrice < 100000;
+export function isFreeShipping(totalPrice: number, deliveryFee: number) {
+  return totalPrice >= 50000 && deliveryFee > 0;
 }
 
 export function isFixedDiscount(totalPrice: number) {

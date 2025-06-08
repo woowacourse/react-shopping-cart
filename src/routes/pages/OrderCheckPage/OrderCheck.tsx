@@ -16,6 +16,7 @@ import CouponModal from '../../../components/CouponModal/CouponModal';
 import useModal from '../../../hooks/useModal';
 import useCoupon from '../../../hooks/useCoupon';
 import useSelectCoupon from '../../../hooks/useSelectCoupon';
+import useFarDeliverySelect from '../../../hooks/useFarDeliverySelect';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
@@ -30,6 +31,7 @@ function OrderCheck() {
   const { isOpen, openModal, closeModal } = useModal();
   const { couponList } = useCoupon();
   const { selectedCoupon, handleSelectCoupon } = useSelectCoupon();
+  const { isFarDelivery, handleFarDeliverySelect } = useFarDeliverySelect();
 
   const navigate = useNavigate();
   const { selectedCartData, totalPrice } = useLocation().state as {
@@ -37,13 +39,14 @@ function OrderCheck() {
     totalPrice: number;
   };
 
+  const deliveryFee = getDeliveryFee(totalPrice, isFarDelivery);
+
   const availableCoupons = getAvailableCoupons({
     selectedCartData,
     totalPrice,
+    deliveryFee,
   });
   const totalProductQuantity = getTotalProductQuantity(selectedCartData);
-
-  const deliveryFee = getDeliveryFee(totalPrice);
 
   const moreThanTwoProducts = getMoreThanTwoProducts(selectedCartData);
 
@@ -73,7 +76,10 @@ function OrderCheck() {
           ))}
         </OrderList>
         <CouponButton onClick={openModal} />
-        <DeliveryInfo />
+        <DeliveryInfo
+          isFarDelivery={isFarDelivery}
+          handleFarDeliverySelect={handleFarDeliverySelect}
+        />
         <OrderPriceInfo
           totalPrice={totalPrice}
           deliveryFee={deliveryFee}
@@ -83,7 +89,7 @@ function OrderCheck() {
       <PayButton
         orderItemsQuantity={totalProductQuantity}
         productTypeCount={selectedCartData.length}
-        orderPrice={totalPrice - couponDiscount}
+        orderPrice={totalPrice + deliveryFee - couponDiscount}
       />
       <CouponModal
         isOpen={isOpen}
