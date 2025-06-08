@@ -92,7 +92,7 @@ function CouponModal({ onClose }: CouponModalProps) {
           })
         )}
 
-        <S.Button>
+        <S.Button onClick={onClose}>
           총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
         </S.Button>
       </S.Container>

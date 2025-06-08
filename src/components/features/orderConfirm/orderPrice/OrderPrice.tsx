@@ -4,16 +4,34 @@ import Separator from '../../../common/separator/Separator';
 import * as S from './OrderPrice.styles';
 import { useCouponContext } from '../../../../global/contexts/CouponContext';
 import usePaymentCalculation from '../hooks/usePaymentCalculation';
+import FooterButton from '../../../common/footerButton/FooterButton';
+import { useNavigate } from 'react-router';
 
 interface OrderPriceProps {
-  price: number;
-  deliveryFee: number;
+  order: {
+    quantity: number;
+    productQuantity: number;
+    price: number;
+    deliveryFee: number;
+  };
 }
 
-function OrderPrice({ price, deliveryFee }: OrderPriceProps) {
+function OrderPrice({ order }: OrderPriceProps) {
   const { totalDiscount } = useCouponContext();
   const { selected, toggle, extraDeliveryFee, totalPrice } =
-    usePaymentCalculation(price, totalDiscount);
+    usePaymentCalculation(order.price, totalDiscount);
+
+  const navigate = useNavigate();
+
+  const moveToPayment = () => {
+    navigate('/payment', {
+      state: {
+        quantity: order.quantity,
+        productQuantity: order.productQuantity,
+        price: totalPrice,
+      },
+    });
+  };
 
   return (
     <S.Container>
@@ -32,7 +50,7 @@ function OrderPrice({ price, deliveryFee }: OrderPriceProps) {
       <S.IndividualPriceBox>
         <S.PriceRow data-testid="price-row">
           <S.PriceLabel>주문 금액</S.PriceLabel>
-          <S.PriceAmount>{price.toLocaleString()}원</S.PriceAmount>
+          <S.PriceAmount>{order.price.toLocaleString()}원</S.PriceAmount>
         </S.PriceRow>
         <S.PriceRow data-testid="price-row">
           <S.PriceLabel>쿠폰 할인 금액</S.PriceLabel>
@@ -41,7 +59,7 @@ function OrderPrice({ price, deliveryFee }: OrderPriceProps) {
         <S.PriceRow data-testid="price-row">
           <S.PriceLabel>배송비</S.PriceLabel>
           <S.PriceAmount>
-            {(deliveryFee + extraDeliveryFee).toLocaleString()}원
+            {(order.deliveryFee + extraDeliveryFee).toLocaleString()}원
           </S.PriceAmount>
         </S.PriceRow>
       </S.IndividualPriceBox>
@@ -50,6 +68,7 @@ function OrderPrice({ price, deliveryFee }: OrderPriceProps) {
         <S.PriceLabel>총 결제 금액</S.PriceLabel>
         <S.PriceAmount>{totalPrice.toLocaleString()}원</S.PriceAmount>
       </S.PriceRow>
+      <FooterButton onClick={moveToPayment}>결제하기</FooterButton>
     </S.Container>
   );
 }

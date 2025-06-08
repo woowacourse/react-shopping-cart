@@ -1,11 +1,11 @@
 import Header from '../../components/common/header/Header';
-import OrderConfirmContents from '../../components/features/payment/paymentContents/PaymentContents';
+import PaymentContents from '../../components/features/payment/paymentContents/PaymentContents';
 
 function PaymentPage() {
   return (
     <>
       <Header />
-      <OrderConfirmContents />
+      <PaymentContents />
     </>
   );
 }
