@@ -16,4 +16,19 @@ const formatToKoreanAmPm = (time: string) => {
   return `${period} ${hour12}시`;
 };
 
-export { getHours, getMinutes, formatToKoreanAmPm };
+function getTimeInMinutes(time: string): number {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function getNowInMinutes(date: Date): number {
+  return date.getHours() * 60 + date.getMinutes();
+}
+
+export {
+  getHours,
+  getMinutes,
+  formatToKoreanAmPm,
+  getTimeInMinutes,
+  getNowInMinutes,
+};
