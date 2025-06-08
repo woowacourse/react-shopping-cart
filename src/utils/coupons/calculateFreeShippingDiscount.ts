@@ -7,8 +7,9 @@ export const calculateFreeShippingDiscount = (
   coupon: FreeShippingCoupon,
   isRemoteArea: boolean
 ) => {
+  const remoteAreaShippingFee = isRemoteArea ? SHIPPING_FEE : 0;
   if (!isValidExpiration(coupon.expirationDate)) return 0;
-  if (coupon.minimumAmount > price || price > FREE_SHIPPING_MIN_AMOUNT)
-    return 0;
-  return SHIPPING_FEE + (isRemoteArea ? 3000 : 0);
+  if (coupon.minimumAmount > price) return 0;
+  if (price >= FREE_SHIPPING_MIN_AMOUNT) return remoteAreaShippingFee;
+  return SHIPPING_FEE + remoteAreaShippingFee;
 };
