@@ -2,7 +2,7 @@ import * as S from "./CartItem.styled";
 import CheckBox from "@/shared/components/CheckBox/CheckBox";
 import CartItemQuantityButton from "./Button/Quantity/CartItemQuantityButton";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import ProductImage from "@/shared/components/ProductImage/ProductImage";
+import ProductImage from "@/domains/components/ProductImage/ProductImage";
 
 type CartItemProps = {
   cartItem: CartItemType;

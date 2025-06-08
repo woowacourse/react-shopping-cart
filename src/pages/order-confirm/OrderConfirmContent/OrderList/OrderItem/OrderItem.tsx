@@ -1,6 +1,6 @@
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import * as S from "./OrderItem.styled";
-import ProductImage from "@/shared/components/ProductImage/ProductImage";
+import ProductImage from "@/domains/components/ProductImage/ProductImage";
 
 type OrderItemProps = {
   orderItem: CartItemType;
