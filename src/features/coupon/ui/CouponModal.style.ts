@@ -7,6 +7,9 @@ export const CouponModalContainer = styled.div`
 `;
 
 export const CouponList = styled.div`
+  width: 100%;
+  height: 400px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
