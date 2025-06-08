@@ -8,14 +8,14 @@ import { FunnelProvider } from "./contexts/FunnelContext";
 
 function App() {
   return (
-    <Routes>
-      <CartProvider>
-        <FunnelProvider>
+    <CartProvider>
+      <FunnelProvider>
+        <Routes>
           <Route path={PAGE_URL.HOME} element={<OrderPage />} />
           <Route path={PAGE_URL.ORDER_COMPLETE} element={<OrderComplete />} />
-        </FunnelProvider>
-      </CartProvider>
-    </Routes>
+        </Routes>
+      </FunnelProvider>
+    </CartProvider>
   );
 }
 
