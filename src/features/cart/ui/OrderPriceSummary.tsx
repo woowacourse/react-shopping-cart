@@ -1,4 +1,5 @@
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
+import InfoLabel from './InfoLabel';
 import OrderPriceItem from './OrderPriceItem';
 import * as S from './OrderPriceSummary.styles';
 
@@ -11,10 +12,7 @@ export default function OrderPriceSummary({ couponPriceItem }: OrderPriceSummary
 
   return (
     <S.OrderPriceSummaryContainer>
-      <S.DeliveryFeeLabel>
-        <S.DeliveryFeeIcon src="./infoLabelIcon.svg" alt="Delivery Fee Label Icon" />총 주문 금액이 100,000원 이상일
-        경우 무료 배송됩니다.
-      </S.DeliveryFeeLabel>
+      <InfoLabel description="총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." />
       <S.CalaculateList>
         <OrderPriceItem title="주문 금액" price={totalPrice} />
         {couponPriceItem && <OrderPriceItem title="쿠폰 할인 금액" price={couponDiscountPrice} />}

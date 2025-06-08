@@ -7,21 +7,6 @@ export const OrderPriceSummaryContainer = styled.section`
   justify-content: space-between;
 `;
 
-export const DeliveryFeeLabel = styled.div`
-  width: 100%;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-`;
-
-export const DeliveryFeeIcon = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  vertical-align: middle;
-`;
-
 const baseStyle = `
   width: 100%;
   font-size:16px;
