@@ -17,15 +17,12 @@ import useModal from '../../../hooks/useModal';
 import useCoupon from '../../../hooks/useCoupon';
 import useSelectCoupon from '../../../hooks/useSelectCoupon';
 import useFarDeliverySelect from '../../../hooks/useFarDeliverySelect';
+import useOrderSummary from '../../../hooks/useOrderSummary';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
-import {
-  COUPONS,
-  calculateTotalDiscount,
-  getAvailableCoupons,
-} from './utils/coupon';
-import { getDeliveryFee, getTotalProductQuantity } from './utils/product';
+import { COUPONS, getAvailableCoupons } from './utils/coupon';
+import { getTotalProductQuantity } from './utils/product';
 
 function OrderCheck() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -39,22 +36,16 @@ function OrderCheck() {
     totalPrice: number;
   };
 
-  const deliveryFee = getDeliveryFee(totalPrice, isFarDelivery);
+  const selectedCouponObjects = COUPONS.filter((c) => selectedCoupon.has(c.id));
+
+  const { orderPrice, deliveryFee, totalDiscount, paymentAmount } =
+    useOrderSummary(selectedCartData, selectedCouponObjects, isFarDelivery);
 
   const availableCouponObjects = getAvailableCoupons(
     totalPrice,
     deliveryFee,
     selectedCartData,
     new Date()
-  );
-
-  const selectedCouponObjects = COUPONS.filter((c) => selectedCoupon.has(c.id));
-
-  const couponDiscount = calculateTotalDiscount(
-    selectedCouponObjects,
-    totalPrice,
-    deliveryFee,
-    selectedCartData
   );
 
   const totalProductQuantity = getTotalProductQuantity(selectedCartData);
@@ -83,15 +74,16 @@ function OrderCheck() {
           handleFarDeliverySelect={handleFarDeliverySelect}
         />
         <OrderPriceInfo
-          totalPrice={totalPrice}
+          totalPrice={orderPrice}
           deliveryFee={deliveryFee}
-          couponDiscount={couponDiscount}
+          couponDiscount={totalDiscount}
+          paymentAmount={paymentAmount}
         />
       </ContainerLayout>
       <PayButton
         orderItemsQuantity={totalProductQuantity}
         productTypeCount={selectedCartData.length}
-        orderPrice={totalPrice + deliveryFee - couponDiscount}
+        orderPrice={paymentAmount}
       />
       <CouponModal
         isOpen={isOpen}

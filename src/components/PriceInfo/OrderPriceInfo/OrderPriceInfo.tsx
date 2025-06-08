@@ -7,13 +7,13 @@ function OrderPriceInfo({
   totalPrice,
   deliveryFee,
   couponDiscount,
+  paymentAmount,
 }: {
   totalPrice: number;
   deliveryFee: number;
   couponDiscount: number;
+  paymentAmount: number;
 }) {
-  const finalPriceBeforePayment = totalPrice + deliveryFee - couponDiscount;
-
   return (
     <PriceInfoContainer>
       <PriceInfoHeader />
@@ -26,7 +26,7 @@ function OrderPriceInfo({
         <PriceInfoItem label="배송비" price={deliveryFee} />
       </PriceInfoWrapper>
       <PriceInfoWrapper>
-        <PriceInfoItem label="총 결제 금액" price={finalPriceBeforePayment} />
+        <PriceInfoItem label="총 결제 금액" price={paymentAmount} />
       </PriceInfoWrapper>
     </PriceInfoContainer>
   );
