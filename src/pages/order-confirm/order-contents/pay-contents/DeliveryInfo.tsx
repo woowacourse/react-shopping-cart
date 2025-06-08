@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
 import { getShoppingCartData } from "../../../../api/cart";
 import { Flex } from "../../../../components/common";
 import CheckboxLabel from "../../../../components/common/CheckboxLabel";
@@ -9,21 +8,18 @@ import { useOrderCalculation } from "../../../../hooks/order/useOrderCalculation
 import OrderLabelPridce from "../OrderLabelPrice";
 
 function DeliveryInfo() {
-  const [isIsland, setIsIsland] = useState(false);
   const { data: cartListData } = useAPIDataContext({
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap } = useOrderListContext(cartListData);
+  const { selectionMap, isIsland, handleIsIslandToggle } =
+    useOrderListContext(cartListData);
+
   const { totalCartPrice, shippingFee, totalPrice } = useOrderCalculation(
     cartListData,
     selectionMap,
     isIsland
   );
-
-  const handleIsIslandToggle = () => {
-    setIsIsland((prev) => !prev);
-  };
 
   return (
     <Container alignItems="flex-start" gap="xs">
