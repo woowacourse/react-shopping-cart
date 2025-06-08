@@ -16,11 +16,12 @@ import { isAllChecked } from "../../utils/isAllChecked";
 import { getCheckedProductsLength } from "../../utils/getCheckedProductsLength";
 import { getCheckedProductsTotalPrice } from "../../utils/getCheckedProductsTotalPrice";
 import { getShippingFee } from "../../utils/getShippingFee";
-import { CheckedMap } from "../../types/CheckMap";
 import {
   saveCheckedMapToStorage,
   loadCheckedMapFromStorage,
 } from "../../utils/localStorageCheckedMap";
+
+import { CheckedMap } from "../../types/CheckMap";
 
 import * as Styled from "./ShoppingCartPage.styles";
 
@@ -126,6 +127,7 @@ export default function ShoppingCartPage() {
             <Receipt
               allProductPrice={allProductPrice}
               shippingFee={shippingFee}
+              totalPrice={allProductPrice + shippingFee}
             />
           </>
         )}

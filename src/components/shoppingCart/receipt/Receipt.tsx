@@ -10,15 +10,15 @@ interface ReceiptProps {
   allProductPrice: number;
   shippingFee: number;
   couponPrice?: number | null;
+  totalPrice: number;
 }
 
 export default function Receipt({
   allProductPrice,
   shippingFee,
   couponPrice,
+  totalPrice,
 }: ReceiptProps) {
-  const totalPrice = allProductPrice + shippingFee - (couponPrice || 0);
-
   return (
     <section>
       <Styled.Container>

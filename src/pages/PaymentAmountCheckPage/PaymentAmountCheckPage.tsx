@@ -106,6 +106,7 @@ export default function PaymentAmountCheckPage() {
             isIslandArea ? shippingFee + DEFAULT_SHIPPING_FEE : shippingFee
           }
           couponPrice={couponPrice}
+          totalPrice={totalPrice}
         />
       </div>
     );
