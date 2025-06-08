@@ -1,6 +1,7 @@
 import { CartItemContent } from "../../../types/cartItem";
 import { usePersistedState } from "../../../hooks/usePersistedState";
 import { STORAGE_KEYS } from "../../../constants";
+import { storageHandler } from "../../../utils/storageHandler";
 
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
@@ -16,12 +17,12 @@ export const useCartSelection = (cartItems: CartItemContent[]) => {
     }
 
     if (action === "each" && id) {
-      setCheckedIds((prev) => {
-        if (prev.includes(id)) {
-          return prev.filter((checkedId) => checkedId !== id);
-        }
-        return [...prev, id];
-      });
+      const getCheckIds = storageHandler.getItem(STORAGE_KEYS.CART_CHECKED_IDS);
+      if (getCheckIds.includes(id)) {
+        setCheckedIds(getCheckIds.filter((checkedId: number) => checkedId !== id));
+        return;
+      }
+      setCheckedIds([...checkedIds, id]);
     }
   };
 
