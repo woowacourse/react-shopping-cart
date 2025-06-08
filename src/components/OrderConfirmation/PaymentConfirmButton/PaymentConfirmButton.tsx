@@ -1,20 +1,29 @@
+import usePaymentConfirm from "../../../hooks/usePaymentConfirm";
 import { CartItem } from "../../../type/CartItem";
 
 import * as Styled from "./PaymentConfirmButton.style";
 
 interface PaymentConfirmButtonProps {
-  selectedCartIds: number[];
-  cartItemsData: CartItem[];
+  selectedCartItems: CartItem[];
+  discountAmount: number;
+  isRemoteAreaShipping: boolean;
 }
 
 function PaymentConfirmButton({
-  selectedCartIds,
-  cartItemsData,
+  selectedCartItems,
+  discountAmount,
+  isRemoteAreaShipping,
 }: PaymentConfirmButtonProps) {
+  const { handlePaymentConfirm } = usePaymentConfirm({
+    selectedCartItems,
+    discountAmount,
+    isRemoteAreaShipping,
+  });
+
   return (
     <Styled.PaymentConfirmButton
-      disabled={selectedCartIds.length === 0}
-      onClick={() => {}}
+      disabled={selectedCartItems.length === 0}
+      onClick={handlePaymentConfirm}
       type="button"
       aria-label="결제하기"
     >
