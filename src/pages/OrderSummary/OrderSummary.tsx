@@ -16,8 +16,11 @@ import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
 import { useState } from "react";
 import { calculateDiscountAmount } from "../../\bdomains/discount";
 import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
+import useResetCouponOnUnmount from "../../hooks/orderSummary/useResetCouponOnUnmount";
 
 function OrderSummary() {
+  useResetCouponOnUnmount();
+
   const [isJejuOrIslandSelected, setIsJejuOrIslandSelected] = useState(false);
 
   const { isOpen, modalClose, modalOpen } = useModal();

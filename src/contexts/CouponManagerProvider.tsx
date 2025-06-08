@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import { CouponType } from "../types/coupon";
 
 interface CouponContextType {
@@ -37,9 +43,9 @@ export function CouponManagerProvider({ children }: PropsWithChildren) {
     });
   }
 
-  function changeSelectedCoupon(coupons: CouponType[]) {
+  const changeSelectedCoupon = useCallback((coupons: CouponType[]) => {
     setSelectedCoupon(coupons);
-  }
+  }, []);
 
   function isSelected(coupon: CouponType) {
     return Boolean(selectedCoupon.find((item) => item.code === coupon.code));
