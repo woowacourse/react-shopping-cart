@@ -2,9 +2,12 @@ import { useCallback } from "react";
 import { Coupon } from "../apis/coupons";
 import { isUnavailableTime, isCouponExpired } from "../utils/dateUtils";
 import { useSelectedItems } from "./useSelectedItems";
+import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
+import { useShippingContext } from "../contexts/ShippingContext";
 
 export const useCouponValidation = () => {
   const { selectedItems } = useSelectedItems();
+  const { isRemoteAreaShipping } = useShippingContext();
 
   const orderPrice = selectedItems.reduce((acc, cartItem) => {
     return acc + cartItem.product.price * cartItem.quantity;
@@ -24,7 +27,15 @@ export const useCouponValidation = () => {
         case "fixed":
           return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
         case "freeShipping":
-          return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+          if (coupon.minimumAmount && orderPrice < coupon.minimumAmount) {
+            return false;
+          }
+
+          if (orderPrice >= FREE_SHIPPING_MIN_AMOUNT) {
+            return isRemoteAreaShipping;
+          }
+
+          return true;
         case "percentage":
           return true;
         case "buyXgetY":
