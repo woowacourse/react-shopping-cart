@@ -4,10 +4,10 @@ import InfoMessage from "../components/InfoMessage/InfoMessage";
 import Modal from "../components/Modal/Modal";
 import { Coupon } from "../types/response";
 import * as S from "./CouponModal.styles";
-import CloseImage from "/close-button.png";
 import InfoIcon from "/Info.svg";
 import useCoupons from "../hooks/useCoupons";
 import { useCouponContext } from "../hooks/useCouponContext";
+import CloseImage from "/close-button.svg";
 
 interface CouponModalProps {
   isOpen: boolean;
