@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import getCoupons from '../api/getCoupons';
 import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
@@ -89,19 +89,26 @@ const useCoupons = () => {
     deliveryPrice,
   });
 
-  const selectCoupon = (id: number) => {
-    setSelectedCoupons((prev) => {
-      if (prev.some((c) => c.id === id)) return prev;
-      if (prev.length >= 2) return prev;
+  const selectCoupon = useCallback(
+    (id: number) => {
+      setSelectedCoupons((prev) => {
+        if (prev.some((c) => c.id === id)) return prev;
+        if (prev.length >= 2) return prev;
 
-      const coupon = validCoupons.find((c) => c.id === id);
-      return coupon ? [...prev, coupon] : prev;
-    });
-  };
+        const coupon = validCoupons.find((c) => c.id === id);
+        return coupon ? [...prev, coupon] : prev;
+      });
+    },
+    [validCoupons]
+  );
 
-  const unselectCoupon = (id: number) => {
+  const unselectCoupon = useCallback((id: number) => {
     setSelectedCoupons((prev) => prev.filter((c) => c.id !== id));
-  };
+  }, []);
+
+  const init = useCallback(() => {
+    setSelectedCoupons([]);
+  }, []);
 
   useEffect(() => {
     fetchCoupons();
@@ -114,6 +121,7 @@ const useCoupons = () => {
     couponDiscount,
     selectCoupon,
     unselectCoupon,
+    init,
   };
 };
 
