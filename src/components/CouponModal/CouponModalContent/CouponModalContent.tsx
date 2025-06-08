@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   title,
   imgLayout,
@@ -12,54 +11,25 @@ import {
 import Button from '../../Common/Button/Button';
 import { css } from '@emotion/react';
 import { CouponItem } from '../CouponItem/CouponItem';
-import useFetchCoupons from '../../../hooks/useFetchCoupons';
-import { CartItemTypes } from '../../../types/cartItem';
-import { calculateCouponPrice } from '../../../utils/calculateCouponPrice';
+import { Coupon } from '../../../types/coupon';
 
 interface CouponModalContentProps {
   handleUseClick: () => void;
   handleClose: () => void;
-  selectedCartItems: CartItemTypes[];
-  deliveryFee: number;
+  handleCouponIdsChange: (id: string) => void;
+  coupons: Coupon[];
+  selectedCouponIds: string[];
+  couponPrice: number;
 }
 
 export function CouponModalContent({
   handleUseClick,
   handleClose,
-  selectedCartItems,
-  deliveryFee,
+  handleCouponIdsChange,
+  coupons,
+  selectedCouponIds,
+  couponPrice,
 }: CouponModalContentProps) {
-  const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
-  const [couponPrice, setCouponPrice] = useState(0);
-  const { coupons } = useFetchCoupons();
-
-  const handleCouponIdsChange = (id: string) => {
-    const index = selectedCouponIds.findIndex((e) => e === id);
-
-    const copy = [...selectedCouponIds];
-    if (index === -1) {
-      copy.push(id);
-      setSelectedCouponIds(copy);
-    } else {
-      copy.splice(index, 1);
-      setSelectedCouponIds(copy);
-    }
-
-    const forward = calculateCouponPrice({
-      couponIds: copy,
-      coupons,
-      selectedCartItems,
-      deliveryFee,
-    });
-    const reverse = calculateCouponPrice({
-      couponIds: copy.reverse(),
-      coupons,
-      selectedCartItems,
-      deliveryFee,
-    });
-    setCouponPrice(forward > reverse ? forward : reverse);
-  };
-
   return (
     <>
       <div css={headLayout}>

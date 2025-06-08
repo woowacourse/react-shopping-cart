@@ -27,12 +27,17 @@ import { Modal } from '../../components/Common/Modal/Modal';
 import ModalContent from '../../components/Common/ModalContent/ModalContent';
 import { ModalOverlay } from '../../components/Common/ModalOverlay/ModalOverlay';
 import { CouponModalContent } from '../../components/CouponModal/CouponModalContent/CouponModalContent';
+import useFetchCoupons from '../../hooks/useFetchCoupons';
+import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
+  const { coupons } = useFetchCoupons();
 
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
+  const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
+  const [couponPrice, setCouponPrice] = useState(0);
 
   const navigate = useNavigate();
 
@@ -41,6 +46,33 @@ export function OrderConfirm() {
   const selectedCartItems = cartItems.filter((cartItem) =>
     selectedCartItemIds.includes(cartItem.id.toString())
   );
+
+  const handleCouponIdsChange = (id: string) => {
+    const index = selectedCouponIds.findIndex((e) => e === id);
+
+    const copy = [...selectedCouponIds];
+    if (index === -1) {
+      copy.push(id);
+      setSelectedCouponIds(copy);
+    } else {
+      copy.splice(index, 1);
+      setSelectedCouponIds(copy);
+    }
+
+    const forward = calculateCouponPrice({
+      couponIds: copy,
+      coupons,
+      selectedCartItems,
+      deliveryFee,
+    });
+    const reverse = calculateCouponPrice({
+      couponIds: copy.reverse(),
+      coupons,
+      selectedCartItems,
+      deliveryFee,
+    });
+    setCouponPrice(forward > reverse ? forward : reverse);
+  };
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
@@ -127,8 +159,10 @@ export function OrderConfirm() {
           <CouponModalContent
             handleClose={handleClose}
             handleUseClick={handleUseClick}
-            selectedCartItems={selectedCartItems}
-            deliveryFee={deliveryFee}
+            handleCouponIdsChange={handleCouponIdsChange}
+            coupons={coupons}
+            selectedCouponIds={selectedCouponIds}
+            couponPrice={couponPrice}
           />
         </ModalContent>
       </Modal>
