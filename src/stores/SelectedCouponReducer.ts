@@ -2,12 +2,17 @@ import { CouponType } from "../types/types";
 
 export const initialState: CouponType[] = [];
 
-type ActionType = "ADD_COUPON" | "REMOVE_COUPON" | "RESET_COUPON";
+type ActionType =
+  | "ADD_COUPON"
+  | "REMOVE_COUPON"
+  | "RESET_COUPON"
+  | "SET_COUPON";
 
 export interface SelectAction {
   type: ActionType;
   payload: {
     coupon?: CouponType;
+    coupons?: CouponType[];
   };
 }
 
@@ -26,6 +31,9 @@ export const selectCouponReducer = (
 
     case "RESET_COUPON":
       return initialState;
+
+    case "SET_COUPON":
+      return action.payload.coupons || [];
     default:
       return state;
   }
