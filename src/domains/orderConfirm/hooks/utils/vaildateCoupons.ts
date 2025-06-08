@@ -1,4 +1,5 @@
 import { AvailableTime } from "../../types/coupon";
+import { getHours, getMinutes } from "../../utils/getDateInfo";
 
 function validateDate(expirationDate: string, today: Date) {
   return new Date(expirationDate) >= today;
@@ -14,14 +15,6 @@ function validateTime(availableTime: AvailableTime, today: Date) {
     today.getMinutes() <= getMinutes(end)
   );
 }
-
-const getHours = (time: string) => {
-  return Number(time.split(":")[0]);
-};
-
-const getMinutes = (time: string) => {
-  return Number(time.split(":")[1]);
-};
 
 function validateMinimumAmount(minimumAmount: number, totalPrice: number) {
   return totalPrice >= minimumAmount;
