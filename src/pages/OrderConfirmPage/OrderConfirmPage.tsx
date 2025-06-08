@@ -6,17 +6,47 @@ import { useNavigate, useLocation } from 'react-router';
 import OrderConfirmSection from '../../components/OrderConfirmSection/OrderConfirmSection';
 import { Content } from '../../types/cartItems';
 import Text from '../../components/Text/Text';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CouponModal from '../../components/Modal/Modal';
+import { CouponsResponse } from '../../types/coupons';
 
 export default function OrderConfirmPage() {
+  const [isIslandChecked, setIsIslandChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedCoupons, setSelectedCoupons] = useState<CouponsResponse[]>([]);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const selectedItems: Content[] = location.state?.selectedItems ?? [];
+  const selectedItems: Content[] = useMemo(() => {
+    return location.state?.selectedItems ?? [];
+  }, [location.state?.selectedItems]);
 
   const selectedItemIds = selectedItems.map((item) => item.id);
+
+  const totalDiscount = useMemo(() => {
+    return selectedCoupons.reduce((sum, coupon) => {
+      return coupon.discountType === 'fixed' ? sum + (coupon.discount ?? 0) : sum;
+    }, 0);
+  }, [selectedCoupons]);
+  const { orderPrice, shippingFee, totalPrice, totalQuantity } = useMemo(() => {
+    let orderPrice = 0;
+    let totalQuantity = 0;
+
+    for (const item of selectedItems) {
+      orderPrice += item.product.price * item.quantity;
+      totalQuantity += item.quantity;
+    }
+
+    let shippingFee = orderPrice >= 100000 ? 0 : 3000;
+    if (isIslandChecked) {
+      shippingFee += 3000;
+    }
+
+    const totalPrice = orderPrice + shippingFee;
+
+    return { orderPrice, shippingFee, totalPrice, totalQuantity };
+  }, [selectedItems, isIslandChecked]);
 
   const fakeCartItemsResponse = {
     content: selectedItems,
@@ -64,6 +94,12 @@ export default function OrderConfirmPage() {
         selectedItemIds={selectedItemIds}
         setSelectedItemIds={() => {}}
         setIsModalOpen={setIsModalOpen}
+        isIslandChecked={isIslandChecked}
+        setIsIslandChecked={setIsIslandChecked}
+        orderPrice={orderPrice}
+        shippingFee={shippingFee}
+        totalPrice={totalPrice}
+        totalQuantity={totalQuantity}
       />
       <S.ButtonWrapper>
         <Button
@@ -75,7 +111,14 @@ export default function OrderConfirmPage() {
           결제하기
         </Button>
       </S.ButtonWrapper>
-      {isModalOpen && <CouponModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <CouponModal
+          onClose={() => setIsModalOpen(false)}
+          selectedCoupons={selectedCoupons}
+          setSelectedCoupons={setSelectedCoupons}
+          totalDiscount={totalDiscount}
+        />
+      )}
     </>
   );
 }

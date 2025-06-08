@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import InfoIcon from '../icons/Info';
 import Spacing from '../Spacing/Spacing';
 import Text from '../Text/Text';
@@ -8,15 +7,12 @@ import CouponList from './CouponList';
 
 interface CouponModalProps {
   onClose: () => void;
+  selectedCoupons: CouponsResponse[];
+  setSelectedCoupons: (coupons: CouponsResponse[]) => void;
+  totalDiscount: number;
 }
 
-export default function CouponModal({ onClose }: CouponModalProps) {
-  const [selectedCoupons, setSelectedCoupons] = useState<CouponsResponse[]>([]);
-
-  const totalDiscount = selectedCoupons.reduce((sum, coupon) => {
-    return coupon.discountType === 'fixed' ? sum + (coupon.discount ?? 0) : sum;
-  }, 0);
-
+export default function CouponModal({ onClose, selectedCoupons, setSelectedCoupons, totalDiscount }: CouponModalProps) {
   return (
     <S.Backdrop onClick={onClose}>
       <S.Modal onClick={(e) => e.stopPropagation()}>
@@ -27,7 +23,7 @@ export default function CouponModal({ onClose }: CouponModalProps) {
         <Spacing size={34} />
         <InfoIcon /> 쿠폰은 최대 2개까지 사용할 수 있습니다.
         <S.ModalTitleLine />
-        <CouponList onSelectChange={setSelectedCoupons} />
+        <CouponList selectedCoupons={selectedCoupons} setSelectedCoupons={setSelectedCoupons} />
         <S.CompleteButton onClick={onClose}>총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기</S.CompleteButton>
       </S.Modal>
     </S.Backdrop>

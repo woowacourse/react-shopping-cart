@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { CartItemsResponse } from '../../types/cartItems';
 import InfoIcon from '../icons/Info';
 import Spacing from '../Spacing/Spacing';
@@ -9,43 +9,36 @@ import Checkbox from '../Checkbox/Checkbox';
 
 interface OrderConfirmSectionProps {
   items: CartItemsResponse;
-
   refetch: () => void;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   selectedItemIds: number[];
   setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  isIslandChecked: boolean;
+  setIsIslandChecked: Dispatch<SetStateAction<boolean>>;
+  orderPrice: number;
+  shippingFee: number;
+  totalPrice: number;
+  totalQuantity: number;
 }
 
-export default function OrderConfirmSection({ items, selectedItemIds, setIsModalOpen }: OrderConfirmSectionProps) {
-  const [isChecked, setIsChecked] = useState(false);
-
+export default function OrderConfirmSection({
+  items,
+  selectedItemIds,
+  setIsModalOpen,
+  isIslandChecked,
+  setIsIslandChecked,
+  orderPrice,
+  shippingFee,
+  totalPrice,
+  totalQuantity,
+}: OrderConfirmSectionProps) {
   const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev);
+    setIsIslandChecked((prev) => !prev);
   };
 
   const handleCouponButtonClick = () => {
     setIsModalOpen(true);
   };
-
-  const { orderPrice, shippingFee, totalPrice, totalQuantity } = useMemo(() => {
-    let orderPrice = 0;
-    let totalQuantity = 0;
-
-    for (const item of items.content) {
-      if (selectedItemIds.includes(item.id)) {
-        orderPrice += item.product.price * item.quantity;
-        totalQuantity += item.quantity;
-      }
-    }
-
-    let shippingFee = orderPrice >= 100000 ? 0 : 3000;
-    if (isChecked) {
-      shippingFee += 3000;
-    }
-    const totalPrice = orderPrice + shippingFee;
-
-    return { orderPrice, shippingFee, totalPrice, totalQuantity };
-  }, [items, selectedItemIds, isChecked]);
 
   return (
     <S.OrderConfirmSection>
@@ -78,7 +71,7 @@ export default function OrderConfirmSection({ items, selectedItemIds, setIsModal
           <Text variant="title-3">배송 정보</Text>
           <Spacing size={16} />
           <S.CheckboxWrapper>
-            <Checkbox checked={isChecked} onClick={handleCheckboxChange}></Checkbox>
+            <Checkbox checked={isIslandChecked} onClick={handleCheckboxChange}></Checkbox>
             <Text variant="body-1">제주도 및 도서 산간 지역</Text>
           </S.CheckboxWrapper>
           <Spacing size={32} />
