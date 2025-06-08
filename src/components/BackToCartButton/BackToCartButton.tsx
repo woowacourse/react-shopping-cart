@@ -8,7 +8,7 @@ function BackToCartButton() {
   const navigate = useNavigate();
 
   return (
-    <button css={ButtonStyle} onClick={() => navigate('/')}>
+    <button css={ButtonStyle} onClick={() => navigate('/.')}>
       <Text varient="body">장바구니로 돌아가기</Text>
     </button>
   );
