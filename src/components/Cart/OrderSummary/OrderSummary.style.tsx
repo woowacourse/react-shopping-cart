@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "@emotion/styled";
 
 export const TotalPriceContainer = styled.div`
   width: 100%;
@@ -6,31 +6,12 @@ export const TotalPriceContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
-`
+`;
 
 export const TotalPriceTitle = styled.p`
   display: flex;
   justify-content: space-between;
-`
-
-export const Notice = styled.div`
-  display: flex;
-  width: 100%;
-  gap: 4px;
-  align-items: center;
-`
-
-export const NoticeIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`
-
-export const FreeShippingText = styled.p`
-  height: 16px;
-  color: #333333;
-  font-size: 12px;
-  font-weight: 600;
-`
+`;
 
 export const PriceWrapper = styled.div`
   display: flex;
@@ -39,24 +20,24 @@ export const PriceWrapper = styled.div`
   padding: 12px 0;
   border-top: 1px solid #0000001a;
   border-bottom: 1px solid #0000001a;
-`
+`;
 
 export const TotalPrice = styled.p`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const TitleText = styled.span`
   font-size: 16px;
   font-weight: 600;
-`
+`;
 export const PriceText = styled.span`
   font-size: 20px;
   font-weight: 700;
-`
+`;
 
 export const ShippingFee = styled.p`
   display: flex;
   justify-content: space-between;
   color: #333333;
-`
+`;
