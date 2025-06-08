@@ -6,22 +6,30 @@ import Header from '../../components/Header/Header';
 import ShoppingCartSection from '../../components/ShoppingCartSection/ShoppingCartSection';
 import { useAPI } from '../../context/APIContext';
 import * as S from './ShoppingCartPage.styles';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { CartItemsResponse } from '../../types/cartItems';
 import Text from '../../components/Text/Text';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export default function ShoppingCartPage() {
   const { data, isLoading, refetch } = useAPI<CartItemsResponse>({ fetcher: getCartItem, name: 'cartItem' });
   const navigate = useNavigate();
-  const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+
+  const [selectedItemIds, setSelectedItemIds] = useLocalStorage<number[]>('selectedCartItemIds', []);
   const hasInitialized = useRef(false);
 
   useEffect(() => {
     if (data && !hasInitialized.current) {
       hasInitialized.current = true;
-      setSelectedItemIds(data.content.map((item) => item.id));
+      const validIds = data.content.map((item) => item.id);
+      const filtered = selectedItemIds.filter((id) => validIds.includes(id));
+      if (filtered.length === 0) {
+        setSelectedItemIds(validIds);
+      } else {
+        setSelectedItemIds(filtered);
+      }
     }
-  }, [data]);
+  }, [data, selectedItemIds, setSelectedItemIds]);
 
   const handleNavigateClick = () => {
     const selectedItems = data?.content.filter((item) => selectedItemIds.includes(item.id));

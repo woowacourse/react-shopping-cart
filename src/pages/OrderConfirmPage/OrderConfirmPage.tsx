@@ -162,6 +162,7 @@ export default function OrderConfirmPage() {
         kind: selectedItems.length,
         quantity: selectedItems.reduce((sum, item) => sum + item.quantity, 0),
         orderTotalPrice: selectedItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+        totalPrice: totalPrice,
       },
     });
   };
