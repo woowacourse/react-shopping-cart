@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import { BASE_URL, URL_LOCATION } from '../constants/url';
 
 const CartPage = () => {
-  const { cartItems, checkedCartIds } = useCartItemsContext();
+  const { cartItems } = useCartItemsContext();
   const navigate = useNavigate();
 
   return (
@@ -45,17 +45,7 @@ const CartPage = () => {
           </>
         )}
       </S.content>
-      <ConfirmButton
-        title="주문 확인"
-        onClick={() =>
-          navigate(BASE_URL + URL_LOCATION.ORDER, {
-            state: {
-              cartItems,
-              checkedCartIds,
-            },
-          })
-        }
-      />
+      <ConfirmButton title="주문 확인" onClick={() => navigate(BASE_URL + URL_LOCATION.ORDER)} />
     </>
   );
 };
