@@ -7,10 +7,11 @@ import { MAX_COUPON_AMOUNT } from '../../constants/config';
 interface ModalProps {
   isOpen: boolean;
   handleClose: () => void;
+  deliveryPrice: number;
   discountPrice: number;
 }
 
-const CouponModal = ({ isOpen, handleClose, discountPrice }: ModalProps) => {
+const CouponModal = ({ isOpen, handleClose, deliveryPrice, discountPrice }: ModalProps) => {
   const { coupons } = useCouponContext();
 
   return (
@@ -26,7 +27,7 @@ const CouponModal = ({ isOpen, handleClose, discountPrice }: ModalProps) => {
           </S.infoContainer>
           <S.CouponContainer>
             {coupons.map((coupon) => (
-              <CouponCard key={coupon.id} coupon={coupon} />
+              <CouponCard key={coupon.id} coupon={coupon} deliveryPrice={deliveryPrice} />
             ))}
           </S.CouponContainer>
           <S.closeButton onClick={handleClose}>

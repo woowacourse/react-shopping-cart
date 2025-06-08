@@ -1,10 +1,15 @@
 import { CartItem, Coupon } from '../types';
 import getOrderPrice from './getOrderPrice';
 
-const checkIsAvailableCoupon = (coupon: Coupon, checkedCartItems: CartItem[]) => {
+const checkIsAvailableCoupon = (
+  coupon: Coupon,
+  checkedCartItems: CartItem[],
+  deliveryPrice: number
+) => {
   if (checkIsNotOverMin(coupon, checkedCartItems)) return false;
   if (checkIsStaleCouponNow(coupon)) return false;
   if (checkIsCannotBuyXGetY(coupon, checkedCartItems)) return false;
+  if (checkIsCannotFreeShipping(coupon, deliveryPrice)) return false;
   return true;
 };
 
@@ -59,5 +64,11 @@ const checkIsCannotBuyXGetY = (coupon: Coupon, checkedCartItems: CartItem[]) => 
   const minimumAmount = coupon.getQuantity + coupon.buyQuantity;
   if (checkedCartItems.every((item) => item.quantity < minimumAmount)) return true;
 
+  return false;
+};
+
+const checkIsCannotFreeShipping = (coupon: Coupon, deliveryPrice: number) => {
+  if (coupon.discountType !== 'freeShipping') return false;
+  if (deliveryPrice <= 0) return true;
   return false;
 };

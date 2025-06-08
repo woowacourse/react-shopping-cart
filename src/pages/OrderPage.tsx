@@ -32,6 +32,7 @@ const OrderPage = () => {
         <CouponModal
           isOpen={isModalOpen}
           handleClose={() => setIsModalOpen(false)}
+          deliveryPrice={deliveryPrice}
           discountPrice={discountPrice}
         />
         <S.title>주문 확인</S.title>

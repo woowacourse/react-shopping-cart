@@ -2,6 +2,7 @@ import { Coupon } from '../../src/types';
 import checkIsAvailableCoupon from '../../src/utils/checkIsAvailableCoupon';
 
 describe('쿠폰 사용 가능 여부 확인 유틸 함수 테스트', () => {
+  const deliveryPrice = 3000;
   const canUseCouponCartItems = [
     {
       id: 1,
@@ -42,6 +43,16 @@ describe('쿠폰 사용 가능 여부 확인 유틸 함수 테스트', () => {
     discountType: 'fixed',
   };
 
+  const bogoCoupon = {
+    id: 2,
+    code: 'BOGO',
+    description: '2개 구매 시 1개 무료 쿠폰',
+    expirationDate: '2025-06-30',
+    buyQuantity: 2,
+    getQuantity: 1,
+    discountType: 'buyXgetY',
+  };
+
   const dateCoupon = {
     id: 3,
     code: 'FREESHIPPING',
@@ -72,9 +83,15 @@ describe('쿠폰 사용 가능 여부 확인 유틸 함수 테스트', () => {
       .setSystemTime(
         new Date(2025, rightTime.monthIndex, rightTime.day, rightTime.hour, rightTime.minute)
       );
-    expect(checkIsAvailableCoupon(minimumCoupon as Coupon, canUseCouponCartItems)).toBeTruthy();
-    expect(checkIsAvailableCoupon(dateCoupon as Coupon, canUseCouponCartItems)).toBeTruthy();
-    expect(checkIsAvailableCoupon(timeCoupon as Coupon, canUseCouponCartItems)).toBeTruthy();
+    expect(
+      checkIsAvailableCoupon(minimumCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeTruthy();
+    expect(
+      checkIsAvailableCoupon(dateCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeTruthy();
+    expect(
+      checkIsAvailableCoupon(timeCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeTruthy();
   });
 
   it('사용 기간이 만료된 쿠폰 정보와 선택한 상품 목록을 주면 false를 반환한다.', () => {
@@ -83,7 +100,9 @@ describe('쿠폰 사용 가능 여부 확인 유틸 함수 테스트', () => {
       .setSystemTime(
         new Date(2025, wrongTime.monthIndex, wrongTime.day, rightTime.hour, rightTime.minute)
       );
-    expect(checkIsAvailableCoupon(dateCoupon as Coupon, canUseCouponCartItems)).toBeFalsy();
+    expect(
+      checkIsAvailableCoupon(dateCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeFalsy();
   });
 
   it('사용 시간이 만료된 쿠폰 정보와 선택한 상품 목록을 주면 false를 반환한다.', () => {
@@ -92,10 +111,27 @@ describe('쿠폰 사용 가능 여부 확인 유틸 함수 테스트', () => {
       .setSystemTime(
         new Date(2025, rightTime.monthIndex, rightTime.day, wrongTime.hour, wrongTime.minute)
       );
-    expect(checkIsAvailableCoupon(timeCoupon as Coupon, canUseCouponCartItems)).toBeFalsy();
+    expect(
+      checkIsAvailableCoupon(timeCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeFalsy();
   });
 
   it('쿠폰 정보와 최소 금액을 충족하지 못한 상품 목록을 주면 false를 반환한다.', () => {
-    expect(checkIsAvailableCoupon(minimumCoupon as Coupon, canNotUseCouponCartItems)).toBeFalsy();
+    expect(
+      checkIsAvailableCoupon(minimumCoupon as Coupon, canNotUseCouponCartItems, deliveryPrice)
+    ).toBeFalsy();
+  });
+
+  it('bogo 타입의 쿠폰을 사용할 때 상품의 개수가 적으면 false를 반환한다.', () => {
+    expect(
+      checkIsAvailableCoupon(bogoCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeFalsy();
+  });
+
+  it('freeShipping 타입의 쿠폰을 사용할 때 배송비가 0원이면 false를 반환한다.', () => {
+    const deliveryPrice = 0;
+    expect(
+      checkIsAvailableCoupon(dateCoupon as Coupon, canUseCouponCartItems, deliveryPrice)
+    ).toBeFalsy();
   });
 });

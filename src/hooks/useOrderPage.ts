@@ -26,7 +26,7 @@ const useOrderPage = () => {
 
   useEffect(() => {
     initCheckedCouponIds(
-      getAvailableCoupons(coupons, checkedCartItems),
+      getAvailableCoupons(coupons, checkedCartItems, deliveryPrice),
       checkedCartItems,
       deliveryPrice,
       MAX_COUPON_AMOUNT

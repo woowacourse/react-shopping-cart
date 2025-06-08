@@ -4,13 +4,17 @@ import { useCouponContext } from '../contexts/CouponContext';
 import { useToastContext } from '../contexts/ToastContext';
 import { getAvailableCoupons, getCheckedItems } from '../utils';
 
-const useCouponActions = (id: number) => {
+const useCouponActions = (id: number, deliveryPrice: number) => {
   const { cartItems, checkedCartIds } = useCartItemsContext();
   const { coupons, checkedCouponIds, addCheckedCouponIds, removeCheckedCouponIds } =
     useCouponContext();
   const { showToast } = useToastContext();
 
-  const isEnable = getAvailableCoupons(coupons, getCheckedItems(cartItems, checkedCartIds))
+  const isEnable = getAvailableCoupons(
+    coupons,
+    getCheckedItems(cartItems, checkedCartIds),
+    deliveryPrice
+  )
     .map((item) => item.id)
     .includes(id);
 

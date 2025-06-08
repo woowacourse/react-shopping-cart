@@ -7,10 +7,10 @@ import { Coupon } from '../../src/types';
 
 describe('선택된 쿠폰 요소 ID 상태 관리 훅 테스트', () => {
   jest.useFakeTimers().setSystemTime(new Date(2025, 6, 7, 6, 0));
-  const availableCoupons = mockCoupons.filter((coupon) =>
-    checkIsAvailableCoupon(coupon as Coupon, mockCartItems)
-  ) as Coupon[];
   const deliveryPrice = 3000;
+  const availableCoupons = mockCoupons.filter((coupon) =>
+    checkIsAvailableCoupon(coupon as Coupon, mockCartItems, deliveryPrice)
+  ) as Coupon[];
   const couponAmount = 2;
 
   it('훅을 불러오면 현재 적용 가능한 조합 중 가장 높은 할인율의 쿠폰이 선택된다.', async () => {

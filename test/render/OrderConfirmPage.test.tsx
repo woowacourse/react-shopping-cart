@@ -39,13 +39,14 @@ describe('OrderConfirmPage 테스트', () => {
   });
 
   it('결제 확인 페이지에선 주문한 상품의 총 결제 금액이 표시된다.', async () => {
+    const deliveryPrice = 0;
     const maxDiscountCoupons = getMaxDiscountCoupons(
       mockCartItems,
-      getAvailableCoupons(mockCoupons as Coupon[], mockCartItems),
+      getAvailableCoupons(mockCoupons as Coupon[], mockCartItems, deliveryPrice),
       0,
       2
     );
-    const discountPrice = applyCouponsToItems(mockCartItems, 0, maxDiscountCoupons);
+    const discountPrice = applyCouponsToItems(mockCartItems, deliveryPrice, maxDiscountCoupons);
 
     const price = getOrderPrice(mockCartItems) - discountPrice;
 

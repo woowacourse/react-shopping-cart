@@ -6,11 +6,12 @@ import { useToastContext } from '../contexts/ToastContext';
 
 interface CouponCardProps {
   coupon: Coupon;
+  deliveryPrice: number;
 }
 
-const CouponCard = ({ coupon }: CouponCardProps) => {
+const CouponCard = ({ coupon, deliveryPrice }: CouponCardProps) => {
   const [year, month, day] = coupon.expirationDate.split('-').map(Number);
-  const { isChecked, isEnable, handleCheckBoxClick } = useCouponActions(coupon.id);
+  const { isChecked, isEnable, handleCheckBoxClick } = useCouponActions(coupon.id, deliveryPrice);
   const { showToast } = useToastContext();
 
   return (
