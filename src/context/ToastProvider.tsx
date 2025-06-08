@@ -4,6 +4,7 @@ import {
   ReactNode,
   useCallback,
   useContext,
+  useMemo,
 } from "react";
 import ToastMessage from "../components/common/toast/ToastMessage";
 
@@ -36,8 +37,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
 
+  const contextValue = useMemo(
+    () => ({
+      showToast,
+      removeToast,
+    }),
+    [showToast, removeToast]
+  );
+
   return (
-    <ToastContext.Provider value={{ showToast, removeToast }}>
+    <ToastContext.Provider value={contextValue}>
       {children}
       <div
         style={{
