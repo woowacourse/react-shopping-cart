@@ -10,22 +10,20 @@ import * as S from "./OrderConfirmSection.styles";
 import { isEqual } from "@/utils";
 
 export default function OrderConfirmSection() {
+  const [isOpen, setIsOpen] = useState(false);
   const { selectedItemIds, isFar, setIsFar, selectedCouponIds, setSelectedCouponIds } = useShoppingCartContext();
   const { data: coupons } = useCouponQuery();
-  const [isOpen, setIsOpen] = useState(false);
-
   const { data: cartItems } = useCartItemQuery();
+
   const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
-
-  const cartItemService = new CartItemService(selectedCartItems);
-  const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
-  const orderAmount = cartItemService.calculateOrderAmount();
-
-  const typeCount = cartItemService.calculateTypeCount();
-  const totalQuantity = cartItemService.calculateTotalQuantity();
-
   const selectedCoupons = coupons.filter((coupon) => selectedCouponIds.includes(coupon.id));
 
+  const cartItemService = new CartItemService(selectedCartItems);
+
+  const deliveryFee = cartItemService.calculateDeliveryFee(isFar);
+  const orderAmount = cartItemService.calculateOrderAmount();
+  const typeCount = cartItemService.calculateTypeCount();
+  const totalQuantity = cartItemService.calculateTotalQuantity();
   const totalDiscountAmount = CouponService.calculateTotalDiscountAmount(selectedCartItems, selectedCoupons, isFar);
 
   const totalPaymentAmount = orderAmount - totalDiscountAmount + deliveryFee;

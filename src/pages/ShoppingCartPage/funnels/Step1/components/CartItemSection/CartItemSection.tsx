@@ -9,15 +9,15 @@ import * as S from "./CartItemSection.styles";
 import { RenderIfItemsExist } from "@/modules";
 
 export default function CartItemSection() {
-  const { data: cartItems } = useCartItemQuery();
   const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
+  const { data: cartItems } = useCartItemQuery();
 
   const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
 
   const cartItemService = new CartItemService(cartItems.content);
-  const typeCount = cartItemService.calculateTypeCount();
-
   const selectedCartItemService = new CartItemService(selectedCartItems);
+
+  const typeCount = cartItemService.calculateTypeCount();
   const orderPrice = selectedCartItemService.calculateOrderAmount();
   const deliveryFee = selectedCartItemService.calculateDeliveryFee(false);
   const orderAmount = selectedCartItemService.calculateOrderAmountWithDeliveryFee(false);

@@ -15,13 +15,22 @@ interface CouponModalProps {
 }
 
 export default function CouponModal({ closeModal }: CouponModalProps) {
+  const { selectedItemIds, selectedCouponIds, setSelectedCouponIds, isFar } = useShoppingCartContext();
+  const { showToast } = useToast();
   const { data: coupons } = useCouponQuery();
   const { data: cartItems } = useCartItemQuery();
-  const { selectedItemIds } = useShoppingCartContext();
-  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
-  const { showToast } = useToast();
 
-  const { selectedCouponIds, setSelectedCouponIds, isFar } = useShoppingCartContext();
+  const selectedCartItems = cartItems.content.filter((item) => selectedItemIds.includes(item.id));
+  const selectedCoupons = coupons.filter((coupon) => selectedCouponIds.includes(coupon.id));
+
+  const totalDiscountAmount = selectedCoupons.reduce((acc, coupon) => {
+    const couponService = new CouponService(selectedCartItems);
+    return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
+  }, 0);
+  const availableCoupons = useMemo(
+    () => coupons.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
+    [coupons, selectedCartItems],
+  );
 
   const handleSelectCoupon = (couponId: number) => {
     setSelectedCouponIds((prev) => {
@@ -37,18 +46,6 @@ export default function CouponModal({ closeModal }: CouponModalProps) {
       return isSelected ? prev.filter((id) => id !== couponId) : [...prev, couponId];
     });
   };
-
-  const selectedCoupons = coupons.filter((coupon) => selectedCouponIds.includes(coupon.id));
-
-  const totalDiscountAmount = selectedCoupons.reduce((acc, coupon) => {
-    const couponService = new CouponService(selectedCartItems);
-    return acc + couponService.calculateDiscountPrice(coupon, isFar) || 0;
-  }, 0);
-
-  const availableCoupons = useMemo(
-    () => coupons.filter((coupon) => new CouponService(selectedCartItems).canAdjustCoupon(coupon)),
-    [coupons, selectedCartItems],
-  );
 
   return (
     <Modal isBackdropClose>
