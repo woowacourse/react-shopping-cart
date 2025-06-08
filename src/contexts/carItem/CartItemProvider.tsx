@@ -13,9 +13,6 @@ interface CartItemContext {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
-  // selectedItemIds: Set<number>;
-  // toggleSelectedItemId: (id: number) => void;
-  // replaceSelectedItemIds: (ids: number[]) => void;
   handleLoadingStatus: (status: LoadingStatus) => void;
 }
 
@@ -35,16 +32,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     errorMessage,
     handleLoadingStatus,
   } = useCartItems();
-  // const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
-  //   useSelected({ enableStorage: true, storageKey: "selectedCartItemIds" });
-
-  // const orderPrice = cartItems.reduce((acc, cartItem) => {
-  //   if (selectedItemIds.has(cartItem.id)) {
-  //     return acc + cartItem.product.price * cartItem.quantity;
-  //   }
-  //   return acc;
-  // }, 0);
-
   const orderPrice = 0;
 
   const shippingFee = orderPrice >= FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
@@ -63,9 +50,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         orderPrice,
         shippingFee,
         totalPrice,
-        // selectedItemIds,
-        // toggleSelectedItemId,
-        // replaceSelectedItemIds,
         handleLoadingStatus,
       }}
     >
