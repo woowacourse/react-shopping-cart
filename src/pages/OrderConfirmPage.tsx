@@ -21,7 +21,7 @@ const OrderConfirmPage = () => {
   const { selectedItemIds } = useSelectedCartItemContext();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { orderPrice } = state;
+  const { orderPrice = 0 } = state;
 
   const [isOpen, setIsOpen] = useState(false);
   const [isRemoteArea, setIsRemoteArea] = useState<boolean>(false);

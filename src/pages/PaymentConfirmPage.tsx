@@ -9,7 +9,7 @@ const PaymentConfirmPage = () => {
   const { selectedItemIds } = useSelectedCartItemContext();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { totalPrice } = state;
+  const { totalPrice = 0 } = state;
 
   return (
     <>
