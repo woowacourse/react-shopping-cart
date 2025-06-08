@@ -4,10 +4,12 @@ import getOrderPrice from '../../utils/getOrderPrice';
 import PriceRow from './PriceRow';
 import { useCheckCartIdsContext } from '../../contexts/CheckedCartIds/CheckedCartIdsContext';
 import calculateDeliveryPrice from '../../utils/calculateDeliveryPrice';
+import useCoupons from '../../hooks/useCoupons';
 
 const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds } = useCheckCartIdsContext();
+  const { couponDiscount } = useCoupons();
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
@@ -21,6 +23,13 @@ const PriceSection = () => {
           price={orderPrice}
           data-testid="orderPrice"
         />
+        {couponDiscount > 0 && (
+          <PriceRow
+            title="쿠폰 할인 금액"
+            price={-couponDiscount}
+            data-testid="couponDiscount"
+          />
+        )}
         <PriceRow
           title="배송비"
           price={deliveryPrice}

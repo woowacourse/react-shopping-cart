@@ -4,6 +4,7 @@ import PageProvider from './contexts/Page/PageProvider';
 import PageController from './pages/PageController';
 import { ErrorToastProvider } from './contexts/ErrorToast/ErrorToastProvider';
 import CheckCartIdsProvider from './contexts/CheckedCartIds/CheckedCartIdsProvider';
+import { ShippingProvider } from './contexts/Shipping/ShippingProvider';
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
         <PageProvider>
           <CartItemsProvider>
             <CheckCartIdsProvider>
-              <PageController />
+              <ShippingProvider>
+                <PageController />
+              </ShippingProvider>
             </CheckCartIdsProvider>
           </CartItemsProvider>
         </PageProvider>
