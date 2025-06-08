@@ -8,6 +8,7 @@ import {
   isCouponAvailable,
   isFreeShippingAvailable,
 } from "../utils/coupons/isCouponAvailable";
+import getBuyXGetYDiscount from "../utils/coupons/getBuyXGetYDiscount";
 
 type CouponWithAvailability = Coupon & {
   isAvailable: boolean;
@@ -74,31 +75,6 @@ const useCoupons = () => {
     const secondDiscount = getDiscountAmount(coupon2, afterFirst);
 
     return firstDiscount + secondDiscount;
-  };
-
-  const getBuyXGetYDiscount = (
-    coupon: Coupon,
-    cartItems: CartItemCheckType[]
-  ) => {
-    const { buyQuantity, getQuantity } = coupon;
-
-    if (typeof buyQuantity !== "number" || typeof getQuantity !== "number") {
-      return 0;
-    }
-
-    const eligibleItems = cartItems.filter(
-      (item) => item.quantity === buyQuantity + getQuantity
-    );
-
-    if (eligibleItems.length === 0) return 0;
-
-    const mostExpensiveItem = eligibleItems.reduce((prev, curr) =>
-      curr.price > prev.price ? curr : prev
-    );
-
-    const discount = getQuantity * mostExpensiveItem.price;
-
-    return discount;
   };
 
   const getBestCouponCombination = (coupons: Coupon[], orderPrice: number) => {
