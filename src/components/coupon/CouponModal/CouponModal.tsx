@@ -10,9 +10,13 @@ import * as S from "./CouponModal.styles";
 import Close from "/close.svg";
 import InfoIcon from "/info.svg";
 
-const CouponModal = () => {
+interface Props {
+  isRemoteArea: boolean;
+}
+
+const CouponModal = ({ isRemoteArea }: Props) => {
   const { closeModal } = useModal();
-  const { orderPrice, totalDiscount } = useOrderSummary();
+  const { orderPrice, totalDiscount } = useOrderSummary({ isRemoteArea });
   const { validateCoupon } = useCouponValidation({ orderPrice });
   const {
     coupons,
