@@ -1,24 +1,22 @@
-import { useState, useEffect } from "react";
-import { CartItemContent, HandleCartItemChangeType } from "../../../types/cartItem";
-import { useCartApi } from "./useCartApi";
-import { storageHandler } from "../../../utils/storageHandler";
+import { CartItemContent } from "../../../types/cartItem";
+import { usePersistedState } from "../../../hooks/usePersistedState";
 import { STORAGE_KEYS } from "../../../constants";
+import { useEffect } from "react";
 
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
-const storageKey = STORAGE_KEYS.CART_CHECKED_IDS;
-
 export const useCartSelection = (cartItems: CartItemContent[]) => {
-  const [checkedIds, setCheckedIds] = useState<number[]>(() => {
-    const savedIds = storageHandler.getItem(storageKey);
-    const validIds = cartItems.map((item) => item.id);
-
-    return savedIds.filter((id: number) => validIds.includes(id));
-  });
+  const initialCheckedIds = cartItems.map((item) => item.id);
+  const [checkedIds, setCheckedIds] = usePersistedState<number[]>(STORAGE_KEYS.CART_CHECKED_IDS, initialCheckedIds);
 
   useEffect(() => {
-    storageHandler.setItem<number[]>(storageKey, checkedIds);
-  }, [checkedIds]);
+    const validIds = cartItems.map((item) => item.id);
+    const filteredIds = checkedIds.filter((id) => validIds.includes(id));
+
+    if (filteredIds.length !== checkedIds.length) {
+      setCheckedIds(filteredIds);
+    }
+  }, [cartItems, checkedIds, setCheckedIds]);
 
   const handleCheckChange: HandleCheckChangeType = ({ action, id }) => {
     if (action === "all") {
@@ -37,15 +35,5 @@ export const useCartSelection = (cartItems: CartItemContent[]) => {
     }
   };
 
-  const { patchCartItem, deleteCartItem } = useCartApi();
-
-  const handleCartItemChange: HandleCartItemChangeType = ({ action, id, quantity }) => {
-    if (action === "patch") patchCartItem({ id, quantity: quantity! });
-    if (action === "delete") {
-      deleteCartItem({ id });
-      setCheckedIds((prev) => prev.filter((checkedId) => checkedId !== id));
-    }
-  };
-
-  return { checkedIds, handleCartItemChange, handleCheckChange };
+  return { checkedIds, handleCheckChange };
 };

@@ -9,13 +9,13 @@ import { useCartSelection } from "./hooks/useCartSelection";
 
 const CartPage = () => {
   const { cartItems, isLoading } = useCartItems();
-  const { checkedIds } = useCartSelection(cartItems);
+  const { checkedIds, handleCheckChange } = useCartSelection(cartItems);
   const navigate = useNavigate();
   const handleNavigate = () => navigate("/order-confirm");
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>
-      <CartCardListSection />
+      <CartCardListSection checkedIds={checkedIds} handleCheckChange={handleCheckChange} />
       <S.ButtonWrap>
         <Button
           variant={cartItems.length > 0 && checkedIds.length > 0 ? "primary" : "disabled"}

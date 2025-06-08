@@ -1,11 +1,9 @@
 import { PaymentPrice } from "../../../../components/PaymentPrice";
 import { useCartItems } from "../../contexts/CartItemsContext";
 import { calculatePrices } from "../../utils/cartCalculations";
-import { CartCardListSectionProps } from "../CartCardList";
 
-function PaymentPriceList({ selectionState }: { selectionState: CartCardListSectionProps }) {
+function PaymentPriceList({ checkedIds }: { checkedIds: number[] }) {
   const { cartItems } = useCartItems();
-  const { checkedIds } = selectionState;
   const { orderPrice, deliveryPrice, totalPrice } = calculatePrices(cartItems, checkedIds);
   return (
     <PaymentPrice gap={12}>

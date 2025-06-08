@@ -4,24 +4,16 @@ import CheckBox from "../../../../components/common/CheckBox";
 import QuantityRegulator from "../../../../components/QuantityRegulator";
 import CartCard from "../../../../components/CartCard";
 import { useCartItems } from "../../contexts/CartItemsContext";
+import { useCartActions } from "../../hooks/useCartActions";
 
 export interface CartCardListSectionProps {
   checkedIds: number[];
   handleCheckChange: ({ action, id }: { action: "all" | "each"; id?: number }) => void;
-  handleCartItemChange: ({
-    action,
-    id,
-    quantity,
-  }: {
-    action: "patch" | "delete";
-    id: number;
-    quantity?: number;
-  }) => void;
 }
 
-const CartCardList = ({ selectionState }: { selectionState: CartCardListSectionProps }) => {
+const CartCardList = ({ checkedIds, handleCheckChange }: CartCardListSectionProps) => {
   const { cartItems } = useCartItems();
-  const { checkedIds, handleCartItemChange, handleCheckChange } = selectionState;
+  const { handleCartItemChange } = useCartActions();
 
   return (
     <S.Container>

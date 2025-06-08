@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
 import { CartItemContent } from "../../../types/cartItem";
-import { useCartApi } from "../hooks/useCartApi";
+import { useCartApi } from "../../../hooks/useCartApi";
 
 interface CartItemsContextValue {
   cartItems: CartItemContent[];
