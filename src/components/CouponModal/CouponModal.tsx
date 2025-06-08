@@ -12,6 +12,7 @@ import { formatDate } from "../../utils/formatDate";
 import { formatTimeRange } from "../../utils/formatTimeRange";
 import { useCouponContext } from "../../contexts/CouponContext";
 import { useCouponValidation } from "../../hooks/useCouponValidation";
+import { useCouponDiscount } from "../../hooks/useCouponDiscount";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
     useCouponContext();
   const { isCouponValid } = useCouponValidation();
+  const { couponDiscount } = useCouponDiscount();
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
   useEffect(() => {
@@ -31,6 +33,12 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       setTempSelectedCoupons([...selectedCoupons]);
     }
   }, [isOpen, selectedCoupons]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setAppliedCoupons(tempSelectedCoupons);
+    }
+  }, [tempSelectedCoupons, isOpen, setAppliedCoupons]);
 
   const handleCouponToggle = (coupon: Coupon) => {
     if (!isCouponValid(coupon)) {
@@ -53,6 +61,11 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const handleConfirm = () => {
     setSelectedCoupons(tempSelectedCoupons);
     setAppliedCoupons(tempSelectedCoupons);
+    onClose();
+  };
+
+  const handleClose = () => {
+    setAppliedCoupons(selectedCoupons);
     onClose();
   };
 
@@ -126,11 +139,11 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       size="small"
       title="쿠폰 선택"
       content={modalContent}
-      onClose={onClose}
+      onClose={handleClose}
       buttonElements={
         <FullWidthButton
           variant="dark"
-          text={`총 5,000원 할인 쿠폰 사용하기`} // TODO: 쿠폰 할인 금액 계산 로직 추가
+          text={`총 ${couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}
           onClick={handleConfirm}
         />
       }
