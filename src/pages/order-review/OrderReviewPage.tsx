@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { Flex, Header } from '../../components/common';
 import BackArrowButton from '../../components/common/BackArrowButton';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
-import { getCouponCombinations } from './hooks/getCouponCombinations';
 import { useAvailableCoupons } from './hooks/useAvailableCoupons';
 import { useBestCouponCombination } from './hooks/useBestCouponCombination';
 import { useModal } from './hooks/useModal';
@@ -18,15 +17,16 @@ import LabelCouponPrice from './order-coupon/LabelCouponPrice';
 import OrderItemList from './order-coupon/OrderItemList';
 import DeliveryRegionSection from './order-delivery/DeliveryRegionSection';
 import OrderPageInfo from './OrderPageInfo';
+import { getAllCouponCombinationIds } from './utils/getAllCouponCombinationIds';
 
 const OrderReviewPage = () => {
+  const { typeCount, totalCount, isDisabled } = useOrderInfo();
+  const { coupons, isLoading } = useCoupon();
   const {
     isJejuOrRemoteArea,
     actualShippingFee,
     handleJejuOrRemoteAreaToggle,
   } = useShipping();
-  const { typeCount, totalCount, isDisabled } = useOrderInfo();
-  const { coupons, isLoading } = useCoupon();
 
   const { availableCoupons } = useAvailableCoupons(
     coupons ?? [],
@@ -36,21 +36,6 @@ const OrderReviewPage = () => {
   const [allCouponCombinationIds, setAllCouponCombinationIds] = useState<
     number[][]
   >([]);
-  // 2. availableCoupons 값이 바뀌면 갱신
-  useEffect(() => {
-    setAllCouponCombinationIds(
-      getCouponCombinations(availableCoupons).allCouponCombinationIds
-    );
-  }, [availableCoupons]);
-
-  const handleUpdateCouponCombinations = (coupons: CouponContent[]) => {
-    const combinations = getCouponCombinations(coupons).allCouponCombinationIds;
-    setAllCouponCombinationIds(combinations);
-  };
-
-  const { showCouponModal, handleShowCouponModal } = useModal();
-  const { handleBackClick, handleCheckout } = useNavigation(isDisabled);
-
   const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
 
   const { bestCouponIds, totalDiscount } = useBestCouponCombination(
@@ -59,14 +44,27 @@ const OrderReviewPage = () => {
     isJejuOrRemoteArea
   );
 
+  const { showCouponModal, handleShowCouponModal } = useModal();
+  const { handleBackClick, handleCheckout } = useNavigation(isDisabled);
+
+  // 2. availableCoupons 값이 바뀌면 갱신
+  useEffect(() => {
+    setAllCouponCombinationIds(getAllCouponCombinationIds(availableCoupons));
+  }, [availableCoupons]);
+
   useEffect(() => {
     setSelectedCouponIds(bestCouponIds);
   }, [bestCouponIds]);
 
+  const handleUpdateCouponCombinations = (coupons: CouponContent[]) => {
+    const combinations = getAllCouponCombinationIds(coupons);
+    setAllCouponCombinationIds(combinations);
+  };
+
   const handleSelectCoupons = (newCoupons: number[]) => {
     setSelectedCouponIds(newCoupons);
 
-    // 🔥 ID로 쿠폰 객체 찾아서 조합 업데이트
+    // ID로 쿠폰 객체 찾아서 조합 업데이트
     if (coupons) {
       const selectedCouponObjects = coupons.filter((coupon) =>
         newCoupons.includes(coupon.id)
@@ -101,6 +99,7 @@ const OrderReviewPage = () => {
           bestCouponIds={selectedCouponIds} // 자동 계산된 쿠폰 ID들 추가
           totalDiscount={totalDiscount}
           handleApply={handleSelectCoupons}
+          isJejuOrRemoteArea={isJejuOrRemoteArea}
         />
       </Container>
       <CheckoutButton
