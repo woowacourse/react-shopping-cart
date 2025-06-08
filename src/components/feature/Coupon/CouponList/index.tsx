@@ -43,30 +43,38 @@ const CouponList = ({
     const coupon = coupons?.find((c) => c.id === id);
     if (!coupon) return false;
 
-    if (!isValidDate(coupon?.expirationDate)) return false;
+    if (!isValidDate(coupon.expirationDate)) return false;
 
-    if (
-      coupon.discountType === "freeShipping" &&
-      totalPrice >= 100_000 &&
-      !isRemoteArea
-    )
-      return false;
+    switch (coupon.discountType) {
+      case "freeShipping": {
+        if (totalPrice >= 100_000 && !isRemoteArea) return false;
+        return true;
+      }
 
-    if (coupon.minimumAmount) return Number(coupon.minimumAmount) <= totalPrice;
+      case "buyXgetY": {
+        if (!coupon.buyQuantity) return false;
 
-    if (coupon.buyQuantity) {
-      const selectedCartItems = cartItems.filter((item: CartProduct) =>
-        selectedCartIds.includes(item.id)
-      );
+        const selectedCartItems = cartItems.filter((item: CartProduct) =>
+          selectedCartIds.includes(item.id)
+        );
 
-      return selectedCartItems.some(
-        (item: CartProduct) => item.quantity > (coupon.buyQuantity ?? 0)
-      );
+        return selectedCartItems.some(
+          (item: CartProduct) => item.quantity > coupon.buyQuantity!
+        );
+      }
+
+      default: {
+        if (coupon.minimumAmount && Number(coupon.minimumAmount) > totalPrice) {
+          return false;
+        }
+
+        if (coupon.availableTime && !isValidTime(coupon.availableTime)) {
+          return false;
+        }
+
+        return true;
+      }
     }
-
-    if (coupon.availableTime) return isValidTime(coupon.availableTime);
-
-    return true;
   };
 
   const isValidDate = (expirationDate: string): boolean => {
@@ -90,33 +98,37 @@ const CouponList = ({
   };
 
   const calculateDiscount = (coupon: CouponResponse) => {
-    if (coupon.discountType === "fixed") return coupon.discount ?? 0;
+    switch (coupon.discountType) {
+      case "fixed":
+        return coupon.discount ?? 0;
 
-    if (coupon.discountType === "buyXgetY") {
-      const selectedCartItems = cartItems.filter((item: CartProduct) =>
-        selectedCartIds.includes(item.id)
-      );
+      case "buyXgetY": {
+        const selectedCartItems = cartItems.filter((item: CartProduct) =>
+          selectedCartIds.includes(item.id)
+        );
 
-      const eligibleItems = selectedCartItems.filter(
-        (item: CartProduct) => item.quantity > (coupon.buyQuantity ?? 0)
-      );
+        const eligibleItems = selectedCartItems.filter(
+          (item: CartProduct) => item.quantity > (coupon.buyQuantity ?? 0)
+        );
 
-      eligibleItems.sort(
-        (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
-      );
+        eligibleItems.sort(
+          (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
+        );
 
-      return eligibleItems[0].product.price;
+        return eligibleItems[0]?.product.price ?? 0;
+      }
+
+      case "freeShipping": {
+        const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
+        return isRemoteArea ? 3000 + deliveryPrice : deliveryPrice;
+      }
+
+      case "percentage":
+        return totalPrice * 0.3;
+
+      default:
+        return 0;
     }
-
-    if (coupon.discountType === "freeShipping") {
-      const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
-      if (isRemoteArea) return 3000 + deliveryPrice;
-      return deliveryPrice;
-    }
-
-    if (coupon.discountType === "percentage") return totalPrice * 0.3;
-
-    return 0;
   };
 
   const getTotalDiscount = () => {
