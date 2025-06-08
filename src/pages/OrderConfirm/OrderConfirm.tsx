@@ -52,6 +52,11 @@ export function OrderConfirm() {
 
     const copy = [...selectedCouponIds];
     if (index === -1) {
+      if (selectedCouponIds.length === 2) {
+        alert('쿠폰은 2개까지만 선택 가능합니다.');
+        return;
+      }
+
       copy.push(id);
       setSelectedCouponIds(copy);
     } else {
