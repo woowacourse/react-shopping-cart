@@ -13,6 +13,7 @@ import Text from '../../../components/@common/Text/Text';
 
 import { Logo } from '../../../assets';
 import { cartPrice } from '../../../utils/cartPrice/cartPrice';
+import { CartItemProps } from '../../../types/cartItem';
 
 import useCartList from '../../../hooks/useCartList';
 import useSelect from '../../../hooks/useSelect';
@@ -34,7 +35,7 @@ function CartPage() {
     handleSelectAllItems,
   } = useSelect(cartList);
 
-  const totalPrice = cartPrice.totalPrice(cartList, selectedItems);
+  const selectedCartList = getSelectedCartList(cartList, selectedItems);
   const totalPrice = cartPrice.totalPrice(selectedCartList);
 
   return (
@@ -74,7 +75,7 @@ function CartPage() {
         )}
       </ContainerLayout>
       <OrderButton
-        selectedCartData={cartList.filter((item) => selectedItems.has(item.id))}
+        selectedCartData={selectedCartList}
         totalPrice={totalPrice}
       />
     </>
@@ -82,3 +83,10 @@ function CartPage() {
 }
 
 export default CartPage;
+
+function getSelectedCartList(
+  cartList: CartItemProps[],
+  selectedItems: Set<number>
+) {
+  return cartList.filter((item) => selectedItems.has(item.id));
+}
