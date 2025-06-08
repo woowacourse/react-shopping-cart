@@ -16,7 +16,6 @@ function DeliveryInfo() {
     useOrderListContext(cartListData);
 
   const { totalCartPrice, shippingFee, totalPrice } = useOrderCalculation(
-    cartListData,
     selectedCartItems,
     isIsland,
     discount
@@ -32,7 +31,7 @@ function DeliveryInfo() {
         totalCartPrice={totalCartPrice}
         shippingFee={shippingFee}
         totalPrice={totalPrice}
-        couponDiscount={discount}
+        couponDiscount={-discount}
       />
     </Container>
   );
