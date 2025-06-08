@@ -125,4 +125,22 @@ describe('주문 확인 페이지를 렌더링 한다.', () => {
     expect(screen.getByText('105,000원')).toBeInTheDocument();
     expect(screen.getByText('0원')).toBeInTheDocument();
   });
+
+  it('장바구니에 2개 구매 시 1개 무료 쿠폰이 적용된다.', async () => {
+    // Given: 주문 결제 페이지를 렌더링한다.
+    const cartItems = [createCartItem(1, '상품 1', 15000, 3)];
+
+    await act(async () => {
+      renderOrderCheckoutPage(cartItems);
+    });
+
+    const couponButton = screen.getByText('쿠폰 적용');
+    await user.click(couponButton);
+
+    expectCouponState('2개 구매 시 1개 무료 쿠폰');
+
+    expect(screen.getByText('45,000원')).toBeInTheDocument();
+    expect(screen.getByText('3,000원')).toBeInTheDocument();
+    expect(screen.getByText('33,000원')).toBeInTheDocument();
+  });
 });
