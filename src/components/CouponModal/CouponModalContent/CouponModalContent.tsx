@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   title,
   imgLayout,
@@ -14,21 +15,30 @@ import { CouponItem } from '../CouponItem/CouponItem';
 import useFetchCoupons from '../../../hooks/useFetchCoupons';
 
 interface CouponModalContentProps {
-  onChange: (id: string) => void;
-  selectedCouponIds: string[];
   handleUseClick: () => void;
   handleClose: () => void;
 }
 
 export function CouponModalContent({
-  onChange,
-  selectedCouponIds,
   handleUseClick,
   handleClose,
 }: CouponModalContentProps) {
-  const totalPrice = 6000;
+  const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
 
+  const totalPrice = 6000;
   const { coupons } = useFetchCoupons();
+
+  const handleCouponIdsChange = (id: string) => {
+    const index = selectedCouponIds.findIndex((e) => e === id);
+
+    if (index === -1) {
+      setSelectedCouponIds((prev) => [...prev, id]);
+    } else {
+      const copy = [...selectedCouponIds];
+      copy.splice(index, 1);
+      setSelectedCouponIds(copy);
+    }
+  };
 
   return (
     <>
@@ -46,7 +56,7 @@ export function CouponModalContent({
         {coupons.map((coupon) => (
           <CouponItem
             couponData={coupon}
-            onChange={onChange}
+            onChange={handleCouponIdsChange}
             isChecked={selectedCouponIds.includes(coupon.id.toString())}
           />
         ))}

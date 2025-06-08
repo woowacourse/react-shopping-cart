@@ -33,7 +33,6 @@ export function OrderConfirm() {
 
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
-  const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const selectedCartItemIds = getItem<string[]>(SELECTED_CART_ITEM_IDS, []);
@@ -48,18 +47,6 @@ export function OrderConfirm() {
 
   const handleBackClick = () => {
     navigate('/');
-  };
-
-  const handleCouponIdsChange = (id: string) => {
-    const index = selectedCouponIds.findIndex((e) => e === id);
-
-    if (index === -1) {
-      setSelectedCouponIds((prev) => [...prev, id]);
-    } else {
-      const copy = [...selectedCouponIds];
-      copy.splice(index, 1);
-      setSelectedCouponIds(copy);
-    }
   };
 
   const handleClose = () => {
@@ -136,8 +123,6 @@ export function OrderConfirm() {
         <ModalOverlay setOpen={setOpen} />
         <ModalContent>
           <CouponModalContent
-            onChange={handleCouponIdsChange}
-            selectedCouponIds={selectedCouponIds}
             handleClose={handleClose}
             handleUseClick={handleUseClick}
           />
