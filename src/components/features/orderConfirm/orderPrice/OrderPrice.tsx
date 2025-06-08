@@ -17,9 +17,12 @@ interface OrderPriceProps {
 }
 
 function OrderPrice({ order }: OrderPriceProps) {
-  const { totalDiscount } = useCouponContext();
-  const { selected, toggle, extraDeliveryFee, totalPrice } =
-    usePaymentCalculation(order.price, totalDiscount);
+  const { isIslandAreaSelected, setIsIslandAreaSelected, totalDiscount } =
+    useCouponContext();
+  const { extraDeliveryFee, totalPrice } = usePaymentCalculation(
+    order.price,
+    totalDiscount
+  );
 
   const navigate = useNavigate();
 
@@ -37,7 +40,10 @@ function OrderPrice({ order }: OrderPriceProps) {
     <S.Container>
       <S.DeliveryTitle>배송 정보</S.DeliveryTitle>
       <S.DeliveryCheckBox>
-        <SelectBox selected={selected} onClick={toggle} />
+        <SelectBox
+          selected={isIslandAreaSelected}
+          onClick={() => setIsIslandAreaSelected(!isIslandAreaSelected)}
+        />
         <S.DeliveryText>제주도 및 도서 산간 지역</S.DeliveryText>
       </S.DeliveryCheckBox>
       <S.Description>

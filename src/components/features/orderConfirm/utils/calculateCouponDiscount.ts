@@ -4,7 +4,8 @@ import { isWithinTimeRange } from './isWithInTimeRange';
 
 export function calculateCouponDiscount(
   coupon: Coupon,
-  products: CartItemType[]
+  products: CartItemType[],
+  isIslandAreaSelected: boolean
 ): number {
   const cartTotal = products.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
@@ -36,7 +37,10 @@ export function calculateCouponDiscount(
       return 0;
     }
     case 'freeShipping': {
-      return cartTotal >= (coupon.minimumAmount ?? 0) ? 3000 : 0;
+      if (cartTotal >= (coupon.minimumAmount ?? 0)) {
+        return isIslandAreaSelected ? 6000 : 3000;
+      }
+      return 0;
     }
     default: {
       return 0;

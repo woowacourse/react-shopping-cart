@@ -25,12 +25,15 @@ interface CouponContextValue {
   couponDiscounts: { coupon: Coupon; discount: number }[];
   totalDiscount: number;
   fetchCoupons: () => Promise<void>;
+  isIslandAreaSelected: boolean;
+  setIsIslandAreaSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CouponContext = createContext<CouponContextValue | null>(null);
 
 export function CouponProvider({ products, children }: CouponProviderProps) {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [isIslandAreaSelected, setIsIslandAreaSelected] = useState(false);
 
   const fetchCoupons = async () => {
     const data = await fetchData<Coupon[]>()('/coupons');
@@ -43,7 +46,7 @@ export function CouponProvider({ products, children }: CouponProviderProps) {
 
   const couponDiscounts: CouponDiscount[] = coupons.map((coupon) => ({
     coupon,
-    discount: calculateCouponDiscount(coupon, products),
+    discount: calculateCouponDiscount(coupon, products, isIslandAreaSelected),
   }));
 
   const bestTwoIds = couponDiscounts
@@ -72,8 +75,17 @@ export function CouponProvider({ products, children }: CouponProviderProps) {
       couponDiscounts,
       totalDiscount,
       fetchCoupons,
+      isIslandAreaSelected,
+      setIsIslandAreaSelected,
     }),
-    [coupons, selected, setSelected, couponDiscounts, totalDiscount]
+    [
+      coupons,
+      selected,
+      setSelected,
+      couponDiscounts,
+      totalDiscount,
+      isIslandAreaSelected,
+    ]
   );
 
   return (
