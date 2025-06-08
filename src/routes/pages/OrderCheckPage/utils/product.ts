@@ -9,6 +9,8 @@ export function getDeliveryFee(totalPrice: number, isFarDelivery: boolean) {
   return totalPrice >= 100000 ? 0 + additionalFee : 3000 + additionalFee;
 }
 
-export function getMoreThanTwoProducts(selectedCartData: CartItemProps[]) {
+export function getProductsWithQuantityThreeOrMore(
+  selectedCartData: CartItemProps[]
+) {
   return selectedCartData.filter((item) => item.quantity >= 3);
 }
