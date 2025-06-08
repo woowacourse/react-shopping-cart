@@ -3,7 +3,7 @@ import { Header } from "@/shared/components/Header/Header.styled";
 import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
 import { isValidOrderConfirmState } from "./validation/isValidOrderConfirmState";
 import { ROUTES } from "@/shared/config/routes";
-import Fallback from "@/shared/components/Fallback";
+import Fallback from "@/shared/components/Fallback/Fallback";
 import OrderConfirmContent from "./OrderConfirmContent/OrderConfirmContent";
 import { getOrderQuantity } from "@/domains/utils/getOrderQuantity";
 

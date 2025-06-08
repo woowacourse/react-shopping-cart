@@ -2,7 +2,7 @@ import * as S from "./PaymentSuccessPage.styled";
 import Header from "@/shared/components/Header/Header";
 import { ROUTES } from "@/shared/config/routes";
 import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
-import Fallback from "@/shared/components/Fallback";
+import Fallback from "@/shared/components/Fallback/Fallback";
 import { isValidPaymentSuccessState } from "./validation/isValidPaymentSuccessState";
 import OrderSummary from "@/domains/components/OrderSummary/OrderSummary";
 import PaymentPrice from "./PaymentPrice/PaymentPrice";

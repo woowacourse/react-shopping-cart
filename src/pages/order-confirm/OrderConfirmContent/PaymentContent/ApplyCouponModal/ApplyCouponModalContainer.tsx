@@ -1,5 +1,5 @@
 import { useGetCoupon } from "@/pages/order-confirm/hooks/useGetCoupon";
-import Fallback from "@/shared/components/Fallback";
+import Fallback from "@/shared/components/Fallback/Fallback";
 import ApplyCouponModal from "./ApplyCouponModal";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 
