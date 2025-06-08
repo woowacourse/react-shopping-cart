@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 
-const OpenCouponModalButton = () => {
-  return <S.Button onClick={() => alert('쿠폰 모달 열기')}>쿠폰 적용</S.Button>;
+type OpenCouponModalButtonProps = {
+  onClick: () => void;
+};
+
+const OpenCouponModalButton = ({ onClick }: OpenCouponModalButtonProps) => {
+  return <S.Button onClick={onClick}>쿠폰 적용</S.Button>;
 };
 
 export default OpenCouponModalButton;
