@@ -1,5 +1,5 @@
-import { CartItemWithSelection } from "../../cart/types/response";
-import { Coupon } from "../types/response";
+import { CartItemWithSelection } from "../../../cart/types/response";
+import { Coupon } from "../../types/response";
 
 export const calculateBuyXGetYDiscount = (
   coupon: Coupon,

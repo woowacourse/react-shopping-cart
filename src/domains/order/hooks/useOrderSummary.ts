@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useCartSelector } from "../../cart/hooks/useCartState";
+import { calculateOptimalTotalDiscount } from "../../coupon/calculations";
 import { useCoupon } from "../../coupon/hooks/useCoupon";
-import useCouponDiscount from "../../coupon/hooks/useCouponDiscount";
 import {
   calculateOrderPrice,
   calculateOrderQuantity,
@@ -38,12 +38,21 @@ const useOrderSummary = () => {
     };
   }, [items, isRemoteArea]);
 
-  const { totalDiscount } = useCouponDiscount({
-    coupons: selectedCoupons,
-    orderItems: orderCalculation.orderItems,
-    orderPrice: orderCalculation.orderPrice,
-    shippingFee: orderCalculation.finalShippingFee,
-  });
+  const totalDiscount = useMemo(
+    () =>
+      calculateOptimalTotalDiscount(
+        selectedCoupons,
+        orderCalculation.orderItems,
+        orderCalculation.orderPrice,
+        orderCalculation.finalShippingFee
+      ),
+    [
+      selectedCoupons,
+      orderCalculation.orderItems,
+      orderCalculation.orderPrice,
+      orderCalculation.finalShippingFee,
+    ]
+  );
 
   const finalTotalPrice = useMemo(() => {
     return (

@@ -1,4 +1,4 @@
-import { Coupon } from "../types/response";
+import { Coupon } from "../../types/response";
 
 export const calculateShippingDiscount = (
   coupon: Coupon,

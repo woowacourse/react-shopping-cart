@@ -1,4 +1,2 @@
-export * from "./buyXGetYCouponCalculation";
-export * from "./fixedCouponCalculation";
-export * from "./freeShippingCouponCalculation";
-export * from "./percentageCouponCalculation";
+export * from "./basic";
+export * from "./combined";
