@@ -1,7 +1,7 @@
 import AllCheckSection from '../components/AllCheckSection';
-import CartItemCountMessage from '../components/CartItemCountMessage';
-import ConfirmButton from '../components/ConfirmButton';
-import ItemCard from '../components/ItemCard';
+import CartItemCountMessage from '../components/messages/CartItemCountMessage';
+import ConfirmButton from '../components/buttons/ConfirmButton';
+import ItemCard from '../components/itemCards/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';

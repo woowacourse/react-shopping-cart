@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import BottomButton from '../components/BottomButton';
+import BottomButton from '../components/buttons/BottomButton';
 import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 import getOrderPrice from '../utils/getOrderPrice';
 import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
