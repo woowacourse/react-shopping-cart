@@ -7,7 +7,7 @@ import PaymentPage from './pages/payment/PaymentPage';
 
 function App() {
   return (
-    <BrowserRouter basename="/react-shopping-cart">
+    <BrowserRouter basename="/react-shopping-cart/">
       <CartProvider>
         <CartSelectionProvider>
           <Routes>
