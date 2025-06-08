@@ -4,12 +4,13 @@ import { css } from "@emotion/react";
 import * as S from "./CartItem.styles";
 import { useShoppingCartContext } from "@/pages/ShoppingCartPage/contexts";
 import { theme } from "@/styles";
+import { memo } from "react";
 
 interface CartItemProps {
   id: number;
 }
 
-export default function CartItem({ id }: CartItemProps) {
+export default memo(function CartItem({ id }: CartItemProps) {
   const { data: cartItems, status: cartItemsStatus } = useCartItemQuery();
   const { deleteCartItem, increaseCartItem, decreaseCartItem } = useCartItem();
   const { selectedItemIds, setSelectedItemIds } = useShoppingCartContext();
@@ -76,4 +77,4 @@ export default function CartItem({ id }: CartItemProps) {
       </Card>
     </S.ProductCardCartItemWrapper>
   );
-}
+});

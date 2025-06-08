@@ -1,5 +1,5 @@
 import { Listener, Observer } from "../Observer";
-import { QueryKey, Status } from "./types";
+import { QueryKey, Status } from "./type";
 
 // Data
 const dataStore: Record<QueryKey, unknown> = {};

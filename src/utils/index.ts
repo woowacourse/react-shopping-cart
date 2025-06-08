@@ -1,3 +1,3 @@
-export * from "./date/date";
-export * from "./time/time";
-export * from "./compare/compare";
+export * from "./date";
+export * from "./time";
+export * from "./compare";

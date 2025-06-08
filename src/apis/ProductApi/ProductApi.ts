@@ -1,12 +1,7 @@
 import { API_PATH } from "@/constants";
 import { GetProductResponse } from "@/types";
-import { baseApi } from "./baseApi";
-
-interface GetProductParams {
-  page?: number;
-  size?: number;
-  sort?: "asc" | "desc";
-}
+import { baseApi } from "../baseApi";
+import { GetProductParams } from "./type";
 
 export default class ProductApi {
   static async getAllProducts({

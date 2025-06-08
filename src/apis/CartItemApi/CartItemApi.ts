@@ -1,26 +1,7 @@
 import { API_PATH } from "@/constants";
 import { GetCartItemsResponse } from "@/types";
-import { baseApi } from "./baseApi";
-
-export interface GetCartItemsParams {
-  page?: number;
-  size?: number;
-  sort?: "asc" | "desc";
-}
-
-export interface PostCartItemsParams {
-  productId: number;
-  quantity?: number;
-}
-
-export interface DeleteCartItemsParams {
-  cartItemId: number;
-}
-
-export interface PatchCartItemsParams {
-  cartItemId: number;
-  quantity: number;
-}
+import { baseApi } from "../baseApi";
+import { DeleteCartItemsParams, GetCartItemsParams, PatchCartItemsParams, PostCartItemsParams } from "./type";
 
 export default class CartItemApi {
   static async getCartItems({

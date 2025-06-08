@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { getQueryData, getQueryStatus, subscribeQueryData, subscribeQueryStatus } from "./QueryStore";
-import { Status } from "./types";
+import { Status } from "./type";
 
 export function useQueryData<T>(key: string): T {
   return useSyncExternalStore(

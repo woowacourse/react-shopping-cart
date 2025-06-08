@@ -1,6 +1,6 @@
 import { API_PATH } from "@/constants";
 import { GetAllCouponsResponse } from "@/types";
-import { baseApi } from "./baseApi";
+import { baseApi } from "../baseApi";
 
 export default class CouponApi {
   static async getAllCoupons(): Promise<GetAllCouponsResponse> {

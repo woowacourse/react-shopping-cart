@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { clearQueryPromise, getQueryPromise, setQueryPromise } from "./QueryPromises";
 import { getQueryData, setQueryData, setQueryStatus } from "./QueryStore";
 import { useQueryData, useQueryStatus } from "./useQueryData";
-import { Status } from "./types";
+import { Status } from "./type";
 
 interface UseQueryProps<T> {
   queryKey: string;

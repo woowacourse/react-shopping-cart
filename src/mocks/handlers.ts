@@ -1,4 +1,4 @@
-import { PatchCartItemsParams, PostCartItemsParams } from "@/apis/CartItemApi";
+import { PatchCartItemsParams, PostCartItemsParams } from "@/apis";
 import { API_PATH, CONFIG } from "@/constants";
 import { http, HttpResponse } from "msw";
 import { CART_ITEMS_DATA } from "./datas/cartItems";
