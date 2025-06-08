@@ -10,8 +10,9 @@ import { useCartSelection } from "./hooks/useCartSelection";
 const CartPage = () => {
   const { cartItems, isLoading } = useCartItems();
   const { checkedIds, handleCheckChange } = useCartSelection(cartItems);
+  const checkedItems = cartItems.filter((item) => checkedIds.includes(item.id));
   const navigate = useNavigate();
-  const handleNavigate = () => navigate("/order-confirm");
+  const handleNavigate = () => navigate("/order-confirm", { state: checkedItems });
   return (
     <S.Container>
       <Text variant="title-1">장바구니</Text>

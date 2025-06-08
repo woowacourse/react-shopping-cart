@@ -5,8 +5,10 @@ import GuideSign from "../../../../components/icons/GuideSign";
 import CheckBox from "../../../../components/common/CheckBox";
 import Button from "../../../../components/common/Button";
 import { Modal } from "@seo_dev/react-modal";
+import { GetCouponResponse } from "../../../../apis/couponApi";
+import couponInfo from "../../utils/couponInfo";
 
-const CouponModal = ({ onClose }: { onClose: () => void }) => {
+const CouponModal = ({ onClose, coupons }: { onClose: () => void; coupons: GetCouponResponse[] }) => {
   return (
     <Modal onClose={onClose}>
       <Modal.BackDrop />
@@ -25,17 +27,17 @@ const CouponModal = ({ onClose }: { onClose: () => void }) => {
             <Text variant="body-2">쿠폰은 최대 2개까지 사용할 수 있습니다.</Text>
           </S.CouponInfo>
           <S.CouponList>
-            {[0, 1, 2].map((index) => (
-              <S.CouponCard key={index}>
-                <CheckBox isChecked={false} onClick={() => {}}>
-                  <Text variant="title-2">3,000원 할인 쿠폰</Text>
-                </CheckBox>
-                <S.CouponCardInfoWrap>
-                  <Text variant="body-2">만료일: 2024년 11월 30일</Text>
-                  <Text variant="body-2">사용 가능 금액: 10,000원 이상</Text>
-                </S.CouponCardInfoWrap>
-              </S.CouponCard>
-            ))}
+            {coupons.map((coupon) => {
+              const { id, description } = coupon;
+              return (
+                <S.CouponCard key={id}>
+                  <CheckBox isChecked={false} onClick={() => {}}>
+                    <Text variant="title-2">{description}</Text>
+                  </CheckBox>
+                  {couponInfo({ coupon })}
+                </S.CouponCard>
+              );
+            })}
           </S.CouponList>
         </S.ModalMiddle>
         <Button variant="primary" size="full" radius={8} onClick={() => {}}>

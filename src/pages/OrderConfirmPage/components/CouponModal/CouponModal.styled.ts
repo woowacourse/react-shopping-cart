@@ -37,9 +37,3 @@ export const CouponCard = styled.div`
   border-top: 1px solid #e0e0e0;
   padding-top: 16px;
 `;
-
-export const CouponCardInfoWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`;

@@ -1,15 +1,13 @@
 import * as S from "./OrderCardList.styled";
 import CartCard from "../../../../components/CartCard";
-import { UseCartReturnType } from "../../../../types/cartItem";
 import Text from "../../../../components/common/Text";
+import { CartItemContent } from "../../../../types/cartItem";
 
-const OrderCardList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnType["cartItemListProps"] }) => {
-  const { cartItems } = cartItemListProps;
-
+const OrderCardList = ({ orderItems }: { orderItems: CartItemContent[] }) => {
   return (
     <S.Container>
       <S.List>
-        {cartItems.map((item) => {
+        {orderItems.map((item) => {
           const { id, product } = item;
           return (
             <CartCard gap={12} key={id}>
