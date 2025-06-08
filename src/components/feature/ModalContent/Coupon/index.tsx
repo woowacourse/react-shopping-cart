@@ -20,6 +20,7 @@ type Props = {
   isCouponChecked: Record<CouponCode, boolean>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   discountPrice: number;
+  onClose: () => void;
 };
 
 const Coupon = ({
@@ -28,6 +29,7 @@ const Coupon = ({
   isCouponChecked,
   onChange,
   discountPrice,
+  onClose,
 }: Props) => {
   const buttonTitle = () => {
     if (discountPrice > 0 && isCouponChecked.FREESHIPPING)
@@ -71,7 +73,7 @@ const Coupon = ({
           <Line />
         </S.CouponList>
       ))}
-      <Button title={buttonTitle()} onClick={() => {}} css={buttonStyle} />
+      <Button title={buttonTitle()} onClick={onClose} css={buttonStyle} />
     </S.Container>
   );
 };

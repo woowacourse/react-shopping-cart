@@ -89,6 +89,7 @@ const OrderConfirm = () => {
           isCouponChecked={isCouponChecked}
           onChange={handleCouponsChecked}
           discountPrice={orderPrice - totalPaymentPrice + calcDeliveryPrice()}
+          onClose={() => setIsOpen(false)}
         />
       </Modal>
       <Button
