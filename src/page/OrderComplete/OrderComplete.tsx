@@ -5,18 +5,16 @@ import { PAGE_URL } from "@/constants/PageUrl";
 import ErrorPage from "../Error/ErrorPage";
 import Header from "@/components/common/Header/Header.tsx";
 import { isCartItem } from "@/util/validation/validationTool.ts";
+import { useFunnelContext } from "@/contexts/FunnelContext";
 
-interface OrderCompleteProps {
-  onReset: () => void;
-}
-
-function OrderComplete({ onReset }: OrderCompleteProps) {
+function OrderComplete() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { resetClickHandler } = useFunnelContext();
 
   const handleOrderConfirm = async () => {
     navigate(PAGE_URL.HOME);
-    onReset();
+    resetClickHandler();
   };
 
   const isValidOrderConfirmationState = (

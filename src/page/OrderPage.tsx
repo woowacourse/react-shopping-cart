@@ -1,12 +1,12 @@
-import { STEP_NAME, StepName } from "@/constants/steps";
+import { STEP_NAME } from "@/constants/steps";
 
 import { useMemo, useState } from "react";
-import { FunnelProps, StepProps } from "@/hooks/Funnel/useFunnel";
 import { useCartContext } from "@/components/Cart/CartContext";
 import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
 import { useBestCouponCombo } from "@/hooks/Coupon/useBestCouponCombo";
 import { useCouponSelection } from "@/hooks/Coupon/useCouponSelection";
 import { useCouponDiscount } from "@/hooks/Coupon/useCouponDiscount";
+import { useFunnelContext } from "@/contexts/FunnelContext";
 
 import CartLayout from "@/layout/CartLayout";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
@@ -17,21 +17,9 @@ import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmat
 import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 import Spinner from "@/components/common/Spinner";
 
-export interface ProfileSetupInterface {
-  nextClickHandler: (nextStep: string) => void;
-  prevClickHandler: (prevStep: string) => void;
-  Funnel: React.ComponentType<FunnelProps>;
-  Step: React.ComponentType<StepProps>;
-  currentStep: StepName;
-}
-
-function OrderPage({
-  nextClickHandler,
-  prevClickHandler,
-  Funnel,
-  Step,
-  currentStep,
-}: ProfileSetupInterface) {
+function OrderPage() {
+  const { nextClickHandler, prevClickHandler, Funnel, Step, currentStep } =
+    useFunnelContext();
   const { selectedCartItems } = useCartContext();
 
   const [isInIsland, setIsInIsland] = useState(false);
