@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
 import CloseIconButton from './CloseIconButton';
+import { useCouponContext } from '../../contexts/CouponContext';
+import CouponCard from '../CouponCard';
+import { MAX_COUPON_AMOUNT } from '../../constants/config';
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,6 +10,8 @@ interface ModalProps {
 }
 
 const CouponModal = ({ isOpen, handleClose }: ModalProps) => {
+  const { coupons } = useCouponContext();
+
   return (
     isOpen && (
       <S.container data-testid="modal">
@@ -14,6 +19,15 @@ const CouponModal = ({ isOpen, handleClose }: ModalProps) => {
         <S.content>
           <CloseIconButton onClick={handleClose} />
           <S.title>쿠폰을 선택해 주세요</S.title>
+          <S.infoContainer>
+            <img src="./info.svg" />
+            <p>쿠폰은 최대 {MAX_COUPON_AMOUNT}개까지 사용할 수 있습니다.</p>
+          </S.infoContainer>
+          <S.CouponContainer>
+            {coupons.map((coupon) => (
+              <CouponCard key={coupon.id} coupon={coupon} />
+            ))}
+          </S.CouponContainer>
           <S.closeButton onClick={handleClose}>닫기</S.closeButton>
         </S.content>
       </S.container>
@@ -54,6 +68,23 @@ const S = {
     transform: translate(-50%, -50%);
     border-radius: 5px;
     padding: 24px;
+  `,
+
+  infoContainer: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 0px;
+  `,
+
+  CouponContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+    & > * {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
   `,
 
   closeButton: styled.button`

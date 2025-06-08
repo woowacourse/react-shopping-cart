@@ -41,7 +41,7 @@ const CartPage = () => {
                 배송됩니다.
               </p>
             </S.infoContainer>
-            <PriceSection showDiscount={false} />
+            <PriceSection />
           </>
         )}
       </S.content>

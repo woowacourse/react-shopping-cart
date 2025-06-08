@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import BottomButton from '../components/BottomButton';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { CartItem } from '../types';
+import { useNavigate } from 'react-router-dom';
 import { BASE_URL, URL_LOCATION } from '../constants/url';
 import OrderPageMessage from '../components/OrderPageMessage';
 import DeliverySection from '../components/DeliverySection';
@@ -10,32 +9,40 @@ import PriceSection from '../components/priceSection/PriceSection';
 import ItemInfoCard from '../components/ItemInfoCard';
 import CouponModal from '../components/Modal/CouponModal';
 import { useState } from 'react';
+import { getCheckedItems } from '../utils';
+import { useCartItemsContext } from '../contexts/CartItemsContext';
+import useOrderPage from '../hooks/useOrderPage';
 
 const OrderPage = () => {
-  const { state } = useLocation();
-  const { cartItems, checkedCartIds }: { cartItems: CartItem[]; checkedCartIds: number[] } = state;
+  const navigate = useNavigate();
+  const { cartItems, checkedCartIds } = useCartItemsContext();
+  const { deliveryChecked, handleClickDeliveryCheckbox, deliveryPrice, discountPrice } =
+    useOrderPage();
+
   const checkedSet = new Set(checkedCartIds);
   const totalQuantity = cartItems.reduce(
     (acc, item) => (checkedSet.has(item.id) ? acc + item.quantity : acc),
     0
   );
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <S.content data-testid="orderPage">
-        <CouponModal isOpen={isOpen} handleClose={() => setIsOpen(false)} />
+        <CouponModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
         <S.title>주문 확인</S.title>
         <>
           <OrderPageMessage cartLength={checkedCartIds.length} totalQuantity={totalQuantity} />
           <S.itemCardList>
-            {cartItems.map((item) => (
+            {getCheckedItems(cartItems, checkedCartIds).map((item) => (
               <ItemInfoCard key={item.id} product={item.product} quantity={item.quantity} />
             ))}
           </S.itemCardList>
-          <S.CouponButton onClick={() => setIsOpen(true)}>쿠폰 적용</S.CouponButton>
-          <DeliverySection />
+          <S.CouponButton onClick={() => setIsModalOpen(true)}>쿠폰 적용</S.CouponButton>
+          <DeliverySection
+            deliveryChecked={deliveryChecked}
+            handleClickDeliveryCheckbox={handleClickDeliveryCheckbox}
+          />
           <S.infoContainer>
             <img src="./info.svg" />
             <p>
@@ -43,7 +50,7 @@ const OrderPage = () => {
               배송됩니다.
             </p>
           </S.infoContainer>
-          <PriceSection showDiscount={true} />
+          <PriceSection discountPrice={discountPrice} deliveryPrice={deliveryPrice} />
         </>
       </S.content>
       <BottomButton
