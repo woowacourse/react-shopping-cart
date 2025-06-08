@@ -1,4 +1,5 @@
 import { CouponData, OrderItem } from "../types";
+import { validateCouponUsage } from "./couponValidation";
 import { calculateShippingFee } from "./shippingCalculations";
 
 function calculateBogoDiscount(orderItems: OrderItem[]): number {
@@ -78,6 +79,72 @@ function calculateCombinationDiscount(
   }
 
   return { productDiscount: totalDiscount, hasShippingCoupon };
+}
+
+export function findOptimalCouponCombination(
+  coupons: CouponData[],
+  orderItems: OrderItem[],
+  orderAmount: number,
+  isIsolatedAreaSelected: boolean,
+): number[] {
+  const usableCoupons = coupons.filter(
+    (coupon) => validateCouponUsage({ coupon, orderItems, orderAmount, isIsolatedAreaSelected }).isValid,
+  );
+
+  if (usableCoupons.length === 0) return [];
+
+  const usableCouponIds = usableCoupons.map((c) => c.id);
+  const combinations = generateCouponCombinations(usableCouponIds);
+
+  let bestCombination: number[] = [];
+  let maxTotalSaving = 0;
+
+  combinations.forEach((combination) => {
+    const { productDiscount, hasShippingCoupon } = calculateCombinationDiscount(
+      combination,
+      coupons,
+      orderItems,
+      orderAmount,
+    );
+
+    const originalShipping = calculateShippingFee({
+      orderAmount,
+      isIsolatedAreaSelected,
+      hasShippingCoupon: false,
+    });
+
+    const newShipping = calculateShippingFee({
+      orderAmount,
+      isIsolatedAreaSelected,
+      hasShippingCoupon,
+    });
+
+    const shippingSaving = originalShipping.fee - newShipping.fee;
+    const totalSaving = productDiscount + shippingSaving;
+
+    if (totalSaving > maxTotalSaving) {
+      maxTotalSaving = totalSaving;
+      bestCombination = combination;
+    }
+  });
+
+  return bestCombination;
+}
+
+function generateCouponCombinations(couponIds: number[]): number[][] {
+  const combinations: number[][] = [];
+
+  combinations.push([]);
+
+  couponIds.forEach((id) => combinations.push([id]));
+
+  for (let i = 0; i < couponIds.length; i++) {
+    for (let j = i + 1; j < couponIds.length; j++) {
+      combinations.push([couponIds[i], couponIds[j]]);
+    }
+  }
+
+  return combinations;
 }
 
 export function calculateOrderTotal(

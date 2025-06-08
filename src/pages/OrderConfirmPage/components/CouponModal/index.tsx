@@ -49,13 +49,13 @@ const CouponModal = ({ onClose, orderState }: orderStateProps) => {
                   <CheckBox isChecked={isSelected} onClick={() => finalEnabled && orderState.toggleCoupon(id)}>
                     <Text variant="title-2">{description}</Text>
                   </CheckBox>
-                  {CouponSummary({ coupon })}
+                  <CouponSummary coupon={coupon} />
                 </S.CouponCard>
               );
             })}
           </S.CouponList>
         </S.ModalMiddle>
-        <Button variant="primary" size="full" radius={8} onClick={() => {}}>
+        <Button variant="primary" size="full" radius={8} onClick={onClose}>
           {orderState.calculation.couponDiscount > 0
             ? `총 ${orderState.calculation.couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`
             : "쿠폰 선택하기"}
