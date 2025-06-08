@@ -51,7 +51,7 @@ ui 퍼블리싱
 - [x] msw 쿠폰 조회 로직 작성
 - [ ] order 훅 리팩토링
   - [ ] useCouponApply 훅 내부 utils 함수로 분리
-  - [ ] useCouponDiscount 훅 생성
+  - [x] useCouponDiscount 훅 생성
   - [ ] useCouponValidation 훅 생성
     - [x] validation 관련 util 함수로 분리
   - [ ] 타입 정리
