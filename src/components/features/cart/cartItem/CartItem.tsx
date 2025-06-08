@@ -14,9 +14,15 @@ interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
   toggleSelect: () => void;
+  deleteSelect: () => void;
 }
 
-function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
+function CartItem({
+  cartItem,
+  isSelected,
+  toggleSelect,
+  deleteSelect,
+}: CartItemProps) {
   const { mutate: deleteCartItemMutate } = useJaeOMutation({
     mutationFn: deleteCartItem,
     options: {
@@ -48,6 +54,7 @@ function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
         <S.DeleteButton
           onClick={() => {
             deleteCartItemMutate(cartItem.id);
+            deleteSelect();
           }}
         >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
@@ -79,6 +86,7 @@ function CartItem({ cartItem, isSelected, toggleSelect }: CartItemProps) {
                 actionType="delete"
                 onClick={() => {
                   deleteCartItemMutate(cartItem.id);
+                  deleteSelect();
                 }}
               />
             ) : (

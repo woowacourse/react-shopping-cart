@@ -6,7 +6,8 @@ interface CartListProps {
   cartItems: CartItemType[];
   selectedCartItemIds: number[];
   isAllItemSelected: boolean;
-  toggleSelect: (index: number) => void;
+  toggleSelect: (id: number) => void;
+  deleteSelect: (id: number) => void;
   toggleAllSelect: () => void;
 }
 
@@ -15,6 +16,7 @@ function CartList({
   selectedCartItemIds,
   isAllItemSelected,
   toggleSelect,
+  deleteSelect,
   toggleAllSelect,
 }: CartListProps) {
   return (
@@ -33,6 +35,7 @@ function CartList({
           cartItem={cartItem}
           isSelected={selectedCartItemIds.includes(cartItem.id)}
           toggleSelect={() => toggleSelect(cartItem.id)}
+          deleteSelect={() => deleteSelect(cartItem.id)}
         />
       ))}
     </S.Container>

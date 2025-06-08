@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import {
   CartItemType,
+  deleteSelectedCartItem,
   loadSelectedCartItemIds,
   saveSelectedCartItemIds,
 } from '..';
@@ -9,15 +10,22 @@ export function useCartSelection(cartItems: CartItemType[]) {
   const [selectedCartItemIds, setSelectedCartItemIds] = useState<Set<number>>(
     () => {
       const localSelected = loadSelectedCartItemIds();
+      const initialSelected =
+        localSelected.size > 0
+          ? localSelected
+          : new Set(cartItems.map((item) => item.id));
+      saveSelectedCartItemIds(initialSelected);
 
-      return localSelected.size > 0
-        ? localSelected
-        : new Set(cartItems.map((item) => item.id));
+      return initialSelected;
     }
   );
 
-  const isAllItemSelected = selectedCartItemIds.size === cartItems.length;
-  const isSomeItemSelected = selectedCartItemIds.size > 0;
+  const isAllItemSelected = cartItems.every((item) =>
+    selectedCartItemIds.has(item.id)
+  );
+  const isSomeItemSelected = cartItems.some((item) =>
+    selectedCartItemIds.has(item.id)
+  );
 
   const getSelectedCartItems = useCallback(
     (items: CartItemType[]) =>
@@ -51,6 +59,16 @@ export function useCartSelection(cartItems: CartItemType[]) {
     });
   }, [cartItems, isAllItemSelected]);
 
+  const deleteSelect = useCallback((targetId: number) => {
+    setSelectedCartItemIds((prev) => {
+      const newSelected = new Set(prev);
+      newSelected.delete(targetId);
+
+      deleteSelectedCartItem(targetId);
+      return newSelected;
+    });
+  }, []);
+
   return {
     states: {
       selectedItemIds: [...selectedCartItemIds],
@@ -60,6 +78,7 @@ export function useCartSelection(cartItems: CartItemType[]) {
     actions: {
       toggle: toggleSelect,
       toggleAll: toggleAllSelect,
+      delete: deleteSelect,
     },
     utils: {
       getSelectedItems: getSelectedCartItems,

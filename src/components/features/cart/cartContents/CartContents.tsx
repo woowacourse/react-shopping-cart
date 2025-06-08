@@ -39,6 +39,7 @@ function CartContents({ cartItems }: { cartItems: CartItemType[] }) {
         selectedCartItemIds={cartSelection.states.selectedItemIds}
         isAllItemSelected={cartSelection.states.isAllItemSelected}
         toggleSelect={cartSelection.actions.toggle}
+        deleteSelect={cartSelection.actions.delete}
         toggleAllSelect={cartSelection.actions.toggleAll}
       />
       <CartPriceSummary value={orderPrice} />
