@@ -2,9 +2,12 @@ import * as S from "./CouponModalContent.styles";
 import CouponItem from "../../../features/couponItem/CouponItem";
 import Button from "../../button/Button";
 import type { CouponType } from "../../../../types/response";
-import { InfoMessage } from "../../infoMessage/InfoMessage";
-import { COUPON_LIMIT_MESSAGE } from "../../../../constants/systemMessages";
+import {
+  COUPON_LIMIT_MESSAGE,
+  NO_VALID_COUPON_MESSAGE,
+} from "../../../../constants/systemMessages";
 import { isValid } from "../../../../domains/coupon/validateCoupon";
+import { InfoMessage } from "../../infoMessage/InfoMessage";
 
 interface CouponModalContentProps {
   totalDiscountPrice: number;
@@ -27,9 +30,13 @@ const CouponModalContent = (props: CouponModalContentProps) => {
     onModalClose,
   } = props;
 
+  const message =
+    validCouponList.length === 0
+      ? NO_VALID_COUPON_MESSAGE
+      : COUPON_LIMIT_MESSAGE;
   return (
     <div css={S.couponModalContentContainer}>
-      <InfoMessage message={COUPON_LIMIT_MESSAGE} />
+      <InfoMessage message={message} />
       {couponList.map((coupon) => (
         <CouponItem
           key={coupon.id}

@@ -4,6 +4,7 @@ import type { CartItemType } from "../types/response";
 export const FREE_DELIVERY_MESSAGE = `총 주문 금액이 ${FEE.DELIVERY_FEE_STANDARD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`;
 export const NO_ITEM_IN_CART = "장바구니에 담은 상품이 없습니다";
 export const COUPON_LIMIT_MESSAGE = `최대 ${COUPON_LIMIT}개까지 선택할 수 있습니다.`;
+export const NO_VALID_COUPON_MESSAGE = "사용 가능한 쿠폰이 없습니다.";
 
 export const getOrderConfirmationMessage = (
   productTypeCount: number,
