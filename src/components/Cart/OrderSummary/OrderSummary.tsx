@@ -25,12 +25,12 @@ function OrderSummary({ cartItemsData, selectedCartIds }: OrderSummaryProps) {
         <OrderTotalPrice totalPrice={totalPrice} />
         <OrderShippingFee shippingFee={shippingFee} />
       </Styled.PriceWrapper>
-      <Styled.TotalPriceTitle>
+      <Styled.TotalPriceWrapper>
         <Styled.TitleText>총 결제 금액</Styled.TitleText>
         <Styled.PriceText>
           {totalPriceWithShipping.toLocaleString()}원
         </Styled.PriceText>
-      </Styled.TotalPriceTitle>
+      </Styled.TotalPriceWrapper>
     </Styled.TotalPriceContainer>
   );
 }

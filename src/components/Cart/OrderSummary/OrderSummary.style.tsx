@@ -8,7 +8,7 @@ export const TotalPriceContainer = styled.div`
   gap: 16px;
 `;
 
-export const TotalPriceTitle = styled.p`
+export const TotalPriceWrapper = styled.p`
   display: flex;
   justify-content: space-between;
 `;
@@ -29,10 +29,4 @@ export const TitleText = styled.span`
 export const PriceText = styled.span`
   font-size: 20px;
   font-weight: 700;
-`;
-
-export const ShippingFee = styled.p`
-  display: flex;
-  justify-content: space-between;
-  color: #333333;
 `;
