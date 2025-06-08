@@ -10,7 +10,7 @@ type AddProductParams = {
 };
 
 const PatchProduct = async ({ method, params }: AddProductParams) => {
-  const url = new URL(BASE_URL + "/" + params.productId);
+  const url = new URL(BASE_URL + "/cart-items/" + params.productId);
 
   const options = {
     method,
