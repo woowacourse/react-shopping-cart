@@ -1,4 +1,4 @@
-export const coupons = [
+export const COUPONS = [
   {
     id: 'FIXED5000',
     name: '5,000원 할인 쿠폰',
