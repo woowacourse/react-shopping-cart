@@ -278,6 +278,69 @@ export const NoOptimization = css`
   border: 1px solid var(--color-light-grey);
 `;
 
+export const AutoOptimizeButton = css`
+  margin-top: 12px;
+  width: 100%;
+`;
+
+export const ManualSelectSection = css`
+  margin: 20px 0;
+  padding: 16px;
+  background-color: var(--color-light-grey, #f8f9fa);
+  border-radius: 8px;
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-black);
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-grey);
+  }
+`;
+
+export const SelectedCouponsPreview = css`
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const SelectedCouponPreview = css`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: var(--color-primary, #007bff);
+  color: var(--color-white);
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+
+  span {
+    color: var(--color-white);
+  }
+`;
+
+export const RemoveCouponButton = css`
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 export const DialogTitle = css`
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-title);

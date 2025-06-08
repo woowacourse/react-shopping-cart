@@ -12,6 +12,7 @@ export const useCoupons = () => {
       setIsLoading(true);
       setError(null);
       const response = await couponService.getCoupons();
+
       setCoupons(response);
     } catch (err) {
       setError(
