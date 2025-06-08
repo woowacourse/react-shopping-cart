@@ -29,7 +29,7 @@ export const CouponProvider = ({ children }: { children: React.ReactNode }) => {
   const totalDiscount = useMemo(() => {
     if (selectedCoupons.length === 0) return 0;
     return applyCoupons(selectedCoupons).totalDiscount;
-  }, [selectedCoupons]);
+  }, [selectedCoupons, applyCoupons]);
 
   return (
     <CouponContext.Provider
