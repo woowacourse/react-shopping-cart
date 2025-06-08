@@ -8,7 +8,11 @@ const AllSelector = () => {
 
   return (
     <S.AllSelector>
-      <Checkbox checked={isAllChecked} onClick={toggleAllChecked} />
+      <Checkbox
+        data-testid="all-select-checkbox"
+        checked={isAllChecked}
+        onClick={toggleAllChecked}
+      />
       <Description>전체 선택</Description>
     </S.AllSelector>
   );
