@@ -13,7 +13,15 @@ type Props = {
   isRemoteArea?: boolean;
 };
 
-export const getPrice = (items: CartProduct[] | undefined) => {
+export const getPrice = ({
+  items,
+  isRemoteArea,
+  discount,
+}: {
+  items: CartProduct[] | undefined;
+  isRemoteArea: boolean | undefined;
+  discount: number | undefined;
+}) => {
   const getOrderPrice = () => {
     return (
       items?.reduce(
@@ -25,14 +33,39 @@ export const getPrice = (items: CartProduct[] | undefined) => {
   };
 
   const orderPrice = getOrderPrice();
-  const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
-  const totalPrice = orderPrice + deliveryPrice;
+  const deliveryPrice = getDeliveryPrice({ orderPrice, isRemoteArea });
+  const totalPrice = getTotalPrice({ orderPrice, deliveryPrice, discount });
   const totalAmount = items?.reduce(
     (total: number, current: CartProduct) => total + current.quantity,
     0
   );
 
   return { orderPrice, deliveryPrice, totalPrice, totalAmount };
+};
+
+const getDeliveryPrice = ({
+  orderPrice,
+  isRemoteArea,
+}: {
+  orderPrice: number;
+  isRemoteArea: boolean | undefined;
+}) => {
+  const remoteAreaDeliveryPrice = isRemoteArea ? 3000 : 0;
+  if (orderPrice >= 100_000) return remoteAreaDeliveryPrice;
+  return 3000 + remoteAreaDeliveryPrice;
+};
+
+const getTotalPrice = ({
+  orderPrice,
+  deliveryPrice,
+  discount,
+}: {
+  orderPrice: number;
+  deliveryPrice: number;
+  discount: number | undefined;
+}) => {
+  if (discount) return orderPrice + deliveryPrice - discount;
+  return orderPrice + deliveryPrice;
 };
 
 const PriceSection = ({
@@ -46,8 +79,7 @@ const PriceSection = ({
     (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
   );
 
-  const price = getPrice(selectedItems);
-  if (isRemoteArea) price.deliveryPrice += 3000;
+  const price = getPrice({ items: selectedItems, isRemoteArea, discount });
 
   return (
     <>
@@ -62,7 +94,7 @@ const PriceSection = ({
           <S.Price>{formatPrice(price.orderPrice)}</S.Price>
         </S.PriceInfo>
 
-        {discount && (
+        {discount !== undefined && (
           <S.PriceInfo>
             <S.Label>쿠폰 할인 금액</S.Label>
             <S.Price>-{formatPrice(discount)}</S.Price>

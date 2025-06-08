@@ -45,7 +45,7 @@ const OrderConfirm = () => {
 
     if (
       coupon.discountType === "freeShipping" &&
-      totalPrice >= 100000 &&
+      totalPrice >= 100_000 &&
       !isRemoteAreaChecked
     )
       return false;
@@ -107,15 +107,16 @@ const OrderConfirm = () => {
     }
 
     if (coupon.discountType === "freeShipping") {
-      if (isRemoteAreaChecked) return 6000;
-      return 3000;
+      const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
+      if (isRemoteAreaChecked) return 3000 + deliveryPrice;
+      return deliveryPrice;
     }
 
     if (coupon.discountType === "percentage") return totalPrice * 0.3;
   };
 
   const getTotalDiscount = () => {
-    if (selectedIds.length === 0) return;
+    if (selectedIds.length === 0) return 0;
 
     const selectedCoupons = coupons?.filter((coupon) =>
       selectedIds.includes(coupon.id)
