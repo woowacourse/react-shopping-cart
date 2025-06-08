@@ -73,7 +73,7 @@ describe("validateCoupon 함수는", () => {
 
   describe("1. 만료일(expirationDate) 검증", () => {
     it("✅ 만료일이 설정되지 않은 경우 유효해야 함", () => {
-      // @ts-ignore
+      // @ts-expect-error: expirationDate가 undefined인 경우
       const coupon: Coupon = { ...baseValidCoupon, expirationDate: undefined };
       const result = validateCoupon(coupon, [createCartItem(10000, 1)], NOW);
       expect(result.isValid).toBe(true);
