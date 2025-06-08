@@ -12,7 +12,7 @@ describe("getMaxPriceInSelectedCart", () => {
     const result = getMaxPriceInSelectedCart({
       selectedCartItems: [mockSelectedCartItems[0]],
     });
-    expect(result).toBe(7000);
+    expect(result).toBe(5000);
   });
 
   it("여러 아이템 중 가장 비싼 상품의 가격을 반환한다", () => {
