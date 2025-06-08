@@ -9,7 +9,7 @@ export function InfoText({
 }) {
   return (
     <div css={infoLayout}>
-      {showImg && <img src="./info.png" css={infoImg} />}
+      {showImg && <img src="/react-shopping-cart/info.png" css={infoImg} />}
       <p css={intoText}>{children}</p>
     </div>
   );

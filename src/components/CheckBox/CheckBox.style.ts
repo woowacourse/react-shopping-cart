@@ -10,7 +10,7 @@ const CheckBoxLayout = css`
     content: "";
     width: 12px;
     height: 12px;
-    background-image: url("./check.png");
+    background-image: url("/react-shopping-cart/check.png");
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;

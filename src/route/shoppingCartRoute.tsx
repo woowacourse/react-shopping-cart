@@ -14,10 +14,12 @@ export const shoppingCartRoute = createBrowserRouter(
     {
       path: "/order-confirm",
       element: <OrderConfirm />,
+      errorElement: <NotFoundPage />,
     },
     {
       path: "/payment-complete",
       element: <PaymentComplete />,
+      errorElement: <NotFoundPage />,
     },
   ],
   {

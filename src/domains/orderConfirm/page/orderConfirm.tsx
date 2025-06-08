@@ -105,7 +105,7 @@ export default function OrderConfirm() {
     <PageLayout>
       <Header>
         <button css={pressBackButton} onClick={handlePressBack}>
-          <img src="./arrowBack.png" alt="뒤로가기" />
+          <img src="/react-shopping-cart/arrowBack.png" alt="뒤로가기" />
         </button>
       </Header>
       <Main>
