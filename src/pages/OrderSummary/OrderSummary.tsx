@@ -15,6 +15,7 @@ import CartItem from "../../components/CartItem/CartItem";
 import { createPortal } from "react-dom";
 import { useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
+import ExtraShipping from "../../components/ExtraShipping/ExtraShipping";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -32,10 +33,15 @@ function OrderSummary() {
   const [openModal, setOpenModal] = useState(false);
   const modalRoot = document.getElementById("root")!;
 
+  const [isExtraShipping, setIsExtraShipping] = useState(false);
+  const toggleExtraShipping = () => {
+    setIsExtraShipping((prev) => !prev);
+  };
+
   return (
     <>
       <Header icon="backIcon.svg" handleIconClick={() => navigate(-1)} />
-      <section css={Container}>
+      <main css={Container}>
         <Description
           title="주문 확인"
           subtitle={`총 ${cartItems.length}종류의 상품 ${getAllQuantity(
@@ -54,10 +60,13 @@ function OrderSummary() {
         >
           쿠폰 적용
         </button>
-
+        <ExtraShipping
+          isSelected={isExtraShipping}
+          toggleSelect={toggleExtraShipping}
+        />
         <p css={TotalCostLabel}>총 결제 금액</p>
         <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
-      </section>
+      </main>
       <SubmitButton enabled={false} label="결제하기" />
       {openModal &&
         createPortal(

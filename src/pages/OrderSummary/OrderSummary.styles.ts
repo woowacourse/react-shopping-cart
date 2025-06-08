@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
 
 export const Container = css`
-  height: 86vh;
   padding: 36px 24px;
   display: flex;
   flex-direction: column;
+  gap: 32px;
 `;
 
 export const Title = css`
