@@ -89,7 +89,7 @@ const originalCartItems = [...mockCartItems];
 const expectAllItemsCheckedAfterAllCheck = (
   expectedState: "checked" | "unchecked"
 ) => {
-  const list = screen.getByRole("list");
+  const list = screen.getAllByRole("list")[0];
   expect(list).toBeInTheDocument();
 
   const items = within(list).getAllByRole("listitem");
@@ -113,7 +113,7 @@ export const expectCartItemQuantityChange = async ({
   beforeExpected,
   afterExpected,
 }: ExpectCartItemQuantityChangeParams) => {
-  const list = screen.getByRole("list");
+  const list = screen.getAllByRole("list")[0];
   expect(list).toBeInTheDocument();
 
   const product = within(list).getAllByRole("listitem")[productIndex];
@@ -129,7 +129,7 @@ export const expectCartItemQuantityChange = async ({
   fireEvent.click(button);
 
   await waitFor(() => {
-    const list = screen.getByRole("list");
+    const list = screen.getAllByRole("list")[0];
     expect(list).toBeInTheDocument();
     const product = within(list).getAllByRole("listitem")[productIndex];
     const currentQuantity = within(product).getByTestId(
@@ -217,7 +217,7 @@ describe("CartPage의 CartContent", () => {
         </MemoryRouter>
       );
     });
-    const list = screen.getByRole("list");
+    const list = screen.getAllByRole("list")[0];
     expect(list).toBeInTheDocument();
 
     const items = within(list).getAllByRole("listitem");
@@ -238,7 +238,7 @@ describe("CartPage의 CartContent", () => {
         </MemoryRouter>
       );
     });
-    const list = screen.getByRole("list");
+    const list = screen.getAllByRole("list")[0];
     expect(list).toBeInTheDocument();
 
     const item = within(list).getAllByRole("listitem")[0];
@@ -258,7 +258,7 @@ describe("CartPage의 CartContent", () => {
         </MemoryRouter>
       );
     });
-    const list = screen.getByRole("list");
+    const list = screen.getAllByRole("list")[0];
     expect(list).toBeInTheDocument();
     const items = within(list).getAllByRole("listitem");
     expect(items).toHaveLength(3);
@@ -270,7 +270,7 @@ describe("CartPage의 CartContent", () => {
     fireEvent.click(removeButton);
 
     await waitFor(() => {
-      const list = screen.getByRole("list");
+      const list = screen.getAllByRole("list")[0];
       expect(list).toBeInTheDocument();
       const items = within(list).getAllByRole("listitem");
       expect(items).toHaveLength(2);
@@ -292,7 +292,7 @@ describe("CartPage의 CartContent", () => {
       (acc, { product: { price }, quantity }) => acc + price * quantity,
       0
     );
-    expect(screen.getByTestId("order-price").textContent).toBe(
+    expect(screen.getByTestId("주문 금액-price").textContent).toBe(
       `${mockTotalPrice.toLocaleString()}원`
     );
     expectCartItemQuantityChange({
@@ -303,7 +303,7 @@ describe("CartPage의 CartContent", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("order-price").textContent).toBe(
+      expect(screen.getByTestId("주문 금액-price").textContent).toBe(
         `${(
           mockTotalPrice + mockCartItems[0].product.price
         ).toLocaleString()}원`
@@ -326,7 +326,7 @@ describe("CartPage의 CartContent", () => {
       (acc, { product: { price }, quantity }) => acc + price * quantity,
       0
     );
-    expect(screen.getByTestId("order-price").textContent).toBe(
+    expect(screen.getByTestId("주문 금액-price").textContent).toBe(
       `${mockTotalPrice.toLocaleString()}원`
     );
     expectCartItemQuantityChange({
@@ -337,7 +337,7 @@ describe("CartPage의 CartContent", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("order-price").textContent).toBe(
+      expect(screen.getByTestId("주문 금액-price").textContent).toBe(
         `${(
           mockTotalPrice - mockCartItems[1].product.price
         ).toLocaleString()}원`
@@ -357,7 +357,7 @@ describe("CartPage의 CartContent", () => {
       );
     });
 
-    const list = screen.getByRole("list");
+    const list = screen.getAllByRole("list")[0];
     expect(list).toBeInTheDocument();
 
     const initialItems = within(list).getAllByRole("listitem");
@@ -371,7 +371,7 @@ describe("CartPage의 CartContent", () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      const list = screen.getByRole("list");
+      const list = screen.getAllByRole("list")[0];
       expect(list).toBeInTheDocument();
 
       const remainingItems = within(list).getAllByRole("listitem");
@@ -418,7 +418,7 @@ describe("CartPage의 CartContent", () => {
       (acc, { product: { price }, quantity }) => acc + price * quantity,
       0
     );
-    expect(screen.getByTestId("order-price").textContent).toBe(
+    expect(screen.getByTestId("주문 금액-price").textContent).toBe(
       `${mockTotalPrice.toLocaleString()}원`
     );
 
@@ -428,8 +428,8 @@ describe("CartPage의 CartContent", () => {
     expectAllItemsCheckedAfterAllCheck("unchecked");
 
     await waitFor(() => {
-      expect(screen.getByTestId("order-price").textContent).toBe("0원");
-      expect(screen.getByTestId("delivery-price").textContent).toBe(
+      expect(screen.getByTestId("주문 금액-price").textContent).toBe("0원");
+      expect(screen.getByTestId("배송비-price").textContent).toBe(
         `${DELIVERY_PRICE.toLocaleString()}원`
       );
     });

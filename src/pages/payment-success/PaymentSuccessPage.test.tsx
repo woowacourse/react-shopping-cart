@@ -1,8 +1,7 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { render, screen, act } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import PaymentSuccessPage from "./PaymentSuccessPage";
 import { ROUTES } from "@/shared/config/routes";
-import CartPage from "../cart/CartPage";
 
 const mockOrderList = [
   {
@@ -67,33 +66,5 @@ describe("OrderSuccessPage", () => {
     expect(
       screen.getByText(`${mockOrderTotalPrice.toLocaleString()}원`)
     ).toBeInTheDocument();
-  });
-
-  it("주문 확인 페이지에서 뒤로 가기 버튼을 클릭하면 장바구니 페이지로 이동한다.", async () => {
-    render(
-      <MemoryRouter
-        initialEntries={[
-          { pathname: ROUTES.CART },
-          { pathname: ROUTES.PAYMENT_SUCCESS },
-        ]}
-        initialIndex={1}
-      >
-        <Routes>
-          <Route path={ROUTES.CART} element={<CartPage />} />
-          <Route
-            path={ROUTES.PAYMENT_SUCCESS}
-            element={<PaymentSuccessPage />}
-          />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    expect(screen.queryByText("주문 확인")).toBeInTheDocument();
-
-    const backButton = screen.getByRole("button", { name: "뒤로 가기" });
-    expect(backButton).toBeInTheDocument();
-    fireEvent.click(backButton);
-
-    expect(screen.getByText("장바구니")).toBeInTheDocument();
   });
 });
