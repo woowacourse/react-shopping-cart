@@ -33,6 +33,7 @@ export function OrderConfirm() {
 
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const selectedCartItemIds = getItem<string[]>(SELECTED_CART_ITEM_IDS, []);
@@ -65,8 +66,9 @@ export function OrderConfirm() {
   const getDeliveryFee = () => {
     if (10_0000 > totalPrice) {
       return isChecked ? 6000 : 3000;
+    } else {
+      return isChecked ? 3000 : 0;
     }
-    return 0;
   };
 
   const deliveryFee = getDeliveryFee();
