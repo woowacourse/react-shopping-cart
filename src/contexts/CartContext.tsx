@@ -36,6 +36,9 @@ interface CartContextType {
   orderItemCount: number;
 
   errorMessage: string;
+
+  isRemoteArea: boolean;
+  setIsRemoteArea: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface CartItemCheckType {
@@ -54,6 +57,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const [cartItemsCheckData, setCartItemsCheckData] = useState<
     CartItemCheckType[]
   >([]);
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
 
   const isCheckDataInitialized = useRef(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -138,6 +142,9 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
         checkedItemsId,
         errorMessage,
+
+        isRemoteArea,
+        setIsRemoteArea,
       }}
     >
       {children}
