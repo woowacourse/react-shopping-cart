@@ -5,11 +5,19 @@ import {
   useContext,
   useState,
 } from "react";
-
+import { Cart } from "../../../api/cart";
+import { Coupon } from "../../../api/coupon";
+import { optimizeCouponSelection } from "../order-contents/pay-contents/coupon-modal-content/utils/couponOptimizer";
 interface CouponContextInterface {
   selectedCoupon: string[];
   handleCouponToggle: (couponId: string) => void;
   handleCouponSelectionIds: (couponIds: string[]) => void;
+  autoSelectOptimalCoupon: (
+    coupons: Coupon[],
+    totalCartPrice: number,
+    shippingFee: number,
+    cartItems: Cart[] | undefined
+  ) => void;
 }
 
 const CouponContext = createContext<CouponContextInterface | null>(null);
@@ -40,9 +48,32 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
     [setSelectedCoupon]
   );
 
+  const autoSelectOptimalCoupon = useCallback(
+    (
+      coupons: Coupon[],
+      totalCartPrice: number,
+      shippingFee: number,
+      cartItems: Cart[] | undefined
+    ) => {
+      const result = optimizeCouponSelection(
+        coupons,
+        totalCartPrice,
+        shippingFee,
+        cartItems
+      );
+      setSelectedCoupon(result.selectedCouponIds);
+    },
+    [setSelectedCoupon]
+  );
+
   return (
     <CouponContext.Provider
-      value={{ selectedCoupon, handleCouponToggle, handleCouponSelectionIds }}
+      value={{
+        selectedCoupon,
+        handleCouponToggle,
+        handleCouponSelectionIds,
+        autoSelectOptimalCoupon,
+      }}
     >
       {children}
     </CouponContext.Provider>
