@@ -22,5 +22,5 @@ export const calculatePercentageDiscount = (
 
   if (now < startTime || now > endTime) return 0;
 
-  return price * coupon.discount;
+  return Math.floor((price * coupon.discount) / 100);
 };
