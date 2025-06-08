@@ -6,6 +6,7 @@ import InfoIcon from '../icons/Info';
 import Spacing from '../Spacing/Spacing';
 import Text from '../Text/Text';
 import * as S from './ShoppingCartSection.styles';
+import { calculateOrderPriceAndShipping } from '../../utils/orderCalculate';
 
 interface ShoppingCartSectionProps {
   items: CartItemsResponse;
@@ -25,17 +26,10 @@ export default function ShoppingCartSection({
     return items?.content.length > 0 && selectedItemIds.length === items.content.length;
   }, [items, selectedItemIds]);
 
-  const { orderPrice, shippingFee, orderTotalPrice } = useMemo(() => {
-    const orderPrice =
-      items?.content.reduce((total, item) => {
-        return selectedItemIds.includes(item.id) ? total + item.product.price * item.quantity : total;
-      }, 0) || 0;
-
-    const shippingFee = orderPrice >= 100000 ? 0 : 3000;
-    const orderTotalPrice = orderPrice + shippingFee;
-
-    return { orderPrice, shippingFee, orderTotalPrice };
-  }, [items, selectedItemIds]);
+  const { orderPrice, shippingFee, orderTotalPrice } = useMemo(
+    () => calculateOrderPriceAndShipping(items.content, false),
+    [items]
+  );
 
   const handleCheckboxClick = (itemId: number) => {
     setSelectedItemIds((prev) => (prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]));
