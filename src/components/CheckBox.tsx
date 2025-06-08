@@ -22,5 +22,6 @@ const S = {
     background-color: ${({ checked }) => (checked ? '#000000' : 'transparent')};
     border: ${({ checked }) => (checked ? '2px solid #000000' : `2px solid #e6e6e6`)};
     border-radius: 5px;
+    margin: 0;
   `,
 };
