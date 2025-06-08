@@ -19,12 +19,17 @@ import { shippingProgress } from '../utils/shippingProgress';
 
 export const CartInfo = ({ cart }: CartDataState) => {
   const navigate = useNavigate();
+
   const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } = useCart({
     cart,
   });
 
-  const { allChecked, cartItemCount, selectedCartItemCount } = cartChecked({ cartItems });
-  const { progressValue, remainingForFreeShipping } = shippingProgress({ cartItems });
+  const { allChecked, cartItemCount, selectedCartItemCount } = cartChecked({
+    cartItems,
+  });
+  const { progressValue, remainingForFreeShipping } = shippingProgress({
+    cartItems,
+  });
 
   const handleNavigateOrderCheckoutPage = () => {
     navigate('/order-checkout', {
