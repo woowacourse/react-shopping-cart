@@ -1,5 +1,6 @@
 import { CartItemType } from '../../cart/types';
 import { Coupon } from '../types';
+import { isWithinTimeRange } from './isWithInTimeRange';
 
 export function calculateCouponDiscount(
   coupon: Coupon,
@@ -15,6 +16,10 @@ export function calculateCouponDiscount(
       return cartTotal >= (coupon.minimumAmount ?? 0) ? coupon.discount : 0;
     }
     case 'percentage': {
+      if (coupon.availableTime) {
+        const { start, end } = coupon.availableTime;
+        if (!isWithinTimeRange(start, end)) return 0;
+      }
       return Math.floor((cartTotal * (coupon.discount ?? 0)) / 100);
     }
     case 'buyXgetY': {
@@ -30,7 +35,6 @@ export function calculateCouponDiscount(
       }
       return 0;
     }
-
     case 'freeShipping': {
       return cartTotal >= (coupon.minimumAmount ?? 0) ? 3000 : 0;
     }

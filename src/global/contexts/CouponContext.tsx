@@ -11,7 +11,7 @@ import {
   CouponDiscount,
 } from '../../components/features/orderConfirm/types';
 import fetchData from '../../components/features/cart/utils/fetchData';
-import { calculateCouponDiscount } from '../../components/features/orderConfirm/utils/calculate';
+import { calculateCouponDiscount } from '../../components/features/orderConfirm/utils/calculateCouponDiscount';
 
 interface CouponProviderProps {
   products: CartItemType[];
