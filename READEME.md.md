@@ -57,7 +57,7 @@ ui 퍼블리싱
   - [x] 타입 정리
 - [x] orderPrice 컴포넌트 네이밍 변경 -> Price
 - [x] order-confirm 페이지 ui 정리
-- [ ] 상수 값 분리
+- [x] 상수 값 분리
 - [x] 코로케이션 폴더 구조 적용
   - [x] cartPage 코로케이션 적용
   - [x] orderPage 코로케이션 적용
@@ -65,6 +65,7 @@ ui 퍼블리싱
 - [x] 각각의 페이지에서 context api 적용
   - [x] cartPage context api 적용
   - [x] orderPage context api 적용
+- [ ] modal 상태 context 적용
 - [ ] 테스트 코드 작성
 
 ### 응집도와 결합도 측면에서의 대화
@@ -96,3 +97,5 @@ page 딴에서 데이터를 전달하는게 맞을까?
 - 전역 상태의 경우, 하나의 공유 저장소같은 느낌
 
 기존의 경우) 페이지 이동할 때, 해당 데이터를 서버의 DB에 저장을 해두고, 페이지 딴에서 서버 요청을 해서 최신 데이터를 가지고 오고 이를 UI상에 뿌려주는게 맞지 않을까? 라는 생각
+
+useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?

@@ -3,6 +3,7 @@ import { AvailableCouponType, CouponResponse } from "../../../shared/types/coupo
 import { useState, useEffect, useMemo } from "react";
 import useCouponDiscount from "./useCouponDiscount";
 import useCouponValidation from "./useCouponValidation";
+import { MAX_SELECTABLE_COUPONS } from "../constants";
 
 interface useCouponParams {
   cartItems: CartItem[];
@@ -36,7 +37,7 @@ const useCoupon = ({ cartItems, orderPrice, coupons, deliveryPrice, isRemoteArea
     const sorted = [...couponsWithDiscount].sort((a, b) => b.discountAmount - a.discountAmount);
     const initialCoupons = sorted.map((coupon, index) => ({
       ...coupon,
-      selected: index < 2,
+      selected: index < MAX_SELECTABLE_COUPONS,
     }));
     setAvailableCoupons(initialCoupons);
   }, [coupons]);

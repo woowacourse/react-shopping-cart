@@ -1,4 +1,5 @@
 import { CartItem } from "../../../shared/types/cartItem";
+import { REMOTE_AREA_DELIVERY_PRICE } from "../constants";
 import useCoupon from "./useCoupon";
 import useCouponResource from "./useCouponResource";
 import useDeliveryInformation from "./useDeliveryInformation";
@@ -20,7 +21,7 @@ const useOrder = ({ cartItems, orderPrice, deliveryPrice }: useOrderParams) => {
     isRemoteArea,
   });
 
-  const finalDeliveryPrice = isRemoteArea ? deliveryPrice + 3000 : deliveryPrice;
+  const finalDeliveryPrice = isRemoteArea ? deliveryPrice + REMOTE_AREA_DELIVERY_PRICE : deliveryPrice;
   const finalTotalPrice = orderPrice - discountPrice + finalDeliveryPrice;
 
   return {

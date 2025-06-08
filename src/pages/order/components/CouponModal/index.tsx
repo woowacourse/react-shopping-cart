@@ -6,6 +6,7 @@ import { useTempCoupon } from "../../hooks/useTempCoupon";
 import Text from "../../../../shared/components/common/Text";
 import GuideSign from "../../../../shared/components/icons/GuideSign";
 import { useOrderContext } from "../../contexts/OrderContext";
+import { MAX_SELECTABLE_COUPONS } from "../../constants";
 
 interface CouponModalProps {
   isCartModalOpen: boolean;
@@ -29,7 +30,7 @@ const CouponModal = ({ isCartModalOpen, handleCartModalClose }: CouponModalProps
         <Modal.Body style={{ display: "flex", flexDirection: "column", gap: "17px" }}>
           <S.Wrap gap={4}>
             <GuideSign />
-            <Text variant="body-2">쿠폰은 최대 2개까지 사용할 수 있습니다.</Text>
+            <Text variant="body-2">쿠폰은 최대 {MAX_SELECTABLE_COUPONS}개까지 사용할 수 있습니다.</Text>
           </S.Wrap>
           <CouponList
             couponData={coupons}

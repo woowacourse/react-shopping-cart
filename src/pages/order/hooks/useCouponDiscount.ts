@@ -1,5 +1,6 @@
 import { CartItem } from "../../../shared/types/cartItem";
 import { CouponResponse } from "../../../shared/types/coupon";
+import { REMOTE_AREA_DELIVERY_PRICE } from "../constants";
 
 interface useCouponDiscountParams {
   coupons: CouponResponse[];
@@ -23,7 +24,7 @@ const useCouponDiscount = ({
       case "fixed":
         return coupon.discount || 0;
       case "freeShipping":
-        return isRemoteArea ? deliveryPrice + 3000 : deliveryPrice;
+        return isRemoteArea ? deliveryPrice + REMOTE_AREA_DELIVERY_PRICE : deliveryPrice;
       case "buyXgetY": {
         const eligibleItems = cartItems
           .filter((item) => item.quantity >= coupon.buyQuantity! + coupon.getQuantity!)
