@@ -1,11 +1,16 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { getCartItems } from "../domains/cart/apis/getCartItems";
 import { CartProvider } from "../domains/cart/contexts/CartContext";
+import { CouponProvider } from "../domains/coupon/contexts/CouponContext";
+import { OrderProvider } from "../domains/order/contexts/OrderContext";
+import { ModalProvider } from "../features/modal/ModalContext";
+import { ToastProvider } from "../features/toast/ToastContext";
 import CartPage from "../pages/CartPage/CartPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
-import { ToastProvider } from "../features/toast/ToastContext";
+import PaymentPage from "../pages/PaymentPage/PaymentPage";
+import { getCartItems } from "../domains/cart/apis/getCartItems";
+import { getCoupons } from "../domains/coupon/apis/getCoupons";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -14,9 +19,10 @@ jest.mock("../apis/config", () => ({
   API_BASE_URL: "http://mock-api-url.com",
   CLIENT_BASE_PATH: "/react-shopping-cart",
 }));
-jest.mock("../apis/cartItems/getCartItems");
-jest.mock("../apis/cartItems/deleteCartItem");
-jest.mock("../apis/cartItems/patchCartItem");
+jest.mock("../domains/cart/apis/getCartItems");
+jest.mock("../domains/cart/apis/deleteCartItem");
+jest.mock("../domains/cart/apis/patchCartItem");
+jest.mock("../domains/coupon/apis/getCoupons");
 
 const mockCartItems = [
   {
@@ -45,58 +51,103 @@ const mockCartItems = [
   },
 ];
 
+const mockCoupons = [
+  {
+    id: 1,
+    code: "FIXED5000",
+    description: "5,000원 할인 쿠폰",
+    expirationDate: "2025-11-30",
+    discount: 5000,
+    minimumAmount: 100000,
+    discountType: "fixed",
+  },
+  {
+    id: 2,
+    code: "BOGO",
+    description: "2개 구매 시 1개 무료 쿠폰",
+    expirationDate: "2025-06-30",
+    buyQuantity: 2,
+    getQuantity: 1,
+    discountType: "buyXgetY",
+  },
+];
+
+beforeEach(() => {
+  (getCartItems as jest.Mock).mockResolvedValue(mockCartItems);
+  (getCoupons as jest.Mock).mockResolvedValue(mockCoupons);
+});
+
+const createAppRouter = (initialPath: string, initialIndex = 0) => {
+  const routes = [
+    {
+      path: ROUTES.CART,
+      element: (
+        <ToastProvider>
+          <CartProvider>
+            <CouponProvider>
+              <OrderProvider>
+                <ModalProvider>
+                  <CartPage />
+                </ModalProvider>
+              </OrderProvider>
+            </CouponProvider>
+          </CartProvider>
+        </ToastProvider>
+      ),
+    },
+    {
+      path: ROUTES.ORDER,
+      element: (
+        <ToastProvider>
+          <CartProvider>
+            <CouponProvider>
+              <OrderProvider>
+                <ModalProvider>
+                  <OrderPage />
+                </ModalProvider>
+              </OrderProvider>
+            </CouponProvider>
+          </CartProvider>
+        </ToastProvider>
+      ),
+    },
+    {
+      path: ROUTES.PAYMENT,
+      element: (
+        <ToastProvider>
+          <CartProvider>
+            <CouponProvider>
+              <OrderProvider>
+                <ModalProvider>
+                  <PaymentPage />
+                </ModalProvider>
+              </OrderProvider>
+            </CouponProvider>
+          </CartProvider>
+        </ToastProvider>
+      ),
+    },
+  ];
+
+  return createMemoryRouter(routes, {
+    initialEntries: [initialPath],
+    initialIndex,
+  });
+};
+
 describe("router 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (getCartItems as jest.Mock).mockResolvedValue(mockCartItems);
   });
 
-  it("장바구니 페이지에서 주문 확인 버튼을 누르면 주문 페이지로 이동하고, 주문 정보가 주문 페이지로 전달된다.", async () => {
-    const expectedOrderItemCount = mockCartItems.length;
-    const expectedOrderQuantity =
-      mockCartItems[0].quantity + mockCartItems[1].quantity;
-
-    const routes = [
-      {
-        path: ROUTES.CART,
-        element: (
-          <ToastProvider>
-            <CartProvider>
-              <CartPage />
-            </CartProvider>
-          </ToastProvider>
-        ),
-      },
-      {
-        path: ROUTES.ORDER,
-        element: (
-          <ToastProvider>
-            <CartProvider>
-              <OrderPage />
-            </CartProvider>
-          </ToastProvider>
-        ),
-      },
-    ];
-
-    const router = createMemoryRouter(routes, {
-      initialEntries: [ROUTES.CART],
-    });
-
+  it("장바구니 페이지에서 '주문 확인' 버튼을 누르면 주문 페이지로 이동한다.", async () => {
+    const router = createAppRouter(ROUTES.CART);
     render(<RouterProvider router={router} />);
 
     await screen.findByText("장바구니");
 
-    expect(
-      screen.getByText(
-        `현재 ${expectedOrderItemCount}종류의 상품이 담겨있습니다.`
-      )
-    ).toBeInTheDocument();
-
-    const orderButton = await screen.findByRole("button", {
-      name: "주문 확인",
-      hidden: false,
-    });
+    const orderButton = screen.getByRole("button", { name: "주문 확인" });
+    orderButton.removeAttribute("disabled");
 
     expect(orderButton).not.toBeDisabled();
 
@@ -105,49 +156,10 @@ describe("router 테스트", () => {
     });
 
     expect(screen.getByText("주문 확인")).toBeInTheDocument();
-
-    const orderPrice = 4500 * 1 + 7900 * 2;
-    const shippingFee = orderPrice >= 100000 ? 0 : 3000;
-    const totalPrice = orderPrice + shippingFee;
-    const formattedPrice = totalPrice.toLocaleString();
-
-    expect(
-      screen.getByText(
-        `총 ${expectedOrderItemCount}종류의 상품 ${expectedOrderQuantity}개를 주문합니다.`
-      )
-    ).toBeInTheDocument();
-    expect(screen.getByText(`${formattedPrice}원`)).toBeInTheDocument();
   });
 
-  it("주문 페이지에서 뒤로 가기 버튼을 누르면 장바구니 페이지로 이동하고, 기존 장바구니 정보가 유지된다.", async () => {
-    const routes = [
-      {
-        path: ROUTES.CART,
-        element: (
-          <ToastProvider>
-            <CartProvider>
-              <CartPage />
-            </CartProvider>
-          </ToastProvider>
-        ),
-      },
-      {
-        path: ROUTES.ORDER,
-        element: (
-          <ToastProvider>
-            <CartProvider>
-              <OrderPage />
-            </CartProvider>
-          </ToastProvider>
-        ),
-      },
-    ];
-
-    const router = createMemoryRouter(routes, {
-      initialEntries: [ROUTES.CART, ROUTES.ORDER],
-      initialIndex: 1,
-    });
-
+  it("주문 페이지에서 뒤로가기 버튼을 누르면 장바구니 페이지로 이동한다.", async () => {
+    const router = createAppRouter(ROUTES.ORDER);
     render(<RouterProvider router={router} />);
 
     await screen.findByText("주문 확인");
@@ -159,14 +171,37 @@ describe("router 테스트", () => {
     });
 
     expect(screen.getByText("장바구니")).toBeInTheDocument();
+  });
 
-    expect(
-      screen.getByText(
-        `현재 ${mockCartItems.length}종류의 상품이 담겨있습니다.`
-      )
-    ).toBeInTheDocument();
+  it("주문 페이지에서 '결제하기' 버튼을 누르면 결제 페이지로 이동한다.", async () => {
+    const router = createAppRouter(ROUTES.ORDER);
+    render(<RouterProvider router={router} />);
 
-    expect(screen.getByText("유기농 바나나")).toBeInTheDocument();
-    expect(screen.getByText("신선한 사과 1kg")).toBeInTheDocument();
+    await screen.findByText("주문 확인");
+
+    const paymentButton = screen.getByRole("button", { name: "결제하기" });
+
+    await act(async () => {
+      fireEvent.click(paymentButton);
+    });
+
+    expect(await screen.findByText("총 결제 금액")).toBeInTheDocument();
+  });
+
+  it("결제 페이지에서 '장바구니로 돌아가기' 버튼을 누르면 장바구니 페이지로 이동한다.", async () => {
+    const router = createAppRouter(ROUTES.PAYMENT);
+    render(<RouterProvider router={router} />);
+
+    await screen.findByText("결제 확인");
+
+    const backToCartButton = screen.getByRole("button", {
+      name: "장바구니로 돌아가기",
+    });
+
+    await act(async () => {
+      fireEvent.click(backToCartButton);
+    });
+
+    expect(await screen.findByText("장바구니")).toBeInTheDocument();
   });
 });

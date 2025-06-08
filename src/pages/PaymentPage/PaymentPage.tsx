@@ -17,7 +17,7 @@ const PaymentPage = () => {
     <>
       <Header />
       <S.Main>
-        <Title>주문 확인</Title>
+        <Title>결제 확인</Title>
         <S.DescriptionContainer>
           <Description>
             총 {orderItemCount}종류의 상품 {orderQuantity}개를 주문했습니다.
