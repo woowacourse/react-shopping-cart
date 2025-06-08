@@ -3,43 +3,32 @@ import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
 import CheckBox from "@/components/common/CheckBox";
 import CartCardImage from "@/components/common/CustomImage";
-import { useState } from "react";
+import { useCartContext } from "../CartProvider";
 
 interface CartCardProps {
   cartItem: CartItem;
   isSelected: boolean;
-  handleDeleteCartItem: (id: string) => void;
-  handleCartItemQuantity: (params: {
-    id: string;
-    quantity: number;
-  }) => Promise<void>;
-  handleSelectCartItem: (id: string) => void;
 }
 
-function CartCard({
-  cartItem,
-  isSelected,
-  handleDeleteCartItem,
-  handleCartItemQuantity,
-  handleSelectCartItem,
-}: CartCardProps) {
-  const { product, quantity, id } = cartItem;
+function CartCard({ cartItem, isSelected }: CartCardProps) {
+  const {
+    handleDeleteCartItem,
+    handleCartItemQuantity,
+    handleSelectCartItem,
+    isItemLoading,
+  } = useCartContext();
 
+  const { product, quantity, id } = cartItem;
   const { name, price, imageUrl } = product;
 
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = isItemLoading(id);
 
   const handleIncreaseCartItemQuantity = () => {
-    setIsLoading(true);
-    handleCartItemQuantity({ id, quantity: quantity + 1 }).finally(() => {
-      setIsLoading(false);
-    });
+    handleCartItemQuantity({ id, quantity: quantity + 1 });
   };
+
   const handleDecreaseCartItemQuantity = () => {
-    setIsLoading(true);
-    handleCartItemQuantity({ id, quantity: quantity - 1 }).finally(() => {
-      setIsLoading(false);
-    });
+    handleCartItemQuantity({ id, quantity: quantity - 1 });
   };
 
   return (

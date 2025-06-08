@@ -70,13 +70,7 @@ const CartContentItems = () => {
 };
 
 const CartContentItemsList = () => {
-  const {
-    cartItemsData,
-    handleDeleteCartItem,
-    handleCartItemQuantity,
-    handleSelectCartItem,
-    selectedCartIds,
-  } = useCartContext();
+  const { cartItemsData, selectedCartIds } = useCartContext();
 
   return (
     <>
@@ -84,9 +78,6 @@ const CartContentItemsList = () => {
         <CartCard
           key={cartItem.id}
           cartItem={cartItem}
-          handleDeleteCartItem={handleDeleteCartItem}
-          handleCartItemQuantity={handleCartItemQuantity}
-          handleSelectCartItem={handleSelectCartItem}
           isSelected={selectedCartIds.has(cartItem.id)}
         />
       ))}

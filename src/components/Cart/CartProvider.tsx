@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useContext } from "react";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
 import useShoppingCart from "@/hooks/Cart/useShoppingCart";
 import { useCartSelection } from "@/hooks/Cart/useCartSelection";
 import { useCalculateOrder } from "@/hooks/Cart/useCalculateOrder";
@@ -23,6 +23,9 @@ interface CartContextValue {
 
   subtotalPrice: number;
 
+  // 로딩 상태 관리
+  isItemLoading: (id: string) => boolean;
+
   onNext: () => void;
 }
 
@@ -41,11 +44,13 @@ interface CartProviderProps extends PropsWithChildren {
 }
 
 export const CartProvider = ({ children, onNext }: CartProviderProps) => {
+  const [loadingItemIds, setLoadingItemIds] = useState<Set<string>>(new Set());
+
   const {
     cartItemsData,
     cartFetchLoading,
-    handleCartItemQuantity,
-    handleDeleteCartItem,
+    handleCartItemQuantity: originalHandleCartItemQuantity,
+    handleDeleteCartItem: originalHandleDeleteCartItem,
     handleOrderCartItem,
   } = useShoppingCart();
 
@@ -59,6 +64,38 @@ export const CartProvider = ({ children, onNext }: CartProviderProps) => {
   } = useCartSelection(cartItemsData);
 
   const { subtotalPrice } = useCalculateOrder(cartItemsData, selectedIds);
+
+  // 로딩 상태 관리를 포함한 핸들러들
+  const handleCartItemQuantity = async (params: {
+    id: string;
+    quantity: number;
+  }) => {
+    setLoadingItemIds((prev) => new Set(prev).add(params.id));
+    try {
+      await originalHandleCartItemQuantity(params);
+    } finally {
+      setLoadingItemIds((prev) => {
+        const next = new Set(prev);
+        next.delete(params.id);
+        return next;
+      });
+    }
+  };
+
+  const handleDeleteCartItem = async (id: string) => {
+    setLoadingItemIds((prev) => new Set(prev).add(id));
+    try {
+      await originalHandleDeleteCartItem(id);
+    } finally {
+      setLoadingItemIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    }
+  };
+
+  const isItemLoading = (id: string) => loadingItemIds.has(id);
 
   const contextValue: CartContextValue = {
     cartItemsData,
@@ -75,6 +112,8 @@ export const CartProvider = ({ children, onNext }: CartProviderProps) => {
     selectedCartItems: selectedItems,
     // 금액
     subtotalPrice,
+    // 로딩 상태
+    isItemLoading,
     // 외부 콜백 (예: "다음 단계" 버튼)
     onNext: onNext ?? (() => {}),
   };
