@@ -80,4 +80,11 @@ describe("calculateFixedDiscount 함수 테스트", () => {
 
     expect(discount).toBe(0);
   });
+
+  it("주문 금액이 0인 경우 0을 반환한다", () => {
+    const orderPrice = 0;
+    const discount = calculateFixedDiscount(baseFixedCoupon, orderPrice);
+
+    expect(discount).toBe(0);
+  });
 });
