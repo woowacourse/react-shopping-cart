@@ -22,9 +22,9 @@ const useOrderSummary = ({ isRemoteArea = false }: Props = {}) => {
     const orderQuantity = calculateOrderQuantity(orderItems);
     const orderPrice = calculateOrderPrice(orderItems);
 
-    const baseShippingFee = calculateShippingFee(orderPrice); // 장바구니에서만 사용
+    const baseShippingFee = calculateShippingFee(orderPrice);
     const remoteAreaFee = isRemoteArea ? 3000 : 0;
-    const finalShippingFee = baseShippingFee + remoteAreaFee; // 산간지역 포함된 배송비 (얘는 쿠폰 적용되어도 그대로 표시됨 = 절대 이 값 자체가 차감되지 않으므로 그냥 최종 배송비임)
+    const finalShippingFee = baseShippingFee + remoteAreaFee;
     const baseTotalPrice = orderPrice + baseShippingFee;
 
     return {
@@ -44,7 +44,7 @@ const useOrderSummary = ({ isRemoteArea = false }: Props = {}) => {
     coupons: selectedCoupons,
     orderItems: orderCalculation.orderItems,
     orderPrice: orderCalculation.orderPrice,
-    shippingFee: orderCalculation.finalShippingFee, // 산간지역까지 포함
+    shippingFee: orderCalculation.finalShippingFee,
   });
 
   const finalTotalPrice =
