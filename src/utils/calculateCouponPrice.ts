@@ -27,7 +27,11 @@ export const calculateCouponPrice = ({
 
     switch (coupon.id) {
       case 1:
-        if (coupon.discount && totalPrice >= coupon.discount) {
+        if (
+          coupon.minimumAmount &&
+          coupon.discount &&
+          totalPrice >= coupon.minimumAmount
+        ) {
           sum += coupon.discount;
         }
         break;
