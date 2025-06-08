@@ -28,7 +28,7 @@ function useCouponList() {
     }
   };
 
-  return { couponList, isLoading, error };
+  return { data: couponList, isLoading, error };
 }
 
 export default useCouponList;
