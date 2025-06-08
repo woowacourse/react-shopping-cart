@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import styled from '@emotion/styled';
 
 interface NavbarProps {
-  title: string;
+  title?: string;
   url?: string;
 }
 

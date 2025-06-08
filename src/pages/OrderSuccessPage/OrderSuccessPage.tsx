@@ -17,9 +17,9 @@ export default function OrderSuccessPage() {
 
   return (
     <S.OrderSuccessContainer>
-      <Navbar title="◀" url={ROUTES.ROOT} />
+      <Navbar />
       <S.OrderSuccessSection>
-        <S.OrderSuccessTitle>주문 확인</S.OrderSuccessTitle>
+        <S.OrderSuccessTitle>결제 확인</S.OrderSuccessTitle>
         <S.OrderSuccessQuantity>
           총 {cartTypeQuantity}종류의 상품 {totalQuantity}개를 주문합니다.
         </S.OrderSuccessQuantity>
