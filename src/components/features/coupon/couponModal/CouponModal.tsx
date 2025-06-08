@@ -34,7 +34,7 @@ function CouponModal({
 
   return (
     <Modal.Container title="쿠폰 적용" style={{ gap: '32px' }}>
-      <S.CouponContainer>
+      <S.CouponContainer data-testid="coupon-modal">
         <S.NoticeBox>
           <img src="./assets/Notification.svg" alt="알림" />
           <S.NoticeText>쿠폰은 최대 2개까지 사용할 수 있습니다.</S.NoticeText>

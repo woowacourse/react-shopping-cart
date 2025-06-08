@@ -12,7 +12,7 @@
   },
   {
     "id": 8078,
-    "quantity": 2,
+    "quantity": 1,
     "product": {
       "id": 2,
       "name": "에어포스2",
@@ -34,7 +34,7 @@
   },
   {
     "id": 8080,
-    "quantity": 1,
+    "quantity": 3,
     "product": {
       "id": 4,
       "name": "달 무드등",
