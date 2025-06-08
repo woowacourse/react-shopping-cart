@@ -3,7 +3,7 @@ import * as Styled from "./OrderContent.style";
 import AllCheckBox from "../AllCheckBox/AllCheckBox";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
-import OrderSummary from "../../OrderSummary/OrderSummary";
+import CartOrderSummary from "../CartOrderSummary/CartOrderSummary";
 import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 import { CartItem } from "../../../type/CartItem";
 
@@ -59,7 +59,7 @@ function OrderContent({
           />
         ))}
       </CartList>
-      <OrderSummary
+      <CartOrderSummary
         cartItemsData={cartItemsData}
         selectedCartIds={selectedCartIds}
       />

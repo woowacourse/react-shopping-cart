@@ -1,12 +1,12 @@
-import * as Styled from "./OrderSummary.style";
+import * as Styled from "./CartOrderSummary.style";
 
-import { getOrderSummary } from "../../util/cart/getOrderSummary";
+import { getOrderSummary } from "../../../util/cart/getOrderSummary";
 
-import { CartItem } from "../../type/CartItem";
-import OrderNotice from "./OrderNotice/OrderNotice";
-import OrderTotalPrice from "./OrderTotalPrice/OrderTotalPrice";
-import OrderShippingFee from "./OrderShippingFee/OrderShippingFee";
-import OrderTotalPriceWithShipping from "./OrderTotalPriceWithShipping/OrderTotalPriceWithShipping";
+import { CartItem } from "../../../type/CartItem";
+import OrderNotice from "../../OrderSummary/OrderNotice/OrderNotice";
+import OrderTotalPrice from "../../OrderSummary/OrderTotalPrice/OrderTotalPrice";
+import OrderShippingFee from "../../OrderSummary/OrderShippingFee/OrderShippingFee";
+import OrderTotalPriceWithShipping from "../../OrderSummary/OrderTotalPriceWithShipping/OrderTotalPriceWithShipping";
 
 interface OrderSummaryProps {
   cartItemsData: CartItem[];
