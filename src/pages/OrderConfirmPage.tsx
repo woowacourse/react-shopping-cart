@@ -1,13 +1,15 @@
 import Header from '../components/Header/Header';
+import CartInfo from '../components/Cart/CartInfo';
+import CartHeader from '../components/Cart/CartHeader';
+import CartFooter from '../components/Cart/CartFooter';
 import Button from '../components/Button/Button';
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router';
 import { useState } from 'react';
-import { infoIcon } from '../assets';
 import { Modal } from '../components/Modal';
-import { CartInfo, InfoIconImage } from '../components/Cart/CartMain';
 import { COUPONS } from '../constants/couponConfig';
 import { HiddenCheckbox } from '../components/SelectBox/SelectBox.styles';
+import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -15,18 +17,56 @@ function OrderConfirmPage() {
   const { price, count, totalCount } = location.state;
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  // 임시 데이터 - 실제로는 location.state에서 받아와야 함
+  const productName = '이름';
+  const productPrice = 35000;
+  const productQuantity = 2;
+  const productTotal = productPrice * productQuantity;
+  const couponDiscount = 6000;
+  const shippingFee = price >= 100000 ? 0 : 6000;
+  const finalTotal = productTotal - couponDiscount + shippingFee;
+
   return (
     <>
       <Header variant="back" />
       <Container>
-        <Title>주문 확인</Title>
-        <Description>
-          총 {count}종류의 상품 {totalCount}개를 주문합니다.
-          <br /> 최종 결제 금액을 확인해 주세요.
-        </Description>
-        <SubTitle>총 결제 금액</SubTitle>
-        <Title>{price.toLocaleString()}원</Title>
+        <CartHeader
+          title="주문 확인"
+          description={`총 ${count}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
+        />
+
+        <ProductSection>
+          <ProductImage src="https://via.placeholder.com/80" alt="상품 이미지" />
+          <ProductInfo>
+            <ProductName>{productName}</ProductName>
+            <ProductPrice>{productPrice.toLocaleString()}원</ProductPrice>
+            <ProductQuantity>{productQuantity}개</ProductQuantity>
+          </ProductInfo>
+        </ProductSection>
+
         <CouponSelectButton onClick={() => setIsCartModalOpen(true)}>쿠폰 적용</CouponSelectButton>
+
+        <DeliverySection>
+          <SectionTitle>배송 정보</SectionTitle>
+          <DeliveryItem>
+            <CouponCheckboxContainer>
+              <HiddenCheckbox type="checkbox" checked={false} onChange={() => {}} />
+              <CouponStyledCheckbox checked={false} />
+            </CouponCheckboxContainer>
+            <DeliveryText>제주도 및 도서 산간 지역</DeliveryText>
+          </DeliveryItem>
+        </DeliverySection>
+
+        <CartInfo
+          style={{ marginTop: '32px' }}
+          description={`총 주문 금액이 ${SHIPPING_FEE_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
+        />
+        <CartFooter
+          price={productTotal}
+          couponDiscount={couponDiscount}
+          shippingFee={shippingFee}
+          totalPrice={finalTotal}
+        />
       </Container>
       {isCartModalOpen && (
         <Modal
@@ -36,10 +76,10 @@ function OrderConfirmPage() {
           onClose={() => setIsCartModalOpen(false)}
         >
           <>
-            <CartInfo style={{ marginTop: '32px' }}>
-              <InfoIconImage src={infoIcon} alt="infoIcon" />
-              <p>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
-            </CartInfo>
+            <CartInfo
+              description="쿠폰은 최대 2개까지 사용할 수 있습니다."
+              style={{ marginTop: '32px' }}
+            />
             <CouponListContainer>
               {COUPONS.map((coupon) => (
                 <CouponContainer key={coupon.id}>
@@ -86,52 +126,91 @@ export default OrderConfirmPage;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 0 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
   height: 100%;
+  overflow-y: auto;
 `;
 
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
+const ProductSection = styled.div`
+  display: flex;
+  gap: 16px;
+  padding: 24px 0;
+  margin: 36px 0 0 0;
+  border-top: 1px solid #e5e5e5;
 `;
 
-const Description = styled.p`
-  margin: 24px 0;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 150%;
-  color: #0a0d13;
+const ProductImage = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
 `;
 
-const SubTitle = styled.h3`
-  margin-bottom: 12px;
+const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const ProductName = styled.h3`
   font-size: 16px;
-  font-weight: 700;
-  color: #0a0d13;
+  font-weight: 600;
 `;
 
-export const CouponButton = styled.button`
+const ProductPrice = styled.p`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const ProductQuantity = styled.p`
+  font-size: 14px;
+  color: #666;
+`;
+
+const DeliverySection = styled.div`
+  margin-top: 12px;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+`;
+
+const DeliveryItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+`;
+
+const DeliveryText = styled.p`
+  font-size: 14px;
+`;
+
+const CouponButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
   color: white;
-  height: 44px;
-  border-radius: 5px;
+  height: 48px;
+  border-radius: 8px;
   border: none;
   background-color: #333333;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 100%;
   text-align: center;
   cursor: pointer;
+  margin-top: 24px;
 
   &:hover {
-    background-color: #444444;
+    background-color: #555;
   }
 `;
 
@@ -219,20 +298,20 @@ const CouponDetail = styled.p`
 `;
 
 const CouponSelectButton = styled.button`
-  color: #333333bf;
-  width: 382px;
+  width: 100%;
   height: 48px;
-  border-radius: 5px;
-  border: 1px solid #33333340;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
   background-color: white;
-
-  margin-top: 20px;
-  padding: 10px 20px;
+  margin: 16px 0 24px 0;
   font-size: 14px;
   font-weight: 600;
+  color: #666;
   cursor: pointer;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: #eaeaeaff;
+    background-color: #f8f8f8;
+    border-color: #ccc;
   }
 `;
