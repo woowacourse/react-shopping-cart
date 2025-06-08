@@ -2,7 +2,7 @@ import OrderCheckPage from '@/pages/orderCheck/OrderCheckPage';
 import { ROUTE } from '@/shared';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router';
-import mockCartItems from '../src/mocks/data/mock-cart-items.json'; // 주문 상품 모의 데이터
+import mockCartItems from '../src/mocks/data/mock-cart-items.json';
 
 describe('OrderCheckPage 쿠폰 적용 테스트', () => {
   beforeEach(() => {
