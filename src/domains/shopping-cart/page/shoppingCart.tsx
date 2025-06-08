@@ -13,7 +13,7 @@ import { useSelectedCartContext } from "../../common/context/selectedCartProvide
 import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
 import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
 import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
-import { getOrderPrice } from "../../common/utils/getOrderPrice/getOrderPrice";
+import { getOrderPrice } from "../../common/utils/getOrderPrice";
 import {
   CartProductContainerLayout,
   SelectAllLayout,

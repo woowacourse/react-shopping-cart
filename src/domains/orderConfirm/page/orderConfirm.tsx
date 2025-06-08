@@ -13,7 +13,7 @@ import Modal from "compoents-modal-test-kangoll";
 import { useNavigate } from "react-router-dom";
 import { InfoText } from "../../../components/InfoText/InfoText";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
-import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity/calculateCartItemQuantity";
+import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
 import { CouponList } from "../components/CouponList/CouponList";
 import { usePaymentSummary } from "../hooks/usePaymentsummary";
 import { useSaleCoupon } from "../hooks/useSaleCoupon";

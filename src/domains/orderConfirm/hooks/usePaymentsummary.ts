@@ -1,12 +1,13 @@
 import { useMemo } from "react";
 import { useCartContext } from "../../common/context/cartProvider";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
-import { getOrderPrice } from "../../common/utils/getOrderPrice/getOrderPrice";
+
 import { CouponCode } from "../types/coupon";
 import { getDeliveryFee } from "../utils/getDeliveryFee";
 import { getDisCountedPrice } from "../utils/getDisCountedPrice";
 import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
+import { getOrderPrice } from "../../common/utils/getOrderPrice";
 
 interface UsePaymentSummaryProps {
   isExtraDeliveryArea: boolean;
