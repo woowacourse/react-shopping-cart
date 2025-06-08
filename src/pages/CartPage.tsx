@@ -8,6 +8,7 @@ import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 import { usePageContext } from '../contexts/Page/PageContext';
 import S from './page.Style';
+import InlineNotice from '../components/InlineNotice';
 
 const CartPage = () => {
   const { cartItems } = useCartItemsContext();
@@ -33,13 +34,11 @@ const CartPage = () => {
                 />
               ))}
             </S.itemCardList>
-            <S.infoContainer>
-              <img src="./info.svg" />
-              <p>
-                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()}{' '}
-                이상인 경우 무료 배송됩니다.
-              </p>
-            </S.infoContainer>
+            <InlineNotice
+              text={`총 주문 금액이 ${DELIVERY_PRICE_THRESHOLD.toLocaleString()}
+                이상인 경우 무료 배송됩니다.`}
+            />
+
             <PriceSection />
           </>
         )}
