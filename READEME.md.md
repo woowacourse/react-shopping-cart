@@ -71,8 +71,8 @@ ui 퍼블리싱
   - [ ] cart
     - [x] useCartResource 훅 테스트
     - [x] useCartCheck 훅 테스트
-    - [ ] calculateCartAmount utils 함수 테스트
-    - [ ] calculateCartPrice utils 함수 테스트
+    - [x] calculateCartAmount utils 함수 테스트
+    - [x] calculateCartPrice utils 함수 테스트
   - [ ] order
     - [ ] useCouponResource 훅 테스트
     - [ ] useDeliveryInformation 훅 테스트
