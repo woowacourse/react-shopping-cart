@@ -5,7 +5,7 @@ import getOrderPrice from '../../src/utils/getOrderPrice';
 import getIdsFromCartItems from '../../src/utils/getIdsFromCartItems';
 import App from '../../src/App';
 
-describe('OrderConfirmPage 테스트', () => {
+describe('OrderPriceConfirmPage 테스트', () => {
   beforeEach(async () => {
     await act(() => render(<App />));
   });
@@ -15,7 +15,7 @@ describe('OrderConfirmPage 테스트', () => {
     fireEvent.click(confirmButton);
 
     await waitFor(() => {
-      expect(screen.getByTestId('orderConfirmPage')).toBeInTheDocument();
+      expect(screen.getByTestId('orderPriceConfirmPage')).toBeInTheDocument();
     });
   });
 

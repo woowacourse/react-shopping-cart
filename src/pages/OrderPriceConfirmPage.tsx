@@ -5,7 +5,7 @@ import getOrderPrice from '../utils/getOrderPrice';
 import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
 import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
 
-const OrderConfirmPage = () => {
+const OrderPriceConfirmPage = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds } = useCheckCartIdsContext();
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
@@ -18,12 +18,12 @@ const OrderConfirmPage = () => {
 
   return (
     <>
-      <S.content data-testid="orderConfirmPage">
-        <S.title>주문 확인</S.title>
+      <S.content data-testid="orderPriceConfirmPage">
+        <S.title>결제 확인</S.title>
         <S.middleContainer>
           <p>
             총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를
-            주문합니다.
+            주문했습니다.
           </p>
           <p>최종 결제 금액을 확인해 주세요.</p>
         </S.middleContainer>
@@ -37,7 +37,7 @@ const OrderConfirmPage = () => {
   );
 };
 
-export default OrderConfirmPage;
+export default OrderPriceConfirmPage;
 
 const S = {
   content: styled.div`

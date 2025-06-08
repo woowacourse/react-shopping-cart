@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
 interface PageContextType {
-  page: 'cart' | 'orderConfirm';
-  setPage: React.Dispatch<React.SetStateAction<'cart' | 'orderConfirm'>>;
+  page: 'cart' | 'orderPriceConfirm';
+  setPage: React.Dispatch<React.SetStateAction<'cart' | 'orderPriceConfirm'>>;
 }
 
 export const PageContext = createContext<PageContextType | null>(null);
