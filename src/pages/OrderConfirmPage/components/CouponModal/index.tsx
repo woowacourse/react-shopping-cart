@@ -6,7 +6,7 @@ import CheckBox from "../../../../components/common/CheckBox";
 import Button from "../../../../components/common/Button";
 import { Modal } from "@seo_dev/react-modal";
 import { GetCouponResponse } from "../../../../apis/couponApi";
-import couponInfo from "../../utils/couponInfo";
+import CouponSummary from "../../utils/CouponSummary";
 
 const CouponModal = ({ onClose, coupons }: { onClose: () => void; coupons: GetCouponResponse[] }) => {
   return (
@@ -34,7 +34,7 @@ const CouponModal = ({ onClose, coupons }: { onClose: () => void; coupons: GetCo
                   <CheckBox isChecked={false} onClick={() => {}}>
                     <Text variant="title-2">{description}</Text>
                   </CheckBox>
-                  {couponInfo({ coupon })}
+                  {CouponSummary({ coupon })}
                 </S.CouponCard>
               );
             })}
