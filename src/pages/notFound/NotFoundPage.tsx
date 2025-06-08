@@ -1,6 +1,6 @@
+import { ROUTE } from '@/shared';
 import { useNavigate } from 'react-router';
 import * as S from './NotFoundPage.styles';
-import { ROUTE } from '@/shared/constants/route';
 
 function NotFoundPage() {
   const navigate = useNavigate();

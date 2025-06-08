@@ -1,7 +1,7 @@
-import SelectBox from '../../../common/selectBox/SelectBox';
+import { SelectBox } from '@/components/common';
 import CartItem from '../cartItem/CartItem';
-import * as S from './CartList.styles';
 import { CartItemType } from '../types';
+import * as S from './CartList.styles';
 
 interface CartListProps {
   cartItems: CartItemType[];

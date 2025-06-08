@@ -1,6 +1,6 @@
 import { getCartItems } from '@/components/features/cart/api/getCartItems';
 import CartContents from '@/components/features/cart/cartContents/CartContents';
-import { useJaeO } from '@/shared/data/useJaeO';
+import { useJaeO } from '@/shared';
 import Header from '../../components/common/header/Header';
 import LoadingContents from './components/loadingContents/LoadingContents';
 

@@ -1,4 +1,4 @@
-import Loading from '@/components/common/loading/Loading';
+import { Loading } from '@/components/common';
 import * as S from './LoadingContents.styles';
 
 function LoadingContents() {

@@ -1,4 +1,5 @@
 import { ErrorToastMessage, FooterButton } from '@/components/common';
+import { ROUTE } from '@/shared';
 import { useNavigate } from 'react-router';
 import CartList from '../cartList/CartList';
 import CartPriceSummary from '../cartPriceSummary/CartPriceSummary';
@@ -8,7 +9,6 @@ import { CartItemType } from '../types';
 import { calculateOrderPrice } from '../utils/cartCalculations';
 import * as S from './CartContents.styles';
 import CartEmptyContent from './CartEmptyContent';
-import { ROUTE } from '@/shared/constants/route';
 
 function CartContents({ cartItems }: { cartItems: CartItemType[] }) {
   const cartSelection = useCartSelection(cartItems);

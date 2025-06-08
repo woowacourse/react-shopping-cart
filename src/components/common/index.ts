@@ -6,5 +6,6 @@ export * from './iconButton';
 export * from './loading';
 export * from './mobileLayout';
 export * from './pageTitle';
+export * from './priceSummary';
 export * from './selectBox';
 export * from './separator';

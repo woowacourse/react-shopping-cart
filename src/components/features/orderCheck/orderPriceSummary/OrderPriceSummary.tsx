@@ -1,4 +1,4 @@
-import { PriceSummary } from '@/components/common/priceSummary';
+import { PriceSummary } from '@/components/common';
 import { CART_RULE } from '../../cart/constants/cartRule';
 
 interface OrderPriceSummaryProps {

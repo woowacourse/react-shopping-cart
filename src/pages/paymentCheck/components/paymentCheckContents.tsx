@@ -1,7 +1,7 @@
 import { FooterButton } from '@/components/common';
-import * as S from './PaymentCheckContents.styles';
+import { ROUTE } from '@/shared';
 import { useNavigate } from 'react-router';
-import { ROUTE } from '@/shared/constants/route';
+import * as S from './PaymentCheckContents.styles';
 
 interface PaymentCheckContentsProps {
   orderItemsQuantity: number;

@@ -1,4 +1,4 @@
-import { showErrorToast } from '@/shared/toast/toastStore';
+import { showErrorToast } from '@/shared';
 
 export const handleCartActions = async <T>(
   action: () => Promise<T>,

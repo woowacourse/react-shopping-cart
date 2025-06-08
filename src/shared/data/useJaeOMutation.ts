@@ -8,10 +8,10 @@ interface useJaeOMutationProps<TVariable, TData> {
   };
 }
 
-export const useJaeOMutation = <TVariable, TData>({
+export function useJaeOMutation<TVariable, TData>({
   mutationFn,
   options,
-}: useJaeOMutationProps<TVariable, TData>) => {
+}: useJaeOMutationProps<TVariable, TData>) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -40,4 +40,4 @@ export const useJaeOMutation = <TVariable, TData>({
   );
 
   return { mutate, isLoading, error };
-};
+}

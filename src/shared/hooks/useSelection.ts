@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
 
-function useSelection<T>(initial: Set<T> = new Set(), maxCount?: number) {
+export function useSelection<T>(
+  initial: Set<T> = new Set(),
+  maxCount?: number
+) {
   const [selected, setSelected] = useState<Set<T>>(new Set(initial));
 
   const toggle = useCallback(
@@ -32,5 +35,3 @@ function useSelection<T>(initial: Set<T> = new Set(), maxCount?: number) {
     set: setSelected,
   };
 }
-
-export default useSelection;

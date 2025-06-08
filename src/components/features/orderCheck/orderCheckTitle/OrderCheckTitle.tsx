@@ -1,4 +1,4 @@
-import PageTitle from '@/components/common/pageTitle/PageTitle';
+import { PageTitle } from '@/components/common';
 
 function OrderCheckTitle() {
   return (

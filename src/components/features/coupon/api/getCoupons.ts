@@ -1,4 +1,4 @@
-import { baseAPI } from '../../../../api/baseAPI';
+import { baseAPI } from '@/api/baseAPI';
 import { CouponType } from '../models/coupon.types';
 
 export async function getCoupons() {

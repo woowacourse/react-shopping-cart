@@ -1,5 +1,9 @@
-import { FooterButton, Loading, SelectBox } from '@/components/common';
-import BorderButton from '@/components/common/borderButton/BorderButton';
+import {
+  BorderButton,
+  FooterButton,
+  Loading,
+  SelectBox,
+} from '@/components/common';
 import { CartItemType } from '@/components/features/cart/types';
 import { getCoupons } from '@/components/features/coupon/api/getCoupons';
 import CouponModal from '@/components/features/coupon/couponModal/CouponModal';
@@ -7,17 +11,15 @@ import useAppliedCoupons from '@/components/features/coupon/hooks/useAppliedCoup
 import useOrderPriceSummary from '@/components/features/coupon/hooks/useOrderSummary';
 import Coupon from '@/components/features/coupon/models/coupon';
 import { CouponType } from '@/components/features/coupon/models/coupon.types';
+import { selectTopDiscountCoupons } from '@/components/features/coupon/utils/selectTopDiscountCoupons';
 import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
 import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
 import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
-import { ROUTE } from '@/shared/constants/route';
-import { useJaeO } from '@/shared/data/useJaeO';
-import useToggle from '@/shared/hooks/useToggle';
+import { ROUTE, useJaeO, useToggle } from '@/shared';
 import { Modal } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
-import { selectTopDiscountCoupons } from '@/components/features/coupon/utils/selectTopDiscountCoupons';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];

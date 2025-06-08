@@ -1,4 +1,4 @@
-import useSelection from '@/shared/hooks/useSelection';
+import { useSelection } from '@/shared';
 import { Modal, useModalContext } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
 import CouponItem from '../couponItem/CouponItem';
