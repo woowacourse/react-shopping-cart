@@ -1,7 +1,7 @@
 import QuantityStepper from "../QuantityStepper/QuantityStepper";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import TextButton from "../@common/Button/TextButton/TextButton";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
+import { useCartItemContext } from "../../contexts/carItem/useCartItemContext";
 import CartItemCard from "./CartItemCard";
 import { CartItem } from "../../types/type";
 

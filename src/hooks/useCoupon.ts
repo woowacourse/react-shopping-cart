@@ -4,10 +4,10 @@ import { LoadingStatus } from "./useCartItems";
 import couponsApi from "../apis/couponsApi";
 import { useSelected } from "./useSelected";
 import { MAX_COUPON_COUNT } from "../constants";
-import { calculateFixedDiscount } from "../utils/calculateFixedDiscount";
-import { calculatePercentageDiscount } from "../utils/calculatePercentageDiscount";
-import { calculateFreeShippingDiscount } from "../utils/calculateFreeShippingDiscount";
-import { calculateBuyXgetYDiscount } from "../utils/calulateBuyXgetYDiscount";
+import { calculateFixedDiscount } from "../utils/coupons/calculateFixedDiscount";
+import { calculatePercentageDiscount } from "../utils/coupons/calculatePercentageDiscount";
+import { calculateFreeShippingDiscount } from "../utils/coupons/calculateFreeShippingDiscount";
+import { calculateBuyXgetYDiscount } from "../utils/coupons/calulateBuyXgetYDiscount";
 
 interface useCouponProps {
   orderPrice: number;

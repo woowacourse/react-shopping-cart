@@ -2,8 +2,8 @@ import { css } from "@emotion/css";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import { CartItem } from "../../types/type";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
 import EditableCartItemCard from "../CartItemCard/EditableCartItemCard";
+import { useSelectedCartItemContext } from "../../contexts/selectedCartItem/useSelectedCartItemContext";
 
 interface CartItemCardListProps {
   cartItems: CartItem[];
@@ -11,7 +11,7 @@ interface CartItemCardListProps {
 
 const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
-    useCartItemContext();
+    useSelectedCartItemContext();
 
   const isSelectedItem = (cartItemId: number) => {
     return selectedItemIds.has(cartItemId);
