@@ -4,6 +4,7 @@ import useCartList from '../hooks/useCartList';
 import useSelect from '../hooks/useSelect';
 import { cartPrice } from '../utils/cartPrice';
 import { CART } from '../constants/cart';
+import { setLocalStorage } from '../utils/localStorage';
 
 type CartContextType = {
   data: CartItemProps[];
@@ -12,6 +13,7 @@ type CartContextType = {
   increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
   deleteCartItem: (cartItemId: number) => Promise<void>;
+  clearCart: () => void;
 
   selectedItems: number[];
   isAllSelected: boolean;
@@ -30,6 +32,7 @@ const CartContext = createContext<CartContextType | null>(null);
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const {
     data,
+    setCartList,
     error,
     isLoading,
     increaseCartItem,
@@ -49,8 +52,21 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const totalBeforeDiscount = subTotal + deliveryFee;
   const typeCount = selectedItems.length;
   const totalCount = data.reduce((acc: number, curr: CartItemProps) => {
-    return acc + curr?.quantity;
+    if (selectedItems.includes(curr.id)) {
+      return acc + curr?.quantity;
+    }
+    return acc;
   }, 0);
+
+  const clearCart = () => {
+    const items = data.filter((item) => !selectedItems.includes(item.id));
+    setCartList(items);
+    setLocalStorage(
+      'selectedItems',
+      items.map((item) => item.id)
+    );
+    setLocalStorage('cartList', items);
+  };
 
   return (
     <CartContext.Provider
@@ -61,6 +77,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         increaseCartItem,
         decreaseCartItem,
         deleteCartItem,
+        clearCart,
 
         selectedItems,
         isAllSelected,

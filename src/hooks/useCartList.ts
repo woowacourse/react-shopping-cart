@@ -80,6 +80,7 @@ function useCartList() {
 
   return {
     data: cartList,
+    setCartList,
     error,
     isLoading,
     increaseCartItem,
