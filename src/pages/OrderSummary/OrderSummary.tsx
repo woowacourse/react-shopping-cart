@@ -14,6 +14,8 @@ import CouponModal from "../../components/CouponModal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
 import { getDeliveryCost, getOrderCost } from "../../\bdomains/cost";
 import { useState } from "react";
+import { calculateDiscountAmount } from "../../\bdomains/discount";
+import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
 
 function OrderSummary() {
   const [isJejuOrIslandSelected, setIsJejuOrIslandSelected] = useState(false);
@@ -21,11 +23,20 @@ function OrderSummary() {
   const { isOpen, modalClose, modalOpen } = useModal();
   const navigate = useNavigate();
 
+  const { selectedCoupon } = useCouponManagerProvider();
+
   const cartItems = useSafeLocationState<CartItemType[]>();
 
   const orderCost = getOrderCost(cartItems);
   const deliveryCost =
     getDeliveryCost(orderCost) + (isJejuOrIslandSelected ? 3000 : 0);
+
+  const discountAmount = calculateDiscountAmount({
+    price: orderCost,
+    cartItems,
+    deliveryCost,
+    selectedCoupon,
+  });
 
   return (
     <>
@@ -53,7 +64,7 @@ function OrderSummary() {
         <Receipt
           orderCost={orderCost}
           deliveryCost={deliveryCost}
-          discount={10000}
+          discount={discountAmount}
         />
       </section>
       <SubmitButton enabled={false} label="결제하기" />
@@ -62,6 +73,7 @@ function OrderSummary() {
           onClose={modalClose}
           orderCost={orderCost}
           cartItems={cartItems}
+          discount={discountAmount}
         />
       )}
     </>

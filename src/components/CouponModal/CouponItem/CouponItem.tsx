@@ -37,7 +37,7 @@ export default function CouponItem({
     selectedCoupon,
   });
 
-  const checked = isSelected(type);
+  const checked = isSelected(couponData);
   return (
     <div css={[Container, disabled && { opacity: 0.3 }]}>
       <CheckBox
@@ -47,9 +47,9 @@ export default function CouponItem({
         isSelected={checked}
         onClick={() => {
           if (checked) {
-            removeCoupon(type);
+            removeCoupon(couponData);
           } else {
-            addCoupon(type);
+            addCoupon(couponData);
           }
         }}
         textSize="big"

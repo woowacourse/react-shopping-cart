@@ -1,11 +1,12 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { DiscountType } from "../types/coupon";
+import { CouponType } from "../types/coupon";
 
 interface CouponContextType {
-  selectedCoupon: DiscountType[];
-  addCoupon: (couponType: DiscountType) => void;
-  removeCoupon: (couponType: DiscountType) => void;
-  isSelected: (couponType: DiscountType) => boolean;
+  selectedCoupon: CouponType[];
+  addCoupon: (coupon: CouponType) => void;
+  removeCoupon: (coupon: CouponType) => void;
+  isSelected: (coupon: CouponType) => boolean;
+  changeSelectedCoupon: (coupons: CouponType[]) => void;
 }
 
 const couponContext = createContext<CouponContextType>({
@@ -13,21 +14,22 @@ const couponContext = createContext<CouponContextType>({
   addCoupon: () => {},
   removeCoupon: () => {},
   isSelected: () => false,
+  changeSelectedCoupon: () => {},
 });
 
 export function CouponManagerProvider({ children }: PropsWithChildren) {
-  const [selectedCoupon, setSelectedCoupon] = useState<DiscountType[]>([]);
+  const [selectedCoupon, setSelectedCoupon] = useState<CouponType[]>([]);
 
-  function addCoupon(couponType: DiscountType) {
+  function addCoupon(coupon: CouponType) {
     setSelectedCoupon((prev) => {
-      prev.push(couponType);
+      prev.push(coupon);
       return [...prev];
     });
   }
 
-  function removeCoupon(couponType: DiscountType) {
+  function removeCoupon(coupon: CouponType) {
     setSelectedCoupon((prev) => {
-      const index = prev.indexOf(couponType);
+      const index = prev.indexOf(coupon);
       if (index > -1) {
         prev.splice(index, 1);
       }
@@ -35,13 +37,23 @@ export function CouponManagerProvider({ children }: PropsWithChildren) {
     });
   }
 
-  function isSelected(couponType: DiscountType) {
-    return selectedCoupon.includes(couponType);
+  function changeSelectedCoupon(coupons: CouponType[]) {
+    setSelectedCoupon(coupons);
+  }
+
+  function isSelected(coupon: CouponType) {
+    return Boolean(selectedCoupon.find((item) => item.code === coupon.code));
   }
 
   return (
     <couponContext.Provider
-      value={{ selectedCoupon, addCoupon, removeCoupon, isSelected }}
+      value={{
+        selectedCoupon,
+        addCoupon,
+        removeCoupon,
+        isSelected,
+        changeSelectedCoupon,
+      }}
     >
       {children}
     </couponContext.Provider>

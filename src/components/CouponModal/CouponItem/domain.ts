@@ -12,10 +12,10 @@ export function isCouponDisabled({
   coupon: CouponType;
   orderCost: number;
   cartItems: CartItemType[];
-  selectedCoupon: DiscountType[];
+  selectedCoupon: CouponType[];
 }) {
   const isExpired = !isAvailableDate(coupon.expirationDate);
-  const isOverLimit = isOverCouponLimit(type, selectedCoupon);
+  const isOverLimit = isOverCouponLimit(coupon, selectedCoupon);
   const isOutOfTime = type === "percentage" && isCouponOutOfTime(coupon);
   const isOverQuantity =
     type === "buyXgetY" && isCouponOverQuantity(coupon, cartItems);
@@ -33,10 +33,13 @@ export function isCouponDisabled({
 }
 
 export function isOverCouponLimit(
-  type: DiscountType,
-  selectedCoupon: DiscountType[]
+  coupon: CouponType,
+  selectedCoupon: CouponType[]
 ) {
-  return selectedCoupon.length >= 2 && !selectedCoupon.includes(type);
+  return (
+    selectedCoupon.length >= 2 &&
+    !selectedCoupon.find((item) => item.code === coupon.code)
+  );
 }
 
 export function isCouponOutOfTime(coupon: CouponType): boolean {
