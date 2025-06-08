@@ -11,13 +11,13 @@ import Shipping from "../Shipping/Shipping";
 import Modal from "../Modal/Modal";
 import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
 import useLocalStorage from "../../../hooks/useLocalStorage";
-interface OrderCheckContentProps {
+interface OrderListContentProps {
   cartItemList: CartItem[];
 }
 
-export default function OrderCheckContent({
+export default function OrderListContent({
   cartItemList,
-}: OrderCheckContentProps) {
+}: OrderListContentProps) {
   const [selectedItems] = useLocalStorage<CartItemCheck[]>(
     "selectedCartItems",
     []
