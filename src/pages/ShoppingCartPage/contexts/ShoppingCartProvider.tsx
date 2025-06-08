@@ -1,13 +1,17 @@
 import { usePersistState } from "@/hooks";
 import { Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react";
 
+type SelectedItemIds = number[];
+type SelectedCouponIds = number[];
+type IsFar = boolean;
+
 interface ShoppingCartContextType {
-  selectedItemIds: number[];
-  setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
-  selectedCouponIds: number[];
-  setSelectedCouponIds: Dispatch<SetStateAction<number[]>>;
-  isFar: boolean;
-  setIsFar: Dispatch<SetStateAction<boolean>>;
+  selectedItemIds: SelectedItemIds;
+  setSelectedItemIds: Dispatch<SetStateAction<SelectedItemIds>>;
+  selectedCouponIds: SelectedCouponIds;
+  setSelectedCouponIds: Dispatch<SetStateAction<SelectedCouponIds>>;
+  isFar: IsFar;
+  setIsFar: Dispatch<SetStateAction<IsFar>>;
 }
 
 interface ShoppingCartProviderProps {}
@@ -15,9 +19,9 @@ interface ShoppingCartProviderProps {}
 export const ShoppingCartContext = createContext<ShoppingCartContextType | null>(null);
 
 export default function ShoppingCartProvider({ children }: PropsWithChildren<ShoppingCartProviderProps>) {
-  const [selectedItemIds, setSelectedItemIds] = usePersistState<number[]>("selectedItemIds", []);
-  const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
-  const [isFar, setIsFar] = useState(false);
+  const [selectedItemIds, setSelectedItemIds] = usePersistState<SelectedItemIds>("selectedItemIds", []);
+  const [selectedCouponIds, setSelectedCouponIds] = useState<SelectedCouponIds>([]);
+  const [isFar, setIsFar] = useState<IsFar>(false);
 
   return (
     <ShoppingCartContext.Provider
