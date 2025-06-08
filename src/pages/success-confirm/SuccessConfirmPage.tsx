@@ -1,25 +1,13 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import { getShoppingCartData } from "../../api/cart";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Flex, Header } from "../../components/common";
-import { useAPIDataContext } from "../../context/APIDataProvider";
-import { useOrderListContext } from "../../context/OrderListProvider";
-import { useOrderCalculation } from "../../hooks/order/useOrderCalculation";
 import { formatKRWString } from "../../utils/formatKRWString";
 
 const SuccessConfirmPage = () => {
   const navigate = useNavigate();
 
-  const { data: cartListData } = useAPIDataContext({
-    name: "cart",
-    fetcher: getShoppingCartData,
-  });
-  const { selectionMap } = useOrderListContext(cartListData);
-  const { typeCount, totalCount, totalPrice } = useOrderCalculation(
-    cartListData,
-    selectionMap
-  );
-
+  const location = useLocation();
+  const { totalPrice, typeCount, totalCount } = location.state || {};
   const navigateToCart = () => {
     navigate("/");
   };
