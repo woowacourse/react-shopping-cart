@@ -38,8 +38,8 @@ export default function ApplyCouponModal({
       onApplyCoupon(discountAmount);
     },
     // 자동 적용은 처음 시점에만 이루어지며, 이후 사용자가 쿠폰을 선택할 수 있도록 함
-    // discountAmount를 의존성 배열에 넣으면 쿠폰을 적용하지 않아도 할인 금액에 반영되기 때문에 포함하지 않음
-    // 배송비에 따라 쿠폰 할인율이 달라질 수 있으므로 의존성 배열에 배송비 추가
+    // discountAmount를 의존성 배열에 넣으면 쿠폰을 적용하지 않아도 실제 할인 금액에 반영되기 때문에 포함하지 않음
+    // 배송비에 따라 쿠폰 할인 금액이 달라질 수 있으므로 의존성 배열에 배송비 추가
     // ex) 지역 추가 배송비에 따라 freeShipping 쿠폰 할인 금액이 달라지기 때문에 동기화
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [deliveryPrice]
