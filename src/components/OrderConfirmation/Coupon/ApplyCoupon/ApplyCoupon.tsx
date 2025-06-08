@@ -8,6 +8,7 @@ import CouponCard from "../CouponCard/CouponCard";
 import { Coupon } from "../../../../type/Coupons";
 import { CartItem } from "../../../../type/CartItem";
 import { calculateTotalPrice } from "../../../../util/cart/calculateTotalPrice";
+import useSelectedCoupons from "../../../../hooks/useCoupons/useSelectedCoupons";
 
 const COUPON_RULE = {
   maxCoupons: 2,
@@ -16,12 +17,14 @@ const COUPON_RULE = {
 interface ApplyCouponProps {
   coupons: Coupon[];
   selectedCartItems: CartItem[];
-  handleUseCoupons: () => void;
+  initialSelectedCouponIds: number[];
+  handleUseCoupons: (idList: number[]) => void;
 }
 
 function ApplyCoupon({
   coupons,
   selectedCartItems,
+  initialSelectedCouponIds,
   handleUseCoupons,
 }: ApplyCouponProps) {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
@@ -29,10 +32,22 @@ function ApplyCoupon({
 
   const totalPriceWithCoupons = totalPrice;
 
+  const {
+    selectedCouponIds,
+    handleToggleSelectedCouponId,
+    handleRollbackSelectedCoupons,
+  } = useSelectedCoupons(initialSelectedCouponIds);
+
   return (
     <article>
       <ApplyCouponButton onClick={handleOpenModal} />
-      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          handleRollbackSelectedCoupons();
+          handleCloseModal();
+        }}
+      >
         <Modal.Container
           position="center"
           size="small"
@@ -51,12 +66,20 @@ function ApplyCoupon({
               <CouponCard
                 key={coupon.id}
                 coupon={coupon}
-                isSelected={true}
-                handleSelectCoupon={() => {}}
+                isSelected={selectedCouponIds.includes(coupon.id)}
+                handleSelectCoupon={() =>
+                  handleToggleSelectedCouponId(coupon.id)
+                }
               />
             ))}
           </CouponList>
-          <Styled.Button type="button" onClick={handleUseCoupons}>
+          <Styled.Button
+            type="button"
+            onClick={() => {
+              handleUseCoupons(selectedCouponIds);
+              handleCloseModal();
+            }}
+          >
             총 {totalPriceWithCoupons.toLocaleString()}원 할인 쿠폰 사용하기
           </Styled.Button>
         </Modal.Container>

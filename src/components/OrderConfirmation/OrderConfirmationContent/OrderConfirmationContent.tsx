@@ -6,6 +6,7 @@ import OrderList from "../OrderList/OrderList";
 import OrderCard from "../OrderCard/OrderCard";
 import ApplyCoupon from "../Coupon/ApplyCoupon/ApplyCoupon";
 import useCoupons from "../../../hooks/useCoupons/useCoupons";
+import useSelectedCoupons from "../../../hooks/useCoupons/useSelectedCoupons";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];
@@ -17,6 +18,7 @@ function OrderConfirmationContent({
   const selectedCartIds = selectedCartItems.map((item) => item.id);
   const selectedCartItemsCount = getSelectedCartItemsCount(selectedCartItems);
   const { coupons } = useCoupons();
+  const { selectedCouponIds, handleUseCoupons } = useSelectedCoupons();
 
   return (
     <Styled.Container>
@@ -36,8 +38,10 @@ function OrderConfirmationContent({
       <ApplyCoupon
         coupons={coupons}
         selectedCartItems={selectedCartItems}
-        handleUseCoupons={() => {}}
+        initialSelectedCouponIds={selectedCouponIds}
+        handleUseCoupons={handleUseCoupons}
       />
+
       <PaymentConfirmButton
         selectedCartIds={selectedCartIds}
         cartItemsData={selectedCartItems}
