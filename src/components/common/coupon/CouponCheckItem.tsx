@@ -9,6 +9,7 @@ interface CouponCheckItemProps {
   expiryDate: [number, number, number];
   titleText: string;
   details?: labelTextPairType[];
+  disabled?: boolean;
 }
 
 function CouponCheckItem({
@@ -16,19 +17,22 @@ function CouponCheckItem({
   expiryDate,
   titleText,
   details,
+  disabled = false,
 }: CouponCheckItemProps) {
   const { selectedCoupon, handleCouponToggle } = useCouponContext();
   const [year, month, day] = expiryDate;
+
   return (
     <Container
       justifyContent="flex-start"
       alignItems="flex-start"
       gap="sm"
       as={"li"}
+      disabled={disabled}
     >
       <CheckboxLabel
         isChecked={selectedCoupon.includes(couponId)}
-        onToggle={() => handleCouponToggle(couponId)}
+        onToggle={() => !disabled && handleCouponToggle(couponId)}
       >
         <CouponTitle>{titleText}</CouponTitle>
       </CheckboxLabel>
@@ -45,13 +49,15 @@ function CouponCheckItem({
 
 export default CouponCheckItem;
 
-const Container = styled(Flex)`
+const Container = styled(Flex)<{ disabled?: boolean }>`
   padding: 14px 0;
   border-bottom: 1px solid #e0e0e0;
+  opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 const CouponTitle = styled.p`
   font-size: 20px;
   font-weight: 700;
-  color: black;
+  color: "black";
 `;

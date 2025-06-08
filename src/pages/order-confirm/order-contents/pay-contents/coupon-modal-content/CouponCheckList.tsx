@@ -8,6 +8,7 @@ import { useOrderListContext } from "../../../../../context/OrderListProvider";
 import { useOrderCalculation } from "../../../../../hooks/order/useOrderCalculation";
 import { useCouponContext } from "../../../context/CouponProvider";
 import { getCouponDetails } from "./utils/getCouponDetails";
+import { isCouponAvailable } from "./utils/couponValidation";
 
 function CouponCheckList({
   couponsResource,
@@ -45,10 +46,16 @@ function CouponCheckList({
     cartListData,
     autoSelectOptimalCoupon,
   ]);
+
   return (
     <>
       <Container>
         {(coupons ?? []).map((coupon) => {
+          const isAvailable = isCouponAvailable(
+            coupon,
+            totalCartPrice,
+            cartListData
+          );
           return (
             <CouponCheckItem
               key={coupon.id}
@@ -56,6 +63,7 @@ function CouponCheckList({
               titleText={coupon.description}
               expiryDate={coupon.expirationDate}
               details={getCouponDetails(coupon)}
+              disabled={!isAvailable}
             />
           );
         })}
