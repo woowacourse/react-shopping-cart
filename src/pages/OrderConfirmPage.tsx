@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
+import { EmptyOrder } from '@/features/Order/Confirm/components/EmptyOrder';
+
 import { OrderConfirm } from '../features/Order/Confirm/components/OrderConfirm';
 
 export const OrderConfirmPage = () => {
@@ -9,7 +11,7 @@ export const OrderConfirmPage = () => {
   const { cartItems, totalDiscountPrice } = confirm || {};
 
   if (location.state === null) {
-    return <div>존재하지 않습니다.</div>;
+    return <EmptyOrder />;
   }
 
   return <OrderConfirm cartItems={cartItems} totalDiscountPrice={totalDiscountPrice} />;
