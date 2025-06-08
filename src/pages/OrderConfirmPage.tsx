@@ -20,7 +20,8 @@ const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const { selectedItems, totalQuantity, selectedItemCount } =
     useSelectedItems();
-  const { orderPrice, shippingFee, totalPrice } = useCartSummary();
+  const { orderPrice, shippingFee, totalPrice, couponDiscount } =
+    useCartSummary();
   const { isRemoteAreaShipping, setIsRemoteAreaShipping } =
     useCartItemContext();
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
@@ -79,7 +80,7 @@ const OrderConfirmPage = () => {
 
         <hr className={Divider} />
         <PriceRow title="주문 금액" price={orderPrice} testId="order-price" />
-        <PriceRow title="쿠폰 할인 금액" price={-6000} />
+        <PriceRow title="쿠폰 할인 금액" price={-couponDiscount} />
         <PriceRow title="배송비" price={shippingFee} testId="shipping-fee" />
         <hr className={Divider} />
         <PriceRow title="총 결제 금액" price={totalPrice} />

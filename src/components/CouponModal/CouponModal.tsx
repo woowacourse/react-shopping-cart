@@ -11,6 +11,7 @@ import { MAX_COUPON_COUNT } from "../../constants";
 import { formatDate } from "../../utils/formatDate";
 import { formatTimeRange } from "../../utils/formatTimeRange";
 import { useCartItemContext } from "../../contexts/useCartItemContext";
+import { useSelectedItems } from "../../hooks/useSelectedItems";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -21,7 +22,12 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons, isLoading, fetchError, fetchCoupons } = useFetchCoupons();
   const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
     useCartItemContext();
+  const { selectedItems } = useSelectedItems();
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
+
+  const orderPrice = selectedItems.reduce((acc, cartItem) => {
+    return acc + cartItem.product.price * cartItem.quantity;
+  }, 0);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,7 +36,28 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     }
   }, [isOpen, selectedCoupons]);
 
+  const isCouponAvailable = (coupon: Coupon): boolean => {
+    switch (coupon.discountType) {
+      case "fixed":
+        return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+      case "percentage":
+        // TODO: 시간 조건은 나중에 추가
+        return true;
+      case "freeShipping":
+        return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+      case "buyXgetY":
+        // TODO: 수량 조건은 나중에 추가
+        return true;
+      default:
+        return true;
+    }
+  };
+
   const handleCouponToggle = (coupon: Coupon) => {
+    if (!isCouponAvailable(coupon)) {
+      return;
+    }
+
     const isSelected = tempSelectedCoupons.some((c) => c.id === coupon.id);
 
     if (isSelected) {
@@ -71,15 +98,19 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
               const isSelected = tempSelectedCoupons.some(
                 (c) => c.id === coupon.id
               );
+              const isAvailable = isCouponAvailable(coupon);
+
               return (
                 <div
                   key={coupon.id}
-                  className={`${CouponItem} ${isSelected ? "selected" : ""}`}
+                  className={`${CouponItem} ${isSelected ? "selected" : ""} ${
+                    !isAvailable ? "disabled" : ""
+                  }`}
                   onClick={() => handleCouponToggle(coupon)}
                 >
                   <LabeledCheckbox
                     labelText={coupon.description}
-                    isSelected={isSelected}
+                    isSelected={isSelected && isAvailable}
                     textType="medium"
                     onClick={() => handleCouponToggle(coupon)}
                   />
@@ -118,7 +149,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
       buttonElements={
         <FullWidthButton
           variant="dark"
-          text="3,000원 할인"
+          text={`총 5,000원 할인 쿠폰 사용하기`} // TODO: 쿠폰 할인 금액 계산 로직 추가
           onClick={handleConfirm}
         />
       }
@@ -150,6 +181,11 @@ const CouponItem = css`
   border-top: 1px solid #e0e0e0;
   padding: 12px 0;
   cursor: pointer;
+
+  &.disabled {
+    color: #b0b0b0;
+    cursor: default;
+  }
 `;
 
 const InfoRow = css`

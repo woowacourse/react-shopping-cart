@@ -4,10 +4,12 @@ import {
   SHIPPING_FEE,
   REMOTE_AREA_SHIPPING_FEE,
 } from "../constants";
+import { useCouponDiscount } from "./useCouponDiscount";
 
 export const useCartSummary = () => {
   const { cartItems, selectedItem, isRemoteAreaShipping } =
     useCartItemContext();
+  const { couponDiscount } = useCouponDiscount();
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {
     if (selectedItem.has(cartItem.id)) {
@@ -22,11 +24,12 @@ export const useCartSummary = () => {
     ? REMOTE_AREA_SHIPPING_FEE
     : 0;
   const shippingFee = baseShippingFee + remoteAreaShippingFee;
-  const totalPrice = orderPrice + shippingFee;
+  const totalPrice = orderPrice - couponDiscount + shippingFee;
 
   return {
     orderPrice,
     shippingFee,
     totalPrice,
+    couponDiscount,
   };
 };
