@@ -36,10 +36,6 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
     })();
   }, [updateCouponList]);
 
-  useEffect(() => {
-    console.log("checkCoupon:", checkCoupon);
-  }, [checkCoupon]);
-
   return (
     <>
       <S.ModalBackground isModalOpen={isModalOpen}>

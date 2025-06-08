@@ -81,12 +81,15 @@ export const CouponList = styled.div`
   gap: 24px;
 `;
 
-export const Item = styled.div`
+export const Item = styled.div<{ disabled?: boolean }>`
   width: 318px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 10px 0;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  color: ${({ disabled }) => (disabled ? "#999" : "inherit")};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "auto")};
 `;
 
 export const ItemTitleWrapper = styled.div`

@@ -10,7 +10,9 @@ import { CouponResponse } from "../api/fetchCouponList";
 
 interface CouponListContextType {
   couponList: CouponResponse[];
+  checkedCoupons: CouponResponse[];
   updateCouponList: (list: CouponResponse[]) => void;
+  checkCoupon: (coupon: CouponResponse) => void;
 }
 
 export const CouponListContext = createContext<
@@ -19,17 +21,33 @@ export const CouponListContext = createContext<
 
 export const CouponListProvider = ({ children }: { children: ReactNode }) => {
   const [couponList, setCouponList] = useState<CouponResponse[]>([]);
+  const [checkedCoupons, setcheckedCoupons] = useState<CouponResponse[]>([]);
 
   const updateCouponList = useCallback((list: CouponResponse[]) => {
     setCouponList(list);
   }, []);
 
+  const checkCoupon = useCallback((coupon: CouponResponse) => {
+    setcheckedCoupons((prev) => {
+      const already = prev.some((c) => c.id === coupon.id);
+      if (already) {
+        return prev.filter((c) => c.id !== coupon.id);
+      }
+      if (prev.length >= 2) {
+        return prev;
+      }
+      return [...prev, coupon];
+    });
+  }, []);
+
   const value = useMemo<CouponListContextType>(
     () => ({
       couponList,
+      checkedCoupons,
       updateCouponList,
+      checkCoupon,
     }),
-    [couponList, updateCouponList]
+    [couponList, checkedCoupons, updateCouponList, checkCoupon]
   );
 
   return (
