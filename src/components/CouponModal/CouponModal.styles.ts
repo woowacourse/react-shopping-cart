@@ -46,13 +46,15 @@ export const CouponModalListStyle = css`
   width: 100%;
 `;
 
-export const CouponModalListItemStyle = css`
+export const CouponModalListItemStyle = (isAvailable: boolean) => css`
   padding-top: 1.2rem;
   width: 100%;
   border-top: 1px solid ${theme.color.gray1};
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  opacity: ${isAvailable ? 1 : 0.5};
+  cursor: ${isAvailable ? 'pointer' : 'not-allowed'};
 `;
 
 export const CouponModalListItemHeaderStyle = css`
@@ -62,10 +64,11 @@ export const CouponModalListItemHeaderStyle = css`
   gap: 0.8rem;
 `;
 
-export const CouponModalListItemCheckboxStyle = css`
+export const CouponModalListItemCheckboxStyle = (isAvailable: boolean) => css`
   width: 2.4rem;
   height: 2.4rem;
   accent-color: ${theme.color.black};
+  cursor: ${isAvailable ? 'pointer' : 'not-allowed'};
 `;
 
 export const CouponModalListItemDescriptionStyle = css`
@@ -76,11 +79,12 @@ export const CouponModalListItemDescriptionStyle = css`
   gap: 0.4rem;
 `;
 
-export const CouponModalConfirmButtonStyle = css`
+export const CouponModalConfirmButtonStyle = (isAvailable: boolean) => css`
   width: 100%;
   height: 4.8rem;
   margin-top: 3.2rem;
-  background-color: ${theme.color.black};
+  background-color: ${isAvailable ? theme.color.black : theme.color.gray2};
   color: ${theme.color.white};
   border-radius: 8px;
+  cursor: ${isAvailable ? 'pointer' : 'not-allowed'};
 `;

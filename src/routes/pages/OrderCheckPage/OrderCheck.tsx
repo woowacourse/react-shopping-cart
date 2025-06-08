@@ -52,7 +52,11 @@ function OrderCheck() {
         </OrderList>
         <CouponButton onClick={openModal} />
         <DeliveryInfo />
-        <OrderPriceInfo totalPrice={totalPrice} couponDiscount={3000} />
+        <OrderPriceInfo
+          totalPrice={totalPrice}
+          deliveryFee={deliveryFee}
+          couponDiscount={couponDiscount}
+        />
       </ContainerLayout>
       <PayButton />
       <CouponModal
@@ -62,6 +66,7 @@ function OrderCheck() {
         onClose={closeModal}
         onSelectCoupon={() => {}}
         onConfirm={closeModal}
+        availableCoupons={availableCoupons}
       />
     </>
   );

@@ -20,6 +20,7 @@ interface CouponModalProps {
   onClose: () => void;
   onSelectCoupon: (couponId: string) => void;
   onConfirm: () => void;
+  availableCoupons: string[];
 }
 
 function CouponModal({
@@ -29,6 +30,7 @@ function CouponModal({
   selectedCoupon,
   onSelectCoupon,
   onConfirm,
+  availableCoupons,
 }: CouponModalProps) {
   if (!isOpen) return null;
 
@@ -45,12 +47,20 @@ function CouponModal({
             <CouponListItem
               key={coupon.id}
               coupon={coupon}
-              isSelected={selectedCoupon.has(coupon.id)}
+              isSelected={selectedCoupon.has(coupon.code)}
               onSelectCoupon={onSelectCoupon}
+              isAvailable={availableCoupons.includes(coupon.code)}
             />
           ))}
         </CouponList>
-        <CouponModalConfirmButton onConfirm={onConfirm} />
+        <CouponModalConfirmButton
+          onConfirm={onConfirm}
+          isAvailable={availableCoupons.length > 0}
+        >
+          <Text varient="body">
+            {availableCoupons.length > 0 ? '쿠폰 적용하기' : '가능한 쿠폰 없음'}
+          </Text>
+        </CouponModalConfirmButton>
       </div>
     </div>,
     document.body

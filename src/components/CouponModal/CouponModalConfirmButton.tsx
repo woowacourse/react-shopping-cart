@@ -1,11 +1,20 @@
-import Text from '../@common/Text/Text';
-
 import { CouponModalConfirmButtonStyle } from './CouponModal.styles';
 
-function CouponModalConfirmButton({ onConfirm }: { onConfirm: () => void }) {
+function CouponModalConfirmButton({
+  onConfirm,
+  children,
+  isAvailable,
+}: {
+  onConfirm: () => void;
+  children: React.ReactNode;
+  isAvailable: boolean;
+}) {
   return (
-    <button css={CouponModalConfirmButtonStyle} onClick={onConfirm}>
-      <Text varient="body">쿠폰 적용하기</Text>
+    <button
+      css={CouponModalConfirmButtonStyle(isAvailable)}
+      onClick={onConfirm}
+    >
+      {children}
     </button>
   );
 }

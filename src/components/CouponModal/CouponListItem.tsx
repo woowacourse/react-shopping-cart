@@ -11,13 +11,15 @@ import { Coupon } from '../../types/coupon';
 interface CouponListItemProps {
   coupon: Coupon;
   isSelected: boolean;
-  onSelectCoupon: (couponId: string) => void;
+  onSelectCoupon: (couponCode: string) => void;
+  isAvailable: boolean;
 }
 
 function CouponListItem({
   coupon,
   isSelected,
   onSelectCoupon,
+  isAvailable,
 }: CouponListItemProps) {
   const isShowMinimumAmount =
     coupon.code === 'FIXED5000' || coupon.code === 'FREESHIPPING';
@@ -31,13 +33,14 @@ function CouponListItem({
   };
 
   return (
-    <li css={CouponModalListItemStyle}>
+    <li css={CouponModalListItemStyle(isAvailable)}>
       <div css={CouponModalListItemHeaderStyle}>
         <input
           type="checkbox"
           checked={isSelected}
-          css={CouponModalListItemCheckboxStyle}
-          onChange={() => onSelectCoupon(coupon.id)}
+          css={CouponModalListItemCheckboxStyle(isAvailable)}
+          onChange={() => onSelectCoupon(coupon.code)}
+          disabled={!isAvailable}
         />
         <Text varient="body">{coupon.description}</Text>
       </div>
