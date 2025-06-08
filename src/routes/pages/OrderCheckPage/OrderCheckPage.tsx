@@ -1,35 +1,39 @@
-import { CartItemProps } from '../../../types/cartItem';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import { useCartContext } from '../../../context/CartContext';
+import useCouponCombos from '../../../hooks/useCouponCombos';
+import useCouponList from '../../../hooks/useCouponList';
+import { validateCoupons } from '../../../utils/coupon';
+
 import Header from '../../../components/common/Header/Header';
 import HeaderButton from '../../../components/common/Header/HeaderButton';
-import { Back } from '../../../assets';
-import { useNavigate } from 'react-router';
-import { TEXT } from '../../../constants/text';
 import CartListTitle from '../../../components/CartListTitle/CartListTitle';
-import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
 import OrderCartItem from '../../../components/CartItem/OrderCartItem';
+import CouponModal from '../../../components/CouponModal/CouponModal';
 import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
 import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
-import { useCartContext } from '../../../context/CartContext';
-import { useState } from 'react';
-import CouponModal from '../../../components/CouponModal/CouponModal';
+import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
 import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
 import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
-import useCouponList from '../../../hooks/useCouponList';
-import useValidateCoupon from '../../../hooks/useValidateCoupon';
-import useCouponCombos from '../../../hooks/useCouponCombos';
+
+import { Back } from '../../../assets';
+import { TEXT } from '../../../constants/text';
+import { CartItemProps } from '../../../types/cartItem';
 
 function OrderCheckPage() {
   const navigate = useNavigate();
 
   const cart = useCartContext();
-  const { couponList } = useCouponList();
+  const couponList = useCouponList();
 
-  const { validatedCouponList } = useValidateCoupon(
-    couponList,
+  const validatedCouponList = validateCoupons(
+    couponList.data,
     cart.subTotal,
     cart.selectedCartItems
   );
+
   const availableCouponList = validatedCouponList.filter(
     (coupon) => !coupon.isExpired
   );
@@ -45,7 +49,6 @@ function OrderCheckPage() {
     cart.subTotal,
     cart.deliveryFee
   );
-  console.log(result);
 
   const hasFreeShipping =
     result?.combo?.some((coupon) => coupon.discountType === 'freeShipping') ??
