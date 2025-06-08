@@ -15,7 +15,7 @@ import Description from "../../components/Description/Description";
 import CartItemList from "../../components/CartItemList/CartItemList";
 import CartItem from "../../components/CartItem/CartItem";
 import { createPortal } from "react-dom";
-import Modal from "../../components/modal/Modal";
+import Modal from "../../components/Modal/Modal";
 import { useCallback, useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { getCoupons } from "../../api/coupon";
