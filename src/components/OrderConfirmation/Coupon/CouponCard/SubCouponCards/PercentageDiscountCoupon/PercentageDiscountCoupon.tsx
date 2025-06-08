@@ -1,14 +1,10 @@
 import * as Styled from "./PercentageDiscountCoupon.style";
 import type { PercentageDiscountCoupon as PercentageDiscountCouponType } from "../../../../../../type/Coupons";
+import { getTimes } from "../../../../../../util/coupons/PercentageDiscountCoupon/getTimes";
 
 interface PercentageDiscountCouponProps {
   coupon: PercentageDiscountCouponType;
 }
-
-const getTimes = (time: string) => {
-  const [hour, min, sec] = time.split(":").map(Number);
-  return { hour, min, sec };
-};
 
 const checkDayAndNight = (hour: number) => {
   if (hour >= 0 && hour < 12) {
