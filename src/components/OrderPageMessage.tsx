@@ -20,7 +20,7 @@ export default OrderPageMessage;
 
 const S = {
   Container: styled.div`
-    margin: 0 0 36px;
+    margin: 0 0 10px;
   `,
 
   Message: styled.p`
