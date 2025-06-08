@@ -11,11 +11,13 @@ import InfoMessage from '../InfoMessage/InfoMessage';
 function CartPriceCouponInfo({
   subTotal,
   deliveryFee,
-  totalBeforeDiscount,
+  totalDiscount,
+  finalPrice,
 }: {
   subTotal: number;
   deliveryFee: number;
-  totalBeforeDiscount: number;
+  totalDiscount: number;
+  finalPrice: number;
 }) {
   return (
     <div css={CartPriceInfoContainerStyle}>
@@ -29,7 +31,7 @@ function CartPriceCouponInfo({
         </div>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.COUPON_PRICE}</Text>
-          <Text varient="title">{`-[동적 쿠폰 할인 금액 필요]원`}</Text>
+          <Text varient="title">{`-${totalDiscount.toLocaleString()}원`}</Text>
         </div>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.DELIVERY_FEE}</Text>
@@ -39,7 +41,9 @@ function CartPriceCouponInfo({
       <div css={CartPriceContainerStyle}>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.TOTAL_PRICE}</Text>
-          <Text varient="title">{`[동적 총 결제 금액 필요]원`}</Text>
+          <Text varient="title">{`${(
+            finalPrice + deliveryFee
+          ).toLocaleString()}원`}</Text>
         </div>
       </div>
     </div>

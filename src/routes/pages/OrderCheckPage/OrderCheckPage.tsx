@@ -59,15 +59,15 @@ function OrderCheck() {
   );
   console.log(result);
 
-  const hasFreeShipping = result?.combo.some(
-    (coupon) => coupon.discountType === 'freeShipping'
-  );
+  const hasFreeShipping =
+    result?.combo?.some((coupon) => coupon.discountType === 'freeShipping') ??
+    false;
 
   const deliveryFee = hasFreeShipping
     ? 0
     : isChecked
-    ? result.finalShipping + 3000
-    : result.finalShipping;
+    ? (result?.finalShipping ?? cart.deliveryFee) + 3000
+    : result?.finalShipping ?? cart.deliveryFee;
 
   const handleCouponButtonClick = () => {
     setCheckedCoupons(result.combo.map((coupon) => coupon.id));
@@ -118,7 +118,8 @@ function OrderCheck() {
         <CartPriceCouponInfo
           subTotal={cart.subTotal}
           deliveryFee={deliveryFee}
-          totalBeforeDiscount={cart.totalBeforeDiscount}
+          totalDiscount={result?.totalDiscount ?? 0}
+          finalPrice={result?.PriceWithDiscount ?? 0}
         />
       </ContainerLayout>
       <Button color="black" variant="primary" onClick={() => {}}>
