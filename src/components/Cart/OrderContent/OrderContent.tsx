@@ -3,7 +3,7 @@ import * as Styled from "./OrderContent.style";
 import AllCheckBox from "../AllCheckBox/AllCheckBox";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
-import OrderSummary from "../OrderSummary/OrderSummary";
+import OrderSummary from "../../OrderSummary/OrderSummary";
 import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 import { CartItem } from "../../../type/CartItem";
 

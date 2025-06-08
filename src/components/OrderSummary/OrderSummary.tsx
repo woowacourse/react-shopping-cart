@@ -1,8 +1,8 @@
 import * as Styled from "./OrderSummary.style";
 
-import { getOrderSummary } from "../../../util/cart/getOrderSummary";
+import { getOrderSummary } from "../../util/cart/getOrderSummary";
 
-import { CartItem } from "../../../type/CartItem";
+import { CartItem } from "../../type/CartItem";
 import OrderNotice from "./OrderNotice/OrderNotice";
 import OrderTotalPrice from "./OrderTotalPrice/OrderTotalPrice";
 import OrderShippingFee from "./OrderShippingFee/OrderShippingFee";

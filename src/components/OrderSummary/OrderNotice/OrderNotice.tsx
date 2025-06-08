@@ -1,6 +1,6 @@
 import * as Styled from "./OrderNotice.style";
 import notice from "/notice.svg";
-import { FREE_SHIPPING_OVER } from "../../../../constants/priceSetting";
+import { FREE_SHIPPING_OVER } from "../../../constants/priceSetting";
 
 function OrderNotice() {
   return (
