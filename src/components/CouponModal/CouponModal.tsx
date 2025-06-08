@@ -44,6 +44,8 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     } else {
       if (tempSelectedCoupons.length < MAX_COUPON_COUNT) {
         setTempSelectedCoupons((prev) => [...prev, coupon]);
+      } else {
+        setTempSelectedCoupons((prev) => [...prev.slice(1), coupon]);
       }
     }
   };
