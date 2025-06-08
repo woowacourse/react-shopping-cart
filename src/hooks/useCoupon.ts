@@ -66,8 +66,10 @@ export const useCoupon = ({
         );
         if (finalCombinationAmount < couponDiscount) {
           finalCombinationAmount = couponDiscount;
-          bestA = coupons[i].id;
-          bestB = coupons[j].id;
+          if (calculateCouponDiscount(coupons[i], orderPrice) > 0)
+            bestA = coupons[i].id;
+          if (calculateCouponDiscount(coupons[j], orderPrice) > 0)
+            bestB = coupons[j].id;
         }
       }
     }
