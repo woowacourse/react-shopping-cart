@@ -10,6 +10,7 @@ export interface CouponContextType {
   hasNoSelectedCoupons: boolean;
   toggleCouponSelection: (couponId: number) => void;
   isCouponSelected: (id: number) => boolean;
+  resetSelectedCoupons: () => void;
 }
 
 export const CouponContext = createContext<CouponContextType | null>(null);
@@ -21,6 +22,7 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
     hasNoSelectedCoupons,
     toggleCouponSelection,
     isCouponSelected,
+    resetSelectedCoupons,
   } = useCouponSelection(coupons);
 
   const contextValue = useMemo(
@@ -31,6 +33,7 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
       hasNoSelectedCoupons,
       toggleCouponSelection,
       isCouponSelected,
+      resetSelectedCoupons,
     }),
     [
       coupons,
@@ -39,6 +42,7 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
       hasNoSelectedCoupons,
       toggleCouponSelection,
       isCouponSelected,
+      resetSelectedCoupons,
     ]
   );
 

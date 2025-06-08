@@ -17,9 +17,12 @@ import { formatCurrency } from "../../utils/formatters";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
+import { useCoupon } from "../../domains/coupon/hooks/useCoupon";
+import { useEffect } from "react";
 
 const OrderPage = () => {
   const { isRemoteArea, toggleRemoteArea } = useOrder();
+  const { resetSelectedCoupons } = useCoupon();
   const {
     orderItems,
     orderItemCount,
@@ -36,6 +39,10 @@ const OrderPage = () => {
   const navigate = useNavigate();
   const navigateToCart = () => navigate(ROUTES.CART);
   const navigateToPayment = () => navigate(ROUTES.PAYMENT);
+
+  useEffect(() => {
+    resetSelectedCoupons();
+  }, [resetSelectedCoupons]);
 
   return (
     <>

@@ -43,11 +43,16 @@ const useCouponSelection = (coupons: Coupon[]) => {
     [selectedCouponIds]
   );
 
+  const resetSelectedCoupons = useCallback(() => {
+    setSelectedCouponIds([]);
+  }, [setSelectedCouponIds]);
+
   return {
     selectedCoupons,
     hasNoSelectedCoupons,
     toggleCouponSelection,
     isCouponSelected,
+    resetSelectedCoupons,
   };
 };
 
