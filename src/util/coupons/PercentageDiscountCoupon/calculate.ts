@@ -8,7 +8,6 @@ export const calculatePercentageDiscountCoupon = ({
   coupon: PercentageDiscountCoupon;
 }) => {
   const { discount } = coupon;
-  const discountedPrice = totalPrice * (1 - discount / 100);
 
-  return discountedPrice < 0 ? 0 : discountedPrice;
+  return totalPrice * (discount / 100);
 };

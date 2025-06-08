@@ -22,16 +22,13 @@ const getDiscount = ({
 };
 
 export const calculateFreeShippingCoupon = ({
-  totalPrice,
   hasDefaultShipping,
   hasRemoteAreaShipping = false,
 }: {
-  totalPrice: number;
   hasDefaultShipping: boolean;
   hasRemoteAreaShipping?: boolean;
 }) => {
   const discount = getDiscount({ hasDefaultShipping, hasRemoteAreaShipping });
-  const discountedPrice = totalPrice - discount;
 
-  return discountedPrice < 0 ? 0 : discountedPrice;
+  return discount;
 };
