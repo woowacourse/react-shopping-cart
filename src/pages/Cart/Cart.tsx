@@ -14,13 +14,7 @@ import useCheckboxHandler from "../../hooks/checkbox/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import useQuantityControl from "../../hooks/useQuantityControl";
 import CartItem from "../../components/CartItem/CartItem";
-
-const getSelectedCartItems = (
-  cartItems: CartItemType[],
-  selectedCartIds: number[]
-) => {
-  return cartItems.filter((cartItem) => selectedCartIds.includes(cartItem.id));
-};
+import { getSelectedCartItems } from "../../utils/cartItem";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
