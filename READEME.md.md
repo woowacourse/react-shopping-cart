@@ -69,7 +69,7 @@ ui 퍼블리싱
 - [x] modal 상태 context 적용
 - [ ] 테스트 코드 작성
   - [ ] cart
-    - [ ] useCartResource 훅 테스트
+    - [x] useCartResource 훅 테스트
     - [ ] useCartCheck 훅 테스트
     - [ ] calculateCartAmount utils 함수 테스트
     - [ ] calculateCartPrice utils 함수 테스트
