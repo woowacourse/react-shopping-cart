@@ -19,7 +19,8 @@ function CouponApplyButton({
     fetcher: getShoppingCartData,
     name: "cart",
   });
-  const { selectionMap, isIsland } = useOrderListContext(cartListData);
+  const { selectionMap, isIsland, handleDiscountSetting } =
+    useOrderListContext(cartListData);
   const { totalCartPrice, shippingFee } = useOrderCalculation(
     cartListData,
     selectionMap,
@@ -38,8 +39,10 @@ function CouponApplyButton({
   );
 
   const handleCouponApply = useCallback(() => {
+    handleDiscountSetting(finalDiscount);
     onClose();
-  }, [onClose]);
+  }, [onClose, handleDiscountSetting, finalDiscount]);
+
   return (
     <Button
       backgroundColor="#333333"

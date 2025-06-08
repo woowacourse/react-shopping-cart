@@ -17,25 +17,44 @@ const OrderListContext = createContext<{
   orderIdList?: string[];
   isIsland: boolean;
   handleIsIslandToggle: () => void;
+  discount: number;
+  handleDiscountSetting: (discountAmount: number) => void;
 }>({
   selectionMap: {},
   setSelectionMap: () => {},
   orderIdList: [],
   isIsland: false,
   handleIsIslandToggle: () => {},
+  discount: 0,
+  handleDiscountSetting: () => {},
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
   const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
   const [isIsland, setIsIsland] = useState(false);
+  const [discount, setDiscount] = useState(0);
 
   const handleIsIslandToggle = useCallback(() => {
     setIsIsland((prev) => !prev);
   }, [setIsIsland]);
 
+  const handleDiscountSetting = useCallback(
+    (discountAmount: number) => {
+      setDiscount(discountAmount);
+    },
+    [setDiscount]
+  );
+
   return (
     <OrderListContext.Provider
-      value={{ selectionMap, setSelectionMap, isIsland, handleIsIslandToggle }}
+      value={{
+        selectionMap,
+        setSelectionMap,
+        isIsland,
+        handleIsIslandToggle,
+        discount,
+        handleDiscountSetting,
+      }}
     >
       {children}
     </OrderListContext.Provider>
@@ -43,8 +62,14 @@ export const OrderListProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const useOrderListContext = (cartListData: Cart[] | undefined) => {
-  const { selectionMap, setSelectionMap, isIsland, handleIsIslandToggle } =
-    useContext(OrderListContext);
+  const {
+    selectionMap,
+    setSelectionMap,
+    isIsland,
+    handleIsIslandToggle,
+    discount,
+    handleDiscountSetting,
+  } = useContext(OrderListContext);
   if (!selectionMap) {
     throw new Error(
       "useOrderListContext 는 반드시 OrderListProvider 안에서 사용되어야합니다."
@@ -77,5 +102,7 @@ export const useOrderListContext = (cartListData: Cart[] | undefined) => {
     orderIdList,
     isIsland,
     handleIsIslandToggle,
+    discount,
+    handleDiscountSetting,
   };
 };
