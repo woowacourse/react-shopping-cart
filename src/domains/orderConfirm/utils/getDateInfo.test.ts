@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getHours, getMinutes, formatToKoreanAmPm } from "./getDateInfo"; // 경로에 맞게 수정
+import { getHours, getMinutes, formatToKoreanAmPm } from "./getDateInfo";
 
 describe("getHours", () => {
   it.each([

@@ -22,6 +22,5 @@ export const shoppingCartRoute = createBrowserRouter(
   ],
   {
     basename: "/react-shopping-cart",
-    // basename은 배포 시에 사용되는 경로를 지정합니다.
   }
 );
