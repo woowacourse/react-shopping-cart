@@ -3,6 +3,7 @@ import { usePageContext } from '../contexts/Page/PageContext';
 import CartPage from './CartPage';
 import OrderPriceConfirmPage from './OrderPriceConfirmPage';
 import Header from '../components/Header';
+import OrderConfirmPage from './OrderConfirmPage';
 
 const PageController = () => {
   const { page } = usePageContext();
@@ -11,6 +12,7 @@ const PageController = () => {
     <S.container>
       <Header />
       {page === 'cart' && <CartPage />}
+      {page === 'orderConfirm' && <OrderConfirmPage />}
       {page === 'orderPriceConfirm' && <OrderPriceConfirmPage />}
     </S.container>
   );

@@ -1,8 +1,8 @@
 import { ReactNode, useState } from 'react';
-import { PageContext } from './PageContext';
+import { Page, PageContext } from './PageContext';
 
 const PageProvider = ({ children }: { children: ReactNode }) => {
-  const [page, setPage] = useState<'cart' | 'orderPriceConfirm'>('cart');
+  const [page, setPage] = useState<Page>('cart');
   return (
     <PageContext.Provider
       value={{

@@ -46,7 +46,7 @@ const CartPage = () => {
       </S.content>
       <ConfirmButton
         title="주문 확인"
-        onClick={() => setPage('orderPriceConfirm')}
+        onClick={() => setPage('orderConfirm')}
       />
     </>
   );

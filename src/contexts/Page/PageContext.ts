@@ -1,9 +1,10 @@
 import { createContext, useContext } from 'react';
 
-interface PageContextType {
-  page: 'cart' | 'orderConfirm' | 'orderPriceConfirm';
-  setPage: React.Dispatch<React.SetStateAction<'cart' | 'orderPriceConfirm'>>;
-}
+export type Page = 'cart' | 'orderConfirm' | 'orderPriceConfirm';
+type PageContextType = {
+  page: Page;
+  setPage: React.Dispatch<React.SetStateAction<Page>>;
+};
 
 export const PageContext = createContext<PageContextType | null>(null);
 
