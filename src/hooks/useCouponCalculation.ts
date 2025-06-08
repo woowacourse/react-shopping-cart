@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Coupon, CouponCalculationResult } from "../types/coupon";
+import { Coupon } from "../types/coupon";
 import { ResponseCartItem } from "../types/order";
 import { OrderService } from "../services/orderService";
 import { CouponCalculator } from "../utils/couponCalculator";
@@ -12,10 +12,10 @@ interface UseCouponCalculationProps {
 }
 
 interface UseCouponCalculationReturn {
-  orderAmount: number;
-  deliveryFee: number;
-  selectedCouponResult: CouponCalculationResult;
-  optimalCouponResult: CouponCalculationResult;
+  finalOrderAmount: number;
+  finalDeliveryFee: number;
+  totalDiscount: number;
+  deliveryDiscount: number;
   finalTotalAmount: number;
 }
 
@@ -23,7 +23,6 @@ export const useCouponCalculation = ({
   cartItems,
   isRemoteArea,
   selectedCoupons = [],
-  availableCoupons = [],
 }: UseCouponCalculationProps): UseCouponCalculationReturn => {
   const orderInfo = useMemo(() => {
     return OrderService.createOrderInfo(cartItems, isRemoteArea);
@@ -36,13 +35,6 @@ export const useCouponCalculation = ({
     );
   }, [selectedCoupons, orderInfo]);
 
-  const optimalCouponResult = useMemo(() => {
-    return CouponCalculator.findOptimalCouponCombination(
-      availableCoupons,
-      orderInfo
-    );
-  }, [availableCoupons, orderInfo]);
-
   const finalTotalAmount = useMemo(() => {
     return (
       selectedCouponResult.finalOrderAmount +
@@ -51,10 +43,10 @@ export const useCouponCalculation = ({
   }, [selectedCouponResult]);
 
   return {
-    orderAmount: orderInfo.originalOrderAmount,
-    deliveryFee: orderInfo.originalDeliveryFee,
-    selectedCouponResult,
-    optimalCouponResult,
+    finalOrderAmount: selectedCouponResult.finalOrderAmount,
+    finalDeliveryFee: selectedCouponResult.finalDeliveryFee,
+    totalDiscount: selectedCouponResult.totalDiscount,
+    deliveryDiscount: selectedCouponResult.deliveryDiscount,
     finalTotalAmount,
   };
 };

@@ -38,11 +38,10 @@ function CouponModal({
     selectedCouponIds.includes(coupon.id)
   );
 
-  const { selectedCouponResult } = useCouponCalculation({
+  const { totalDiscount } = useCouponCalculation({
     cartItems,
     isRemoteArea,
     selectedCoupons: selectedCoupons as unknown as Coupon[],
-    availableCoupons: couponList as unknown as Coupon[],
   });
 
   useEffect(() => {
@@ -92,7 +91,6 @@ function CouponModal({
 
   if (!isOpen) return null;
 
-  const totalDiscount = selectedCouponResult.totalDiscount;
   const hasSelectedCoupons = selectedCoupons.length > 0;
 
   return (

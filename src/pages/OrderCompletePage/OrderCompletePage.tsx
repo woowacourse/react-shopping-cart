@@ -30,12 +30,16 @@ const OrderCompletePage = () => {
 
   const state = location.state as OrderCompleteState;
 
-  const { selectedCouponResult, finalTotalAmount, orderAmount } =
-    useCouponCalculation({
-      cartItems: state?.selectedCartItem || [],
-      isRemoteArea,
-      selectedCoupons: appliedCoupons,
-    });
+  const {
+    finalOrderAmount,
+    finalDeliveryFee,
+    totalDiscount,
+    finalTotalAmount,
+  } = useCouponCalculation({
+    cartItems: state?.selectedCartItem || [],
+    isRemoteArea,
+    selectedCoupons: appliedCoupons,
+  });
 
   useEffect(() => {
     if (!state) {
@@ -52,11 +56,10 @@ const OrderCompletePage = () => {
       state: {
         selectedCartItem: state.selectedCartItem,
         totalPrice: finalTotalAmount,
-        orderPrice: orderAmount,
-        deliveryPrice: selectedCouponResult.finalDeliveryFee,
+        orderPrice: finalOrderAmount,
+        deliveryPrice: finalDeliveryFee,
         appliedCoupons,
-        couponDiscount: selectedCouponResult.totalDiscount,
-        deliveryDiscount: selectedCouponResult.deliveryDiscount,
+        couponDiscount: totalDiscount,
         isRemoteArea,
       },
     });
@@ -111,9 +114,9 @@ const OrderCompletePage = () => {
             </S.DeliveryInfo>
             <OrderPriceSection
               priceInfo={{
-                orderPrice: orderAmount,
-                deliveryPrice: selectedCouponResult.finalDeliveryFee,
-                couponDiscount: selectedCouponResult.totalDiscount,
+                orderPrice: finalOrderAmount,
+                deliveryPrice: finalDeliveryFee,
+                couponDiscount: totalDiscount,
                 totalPrice: finalTotalAmount,
               }}
             />

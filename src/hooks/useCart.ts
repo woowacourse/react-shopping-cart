@@ -1,4 +1,4 @@
-import { ResponseCartItem } from "../types/types";
+import { ResponseCartItem } from "../types/order";
 import getCartItemList from "../api/cartItemListApi";
 import { useDataFetch } from "./useDataFetch";
 
