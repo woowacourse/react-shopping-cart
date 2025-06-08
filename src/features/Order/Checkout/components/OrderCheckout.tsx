@@ -31,14 +31,11 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
     couponDiscount,
     deliveryFee,
     specialDeliveryZone,
+    totalItemLength,
     selectedSpecialDeliveryZone,
   } = useCoupons({
     cartItems,
   });
-
-  const totalItemLength = cartItems.reduce((acc, cur) => {
-    return acc + cur.quantity;
-  }, 0);
 
   const handleNavigateCartPage = () => {
     navigate('/cart');
@@ -130,8 +127,9 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
       </Button>
       <CouponModal
         coupons={coupons ?? []}
-        couponDiscount={couponDiscount}
         totalPrice={totalPrice}
+        cartItems={cartItems}
+        specialDeliveryZone={specialDeliveryZone}
         onApplyCoupon={applyCoupon}
         title="쿠폰을 선택해 주세요"
         isOpen={isOpen}
