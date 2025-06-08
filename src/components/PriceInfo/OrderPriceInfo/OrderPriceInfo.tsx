@@ -5,12 +5,13 @@ import PriceInfoItem from '../PriceInfoItem';
 
 function OrderPriceInfo({
   totalPrice,
+  deliveryFee,
   couponDiscount,
 }: {
   totalPrice: number;
+  deliveryFee: number;
   couponDiscount: number;
 }) {
-  const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
   const finalPriceBeforePayment = totalPrice + deliveryFee - couponDiscount;
 
   return (
