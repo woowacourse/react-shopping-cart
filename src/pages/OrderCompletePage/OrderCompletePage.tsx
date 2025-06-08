@@ -29,7 +29,9 @@ function OrderCompletePage() {
           selectedCartItem={state.selectedCartItem}
           totalPrice={state.totalPrice}
         />
-        <S.OrderButton disabled={true}>주문 완료</S.OrderButton>
+        <S.OrderButton onClick={() => navigate("/")}>
+          장바구니로 돌아가기
+        </S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
   );

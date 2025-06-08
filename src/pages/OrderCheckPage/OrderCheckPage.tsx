@@ -31,6 +31,15 @@ function OrderCheckPage() {
     setIsOpenCouponModal(false);
   };
 
+  const handlePay = () => {
+    navigate("/complete", {
+      state: {
+        selectedCartItem: state.selectedCartItem,
+        totalPrice: state.totalPrice + deliveryPrice - discountPrice,
+      },
+    });
+  };
+
   const deliveryPrice =
     (state.totalPrice >= 100000 ? 0 : 3000) + (isSelectJejuChecked ? 3000 : 0);
 
@@ -142,7 +151,7 @@ function OrderCheckPage() {
             couponPrice={discountPrice}
           />
         </S.CartContentWrapper>
-        <S.OrderButton onClick={() => {}} disabled={false}>
+        <S.OrderButton onClick={handlePay} disabled={false}>
           결제하기
         </S.OrderButton>
       </S.CartPageWrapper>
