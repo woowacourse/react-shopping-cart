@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 import { useState } from "react";
 import { CartProduct } from "../../../../type/cart";
-
+import useSelectedCoupon from "../../../../hooks/useSelectedCoupon";
 interface Props {
   coupons: CouponResponse[];
   totalPrice: number;
@@ -24,20 +24,7 @@ const CouponList = ({
   selectedCartIds,
   onApplyDiscount,
 }: Props) => {
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-
-  const handleSelectCoupon = (id: number) => {
-    const isSelected = selectedIds.includes(id);
-
-    if (!isSelected && selectedIds.length >= MAX_COUPON_COUNT) {
-      alert(`쿠폰은 ${MAX_COUPON_COUNT}개만 선택할 수 있습니다.`);
-      return;
-    }
-
-    setSelectedIds((prev) =>
-      isSelected ? prev.filter((prevId) => prevId !== id) : [...prev, id]
-    );
-  };
+  const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
 
   const isAvailable = (id: number): boolean => {
     const coupon = coupons?.find((c) => c.id === id);
