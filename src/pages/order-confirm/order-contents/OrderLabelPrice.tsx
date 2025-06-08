@@ -9,12 +9,14 @@ interface OrderLabelPridceProps {
   totalCartPrice: number;
   shippingFee: number;
   totalPrice: number;
+  couponDiscount: number;
 }
 
 const OrderLabelPridce = ({
   totalCartPrice,
   shippingFee,
   totalPrice,
+  couponDiscount,
 }: OrderLabelPridceProps) => {
   const InfoTextContent = ` 총 주문 금액이 ${formatKRWString(
     FREE_SHIPPING_STANDARD
@@ -27,12 +29,16 @@ const OrderLabelPridce = ({
       <PriceWrapper>
         <LabelPrice label="주문 금액" price={totalCartPrice} />
         <LabelPrice
+          ariaLabel="coupon-discount"
+          label="쿠폰 할인 금액"
+          price={couponDiscount}
+        />
+        <LabelPrice
           ariaLabel="shipping-fee"
           label="배송비"
           price={shippingFee}
         />
       </PriceWrapper>
-
       <LabelPrice label="총 결제 금액" price={totalPrice} />
     </Container>
   );
@@ -43,7 +49,6 @@ export default OrderLabelPridce;
 const Container = styled(Flex)`
   flex-direction: column;
   gap: 20px;
-  height: 180px;
 `;
 
 const PriceWrapper = styled(Flex)`
