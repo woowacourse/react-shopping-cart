@@ -22,16 +22,14 @@ export default function ShoppingCartSection({
   selectedItemIds,
   setSelectedItemIds,
 }: ShoppingCartSectionProps) {
-  const selectedItems = useMemo(() => {
-    return items.content.filter((item) => selectedItemIds.includes(item.id));
-  }, [items, selectedItemIds]);
+  const selectedItems = items.content.filter((item) => selectedItemIds.includes(item.id));
 
   const isAllSelected = useMemo(() => {
     return items?.content.length > 0 && selectedItemIds.length === items.content.length;
   }, [items, selectedItemIds]);
 
   const { orderPrice, shippingFee, orderTotalPrice } = useMemo(
-    () => calculateOrderPriceAndShipping(items.content, false),
+    () => calculateOrderPriceAndShipping(selectedItems, false),
     [selectedItems]
   );
 
