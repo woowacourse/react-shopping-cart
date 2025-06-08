@@ -1,23 +1,16 @@
 import * as S from "./OrderPriceSection.styled";
-import { calculateDeliveryPrice } from "../../utils/price";
-function OrderPriceSection({
-  orderPrice,
-  couponPrice,
-  isDeliveryFree,
-  isRemoteArea,
-}: {
-  orderPrice: number;
-  couponPrice?: number;
-  isDeliveryFree: boolean;
-  isRemoteArea: boolean;
-}) {
-  const calculatedDeliveryPrice = calculateDeliveryPrice(
-    orderPrice,
-    isRemoteArea
-  );
+import { PriceInfo } from "./utils/priceBreakdown";
 
-  const calculatedTotalPrice =
-    orderPrice + calculatedDeliveryPrice - (couponPrice ?? 0);
+interface OrderPriceSectionProps {
+  priceInfo: PriceInfo;
+  isDeliveryFree: boolean;
+}
+
+function OrderPriceSection({
+  priceInfo,
+  isDeliveryFree,
+}: OrderPriceSectionProps) {
+  const { orderPrice, deliveryPrice, couponDiscount, totalPrice } = priceInfo;
 
   return (
     <div>
@@ -25,25 +18,26 @@ function OrderPriceSection({
         <S.OrderText>주문 금액</S.OrderText>
         <S.OrderPrice>{orderPrice.toLocaleString("kr")}원</S.OrderPrice>
       </S.PriceWrapper>
-      {couponPrice !== undefined && couponPrice !== 0 && (
+
+      {couponDiscount > 0 && (
         <S.PriceWrapper>
           <S.OrderText>쿠폰 할인 금액</S.OrderText>
-          <S.OrderPrice>{couponPrice.toLocaleString("kr")}원</S.OrderPrice>
+          <S.OrderPrice>{couponDiscount.toLocaleString("kr")}원</S.OrderPrice>
         </S.PriceWrapper>
       )}
 
       <S.PriceWrapper>
         <S.OrderText>배송비</S.OrderText>
         <S.OrderPrice>
-          {isDeliveryFree ? 0 : calculatedDeliveryPrice.toLocaleString("kr")}원
+          {isDeliveryFree ? 0 : deliveryPrice.toLocaleString("kr")}원
         </S.OrderPrice>
       </S.PriceWrapper>
+
       <S.Line />
+
       <S.PriceWrapper>
         <S.OrderText>총 결제 금액</S.OrderText>
-        <S.OrderPrice>
-          {calculatedTotalPrice.toLocaleString("kr")}원
-        </S.OrderPrice>
+        <S.OrderPrice>{totalPrice.toLocaleString("kr")}원</S.OrderPrice>
       </S.PriceWrapper>
     </div>
   );

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useCartContext } from "../../stores/CartContext";
 import { useSelectContext } from "../../stores/SelectContext";
 import { calculateTotalPrice, calculateShippingFee } from "../../utils/price";
+import { calculatePriceInfo } from "../../components/OrderPriceSection/utils/priceBreakdown";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import * as S from "./CartPage.styled";
 
@@ -11,16 +12,22 @@ const OrderSection = () => {
   const cartData = useCartContext();
   const selectData = useSelectContext();
 
-  const { orderPrice, deliveryPrice, selectedCartItem } = useMemo(() => {
+  const { priceInfo, selectedCartItem } = useMemo(() => {
     const selectedCartData = cartData.filter(
       (_, idx) => selectData[idx]?.selected
     );
-    const calculatedOrderPrice = calculateTotalPrice(selectedCartData);
-    const calculatedDeliveryPrice = calculateShippingFee(calculatedOrderPrice);
+    const orderPrice = calculateTotalPrice(selectedCartData);
+    const deliveryPrice = calculateShippingFee(orderPrice);
+    const couponDiscount = 0;
+
+    const calculatedPriceInfo = calculatePriceInfo(
+      orderPrice,
+      deliveryPrice,
+      couponDiscount
+    );
 
     return {
-      orderPrice: calculatedOrderPrice,
-      deliveryPrice: calculatedDeliveryPrice,
+      priceInfo: calculatedPriceInfo,
       selectedCartItem: selectedCartData,
     };
   }, [selectData, cartData]);
@@ -29,22 +36,25 @@ const OrderSection = () => {
     navigate("/order-complete", {
       state: {
         selectedCartItem,
-        totalPrice: orderPrice + deliveryPrice,
-        orderPrice,
-        deliveryPrice,
+        totalPrice: priceInfo.totalPrice,
+        orderPrice: priceInfo.orderPrice,
+        deliveryPrice: priceInfo.deliveryPrice,
       },
     });
   };
 
+  const isDeliveryFree = priceInfo.deliveryPrice === 0;
+
   return (
     <>
       <OrderPriceSection
-        orderPrice={orderPrice}
-        couponPrice={0}
-        isDeliveryFree={false}
-        isRemoteArea={false}
+        priceInfo={priceInfo}
+        isDeliveryFree={isDeliveryFree}
       />
-      <S.OrderButton onClick={handleOrderCheck} disabled={orderPrice === 0}>
+      <S.OrderButton
+        onClick={handleOrderCheck}
+        disabled={priceInfo.orderPrice === 0}
+      >
         주문 확인
       </S.OrderButton>
     </>

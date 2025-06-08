@@ -11,6 +11,9 @@ import CouponModal from "../../components/CouponModal/CouponModal";
 import { Coupon } from "../../api/couponApi";
 import { CouponSelectProvider } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
+import { calculateOrderSummary } from "../../components/OrderResult/utils/orderSummary";
+import { calculateDeliveryPrice } from "../../utils/price";
+import { calculatePriceInfo } from "../../components/OrderPriceSection/utils/priceBreakdown";
 
 interface OrderCompleteState {
   selectedCartItem: ResponseCartItem[];
@@ -73,24 +76,30 @@ const OrderCompletePage = () => {
     setAppliedCoupons(selectedCoupons);
   };
 
+  const orderSummary = calculateOrderSummary(state.selectedCartItem);
+
+  const deliveryPrice = calculateDeliveryPrice(orderAmount, isRemoteArea);
+  const priceInfo = calculatePriceInfo(
+    orderAmount,
+    deliveryPrice,
+    selectedCouponResult.totalDiscount
+  );
+
   return (
     <CouponSelectProvider>
       <S.Root>
         <S.OrderCompletePageWrapper style={{ position: "relative" }}>
-          <Header
-            orderStatus="order-complete"
-            setIsOrderComplete={handleBackToCart}
-          />
+          <Header showBackButton={true} onBackClick={handleBackToCart} />
           <S.OrderResultWrapper>
             <OrderResult
-              selectedCartItem={state.selectedCartItem}
+              orderSummary={orderSummary}
               totalPrice={finalTotalAmount}
               orderStatus="order-complete"
             />
           </S.OrderResultWrapper>
           <S.CartItemWrapper>
             {state.selectedCartItem.map((item) => (
-              <CartItem key={item.id} cart={item} />
+              <CartItem key={item.id} cart={item} isReadOnly={true} />
             ))}
             <S.CouponButton onClick={handleCouponButtonClick}>
               {appliedCoupons.length > 0
@@ -108,10 +117,8 @@ const OrderCompletePage = () => {
               />
             </S.DeliveryInfo>
             <OrderPriceSection
-              orderPrice={orderAmount}
-              couponPrice={selectedCouponResult.totalDiscount}
-              isDeliveryFree={selectedCouponResult.finalDeliveryFee === 0}
-              isRemoteArea={isRemoteArea}
+              priceInfo={priceInfo}
+              isDeliveryFree={priceInfo.deliveryPrice === 0}
             />
           </S.CartItemWrapper>
 

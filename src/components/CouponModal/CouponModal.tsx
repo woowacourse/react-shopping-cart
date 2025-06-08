@@ -9,7 +9,7 @@ import {
 } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 import { ResponseCartItem } from "../../types/types";
-import { formatDate, getCouponDetails } from "../../utils/couponFormatter";
+import { formatDate, getCouponDetails } from "./utils/couponFormatter";
 
 interface CouponModalProps {
   isOpen: boolean;

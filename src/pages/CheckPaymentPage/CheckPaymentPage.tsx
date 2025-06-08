@@ -4,6 +4,7 @@ import * as S from "./CheckPaymentPage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
 import { ResponseCartItem } from "../../types/types";
+import { calculateOrderSummary } from "../../components/OrderResult/utils/orderSummary";
 interface CheckPaymentState {
   selectedCartItem: ResponseCartItem[];
   totalPrice: number;
@@ -27,13 +28,15 @@ const CheckPaymentPage = () => {
     navigate("/", { replace: true });
   };
 
+  const orderSummary = calculateOrderSummary(state.selectedCartItem);
+
   return (
     <S.Root>
       <S.OrderCompletePageWrapper>
         <Header orderStatus="check-payment" />
         <S.OrderResultWrapper>
           <OrderResult
-            selectedCartItem={state.selectedCartItem}
+            orderSummary={orderSummary}
             totalPrice={state.totalPrice}
             orderStatus="check-payment"
           />
