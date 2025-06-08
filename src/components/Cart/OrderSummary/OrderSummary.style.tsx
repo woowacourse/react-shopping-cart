@@ -22,11 +22,6 @@ export const PriceWrapper = styled.div`
   border-bottom: 1px solid #0000001a;
 `;
 
-export const TotalPrice = styled.p`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const TitleText = styled.span`
   font-size: 16px;
   font-weight: 600;
