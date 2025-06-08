@@ -13,14 +13,12 @@ type CouponWithAvailability = Coupon & {
   isAvailable: boolean;
 };
 
-const SHIPPING_FEE = 3000;
-
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [couponsWithAvailability, setCouponsWithAvailability] = useState<
     CouponWithAvailability[]
   >([]);
-  const { orderPrice } = useCartCalculations();
+  const { orderPrice, shippingFee } = useCartCalculations();
   const { cartItemsCheckData } = useCart();
 
   useEffect(() => {
@@ -61,7 +59,7 @@ const useCoupons = () => {
         case "buyXgetY":
           return getBuyXGetYDiscount(coupon, cartItems);
         case "freeShipping":
-          return isFreeShippingAvailable(coupon, orderPrice) ? SHIPPING_FEE : 0;
+          return isFreeShippingAvailable(coupon, orderPrice) ? shippingFee : 0;
         default:
           return 0;
       }
@@ -179,7 +177,10 @@ const useCoupons = () => {
           } else if (coupon.discountType === "buyXgetY") {
             return acc + getBuyXGetYDiscount(coupon, cartItemsCheckData);
           } else if (coupon.discountType === "freeShipping") {
-            return acc + SHIPPING_FEE;
+            return (
+              acc +
+              (isFreeShippingAvailable(coupon, orderPrice) ? shippingFee : 0)
+            );
           } else {
             return acc;
           }
