@@ -10,19 +10,18 @@ import {
 } from './CartItem.styles';
 
 function OrderCartItem({ item }: { item: CartItemProps }) {
-  const { quantity, product } = item;
+  const {
+    quantity,
+    product: { imageUrl, name, price },
+  } = item;
   return (
     <li css={CartItemStyle}>
       <div css={CartItemBodyStyle}>
-        <img
-          css={ImageStyle}
-          src={product.imageUrl || Default}
-          alt={product.name}
-        />
+        <img css={ImageStyle} src={imageUrl || Default} alt={name} />
 
         <div css={CartInfo}>
-          <Text varient="caption">{product.name}</Text>
-          <Text varient="title">{product.price.toLocaleString()}원</Text>
+          <Text varient="caption">{name}</Text>
+          <Text varient="title">{price.toLocaleString()}원</Text>
           <div css={ControllerBox}>
             <Text varient="caption">{quantity}개</Text>
           </div>
