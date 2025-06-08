@@ -1,9 +1,10 @@
 import { Device } from "@/hooks";
 import styled from "@emotion/styled";
 import type { ModalProps } from "./Modal";
+import { size } from "@/styles";
 
 export const ModalContainer = styled.div<Pick<ModalProps, "position" | "zIndex" | "size"> & { device: Device }>`
-  width: 420px;
+  max-width: calc(${size.mobileWidth}px - 64px);
   box-sizing: border-box;
   height: fit-content;
 
@@ -11,7 +12,6 @@ export const ModalContainer = styled.div<Pick<ModalProps, "position" | "zIndex" 
   padding: 24px 32px;
 
   border-radius: ${(props) => (props.position === "center" ? "8px" : "8px 8px 0 0")};
-
   position: fixed;
 
   left: 0;
