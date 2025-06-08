@@ -11,7 +11,7 @@ import { MAX_COUPON_COUNT } from "../../constants";
 import { formatDate } from "../../utils/formatDate";
 import { formatTimeRange } from "../../utils/formatTimeRange";
 import { useCouponContext } from "../../contexts/CouponContext";
-import { useSelectedItems } from "../../hooks/useSelectedItems";
+import { useCouponValidation } from "../../hooks/useCouponValidation";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -22,12 +22,8 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons, isLoading, fetchError, fetchCoupons } = useFetchCoupons();
   const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
     useCouponContext();
-  const { selectedItems } = useSelectedItems();
+  const { isCouponValid } = useCouponValidation();
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
-
-  const orderPrice = selectedItems.reduce((acc, cartItem) => {
-    return acc + cartItem.product.price * cartItem.quantity;
-  }, 0);
 
   useEffect(() => {
     if (isOpen) {
@@ -36,23 +32,8 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     }
   }, [isOpen, selectedCoupons]);
 
-  const isCouponAvailable = (coupon: Coupon): boolean => {
-    switch (coupon.discountType) {
-      case "fixed":
-        return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
-      case "percentage":
-        return true;
-      case "freeShipping":
-        return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
-      case "buyXgetY":
-        return true;
-      default:
-        return true;
-    }
-  };
-
   const handleCouponToggle = (coupon: Coupon) => {
-    if (!isCouponAvailable(coupon)) {
+    if (!isCouponValid(coupon)) {
       return;
     }
 
@@ -96,7 +77,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
               const isSelected = tempSelectedCoupons.some(
                 (c) => c.id === coupon.id
               );
-              const isAvailable = isCouponAvailable(coupon);
+              const isAvailable = isCouponValid(coupon);
 
               return (
                 <div

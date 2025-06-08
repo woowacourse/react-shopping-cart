@@ -19,18 +19,57 @@ export const useCouponDiscount = () => {
     appliedCoupons.forEach((coupon: Coupon) => {
       switch (coupon.discountType) {
         case "fixed":
-          if (coupon.minimumAmount && orderPrice >= coupon.minimumAmount) {
-            totalDiscount += coupon.discount || 0;
-          }
+          totalDiscount += coupon.discount || 0;
+          break;
+
+        case "percentage":
+          totalDiscount += Math.floor(
+            (orderPrice * (coupon.discount || 0)) / 100
+          );
+          break;
+
+        case "buyXgetY":
+          totalDiscount += calculateBuyXGetYDiscount(selectedItems, coupon);
+          break;
+
+        case "freeShipping":
           break;
       }
     });
 
     return totalDiscount;
-  }, [appliedCoupons, orderPrice]);
+  }, [appliedCoupons, orderPrice, selectedItems]);
 
   return {
     couponDiscount,
     orderPrice,
   };
+};
+
+const calculateBuyXGetYDiscount = (
+  selectedItems: any[],
+  coupon: Coupon
+): number => {
+  if (!coupon.buyQuantity || !coupon.getQuantity) {
+    return 0;
+  }
+
+  const requiredQuantity = coupon.buyQuantity + coupon.getQuantity;
+
+  const eligibleItems = selectedItems.filter(
+    (item) => item.quantity >= requiredQuantity
+  );
+
+  if (eligibleItems.length === 0) {
+    return 0;
+  }
+
+  let maxPrice = 0;
+  eligibleItems.forEach((item) => {
+    if (item.product.price > maxPrice) {
+      maxPrice = item.product.price;
+    }
+  });
+
+  return maxPrice;
 };

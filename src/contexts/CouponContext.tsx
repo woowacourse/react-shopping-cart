@@ -1,6 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { Coupon } from "../apis/coupons";
-import { useCartItemContext } from "./CartItemContext";
 import { useCouponValidation } from "../hooks/useCouponValidation";
 
 interface CouponContextType {
@@ -27,22 +26,18 @@ export const useCouponContext = () => {
 export const CouponProvider = ({ children }: CouponProviderProps) => {
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [appliedCoupons, setAppliedCoupons] = useState<Coupon[]>([]);
+  const { getValidCoupons } = useCouponValidation();
 
-  const { cartItems, selectedItem } = useCartItemContext();
+  useEffect(() => {
+    if (appliedCoupons.length > 0) {
+      const validCoupons = getValidCoupons(appliedCoupons);
 
-  const currentOrderPrice = cartItems.reduce((acc, cartItem) => {
-    if (selectedItem.has(cartItem.id)) {
-      return acc + cartItem.product.price * cartItem.quantity;
+      if (validCoupons.length !== appliedCoupons.length) {
+        setAppliedCoupons(validCoupons);
+        setSelectedCoupons(validCoupons);
+      }
     }
-    return acc;
-  }, 0);
-
-  useCouponValidation(
-    appliedCoupons,
-    currentOrderPrice,
-    setAppliedCoupons,
-    setSelectedCoupons
-  );
+  }, [appliedCoupons, getValidCoupons]);
 
   return (
     <CouponContext.Provider

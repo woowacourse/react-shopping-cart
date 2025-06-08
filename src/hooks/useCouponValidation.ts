@@ -1,14 +1,25 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { Coupon } from "../apis/coupons";
+import { isUnavailableTime, isCouponExpired } from "../utils/dateUtils";
+import { useSelectedItems } from "./useSelectedItems";
 
-export const useCouponValidation = (
-  appliedCoupons: Coupon[],
-  orderPrice: number,
-  setAppliedCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>,
-  setSelectedCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>
-) => {
+export const useCouponValidation = () => {
+  const { selectedItems } = useSelectedItems();
+
+  const orderPrice = selectedItems.reduce((acc, cartItem) => {
+    return acc + cartItem.product.price * cartItem.quantity;
+  }, 0);
+
   const isCouponValid = useCallback(
-    (coupon: Coupon, orderPrice: number): boolean => {
+    (coupon: Coupon): boolean => {
+      if (isCouponExpired(coupon.expirationDate)) {
+        return false;
+      }
+
+      if (coupon.availableTime && isUnavailableTime(coupon.availableTime)) {
+        return false;
+      }
+
       switch (coupon.discountType) {
         case "fixed":
           return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
@@ -17,30 +28,28 @@ export const useCouponValidation = (
         case "percentage":
           return true;
         case "buyXgetY":
-          return true;
+          if (!coupon.buyQuantity || !coupon.getQuantity) return false;
+          const requiredQuantity = coupon.buyQuantity + coupon.getQuantity;
+          return selectedItems.some(
+            (item) => item.quantity >= requiredQuantity
+          );
         default:
           return true;
       }
     },
-    []
+    [selectedItems, orderPrice]
   );
 
-  useEffect(() => {
-    if (appliedCoupons.length > 0) {
-      const validCoupons = appliedCoupons.filter((coupon) =>
-        isCouponValid(coupon, orderPrice)
-      );
+  const getValidCoupons = useCallback(
+    (coupons: Coupon[]): Coupon[] => {
+      return coupons.filter(isCouponValid);
+    },
+    [isCouponValid]
+  );
 
-      if (validCoupons.length !== appliedCoupons.length) {
-        setAppliedCoupons(validCoupons);
-        setSelectedCoupons(validCoupons);
-      }
-    }
-  }, [
+  return {
     orderPrice,
-    appliedCoupons,
     isCouponValid,
-    setAppliedCoupons,
-    setSelectedCoupons,
-  ]);
+    getValidCoupons,
+  };
 };
