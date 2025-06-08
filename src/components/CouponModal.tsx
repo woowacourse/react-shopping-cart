@@ -42,16 +42,17 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
             const isSelected = selectedCoupons.some(
               (selectedCoupon) => selectedCoupon.id === coupon.id
             );
-            const isValid = validCoupons.some(
-              (validCoupon) => validCoupon.id === coupon.id
-            );
+            const isValid =
+              validCoupons.some(
+                (validCoupon) => validCoupon.id === coupon.id
+              ) && selectedCoupons.length < 2;
 
             return (
               <CouponCard
                 key={coupon.id}
                 coupon={coupon}
                 isSelected={isSelected}
-                isValid={isValid}
+                isValid={isValid || isSelected}
                 onClick={() => toggleCoupon(coupon.id)}
               />
             );
