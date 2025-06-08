@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useCouponManagerProvider } from "../../../contexts/CouponManagerProvider";
 import { CouponType, DiscountType } from "../../../types/coupon";
 import { CartItemType } from "../../../types/response";
@@ -39,6 +40,12 @@ export default function CouponItem({
     selectedCoupon,
     deliveryCost,
   });
+
+  useEffect(() => {
+    if (disabled && isFreeShippingCoupon(couponData)) {
+      removeCoupon(couponData);
+    }
+  }, [disabled, removeCoupon, couponData]);
 
   const checked = isSelected(couponData);
   return (
