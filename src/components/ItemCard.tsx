@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Product } from '../types';
 import CheckBox from './CheckBox';
-import { useErrorContext } from '../contexts/ToastContext';
+import { useToastContext } from '../contexts/ToastContext';
 import useCartItemActions from '../hooks/useCartItemActions';
 
 type ItemCardProps = {
@@ -18,7 +18,7 @@ const ItemCard = ({ id, product, quantity }: ItemCardProps) => {
     handleClickDecrease,
     handleClickDelete,
   } = useCartItemActions(id);
-  const { showToast } = useErrorContext();
+  const { showToast } = useToastContext();
 
   return (
     <S.Container data-testid="item-card">

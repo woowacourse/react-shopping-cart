@@ -6,10 +6,10 @@ interface ToastContext {
 
 export const ToastContext = createContext<ToastContext | null>(null);
 
-export const useErrorContext = () => {
+export const useToastContext = () => {
   const context = useContext(ToastContext);
   if (!context) {
-    throw new Error('useErrorContext는 ErrorToastProvider로 감싸져야 합니다.');
+    throw new Error('useToastContext는 ErrorToastProvider로 감싸져야 합니다.');
   }
   return context;
 };
