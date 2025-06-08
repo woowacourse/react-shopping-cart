@@ -1,0 +1,40 @@
+import { CartItem } from '@/features/Cart/types/Cart.types';
+import { Coupon } from '../types/Coupon.types';
+
+export const calculateTotalDiscount = (
+  cartItems: CartItem[],
+  coupons: Coupon[],
+  {
+    isRemoteArea,
+    deliveryFee,
+    totalPrice,
+  }: {
+    isRemoteArea: boolean;
+    deliveryFee: number;
+    totalPrice: number;
+  }
+): number => {
+  return coupons.reduce((acc, c) => {
+    switch (c.discountType) {
+      case 'fixed':
+        return acc + (c.discount ?? 0);
+      case 'percentage':
+        return acc + Math.floor(totalPrice * ((c.discount ?? 0) / 100));
+      case 'buyXgetY': {
+        const bogoTargetItems = cartItems.filter((item) => item.quantity >= 2);
+        if (bogoTargetItems.length === 0) return acc;
+        const mostExpensive = bogoTargetItems.reduce((prev, current) =>
+          current.product.price > prev.product.price ? current : prev
+        );
+        return acc + mostExpensive.product.price;
+      }
+      case 'freeShipping':
+        if (deliveryFee > 0) {
+          return acc + (isRemoteArea ? 6000 : 3000);
+        }
+        return acc;
+      default:
+        return acc;
+    }
+  }, 0);
+};

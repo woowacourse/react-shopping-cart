@@ -6,10 +6,10 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Coupon } from '../types/Coupon.types';
 import { formatDate, formatTime } from '@/shared/utils/date';
+import { CartItem } from '@/features/Cart/types/Cart.types';
+import { calculateTotalDiscount } from '../utils/calculateTotalDiscount';
 import { useCartContext } from '@/features/Cart/context/CartProvider';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
-import { CartItem } from '@/features/Cart/types/Cart.types';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 
 type CouponModalProps = {
   cartItems: CartItem[];
@@ -27,37 +27,15 @@ export const CouponModal = ({
   onApply,
 }: CouponModalProps) => {
   const { isRemoteArea } = useCartContext();
-  const { selectedCartItems } = useCartInfo(cartItems);
-  const { deliveryFee, totalPrice } = usePriceInfo(cartItems);
+  const { totalPrice, deliveryFee } = usePriceInfo(cartItems);
+
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
-
-  const totalDiscount = selectedCoupons.reduce((acc, c) => {
-    switch (c.discountType) {
-      case 'fixed':
-        return acc + (c.discount ?? 0);
-      case 'percentage':
-        return acc + Math.floor(totalPrice * ((c.discount ?? 0) / 100));
-      case 'buyXgetY':
-        const bogoTargetItems = selectedCartItems.filter((item) => item.quantity >= 2);
-        if (bogoTargetItems.length === 0) return acc;
-
-        const mostExpensive = bogoTargetItems.reduce((prev, current) => {
-          return current.product.price > prev.product.price ? current : prev;
-        });
-
-        return acc + mostExpensive.product.price;
-      case 'freeShipping': {
-        if (deliveryFee > 0) {
-          return acc + (isRemoteArea ? 6000 : 3000);
-        }
-        return acc;
-      }
-
-      default:
-        return acc;
-    }
-  }, 0);
-
+  const totalDiscount = calculateTotalDiscount(cartItems, selectedCoupons, {
+    isRemoteArea,
+    deliveryFee,
+    totalPrice,
+  });
+  
   return (
     <Overlay>
       <Modal>

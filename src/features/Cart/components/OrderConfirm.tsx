@@ -22,6 +22,9 @@ import { Coupon, CouponResponse } from '@/features/Coupon/types/Coupon.types';
 import { isError } from '@/shared/utils/isError';
 import { ToastContext } from '@/shared/context/ToastProvider';
 import { isCouponValid } from '@/features/Coupon/utils/validateCoupon';
+import { getBestCouponCombination } from '@/features/Coupon/utils/combinations';
+import { useCartContext } from '../context/CartProvider';
+import { usePriceInfo } from '../hooks/usePriceInfo';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
@@ -31,6 +34,8 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
   const { selectedCartItems } = useCartInfo(cartItems);
   const { showToast } = useContext(ToastContext);
+  const { deliveryFee} = usePriceInfo();
+  const { isRemoteArea } = useCartContext();
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [showCouponList, setShowCouponList] = useState(false);
   const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
@@ -51,6 +56,23 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
       showToast('쿠폰 정보를 불러올 수 없습니다.');
     }
   }, [coupon.error, showToast]);
+
+  useEffect(() => {
+    if (showCouponList) {
+      const validCoupons = coupons.filter((c) => !c.disabled);
+      const best = getBestCouponCombination(validCoupons, cartItems, {
+        isRemoteArea,
+        totalPrice,
+        deliveryFee,
+      });
+      setCoupons((prev) =>
+        prev.map((c) => ({
+          ...c,
+          checked: best.some((b) => b.id === c.id),
+        }))
+      );
+    }
+  }, [showCouponList]);
 
   const onToggleCoupon = (id: number) => {
     setCoupons((prevCoupons) => {
