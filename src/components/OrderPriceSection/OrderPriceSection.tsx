@@ -1,5 +1,5 @@
 import * as S from "./OrderPriceSection.styled";
-import { PriceInfo } from "./utils/priceBreakdown";
+import { PriceInfo } from "../../utils/priceBreakdown";
 
 interface OrderPriceSectionProps {
   priceInfo: PriceInfo;

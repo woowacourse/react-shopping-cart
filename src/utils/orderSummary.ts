@@ -1,4 +1,4 @@
-import { ResponseCartItem } from "../../../types/types";
+import { ResponseCartItem } from "../types/types";
 
 export interface OrderSummary {
   totalCount: number;

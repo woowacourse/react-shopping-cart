@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useCartContext } from "../../stores/CartContext";
 import { useSelectContext } from "../../stores/SelectContext";
 import { calculateTotalPrice, calculateShippingFee } from "../../utils/price";
-import { calculatePriceInfo } from "../../components/OrderPriceSection/utils/priceBreakdown";
+import { calculatePriceInfo } from "../../utils/priceBreakdown";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import * as S from "./CartPage.styled";
 

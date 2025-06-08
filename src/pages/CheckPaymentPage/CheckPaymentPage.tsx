@@ -4,7 +4,7 @@ import * as S from "./CheckPaymentPage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
 import { ResponseCartItem } from "../../types/types";
-import { calculateOrderSummary } from "../../components/OrderResult/utils/orderSummary";
+import { calculateOrderSummary } from "../../utils/orderSummary";
 interface CheckPaymentState {
   selectedCartItem: ResponseCartItem[];
   totalPrice: number;
@@ -33,7 +33,7 @@ const CheckPaymentPage = () => {
   return (
     <S.Root>
       <S.OrderCompletePageWrapper>
-        <Header orderStatus="check-payment" />
+        <Header showBackButton={true} onBackClick={handleBackToCart} />
         <S.OrderResultWrapper>
           <OrderResult
             orderSummary={orderSummary}

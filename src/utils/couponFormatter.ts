@@ -1,4 +1,4 @@
-import { Coupon } from "../../../api/couponApi";
+import { Coupon } from "../api/couponApi";
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
