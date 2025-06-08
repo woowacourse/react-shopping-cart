@@ -4,9 +4,10 @@ import { CouponResponse } from "../../../../type/coupon";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
 import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
-import { useState } from "react";
 import { CartProduct } from "../../../../type/cart";
 import useSelectedCoupon from "../../../../hooks/useSelectedCoupon";
+import { isAvailable, getSelectedCartItems } from "./utils";
+
 interface Props {
   coupons: CouponResponse[];
   totalPrice: number;
@@ -26,68 +27,10 @@ const CouponList = ({
 }: Props) => {
   const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
 
-  const isAvailable = (id: number): boolean => {
-    const coupon = coupons?.find((c) => c.id === id);
-    if (!coupon) return false;
-
-    if (!isValidDate(coupon.expirationDate)) return false;
-
-    switch (coupon.discountType) {
-      case "freeShipping": {
-        if (totalPrice >= 100_000 && !isRemoteArea) return false;
-        return true;
-      }
-
-      case "buyXgetY": {
-        if (!coupon.buyQuantity) return false;
-
-        const selectedCartItems = cartItems.filter((item: CartProduct) =>
-          selectedCartIds.includes(item.id)
-        );
-
-        return selectedCartItems.some(
-          (item: CartProduct) => item.quantity > coupon.buyQuantity!
-        );
-      }
-
-      default: {
-        if (coupon.minimumAmount && Number(coupon.minimumAmount) > totalPrice) {
-          return false;
-        }
-
-        if (coupon.availableTime && !isValidTime(coupon.availableTime)) {
-          return false;
-        }
-
-        return true;
-      }
-    }
-  };
-
-  const isValidDate = (expirationDate: string): boolean => {
-    const today = new Date();
-    const expiration = new Date(expirationDate);
-
-    return expiration >= today;
-  };
-
-  const isValidTime = (availableTime: { start: string; end: string }) => {
-    const now = new Date();
-    const nowTime = now.getHours() * 60 + now.getMinutes();
-
-    const [startHour, startMin] = availableTime.start.split(":").map(Number);
-    const [endHour, endMin] = availableTime.end.split(":").map(Number);
-
-    const startTime = startHour * 60 + startMin;
-    const endTime = endHour * 60 + endMin;
-
-    return nowTime >= startTime && nowTime <= endTime;
-  };
-
   const calculateDiscount = (coupon: CouponResponse) => {
     switch (coupon.discountType) {
       case "fixed":
-        return coupon.discount ?? 0;
+        return coupon.discount;
 
       case "buyXgetY": {
         const selectedCartItems = cartItems.filter((item: CartProduct) =>
@@ -95,14 +38,14 @@ const CouponList = ({
         );
 
         const eligibleItems = selectedCartItems.filter(
-          (item: CartProduct) => item.quantity > (coupon.buyQuantity ?? 0)
+          (item: CartProduct) => item.quantity > coupon.buyQuantity
         );
 
         eligibleItems.sort(
           (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
         );
 
-        return eligibleItems[0]?.product.price ?? 0;
+        return eligibleItems[0].product.price;
       }
 
       case "freeShipping": {
@@ -132,8 +75,10 @@ const CouponList = ({
 
   const getValidCoupons = () => {
     if (!coupons) return [];
-    const couponIds = coupons.map((coupon) => coupon.id);
-    return couponIds.filter((id) => isAvailable(id));
+    const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
+    return coupons.filter((coupon: CouponResponse) =>
+      isAvailable(coupon, totalPrice, isRemoteArea, selectedCartItems)
+    );
   };
 
   return (
@@ -148,7 +93,7 @@ const CouponList = ({
           coupon={coupon}
           isChecked={selectedIds.includes(coupon.id)}
           onSelect={() => handleSelectCoupon(coupon.id)}
-          isValid={getValidCoupons().includes(coupon.id)}
+          isValid={getValidCoupons().includes(coupon)}
         />
       ))}
       <Button
