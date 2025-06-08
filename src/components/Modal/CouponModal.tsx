@@ -7,9 +7,10 @@ import { MAX_COUPON_AMOUNT } from '../../constants/config';
 interface ModalProps {
   isOpen: boolean;
   handleClose: () => void;
+  discountPrice: number;
 }
 
-const CouponModal = ({ isOpen, handleClose }: ModalProps) => {
+const CouponModal = ({ isOpen, handleClose, discountPrice }: ModalProps) => {
   const { coupons } = useCouponContext();
 
   return (
@@ -28,7 +29,9 @@ const CouponModal = ({ isOpen, handleClose }: ModalProps) => {
               <CouponCard key={coupon.id} coupon={coupon} />
             ))}
           </S.CouponContainer>
-          <S.closeButton onClick={handleClose}>닫기</S.closeButton>
+          <S.closeButton onClick={handleClose}>
+            총 {discountPrice.toLocaleString()}원 할인 쿠폰 사용하기
+          </S.closeButton>
         </S.content>
       </S.container>
     )
@@ -90,9 +93,9 @@ const S = {
   closeButton: styled.button`
     width: 100%;
     border-radius: 5px;
+    padding: 10px;
     background: #333;
     color: white;
-    padding: 8px;
     font-weight: bold;
     border: none;
     transition: 0.3s background;

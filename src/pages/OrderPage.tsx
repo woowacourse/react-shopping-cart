@@ -29,7 +29,11 @@ const OrderPage = () => {
   return (
     <>
       <S.content data-testid="orderPage">
-        <CouponModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+        <CouponModal
+          isOpen={isModalOpen}
+          handleClose={() => setIsModalOpen(false)}
+          discountPrice={discountPrice}
+        />
         <S.title>주문 확인</S.title>
         <>
           <OrderPageMessage cartLength={checkedCartIds.length} totalQuantity={totalQuantity} />
