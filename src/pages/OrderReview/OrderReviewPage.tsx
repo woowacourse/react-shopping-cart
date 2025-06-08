@@ -7,7 +7,7 @@ import Navbar from '../../shared/ui/Navbar';
 import ReviewCartList from '../../features/review/ui/ReviewCartList';
 import Button from '../../shared/ui/Button';
 import { css } from '@emotion/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CustomModal from '../../shared/ui/CustomModal';
 import CouponList from '../../features/coupon/ui/CouponList';
 import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
@@ -30,12 +30,8 @@ const CouponButtonCSS = css`
 `;
 
 export default function OrderReviewPage() {
-  const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    setSelectedCartItems(getSelectedCartItemsFromLocalStorage());
-  }, []);
+  const selectedCartItems: CartItem[] = getSelectedCartItemsFromLocalStorage();
 
   return (
     <S.OrderPageContainer>
