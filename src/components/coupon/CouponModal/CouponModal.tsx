@@ -1,6 +1,6 @@
 import { MAX_COUPON_SELECTION } from "../../../domains/coupon/constants";
 import { useCoupon } from "../../../domains/coupon/hooks/useCoupon";
-import useCouponValidation from "../../../domains/coupon/hooks/useCouponValidation";
+import { validateCoupon } from "../../../domains/coupon/validations/validateCoupon";
 import useOrderSummary from "../../../domains/order/hooks/useOrderSummary";
 import useModal from "../../../features/modal/useModal";
 import { formatCurrency } from "../../../utils/formatters";
@@ -13,7 +13,6 @@ import InfoIcon from "/info.svg";
 const CouponModal = () => {
   const { closeModal } = useModal();
   const { orderPrice, totalDiscount } = useOrderSummary();
-  const { validateCoupon } = useCouponValidation({ orderPrice });
   const {
     coupons,
     toggleCouponSelection,
@@ -38,7 +37,7 @@ const CouponModal = () => {
           <CouponCard
             key={coupon.id}
             coupon={coupon}
-            enable={validateCoupon(coupon)}
+            enable={validateCoupon(coupon, orderPrice)}
             selected={isCouponSelected(coupon.id)}
             onToggle={toggleCouponSelection}
           />
