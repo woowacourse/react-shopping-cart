@@ -1,14 +1,17 @@
 export interface Coupon {
-  id?: string;
-  discountType: "fixed" | "percentage" | "buyXgetY" | "freeShipping";
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
   discount?: number;
   minimumAmount?: number;
+  discountType: "fixed" | "buyXgetY" | "freeShipping" | "percentage";
+  buyQuantity?: number;
+  getQuantity?: number;
   availableTime?: {
     start: string;
     end: string;
   };
-  buyQuantity?: number;
-  getQuantity?: number;
 }
 
 export interface CouponCalculationResult {

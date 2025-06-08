@@ -1,4 +1,4 @@
-import { Coupon } from "../api/couponApi";
+import { Coupon } from "../types/coupon";
 import getCouponList from "../api/couponApi";
 import { useDataFetch } from "./useDataFetch";
 

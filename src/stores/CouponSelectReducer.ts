@@ -1,4 +1,4 @@
-import { Coupon } from "../api/couponApi";
+import { Coupon } from "../types/coupon";
 
 export type CouponSelectState = {
   id: number;

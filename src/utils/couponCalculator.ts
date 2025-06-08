@@ -193,7 +193,6 @@ export class CouponCalculator {
       ),
     };
 
-    // 단일 쿠폰 검사
     for (const coupon of availableCoupons) {
       const result = this.calculateSelectedCouponsDiscount([coupon], orderInfo);
       if (this.getTotalBenefit(result) > this.getTotalBenefit(bestResult)) {
@@ -201,7 +200,6 @@ export class CouponCalculator {
       }
     }
 
-    // 쿠폰 2개 조합 검사
     for (let i = 0; i < availableCoupons.length; i++) {
       for (let j = i + 1; j < availableCoupons.length; j++) {
         const result = this.calculateSelectedCouponsDiscount(

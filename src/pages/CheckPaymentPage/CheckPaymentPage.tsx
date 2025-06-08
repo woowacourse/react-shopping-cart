@@ -1,4 +1,3 @@
-// pages/CheckPaymentPage/CheckPaymentPage.tsx
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import * as S from "./CheckPaymentPage.styled";
