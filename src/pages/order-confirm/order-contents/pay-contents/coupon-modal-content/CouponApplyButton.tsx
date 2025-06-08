@@ -23,7 +23,6 @@ function CouponApplyButton({
   const { selectedCartItems, isIsland, handleDiscountSetting } =
     useOrderListContext(cartListData);
   const { totalCartPrice, shippingFee } = useOrderCalculation(
-    cartListData,
     selectedCartItems,
     isIsland
   );

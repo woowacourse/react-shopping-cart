@@ -25,7 +25,6 @@ function CouponCheckList({
   const hasShownToast = useRef(false);
 
   const { totalCartPrice, shippingFee } = useOrderCalculation(
-    cartListData,
     selectedCartItems,
     isIsland
   );

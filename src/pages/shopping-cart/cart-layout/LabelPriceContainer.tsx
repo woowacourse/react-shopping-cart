@@ -15,10 +15,8 @@ const LabelPriceContainer = () => {
     name: "cart",
   });
   const { selectedCartItems } = useOrderListContext(cartListData);
-  const { shippingFee, totalPrice, totalCartPrice } = useOrderCalculation(
-    cartListData,
-    selectedCartItems
-  );
+  const { shippingFee, totalPrice, totalCartPrice } =
+    useOrderCalculation(selectedCartItems);
 
   const InfoTextContent = ` 총 주문 금액이 ${formatKRWString(
     FREE_SHIPPING_STANDARD

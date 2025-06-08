@@ -13,7 +13,6 @@ function PayButton() {
   const { selectedCartItems, isIsland, discount } =
     useOrderListContext(cartListData);
   const { totalPrice, typeCount, totalCount } = useOrderCalculation(
-    cartListData,
     selectedCartItems,
     isIsland,
     discount
