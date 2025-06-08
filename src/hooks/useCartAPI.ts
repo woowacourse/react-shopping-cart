@@ -48,7 +48,8 @@ const useCartAPI = ({
             name: product.name,
             imageUrl: product.imageUrl,
             price: product.price,
-            checked: parsedCheckedIds ? parsedCheckedIds.includes(id) : true,
+            checked:
+              parsedCheckedIds === null ? true : parsedCheckedIds.includes(id),
           }))
         );
         isCheckDataInitialized.current = true;
@@ -82,6 +83,8 @@ const useCartAPI = ({
 
     const updatedCheckedIds = parsedCheckedIds.filter((id) => id !== cartId);
     setLocalStorageCheckedItems(updatedCheckedIds);
+
+    setCartItemsCheckData((prev) => prev.filter((item) => item.id !== cartId));
   };
 
   const increaseItemQuantity = async (
