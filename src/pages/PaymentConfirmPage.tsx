@@ -1,13 +1,15 @@
 import { css } from "@emotion/css";
 import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
-import { useCartItemContext } from "../contexts/useCartItemContext";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
+import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
 
 const PaymentConfirmPage = () => {
-  const { selectedItemIds, totalPrice } = useCartItemContext();
+  const { selectedItemIds } = useSelectedCartItemContext();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { totalPrice } = state;
 
   return (
     <>
