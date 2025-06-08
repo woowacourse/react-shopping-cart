@@ -35,7 +35,7 @@ const OrderConfirmPage = () => {
         isIsolatedAreaSelected={orderState.isIsolatedAreaSelected}
         onToggleIsolatedArea={orderState.toggleIsolatedArea}
       />
-      <PaymentPriceList orderItems={orderItems} />
+      <PaymentPriceList calculation={orderState.calculation} />
       {orderState.isLoading && <LoadingSpinner />}
       {isOpen && <CouponModal onClose={() => setIsOpen(false)} orderState={orderState} />}
     </S.Container>

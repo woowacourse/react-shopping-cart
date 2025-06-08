@@ -45,7 +45,7 @@ const CouponModal = ({ onClose, orderState }: orderStateProps) => {
               const finalEnabled = isUsable && canSelect;
 
               return (
-                <S.CouponCard key={id}>
+                <S.CouponCard key={id} isUsable={finalEnabled}>
                   <CheckBox isChecked={isSelected} onClick={() => finalEnabled && orderState.toggleCoupon(id)}>
                     <Text variant="title-2">{description}</Text>
                   </CheckBox>

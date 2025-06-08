@@ -30,10 +30,19 @@ export const CouponList = styled.div`
   margin-top: 16px;
 `;
 
-export const CouponCard = styled.div`
+export const CouponCard = styled.div<{ isUsable: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 12px;
   border-top: 1px solid #e0e0e0;
   padding-top: 16px;
+
+  ${({ isUsable }) => `
+    & input {
+      cursor:${isUsable ? "pointer" : "not-allowed"};
+    }
+    & span {
+      color:${isUsable ? "#000" : "#ccc"};
+    }
+  `}
 `;
