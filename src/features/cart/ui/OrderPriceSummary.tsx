@@ -1,5 +1,5 @@
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
-import InfoLabel from './InfoLabel';
+import InfoLabel from '../../../shared/ui/InfoLabel';
 import OrderPriceItem from './OrderPriceItem';
 import * as S from './OrderPriceSummary.styles';
 
