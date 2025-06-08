@@ -1,24 +1,23 @@
 import styled from "@emotion/styled";
+import { useCouponContext } from "../../../pages/order-confirm/context/CouponProvider";
 import CheckboxLabel from "../CheckboxLabel";
 import Flex from "../Flex";
 import LabelTextPair, { labelTextPairType } from "./LabelTextPair";
-import { useState } from "react";
 
 interface CouponCheckItemProps {
+  couponId: string;
   expiryDate: [number, number, number];
   titleText: string;
   details?: labelTextPairType[];
 }
 
 function CouponCheckItem({
+  couponId,
   expiryDate,
   titleText,
   details,
 }: CouponCheckItemProps) {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleCheckToggle = () => {
-    setIsChecked((prev) => !prev);
-  };
+  const { selectedCoupon, handleCouponToggle } = useCouponContext();
   const [year, month, day] = expiryDate;
   return (
     <Container
@@ -27,7 +26,10 @@ function CouponCheckItem({
       gap="sm"
       as={"li"}
     >
-      <CheckboxLabel isChecked={isChecked} onToggle={handleCheckToggle}>
+      <CheckboxLabel
+        isChecked={selectedCoupon.includes(couponId)}
+        onToggle={() => handleCouponToggle(couponId)}
+      >
         <CouponTitle>{titleText}</CouponTitle>
       </CheckboxLabel>
       <LabelTextPair

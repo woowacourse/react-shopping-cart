@@ -1,12 +1,20 @@
 import styled from "@emotion/styled";
 import { Flex } from "../../../components/common";
+import { useAPIDataContext } from "../../../context/APIDataProvider";
+import { getShoppingCartData } from "../../../api/cart";
+import { useOrderListContext } from "../../../context/OrderListProvider";
+import { useOrderCalculation } from "../../../hooks/order/useOrderCalculation";
 
-interface OrderInfoTitleProps {
-  typeCount: number;
-  totalCount: number;
-}
-
-function OrderInfoTitle({ typeCount, totalCount }: OrderInfoTitleProps) {
+function OrderInfoTitle() {
+  const { data: cartListData } = useAPIDataContext({
+    name: "cart",
+    fetcher: getShoppingCartData,
+  });
+  const { selectionMap } = useOrderListContext(cartListData);
+  const { typeCount, totalCount } = useOrderCalculation(
+    cartListData,
+    selectionMap
+  );
   return (
     <Flex justifyContent="flex-start" alignItems="flex-start" gap="xs">
       <InfoTitle>주문 확인</InfoTitle>

@@ -9,6 +9,7 @@ function PayContents() {
   const navigateToSuccessPage = () => {
     navigate("/success-confirm");
   };
+
   return (
     <>
       <Container justifyContent="flex-start">

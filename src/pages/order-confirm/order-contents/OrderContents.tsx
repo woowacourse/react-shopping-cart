@@ -3,16 +3,10 @@ import { Flex } from "../../../components/common";
 import OrderInfoTitle from "./OrderInfoTitle";
 import OrderList from "./OrderList";
 
-function OrderContents({
-  typeCount,
-  totalCount,
-}: {
-  typeCount: number;
-  totalCount: number;
-}) {
+function OrderContents() {
   return (
     <Container justifyContent="flex-start">
-      <OrderInfoTitle typeCount={typeCount} totalCount={totalCount} />
+      <OrderInfoTitle />
       <OrderList />
     </Container>
   );

@@ -1,4 +1,4 @@
-import { Coupon } from "../../../../api/coupon";
+import { Coupon } from "../../../../../../api/coupon";
 
 export const getCouponDetails = (coupon: Coupon): Array<[string, string]> => {
   const details: Array<[string, string]> = [];

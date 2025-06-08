@@ -53,7 +53,7 @@ export const useOrderListContext = (cartListData: Cart[] | undefined) => {
   const orderIdList = useMemo(
     () =>
       Object.entries(selectionMap)
-        .filter(([_, isInCart]) => isInCart)
+        .filter(([, isInCart]) => isInCart)
         .map(([id]) => id),
     [selectionMap]
   );

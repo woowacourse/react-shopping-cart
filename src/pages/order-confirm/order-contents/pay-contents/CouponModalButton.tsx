@@ -1,7 +1,7 @@
 import { BasicModal } from "@dev-dino22/modal-components";
 import { useState } from "react";
 import Button from "../../../../components/common/Button";
-import CouponModalContent from "../../coupon-modal/CouponModalContent";
+import CouponModalContent from "./coupon-modal-content/CouponModalContent";
 
 function CouponModalButton() {
   const [isOpen, setIsOpen] = useState(false);
