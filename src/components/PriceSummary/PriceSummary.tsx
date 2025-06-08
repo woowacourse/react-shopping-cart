@@ -1,4 +1,4 @@
-import useCartCalculations from "../../hooks/useCartCaculations";
+import useCartCalculations from "../../hooks/useCartCalculations";
 import { useCouponContext } from "../../hooks/useCouponContext";
 import PriceInfo from "../PriceInfo/PriceInfo";
 import * as S from "./PriceSummary.styles";

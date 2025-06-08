@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { getCoupons } from "../apis/coupons/getCoupons";
 import { Coupon } from "../types/response";
-import useCartCalculations from "./useCartCaculations";
+import useCartCalculations from "./useCartCalculations";
 import useCart from "./useCart";
 import { CartItemCheckType } from "./useCartAPI";
 import {

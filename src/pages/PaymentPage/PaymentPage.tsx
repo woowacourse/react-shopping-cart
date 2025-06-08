@@ -5,7 +5,7 @@ import Title from "../../components/@common/Title/Title";
 import Description from "../../components/@common/Description/Description";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
-import useCartCalculations from "../../hooks/useCartCaculations";
+import useCartCalculations from "../../hooks/useCartCalculations";
 
 const PaymentPage = () => {
   const { orderItemCount } = useCart();

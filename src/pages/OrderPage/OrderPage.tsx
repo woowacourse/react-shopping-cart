@@ -4,7 +4,7 @@ import BackIcon from "/left-arrow.svg";
 import * as S from "./OrderPage.styles";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
-import useCartCalculations from "../../hooks/useCartCaculations";
+import useCartCalculations from "../../hooks/useCartCalculations";
 import InfoMessage from "../../components/InfoMessage/InfoMessage";
 import PriceSummary from "../../components/PriceSummary/PriceSummary";
 import Checkbox from "../../components/@common/Checkbox/Checkbox";
