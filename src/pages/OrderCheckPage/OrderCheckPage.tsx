@@ -16,11 +16,10 @@ interface LocationState {
 
 function OrderCheckPage() {
   const navigate = useNavigate();
-  const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
   const location = useLocation();
   const state = location.state as LocationState;
-
   const [isSelectJejuChecked, setIsSelectJejuChecked] = useState(false);
+  const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
 
   const handleJejuCheckboxChange = () => {
     setIsSelectJejuChecked((prev) => !prev);
@@ -28,6 +27,11 @@ function OrderCheckPage() {
 
   const deliveryPrice =
     (state.totalPrice >= 100000 ? 0 : 3000) + (isSelectJejuChecked ? 3000 : 0);
+
+  const totalQuantity = state.selectedCartItem.reduce(
+    (acc, cart) => acc + cart.quantity,
+    0
+  );
 
   return (
     <S.Root>
@@ -42,7 +46,8 @@ function OrderCheckPage() {
         <S.CartContentWrapper>
           <S.HeaderTitle>주문 확인</S.HeaderTitle>
           <S.Content>
-            총 1종류의 상품 2개를 주문합니다.
+            총 {state.selectedCartItem.length}종류의 상품 {totalQuantity}개를
+            주문합니다.
             <br />
             최종 결제 금액을 확인해 주세요.
           </S.Content>
