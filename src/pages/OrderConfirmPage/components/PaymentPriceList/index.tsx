@@ -8,7 +8,7 @@ function PaymentPriceList({ calculation }: { calculation: OrderCalculationResult
       <PaymentPrice.Description text="총 주문 금액이 100,000원 이상일 경우 무료 배송이 됩니다." />
       <PaymentPrice.Wrap gap={8}>
         <PaymentPrice.LabelWithPrice label="주문 금액" price={orderAmount} />
-        <PaymentPrice.LabelWithPrice label="쿠폰 할인 금액" price={couponDiscount} />
+        <PaymentPrice.LabelWithPrice label="쿠폰 할인 금액" price={couponDiscount > 0 ? -couponDiscount : 0} />
         <PaymentPrice.LabelWithPrice label="배송비" price={shippingFee} />
       </PaymentPrice.Wrap>
       <PaymentPrice.Wrap>
