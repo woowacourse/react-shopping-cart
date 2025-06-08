@@ -3,24 +3,23 @@ import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmBut
 import CartItemCardList from "../components/CartItemList/CartItemList";
 import Text from "../components/@common/Text/Text";
 import OrbitSpinner from "../components/@common/OrbitSpinner/OrbitSpinner";
-import { useCartItemContext } from "../contexts/useCartItemContext";
+import { useCartItemContext } from "../contexts/carItem/useCartItemContext";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { PriceSummary } from "../components/PriceSummary/PriceSummary";
 import PageTitle from "../components/PageTitle/PageTitle";
+import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
+import { getOrderPrice } from "../utils/getOrderPrice";
+import { getShippingFee } from "../utils/getShippingFee";
 
 const CartItemPage = () => {
-  const {
-    cartItems,
-    selectedItemIds,
-    loadingStatus,
-    orderPrice,
-    totalPrice,
-    shippingFee,
-    fetchCartItems,
-    handleLoadingStatus,
-  } = useCartItemContext();
+  const { cartItems, loadingStatus, fetchCartItems, handleLoadingStatus } =
+    useCartItemContext();
+  const { selectedItemIds } = useSelectedCartItemContext();
   const navigate = useNavigate();
+  const orderPrice = getOrderPrice(cartItems, selectedItemIds);
+  const shippingFee = getShippingFee(orderPrice);
+  const totalPrice = orderPrice + shippingFee;
 
   useEffect(() => {
     handleLoadingStatus("loading");
@@ -69,7 +68,11 @@ const CartItemPage = () => {
           text="주문하기"
           disabled={selectedItemIds.size === 0}
           onClick={() => {
-            navigate("/order-confirm");
+            navigate("/order-confirm", {
+              state: {
+                orderPrice,
+              },
+            });
           }}
         />
       )}

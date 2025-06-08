@@ -1,8 +1,8 @@
 import { css } from "@emotion/css";
 import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
-import { useCartItemContext } from "../contexts/useCartItemContext";
-import { useNavigate } from "react-router";
+import { useCartItemContext } from "../contexts/carItem/useCartItemContext";
+import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
 import ToggleButton from "../components/@common/Button/ToggleButton/ToggleButton";
 import TextButton from "../components/@common/Button/TextButton/TextButton";
@@ -12,11 +12,17 @@ import PageTitle from "../components/PageTitle/PageTitle";
 import { useState } from "react";
 import { CouponModal } from "../components/CouponModal/CouponModal";
 import { useCoupon } from "../hooks/useCoupon";
+import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
+import { getShippingFee } from "../utils/getShippingFee";
+import { getTotalPrice } from "../utils/getTotalPrice";
 
 const OrderConfirmPage = () => {
-  const { selectedItemIds, orderPrice, shippingFee, cartItems } =
-    useCartItemContext();
+  const { cartItems } = useCartItemContext();
+  const { selectedItemIds } = useSelectedCartItemContext();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { orderPrice } = state;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isRemoteArea, setIsRemoteArea] = useState<boolean>(false);
   const selectedItems = cartItems.filter((cartItem) =>
@@ -29,7 +35,12 @@ const OrderConfirmPage = () => {
     toggleCouponSelection,
     isAvailableCoupon,
   } = useCoupon({ orderPrice, isRemoteArea, selectedItems });
-  const remoteAreaShippingFee = isRemoteArea ? 3000 : 0;
+  const shippingFee = getShippingFee(orderPrice, isRemoteArea);
+  const totalPrice = getTotalPrice(
+    orderPrice,
+    shippingFee,
+    totalCouponDiscountAmount
+  );
 
   return (
     <div className={OrderConfirmLayout}>
@@ -71,11 +82,9 @@ const OrderConfirmPage = () => {
           </div>
           <PriceSummary
             orderPrice={orderPrice}
-            shippingFee={shippingFee + remoteAreaShippingFee}
+            shippingFee={shippingFee}
             couponDiscount={totalCouponDiscountAmount}
-            totalPrice={
-              orderPrice - totalCouponDiscountAmount + remoteAreaShippingFee
-            }
+            totalPrice={totalPrice}
           />
         </section>
 
@@ -89,6 +98,7 @@ const OrderConfirmPage = () => {
           selectedCouponIds={selectedCouponIds}
           toggleCouponSelection={toggleCouponSelection}
           isAvailableCoupon={isAvailableCoupon}
+          orderPrice={orderPrice}
         />
       </div>
       <ConfirmButton

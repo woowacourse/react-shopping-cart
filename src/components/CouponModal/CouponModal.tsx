@@ -4,7 +4,6 @@ import { MAX_COUPON_COUNT } from "../../constants";
 import { InfoRow } from "../PriceSummary/PriceSummary";
 import { CouponItem } from "./CouponItem";
 import { Coupon } from "../../types/type";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -14,6 +13,7 @@ interface CouponModalProps {
   selectedCouponIds: Set<number>;
   toggleCouponSelection: (id: number) => void;
   isAvailableCoupon: (coupon: Coupon, price: number) => boolean;
+  orderPrice: number;
 }
 
 export const CouponModal = ({
@@ -24,9 +24,8 @@ export const CouponModal = ({
   selectedCouponIds,
   toggleCouponSelection,
   isAvailableCoupon,
+  orderPrice,
 }: CouponModalProps) => {
-  const { orderPrice } = useCartItemContext();
-
   return (
     <Modal isOpen={isOpen} onClose={onModalClose}>
       <Modal.Backdrop>
