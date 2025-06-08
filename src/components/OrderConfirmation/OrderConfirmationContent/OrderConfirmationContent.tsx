@@ -7,6 +7,8 @@ import OrderCard from "../OrderCard/OrderCard";
 import ApplyCoupon from "../Coupon/ApplyCoupon/ApplyCoupon";
 import useCoupons from "../../../hooks/useCoupons/useCoupons";
 import useSelectedCoupons from "../../../hooks/useCoupons/useSelectedCoupons";
+import ShippingInformation from "../ShippingInformation/ShippingInformation";
+import useRemoteAreaShipping from "../../../hooks/useRemoteAreaShipping";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];
@@ -19,6 +21,7 @@ function OrderConfirmationContent({
   const selectedCartItemsCount = getSelectedCartItemsCount(selectedCartItems);
   const { coupons } = useCoupons();
   const { selectedCouponIds, handleUseCoupons } = useSelectedCoupons();
+  const { isRemoteAreaShipping, handleToggle } = useRemoteAreaShipping();
 
   return (
     <Styled.Container>
@@ -39,9 +42,13 @@ function OrderConfirmationContent({
         coupons={coupons}
         selectedCartItems={selectedCartItems}
         initialSelectedCouponIds={selectedCouponIds}
+        isRemoteAreaShipping={isRemoteAreaShipping}
         handleUseCoupons={handleUseCoupons}
       />
-
+      <ShippingInformation
+        isRemoteAreaShipping={isRemoteAreaShipping}
+        handleToggle={handleToggle}
+      />
       <PaymentConfirmButton
         selectedCartIds={selectedCartIds}
         cartItemsData={selectedCartItems}

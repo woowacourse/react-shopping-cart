@@ -19,6 +19,7 @@ interface ApplyCouponProps {
   coupons: Coupon[];
   selectedCartItems: CartItem[];
   initialSelectedCouponIds: number[];
+  isRemoteAreaShipping: boolean;
   handleUseCoupons: (idList: number[]) => void;
 }
 
@@ -26,6 +27,7 @@ function ApplyCoupon({
   coupons,
   selectedCartItems,
   initialSelectedCouponIds,
+  isRemoteAreaShipping,
   handleUseCoupons,
 }: ApplyCouponProps) {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
@@ -44,7 +46,7 @@ function ApplyCoupon({
   const { maxDiscountedPrice } = calculateCoupons({
     cartItems: selectedCartItems,
     coupons: coupons.filter((coupon) => selectedCouponIds.includes(coupon.id)),
-    hasRemoteAreaShipping: false,
+    hasRemoteAreaShipping: isRemoteAreaShipping,
   });
 
   return (
