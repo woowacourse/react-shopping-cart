@@ -8,6 +8,7 @@ import CheckCartIdsProvider from '../../src/contexts/CheckedCartIds/CheckedCartI
 import { act } from 'react';
 import { mockCoupons } from '../mocks';
 import { ShippingProvider } from '../../src/contexts/Shipping/ShippingProvider';
+import { resetMockDate, setMockDate } from '../../src/utils/getCurrentDate';
 type ProvidersProps = {
   children: React.ReactNode;
 };
@@ -180,14 +181,7 @@ describe('useCoupons 테스트', () => {
       });
 
       test('현재 시간이 오전 4시~7시 사이일 때 쿠폰이 적용된다', async () => {
-        const mockDate = new Date('2025-06-07T04:30:00+09:00');
-        (globalThis as unknown as { Date: DateConstructor }).Date =
-          class extends Date {
-            constructor() {
-              super();
-              return mockDate;
-            }
-          } as DateConstructor;
+        setMockDate(new Date('2025-06-07T05:00:00+09:00'));
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -197,17 +191,11 @@ describe('useCoupons 테스트', () => {
           const coupon = validCoupons.find((c) => c.code === 'MIRACLESALE');
           expect(coupon).toBeDefined();
         });
+        resetMockDate();
       });
 
       test('현재 시간이 오전 4시~7시가 아닐 때 쿠폰이 적용되지 않는다', async () => {
-        const mockDate = new Date('2025-06-07T08:00:00+09:00');
-        (globalThis as unknown as { Date: DateConstructor }).Date =
-          class extends Date {
-            constructor() {
-              super();
-              return mockDate;
-            }
-          } as DateConstructor;
+        setMockDate(new Date('2025-06-07T08:00:00+09:00'));
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -222,6 +210,7 @@ describe('useCoupons 테스트', () => {
           const coupon = validCoupons.find((c) => c.code === 'MIRACLESALE');
           expect(coupon).toBeUndefined();
         });
+        resetMockDate();
       });
     });
 

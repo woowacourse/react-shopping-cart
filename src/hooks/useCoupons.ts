@@ -9,6 +9,7 @@ import calculateCouponDiscount from '../utils/calculateCouponDiscount';
 import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
 import { useShippingContext } from '../contexts/Shipping/ShippingContext';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
+import { getCurrentDate } from '../utils/getCurrentDate';
 
 const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
@@ -39,7 +40,7 @@ const useCoupons = () => {
     () => selectedCartItems.reduce((m, i) => Math.max(m, i.quantity), 0),
     [selectedCartItems]
   );
-  const currentHour = new Date().getHours();
+  const currentHour = getCurrentDate().getHours();
 
   const validCoupons = useMemo(() => {
     const now = new Date();
