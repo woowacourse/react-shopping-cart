@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CartItem } from "../types/type";
-import cartItemsApi from "../apis/cartItems";
+import cartItemsApi from "../apis/cartItemsApi";
 
 export type LoadingStatus = "loading" | "fetching" | "success" | "error";
 

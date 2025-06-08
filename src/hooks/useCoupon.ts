@@ -54,7 +54,7 @@ export const useCoupon = ({
   };
 
   const bestCouponCombinationSuggestion = (coupons: Coupon[]) => {
-    let finalCombinationAmount = 0;
+    let bestCombinationAmount = 0;
     let bestA = 0;
     let bestB = 0;
     for (let i = 0; i < coupons.length; i++) {
@@ -64,8 +64,8 @@ export const useCoupon = ({
           coupons[j],
           orderPrice
         );
-        if (finalCombinationAmount < couponDiscount) {
-          finalCombinationAmount = couponDiscount;
+        if (bestCombinationAmount < couponDiscount) {
+          bestCombinationAmount = couponDiscount;
           if (calculateCouponDiscount(coupons[i], orderPrice) > 0)
             bestA = coupons[i].id;
           if (calculateCouponDiscount(coupons[j], orderPrice) > 0)
@@ -74,7 +74,7 @@ export const useCoupon = ({
       }
     }
 
-    return { bestA, bestB, finalCombinationAmount };
+    return { bestA, bestB, bestCombinationAmount };
   };
 
   const twoCouponsDiscount = (
