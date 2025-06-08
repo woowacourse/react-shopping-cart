@@ -32,6 +32,7 @@ const OrderReviewPage = () => {
     isLoading,
     availableCoupons,
     selectedCouponIds,
+    // bestCouponIds,
 
     // 핸들러
     handleSelectCoupons,
@@ -94,7 +95,7 @@ const OrderReviewPage = () => {
           coupons={coupons ?? []}
           isLoading={isLoading}
           availableCoupons={availableCoupons}
-          bestCouponIds={selectedCouponIds}
+          // selectedCouponIds={selectedCouponIds}
           totalDiscount={currentDiscount}
           handleApply={handleSelectCoupons}
           isJejuOrRemoteArea={isJejuOrRemoteArea}
