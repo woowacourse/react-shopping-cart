@@ -1,6 +1,6 @@
 import { Header } from '@/components/common';
 import { useLocation } from 'react-router';
-import OrderCheckContents from './components/orderCheckContents/OrderCheckContents';
+import OrderCheckContents from '../../components/features/order/orderCheckContents/OrderCheckContents';
 
 function OrderCheckPage() {
   const location = useLocation();

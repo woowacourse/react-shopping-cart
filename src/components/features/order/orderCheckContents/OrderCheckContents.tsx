@@ -12,13 +12,13 @@ import useOrderPriceSummary from '@/components/features/coupon/hooks/useOrderSum
 import Coupon from '@/components/features/coupon/models/coupon';
 import { CouponType } from '@/components/features/coupon/models/coupon.types';
 import { selectTopDiscountCoupons } from '@/components/features/coupon/utils/selectTopDiscountCoupons';
-import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
-import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
-import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
+import OrderItem from '@/components/features/order/orderItem/OrderItem';
 import { ROUTE, useJaeO, useToggle } from '@/shared';
 import { Modal } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import OrderCheckTitle from '../orderCheckTitle/OrderCheckTitle';
+import OrderPriceSummary from '../orderPriceSummary/OrderPriceSummary';
 import * as S from './OrderCheckContents.styles';
 
 interface OrderCheckContentsProps {

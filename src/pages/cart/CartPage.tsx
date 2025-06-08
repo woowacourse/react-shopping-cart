@@ -1,8 +1,8 @@
 import { getCartItems } from '@/components/features/cart/api/getCartItems';
-import CartContents from '@/components/features/cart/cartContents/CartContents';
 import { useJaeO } from '@/shared';
 import Header from '../../components/common/header/Header';
-import LoadingContents from './components/loadingContents/LoadingContents';
+import LoadingPage from './CartLoadingPage';
+import CartContents from '@/components/features/cart/cartContents/CartContents';
 
 function CartPage() {
   const { data: cartItems } = useJaeO({
@@ -11,7 +11,7 @@ function CartPage() {
   });
 
   if (!cartItems) {
-    return <LoadingContents />;
+    return <LoadingPage />;
   }
 
   return (
