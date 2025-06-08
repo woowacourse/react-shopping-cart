@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef } from "react";
 import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
 import { useModalClose } from "../../hooks/modal/useModalClose";
 import { CartItemType } from "../../types/response";
@@ -10,7 +10,6 @@ import {
   ModalTitle,
   XButton,
 } from "./CouponModal.styles";
-import { CouponType } from "../../types/coupon";
 
 interface ModalProps {
   onClose: () => void;
@@ -19,8 +18,6 @@ interface ModalProps {
   discount: number;
   deliveryCost: number;
 }
-
-let copyInitSelectedCoupon: CouponType[] = [];
 
 export default function CouponModal({
   onClose,
@@ -31,10 +28,7 @@ export default function CouponModal({
 }: ModalProps) {
   const { onClickOverlay } = useModalClose({ closeModal: onClose });
   const { selectedCoupon, changeSelectedCoupon } = useCouponManagerProvider();
-
-  useEffect(() => {
-    copyInitSelectedCoupon = [...selectedCoupon];
-  }, []);
+  const copyInitSelectedCoupon = useRef(selectedCoupon);
 
   return (
     <>
@@ -44,7 +38,7 @@ export default function CouponModal({
         id="modal-overlay"
         css={ModalOverlay}
         onClick={(e) => {
-          changeSelectedCoupon(copyInitSelectedCoupon);
+          changeSelectedCoupon(copyInitSelectedCoupon.current);
           onClickOverlay(e);
         }}
         onKeyDown={(e) => {
@@ -57,7 +51,7 @@ export default function CouponModal({
           <button
             css={XButton}
             onClick={() => {
-              changeSelectedCoupon(copyInitSelectedCoupon);
+              changeSelectedCoupon(copyInitSelectedCoupon.current);
               onClose();
             }}
           >
