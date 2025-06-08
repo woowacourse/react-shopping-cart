@@ -33,9 +33,7 @@ const PaymentPage = () => {
           <S.Price>{totalPrice.toLocaleString()}원</S.Price>
         </S.PriceContainer>
       </S.Main>
-      <FooterButton disabled={true} onClick={navigateToHome}>
-        장바구니로 돌아가기
-      </FooterButton>
+      <FooterButton onClick={navigateToHome}>장바구니로 돌아가기</FooterButton>
     </>
   );
 };
