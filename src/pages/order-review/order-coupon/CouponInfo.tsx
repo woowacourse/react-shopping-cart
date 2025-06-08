@@ -2,25 +2,25 @@ import { CouponContent } from '@/api/type';
 import CheckBox from '@/components/common/CheckBox';
 import { formatKoreanTime } from '@/utils/formatKoreanTime';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+
+interface CouponInfo {
+  coupon: CouponContent;
+  checked: boolean;
+  disabled?: boolean;
+  isAutoSelected?: boolean;
+  onSelectionChange?: (isSelected: boolean) => void;
+}
 
 const CouponInfo = ({
   coupon,
+  checked,
   disabled = false,
-  isAutoSelected = false,
-}: {
-  coupon: CouponContent;
-  disabled?: boolean;
-  isAutoSelected?: boolean;
-}) => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  useEffect(() => {
-    setIsChecked(isAutoSelected);
-  }, [isAutoSelected]);
-
+  onSelectionChange,
+}: CouponInfo) => {
   const handleOnToggle = () => {
-    if (!disabled) setIsChecked((prev) => !prev);
+    if (!disabled) {
+      onSelectionChange?.(!checked); // 부모에게 새로운 체크 상태 전달
+    }
   };
 
   const expirationDate = coupon.expirationDate.split('-');
@@ -29,7 +29,7 @@ const CouponInfo = ({
     <CouponInfoWrapper>
       <CouponInfoTitle>
         <CheckBox
-          isChecked={isChecked}
+          isChecked={disabled ? false : checked}
           onToggle={handleOnToggle}
           disabled={disabled}
         />
