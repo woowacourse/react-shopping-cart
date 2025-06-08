@@ -35,6 +35,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         fontSize="16px"
         fontWeight="700"
       />
+      <Modal.CloseButton />
       <Modal.Contents>
         <S.contentsContainer>
           <InlineNotice text="쿠폰은 최대 2개까지 사용할 수 있습니다" />

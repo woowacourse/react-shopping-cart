@@ -7,7 +7,7 @@ export default {
     '^.+\\.tsx?$': ['ts-jest'],
   },
   moduleNameMapper: {
-    '^.+\\.svg$': 'jest-svg-transformer',
+    '^.+\\.svg$': '<rootDir>/__mocks__/fileMock',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

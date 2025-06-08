@@ -20,10 +20,10 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["jest", "@testing-library/jest-dom"],
+    "types": ["jest", "@testing-library/jest-dom", "node"],
     "esModuleInterop": true,
 
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]
