@@ -11,6 +11,8 @@ interface CartItemContext {
   handleSelectedItem: (newSet: Set<number>) => void;
   isLoading: boolean;
   fetchError: string;
+  isRemoteAreaShipping: boolean;
+  setIsRemoteAreaShipping: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface CartItemProviderProps {
@@ -21,6 +23,8 @@ export const CartItemContext = createContext<CartItemContext | null>(null);
 
 export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isRemoteAreaShipping, setIsRemoteAreaShipping] =
+    useState<boolean>(false);
 
   const { value: selectedItem, updateValue: handleSelectedItem } =
     useLocalStorageSet<number>(SELECTED_ITEMS_KEY, new Set<number>());
@@ -51,6 +55,8 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         handleSelectedItem,
         isLoading,
         fetchError,
+        isRemoteAreaShipping,
+        setIsRemoteAreaShipping,
       }}
     >
       {children}

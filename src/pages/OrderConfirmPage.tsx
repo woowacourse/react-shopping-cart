@@ -14,12 +14,15 @@ import { useSelectedItems } from "../hooks/useSelectedItems";
 import { useCartSummary } from "../hooks/useCartSummary";
 import InvalidAccessPage from "./InvalidAccessPage";
 import CouponModal from "../components/CouponModal/CouponModal";
+import { useCartItemContext } from "../contexts/useCartItemContext";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const { selectedItems, totalQuantity, selectedItemCount } =
     useSelectedItems();
   const { orderPrice, shippingFee, totalPrice } = useCartSummary();
+  const { isRemoteAreaShipping, setIsRemoteAreaShipping } =
+    useCartItemContext();
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const isInvalidAccess = selectedItemCount === 0;
@@ -30,6 +33,10 @@ const OrderConfirmPage = () => {
 
   const handleCouponModalClose = () => {
     setIsCouponModalOpen(false);
+  };
+
+  const handleRemoteAreaShippingToggle = () => {
+    setIsRemoteAreaShipping(!isRemoteAreaShipping);
   };
 
   return (
@@ -59,8 +66,8 @@ const OrderConfirmPage = () => {
           <Text text="배송 정보" type="medium" />
           <LabeledCheckbox
             labelText="제주도 및 도서 산간 지역"
-            isSelected={true}
-            onClick={() => {}}
+            isSelected={isRemoteAreaShipping}
+            onClick={handleRemoteAreaShippingToggle}
           />
         </div>
         <div className={InfoRow}>
