@@ -41,9 +41,7 @@ function CartPriceCouponInfo({
       <div css={CartPriceContainerStyle}>
         <div css={CartPriceInfoStyle}>
           <Text varient="body">{TEXT.TOTAL_PRICE}</Text>
-          <Text varient="title">{`${(
-            finalPrice + deliveryFee
-          ).toLocaleString()}원`}</Text>
+          <Text varient="title">{`${finalPrice.toLocaleString()}원`}</Text>
         </div>
       </div>
     </div>

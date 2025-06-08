@@ -42,14 +42,6 @@ function OrderCheck() {
   const [isChecked, setIsChecked] = useState(false);
   const [checkedCoupons, setCheckedCoupons] = useState<number[]>([]);
 
-  const typeCount = cart.selectedItems.length;
-  const totalCount = selectedCartItems.reduce(
-    (acc: number, curr: CartItemProps) => {
-      return acc + curr?.quantity;
-    },
-    0
-  );
-
   const result = useCouponCombos(
     checkedCoupons,
     selectedCartItems,
@@ -68,6 +60,8 @@ function OrderCheck() {
     : isChecked
     ? (result?.finalShipping ?? cart.deliveryFee) + 3000
     : result?.finalShipping ?? cart.deliveryFee;
+
+  const finalPrice = result?.PriceWithDiscount + deliveryFee;
 
   const handleCouponButtonClick = () => {
     setCheckedCoupons(result.combo.map((coupon) => coupon.id));
@@ -97,7 +91,7 @@ function OrderCheck() {
       <ContainerLayout>
         <CartListTitle
           title={TEXT.ORDER_CHECK}
-          description={`총 ${typeCount}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
+          description={`총 ${cart.typeCount}종류의 상품 ${cart.totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
         />
         <ul css={OrderCheckCartListStyle}>
           {selectedCartItems.map((item: CartItemProps) => (
@@ -119,10 +113,20 @@ function OrderCheck() {
           subTotal={cart.subTotal}
           deliveryFee={deliveryFee}
           totalDiscount={result?.totalDiscount ?? 0}
-          finalPrice={result?.PriceWithDiscount ?? 0}
+          finalPrice={finalPrice}
         />
       </ContainerLayout>
-      <Button color="black" variant="primary" onClick={() => {}}>
+      <Button
+        color="black"
+        variant="primary"
+        onClick={() =>
+          navigate('/order-complete', {
+            state: {
+              finalPrice: finalPrice,
+            },
+          })
+        }
+      >
         <Text varient="body">결제하기</Text>
       </Button>
       <CouponModal
