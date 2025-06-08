@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './OrderCompletePage.styles';
 import { Subtitle, Title } from '../../styles/@common/title/Title.styles';
 import OrderItem from '../../components/features/orderItem/OrderItem';
@@ -8,7 +8,9 @@ import Button from '../../components/@common/button/Button';
 import Checkbox from '../../components/@common/checkbox/Checkbox';
 import infoIcon from '/public/icon/ic_info.svg';
 import { FREE_DELIVERY_MESSAGE } from '../../constants/systemMessages';
-import { FEE } from '../../constants/systemConstants';
+import * as Dialog from '../../components/@common/dialog/Dialog';
+import { CouponList } from '../../components/features/couponList';
+import { Coupon } from '../../types/coupon';
 
 interface OrderCompleteState {
   productTypeCount: number;
@@ -19,10 +21,20 @@ const OrderCompletePage = () => {
   const { state } = useLocation() as { state: OrderCompleteState };
   const { productTypeCount, totalProductCount } = state;
   const { cartData, fetchCartData } = useCartData();
+  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
 
   useEffect(() => {
     fetchCartData();
   }, []);
+
+  const handleCouponSelect = (coupon: Coupon | null) => {
+    setSelectedCoupon(coupon);
+  };
+
+  const handleConfirmPayment = () => {
+    // 실제 결제 로직
+    console.log('결제 진행', { selectedCoupon });
+  };
 
   return (
     <section css={S.CartPageWrapper}>
@@ -38,6 +50,17 @@ const OrderCompletePage = () => {
         ))}
 
         <Button variant="coupon">쿠폰 적용</Button>
+
+        {selectedCoupon && (
+          <div css={S.SelectedCouponContainer}>
+            <p css={S.SelectedCouponTitle}>선택된 쿠폰</p>
+            <p css={S.SelectedCouponInfo}>
+              <strong>{selectedCoupon.code}</strong> -{' '}
+              {selectedCoupon.description}
+            </p>
+          </div>
+        )}
+
         <div css={S.DeliveryInfoContainer}>
           <p css={S.DeliveryInfoTitle}>배송 정보</p>
           <div css={S.DeliveryInfoCheckboxContainer}>
@@ -82,6 +105,39 @@ const OrderCompletePage = () => {
           {/* )} */}
         </div>
       </div>
+
+      <Dialog.Root>
+        <Dialog.Trigger css={S.TriggerButton}>결제하기</Dialog.Trigger>
+
+        <Dialog.Portal>
+          <Dialog.Overlay />
+          <Dialog.Content position="bottom" size="large">
+            <Dialog.Header>
+              <div css={S.DialogHeader}>
+                <h2>쿠폰 선택</h2>
+                <Dialog.CloseButton>
+                  <span css={S.CloseButton}>✕</span>
+                </Dialog.CloseButton>
+              </div>
+            </Dialog.Header>
+
+            <div css={S.DialogContent}>
+              <CouponList
+                onCouponSelect={handleCouponSelect}
+                selectedCouponId={selectedCoupon?.id}
+              />
+
+              <div css={S.DialogActions}>
+                <Dialog.CloseButton>
+                  <Button variant="largeBlack" onClick={handleConfirmPayment}>
+                    {selectedCoupon ? '쿠폰 적용하고 결제하기' : '결제하기'}
+                  </Button>
+                </Dialog.CloseButton>
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </section>
   );
 };

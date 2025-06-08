@@ -113,3 +113,88 @@ export const CartPriceSubtitle = css`
   font-size: var(--font-size-subtitle);
   font-weight: var(--font-weight-subtitle);
 `;
+
+export const SelectedCouponContainer = css`
+  padding: 16px;
+  background-color: var(--color-light-grey, #f8f9fa);
+  border-radius: 8px;
+  border: 1px solid var(--color-grey, #dee2e6);
+  margin: 16px 0;
+`;
+
+export const SelectedCouponTitle = css`
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-black);
+  margin: 0 0 8px 0;
+`;
+
+export const SelectedCouponInfo = css`
+  font-size: 14px;
+  color: var(--color-black);
+  margin: 0;
+
+  strong {
+    color: var(--color-primary, #007bff);
+  }
+`;
+
+export const DialogHeader = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-light-grey);
+  width: 100%;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-black);
+  }
+`;
+
+export const CloseButton = css`
+  font-size: 20px;
+  color: var(--color-grey);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-black);
+  }
+`;
+
+export const DialogContent = css`
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+`;
+
+export const DialogActions = css`
+  padding: 16px;
+  border-top: 1px solid var(--color-light-grey);
+  margin-top: 20px;
+`;
+
+export const TriggerButton = css`
+  width: 100%;
+  padding: 12px 0;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-dark-grey);
+  }
+
+  &:disabled {
+    background-color: var(--color-grey);
+    color: var(--color-white);
+    cursor: not-allowed;
+  }
+`;
