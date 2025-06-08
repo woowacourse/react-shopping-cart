@@ -6,6 +6,9 @@ import { OrderCheckoutPage } from '@/pages/OrderCheckoutPage';
 import { OrderConfirmPage } from '@/pages/OrderConfirmPage';
 import { NotFound } from '@/shared/components/NotFound';
 
+const isGitHubPages =
+  process.env.NODE_ENV === 'production' && window.location.hostname.includes('github.io');
+
 export const router = createBrowserRouter(
   [
     {
@@ -36,6 +39,6 @@ export const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/react-shopping-cart',
+    basename: isGitHubPages ? '/react-shopping-cart' : '',
   }
 );
