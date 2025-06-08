@@ -1,10 +1,12 @@
+// pages/CheckPaymentPage/CheckPaymentPage.tsx
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import * as S from "./CheckPaymentPage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
 import { ResponseCartItem } from "../../types/types";
-import { calculateOrderSummary } from "../../utils/orderSummary";
+import { calculateOrderSummary } from "../../utils/orderCalculator";
+
 interface CheckPaymentState {
   selectedCartItem: ResponseCartItem[];
   totalPrice: number;
@@ -28,12 +30,14 @@ const CheckPaymentPage = () => {
     navigate("/", { replace: true });
   };
 
+  if (!state) return null;
+
   const orderSummary = calculateOrderSummary(state.selectedCartItem);
 
   return (
     <S.Root>
       <S.OrderCompletePageWrapper>
-        <Header showBackButton={true} onBackClick={handleBackToCart} />
+        <Header showBackButton={false} title="" />
         <S.OrderResultWrapper>
           <OrderResult
             orderSummary={orderSummary}

@@ -11,9 +11,11 @@ import CouponModal from "../../components/CouponModal/CouponModal";
 import { Coupon } from "../../api/couponApi";
 import { CouponSelectProvider } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
-import { calculateOrderSummary } from "../../utils/orderSummary";
-import { calculateDeliveryPrice } from "../../utils/price";
-import { calculatePriceInfo } from "../../utils/priceBreakdown";
+import {
+  calculateOrderSummary,
+  calculateDeliveryPrice,
+  calculatePriceInfo,
+} from "../../utils/orderCalculator";
 
 interface OrderCompleteState {
   selectedCartItem: ResponseCartItem[];
