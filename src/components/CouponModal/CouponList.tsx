@@ -5,9 +5,11 @@ import CouponItem from "./CouponItem";
 export default function CouponList({
   orderPrice,
   orderProducts,
+  deliveryPrice,
 }: {
   orderPrice: number;
   orderProducts: ResponseCartItem[];
+  deliveryPrice: number;
 }) {
   const { coupons, isLoading } = useCouponContext();
 
@@ -23,6 +25,7 @@ export default function CouponList({
           data={coupon}
           orderPrice={orderPrice}
           orderProducts={orderProducts}
+          deliveryPrice={deliveryPrice}
         />
       ))}
     </div>

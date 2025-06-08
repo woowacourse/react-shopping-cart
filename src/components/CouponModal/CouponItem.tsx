@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   useSelectedCouponContext,
   useSelectedCouponDispatch,
@@ -11,10 +12,12 @@ export default function CouponItem({
   data,
   orderPrice,
   orderProducts,
+  deliveryPrice,
 }: {
   data: CouponType;
   orderPrice: number;
   orderProducts: ResponseCartItem[];
+  deliveryPrice: number;
 }) {
   const getCouponText = (): string[] => {
     const discountType = data.discountType;
@@ -53,27 +56,29 @@ export default function CouponItem({
     return lines;
   };
 
+  const getIsSelectedCoupon = (discountType: DiscountType) =>
+    selectedCoupons.some((coupon) => coupon.discountType === discountType);
   const selectedCoupons = useSelectedCouponContext();
   const selectedCouponDispatch = useSelectedCouponDispatch();
 
   const handleChange = (discountType: DiscountType) => {
-    if (selectedCoupons.includes(discountType)) {
+    if (getIsSelectedCoupon(discountType)) {
       selectedCouponDispatch({
         type: "REMOVE_COUPON",
-        payload: { coupon: discountType },
+        payload: { coupon: data },
       });
     } else {
       if (selectedCoupons.length >= 2) return;
       selectedCouponDispatch({
         type: "ADD_COUPON",
-        payload: { coupon: discountType },
+        payload: { coupon: data },
       });
     }
   };
 
   const getPossibleToUse = () => {
     if (selectedCoupons.length === 2) {
-      return selectedCoupons.includes(data.discountType);
+      return getIsSelectedCoupon(data.discountType);
     }
 
     if (new Date(data.expirationDate) < new Date()) {
@@ -109,8 +114,11 @@ export default function CouponItem({
 
         return true;
       }
-
       case "freeShipping": {
+        if (deliveryPrice === 0) {
+          return false;
+        }
+
         if (orderPrice < data.minimumAmount) {
           return false;
         }
@@ -124,11 +132,21 @@ export default function CouponItem({
 
   const canUse = getPossibleToUse();
 
+  useEffect(() => {
+    if (deliveryPrice === 0 && data.discountType === "freeShipping") {
+      selectedCouponDispatch({
+        type: "REMOVE_COUPON",
+        payload: { coupon: data },
+      });
+    }
+  }, [data, deliveryPrice, selectedCouponDispatch]);
+
   return (
     <S.Container getPossibleToUse={canUse}>
       <CheckBox
+        id={data.id}
         text={data.description}
-        isChecked={selectedCoupons.includes(data.discountType)}
+        isChecked={getIsSelectedCoupon(data.discountType)}
         size="large"
         onChange={() => handleChange(data.discountType)}
         disabled={!canUse}
