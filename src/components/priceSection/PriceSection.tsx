@@ -5,16 +5,18 @@ import PriceRow from './PriceRow';
 import { useCheckCartIdsContext } from '../../contexts/CheckedCartIds/CheckedCartIdsContext';
 import calculateDeliveryPrice from '../../utils/calculateDeliveryPrice';
 import { useCouponsContext } from '../../contexts/Coupons/CouponsContext';
+import { useShippingContext } from '../../contexts/Shipping/ShippingContext';
 
 const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds } = useCheckCartIdsContext();
   const { couponDiscount } = useCouponsContext();
   console.log(couponDiscount);
+  const { isRemoteArea } = useShippingContext();
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
-  const deliveryPrice = calculateDeliveryPrice(orderPrice);
+  const deliveryPrice = calculateDeliveryPrice(orderPrice, isRemoteArea);
 
   return (
     <>

@@ -2,7 +2,7 @@ import { createContext, Dispatch, useContext } from 'react';
 
 type ShippingInfo = {
   isRemoteArea: boolean;
-  setIsRemoteArea: Dispatch<boolean>;
+  setIsRemoteArea: Dispatch<React.SetStateAction<boolean>>;
 };
 export const ShippingContext = createContext<ShippingInfo | null>(null);
 

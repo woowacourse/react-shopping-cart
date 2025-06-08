@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import CouponModal from '../components/CouponModal';
 import InlineNotice from '../components/InlineNotice';
+import DeliveryInfo from '../components/DeliveryInfo';
 
 const OrderConfirmPage = () => {
   const { cartItems } = useCartItemsContext();
@@ -42,6 +43,7 @@ const OrderConfirmPage = () => {
             />
           ))}
         </S.itemCardList>
+        <DeliveryInfo />
         <OpenCouponModalButton onClick={handleOpenModal} />
         <InlineNotice
           text={`총 주문 금액이 ${DELIVERY_PRICE_THRESHOLD.toLocaleString()}
