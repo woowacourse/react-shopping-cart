@@ -22,10 +22,10 @@ function App() {
 
   return (
     <Routes>
-      <Route
-        path={PAGE_URL.HOME}
-        element={
-          <CartProvider>
+      <CartProvider>
+        <Route
+          path={PAGE_URL.HOME}
+          element={
             <OrderPage
               nextClickHandler={nextClickHandler}
               prevClickHandler={prevClickHandler}
@@ -33,17 +33,13 @@ function App() {
               Step={Step}
               currentStep={currentStep}
             />
-          </CartProvider>
-        }
-      />
-      <Route
-        path={PAGE_URL.ORDER_COMPLETE}
-        element={
-          <CartProvider>
-            <OrderComplete onReset={resetClickHandler} />
-          </CartProvider>
-        }
-      />
+          }
+        />
+        <Route
+          path={PAGE_URL.ORDER_COMPLETE}
+          element={<OrderComplete onReset={resetClickHandler} />}
+        />
+      </CartProvider>
     </Routes>
   );
 }
