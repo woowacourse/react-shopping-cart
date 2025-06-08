@@ -18,6 +18,12 @@ import useCoupon from '../../../hooks/useCoupon';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
+import { calculateCouponDiscount, getAvailableCoupons } from './utils/coupon';
+import {
+  getDeliveryFee,
+  getMoreThanTwoProducts,
+  getTotalProductQuantity,
+} from './utils/product';
 
 function OrderCheck() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -27,10 +33,23 @@ function OrderCheck() {
     selectedCartData: CartItemProps[];
     totalPrice: number;
   };
-  const totalProductQuantity = selectedCartData.reduce(
-    (acc, curr) => acc + curr.quantity,
-    0
-  );
+
+  const availableCoupons = getAvailableCoupons({
+    selectedCartData,
+    totalPrice,
+  });
+  const totalProductQuantity = getTotalProductQuantity(selectedCartData);
+
+  const deliveryFee = getDeliveryFee(totalPrice);
+
+  const moreThanTwoProducts = getMoreThanTwoProducts(selectedCartData);
+
+  const couponDiscount = calculateCouponDiscount({
+    totalPrice,
+    deliveryFee,
+    discountableProducts: moreThanTwoProducts,
+    selectedCoupon,
+  });
 
   return (
     <>
