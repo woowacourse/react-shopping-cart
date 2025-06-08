@@ -12,8 +12,8 @@ interface CouponModalProps {
   coupons: Coupon[];
   couponDiscountAmount: number;
   selectedCouponIds: Set<number>;
-  toggleCouponId: (id: number) => void;
-  calculateCouponDiscount: (coupon: Coupon, price: number) => number;
+  toggleCouponSelection: (id: number) => void;
+  isAvailableCoupon: (coupon: Coupon, price: number) => boolean;
 }
 
 export const CouponModal = ({
@@ -22,8 +22,8 @@ export const CouponModal = ({
   coupons,
   couponDiscountAmount,
   selectedCouponIds,
-  toggleCouponId,
-  calculateCouponDiscount,
+  toggleCouponSelection,
+  isAvailableCoupon,
 }: CouponModalProps) => {
   const { orderPrice } = useCartItemContext();
 
@@ -41,13 +41,12 @@ export const CouponModal = ({
               />
             </div>
             {coupons.map((coupon) => {
-              const isSelected = selectedCouponIds.has(coupon.id);
               return (
                 <CouponItem
                   key={coupon.id}
                   name={coupon.description}
-                  isSelected={isSelected}
-                  onClick={() => toggleCouponId(coupon.id)}
+                  isSelected={selectedCouponIds.has(coupon.id)}
+                  onClick={() => toggleCouponSelection(coupon.id)}
                   expiration={coupon.expirationDate}
                   availableTime={
                     coupon.discountType === "percentage"
@@ -61,7 +60,7 @@ export const CouponModal = ({
                       : undefined
                   }
                   disabled={
-                    calculateCouponDiscount(coupon, orderPrice) ? false : true
+                    isAvailableCoupon(coupon, orderPrice) ? false : true
                   }
                 />
               );

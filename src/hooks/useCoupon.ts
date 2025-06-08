@@ -95,6 +95,10 @@ export const useCoupon = ({
     return Math.max(totalDiscountAB, totalDiscountBA);
   };
 
+  const isAvailableCoupon = (coupon: Coupon, price: number) => {
+    return calculateCouponDiscount(coupon, price) > 0;
+  };
+
   const calculateCouponDiscount = (coupon: Coupon, price: number) => {
     switch (coupon.discountType) {
       case "fixed":
@@ -110,7 +114,7 @@ export const useCoupon = ({
     }
   };
 
-  const toggleCouponId = (id: number) => {
+  const toggleCouponSelection = (id: number) => {
     const newSet = new Set(selectedCouponIds);
     const isAlreadySelected = newSet.has(id);
     if (isAlreadySelected || newSet.size < MAX_COUPON_COUNT) {
@@ -120,7 +124,7 @@ export const useCoupon = ({
     }
   };
 
-  const couponDiscountAmount = useMemo(() => {
+  const totalCouponDiscountAmount = useMemo(() => {
     const selectedCoupons = coupons.filter((coupon) =>
       selectedCouponIds.has(coupon.id)
     );
@@ -141,13 +145,11 @@ export const useCoupon = ({
 
   return {
     coupons,
-    fetchCoupons,
     loadingStatus,
     errorMessage,
     selectedCouponIds,
-    toggleCouponId,
-    replaceSelectedItemIds,
-    calculateCouponDiscount,
-    couponDiscountAmount,
+    toggleCouponSelection,
+    isAvailableCoupon,
+    totalCouponDiscountAmount,
   };
 };

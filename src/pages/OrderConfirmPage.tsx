@@ -24,10 +24,10 @@ const OrderConfirmPage = () => {
   );
   const {
     coupons,
-    couponDiscountAmount,
+    totalCouponDiscountAmount,
     selectedCouponIds,
-    toggleCouponId,
-    calculateCouponDiscount,
+    toggleCouponSelection,
+    isAvailableCoupon,
   } = useCoupon({ orderPrice, isRemoteArea, selectedItems });
   const remoteAreaShippingFee = isRemoteArea ? 3000 : 0;
 
@@ -72,9 +72,9 @@ const OrderConfirmPage = () => {
           <PriceSummary
             orderPrice={orderPrice}
             shippingFee={shippingFee + remoteAreaShippingFee}
-            couponDiscount={couponDiscountAmount}
+            couponDiscount={totalCouponDiscountAmount}
             totalPrice={
-              orderPrice - couponDiscountAmount + remoteAreaShippingFee
+              orderPrice - totalCouponDiscountAmount + remoteAreaShippingFee
             }
           />
         </section>
@@ -85,10 +85,10 @@ const OrderConfirmPage = () => {
             setIsOpen(false);
           }}
           coupons={coupons}
-          couponDiscountAmount={couponDiscountAmount}
+          couponDiscountAmount={totalCouponDiscountAmount}
           selectedCouponIds={selectedCouponIds}
-          toggleCouponId={toggleCouponId}
-          calculateCouponDiscount={calculateCouponDiscount}
+          toggleCouponSelection={toggleCouponSelection}
+          isAvailableCoupon={isAvailableCoupon}
         />
       </div>
       <ConfirmButton
