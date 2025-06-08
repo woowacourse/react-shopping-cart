@@ -3,19 +3,15 @@ import { useEffect, useState } from "react";
 import * as S from "./OrderCompletePage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
-import { ResponseCartItem } from "../../types/types";
+import { ResponseCartItem } from "../../types/order";
 import CartItem from "../../components/CartItem/CartItem";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import CouponModal from "../../components/CouponModal/CouponModal";
-import { Coupon } from "../../api/couponApi";
+import { Coupon } from "../../types/coupon";
 import { CouponSelectProvider } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
-import {
-  calculateOrderSummary,
-  calculateDeliveryPrice,
-  calculatePriceInfo,
-} from "../../utils/orderCalculator";
+import { OrderCalculator } from "../../utils/orderCalculator";
 
 interface OrderCompleteState {
   selectedCartItem: ResponseCartItem[];
@@ -78,13 +74,13 @@ const OrderCompletePage = () => {
     setAppliedCoupons(selectedCoupons);
   };
 
-  const orderSummary = calculateOrderSummary(state.selectedCartItem);
+  const orderSummary = OrderCalculator.calculateOrderSummary(
+    state.selectedCartItem
+  );
 
-  const deliveryPrice = calculateDeliveryPrice(orderAmount, isRemoteArea);
-  const priceInfo = calculatePriceInfo(
+  const deliveryPrice = OrderCalculator.calculateBaseDeliveryFee(
     orderAmount,
-    deliveryPrice,
-    selectedCouponResult.totalDiscount
+    isRemoteArea
   );
 
   return (
@@ -119,8 +115,12 @@ const OrderCompletePage = () => {
               />
             </S.DeliveryInfo>
             <OrderPriceSection
-              priceInfo={priceInfo}
-              isDeliveryFree={priceInfo.deliveryPrice === 0}
+              priceInfo={{
+                orderPrice: orderAmount,
+                deliveryPrice,
+                couponDiscount: selectedCouponResult.totalDiscount,
+                totalPrice: finalTotalAmount,
+              }}
             />
           </S.CartItemWrapper>
 

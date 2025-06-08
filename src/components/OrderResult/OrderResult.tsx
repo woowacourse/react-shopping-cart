@@ -1,5 +1,5 @@
 import * as S from "./OrderResult.styled";
-import { OrderSummary } from "../../utils/orderCalculator";
+import { OrderSummary } from "../../types/order";
 
 interface OrderResultProps {
   orderSummary: OrderSummary;

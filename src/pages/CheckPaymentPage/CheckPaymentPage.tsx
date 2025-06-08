@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import * as S from "./CheckPaymentPage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
-import { ResponseCartItem } from "../../types/types";
-import { calculateOrderSummary } from "../../utils/orderCalculator";
+import { ResponseCartItem } from "../../types/order";
+import { OrderCalculator } from "../../utils/orderCalculator";
 
 interface CheckPaymentState {
   selectedCartItem: ResponseCartItem[];
@@ -32,7 +32,9 @@ const CheckPaymentPage = () => {
 
   if (!state) return null;
 
-  const orderSummary = calculateOrderSummary(state.selectedCartItem);
+  const orderSummary = OrderCalculator.calculateOrderSummary(
+    state.selectedCartItem
+  );
 
   return (
     <S.Root>

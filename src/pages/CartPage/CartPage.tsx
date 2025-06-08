@@ -8,7 +8,7 @@ const CartPage = () => {
   return (
     <S.Root>
       <S.CartPageWrapper>
-        <Header orderStatus="order" />
+        <Header showBackButton={true} onBackClick={() => {}} />
         <CartDataLoader>
           <S.CartContentWrapper>
             <S.HeaderTitle>장바구니</S.HeaderTitle>

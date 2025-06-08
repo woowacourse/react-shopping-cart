@@ -1,7 +1,7 @@
 import * as S from "./CartItem.styled";
 import QuantityButton from "../QuantityButton/QuantityButton";
 import CheckBox from "../CheckBox/CheckBox";
-import { ResponseCartItem } from "../../types/types";
+import { ResponseCartItem } from "../../types/order";
 import useCartItemManager from "./useCartItemManager";
 
 interface CartItemProps {

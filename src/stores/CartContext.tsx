@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { ResponseCartItem } from "../types/types";
+import { ResponseCartItem } from "../types/order";
 import { CartAction, cartReducer, initialState } from "./CartReducer";
 
 const CartContext = createContext<ResponseCartItem[] | null>(null);

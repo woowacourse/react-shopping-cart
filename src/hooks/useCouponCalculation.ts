@@ -1,12 +1,8 @@
 import { useMemo } from "react";
-import { Coupon } from "../api/couponApi";
-import { ResponseCartItem } from "../types/types";
-import {
-  calculateSelectedCouponsDiscount,
-  findOptimalCouponCombination,
-  OrderInfo,
-  CouponCalculationResult,
-} from "../utils/couponCalculator";
+import { Coupon, CouponCalculationResult } from "../types/coupon";
+import { ResponseCartItem } from "../types/order";
+import { OrderService } from "../services/orderService";
+import { CouponCalculator } from "../utils/couponCalculator";
 
 interface UseCouponCalculationProps {
   cartItems: ResponseCartItem[];
@@ -29,30 +25,22 @@ export const useCouponCalculation = ({
   selectedCoupons = [],
   availableCoupons = [],
 }: UseCouponCalculationProps): UseCouponCalculationReturn => {
-  const orderInfo: OrderInfo = useMemo(() => {
-    const originalOrderAmount = cartItems.reduce(
-      (total, item) => total + item.product.price * item.quantity,
-      0
-    );
-
-    const baseDeliveryFee = originalOrderAmount >= 100000 ? 0 : 3000;
-    const remoteAreaFee = isRemoteArea ? 3000 : 0;
-    const originalDeliveryFee = baseDeliveryFee + remoteAreaFee;
-
-    return {
-      cartItems,
-      originalOrderAmount,
-      originalDeliveryFee,
-      isRemoteArea,
-    };
+  const orderInfo = useMemo(() => {
+    return OrderService.createOrderInfo(cartItems, isRemoteArea);
   }, [cartItems, isRemoteArea]);
 
   const selectedCouponResult = useMemo(() => {
-    return calculateSelectedCouponsDiscount(selectedCoupons, orderInfo);
+    return CouponCalculator.calculateSelectedCouponsDiscount(
+      selectedCoupons,
+      orderInfo
+    );
   }, [selectedCoupons, orderInfo]);
 
   const optimalCouponResult = useMemo(() => {
-    return findOptimalCouponCombination(availableCoupons, orderInfo);
+    return CouponCalculator.findOptimalCouponCombination(
+      availableCoupons,
+      orderInfo
+    );
   }, [availableCoupons, orderInfo]);
 
   const finalTotalAmount = useMemo(() => {

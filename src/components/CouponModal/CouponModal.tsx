@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Coupon } from "../../api/couponApi";
+import { Coupon } from "../../types/coupon";
 import useCoupon from "../../hooks/useCoupon";
 import * as S from "./CouponModal.styled";
 import CheckBox from "../CheckBox/CheckBox";
@@ -8,8 +8,9 @@ import {
   useCouponSelectDispatch,
 } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
-import { ResponseCartItem } from "../../types/types";
-import { formatDate, getCouponDetails } from "../../utils/couponFormatter";
+import { ResponseCartItem } from "../../types/order";
+import { CouponFormatter } from "../../utils/couponFormatter";
+import { formatDate } from "../../utils/formatters";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -40,8 +41,8 @@ function CouponModal({
   const { selectedCouponResult } = useCouponCalculation({
     cartItems,
     isRemoteArea,
-    selectedCoupons,
-    availableCoupons: couponList,
+    selectedCoupons: selectedCoupons as unknown as Coupon[],
+    availableCoupons: couponList as unknown as Coupon[],
   });
 
   useEffect(() => {
@@ -77,7 +78,7 @@ function CouponModal({
   };
 
   const handleApply = () => {
-    onApplyCoupons(selectedCoupons);
+    onApplyCoupons(selectedCoupons as unknown as Coupon[]);
     onClose();
   };
 
@@ -145,7 +146,9 @@ function CouponModal({
                           <S.CouponExpiry>
                             만료일: {formatDate(coupon.expirationDate)}
                           </S.CouponExpiry>
-                          {getCouponDetails(coupon).map((detail, idx) => (
+                          {CouponFormatter.getCouponDetails(
+                            coupon as unknown as Coupon
+                          ).map((detail, idx) => (
                             <S.CouponDetail key={idx}>{detail}</S.CouponDetail>
                           ))}
                         </S.CouponContent>

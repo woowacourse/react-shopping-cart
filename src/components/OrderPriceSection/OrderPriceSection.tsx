@@ -1,15 +1,15 @@
 import * as S from "./OrderPriceSection.styled";
-import { PriceInfo } from "../../utils/orderCalculator";
 
 interface OrderPriceSectionProps {
-  priceInfo: PriceInfo;
-  isDeliveryFree: boolean;
+  priceInfo: {
+    orderPrice: number;
+    deliveryPrice: number;
+    couponDiscount: number;
+    totalPrice: number;
+  };
 }
 
-function OrderPriceSection({
-  priceInfo,
-  isDeliveryFree,
-}: OrderPriceSectionProps) {
+function OrderPriceSection({ priceInfo }: OrderPriceSectionProps) {
   const { orderPrice, deliveryPrice, couponDiscount, totalPrice } = priceInfo;
 
   return (
@@ -28,9 +28,7 @@ function OrderPriceSection({
 
       <S.PriceWrapper>
         <S.OrderText>배송비</S.OrderText>
-        <S.OrderPrice>
-          {isDeliveryFree ? 0 : deliveryPrice.toLocaleString("kr")}원
-        </S.OrderPrice>
+        <S.OrderPrice>{deliveryPrice.toLocaleString("kr")}원</S.OrderPrice>
       </S.PriceWrapper>
 
       <S.Line />
