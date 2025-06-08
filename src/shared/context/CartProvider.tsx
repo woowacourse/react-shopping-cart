@@ -9,11 +9,15 @@ interface CartContextType {
   selectedCartItems: CartItem[];
   selectedCoupons: Coupon[];
   totalDiscountPrice: number;
+  totalPurchasePrice: number;
+  deliveryFee: number;
   updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
   updateSelectedCoupons: (coupons: Coupon) => void;
   updateTotalDiscountPrice: (totalDiscountPrice: number) => void;
+  updateTotalPurchasePrice: (totalPurchasePrice: number) => void;
+  updateDeliveryFee: (deliveryFee: number) => void;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -27,6 +31,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [totalDiscountPrice, setTotalDiscountPrice] = useState<number>(0);
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const [totalPurchasePrice, setTotalPurchasePrice] = useState<number>(0);
 
   const updateCartItems = (cartItems: CartItem[]) => {
     setCartItems(cartItems);
@@ -74,6 +80,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setTotalDiscountPrice(totalDiscountPrice);
   };
 
+  const updateDeliveryFee = (deliveryFee: number) => {
+    setDeliveryFee(deliveryFee);
+  };
+
+  const updateTotalPurchasePrice = (totalPurchasePrice: number) => {
+    setTotalPurchasePrice(totalPurchasePrice);
+  };
+
   const value = useMemo(
     () => ({
       cartItems,
@@ -82,13 +96,17 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       selectedCartItems,
       selectedCoupons,
       totalDiscountPrice,
+      deliveryFee,
+      totalPurchasePrice,
       updateSelectedCartItem,
       addAllCartItemsInSelected,
       removeSelectedCartItem,
       updateSelectedCoupons,
       updateTotalDiscountPrice,
+      updateTotalPurchasePrice,
+      updateDeliveryFee,
     }),
-    [cartItems, selectedCartItems, selectedCoupons, totalDiscountPrice]
+    [cartItems, selectedCartItems, selectedCoupons, totalDiscountPrice, deliveryFee, totalPurchasePrice]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
