@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
-import { use } from "react";
+import { use, useEffect } from "react";
+import { getShoppingCartData } from "../../../../../api/cart";
 import { Coupon } from "../../../../../api/coupon";
 import CouponCheckItem from "../../../../../components/common/coupon/CouponCheckItem";
+import { useAPIDataContext } from "../../../../../context/APIDataProvider";
+import { useOrderListContext } from "../../../../../context/OrderListProvider";
+import { useOrderCalculation } from "../../../../../hooks/order/useOrderCalculation";
+import { useCouponContext } from "../../../context/CouponProvider";
 import { getCouponDetails } from "./utils/getCouponDetails";
 
 function CouponCheckList({
@@ -10,7 +15,36 @@ function CouponCheckList({
   couponsResource: Promise<Coupon[]>;
 }) {
   const coupons = use(couponsResource);
+  const { data: cartListData } = useAPIDataContext({
+    fetcher: getShoppingCartData,
+    name: "cart",
+  });
+  const { selectionMap, isIsland } = useOrderListContext(cartListData);
 
+  const { totalCartPrice, shippingFee } = useOrderCalculation(
+    cartListData,
+    selectionMap,
+    isIsland
+  );
+
+  const { autoSelectOptimalCoupon } = useCouponContext();
+
+  useEffect(() => {
+    if (coupons.length > 0 && (cartListData ?? []).length > 0) {
+      autoSelectOptimalCoupon(
+        coupons,
+        totalCartPrice,
+        shippingFee,
+        cartListData
+      );
+    }
+  }, [
+    coupons,
+    totalCartPrice,
+    shippingFee,
+    cartListData,
+    autoSelectOptimalCoupon,
+  ]);
   return (
     <>
       <Container>

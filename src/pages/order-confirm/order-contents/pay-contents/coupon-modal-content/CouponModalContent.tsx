@@ -3,16 +3,21 @@ import { Suspense } from "react";
 import { getCouponData } from "../../../../../api/coupon";
 import { Loading } from "../../../../../components/common";
 import InfoText from "../../../../../components/common/InfoText";
-import CouponCheckList from "./CouponCheckList";
 import CouponApplyButton from "./CouponApplyButton";
+import CouponCheckList from "./CouponCheckList";
 
 function CouponModalContent({ onClose }: { onClose: () => void }) {
+  const couponsResource = getCouponData();
+
   return (
     <Container>
       <InfoText contentText="쿠폰은 최대 2개까지 사용할 수 있습니다." />
       <Suspense fallback={<Loading />}>
-        <CouponCheckList couponsResource={getCouponData()} onClose={onClose} />
-        <CouponApplyButton onClose={onClose} />
+        <CouponCheckList couponsResource={couponsResource} />
+        <CouponApplyButton
+          onClose={onClose}
+          couponsResource={couponsResource}
+        />
       </Suspense>
     </Container>
   );
