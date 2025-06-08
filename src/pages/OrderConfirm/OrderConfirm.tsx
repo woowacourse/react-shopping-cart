@@ -30,6 +30,8 @@ import { CouponModalContent } from '../../components/CouponModal/CouponModalCont
 import useFetchCoupons from '../../hooks/useFetchCoupons';
 import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
 import { getDeliveryFee } from '../../utils/getDeliveryFee';
+import { Coupon } from '../../types/coupon';
+import { CartItemTypes } from '../../types/cartItem';
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
@@ -70,12 +72,14 @@ export function OrderConfirm() {
       coupons,
       selectedCartItems,
       deliveryFee,
+      nowDate: new Date(),
     });
     const reverse = calculateCouponPrice({
       couponIds: copy.reverse(),
       coupons,
       selectedCartItems,
       deliveryFee,
+      nowDate: new Date(),
     });
     if (forward < reverse) {
       setSelectedCouponIds(copy.reverse());
@@ -90,6 +94,7 @@ export function OrderConfirm() {
         coupons,
         selectedCartItems,
         deliveryFee: getDeliveryFee(!isChecked, totalPrice),
+        nowDate: new Date(),
       })
     );
   };
@@ -110,6 +115,7 @@ export function OrderConfirm() {
         coupons,
         selectedCartItems,
         deliveryFee,
+        nowDate: new Date(),
       })
     );
   };
@@ -126,6 +132,7 @@ export function OrderConfirm() {
     coupons,
     selectedCartItems,
     deliveryFee,
+    nowDate: new Date(),
   });
 
   return (
