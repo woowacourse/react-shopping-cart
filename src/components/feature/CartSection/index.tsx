@@ -3,7 +3,7 @@ import Header from "./Header";
 import PriceSection from "./PriceSection";
 import CartList from "./CartList";
 import { CartProduct } from "../../../type/cart";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type Props = {
   cartItems: CartProduct[];
@@ -26,9 +26,10 @@ const CartSection = ({ cartItems, refetch }: Props) => {
     getInitialSelectedIds
   );
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(selectedCartIds));
-  }, [selectedCartIds]);
+  const handleSetSelectedCartIds = (newSelectedCartIds: number[]) => {
+    setSelectedCartIds(newSelectedCartIds);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newSelectedCartIds));
+  };
 
   return (
     <S.Container>
@@ -47,7 +48,7 @@ const CartSection = ({ cartItems, refetch }: Props) => {
             <CartList
               cartItems={cartItems}
               selectedCartIds={selectedCartIds}
-              setSelectedCartIds={setSelectedCartIds}
+              onSelectCartItem={handleSetSelectedCartIds}
               refetch={refetch}
             />
 
