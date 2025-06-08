@@ -3,16 +3,18 @@ import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
 import LoadingSpinner from "../../components/icons/LoadingSpinner";
 import OrderCardList from "./components/OrderCardList";
-import CheckBox from "../../components/common/CheckBox";
 import PaymentPriceList from "./components/PaymentPriceList";
 import CouponModal from "./components/CouponModal";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useCoupons } from "./hooks/useCoupons";
+import DeliveryOptions from "./components/DeliveryOptions";
+import { useOrderState } from "./hooks/useOrderState";
 
 const OrderConfirmPage = () => {
   const { state: orderItems } = useLocation();
   const { isLoading, coupons } = useCoupons();
+  const orderState = useOrderState();
   const [isOpen, setIsOpen] = useState(false);
   function handleClose() {
     setIsOpen(false);
@@ -34,12 +36,10 @@ const OrderConfirmPage = () => {
           결제하기
         </Button>
       </S.ButtonWrap>
-      <S.DeliveryInformation>
-        <Text variant="title-2">배송 정보</Text>
-        <CheckBox isChecked={false} onClick={() => setIsOpen((prev) => !prev)}>
-          제주도 및 도서 산간 지역
-        </CheckBox>
-      </S.DeliveryInformation>
+      <DeliveryOptions
+        isIsolatedAreaSelected={orderState.isIsolatedAreaSelected}
+        onToggleIsolatedArea={orderState.toggleIsolatedArea}
+      />
       <PaymentPriceList orderItems={orderItems} />
       {isLoading && <LoadingSpinner />}
       {isOpen && <CouponModal onClose={handleClose} coupons={coupons} />}

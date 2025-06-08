@@ -16,12 +16,6 @@ export const Information = styled.div`
   min-height: 0;
 `;
 
-export const DeliveryInformation = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
 export const ButtonWrap = styled.div`
   position: absolute;
   width: 100%;
