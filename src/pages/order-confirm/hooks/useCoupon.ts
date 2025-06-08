@@ -14,6 +14,25 @@ type UseCouponPrams = {
   deliveryPrice: number;
 };
 
+/**
+ * 쿠폰 선택 및 할인 금액 계산을 관리하는 커스텀 훅
+ *
+ * @param {Object} params - 쿠폰 관리 파라미터
+ * @param {CartItemType[]} params.orderList - 주문 상품 목록
+ * @param {Coupon[]} params.couponList - 쿠폰 목록
+ * @param {number} params.deliveryPrice - 배송비(배송비 무료 쿠폰에 사용, 배송비에 따라 쿠폰 할인 금액이 달라짐)
+ *
+ * @returns {{
+ *   getIsSelectedId: (id: number) => boolean,
+ *   toggleSelectedId: (id: number) => void,
+ *   getIsCouponIdDisabled: (id: number) => boolean,
+ *   discountAmount: number
+ * }}
+ * @property {function} getIsSelectedId - 특정 쿠폰 선택 여부 확인 함수
+ * @property {function} toggleSelectedId - 쿠폰 선택 상태 토글 함수
+ * @property {function} getIsCouponIdDisabled - 쿠폰 사용 불가 여부 확인 함수
+ * @property {number} discountAmount - 총 할인 금액(실제 적용된 할인 금액이 아닌 선택된 쿠폰의 할인 금액 합계)
+ */
 export const useCoupon = ({
   orderList,
   couponList,
