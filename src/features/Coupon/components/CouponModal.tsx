@@ -12,6 +12,7 @@ import { CartItem } from '@/features/Cart/types/Cart.types';
 import { calculateTotalDiscount } from '../utils/calculateTotalDiscount';
 import { useCartContext } from '@/features/Cart/context/CartProvider';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
+import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 
 type CouponModalProps = {
   cartItems: CartItem[];
@@ -30,9 +31,10 @@ export const CouponModal = ({
 }: CouponModalProps) => {
   const { isRemoteArea } = useCartContext();
   const { totalPrice, deliveryFee } = usePriceInfo(cartItems);
+  const { selectedCartItems } = useCartInfo(cartItems);
 
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
-  const totalDiscount = calculateTotalDiscount(cartItems, selectedCoupons, {
+  const totalDiscount = calculateTotalDiscount(selectedCartItems, selectedCoupons, {
     isRemoteArea,
     deliveryFee,
     totalPrice,

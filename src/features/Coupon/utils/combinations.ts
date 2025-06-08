@@ -1,6 +1,7 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
 import { Coupon } from '../types/Coupon.types';
 import { calculateTotalDiscount } from './calculateTotalDiscount';
+import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 
 type PriceContext = {
   isRemoteArea: boolean;
@@ -13,12 +14,13 @@ export const getBestCouponCombination = (
   cartItems: CartItem[],
   priceContext: PriceContext
 ): Coupon[] => {
+  const { selectedCartItems } = useCartInfo(cartItems);
   const combos = getAllCombinations(coupons, 2);
   let bestCombo: Coupon[] = [];
   let maxDiscount = 0;
 
   for (const combo of combos) {
-    const discount = calculateTotalDiscount(cartItems, combo, priceContext);
+    const discount = calculateTotalDiscount(selectedCartItems, combo, priceContext);
     if (discount > maxDiscount) {
       bestCombo = combo;
       maxDiscount = discount;

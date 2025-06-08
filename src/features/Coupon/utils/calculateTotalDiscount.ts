@@ -1,8 +1,9 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
 import { Coupon } from '../types/Coupon.types';
+import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 
 export const calculateTotalDiscount = (
-  cartItems: CartItem[],
+  selectedCartItems: CartItem[],
   coupons: Coupon[],
   {
     isRemoteArea,
@@ -21,7 +22,7 @@ export const calculateTotalDiscount = (
       case 'percentage':
         return acc + Math.floor(totalPrice * ((c.discount ?? 0) / 100));
       case 'buyXgetY': {
-        const bogoTargetItems = cartItems.filter((item) => item.quantity >= 2);
+        const bogoTargetItems = selectedCartItems.filter((item) => item.quantity >= 2);
         if (bogoTargetItems.length === 0) return acc;
         const mostExpensive = bogoTargetItems.reduce((prev, current) =>
           current.product.price > prev.product.price ? current : prev
