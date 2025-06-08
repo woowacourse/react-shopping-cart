@@ -27,5 +27,5 @@ export function formatAvailableTime(time?: { start: string; end: string }) {
   const endLabel =
     sPeriod === ePeriod ? `${eHour}시까지` : `${ePeriod} ${eHour}시까지`;
 
-  return `사용 가능 시간을 ${sPeriod} ${sHour}시부터 ${endLabel}`;
+  return `사용 가능 시간: ${sPeriod} ${sHour}시부터 ${endLabel}`;
 }
