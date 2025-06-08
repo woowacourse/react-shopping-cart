@@ -51,7 +51,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div
         style={{
           position: "fixed",
-          bottom: "40px",
+          bottom: "60px",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1000,

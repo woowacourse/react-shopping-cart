@@ -26,7 +26,7 @@ function ToastMessage({ message, type, onClose }: ToastMeesageProps) {
 
 const MESSAGE_TYPE_COLOR_MAP: Record<MessageType, string> = {
   error: "#FFC9C9",
-  info: "#ffffff",
+  info: "#d2f1ff",
 };
 
 const Container = styled.div`
