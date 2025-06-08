@@ -1,6 +1,7 @@
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { InfoText } from "../../../../components/InfoText/InfoText";
 import { CouponType } from "../../types/coupon";
+import { formatToKoreanAmPm } from "../../utils/getDateInfo";
 import { checkBoxLayout, couponLayout, infoTextLayout } from "./Coupon.style";
 
 interface CouponProps {
@@ -30,8 +31,8 @@ export function Coupon({ item, isSelected, handleCouponSelect }: CouponProps) {
         )}
         {item.availableTime && (
           <InfoText>
-            사용 가능 시간 : {item.availableTime?.start} 부터
-            {item.availableTime?.end}까지
+            사용 가능 시간 : {formatToKoreanAmPm(item.availableTime?.start)}
+            부터 {formatToKoreanAmPm(item.availableTime?.end)}까지
           </InfoText>
         )}
       </div>
