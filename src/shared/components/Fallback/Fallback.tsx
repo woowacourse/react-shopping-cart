@@ -4,10 +4,10 @@ import planetErrorImage from "@assets/images/planet-error.png";
 
 type FallbackType = "loading" | "error";
 
-interface FallbackProps {
+type FallbackProps = {
   type: FallbackType;
   message: string;
-}
+};
 
 const fallbackImageMap = {
   loading: planetLoadingImage,
