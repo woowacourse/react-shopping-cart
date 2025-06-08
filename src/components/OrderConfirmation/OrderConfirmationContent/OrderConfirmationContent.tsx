@@ -19,7 +19,6 @@ interface OrderConfirmationContentProps {
 function OrderConfirmationContent({
   selectedCartItems,
 }: OrderConfirmationContentProps) {
-  const selectedCartIds = selectedCartItems.map((item) => item.id);
   const selectedCartItemsCount = getSelectedCartItemsCount(selectedCartItems);
   const { coupons } = useCoupons();
   const { selectedCouponIds, handleUseCoupons } = useSelectedCoupons();
@@ -63,8 +62,9 @@ function OrderConfirmationContent({
         isRemoteAreaShipping={isRemoteAreaShipping}
       />
       <PaymentConfirmButton
-        selectedCartIds={selectedCartIds}
-        cartItemsData={selectedCartItems}
+        selectedCartItems={selectedCartItems}
+        discountAmount={maxDiscountedPrice}
+        isRemoteAreaShipping={isRemoteAreaShipping}
       />
     </Styled.Container>
   );
