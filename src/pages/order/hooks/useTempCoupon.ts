@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { AvailableCouponType } from "../../types/coupon";
+import { AvailableCouponType } from "../../../types/coupon";
 
 interface UseTempCouponProps {
   availableCoupons: AvailableCouponType[];

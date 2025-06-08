@@ -1,4 +1,4 @@
-import { CartItem } from "../../types/cartItem";
+import { CartItem } from "../../../types/cartItem";
 import useCouponApply from "./useCouponApply";
 import useCouponResource from "./useCouponResource";
 import useDeliveryInformation from "./useDeliveryInformation";

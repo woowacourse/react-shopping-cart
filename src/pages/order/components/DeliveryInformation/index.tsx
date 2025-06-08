@@ -1,13 +1,11 @@
 import * as S from "./DeliveryInformation.styled";
-import CheckBox from "../../common/CheckBox";
-import Text from "../../common/Text";
+import CheckBox from "../../../../components/common/CheckBox";
+import Text from "../../../../components/common/Text";
+import { useOrderContext } from "../../contexts/OrderContext";
 
-interface DeliveryInformationProps {
-  isRemoteArea: boolean;
-  toggleRemoteArea: () => void;
-}
+const DeliveryInformation = () => {
+  const { isRemoteArea, toggleRemoteArea } = useOrderContext();
 
-const DeliveryInformation = ({ isRemoteArea, toggleRemoteArea }: DeliveryInformationProps) => {
   return (
     <S.Container>
       <Text variant="title-2">배송 정보</Text>

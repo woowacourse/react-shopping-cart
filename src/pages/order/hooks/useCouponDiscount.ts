@@ -1,5 +1,5 @@
-import { CartItem } from "../../types/cartItem";
-import { CouponResponse } from "../../types/coupon";
+import { CartItem } from "../../../types/cartItem";
+import { CouponResponse } from "../../../types/coupon";
 
 interface useCouponDiscountParams {
   coupons: CouponResponse[];

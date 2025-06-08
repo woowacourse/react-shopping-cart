@@ -1,6 +1,6 @@
-import { CartItem } from "../../types/cartItem";
-import { CouponResponse } from "../../types/coupon";
-import validation from "../../utils/coupon/validation";
+import { CartItem } from "../../../types/cartItem";
+import { CouponResponse } from "../../../types/coupon";
+import validation from "../../../utils/coupon/validation";
 
 interface UseCouponValidationParams {
   cartItems: CartItem[];

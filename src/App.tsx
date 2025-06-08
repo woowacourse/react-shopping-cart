@@ -4,8 +4,9 @@ import CartPage from "./pages/cart";
 import PaymentConfirmPage from "./pages/PaymentConfirmPage";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import ErrorPopup from "./components/common/Error/Popup";
-import OrderConfirmPage from "./pages/OrderConfirmPage";
+import OrderPage from "./pages/order";
 import { CartProvider } from "./pages/cart/contexts/CartContext";
+import { OrderProvider } from "./pages/order/contexts/OrderContext";
 
 function App() {
   return (
@@ -22,7 +23,14 @@ function App() {
                 </CartProvider>
               }
             />
-            <Route path="/order-confirm" element={<OrderConfirmPage />} />
+            <Route
+              path="/order-confirm"
+              element={
+                <OrderProvider>
+                  <OrderPage />
+                </OrderProvider>
+              }
+            />
             <Route path="/payment-confirm" element={<PaymentConfirmPage />} />
           </Routes>
         </BrowserRouter>

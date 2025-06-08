@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useErrorMessage } from "../../contexts/ErrorContext";
-import { CouponResponse } from "../../types/coupon";
-import couponApi from "../../apis/couponApi";
+import { useErrorMessage } from "../../../contexts/ErrorContext";
+import { CouponResponse } from "../../../types/coupon";
+import couponApi from "../../../apis/couponApi";
 
 const useCouponResource = () => {
   const { setErrorMessage } = useErrorMessage();

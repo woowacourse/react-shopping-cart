@@ -1,9 +1,11 @@
-import { UseCartReturnType } from "../../../pages/cart/hooks/useCart";
-import Text from "../../common/Text";
-import ItemCard from "../../ItemCard";
+import { useOrderContext } from "../../contexts/OrderContext";
+import Text from "../../../../components/common/Text";
+import ItemCard from "../../../../components/ItemCard";
 import * as S from "./OrderItemList.styled";
 
-const OrderItemList = ({ orderItems }: { orderItems: UseCartReturnType["orderConfirmPageData"]["orderItems"] }) => {
+const OrderItemList = () => {
+  const { cartItems: orderItems } = useOrderContext();
+
   return (
     <S.List>
       {orderItems.map((item) => {

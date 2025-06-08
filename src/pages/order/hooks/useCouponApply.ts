@@ -1,8 +1,8 @@
-import { CartItem } from "../../types/cartItem";
-import { AvailableCouponType, CouponResponse } from "../../types/coupon";
+import { CartItem } from "../../../types/cartItem";
+import { AvailableCouponType, CouponResponse } from "../../../types/coupon";
 import { useState, useEffect, useMemo } from "react";
-import useCouponValidation from "./useCouponValidation";
 import useCouponDiscount from "./useCouponDiscount";
+import useCouponValidation from "./useCouponValidation";
 
 interface useCouponApplyParams {
   cartItems: CartItem[];
