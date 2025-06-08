@@ -1,11 +1,17 @@
+import { CouponContent } from '@/api/type';
 import { useCoupon } from '@/hooks/useCoupon';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Flex, Header } from '../../components/common';
 import BackArrowButton from '../../components/common/BackArrowButton';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
-import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
+import { getCouponCombinations } from './hooks/getCouponCombinations';
+import { useAvailableCoupons } from './hooks/useAvailableCoupons';
+import { useBestCouponCombination } from './hooks/useBestCouponCombination';
+import { useModal } from './hooks/useModal';
+import { useNavigation } from './hooks/useNavigation';
+import { useOrderInfo } from './hooks/useOrderInfo';
+import { useShipping } from './hooks/useShipping';
 import CouponModal from './order-coupon/CouponModal';
 import CouponModalOpenButton from './order-coupon/CouponModalOpenButton';
 import LabelCouponPrice from './order-coupon/LabelCouponPrice';
@@ -14,37 +20,59 @@ import DeliveryRegionSection from './order-delivery/DeliveryRegionSection';
 import OrderPageInfo from './OrderPageInfo';
 
 const OrderReviewPage = () => {
-  const [showCouponModal, setShowCouponModal] = useState(false);
-  const navigate = useNavigate();
-  const { cartListData, selectionMap } = useOrderListContext();
-  const isDisabled = !Object.values(selectionMap).some(
-    (isSelected) => isSelected
+  const {
+    isJejuOrRemoteArea,
+    actualShippingFee,
+    handleJejuOrRemoteAreaToggle,
+  } = useShipping();
+  const { typeCount, totalCount, isDisabled } = useOrderInfo();
+  const { coupons, isLoading } = useCoupon();
+
+  const { availableCoupons } = useAvailableCoupons(
+    coupons ?? [],
+    isJejuOrRemoteArea
   );
-  const { coupons, isLoading, fetchCoupons } = useCoupon();
+
+  const [allCouponCombinationIds, setAllCouponCombinationIds] = useState<
+    number[][]
+  >([]);
+  // 2. availableCoupons 값이 바뀌면 갱신
   useEffect(() => {
-    fetchCoupons();
-  }, []);
+    setAllCouponCombinationIds(
+      getCouponCombinations(availableCoupons).allCouponCombinationIds
+    );
+  }, [availableCoupons]);
 
-  if (!coupons) return;
-  console.log(coupons);
-  const orderList = (cartListData ?? []).filter(
-    (cart) => selectionMap[cart.id] === true
+  const handleUpdateCouponCombinations = (coupons: CouponContent[]) => {
+    const combinations = getCouponCombinations(coupons).allCouponCombinationIds;
+    setAllCouponCombinationIds(combinations);
+  };
+
+  const { showCouponModal, handleShowCouponModal } = useModal();
+  const { handleBackClick, handleCheckout } = useNavigation(isDisabled);
+
+  const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
+
+  const { bestCouponIds, totalDiscount } = useBestCouponCombination(
+    availableCoupons,
+    allCouponCombinationIds,
+    isJejuOrRemoteArea
   );
-  const typeCount = orderList.length;
-  const totalCount = orderList.reduce((acc, cart) => acc + cart.quantity, 0);
 
-  const handleBackClick = () => {
-    navigate(-1);
-  };
+  useEffect(() => {
+    setSelectedCouponIds(bestCouponIds);
+  }, [bestCouponIds]);
 
-  const handleCheckout = () => {
-    if (!isDisabled) {
-      navigate('/order-confirm');
+  const handleSelectCoupons = (newCoupons: number[]) => {
+    setSelectedCouponIds(newCoupons);
+
+    // 🔥 ID로 쿠폰 객체 찾아서 조합 업데이트
+    if (coupons) {
+      const selectedCouponObjects = coupons.filter((coupon) =>
+        newCoupons.includes(coupon.id)
+      );
+      handleUpdateCouponCombinations(selectedCouponObjects);
     }
-  };
-
-  const handleShowCouponModal = () => {
-    setShowCouponModal((prev) => !prev);
   };
 
   return (
@@ -56,13 +84,23 @@ const OrderReviewPage = () => {
         <CouponModalOpenButton handleClick={handleShowCouponModal}>
           쿠폰 적용
         </CouponModalOpenButton>
-        <DeliveryRegionSection checked={false} onToggle={() => {}} />
-        <LabelCouponPrice />
+        <DeliveryRegionSection
+          checked={isJejuOrRemoteArea}
+          onToggle={handleJejuOrRemoteAreaToggle}
+        />
+        <LabelCouponPrice
+          totalDiscount={totalDiscount}
+          actualShippingFee={actualShippingFee}
+        />
         <CouponModal
           show={showCouponModal}
           onHide={handleShowCouponModal}
-          coupons={coupons}
+          coupons={coupons ?? []}
           isLoading={isLoading}
+          availableCoupons={availableCoupons}
+          bestCouponIds={selectedCouponIds} // 자동 계산된 쿠폰 ID들 추가
+          totalDiscount={totalDiscount}
+          handleApply={handleSelectCoupons}
         />
       </Container>
       <CheckoutButton
