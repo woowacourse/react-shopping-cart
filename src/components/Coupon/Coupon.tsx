@@ -28,7 +28,7 @@ function Coupon({
           isSelected={isSelected}
           onClick={() => toggleSelect(id)}
         />
-        <h3 css={Description}>{description}</h3>
+        <p css={Description}>{description}</p>
       </div>
       <div css={Details}>
         <p>

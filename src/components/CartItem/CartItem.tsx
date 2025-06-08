@@ -60,7 +60,7 @@ function CartItem({
           ></img>
           <div css={ItemContent}>
             <div css={ItemDetail}>
-              <h3 css={ItemTitle}>{product.name}</h3>
+              <p css={ItemTitle}>{product.name}</p>
               <p css={ItemPrice}>{product.price.toLocaleString()}원</p>
             </div>
             <div css={CountContainer}>
