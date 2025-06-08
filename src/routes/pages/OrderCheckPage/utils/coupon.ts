@@ -1,86 +1,93 @@
 import { CartItemProps } from '../../../../types/cartItem';
 
-export function getAvailableCoupons({
-  selectedCartData,
-  totalPrice,
-  deliveryFee,
-}: {
-  selectedCartData: CartItemProps[];
-  totalPrice: number;
-  deliveryFee: number;
-}) {
-  const availableCoupons = [];
-  const maxQuantity = Math.max(
-    ...selectedCartData.map((item) => item.quantity)
+export interface Coupon {
+  id: 'FIXED5000' | 'FREESHIPPING' | 'BOGO' | 'MIRACLESALE';
+  name: string;
+  isValid: (
+    totalPrice: number,
+    deliveryFee: number,
+    cart: CartItemProps[],
+    date: Date
+  ) => boolean;
+  calculateDiscount: (
+    totalPrice: number,
+    deliveryFee: number,
+    cart: CartItemProps[]
+  ) => number;
+}
+
+// --- 쿠폰 정책 정의 ---
+export const COUPONS: Coupon[] = [
+  {
+    id: 'FIXED5000',
+    name: '5,000원 할인 쿠폰',
+    isValid: (totalPrice) => totalPrice >= 100000,
+    calculateDiscount: () => 5000,
+  },
+  {
+    id: 'FREESHIPPING',
+    name: '무료 배송 쿠폰',
+    isValid: (totalPrice, deliveryFee) =>
+      totalPrice >= 50000 && deliveryFee > 0,
+    calculateDiscount: (_, deliveryFee) => deliveryFee,
+  },
+  {
+    id: 'BOGO',
+    name: '2+1 쿠폰',
+    isValid: (_, __, cart) => cart.some((item) => item.quantity >= 3),
+    calculateDiscount: (_, __, cart) => {
+      const bogoCandidates = cart.filter((item) => item.quantity >= 3);
+      if (bogoCandidates.length === 0) return 0;
+      return Math.max(...bogoCandidates.map((item) => item.product.price));
+    },
+  },
+  {
+    id: 'MIRACLESALE',
+    name: '30% 시간제 할인 쿠폰',
+    isValid: (_, __, ___, date) => {
+      const hours = date.getHours();
+      return hours >= 4 && hours <= 7;
+    },
+    calculateDiscount: (totalPrice) => totalPrice * 0.3,
+  },
+];
+
+// --- 순수 함수 로직 ---
+
+export function getAvailableCoupons(
+  totalPrice: number,
+  deliveryFee: number,
+  cart: CartItemProps[],
+  date: Date
+): Coupon[] {
+  return COUPONS.filter((coupon) =>
+    coupon.isValid(totalPrice, deliveryFee, cart, date)
   );
-  const currentTime = new Date().getHours();
-
-  if (isFixedDiscount(totalPrice)) {
-    availableCoupons.push('FIXED5000');
-  }
-
-  if (isFreeShipping(totalPrice, deliveryFee)) {
-    availableCoupons.push('FREESHIPPING');
-  }
-
-  if (isBogo(maxQuantity)) {
-    availableCoupons.push('BOGO');
-  }
-
-  if (isMiracleMorning(currentTime)) {
-    availableCoupons.push('MIRACLESALE');
-  }
-
-  return availableCoupons;
 }
 
-export function isMiracleMorning(currentTime: number) {
-  return currentTime >= 4 && currentTime <= 7;
-}
+export function calculateTotalDiscount(
+  combination: Coupon[],
+  totalPrice: number,
+  deliveryFee: number,
+  cart: CartItemProps[]
+): number {
+  let discount = 0;
+  const sortedCombination = [...combination].sort((a) =>
+    a.id === 'MIRACLESALE' ? -1 : 1
+  );
 
-export function isBogo(maxQuantity: number) {
-  return maxQuantity >= 3;
-}
+  let currentPrice = totalPrice;
 
-export function isFreeShipping(totalPrice: number, deliveryFee: number) {
-  return totalPrice >= 50000 && deliveryFee > 0;
-}
-
-export function isFixedDiscount(totalPrice: number) {
-  return totalPrice >= 100000;
-}
-
-export function calculateCouponDiscount({
-  totalPrice,
-  deliveryFee,
-  discountableProducts,
-  selectedCoupon,
-}: {
-  totalPrice: number;
-  deliveryFee: number;
-  discountableProducts: CartItemProps[];
-  selectedCoupon: Set<string>;
-}) {
-  let totalDiscount = 0;
-
-  if (selectedCoupon.has('MIRACLESALE')) {
-    totalDiscount += totalPrice * 0.3;
-  }
-
-  if (selectedCoupon.has('BOGO')) {
-    const mostExpensiveProductPrice = Math.max(
-      ...discountableProducts.map((item) => item.product.price)
+  for (const coupon of sortedCombination) {
+    const discountAmount = coupon.calculateDiscount(
+      currentPrice,
+      deliveryFee,
+      cart
     );
-    totalDiscount += mostExpensiveProductPrice;
+    discount += discountAmount;
+    if (coupon.id === 'MIRACLESALE') {
+      currentPrice -= discountAmount;
+    }
   }
-
-  if (selectedCoupon.has('FIXED5000')) {
-    totalDiscount += 5000;
-  }
-
-  if (selectedCoupon.has('FREESHIPPING')) {
-    totalDiscount += deliveryFee;
-  }
-
-  return totalDiscount;
+  return discount;
 }

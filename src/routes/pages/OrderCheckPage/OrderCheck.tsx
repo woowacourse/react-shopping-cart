@@ -20,12 +20,12 @@ import useFarDeliverySelect from '../../../hooks/useFarDeliverySelect';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
-import { calculateCouponDiscount, getAvailableCoupons } from './utils/coupon';
 import {
-  getDeliveryFee,
-  getMoreThanTwoProducts,
-  getTotalProductQuantity,
-} from './utils/product';
+  COUPONS,
+  calculateTotalDiscount,
+  getAvailableCoupons,
+} from './utils/coupon';
+import { getDeliveryFee, getTotalProductQuantity } from './utils/product';
 
 function OrderCheck() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -41,21 +41,23 @@ function OrderCheck() {
 
   const deliveryFee = getDeliveryFee(totalPrice, isFarDelivery);
 
-  const availableCoupons = getAvailableCoupons({
+  const availableCouponObjects = getAvailableCoupons(
+    totalPrice,
+    deliveryFee,
     selectedCartData,
+    new Date()
+  );
+
+  const selectedCouponObjects = COUPONS.filter((c) => selectedCoupon.has(c.id));
+
+  const couponDiscount = calculateTotalDiscount(
+    selectedCouponObjects,
     totalPrice,
     deliveryFee,
-  });
+    selectedCartData
+  );
+
   const totalProductQuantity = getTotalProductQuantity(selectedCartData);
-
-  const moreThanTwoProducts = getMoreThanTwoProducts(selectedCartData);
-
-  const couponDiscount = calculateCouponDiscount({
-    totalPrice,
-    deliveryFee,
-    discountableProducts: moreThanTwoProducts,
-    selectedCoupon,
-  });
 
   return (
     <>
@@ -98,7 +100,7 @@ function OrderCheck() {
         onClose={closeModal}
         onSelectCoupon={handleSelectCoupon}
         onConfirm={closeModal}
-        availableCoupons={availableCoupons}
+        availableCoupons={availableCouponObjects.map((c) => c.id)}
       />
     </>
   );
