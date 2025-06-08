@@ -1,10 +1,21 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CartItem } from "../type/CartItem";
+import useSelectedCartIdsLocalStorage from "./useSelectedCartIdsLocalStorage";
 
 const useSelectedCartIds = (cartItemsData: CartItem[]) => {
-  const [selectedCartIds, setSelectedCartIds] = useState<number[]>(
-    cartItemsData.map((item) => item.id)
-  );
+  const {
+    setSelectedCartIdsToLocalStorage,
+    getSelectedCartIdsFromLocalStorage,
+  } = useSelectedCartIdsLocalStorage();
+
+  const [selectedCartIds, setSelectedCartIds] = useState<number[]>(() => {
+    const storedSelectedCartIds = getSelectedCartIdsFromLocalStorage();
+    return storedSelectedCartIds ?? cartItemsData.map((item) => item.id);
+  });
+
+  useEffect(() => {
+    setSelectedCartIdsToLocalStorage(selectedCartIds);
+  }, [selectedCartIds, setSelectedCartIdsToLocalStorage]);
 
   const handleRemoveSelectCartItem = useCallback((id: number) => {
     setSelectedCartIds((prev) => prev.filter((cartId) => cartId !== id));
