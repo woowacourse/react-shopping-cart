@@ -2,9 +2,14 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 export const CouponModalContainer = styled.div`
-  max-width: 382px;
-  background-color: #fff;
+  width: 100%;
   border-radius: 10px;
+`;
+
+export const CouponList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export const ButtonCSS = css`
