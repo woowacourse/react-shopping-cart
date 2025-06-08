@@ -1,19 +1,20 @@
-import * as S from "./PaymentConfirmPage.styled";
+import * as S from "./PaymentPage.styled";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
 import Header from "../../components/Header";
 import PrevArrow from "../../components/icons/PrevArrow";
 import { useLocation, useNavigate } from "react-router";
-import NotFoundPage from "../NotFoundPage";
 
-const PaymentConfirmPage = () => {
+const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (!location.state) return <NotFoundPage />;
+  if (!location.state) {
+    navigate("/404");
+    return null;
+  }
 
   const { cartItemsTotalQuantity, cartItemsCheckedCount, finalTotalPrice } = location.state;
-
   const handleNavigate = () => navigate("/");
 
   return (
@@ -45,4 +46,4 @@ const PaymentConfirmPage = () => {
   );
 };
 
-export default PaymentConfirmPage;
+export default PaymentPage;
