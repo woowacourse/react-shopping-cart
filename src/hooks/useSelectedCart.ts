@@ -16,30 +16,51 @@ export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
   const handleAllSelected = () => {
     if (isAllChecked) {
       setSelectedCartId([]);
+      localStorage.clear();
       return;
     }
-    setSelectedCartId(cartItems?.map((item) => item.id) || []);
+    const cartList = cartItems?.map((item) => item.id) || [];
+    setSelectedCartId(cartList);
+    localStorage.setItem('selectedItem', JSON.stringify(cartList));
   };
 
   const handleToggle = (id: number) => {
     // 선택이 안되어 있음 -> 선택됨
     if (!selectedCartId?.find((item) => item === id)) {
       setSelectedCartId((prev) => [...prev, id]);
+      localStorage.setItem(
+        'selectedItem',
+        JSON.stringify([...selectedCartId, id])
+      );
       return;
     }
     // 선택이 되어 있음 -> 선택안됨
-    setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
+    const filteredItem = selectedCartId?.filter((cartId) => cartId !== id);
+    setSelectedCartId(filteredItem);
+    localStorage.setItem('selectedItem', JSON.stringify(filteredItem));
   };
 
   const handleRemove = (id: number) => {
     if (!selectedCartId?.find((item) => item === id)) return;
-    setSelectedCartId(selectedCartId?.filter((cartId) => cartId !== id));
+
+    const filteredItem = selectedCartId?.filter((cartId) => cartId !== id);
+    setSelectedCartId(filteredItem);
+    localStorage.setItem('selectedItem', JSON.stringify(filteredItem));
   };
 
   useEffect(() => {
     if (cartItems && !isSetting.current) {
+      const storedSelectedItem = JSON.parse(
+        localStorage.getItem('selectedItem') || '[]'
+      );
+      if (storedSelectedItem.length > 0) {
+        setSelectedCartId(storedSelectedItem);
+        return;
+      }
+
       const cartIdList = cartItems?.map((item) => item.id);
       setSelectedCartId(cartIdList);
+      localStorage.setItem('selectedItem', JSON.stringify(cartIdList));
       isSetting.current = true;
     }
   }, [cartItems]);
