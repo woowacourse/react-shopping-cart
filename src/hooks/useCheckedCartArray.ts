@@ -22,7 +22,7 @@ const useCheckedCartArray = (cartData: CartItemType[]) => {
         setCheckedItemIds(new Set(cartData.map((item) => item.id)));
       }
     } catch (error) {
-      console.warn('장바구니 체크 상태 로드 실패:', error);
+      console.error('장바구니 체크 상태 로드 실패:', error);
       setCheckedItemIds(new Set(cartData.map((item) => item.id)));
     }
   }, [cartData]);
@@ -35,7 +35,7 @@ const useCheckedCartArray = (cartData: CartItemType[]) => {
           JSON.stringify(Array.from(checkedItemIds))
         );
       } catch (error) {
-        console.warn('장바구니 체크 상태 저장 실패:', error);
+        console.error('장바구니 체크 상태 저장 실패:', error);
       }
     }
   }, [checkedItemIds, cartData.length]);
