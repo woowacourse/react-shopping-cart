@@ -1,33 +1,35 @@
 import styled from '@emotion/styled';
-import { ImgHTMLAttributes } from 'react';
 
-interface CheckBoxProps extends ImgHTMLAttributes<HTMLImageElement> {
+interface CheckBoxProps extends React.ComponentProps<'button'> {
   isChecked: boolean;
 }
 
 const CheckBox = ({ isChecked, ...rest }: CheckBoxProps) => {
-  return isChecked ? (
-    <S.CheckBox
-      isChecked={isChecked}
-      src="./checked-box.svg"
-      alt="checkedBox"
-      data-testid="checkBox"
-      {...rest}
-    />
-  ) : (
-    <S.CheckBox
-      isChecked={isChecked}
-      src="./unchecked-box.svg"
-      alt="unCheckedBox"
-      data-testid="checkBox"
-      {...rest}
-    />
+  return (
+    <S.ButtonContainer {...rest}>
+      {isChecked ? (
+        <S.CheckBox
+          isChecked={isChecked}
+          src="./checked-box.svg"
+          alt="checkedBox"
+          data-testid="checkBox"
+        />
+      ) : (
+        <S.CheckBox
+          isChecked={isChecked}
+          src="./unchecked-box.svg"
+          alt="unCheckedBox"
+          data-testid="checkBox"
+        />
+      )}
+    </S.ButtonContainer>
   );
 };
 
 export default CheckBox;
 
 const S = {
+  ButtonContainer: styled.button``,
   CheckBox: styled.img<CheckBoxProps>`
     cursor: pointer;
     background-color: ${({ isChecked }) =>
