@@ -1,11 +1,12 @@
 import { FooterButton, Loading, SelectBox } from '@/components/common';
 import BorderButton from '@/components/common/borderButton/BorderButton';
 import { CartItemType } from '@/components/features/cart/types';
-import { calculateDeliveryFee } from '@/components/features/cart/utils/calculateDeliveryFee';
-import { calculateOrderPrice } from '@/components/features/cart/utils/cartCalculations';
 import { getCoupons } from '@/components/features/coupon/api/getCoupons';
 import CouponModal from '@/components/features/coupon/couponModal/CouponModal';
+import useAppliedCoupons from '@/components/features/coupon/hooks/useAppliedCoupons';
+import useOrderPriceSummary from '@/components/features/coupon/hooks/useOrderSummary';
 import Coupon from '@/components/features/coupon/models/coupon';
+import { CouponType } from '@/components/features/coupon/models/coupon.types';
 import OrderCheckTitle from '@/components/features/orderCheck/orderCheckTitle/OrderCheckTitle';
 import OrderItem from '@/components/features/orderCheck/orderItem/OrderItem';
 import OrderPriceSummary from '@/components/features/orderCheck/orderPriceSummary/OrderPriceSummary';
@@ -22,32 +23,28 @@ interface OrderCheckContentsProps {
 
 function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
-  const navigate = useNavigate();
-  const { data: coupons } = useJaeO({
+  const { data: coupons, isLoading } = useJaeO<CouponType[], Coupon[]>({
     fetchKey: 'coupons',
     fetchFn: getCoupons,
     convertFn: (data) =>
-      data.map((item) => new Coupon(item, orderItems, false)),
+      data.map((coupon) => new Coupon(coupon, orderItems, false)),
   });
-  const [appliedCoupons, setAppliedCoupons] = useState<Set<number>>(new Set());
-
-  const orderPrice = calculateOrderPrice(orderItems);
-  const discountAmount =
-    coupons
-      ?.filter((item) => appliedCoupons.has(item.data.id))
-      .reduce((acc, item) => acc + item.discountAmount, 0) ?? 0;
-  const deliveryFee = calculateDeliveryFee(orderPrice, isRemoteArea);
-  const paymentPrice = orderPrice - discountAmount + deliveryFee;
+  const { appliedCouponIds, applyCouponIds, isCouponApplied } =
+    useAppliedCoupons();
+  const { orderPrice, discountAmount, deliveryFee, paymentPrice } =
+    useOrderPriceSummary({
+      orderItems,
+      isRemoteArea,
+      coupons,
+      isCouponApplied,
+    });
+  const navigate = useNavigate();
 
   const toggleRemoteArea = () => {
     coupons?.forEach((coupon) =>
       coupon.updateDiscountAmount(orderItems, !isRemoteArea)
     );
     setIsRemoteArea((prev) => !prev);
-  };
-
-  const applyCoupons = (couponIds: Set<number>) => {
-    setAppliedCoupons(couponIds);
   };
 
   const moveToPaymentCheck = () => {
@@ -70,12 +67,12 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
       .sort((a, b) => b.discountAmount - a.discountAmount)
       .slice(0, 2)
       .filter((coupon) => !coupon.disable);
-    setAppliedCoupons(
+    applyCouponIds(
       new Set(couponsSortedByDiscountAmount.map((coupon) => coupon.data.id))
     );
-  }, [coupons, orderItems]);
+  }, [applyCouponIds, coupons, orderItems]);
 
-  if (!coupons) return <Loading />;
+  if (isLoading || !coupons) return <Loading />;
 
   return (
     <Modal>
@@ -111,8 +108,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
         <FooterButton onClick={moveToPaymentCheck}>결제하기</FooterButton>
         <CouponModal
           coupons={coupons}
-          couponAppliedIds={appliedCoupons}
-          applyCoupons={applyCoupons}
+          couponAppliedIds={appliedCouponIds}
+          applyCoupons={applyCouponIds}
         />
       </S.Container>
     </Modal>
