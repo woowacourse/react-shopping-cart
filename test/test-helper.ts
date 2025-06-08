@@ -45,10 +45,6 @@ export const expectCouponState = (
   return { coupon, container, checkbox };
 };
 
-export const expectCouponUsageMessage = (discountAmount: string) => {
-  expect(screen.getByText(`총 ${discountAmount} 할인 쿠폰 사용하기`)).toBeInTheDocument();
-};
-
 export const mockTime = (timeString: string) => {
   vi.useFakeTimers({ shouldAdvanceTime: true });
   vi.setSystemTime(new Date(timeString));

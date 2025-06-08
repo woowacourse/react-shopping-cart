@@ -13,7 +13,6 @@ import {
   createCartItem,
   expectAllCheckboxesDisabled,
   expectCouponState,
-  expectCouponUsageMessage,
   mockExpiredCouponsScenario,
   mockTime,
 } from './test-helper';
@@ -160,5 +159,28 @@ describe('주문 확인 페이지를 렌더링 한다.', () => {
 
     // Then: 무료배송 쿠폰이 적용되어 할인 금액으로 -3000원이 표시된다.
     expect(screen.getByText('총 3,000원 할인 쿠폰 사용하기')).toBeInTheDocument();
+  });
+
+  it('현재 시간이 오전 4시인 경우, 미라클 모닝 쿠폰이 적용된다.', async () => {
+    // Given: 주문 결제 페이지를 렌더링한다.
+    mockTime('2025-07-01T04:30:00');
+
+    const cartItems = [createCartItem(1, '상품 1', 50000, 2)];
+    await act(async () => {
+      renderOrderCheckoutPage(cartItems);
+    });
+
+    const couponButton = screen.getByText('쿠폰 적용');
+    await user.click(couponButton);
+
+    // When: 현재 시간이 4시인 경우, 미라클 모닝 쿠폰이 적용된다.
+    expectCouponState('미라클모닝 30% 할인 쿠폰');
+    expectCouponState('5,000원 할인 쿠폰');
+
+    // Then: 미라클 모닝 쿠폰이 적용되어 최종 결제 금액이 70,000원으로 표시된다.
+    expect(screen.getByText('100,000원')).toBeInTheDocument();
+    expect(screen.getByText('- 35,000원')).toBeInTheDocument();
+    expect(screen.getByText('0원')).toBeInTheDocument();
+    expect(screen.getByText('65,000원')).toBeInTheDocument();
   });
 });
