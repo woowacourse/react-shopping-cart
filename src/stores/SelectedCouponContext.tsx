@@ -1,12 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
-import { DiscountType } from "../types/types";
+import { CouponType } from "../types/types";
 import {
   initialState,
   selectCouponReducer,
   SelectAction,
 } from "./SelectedCouponReducer";
 
-const SelectedCouponContext = createContext<DiscountType[] | null>(null);
+const SelectedCouponContext = createContext<CouponType[] | null>(null);
 const SelectedCouponDispatchContext =
   createContext<React.Dispatch<SelectAction> | null>(null);
 
