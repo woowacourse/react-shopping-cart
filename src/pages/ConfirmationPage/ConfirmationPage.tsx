@@ -27,16 +27,12 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { SelectedCartItems } = useSelectedCartItemsContext();
+  const { SelectedCartItems, cartTypeQuantity, totalQuantity, totalPrice } = useSelectedCartItemsContext();
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(ROUTES.ROOT);
   };
-
-  const cartTypeQuantity = SelectedCartItems.length;
-  const totalQuantity = SelectedCartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = SelectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   return (
     <S.ConfirmationContainer>

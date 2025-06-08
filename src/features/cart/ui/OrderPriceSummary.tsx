@@ -1,11 +1,7 @@
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';
 import * as S from './OrderPriceSummary.styles';
 export default function OrderPriceSummary() {
-  const { SelectedCartItems } = useSelectedCartItemsContext();
-
-  const totalPrice = SelectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  const deliveryFee = totalPrice >= 100000 ? 0 : 3000;
-  const totalPurchasePrice = totalPrice + deliveryFee;
+  const { totalPrice, deliveryFee, totalPurchasePrice } = useSelectedCartItemsContext();
 
   return (
     <S.OrderPriceSummaryContainer>

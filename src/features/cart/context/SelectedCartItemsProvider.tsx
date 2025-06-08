@@ -1,12 +1,18 @@
 import { createContext, useState, useEffect } from 'react';
 import { CartItem } from '../type/cart';
 import { useCartItemsContext } from './useCartItemsContext';
+import { calculatePrices } from '../utils/priceCalculations';
 
 interface SelectedCartItemsContextType {
   SelectedCartItems: CartItem[];
   addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
+  cartTypeQuantity: number;
+  totalQuantity: number;
+  totalPrice: number;
+  deliveryFee: number;
+  totalPurchasePrice: number;
 }
 
 export const SelectedCartItemsContext = createContext<SelectedCartItemsContextType | undefined>(undefined);
@@ -19,6 +25,9 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
   const { cartItems } = useCartItemsContext();
   const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [init, setInit] = useState(false);
+
+  const { cartTypeQuantity, totalQuantity, totalPrice, deliveryFee, totalPurchasePrice } =
+    calculatePrices(SelectedCartItems);
 
   useEffect(() => {
     if (!init && cartItems.length > 0) {
@@ -55,6 +64,11 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
         addSelectedCartItem,
         addAllCartItemsInSelected,
         removeSelectedCartItem,
+        cartTypeQuantity,
+        totalQuantity,
+        totalPrice,
+        deliveryFee,
+        totalPurchasePrice,
       }}
     >
       {children}
