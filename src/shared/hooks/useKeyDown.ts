@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-interface UseKeyDownPrams {
+type UseKeyDownPrams = {
   keys: string[];
   callback: () => void;
-}
+};
 
 const useKeyDown = ({ keys, callback }: UseKeyDownPrams) => {
   useEffect(() => {
