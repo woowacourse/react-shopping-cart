@@ -10,24 +10,31 @@ import Modal from "../../components/common/Modal";
 import useGetCoupons from "../../hooks/useGetCoupons";
 import CouponList from "../../components/feature/Coupon/CouponList";
 import { useState } from "react";
+import { getSelectedCartItems } from "../../components/feature/CartSection/utils/getSelectedCartItems";
+import useSelectedCoupon from "../../hooks/useSelectedCoupon";
+import { getTotalDiscount } from "../../components/feature/Coupon/CouponList/utils/calculate";
 
 const OrderConfirm = () => {
+  const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
   const location = useLocation();
   const { sort, totalAmount, cartItems, selectedCartIds, totalPrice } =
     location.state;
   const { coupons } = useGetCoupons();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRemoteAreaChecked, setRemoteAreaChecked] = useState(false);
-  const [discount, setDiscount] = useState(0);
 
-  const handleApplyDiscount = (discountPrice: number) => {
-    setIsModalOpen(false);
-    setDiscount(discountPrice);
-  };
+  if (!coupons) return null;
 
-  const orderItems = cartItems.filter((item: CartProduct) =>
-    selectedCartIds.includes(item.id)
-  );
+  const discount = getTotalDiscount({
+    coupons,
+    selectedIds,
+    cartItems,
+    selectedCartIds,
+    totalPrice,
+    isRemoteArea: isRemoteAreaChecked,
+  });
+
+  const orderItems = getSelectedCartItems(cartItems, selectedCartIds);
 
   return (
     <>
@@ -80,7 +87,9 @@ const OrderConfirm = () => {
             isRemoteArea={isRemoteAreaChecked}
             cartItems={cartItems}
             selectedCartIds={selectedCartIds}
-            onApplyDiscount={handleApplyDiscount}
+            onApplyDiscount={() => setIsModalOpen(false)}
+            selectedIds={selectedIds}
+            onSelect={handleSelectCoupon}
           />
         )}
       </Modal>

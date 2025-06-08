@@ -5,7 +5,6 @@ import Button from "../../../common/Button";
 import { css } from "@emotion/react";
 import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 import { CartProduct } from "../../../../type/cart";
-import useSelectedCoupon from "../../../../hooks/useSelectedCoupon";
 import { getTotalDiscount } from "./utils/calculate";
 import { getValidCoupons } from "./utils/validate";
 
@@ -16,6 +15,8 @@ interface Props {
   cartItems: CartProduct[];
   selectedCartIds: number[];
   onApplyDiscount: (discount: number) => void;
+  selectedIds: number[];
+  onSelect: (id: number) => void;
 }
 
 const CouponList = ({
@@ -25,8 +26,9 @@ const CouponList = ({
   cartItems,
   selectedCartIds,
   onApplyDiscount,
+  selectedIds,
+  onSelect,
 }: Props) => {
-  const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
   const totalDiscount = getTotalDiscount({
     coupons,
     selectedIds,
@@ -47,7 +49,7 @@ const CouponList = ({
           key={coupon.id}
           coupon={coupon}
           isChecked={selectedIds.includes(coupon.id)}
-          onSelect={() => handleSelectCoupon(coupon.id)}
+          onSelect={() => onSelect(coupon.id)}
           isValid={getValidCoupons({
             coupons,
             totalPrice,
