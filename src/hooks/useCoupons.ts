@@ -8,6 +8,7 @@ import { Coupon } from '../types';
 import calculateCouponDiscount from '../utils/calculateCouponDiscount';
 import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
 import { useShippingContext } from '../contexts/Shipping/ShippingContext';
+import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 
 const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
@@ -59,7 +60,10 @@ const useCoupons = () => {
           return maxQuantity >= (c.buyQuantity ?? 0) + (c.getQuantity ?? 0);
 
         case 'FREESHIPPING':
-          return orderPrice >= (c.minimumAmount ?? 0);
+          return (
+            orderPrice >= (c.minimumAmount ?? 0) &&
+            orderPrice < DELIVERY_PRICE_THRESHOLD
+          );
 
         case 'MIRACLESALE': {
           const { start = '00:00:00', end = '00:00:00' } =

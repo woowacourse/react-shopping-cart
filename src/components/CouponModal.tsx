@@ -18,7 +18,6 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     selectCoupon,
     unselectCoupon,
   } = useCoupons();
-  console.log('selectedCoupons', selectedCoupons);
 
   const toggleCoupon = (couponId: number) => {
     const isSelected = selectedCoupons.some((coupon) => coupon.id === couponId);

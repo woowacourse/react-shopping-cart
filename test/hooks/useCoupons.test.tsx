@@ -46,13 +46,17 @@ describe('useCoupons 테스트', () => {
 
       test('주문 금액이 100,000원 미만일 때 쿠폰이 적용되지 않는다', async () => {
         jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [2],
+          checkedCartIds: [6],
           setCheckedCartIds: jest.fn(),
           isAllChecked: false,
         });
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
+        });
+
+        await waitFor(() => {
+          expect(result.current.validCoupons).not.toHaveLength(0);
         });
 
         await waitFor(() => {
@@ -94,6 +98,10 @@ describe('useCoupons 테스트', () => {
         });
 
         await waitFor(() => {
+          expect(result.current.validCoupons).not.toHaveLength(0);
+        });
+
+        await waitFor(() => {
           const validCoupons = result.current.validCoupons;
           const coupon = validCoupons.find((c) => c.code === 'BOGO');
           expect(coupon).toBeUndefined();
@@ -104,7 +112,7 @@ describe('useCoupons 테스트', () => {
     describe('FREESHIPPING - 배송비 무료, 최소 주문 금액: 50,000원', () => {
       test('주문 금액이 50,000원 이상일 때 쿠폰이 적용된다', async () => {
         jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1],
+          checkedCartIds: [6],
           setCheckedCartIds: jest.fn(),
           isAllChecked: false,
         });
@@ -122,13 +130,39 @@ describe('useCoupons 테스트', () => {
 
       test('주문 금액이 50,000원 미만일 때 쿠폰이 적용되지 않는다', async () => {
         jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [2],
+          checkedCartIds: [3, 4],
           setCheckedCartIds: jest.fn(),
           isAllChecked: false,
         });
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
+        });
+
+        await waitFor(() => {
+          expect(result.current.validCoupons).not.toHaveLength(0);
+        });
+
+        await waitFor(() => {
+          const validCoupons = result.current.validCoupons;
+          const coupon = validCoupons.find((c) => c.code === 'FREESHIPPING');
+          expect(coupon).toBeUndefined();
+        });
+      });
+
+      test('주문 금액이 100,000원 이상일 때 쿠폰이 적용되지 않는다(기본 무료 배송)', async () => {
+        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
+          checkedCartIds: [1],
+          setCheckedCartIds: jest.fn(),
+          isAllChecked: false,
+        });
+
+        const { result } = renderHook(() => useCoupons(), {
+          wrapper: ({ children }) => <Providers>{children}</Providers>,
+        });
+
+        await waitFor(() => {
+          expect(result.current.validCoupons).not.toHaveLength(0);
         });
 
         await waitFor(() => {
@@ -178,6 +212,11 @@ describe('useCoupons 테스트', () => {
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
         });
+
+        await waitFor(() => {
+          expect(result.current.validCoupons).not.toHaveLength(0);
+        });
+
         await waitFor(() => {
           const validCoupons = result.current.validCoupons;
           const coupon = validCoupons.find((c) => c.code === 'MIRACLESALE');
@@ -198,7 +237,7 @@ describe('useCoupons 테스트', () => {
         // 시스템 시각을 2025-08-01T12:00:00+09:00 으로 고정
         jest.setSystemTime(new Date('2025-08-01T12:00:00+09:00'));
         jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1, 2, 3, 4, 5],
+          checkedCartIds: [1, 2, 3, 4, 5, 6],
           setCheckedCartIds: jest.fn(),
           isAllChecked: false,
         });
@@ -207,20 +246,17 @@ describe('useCoupons 테스트', () => {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
         });
         await waitFor(() => {
-          // FIXED5000, FREESHIPPING만 유효
+          // FIXED5000
           expect(
             result.current.validCoupons.find((c) => c.code === 'FIXED5000')
           ).toBeDefined();
+          expect(
+            result.current.validCoupons.find((c) => c.code === 'BOGO')
+          ).toBeUndefined();
+          expect(
+            result.current.validCoupons.find((c) => c.code === 'MIRACLESALE')
+          ).toBeUndefined();
         });
-        expect(
-          result.current.validCoupons.find((c) => c.code === 'FREESHIPPING')
-        ).toBeDefined();
-        expect(
-          result.current.validCoupons.find((c) => c.code === 'BOGO')
-        ).toBeUndefined();
-        expect(
-          result.current.validCoupons.find((c) => c.code === 'MIRACLESALE')
-        ).toBeUndefined();
       });
     });
   });
