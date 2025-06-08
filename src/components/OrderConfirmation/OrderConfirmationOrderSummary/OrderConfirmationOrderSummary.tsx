@@ -1,6 +1,6 @@
 import * as Styled from "./OrderConfirmationOrderSummary.style";
 
-import { getOrderSummary } from "../../../util/cart/getOrderSummary";
+import { getOrderSummaryWithCoupon } from "../../../util/cart/getOrderSummaryWithCoupon";
 
 import { CartItem } from "../../../type/CartItem";
 import OrderNotice from "../../OrderSummary/OrderNotice/OrderNotice";
@@ -8,7 +8,6 @@ import OrderTotalPrice from "../../OrderSummary/OrderTotalPrice/OrderTotalPrice"
 import OrderShippingFee from "../../OrderSummary/OrderShippingFee/OrderShippingFee";
 import OrderTotalPriceWithShipping from "../../OrderSummary/OrderTotalPriceWithShipping/OrderTotalPriceWithShipping";
 import OrderCouponDiscount from "../../OrderSummary/OrderCouponDiscount/OrderCouponDiscount";
-import { REMOTE_AREA_SHIPPING_FEE } from "../../../constants/priceSetting";
 
 interface OrderConfirmationOrderSummaryProps {
   selectedCartItems: CartItem[];
@@ -21,13 +20,12 @@ function OrderConfirmationOrderSummary({
   discountAmount,
   isRemoteAreaShipping,
 }: OrderConfirmationOrderSummaryProps) {
-  const { totalPrice, shippingFee, totalPriceWithShipping } = getOrderSummary({
-    selectedCartItems,
-  });
-
-  const remoteAreaShippingFee = isRemoteAreaShipping
-    ? REMOTE_AREA_SHIPPING_FEE
-    : 0;
+  const { totalPrice, shippingFee, totalPriceWithShipping } =
+    getOrderSummaryWithCoupon({
+      selectedCartItems,
+      discountAmount,
+      isRemoteAreaShipping,
+    });
 
   return (
     <Styled.TotalPriceContainer>
@@ -35,12 +33,10 @@ function OrderConfirmationOrderSummary({
       <Styled.PriceWrapper>
         <OrderTotalPrice totalPrice={totalPrice} />
         <OrderCouponDiscount discountAmount={discountAmount} />
-        <OrderShippingFee shippingFee={shippingFee + remoteAreaShippingFee} />
+        <OrderShippingFee shippingFee={shippingFee} />
       </Styled.PriceWrapper>
       <OrderTotalPriceWithShipping
-        totalPriceWithShipping={
-          totalPriceWithShipping + remoteAreaShippingFee - discountAmount
-        }
+        totalPriceWithShipping={totalPriceWithShipping}
       />
     </Styled.TotalPriceContainer>
   );
