@@ -1,30 +1,30 @@
-import { useEffect } from "react";
-import { HandleCartItemChangeType, UseCartReturnType } from "../types/cartItem";
-import { calculatePrices, getCartStats } from "./utils/cartCalculations";
-import { useCartApi } from "./useCartApi";
-import { useCartSelection } from "./useCartSelection";
+// import { useEffect } from "react";
+// import { HandleCartItemChangeType, UseCartReturnType } from "../types/cartItem";
+// import { calculatePrices, } from "../pages/CartPage/utils/cartCalculations";
+// import { useCartApi } from "./useCartApi";
+// import { useCartSelection } from "../pages/CartPage/hooks/useCartSelection";
 
-const useCart = (): UseCartReturnType => {
-  const { cartItems, isLoading, getCartItems, patchCartItem, deleteCartItem } = useCartApi();
-  const { cartItemsWithCheck, handleCheckChange, isAllChecked } = useCartSelection(cartItems);
-  const { cartItemsCount, cartItemsCheckedCount, cartItemsTotalQuantity } = getCartStats(cartItemsWithCheck);
-  const { orderPrice, deliveryPrice, totalPrice } = calculatePrices(cartItemsWithCheck);
+// const useCart = (): UseCartReturnType => {
+//   const { cartItems, isLoading, getCartItems, patchCartItem, deleteCartItem } = useCartApi();
+//   const { cartItemsWithCheck, handleCheckChange, isAllChecked } = useCartSelection(cartItems);
+//   const { cartItemsCount, cartItemsCheckedCount, cartItemsTotalQuantity } = getCartStats(cartItemsWithCheck);
+//   const { orderPrice, deliveryPrice, totalPrice } = calculatePrices(cartItemsWithCheck);
 
-  const handleCartItemChange: HandleCartItemChangeType = ({ action, id, quantity }) => {
-    if (action === "patch") patchCartItem({ id, quantity: quantity! });
-    if (action === "delete") deleteCartItem({ id });
-  };
+//   const handleCartItemChange: HandleCartItemChangeType = ({ action, id, quantity }) => {
+//     if (action === "patch") patchCartItem({ id, quantity: quantity! });
+//     if (action === "delete") deleteCartItem({ id });
+//   };
 
-  useEffect(() => {
-    getCartItems();
-  }, []);
+//   useEffect(() => {
+//     getCartItems();
+//   }, []);
 
-  return {
-    isLoading,
-    cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
-    cartItemListProps: { cartItems: cartItemsWithCheck, handleCartItemChange, handleCheckChange, isAllChecked },
-    orderResult: { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice },
-  };
-};
+//   return {
+//     isLoading,
+//     cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
+//     cartItemListProps: { cartItems: cartItemsWithCheck, handleCartItemChange, handleCheckChange, isAllChecked },
+//     orderResult: { cartItemsTotalQuantity, cartItemsCheckedCount, totalPrice },
+//   };
+// };
 
-export default useCart;
+// export default useCart;

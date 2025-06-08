@@ -1,7 +1,6 @@
 import * as S from "./OrderConfirmPage.styled";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
-import useCart from "../../hooks/useCart";
 import LoadingSpinner from "../../components/icons/LoadingSpinner";
 import OrderCardList from "./components/OrderCardList";
 import CheckBox from "../../components/common/CheckBox";
@@ -15,13 +14,13 @@ const OrderConfirmPage = () => {
   function handleClose() {
     setIsOpen(false);
   }
-  const { isLoading, cartItemsInfo, cartItemListProps, orderResult } = useCart();
+  // const { isLoading, cartItemsInfo, cartItemListProps, orderResult } = useCart();
 
-  const navigate = useNavigate();
-  const handleNavigate = () => navigate("/payment-success", { state: orderResult });
+  // const navigate = useNavigate();
+  // const handleNavigate = () => navigate("/payment-success", { state: orderResult });
   return (
     <S.Container>
-      <Text variant="title-1">주문 확인</Text>
+      {/* <Text variant="title-1">주문 확인</Text>
       <S.Information>
         <Text variant="body-3">현재 {cartItemsInfo.cartItemsCount}종류의 상품이 담겨있습니다.</Text>
         <OrderCardList cartItemListProps={cartItemListProps} />
@@ -42,7 +41,7 @@ const OrderConfirmPage = () => {
         </Button>
       </S.ButtonWrap>
       {isLoading && <LoadingSpinner />}
-      {isOpen && <CouponModal onClose={handleClose} />}
+      {isOpen && <CouponModal onClose={handleClose} />} */}
     </S.Container>
   );
 };
