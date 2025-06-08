@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 import useOrder from "../hooks/useOrder";
-import { AvailableCouponType, CouponResponse } from "../../../types/coupon";
+import { AvailableCouponType, CouponResponse } from "../../../shared/types/coupon";
 import { useLocation, useNavigate } from "react-router";
-import { CartItem } from "../../../types/cartItem";
+import { CartItem } from "../../../shared/types/cartItem";
 
 interface OrderContextType {
   cartItems: CartItem[];

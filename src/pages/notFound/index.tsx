@@ -1,7 +1,7 @@
 import * as S from "./NotFoundPage.styled";
 import { useNavigate } from "react-router";
-import Button from "../../components/common/Button";
-import Text from "../../components/common/Text";
+import Button from "../../shared/components/common/Button";
+import Text from "../../shared/components/common/Text";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import * as S from "./CartPage.styled";
 import CartItemList from "./components/CartItemList";
-import Button from "../../components/common/Button";
-import Text from "../../components/common/Text";
+import Button from "../../shared/components/common/Button";
+import Text from "../../shared/components/common/Text";
 import { useNavigate } from "react-router";
-import Header from "../../components/Header";
-import Logo from "../../components/icons/Logo";
+import Header from "../../shared/components/Header";
+import Logo from "../../shared/components/icons/Logo";
 import CartPrice from "./components/CartPrice";
 import { useCartContext } from "./contexts/CartContext";
 

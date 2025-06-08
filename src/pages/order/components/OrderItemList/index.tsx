@@ -1,6 +1,6 @@
 import { useOrderContext } from "../../contexts/OrderContext";
-import Text from "../../../../components/common/Text";
-import ItemCard from "../../../../components/ItemCard";
+import Text from "../../../../shared/components/common/Text";
+import ItemCard from "../../../../shared/components/ItemCard";
 import * as S from "./OrderItemList.styled";
 
 const OrderItemList = () => {

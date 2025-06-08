@@ -1,12 +1,12 @@
 import * as S from "./OrderPage.styled";
 import { useNavigate } from "react-router";
-import Header from "../../components/Header";
-import PrevArrow from "../../components/icons/PrevArrow";
-import Text from "../../components/common/Text";
-import Button from "../../components/common/Button";
+import Header from "../../shared/components/Header";
+import PrevArrow from "../../shared/components/icons/PrevArrow";
+import Text from "../../shared/components/common/Text";
+import Button from "../../shared/components/common/Button";
 import OrderItemList from "./components/OrderItemList";
 import DeliveryInformation from "./components/DeliveryInformation";
-import useBooleanState from "../../hooks/common/useBooleanState";
+import useBooleanState from "../../shared/hooks/common/useBooleanState";
 import CouponModal from "./components/CouponModal";
 import OrderPrice from "./components/OrderPrice";
 import { useOrderContext } from "./contexts/OrderContext";

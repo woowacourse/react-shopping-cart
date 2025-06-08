@@ -1,6 +1,6 @@
 import useCartCheck from "./useCartCheck";
 import useCartResource from "./useCartResource";
-import { CartItem } from "../../../types/cartItem";
+import { CartItem } from "../../../shared/types/cartItem";
 import calculateCartAmount from "../utils/calculateCartAmount";
 import calculateCartPrice from "../utils/calculateCartPrice";
 

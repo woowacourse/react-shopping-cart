@@ -4,8 +4,8 @@ import CartPage from "./pages/cart";
 import OrderPage from "./pages/order";
 import PaymentPage from "./pages/payment";
 import NotFoundPage from "./pages/notFound";
-import ErrorPopup from "./components/common/Error/Popup";
-import { ErrorProvider } from "./contexts/ErrorContext";
+import ErrorPopup from "./shared/components/common/Error/Popup";
+import { ErrorProvider } from "./shared/contexts/ErrorContext";
 import { CartProvider } from "./pages/cart/contexts/CartContext";
 import { OrderProvider } from "./pages/order/contexts/OrderContext";
 

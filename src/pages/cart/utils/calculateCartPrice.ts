@@ -1,4 +1,4 @@
-import { CartItem } from "../../../types/cartItem";
+import { CartItem } from "../../../shared/types/cartItem";
 
 const calculateCartPrice = (cartItems: CartItem[], checkedIds: Set<number>) => {
   const orderPrice = cartItems.reduce((acc, item) => {

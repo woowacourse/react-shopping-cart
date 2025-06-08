@@ -1,5 +1,5 @@
-import { GetCartItemsResponse } from "../types/cartItem";
-import apiClient from "./apiClient";
+import apiClient from "../../../shared/apis/apiClient";
+import { GetCartItemsResponse } from "../../../shared/types/cartItem";
 
 interface GetCartItemsParams {
   page: number;

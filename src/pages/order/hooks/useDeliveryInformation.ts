@@ -1,4 +1,4 @@
-import useBooleanState from "../../../hooks/common/useBooleanState";
+import useBooleanState from "../../../shared/hooks/common/useBooleanState";
 
 const useDeliveryInformation = () => {
   const [isRemoteArea, , , toggleRemoteArea] = useBooleanState(false);

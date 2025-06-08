@@ -1,8 +1,8 @@
 import * as S from "./PaymentPage.styled";
-import Button from "../../components/common/Button";
-import Text from "../../components/common/Text";
-import Header from "../../components/Header";
-import PrevArrow from "../../components/icons/PrevArrow";
+import Button from "../../shared/components/common/Button";
+import Text from "../../shared/components/common/Text";
+import Header from "../../shared/components/Header";
+import PrevArrow from "../../shared/components/icons/PrevArrow";
 import { useLocation, useNavigate } from "react-router";
 
 const PaymentPage = () => {

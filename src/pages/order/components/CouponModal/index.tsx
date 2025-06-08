@@ -1,10 +1,10 @@
 import * as S from "./CouponModal.styled";
 import { Modal } from "hoyychoi-modal-component";
-import Button from "../../../../components/common/Button";
+import Button from "../../../../shared/components/common/Button";
 import CouponList from "../CouponList";
 import { useTempCoupon } from "../../hooks/useTempCoupon";
-import Text from "../../../../components/common/Text";
-import GuideSign from "../../../../components/icons/GuideSign";
+import Text from "../../../../shared/components/common/Text";
+import GuideSign from "../../../../shared/components/icons/GuideSign";
 import { useOrderContext } from "../../contexts/OrderContext";
 
 interface CouponModalProps {

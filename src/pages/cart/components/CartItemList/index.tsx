@@ -1,8 +1,8 @@
 import * as S from "./CartItemList.styled";
-import Button from "../../../../components/common/Button";
-import CheckBox from "../../../../components/common/CheckBox";
-import QuantityRegulator from "../../../../components/QuantityRegulator";
-import ItemCard from "../../../../components/ItemCard/index";
+import Button from "../../../../shared/components/common/Button";
+import CheckBox from "../../../../shared/components/common/CheckBox";
+import QuantityRegulator from "../../../../shared/components/QuantityRegulator";
+import ItemCard from "../../../../shared/components/ItemCard/index";
 import { useCartContext } from "../../contexts/CartContext";
 
 const CartItemList = () => {

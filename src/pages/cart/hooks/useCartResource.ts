@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { CartItem } from "../../../types/cartItem";
-import { useErrorMessage } from "../../../contexts/ErrorContext";
-import cartApi from "../../../apis/cartApi";
+import { CartItem } from "../../../shared/types/cartItem";
+import { useErrorMessage } from "../../../shared/contexts/ErrorContext";
+import cartApi from "../apis/cartApi";
 
 type HandleCartItemChangeType = ({
   action,

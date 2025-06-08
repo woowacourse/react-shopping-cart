@@ -1,6 +1,6 @@
 import * as S from "./DeliveryInformation.styled";
-import CheckBox from "../../../../components/common/CheckBox";
-import Text from "../../../../components/common/Text";
+import CheckBox from "../../../../shared/components/common/CheckBox";
+import Text from "../../../../shared/components/common/Text";
 import { useOrderContext } from "../../contexts/OrderContext";
 
 const DeliveryInformation = () => {

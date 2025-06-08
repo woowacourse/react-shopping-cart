@@ -1,5 +1,5 @@
-import { CouponResponse } from "../types/coupon";
-import apiClient from "./apiClient";
+import apiClient from "../../../shared/apis/apiClient";
+import { CouponResponse } from "../../../shared/types/coupon";
 
 const couponApi = {
   get: async (): Promise<CouponResponse[]> => {

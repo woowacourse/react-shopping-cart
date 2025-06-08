@@ -13,7 +13,7 @@
 - [x] 초기진입시, 체크 박스 풀 체크
 - [x] isChecked 값 {id:checked} 매치해서 배열로 관리
 - [ ] 불필요한 리렌더링 최적화하기 (CartPage)
-- [ ] 각각의 페이지에서 context 적용
+- [x] 각각의 페이지에서 context 적용
 - [ ] useQuery와 useMutation 적용
 
 ### 기능명세서
@@ -60,8 +60,9 @@ ui 퍼블리싱
 - [ ] 상수 값 분리
 - [x] 코로케이션 폴더 구조 적용
   - [x] cartPage 코로케이션 적용
-  - [ ] orderPage 코로케이션 적용
-- [ ] 각각의 페이지에서 context api 적용
+  - [x] orderPage 코로케이션 적용
+  - [x] shared 폴더 생성
+- [x] 각각의 페이지에서 context api 적용
   - [x] cartPage context api 적용
   - [x] orderPage context api 적용
 - [ ] 테스트 코드 작성

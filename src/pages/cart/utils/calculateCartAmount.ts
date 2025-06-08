@@ -1,4 +1,4 @@
-import { CartItem } from "../../../types/cartItem";
+import { CartItem } from "../../../shared/types/cartItem";
 
 const calculateCartAmount = (cartItems: CartItem[], checkedIds: Set<number>) => {
   const cartItemsCount = cartItems.length;

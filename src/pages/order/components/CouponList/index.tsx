@@ -1,6 +1,6 @@
-import CheckBox from "../../../../components/common/CheckBox";
-import Coupon from "../../../../components/Coupon";
-import { AvailableCouponType, CouponResponse } from "../../../../types/coupon";
+import CheckBox from "../../../../shared/components/common/CheckBox";
+import Coupon from "../../../../shared/components/Coupon";
+import { AvailableCouponType, CouponResponse } from "../../../../shared/types/coupon";
 import * as S from "./CouponList.styled";
 
 interface CouponListProps {

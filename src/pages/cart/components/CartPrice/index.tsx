@@ -1,4 +1,4 @@
-import { Price } from "../../../../components/Price";
+import { Price } from "../../../../shared/components/Price";
 import { useCartContext } from "../../contexts/CartContext";
 
 const CartPrice = () => {

@@ -1,5 +1,5 @@
-import { CartItem } from "../../../types/cartItem";
-import { AvailableCouponType, CouponResponse } from "../../../types/coupon";
+import { CartItem } from "../../../shared/types/cartItem";
+import { AvailableCouponType, CouponResponse } from "../../../shared/types/coupon";
 import { useState, useEffect, useMemo } from "react";
 import useCouponDiscount from "./useCouponDiscount";
 import useCouponValidation from "./useCouponValidation";
