@@ -102,7 +102,7 @@ const OrderConfirmPage = () => {
         />
       </div>
       <ConfirmButton
-        text="주문하기"
+        text="결제하기"
         onClick={() => {
           navigate("/payment-confirm", {
             state: {
