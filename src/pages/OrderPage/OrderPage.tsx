@@ -32,6 +32,10 @@ const OrderPage = () => {
     navigate(-1);
   };
 
+  const navigateToPaymentPage = () => {
+    navigate("/payment");
+  };
+
   const handleModalOpen = async () => {
     try {
       setIsOpen(true);
@@ -113,7 +117,7 @@ const OrderPage = () => {
         />
         <PriceSummary showDiscount />
       </S.Main>
-      <FooterButton disabled={true}>결제하기</FooterButton>
+      <FooterButton onClick={navigateToPaymentPage}>결제하기</FooterButton>
     </>
   );
 };
