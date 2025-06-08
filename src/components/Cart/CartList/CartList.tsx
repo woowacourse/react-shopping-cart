@@ -1,14 +1,22 @@
 import * as Styled from "./CartList.style";
 
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useMemo } from "react";
 import { FREE_SHIPPING_OVER, SHIPPING_FEE } from "@/constants/priceSetting";
+import { CartItem } from "@/type/CartItem";
 import notice from "/notice.svg";
 
 interface CartListProps extends PropsWithChildren {
-  subtotalPrice: number;
+  cartItemsData: CartItem[];
+  selectedCartIds: Set<string>;
 }
 
-function CartList({ children, subtotalPrice }: CartListProps) {
+function CartList({ children, cartItemsData, selectedCartIds }: CartListProps) {
+  // 🎯 계산을 여기서 직접 수행 - props drilling 없이!
+  const subtotalPrice = useMemo(() => {
+    return cartItemsData
+      .filter((item) => selectedCartIds.has(item.id))
+      .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  }, [cartItemsData, selectedCartIds]);
   const shippingFee = subtotalPrice >= FREE_SHIPPING_OVER ? 0 : SHIPPING_FEE;
   const totalPriceWithShipping = subtotalPrice + shippingFee;
   if (subtotalPrice === 0) {

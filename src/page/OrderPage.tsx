@@ -1,7 +1,7 @@
 import { STEP_NAME } from "@/constants/steps";
 
 import { useMemo, useState } from "react";
-import { useCartContext } from "@/components/Cart/CartProvider";
+
 import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
 import { useBestCouponCombo } from "@/hooks/Coupon/useBestCouponCombo";
 import { useCouponSelection } from "@/hooks/Coupon/useCouponSelection";
@@ -29,11 +29,26 @@ import {
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
 import Spinner from "@/components/common/Spinner";
 import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
+import { CartDataProvider } from "@/components/Cart/contexts/CartDataContext";
+import {
+  CartSelectionProvider,
+  useCartSelectionContext,
+} from "@/components/Cart/contexts/CartSelectionContext";
 
 function OrderPage() {
+  return (
+    <CartDataProvider>
+      <CartSelectionProvider>
+        <OrderPageContent />
+      </CartSelectionProvider>
+    </CartDataProvider>
+  );
+}
+
+function OrderPageContent() {
   const { nextClickHandler, prevClickHandler, Funnel, Step, currentStep } =
     useFunnelContext();
-  const { selectedCartItems } = useCartContext();
+  const { selectedCartItems } = useCartSelectionContext();
 
   const [isInIsland, setIsInIsland] = useState(false);
 

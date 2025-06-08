@@ -3,7 +3,8 @@ import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
 import CheckBox from "@/components/common/CheckBox";
 import CartCardImage from "@/components/common/CustomImage";
-import { useCartContext } from "../CartProvider";
+import { useCartDataContext } from "../contexts/CartDataContext";
+import { useCartSelectionContext } from "../contexts/CartSelectionContext";
 
 interface CartCardProps {
   cartItem: CartItem;
@@ -11,12 +12,10 @@ interface CartCardProps {
 }
 
 function CartCard({ cartItem, isSelected }: CartCardProps) {
-  const {
-    handleDeleteCartItem,
-    handleCartItemQuantity,
-    handleSelectCartItem,
-    isItemLoading,
-  } = useCartContext();
+  const { handleDeleteCartItem, handleCartItemQuantity, isItemLoading } =
+    useCartDataContext();
+
+  const { handleSelectCartItem } = useCartSelectionContext();
 
   const { product, quantity, id } = cartItem;
   const { name, price, imageUrl } = product;

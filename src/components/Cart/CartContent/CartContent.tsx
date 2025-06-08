@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
-import { useCartContext } from "../CartProvider";
+import { useCartDataContext } from "../contexts/CartDataContext";
+import { useCartSelectionContext } from "../contexts/CartSelectionContext";
+
 import * as Styled from "./CartContent.style";
 import CartList from "../CartList/CartList";
 import CartCard from "../CartCard/CartCard";
@@ -13,7 +15,7 @@ const CartContentRoot = ({ children }: CartContentRootProps) => {
 };
 
 const CartContentLoading = () => {
-  const { cartFetchLoading } = useCartContext();
+  const { cartFetchLoading } = useCartDataContext();
 
   if (!cartFetchLoading) return null;
 
@@ -25,8 +27,8 @@ const CartContentLoading = () => {
 };
 
 const CartContentHeader = () => {
-  const { cartItemsData, isAllSelected, handleSelectAllCartItems } =
-    useCartContext();
+  const { cartItemsData } = useCartDataContext();
+  const { isAllSelected, handleSelectAllCartItems } = useCartSelectionContext();
 
   return (
     <>
@@ -52,7 +54,8 @@ const CartContentHeader = () => {
 };
 
 const CartContentItems = () => {
-  const { cartItemsData, subtotalPrice } = useCartContext();
+  const { cartItemsData } = useCartDataContext();
+  const { selectedCartIds } = useCartSelectionContext();
 
   if (cartItemsData.length === 0) {
     return (
@@ -63,14 +66,15 @@ const CartContentItems = () => {
   }
 
   return (
-    <CartList subtotalPrice={subtotalPrice}>
+    <CartList cartItemsData={cartItemsData} selectedCartIds={selectedCartIds}>
       <CartContentItemsList />
     </CartList>
   );
 };
 
 const CartContentItemsList = () => {
-  const { cartItemsData, selectedCartIds } = useCartContext();
+  const { cartItemsData } = useCartDataContext();
+  const { selectedCartIds } = useCartSelectionContext();
 
   return (
     <>

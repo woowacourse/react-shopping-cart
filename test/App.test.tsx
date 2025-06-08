@@ -7,9 +7,11 @@ import "@testing-library/jest-dom";
 import { CartItem } from "@/type/CartItem";
 import { products } from "@/mock/data";
 import { ErrorToastContextProvider } from "@/contexts/ErrorToastContext";
-import { CartProvider } from "@/components/Cart/CartProvider";
+
 import { testStateStore } from "@/mock/handlers";
 import App from "@/App";
+import { CartDataProvider } from "@/components/Cart/contexts/CartDataContext";
+import { CartSelectionProvider } from "@/components/Cart/contexts/CartSelectionContext";
 
 const mockingCartItems: CartItem[] = [
   {
@@ -33,7 +35,9 @@ function TestWrapper({ children }: PropsWithChildren) {
   return (
     <ErrorToastContextProvider>
       <BrowserRouter>
-        <CartProvider>{children}</CartProvider>
+        <CartDataProvider>
+          <CartSelectionProvider>{children}</CartSelectionProvider>
+        </CartDataProvider>
       </BrowserRouter>
     </ErrorToastContextProvider>
   );
