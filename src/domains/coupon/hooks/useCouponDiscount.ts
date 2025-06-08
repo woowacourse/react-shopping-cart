@@ -36,14 +36,9 @@ export const useCouponDiscount = ({
     };
   }, [orderItems, orderPrice, shippingFee]);
 
-  const optimalCouponSelection = useMemo(() => {
-    if (coupons.length === 0) return { selectedCoupons: [], totalDiscount: 0 };
-
-    if (coupons.length === 1) {
-      const discount = calculateCouponDiscount(coupons[0]);
-      return { selectedCoupons: [coupons[0]], totalDiscount: discount };
-    }
-
+  const optimalTotalDiscount = useMemo(() => {
+    if (coupons.length === 0) return 0;
+    if (coupons.length === 1) return calculateCouponDiscount(coupons[0]);
     if (coupons.length === 2) {
       const [couponA, couponB] = coupons;
 
@@ -73,7 +68,7 @@ export const useCouponDiscount = ({
       const calculateDiscountChain = (
         first: Coupon,
         second: Coupon
-      ): { totalDiscount: number; order: Coupon[] } => {
+      ): number => {
         const firstDiscount = calculateCouponDiscount(first);
         const remainingPrice = Math.max(0, orderPrice - firstDiscount);
         const shippingAfterFirst =
@@ -84,33 +79,19 @@ export const useCouponDiscount = ({
           shippingAfterFirst
         );
 
-        return {
-          totalDiscount: firstDiscount + secondDiscount,
-          order: [first, second],
-        };
+        return firstDiscount + secondDiscount;
       };
 
-      const resultAB = calculateDiscountChain(couponA, couponB);
-      const resultBA = calculateDiscountChain(couponB, couponA);
+      const discountAB = calculateDiscountChain(couponA, couponB);
+      const discountBA = calculateDiscountChain(couponB, couponA);
 
-      return resultAB.totalDiscount >= resultBA.totalDiscount
-        ? {
-            selectedCoupons: resultAB.order,
-            totalDiscount: resultAB.totalDiscount,
-          }
-        : {
-            selectedCoupons: resultBA.order,
-            totalDiscount: resultBA.totalDiscount,
-          };
+      return Math.max(discountAB, discountBA);
     }
 
-    return { selectedCoupons: [], totalDiscount: 0 };
+    return 0;
   }, [coupons, calculateCouponDiscount, orderItems, orderPrice, shippingFee]);
 
-  return {
-    selectedCoupons: optimalCouponSelection.selectedCoupons,
-    totalDiscount: optimalCouponSelection.totalDiscount,
-  };
+  return { totalDiscount: optimalTotalDiscount };
 };
 
 export default useCouponDiscount;
