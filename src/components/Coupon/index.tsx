@@ -1,4 +1,4 @@
-import formatTime from "../../utils/\bcoupon/formatTime";
+import formatTime from "../../utils/coupon/formatTime";
 import Text from "../common/Text";
 import * as S from "./Coupon.styled";
 import { createContext, useContext } from "react";
