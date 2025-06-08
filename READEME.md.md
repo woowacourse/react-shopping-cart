@@ -67,6 +67,7 @@ ui 퍼블리싱
   - [x] orderPage context api 적용
 - [x] cartPage / orderPage -> provider 적용 후, export
 - [x] modal 상태 context 적용
+- [x] useCouponValidation 및 useCouponDiscount 훅 제거 -> 일반 util 함수로 변경
 - [ ] 테스트 코드 작성
   - [ ] cart
     - [x] useCartResource 훅 테스트

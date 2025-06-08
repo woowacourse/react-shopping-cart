@@ -1,8 +1,8 @@
-import { CartItem } from "../../../shared/types/cartItem";
-import { CouponResponse } from "../../../shared/types/coupon";
-import { REMOTE_AREA_DELIVERY_PRICE } from "../constants";
+import { CartItem } from "../../../../shared/types/cartItem";
+import { CouponResponse } from "../../../../shared/types/coupon";
+import { REMOTE_AREA_DELIVERY_PRICE } from "../../constants";
 
-interface useCouponDiscountParams {
+interface generateCouponDiscountParams {
   coupons: CouponResponse[];
   cartItems: CartItem[];
   orderPrice: number;
@@ -10,13 +10,13 @@ interface useCouponDiscountParams {
   isRemoteArea: boolean;
 }
 
-const useCouponDiscount = ({
+const generateCouponDiscount = ({
   coupons,
   cartItems,
   orderPrice,
   deliveryPrice,
   isRemoteArea,
-}: useCouponDiscountParams) => {
+}: generateCouponDiscountParams) => {
   const calculateDiscount = (coupon: CouponResponse): number => {
     switch (coupon.discountType) {
       case "percentage":
@@ -44,4 +44,4 @@ const useCouponDiscount = ({
   }));
 };
 
-export default useCouponDiscount;
+export default generateCouponDiscount;
