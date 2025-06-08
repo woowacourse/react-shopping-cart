@@ -3,17 +3,20 @@ import * as S from "./Modal.styled";
 import CloseIcon from "@assets/icons/close.svg";
 import useKeyDown from "@/shared/hooks/useKeyDown";
 import useClickOutsideRef from "@/shared/hooks/useClickOutsideRef";
+import { createPortal } from "react-dom";
 
 type ModalProps = {
   isOpen: boolean;
   title: string;
   onRequestClose: () => void;
+  container?: HTMLElement;
 };
 
 function Modal({
   isOpen,
   title,
   onRequestClose,
+  container = document.body,
   children,
 }: PropsWithChildren<ModalProps>) {
   useKeyDown({ keys: ["Escape"], callback: onRequestClose });
@@ -23,7 +26,7 @@ function Modal({
     return null;
   }
 
-  return (
+  return createPortal(
     <S.Backdrop>
       <S.Modal role="dialog" aria-modal ref={ref}>
         <S.ModalHeader>
@@ -40,7 +43,8 @@ function Modal({
         </S.ModalHeader>
         {children}
       </S.Modal>
-    </S.Backdrop>
+    </S.Backdrop>,
+    container
   );
 }
 
