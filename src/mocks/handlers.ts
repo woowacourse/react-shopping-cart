@@ -15,18 +15,6 @@ const getRequestURL = (url: string) => {
 const mockCoupons: Coupon[] = [
   {
     id: 1,
-    code: 'MIRACLEMORNING',
-    description: '아침 할인 30%',
-    expirationDate: '2024-12-31',
-    discountType: 'percentage',
-    discount: 30,
-    availableTime: {
-      start: '06:00',
-      end: '09:00',
-    },
-  },
-  {
-    id: 2,
     code: 'MIRACLESALE',
     description: '특별 할인 30%',
     expirationDate: '2024-12-31',
@@ -34,7 +22,7 @@ const mockCoupons: Coupon[] = [
     discount: 30,
   },
   {
-    id: 3,
+    id: 2,
     code: 'FIXED5000',
     description: '5000원 할인',
     expirationDate: '2024-12-31',
@@ -43,7 +31,7 @@ const mockCoupons: Coupon[] = [
     minimumAmount: 50000,
   },
   {
-    id: 4,
+    id: 3,
     code: 'BOGO',
     description: '하나 사면 하나 무료',
     expirationDate: '2024-12-31',
@@ -52,7 +40,7 @@ const mockCoupons: Coupon[] = [
     getQuantity: 1,
   },
   {
-    id: 5,
+    id: 4,
     code: 'FREESHIPPING',
     description: '무료 배송',
     expirationDate: '2024-12-31',
