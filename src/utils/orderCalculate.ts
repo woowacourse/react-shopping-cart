@@ -27,7 +27,7 @@ export function calculateDiscountAndTotalPrice(
   let discount = 0;
   let discountedPrice = orderPrice;
 
-  const percentCoupon = selectedCoupons.find((coupon) => coupon.description === '미라클 모닝 30% 시간제 할인 쿠폰');
+  const percentCoupon = selectedCoupons.find((coupon) => coupon.description === '미라클모닝 30% 할인 쿠폰');
 
   if (percentCoupon) {
     const percentDiscount = Math.floor(orderPrice * 0.3);
@@ -35,7 +35,7 @@ export function calculateDiscountAndTotalPrice(
     discountedPrice -= percentDiscount;
   }
 
-  const otherCoupons = selectedCoupons.filter((coupon) => coupon.description !== '미라클 모닝 30% 시간제 할인 쿠폰');
+  const otherCoupons = selectedCoupons.filter((coupon) => coupon.description !== '미라클모닝 30% 할인 쿠폰');
 
   const getCouponEffect = (coupon: CouponsResponse): number => {
     switch (coupon.description) {
