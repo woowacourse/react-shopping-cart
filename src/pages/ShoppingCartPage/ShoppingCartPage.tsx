@@ -5,8 +5,8 @@ import Header from "../../components/common/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
 import ErrorBox from "../../components/common/ErrorBox/ErrorBox";
 import EmptyText from "../../components/common/EmptyText/EmptyText";
-import CartList from "../../components/shoppingCart/CartList/CartList";
-import Receipt from "../../components/shoppingCart/Receipt/Receipt";
+import CartList from "../../components/ShoppingCart/CartList/CartList";
+import Receipt from "../../components/ShoppingCart/Receipt/Receipt";
 
 import { useErrorContext } from "../../contexts/ErrorContext";
 

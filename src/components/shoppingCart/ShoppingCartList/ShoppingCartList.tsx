@@ -1,7 +1,8 @@
-import CartItem from "../../types/CartItem";
-import { CheckedMap } from "../../types/CheckMap";
-import CartList from "../../components/shoppingCart/CartList/CartList";
-import Receipt from "../../components/shoppingCart/Receipt/Receipt";
+import CartItem from "../../../types/CartItem";
+import { CheckedMap } from "../../../types/CheckMap";
+
+import CartList from "../CartList/CartList";
+import Receipt from "../Receipt/Receipt";
 
 interface ShoppingCartListProps {
   cartItemList: CartItem[];
@@ -31,7 +32,11 @@ export default function ShoppingCartList({
         toggleAll={toggleAll}
         handleSelectedCartItem={handleSelectedCartItem}
       />
-      <Receipt allProductPrice={allProductPrice} shippingFee={shippingFee} />
+      <Receipt
+        totalPrice={allProductPrice + shippingFee}
+        allProductPrice={allProductPrice}
+        shippingFee={shippingFee}
+      />
     </div>
   );
 }

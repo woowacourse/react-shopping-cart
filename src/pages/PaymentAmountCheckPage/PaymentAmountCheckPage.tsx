@@ -6,7 +6,7 @@ import { Modal } from "@kaori-killer/modal-component";
 
 import Header from "../../components/common/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
-import Receipt from "../../components/shoppingCart/Receipt/Receipt";
+import Receipt from "../../components/ShoppingCart/Receipt/Receipt";
 import CouponModal from "../../components/CouponModal/CouponModal";
 import EmptyText from "../../components/common/EmptyText/EmptyText";
 import Hr from "../../components/common/Hr/Hr";
@@ -17,7 +17,7 @@ import CartItem from "../../types/CartItem";
 
 import * as Styled from "./PaymentAmountCheck.styles";
 import * as ShoppingStyled from "../ShoppingCartPage/ShoppingCartPage.styles";
-import * as CartListStyled from "../../components/shoppingCart/CartList/CartList.styles";
+import * as CartListStyled from "../../components/ShoppingCart/cartList/CartList.styles";
 import * as ItemStyled from "../../components/ShoppingCart/Item/Item.styles";
 
 import { DEFAULT_SHIPPING_FEE } from "../../constants/shipping";
