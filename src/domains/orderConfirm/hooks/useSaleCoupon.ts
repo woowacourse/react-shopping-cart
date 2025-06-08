@@ -5,7 +5,7 @@ import {
   validateDate,
   validateMinimumAmount,
   validateTime,
-} from "./utils/vaildateCoupons";
+} from "./utils/validateCoupons";
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
 export function useSaleCoupon() {
@@ -16,7 +16,7 @@ export function useSaleCoupon() {
 
   const validateCoupon = (
     couponCode: CouponCode,
-    totalPrice: number,
+    orderPrice: number,
     selectedCartItems: CartItemTypes[]
   ) => {
     const couponItem = coupons.find((item) => item.code === couponCode);
@@ -26,11 +26,14 @@ export function useSaleCoupon() {
       return false;
 
     return (
-      validateDate(couponItem.expirationDate, today) &&
+      validateDate({ expirationDate: couponItem.expirationDate, today }) &&
       (!couponItem.availableTime ||
-        validateTime(couponItem.availableTime, today)) &&
+        validateTime({ availableTime: couponItem.availableTime, today })) &&
       (!couponItem.minimumAmount ||
-        validateMinimumAmount(couponItem.minimumAmount, totalPrice))
+        validateMinimumAmount({
+          minimumAmount: couponItem.minimumAmount,
+          orderPrice,
+        }))
     );
   };
 
