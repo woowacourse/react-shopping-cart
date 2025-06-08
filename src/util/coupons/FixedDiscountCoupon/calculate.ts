@@ -8,7 +8,7 @@ export const calculateFixedDiscountCoupon = ({
   coupon: FixedDiscountCoupon;
 }) => {
   const { discount } = coupon;
-  const discountAmount = totalPrice - discount;
+  const discountedPrice = totalPrice - discount;
 
-  return discountAmount < 0 ? 0 : discountAmount;
+  return discountedPrice < 0 ? 0 : discountedPrice;
 };
