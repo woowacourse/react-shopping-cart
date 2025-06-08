@@ -10,7 +10,6 @@ export const useApiRequest = () => {
       request,
       onSuccess,
       onError,
-      errorData,
       options,
     }: {
       request: () => Promise<T>;
