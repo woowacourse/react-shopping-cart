@@ -53,7 +53,27 @@ export function optimizeCouponSelection(
     hasFreeShipping: false,
   };
 
-  // 모든 가능한 쿠폰 조합을 시도
+  // 단일 쿠폰 최적화
+  for (const coupon of sortedCoupons) {
+    const result = calculateCouponDiscount(
+      sortedCoupons,
+      [coupon.id],
+      totalCartPrice,
+      shippingFee,
+      selectedCartItems
+    );
+
+    if (result.finalDiscount > bestResult.totalDiscount) {
+      bestResult = {
+        selectedCouponIds: [coupon.id],
+        totalDiscount: result.finalDiscount,
+        finalShippingFee: result.finalShippingFee,
+        hasFreeShipping: result.hasFreeShipping,
+      };
+    }
+  }
+
+  // 두 개의 쿠폰 조합 최적화
   for (let i = 0; i < sortedCoupons.length; i++) {
     for (let j = i + 1; j < sortedCoupons.length; j++) {
       const selectedCouponIds = [sortedCoupons[i].id, sortedCoupons[j].id];
