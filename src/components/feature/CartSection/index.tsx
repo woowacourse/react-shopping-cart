@@ -3,17 +3,32 @@ import Header from "./Header";
 import PriceSection from "./PriceSection";
 import CartList from "./CartList";
 import { CartProduct } from "../../../type/cart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Props = {
   cartItems: CartProduct[];
   refetch: () => void;
 };
 
+const LOCAL_STORAGE_KEY = "selectedCartIds";
+
 const CartSection = ({ cartItems, refetch }: Props) => {
+  const getInitialSelectedIds = (): number[] => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+
+    return cartItems.map((item) => item.id);
+  };
+
   const [selectedCartIds, setSelectedCartIds] = useState<number[]>(
-    cartItems.map((item) => item.id)
+    getInitialSelectedIds
   );
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(selectedCartIds));
+  }, [selectedCartIds]);
 
   return (
     <S.Container>

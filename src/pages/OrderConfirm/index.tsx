@@ -25,6 +25,10 @@ const OrderConfirm = () => {
     setDiscount(discountPrice);
   };
 
+  const orderItems = cartItems.filter((item: CartProduct) =>
+    selectedCartIds.includes(item.id)
+  );
+
   return (
     <>
       <S.Container data-testid="order-confirm-description">
@@ -34,7 +38,7 @@ const OrderConfirm = () => {
           <br /> 최종 결제 금액을 확인해 주세요.
         </S.Description>
         <S.OrderList>
-          {cartItems.map((item: CartProduct) => (
+          {orderItems.map((item: CartProduct) => (
             <OrderProduct item={item} key={item.id} />
           ))}
         </S.OrderList>

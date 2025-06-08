@@ -60,7 +60,7 @@ const CouponList = ({
       );
 
       return selectedCartItems.some(
-        (item: CartProduct) => item.quantity > coupon.buyQuantity
+        (item: CartProduct) => item.quantity > (coupon.buyQuantity ?? 0)
       );
     }
 
@@ -90,7 +90,7 @@ const CouponList = ({
   };
 
   const calculateDiscount = (coupon: CouponResponse) => {
-    if (coupon.discountType === "fixed") return coupon.discount;
+    if (coupon.discountType === "fixed") return coupon.discount ?? 0;
 
     if (coupon.discountType === "buyXgetY") {
       const selectedCartItems = cartItems.filter((item: CartProduct) =>
@@ -98,7 +98,7 @@ const CouponList = ({
       );
 
       const eligibleItems = selectedCartItems.filter(
-        (item: CartProduct) => item.quantity > coupon.buyQuantity
+        (item: CartProduct) => item.quantity > (coupon.buyQuantity ?? 0)
       );
 
       eligibleItems.sort(
@@ -115,6 +115,8 @@ const CouponList = ({
     }
 
     if (coupon.discountType === "percentage") return totalPrice * 0.3;
+
+    return 0;
   };
 
   const getTotalDiscount = () => {
