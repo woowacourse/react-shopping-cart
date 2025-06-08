@@ -23,7 +23,6 @@ export const CartConfirmDetail = ({ quantity, product }: CartConfirmDetailProps)
       justifyContent="flex-start"
       alignItems="flex-start"
       gap="0"
-      role="cart-item"
       css={css`
         border-top: 1px solid #e5e5e5;
         margin-top: 16px;
