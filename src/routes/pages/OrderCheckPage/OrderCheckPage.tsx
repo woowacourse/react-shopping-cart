@@ -57,18 +57,17 @@ function OrderCheck() {
     cart.subTotal,
     cart.deliveryFee
   );
+  console.log(result);
 
-  // const hasFreeShipping = result?.combo.some(
-  //   (coupon) => coupon.discountType === 'freeShipping'
-  // );
+  const hasFreeShipping = result?.combo.some(
+    (coupon) => coupon.discountType === 'freeShipping'
+  );
 
-  // const deliveryFee = hasFreeShipping
-  //   ? 0
-  //   : isChecked
-  //   ? result.finalShipping + 3000
-  //   : result.finalShipping;
-
-  const deliveryFee = isChecked ? cart.deliveryFee + 3000 : cart.deliveryFee;
+  const deliveryFee = hasFreeShipping
+    ? 0
+    : isChecked
+    ? result.finalShipping + 3000
+    : result.finalShipping;
 
   const handleCouponButtonClick = () => {
     setCheckedCoupons(result.combo.map((coupon) => coupon.id));
