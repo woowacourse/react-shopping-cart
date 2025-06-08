@@ -3,7 +3,7 @@
 import { Modal } from '@sanghee01/modal';
 import Button from '../../../shared/ui/Button';
 import * as S from './CouponModal.style';
-import InfoLabel from './InfoLabel';
+import InfoLabel from '../../cart/ui/InfoLabel';
 
 interface CouponModalProps {
   isOpen: boolean;

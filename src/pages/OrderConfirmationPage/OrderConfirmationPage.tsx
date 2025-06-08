@@ -10,7 +10,7 @@ import Navbar from '../../shared/ui/Navbar';
 import NavFooter from '../../shared/ui/NavFooter';
 import * as S from './OrderConfirmationPage.style';
 import Button from '../../shared/ui/Button';
-import CouponModal from '../../features/cart/ui/CouponModal';
+import CouponModal from '../../features/coupon/ui/CouponModal';
 import { useModal } from '@sanghee01/modal';
 import DeliveryInfo from '../../features/cart/ui/DeliveryInfo';
 import { useState } from 'react';
