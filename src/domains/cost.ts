@@ -7,5 +7,5 @@ export const getOrderCost = (selectedCartItems: CartItemType[]) => {
 };
 
 export const getDeliveryCost = (orderCost: number) => {
-  return orderCost > 100_000 || orderCost === 0 ? 0 : 3_000;
+  return orderCost >= 100_000 || orderCost === 0 ? 0 : 3_000;
 };

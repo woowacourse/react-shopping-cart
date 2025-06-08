@@ -23,7 +23,7 @@ const useQuantityControl = ({
     setQuantity((prev) => prev + 1);
 
     await mutateData({
-      apiCall: () => increaseCartItem(cartId, quantity),
+      apiCall: () => increaseCartItem(cartId, quantity + 1),
       onSuccess: refetchCartItem,
       onError: () => {
         setQuantity((prev) => prev - 1);
@@ -35,7 +35,7 @@ const useQuantityControl = ({
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
 
     await mutateData({
-      apiCall: () => decreaseCartItem(cartId, quantity),
+      apiCall: () => decreaseCartItem(cartId, quantity - 1),
       onSuccess: refetchCartItem,
       onError: () => {
         setQuantity((prev) => prev + 1);
