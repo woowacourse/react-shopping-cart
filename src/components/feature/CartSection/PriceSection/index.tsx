@@ -5,67 +5,14 @@ import { CartProduct } from "../../../../type/cart";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
 import { useNavigate, useLocation } from "react-router";
+import { getPrice } from "./utils";
+import { getSelectedCartItems } from "../../Coupon/CouponList/utils";
 
 type Props = {
-  cartItems: CartProduct[] | undefined;
+  cartItems: CartProduct[];
   selectedCartIds: number[];
   discount?: number;
   isRemoteArea?: boolean;
-};
-
-export const getPrice = ({
-  items,
-  isRemoteArea,
-  discount,
-}: {
-  items: CartProduct[] | undefined;
-  isRemoteArea: boolean | undefined;
-  discount: number | undefined;
-}) => {
-  const getOrderPrice = () => {
-    return (
-      items?.reduce(
-        (total: number, current: CartProduct) =>
-          current.product.price * current.quantity + total,
-        0
-      ) ?? 0
-    );
-  };
-
-  const orderPrice = getOrderPrice();
-  const deliveryPrice = getDeliveryPrice({ orderPrice, isRemoteArea });
-  const totalPrice = getTotalPrice({ orderPrice, deliveryPrice, discount });
-  const totalAmount = items?.reduce(
-    (total: number, current: CartProduct) => total + current.quantity,
-    0
-  );
-
-  return { orderPrice, deliveryPrice, totalPrice, totalAmount };
-};
-
-const getDeliveryPrice = ({
-  orderPrice,
-  isRemoteArea,
-}: {
-  orderPrice: number;
-  isRemoteArea: boolean | undefined;
-}) => {
-  const remoteAreaDeliveryPrice = isRemoteArea ? 3000 : 0;
-  if (orderPrice >= 100_000) return remoteAreaDeliveryPrice;
-  return 3000 + remoteAreaDeliveryPrice;
-};
-
-const getTotalPrice = ({
-  orderPrice,
-  deliveryPrice,
-  discount,
-}: {
-  orderPrice: number;
-  deliveryPrice: number;
-  discount: number | undefined;
-}) => {
-  if (discount) return orderPrice + deliveryPrice - discount;
-  return orderPrice + deliveryPrice;
 };
 
 const PriceSection = ({
@@ -78,11 +25,12 @@ const PriceSection = ({
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
   const isOrderConfirmPage = pathname === "/orderConfirm";
-  const selectedItems = cartItems?.filter(
-    (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
-  );
 
-  const price = getPrice({ items: selectedItems, isRemoteArea, discount });
+  const { orderPrice, deliveryPrice, totalPrice, totalAmount } = getPrice({
+    items: getSelectedCartItems(cartItems, selectedCartIds),
+    isRemoteArea,
+    discount,
+  });
 
   return (
     <>
@@ -94,7 +42,7 @@ const PriceSection = ({
 
         <S.PriceInfo>
           <S.Label>주문 금액</S.Label>
-          <S.Price>{formatPrice(price.orderPrice)}</S.Price>
+          <S.Price>{formatPrice(orderPrice)}</S.Price>
         </S.PriceInfo>
 
         {discount !== undefined && (
@@ -106,14 +54,14 @@ const PriceSection = ({
 
         <S.PriceInfo>
           <S.Label>배송비</S.Label>
-          <S.Price>{formatPrice(price.deliveryPrice)}</S.Price>
+          <S.Price>{formatPrice(deliveryPrice)}</S.Price>
         </S.PriceInfo>
         <Line />
 
         <S.PriceInfo>
           <S.Label>총 결제 금액</S.Label>
           <S.Price data-testid={"total-amount"}>
-            {formatPrice(price.totalPrice)}
+            {formatPrice(totalPrice)}
           </S.Price>
         </S.PriceInfo>
       </S.Container>
@@ -123,8 +71,8 @@ const PriceSection = ({
           onClick={() =>
             navigate("/paymentConfirm", {
               state: {
-                totalPrice: price.totalPrice,
-                totalAmount: price.totalAmount,
+                totalPrice: totalPrice,
+                totalAmount: totalAmount,
                 sort: selectedCartIds.length,
               },
             })
@@ -151,8 +99,8 @@ const PriceSection = ({
             navigate("/orderConfirm", {
               state: {
                 sort: selectedCartIds.length,
-                totalAmount: price.totalAmount,
-                totalPrice: price.orderPrice,
+                totalAmount: totalAmount,
+                totalPrice: orderPrice,
                 cartItems: cartItems,
                 selectedCartIds: selectedCartIds,
               },

@@ -1,5 +1,6 @@
 import { CouponResponse } from "../../../../type/coupon";
 import { CartProduct } from "../../../../type/cart";
+import { getDeliveryPrice } from "../../CartSection/PriceSection/utils";
 
 export const getSelectedCartItems = (
   cartItems: CartProduct[],
@@ -59,7 +60,8 @@ const isValidFreeShipping = (
   totalPrice: number,
   isRemoteArea: boolean
 ) => {
-  if (totalPrice >= 100_000 && !isRemoteArea) return false;
+  if (getDeliveryPrice({ orderPrice: totalPrice, isRemoteArea }) === 0)
+    return false;
   if (minimumAmount > totalPrice) return false;
   return true;
 };
@@ -110,8 +112,10 @@ export const calculateDiscount = (
     }
 
     case "freeShipping": {
-      const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
-      return calculateFreeshipping(deliveryPrice, isRemoteArea);
+      return getDeliveryPrice({
+        orderPrice: totalPrice,
+        isRemoteArea,
+      });
     }
 
     case "percentage":
@@ -135,11 +139,4 @@ const calculateBuyXGetY = (
   );
 
   return eligibleItems[0].product.price;
-};
-
-const calculateFreeshipping = (
-  deliveryPrice: number,
-  isRemoteArea: boolean
-) => {
-  return isRemoteArea ? 3000 + deliveryPrice : deliveryPrice;
 };

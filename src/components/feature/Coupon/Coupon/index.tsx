@@ -14,7 +14,7 @@ interface Props {
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = date.getMonth() + 1; // 0-based
+  const month = date.getMonth() + 1;
   const day = date.getDate();
 
   return `${year}년 ${month}월 ${day}일`;
@@ -41,12 +41,8 @@ const formatAvailableTime = (start: string, end: string): string => {
   return `${startInfo.period} ${startInfo.hour}시부터 ${endInfo.period} ${endInfo.hour}시까지`;
 };
 
-const Coupon = ({
-  coupon: { id, description, expirationDate, minimumAmount, availableTime },
-  isChecked,
-  onSelect,
-  isValid,
-}: Props) => {
+const Coupon = ({ coupon, isChecked, onSelect, isValid }: Props) => {
+  const { id, description, expirationDate } = coupon;
   return (
     <>
       <Line />
@@ -66,15 +62,18 @@ const Coupon = ({
               만료일: {formatDate(expirationDate)}
             </S.Info>
           )}
-          {minimumAmount && (
+          {"minimumAmount" in coupon && (
             <S.Info disabled={!isValid}>
-              최소 주문 금액: {formatPrice(Number(minimumAmount))}
+              최소 주문 금액: {formatPrice(Number(coupon.minimumAmount))}
             </S.Info>
           )}
-          {availableTime && (
+          {"availableTime" in coupon && (
             <S.Info disabled={!isValid}>
               사용 가능 시간:
-              {formatAvailableTime(availableTime.start, availableTime.end)}
+              {formatAvailableTime(
+                coupon.availableTime.start,
+                coupon.availableTime.end
+              )}
             </S.Info>
           )}
         </S.CouponBottom>
