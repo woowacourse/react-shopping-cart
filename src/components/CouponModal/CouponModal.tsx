@@ -1,4 +1,5 @@
 import { useModalClose } from "../../hooks/modal/useModalClose";
+import { CartItemType } from "../../types/response";
 import CouponList from "./CouponList";
 import {
   CloseButton,
@@ -10,9 +11,15 @@ import {
 
 interface ModalProps {
   onClose: () => void;
+  orderCost: number;
+  cartItems: CartItemType[];
 }
 
-export default function CouponModal({ onClose }: ModalProps) {
+export default function CouponModal({
+  onClose,
+  orderCost,
+  cartItems,
+}: ModalProps) {
   const { onClickOverlay } = useModalClose({ closeModal: onClose });
 
   return (
@@ -34,7 +41,7 @@ export default function CouponModal({ onClose }: ModalProps) {
             x
           </button>
         </div>
-        <CouponList />
+        <CouponList orderCost={orderCost} cartItems={cartItems} />
         <button css={CloseButton} onClick={onClose}>
           {`총 ${6000}원 할인 쿠폰 사용하기`}
         </button>

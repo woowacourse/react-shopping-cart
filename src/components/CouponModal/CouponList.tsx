@@ -1,14 +1,24 @@
 import { useCouponContext } from "../../contexts/CouponProvider";
-import { DiscountType } from "../../types/coupon";
+import { CartItemType } from "../../types/response";
 import CouponItem from "./CouponItem/CouponItem";
 
-export default function CouponList() {
+interface CouponListProps {
+  orderCost: number;
+  cartItems: CartItemType[];
+}
+
+export default function CouponList({ orderCost, cartItems }: CouponListProps) {
   const { coupons } = useCouponContext();
 
   return (
     <div>
-      {Object.entries(coupons).map(([type, couponList]) => (
-        <CouponItem type={type as DiscountType} couponList={couponList} />
+      {coupons.map((coupon) => (
+        <CouponItem
+          type={coupon.discountType}
+          couponData={coupon}
+          cartItems={cartItems}
+          orderCost={orderCost}
+        />
       ))}
     </div>
   );

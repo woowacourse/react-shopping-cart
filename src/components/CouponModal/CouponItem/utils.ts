@@ -48,18 +48,3 @@ function formatTime(time: string): string {
 
   return `${period} ${displayHour}시`;
 }
-
-export function isAvailableDate(date: string) {
-  const today = new Date();
-  const couponDate = new Date(date);
-
-  return couponDate > today;
-}
-
-export function isAvailableTime(start: string, end: string) {
-  const now = new Date();
-  const startTime = new Date(now.toDateString() + " " + start);
-  const endTime = new Date(now.toDateString() + " " + end);
-
-  return now >= startTime && now <= endTime;
-}

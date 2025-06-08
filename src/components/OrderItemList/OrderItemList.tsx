@@ -1,13 +1,17 @@
+import { CartItemType } from "../../types/response";
 import { Container } from "../CartItemList/CartItemList.styles";
 import OrderItem from "../OrderItem/OrderItem";
 
-export default function OrderItemList() {
+interface OrderItemListProps {
+  cartItems: CartItemType[];
+}
+
+export default function OrderItemList({ cartItems }: OrderItemListProps) {
   return (
     <section css={Container}>
-      <OrderItem />
-      <OrderItem />
-      <OrderItem />
-      <OrderItem />
+      {cartItems.map((cartItem) => (
+        <OrderItem key={cartItem.id} cartItem={cartItem} />
+      ))}
     </section>
   );
 }

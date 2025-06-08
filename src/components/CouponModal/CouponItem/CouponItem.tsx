@@ -1,16 +1,12 @@
 import { useCouponManagerProvider } from "../../../contexts/CouponManagerProvider";
-import {
-  CouponType,
-  DiscountType,
-  PercentageCoupon,
-} from "../../../types/coupon";
+import { CouponType, DiscountType } from "../../../types/coupon";
+import { CartItemType } from "../../../types/response";
 import CheckBox from "../../CheckBox/CheckBox";
 import { Container, CouponText } from "./CouponItem.styles";
+import { isCouponDisabled } from "./domain";
 import {
   formatDate,
   formatTimeRange,
-  isAvailableDate,
-  isAvailableTime,
   isBuyXGetYCoupon,
   isFixedCoupon,
   isFreeShippingCoupon,
@@ -19,34 +15,35 @@ import {
 
 interface CouponItemProps {
   type: DiscountType;
-  couponList: CouponType[];
+  couponData: CouponType;
+  orderCost: number;
+  cartItems: CartItemType[];
 }
 
-export default function CouponItem({ type, couponList }: CouponItemProps) {
+export default function CouponItem({
+  type,
+  couponData,
+  orderCost,
+  cartItems,
+}: CouponItemProps) {
   const { isSelected, addCoupon, removeCoupon, selectedCoupon } =
     useCouponManagerProvider();
 
-  const [firstCoupon] = couponList;
-
-  const isExpired = !isAvailableDate(firstCoupon.expirationDate);
-  const isOverLimit =
-    selectedCoupon.length >= 2 && !selectedCoupon.includes(type);
-  const isOutOfTime =
-    type === "percentage" &&
-    !isAvailableTime(
-      (firstCoupon as PercentageCoupon).availableTime.start,
-      (firstCoupon as PercentageCoupon).availableTime.end
-    );
-
-  const disabled = isExpired || isOverLimit || isOutOfTime;
+  const disabled = isCouponDisabled({
+    type,
+    coupon: couponData,
+    orderCost,
+    cartItems,
+    selectedCoupon,
+  });
 
   const checked = isSelected(type);
   return (
     <div css={[Container, disabled && { opacity: 0.3 }]}>
       <CheckBox
         disabled={disabled}
-        label={couponList[0].description}
-        id={String(couponList[0].id)}
+        label={couponData.description}
+        id={String(couponData.id)}
         isSelected={checked}
         onClick={() => {
           if (checked) {
@@ -57,24 +54,24 @@ export default function CouponItem({ type, couponList }: CouponItemProps) {
         }}
         textSize="big"
       />
-      <div css={CouponText}>{getCouponText({ couponList })}</div>
+      <div css={CouponText}>{getCouponText({ couponData })}</div>
     </div>
   );
 }
 
-function getCouponText({ couponList }: { couponList: CouponType[] }) {
-  const expirationDate = formatDate(couponList[0].expirationDate);
+function getCouponText({ couponData }: { couponData: CouponType }) {
+  const expirationDate = formatDate(couponData.expirationDate);
 
-  if (isFixedCoupon(couponList[0])) {
+  if (isFixedCoupon(couponData)) {
     return (
       <>
         <p>만료일: {expirationDate}</p>
-        <p>최소 금액: {couponList[0].minimumAmount.toLocaleString()}원</p>
+        <p>최소 금액: {couponData.minimumAmount.toLocaleString()}원</p>
       </>
     );
   }
 
-  if (isBuyXGetYCoupon(couponList[0])) {
+  if (isBuyXGetYCoupon(couponData)) {
     return (
       <>
         <p>만료일: {expirationDate}</p>
@@ -82,24 +79,24 @@ function getCouponText({ couponList }: { couponList: CouponType[] }) {
     );
   }
 
-  if (isFreeShippingCoupon(couponList[0])) {
+  if (isFreeShippingCoupon(couponData)) {
     return (
       <>
         <p>만료일: {expirationDate}</p>
-        <p>최소 금액: {couponList[0].minimumAmount.toLocaleString()}원</p>
+        <p>최소 금액: {couponData.minimumAmount.toLocaleString()}원</p>
       </>
     );
   }
 
-  if (isPercentageCoupon(couponList[0])) {
+  if (isPercentageCoupon(couponData)) {
     return (
       <>
         <p>만료일: {expirationDate}</p>
         <p>
           사용 가능 시간:
           {formatTimeRange(
-            couponList[0].availableTime.start,
-            couponList[0].availableTime.end
+            couponData.availableTime.start,
+            couponData.availableTime.end
           )}
         </p>
       </>

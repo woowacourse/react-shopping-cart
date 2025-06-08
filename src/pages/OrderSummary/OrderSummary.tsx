@@ -39,7 +39,7 @@ function OrderSummary() {
 최종 결제 금액을 확인해 주세요.
           `}
         />
-        <OrderItemList />
+        <OrderItemList cartItems={cartItems} />
         <CouponButton onClick={modalOpen} />
         <div>
           <p>배송 정보</p>
@@ -57,7 +57,13 @@ function OrderSummary() {
         />
       </section>
       <SubmitButton enabled={false} label="결제하기" />
-      {isOpen && <CouponModal onClose={modalClose} />}
+      {isOpen && (
+        <CouponModal
+          onClose={modalClose}
+          orderCost={orderCost}
+          cartItems={cartItems}
+        />
+      )}
     </>
   );
 }
