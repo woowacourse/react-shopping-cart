@@ -143,4 +143,22 @@ describe('주문 확인 페이지를 렌더링 한다.', () => {
     expect(screen.getByText('3,000원')).toBeInTheDocument();
     expect(screen.getByText('33,000원')).toBeInTheDocument();
   });
+
+  it('장바구니에 담긴 상품의 총 금액이 5만원 이상, 10만원 이하일 때, 무료배송 쿠폰이 적용된다.', async () => {
+    // Given: 주문 결제 페이지를 렌더링한다.
+    const cartItems = [createCartItem(1, '상품 1', 50000), createCartItem(2, '상품 2', 30000)];
+
+    // When: 주문 결제 페이지에 진입했을 때, 상품의 총 금액이 5만원 이상, 10만원 이하일 때 무료배송 쿠폰이 적용된다.
+    await act(async () => {
+      renderOrderCheckoutPage(cartItems);
+    });
+
+    const couponButton = screen.getByText('쿠폰 적용');
+    await user.click(couponButton);
+
+    expectCouponState('5만원 이상 구매 시 무료 배송 쿠폰');
+
+    // Then: 무료배송 쿠폰이 적용되어 할인 금액으로 -3000원이 표시된다.
+    expect(screen.getByText('총 3,000원 할인 쿠폰 사용하기')).toBeInTheDocument();
+  });
 });
