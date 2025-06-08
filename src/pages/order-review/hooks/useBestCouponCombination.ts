@@ -2,6 +2,7 @@
 import { CouponContent } from '@/api/type';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
+import { useMemo } from 'react';
 
 export const useBestCouponCombination = (
   availableCoupons: CouponContent[],
@@ -31,15 +32,16 @@ export const useBestCouponCombination = (
     };
   });
 
-  const bestCombination =
-    combinations.length > 0
+  const bestCombination = useMemo(() => {
+    return combinations.length > 0
       ? combinations.reduce((prev, curr) =>
           curr.discount > prev.discount ? curr : prev
         )
       : { couponIds: [], discount: 0 };
+  }, [combinations]);
 
   return {
-    combinations,
-    bestCombination,
+    bestCouponIds: bestCombination.couponIds,
+    totalDiscount: bestCombination.discount,
   };
 };
