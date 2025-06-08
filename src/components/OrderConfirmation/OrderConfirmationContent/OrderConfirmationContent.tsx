@@ -9,6 +9,8 @@ import useCoupons from "../../../hooks/useCoupons/useCoupons";
 import useSelectedCoupons from "../../../hooks/useCoupons/useSelectedCoupons";
 import ShippingInformation from "../ShippingInformation/ShippingInformation";
 import useRemoteAreaShipping from "../../../hooks/useRemoteAreaShipping";
+import { calculateCoupons } from "../../../util/coupons/calculateCoupons";
+import OrderConfirmationOrderSummary from "../OrderConfirmationOrderSummary/OrderConfirmationOrderSummary";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];
@@ -22,6 +24,12 @@ function OrderConfirmationContent({
   const { coupons } = useCoupons();
   const { selectedCouponIds, handleUseCoupons } = useSelectedCoupons();
   const { isRemoteAreaShipping, handleToggle } = useRemoteAreaShipping();
+
+  const { maxDiscountedPrice } = calculateCoupons({
+    cartItems: selectedCartItems,
+    coupons: coupons.filter((coupon) => selectedCouponIds.includes(coupon.id)),
+    hasRemoteAreaShipping: isRemoteAreaShipping,
+  });
 
   return (
     <Styled.Container>
@@ -48,6 +56,11 @@ function OrderConfirmationContent({
       <ShippingInformation
         isRemoteAreaShipping={isRemoteAreaShipping}
         handleToggle={handleToggle}
+      />
+      <OrderConfirmationOrderSummary
+        selectedCartItems={selectedCartItems}
+        discountAmount={maxDiscountedPrice}
+        isRemoteAreaShipping={isRemoteAreaShipping}
       />
       <PaymentConfirmButton
         selectedCartIds={selectedCartIds}
