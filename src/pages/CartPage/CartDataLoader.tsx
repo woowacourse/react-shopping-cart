@@ -20,7 +20,7 @@ const CartDataLoader = ({ children }: CartDataLoaderProps) => {
       });
 
       selectDispatch({
-        type: "SET_SELECT",
+        type: "SYNC_WITH_CART",
         payload: { items: cartItemList },
       });
     }

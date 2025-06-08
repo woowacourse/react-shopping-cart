@@ -4,7 +4,7 @@ import {
   useSelectDispatch,
 } from "../../stores/SelectContext";
 import updateCartItemApi from "../../api/updateCartItemApi";
-import { ResponseCartItem } from "../../types/types";
+import { ResponseCartItem } from "../../types/order";
 import { useLocation } from "react-router-dom";
 
 interface UseCartItemManagerProps {
