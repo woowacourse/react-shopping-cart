@@ -25,6 +25,7 @@ import CouponDetails from "../../components/Coupon/CouponDetails";
 import { CouponType } from "../../components/Coupon/types";
 import Coupon from "../../components/Coupon/Coupon";
 import CouponList from "../../components/CouponList/CouponList";
+import useCheckboxHandler from "../../hooks/checkbox/useCheckboxHandler";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -42,8 +43,16 @@ function OrderSummary() {
   const [openModal, setOpenModal] = useState(false);
   const modalRoot = document.getElementById("root")!;
 
-  const { fetchData } = useFetch<CouponDataType[]>("coupons");
   const [coupons, setCoupons] = useState<CouponType[]>([]);
+  const { fetchData } = useFetch<CouponDataType[]>("coupons");
+  const { toggleSelect, isSelected, isMaxSelected } = useCheckboxHandler(
+    coupons,
+    {
+      maxSelectableCount: 2,
+      enableAllSelectBox: false,
+      autoSelectAll: false,
+    }
+  );
   const fetchCoupons = useCallback(
     () =>
       fetchData({
@@ -110,7 +119,13 @@ function OrderSummary() {
               <CouponList>
                 {coupons.map((coupon) => {
                   return (
-                    <Coupon key={coupon.id} coupon={coupon}>
+                    <Coupon
+                      key={coupon.id}
+                      coupon={coupon}
+                      toggleSelect={toggleSelect}
+                      isSelected={isSelected(coupon.id)}
+                      isMaxSelected={isMaxSelected()}
+                    >
                       <CouponDetails coupon={coupon} />
                     </Coupon>
                   );

@@ -31,11 +31,7 @@ function Cart() {
     toggleSelect,
     isAllSelected,
     isSelected,
-  } = useCheckboxHandler(cartItems, {
-    maxSelectableCount: null,
-    enableAllSelectBox: true,
-    autoSelectAll: true,
-  });
+  } = useCheckboxHandler(cartItems);
   const navigate = useNavigate();
 
   const updateCartItem = (cartId: number, newItem: CartItemType) => {

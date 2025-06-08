@@ -1,17 +1,35 @@
-import { Container, Description, Details } from "./Coupon.styles";
+import CheckBox from "../CheckBox/CheckBox";
+import { Container, Description, Details, Header } from "./Coupon.styles";
 import { CouponType } from "./types";
 
 interface CouponProps {
   coupon: CouponType;
+  toggleSelect: (id: number) => void;
+  isSelected: boolean;
+  isMaxSelected: boolean;
   children?: React.ReactNode;
 }
 
-function Coupon({ coupon, children }: CouponProps) {
-  const { description, expirationDate } = coupon;
+function Coupon({
+  coupon,
+  toggleSelect,
+  isSelected,
+  isMaxSelected,
+  children,
+}: CouponProps) {
+  const { id, description, expirationDate } = coupon;
+  const isDisabled = isMaxSelected && !isSelected;
 
   return (
-    <li css={Container}>
-      <h3 css={Description}>{description}</h3>
+    <li css={Container(isDisabled)}>
+      <div css={Header}>
+        <CheckBox
+          id={String(id)}
+          isSelected={isSelected}
+          onClick={() => toggleSelect(id)}
+        />
+        <h3 css={Description}>{description}</h3>
+      </div>
       <div css={Details}>
         <p>
           {`만료일: ${expirationDate.year}년 ${expirationDate.month}월 ${expirationDate.day}일`}
