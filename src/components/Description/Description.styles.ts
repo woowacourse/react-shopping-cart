@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 
 export const Container = css`
-  height: 13%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 export const Title = css`
-  margin-bottom: 15px;
-
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-bold);
 `;

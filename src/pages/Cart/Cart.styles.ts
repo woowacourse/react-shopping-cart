@@ -1,13 +1,18 @@
 import { css } from "@emotion/react";
 
 export const Container = css`
-  height: 86vh;
-  max-height: 800px;
+  flex: 1 1 auto;
   padding: 36px 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 `;
 
 export const Wrap = css`
-  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 export const NoCartItemText = css`

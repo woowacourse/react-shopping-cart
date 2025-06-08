@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 
 export const ItemContainer = css`
   width: 100%;
-  height: 160px;
 
   display: flex;
   flex-direction: column;

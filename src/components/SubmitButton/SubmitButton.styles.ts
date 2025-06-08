@@ -4,7 +4,6 @@ export const Button = css`
   position: sticky;
   bottom: 0;
   width: 100%;
-  height: 7vh;
 
   font-size: var(--font-size-medium);
   font-weight: var(--font-weight-bold);
