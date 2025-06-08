@@ -3,7 +3,7 @@ import { Coupon } from "../types/response";
 import useCouponFetch from "../hooks/useCouponFetch";
 import useCouponSelection from "../hooks/useCouponSelection";
 
-export interface CouponType {
+export interface CouponContextType {
   coupons: Coupon[];
   fetchData: () => Promise<void>;
   selectedCoupons: Coupon[];
@@ -12,7 +12,7 @@ export interface CouponType {
   isCouponSelected: (id: number) => boolean;
 }
 
-export const CouponContext = createContext<CouponType | null>(null);
+export const CouponContext = createContext<CouponContextType | null>(null);
 
 export const CouponProvider = ({ children }: PropsWithChildren) => {
   const { coupons, fetchData } = useCouponFetch();

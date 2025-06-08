@@ -8,14 +8,12 @@ import {
   calculateShippingFee,
   filterSelectedItems,
 } from "../calculations";
+import { useOrder } from "./useOrder";
 
-interface Props {
-  isRemoteArea?: boolean;
-}
-
-const useOrderSummary = ({ isRemoteArea = false }: Props = {}) => {
+const useOrderSummary = () => {
   const items = useCartSelector((state) => state.items);
   const { selectedCoupons } = useCoupon();
+  const { isRemoteArea } = useOrder();
 
   const orderCalculation = useMemo(() => {
     const orderItems = filterSelectedItems(items);

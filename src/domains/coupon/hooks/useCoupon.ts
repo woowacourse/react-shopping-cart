@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { CouponContext, CouponType } from "../contexts/CouponContext";
+import { CouponContext, CouponContextType } from "../contexts/CouponContext";
 
 export function useCoupon() {
   const context = useContext(CouponContext);
@@ -8,7 +8,9 @@ export function useCoupon() {
   return context;
 }
 
-export function useCouponSelector<T>(selector: (state: CouponType) => T): T {
+export function useCouponSelector<T>(
+  selector: (state: CouponContextType) => T
+): T {
   const context = useCoupon();
   return useMemo(() => selector(context), [context, selector]);
 }

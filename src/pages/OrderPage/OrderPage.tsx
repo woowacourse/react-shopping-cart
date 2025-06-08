@@ -10,16 +10,16 @@ import OrderItem from "../../components/order/OrderItem/OrderItem";
 import { ROUTES } from "../../constants/routes";
 import CouponInitializer from "../../domains/coupon/contexts/CouponInitializer";
 import { FREE_SHIPPING_THRESHOLD } from "../../domains/order/constants";
+import { useOrder } from "../../domains/order/hooks/useOrder";
 import useOrderSummary from "../../domains/order/hooks/useOrderSummary";
 import useModal from "../../features/modal/useModal";
 import { formatCurrency } from "../../utils/formatters";
 import * as S from "./OrderPage.styles";
 import InfoIcon from "/info.svg";
 import BackIcon from "/left-arrow.svg";
-import { useState } from "react";
 
 const OrderPage = () => {
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
+  const { isRemoteArea, toggleRemoteArea } = useOrder();
   const {
     orderItems,
     orderItemCount,
@@ -28,10 +28,10 @@ const OrderPage = () => {
     totalDiscount,
     finalShippingFee,
     finalTotalPrice,
-  } = useOrderSummary({ isRemoteArea });
+  } = useOrderSummary();
 
   const { openModal } = useModal();
-  const openCouponModal = () => openModal(<CouponModal isRemoteArea />);
+  const openCouponModal = () => openModal(<CouponModal />);
 
   const navigate = useNavigate();
   const navigateToCart = () => navigate(ROUTES.CART);
@@ -71,10 +71,7 @@ const OrderPage = () => {
           <S.ShippingInfoContainer>
             <S.ShippingLabel>배송 정보</S.ShippingLabel>
             <S.ShippingSurchargeContainer>
-              <Checkbox
-                selected={isRemoteArea}
-                onClick={() => setIsRemoteArea((prev) => !prev)}
-              />
+              <Checkbox selected={isRemoteArea} onClick={toggleRemoteArea} />
               <Description>제주도 및 도서 산간 지역</Description>
             </S.ShippingSurchargeContainer>
           </S.ShippingInfoContainer>

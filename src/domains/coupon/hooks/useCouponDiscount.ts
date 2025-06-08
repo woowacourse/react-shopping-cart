@@ -6,6 +6,8 @@ import { calculatePercentageDiscount } from "../calculations/percentageCouponCal
 import { calculateBuyXGetYDiscount } from "../calculations/buyXGetYCouponCalculation";
 import { calculateShippingDiscount } from "../calculations/freeShippingCouponCalculation";
 
+// TODO: 얘를 굳이 커스텀훅으로 만들 필요가 있을까?
+
 interface Props {
   coupons: Coupon[];
   orderItems: CartItemWithSelection[];

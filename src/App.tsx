@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
 import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
 import { CouponProvider } from "./domains/coupon/contexts/CouponContext.tsx";
+import { OrderProvider } from "./domains/order/contexts/OrderContext.tsx";
 
 const Layout = () => {
   return (
@@ -16,9 +17,11 @@ const Layout = () => {
       <ToastProvider>
         <CartProvider>
           <CouponProvider>
-            <ModalProvider>
-              <Outlet />
-            </ModalProvider>
+            <OrderProvider>
+              <ModalProvider>
+                <Outlet />
+              </ModalProvider>
+            </OrderProvider>
           </CouponProvider>
         </CartProvider>
       </ToastProvider>

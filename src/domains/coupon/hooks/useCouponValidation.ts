@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { Coupon } from "../types/response";
 
+// TODO: 얘도 굳이 커스텀훅이어야 할까?
+
 interface OrderCalculator {
   orderPrice: number;
 }
