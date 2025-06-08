@@ -15,6 +15,13 @@ interface UsePaymentSummaryProps {
   twoPlusOneApplicableItems: CartItemTypes[];
 }
 
+/**
+ * 주문 금액, 배송비, 할인 금액, 총 금액을 계산하는 훅
+ * @param isExtraDeliveryArea - 추가 배송 지역 여부
+ * @param selectedCoupons - 선택된 쿠폰 목록
+ * @param twoPlusOneApplicableItems - 2+1 적용 가능한 아이템 목록
+ * @returns {Object} 주문 금액, 배송비, 할인 금액, 총 금액
+ */
 export function usePaymentSummary({
   isExtraDeliveryArea,
   selectedCoupons,

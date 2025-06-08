@@ -14,6 +14,12 @@ export function useSaleCoupon() {
 
   const today = new Date();
 
+  /**
+   * 쿠폰이 유효한지 확인하는 함수
+   * @param orderPrice 주문 금액
+   * @param twoPlusOneApplicableItems 2+1 적용 가능한 아이템 목록
+   * @returns <Record<CouponCode, boolean>> 쿠폰 코드와 유효성 여부를 매핑한 객체
+   */
   const isValidCoupon = ({
     orderPrice,
     twoPlusOneApplicableItems,
@@ -52,6 +58,10 @@ export function useSaleCoupon() {
     );
   };
 
+  /**
+   * 쿠폰 선택 핸들러 - 최대 2개의 쿠폰을 선택할 수 있도록 관리
+   * @param e 이벤트 객체
+   */
   const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const couponCode = e.target.id as CouponCode;
 
@@ -65,6 +75,9 @@ export function useSaleCoupon() {
     });
   };
 
+  /**
+   * 쿠폰 목록을 가져오는 함수
+   */
   useEffect(() => {
     (async () => {
       const data = await getCouponItems();
