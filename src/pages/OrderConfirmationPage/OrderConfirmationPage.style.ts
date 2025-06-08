@@ -19,6 +19,8 @@ export const OrderConfirmationPageContent = styled.main`
 
 export const CartListContainer = styled.section`
   width: 100%;
+  max-height: 350px;
+  overflow-y: scroll;
   flex: 1;
   display: flex;
   flex-direction: column;

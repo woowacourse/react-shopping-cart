@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 export const OrderPriceSummaryContainer = styled.section`
   width: 100%;
-  height: 125px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
