@@ -8,26 +8,13 @@ import {
   descriptionText,
 } from './CounponItem.style';
 import { css } from '@emotion/react';
+import { Coupon } from '../../../types/coupon';
 
 interface CouponItemProps {
   couponData: Coupon;
   isChecked: boolean;
   onChange: (id: string) => void;
 }
-
-type Coupon = {
-  id: number;
-  code: 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
-  description: string;
-  expirationDate: string;
-  discount: number;
-  minimumAmount?: number;
-  availableTime?: {
-    start: string;
-    end: string;
-  };
-  discountType: string;
-};
 
 export function CouponItem({
   couponData,
