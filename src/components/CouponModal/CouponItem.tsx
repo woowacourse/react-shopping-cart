@@ -122,13 +122,16 @@ export default function CouponItem({
     }
   };
 
+  const canUse = getPossibleToUse();
+
   return (
-    <S.Container getPossibleToUse={getPossibleToUse()}>
+    <S.Container getPossibleToUse={canUse}>
       <CheckBox
         text={data.description}
         isChecked={selectedCoupons.includes(data.discountType)}
         size="large"
         onChange={() => handleChange(data.discountType)}
+        disabled={!canUse}
       />
       <S.CouponText>
         <div>

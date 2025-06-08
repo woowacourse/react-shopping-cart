@@ -6,12 +6,14 @@ function CheckBox({
   text,
   onChange,
   size = "small",
+  disabled = false,
 }: {
   id?: number;
   isChecked: boolean;
   text?: string;
   onChange: () => void;
   size?: "small" | "large";
+  disabled?: boolean;
 }) {
   return (
     <S.CheckBoxWrapper>
@@ -20,6 +22,7 @@ function CheckBox({
         type="checkbox"
         id={String(id)}
         onChange={onChange}
+        disabled={disabled}
       />
       {text && (
         <S.Label size={size} htmlFor={String(id)}>
