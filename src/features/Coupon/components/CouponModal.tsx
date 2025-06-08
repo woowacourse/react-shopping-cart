@@ -1,3 +1,5 @@
+import { useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Button } from '@/shared/components/Button/Button';
 import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
 import { Flex } from '@/shared/components/Flex/Flex';
@@ -35,9 +37,32 @@ export const CouponModal = ({
     deliveryFee,
     totalPrice,
   });
-  
-  return (
-    <Overlay>
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target === e.currentTarget) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
+  return createPortal(
+    <Overlay onClick={handleOverlayClick}>
       <Modal>
         <Flex direction="row" justifyContent="space-between" alignItems="center" gap="0">
           <Text
@@ -121,7 +146,8 @@ export const CouponModal = ({
           총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
         </Button>
       </Modal>
-    </Overlay>
+    </Overlay>,
+    document.body
   );
 };
 
