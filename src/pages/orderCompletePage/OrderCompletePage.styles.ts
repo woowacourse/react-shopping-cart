@@ -70,6 +70,7 @@ export const DeliveryInfoContainer = css`
   flex-direction: column;
   align-items: flex-start;
 
+  width: 100%;
   gap: 1.6rem;
   margin-top: 3.2rem;
 `;
@@ -180,10 +181,10 @@ export const DialogActions = css`
 export const TriggerButton = css`
   width: 100%;
   padding: 12px 0;
-  background-color: var(--color-black);
   color: var(--color-white);
-  border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(51, 51, 51, 0.25);
+  color: var(--color-black);
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -197,4 +198,89 @@ export const TriggerButton = css`
     color: var(--color-white);
     cursor: not-allowed;
   }
+`;
+
+export const DiscountAmount = css`
+  color: var(--color-red, #dc3545);
+  font-weight: bold;
+  margin-left: 8px;
+`;
+
+export const OptimizationInfo = css`
+  padding: 16px;
+  background-color: var(--color-light-grey, #f8f9fa);
+  border-radius: 8px;
+  margin-bottom: 20px;
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-black);
+  }
+
+  p {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    color: var(--color-grey);
+  }
+`;
+
+export const OptimalResult = css`
+  background-color: var(--color-white);
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-grey);
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-black);
+  }
+`;
+
+export const CouponBreakdown = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 13px;
+
+  span:first-of-type {
+    color: var(--color-black);
+    font-weight: 500;
+  }
+
+  span:last-of-type {
+    color: var(--color-red, #dc3545);
+    font-weight: bold;
+  }
+`;
+
+export const TotalSavings = css`
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-light-grey);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-primary, #007bff);
+  text-align: right;
+`;
+
+export const NoOptimization = css`
+  font-size: 14px;
+  color: var(--color-grey);
+  text-align: center;
+  padding: 16px;
+  background-color: var(--color-white);
+  border-radius: 6px;
+  border: 1px solid var(--color-light-grey);
+`;
+
+export const DialogTitle = css`
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-title);
+
+  width: 100%;
 `;

@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import * as S from './OrderCompletePage.styles';
 import { Subtitle, Title } from '../../styles/@common/title/Title.styles';
 import OrderItem from '../../components/features/orderItem/OrderItem';
@@ -10,7 +10,12 @@ import infoIcon from '/public/icon/ic_info.svg';
 import { FREE_DELIVERY_MESSAGE } from '../../constants/systemMessages';
 import * as Dialog from '../../components/@common/dialog/Dialog';
 import { CouponList } from '../../components/features/couponList';
-import { Coupon } from '../../types/coupon';
+import { useCoupons } from '../../hooks/useCoupons';
+import {
+  calculateOptimalCouponCombination,
+  CartItem,
+} from '../../utils/couponCalculator';
+import useEasyNavigate from '../../hooks/useEasyNavigate';
 
 interface OrderCompleteState {
   productTypeCount: number;
@@ -21,19 +26,37 @@ const OrderCompletePage = () => {
   const { state } = useLocation() as { state: OrderCompleteState };
   const { productTypeCount, totalProductCount } = state;
   const { cartData, fetchCartData } = useCartData();
-  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+  const { coupons } = useCoupons();
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
+  const { goPaymentConfirmation } = useEasyNavigate();
 
   useEffect(() => {
     fetchCartData();
   }, []);
 
-  const handleCouponSelect = (coupon: Coupon | null) => {
-    setSelectedCoupon(coupon);
+  const cartItems: CartItem[] = useMemo(() => {
+    return cartData.map((item) => ({
+      id: item.id,
+      price: item.product.price,
+      quantity: item.quantity,
+    }));
+  }, [cartData]);
+
+  const calculationResult = useMemo(() => {
+    return calculateOptimalCouponCombination(cartItems, coupons, isRemoteArea);
+  }, [cartItems, coupons, isRemoteArea]);
+
+  const handleRemoteAreaChange = () => {
+    setIsRemoteArea(!isRemoteArea);
   };
 
   const handleConfirmPayment = () => {
-    // 실제 결제 로직
-    console.log('결제 진행', { selectedCoupon });
+    // 결제 확인 페이지로 이동
+    goPaymentConfirmation(
+      productTypeCount,
+      totalProductCount,
+      calculationResult.finalAmount
+    );
   };
 
   return (
@@ -49,22 +72,89 @@ const OrderCompletePage = () => {
           <OrderItem key={item.id} cartData={item} />
         ))}
 
-        <Button variant="coupon">쿠폰 적용</Button>
+        <Dialog.Root>
+          <Dialog.Trigger css={S.TriggerButton}>쿠폰 적용</Dialog.Trigger>
 
-        {selectedCoupon && (
+          <Dialog.Portal>
+            <Dialog.Overlay />
+            <Dialog.Content position="bottom" size="large">
+              <Dialog.Header>
+                <div css={S.DialogHeader}>
+                  <h2 css={S.DialogTitle}>쿠폰을 선택해주세요</h2>
+                  <Dialog.CloseButton>
+                    <span css={S.CloseButton}>✕</span>
+                  </Dialog.CloseButton>
+                </div>
+              </Dialog.Header>
+
+              <div css={S.DialogContent}>
+                <div css={S.OptimizationInfo}>
+                  <h3>자동 최적화 결과</h3>
+                  <p>
+                    현재 주문에서 가장 할인 효과가 큰 쿠폰 조합을 자동으로
+                    선택했습니다.
+                  </p>
+
+                  {calculationResult.appliedCoupons.length > 0 ? (
+                    <div css={S.OptimalResult}>
+                      <h4>적용된 쿠폰:</h4>
+                      {calculationResult.discountBreakdown.map(
+                        (item, index) => (
+                          <div key={index} css={S.CouponBreakdown}>
+                            <span>{item.coupon.code}</span>
+                            <span>
+                              -{item.discountAmount.toLocaleString()}원
+                            </span>
+                          </div>
+                        )
+                      )}
+                      <div css={S.TotalSavings}>
+                        총 절약 금액:{' '}
+                        {calculationResult.discountAmount.toLocaleString()}원
+                      </div>
+                    </div>
+                  ) : (
+                    <p css={S.NoOptimization}>
+                      현재 주문에 적용 가능한 쿠폰이 없습니다.
+                    </p>
+                  )}
+                </div>
+
+                <CouponList />
+
+                <div css={S.DialogActions}>
+                  <Button variant="largeBlack" onClick={handleConfirmPayment}>
+                    {calculationResult.finalAmount.toLocaleString()}원 결제하기
+                  </Button>
+                </div>
+              </div>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+
+        {calculationResult.appliedCoupons.length > 0 && (
           <div css={S.SelectedCouponContainer}>
-            <p css={S.SelectedCouponTitle}>선택된 쿠폰</p>
-            <p css={S.SelectedCouponInfo}>
-              <strong>{selectedCoupon.code}</strong> -{' '}
-              {selectedCoupon.description}
+            <p css={S.SelectedCouponTitle}>
+              적용된 쿠폰 ({calculationResult.appliedCoupons.length}개)
             </p>
+            {calculationResult.discountBreakdown.map((item, index) => (
+              <p key={index} css={S.SelectedCouponInfo}>
+                <strong>{item.coupon.code}</strong> - {item.coupon.description}
+                <span css={S.DiscountAmount}>
+                  (-{item.discountAmount.toLocaleString()}원)
+                </span>
+              </p>
+            ))}
           </div>
         )}
 
         <div css={S.DeliveryInfoContainer}>
           <p css={S.DeliveryInfoTitle}>배송 정보</p>
           <div css={S.DeliveryInfoCheckboxContainer}>
-            <Checkbox checked={true} onChange={() => {}} />
+            <Checkbox
+              checked={isRemoteArea}
+              onChange={handleRemoteAreaChange}
+            />
             <p css={S.DeliveryDifficultArea}>제주도 및 도서 산간 지역</p>
           </div>
           <div css={S.InfoMessageContainer}>
@@ -75,69 +165,40 @@ const OrderCompletePage = () => {
           <div css={S.CartPriceInfoContainer}>
             <div css={S.CartPriceSubtitle}>주문 금액</div>
             <div css={Title}>
-              {/* {totalCartItemPrice > FEE.DELIVERY_FEE_STANDARD */}
-              {/* ? FEE.DELIVERY_FEE_FREE */}
-              {/* : FEE.DELIVERY_FEE.toLocaleString()} */}원
+              {calculationResult.originalAmount.toLocaleString()}원
             </div>
           </div>
-          {/* {totalCartItemPrice !== FEE.DELIVERY_FEE_FREE && ( */}
-          <div css={S.CartPriceInfoContainer}>
-            <div css={S.CartPriceSubtitle}>쿠폰 할인 금액</div>
-            <div css={Title}>
-              {/* {totalCartItemPrice > FEE.DELIVERY_FEE_STANDARD */}
-              {/* ? FEE.DELIVERY_FEE_FREE */}
-              {/* : FEE.DELIVERY_FEE.toLocaleString()} */}원
+
+          {calculationResult.discountAmount > 0 && (
+            <div css={S.CartPriceInfoContainer}>
+              <div css={S.CartPriceSubtitle}>쿠폰 할인 금액</div>
+              <div css={Title}>
+                -{calculationResult.discountAmount.toLocaleString()}원
+              </div>
             </div>
-          </div>
-          {/* )} */}
+          )}
         </div>
+
         <div css={S.CartPriceInfoContainer}>
           <div css={S.CartPriceSubtitle}>배송비</div>
-          {/* {totalCartItemPrice !== 0 && ( */}
-          <div css={Title}>{/* {totalPrice.toLocaleString()} */}원</div>
-          {/* )} */}
+          <div css={Title}>
+            {calculationResult.shippingFee === 0
+              ? '무료'
+              : `${calculationResult.shippingFee.toLocaleString()}원`}
+          </div>
         </div>
 
         <div css={S.CartPriceInfoContainer}>
           <div css={S.CartPriceSubtitle}>총 결제 금액</div>
-          {/* {totalCartItemPrice !== 0 && ( */}
-          <div css={Title}>{/* {totalPrice.toLocaleString()} */}원</div>
-          {/* )} */}
+          <div css={Title}>
+            {calculationResult.finalAmount.toLocaleString()}원
+          </div>
         </div>
       </div>
 
-      <Dialog.Root>
-        <Dialog.Trigger css={S.TriggerButton}>결제하기</Dialog.Trigger>
-
-        <Dialog.Portal>
-          <Dialog.Overlay />
-          <Dialog.Content position="bottom" size="large">
-            <Dialog.Header>
-              <div css={S.DialogHeader}>
-                <h2>쿠폰 선택</h2>
-                <Dialog.CloseButton>
-                  <span css={S.CloseButton}>✕</span>
-                </Dialog.CloseButton>
-              </div>
-            </Dialog.Header>
-
-            <div css={S.DialogContent}>
-              <CouponList
-                onCouponSelect={handleCouponSelect}
-                selectedCouponId={selectedCoupon?.id}
-              />
-
-              <div css={S.DialogActions}>
-                <Dialog.CloseButton>
-                  <Button variant="largeBlack" onClick={handleConfirmPayment}>
-                    {selectedCoupon ? '쿠폰 적용하고 결제하기' : '결제하기'}
-                  </Button>
-                </Dialog.CloseButton>
-              </div>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+      <Button variant="largeBlack" onClick={handleConfirmPayment}>
+        {calculationResult.finalAmount.toLocaleString()}원 결제하기
+      </Button>
     </section>
   );
 };
