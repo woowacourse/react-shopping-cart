@@ -1,4 +1,4 @@
-import { BuyXGetYCoupon, CartItem } from "../types/type";
+import { BuyXGetYCoupon, CartItem } from "../../types/type";
 import { isValidExpiration } from "./isValidExpiration";
 
 export const calculateBuyXgetYDiscount = (

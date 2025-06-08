@@ -1,4 +1,4 @@
-import { PercentageDiscountCoupon } from "../types/type";
+import { PercentageDiscountCoupon } from "../../types/type";
 import { isValidExpiration } from "./isValidExpiration";
 
 export const calculatePercentageDiscount = (

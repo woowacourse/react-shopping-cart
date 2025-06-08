@@ -1,5 +1,5 @@
-import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
-import { FreeShippingCoupon } from "../types/type";
+import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../../constants";
+import { FreeShippingCoupon } from "../../types/type";
 import { isValidExpiration } from "./isValidExpiration";
 
 export const calculateFreeShippingDiscount = (

@@ -1,4 +1,4 @@
-import { FixedDiscountCoupon } from "../types/type";
+import { FixedDiscountCoupon } from "../../types/type";
 import { isValidExpiration } from "./isValidExpiration";
 
 export const calculateFixedDiscount = (
