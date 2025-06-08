@@ -13,23 +13,39 @@ export function getAvailableCoupons({
   );
   const currentTime = new Date().getHours();
 
-  if (totalPrice >= 100000) {
+  if (isFixedDiscount(totalPrice)) {
     availableCoupons.push('FIXED5000');
   }
 
-  if (totalPrice >= 50000 && totalPrice < 100000) {
+  if (isFreeShipping(totalPrice)) {
     availableCoupons.push('FREESHIPPING');
   }
 
-  if (maxQuantity >= 3) {
+  if (isBogo(maxQuantity)) {
     availableCoupons.push('BOGO');
   }
 
-  if (currentTime >= 4 && currentTime <= 7) {
+  if (isMiracleMorning(currentTime)) {
     availableCoupons.push('MIRACLESALE');
   }
 
   return availableCoupons;
+}
+
+export function isMiracleMorning(currentTime: number) {
+  return currentTime >= 4 && currentTime <= 7;
+}
+
+export function isBogo(maxQuantity: number) {
+  return maxQuantity >= 3;
+}
+
+export function isFreeShipping(totalPrice: number) {
+  return totalPrice >= 50000 && totalPrice < 100000;
+}
+
+export function isFixedDiscount(totalPrice: number) {
+  return totalPrice >= 100000;
 }
 
 export function calculateCouponDiscount({
@@ -58,10 +74,6 @@ export function calculateCouponDiscount({
 
   if (selectedCoupon.has('FIXED5000')) {
     totalDiscount += 5000;
-  }
-
-  if (selectedCoupon.has('MIRACLESALE')) {
-    totalDiscount += totalPrice * 0.3;
   }
 
   if (selectedCoupon.has('FREESHIPPING')) {
