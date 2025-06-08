@@ -1,9 +1,7 @@
-export { default as useCartItem } from "./useCartItem/useCartItem";
-export { default as useAutoFocus } from "./useAutoFocus/useAutoFocus";
-export { default as useDevice } from "./useDevice/useDevice";
-export * from "./useDevice";
+export * from "./common/useAutoFocus";
+export * from "./common/useDevice";
+export * from "./common/usePersistState";
 
-export { default as usePersistState } from "./usePersistState/usePersistState";
-
+export * from "./useCartItem";
 export * from "./mutations";
 export * from "./queries";
