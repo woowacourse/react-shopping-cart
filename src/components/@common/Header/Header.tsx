@@ -1,10 +1,8 @@
+import { PropsWithChildren } from 'react';
+
 import { HeaderStyle } from './Header.styles';
 
-interface HeaderProps {
-  children: React.ReactNode;
-}
-
-function Header({ children }: HeaderProps) {
+function Header({ children }: PropsWithChildren) {
   return <section css={HeaderStyle}>{children}</section>;
 }
 
