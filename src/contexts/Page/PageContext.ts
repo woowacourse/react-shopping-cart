@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 interface PageContextType {
-  page: 'cart' | 'orderPriceConfirm';
+  page: 'cart' | 'orderConfirm' | 'orderPriceConfirm';
   setPage: React.Dispatch<React.SetStateAction<'cart' | 'orderPriceConfirm'>>;
 }
 
