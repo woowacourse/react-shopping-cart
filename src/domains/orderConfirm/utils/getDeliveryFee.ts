@@ -1,13 +1,13 @@
 interface GetDeliveryFeeParams {
-  totalPrice: number;
+  orderPrice: number;
   isExtraDeliveryArea?: boolean;
 }
 
 export function getDeliveryFee({
-  totalPrice,
+  orderPrice,
   isExtraDeliveryArea = false,
 }: GetDeliveryFeeParams) {
-  const deliveryFee = 100_000 <= totalPrice ? 0 : 3_000;
+  const deliveryFee = 100_000 <= orderPrice ? 0 : 3_000;
   if (isExtraDeliveryArea) return deliveryFee + 3_000;
   return deliveryFee;
 }

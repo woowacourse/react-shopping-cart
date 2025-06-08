@@ -13,7 +13,7 @@ import { useSelectedCartContext } from "../../common/context/selectedCartProvide
 import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
 import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
 import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
-import { getTotalPrice } from "../utils/getTotalPrice/getTotalPrice";
+import { getOrderPrice } from "../utils/getTotalPrice/getTotalPrice";
 import {
   CartProductContainerLayout,
   SelectAllLayout,
@@ -33,7 +33,7 @@ export function ShoppingCart() {
     selectedCartIds,
   } = useSelectedCartContext();
 
-  const totalPrice = getTotalPrice({ cartItems: cartItems, selectedCartIds });
+  const orderPrice = getOrderPrice({ cartItems: cartItems, selectedCartIds });
 
   const handleConfirm = () => {
     navigate("/order-confirm");
@@ -90,8 +90,9 @@ export function ShoppingCart() {
               />
             </div>
             <PaymentSummary
-              price={totalPrice}
-              deliveryFee={getDeliveryFee({ totalPrice })}
+              orderPrice={orderPrice}
+              deliveryFee={getDeliveryFee({ orderPrice })}
+              totalPrice={orderPrice + getDeliveryFee({ orderPrice })}
             />
           </>
         )}

@@ -17,8 +17,8 @@ function validateTime(availableTime: AvailableTime, today: Date) {
   );
 }
 
-function validateMinimumAmount(minimumAmount: number, totalPrice: number) {
-  return totalPrice >= minimumAmount;
+function validateMinimumAmount(minimumAmount: number, orderPrice: number) {
+  return orderPrice >= minimumAmount;
 }
 
 function validateTwoPlusOne(selectedCartItems: CartItemTypes[]) {

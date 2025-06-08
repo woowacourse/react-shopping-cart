@@ -5,7 +5,7 @@ interface getTotalPriceProps {
   selectedCartIds: string[];
 }
 
-export function getTotalPrice({
+export function getOrderPrice({
   cartItems,
   selectedCartIds,
 }: getTotalPriceProps) {

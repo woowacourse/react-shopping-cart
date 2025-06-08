@@ -2,14 +2,14 @@ import { CouponCode } from "../types/coupon";
 
 interface getDisCountedPriceProps {
   deliveryFee: number;
-  totalPrice: number;
+  orderPrice: number;
   maxPriceInSelectedCart: number;
   selectedCoupons: CouponCode[];
 }
 
 interface couponCalculatorProps {
   deliveryFee: number;
-  totalPrice: number;
+  orderPrice: number;
   maxPriceInSelectedCart: number;
   code: CouponCode;
 }
@@ -19,7 +19,7 @@ interface couponCalculatorProps {
 /**
  * 주어진 장바구니 아이템들 중에서 선택된 아이템들의 최대 가격을 계산합니다.
  * @param {number} props.deliveryFee - 배송비
- * @param {number} props.totalPrice - 총 결제 금액
+ * @param {number} props.orderPrice - 총 결제 금액
  * @param {number} props.maxPriceInSelectedCart - 선택된 장바구니 아이템들 중 최대 가격
  * @param {CouponCode[]} props.selectedCoupons - 선택된 쿠폰 코드 배열
  * @returns {number} - 선택된 아이템들 중 최대 가격
@@ -53,7 +53,7 @@ function getTotalDiscount(index: number[], props: getDisCountedPriceProps) {
 
   const secondDiscount = couponCalculator({
     ...props,
-    totalPrice: props.totalPrice - firstDiscount,
+    orderPrice: props.orderPrice - firstDiscount,
     code: props.selectedCoupons[index[1]],
   });
 
@@ -65,7 +65,7 @@ function getTotalDiscount(index: number[], props: getDisCountedPriceProps) {
 /**
  * 주어진 쿠폰 코드에 따라 할인 금액을 계산합니다.
  * @param {number} deliveryFee - 배송비
- * @param {number} totalPrice - 총 결제 금액
+ * @param {number} orderPrice - 총 결제 금액
  * @param {number} maxPriceInSelectedCart - 선택된 장바구니 아이템들 중 최대 가격
  * @param {CouponCode} code - 쿠폰 코드
  * @returns {number} - 쿠폰에 따른 할인 금액
@@ -73,7 +73,7 @@ function getTotalDiscount(index: number[], props: getDisCountedPriceProps) {
 
 function couponCalculator({
   deliveryFee,
-  totalPrice,
+  orderPrice,
   maxPriceInSelectedCart,
   code,
 }: couponCalculatorProps) {
@@ -85,7 +85,7 @@ function couponCalculator({
     case "FREESHIPPING":
       return deliveryFee;
     case "MIRACLESALE":
-      return totalPrice * 0.3;
+      return orderPrice * 0.3;
     default:
       return 0;
   }

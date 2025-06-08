@@ -4,15 +4,17 @@ import { SummaryRow } from "../SummaryRow/SummaryRow";
 import { paymentSummaryLayout, summaryRowBox } from "./PaymentSummary.style";
 
 interface PaymentSummaryProps {
-  price: number;
+  orderPrice: number;
   couponSale?: number;
   deliveryFee: number;
+  totalPrice: number;
 }
 
 export function PaymentSummary({
-  price,
+  orderPrice,
   couponSale,
   deliveryFee,
+  totalPrice,
 }: PaymentSummaryProps) {
   return (
     <div css={paymentSummaryLayout}>
@@ -22,7 +24,11 @@ export function PaymentSummary({
 
       <Line />
       <div css={summaryRowBox}>
-        <SummaryRow text="주문 금액" price={price} dataTestId="orderPrice" />
+        <SummaryRow
+          text="주문 금액"
+          price={orderPrice}
+          dataTestId="orderPrice"
+        />
         {couponSale !== undefined && (
           <SummaryRow
             text="쿠폰 할인 금액"
@@ -38,7 +44,7 @@ export function PaymentSummary({
         <Line />
         <SummaryRow
           text="총 결제 금액"
-          price={price + deliveryFee - (couponSale || 0)}
+          price={totalPrice}
           dataTestId="totalPrice"
         />
       </div>

@@ -7,7 +7,7 @@ import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
-import { getTotalPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
+import { getOrderPrice } from "../../shopping-cart/utils/getTotalPrice/getTotalPrice";
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
 
 import Modal from "compoents-modal-test-kangoll";
@@ -31,7 +31,7 @@ export default function OrderConfirm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
 
-  const selectedCartItems = cartItems.filter(
+  const twoPlusOneApplicableItems = cartItems.filter(
     (item) => selectedCartIds.includes(item.id.toString()) && item.quantity >= 3
   );
 
@@ -51,17 +51,19 @@ export default function OrderConfirm() {
     setIsExtraDeliveryArea((prev) => !prev);
   };
 
-  const totalPrice = getTotalPrice({
+  const orderPrice = getOrderPrice({
     cartItems: cartItems,
     selectedCartIds,
   });
 
-  const deliveryFee = getDeliveryFee({ totalPrice, isExtraDeliveryArea });
+  const deliveryFee = getDeliveryFee({ orderPrice, isExtraDeliveryArea });
 
   const discountedPrice = getDisCountedPrice({
     deliveryFee,
-    totalPrice,
-    maxPriceInSelectedCart: getMaxPriceInSelectedCart({ selectedCartItems }),
+    orderPrice,
+    maxPriceInSelectedCart: getMaxPriceInSelectedCart({
+      selectedCartItems: twoPlusOneApplicableItems,
+    }),
     selectedCoupons,
   });
 
@@ -76,7 +78,7 @@ export default function OrderConfirm() {
     (acc, code) => {
       return {
         ...acc,
-        [code]: validateCoupon(code, totalPrice, selectedCartItems),
+        [code]: validateCoupon(code, orderPrice, twoPlusOneApplicableItems),
       };
     },
     {
@@ -86,6 +88,18 @@ export default function OrderConfirm() {
       MIRACLESALE: false,
     }
   );
+
+  const totalPrice = orderPrice + deliveryFee - (discountedPrice || 0);
+
+  const handleCompleteOrder = () => {
+    navigate("/payment-complete", {
+      state: {
+        selectedCartType: selectedCartIds.length,
+        selectedCartItem: selectedCartItemCount,
+        totalPrice,
+      },
+    });
+  };
 
   return (
     <PageLayout>
@@ -109,13 +123,19 @@ export default function OrderConfirm() {
           handleCheckBox={handleExtraDeliveryAreaChange}
         />
         <PaymentSummary
-          price={totalPrice}
+          orderPrice={orderPrice}
           couponSale={discountedPrice}
           deliveryFee={deliveryFee}
+          totalPrice={totalPrice}
         />
       </Main>
       <Footer>
-        <Button onClick={() => {}} type="submit" size="full" disabled={false}>
+        <Button
+          onClick={handleCompleteOrder}
+          type="submit"
+          size="full"
+          disabled={false}
+        >
           결제하기
         </Button>
       </Footer>
