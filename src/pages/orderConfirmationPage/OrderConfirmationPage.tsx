@@ -78,10 +78,11 @@ const OrderConfirmationPage = () => {
   );
 
   const productTypeCount = orderItems.length;
-  const totalProductCount = orderItems.reduce(
-    (acc: number, item: CartItemType) => acc + item.quantity,
-    0
-  );
+  const totalProductCount =
+    orderItems.reduce(
+      (acc: number, item: CartItemType) => acc + item.quantity,
+      0
+    ) + totalBogoGetQuantity;
   const totalDiscountPrice = getTotalDiscountPrice(checkedCoupons, {
     originOrderPrice: orderPriceWithRemoteArea,
     deliveryFee: deliveryFeeWithRemoteArea,
