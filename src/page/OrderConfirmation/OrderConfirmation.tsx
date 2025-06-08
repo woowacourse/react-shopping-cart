@@ -100,7 +100,7 @@ function OrderConfirmation({
   );
 }
 
-function Header() {
+function OrderConfirmationDetailsHeader() {
   const { selectedCartItems } = useOrderConfirmationContext();
   const totalQuantity = selectedCartItems.reduce(
     (acc, item) => acc + item.quantity,
@@ -149,7 +149,7 @@ function BOGOOfferNotice() {
   );
 }
 
-function ItemList() {
+function OrderConfirmationItemList() {
   const { selectedCartItems, couponsData } = useOrderConfirmationContext();
 
   return (
@@ -165,7 +165,7 @@ function ItemList() {
   );
 }
 
-function CouponSelection({ children }: PropsWithChildren) {
+function OrderConfirmationCouponSelection({ children }: PropsWithChildren) {
   const {
     isModalOpen,
     setIsModalOpen,
@@ -228,7 +228,7 @@ function CouponSelection({ children }: PropsWithChildren) {
   );
 }
 
-function ShippingIsland() {
+function OrderConfirmationShippingIsland() {
   const { isInIsland, setIsInIsland, result } = useOrderConfirmationContext();
   const shippingFee = result.shippingFee;
 
@@ -308,7 +308,7 @@ function getShippingNotice({
   }
 }
 
-function PriceDetails() {
+function OrderConfirmationPriceDetails() {
   const { result } = useOrderConfirmationContext();
   return (
     <Styled.OrderPriceDetailWrapper>
@@ -342,11 +342,12 @@ function PriceDetails() {
   );
 }
 
-OrderConfirmation.Header = Header;
-OrderConfirmation.ItemList = ItemList;
-OrderConfirmation.CouponSelection = CouponSelection;
-OrderConfirmation.ShippingIsland = ShippingIsland;
-OrderConfirmation.PriceDetails = PriceDetails;
-OrderConfirmation.BOGOOfferNotice = BOGOOfferNotice;
-
-export default OrderConfirmation;
+export {
+  OrderConfirmationDetailsHeader,
+  OrderConfirmationItemList,
+  OrderConfirmationCouponSelection,
+  OrderConfirmationShippingIsland,
+  OrderConfirmationPriceDetails,
+  BOGOOfferNotice,
+  OrderConfirmation,
+};

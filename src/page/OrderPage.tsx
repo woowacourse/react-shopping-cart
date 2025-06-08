@@ -10,12 +10,25 @@ import { useFunnelContext } from "@/contexts/FunnelContext";
 
 import CartLayout from "@/layout/CartLayout";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
-import CartContent from "@/components/Cart/CartContent/CartContent";
+import {
+  CartContentRoot,
+  CartContentLoading,
+  CartContentHeader,
+  CartContentItems,
+} from "@/components/Cart/CartContent/CartContent";
 import CartContentActions from "@/components/Cart/CartContentActions/CartContentActions";
-import OrderConfirmation from "./OrderConfirmation/OrderConfirmation";
+import {
+  OrderConfirmationDetailsHeader,
+  OrderConfirmationItemList,
+  OrderConfirmationCouponSelection,
+  OrderConfirmationShippingIsland,
+  OrderConfirmationPriceDetails,
+  BOGOOfferNotice,
+  OrderConfirmation,
+} from "./OrderConfirmation/OrderConfirmation";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
-import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 import Spinner from "@/components/common/Spinner";
+import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 
 function OrderPage() {
   const { nextClickHandler, prevClickHandler, Funnel, Step, currentStep } =
@@ -62,11 +75,11 @@ function OrderPage() {
       )}
       <Funnel>
         <Step name="구매품 선택">
-          <CartContent.Root>
-            <CartContent.Loading />
-            <CartContent.Header />
-            <CartContent.Items />
-          </CartContent.Root>
+          <CartContentRoot>
+            <CartContentLoading />
+            <CartContentHeader />
+            <CartContentItems />
+          </CartContentRoot>
         </Step>
         <Step name="쿠폰 적용 및 결제">
           <OrderConfirmation
@@ -81,12 +94,12 @@ function OrderPage() {
               <Spinner />
             ) : (
               <>
-                <OrderConfirmation.BOGOOfferNotice />
-                <OrderConfirmation.Header />
-                <OrderConfirmation.ItemList />
-                <OrderConfirmation.CouponSelection />
-                <OrderConfirmation.ShippingIsland />
-                <OrderConfirmation.PriceDetails />
+                <OrderConfirmationDetailsHeader />
+                <OrderConfirmationItemList />
+                <OrderConfirmationCouponSelection />
+                <OrderConfirmationShippingIsland />
+                <OrderConfirmationPriceDetails />
+                <BOGOOfferNotice />
               </>
             )}
           </OrderConfirmation>

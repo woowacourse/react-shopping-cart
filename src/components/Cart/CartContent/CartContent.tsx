@@ -85,19 +85,9 @@ const CartContentItemsList = () => {
   );
 };
 
-function CartContent() {
-  return (
-    <CartContentRoot>
-      <CartContentLoading />
-      <CartContentHeader />
-      <CartContentItems />
-    </CartContentRoot>
-  );
-}
-
-CartContent.Root = CartContentRoot;
-CartContent.Loading = CartContentLoading;
-CartContent.Header = CartContentHeader;
-CartContent.Items = CartContentItems;
-
-export default CartContent;
+export {
+  CartContentRoot,
+  CartContentLoading,
+  CartContentHeader,
+  CartContentItems,
+};
