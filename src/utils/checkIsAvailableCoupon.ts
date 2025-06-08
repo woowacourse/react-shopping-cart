@@ -2,14 +2,18 @@ import { CartItem, Coupon } from '../types';
 import getOrderPrice from './getOrderPrice';
 
 const checkIsAvailableCoupon = (coupon: Coupon, checkedCartItems: CartItem[]) => {
-  const orderPrice = getOrderPrice(checkedCartItems);
-  if (orderPrice < (coupon.minimumAmount ?? 0)) return false;
+  if (checkIsNotOverMin(coupon, checkedCartItems)) return false;
   if (checkIsStaleCouponNow(coupon)) return false;
-
+  if (checkIsCannotBuyXGetY(coupon, checkedCartItems)) return false;
   return true;
 };
 
 export default checkIsAvailableCoupon;
+
+const checkIsNotOverMin = (coupon: Coupon, checkedCartItems: CartItem[]) => {
+  const orderPrice = getOrderPrice(checkedCartItems);
+  return orderPrice < (coupon.minimumAmount ?? 0);
+};
 
 const checkIsStaleCouponNow = (coupon: Coupon) => {
   const today = new Date();
@@ -47,4 +51,13 @@ const checkIsStaleCouponNow = (coupon: Coupon) => {
 
 const getSeconds = (hour: number, minute: number, second: number) => {
   return hour * 60 * 60 + minute * 60 + second;
+};
+
+const checkIsCannotBuyXGetY = (coupon: Coupon, checkedCartItems: CartItem[]) => {
+  if (coupon.discountType !== 'buyXgetY') return false;
+  if (!coupon.getQuantity || !coupon.buyQuantity) return false;
+  const minimumAmount = coupon.getQuantity + coupon.buyQuantity;
+  if (checkedCartItems.every((item) => item.quantity < minimumAmount)) return true;
+
+  return false;
 };
