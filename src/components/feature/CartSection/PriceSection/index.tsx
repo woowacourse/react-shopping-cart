@@ -10,6 +10,7 @@ type Props = {
   cartItems: CartProduct[] | undefined;
   selectedCartIds: number[];
   discount?: number;
+  isRemoteArea?: boolean;
 };
 
 export const getPrice = (items: CartProduct[] | undefined) => {
@@ -34,13 +35,19 @@ export const getPrice = (items: CartProduct[] | undefined) => {
   return { orderPrice, deliveryPrice, totalPrice, totalAmount };
 };
 
-const PriceSection = ({ cartItems, selectedCartIds, discount }: Props) => {
+const PriceSection = ({
+  cartItems,
+  selectedCartIds,
+  discount,
+  isRemoteArea,
+}: Props) => {
   const navigate = useNavigate();
   const selectedItems = cartItems?.filter(
     (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
   );
 
   const price = getPrice(selectedItems);
+  if (isRemoteArea) price.deliveryPrice += 3000;
 
   return (
     <>

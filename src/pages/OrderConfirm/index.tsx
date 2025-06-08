@@ -43,6 +43,13 @@ const OrderConfirm = () => {
 
     if (!isValidDate(coupon?.expirationDate)) return false;
 
+    if (
+      coupon.discountType === "freeShipping" &&
+      totalPrice >= 100000 &&
+      !isRemoteAreaChecked
+    )
+      return false;
+
     if (coupon.minimumAmount) return coupon.minimumAmount <= totalPrice;
 
     if (coupon.buyQuantity) {
@@ -99,7 +106,10 @@ const OrderConfirm = () => {
       return eligibleItems[0].product.price;
     }
 
-    if (coupon.discountType === "freeShipping") return 3000;
+    if (coupon.discountType === "freeShipping") {
+      if (isRemoteAreaChecked) return 6000;
+      return 3000;
+    }
 
     if (coupon.discountType === "percentage") return totalPrice * 0.3;
   };
@@ -157,6 +167,7 @@ const OrderConfirm = () => {
           cartItems={cartItems}
           selectedCartIds={selectedCartIds}
           discount={getTotalDiscount()}
+          isRemoteArea={isRemoteAreaChecked}
         />
       </S.Container>
 
