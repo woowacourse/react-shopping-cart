@@ -48,8 +48,8 @@ export default function CartItemSection() {
 
           <Spacing size={32} />
 
-          <S.CheckboxWrapper>
-            <Checkbox checked={isAllSelected} onClick={handleSelectAll} />
+          <S.CheckboxWrapper onClick={handleSelectAll}>
+            <Checkbox checked={isAllSelected} />
 
             <Text variant="body-2">전체 선택</Text>
           </S.CheckboxWrapper>
