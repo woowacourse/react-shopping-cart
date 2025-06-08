@@ -9,6 +9,8 @@ import {
 } from "react";
 import { Cart } from "../api/cart";
 
+const STORAGE_KEY = "cart-selection-map";
+
 const OrderListContext = createContext<{
   selectionMap: Record<string, boolean>;
   setSelectionMap: React.Dispatch<
@@ -21,18 +23,25 @@ const OrderListContext = createContext<{
   handleDiscountSetting: (discountAmount: number) => void;
 }>({
   selectionMap: {},
-  setSelectionMap: () => {},
+  setSelectionMap: () => { },
   orderIdList: [],
   isIsland: false,
-  handleIsIslandToggle: () => {},
+  handleIsIslandToggle: () => { },
   discount: 0,
-  handleDiscountSetting: () => {},
+  handleDiscountSetting: () => { },
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
-  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
+  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>(() => {
+    const savedMap = localStorage.getItem(STORAGE_KEY);
+    return savedMap ? JSON.parse(savedMap) : {};
+  });
   const [isIsland, setIsIsland] = useState(false);
   const [discount, setDiscount] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(selectionMap));
+  }, [selectionMap]);
 
   const handleIsIslandToggle = useCallback(() => {
     setIsIsland((prev) => !prev);
