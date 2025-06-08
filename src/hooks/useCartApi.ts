@@ -21,7 +21,7 @@ export const useCartApi = () => {
   const patchCartItem = async ({ id, quantity }: { id: number; quantity: number }) => {
     try {
       await cartApi.patch({ id, quantity });
-      getCartItems();
+      return getCartItems();
     } catch (e) {
       if (e instanceof Error) showError(e.message);
     }
@@ -30,7 +30,7 @@ export const useCartApi = () => {
   const deleteCartItem = async ({ id }: { id: number }) => {
     try {
       await cartApi.delete({ id });
-      getCartItems();
+      return getCartItems();
     } catch (e) {
       if (e instanceof Error) showError(e.message);
     }

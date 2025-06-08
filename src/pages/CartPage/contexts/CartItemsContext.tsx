@@ -4,6 +4,7 @@ import { useCartApi } from "../../../hooks/useCartApi";
 
 interface CartItemsContextValue {
   cartItems: CartItemContent[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItemContent[]>>;
   isLoading: boolean;
 }
 
@@ -20,7 +21,9 @@ function CartItemsProvider({ children }: PropsWithChildren) {
     })();
   }, []);
 
-  return <CartItemsContext.Provider value={{ cartItems, isLoading }}>{children}</CartItemsContext.Provider>;
+  return (
+    <CartItemsContext.Provider value={{ cartItems, setCartItems, isLoading }}>{children}</CartItemsContext.Provider>
+  );
 }
 
 export const useCartItems = () => {
