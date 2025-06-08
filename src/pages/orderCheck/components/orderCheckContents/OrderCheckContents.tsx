@@ -17,6 +17,7 @@ import { Modal } from '@jae-o/modal-component-module';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import * as S from './OrderCheckContents.styles';
+import { selectTopDiscountCoupons } from '@/components/features/coupon/utils/selectTopDiscountCoupons';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -64,13 +65,8 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   useEffect(() => {
     if (!coupons || coupons.length === 0) return;
 
-    const couponsSortedByDiscountAmount = [...coupons]
-      .sort((a, b) => b.discountAmount - a.discountAmount)
-      .slice(0, 2)
-      .filter((coupon) => !coupon.disable);
-    applyCouponIds(
-      new Set(couponsSortedByDiscountAmount.map((coupon) => coupon.data.id))
-    );
+    const topCoupons = selectTopDiscountCoupons(coupons);
+    applyCouponIds(new Set(topCoupons.map((coupon) => coupon.data.id)));
   }, [applyCouponIds, coupons, orderItems]);
 
   if (isLoading || !coupons) return <Loading />;
