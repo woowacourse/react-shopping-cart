@@ -6,6 +6,7 @@ import { CartItem } from "../../../type/CartItem";
 import OrderNotice from "./OrderNotice/OrderNotice";
 import OrderTotalPrice from "./OrderTotalPrice/OrderTotalPrice";
 import OrderShippingFee from "./OrderShippingFee/OrderShippingFee";
+import OrderTotalPriceWithShipping from "./OrderTotalPriceWithShipping/OrderTotalPriceWithShipping";
 
 interface OrderSummaryProps {
   cartItemsData: CartItem[];
@@ -25,12 +26,9 @@ function OrderSummary({ cartItemsData, selectedCartIds }: OrderSummaryProps) {
         <OrderTotalPrice totalPrice={totalPrice} />
         <OrderShippingFee shippingFee={shippingFee} />
       </Styled.PriceWrapper>
-      <Styled.TotalPriceWrapper>
-        <Styled.TitleText>총 결제 금액</Styled.TitleText>
-        <Styled.PriceText>
-          {totalPriceWithShipping.toLocaleString()}원
-        </Styled.PriceText>
-      </Styled.TotalPriceWrapper>
+      <OrderTotalPriceWithShipping
+        totalPriceWithShipping={totalPriceWithShipping}
+      />
     </Styled.TotalPriceContainer>
   );
 }
