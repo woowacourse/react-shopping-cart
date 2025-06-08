@@ -1,10 +1,20 @@
 import { css } from '@emotion/react';
 
-const listLayout = css`
-  padding: 0px;
-  list-style-type: none;
-  padding-bottom: 24px;
-`;
+const listLayout = (disabled: boolean) => {
+  return css`
+    padding: 0px;
+    list-style-type: none;
+    padding-bottom: 24px;
+
+    ${disabled &&
+    css`
+      background: #fefefe;
+      opacity: 0.2;
+      pointer-events: none; // 클릭 등 모든 사용자 상호작용 차단
+      user-select: none; // 텍스트 드래그도 막음
+    `}
+  `;
+};
 
 const checkBoxWrapper = css`
   display: flex;

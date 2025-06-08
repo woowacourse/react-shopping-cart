@@ -20,6 +20,7 @@ interface CouponModalContentProps {
   coupons: Coupon[];
   selectedCouponIds: string[];
   couponPrice: number;
+  couponWithDisabled: boolean[];
 }
 
 export function CouponModalContent({
@@ -29,6 +30,7 @@ export function CouponModalContent({
   coupons,
   selectedCouponIds,
   couponPrice,
+  couponWithDisabled,
 }: CouponModalContentProps) {
   return (
     <>
@@ -43,8 +45,9 @@ export function CouponModalContent({
         <p css={deliveryInfo}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
       </div>
       <div css={couponList}>
-        {coupons.map((coupon) => (
+        {coupons.map((coupon, index) => (
           <CouponItem
+            disabled={couponWithDisabled[index]}
             couponData={coupon}
             onChange={handleCouponIdsChange}
             isChecked={selectedCouponIds.includes(coupon.id.toString())}

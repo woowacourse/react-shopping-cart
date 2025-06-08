@@ -16,12 +16,14 @@ interface CouponItemProps {
   couponData: Coupon;
   isChecked: boolean;
   onChange: (id: string) => void;
+  disabled: boolean;
 }
 
 export function CouponItem({
   couponData,
   isChecked,
   onChange,
+  disabled,
 }: CouponItemProps) {
   const getAvailableTimeText = (availableTime: {
     start: string;
@@ -45,7 +47,7 @@ export function CouponItem({
   };
 
   return (
-    <li css={listLayout}>
+    <li css={listLayout(disabled)}>
       <Line />
       <div css={checkBoxWrapper}>
         <CheckBox

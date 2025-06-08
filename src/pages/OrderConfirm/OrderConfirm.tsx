@@ -135,6 +135,23 @@ export function OrderConfirm() {
     nowDate: new Date(),
   });
 
+  const isCouponDisabled = (
+    coupon: Coupon,
+    cartItems: CartItemTypes[],
+    deliveryFee: number
+  ) =>
+    calculateCouponPrice({
+      couponIds: [coupon.id.toString()],
+      coupons: [coupon],
+      selectedCartItems: cartItems,
+      deliveryFee,
+      nowDate: new Date(),
+    }) === 0;
+
+  const couponWithDisabled = coupons.map((coupon) =>
+    isCouponDisabled(coupon, selectedCartItems, deliveryFee)
+  );
+
   return (
     <>
       <PageLayout>
@@ -193,6 +210,7 @@ export function OrderConfirm() {
             coupons={coupons}
             selectedCouponIds={selectedCouponIds}
             couponPrice={couponPrice}
+            couponWithDisabled={couponWithDisabled}
           />
         </ModalContent>
       </Modal>
