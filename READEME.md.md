@@ -70,7 +70,7 @@ ui 퍼블리싱
 - [ ] 테스트 코드 작성
   - [ ] cart
     - [x] useCartResource 훅 테스트
-    - [ ] useCartCheck 훅 테스트
+    - [x] useCartCheck 훅 테스트
     - [ ] calculateCartAmount utils 함수 테스트
     - [ ] calculateCartPrice utils 함수 테스트
   - [ ] order
