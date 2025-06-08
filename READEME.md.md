@@ -37,8 +37,8 @@ ui 퍼블리싱
 
 - cart
 - [x] useCart (wrapper 훅)
-- [ ] useCartCheck (id 배열 바탕으로 상품 체크 관련 훅)
-- [ ] useCartResource (cart 기본 초기값 받아오는 훅)
+- [x] useCartCheck (id 배열 바탕으로 상품 체크 관련 훅)
+- [x] useCartResource (cart 기본 초기값 받아오는 훅)
 - order
 - [x] useOrder (wrapper 훅)
 - [x] useCouponResource (쿠폰 초기값 받아오는 훅)
@@ -55,7 +55,7 @@ ui 퍼블리싱
   - [x] useCouponValidation 훅 생성
     - [x] validation 관련 util 함수로 분리
   - [x] 타입 정리
-- [ ] orderPrice 컴포넌트 네이밍 변경 -> Price
+- [x] orderPrice 컴포넌트 네이밍 변경 -> Price
 - [ ] order-confirm 페이지 ui 정리
 - [ ] 상수 값 분리
 - [ ] 코로케이션 폴더 구조 적용

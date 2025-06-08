@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const OrderPrice = styled.div<{ direction: "row" | "column"; gap: number }>`
+export const Price = styled.div<{ direction: "row" | "column"; gap: number }>`
   width: 100%;
   display: flex;
   flex-direction: ${(props) => props.direction};
@@ -16,7 +16,7 @@ export const Wrap = styled.div<{ direction: "row" | "column"; gap: number }>`
   border-top: 1px solid #0000001a;
 `;
 
-export const LabelWithPrice = styled.div`
+export const WithLabel = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
