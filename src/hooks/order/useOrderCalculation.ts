@@ -32,5 +32,5 @@ export function useOrderCalculation(
       shippingFee,
       totalPrice,
     };
-  }, [cartListData, selectedCartItems, isIsland, discount]);
+  }, [selectedCartItems, isIsland, discount]);
 }

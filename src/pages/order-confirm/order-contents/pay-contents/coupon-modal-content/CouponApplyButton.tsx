@@ -7,6 +7,7 @@ import { useOrderListContext } from "../../../../../context/OrderListProvider";
 import { useOrderCalculation } from "../../../../../hooks/order/useOrderCalculation";
 import { useCouponContext } from "../../../context/CouponProvider";
 import { calculateCouponDiscount } from "./utils/couponCalculator";
+import { useToastContext } from "../../../../../context/ToastProvider";
 
 function CouponApplyButton({
   onClose,
@@ -27,6 +28,8 @@ function CouponApplyButton({
     isIsland
   );
 
+  const { showToast } = useToastContext();
+
   const coupons = use(couponsResource);
 
   const { selectedCoupon } = useCouponContext();
@@ -40,8 +43,9 @@ function CouponApplyButton({
 
   const handleCouponApply = useCallback(() => {
     handleDiscountSetting(finalDiscount);
+    showToast("쿠폰이 적용되었습니다.", "info");
     onClose();
-  }, [onClose, handleDiscountSetting, finalDiscount]);
+  }, [onClose, handleDiscountSetting, finalDiscount, showToast]);
 
   return (
     <Button

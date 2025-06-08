@@ -9,6 +9,7 @@ import { useOrderCalculation } from "../../../../../hooks/order/useOrderCalculat
 import { useCouponContext } from "../../../context/CouponProvider";
 import { getCouponDetails } from "./utils/getCouponDetails";
 import { isCouponAvailable } from "./utils/couponValidation";
+import { useToastContext } from "../../../../../context/ToastProvider";
 
 function CouponCheckList({
   couponsResource,
@@ -28,24 +29,21 @@ function CouponCheckList({
     isIsland
   );
 
-  const { autoSelectOptimalCoupon } = useCouponContext();
+  const { initializeCoupons } = useCouponContext();
+  const { showToast } = useToastContext();
 
   useEffect(() => {
-    if (coupons.length > 0 && selectedCartItems.length > 0) {
-      autoSelectOptimalCoupon(
-        coupons,
-        totalCartPrice,
-        shippingFee,
-        selectedCartItems
-      );
+    const hasSelectedCoupons = initializeCoupons(
+      coupons,
+      totalCartPrice,
+      shippingFee,
+      selectedCartItems
+    );
+
+    if (hasSelectedCoupons) {
+      showToast("최적의 쿠폰이 자동으로 선택되었습니다.", "info");
     }
-  }, [
-    coupons,
-    totalCartPrice,
-    shippingFee,
-    selectedCartItems,
-    autoSelectOptimalCoupon,
-  ]);
+  }, [coupons, totalCartPrice, shippingFee, selectedCartItems]);
 
   return (
     <>

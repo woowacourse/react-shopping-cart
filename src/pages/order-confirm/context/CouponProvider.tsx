@@ -3,27 +3,30 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { Cart } from "../../../api/cart";
 import { Coupon } from "../../../api/coupon";
 import { optimizeCouponSelection } from "../order-contents/pay-contents/coupon-modal-content/utils/couponOptimizer";
+
 interface CouponContextInterface {
   selectedCoupon: string[];
   handleCouponToggle: (couponId: string) => void;
   handleCouponSelectionIds: (couponIds: string[]) => void;
-  autoSelectOptimalCoupon: (
+  initializeCoupons: (
     coupons: Coupon[],
     totalCartPrice: number,
     shippingFee: number,
     selectedCartItems: Cart[] | undefined
-  ) => void;
+  ) => boolean;
 }
 
 const CouponContext = createContext<CouponContextInterface | null>(null);
 
 export const CouponProvider = ({ children }: PropsWithChildren) => {
   const [selectedCoupon, setSelectedCoupon] = useState<string[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const handleCouponToggle = useCallback(
     (couponId: string) => {
@@ -48,22 +51,27 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
     [setSelectedCoupon]
   );
 
-  const autoSelectOptimalCoupon = useCallback(
+  const initializeCoupons = useCallback(
     (
       coupons: Coupon[],
       totalCartPrice: number,
       shippingFee: number,
       selectedCartItems: Cart[] | undefined
-    ) => {
-      const result = optimizeCouponSelection(
-        coupons,
-        totalCartPrice,
-        shippingFee,
-        selectedCartItems
-      );
-      setSelectedCoupon(result.selectedCouponIds);
+    ): boolean => {
+      if (!isInitialized) {
+        const result = optimizeCouponSelection(
+          coupons,
+          totalCartPrice,
+          shippingFee,
+          selectedCartItems
+        );
+        setSelectedCoupon(result.selectedCouponIds);
+        setIsInitialized(true);
+        return result.selectedCouponIds.length > 0;
+      }
+      return false;
     },
-    [setSelectedCoupon]
+    [isInitialized]
   );
 
   return (
@@ -72,7 +80,7 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
         selectedCoupon,
         handleCouponToggle,
         handleCouponSelectionIds,
-        autoSelectOptimalCoupon,
+        initializeCoupons,
       }}
     >
       {children}
