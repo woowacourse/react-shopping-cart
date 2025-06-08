@@ -20,32 +20,59 @@ export const isValidCoupon = (
   totalPrice: number,
   isRemoteArea: boolean,
   selectedCartItems: CartProduct[]
-): boolean => {
+) => {
   if (!isValidDate(coupon.expirationDate)) return false;
 
-  switch (coupon.discountType) {
-    case "freeShipping": {
-      if (totalPrice >= 100_000 && !isRemoteArea) return false;
-      if (Number(coupon.minimumAmount) > totalPrice) return false;
-      return true;
-    }
-
-    case "buyXgetY": {
-      return selectedCartItems.some(
-        (item: CartProduct) => item.quantity > coupon.buyQuantity!
+  switch (coupon.code) {
+    case "FREESHIPPING": {
+      if (coupon.discountType !== "freeShipping") return false;
+      return isValidFreeShipping(
+        coupon.minimumAmount,
+        totalPrice,
+        isRemoteArea
       );
     }
 
-    case "fixed": {
-      return Number(coupon.minimumAmount) <= totalPrice;
+    case "BOGO": {
+      if (coupon.discountType !== "buyXgetY") return false;
+      return isValidBogo(selectedCartItems, coupon.buyQuantity);
     }
 
-    case "percentage": {
-      if (coupon.availableTime && !isValidTime(coupon.availableTime))
-        return false;
-      return true;
+    case "FIXED5000": {
+      if (coupon.discountType !== "fixed") return false;
+      return isValidFixed5000(coupon.minimumAmount, totalPrice);
+    }
+
+    case "MIRACLESALE": {
+      if (coupon.discountType !== "percentage") return false;
+      return isValidMiracleSale(coupon.availableTime);
     }
   }
+};
+
+const isValidFixed5000 = (minimumAmount: number, totalPrice: number) => {
+  return minimumAmount <= totalPrice;
+};
+
+const isValidFreeShipping = (
+  minimumAmount: number,
+  totalPrice: number,
+  isRemoteArea: boolean
+) => {
+  if (totalPrice >= 100_000 && !isRemoteArea) return false;
+  if (minimumAmount > totalPrice) return false;
+  return true;
+};
+
+const isValidBogo = (selectedCartItems: CartProduct[], buyQuantity: number) => {
+  return selectedCartItems.some(
+    (item: CartProduct) => item.quantity > buyQuantity!
+  );
+};
+
+const isValidMiracleSale = (availableTime: { start: string; end: string }) => {
+  if (availableTime && !isValidTime(availableTime)) return false;
+  return true;
 };
 
 const isValidDate = (expirationDate: string): boolean => {
@@ -79,20 +106,12 @@ export const calculateDiscount = (
       return coupon.discount;
 
     case "buyXgetY": {
-      const eligibleItems = selectedCartItems.filter(
-        (item: CartProduct) => item.quantity > coupon.buyQuantity
-      );
-
-      eligibleItems.sort(
-        (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
-      );
-
-      return eligibleItems[0].product.price;
+      return calculateBuyXGetY(selectedCartItems, coupon.buyQuantity);
     }
 
     case "freeShipping": {
       const deliveryPrice = totalPrice >= 100_000 ? 0 : 3000;
-      return isRemoteArea ? 3000 + deliveryPrice : deliveryPrice;
+      return calculateFreeshipping(deliveryPrice, isRemoteArea);
     }
 
     case "percentage":
@@ -101,4 +120,26 @@ export const calculateDiscount = (
     default:
       return 0;
   }
+};
+
+const calculateBuyXGetY = (
+  selectedCartItems: CartProduct[],
+  buyQuantity: number
+) => {
+  const eligibleItems = selectedCartItems.filter(
+    (item: CartProduct) => item.quantity > buyQuantity
+  );
+
+  eligibleItems.sort(
+    (a: CartProduct, b: CartProduct) => b.product.price - a.product.price
+  );
+
+  return eligibleItems[0].product.price;
+};
+
+const calculateFreeshipping = (
+  deliveryPrice: number,
+  isRemoteArea: boolean
+) => {
+  return isRemoteArea ? 3000 + deliveryPrice : deliveryPrice;
 };

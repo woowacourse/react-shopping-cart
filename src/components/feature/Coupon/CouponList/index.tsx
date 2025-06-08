@@ -33,9 +33,13 @@ const CouponList = ({
   const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
 
   const getValidCoupons = () => {
-    const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
     return coupons.filter((coupon: CouponResponse) =>
-      isValidCoupon(coupon, totalPrice, isRemoteArea, selectedCartItems)
+      isValidCoupon(
+        coupon,
+        totalPrice,
+        isRemoteArea,
+        getSelectedCartItems(cartItems, selectedCartIds)
+      )
     );
   };
 
