@@ -1,6 +1,6 @@
 import { CouponType } from "../../type/Coupons";
-
 import { validateFixedDiscountCoupon } from "./FixedDiscountCoupon/validate";
+import { validateBuyXGetYCoupon } from "./BuyXGetYCoupon/validate";
 
 export const validateExpirationDate = (expirationDate: string): boolean => {
   const today = new Date();
@@ -10,7 +10,7 @@ export const validateExpirationDate = (expirationDate: string): boolean => {
 
 export const VALIDATE_COUPONS = {
   [CouponType.FIXED]: validateFixedDiscountCoupon,
-  [CouponType.BUY_X_GET_Y]: () => false, //validateBuyXGetYCoupon,
+  [CouponType.BUY_X_GET_Y]: validateBuyXGetYCoupon,
   [CouponType.FREE_SHIPPING]: () => false, //validateFreeShippingCoupon,
   [CouponType.PERCENTAGE]: () => false, //validatePercentageDiscountCoupon,
 };
