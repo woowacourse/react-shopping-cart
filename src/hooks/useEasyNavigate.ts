@@ -20,7 +20,21 @@ const useEasyNavigate = () => {
     });
   };
 
-  return { goHome, goOrderComplete };
+  const goPaymentConfirmation = (
+    productTypeCount: number,
+    totalProductCount: number,
+    finalAmount: number
+  ) => {
+    navigate(ROUTE.PAYMENT_CONFIRMATION, {
+      state: { productTypeCount, totalProductCount, finalAmount },
+    });
+  };
+
+  const goCart = () => {
+    navigate(ROUTE.HOME);
+  };
+
+  return { goHome, goOrderComplete, goPaymentConfirmation, goCart };
 };
 
 export default useEasyNavigate;
