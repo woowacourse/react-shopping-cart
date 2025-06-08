@@ -79,12 +79,10 @@ const OrderConfirm = () => {
   };
 
   const getValidCoupons = () => {
-    if (!coupons) return;
+    if (!coupons) return [];
     const couponIds = coupons.map((coupon) => coupon.id);
     return couponIds.filter((id) => isAvailable(id));
   };
-
-  console.log(getValidCoupons());
 
   return (
     <>
@@ -154,6 +152,7 @@ const OrderConfirm = () => {
             coupons={coupons}
             selectedIds={selectedIds}
             onSelect={handleSelectCoupon}
+            validCoupons={getValidCoupons()}
           />
         )}
       </Modal>

@@ -7,11 +7,11 @@ export const Container = styled.div`
   gap: 25px;
 `;
 
-export const Title = styled.div`
+export const Title = styled.p`
   font-size: 18px;
   font-weight: 700;
 `;
 
-export const Notice = styled.div`
+export const Notice = styled.p`
   font-size: 12px;
 `;

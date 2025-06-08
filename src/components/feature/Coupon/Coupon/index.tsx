@@ -8,6 +8,7 @@ interface Props {
   coupon: CouponResponse;
   isChecked: boolean;
   onSelect: (id: number) => void;
+  isValid: boolean;
 }
 
 const formatDate = (dateString: string): string => {
@@ -44,27 +45,34 @@ const Coupon = ({
   coupon: { id, description, expirationDate, minimumAmount, availableTime },
   isChecked,
   onSelect,
+  isValid,
 }: Props) => {
   return (
     <>
       <Line />
       <S.Container>
         <S.CouponTop>
-          <CheckBox isChecked={isChecked} onChange={() => onSelect(id)} />
-          <S.Name>{description}</S.Name>
+          <CheckBox
+            isChecked={isChecked}
+            onChange={() => onSelect(id)}
+            disabled={!isValid}
+          />
+          <S.Name disabled={!isValid}>{description}</S.Name>
         </S.CouponTop>
 
         <S.CouponBottom>
           {expirationDate && (
-            <S.Info>만료일: {formatDate(expirationDate)}</S.Info>
+            <S.Info disabled={!isValid}>
+              만료일: {formatDate(expirationDate)}
+            </S.Info>
           )}
           {minimumAmount && (
-            <S.Info>
+            <S.Info disabled={!isValid}>
               최소 주문 금액: {formatPrice(Number(minimumAmount))}
             </S.Info>
           )}
           {availableTime && (
-            <S.Info>
+            <S.Info disabled={!isValid}>
               사용 가능 시간:
               {formatAvailableTime(availableTime.start, availableTime.end)}
             </S.Info>

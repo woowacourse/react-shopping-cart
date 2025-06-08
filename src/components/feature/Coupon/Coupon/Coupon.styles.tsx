@@ -18,12 +18,14 @@ export const CouponBottom = styled.div`
   gap: 4px;
 `;
 
-export const Name = styled.div`
+export const Name = styled.p<{ disabled: boolean }>`
   font-size: 16px;
   font-weight: 700;
+  color: ${({ disabled }) => (disabled ? "lightgray" : "black")};
 `;
 
-export const Info = styled.div`
+export const Info = styled.p<{ disabled: boolean }>`
   font-size: 12px;
   font-weight: 500;
+  color: ${({ disabled }) => (disabled ? "lightgray" : "black")};
 `;

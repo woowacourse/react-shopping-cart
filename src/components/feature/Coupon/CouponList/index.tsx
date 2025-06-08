@@ -9,9 +9,15 @@ interface Props {
   coupons: CouponResponse[];
   selectedIds: number[];
   onSelect: (id: number) => void;
+  validCoupons: number[];
 }
 
-const CouponList = ({ coupons, selectedIds, onSelect }: Props) => {
+const CouponList = ({
+  coupons,
+  selectedIds,
+  onSelect,
+  validCoupons,
+}: Props) => {
   return (
     <S.Container>
       <S.Title>쿠폰을 선택해 주세요</S.Title>
@@ -24,6 +30,7 @@ const CouponList = ({ coupons, selectedIds, onSelect }: Props) => {
           coupon={coupon}
           isChecked={selectedIds.includes(coupon.id)}
           onSelect={onSelect}
+          isValid={validCoupons.includes(coupon.id)}
         />
       ))}
       <Button
