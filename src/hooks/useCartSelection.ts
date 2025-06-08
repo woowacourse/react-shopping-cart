@@ -1,0 +1,41 @@
+import { useState, useEffect } from 'react';
+import { CartProduct, CartItemsResponse } from '../types/cart';
+
+export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (cartItems?.content && cartItems.content.length > 0) {
+      const itemIds = cartItems.content.map((item: CartProduct) => item.id);
+      setCheckedItems(itemIds);
+    } else {
+      setCheckedItems([]);
+    }
+  }, [cartItems]);
+
+  const isAllChecked = Boolean(
+    cartItems?.content &&
+      cartItems.content.length > 0 &&
+      checkedItems.length === cartItems.content.length,
+  );
+
+  const checkAll = (checked: boolean) => {
+    if (!cartItems?.content) return;
+
+    setCheckedItems(checked ? cartItems.content.map((item: CartProduct) => item.id) : []);
+  };
+
+  const toggleItem = (id: number) => {
+    setCheckedItems((prev) =>
+      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id],
+    );
+  };
+
+  return {
+    checkedItems,
+    setCheckedItems,
+    isAllChecked,
+    checkAll,
+    toggleItem,
+  };
+};
