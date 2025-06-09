@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
+import { useOrderContext } from '../../features/order/context/useOrderContext';
 import Navbar from '../../shared/ui/Navbar';
 import * as S from './OrderSuccessPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router';
 import NavFooter from '../../shared/ui/NavFooter';
 
 export default function OrderSuccessPage() {
-  const { cartTypeQuantity, totalQuantity, totalPurchasePrice } = useSelectedCartItemsContext();
-
   const navigate = useNavigate();
+  const { cartTypeQuantity, totalQuantity, totalPurchasePrice } = useOrderContext();
+
   const handleClick = () => {
     navigate(ROUTES.ROOT);
   };

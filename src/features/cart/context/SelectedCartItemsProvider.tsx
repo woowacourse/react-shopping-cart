@@ -1,24 +1,12 @@
 import { createContext, useState, useEffect } from 'react';
 import { CartItem } from '../types/cart';
 import { useCartItemsContext } from './useCartItemsContext';
-import { calculatePrices } from '../utils/priceCalculations';
-import { useCouponsContext } from '../../coupon/context/useCouponsContext';
-import { Coupon } from '../../coupon/types/coupon';
 
 interface SelectedCartItemsContextType {
   SelectedCartItems: CartItem[];
   addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
-  cartTypeQuantity: number;
-  totalQuantity: number;
-  totalPrice: number;
-  deliveryFee: number;
-  totalPurchasePrice: number;
-  couponDiscountPrice: number;
-  appliedCoupons: Coupon[];
-  isRemoteArea: boolean;
-  updateRemoteArea: (isRemote: boolean) => void;
 }
 
 export const SelectedCartItemsContext = createContext<SelectedCartItemsContextType | undefined>(undefined);
@@ -29,24 +17,8 @@ interface SelectedCartItemsProviderProps {
 
 export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProviderProps) => {
   const { cartItems } = useCartItemsContext();
-  const { selectedCoupons } = useCouponsContext();
   const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
   const [init, setInit] = useState(false);
-
-  const {
-    cartTypeQuantity,
-    totalQuantity,
-    totalPrice,
-    deliveryFee,
-    totalPurchasePrice,
-    couponDiscountPrice,
-    appliedCoupons,
-  } = calculatePrices({
-    selectedCartItems: SelectedCartItems,
-    selectedCoupons,
-    isRemoteArea,
-  });
 
   useEffect(() => {
     if (!init && cartItems.length > 0) {
@@ -64,8 +36,8 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
     );
   }, [cartItems]);
 
-  const addSelectedCartItem = (cartItem: CartItem) => {
-    setSelectedCartItems((prevItems) => [...prevItems, cartItem]);
+  const addSelectedCartItem = (cartItem: CartItem, updatedQuantity: number) => {
+    setSelectedCartItems((prevItems) => [...prevItems, { ...cartItem, quantity: updatedQuantity }]);
   };
 
   const removeSelectedCartItem = (cartItem: CartItem) => {
@@ -76,10 +48,6 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
     setSelectedCartItems(cartItems);
   };
 
-  const updateRemoteArea = (isRemote: boolean) => {
-    setIsRemoteArea(isRemote);
-  };
-
   return (
     <SelectedCartItemsContext.Provider
       value={{
@@ -87,15 +55,6 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
         addSelectedCartItem,
         addAllCartItemsInSelected,
         removeSelectedCartItem,
-        cartTypeQuantity,
-        totalQuantity,
-        totalPrice,
-        deliveryFee,
-        totalPurchasePrice,
-        couponDiscountPrice,
-        appliedCoupons,
-        isRemoteArea,
-        updateRemoteArea,
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import * as S from './CartPage.styles';
-import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui';
+import { CartHeader, CartList } from '../../features/cart/ui';
+import { OrderPriceSummary } from '../../features/order/ui';
 import Navbar from '../../shared/ui/Navbar';
 import { useCartItemsContext } from '../../features/cart/context/useCartItemsContext';
 import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
