@@ -18,20 +18,27 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   useEffect(() => {
-    if (totalPrice < DELIVERY_FEE_THRESHOLD) {
+    if (deliveryFee === 0 && totalPrice < DELIVERY_FEE_THRESHOLD) {
       updateDeliveryFee(DELIVERY_FEE);
     } else {
+      if (deliveryFee > 0) {
+        updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
+        return;
+      }
+
       updateDeliveryFee(0);
     }
 
     updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
-  }, [selectedCartItems]);
+  }, [selectedCartItems, deliveryFee]);
 
   const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.discountType === 'freeShipping');
 
   const handleSuburbExtraFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e?.target.checked;
+    console.log('isChecked', isChecked);
     if (isChecked) {
+      console.log("'제주도 및 도서 산간 지역' 체크박스가 선택되었습니다.", deliveryFee + DELIVERY_FEE);
       updateDeliveryFee(deliveryFee + DELIVERY_FEE);
     } else {
       updateDeliveryFee(Math.max(deliveryFee - DELIVERY_FEE, 0));
