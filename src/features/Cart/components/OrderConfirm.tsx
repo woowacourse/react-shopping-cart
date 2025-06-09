@@ -29,15 +29,17 @@ import { calculateTotalDiscount } from '@/features/Coupon/utils/calculateTotalDi
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
+  onSelectCoupons: (selected: Coupon[]) => void;
 } & StepProps;
 
-export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
+export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: OrderConfirmProps) => {
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
   const { selectedCartItems } = useCartInfo(cartItems);
   const { showToast } = useContext(ToastContext);
   const { deliveryFee} = usePriceInfo();
   const { isRemoteArea } = useCartContext();
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
   const [showCouponList, setShowCouponList] = useState(false);
   const [discountAmount, setDiscountAmount] = useState(0); 
   const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
@@ -103,6 +105,12 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
     setShowCouponList(false);
   };
 
+  const handleApplyCoupons = () => {
+    onSelectCoupons(selectedCoupons);
+    setShowCouponList(false);
+    onNext?.();
+  };
+
   return (
     <>
       <Header
@@ -158,7 +166,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
         css={css`
           position: sticky;
         `}
-        // disabled
+        onClick={handleApplyCoupons}
       >
         결제하기
       </Button>
