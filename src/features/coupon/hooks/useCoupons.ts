@@ -59,7 +59,9 @@ const useCoupons = () => {
     });
 
     couponsWithDiscountPrice.sort((a, b) => b.discountPrice - a.discountPrice);
-    return couponsWithDiscountPrice.slice(0, 2);
+    const filteredCouponsWithDiscountPrice = couponsWithDiscountPrice.filter((coupon) => coupon.discountPrice > 0);
+
+    return filteredCouponsWithDiscountPrice.slice(0, 2);
   };
 
   return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading, message };

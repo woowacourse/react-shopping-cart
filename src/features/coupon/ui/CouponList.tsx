@@ -103,7 +103,6 @@ export default function CouponList({ onClose }: CouponListProps) {
   console.log('selected Coupons', selectedCoupons);
 
   const handleCloseModal = () => {
-    // updateSelectedCoupons([]);
     onClose();
   };
 
