@@ -87,6 +87,7 @@ export default function CouponList({ onClose }: CouponListProps) {
   console.log('totalPrice', totalPrice);
   console.log('deliveryFee', deliveryFee);
   console.log('totalPurchasePrice', totalPrice + deliveryFee - totalDiscountPrice);
+  console.log('invalidCouponIds', invalidCouponIds);
 
   useEffect(() => {
     updateTotalDiscountPrice(
@@ -118,8 +119,9 @@ export default function CouponList({ onClose }: CouponListProps) {
       return;
     }
 
-    if (selectedCoupons.length === 1) {
-      updateSelectedCoupons([selectedCoupons[0], selectedCoupon]);
+    if (selectedCoupons.length <= 1) {
+      const updatedCoupons = [...selectedCoupons, selectedCoupon];
+      updateSelectedCoupons(updatedCoupons);
     }
   };
 
