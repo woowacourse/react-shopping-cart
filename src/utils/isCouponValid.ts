@@ -3,7 +3,7 @@ import { Coupon } from "../types/Coupon";
 export function isCouponValid(
   coupon: Coupon,
   orderAmount: number,
-  now: Date
+  now = new Date()
 ): boolean {
   const expiration = new Date(`${coupon.expirationDate}T23:59:59`);
   if (expiration < now) return false;
