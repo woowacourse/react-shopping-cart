@@ -248,4 +248,166 @@ describe("쿠폰 할인 계산", () => {
       expect(result.finalDiscount).toBe(4000);
     });
   });
+
+  describe("N+1 쿠폰", () => {
+    it("2+1 쿠폰이 적용될 때 3개 구매 시 1개가 무료가 된다", () => {
+      const coupon: Coupon = {
+        id: "1",
+        code: "BUY2GET1",
+        description: "2+1 쿠폰",
+        expirationDate: [2024, 12, 31],
+        discountType: "buyXgetY",
+        buyQuantity: 2,
+        getQuantity: 1,
+      };
+
+      const cartItems: Cart[] = [
+        {
+          id: "1",
+          quantity: 3,
+          product: {
+            id: "1",
+            name: "상품1",
+            price: 10000,
+            imageUrl: "image1.jpg",
+            quantity: 20,
+            category: Category.식료품,
+          },
+        },
+      ];
+
+      const result = calculateCouponDiscount(
+        [coupon],
+        30000,
+        3000,
+        cartItems
+      );
+
+      expect(result.totalDiscount).toBe(10000);
+      expect(result.finalDiscount).toBe(10000);
+    });
+
+    it("2+1 쿠폰이 적용될 때 2개 구매 시 할인이 적용되지 않는다", () => {
+      const coupon: Coupon = {
+        id: "1",
+        code: "BUY2GET1",
+        description: "2+1 쿠폰",
+        expirationDate: [2024, 12, 31],
+        discountType: "buyXgetY",
+        buyQuantity: 2,
+        getQuantity: 1,
+      };
+
+      const cartItems: Cart[] = [
+        {
+          id: "1",
+          quantity: 2,
+          product: {
+            id: "1",
+            name: "상품1",
+            price: 10000,
+            imageUrl: "image1.jpg",
+            quantity: 20,
+            category: Category.식료품,
+          },
+        },
+      ];
+
+      const result = calculateCouponDiscount(
+        [coupon],
+        20000,
+        3000,
+        cartItems
+      );
+
+      expect(result.totalDiscount).toBe(0);
+      expect(result.finalDiscount).toBe(0);
+    });
+
+    it("여러 상품 중 가장 비싼 상품에 2+1 쿠폰이 적용된다", () => {
+      const coupon: Coupon = {
+        id: "1",
+        code: "BUY2GET1",
+        description: "2+1 쿠폰",
+        expirationDate: [2024, 12, 31],
+        discountType: "buyXgetY",
+        buyQuantity: 2,
+        getQuantity: 1,
+      };
+
+      const cartItems: Cart[] = [
+        {
+          id: "1",
+          quantity: 3,
+          product: {
+            id: "1",
+            name: "상품1",
+            price: 10000,
+            imageUrl: "image1.jpg",
+            quantity: 20,
+            category: Category.식료품,
+          },
+        },
+        {
+          id: "2",
+          quantity: 3,
+          product: {
+            id: "2",
+            name: "상품2",
+            price: 20000,
+            imageUrl: "image2.jpg",
+            quantity: 20,
+            category: Category.패션잡화,
+          },
+        },
+      ];
+
+      const result = calculateCouponDiscount(
+        [coupon],
+        90000,
+        3000,
+        cartItems
+      );
+
+      expect(result.totalDiscount).toBe(20000);
+      expect(result.finalDiscount).toBe(20000);
+    });
+
+    it("3+1 쿠폰이 적용될 때 4개 구매 시 1개가 무료가 된다", () => {
+      const coupon: Coupon = {
+        id: "1",
+        code: "BUY3GET1",
+        description: "3+1 쿠폰",
+        expirationDate: [2024, 12, 31],
+        discountType: "buyXgetY",
+        buyQuantity: 3,
+        getQuantity: 1,
+      };
+
+      const cartItems: Cart[] = [
+        {
+          id: "1",
+          quantity: 4,
+          product: {
+            id: "1",
+            name: "상품1",
+            price: 10000,
+            imageUrl: "image1.jpg",
+            quantity: 20,
+            category: Category.식료품,
+          },
+        },
+      ];
+
+      const result = calculateCouponDiscount(
+        [coupon],
+        40000,
+        3000,
+        cartItems
+      );
+
+      expect(result.totalDiscount).toBe(10000);
+      expect(result.finalDiscount).toBe(10000);
+    });
+  });
 });
