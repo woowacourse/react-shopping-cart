@@ -6,7 +6,7 @@ interface UseCartUIProps {
 }
 
 export const useCartUI = ({ itemCount, checkedItemsCount }: UseCartUIProps) => {
-  const descriptionMessage = () => getCartDescription(itemCount);
+  const descriptionMessage = getCartDescription(itemCount);
   const isDisabled = checkedItemsCount === 0;
 
   return {

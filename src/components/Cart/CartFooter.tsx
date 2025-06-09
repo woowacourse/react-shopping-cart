@@ -1,6 +1,5 @@
 import CartPrice from './CartPrice';
 import styled from '@emotion/styled';
-import { CartPriceVariant } from './CartPrice';
 
 interface CartFooterProps {
   price: number;
@@ -21,14 +20,14 @@ function CartFooter({ price, shippingFee, totalPrice, couponDiscount = 0 }: Cart
   };
 
   const renderCartPrice = [
-    { title: '주문 금액', price, variant: 'default' as CartPriceVariant },
+    { title: '주문 금액', price, variant: 'default' as const },
     {
       title: '쿠폰 할인 금액',
       price: isZero(couponDiscount),
-      variant: 'coupon' as CartPriceVariant,
+      variant: 'coupon' as const,
     },
-    { title: '배송비', price: shippingFee, variant: 'shipping' as CartPriceVariant },
-    { title: '총 결제 금액', price: totalPrice, variant: 'total' as CartPriceVariant },
+    { title: '배송비', price: shippingFee, variant: 'shipping' as const },
+    { title: '총 결제 금액', price: totalPrice, variant: 'total' as const },
   ];
 
   return (
