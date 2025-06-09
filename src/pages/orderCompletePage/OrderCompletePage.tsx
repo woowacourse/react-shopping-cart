@@ -1,23 +1,18 @@
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
 import * as S from './OrderCompletePage.styles';
-import { Subtitle, Title } from '../../styles/@common/title/Title.styles';
+import { Title, Subtitle } from '../../styles/@common/title/Title.styles';
 import OrderItem from '../../components/features/orderItem/OrderItem';
-import useCartData from '../../hooks/useCartData';
 import Button from '../../components/@common/button/Button';
 import Checkbox from '../../components/@common/checkbox/Checkbox';
-import infoIcon from '/public/icon/ic_info.svg';
 import { FREE_DELIVERY_MESSAGE } from '../../constants/systemMessages';
-import * as Dialog from '../../components/@common/dialog/Dialog';
-import { CouponList } from '../../components/features/couponList';
+import infoIcon from '/public/icon/ic_info.svg';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import useCartData from '../../hooks/useCartData';
 import { useCoupons } from '../../hooks/useCoupons';
-import {
-  calculateOptimalCouponCombination,
-  calculateSelectedCoupons,
-  CartItem,
-} from '../../utils/couponCalculator';
+import { useCouponCalculation } from '../../hooks/useCouponCalculation';
 import useEasyNavigate from '../../hooks/useEasyNavigate';
-import { Coupon } from '../../types/coupon';
+import * as Dialog from '../../components/@common/dialog/Dialog';
+import { CouponList } from '../../components/features/couponList/CouponList';
 
 interface OrderCompleteState {
   productTypeCount: number;
@@ -29,63 +24,22 @@ const OrderCompletePage = () => {
   const { productTypeCount, totalProductCount } = state;
   const { cartData, fetchCartData } = useCartData();
   const { coupons } = useCoupons();
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
-  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const { goPaymentConfirmation } = useEasyNavigate();
+
+  // 쿠폰 계산 로직을 커스텀 훅으로 분리
+  const {
+    isRemoteArea,
+    selectedCoupons,
+    autoOptimizationResult,
+    calculationResult,
+    handleRemoteAreaChange,
+    handleCouponSelect,
+    handleUseAutoOptimization,
+  } = useCouponCalculation({ cartData, coupons });
 
   useEffect(() => {
     fetchCartData();
   }, []);
-
-  const cartItems: CartItem[] = useMemo(() => {
-    return cartData.map((item) => ({
-      id: item.id,
-      price: item.product.price,
-      quantity: item.quantity,
-    }));
-  }, [cartData]);
-
-  // 자동 최적화 결과
-  const autoOptimizationResult = useMemo(() => {
-    return calculateOptimalCouponCombination(cartItems, coupons, isRemoteArea);
-  }, [cartItems, coupons, isRemoteArea]);
-
-  // 선택된 쿠폰들의 계산 결과
-  const calculationResult = useMemo(() => {
-    if (selectedCoupons.length > 0) {
-      return calculateSelectedCoupons(cartItems, selectedCoupons, isRemoteArea);
-    }
-    return calculateSelectedCoupons(cartItems, [], isRemoteArea);
-  }, [cartItems, selectedCoupons, isRemoteArea]);
-
-  const handleRemoteAreaChange = () => {
-    setIsRemoteArea(!isRemoteArea);
-  };
-
-  const handleCouponSelect = (coupon: Coupon | null) => {
-    if (!coupon) return;
-
-    setSelectedCoupons((prevSelected) => {
-      const isAlreadySelected = prevSelected.some((c) => c.id === coupon.id);
-
-      if (isAlreadySelected) {
-        // 이미 선택된 쿠폰이면 제거
-        return prevSelected.filter((c) => c.id !== coupon.id);
-      } else {
-        // 최대 2개까지만 선택 가능
-        if (prevSelected.length >= 2) {
-          // 가장 오래된 것을 제거하고 새로운 것 추가
-          return [prevSelected[1], coupon];
-        } else {
-          return [...prevSelected, coupon];
-        }
-      }
-    });
-  };
-
-  const handleUseAutoOptimization = () => {
-    setSelectedCoupons(autoOptimizationResult.appliedCoupons);
-  };
 
   const handleConfirmPayment = () => {
     goPaymentConfirmation(
