@@ -34,7 +34,7 @@ export function Confirm() {
         <div css={confirmLayout}>
           {state ? (
             <>
-              <p css={titleText}>주문확인</p>
+              <p css={titleText}>결제 확인</p>
               <div css={bodyTextBox}>
                 <p css={bodyText}>
                   총 {state.selectedItemGroupCount}종류의 상품{' '}
