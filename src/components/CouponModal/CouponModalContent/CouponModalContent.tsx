@@ -47,6 +47,7 @@ export function CouponModalContent({
       <div css={couponList}>
         {coupons.map((coupon, index) => (
           <CouponItem
+            key={coupon.id}
             disabled={couponWithDisabled[index]}
             couponData={coupon}
             onChange={handleCouponIdsChange}
