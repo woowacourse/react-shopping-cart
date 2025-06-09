@@ -10,7 +10,7 @@ const getOrderPrice = (selectedItem: CartProduct[]) => {
   );
 };
 
-export const calcOrderHistory = (selectedItem: CartProduct[]) => {
+export const calcOrderPrice = (selectedItem: CartProduct[]) => {
   const FREE_ORDER_PRICE = 100_000;
   const ORDER_PRICE = 3_000;
 

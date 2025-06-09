@@ -8,7 +8,7 @@ import Button from '../../components/common/Button';
 import Header from '../../components/feature/CartSection/Header';
 import PriceSection from '../../components/feature/CartSection/PriceSection';
 import {ROUTE_PATHS} from '../../route/path';
-import {calcOrderHistory} from '../../feature/calcOrderPrice';
+import {calcOrderPrice} from '../../feature/calcOrderPrice';
 import {deleteCartProduct} from '../../api/cart/deleteCartProduct';
 import {patchCartProduct} from '../../api/cart/patchCartProduct';
 
@@ -39,8 +39,7 @@ const CartList = () => {
 
   const selectedItem = useSelectedItems();
 
-  const {orderPrice, deliveryPrice, totalPrice} =
-    calcOrderHistory(selectedItem);
+  const {orderPrice, deliveryPrice, totalPrice} = calcOrderPrice(selectedItem);
 
   const handleDelete = async (id: number) => {
     try {

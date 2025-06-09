@@ -1,7 +1,7 @@
 import * as S from './index.styles';
 import Header from '../../components/feature/CartSection/Header';
 import {useSelectedItems} from '../../provider/cartItemsProvider';
-import {calcOrderHistory} from '../../feature/calcOrderPrice';
+import {calcOrderPrice} from '../../feature/calcOrderPrice';
 import Card from '../../components/feature/CartSection/CartProducts/Card';
 import Button from '../../components/common/Button';
 import CheckBox from '../../components/common/CheckBox';
@@ -31,7 +31,7 @@ const OrderConfirm = () => {
 
   const selectedItems = useSelectedItems();
   const {orderPrice, deliveryPrice, totalAmount} =
-    calcOrderHistory(selectedItems);
+    calcOrderPrice(selectedItems);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isAdditionalDelivery, setIsAdditionalDelivery] = useState(false);
