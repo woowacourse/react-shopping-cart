@@ -29,8 +29,7 @@ export function useCouponSelection({
     const forwardPrice = calculatePrice(order);
     const reversed = [...order].reverse();
     const reversePrice = calculatePrice(reversed);
-
-    setSelectedCouponIds(forwardPrice <= reversePrice ? order : reversed);
+    setSelectedCouponIds(forwardPrice <= reversePrice ? reversed : order);
   };
 
   return { selectedCouponIds, toggleCouponId };
