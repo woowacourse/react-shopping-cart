@@ -7,6 +7,7 @@ const STORAGE_KEY = "cartItemIds";
 
 const useCartCheck = (cartItemIds: number[]) => {
   const [checkedIds, setCheckedIds] = useLocalStorage<number[]>(STORAGE_KEY, []);
+  const [isInitialized, setIsInitialized] = useLocalStorage<boolean>("isInitialized", true);
   const prevCartItemIds = useRef<number[]>([]);
 
   const isAllChecked = checkedIds.length === cartItemIds.length;
@@ -25,9 +26,10 @@ const useCartCheck = (cartItemIds: number[]) => {
   };
 
   useEffect(() => {
-    if (checkedIds.length === 0) {
+    if (isInitialized && cartItemIds.length !== 0) {
       setCheckedIds([...cartItemIds]);
       prevCartItemIds.current = cartItemIds;
+      setIsInitialized(false);
       return;
     }
 
