@@ -30,9 +30,8 @@ import { CouponModalContent } from '../../components/CouponModal/CouponModalCont
 import useFetchCoupons from '../../hooks/useFetchCoupons';
 import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
 import { getDeliveryFee } from '../../utils/getDeliveryFee';
-import { Coupon } from '../../types/coupon';
-import { CartItemTypes } from '../../types/cartItem';
 import { useCouponSelection } from '../../hooks/useCouponSelection';
+import { isCouponDisabled } from '../../utils/isCouponDisabled';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
 
@@ -115,19 +114,6 @@ export function OrderConfirm() {
     deliveryFee,
     nowDate: new Date(),
   });
-
-  const isCouponDisabled = (
-    coupon: Coupon,
-    cartItems: CartItemTypes[],
-    deliveryFee: number
-  ) =>
-    calculateCouponPrice({
-      couponIds: [coupon.id.toString()],
-      coupons: [coupon],
-      selectedCartItems: cartItems,
-      deliveryFee,
-      nowDate: new Date(),
-    }) === 0;
 
   const couponWithDisabled = coupons.map((coupon) =>
     isCouponDisabled(coupon, selectedCartItems, deliveryFee)
