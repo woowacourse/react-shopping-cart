@@ -19,29 +19,37 @@ function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { products, price, count, totalCount, shippingFee } = location.state;
+  const { products, price, count, totalCount } = location.state;
 
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [remoteArea, setRemoteArea] = useState(false);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
+  const baseShippingFee = price >= SHIPPING_FEE_THRESHOLD ? 0 : 3000;
+  const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
+
+  const hasFreeShippingCoupon = selectedCoupons.some(
+    (coupon) =>
+      coupon.discountType === 'freeShipping' &&
+      (!coupon.minimumAmount || price >= coupon.minimumAmount),
+  );
+
+  const totalShippingFee = hasFreeShippingCoupon ? 0 : baseShippingFee + remoteAreaFee;
+
   const couponDiscount = calculateCouponDiscount({
     coupons: selectedCoupons,
     products: products || [],
     total: price,
-    shippingFee: shippingFee,
+    shippingFee: baseShippingFee + remoteAreaFee,
   });
 
   const tempCouponDiscount = calculateCouponDiscount({
     coupons: tempSelectedCoupons,
     products: products || [],
     total: price,
-    shippingFee: shippingFee,
+    shippingFee: baseShippingFee + remoteAreaFee,
   });
-
-  const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
-  const totalShippingFee = shippingFee + remoteAreaFee;
 
   const finalTotal = price - couponDiscount + totalShippingFee;
 
