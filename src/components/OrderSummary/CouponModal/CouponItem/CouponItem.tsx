@@ -3,16 +3,15 @@ import { CouponType, DiscountType } from "../../../../types/coupon";
 import { CartItemType } from "../../../../types/response";
 import CheckBox from "../../../Common/CheckBox/CheckBox";
 import { Container, CouponText } from "./CouponItem.styles";
-import { isCouponDisabled } from "./couponDisabled.domain";
+import { isCouponDisabled } from "./domain/couponDisabled.domain";
+import { formatDate, formatTimeRange } from "./utils";
+import useRemoveDisabledFreeShippingCoupon from "./useRemoveDisabledFreeShippingCoupon";
 import {
-  formatDate,
-  formatTimeRange,
   isBuyXGetYCoupon,
   isFixedCoupon,
   isFreeShippingCoupon,
   isPercentageCoupon,
-} from "./utils";
-import useRemoveDisabledFreeShippingCoupon from "./useRemoveDisabledFreeShippingCoupon";
+} from "./domain/couponTypeGuards.domain";
 
 interface CouponItemProps {
   type: DiscountType;
