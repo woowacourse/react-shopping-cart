@@ -53,7 +53,11 @@ export class OrderService {
       orderInfo
     );
 
-    return this.convertCouponResultToOrderBreakdown(cartItems, couponResult);
+    return this.convertCouponResultToOrderBreakdown(
+      cartItems,
+      couponResult,
+      orderInfo
+    );
   }
 
   /**
@@ -61,12 +65,13 @@ export class OrderService {
    */
   static convertCouponResultToOrderBreakdown(
     cartItems: ResponseCartItem[],
-    couponResult: CouponCalculationResult
+    couponResult: CouponCalculationResult,
+    orderInfo: OrderInfo
   ): OrderBreakdown {
     const orderSummary = OrderCalculator.calculateOrderSummary(cartItems);
 
     return {
-      orderAmount: couponResult.finalOrderAmount,
+      orderAmount: orderInfo.originalOrderAmount, // 원래 주문 금액 (쿠폰 적용 전)
       deliveryFee: couponResult.finalDeliveryFee,
       couponDiscount: couponResult.totalDiscount,
       totalPrice: couponResult.finalOrderAmount + couponResult.finalDeliveryFee,

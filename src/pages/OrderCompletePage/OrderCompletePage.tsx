@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import * as S from "./OrderCompletePage.styled";
 import Header from "../../components/Header/Header";
 import OrderResult from "../../components/OrderResult/OrderResult";
@@ -30,16 +30,17 @@ const OrderCompletePage = () => {
 
   const state = location.state as OrderCompleteState;
 
-  const {
-    finalOrderAmount,
-    finalDeliveryFee,
-    totalDiscount,
-    finalTotalAmount,
-  } = useCouponCalculation({
-    cartItems: state?.selectedCartItem || [],
-    isRemoteArea,
-    selectedCoupons: appliedCoupons,
-  });
+  // 원래 주문 금액 계산 (쿠폰 적용 전)
+  const originalOrderAmount = useMemo(() => {
+    return OrderCalculator.calculateOrderAmount(state?.selectedCartItem || []);
+  }, [state?.selectedCartItem]);
+
+  const { finalDeliveryFee, totalDiscount, finalTotalAmount } =
+    useCouponCalculation({
+      cartItems: state?.selectedCartItem || [],
+      isRemoteArea,
+      selectedCoupons: appliedCoupons,
+    });
 
   useEffect(() => {
     if (!state) {
@@ -56,7 +57,7 @@ const OrderCompletePage = () => {
       state: {
         selectedCartItem: state.selectedCartItem,
         totalPrice: finalTotalAmount,
-        orderPrice: finalOrderAmount,
+        orderPrice: originalOrderAmount,
         deliveryPrice: finalDeliveryFee,
         appliedCoupons,
         couponDiscount: totalDiscount,
@@ -114,7 +115,7 @@ const OrderCompletePage = () => {
             </S.DeliveryInfo>
             <OrderPriceSection
               priceInfo={{
-                orderPrice: finalOrderAmount,
+                orderPrice: originalOrderAmount,
                 deliveryPrice: finalDeliveryFee,
                 couponDiscount: totalDiscount,
                 totalPrice: finalTotalAmount,
