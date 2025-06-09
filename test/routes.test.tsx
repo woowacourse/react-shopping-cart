@@ -6,6 +6,8 @@ import { createMemoryRouter, RouterProvider } from "react-router";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import cartItemsApi from "../src/apis/cartItems";
 import PaymentConfirmPage from "../src/pages/PaymentConfirmPage";
+import { ShippingProvider } from "../src/contexts/ShippingContext";
+import { CouponProvider } from "../src/contexts/CouponContext";
 
 vi.mock("../src/apis/cartItems");
 
@@ -33,12 +35,16 @@ describe("라우팅 테스트", () => {
 
     render(
       <CartItemProvider>
-        <RouterProvider router={router} />
+        <ShippingProvider>
+          <CouponProvider>
+            <RouterProvider router={router} />
+          </CouponProvider>
+        </ShippingProvider>
       </CartItemProvider>
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("cart-title")).toBeInTheDocument();
+      expect(screen.getByTestId("page-title")).toBeInTheDocument();
     });
   });
 });
