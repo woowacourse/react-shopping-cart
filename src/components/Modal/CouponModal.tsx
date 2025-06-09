@@ -1,17 +1,16 @@
 import * as styles from './CouponModal.styles';
 import Modal from './Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useApiContext } from '../../contexts/ApiContext';
 import getCoupons from '../../api/getCoupons';
 import { Coupon } from '../../types/response';
 import CheckBox from '../common/CheckBox';
-import { getLocalStorage } from '../../utils/localStorage';
-import { SelectedItem } from '../../page/OrderPage';
+import { getOrderAmountFromStorage } from '../../utils/storage/storage';
+import { isCouponDisabled } from '../../utils/coupon/isCouponDisabled';
+import { getBestCouponCombination } from '../../utils/coupon/getBestCouponCombination';
+import { calculateTotalDiscount } from '../../utils/coupon/calculateTotalDiscount';
 
 const MAX_COUPON_COUNT = 2;
-const FREE_DELIVERY_THRESHOLD = 100000;
-const DELIVERY_FEE = 3000;
-const EXTRA_REMOTE_FEE = 3000;
 
 function CouponModal({
   isOpen,
@@ -27,6 +26,8 @@ function CouponModal({
 
   const orderAmount = getOrderAmountFromStorage();
 
+  const totalDiscount = calculateTotalDiscount(selectedCoupons, orderAmount);
+
   const toggleCoupon = (coupon: Coupon) => {
     setSelectedCoupons((prev) => {
       const exists = prev.find((c) => c.id === coupon.id);
@@ -35,19 +36,17 @@ function CouponModal({
     });
   };
 
-  const isCouponDisabled = (coupon: Coupon) => {
-    if (coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount) return true;
-    if (coupon.availableTime && !isInAvailableTimeRange(coupon.availableTime)) return true;
-    if (isExpired(coupon.expirationDate)) return true;
-    return false;
-  };
-
-  const totalDiscount = calculateTotalDiscount(selectedCoupons, orderAmount);
-
   const handleButtonClick = () => {
     onClose();
     onApplyDiscount(totalDiscount);
   };
+
+  useEffect(() => {
+    if (!coupons) return;
+    const bestCombo = getBestCouponCombination(coupons, orderAmount, MAX_COUPON_COUNT);
+    setSelectedCoupons(bestCombo);
+  }, [coupons, orderAmount]);
+
   return (
     <Modal position="center" size="medium" isOpen={isOpen} onClose={onClose}>
       <Modal.BackDrop css={styles.backdropCss} />
@@ -57,7 +56,7 @@ function CouponModal({
         <ul css={styles.couponListStyle}>
           {coupons?.map((coupon) => {
             const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
-            const disabled = isCouponDisabled(coupon);
+            const disabled = isCouponDisabled(coupon, orderAmount);
             return (
               <li
                 key={coupon.id}
@@ -99,22 +98,6 @@ const getCouponInfo = (coupon: Coupon): string => {
     .join('\n');
 };
 
-const calculateTotalDiscount = (selectedCoupons: Coupon[], orderAmount: number) => {
-  const { isRemoteArea } = getShippingInfoFromStorage();
-  const baseFee = orderAmount >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
-  const extraFee = isRemoteArea ? EXTRA_REMOTE_FEE : 0;
-  const originalDeliveryFee = baseFee + extraFee;
-  const isFreeShippingCouponApplied = selectedCoupons.find((c) => c.discountType === 'freeShipping');
-  const discountedDeliveryFee = isFreeShippingCouponApplied ? 0 : originalDeliveryFee;
-  const bogoDiscount = selectedCoupons.find((c) => c.discountType === 'buyXgetY') ? calculateBogoDiscount() : 0;
-
-  return (
-    selectedCoupons.reduce((acc, cur) => acc + (cur.discountType === 'fixed' && cur.discount ? cur.discount : 0), 0) +
-    (originalDeliveryFee - discountedDeliveryFee) +
-    bogoDiscount
-  );
-};
-
 const formatTimeRange = (start: string, end: string): string => {
   const format = (time: string) => {
     const [hourStr] = time.split(':');
@@ -124,44 +107,6 @@ const formatTimeRange = (start: string, end: string): string => {
     return `${period} ${displayHour}시`;
   };
   return `${format(start)}부터 ${format(end)}까지`;
-};
-
-const getOrderItemsFromStorage = () => {
-  return getLocalStorage<SelectedItem[]>('selectedItems', []);
-};
-
-const getOrderAmountFromStorage = () => {
-  const items = getOrderItemsFromStorage();
-  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-};
-
-const calculateBogoDiscount = () => {
-  const items = getOrderItemsFromStorage();
-  const eligibleItems = items.filter((item) => item.quantity >= 2);
-  if (eligibleItems.length === 0) return 0;
-  const mostExpensiveItem = eligibleItems.reduce((prev, curr) => (curr.price > prev.price ? curr : prev));
-  return mostExpensiveItem.price;
-};
-
-const getShippingInfoFromStorage = () => {
-  const value = getLocalStorage<boolean>('isRemoteArea', false);
-  return { isRemoteArea: value === true };
-};
-
-const isInAvailableTimeRange = ({ start, end }: { start: string; end: string }) => {
-  const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
-  const [startHour, startMinute] = start.split(':').map(Number);
-  const [endHour, endMinute] = end.split(':').map(Number);
-  const startMinutes = startHour * 60 + startMinute;
-  const endMinutes = endHour * 60 + endMinute;
-  return nowMinutes >= startMinutes && nowMinutes <= endMinutes;
-};
-
-const isExpired = (expirationDate: string) => {
-  const now = new Date();
-  const expiration = new Date(expirationDate);
-  return now > expiration;
 };
 
 export default CouponModal;

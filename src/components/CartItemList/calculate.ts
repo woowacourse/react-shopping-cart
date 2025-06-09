@@ -1,4 +1,5 @@
 import { CartItemType } from '../../types/cartItem';
+import { getOrderItemsFromStorage } from '../../utils/storage/storage';
 
 export const calculateOrderAmount = (items: CartItemType[]): number => {
   return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
@@ -10,4 +11,12 @@ export const calculateDeliveryFee = (orderAmount: number): number => {
 
 export const calculateTotalQuantity = (items: CartItemType[]): number => {
   return items.reduce((acc, item) => acc + item.quantity, 0);
+};
+
+export const calculateBogoDiscount = () => {
+  const items = getOrderItemsFromStorage();
+  const eligibleItems = items.filter((item) => item.quantity >= 2);
+  if (eligibleItems.length === 0) return 0;
+  const mostExpensiveItem = eligibleItems.reduce((prev, curr) => (curr.price > prev.price ? curr : prev));
+  return mostExpensiveItem.price;
 };
