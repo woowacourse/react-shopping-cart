@@ -7,6 +7,7 @@ interface CouponProps {
   toggleSelect: (id: number) => void;
   isSelected: boolean;
   isMaxSelected: boolean;
+  canRedeem: boolean;
   children?: React.ReactNode;
 }
 
@@ -15,10 +16,11 @@ function Coupon({
   toggleSelect,
   isSelected,
   isMaxSelected,
+  canRedeem,
   children,
 }: CouponProps) {
   const { id, description, expirationDate } = coupon;
-  const isDisabled = isMaxSelected && !isSelected;
+  const isDisabled = !canRedeem || (isMaxSelected && !isSelected);
 
   return (
     <li css={Container(isDisabled)}>
