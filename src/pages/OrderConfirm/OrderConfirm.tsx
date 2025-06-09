@@ -93,7 +93,7 @@ export function OrderConfirm() {
   };
 
   const handleBackClick = () => {
-    navigate('/');
+    navigate(-1);
   };
 
   const handleClose = () => {
@@ -149,6 +149,16 @@ export function OrderConfirm() {
     isCouponDisabled(coupon, selectedCartItems, deliveryFee)
   );
 
+  const handleClick = () => {
+    navigate('/payment-confirm', {
+      state: {
+        selectedItemGroupCount: selectedCartItemIds.length,
+        selectedCartItem: selectedCartItems.reduce((a, b) => a + b.quantity, 0),
+        totalPrice: totalPrice - couponDiscountAmount + deliveryFee,
+      },
+    });
+  };
+
   return (
     <>
       <PageLayout>
@@ -194,7 +204,12 @@ export function OrderConfirm() {
           />
         </Main>
         <Footer>
-          <Button onClick={() => {}} type="submit" size="full" style="primary">
+          <Button
+            onClick={handleClick}
+            type="submit"
+            size="full"
+            style="primary"
+          >
             결제하기
           </Button>
         </Footer>
