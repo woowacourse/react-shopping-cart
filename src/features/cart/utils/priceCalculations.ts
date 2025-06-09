@@ -1,6 +1,6 @@
 import { CartItem } from '../types/cart';
 import { Coupon } from '../../coupon/types/coupon';
-import { calculateOptimalCouponDiscount } from '../../coupon/utils/couponCalculations';
+import { calculateOptimalCouponDiscount } from '../../coupon/utils';
 
 interface CalculatePricesParams {
   selectedCartItems: CartItem[];

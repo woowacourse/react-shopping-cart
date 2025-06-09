@@ -3,7 +3,7 @@ import { Coupon } from '../types/coupon';
 import * as S from './CouponCard.style';
 import { useCouponsContext } from '../context/useCouponsContext';
 import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
-import { isCouponApplicable } from '../utils/couponCalculations';
+import { isCouponApplicable } from '../utils';
 
 interface CouponCardProps {
   coupon: Coupon;
