@@ -48,12 +48,15 @@ export const NoticeText = styled.p`
   color: #0a0d13;
 `;
 
-export const CouponContainer = styled.div`
+export const CouponContainer = styled.div<{ disabled: boolean }>`
   width: 100%;
   height: 82px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `;
 
 export const CouponBox = styled.div`

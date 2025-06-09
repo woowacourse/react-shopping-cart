@@ -4,6 +4,8 @@ import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
 import { useEscapeKey } from '../hooks/useEscapeKey';
 import { useCouponContext } from '../../../../global/contexts/CouponContext';
+import { isCouponUsableNow } from '../utils/couponStatus';
+import { useCartSelectionContext } from '../../../../global/contexts/CartSelectionContext';
 
 interface CouponModalProps {
   onClose: () => void;
@@ -12,6 +14,8 @@ interface CouponModalProps {
 function CouponModal({ onClose }: CouponModalProps) {
   const { coupons, selected, setSelected, couponDiscounts, totalDiscount } =
     useCouponContext();
+
+  const { selectCartItems, orderPrice } = useCartSelectionContext();
 
   const handleToggle = (id: number) => {
     setSelected((prev) =>
@@ -49,8 +53,13 @@ function CouponModal({ onClose }: CouponModalProps) {
             const discount =
               couponDiscounts.find((d) => d.coupon.id === coupon.id)
                 ?.discount || 0;
+            const disabled = !isCouponUsableNow(
+              coupon,
+              selectCartItems,
+              orderPrice
+            );
             return (
-              <S.CouponContainer key={coupon.id}>
+              <S.CouponContainer key={coupon.id} disabled={disabled}>
                 <Separator />
                 <S.CouponBox>
                   <SelectBox
