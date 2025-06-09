@@ -33,6 +33,16 @@ function OrderPage() {
   const extraRemoteFee = isRemoteArea ? 3000 : 0;
   const deliveryFee = baseDeliveryFee + extraRemoteFee;
 
+  const totalPaymentAmount = totalPrice + deliveryFee - discountAmount;
+
+  const handlePaymentButtonClick = () => {
+    navigate('/payment', {
+      state: {
+        totalPaymentAmount
+      }
+    });
+  };
+
   return (
     <>
       <Header
@@ -85,9 +95,9 @@ function OrderPage() {
           <PriceRow label="배송비" amount={deliveryFee} />
 
           {discountAmount > 0 && <PriceRow minus={true} label="할인 금액" amount={discountAmount} />}
-          <PriceRow label="총 결제 금액" amount={totalPrice + deliveryFee - discountAmount} />
+          <PriceRow label="총 결제 금액" amount={totalPaymentAmount} />
         </div>
-        <Button>결제하기</Button>
+        <Button onClick={handlePaymentButtonClick}>결제하기</Button>
       </main>
     </>
   );

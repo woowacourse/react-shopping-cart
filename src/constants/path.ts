@@ -1,4 +1,5 @@
 export const PATH = {
   CART: '/',
-  ORDER: '/order'
+  ORDER: '/order',
+  PAYMENT: '/payment'
 } as const;
