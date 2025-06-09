@@ -22,7 +22,7 @@ function OrderPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isRemoteArea, setIsRemoteArea] = useState(() => localStorage.getItem('isRemoteArea') === 'true');
-
+  const [discountAmount, setDiscountAmount] = useState(0);
   const navigate = useNavigate();
   const items = getLocalStorage<SelectedItem[]>('selectedItems', []);
 
@@ -73,11 +73,19 @@ function OrderPage() {
             <span> 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.</span>
           </p>
         </section>
-        {isOpen && <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
+        {isOpen && (
+          <CouponModal
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            onApplyDiscount={(discount) => setDiscountAmount(discount)}
+          />
+        )}
         <div css={styles.summaryCss}>
           <PriceRow label="총 주문 금액" amount={totalPrice} />
           <PriceRow label="배송비" amount={deliveryFee} />
-          <PriceRow label="총 결제 금액" amount={totalPrice} />
+
+          {discountAmount > 0 && <PriceRow minus={true} label="할인 금액" amount={discountAmount} />}
+          <PriceRow label="총 결제 금액" amount={totalPrice + deliveryFee - discountAmount} />
         </div>
         <Button>결제하기</Button>
       </main>

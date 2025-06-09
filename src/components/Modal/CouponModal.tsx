@@ -13,7 +13,15 @@ const FREE_DELIVERY_THRESHOLD = 100000;
 const DELIVERY_FEE = 3000;
 const EXTRA_REMOTE_FEE = 3000;
 
-const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const CouponModal = ({
+  isOpen,
+  onClose,
+  onApplyDiscount
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onApplyDiscount: (discount: number) => void;
+}) => {
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
@@ -36,6 +44,10 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
   const totalDiscount = calculateTotalDiscount(selectedCoupons, orderAmount);
 
+  const handleButtonClick = () => {
+    onClose();
+    onApplyDiscount(totalDiscount);
+  };
   return (
     <Modal position="center" size="medium" isOpen={isOpen} onClose={onClose}>
       <Modal.BackDrop css={styles.backdropCss} />
@@ -68,7 +80,9 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
           })}
         </ul>
         <Modal.Footer>
-          <button css={styles.confirmButtonStyle}>총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기</button>
+          <button onClick={handleButtonClick} css={styles.confirmButtonStyle}>
+            총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
+          </button>
         </Modal.Footer>
       </Modal.Content>
     </Modal>
