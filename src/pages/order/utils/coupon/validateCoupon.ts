@@ -16,10 +16,8 @@ export const validateCoupon = ({ cartItems, orderPrice, coupons }: ValidateCoupo
       coupon.availableTime?.start ?? null,
       coupon.availableTime?.end ?? null,
     );
-    const isValidBuyQuantity = validation.buyQuantity(
-      cartItems.length,
-      coupon.buyQuantity ?? null,
-      coupon.getQuantity ?? null,
+    const isValidBuyQuantity = cartItems.some((item) =>
+      validation.buyQuantity(item.quantity, coupon.buyQuantity ?? null, coupon.getQuantity ?? null),
     );
 
     return isValidExpiration && isValidMinimumAmount && isValidAvailableTime && isValidBuyQuantity;
