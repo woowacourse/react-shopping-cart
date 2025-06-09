@@ -41,13 +41,19 @@ export function useOrderCalculation(
         case "buyXgetY":
           if (selectedCartItems.length > 0) {
             const eligibleItems = selectedCartItems.filter(
-              (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+              (item) =>
+                item.quantity >= coupon.buyQuantity &&
+                item.quantity >= coupon.buyQuantity + coupon.getQuantity
             );
             if (eligibleItems.length > 0) {
               const highestPriceItem = eligibleItems.reduce((prev, current) =>
                 prev.product.price > current.product.price ? prev : current
               );
-              const freeQuantity = Math.floor(highestPriceItem.quantity / 2);
+              const freeQuantity =
+                Math.floor(
+                  highestPriceItem.quantity /
+                    (coupon.buyQuantity + coupon.getQuantity)
+                ) * coupon.getQuantity;
               totalDiscount += highestPriceItem.product.price * freeQuantity;
             }
           }
@@ -61,21 +67,17 @@ export function useOrderCalculation(
       }
     });
 
-    // 기본 배송비 계산 (무료 배송 기준 금액 체크)
-    const baseShippingFee = totalCartPrice >= FREE_SHIPPING_STANDARD || totalCartPrice === 0
-      ? 0
-      : SHIPPING_FEE;
+    const baseShippingFee =
+      totalCartPrice >= FREE_SHIPPING_STANDARD || totalCartPrice === 0
+        ? 0
+        : SHIPPING_FEE;
 
-    // 제주/도서산간 추가 배송비
     const additionalShippingFee = isIsland ? ISLAND_SHIPPING_FEE : 0;
 
-    // 최종 배송비
     const shippingFee = baseShippingFee + additionalShippingFee;
 
-    // 무료 배송 쿠폰이 적용된 경우 배송비를 할인에 추가
     const finalDiscount = totalDiscount + (hasFreeShipping ? shippingFee : 0);
 
-    // 최종 결제 금액 = 상품 금액 + 배송비 - 할인 금액
     const totalPrice = totalCartPrice + shippingFee - finalDiscount;
 
     return {

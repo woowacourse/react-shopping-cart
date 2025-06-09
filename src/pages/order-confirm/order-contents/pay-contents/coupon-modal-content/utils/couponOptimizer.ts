@@ -8,6 +8,7 @@ export interface OptimizedCouponResult {
   totalDiscount: number;
   finalShippingFee: number;
   hasFreeShipping: boolean;
+  finalDiscount: number;
 }
 
 export function optimizeCouponSelection(
@@ -40,6 +41,7 @@ export function optimizeCouponSelection(
     totalDiscount: 0,
     finalShippingFee: shippingFee,
     hasFreeShipping: false,
+    finalDiscount: 0,
   };
 
   // 단일 쿠폰 최적화
@@ -51,12 +53,13 @@ export function optimizeCouponSelection(
       selectedCartItems
     );
 
-    if (result.finalDiscount > bestResult.totalDiscount) {
+    if (result.finalDiscount > bestResult.finalDiscount) {
       bestResult = {
         selectedCoupons: [coupon],
-        totalDiscount: result.finalDiscount,
+        totalDiscount: result.totalDiscount,
         finalShippingFee: result.finalShippingFee,
         hasFreeShipping: result.hasFreeShipping,
+        finalDiscount: result.finalDiscount,
       };
     }
   }
@@ -71,12 +74,13 @@ export function optimizeCouponSelection(
         selectedCartItems
       );
 
-      if (result.finalDiscount > bestResult.totalDiscount) {
+      if (result.finalDiscount > bestResult.finalDiscount) {
         bestResult = {
           selectedCoupons: [sortedCoupons[i], sortedCoupons[j]],
-          totalDiscount: result.finalDiscount,
+          totalDiscount: result.totalDiscount,
           finalShippingFee: result.finalShippingFee,
           hasFreeShipping: result.hasFreeShipping,
+          finalDiscount: result.finalDiscount,
         };
       }
     }

@@ -66,12 +66,14 @@ export function validateCoupon(
     case "buyXgetY":
       if (cartItems) {
         const hasEligibleItems = cartItems.some(
-          (item) => item.quantity >= coupon.buyQuantity
+          (item) =>
+            item.quantity >= coupon.buyQuantity &&
+            item.quantity >= coupon.buyQuantity + coupon.getQuantity
         );
         if (!hasEligibleItems) {
           return {
             isValid: false,
-            message: `동일 상품 ${coupon.buyQuantity}개 이상 구매 시 사용 가능합니다.`,
+            message: `동일 상품 ${coupon.buyQuantity}개 이상 구매 시 ${coupon.getQuantity}개가 증정됩니다.`,
           };
         }
       }

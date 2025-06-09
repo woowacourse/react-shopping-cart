@@ -39,7 +39,9 @@ export function calculateCouponDiscount(
             const highestPriceItem = eligibleItems.reduce((prev, current) =>
               prev.product.price > current.product.price ? prev : current
             );
-            const freeQuantity = Math.floor(highestPriceItem.quantity / 2);
+            const freeQuantity = Math.floor(
+              highestPriceItem.quantity / (coupon.buyQuantity + coupon.getQuantity)
+            ) * coupon.getQuantity;
             totalDiscount += highestPriceItem.product.price * freeQuantity;
           }
         }
