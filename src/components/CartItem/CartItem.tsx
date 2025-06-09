@@ -37,7 +37,7 @@ function CartItem({
     <>
       <li css={ItemContainer}>
         <div css={ItemController}>
-          {isSelected && toggleSelect && (
+          {toggleSelect && (
             <CheckBox
               id={String(cartId)}
               isSelected={isSelected}
