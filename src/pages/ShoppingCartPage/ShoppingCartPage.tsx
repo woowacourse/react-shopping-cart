@@ -25,6 +25,8 @@ import { CheckedMap } from "../../types/CheckMap";
 
 import * as Styled from "./ShoppingCartPage.styles";
 
+import { DEFAULT_URL } from "../../router";
+
 export default function ShoppingCartPage() {
   const { state, cartItemList } = useCartItemList();
   const [checkedMap, setCheckedMap] = useState<CheckedMap>(
@@ -87,7 +89,7 @@ export default function ShoppingCartPage() {
       return checkedMap.get(item.id) ? acc + item.quantity : acc;
     }, 0);
 
-    navigate("/react-shopping-cart/payment-amount-check", {
+    navigate(`${DEFAULT_URL}payment-amount-check`, {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,

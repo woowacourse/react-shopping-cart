@@ -4,6 +4,8 @@ import Footer from "../../components/layout/Footer/Footer";
 
 import * as Styled from "./OrderCheckPage.styles";
 
+import { DEFAULT_URL } from "../../router";
+
 export default function OrderCheckPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export default function OrderCheckPage() {
   }
 
   const handlePayment = () => {
-    navigate("/order-success", {
+    navigate(`${DEFAULT_URL}/order-success`, {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,

@@ -7,7 +7,7 @@ import PaymentAmountCheckPage from "./pages/PaymentAmountCheckPage/PaymentAmount
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage/OrderSuccessPage";
 
-const DEFAULT_URL = "/react-shopping-cart";
+export const DEFAULT_URL = "/react-shopping-cart";
 
 export const routes = [
   {
@@ -22,7 +22,7 @@ export const routes = [
         element: <PaymentAmountCheckPage />,
       },
       {
-        path: `${DEFAULT_URL}order-check`,
+        path: `${DEFAULT_URL}/order-check`,
         element: <OrderCheckPage />,
       },
       {

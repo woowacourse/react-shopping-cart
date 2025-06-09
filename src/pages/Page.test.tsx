@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { describe, it, expect } from "vitest";
-import { routes } from "../router";
+
+import { DEFAULT_URL, routes } from "../router";
 
 describe("라우터 테스트", () => {
   it("/order-check 경로로 state를 넘기면 결제 정보가 보인다", () => {
@@ -14,7 +15,7 @@ describe("라우터 테스트", () => {
     const testRouter = createMemoryRouter(routes, {
       initialEntries: [
         {
-          pathname: "/react-shopping-cart/payment-amount-check",
+          pathname: `${DEFAULT_URL}/payment-amount-check`,
           state,
         },
       ],

@@ -24,6 +24,8 @@ import { DEFAULT_SHIPPING_FEE } from "../../constants/shipping";
 
 import emptyIcon from "../../assets/emptyIcon.png";
 
+import { DEFAULT_URL } from "../../router";
+
 export default function PaymentAmountCheckPage() {
   const [couponPrice, setCouponPrice] = useState<number>(0);
   const [isIslandArea, setIsIslandArea] = useState<boolean>(false);
@@ -52,7 +54,7 @@ export default function PaymentAmountCheckPage() {
   const totalPrice = allProductPrice + shippingFee - (couponPrice || 0);
 
   const handlePayment = () => {
-    navigate("/react-shopping-cart/order-check", {
+    navigate(`${DEFAULT_URL}/order-check`, {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,
