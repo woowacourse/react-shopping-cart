@@ -19,8 +19,9 @@ export const calculatePrices = ({
   const totalQuantity = selectedCartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
-  const baseDeliveryFee = totalPrice >= 100000 ? 0 : 3000;
-  const remoteAreaFee = isRemoteArea ? 3000 : 0;
+  const isFreeShipping = totalPrice >= 100000;
+  const baseDeliveryFee = isFreeShipping ? 0 : 3000;
+  const remoteAreaFee = isFreeShipping ? 0 : isRemoteArea ? 3000 : 0;
   const initialDeliveryFee = baseDeliveryFee + remoteAreaFee;
 
   const { totalDiscount: couponDiscountPrice, appliedCoupons } = calculateOptimalCouponDiscount(
