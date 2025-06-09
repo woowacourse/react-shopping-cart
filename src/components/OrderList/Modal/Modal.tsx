@@ -13,6 +13,61 @@ interface ModalProps {
   onClose: () => void;
 }
 
+function computeDisabled(
+  coupon: CouponResponse,
+  opts: {
+    couponIds: number[];
+    allProductPrice: number;
+    shippingFee: number;
+    selectedItems: { quantity: number }[];
+    now: Date;
+  }
+) {
+  const { couponIds, allProductPrice, shippingFee, selectedItems, now } = opts;
+  const isChecked = couponIds.includes(coupon.id);
+
+  if (!isChecked && couponIds.length >= 2) return true;
+
+  if (
+    (coupon.discountType === "fixed" ||
+      coupon.discountType === "freeShipping") &&
+    allProductPrice < coupon.minimumAmount
+  )
+    return true;
+
+  if (coupon.discountType === "freeShipping" && shippingFee === 0) return true;
+
+  if (
+    coupon.discountType === "buyXgetY" &&
+    !selectedItems.some(
+      (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+    )
+  )
+    return true;
+
+  if (coupon.discountType === "percentage" && coupon.availableTime) {
+    const [sh, sm] = coupon.availableTime.start.split(":").map(Number);
+    const [eh, em] = coupon.availableTime.end.split(":").map(Number);
+    const startTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      sh,
+      sm
+    );
+    const endTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      eh,
+      em
+    );
+    if (now < startTime || now > endTime) return true;
+  }
+
+  return false;
+}
+
 export default function Modal({ isModalOpen, onClose }: ModalProps) {
   const [couponIds, setCouponIds] = useState<CouponResponse["id"][]>([]);
   const { calculateDiscounts, selectedItems, shippingFee, allProductPrice } =
@@ -56,63 +111,19 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
             </S.Info>
             <S.CouponList>
               {couponList.map((coupon) => {
-                const isChecked = couponIds.includes(coupon.id);
-                const countLimitDisabled = !isChecked && couponIds.length >= 2;
-                const priceLimitDisabled =
-                  (coupon.discountType === "fixed" ||
-                    coupon.discountType === "freeShipping") &&
-                  allProductPrice < coupon.minimumAmount;
-
-                const shippingFeeDisabled =
-                  coupon.discountType === "freeShipping" && shippingFee === 0;
-
-                const buyXgetYDisabled =
-                  coupon.discountType === "buyXgetY" &&
-                  !selectedItems.some(
-                    (item) =>
-                      item.quantity >= coupon.buyQuantity + coupon.getQuantity
-                  );
-
-                let percentageDisabled = false;
-                if (
-                  coupon.discountType === "percentage" &&
-                  coupon.availableTime
-                ) {
-                  const [sh, sm] = coupon.availableTime.start
-                    .split(":")
-                    .map(Number);
-                  const [eh, em] = coupon.availableTime.end
-                    .split(":")
-                    .map(Number);
-                  const startTime = new Date(
-                    now.getFullYear(),
-                    now.getMonth(),
-                    now.getDate(),
-                    sh,
-                    sm
-                  );
-                  const endTime = new Date(
-                    now.getFullYear(),
-                    now.getMonth(),
-                    now.getDate(),
-                    eh,
-                    em
-                  );
-                  percentageDisabled = now < startTime || now > endTime;
-                }
-
-                const isDisabled =
-                  countLimitDisabled ||
-                  priceLimitDisabled ||
-                  shippingFeeDisabled ||
-                  buyXgetYDisabled ||
-                  percentageDisabled;
+                const isDisabled = computeDisabled(coupon, {
+                  couponIds,
+                  allProductPrice,
+                  shippingFee,
+                  selectedItems,
+                  now,
+                });
 
                 return (
                   <CouponItem
                     key={coupon.id}
                     coupon={coupon}
-                    isChecked={isChecked}
+                    isChecked={couponIds.includes(coupon.id)}
                     isDisabled={isDisabled}
                     onToggle={() =>
                       setCouponIds((prev) =>
