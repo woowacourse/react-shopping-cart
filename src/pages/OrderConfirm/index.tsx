@@ -11,7 +11,7 @@ import {Modal} from '@muffin2219/components';
 import Coupon from '../../components/feature/ModalContent/Coupon';
 import {css} from '@emotion/react';
 import {findCanApplyCoupon} from '../../feature/findApplyCoupon';
-import {useCoupons} from '../../hooks/useCalcDiscount';
+import {useCoupons} from '../../hooks/useCoupons';
 import {useNavigate} from 'react-router';
 import {ROUTE_PATHS} from '../../route/path';
 import {calcDiscountPrice} from '../../feature/calcDiscountPrice';
