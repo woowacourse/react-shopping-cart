@@ -6,6 +6,7 @@ import getCoupons from '../../api/getCoupons';
 import { Coupon } from '../../types/response';
 import CheckBox from '../common/CheckBox';
 import { getLocalStorage } from '../../utils/localStorage';
+import { SelectedItem } from '../../page/OrderPage';
 
 const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
@@ -107,7 +108,7 @@ const formatTimeRange = (start: string, end: string): string => {
 };
 
 const getOrderItemsFromStorage = () => {
-  return getLocalStorage<{ price: number; quantity: number }[]>('selectedItems', []);
+  return getLocalStorage<SelectedItem[]>('selectedItems', []);
 };
 
 const getOrderAmountFromStorage = () => {

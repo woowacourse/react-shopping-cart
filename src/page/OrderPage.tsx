@@ -9,7 +9,7 @@ import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
 
-type SelectedItem = {
+export type SelectedItem = {
   id: number;
   name: string;
   quantity: number;
