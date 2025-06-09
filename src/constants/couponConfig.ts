@@ -1,5 +1,7 @@
 import { Coupon } from '../types/coupon';
 
+export const MAX_COUPONS = 2;
+
 export const COUPONS: Coupon[] = [
   {
     id: 1,

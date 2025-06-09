@@ -101,20 +101,3 @@ const calculateFreeShipping = (coupon: Coupon, total: number, shippingFee: numbe
 
   return 0;
 };
-
-export const isCouponApplicable = (
-  coupon: Coupon,
-  total: number,
-  products: CartProduct[],
-): boolean => {
-  if (coupon.minimumAmount && total < coupon.minimumAmount) {
-    return false;
-  }
-
-  if (coupon.discountType === 'buyXgetY') {
-    const requiredQuantity = (coupon.buyQuantity || 0) + (coupon.getQuantity || 0);
-    return products.some((item) => item.quantity >= requiredQuantity);
-  }
-
-  return true;
-};

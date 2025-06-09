@@ -8,20 +8,26 @@ import Button from '../components/Button/Button';
 import CouponModal from '../components/Modal/CouponModal';
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router';
-import { useState } from 'react';
 import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
-import { Coupon } from '../types/coupon';
 import { calculateCouponDiscount } from '../utils/couponCalculations';
 import { useShippingFee } from '../hooks/useShippingFee';
-import { isCouponAvailable } from '../utils/couponAvailability';
+import { useCouponSelection } from '../hooks/useCouponSelection';
 
 function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { products, price, count, totalCount } = location.state;
-  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
-  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
-  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
+
+  const {
+    selectedCoupons,
+    tempSelectedCoupons,
+    isModalOpen,
+    openModal: openCouponModal,
+    closeModal: closeCouponModal,
+    toggleCouponSelection,
+    isCouponSelected,
+    applyCoupons,
+  } = useCouponSelection();
 
   const { remoteArea, toggleRemoteArea, baseShippingFee, remoteAreaFee, totalShippingFee } =
     useShippingFee({
@@ -44,46 +50,6 @@ function OrderConfirmPage() {
   });
 
   const finalTotal = price - couponDiscount + totalShippingFee;
-
-  const toggleCouponSelection = (coupon: Coupon) => {
-    if (!isCouponAvailable(coupon)) {
-      return;
-    }
-
-    setTempSelectedCoupons((prev) => {
-      const isSelected = prev.some((couponItem) => couponItem.id === coupon.id);
-
-      if (isSelected) {
-        return prev.filter((couponItem) => couponItem.id !== coupon.id);
-      }
-
-      if (prev.length >= 2) {
-        alert('쿠폰은 최대 2개까지 선택 가능합니다.');
-        return prev;
-      }
-
-      return [...prev, coupon];
-    });
-  };
-
-  const isCouponSelected = (couponId: number) => {
-    return tempSelectedCoupons.some((coupon) => coupon.id === couponId);
-  };
-
-  const openCouponModal = () => {
-    setTempSelectedCoupons(selectedCoupons);
-    setIsCartModalOpen(true);
-  };
-
-  const closeCouponModal = () => {
-    setTempSelectedCoupons([]);
-    setIsCartModalOpen(false);
-  };
-
-  const applyCoupons = () => {
-    setSelectedCoupons(tempSelectedCoupons);
-    setIsCartModalOpen(false);
-  };
 
   if (!location.state || !products || products.length === 0) {
     console.error('No products data received');
@@ -114,7 +80,7 @@ function OrderConfirmPage() {
           totalPrice={finalTotal}
         />
       </Container>
-      {isCartModalOpen && (
+      {isModalOpen && (
         <CouponModal
           onClose={closeCouponModal}
           onToggleCoupon={toggleCouponSelection}
