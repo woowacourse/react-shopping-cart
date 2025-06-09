@@ -3,10 +3,8 @@ import CouponList from "./CouponList";
 import * as S from "./CouponModal.styled";
 import { ResponseCartItem } from "../../types/types";
 import formatPrice from "../../utils/formatPrice";
-import {
-  useSelectedCouponContext,
-  useSelectedCouponDispatch,
-} from "../../stores/SelectedCouponContext";
+import { useSelectedCouponContext } from "../../stores/SelectedCouponContext";
+import useCouponAction from "../../hooks/useCouponAction";
 
 interface ModalProps {
   orderPrice: number;
@@ -23,23 +21,25 @@ export default function CouponModal({
   onClose,
   discountPrice,
 }: ModalProps) {
-  const selectedCouponDispatch = useSelectedCouponDispatch();
   const selectedCoupon = useSelectedCouponContext();
   const prevSelectedCoupon = useRef(selectedCoupon);
+  const { setCoupons } = useCouponAction();
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).id === "modal-overlay") {
+      onClose();
+      setCoupons(prevSelectedCoupon.current);
+    }
+  };
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
-        selectedCouponDispatch({
-          type: "SET_COUPON",
-          payload: {
-            coupons: prevSelectedCoupon.current,
-          },
-        });
+        setCoupons(prevSelectedCoupon.current);
       }
     },
-    [onClose]
+    [onClose, setCoupons]
   );
 
   useEffect(() => {
@@ -48,18 +48,6 @@ export default function CouponModal({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
-
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).id === "modal-overlay") {
-      onClose();
-      selectedCouponDispatch({
-        type: "SET_COUPON",
-        payload: {
-          coupons: prevSelectedCoupon.current,
-        },
-      });
-    }
-  };
 
   return (
     <>

@@ -18,8 +18,10 @@ function CartList() {
     return <S.LoadingContent>장바구니를 불러오는 중입니다...</S.LoadingContent>;
   }
 
+  const isAllSelected = selectState.every((item) => item.selected);
+
   const handlerSelectAll = () => {
-    if (selectState.every((item) => item.selected)) {
+    if (isAllSelected) {
       deselectAll();
       setSelectedInfoAllDeSelect(selectState);
     } else {
@@ -35,7 +37,7 @@ function CartList() {
       </S.Description>
       <CheckBox
         text={"전체선택"}
-        isChecked={selectState.every((item) => item.selected)}
+        isChecked={isAllSelected}
         onChange={handlerSelectAll}
       />
       <S.CartItemList>
