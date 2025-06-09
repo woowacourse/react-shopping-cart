@@ -24,9 +24,6 @@ const OrderCompletePage = () => {
   const { productTypeCount, totalProductCount } = state;
   const { cartData, fetchCartData } = useCartData();
   const { coupons } = useCoupons();
-  const { goPaymentConfirmation } = useEasyNavigate();
-
-  // 쿠폰 계산 로직을 커스텀 훅으로 분리
   const {
     isRemoteArea,
     selectedCoupons,
@@ -36,6 +33,7 @@ const OrderCompletePage = () => {
     handleCouponSelect,
     handleUseAutoOptimization,
   } = useCouponCalculation({ cartData, coupons });
+  const { goPaymentConfirmation } = useEasyNavigate();
 
   useEffect(() => {
     fetchCartData();
@@ -99,7 +97,7 @@ const OrderCompletePage = () => {
                         )
                       )}
                       <div css={S.TotalSavings}>
-                        총 절약 금액:{' '}
+                        총 절약 금액:
                         {autoOptimizationResult.discountAmount.toLocaleString()}
                         원
                       </div>
