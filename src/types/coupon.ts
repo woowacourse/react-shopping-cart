@@ -39,7 +39,3 @@ export type CouponType =
   | BuyXGetYCoupon
   | FreeShippingCoupon
   | PercentageCoupon;
-
-export type CouponMap = {
-  [key in DiscountType]: CouponType[];
-};
