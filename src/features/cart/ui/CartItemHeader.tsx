@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from '@emotion/react';
 import * as S from './CartItemHeader.styles';
 import Button from '../../../shared/ui/Button';
 import SelectInput from '../../../shared/ui/SelectInput';
@@ -8,21 +7,6 @@ import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsCont
 import { useCartItemsContext } from '../context/useCartItemsContext';
 import { deleteCartItem } from '../api/deleteCartItem';
 import { CartItem } from '../types/cart';
-
-const deleteButtonCSS = css`
-  width: 40px;
-  height: 28px;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  &:hover {
-    background-color: #f8f8f8;
-    border-color: rgba(0, 0, 0, 0.2);
-  }
-`;
 
 interface CartItemHeaderProps {
   cartItem: CartItem;
@@ -58,7 +42,7 @@ export default function CartItemHeader({ cartItem }: CartItemHeaderProps) {
   return (
     <S.CartItemHeader>
       <SelectInput onChange={handleSelectedCartItemsItemUpdate} checked={isSelected} />
-      <Button title="삭제" css={deleteButtonCSS} onClick={handleCartItemDelete} />
+      <Button title="삭제" css={S.deleteButtonCSS} onClick={handleCartItemDelete} />
     </S.CartItemHeader>
   );
 }
