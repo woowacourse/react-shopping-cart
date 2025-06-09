@@ -7,3 +7,4 @@ export {
 } from './couponDiscountCalculators';
 export { calculateCouponDiscount } from './singleCouponCalculator';
 export { calculateOptimalCouponDiscount } from './optimalCouponCalculator';
+export { formatCouponExpirationDate, formatTime, formatCouponTimeRange, formatMinimumAmount } from './couponFormatters';
