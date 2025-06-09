@@ -6,7 +6,6 @@ export const OrderCheckContainerStyle = css`
   justify-content: center;
   min-height: calc(100dvh - 25rem);
   align-items: center;
-  // height: 100%;
   gap: 2.4rem;
 `;
 

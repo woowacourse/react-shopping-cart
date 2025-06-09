@@ -49,12 +49,7 @@ describe('단독 쿠폰 적용 테스트', () => {
   });
 
   it('5000원 할인 단독 쿠폰 적용 테스트', () => {
-    const result = simulateCombo(
-      cartItems,
-      combos[0], // 5000원 할인 쿠폰
-      50000, // 총 가격
-      3000 // 배송비
-    );
+    const result = simulateCombo(cartItems, combos[0], 50000, 3000);
 
     expect(result.totalDiscount).toEqual(5000);
     expect(result.breakdown).toEqual({
@@ -66,12 +61,7 @@ describe('단독 쿠폰 적용 테스트', () => {
   });
 
   it('2+1 쿠폰 단독 적용 테스트', () => {
-    const result = simulateCombo(
-      cartItems,
-      combos[1], // 2+1 쿠폰
-      50000, // 총 가격
-      3000 // 배송비
-    );
+    const result = simulateCombo(cartItems, combos[1], 50000, 3000);
 
     expect(result.totalDiscount).toEqual(10000);
     expect(result.breakdown).toEqual({

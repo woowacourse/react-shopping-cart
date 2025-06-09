@@ -106,7 +106,6 @@ describe('useCartList 훅 예외 테스트', () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    console.log(result.current);
     expect(result.current.error).toBe(ERROR_MESSAGE.CART_LIST);
   });
 
