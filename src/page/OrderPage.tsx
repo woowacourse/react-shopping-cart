@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as styles from '../styles/page.style';
 import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
@@ -13,21 +13,51 @@ import { useToggle } from '../hooks/useToggle';
 import Modal from '../components/Modal/Modal';
 import CouponItem from '../components/Modal/CouponItem';
 import { getBestCoupons } from '../components/Modal/getBestCoupons';
+import { Coupon } from '../types/coupon';
+import { isCouponDisabled } from '../components/Modal/isCouponDisabled';
+import { calculateCouponDiscount } from '../components/Modal/calculateCouponDiscount';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
-  const { value: includeSpecialRegions, toggle } = useToggle(false);
+  const { value: includeSpecialRegions, toggle: toggleRegion } = useToggle(false);
   const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
   const { data: coupons } = useCoupons();
   const { value: isOpen, on, off } = useToggle(false);
-  const { appliedCoupons, totalDiscount } = getBestCoupons(
+  const { appliedCoupons } = getBestCoupons(
     coupons ?? [], // 전체 쿠폰 리스트
     orderAmount, // 주문 금액
     checkedItems, // CartItemType[] (각 item.price, item.quantity 필요)
     deliveryFee // 기본 배송비
   );
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>(appliedCoupons);
+  const handleCouponToggle = (coupon: Coupon) => {
+    // 이미 disabled 인 쿠폰은 아무 동작 없이 무시
+    if (isCouponDisabled(coupon, orderAmount, checkedItems)) return;
+
+    setSelectedCoupons((prev) => {
+      const exists = prev.find((c) => c.id === coupon.id);
+      if (exists) {
+        // 이미 선택된 경우 -> 해제
+        return prev.filter((c) => c.id !== coupon.id);
+      } else if (prev.length < 2) {
+        // 2개 미만이면 추가
+        return [...prev, coupon];
+      }
+      // 이미 2개 선택된 상태면 무시
+      return prev;
+    });
+  };
+
+  // 2) 선택된 쿠폰으로부터 총 할인액을 계산
+  const totalDiscount = useMemo(() => {
+    return selectedCoupons.reduce(
+      (sum, coupon) => sum + calculateCouponDiscount(coupon, orderAmount, checkedItems, totalDeliveryFee),
+      0
+    );
+  }, [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]);
+
   const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
 
   useEffect(() => {
@@ -75,7 +105,7 @@ function OrderPage() {
           </Button>
           <div css={priceTitleCss}>배송 정보</div>
           <div css={styles.allSelectCss}>
-            <CheckBox checked={includeSpecialRegions} onChange={toggle} />
+            <CheckBox checked={includeSpecialRegions} onChange={toggleRegion} />
             <p>제주도 및 도서 산간 지역</p>
           </div>
           <PriceArea
@@ -110,7 +140,8 @@ function OrderPage() {
             coupon={coupon}
             orderAmount={orderAmount}
             items={checkedItems}
-            appliedCoupons={appliedCoupons}
+            selectedCoupons={selectedCoupons}
+            handleCouponToggle={() => handleCouponToggle(coupon)}
           />
         ))}
         <Button css={buttonCss} onClick={off}>
