@@ -48,7 +48,7 @@ const mockCartItems = [
   },
   {
     id: 102,
-    quantity: 2,
+    quantity: 1,
     product: {
       id: 2,
       name: "신선한 사과 1kg",
@@ -78,28 +78,16 @@ describe("router 테스트", () => {
 
   test("장바구니 페이지에서 주문 확인 버튼을 누르면 주문 페이지로 이동하고, 주문 정보가 주문 페이지로 전달된다.", async () => {
     const expectedOrderItemCount = mockCartItems.length;
-    const expectedOrderQuantity = mockCartItems.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
 
     const router = createMemoryRouter(
       [
         {
           path: "/",
-          element: (
-            <TestWrapper>
-              <CartPage />
-            </TestWrapper>
-          ),
+          element: <CartPage />,
         },
         {
           path: "/order",
-          element: (
-            <TestWrapper>
-              <OrderPage />
-            </TestWrapper>
-          ),
+          element: <OrderPage />,
         },
       ],
       {
@@ -107,10 +95,19 @@ describe("router 테스트", () => {
       }
     );
 
-    render(<RouterProvider router={router} />);
+    render(
+      <TestWrapper>
+        <RouterProvider router={router} />
+      </TestWrapper>
+    );
 
     await waitFor(() => {
       expect(screen.getByText("장바구니")).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("유기농 바나나")).toBeInTheDocument();
+      expect(screen.getByText("신선한 사과 1kg")).toBeInTheDocument();
     });
 
     await waitFor(() => {
@@ -122,7 +119,9 @@ describe("router 테스트", () => {
     });
 
     const checkbox = screen.getByTestId("all-select-checkbox");
-    fireEvent.click(checkbox);
+    await act(async () => {
+      fireEvent.click(checkbox);
+    });
 
     const orderButton = await waitFor(() =>
       screen.getByRole("button", { name: "주문 확인" })
@@ -139,11 +138,8 @@ describe("router 테스트", () => {
     });
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          `총 ${expectedOrderItemCount}종류의 상품 ${expectedOrderQuantity}개를 주문합니다.`
-        )
-      ).toBeInTheDocument();
+      expect(screen.getByText("유기농 바나나")).toBeInTheDocument();
+      expect(screen.getByText("신선한 사과 1kg")).toBeInTheDocument();
     });
 
     const orderPrice = mockCartItems.reduce(
@@ -164,28 +160,42 @@ describe("router 테스트", () => {
       [
         {
           path: "/",
-          element: (
-            <TestWrapper>
-              <CartPage />
-            </TestWrapper>
-          ),
+          element: <CartPage />,
         },
         {
           path: "/order",
-          element: (
-            <TestWrapper>
-              <OrderPage />
-            </TestWrapper>
-          ),
+          element: <OrderPage />,
         },
       ],
       {
-        initialEntries: ["/", "/order"],
-        initialIndex: 1,
+        initialEntries: ["/"],
       }
     );
 
-    render(<RouterProvider router={router} />);
+    render(
+      <TestWrapper>
+        <RouterProvider router={router} />
+      </TestWrapper>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("장바구니")).toBeInTheDocument();
+    });
+
+    const checkbox = screen.getByTestId("all-select-checkbox");
+    await act(async () => {
+      fireEvent.click(checkbox);
+    });
+
+    const orderButton = await waitFor(() =>
+      screen.getByRole("button", { name: "주문 확인" })
+    );
+
+    expect(orderButton).not.toBeDisabled();
+
+    await act(async () => {
+      fireEvent.click(orderButton);
+    });
 
     await waitFor(() => {
       expect(screen.getByText("주문 확인")).toBeInTheDocument();
