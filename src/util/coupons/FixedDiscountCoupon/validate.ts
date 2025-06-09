@@ -1,5 +1,4 @@
 import { FixedDiscountCoupon } from "../../../type/Coupons";
-import { validateExpirationDate } from "../validateCoupons";
 
 export const validateFixedDiscountCoupon = ({
   totalPrice,
@@ -8,7 +7,7 @@ export const validateFixedDiscountCoupon = ({
   totalPrice: number;
   coupon: FixedDiscountCoupon;
 }) => {
-  const { minimumAmount, expirationDate } = coupon;
+  const { minimumAmount } = coupon;
 
-  return totalPrice >= minimumAmount && validateExpirationDate(expirationDate);
+  return totalPrice >= minimumAmount;
 };

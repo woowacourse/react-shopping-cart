@@ -1,5 +1,4 @@
 import { PercentageDiscountCoupon } from "../../../type/Coupons";
-import { validateExpirationDate } from "../validateCoupons";
 import { getTimes } from "./getTimes";
 
 export const validatePercentageDiscountCoupon = ({
@@ -9,7 +8,6 @@ export const validatePercentageDiscountCoupon = ({
 }) => {
   const {
     availableTime: { start, end },
-    expirationDate,
   } = coupon;
 
   const currentDate = new Date();
@@ -28,5 +26,5 @@ export const validatePercentageDiscountCoupon = ({
     (currentHour < endHour ||
       (currentHour === endHour && currentMin < endMin && currentSec < endSec));
 
-  return isWithinTimeRange && validateExpirationDate(expirationDate);
+  return isWithinTimeRange;
 };

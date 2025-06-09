@@ -6,8 +6,13 @@ import { validatePercentageDiscountCoupon } from "./PercentageDiscountCoupon/val
 import { CartItem } from "../../type/CartItem";
 import { calculateTotalPrice } from "../cart/calculateTotalPrice";
 
-export const validateExpirationDate = (expirationDate: string): boolean => {
-  const today = new Date();
+const validateExpirationDate = ({
+  expirationDate,
+  today,
+}: {
+  expirationDate: string;
+  today: Date;
+}): boolean => {
   const expiration = new Date(`${expirationDate}T23:59:59`);
   return expiration >= today;
 };
@@ -15,10 +20,17 @@ export const validateExpirationDate = (expirationDate: string): boolean => {
 export const validateCoupons = ({
   cartItems,
   coupon,
+  today = new Date(),
 }: {
   cartItems: CartItem[];
   coupon: Coupon;
+  today?: Date;
 }) => {
+  const { expirationDate } = coupon;
+  if (!validateExpirationDate({ expirationDate, today })) {
+    return false;
+  }
+
   const totalPrice = calculateTotalPrice(cartItems);
 
   switch (coupon.discountType) {
