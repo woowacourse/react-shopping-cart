@@ -134,6 +134,7 @@ const OrderCompletePage = () => {
             onApplyCoupons={handleApplyCoupons}
             cartItems={state?.selectedCartItem || []}
             isRemoteArea={isRemoteArea}
+            appliedCoupons={appliedCoupons}
           />
         </S.OrderCompletePageWrapper>
       </S.Root>

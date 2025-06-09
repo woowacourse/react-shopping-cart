@@ -18,6 +18,7 @@ interface CouponModalProps {
   onApplyCoupons: (selectedCoupons: Coupon[]) => void;
   cartItems: ResponseCartItem[];
   isRemoteArea: boolean;
+  appliedCoupons: Coupon[];
 }
 
 function CouponModal({
@@ -26,6 +27,7 @@ function CouponModal({
   onApplyCoupons,
   cartItems,
   isRemoteArea,
+  appliedCoupons, // 추가
 }: CouponModalProps) {
   const { couponList, isLoading, error } = useCoupon();
   const couponSelectState = useCouponSelectContext();
@@ -50,8 +52,15 @@ function CouponModal({
         type: "SET_COUPON_SELECT",
         payload: { coupons: couponList },
       });
+
+      appliedCoupons.forEach((appliedCoupon) => {
+        couponSelectDispatch({
+          type: "ADD_COUPON_SELECT",
+          payload: { id: appliedCoupon.id },
+        });
+      });
     }
-  }, [couponList, couponSelectDispatch]);
+  }, [couponList, couponSelectDispatch, appliedCoupons]);
 
   const handleCouponSelect = (couponId: number) => {
     const currentItem = couponSelectState.find((item) => item.id === couponId);
@@ -64,20 +73,31 @@ function CouponModal({
         type: "REMOVE_COUPON_SELECT",
         payload: { id: couponId },
       });
+
+      const newSelectedCoupons = selectedCoupons.filter(
+        (coupon) => coupon.id !== couponId
+      );
+      onApplyCoupons(newSelectedCoupons as unknown as Coupon[]);
     } else {
       if (selectedCount >= 2) {
         alert("쿠폰은 최대 2개까지만 사용할 수 있습니다.");
         return;
       }
+
       couponSelectDispatch({
         type: "ADD_COUPON_SELECT",
         payload: { id: couponId },
       });
+
+      const newCoupon = couponList.find((coupon) => coupon.id === couponId);
+      if (newCoupon) {
+        const newSelectedCoupons = [...selectedCoupons, newCoupon];
+        onApplyCoupons(newSelectedCoupons as unknown as Coupon[]);
+      }
     }
   };
 
   const handleApply = () => {
-    onApplyCoupons(selectedCoupons as unknown as Coupon[]);
     onClose();
   };
 
