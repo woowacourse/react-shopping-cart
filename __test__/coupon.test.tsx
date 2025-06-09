@@ -3,56 +3,17 @@ import { validateExpirationDate } from '../src/features/coupon/utils/validateExp
 import { validateAvailableTime } from '../src/features/coupon/utils/validateAvailableTime';
 import { MemoryRouter } from 'react-router';
 import { CartProvider } from '../src/shared/context/CartProvider';
-import { render, screen, within } from '@testing-library/react';
+import { render, renderHook, screen, waitFor, within } from '@testing-library/react';
 import OrderReviewPage from '../src/pages/OrderReview/OrderReviewPage';
 import userEvent from '@testing-library/user-event';
 import { getSelectedCartItemsFromLocalStorage } from '../src/features/cart/utils/localStorageService';
-import { CartItem } from '../src/features/cart/api/types/cart';
 import { vi, Mock } from 'vitest';
+import { mockCartItem_1, mockCartItem_2 } from './data';
+import useCoupons from '../src/features/coupon/hooks/useCoupons';
 
 vi.mock('../src/features/cart/utils/localStorageService', () => ({
   getSelectedCartItemsFromLocalStorage: vi.fn(),
 }));
-
-const mockCartItem_1: CartItem[] = [
-  {
-    id: 1551,
-    quantity: 3,
-    product: {
-      id: 36,
-      name: '패셔니스타 유담이',
-      price: 30000,
-      imageUrl: 'https://image.yes24.com/goods/84933797/XL',
-      category: '패션잡화',
-    },
-  },
-];
-
-const mockCartItem_2: CartItem[] = [
-  {
-    id: 1552,
-    quantity: 1,
-    product: {
-      id: 36,
-      name: '패셔니스타 유담이',
-      price: 30000,
-      imageUrl: 'https://image.yes24.com/goods/84933797/XL',
-      category: '패션잡화',
-    },
-  },
-  {
-    id: 1553,
-    quantity: 3,
-    product: {
-      id: 23,
-      name: '리바이 아커만',
-      price: 100000,
-      imageUrl:
-        'https://image.zeta-ai.io/profile-image/793bf4d3-03de-4ac3-afe1-95be8a9bc62c/29cd5c72-f872-4dba-8be1-21ba51e4487f.jpeg?w=1080&q=90&f=webp',
-      category: '패션잡화',
-    },
-  },
-];
 
 function renderWithRoutes() {
   return render(
@@ -100,6 +61,19 @@ describe('쿠폰이 유효한지 테스트', () => {
 
     const isCouponAvailableTimeValid = validateAvailableTime(currentDate, couponAvailableTime);
     expect(isCouponAvailableTimeValid).toBe(false);
+  });
+});
+
+describe('쿠폰 조합 테스트', () => {
+  it('최적의 두 쿠폰 조합을 반환한다.', async () => {
+    const { result } = renderHook(() => useCoupons());
+
+    await waitFor(() => expect(result.current.isCouponLoading).toBe(false));
+
+    const bestCoupons = result.current.getBestTwoCoupons(mockCartItem_2[1], 300000, 3000);
+
+    expect(bestCoupons.length).toBe(2);
+    expect(bestCoupons[0].discountPrice).toBeGreaterThanOrEqual(bestCoupons[1].discountPrice);
   });
 });
 
