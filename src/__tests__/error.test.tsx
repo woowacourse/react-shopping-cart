@@ -8,6 +8,8 @@ import { ToastProvider } from "../contexts/ToastContext";
 import { CartProvider } from "../contexts/CartContext";
 import MobileLayout from "../components/MobileLayout/MobileLayout";
 import { CouponProvider } from "../contexts/CouponContext";
+import { getCoupons } from "../apis/coupons/getCoupons";
+import { mockCoupons } from "../__mocks__/coupons.ts";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -15,6 +17,7 @@ jest.mock("../apis/httpClient", () => ({
 jest.mock("../apis/cartItems/getCartItems");
 jest.mock("../apis/cartItems/deleteCartItem");
 jest.mock("../apis/cartItems/patchCartItem");
+jest.mock("../apis/coupons/getCoupons");
 jest.mock("../apis/config", () => ({}));
 
 const mockCartItems = [
@@ -57,6 +60,7 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
 describe("Error 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    (getCoupons as jest.Mock).mockResolvedValue(mockCoupons);
   });
 
   it("장바구니 목록을 불러오는데 실패하면 에러 메시지를 표시한다.", async () => {

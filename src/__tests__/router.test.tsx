@@ -12,6 +12,8 @@ import { ToastProvider } from "../contexts/ToastContext";
 import { CouponProvider } from "../contexts/CouponContext";
 import CartPage from "../pages/CartPage/CartPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
+import { mockCoupons } from "../__mocks__/coupons.ts";
+import { getCoupons } from "../apis/coupons/getCoupons.ts";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -20,7 +22,7 @@ jest.mock("../apis/httpClient", () => ({
 jest.mock("../apis/cartItems/getCartItems");
 jest.mock("../apis/cartItems/deleteCartItem");
 jest.mock("../apis/cartItems/patchCartItem");
-
+jest.mock("../apis/coupons/getCoupons");
 jest.mock("../apis/config", () => ({
   CLIENT_BASE_PATH: "/",
 }));
@@ -74,6 +76,7 @@ describe("router 테스트", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockGetCartItems.mockResolvedValue(mockCartItems);
+    (getCoupons as jest.Mock).mockResolvedValue(mockCoupons);
   });
 
   test("장바구니 페이지에서 주문 확인 버튼을 누르면 주문 페이지로 이동하고, 주문 정보가 주문 페이지로 전달된다.", async () => {
