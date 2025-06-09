@@ -28,7 +28,7 @@ export const getIsCouponDisabled = (
       return getIsPercentageCouponDisabled(coupon);
     }
     default:
-      return false;
+      return true;
   }
 };
 
