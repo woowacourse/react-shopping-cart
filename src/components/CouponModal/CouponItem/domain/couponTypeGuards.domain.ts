@@ -4,7 +4,7 @@ import {
   FixedCoupon,
   FreeShippingCoupon,
   PercentageCoupon,
-} from "../../../../../types/coupon";
+} from "../../../../types/coupon";
 
 export function isFixedCoupon(coupon: CouponType): coupon is FixedCoupon {
   return coupon.discountType === "fixed";
