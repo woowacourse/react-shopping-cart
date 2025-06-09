@@ -1,4 +1,4 @@
-import { calculateOptimalCouponDiscount } from '../../coupon/utils';
+import { calculateOptimalCouponDiscount } from '../../coupon/utils/business';
 import { CalculateOrderParams, OrderCalculation } from '../types/order';
 
 export const calculateOrderTotal = ({

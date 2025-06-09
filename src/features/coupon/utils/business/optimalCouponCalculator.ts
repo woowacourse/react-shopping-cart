@@ -1,5 +1,5 @@
-import { CartItem } from '../../cart/types/cart';
-import { Coupon } from '../types/coupon';
+import { CartItem } from '../../../cart/types/cart';
+import { Coupon } from '../../types/coupon';
 import { calculateCouponDiscount } from './singleCouponCalculator';
 
 export const calculateOptimalCouponDiscount = (

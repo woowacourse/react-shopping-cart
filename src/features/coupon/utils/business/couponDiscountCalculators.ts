@@ -1,5 +1,5 @@
-import { CartItem } from '../../cart/types/cart';
-import { Coupon } from '../types/coupon';
+import { CartItem } from '../../../cart/types/cart';
+import { Coupon } from '../../types/coupon';
 
 export const calculateFixedDiscount = (coupon: Coupon, orderPrice: number): number => {
   if (coupon.discountType !== 'fixed' || !coupon.discount) return 0;

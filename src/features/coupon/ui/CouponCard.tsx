@@ -4,7 +4,8 @@ import * as S from './CouponCard.styles';
 import { useCouponsContext } from '../context/useCouponsContext';
 import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
 import { useOrderContext } from '../../order/context/useOrderContext';
-import { isCouponApplicable, formatCouponExpirationDate, formatCouponTimeRange, formatMinimumAmount } from '../utils';
+import { formatCouponExpirationDate, formatCouponTimeRange, formatMinimumAmount } from '../utils/formatters';
+import { isCouponApplicable } from '../utils/business';
 
 interface CouponCardProps {
   coupon: Coupon;

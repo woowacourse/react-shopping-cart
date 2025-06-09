@@ -1,4 +1,4 @@
-import { Coupon } from '../types/coupon';
+import { Coupon } from '../../types/coupon';
 
 export const formatCouponExpirationDate = (expirationDate?: string): string => {
   if (!expirationDate) return '';
