@@ -1,5 +1,5 @@
 // calculateDiscountAmount.test.ts
-import { calculateDiscountAmount } from "../src/domains/discount";
+import { calculateDiscountAmount } from "../src/pages/OrderSummary/discount.domain";
 import {
   BuyXGetYCoupon,
   FixedCoupon,

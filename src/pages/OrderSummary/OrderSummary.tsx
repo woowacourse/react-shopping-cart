@@ -14,9 +14,9 @@ import CouponModal from "../../components/CouponModal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { useState } from "react";
-import { calculateDiscountAmount } from "../../domains/discount";
 import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
 import useResetCouponOnUnmount from "../../hooks/orderSummary/useResetCouponOnUnmount";
+import { calculateDiscountAmount } from "./discount.domain";
 
 function OrderSummary() {
   useResetCouponOnUnmount();
