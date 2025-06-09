@@ -13,19 +13,17 @@ import Button from '../../shared/ui/Button';
 import CouponModal from '../../features/coupon/ui/CouponModal';
 import { useModal } from '@sanghee01/modal';
 import DeliveryInfo from '../../features/cart/ui/DeliveryInfo';
-import { useState } from 'react';
 
 export default function OrderConfirmationPage() {
-  const { cartTypeQuantity, SelectedCartItems } = useSelectedCartItemsContext();
+  const { cartTypeQuantity, SelectedCartItems, updateRemoteArea } = useSelectedCartItemsContext();
   const {
     isOpen: isCouponModalOpen,
     handleOpen: handleOpenCouponModal,
     handleClose: handleCloseCouponModal,
   } = useModal();
-  const [isRemoteArea, setIsRemoteArea] = useState(false);
 
   const handleRemoteArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsRemoteArea(e.target.checked);
+    updateRemoteArea(e.target.checked);
   };
 
   const navigate = useNavigate();
