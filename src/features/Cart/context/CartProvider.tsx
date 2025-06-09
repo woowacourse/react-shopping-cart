@@ -39,12 +39,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     }
   }, [cart.error, showToast]);
 
-  // useEffect(() => {
-  //   if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
-  //     setCheckedItems(new Set(cart.data.map((item) => item.id)));
-  //     hasInitialized.current = true;
-  //   }
-  // }, [cart.data]);
   useEffect(() => {
     if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
       const stored = localStorage.getItem(CHECKED_KEY);
@@ -91,7 +85,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       return newSet;
     });
   };
-  
 
   const toggleIsRemoteArea = () => setIsRemoteArea((prev) => !prev);
 

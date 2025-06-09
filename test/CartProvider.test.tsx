@@ -24,24 +24,26 @@ describe('CartProvider', () => {
   );
 
   beforeEach(() => {
+    vi.spyOn(window.localStorage.__proto__, 'getItem').mockImplementation(() => '{}');
+    vi.spyOn(window.localStorage.__proto__, 'setItem').mockImplementation(() => {});
     showToastMock = vi.fn();
     mutateMock.mockClear();
   });
 
-  it('toggleCheck으로 체크 상태를 토글할 수 있다.', () => {
+  it('toggleCheck으로 체크 상태를 토글할 수 있다.', async () => {
     const { result } = renderHook(() => useCartContext(), { wrapper });
 
-    act(() => {
-      result.current.toggleCheck(1);
-    });
-
-    expect(result.current.cartItems.find((item) => item.id === 1)?.isChecked).toBe(false);
-
-    act(() => {
+    await act(async () => {
       result.current.toggleCheck(1);
     });
 
     expect(result.current.cartItems.find((item) => item.id === 1)?.isChecked).toBe(true);
+
+    await act(async () => {
+      result.current.toggleCheck(1);
+    });
+
+    expect(result.current.cartItems.find((item) => item.id === 1)?.isChecked).toBe(false);
   });
 
   it('toggleAllCheck으로 전체 체크 상태를 토글할 수 있다.', () => {
@@ -51,13 +53,13 @@ describe('CartProvider', () => {
       result.current.toggleAllCheck();
     });
 
-    expect(result.current.cartItems.every((item) => !item.isChecked)).toBe(true);
+    expect(result.current.cartItems.every((item) => item.isChecked)).toBe(true);
 
     act(() => {
       result.current.toggleAllCheck();
     });
 
-    expect(result.current.cartItems.every((item) => item.isChecked)).toBe(true);
+    expect(result.current.cartItems.every((item) => !item.isChecked)).toBe(true);
   });
 
   it('updateQuantity 호출 시 mutate가 실행된다.', async () => {
