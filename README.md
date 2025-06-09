@@ -58,6 +58,7 @@
       1. 값이 없으면 다시 페이지 리턴
    4. 새로고침x -> 페이지 간의 상태가 공유되어야하기 때문에, 쿼리스트링 / 로컬스토리지 / provider 데이터 전달
 
+
 ### 리팩토링 수정사항
 
 - [x] 에러 ui 추가
@@ -70,3 +71,4 @@
 - [x] orderConfirmPage location.state 처리
 - [ ] useCart 훅 return 값 useMemo 처리하기
 - [x] useCart 훅 비동기 처리 로직 -> 에러 추가
+
