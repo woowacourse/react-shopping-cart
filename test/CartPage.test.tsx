@@ -55,7 +55,7 @@ describe('CartPage', () => {
         name: '상품1',
         price: 50000,
         imageUrl: 'https://example.com/1.jpg',
-        category: 'test',
+        category: '식료품',
       },
     },
     {
@@ -66,7 +66,7 @@ describe('CartPage', () => {
         name: '상품2',
         price: 30000,
         imageUrl: 'https://example.com/2.jpg',
-        category: 'test',
+        category: '패션잡화',
       },
     },
   ];
@@ -167,16 +167,42 @@ describe('CartPage', () => {
     });
 
     const orderButton = screen.getByText('주문확인');
-    
+
     act(() => {
       fireEvent.click(orderButton);
     });
 
     expect(mockNavigate).toHaveBeenCalledWith('/orderConfirm', {
       state: {
+        products: [
+          {
+            id: 1,
+            quantity: 2,
+            product: {
+              id: 101,
+              name: '상품1',
+              price: 50000,
+              imageUrl: 'https://example.com/1.jpg',
+              category: '식료품',
+            },
+          },
+          {
+            id: 2,
+            quantity: 1,
+            product: {
+              id: 102,
+              name: '상품2',
+              price: 30000,
+              imageUrl: 'https://example.com/2.jpg',
+              category: '패션잡화',
+            },
+          },
+        ],
         price: 130000,
         count: 2,
         totalCount: 3,
+        shippingFee: 0,
+        totalPrice: 130000,
       },
     });
   });
