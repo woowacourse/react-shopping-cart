@@ -32,7 +32,7 @@ export interface CouponContent {
   code: string;
   description: string;
   expirationDate: string;
-  discount: number;
+  discount?: number;
   minimumAmount?: number;
   buyQuantity?: number;
   getQuantity?: number;
