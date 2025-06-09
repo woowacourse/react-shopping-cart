@@ -7,7 +7,7 @@ import { Coupon } from '../types/coupon';
 function useCouponList() {
   const [couponList, setCouponList] = useState<Coupon[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string>('');
 
   const { showToast } = useToastContext();
 
