@@ -1,11 +1,13 @@
 export default {
-  testEnvironment: "jsdom",
+  transformIgnorePatterns: [
+    "node_modules/(?!(@dev-dino22/modal-components|react-router-dom)/)"
+  ],
   transform: {
-    "^.+\\.tsx?$": ["ts-jest"],
+    "^.+\\.(ts|tsx|js|jsx)$": ["babel-jest", { presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"] }]
   },
-  moduleNameMapper: {
-    "^.+\\.svg$": "jest-svg-transformer",
-    "\\.(css|less|sass|scss)$": "identity-obj-proxy",
-  },
+  testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+  }
 };
