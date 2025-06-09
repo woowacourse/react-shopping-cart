@@ -18,6 +18,9 @@ export const useCart = () => {
     checkedItemsCount: checkedItems.length,
   });
 
+  const selectedProducts =
+    cartItems?.content?.filter((item) => checkedItems.includes(item.id)) || [];
+
   return {
     cartItems,
     checkedItems,
@@ -30,5 +33,6 @@ export const useCart = () => {
     totalPrice,
     descriptionMessage,
     isDisabled,
+    selectedProducts,
   };
 };

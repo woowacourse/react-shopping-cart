@@ -11,30 +11,34 @@ import { COUPONS } from '../constants/couponConfig';
 import { HiddenCheckbox } from '../components/SelectBox/SelectBox.styles';
 import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { formatDate, formatTimeRange } from '../utils/dateTimeFormatter';
+import { CartProduct } from '../types/cart';
 
 function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { price, count, totalCount } = location.state;
+
+  const { products, price, count, totalCount, shippingFee } = location.state;
+
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [remoteArea, setRemoteArea] = useState(false);
 
-  // 임시 데이터 - 실제로는 location.state에서 받아와야 함
-  const productName = '이름';
-  const productPrice = 35000;
-  const productQuantity = 2;
-  const productTotal = productPrice * productQuantity;
-  const couponDiscount = 6000;
-  const baseShippingFee = productTotal >= SHIPPING_FEE_THRESHOLD ? 0 : 3000;
+  const couponDiscount = 1000; // TODO 쿠폰 선택 기능 구현 시 업데이트
 
   const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
-  const totalShippingFee = baseShippingFee + remoteAreaFee;
+  const totalShippingFee = shippingFee + remoteAreaFee;
 
-  const finalTotal = productTotal - couponDiscount + totalShippingFee;
+  const finalTotal = price - couponDiscount + totalShippingFee;
 
-  const handleRemoteAreaChange = () => {
-    setRemoteArea(!remoteArea);
+  const toggleRemoteArea = () => {
+    setRemoteArea((prev) => !prev);
   };
+
+  if (!location.state || !products || products.length === 0) {
+    console.error('No products data received');
+    navigate('/');
+
+    return;
+  }
 
   return (
     <>
@@ -45,14 +49,18 @@ function OrderConfirmPage() {
           description={`총 ${count}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
 
-        <ProductSection>
-          <ProductImage src="https://via.placeholder.com/80" alt="상품 이미지" />
-          <ProductInfo>
-            <ProductName>{productName}</ProductName>
-            <ProductPrice>{productPrice.toLocaleString()}원</ProductPrice>
-            <ProductQuantity>{productQuantity}개</ProductQuantity>
-          </ProductInfo>
-        </ProductSection>
+        <ProductContainer>
+          {products.map((product: CartProduct) => (
+            <ProductSection key={product.id}>
+              <ProductImage src={product.product.imageUrl} alt={product.product.name} />
+              <ProductInfo>
+                <ProductName>{product.product.name}</ProductName>
+                <ProductPrice>{product.product.price.toLocaleString()}원</ProductPrice>
+                <ProductQuantity>{product.quantity}개</ProductQuantity>
+              </ProductInfo>
+            </ProductSection>
+          ))}
+        </ProductContainer>
 
         <CouponSelectButton onClick={() => setIsCartModalOpen(true)}>쿠폰 적용</CouponSelectButton>
 
@@ -60,11 +68,7 @@ function OrderConfirmPage() {
           <SectionTitle>배송 정보</SectionTitle>
           <DeliveryItem>
             <CouponCheckboxContainer>
-              <HiddenCheckbox
-                type="checkbox"
-                checked={remoteArea}
-                onChange={handleRemoteAreaChange}
-              />
+              <HiddenCheckbox type="checkbox" checked={remoteArea} onChange={toggleRemoteArea} />
               <CouponStyledCheckbox checked={remoteArea} />
             </CouponCheckboxContainer>
             <DeliveryText>제주도 및 도서 산간 지역</DeliveryText>
@@ -76,7 +80,7 @@ function OrderConfirmPage() {
           description={`총 주문 금액이 ${SHIPPING_FEE_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
         />
         <CartFooter
-          price={productTotal}
+          price={price}
           couponDiscount={couponDiscount}
           shippingFee={totalShippingFee}
           totalPrice={finalTotal}
@@ -150,7 +154,7 @@ export default OrderConfirmPage;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
+  padding: 0 24px;
   max-width: 480px;
   margin: 0 auto;
   width: 100%;
@@ -158,11 +162,16 @@ const Container = styled.div`
   overflow-y: auto;
 `;
 
+const ProductContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+`;
+
 const ProductSection = styled.div`
   display: flex;
   gap: 16px;
   padding: 24px 0;
-  margin: 36px 0 0 0;
   border-top: 1px solid #e5e5e5;
 `;
 
@@ -176,22 +185,26 @@ const ProductImage = styled.img`
 const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
 `;
 
 const ProductName = styled.h3`
-  font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
 `;
 
 const ProductPrice = styled.p`
-  font-size: 18px;
+  margin: 4px 0 0 0;
   font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
 `;
 
 const ProductQuantity = styled.p`
-  font-size: 14px;
-  color: #666;
+  margin: 24px 0 0 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
 `;
 
 const DeliverySection = styled.div`
@@ -322,13 +335,19 @@ const CouponDetail = styled.p`
 `;
 
 const CouponSelectButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  min-height: 48px;
   height: 48px;
+  padding: 12px 16px;
   border-radius: 8px;
   border: 1px solid #e5e5e5;
   background-color: white;
-  margin: 16px 0 24px 0;
-  font-size: 14px;
+  margin: 8px 0 24px 0;
+  font-size: 15px;
   font-weight: 600;
   color: #666;
   cursor: pointer;

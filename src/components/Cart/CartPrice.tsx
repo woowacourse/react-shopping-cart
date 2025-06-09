@@ -4,11 +4,19 @@ export type CartPriceVariant = 'default' | 'coupon' | 'shipping' | 'total';
 
 interface CartPriceProps {
   title: string;
-  price: number;
+  price: number | string | undefined;
   variant: CartPriceVariant;
 }
 
 function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
+  if (typeof price === 'string') {
+    price = parseInt(price.replace(/,/g, ''), 10);
+  }
+
+  if (typeof price === 'undefined') {
+    price = 0;
+  }
+
   return (
     <StyledTotalContainer variant={variant}>
       <Title>{title}</Title>
