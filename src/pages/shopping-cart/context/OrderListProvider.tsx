@@ -32,12 +32,40 @@ const OrderListContext = createContext<{
   totalPrice: 0,
 });
 
+const STORAGE_KEY = 'shopping_cart_selections';
+
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
   const { data: cartListData, refetch: cartRefetch } = useAPIDataContext({
     fetcher: getShoppingCartData,
     name: 'cart',
   });
-  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>({});
+  const [selectionMap, setSelectionMap] = useState<Record<string, boolean>>(
+    () => {
+      try {
+        const savedSelections = localStorage.getItem(STORAGE_KEY);
+        return savedSelections ? JSON.parse(savedSelections) : {};
+      } catch (error) {
+        console.error(
+          '로컬스토리지에서 선택 상태를 불러오는데 실패했습니다:',
+          error
+        );
+        return {};
+      }
+    }
+  );
+
+  // selectionMap이 변경될 때마다 로컬스토리지에 저장
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(selectionMap));
+    } catch (error) {
+      console.error(
+        '로컬스토리지에 선택 상태를 저장하는데 실패했습니다:',
+        error
+      );
+    }
+  }, [selectionMap]);
+
   const selectedItems = (cartListData ?? []).filter(
     (item) => selectionMap[item.id]
   );
@@ -89,11 +117,12 @@ export const useOrderListContext = () => {
     setSelectionMap((prev) => {
       const nextMap: Record<string, boolean> = {};
       for (const cart of cartListData) {
+        // 로컬스토리지에 저장된 값이 있으면 그것을 사용, 없으면 기본값 true
         nextMap[cart.id] = prev[cart.id] ?? true;
       }
       return nextMap;
     });
-  }, [cartListData, setSelectionMap]);
+  }, [cartListData]);
 
   return {
     selectionMap,
