@@ -3,16 +3,22 @@ import { Coupon } from '../../types/coupon';
 import CheckBox from '../common/CheckBox';
 import { formatToKoreanDate } from '../../utils/formatToKoreanDate';
 import { formatTime } from '../../utils/formatTime';
+import { isCouponDisabled } from './isCouponDisabled';
+import { CartItemType } from '../../types/cartItem';
 
 interface CouponItemProps {
   coupon: Coupon;
+  orderAmount: number;
+  items: CartItemType[];
 }
 
-const CouponItem = ({ coupon }: CouponItemProps) => {
+const CouponItem = ({ coupon, orderAmount, items }: CouponItemProps) => {
+  const isDisabled = isCouponDisabled(coupon, orderAmount, items);
+
   return (
-    <div css={couponItemCss}>
+    <div css={couponItemCss(isDisabled)}>
       <div css={TitleCss}>
-        <CheckBox />
+        <CheckBox disabled={isDisabled} />
         <p css={TitleTextCss}>{coupon.description}</p>
       </div>
       <p css={fontSize12}>만료일: {formatToKoreanDate(coupon.expirationDate)}</p>
@@ -28,13 +34,15 @@ const CouponItem = ({ coupon }: CouponItemProps) => {
 
 export default CouponItem;
 
-const couponItemCss = css({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  borderTop: '1px solid #e0e0e0',
-  padding: '12px 0 24px'
-});
+const couponItemCss = (isDisabled: boolean) =>
+  css({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    borderTop: '1px solid #e0e0e0',
+    padding: '12px 0 24px',
+    opacity: isDisabled ? 0.5 : 1
+  });
 
 const TitleCss = css({
   display: 'flex',

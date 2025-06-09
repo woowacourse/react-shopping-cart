@@ -98,7 +98,7 @@ function OrderPage() {
           <p css={styles.fontSize12}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
         </div>
         {coupons?.map((coupon) => (
-          <CouponItem key={coupon.id} coupon={coupon} />
+          <CouponItem key={coupon.id} coupon={coupon} orderAmount={orderAmount} items={checkedItems} />
         ))}
         <Button css={buttonCss} onClick={off}>
           총 {}원 할인쿠폰 사용하기
