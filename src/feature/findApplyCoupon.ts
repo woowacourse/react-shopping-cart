@@ -9,25 +9,26 @@ const NOW = {
   hour: BEFORE_PROCESSING_NOW.getHours(),
   minute: BEFORE_PROCESSING_NOW.getMinutes(),
 };
-const FIXED5000_MINIMUM_AMOUNT = 100_000;
-const FREE_SHIPPING_MINIMUM_AMOUNT = 50_000;
 
 export const findCanApplyCoupon = (
   coupons: CouponType[] | undefined,
   price: number,
   selectedItems: CartProduct[],
-  deliveryPrice: number
+  deliveryPrice: number,
+  now = NOW
 ) => {
   if (!coupons) return;
   let filteredCoupons = [...coupons];
-  // 10만원 이상인지
-  if (price < FIXED5000_MINIMUM_AMOUNT)
-    filteredCoupons = coupons.filter((coupon) => coupon.code !== 'FIXED5000');
-  // 5만원 이상인지, 배송비가 무료인지
-  if (deliveryPrice === 0 || price < FREE_SHIPPING_MINIMUM_AMOUNT)
-    filteredCoupons = filteredCoupons.filter(
-      (coupon) => coupon.code !== 'FREESHIPPING'
-    );
+
+  filteredCoupons = coupons.filter((coupon) => {
+    if (coupon.code === 'FREESHIPPING')
+      return deliveryPrice > 0
+        ? filterByPrice(price, coupon.minimumAmount)
+        : false;
+    if (coupon.minimumAmount) return filterByPrice(price, coupon.minimumAmount);
+    return true;
+  });
+
   // 2+1 상품이 있는지
   if (!filterByBogo(selectedItems)) {
     filteredCoupons = filteredCoupons.filter(
@@ -35,24 +36,30 @@ export const findCanApplyCoupon = (
     );
   }
   // 날짜 이내인지
-  filteredCoupons = filteredCoupons.filter((coupon) => filterByDate(coupon));
+  filteredCoupons = filteredCoupons.filter((coupon) =>
+    filterByDate(coupon, now)
+  );
   // 시간 이내인지
   filteredCoupons = filteredCoupons.filter((coupon) => filterByTime(coupon));
 
   return filteredCoupons;
 };
 
-function filterByDate(coupon: CouponType) {
+function filterByPrice(price: number, minimumAmount: number) {
+  return price >= minimumAmount;
+}
+
+function filterByDate(coupon: CouponType, now: typeof NOW) {
   const splitExpirationDate = coupon.expirationDate.split('-');
   const year = Number(splitExpirationDate[0]);
   const month = Number(splitExpirationDate[1]);
   const date = Number(splitExpirationDate[2]);
 
-  if (year < NOW.year) return false;
-  if (year === NOW.year) {
-    if (month < NOW.month) return false;
-    if (month === NOW.month) {
-      if (date < NOW.date) return false;
+  if (year < now.year) return false;
+  if (year === now.year) {
+    if (month < now.month) return false;
+    if (month === now.month) {
+      if (date < now.date) return false;
     }
   }
   return true;
