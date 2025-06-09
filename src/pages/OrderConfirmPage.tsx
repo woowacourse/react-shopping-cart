@@ -12,6 +12,7 @@ import { HiddenCheckbox } from '../components/SelectBox/SelectBox.styles';
 import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { formatDate, formatTimeRange } from '../utils/dateTimeFormatter';
 import { CartProduct } from '../types/cart';
+import { Coupon } from '../types/coupon';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -21,16 +22,101 @@ function OrderConfirmPage() {
 
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [remoteArea, setRemoteArea] = useState(false);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
+  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
-  const couponDiscount = 1000; // TODO 쿠폰 선택 기능 구현 시 업데이트
+  const calculateCouponDiscount = () => {
+    return selectedCoupons.reduce((total, coupon) => {
+      if (coupon.discountType === 'fixed' && coupon.discount) {
+        return total + coupon.discount;
+      }
+
+      // TODO: MIRACLESALE, BOGO, FREESHIPPING 쿠폰 처리할것
+      return total;
+    }, 0);
+  };
+
+  const couponDiscount = calculateCouponDiscount();
 
   const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
   const totalShippingFee = shippingFee + remoteAreaFee;
 
   const finalTotal = price - couponDiscount + totalShippingFee;
 
+  const isCouponAvailable = (coupon: Coupon): boolean => {
+    const today = new Date();
+    const expirationDate = new Date(coupon.expirationDate);
+
+    if (expirationDate < today) {
+      return false;
+    }
+
+    if (coupon.availableTime) {
+      const currentHour = today.getHours();
+      const currentMinute = today.getMinutes();
+      const currentTime = currentHour * 60 + currentMinute;
+
+      const startTimeParts = coupon.availableTime.start.split(':');
+      const startHour = Number(startTimeParts[0]);
+      const startMinute = Number(startTimeParts[1]);
+
+      const endTimeParts = coupon.availableTime.end.split(':');
+      const endHour = Number(endTimeParts[0]);
+      const endMinute = Number(endTimeParts[1]);
+
+      const startTime = startHour * 60 + startMinute;
+      const endTime = endHour * 60 + endMinute;
+
+      if (currentTime < startTime || currentTime > endTime) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const toggleRemoteArea = () => {
     setRemoteArea((prev) => !prev);
+  };
+
+  const toggleCouponSelection = (coupon: Coupon) => {
+    if (!isCouponAvailable(coupon)) {
+      return;
+    }
+
+    setTempSelectedCoupons((prev) => {
+      const isSelected = prev.some((couponItem) => couponItem.id === coupon.id);
+
+      if (isSelected) {
+        return prev.filter((couponItem) => couponItem.id !== coupon.id);
+      }
+
+      if (prev.length >= 2) {
+        alert('쿠폰은 최대 2개까지 선택 가능합니다.');
+        return prev;
+      }
+
+      return [...prev, coupon];
+    });
+  };
+
+  const isCouponSelected = (couponId: number) => {
+    return tempSelectedCoupons.some((coupon) => coupon.id === couponId);
+  };
+
+  const openCouponModal = () => {
+    setTempSelectedCoupons(selectedCoupons);
+    setIsCartModalOpen(true);
+  };
+
+  const closeCouponModal = () => {
+    setTempSelectedCoupons([]);
+    setIsCartModalOpen(false);
+  };
+
+  const applyCoupons = () => {
+    setSelectedCoupons(tempSelectedCoupons);
+    setIsCartModalOpen(false);
   };
 
   if (!location.state || !products || products.length === 0) {
@@ -62,7 +148,7 @@ function OrderConfirmPage() {
           ))}
         </ProductContainer>
 
-        <CouponSelectButton onClick={() => setIsCartModalOpen(true)}>쿠폰 적용</CouponSelectButton>
+        <CouponSelectButton onClick={openCouponModal}>쿠폰 적용</CouponSelectButton>
 
         <DeliverySection>
           <SectionTitle>배송 정보</SectionTitle>
@@ -91,7 +177,7 @@ function OrderConfirmPage() {
           position="center"
           width="90%"
           title="쿠폰을 선택해 주세요"
-          onClose={() => setIsCartModalOpen(false)}
+          onClose={closeCouponModal}
         >
           <>
             <CartInfo
@@ -99,40 +185,47 @@ function OrderConfirmPage() {
               style={{ marginTop: '32px' }}
             />
             <CouponListContainer>
-              {COUPONS.map((coupon) => (
-                <CouponContainer key={coupon.id}>
-                  <CouponCheckboxContainer>
-                    <HiddenCheckbox
-                      data-id={coupon.id}
-                      type="checkbox"
-                      checked={false}
-                      onChange={() => {}}
-                    />
-                    <CouponStyledCheckbox checked={false} />
-                  </CouponCheckboxContainer>
-                  <CouponContent>
-                    <CouponTitle>{coupon.description}</CouponTitle>
-                    <CouponInfo>
-                      <CouponDetail>만료일: {formatDate(coupon.expirationDate)}</CouponDetail>
-                      {coupon.availableTime && (
-                        <CouponDetail>
-                          사용 가능 시간:{' '}
-                          {formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}
+              {COUPONS.map((coupon) => {
+                const isAvailable = isCouponAvailable(coupon);
+                const isSelected = isCouponSelected(coupon.id);
+                const isSelectable = isAvailable && (tempSelectedCoupons.length < 2 || isSelected);
+
+                return (
+                  <CouponContainer key={coupon.id}>
+                    <CouponCheckboxContainer>
+                      <HiddenCheckbox
+                        data-id={coupon.id}
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => isSelectable && toggleCouponSelection(coupon)}
+                        disabled={!isSelectable}
+                      />
+                      <CouponStyledCheckbox checked={isSelected} disabled={!isAvailable} />
+                    </CouponCheckboxContainer>
+                    <CouponContent>
+                      <CouponTitle disabled={!isAvailable}>{coupon.description}</CouponTitle>
+                      <CouponInfo>
+                        <CouponDetail disabled={!isAvailable}>
+                          만료일: {formatDate(coupon.expirationDate)}
                         </CouponDetail>
-                      )}
-                      {coupon.minimumAmount && (
-                        <CouponDetail>
-                          최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
-                        </CouponDetail>
-                      )}
-                    </CouponInfo>
-                  </CouponContent>
-                </CouponContainer>
-              ))}
+                        {coupon.availableTime && (
+                          <CouponDetail disabled={!isAvailable}>
+                            사용 가능 시간:{' '}
+                            {formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}
+                          </CouponDetail>
+                        )}
+                        {coupon.minimumAmount && (
+                          <CouponDetail disabled={!isAvailable}>
+                            최소 주문 금액: {coupon.minimumAmount.toLocaleString()}원
+                          </CouponDetail>
+                        )}
+                      </CouponInfo>
+                    </CouponContent>
+                  </CouponContainer>
+                );
+              })}
             </CouponListContainer>
-            <CouponButton onClick={() => setIsCartModalOpen(false)}>
-              총 5,000원 할인 쿠폰 사용하기
-            </CouponButton>
+            <CouponButton onClick={applyCoupons}>총 5,000원 할인 쿠폰 사용하기</CouponButton>
           </>
         </Modal>
       )}
@@ -268,7 +361,7 @@ const CouponCheckboxContainer = styled.label`
   position: relative;
 `;
 
-const CouponStyledCheckbox = styled.div<{ checked: boolean }>`
+const CouponStyledCheckbox = styled.div<{ checked: boolean; disabled?: boolean }>`
   width: 24px;
   height: 24px;
   border-radius: 6px;
@@ -289,6 +382,13 @@ const CouponStyledCheckbox = styled.div<{ checked: boolean }>`
     display: ${(props) => (props.checked ? 'block' : 'none')};
     margin-bottom: 2px;
   }
+
+  ${(props) =>
+    props.disabled &&
+    `
+    opacity: 0.5;
+    cursor: not-allowed;
+  `}
 `;
 
 const CouponContainer = styled.div`
@@ -315,11 +415,12 @@ const CouponContent = styled.div`
   flex: 1;
 `;
 
-const CouponTitle = styled.h4`
+const CouponTitle = styled.h4<{ disabled?: boolean }>`
   font-weight: 700;
   font-size: 16px;
   line-height: 100%;
   vertical-align: middle;
+  color: ${(props) => (props.disabled ? '#0000001A' : '#000')};
 `;
 
 const CouponInfo = styled.div`
@@ -328,10 +429,11 @@ const CouponInfo = styled.div`
   gap: 4px;
 `;
 
-const CouponDetail = styled.p`
+const CouponDetail = styled.p<{ disabled?: boolean }>`
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
+  color: ${(props) => (props.disabled ? '#0000001A' : '#666')};
 `;
 
 const CouponSelectButton = styled.button`
