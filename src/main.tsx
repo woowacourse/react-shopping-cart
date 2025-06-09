@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { CartItemsProvider } from './features/cart/context/CartItemsProvider.tsx';
 import { SelectedCartItemsProvider } from './features/cart/context/SelectedCartItemsProvider.tsx';
+import { CouponsProvider } from './features/coupon/context/CouponsProvider.tsx';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
 
@@ -28,9 +29,11 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <CartItemsProvider>
-        <SelectedCartItemsProvider>
-          <RouterProvider router={router} />
-        </SelectedCartItemsProvider>
+        <CouponsProvider>
+          <SelectedCartItemsProvider>
+            <RouterProvider router={router} />
+          </SelectedCartItemsProvider>
+        </CouponsProvider>
       </CartItemsProvider>
     </React.StrictMode>
   );
