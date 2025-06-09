@@ -40,7 +40,9 @@ export const findCanApplyCoupon = (
     filterByDate(coupon, now)
   );
   // 시간 이내인지
-  filteredCoupons = filteredCoupons.filter((coupon) => filterByTime(coupon));
+  filteredCoupons = filteredCoupons.filter((coupon) =>
+    filterByTime(coupon, now)
+  );
 
   return filteredCoupons;
 };
@@ -65,12 +67,12 @@ function filterByDate(coupon: CouponType, now: typeof NOW) {
   return true;
 }
 
-function filterByTime(coupon: CouponType) {
+function filterByTime(coupon: CouponType, now: typeof NOW) {
   if (!coupon?.availableTime) return true;
   const startTime = Number(coupon.availableTime.start.split(':')[0]) * 60;
   const endTime = Number(coupon.availableTime.end.split(':')[0]) * 60;
-  const nowTime = NOW.hour * 60 + NOW.minute;
-
+  const nowTime = now.hour * 60 + now.minute;
+  console.log(startTime, endTime, nowTime);
   if (nowTime >= startTime && nowTime <= endTime) return true;
   return false;
 }
