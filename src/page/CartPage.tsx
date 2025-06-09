@@ -25,7 +25,7 @@ function CartPage() {
             <CartItemList cartItems={cartItems?.content} />
           </>
         ) : (
-          <p>장바구니에 담은 상품이 없습니다.</p>
+          <p css={emptyCartCss}>장바구니에 담은 상품이 없습니다.</p>
         )}
       </main>
     </>
@@ -38,4 +38,11 @@ const logoCss = css({
   color: 'white',
   fontWeight: 800,
   fontSize: '20px'
+});
+
+const emptyCartCss = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%'
 });

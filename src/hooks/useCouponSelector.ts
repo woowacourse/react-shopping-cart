@@ -7,6 +7,7 @@ import { calculateCouponDiscount } from '../components/Modal/utils/calculateCoup
 import { isCouponDisabled } from '../components/Modal/utils/isCouponDisabled';
 import type { Coupon } from '../types/coupon';
 import type { CartItemType } from '../types/cartItem';
+import { MAX_COUPON_LENGTH } from '../constants/maxCouponLength';
 
 export function useCouponSelector(orderAmount: number, items: CartItemType[], baseDeliveryFee: number) {
   const { data: coupons = [] } = useCoupons();
@@ -23,7 +24,11 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[], ba
   const toggleCoupon = (c: Coupon) => {
     if (isCouponDisabled(c, orderAmount, items)) return;
     setTemp((prev) =>
-      prev.some((x) => x.id === c.id) ? prev.filter((x) => x.id !== c.id) : prev.length < 2 ? [...prev, c] : prev
+      prev.some((x) => x.id === c.id)
+        ? prev.filter((x) => x.id !== c.id)
+        : prev.length < MAX_COUPON_LENGTH
+        ? [...prev, c]
+        : prev
     );
   };
 

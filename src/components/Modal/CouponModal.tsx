@@ -6,6 +6,7 @@ import CouponItem from './CouponItem';
 import Modal from './Modal';
 import { calculateCouponDiscount } from './utils/calculateCouponDiscount';
 import { css } from '@emotion/react';
+import { MAX_COUPON_LENGTH } from '../../constants/maxCouponLength';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -39,7 +40,7 @@ const CouponModal = ({
     <Modal isOpen={isOpen} handleClose={handleClose}>
       <div css={infoCss}>
         <img src="./assets/info.svg" alt="info icon" />
-        <p css={fontSize12}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
+        <p css={fontSize12}>쿠폰은 최대 {MAX_COUPON_LENGTH}개까지 사용할 수 있습니다.</p>
       </div>
       {coupons?.map((coupon) => (
         <CouponItem

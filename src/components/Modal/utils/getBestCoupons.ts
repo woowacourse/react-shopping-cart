@@ -2,6 +2,7 @@ import { Coupon } from '../../../types/coupon';
 import { CartItemType } from '../../../types/cartItem';
 import { isCouponDisabled } from './isCouponDisabled';
 import { calculateCouponDiscount } from './calculateCouponDiscount';
+import { MAX_COUPON_LENGTH } from '../../../constants/maxCouponLength';
 
 export function getBestCoupons(
   coupons: Coupon[],
@@ -19,5 +20,5 @@ export function getBestCoupons(
 
   withValue.sort((a, b) => b.value - a.value);
 
-  return withValue.slice(0, 2).map((x) => x.coupon);
+  return withValue.slice(0, MAX_COUPON_LENGTH).map((x) => x.coupon);
 }
