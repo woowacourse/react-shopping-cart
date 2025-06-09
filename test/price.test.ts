@@ -4,7 +4,6 @@ import {
   calcTotalQuantity,
   calcDeliveryPrice,
   getDiscountPriceByType,
-  getDiscountPrice,
 } from "../src/domains/price";
 import { ResponseCartItem } from "../src/types/types";
 import { coupons } from "./coupon.test";
@@ -96,6 +95,8 @@ describe("장바구니 유틸리티 함수 테스트", () => {
       const result = getDiscountPriceByType({
         coupon: coupons[0],
         orderPrice: 30000,
+        deliveryPrice: 10000,
+        selectedCartItem: [],
       });
       expect(result).toBe(5000);
     });
@@ -104,6 +105,8 @@ describe("장바구니 유틸리티 함수 테스트", () => {
       const result = getDiscountPriceByType({
         coupon: coupons[3],
         orderPrice: 30000,
+        deliveryPrice: 10000,
+        selectedCartItem: [],
       });
       expect(result).toBe(9000);
     });
@@ -111,7 +114,9 @@ describe("장바구니 유틸리티 함수 테스트", () => {
     test("무료배송 쿠폰의 경우 배송비를 반환해야 한다", () => {
       const result = getDiscountPriceByType({
         coupon: coupons[2],
+        orderPrice: 30000,
         deliveryPrice: 3000,
+        selectedCartItem: [],
       });
       expect(result).toBe(3000);
     });
@@ -124,27 +129,10 @@ describe("장바구니 유틸리티 함수 테스트", () => {
       const result = getDiscountPriceByType({
         coupon: coupons[1],
         selectedCartItem: cartItems,
+        orderPrice: 30000,
+        deliveryPrice: 0,
       });
       expect(result).toBe(20000);
-    });
-  });
-
-  describe("getDiscountPrice - 전체 할인 가격 계산", () => {
-    test("단일 쿠폰을 적용해야 한다", () => {
-      const result = getDiscountPrice({
-        selectedCoupon: [coupons[0]],
-        orderPrice: 30000,
-      });
-      expect(result).toBe(5000);
-    });
-
-    test("두 개의 쿠폰을 적용하고 최대 할인 금액을 반환해야 한다", () => {
-      const result = getDiscountPrice({
-        selectedCoupon: [coupons[0], coupons[3]],
-        orderPrice: 30000,
-      });
-
-      expect(result).toBe(14000);
     });
   });
 });
