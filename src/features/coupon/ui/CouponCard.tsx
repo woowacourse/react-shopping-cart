@@ -1,12 +1,33 @@
 import SelectInput from '../../../shared/ui/SelectInput';
 import { Coupon } from '../types/coupon';
 import * as S from './CouponCard.style';
+import { useCouponsContext } from '../context/useCouponsContext';
+import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
+import { isCouponApplicable } from '../utils/couponCalculations';
 
 interface CouponCardProps {
   coupon: Coupon;
 }
 
 export default function CouponCard({ coupon }: CouponCardProps) {
+  const { selectedCoupons, addCoupon, removeCoupon, canAddCoupon } = useCouponsContext();
+  const { SelectedCartItems, totalPrice } = useSelectedCartItemsContext();
+  const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
+
+  const isCouponUsable = isCouponApplicable(coupon, SelectedCartItems, totalPrice);
+
+  const isDisabled = (!isSelected && !canAddCoupon) || !isCouponUsable;
+
+  const handleCouponToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      if (canAddCoupon && isCouponUsable) {
+        addCoupon(coupon);
+      }
+    } else {
+      removeCoupon(coupon.id);
+    }
+  };
+
   const expirationDate = new Date(coupon.expirationDate ?? '');
   const formattedExpirationDate = expirationDate.toLocaleDateString('ko-KR', {
     year: 'numeric',
@@ -31,7 +52,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
   return (
     <S.CouponCardContainer>
       <S.CouponCheckBox>
-        <SelectInput />
+        <SelectInput checked={isSelected} onChange={handleCouponToggle} disabled={isDisabled} />
         <S.CouponDescription>{coupon.description}</S.CouponDescription>
       </S.CouponCheckBox>
       <S.CouponValidInfoContainer>
