@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Div = styled.div`
+export const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@ export const Div = styled.div`
   transform: translateX(-50%);
 `;
 
-export const Span = styled.span`
+export const StyledSpan = styled.span`
   font-weight: 500;
   font-size: 12px;
   color: #0a0d13;
