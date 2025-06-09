@@ -152,7 +152,7 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
             font-size: medium;
           `}
           onClick={() => setShowCouponList((prev) => !prev)}
-          // disabled={cartItems?.length === 0 || selectedCartItemCount === 0}
+          data-testid="show-coupon-button"
         >
           쿠폰 적용
         </Button>

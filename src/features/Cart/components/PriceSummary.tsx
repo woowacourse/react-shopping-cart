@@ -62,7 +62,7 @@ export const PriceSummary = ({ variant = "cart", cartItems, discountAmount = 0}:
         padding="0 10px"
       >
         <Text type="Body">배송비</Text>
-        <Text type="Heading">{deliveryFee.toLocaleString()}원</Text>
+        <Text type="Heading" data-testid="delivery-fee">{deliveryFee.toLocaleString()}원</Text>
       </Flex>
       <StyledSpacing />
       <Flex

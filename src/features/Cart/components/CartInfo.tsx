@@ -140,6 +140,7 @@ export const CartInfo = ({
         `}
         onClick={onNext}
         disabled={cartItems?.length === 0 || selectedCartItemCount === 0}
+        data-testid="order-confirm-button"
       >
         주문확인
       </Button>

@@ -65,7 +65,7 @@ export const CouponModal = ({
 
   return createPortal(
     <Overlay onClick={handleOverlayClick}>
-      <Modal>
+      <Modal data-testid="coupon-modal">
         <Flex direction="row" justifyContent="space-between" alignItems="center" gap="0">
           <Text
             type="Body"
