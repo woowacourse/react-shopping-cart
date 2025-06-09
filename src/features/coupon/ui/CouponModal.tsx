@@ -6,6 +6,7 @@ import * as S from './CouponModal.style';
 import InfoLabel from '../../../shared/ui/InfoLabel';
 import useCoupons from '../hooks/useCoupons';
 import CouponCard from './CouponCard';
+import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface CouponModalProps {
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons } = useCoupons();
+  const { couponDiscountPrice } = useSelectedCartItemsContext();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} position="center" size="medium">
@@ -27,7 +29,11 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         </S.CouponList>
       </Modal.Content>
       <Modal.Footer>
-        <Button title={`총 ${(6000).toLocaleString()}원 할인 쿠폰 사용하기`} onClick={onClose} css={S.ButtonCSS} />
+        <Button
+          title={`총 ${couponDiscountPrice.toLocaleString()}원 할인 쿠폰 사용하기`}
+          onClick={onClose}
+          css={S.ButtonCSS}
+        />
       </Modal.Footer>
     </Modal>
   );
