@@ -8,6 +8,7 @@ import { SelectState } from "../stores/SelectReducer";
 import useCartAction from "./useCartAction";
 import useSelectAction from "./useSelectAction";
 import { getLocalStorage, setLocalStorage } from "../utils/storage";
+import { SELECTED_INFO_KEY } from "../domains/selectedInfo";
 
 interface UseCartManagerReturn {
   cartData: ResponseCartItem[];
@@ -31,7 +32,7 @@ function useCartManager(): UseCartManagerReturn {
     if (cartItemRes.length > 0) {
       setCartInfo({ items: cartItemRes });
 
-      const selectedInfo = getLocalStorage<SelectState[]>("selectedInfo");
+      const selectedInfo = getLocalStorage<SelectState[]>(SELECTED_INFO_KEY);
       const initialState = cartItemRes.map((item) => {
         return {
           id: item.id,
@@ -44,7 +45,7 @@ function useCartManager(): UseCartManagerReturn {
           items: initialState,
         });
 
-        setLocalStorage<SelectState[]>("selectedInfo", initialState);
+        setLocalStorage<SelectState[]>(SELECTED_INFO_KEY, initialState);
         return;
       }
 
