@@ -38,7 +38,7 @@ export default function OrderListContent({
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const totalCouponDiscount = calculateDiscounts(checkedCoupons);
+  const totalCouponDiscount = calculateDiscounts(checkedCoupons, shippingFee);
 
   const totalPrice = allProductPrice + shippingFee - totalCouponDiscount;
 
@@ -69,6 +69,7 @@ export default function OrderListContent({
         isModalOpen={isModalOpen}
         onClose={handleCloseModal}
         selectedCartItemList={selectedCartItemList}
+        shippingFee={shippingFee}
       />
       <Shipping
         isRemote={isRemote}

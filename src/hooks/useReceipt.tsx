@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export const useReceipt = (cartItemCheckList: CartItemCheck[]) => {
   const [selectedItems] = useState<CartItemCheck[]>(cartItemCheckList);
-  console.log(selectedItems);
   const [isRemote, setIsRemote] = useState<boolean>(false);
 
   const cartItemCheckListTotalQuantity = selectedItems
@@ -19,7 +18,10 @@ export const useReceipt = (cartItemCheckList: CartItemCheck[]) => {
   const baseShippingFee = allProductPrice >= 100_000 ? 0 : 3_000;
   const shippingFee = baseShippingFee + (isRemote ? 3_000 : 0);
 
-  const calculateDiscounts = (checkedCoupons: number[]) => {
+  const calculateDiscounts = (
+    checkedCoupons: number[],
+    shippingFee: number
+  ) => {
     return calculateCouponDiscounts(
       checkedCoupons,
       allProductPrice,

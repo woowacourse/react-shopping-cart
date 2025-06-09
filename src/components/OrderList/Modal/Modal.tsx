@@ -13,6 +13,7 @@ interface ModalProps {
   isModalOpen: boolean;
   onClose: () => void;
   selectedCartItemList: CartItemCheck[];
+  shippingFee: number;
 }
 
 function computeDisabled(
@@ -74,9 +75,10 @@ export default function Modal({
   isModalOpen,
   onClose,
   selectedCartItemList,
+  shippingFee,
 }: ModalProps) {
   const [couponIds, setCouponIds] = useState<CouponResponse["id"][]>([]);
-  const { calculateDiscounts, selectedItems, shippingFee, allProductPrice } =
+  const { calculateDiscounts, selectedItems, allProductPrice } =
     useReceipt(selectedCartItemList);
 
   const { couponList, setCouponList, setCheckedCoupons } =
@@ -149,8 +151,9 @@ export default function Modal({
               onClose();
             }}
           >
-            총 {calculateDiscounts(couponIds).toLocaleString("ko-KR")}원 할인
-            쿠폰 사용하기
+            총{" "}
+            {calculateDiscounts(couponIds, shippingFee).toLocaleString("ko-KR")}
+            원 할인 쿠폰 사용하기
           </S.ModalButton>
         </S.ModalContainer>
       </S.ModalBackground>
