@@ -29,7 +29,11 @@ export const isCouponApplicable = (
       return orderItems.some((item) => item.quantity >= setSize);
 
     case 'freeShipping':
-      return !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
+      if (coupon.minimumAmount && orderPrice < coupon.minimumAmount) return false;
+
+      if (orderPrice >= 100000) return false;
+
+      return true;
 
     default:
       return false;
