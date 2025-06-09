@@ -35,7 +35,7 @@ function CartContent() {
     <>
       <Header title="SHOP" />
       <Container>
-        <CartHeader description={descriptionMessage()} />
+        <CartHeader title="장바구니" description={descriptionMessage()} />
 
         {cartItems.content.length > 0 ? (
           <>
@@ -49,7 +49,10 @@ function CartContent() {
         disabled={!hasItems}
         onClick={() =>
           navigate('/orderConfirm', {
-            state: { price: totalPrice, count: checkedItems.length, totalCount: totalCount },
+            state: {
+              checkedItems,
+              totalCount,
+            },
           })
         }
       >

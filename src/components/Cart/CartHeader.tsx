@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
+import React from 'react';
 
 interface CartHeaderProps {
-  description?: string | undefined;
+  title: string;
+  description?: string | undefined | React.ReactNode;
 }
 
-function CartHeader({ description }: CartHeaderProps) {
+function CartHeader({ title, description }: CartHeaderProps) {
   return (
     <Container>
-      <Title>장바구니</Title>
+      <Title>{title}</Title>
       {description && <Description>{description}</Description>}
     </Container>
   );
@@ -36,4 +38,5 @@ const Description = styled.p`
   font-weight: 500;
   line-height: 150%;
   color: #0a0d13;
+  text-align: left;
 `;
