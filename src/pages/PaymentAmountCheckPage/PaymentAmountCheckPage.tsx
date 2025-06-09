@@ -52,7 +52,7 @@ export default function PaymentAmountCheckPage() {
   const totalPrice = allProductPrice + shippingFee - (couponPrice || 0);
 
   const handlePayment = () => {
-    navigate("/order-check", {
+    navigate("/react-shopping-cart/order-check", {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,

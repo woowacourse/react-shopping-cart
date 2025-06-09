@@ -7,24 +7,26 @@ import PaymentAmountCheckPage from "./pages/PaymentAmountCheckPage/PaymentAmount
 import OrderCheckPage from "./pages/OrderCheckPage/OrderCheckPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage/OrderSuccessPage";
 
+const DEFAULT_URL = "/react-shopping-cart";
+
 export const routes = [
   {
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: DEFAULT_URL,
         element: <ShoppingCartPage />,
       },
       {
-        path: "/payment-amount-check",
+        path: `${DEFAULT_URL}/payment-amount-check`,
         element: <PaymentAmountCheckPage />,
       },
       {
-        path: "/order-check",
+        path: `${DEFAULT_URL}order-check`,
         element: <OrderCheckPage />,
       },
       {
-        path: "/order-success",
+        path: `${DEFAULT_URL}/order-success`,
         element: <OrderSuccessPage />,
       },
     ],

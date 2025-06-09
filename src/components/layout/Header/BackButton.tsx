@@ -5,7 +5,7 @@ import backButton from "../../../assets/backButton.png";
 export default function BackButton() {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/");
+    navigate("/react-shopping-cart");
   };
   return (
     <button onClick={handleClick}>

@@ -87,7 +87,7 @@ export default function ShoppingCartPage() {
       return checkedMap.get(item.id) ? acc + item.quantity : acc;
     }, 0);
 
-    navigate("/payment-amount-check", {
+    navigate("/react-shopping-cart/payment-amount-check", {
       state: {
         checkedProductsLength,
         cartItemCheckListTotalQuantity,

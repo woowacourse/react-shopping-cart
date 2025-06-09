@@ -1,0 +1,18 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      VITE_BASE_URL: ${{http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com}}
+      VITE_TOKEN: ${{a2Fvcmkta2lsbGVyOnBhc3N3b3Jk}}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
