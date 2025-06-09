@@ -1,5 +1,5 @@
 import { CartItem } from '../types/cart';
-import * as S from './CartItemInfo.style';
+import * as S from './CartItemInfo.styles';
 
 interface CartItemInfoProps {
   header?: React.ReactNode;

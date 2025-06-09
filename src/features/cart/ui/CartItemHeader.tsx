@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react';
-import * as S from './CartItemHeader.style';
+import * as S from './CartItemHeader.styles';
 import Button from '../../../shared/ui/Button';
 import SelectInput from '../../../shared/ui/SelectInput';
 import { useSelectedCartItemsContext } from '../context/useSelectedCartItemsContext';

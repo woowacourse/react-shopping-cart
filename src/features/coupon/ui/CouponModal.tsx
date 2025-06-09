@@ -2,11 +2,11 @@
 
 import { Modal } from '@sanghee01/modal';
 import Button from '../../../shared/ui/Button';
-import * as S from './CouponModal.style';
+import * as S from './CouponModal.styles';
 import InfoLabel from '../../../shared/ui/InfoLabel';
 import useCoupons from '../hooks/useCoupons';
 import CouponCard from './CouponCard';
-import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
+import { useOrderContext } from '../../order/context/useOrderContext';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface CouponModalProps {
 
 const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
   const { coupons } = useCoupons();
-  const { couponDiscountPrice } = useSelectedCartItemsContext();
+  const { couponDiscountPrice } = useOrderContext();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} position="center" size="medium">

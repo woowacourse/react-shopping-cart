@@ -1,8 +1,9 @@
 import SelectInput from '../../../shared/ui/SelectInput';
 import { Coupon } from '../types/coupon';
-import * as S from './CouponCard.style';
+import * as S from './CouponCard.styles';
 import { useCouponsContext } from '../context/useCouponsContext';
 import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
+import { useOrderContext } from '../../order/context/useOrderContext';
 import { isCouponApplicable } from '../utils';
 
 interface CouponCardProps {
@@ -11,7 +12,8 @@ interface CouponCardProps {
 
 export default function CouponCard({ coupon }: CouponCardProps) {
   const { selectedCoupons, addCoupon, removeCoupon, canAddCoupon } = useCouponsContext();
-  const { SelectedCartItems, totalPrice } = useSelectedCartItemsContext();
+  const { SelectedCartItems } = useSelectedCartItemsContext();
+  const { totalPrice } = useOrderContext();
   const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
 
   const isCouponUsable = isCouponApplicable(coupon, SelectedCartItems, totalPrice);
