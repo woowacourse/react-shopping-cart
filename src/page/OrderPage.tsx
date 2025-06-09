@@ -2,13 +2,12 @@ import { useNavigate } from 'react-router';
 import * as styles from './OrderPage.styles';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import Image from '../components/Image/Image';
 import { useState } from 'react';
 import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
-
+import * as Card from '../components/Card/Card';
 export type SelectedItem = {
   id: number;
   name: string;
@@ -88,15 +87,14 @@ export default OrderPage;
 
 function SelectedItemCard({ item }: { item: SelectedItem }) {
   return (
-    <div css={styles.cartItemFrameCss}>
-      <div css={styles.cartItemInfoCss}>
-        <Image css={styles.cartItemImgCss} src={item.imageUrl} alt={item.name} />
-        <div>
-          <p>{item.name}</p>
-          <p css={styles.cartItemPriceCss}>{(item.price * item.quantity).toLocaleString()}원</p>
-          <p>{item.quantity}개</p>
-        </div>
-      </div>
-    </div>
+    <Card.Root>
+      <Card.CardImage src={item.imageUrl} alt={item.name} />
+      <Card.Content>
+        <Card.Title>{item.name}</Card.Title>
+        <Card.Price>{(item.price * item.quantity).toLocaleString()}원</Card.Price>
+        <p>{item.quantity}개</p>
+      </Card.Content>
+      {/* </div> */}
+    </Card.Root>
   );
 }

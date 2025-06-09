@@ -9,6 +9,7 @@ import PriceArea from '../PriceArea/PriceArea';
 import { calculateDeliveryFee, calculateOrderAmount } from './calculate';
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
+import { PATH } from '../../constants/path';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -61,7 +62,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
         </>
       )}
-      <Button disabled={!Array.from(state.values()).some(Boolean)} onClick={() => navigate('/order')}>
+      <Button disabled={!Array.from(state.values()).some(Boolean)} onClick={() => navigate(PATH.ORDER)}>
         주문 확인
       </Button>
     </div>
