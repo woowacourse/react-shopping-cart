@@ -10,8 +10,8 @@ type Params = {
 };
 
 export const useFinalPriceInfo = ({ cartItems, selectedCoupons }: Params) => {
-  const { totalPrice, deliveryFee, orderPrice } = usePriceInfo(cartItems);
   const { isRemoteArea } = useCartContext();
+  const { totalPrice, deliveryFee, orderPrice } = usePriceInfo({ cartItems, isRemoteArea });
 
   const selectedCartItems = cartItems.filter((item) => item.isChecked);
   const totalDiscount = calculateTotalDiscount(selectedCartItems, selectedCoupons, {

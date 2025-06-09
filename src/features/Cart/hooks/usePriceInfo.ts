@@ -1,10 +1,12 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
 import { FREE_DELIVERY_THRESHOLD } from '../constants/price';
-import { useCartContext } from '../context/CartProvider';
 
-export const usePriceInfo = (cartItems: CartItem[] = []) => {
-  const { isRemoteArea } = useCartContext();
+type usePriceInfoProps = {
+  cartItems: CartItem[];
+  isRemoteArea: boolean;
+};
 
+export const usePriceInfo = ({ cartItems, isRemoteArea }: usePriceInfoProps) => {
   const orderPrice = cartItems
     .filter((item) => item.quantity > 0 && item.isChecked)
     .reduce((acc, cart) => {

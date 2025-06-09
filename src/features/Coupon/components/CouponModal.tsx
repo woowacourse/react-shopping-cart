@@ -30,7 +30,7 @@ export const CouponModal = ({
   onApply,
 }: CouponModalProps) => {
   const { isRemoteArea } = useCartContext();
-  const { totalPrice, deliveryFee } = usePriceInfo(cartItems);
+  const { totalPrice, deliveryFee } = usePriceInfo({ cartItems, isRemoteArea });
   const { selectedCartItems } = useCartInfo(cartItems);
 
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);

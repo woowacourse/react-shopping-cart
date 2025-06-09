@@ -36,12 +36,12 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
   const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
   const { selectedCartItems } = useCartInfo(cartItems);
   const { showToast } = useContext(ToastContext);
-  const { deliveryFee} = usePriceInfo();
   const { isRemoteArea } = useCartContext();
+  const { deliveryFee } = usePriceInfo({ cartItems, isRemoteArea });
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
   const [showCouponList, setShowCouponList] = useState(false);
-  const [discountAmount, setDiscountAmount] = useState(0); 
+  const [discountAmount, setDiscountAmount] = useState(0);
   const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
       deliveryFee,
       isRemoteArea,
     });
-  
+
     setDiscountAmount(discount);
     setShowCouponList(false);
   };
@@ -157,7 +157,7 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
           쿠폰 적용
         </Button>
         <RemoteAreaCheckBox />
-        <PriceSummary variant="review" cartItems={cartItems} discountAmount={discountAmount}/>
+        <PriceSummary variant="review" cartItems={cartItems} discountAmount={discountAmount} />
       </Flex>
       <Button
         width="100%"

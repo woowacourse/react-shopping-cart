@@ -5,6 +5,7 @@ import { Text } from '@/shared/components/Text/Text';
 
 import { CartItem } from '@/features/Cart/types/Cart.types';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
+import { useCartContext } from '../context/CartProvider';
 
 type PriceSummaryProps = {
   variant?: "cart" | "review";
@@ -14,7 +15,8 @@ type PriceSummaryProps = {
 
 export const PriceSummary = ({ variant = "cart", cartItems, discountAmount = 0}: PriceSummaryProps) => {
   const isCartMode = variant === 'cart';
-  const { orderPrice, deliveryFee, totalPrice } = usePriceInfo(cartItems);
+  const { isRemoteArea } = useCartContext();
+  const { orderPrice, deliveryFee, totalPrice } = usePriceInfo({ cartItems, isRemoteArea });
 
   return (
     <Flex
