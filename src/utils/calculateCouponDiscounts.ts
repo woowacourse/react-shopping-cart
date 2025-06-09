@@ -63,8 +63,8 @@ export function calculateCouponDiscounts(
         const [startHourStr] = coupon.availableTime.start.split(":");
         const [endHourStr] = coupon.availableTime.end.split(":");
 
-        const startHour = parseInt(startHourStr, 10); // "04" → 4
-        const endHour = parseInt(endHourStr, 10); // "07" → 7
+        const startHour = parseInt(startHourStr, 10);
+        const endHour = parseInt(endHourStr, 10);
         const h = now.getHours();
         if (h >= startHour && h < endHour) {
           timeSale += Math.floor(orderAmount * coupon.discount);

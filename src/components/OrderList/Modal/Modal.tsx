@@ -5,14 +5,8 @@ import Info from "../../../assets/Info.png";
 import { useCouponListContext } from "../../../contexts/CouponContext";
 import { useReceipt } from "../../../hooks/useReceipt";
 import { CouponResponse } from "../../../types/Coupon";
-import {
-  formatAvailableTime,
-  formatCurrency,
-  formatDate,
-} from "../../../utils/format";
-import CheckBox from "../../common/CheckBox/CheckBox";
-import Hr from "../../common/Hr/Hr";
 import * as S from "./Modal.styles";
+import CouponItem from "../Coupon/CouponItem";
 
 interface ModalProps {
   isModalOpen: boolean;
@@ -41,6 +35,7 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
   if (!isModalOpen) {
     return null;
   }
+  const now = new Date();
 
   return (
     <>
@@ -62,42 +57,71 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
             <S.CouponList>
               {couponList.map((coupon) => {
                 const isChecked = couponIds.includes(coupon.id);
-                const isDisabled = !isChecked && couponIds.length >= 2;
+                const countLimitDisabled = !isChecked && couponIds.length >= 2;
+                const priceLimitDisabled =
+                  (coupon.discountType === "fixed" ||
+                    coupon.discountType === "freeShipping") &&
+                  allProductPrice < coupon.minimumAmount;
+
+                const shippingFeeDisabled =
+                  coupon.discountType === "freeShipping" && shippingFee === 0;
+
+                const buyXgetYDisabled =
+                  coupon.discountType === "buyXgetY" &&
+                  !selectedItems.some(
+                    (item) =>
+                      item.quantity >= coupon.buyQuantity + coupon.getQuantity
+                  );
+
+                let percentageDisabled = false;
+                if (
+                  coupon.discountType === "percentage" &&
+                  coupon.availableTime
+                ) {
+                  const [sh, sm] = coupon.availableTime.start
+                    .split(":")
+                    .map(Number);
+                  const [eh, em] = coupon.availableTime.end
+                    .split(":")
+                    .map(Number);
+                  const startTime = new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    now.getDate(),
+                    sh,
+                    sm
+                  );
+                  const endTime = new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    now.getDate(),
+                    eh,
+                    em
+                  );
+                  percentageDisabled = now < startTime || now > endTime;
+                }
+
+                const isDisabled =
+                  countLimitDisabled ||
+                  priceLimitDisabled ||
+                  shippingFeeDisabled ||
+                  buyXgetYDisabled ||
+                  percentageDisabled;
 
                 return (
-                  <S.Item key={coupon.id} disabled={isDisabled}>
-                    <Hr />
-                    <S.ItemTitleWrapper>
-                      <CheckBox
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() =>
-                          setCouponIds((prev) =>
-                            prev.includes(coupon.id)
-                              ? prev.filter((id) => id !== coupon.id)
-                              : [...prev, coupon.id]
-                          )
-                        }
-                      />
-                      <S.ItemTitle>{coupon.description}</S.ItemTitle>
-                    </S.ItemTitleWrapper>
-                    <S.ItemInfoWrapper>
-                      <S.CouponInfo>
-                        만료일: {formatDate(coupon.expirationDate)}
-                      </S.CouponInfo>
-                      {(coupon.discountType === "fixed" ||
-                        coupon.discountType === "freeShipping") && (
-                        <S.CouponInfo>
-                          최소 주문 금액: {formatCurrency(coupon.minimumAmount)}
-                        </S.CouponInfo>
-                      )}
-                      {coupon.discountType === "percentage" && (
-                        <S.CouponInfo>
-                          {formatAvailableTime(coupon.availableTime)}
-                        </S.CouponInfo>
-                      )}
-                    </S.ItemInfoWrapper>
-                  </S.Item>
+                  <CouponItem
+                    key={coupon.id}
+                    coupon={coupon}
+                    isChecked={isChecked}
+                    isDisabled={isDisabled}
+                    onToggle={() =>
+                      setCouponIds((prev) =>
+                        prev.includes(coupon.id)
+                          ? prev.filter((id) => id !== coupon.id)
+                          : [...prev, coupon.id]
+                      )
+                    }
+                  />
                 );
               })}
             </S.CouponList>
@@ -108,7 +132,8 @@ export default function Modal({ isModalOpen, onClose }: ModalProps) {
               onClose();
             }}
           >
-            총 {calculateDiscounts(couponIds)}원 할인 쿠폰 사용하기
+            총 {calculateDiscounts(couponIds).toLocaleString("ko-KR")}원 할인
+            쿠폰 사용하기
           </S.ModalButton>
         </S.ModalContainer>
       </S.ModalBackground>

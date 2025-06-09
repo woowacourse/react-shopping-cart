@@ -9,7 +9,7 @@ export function formatDate(dateStr: string) {
 
 export function formatCurrency(amount?: string | number) {
   if (amount == null) return "";
-  return `${Number(amount).toLocaleString()}원`;
+  return `${Number(amount).toLocaleString("ko-KR")}원`;
 }
 
 export function formatAvailableTime(time?: { start: string; end: string }) {
@@ -27,5 +27,5 @@ export function formatAvailableTime(time?: { start: string; end: string }) {
   const endLabel =
     sPeriod === ePeriod ? `${eHour}시까지` : `${ePeriod} ${eHour}시까지`;
 
-  return `사용 가능 시간: ${sPeriod} ${sHour}시부터 ${endLabel}`;
+  return `${sPeriod} ${sHour}시부터 ${endLabel}`;
 }
