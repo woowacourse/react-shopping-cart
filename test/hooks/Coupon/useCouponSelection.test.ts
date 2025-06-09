@@ -18,133 +18,98 @@ describe("useCouponSelection는", () => {
 
   it("기본값으로 빈 Set으로 selectedCouponIds를 초기화해야 한다.", () => {
     const { result } = renderHook(() => useCouponSelection());
-    expect(result.current.selectedCouponIds).toEqual(new Set());
-    expect(result.current.isSelectedToLimit).toBe(false);
+    const [selectedCouponIds] = result.current;
+    expect(selectedCouponIds).toEqual(new Set());
   });
 
-  it("initialSelectedIds로 selectedCouponIds를 초기화해야 한다.", () => {
-    const initialIds = new Set(["coupon1"]);
+  it("initialIds로 selectedCouponIds를 초기화해야 한다.", () => {
+    const initialIds = ["coupon1"];
     const { result } = renderHook(() => useCouponSelection(initialIds));
-    expect(result.current.selectedCouponIds).toEqual(initialIds);
+    const [selectedCouponIds] = result.current;
+    expect(selectedCouponIds).toEqual(new Set(["coupon1"]));
   });
 
-  it("handleSelectCoupon은 쿠폰 ID를 추가/제거해야 한다.", () => {
+  it("toggleCoupon은 쿠폰 ID를 추가/제거해야 한다.", () => {
     const { result } = renderHook(() => useCouponSelection());
 
     act(() => {
-      result.current.handleSelectCoupon("coupon1");
+      const [, toggleCoupon] = result.current;
+      const success = toggleCoupon("coupon1");
+      expect(success).toBe(true);
     });
-    expect(result.current.selectedCouponIds).toEqual(new Set(["coupon1"]));
+    expect(result.current[0]).toEqual(new Set(["coupon1"]));
 
     act(() => {
-      result.current.handleSelectCoupon("coupon2");
+      const [, toggleCoupon] = result.current;
+      const success = toggleCoupon("coupon2");
+      expect(success).toBe(true);
     });
-    expect(result.current.selectedCouponIds).toEqual(
-      new Set(["coupon1", "coupon2"])
-    );
+    expect(result.current[0]).toEqual(new Set(["coupon1", "coupon2"]));
 
     act(() => {
-      result.current.handleSelectCoupon("coupon1");
+      const [, toggleCoupon] = result.current;
+      const success = toggleCoupon("coupon1");
+      expect(success).toBe(true);
     });
-    expect(result.current.selectedCouponIds).toEqual(new Set(["coupon2"]));
+    expect(result.current[0]).toEqual(new Set(["coupon2"]));
   });
 
-  it("최대 쿠폰 개수에 도달하면 isSelectedToLimit은 true여야 한다.", () => {
+  it("최대 쿠폰 개수에 도달하면 추가 선택을 시도할 때 false를 반환해야 한다.", () => {
     const { result } = renderHook(() => useCouponSelection());
 
     act(() => {
-      result.current.handleSelectCoupon("coupon1");
+      const [, toggleCoupon] = result.current;
+      toggleCoupon("coupon1");
     });
-    expect(result.current.isSelectedToLimit).toBe(false);
 
     act(() => {
-      result.current.handleSelectCoupon("coupon2");
+      const [, toggleCoupon] = result.current;
+      toggleCoupon("coupon2");
     });
-    expect(result.current.isSelectedToLimit).toBe(true);
+
+    expect(result.current[0].size).toBe(2);
+
+    act(() => {
+      const [, toggleCoupon] = result.current;
+      const success = toggleCoupon("coupon3");
+      expect(success).toBe(false);
+    });
+
+    expect(result.current[0].size).toBe(2);
+    expect(result.current[0]).toEqual(new Set(["coupon1", "coupon2"]));
   });
 
-  it("최대 쿠폰 개수를 초과하여 추가하려고 하면 showError를 호출하고 ID를 추가하지 않아야 한다.", () => {
-    const { result } = renderHook(() => useCouponSelection());
-
-    act(() => {
-      result.current.handleSelectCoupon("coupon1");
-    });
-    act(() => {
-      result.current.handleSelectCoupon("coupon2");
-    });
-
-    expect(result.current.selectedCouponIds.size).toBe(2);
-    expect(result.current.isSelectedToLimit).toBe(true);
-
-    act(() => {
-      result.current.handleSelectCoupon("coupon3");
-    });
-
-    expect(mockShowError).toHaveBeenCalledWith(
-      new Error("최대 쿠폰 선택 수를 초과했습니다.")
-    );
-    expect(result.current.selectedCouponIds.size).toBe(2);
-    expect(result.current.selectedCouponIds).toEqual(
-      new Set(["coupon1", "coupon2"])
-    );
-  });
-
-  it("이미 선택된 쿠폰을 다시 선택하려고 할 때, 한도를 초과한 상태라도 showError를 호출하지 않고 쿠폰을 제거해야 한다.", () => {
-    const initialIds = new Set(["coupon1", "coupon2"]);
+  it("이미 선택된 쿠폰을 다시 선택하려고 할 때, 한도를 초과한 상태라도 true를 반환하고 쿠폰을 제거해야 한다.", () => {
+    const initialIds = ["coupon1", "coupon2"];
     const { result } = renderHook(() => useCouponSelection(initialIds));
 
-    expect(result.current.selectedCouponIds.size).toBe(2);
-    expect(result.current.isSelectedToLimit).toBe(true);
+    expect(result.current[0].size).toBe(2);
 
     act(() => {
-      result.current.handleSelectCoupon("coupon1");
+      const [, toggleCoupon] = result.current;
+      const success = toggleCoupon("coupon1");
+      expect(success).toBe(true);
     });
 
-    expect(mockShowError).not.toHaveBeenCalled();
-    expect(result.current.selectedCouponIds.size).toBe(1);
-    expect(result.current.selectedCouponIds).toEqual(new Set(["coupon2"]));
-    expect(result.current.isSelectedToLimit).toBe(false);
+    expect(result.current[0].size).toBe(1);
+    expect(result.current[0]).toEqual(new Set(["coupon2"]));
   });
 
-  it("initialSelectedIds prop이 변경되면 selectedCouponIds를 업데이트해야 한다.", () => {
-    const initialIds1 = new Set(["coupon1"]);
-    const { result, rerender } = renderHook(
-      ({ initialSelectedIds }: { initialSelectedIds: Set<string> }) =>
-        useCouponSelection(initialSelectedIds),
-      { initialProps: { initialSelectedIds: initialIds1 } }
-    );
+  it("resetToOptimal은 선택된 쿠폰들을 최적의 조합으로 설정해야 한다.", () => {
+    const { result } = renderHook(() => useCouponSelection());
 
-    expect(result.current.selectedCouponIds).toEqual(initialIds1);
-
-    const initialIds2 = new Set(["coupon2", "coupon3"]);
-    rerender({ initialSelectedIds: initialIds2 });
-
-    expect(result.current.selectedCouponIds).toEqual(initialIds2);
-    expect(result.current.isSelectedToLimit).toBe(true); // MAX_COUPON_COUNT is 2
-  });
-
-  it("내용이 동일하지만 참조가 다른 initialSelectedIds로 rerender해도 selectedCouponIds는 변경되지 않아야 한다.", () => {
-    const { result, rerender } = renderHook(
-      ({ initialSelectedIds }: { initialSelectedIds: Set<string> }) =>
-        useCouponSelection(initialSelectedIds),
-      { initialProps: { initialSelectedIds: new Set(["coupon1"]) } }
-    );
-
-    // 내부 상태 변경
     act(() => {
-      result.current.handleSelectCoupon("coupon2");
+      const [, toggleCoupon] = result.current;
+      toggleCoupon("coupon1");
     });
-    expect(result.current.selectedCouponIds).toEqual(
-      new Set(["coupon1", "coupon2"])
-    );
-    const currentSelectedSet = result.current.selectedCouponIds;
 
-    rerender({ initialSelectedIds: new Set(["coupon1"]) }); // 내용이 동일하지만 참조가 다른 initialIds
+    expect(result.current[0]).toEqual(new Set(["coupon1"]));
 
-    // areSetsEqual 덕분에 selectedCouponIds가 초기화되지 않고 유지되어야 한다.
-    expect(result.current.selectedCouponIds).toEqual(
-      new Set(["coupon1", "coupon2"])
-    );
-    expect(result.current.selectedCouponIds).toBe(currentSelectedSet); // Check instance equality
+    act(() => {
+      const [, , resetToOptimal] = result.current;
+      resetToOptimal(["coupon2", "coupon3"]);
+    });
+
+    expect(result.current[0]).toEqual(new Set(["coupon2", "coupon3"]));
   });
 });

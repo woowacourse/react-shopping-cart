@@ -10,14 +10,20 @@ import {
 import Spinner from "@/components/common/Spinner";
 import { CartItem } from "@/type/CartItem";
 import { Coupon } from "@/type/Coupon";
-import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
+
 import { CouponDiscountResult } from "@/hooks/Coupon/useCouponDiscount";
+
+interface CouponSelectionType {
+  selectedCouponIds: Set<string>;
+  toggleCoupon: (id: string) => boolean;
+  resetToOptimal: (optimalIds: string[]) => void;
+}
 
 interface CouponPaymentStepProps {
   selectedCartItems: CartItem[];
   couponsData: Coupon[] | null;
   couponsFetchLoading: boolean;
-  couponSelection: UseCouponSelectionReturn;
+  couponSelection: CouponSelectionType;
   result: CouponDiscountResult;
   isInIsland: boolean;
   setIsInIsland: (value: boolean) => void;

@@ -14,21 +14,26 @@ import {
   createContext,
   useContext,
   PropsWithChildren,
-  useEffect,
 } from "react";
 import Modal from "@/components/common/Modal/Modal";
 
 import type { Coupon } from "@/type/Coupon";
 import { validateCoupon } from "@/util/coupon/validateCoupon";
 import { CouponDiscountResult } from "@/hooks/Coupon/useCouponDiscount";
-import { UseCouponSelectionReturn } from "@/hooks/Coupon/useCouponSelection";
 import CheckBox from "@/components/common/CheckBox";
+import { MAX_COUPON_COUNT } from "@/constants/priceSetting";
 import {
   FREE_SHIPPING_OVER,
   ISLAND_ADDITIONAL_SHIPPING_FEE,
 } from "@/constants/priceSetting";
 import noticeIcon from "/notice.svg";
 import { useErrorToast } from "@/contexts/ErrorToastContext";
+
+interface CouponSelectionType {
+  selectedCouponIds: Set<string>;
+  toggleCoupon: (id: string) => boolean;
+  resetToOptimal: (optimalIds: string[]) => void;
+}
 
 interface OrderConfirmationContextValue {
   selectedCartItems: CartItem[];
@@ -37,7 +42,7 @@ interface OrderConfirmationContextValue {
   isInIsland: boolean;
   setIsInIsland: (inIsland: boolean) => void;
   couponsData: Coupon[] | null;
-  couponSelection: UseCouponSelectionReturn;
+  couponSelection: CouponSelectionType;
   result: CouponDiscountResult;
   invalidCoupons: Coupon[] | undefined;
 }
@@ -60,7 +65,7 @@ interface OrderConfirmationProps extends PropsWithChildren {
   isInIsland: boolean;
   setIsInIsland: (inIsland: boolean) => void;
   couponsData: Coupon[] | null;
-  couponSelection: UseCouponSelectionReturn;
+  couponSelection: CouponSelectionType;
   result: CouponDiscountResult;
 }
 
@@ -177,16 +182,17 @@ function OrderConfirmationCouponSelection({ children }: PropsWithChildren) {
     invalidCoupons,
   } = useOrderConfirmationContext();
 
-  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit, isError } =
-    couponSelection;
-
+  const { selectedCouponIds, toggleCoupon } = couponSelection;
   const { showError } = useErrorToast();
 
-  useEffect(() => {
-    if (isError) {
+  const handleSelectCoupon = (id: string) => {
+    const success = toggleCoupon(id);
+    if (!success) {
       showError(new Error("최대 쿠폰 선택 수를 초과했습니다."));
     }
-  }, [isError, showError]);
+  };
+
+  const isSelectedToLimit = selectedCouponIds.size >= MAX_COUPON_COUNT;
 
   return (
     <>

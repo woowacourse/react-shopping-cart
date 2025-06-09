@@ -24,7 +24,8 @@ export function useCouponManagement({
     isIsland,
   });
 
-  const couponSelection = useCouponSelection();
+  const [selectedCouponIds, toggleCoupon, resetToOptimal] =
+    useCouponSelection();
 
   useEffect(() => {
     if (
@@ -33,25 +34,22 @@ export function useCouponManagement({
       allCouponsResult.appliedCoupons.length > 0 &&
       !isInitialized.current
     ) {
-      const optimalIds = new Set(
-        allCouponsResult.appliedCoupons.map((coupon) => coupon.id)
+      const optimalIds = allCouponsResult.appliedCoupons.map(
+        (coupon) => coupon.id
       );
-      couponSelection.resetToOptimal(optimalIds);
+      resetToOptimal(optimalIds);
       isInitialized.current = true;
     }
   }, [
     couponsData,
     couponsFetchLoading,
     allCouponsResult.appliedCoupons,
-    couponSelection.resetToOptimal,
+    resetToOptimal,
   ]);
 
   const selectedCoupons = useMemo(
-    () =>
-      couponsData?.filter((coupon) =>
-        couponSelection.selectedCouponIds?.has(coupon.id)
-      ),
-    [couponsData, couponSelection.selectedCouponIds]
+    () => couponsData?.filter((coupon) => selectedCouponIds?.has(coupon.id)),
+    [couponsData, selectedCouponIds]
   );
 
   const result = useCouponDiscount({
@@ -59,6 +57,15 @@ export function useCouponManagement({
     selectedShoppingCartItems,
     isIsland,
   });
+
+  const couponSelection = useMemo(
+    () => ({
+      selectedCouponIds,
+      toggleCoupon,
+      resetToOptimal,
+    }),
+    [selectedCouponIds, toggleCoupon, resetToOptimal]
+  );
 
   return {
     couponsData,

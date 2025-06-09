@@ -1,62 +1,45 @@
 import { MAX_COUPON_COUNT } from "@/constants/priceSetting";
-import { useState, useMemo, useCallback } from "react";
-
-export interface UseCouponSelectionReturn {
-  handleSelectCoupon: (id: string) => void;
-  selectedCouponIds: Set<string>;
-  isSelectedToLimit: boolean;
-  isError: boolean;
-  resetToOptimal: (optimalIds: Set<string>) => void;
-}
+import { useState, useCallback } from "react";
 
 function useCouponSelection(
-  initialSelectedIds: Set<string> = new Set()
-): UseCouponSelectionReturn {
-  const [isError, setIsError] = useState(false);
+  initialSelectedIds: string[] = []
+): [Set<string>, (id: string) => boolean, (optimalIds: string[]) => void] {
   const [selectedCouponIds, setSelectedCouponIds] = useState(
     () => new Set(initialSelectedIds)
   );
 
-  const handleSelectCoupon = useCallback((id: string) => {
-    setSelectedCouponIds((prev) => {
-      const isCurrentlySelected = prev.has(id);
+  const toggleCoupon = useCallback(
+    (id: string): boolean => {
+      const isCurrentlySelected = selectedCouponIds.has(id);
       const isTryingToAdd =
-        !isCurrentlySelected && prev.size >= MAX_COUPON_COUNT;
+        !isCurrentlySelected && selectedCouponIds.size >= MAX_COUPON_COUNT;
 
+      // 추가하려는데 한도에 도달한 경우 실패
       if (isTryingToAdd) {
-        setIsError(true);
-        return prev;
+        return false;
       }
 
-      setIsError(false);
+      // 성공 케이스 - 상태 업데이트
+      setSelectedCouponIds((prev) => {
+        const next = new Set(prev);
+        if (isCurrentlySelected) {
+          next.delete(id);
+        } else {
+          next.add(id);
+        }
+        return next;
+      });
 
-      const next = new Set(prev);
-      if (isCurrentlySelected) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-
-      return next;
-    });
-  }, []);
-
-  const resetToOptimal = useCallback((optimalIds: Set<string>) => {
-    setSelectedCouponIds(new Set(optimalIds));
-    setIsError(false);
-  }, []);
-
-  const isSelectedToLimit = useMemo(
-    () => selectedCouponIds.size >= MAX_COUPON_COUNT,
+      return true;
+    },
     [selectedCouponIds]
   );
 
-  return {
-    handleSelectCoupon,
-    selectedCouponIds,
-    isSelectedToLimit,
-    isError,
-    resetToOptimal,
-  };
+  const resetToOptimal = useCallback((optimalIds: string[]) => {
+    setSelectedCouponIds(new Set(optimalIds));
+  }, []);
+
+  return [selectedCouponIds, toggleCoupon, resetToOptimal];
 }
+
 export { useCouponSelection };
