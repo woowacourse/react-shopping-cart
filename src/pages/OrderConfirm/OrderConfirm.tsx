@@ -119,7 +119,7 @@ export function OrderConfirm() {
     isCouponDisabled(coupon, selectedCartItems, deliveryFee)
   );
 
-  const handleClick = () => {
+  const handlePaymentClick = () => {
     navigate('/payment-confirm', {
       state: {
         selectedItemGroupCount: selectedCartItemIds.length,
@@ -175,7 +175,7 @@ export function OrderConfirm() {
         </Main>
         <Footer>
           <Button
-            onClick={handleClick}
+            onClick={handlePaymentClick}
             type="submit"
             size="full"
             style="primary"
