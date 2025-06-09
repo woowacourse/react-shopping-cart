@@ -16,9 +16,7 @@ const Layout = () => {
     <MobileLayout>
       <ToastProvider>
         <CartProvider>
-          <CouponProvider>
-            <Outlet />
-          </CouponProvider>
+          <Outlet />
         </CartProvider>
       </ToastProvider>
     </MobileLayout>
@@ -32,7 +30,14 @@ const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { path: "/", element: <CartPage /> },
-        { path: "/order", element: <OrderPage /> },
+        {
+          path: "/order",
+          element: (
+            <CouponProvider>
+              <OrderPage />
+            </CouponProvider>
+          ),
+        },
         { path: "/payment", element: <PaymentPage /> },
       ],
     },
