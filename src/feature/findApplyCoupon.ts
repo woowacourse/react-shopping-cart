@@ -72,7 +72,7 @@ function filterByTime(coupon: CouponType, now: typeof NOW) {
   const startTime = Number(coupon.availableTime.start.split(':')[0]) * 60;
   const endTime = Number(coupon.availableTime.end.split(':')[0]) * 60;
   const nowTime = now.hour * 60 + now.minute;
-  console.log(startTime, endTime, nowTime);
+
   if (nowTime >= startTime && nowTime <= endTime) return true;
   return false;
 }

@@ -1,37 +1,61 @@
 import {CartProduct} from '../type/cart';
-import {CouponCode} from '../type/coupon';
+import {CouponCode, CouponType} from '../type/coupon';
+
+type DiscountFunction = (
+  price: number,
+  discount?: number,
+  selectedItems?: CartProduct[]
+) => number;
+
+const discountRules: {code: CouponCode; discount: DiscountFunction}[] = [
+  {
+    code: 'FIXED5000',
+    discount: (price, discount = 0) => price - discount,
+  },
+  {
+    code: 'BOGO',
+    discount: (price, _, selectedItems = []) =>
+      price - findMaxXbuygetY(selectedItems),
+  },
+  {
+    code: 'MIRACLESALE',
+    discount: (price, discount = 0) => price - price * (discount / 100),
+  },
+  {
+    code: 'FREESHIPPING',
+    discount: (price: number) => price,
+  },
+];
 
 export const calcDiscountPrice = (
   orderPrice: number,
-  isCouponChecked: Record<CouponCode, boolean>,
+  checkedCoupons: CouponType[],
   selectedItems: CartProduct[]
 ) => {
-  let discountResult = orderPrice;
-  const checkedCoupons = Object.keys(isCouponChecked).filter(
-    (key) => isCouponChecked[key as keyof typeof isCouponChecked]
-  );
+  if (checkedCoupons.length === 0) return orderPrice;
 
-  // 30%할인, 2+1 할인 쿠폰 적용되어 있을 때
-  if (
-    checkedCoupons.includes('MIRACLESALE') &&
-    checkedCoupons.includes('BOGO')
-  ) {
-    return Math.min(
-      discountByBOGO(discountByMIRACLESALE(discountResult), selectedItems),
-      discountByMIRACLESALE(discountByBOGO(discountResult, selectedItems))
+  if (checkedCoupons.length === 1) {
+    const rule = discountRules.find((r) => r.code === checkedCoupons[0].code);
+    return Number(
+      rule?.discount(orderPrice, checkedCoupons[0]?.discount, selectedItems)
     );
   }
 
-  if (checkedCoupons.includes('MIRACLESALE'))
-    discountResult = discountByMIRACLESALE(discountResult);
+  const couponOrders = [
+    [checkedCoupons[0], checkedCoupons[1]],
+    [checkedCoupons[1], checkedCoupons[0]],
+  ];
 
-  if (checkedCoupons.includes('BOGO'))
-    discountResult = discountByBOGO(discountResult, selectedItems);
+  const prices = couponOrders.map((coupons) => {
+    return coupons.reduce((currentPrice, coupon) => {
+      const rule = discountRules.find((r) => r.code === coupon.code);
+      if (!rule) return currentPrice;
+      return rule.discount(currentPrice, coupon.discount, selectedItems);
+    }, orderPrice);
+  });
 
-  if (checkedCoupons.includes('FIXED5000'))
-    discountResult = discountByFIXED5000(discountResult);
-
-  return discountResult;
+  const bestPrice = Math.min(...prices);
+  return bestPrice;
 };
 
 function findMaxXbuygetY(selectedItems: CartProduct[]) {
@@ -42,20 +66,4 @@ function findMaxXbuygetY(selectedItems: CartProduct[]) {
   });
 
   return maxPrice;
-}
-
-export function discountByBOGO(price: number, selectedItems: CartProduct[]) {
-  return price - findMaxXbuygetY(selectedItems);
-}
-
-export function discountByMIRACLESALE(price: number) {
-  return price * 0.7;
-}
-
-export function discountByFIXED5000(price: number) {
-  return price - 5000;
-}
-
-export function discountByFREESHIPPING(price: number, deliveryPrice: number) {
-  return price - deliveryPrice;
 }

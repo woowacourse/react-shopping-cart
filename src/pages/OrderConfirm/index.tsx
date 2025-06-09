@@ -15,6 +15,7 @@ import {useCoupons} from '../../hooks/useCalcDiscount';
 import {useNavigate} from 'react-router';
 import {ROUTE_PATHS} from '../../route/path';
 import {calcDiscountPrice} from '../../feature/calcDiscountPrice';
+import {CouponCode} from '../../type/coupon';
 
 const buttonStyle = css`
   padding: 24px 0;
@@ -51,9 +52,16 @@ const OrderConfirm = () => {
       : deliveryPrice
   );
 
+  const checkedCodes = Object.keys(isCouponChecked).filter(
+    (code) => isCouponChecked[code as CouponCode]
+  ) as CouponCode[];
+
   const totalPaymentPrice =
-    calcDiscountPrice(Number(orderPrice), isCouponChecked, selectedItems) +
-    calcDeliveryPrice();
+    calcDiscountPrice(
+      Number(orderPrice),
+      coupons?.filter((coupon) => checkedCodes?.includes(coupon?.code)) || [],
+      selectedItems
+    ) + calcDeliveryPrice();
 
   return (
     <S.Container>
