@@ -46,7 +46,7 @@ const OrderConfirmPage = () => {
         $isDisabled={false}
         onClick={handleGoToShoppingCartClick}
       >
-        결제하기
+        장바구니로 돌아가기
       </GoToShoppingCart>
     </ErrorBoundary>
   );
