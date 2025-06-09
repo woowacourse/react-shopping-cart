@@ -22,6 +22,7 @@ export const calculateCouponPrice = ({
   );
 
   let sum = 0;
+  let discountedPrice = totalPrice;
 
   couponIds.forEach((id) => {
     const coupon = coupons.find((e) => e.id === Number(id));
@@ -43,6 +44,7 @@ export const calculateCouponPrice = ({
           totalPrice >= coupon.minimumAmount
         ) {
           sum += coupon.discount;
+          discountedPrice -= coupon.discount;
         }
         break;
       case 2: {
@@ -63,17 +65,20 @@ export const calculateCouponPrice = ({
           );
           const maxPrice = Math.max(...prices);
           sum += maxPrice;
+          discountedPrice -= maxPrice;
         }
         break;
       }
       case 3:
         if (coupon.minimumAmount && totalPrice >= coupon.minimumAmount) {
           sum += deliveryFee;
+          discountedPrice -= deliveryFee;
         }
         break;
       case 4:
         if (coupon.discount) {
-          sum += (totalPrice * coupon.discount) / 100;
+          sum += (discountedPrice * coupon.discount) / 100;
+          discountedPrice -= (discountedPrice * coupon.discount) / 100;
         }
         break;
       default:
