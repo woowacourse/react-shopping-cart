@@ -9,7 +9,7 @@ export function getBestCoupons(
   items: CartItemType[],
   deliveryFee: number,
   now: Date = new Date()
-): { appliedCoupons: Coupon[]; totalDiscount: number } {
+): Coupon[] {
   const enabled = coupons.filter((c) => !isCouponDisabled(c, orderAmount, items, now));
 
   const withValue = enabled.map((c) => ({
@@ -19,9 +19,5 @@ export function getBestCoupons(
 
   withValue.sort((a, b) => b.value - a.value);
 
-  const selected = withValue.slice(0, 2).map((x) => x.coupon);
-
-  const totalDiscount = withValue.slice(0, 2).reduce((sum, x) => sum + x.value, 0);
-
-  return { appliedCoupons: selected, totalDiscount };
+  return withValue.slice(0, 2).map((x) => x.coupon);
 }

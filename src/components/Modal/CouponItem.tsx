@@ -15,7 +15,8 @@ interface CouponItemProps {
 }
 
 const CouponItem = ({ coupon, orderAmount, items, selectedCoupons, handleCouponToggle }: CouponItemProps) => {
-  const isDisabled = isCouponDisabled(coupon, orderAmount, items);
+  const isDisabled =
+    isCouponDisabled(coupon, orderAmount, items) || (selectedCoupons.length >= 2 && !selectedCoupons.includes(coupon));
 
   return (
     <div css={couponItemCss(isDisabled)}>

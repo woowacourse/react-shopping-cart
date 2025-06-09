@@ -25,32 +25,22 @@ function OrderPage() {
   const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
   const { data: coupons } = useCoupons();
   const { value: isOpen, on, off } = useToggle(false);
-  const { appliedCoupons } = getBestCoupons(
-    coupons ?? [], // 전체 쿠폰 리스트
-    orderAmount, // 주문 금액
-    checkedItems, // CartItemType[] (각 item.price, item.quantity 필요)
-    deliveryFee // 기본 배송비
-  );
-  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>(appliedCoupons);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const handleCouponToggle = (coupon: Coupon) => {
-    // 이미 disabled 인 쿠폰은 아무 동작 없이 무시
     if (isCouponDisabled(coupon, orderAmount, checkedItems)) return;
 
     setSelectedCoupons((prev) => {
       const exists = prev.find((c) => c.id === coupon.id);
       if (exists) {
-        // 이미 선택된 경우 -> 해제
         return prev.filter((c) => c.id !== coupon.id);
       } else if (prev.length < 2) {
-        // 2개 미만이면 추가
         return [...prev, coupon];
       }
-      // 이미 2개 선택된 상태면 무시
+
       return prev;
     });
   };
 
-  // 2) 선택된 쿠폰으로부터 총 할인액을 계산
   const totalDiscount = useMemo(() => {
     return selectedCoupons.reduce(
       (sum, coupon) => sum + calculateCouponDiscount(coupon, orderAmount, checkedItems, totalDeliveryFee),
@@ -59,6 +49,11 @@ function OrderPage() {
   }, [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]);
 
   const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
+
+  useEffect(() => {
+    if (!coupons) return;
+    setSelectedCoupons(getBestCoupons(coupons, orderAmount, checkedItems, totalDeliveryFee));
+  }, [coupons, orderAmount, checkedItems, totalDeliveryFee]);
 
   useEffect(() => {
     if (
