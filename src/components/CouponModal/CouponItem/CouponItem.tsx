@@ -10,7 +10,7 @@ import {
 import { css } from '@emotion/react';
 import { Coupon } from '../../../types/coupon';
 import formatDate from '../../../utils/formatDate';
-import getKoreanAmPm from '../../../utils/getKoreanAmPm';
+import { getAvailableTimeText } from '../../../utils/getAvailableTimeText';
 
 interface CouponItemProps {
   couponData: Coupon;
@@ -25,27 +25,6 @@ export function CouponItem({
   onChange,
   disabled,
 }: CouponItemProps) {
-  const getAvailableTimeText = (availableTime: {
-    start: string;
-    end: string;
-  }) => {
-    const { start, end } = availableTime;
-
-    const [startH, startM] = start.split(':');
-    const [endH, endM] = end.split(':');
-
-    const startText = `${Number(startH)}시${
-      startM === '00' ? '' : `${startM}분`
-    }`;
-    const endText = `${Number(endH)}시${endM === '00' ? '' : `${endM}분`}`;
-
-    const startTimeZone = getKoreanAmPm(start);
-    const endTimeZone =
-      getKoreanAmPm(end) === startTimeZone ? '' : getKoreanAmPm(end);
-
-    return `${startTimeZone} ${startText}부터 ${endTimeZone} ${endText}까지`;
-  };
-
   return (
     <li css={listLayout(disabled)}>
       <Line />
