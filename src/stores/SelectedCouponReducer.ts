@@ -27,13 +27,14 @@ export const selectCouponReducer = (
 
     case "REMOVE_COUPON":
       if (!action.payload.coupon) return state;
-      return state.filter((coupon) => coupon.id !== action.payload.coupon!.id);
+      return state.filter((coupon) => coupon.id !== action.payload.coupon?.id);
 
     case "RESET_COUPON":
       return initialState;
 
     case "SET_COUPON":
-      return action.payload.coupons || [];
+      return [...(action.payload.coupons || [])];
+
     default:
       return state;
   }

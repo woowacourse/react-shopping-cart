@@ -25,24 +25,27 @@ export default function CouponModal({
   const prevSelectedCoupon = useRef(selectedCoupon);
   const { setCoupons } = useCouponAction();
 
+  const handleClose = useCallback(() => {
+    onClose();
+    setCoupons(prevSelectedCoupon.current);
+  }, [onClose, setCoupons]);
+
   const handleOverlayClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if ((e.target as HTMLElement).id === "modal-overlay") {
-        onClose();
-        setCoupons(prevSelectedCoupon.current);
+        handleClose();
       }
     },
-    [onClose, setCoupons]
+    [handleClose]
   );
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
-        setCoupons(prevSelectedCoupon.current);
+        handleClose();
       }
     },
-    [onClose, setCoupons]
+    [handleClose]
   );
 
   useEffect(() => {
@@ -62,7 +65,7 @@ export default function CouponModal({
       <S.ModalContainer>
         <S.ModalTitle>
           <p>쿠폰을 선택해 주세요</p>
-          <S.XButton onClick={onClose}>x</S.XButton>
+          <S.XButton onClick={handleClose}>x</S.XButton>
         </S.ModalTitle>
         <S.Description>
           ⚠️ 쿠폰은 최대 2개까지 사용할 수 있습니다.
