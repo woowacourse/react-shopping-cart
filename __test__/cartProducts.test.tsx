@@ -9,7 +9,7 @@ import OrderConfirm from "../src/pages/OrderConfirm";
 import NavBar from "../src/components/layout/NavBar";
 import Main from "../src/pages/Main";
 import { formatPrice } from "../src/utils/formatPrice";
-import { getPrice } from "../src/components/feature/CartSection/PriceSection";
+import { getPrice } from "../src/components/feature/CartSection/PriceSection/utils";
 
 vi.mock("../src/api/cart/getCartProduct", () => ({
   getCartProduct: vi.fn(),
