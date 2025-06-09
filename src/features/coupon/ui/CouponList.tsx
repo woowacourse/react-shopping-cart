@@ -62,7 +62,7 @@ export default function CouponList({ onClose }: CouponListProps) {
     totalPurchasePrice,
     updateTotalPurchasePrice,
   } = useCartContext();
-  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading } = useCoupons();
+  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading, message } = useCoupons();
 
   const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
@@ -88,7 +88,7 @@ export default function CouponList({ onClose }: CouponListProps) {
     );
 
     updateTotalPurchasePrice(totalPurchasePrice - totalDiscountPrice);
-  }, [coupons]);
+  }, [coupons, deliveryFee]);
 
   useEffect(() => {
     updateTotalDiscountPrice(
@@ -159,6 +159,9 @@ export default function CouponList({ onClose }: CouponListProps) {
                   <span>
                     사용 가능 시간: 오전 {coupon.availableTime.start[1]}시부터 {coupon.availableTime.end[1]}까지
                   </span>
+                )}
+                {message.length !== 0 && coupon.discountType === 'buyXgetY' && (
+                  <S.messageContainer> {message} </S.messageContainer>
                 )}
               </S.CouponInfo>
             </S.CouponContainer>

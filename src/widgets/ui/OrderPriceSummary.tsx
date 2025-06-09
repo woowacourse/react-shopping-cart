@@ -27,7 +27,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     updateTotalPurchasePrice(totalPrice + deliveryFee);
   }, [selectedCartItems]);
 
-  const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.code === 'FREESHIPPING');
+  const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.discountType === 'freeShipping');
 
   const handleSuburbExtraFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e?.target.checked;
@@ -62,7 +62,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
       {useCoupon && (
         <S.CouponDiscountAmount data-testid='coupon-discount-amount'>
           쿠폰 할인 금액
-          <S.PriceBox>-{totalDiscountPrice}원</S.PriceBox>
+          <S.PriceBox>-{totalDiscountPrice.toLocaleString()}원</S.PriceBox>
         </S.CouponDiscountAmount>
       )}
       <S.DeliveryFee data-testid='delivery-fee'>

@@ -100,3 +100,9 @@ export const UseCouponButton = styled.button`
 
   transition: background-color 0.2s ease;
 `;
+
+export const messageContainer = styled.div`
+  font-size: 14px;
+  color: red;
+  font-weight: 500;
+`;

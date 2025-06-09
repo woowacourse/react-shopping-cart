@@ -10,6 +10,7 @@ import { validateMinimumAmount } from '../utils/validateMinimumAmount';
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [isCouponLoading, setIsCouponLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     const fetchCoupons = async () => {
@@ -47,7 +48,13 @@ const useCoupons = () => {
     const validCoupons = coupons.filter((coupon) => !invalidCouponIds.includes(coupon.id));
 
     const couponsWithDiscountPrice = validCoupons.map((coupon) => {
-      const discountPrice = getCouponDiscountPrice({ coupon, cartItem, totalPrice, deliveryFee });
+      const discountPrice = getCouponDiscountPrice({
+        coupon,
+        cartItem,
+        totalPrice,
+        deliveryFee,
+        updateMessage: setMessage,
+      });
       return { discountPrice, coupon };
     });
 
@@ -55,7 +62,7 @@ const useCoupons = () => {
     return couponsWithDiscountPrice.slice(0, 2).map((item) => item.coupon);
   };
 
-  return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading };
+  return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading, message };
 };
 
 export default useCoupons;
