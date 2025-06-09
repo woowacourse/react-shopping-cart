@@ -53,22 +53,23 @@ function OrderPage() {
           <SelectedItemCard key={item.id} item={item} />
         ))}
 
-        <button onClick={() => setIsOpen(true)}>쿠폰 적용</button>
+        <button css={styles.buttonCss} onClick={() => setIsOpen(true)}>
+          쿠폰 적용
+        </button>
         <section css={styles.shippingCss}>
-          <label>
-            <CheckBox
-              type="checkbox"
-              checked={isRemoteArea}
-              onChange={(e) => {
-                const checked = e.target.checked;
-                setIsRemoteArea((prev: boolean) => !prev);
-                setLocalStorage('isRemoteArea', checked);
-              }}
-            />
-            제주도 및 도서 산간 지역
-          </label>
+          <CheckBox
+            type="checkbox"
+            checked={isRemoteArea}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              setIsRemoteArea((prev: boolean) => !prev);
+              setLocalStorage('isRemoteArea', checked);
+            }}
+          />
+          <label> 제주도 및 도서 산간 지역 </label>
           <p css={styles.shippingNoticeCss}>
-            <img src="./assets/info.svg" alt="info icon" /> 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.
+            <img src="./assets/info.svg" alt="info icon" />
+            <span> 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.</span>
           </p>
         </section>
         {isOpen && <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}

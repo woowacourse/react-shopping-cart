@@ -52,7 +52,17 @@ export const shippingCss = css({
   fontSize: '14px'
 });
 export const shippingNoticeCss = css({
+  display: 'flex',
+  gap: '4px',
   fontSize: '12px',
-  color: '#888',
+  color: '#0A0D13',
   marginTop: '4px'
+});
+
+export const buttonCss = css({
+  fontWeight: '700',
+  color: 'rgba(51,51,51,0.75)',
+  borderRadius: '5px',
+  border: '1px solid rgba(51, 51, 51, 0.25)',
+  padding: '8px'
 });
