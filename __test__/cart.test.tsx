@@ -25,7 +25,7 @@ describe('RTL Test', () => {
   beforeEach(() => {
     renderApp();
   });
-  it('장바구니에 상품이 하나도 없을 때 EmptyCartItemUI가 잘 보이는지', async () => {
+  it('장바구니에 상품이 하나도 없을 때 장바구니가 비어있음을 보이는 화면이 보인다.', async () => {
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
     if (cartItemCards.length !== 0) return;
     const emptyMessage = await screen.findByText('장바구니에 담은 상품이 없습니다.');
