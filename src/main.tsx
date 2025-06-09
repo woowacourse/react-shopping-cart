@@ -38,7 +38,14 @@ const router = createBrowserRouter(
             </CouponProvider>
           ),
         },
-        { path: "/payment", element: <PaymentPage /> },
+        {
+          path: "/payment",
+          element: (
+            <CouponProvider>
+              <PaymentPage />
+            </CouponProvider>
+          ),
+        },
       ],
     },
   ],

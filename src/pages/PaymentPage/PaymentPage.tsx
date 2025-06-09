@@ -6,10 +6,12 @@ import Description from "../../components/@common/Description/Description";
 import useCart from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import useCartCalculations from "../../hooks/useCartCalculations";
+import { useCouponContext } from "../../hooks/useCouponContext";
 
 const PaymentPage = () => {
   const { orderItemCount } = useCart();
   const { orderQuantity, totalPrice } = useCartCalculations();
+  const { totalDiscount } = useCouponContext();
 
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ const PaymentPage = () => {
         </S.DescriptionContainer>
         <S.PriceContainer>
           <S.Label>총 결제 금액</S.Label>
-          <S.Price>{totalPrice.toLocaleString()}원</S.Price>
+          <S.Price>{(totalPrice - totalDiscount).toLocaleString()}원</S.Price>
         </S.PriceContainer>
       </S.Main>
       <FooterButton onClick={navigateToHome}>장바구니로 돌아가기</FooterButton>
