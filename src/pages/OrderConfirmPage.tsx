@@ -1,6 +1,7 @@
 import Header from '../components/Header/Header';
 import CartInfo from '../components/Cart/CartInfo';
 import CartHeader from '../components/Cart/CartHeader';
+import CartOrderItem from '../components/Cart/CartOrderItem';
 import CartFooter from '../components/Cart/CartFooter';
 import Button from '../components/Button/Button';
 import styled from '@emotion/styled';
@@ -11,7 +12,6 @@ import { COUPONS } from '../constants/couponConfig';
 import { HiddenCheckbox } from '../components/SelectBox/SelectBox.styles';
 import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { formatDate, formatTimeRange } from '../utils/dateTimeFormatter';
-import { CartProduct } from '../types/cart';
 import { Coupon } from '../types/coupon';
 import { calculateCouponDiscount } from '../utils/couponCalculations';
 
@@ -144,20 +144,7 @@ function OrderConfirmPage() {
           title="주문 확인"
           description={`총 ${count}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
-
-        <ProductContainer>
-          {products.map((product: CartProduct) => (
-            <ProductSection key={product.id}>
-              <ProductImage src={product.product.imageUrl} alt={product.product.name} />
-              <ProductInfo>
-                <ProductName>{product.product.name}</ProductName>
-                <ProductPrice>{product.product.price.toLocaleString()}원</ProductPrice>
-                <ProductQuantity>{product.quantity}개</ProductQuantity>
-              </ProductInfo>
-            </ProductSection>
-          ))}
-        </ProductContainer>
-
+        <CartOrderItem products={products} />
         <CouponSelectButton onClick={openCouponModal}>쿠폰 적용</CouponSelectButton>
 
         <DeliverySection>
@@ -265,51 +252,6 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
-`;
-
-const ProductContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 32px;
-`;
-
-const ProductSection = styled.div`
-  display: flex;
-  gap: 16px;
-  padding: 24px 0;
-  border-top: 1px solid #e5e5e5;
-`;
-
-const ProductImage = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  object-fit: cover;
-`;
-
-const ProductInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ProductName = styled.h3`
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-`;
-
-const ProductPrice = styled.p`
-  margin: 4px 0 0 0;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 100%;
-`;
-
-const ProductQuantity = styled.p`
-  margin: 24px 0 0 0;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
 `;
 
 const DeliverySection = styled.div`
