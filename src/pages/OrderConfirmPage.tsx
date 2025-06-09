@@ -9,9 +9,10 @@ import CouponModal from '../components/Modal/CouponModal';
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router';
 import { useState } from 'react';
-import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
+import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { Coupon } from '../types/coupon';
 import { calculateCouponDiscount } from '../utils/couponCalculations';
+import { useShippingFee } from '../hooks/useShippingFee';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -20,20 +21,14 @@ function OrderConfirmPage() {
   const { products, price, count, totalCount } = location.state;
 
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
-  const [remoteArea, setRemoteArea] = useState(false);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
-  const baseShippingFee = price >= SHIPPING_FEE_THRESHOLD ? 0 : 3000;
-  const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
-
-  const hasFreeShippingCoupon = selectedCoupons.some(
-    (coupon) =>
-      coupon.discountType === 'freeShipping' &&
-      (!coupon.minimumAmount || price >= coupon.minimumAmount),
-  );
-
-  const totalShippingFee = hasFreeShippingCoupon ? 0 : baseShippingFee + remoteAreaFee;
+  const { remoteArea, toggleRemoteArea, baseShippingFee, remoteAreaFee, totalShippingFee } =
+    useShippingFee({
+      subtotal: price,
+      selectedCoupons,
+    });
 
   const couponDiscount = calculateCouponDiscount({
     coupons: selectedCoupons,
@@ -81,10 +76,6 @@ function OrderConfirmPage() {
     }
 
     return true;
-  };
-
-  const toggleRemoteArea = () => {
-    setRemoteArea((prev) => !prev);
   };
 
   const toggleCouponSelection = (coupon: Coupon) => {
@@ -156,7 +147,17 @@ function OrderConfirmPage() {
           totalPrice={finalTotal}
         />
       </Container>
-      {isCartModalOpen && <CouponModal />}
+      {isCartModalOpen && (
+        <CouponModal
+          onClose={closeCouponModal}
+          onToggleCoupon={toggleCouponSelection}
+          onApply={applyCoupons}
+          isCouponAvailable={isCouponAvailable}
+          isCouponSelected={isCouponSelected}
+          tempSelectedCoupons={tempSelectedCoupons}
+          tempCouponDiscount={tempCouponDiscount}
+        />
+      )}
       <Button
         onClick={() =>
           navigate('/priceConfirm', {
