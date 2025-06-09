@@ -1,3 +1,4 @@
+import { DELIVERY_FEE } from '../../../../global/constants';
 import { CartItemType } from '../../cart/types';
 import { Coupon } from '../types';
 import { isWithinTimeRange } from './isWithInTimeRange';
@@ -38,7 +39,9 @@ export function calculateCouponDiscount(
     }
     case 'freeShipping': {
       if (cartTotal >= (coupon.minimumAmount ?? 0)) {
-        return isIslandAreaSelected ? 6000 : 3000;
+        return isIslandAreaSelected
+          ? DELIVERY_FEE.EXTRA
+          : DELIVERY_FEE.STANDARD;
       }
       return 0;
     }
