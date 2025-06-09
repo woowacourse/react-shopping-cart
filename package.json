@@ -17,6 +17,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "msw": "^2.10.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.6.1"
@@ -42,5 +43,10 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vitest": "^3.1.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

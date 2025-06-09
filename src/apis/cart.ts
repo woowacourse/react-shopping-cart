@@ -66,3 +66,18 @@ export const removeCartItem = async (cartItem: CartProduct) => {
     throw new Error('장바구니 상품 삭제시 오류 발생');
   }
 };
+
+export const getCoupons = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/coupons`, {
+      method: 'GET',
+      headers: CART_HEADER,
+    });
+    if (!response.ok) {
+      handleHttpError(response);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error('쿠폰 목록을 불러오는 중 에러 발생');
+  }
+};
