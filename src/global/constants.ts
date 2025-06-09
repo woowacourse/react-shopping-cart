@@ -4,3 +4,8 @@ export const DELIVERY_FEE = {
   MINIMUM: 100_000,
   EXTRA: 6_000,
 };
+
+export const COUPON_MINIMUM = {
+  FIXED: 100_000,
+  FREE_SHIPPING: 50_000,
+};

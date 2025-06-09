@@ -49,15 +49,16 @@ export function CouponProvider({ products, children }: CouponProviderProps) {
     discount: calculateCouponDiscount(coupon, products, isIslandAreaSelected),
   }));
 
-  const bestTwoIds = couponDiscounts
-    .sort((a, b) => b.discount - a.discount)
-    .slice(0, 2)
-    .map((d) => d.coupon.id);
+  const availableCoupons = couponDiscounts
+    .filter((cd) => cd.discount > 0)
+    .sort((a, b) => b.discount - a.discount);
 
-  const [selected, setSelected] = useState<number[]>(bestTwoIds);
+  const bestIds = availableCoupons.slice(0, 2).map((cd) => cd.coupon.id);
+
+  const [selected, setSelected] = useState<number[]>(bestIds);
 
   useEffect(() => {
-    setSelected(bestTwoIds);
+    setSelected(bestIds);
   }, [
     JSON.stringify(coupons.map((c) => c.id)),
     JSON.stringify(products.map((i) => [i.id, i.quantity])),
