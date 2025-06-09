@@ -29,6 +29,7 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
     applyCoupon,
     totalPrice,
     couponDiscount,
+    isAutoMode,
     deliveryFee,
     specialDeliveryZone,
     totalItemLength,
@@ -131,6 +132,7 @@ export const OrderCheckout = ({ cartItems }: CartConfirmProps) => {
         결제확인
       </Button>
       <CouponModal
+        isAutoMode={isAutoMode}
         coupons={coupons ?? []}
         totalPrice={totalPrice}
         cartItems={cartItems}

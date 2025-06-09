@@ -7,15 +7,17 @@ import { CouponItem, Coupons } from '../type/coupon.type';
 import { calculateBOGODiscount, getDiscountAmount } from '../utils/calculateCoupons';
 
 type SelectCouponProps = {
+  isAutoMode: boolean;
   coupons: CouponItem[];
   totalPrice: number;
   cartItems: CartItem[];
-  onApplyCoupon: (id: number) => void;
+  onApplyCoupon: (id: number, currentlyChecked?: boolean) => void;
   specialDeliveryZone: boolean;
 } & Coupons &
   Pick<ModalProps, 'isOpen' | 'onClose'>;
 
 export const useModalSelectCoupon = ({
+  isAutoMode,
   coupons,
   onApplyCoupon,
   totalPrice,
@@ -35,12 +37,6 @@ export const useModalSelectCoupon = ({
     }
   }, [isOpen, coupons]);
 
-  const modalItems = coupons.map((coupon) => ({
-    ...coupon,
-    isChecked: selectCoupons.has(coupon.id),
-    isDisabled: coupon.isDisabled || (selectCoupons.size >= 2 && !selectCoupons.has(coupon.id)), // 🔧 수정
-  }));
-
   const handleTempToggle = (id: number) => {
     setSelectCoupons((prev) => {
       const newSet = new Set(prev);
@@ -59,19 +55,35 @@ export const useModalSelectCoupon = ({
       coupons.filter((coupon) => coupon.isChecked).map((coupon) => coupon.id)
     );
 
-    currentChecked.forEach((id) => {
-      if (!selectCoupons.has(id)) {
-        onApplyCoupon(id);
-      }
-    });
+    if (isAutoMode) {
+      currentChecked.forEach((id) => {
+        onApplyCoupon(id, true);
+      });
 
-    selectCoupons.forEach((id) => {
-      if (!currentChecked.has(id)) {
-        onApplyCoupon(id);
-      }
-    });
+      selectCoupons.forEach((id) => {
+        onApplyCoupon(id, false);
+      });
+    } else {
+      currentChecked.forEach((id) => {
+        if (!selectCoupons.has(id)) {
+          onApplyCoupon(id, true);
+        }
+      });
+
+      selectCoupons.forEach((id) => {
+        if (!currentChecked.has(id)) {
+          onApplyCoupon(id, false);
+        }
+      });
+    }
     onClose();
   };
+
+  const modalItems = coupons.map((coupon) => ({
+    ...coupon,
+    isChecked: selectCoupons.has(coupon.id),
+    isDisabled: coupon.isDisabled || (selectCoupons.size >= 2 && !selectCoupons.has(coupon.id)),
+  }));
 
   const couponDiscount = useMemo(() => {
     const selectedCoupons = modalItems.filter((coupon) => coupon.isChecked);

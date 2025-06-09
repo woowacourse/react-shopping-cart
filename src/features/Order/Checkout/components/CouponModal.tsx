@@ -14,6 +14,7 @@ import { parseHour } from '../utils/parseHour';
 import { splitDate } from '../utils/splitDate';
 
 type CouponModalProps = {
+  isAutoMode: boolean;
   cartItems: CartItem[];
   coupons: CouponItem[];
   totalPrice: number;
@@ -22,6 +23,7 @@ type CouponModalProps = {
 } & ModalProps;
 
 export const CouponModal = ({
+  isAutoMode,
   coupons,
   onApplyCoupon,
   isOpen,
@@ -32,6 +34,7 @@ export const CouponModal = ({
   onClose,
 }: CouponModalProps) => {
   const { modalCoupons, handleTempToggle, disCountPrice, handleConfirm } = useModalSelectCoupon({
+    isAutoMode,
     coupons,
     onApplyCoupon,
     totalPrice,

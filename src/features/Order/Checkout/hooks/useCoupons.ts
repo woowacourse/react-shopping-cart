@@ -31,6 +31,7 @@ export const useCoupons = ({ cartItems }: CartItemList) => {
     coupons: couponLogic.couponItems,
     applyCoupon: couponSelection.applyCoupon,
     couponDiscount: couponLogic.couponDiscount,
+    isAutoMode: couponSelection.isAutoMode,
 
     totalPrice: totalPrice,
     deliveryFee: deliveryFee,
