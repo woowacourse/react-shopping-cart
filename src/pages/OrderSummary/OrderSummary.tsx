@@ -92,7 +92,15 @@ function OrderSummary() {
           totalCost={totalCost - getDiscount(redeemedCoupons)}
         />
       </main>
-      <SubmitButton enabled={false} label="결제하기" />
+      <SubmitButton
+        enabled={true}
+        label="결제하기"
+        onClick={() =>
+          navigate("/order-complete", {
+            state: { totalCost, cartItems },
+          })
+        }
+      />
       {openModal &&
         createPortal(
           <CouponModal
