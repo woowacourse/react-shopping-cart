@@ -7,10 +7,10 @@ import { useEffect } from 'react';
 function CompletePage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { totalQuantity, countOfItemType, realTotalAmount } = location.state ?? {};
+  const { totalQuantity, countOfItemType, totalAmountAfterDiscount } = location.state ?? {};
 
   useEffect(() => {
-    if (!totalQuantity || !countOfItemType || !realTotalAmount) {
+    if (!totalQuantity || !countOfItemType || !totalAmountAfterDiscount) {
       const isConfirmed = confirm('비정상적인 접근입니다. 이전 페이지로 이동하시겠습니까?');
       if (isConfirmed) {
         navigate(-1);
@@ -33,7 +33,7 @@ function CompletePage() {
           최종 결제 금액을 확인해 주세요.
         </p>
         <p css={priceTitleCss}>총 결제 금액</p>
-        <p css={priceCss}>{realTotalAmount?.toLocaleString()}원</p>
+        <p css={priceCss}>{totalAmountAfterDiscount?.toLocaleString()}원</p>
       </main>
       <Button onClick={() => navigate('/')}>장바구니로 돌아가기</Button>
     </>

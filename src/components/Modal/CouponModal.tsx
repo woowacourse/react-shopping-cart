@@ -9,35 +9,34 @@ import { css } from '@emotion/react';
 
 interface CouponModalProps {
   isOpen: boolean;
-  off: () => void;
+  handleClose: () => void;
   coupons: Coupon[];
   orderAmount: number;
   checkedItems: CartItemType[];
   totalDeliveryFee: number;
-  tempCoupons: Coupon[];
-  handleTempToggle: (coupon: Coupon) => void;
-  handleApplyCoupons: () => void;
+  temp: Coupon[];
+  toggleCoupon: (coupon: Coupon) => void;
+  apply: () => void;
 }
 
 const CouponModal = ({
   isOpen,
-  off,
+  handleClose,
   coupons,
   orderAmount,
   checkedItems,
   totalDeliveryFee,
-  tempCoupons,
-  handleTempToggle,
-  handleApplyCoupons
+  temp,
+  toggleCoupon,
+  apply
 }: CouponModalProps) => {
   const tempTotalDiscount = useMemo(
-    () =>
-      tempCoupons.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee), 0),
-    [tempCoupons, orderAmount, checkedItems, totalDeliveryFee]
+    () => temp.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee), 0),
+    [temp, orderAmount, checkedItems, totalDeliveryFee]
   );
 
   return (
-    <Modal isOpen={isOpen} handleClose={off}>
+    <Modal isOpen={isOpen} handleClose={handleClose}>
       <div css={infoCss}>
         <img src="./assets/info.svg" alt="info icon" />
         <p css={fontSize12}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
@@ -48,11 +47,11 @@ const CouponModal = ({
           coupon={coupon}
           orderAmount={orderAmount}
           items={checkedItems}
-          selectedCoupons={tempCoupons}
-          handleCouponToggle={() => handleTempToggle(coupon)}
+          selectedCoupons={temp}
+          handleCouponToggle={() => toggleCoupon(coupon)}
         />
       ))}
-      <Button css={buttonCss} onClick={handleApplyCoupons}>
+      <Button css={buttonCss} onClick={apply}>
         총 {tempTotalDiscount.toLocaleString()}원 할인쿠폰 사용하기
       </Button>
     </Modal>

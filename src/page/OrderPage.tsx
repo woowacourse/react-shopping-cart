@@ -1,66 +1,38 @@
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import * as styles from '../styles/page.style';
 import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
 import { CartItemType } from '../types/cartItem';
 import CheckBox from '../components/common/CheckBox';
-import { useCoupons } from '../hooks/useCoupons';
-import { useToggle } from '../hooks/useToggle';
-import { getBestCoupons } from '../components/Modal/utils/getBestCoupons';
-import { Coupon } from '../types/coupon';
-import { calculateCouponDiscount } from '../components/Modal/utils/calculateCouponDiscount';
 import CouponModal from '../components/Modal/CouponModal';
-import { isCouponDisabled } from '../components/Modal/utils/isCouponDisabled';
 import { css } from '@emotion/react';
+import { useDeliveryFee } from '../hooks/useDeliveryFee';
+import { useCouponSelector } from '../hooks/useCouponSelector';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
-  const { value: includeSpecialRegions, toggle: toggleRegion } = useToggle(false);
-  const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
-  const { data: coupons } = useCoupons();
-  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
-  const [tempCoupons, setTempCoupons] = useState<Coupon[]>([]);
-  const { value: isOpen, on, off } = useToggle(false);
+  const { includeSpecial, toggle, totalFee } = useDeliveryFee(deliveryFee);
+  const { coupons, temp, isOpen, totalDiscount, handleOpen, handleClose, toggleCoupon, apply } = useCouponSelector(
+    orderAmount,
+    checkedItems,
+    totalFee
+  );
+  const totalAmountAfterDiscount = orderAmount + totalFee - totalDiscount;
 
-  const handleOpenModal = () => {
-    setTempCoupons(selectedCoupons);
-    on();
-  };
-
-  const handleTempToggle = (coupon: Coupon) => {
-    if (isCouponDisabled(coupon, orderAmount, checkedItems)) return;
-    setTempCoupons((prev: Coupon[]) => {
-      const exists = prev.find((c) => c.id === coupon.id);
-      if (exists) return prev.filter((c) => c.id !== coupon.id);
-      if (prev.length < 2) return [...prev, coupon];
-      return prev;
+  const navigateToComplete = () => {
+    navigate('/complete', {
+      state: {
+        totalQuantity,
+        countOfItemType,
+        totalAmountAfterDiscount
+      }
     });
   };
-
-  const handleApplyCoupons = () => {
-    setSelectedCoupons(tempCoupons);
-    off();
-  };
-
-  const totalDiscount = useMemo(
-    () =>
-      selectedCoupons.reduce(
-        (sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee),
-        0
-      ),
-    [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]
-  );
-
-  const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
-
-  useEffect(() => {
-    if (coupons) setSelectedCoupons(getBestCoupons(coupons, orderAmount, checkedItems, deliveryFee));
-  }, [coupons, orderAmount, checkedItems, deliveryFee]);
 
   useEffect(() => {
     if (
@@ -102,45 +74,33 @@ function OrderPage() {
               <OrderItem key={item.id} item={item} />
             ))}
           </div>
-          <Button css={couponApplyCss} onClick={handleOpenModal}>
+          <Button css={couponApplyCss} onClick={handleOpen}>
             쿠폰 적용
           </Button>
           <div css={priceTitleCss}>배송 정보</div>
           <div css={styles.allSelectCss}>
-            <CheckBox checked={includeSpecialRegions} onChange={toggleRegion} />
+            <CheckBox checked={includeSpecial} onChange={toggle} />
             <p>제주도 및 도서 산간 지역</p>
           </div>
           <PriceArea
             orderAmount={orderAmount}
-            deliveryFee={totalDeliveryFee}
-            totalAmount={realTotalAmount}
+            deliveryFee={totalFee}
+            totalAmount={totalAmountAfterDiscount}
             couponDiscount={totalDiscount}
           />
-          <Button
-            onClick={() => {
-              navigate('/complete', {
-                state: {
-                  totalQuantity,
-                  countOfItemType,
-                  realTotalAmount
-                }
-              });
-            }}
-          >
-            결제하기
-          </Button>
+          <Button onClick={navigateToComplete}>결제하기</Button>
         </div>
       </main>
       <CouponModal
         isOpen={isOpen}
-        off={off}
+        handleClose={handleClose}
         coupons={coupons ?? []}
         orderAmount={orderAmount}
         checkedItems={checkedItems}
-        totalDeliveryFee={totalDeliveryFee}
-        tempCoupons={tempCoupons}
-        handleTempToggle={handleTempToggle}
-        handleApplyCoupons={handleApplyCoupons}
+        totalDeliveryFee={totalFee}
+        temp={temp}
+        toggleCoupon={toggleCoupon}
+        apply={apply}
       />
     </>
   );
