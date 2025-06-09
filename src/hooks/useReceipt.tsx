@@ -1,13 +1,11 @@
 import CartItemCheck from "../types/CartItemCheck";
 import { calculateCouponDiscounts } from "../utils/calculateCouponDiscounts";
-import useLocalStorage from "./useLocalStorage";
+import { useState } from "react";
 
-export const useReceipt = () => {
-  const [selectedItems] = useLocalStorage<CartItemCheck[]>(
-    "selectedCartItems",
-    []
-  );
-  const [isRemote, setIsRemote] = useLocalStorage<boolean>("isRemote", false);
+export const useReceipt = (cartItemCheckList: CartItemCheck[]) => {
+  const [selectedItems] = useState<CartItemCheck[]>(cartItemCheckList);
+  console.log(selectedItems);
+  const [isRemote, setIsRemote] = useState<boolean>(false);
 
   const cartItemCheckListTotalQuantity = selectedItems
     .filter((item) => item.isClicked)

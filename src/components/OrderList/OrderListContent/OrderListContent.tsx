@@ -11,12 +11,15 @@ import CouponButton from "../Coupon/Button/CouponButton";
 import Modal from "../Modal/Modal";
 import OrderList from "../OrderList/OrderList";
 import Shipping from "../Shipping/Shipping";
+import CartItemCheck from "../../../types/CartItemCheck";
 interface OrderListContentProps {
   cartItemList: CartItem[];
+  selectedCartItemList: CartItemCheck[];
 }
 
 export default function OrderListContent({
   cartItemList,
+  selectedCartItemList,
 }: OrderListContentProps) {
   const {
     selectedItems,
@@ -26,7 +29,7 @@ export default function OrderListContent({
     allProductPrice,
     shippingFee,
     calculateDiscounts,
-  } = useReceipt();
+  } = useReceipt(selectedCartItemList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -62,7 +65,11 @@ export default function OrderListContent({
       />
       <OrderList items={selectedItems} />
       <CouponButton onClick={handleOpenModal} />
-      <Modal isModalOpen={isModalOpen} onClose={handleCloseModal} />
+      <Modal
+        isModalOpen={isModalOpen}
+        onClose={handleCloseModal}
+        selectedCartItemList={selectedCartItemList}
+      />
       <Shipping
         isRemote={isRemote}
         onRemoteChange={(checked) => setIsRemote(checked)}

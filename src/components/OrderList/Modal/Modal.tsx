@@ -7,10 +7,12 @@ import { useReceipt } from "../../../hooks/useReceipt";
 import { CouponResponse } from "../../../types/Coupon";
 import * as S from "./Modal.styles";
 import CouponItem from "../Coupon/CouponItem";
+import CartItemCheck from "../../../types/CartItemCheck";
 
 interface ModalProps {
   isModalOpen: boolean;
   onClose: () => void;
+  selectedCartItemList: CartItemCheck[];
 }
 
 function computeDisabled(
@@ -68,10 +70,14 @@ function computeDisabled(
   return false;
 }
 
-export default function Modal({ isModalOpen, onClose }: ModalProps) {
+export default function Modal({
+  isModalOpen,
+  onClose,
+  selectedCartItemList,
+}: ModalProps) {
   const [couponIds, setCouponIds] = useState<CouponResponse["id"][]>([]);
   const { calculateDiscounts, selectedItems, shippingFee, allProductPrice } =
-    useReceipt();
+    useReceipt(selectedCartItemList);
 
   const { couponList, setCouponList, setCheckedCoupons } =
     useCouponListContext();

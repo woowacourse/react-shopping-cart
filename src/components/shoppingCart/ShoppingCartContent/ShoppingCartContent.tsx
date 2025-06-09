@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Receipt from "../receipt/Receipt";
 import Footer from "../../layout/Footer/Footer";
@@ -24,6 +24,22 @@ export default function ShoppingCartContent({
       isClicked: true,
     }))
   );
+  localStorage.setItem(
+    "selectedCartItemList",
+    JSON.stringify(
+      cartItemList.map((item) => ({
+        ...item,
+        isClicked: true,
+      }))
+    )
+  );
+
+  useEffect(() => {
+    localStorage.setItem(
+      "selectedCartItemList",
+      JSON.stringify(cartItemCheckList)
+    );
+  }, [cartItemCheckList]);
 
   const handleSelectedCartItem = (id: number) => {
     setCartItemCheckList((prev) =>
@@ -76,14 +92,16 @@ export default function ShoppingCartContent({
   const navigate = useNavigate();
   const handleOrderListButtonClick = () => {
     localStorage.setItem(
-      "selectedCartItems",
+      "selectedCartItemList",
       JSON.stringify(selectedCartItemList)
     );
+
     navigate("/order-check", {
       state: {
-        checkedProductsLength: selectedCartItemList.length,
-        cartItemCheckListTotalQuantity,
-        totalPrice,
+        // checkedProductsLength: selectedCartItemList.length,
+        // cartItemCheckListTotalQuantity,
+        // totalPrice,
+        selectedCartItemList,
       },
     });
   };
