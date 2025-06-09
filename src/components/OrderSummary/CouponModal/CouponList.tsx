@@ -19,6 +19,7 @@ export default function CouponList({
     <div>
       {coupons.map((coupon) => (
         <CouponItem
+          key={coupon.id}
           type={coupon.discountType}
           couponData={coupon}
           cartItems={cartItems}
