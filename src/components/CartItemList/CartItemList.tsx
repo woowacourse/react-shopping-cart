@@ -1,15 +1,15 @@
 import * as styles from './CartItemList.style';
 import CheckBox from '../common/CheckBox';
-import CartItem from '../CartItem/CartItem';
 import { CartItemType } from '../../types/cartItem';
 import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
-import { calculateDeliveryFee, calculateOrderAmount } from './calculate';
+import { calculateDeliveryFee, calculateOrderAmount } from '../../utils/coupon/calculate';
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
 import { PATH } from '../../constants/path';
+import CartItemContainer from '../CartItem/CartItemContainer';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -51,11 +51,11 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           </div>
           <div css={styles.cartItemsListCss} data-testid="cart-item-list">
             {cartItems.map((item) => (
-              <CartItem
+              <CartItemContainer
                 key={item.id}
                 item={item}
                 checked={state.get(item.id) ?? false}
-                handleCheckBoxChange={() => toggle(item.id)}
+                onToggle={() => toggle(item.id)}
               />
             ))}
           </div>

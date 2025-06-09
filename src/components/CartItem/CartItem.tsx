@@ -1,72 +1,38 @@
 import * as styles from './CartItem.style';
-import { RemoveButton } from './RemoveButton';
 import CheckBox from '../common/CheckBox';
-import { CartItemType } from '../../types/cartItem';
-import patchCartItem from '../../api/patchCartItem';
-import { useApiContext } from '../../contexts/ApiContext';
-import getCartItems from '../../api/getCartItem';
-import { deleteCartItem } from '../../api/deleteCartItem';
-import { useErrorContext } from '../../contexts/ErrorContext';
+import { RemoveButton } from './RemoveButton';
 import * as Card from '../Card/Card';
 import Stepper from '../Stepper/Stepper';
+import { CartItemType } from '../../types/cartItem';
 
 interface CartItemProps {
   item: CartItemType;
-  handleCheckBoxChange: () => void;
   checked: boolean;
+  onToggle: () => void;
+  onQuantityChange: (next: number) => void;
+  onRemove: () => void;
 }
 
-export default function CartItem({ item, handleCheckBoxChange, checked }: CartItemProps) {
-  const { id: cartItemId, product, quantity: cartQuantity } = item;
+export default function CartItem({ item, checked, onToggle, onQuantityChange, onRemove }: CartItemProps) {
+  const { id, product, quantity } = item;
   const { name, price, imageUrl } = product;
-  const { fetcher: refetchCart } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });
-  const { showError } = useErrorContext();
-
-  const handleMinus = async () => {
-    try {
-      await patchCartItem(cartItemId, cartQuantity - 1);
-      await refetchCart();
-    } catch (e) {
-      if (e instanceof Error) {
-        showError(e);
-      }
-    }
-  };
-
-  const handlePlus = async () => {
-    try {
-      await patchCartItem(cartItemId, cartQuantity + 1);
-      await refetchCart();
-    } catch (e) {
-      if (e instanceof Error) {
-        showError(e);
-      }
-    }
-  };
-
-  const handleDeleteCart = async () => {
-    try {
-      await deleteCartItem(cartItemId);
-      await refetchCart();
-    } catch (e) {
-      if (e instanceof Error) {
-        showError(e);
-      }
-    }
-  };
 
   return (
-    <div key={cartItemId} css={styles.cartItemFrameCss}>
+    <div key={id} css={styles.cartItemFrameCss}>
       <div css={styles.cartItemHeaderCss}>
-        <CheckBox onChange={handleCheckBoxChange} checked={checked} />
-        <RemoveButton onClick={handleDeleteCart} />
+        <CheckBox onChange={onToggle} checked={checked} />
+        <RemoveButton onClick={onRemove} />
       </div>
       <Card.Root>
         <Card.CardImage src={imageUrl} alt={name} />
         <Card.Content>
           <Card.Title>{name}</Card.Title>
-          <Card.Price>{(price * cartQuantity).toLocaleString()}원</Card.Price>
-          <Stepper value={cartQuantity} onDecrement={handleMinus} onIncrement={handlePlus} />
+          <Card.Price>{(price * quantity).toLocaleString()}원</Card.Price>
+          <Stepper
+            value={quantity}
+            onDecrement={() => onQuantityChange(quantity - 1)}
+            onIncrement={() => onQuantityChange(quantity + 1)}
+          />
         </Card.Content>
       </Card.Root>
     </div>

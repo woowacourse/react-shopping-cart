@@ -1,4 +1,4 @@
-import { calculateBogoDiscount } from '../../components/CartItemList/calculate';
+import { calculateBogoDiscount } from './calculate';
 import { Coupon } from '../../types/response';
 import { getShippingInfoFromStorage } from '../storage/storage';
 

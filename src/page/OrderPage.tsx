@@ -8,7 +8,7 @@ import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
 import * as Card from '../components/Card/Card';
-import { calculateDeliveryFee } from '../components/CartItemList/calculate';
+import { calculateDeliveryFee } from '../utils/coupon/calculate';
 
 export type SelectedItem = {
   id: number;
@@ -19,26 +19,25 @@ export type SelectedItem = {
 };
 
 function OrderPage() {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [isRemoteArea, setIsRemoteArea] = useState(() => localStorage.getItem('isRemoteArea') === 'true');
-  const [discountAmount, setDiscountAmount] = useState(0);
+  const [totalCouponDiscount, setTotalCouponDiscount] = useState(0);
   const navigate = useNavigate();
   const items = getLocalStorage<SelectedItem[]>('selectedItems', []);
 
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalOrderAmount = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const baseDeliveryFee = calculateDeliveryFee(totalPrice);
-  const extraRemoteFee = isRemoteArea ? 3000 : 0;
-  const deliveryFee = baseDeliveryFee + extraRemoteFee;
+  const basicDeliveryFee = calculateDeliveryFee(totalOrderAmount);
+  const remoteAreaExtraFee = isRemoteArea ? 3000 : 0;
+  const totalDeliveryFee = basicDeliveryFee + remoteAreaExtraFee;
 
-  const totalPaymentAmount = totalPrice + deliveryFee - discountAmount;
+  const finalPaymentAmount = totalOrderAmount + totalDeliveryFee - totalCouponDiscount;
 
   const handlePaymentButtonClick = () => {
     navigate('/payment', {
       state: {
-        totalPaymentAmount
+        totalPaymentAmount: finalPaymentAmount
       }
     });
   };
@@ -64,7 +63,7 @@ function OrderPage() {
           <SelectedItemCard key={item.id} item={item} />
         ))}
 
-        <button css={styles.buttonCss} onClick={() => setIsOpen(true)}>
+        <button css={styles.buttonCss} onClick={() => setIsCouponModalOpen(true)}>
           쿠폰 적용
         </button>
         <section css={styles.shippingCss}>
@@ -83,19 +82,19 @@ function OrderPage() {
             <span> 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.</span>
           </p>
         </section>
-        {isOpen && (
+        {isCouponModalOpen && (
           <CouponModal
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            onApplyDiscount={(discount) => setDiscountAmount(discount)}
+            isOpen={isCouponModalOpen}
+            onClose={() => setIsCouponModalOpen(false)}
+            onApplyDiscount={(discount) => setTotalCouponDiscount(discount)}
           />
         )}
         <div css={styles.summaryCss}>
-          <PriceRow label="총 주문 금액" amount={totalPrice} />
-          <PriceRow label="배송비" amount={deliveryFee} />
+          <PriceRow label="총 주문 금액" amount={totalOrderAmount} />
+          <PriceRow label="배송비" amount={totalDeliveryFee} />
 
-          {discountAmount > 0 && <PriceRow minus={true} label="할인 금액" amount={discountAmount} />}
-          <PriceRow label="총 결제 금액" amount={totalPaymentAmount} />
+          {totalCouponDiscount > 0 && <PriceRow minus={true} label="할인 금액" amount={totalCouponDiscount} />}
+          <PriceRow label="총 결제 금액" amount={finalPaymentAmount} />
         </div>
         <Button onClick={handlePaymentButtonClick}>결제하기</Button>
       </main>
