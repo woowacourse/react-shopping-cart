@@ -11,8 +11,8 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     deliveryFee,
     updateDeliveryFee,
     totalPurchasePrice,
-    updateTotalPurchasePrice,
     selectedCoupons,
+    updateTotalPurchasePrice,
   } = useCartContext();
 
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
@@ -24,8 +24,8 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
       updateDeliveryFee(0);
     }
 
-    updateTotalPurchasePrice(totalPrice + deliveryFee);
-  }, [selectedCartItems, deliveryFee]);
+    updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
+  }, [selectedCartItems]);
 
   const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.discountType === 'freeShipping');
 
@@ -33,10 +33,8 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     const isChecked = e?.target.checked;
     if (isChecked) {
       updateDeliveryFee(deliveryFee + DELIVERY_FEE);
-      updateTotalPurchasePrice(totalPrice + deliveryFee + DELIVERY_FEE);
     } else {
       updateDeliveryFee(Math.max(deliveryFee - DELIVERY_FEE, 0));
-      updateTotalPurchasePrice(totalPrice + deliveryFee - DELIVERY_FEE);
     }
   };
 

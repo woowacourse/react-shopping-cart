@@ -43,7 +43,7 @@ const useCoupons = () => {
       .map((coupon) => coupon.id);
   };
 
-  const getBestTwoCoupons = (cartItem: CartItem, totalPrice: number, deliveryFee: number): Coupon[] => {
+  const getBestTwoCoupons = (cartItem: CartItem, totalPrice: number, deliveryFee: number) => {
     const invalidCouponIds = getInvalidCouponIds(totalPrice);
     const validCoupons = coupons.filter((coupon) => !invalidCouponIds.includes(coupon.id));
 
@@ -59,7 +59,7 @@ const useCoupons = () => {
     });
 
     couponsWithDiscountPrice.sort((a, b) => b.discountPrice - a.discountPrice);
-    return couponsWithDiscountPrice.slice(0, 2).map((item) => item.coupon);
+    return couponsWithDiscountPrice.slice(0, 2);
   };
 
   return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading, message };

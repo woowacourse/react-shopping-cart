@@ -31,7 +31,6 @@ export const getCouponDiscountPrice = ({
           );
         return 0;
       }
-      console.log('getQuantity', cartItem.product.price, coupon.getQuantity);
       return cartItem.product.price * coupon.getQuantity;
     }
     case 'freeShipping': {

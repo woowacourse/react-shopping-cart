@@ -59,7 +59,6 @@ export default function CouponList({ onClose }: CouponListProps) {
     totalDiscountPrice,
     deliveryFee,
     updateTotalDiscountPrice,
-    totalPurchasePrice,
     updateTotalPurchasePrice,
   } = useCartContext();
   const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading, message } = useCoupons();
@@ -76,19 +75,18 @@ export default function CouponList({ onClose }: CouponListProps) {
     if (coupons.length === 0) return;
 
     const bestTwo = getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee);
-    updateSelectedCoupons(bestTwo);
+    const totalDiscountPrice = bestTwo.reduce((acc, bestCoupon) => acc + bestCoupon.discountPrice, 0);
 
-    updateTotalDiscountPrice(
-      calculateTotalDiscountPrice({
-        selectedCoupons: bestTwo,
-        highestPriceCartItem,
-        totalPrice,
-        deliveryFee,
-      })
-    );
+    updateTotalDiscountPrice(totalDiscountPrice);
+    updateSelectedCoupons(bestTwo.map((bestCoupon) => bestCoupon.coupon));
 
-    updateTotalPurchasePrice(totalPurchasePrice - totalDiscountPrice);
+    updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
   }, [coupons, deliveryFee]);
+
+  console.log('totalDiscountPrice', totalDiscountPrice);
+  console.log('totalPrice', totalPrice);
+  console.log('deliveryFee', deliveryFee);
+  console.log('totalPurchasePrice', totalPrice + deliveryFee - totalDiscountPrice);
 
   useEffect(() => {
     updateTotalDiscountPrice(
@@ -101,7 +99,10 @@ export default function CouponList({ onClose }: CouponListProps) {
     );
   }, [selectedCoupons]);
 
+  console.log('selected Coupons', selectedCoupons);
+
   const handleCloseModal = () => {
+    // updateSelectedCoupons([]);
     onClose();
   };
 
