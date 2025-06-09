@@ -58,8 +58,6 @@ function CartPage() {
     saveSelectedCartItemsToLocalStorage(selectedCartItems);
   }, [cartItems, selectedCartItems]);
 
-  console.log('selectedCartItems:', selectedCartItems);
-
   return (
     <S.CartPageContainer>
       <Navbar title={'SHOP'} url={ROUTES.ROOT} />

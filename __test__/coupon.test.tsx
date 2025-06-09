@@ -6,22 +6,53 @@ import { CartProvider } from '../src/shared/context/CartProvider';
 import { render, screen, within } from '@testing-library/react';
 import OrderReviewPage from '../src/pages/OrderReview/OrderReviewPage';
 import userEvent from '@testing-library/user-event';
+import { getSelectedCartItemsFromLocalStorage } from '../src/features/cart/utils/localStorageService';
+import { CartItem } from '../src/features/cart/api/types/cart';
+import { vi, Mock } from 'vitest';
 
 vi.mock('../src/features/cart/utils/localStorageService', () => ({
-  getSelectedCartItemsFromLocalStorage: () => [mockCartItem],
+  getSelectedCartItemsFromLocalStorage: vi.fn(),
 }));
 
-const mockCartItem = {
-  id: 1551,
-  product: {
-    id: 36,
-    name: '패셔니스타 유담이',
-    price: 30000,
-    imageUrl: 'https://image.yes24.com/goods/84933797/XL',
+const mockCartItem_1: CartItem[] = [
+  {
+    id: 1551,
+    quantity: 3,
+    product: {
+      id: 36,
+      name: '패셔니스타 유담이',
+      price: 30000,
+      imageUrl: 'https://image.yes24.com/goods/84933797/XL',
+      category: '패션잡화',
+    },
   },
-  category: '패션잡화',
-  quantity: 3,
-};
+];
+
+const mockCartItem_2: CartItem[] = [
+  {
+    id: 1552,
+    quantity: 1,
+    product: {
+      id: 36,
+      name: '패셔니스타 유담이',
+      price: 30000,
+      imageUrl: 'https://image.yes24.com/goods/84933797/XL',
+      category: '패션잡화',
+    },
+  },
+  {
+    id: 1553,
+    quantity: 3,
+    product: {
+      id: 23,
+      name: '리바이 아커만',
+      price: 100000,
+      imageUrl:
+        'https://image.zeta-ai.io/profile-image/793bf4d3-03de-4ac3-afe1-95be8a9bc62c/29cd5c72-f872-4dba-8be1-21ba51e4487f.jpeg?w=1080&q=90&f=webp',
+      category: '패션잡화',
+    },
+  },
+];
 
 function renderWithRoutes() {
   return render(
@@ -72,16 +103,13 @@ describe('쿠폰이 유효한지 테스트', () => {
   });
 });
 
-describe('쿠폰 시나리오 테스트', () => {
-  beforeEach(() => {
-    localStorage.setItem('selected-cart-items', JSON.stringify([mockCartItem]));
-
-    renderWithRoutes();
-  });
-
+describe('오후 시간 사용자 쿠폰 사용 시나리오 테스트', () => {
   it(`오후 시간에 도시에 사는 사용자가 30,000원 동일 상품을 3개 담고 
   "2개 구매 시 1개 무료 쿠폰"와 "5만원 이상 구매 시 무료 배송 쿠폰"를 받아서 
   33,000 할인 받고 배송비 3,000을 포함하여 총 결제 금액 60,000원 지불한다.`, async () => {
+    (getSelectedCartItemsFromLocalStorage as Mock).mockReturnValue(mockCartItem_1);
+    renderWithRoutes();
+
     const user = userEvent.setup();
 
     const couponButton = await screen.findByRole('button', { name: '쿠폰 적용' });
@@ -104,5 +132,33 @@ describe('쿠폰 시나리오 테스트', () => {
 
     const totalPurchasePrice = await screen.findByTestId('total-purchase-price');
     expect(within(totalPurchasePrice).getByText('60,000원')).toBeInTheDocument();
+  });
+
+  it(`오후 시간에 도시 외곽에 사는 사용자가  30,000원 상품 1개, 100,000원 상품 3개를 담고 "5,000원 할인 쿠폰"와
+    "2개 구매 시 1개 무료 쿠폰"를 받아서 105,000원 할인 받고 배송비 3,000을 포함하여 총 결제 금액 228,000원 지불한다.`, async () => {
+    (getSelectedCartItemsFromLocalStorage as Mock).mockReturnValue(mockCartItem_2);
+    renderWithRoutes();
+
+    const user = userEvent.setup();
+
+    const checkbox = screen.getByTestId('suburb-checkbox');
+    await user.click(checkbox);
+
+    const couponButton = await screen.findByRole('button', { name: '쿠폰 적용' });
+    await user.click(couponButton);
+
+    const couponUseButton = await screen.findByRole('button', {
+      name: '총 105,000원 할인 쿠폰 사용하기',
+    });
+    await user.click(couponUseButton);
+
+    const totalPrice = await screen.findByTestId('total-order-price');
+    expect(within(totalPrice).getByText('330,000원')).toBeInTheDocument();
+    const totalDiscountPrice = await screen.findByTestId('coupon-discount-amount');
+    expect(within(totalDiscountPrice).getByText('-105,000원')).toBeInTheDocument();
+    const deliveryFee = await screen.findByTestId('delivery-fee');
+    expect(within(deliveryFee).getByText('3,000원')).toBeInTheDocument();
+    const totalPurchasePrice = await screen.findByTestId('total-purchase-price');
+    expect(within(totalPurchasePrice).getByText('228,000원')).toBeInTheDocument();
   });
 });

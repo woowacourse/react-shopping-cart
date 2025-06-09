@@ -10,7 +10,6 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     totalPrice,
     totalDiscountPrice,
     totalPurchasePrice,
-    selectedCartItems,
     updateTotalPrice,
     updateDeliveryFee,
     updateTotalPurchasePrice,
@@ -20,11 +19,6 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
 
   const baseDeliveryFee = totalPrice < DELIVERY_FEE_THRESHOLD ? DELIVERY_FEE : 0;
   const finalDeliveryFee = baseDeliveryFee + suburbExtraFee;
-
-  console.log('??????????또잉 스토리지<', getSelectedCartItemsFromLocalStorage());
-  console.log('토털프라이스', totalPrice);
-  console.log('ㅇㅇ렄리너ㅏㅣㄷㄹ', totalPrice + finalDeliveryFee - totalDiscountPrice);
-  console.log('totalPurchasePrice', totalPurchasePrice);
 
   useEffect(() => {
     const calculatedTotalPrice = getSelectedCartItemsFromLocalStorage().reduce(
@@ -47,7 +41,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
         <>
           <S.DeliveryFeeHeaderLabel>배송 정보</S.DeliveryFeeHeaderLabel>
           <S.SuburbExtraFeeContainer>
-            <SelectInput type='checkbox' onChange={handleSuburbExtraFeeChange} />
+            <SelectInput data-testid='suburb-checkbox' type='checkbox' onChange={handleSuburbExtraFeeChange} />
             <S.DeliveryFeeLabel>제주도 및 도서 산간 지역</S.DeliveryFeeLabel>
           </S.SuburbExtraFeeContainer>
         </>
