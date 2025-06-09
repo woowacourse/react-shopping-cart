@@ -1,13 +1,13 @@
 import { CartItemProps } from '../types/cartItem';
 import { Coupon, validatedCouponList } from '../types/coupon';
 
-function isExpired(expirationDate: string): boolean {
+export function isExpired(expirationDate: string): boolean {
   const today = new Date();
   const [y, m, d] = expirationDate.split('-').map(Number);
   return today <= new Date(y, m - 1, d);
 }
 
-function isMiracleMorning(start: string, end: string): boolean {
+export function isMiracleMorning(start: string, end: string): boolean {
   const now = new Date();
 
   const startDate = new Date(now);
@@ -23,11 +23,14 @@ function isMiracleMorning(start: string, end: string): boolean {
   return now >= startDate && now <= endDate;
 }
 
-function isMinimumAmount(minimumAmount: number, subTotal: number): boolean {
+export function isMinimumAmount(
+  minimumAmount: number,
+  subTotal: number
+): boolean {
   return subTotal >= minimumAmount;
 }
 
-function isQuantity(cartItems: CartItemProps[]): boolean {
+export function isQuantity(cartItems: CartItemProps[]): boolean {
   return cartItems.some((item) => item.quantity >= 2);
 }
 
