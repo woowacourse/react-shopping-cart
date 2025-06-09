@@ -1,4 +1,5 @@
 import {
+  checkIsAllSelected,
   setSelectedInfoAllDeSelect,
   setSelectedInfoAllSelect,
 } from "../../domains/selectedInfo";
@@ -13,12 +14,11 @@ function CartList() {
   const selectState = useSelectContext();
   const { selectAll, deselectAll } = useSelectAction();
   const { cartData, isLoading } = useCartManager();
+  const isAllSelected = checkIsAllSelected(selectState);
 
   if (isLoading || !cartData) {
     return <S.LoadingContent>장바구니를 불러오는 중입니다...</S.LoadingContent>;
   }
-
-  const isAllSelected = selectState.every((item) => item.selected);
 
   const handlerSelectAll = () => {
     if (isAllSelected) {

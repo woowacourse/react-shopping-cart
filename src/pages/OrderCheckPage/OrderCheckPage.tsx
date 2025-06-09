@@ -9,7 +9,11 @@ import { useState } from "react";
 import CouponModal from "../../components/CouponModal/CouponModal";
 import { ResponseCartItem } from "../../types/types";
 import { useSelectedCouponContext } from "../../stores/SelectedCouponContext";
-import { calcTotalQuantity, getDiscountPrice } from "../../domains/price";
+import {
+  calcDeliveryPrice,
+  calcTotalQuantity,
+  getDiscountPrice,
+} from "../../domains/price";
 
 interface LocationState {
   selectedCartItem: ResponseCartItem[];
@@ -19,23 +23,23 @@ interface LocationState {
 function OrderCheckPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const state: LocationState = location.state;
+  const { selectedCartItem, totalPrice }: LocationState = location.state;
   const [isSelectJejuChecked, setIsSelectJejuChecked] = useState(false);
   const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
   const selectedCoupon = useSelectedCouponContext();
 
   const discountPrice = getDiscountPrice({
     selectedCoupon,
-    orderPrice: state.totalPrice,
+    orderPrice: totalPrice,
   });
-  const deliveryPrice =
-    (state.totalPrice >= 100000 ? 0 : 3000) + (isSelectJejuChecked ? 3000 : 0);
+
+  const deliveryPrice = calcDeliveryPrice(totalPrice, isSelectJejuChecked);
 
   const handlePay = () => {
     navigate("/complete", {
       state: {
-        selectedCartItem: state.selectedCartItem,
-        totalPrice: state.totalPrice + deliveryPrice - discountPrice,
+        selectedCartItem: selectedCartItem,
+        totalPrice: totalPrice + deliveryPrice - discountPrice,
       },
     });
   };
@@ -53,13 +57,13 @@ function OrderCheckPage() {
         <S.CartContentWrapper>
           <S.HeaderTitle>주문 확인</S.HeaderTitle>
           <S.Content>
-            총 {state.selectedCartItem.length}종류의 상품{" "}
-            {calcTotalQuantity(state.selectedCartItem)}개를 주문합니다.
+            총 {selectedCartItem.length}종류의 상품{" "}
+            {calcTotalQuantity(selectedCartItem)}개를 주문합니다.
             <br />
             최종 결제 금액을 확인해 주세요.
           </S.Content>
           <S.CartListContainer>
-            {state.selectedCartItem.map((cart) => (
+            {selectedCartItem.map((cart) => (
               <CartItem key={cart.id} cart={cart} type="check" />
             ))}
           </S.CartListContainer>
@@ -74,7 +78,7 @@ function OrderCheckPage() {
           />
           <br />
           <OrderPriceSection
-            orderPrice={state.totalPrice}
+            orderPrice={totalPrice}
             deliveryPrice={deliveryPrice}
             couponPrice={discountPrice}
           />
@@ -87,8 +91,8 @@ function OrderCheckPage() {
         <CouponModal
           onClose={() => setIsOpenCouponModal(false)}
           deliveryPrice={deliveryPrice}
-          orderPrice={state.totalPrice}
-          orderProducts={state.selectedCartItem}
+          orderPrice={totalPrice}
+          orderProducts={selectedCartItem}
           discountPrice={discountPrice}
         />
       )}

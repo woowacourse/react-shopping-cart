@@ -1,7 +1,16 @@
 import { SelectState } from "../stores/SelectReducer";
+import { CouponType, DiscountType } from "../types/types";
 import { setLocalStorage } from "../utils/storage";
 
 export const SELECTED_INFO_KEY = "selectedInfo";
+
+export const checkIsAllSelected = (selectState: SelectState[]) =>
+  selectState.every((item) => item.selected);
+
+export const getIsSelectedCoupon = (
+  discountType: DiscountType,
+  selectedCoupons: CouponType[]
+) => selectedCoupons.some((coupon) => coupon.discountType === discountType);
 
 export const setSelectedInfoAllDeSelect = (selectState: SelectState[]) => {
   setLocalStorage(

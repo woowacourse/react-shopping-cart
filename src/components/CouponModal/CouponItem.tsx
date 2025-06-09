@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useSelectedCouponContext } from "../../stores/SelectedCouponContext";
-import { CouponType, DiscountType, ResponseCartItem } from "../../types/types";
+import { CouponType, ResponseCartItem } from "../../types/types";
 import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CouponItem.styled";
 import { getCouponText, getPossibleToUse } from "../../domains/coupon";
 import useCouponAction from "../../hooks/useCouponAction";
+import { getIsSelectedCoupon } from "../../domains/selectedInfo";
 
 export default function CouponItem({
   data,
@@ -19,17 +20,11 @@ export default function CouponItem({
 }) {
   const selectedCoupons = useSelectedCouponContext();
   const { addCoupon, removeCoupon } = useCouponAction();
-  const getIsSelectedCoupon = (discountType: DiscountType) =>
-    selectedCoupons.some((coupon) => coupon.discountType === discountType);
 
-  const handleChange = (discountType: DiscountType) => {
-    if (getIsSelectedCoupon(discountType)) {
-      removeCoupon(data);
-    } else {
-      if (selectedCoupons.length >= 2) return;
-      addCoupon(data);
-    }
-  };
+  const isSelectedCoupon = getIsSelectedCoupon(
+    data.discountType,
+    selectedCoupons
+  );
 
   const canUse = getPossibleToUse({
     data,
@@ -38,6 +33,16 @@ export default function CouponItem({
     deliveryPrice,
     selectedCoupons,
   });
+
+  const handleChange = () => {
+    if (isSelectedCoupon) {
+      removeCoupon(data);
+      return;
+    }
+
+    if (selectedCoupons.length >= 2) return;
+    addCoupon(data);
+  };
 
   useEffect(() => {
     if (deliveryPrice === 0 && data.discountType === "freeShipping") {
@@ -50,9 +55,9 @@ export default function CouponItem({
       <CheckBox
         id={data.id}
         text={data.description}
-        isChecked={getIsSelectedCoupon(data.discountType)}
+        isChecked={isSelectedCoupon}
         size="large"
-        onChange={() => handleChange(data.discountType)}
+        onChange={() => handleChange()}
         disabled={!canUse}
       />
       <S.CouponText>
