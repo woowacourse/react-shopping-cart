@@ -12,6 +12,7 @@ import { useCoupons } from '../hooks/useCoupons';
 import { useToggle } from '../hooks/useToggle';
 import Modal from '../components/Modal/Modal';
 import CouponItem from '../components/Modal/CouponItem';
+import { getBestCoupons } from '../components/Modal/getBestCoupons';
 
 function OrderPage() {
   const navigate = useNavigate();
@@ -19,9 +20,15 @@ function OrderPage() {
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
   const { value: includeSpecialRegions, toggle } = useToggle(false);
   const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
-  const realTotalAmount = orderAmount + totalDeliveryFee;
   const { data: coupons } = useCoupons();
   const { value: isOpen, on, off } = useToggle(false);
+  const { appliedCoupons, totalDiscount } = getBestCoupons(
+    coupons ?? [], // 전체 쿠폰 리스트
+    orderAmount, // 주문 금액
+    checkedItems, // CartItemType[] (각 item.price, item.quantity 필요)
+    deliveryFee // 기본 배송비
+  );
+  const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
 
   useEffect(() => {
     if (
@@ -75,7 +82,7 @@ function OrderPage() {
             orderAmount={orderAmount}
             deliveryFee={totalDeliveryFee}
             totalAmount={realTotalAmount}
-            couponDiscount={6000}
+            couponDiscount={totalDiscount}
           />
           <Button
             onClick={() => {
@@ -98,10 +105,16 @@ function OrderPage() {
           <p css={styles.fontSize12}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
         </div>
         {coupons?.map((coupon) => (
-          <CouponItem key={coupon.id} coupon={coupon} orderAmount={orderAmount} items={checkedItems} />
+          <CouponItem
+            key={coupon.id}
+            coupon={coupon}
+            orderAmount={orderAmount}
+            items={checkedItems}
+            appliedCoupons={appliedCoupons}
+          />
         ))}
         <Button css={buttonCss} onClick={off}>
-          총 {}원 할인쿠폰 사용하기
+          총 {totalDiscount.toLocaleString()}원 할인쿠폰 사용하기
         </Button>
       </Modal>
     </>

@@ -10,15 +10,16 @@ interface CouponItemProps {
   coupon: Coupon;
   orderAmount: number;
   items: CartItemType[];
+  appliedCoupons: Coupon[];
 }
 
-const CouponItem = ({ coupon, orderAmount, items }: CouponItemProps) => {
+const CouponItem = ({ coupon, orderAmount, items, appliedCoupons }: CouponItemProps) => {
   const isDisabled = isCouponDisabled(coupon, orderAmount, items);
 
   return (
     <div css={couponItemCss(isDisabled)}>
       <div css={TitleCss}>
-        <CheckBox disabled={isDisabled} />
+        <CheckBox disabled={isDisabled} checked={appliedCoupons.includes(coupon)} />
         <p css={TitleTextCss}>{coupon.description}</p>
       </div>
       <p css={fontSize12}>만료일: {formatToKoreanDate(coupon.expirationDate)}</p>
