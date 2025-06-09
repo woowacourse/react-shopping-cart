@@ -15,19 +15,22 @@ import { ModalContentContainer, RedeemInfo } from "./CouponModal.styles";
 interface CouponModalProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  redeemCoupons: (coupons: CouponType[]) => void;
+  getDiscount: (selectedCoupons: CouponType[]) => number;
+  filterNonExpiredCoupons: (coupons: CouponType[]) => CouponType[];
+  decideCanRedeem: (coupon: CouponType) => boolean;
 }
 
-function CouponModal({ openModal, setOpenModal }: CouponModalProps) {
+function CouponModal({
+  openModal,
+  setOpenModal,
+  redeemCoupons,
+  getDiscount,
+  filterNonExpiredCoupons,
+  decideCanRedeem,
+}: CouponModalProps) {
   const [coupons, setCoupons] = useState<CouponType[]>([]);
   const { fetchData } = useFetch<CouponDataType[]>("coupons");
-  const { toggleSelect, isSelected, isMaxSelected } = useCheckboxHandler(
-    coupons,
-    {
-      maxSelectableCount: 2,
-      enableAllSelectBox: false,
-      autoSelectAll: false,
-    }
-  );
   const fetchCoupons = useCallback(
     () =>
       fetchData({
@@ -50,13 +53,33 @@ function CouponModal({ openModal, setOpenModal }: CouponModalProps) {
     fetchCoupons();
   }, [fetchCoupons]);
 
+  const { selectedIds, toggleSelect, isSelected, isMaxSelected } =
+    useCheckboxHandler(coupons, {
+      maxSelectableCount: 2,
+      enableAllSelectBox: false,
+      autoSelectAll: false,
+    });
+
+  const getSelectedCoupons = () => {
+    return coupons.filter((coupon) => selectedIds.includes(coupon.id));
+  };
+
+  const handleRedeemCouponClick = () => {
+    const selectedCoupons = getSelectedCoupons();
+
+    redeemCoupons(selectedCoupons);
+    setOpenModal(false);
+  };
+
   return (
     <Modal
       title="쿠폰을 선택해 주세요"
       open={openModal}
       onClose={() => setOpenModal(false)}
-      buttonLabel="총 6,000원 할인 쿠폰 사용하기"
-      handleModalButtonClick={() => ""}
+      buttonLabel={`총 ${getDiscount(
+        getSelectedCoupons()
+      )}원 할인 쿠폰 사용하기`}
+      handleModalButtonClick={handleRedeemCouponClick}
     >
       <section css={ModalContentContainer}>
         <aside css={RedeemInfo}>
@@ -64,7 +87,7 @@ function CouponModal({ openModal, setOpenModal }: CouponModalProps) {
           <p>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
         </aside>
         <CouponList>
-          {coupons.map((coupon) => {
+          {filterNonExpiredCoupons(coupons).map((coupon) => {
             return (
               <Coupon
                 key={coupon.id}
@@ -72,6 +95,7 @@ function CouponModal({ openModal, setOpenModal }: CouponModalProps) {
                 toggleSelect={toggleSelect}
                 isSelected={isSelected(coupon.id)}
                 isMaxSelected={isMaxSelected()}
+                canRedeem={decideCanRedeem(coupon)}
               >
                 <CouponDetails coupon={coupon} />
               </Coupon>

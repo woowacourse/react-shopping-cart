@@ -11,8 +11,9 @@ import { createPortal } from "react-dom";
 import { useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
 import ExtraShipping from "../../components/ExtraShipping/ExtraShipping";
-import Receipt from "../../components/Receipt/Receipt";
 import { CouponType } from "../../components/Coupon/types";
+import useCoupon from "../../hooks/useCoupon";
+import OrderReceipt from "../../components/OrderReceipt/OrderReceipt";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -37,8 +38,26 @@ function OrderSummary() {
     setRedeemedCoupons(coupons);
   };
 
+  const { filterNonExpiredCoupons, checkCanRedeem, redeemAllCoupon } =
+    useCoupon();
+
   const orderCost = getOrderCost(cartItems);
-  const totalCost = orderCost + getDeliveryCost(orderCost);
+  const defaultDeliveryCost = getDeliveryCost(orderCost);
+  const totalDeliveryCost = (isExtraShipping ? 3000 : 0) + defaultDeliveryCost;
+  const totalCost = orderCost + totalDeliveryCost;
+
+  const getDiscount = (selectedCoupons: CouponType[]) => {
+    return redeemAllCoupon(
+      selectedCoupons,
+      orderCost,
+      cartItems,
+      totalDeliveryCost
+    );
+  };
+
+  const decideCanRedeem = (coupon: CouponType) => {
+    return checkCanRedeem(coupon, orderCost, cartItems);
+  };
 
   return (
     <>
@@ -66,7 +85,12 @@ function OrderSummary() {
           isSelected={isExtraShipping}
           toggleSelect={toggleExtraShipping}
         />
-        <Receipt selectedCartItems={cartItems} />
+        <OrderReceipt
+          orderCost={orderCost}
+          deliveryCost={totalDeliveryCost}
+          discount={getDiscount(redeemedCoupons)}
+          totalCost={totalCost - getDiscount(redeemedCoupons)}
+        />
       </main>
       <SubmitButton enabled={false} label="결제하기" />
       {openModal &&
@@ -75,8 +99,9 @@ function OrderSummary() {
             openModal={openModal}
             setOpenModal={setOpenModal}
             redeemCoupons={redeemCoupons}
-            selectedCartItems={cartItems}
-            orderCost={orderCost}
+            getDiscount={getDiscount}
+            filterNonExpiredCoupons={filterNonExpiredCoupons}
+            decideCanRedeem={decideCanRedeem}
           />,
           modalRoot
         )}
