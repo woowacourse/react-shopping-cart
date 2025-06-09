@@ -6,24 +6,17 @@ type Props = {
   orderPrice: number;
   deliveryPrice: number;
   totalPrice: number;
-<<<<<<< HEAD
   discountPrice?: number;
-=======
->>>>>>> minji2219
 };
 
 const FREE_ORDER_PRICE = 100000;
 
-<<<<<<< HEAD
 const PriceSection = ({
   orderPrice,
   deliveryPrice,
   totalPrice,
   discountPrice,
 }: Props) => {
-=======
-const PriceSection = ({orderPrice, deliveryPrice, totalPrice}: Props) => {
->>>>>>> minji2219
   return (
     <S.Container>
       <S.Description>

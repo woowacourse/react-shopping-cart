@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {useEffect, useRef} from 'react';
 import {CartProduct} from '../type/cart';
 import {useSelectedCartId} from '../provider/cartItemsProvider';
@@ -6,13 +5,6 @@ import {useSelectedCartId} from '../provider/cartItemsProvider';
 export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
   const {selectedCartId, setSelectedCartId} = useSelectedCartId();
 
-=======
-import {useState, useEffect, useRef} from 'react';
-import {CartProduct} from '../type/cart';
-
-export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
-  const [selectedCartId, setSelectedCartId] = useState<number[]>([]);
->>>>>>> minji2219
   const isSetting = useRef(false);
 
   const isChecked = (id: number) => {
