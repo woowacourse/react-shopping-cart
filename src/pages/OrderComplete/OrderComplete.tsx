@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
 import { CartItemType } from "../../types/response";
-import { getAllQuantity } from "../OrderSummary/OrderSummary";
+import { getAllQuantity } from "../../domains/quantity";
 import {
   Container,
   Summary,

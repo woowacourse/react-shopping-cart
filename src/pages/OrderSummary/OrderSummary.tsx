@@ -17,17 +17,15 @@ import { useState } from "react";
 import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
 import useResetCouponOnUnmount from "../../hooks/orderSummary/useResetCouponOnUnmount";
 import { calculateDiscountAmount } from "./discount.domain";
+import { getAllQuantity } from "../../domains/quantity";
 
 function OrderSummary() {
   useResetCouponOnUnmount();
-
   const [isJejuOrIslandSelected, setIsJejuOrIslandSelected] = useState(false);
 
   const { isOpen, modalClose, modalOpen } = useModal();
   const navigate = useNavigate();
-
   const { selectedCoupon } = useCouponManagerProvider();
-
   const cartItems = useSafeLocationState<CartItemType[]>();
 
   const orderCost = getOrderCost(cartItems);
@@ -95,7 +93,3 @@ function OrderSummary() {
   );
 }
 export default OrderSummary;
-
-export function getAllQuantity(cartItems: CartItemType[]) {
-  return cartItems.reduce((total, item) => total + item.quantity, 0);
-}
