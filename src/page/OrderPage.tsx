@@ -66,7 +66,9 @@ function OrderPage() {
             />
             제주도 및 도서 산간 지역
           </label>
-          <p css={styles.shippingNoticeCss}>※ 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.</p>
+          <p css={styles.shippingNoticeCss}>
+            <img src="./assets/info.svg" alt="info icon" /> 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.
+          </p>
         </section>
         {isOpen && <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
         <div css={styles.summaryCss}>

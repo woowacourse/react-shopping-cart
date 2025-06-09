@@ -54,5 +54,8 @@ export const couponLabelStyle = css({
 });
 export const disabledStyle = css({
   opacity: 0.5,
-  pointerEvents: 'none' // 클릭 방지
+  pointerEvents: 'none'
+});
+export const preLineStyle = css({
+  whiteSpace: 'pre-line'
 });

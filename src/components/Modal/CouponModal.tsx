@@ -9,14 +9,16 @@ import { getLocalStorage } from '../../utils/localStorage';
 
 const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
-  const [selectedCoupons, setSelectedCoupons] = useState<number[]>([]);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
   const orderAmount = getOrderAmountFromStorage();
 
-  const toggleCoupon = (id: number) => {
-    setSelectedCoupons((prev) =>
-      prev.includes(id) ? prev.filter((c) => c !== id) : prev.length < 2 ? [...prev, id] : prev
-    );
+  const toggleCoupon = (coupon: Coupon) => {
+    setSelectedCoupons((prev) => {
+      const exists = prev.find((c) => c.id === coupon.id);
+      if (exists) return prev.filter((c) => c.id !== coupon.id);
+      return prev.length < 2 ? [...prev, coupon] : prev;
+    });
   };
 
   const isCouponDisabled = (coupon: Coupon) => {
@@ -26,16 +28,7 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
     return false;
   };
 
-  const formatCouponDescription = (coupon: Coupon) => {
-    const desc: string[] = [];
-    desc.push(`만료일: ${coupon.expirationDate}`);
-    if (coupon.minimumAmount) desc.push(`최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`);
-    if (coupon.availableTime)
-      desc.push(`사용 가능 시간 ${formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}`);
-    return desc.join('\n');
-  };
-
-  const totalDiscount = calculateTotalDiscount(coupons, selectedCoupons, orderAmount);
+  const totalDiscount = calculateTotalDiscount(selectedCoupons, orderAmount);
 
   return (
     <Modal position="center" size="medium" isOpen={isOpen} onClose={onClose}>
@@ -45,24 +38,24 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
         <p css={styles.descStyle}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
         <ul css={styles.couponListStyle}>
           {coupons?.map((coupon) => {
-            const isSelected = selectedCoupons.includes(coupon.id);
+            const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
             const disabled = isCouponDisabled(coupon);
             return (
               <li
                 key={coupon.id}
                 css={[styles.couponItemStyle, isSelected && styles.selectedStyle, disabled && styles.disabledStyle]}
-                onClick={() => !disabled && toggleCoupon(coupon.id)}
+                onClick={() => !disabled && toggleCoupon(coupon)}
               >
                 <CheckBox
                   checked={isSelected}
-                  onChange={() => toggleCoupon(coupon.id)}
+                  onChange={() => toggleCoupon(coupon)}
                   onClick={(e) => e.stopPropagation()}
                   disabled={disabled}
                   id={`coupon-${coupon.id}`}
                 />
                 <label htmlFor={`coupon-${coupon.id}`} css={styles.couponLabelStyle}>
                   <p>{coupon.description}</p>
-                  <small>{formatCouponDescription(coupon)}</small>
+                  <small css={styles.preLineStyle}>{getCouponInfo(coupon)}</small>
                 </label>
               </li>
             );
@@ -76,27 +69,27 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
   );
 };
 
-const calculateTotalDiscount = (
-  coupons: Coupon[] | undefined,
-  selectedCoupons: number[],
-  orderAmount: number
-): number => {
-  const shippingInfo = getShippingInfoFromStorage();
+const getCouponInfo = (coupon: Coupon): string => {
+  return [
+    `만료일: ${coupon.expirationDate}`,
+    coupon.minimumAmount && `최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`,
+    coupon.availableTime && `사용 가능 시간: ${formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}`
+  ]
+    .filter(Boolean)
+    .join('\n');
+};
+
+const calculateTotalDiscount = (selectedCoupons: Coupon[], orderAmount: number) => {
+  const { isRemoteArea } = getShippingInfoFromStorage();
   const baseFee = orderAmount >= 100000 ? 0 : 3000;
-  const extraFee = shippingInfo.isRemoteArea ? 3000 : 0;
+  const extraFee = isRemoteArea ? 3000 : 0;
   const originalDeliveryFee = baseFee + extraFee;
-  const isFreeShippingCouponApplied = coupons?.find(
-    (c) => selectedCoupons.includes(c.id) && c.discountType === 'freeShipping'
-  );
+  const isFreeShippingCouponApplied = selectedCoupons.find((c) => c.discountType === 'freeShipping');
   const discountedDeliveryFee = isFreeShippingCouponApplied ? 0 : originalDeliveryFee;
-  const bogoDiscount = coupons?.filter((c) => selectedCoupons.includes(c.id) && c.discountType === 'buyXgetY').length
-    ? calculateBogoDiscount()
-    : 0;
+  const bogoDiscount = selectedCoupons.find((c) => c.discountType === 'buyXgetY') ? calculateBogoDiscount() : 0;
 
   return (
-    (coupons
-      ?.filter((c) => selectedCoupons.includes(c.id))
-      .reduce((acc, cur) => acc + (cur.discountType === 'fixed' && cur.discount ? cur.discount : 0), 0) ?? 0) +
+    selectedCoupons.reduce((acc, cur) => acc + (cur.discountType === 'fixed' && cur.discount ? cur.discount : 0), 0) +
     (originalDeliveryFee - discountedDeliveryFee) +
     bogoDiscount
   );
@@ -113,13 +106,13 @@ const formatTimeRange = (start: string, end: string): string => {
   return `${format(start)}부터 ${format(end)}까지`;
 };
 
-const getOrderAmountFromStorage = () => {
-  const items = getLocalStorage<{ price: number }[]>('selectedItems', []);
-  return items.reduce((sum, item) => sum + item.price, 0);
-};
-
 const getOrderItemsFromStorage = () => {
   return getLocalStorage<{ price: number; quantity: number }[]>('selectedItems', []);
+};
+
+const getOrderAmountFromStorage = () => {
+  const items = getOrderItemsFromStorage();
+  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 };
 
 const calculateBogoDiscount = () => {
