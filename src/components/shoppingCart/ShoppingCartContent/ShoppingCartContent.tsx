@@ -71,10 +71,6 @@ export default function ShoppingCartContent({
     );
   };
 
-  const cartItemCheckListTotalQuantity = cartItemCheckList
-    .filter((item) => item.isClicked)
-    .reduce((acc, item) => acc + item.quantity, 0);
-
   const cartItemListLength = cartItemList.length;
 
   const selectedCartItemList = cartItemCheckList.filter(
@@ -87,7 +83,6 @@ export default function ShoppingCartContent({
   );
 
   const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
-  const totalPrice = allProductPrice + shippingFee;
 
   const navigate = useNavigate();
   const handleOrderListButtonClick = () => {
@@ -98,9 +93,6 @@ export default function ShoppingCartContent({
 
     navigate("/order-check", {
       state: {
-        // checkedProductsLength: selectedCartItemList.length,
-        // cartItemCheckListTotalQuantity,
-        // totalPrice,
         selectedCartItemList,
       },
     });
