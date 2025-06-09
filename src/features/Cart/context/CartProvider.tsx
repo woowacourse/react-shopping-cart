@@ -31,33 +31,67 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const hasInitialized = useRef(false);
   const [isRemoteArea, setIsRemoteArea] = useState(false);
 
+  const CHECKED_KEY = 'cart-checked-map';
+
   useEffect(() => {
     if (cart.error && isError(cart.error)) {
       showToast('장바구니 정보를 불러올 수 없습니다.');
     }
   }, [cart.error, showToast]);
 
+  // useEffect(() => {
+  //   if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
+  //     setCheckedItems(new Set(cart.data.map((item) => item.id)));
+  //     hasInitialized.current = true;
+  //   }
+  // }, [cart.data]);
   useEffect(() => {
     if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
-      setCheckedItems(new Set(cart.data.map((item) => item.id)));
+      const stored = localStorage.getItem(CHECKED_KEY);
+      const parsed: Record<number, boolean> = stored ? JSON.parse(stored) : {};
+  
+      const initialChecked = new Set<number>();
+      cart.data.forEach((item) => {
+        if (parsed[item.id]) {
+          initialChecked.add(item.id);
+        }
+      });
+  
+      setCheckedItems(initialChecked);
       hasInitialized.current = true;
     }
   }, [cart.data]);
+
+  const saveToStorage = (checkedSet: Set<number>) => {
+    const map: Record<number, boolean> = {};
+    checkedSet.forEach((id) => {
+      map[id] = true;
+    });
+    localStorage.setItem(CHECKED_KEY, JSON.stringify(map));
+  };  
 
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
       newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      saveToStorage(newSet);
       return newSet;
     });
   };
 
   const toggleAllCheck = () => {
     setCheckedItems((prev) => {
-      if (prev.size === cart.data?.length) return new Set();
-      return new Set(cart.data?.map((item) => item.id));
+      let newSet;
+      if (prev.size === cart.data?.length) {
+        newSet = new Set<number>();
+      } else {
+        newSet = new Set(cart.data?.map((item) => item.id));
+      }
+      saveToStorage(newSet);
+      return newSet;
     });
   };
+  
 
   const toggleIsRemoteArea = () => setIsRemoteArea((prev) => !prev);
 
