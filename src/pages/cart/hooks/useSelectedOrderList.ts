@@ -1,17 +1,17 @@
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import useSelectedIds from "@/shared/hooks/useSelectedItem";
 import { useCallback, useMemo } from "react";
-import { useOrderListStorage } from "./useOrderListStorage";
+import { useOrderIdsStorage } from "./useOrderIdsStorage";
 
 export const useSelectedOrderList = (cartItems: CartItemType[]) => {
   const allIds = useMemo(() => cartItems.map(({ id }) => id), [cartItems]);
 
   const {
-    setOrderListStorage,
-    clearOrderListStorage,
-    addOrderListStorage,
-    removeOrderListStorage,
-  } = useOrderListStorage(allIds);
+    setOrderIdsStorage,
+    clearOrderIdsStorage,
+    addOrderIdStorage,
+    removeOrderIdStorage,
+  } = useOrderIdsStorage(allIds);
   const {
     addSelectedId,
     removeSelectedId,
@@ -27,28 +27,28 @@ export const useSelectedOrderList = (cartItems: CartItemType[]) => {
   const toggleAllSelection = () => {
     if (isAllSelected) {
       clearSelectedIds();
-      clearOrderListStorage();
+      clearOrderIdsStorage();
       return;
     }
 
     addSelectedIds(allIds);
-    setOrderListStorage(allIds);
+    setOrderIdsStorage(allIds);
   };
 
   const addSelectedItem = useCallback(
     (id: number) => {
       addSelectedId(id);
-      addOrderListStorage(id);
+      addOrderIdStorage(id);
     },
-    [addSelectedId, addOrderListStorage]
+    [addSelectedId, addOrderIdStorage]
   );
 
   const removeSelectedItem = useCallback(
     (id: number) => {
       removeSelectedId(id);
-      removeOrderListStorage(id);
+      removeOrderIdStorage(id);
     },
-    [removeSelectedId, removeOrderListStorage]
+    [removeSelectedId, removeOrderIdStorage]
   );
 
   return {
