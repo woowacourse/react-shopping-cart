@@ -42,17 +42,11 @@ function OrderSummary() {
     useCoupon();
 
   const orderCost = getOrderCost(cartItems);
-  const defaultDeliveryCost = getDeliveryCost(orderCost);
-  const totalDeliveryCost = (isExtraShipping ? 3000 : 0) + defaultDeliveryCost;
-  const totalCost = orderCost + totalDeliveryCost;
+  const deliveryCost = getDeliveryCost(orderCost, isExtraShipping);
+  const totalCost = orderCost + deliveryCost;
 
   const getDiscount = (selectedCoupons: CouponType[]) => {
-    return redeemAllCoupon(
-      selectedCoupons,
-      orderCost,
-      cartItems,
-      totalDeliveryCost
-    );
+    return redeemAllCoupon(selectedCoupons, orderCost, cartItems, deliveryCost);
   };
 
   const decideCanRedeem = (coupon: CouponType) => {
@@ -87,7 +81,7 @@ function OrderSummary() {
         />
         <OrderReceipt
           orderCost={orderCost}
-          deliveryCost={totalDeliveryCost}
+          deliveryCost={deliveryCost}
           discount={getDiscount(redeemedCoupons)}
           totalCost={totalCost - getDiscount(redeemedCoupons)}
         />

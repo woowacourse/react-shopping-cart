@@ -6,6 +6,10 @@ export const getOrderCost = (selectedCartItems: CartItemType[]) => {
   }, 0);
 };
 
-export const getDeliveryCost = (orderCost: number) => {
-  return orderCost > 100000 || orderCost === 0 ? 0 : 3000;
+export const getDeliveryCost = (
+  orderCost: number,
+  isExtraShipping: boolean = false
+) => {
+  const extraShippingCost = isExtraShipping ? 3000 : 0;
+  return orderCost > 100000 || orderCost === 0 ? 0 : 3000 + extraShippingCost;
 };
