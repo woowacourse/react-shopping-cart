@@ -7,12 +7,9 @@ import CartListTitle from '../../../components/CartListTitle/CartListTitle';
 import CartItem from '../../../components/CartItem/CartItem';
 import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
-import Toast from '../../../components/common/Toast/Toast';
-
 import { Logo } from '../../../assets';
 
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
-import { useToastContext } from '../../../context/ToastContext';
 import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
 import CartListHeader from '../../../components/CartList/CartList';
@@ -23,7 +20,6 @@ import Text from '../../../components/common/Text/Text';
 
 function CartPage() {
   const cart = useCartContext();
-  const { isVisible } = useToastContext();
   const navigate = useNavigate();
 
   const selectedCartData = cart.data.filter((item) =>
