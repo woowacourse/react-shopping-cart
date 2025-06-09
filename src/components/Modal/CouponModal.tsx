@@ -6,12 +6,12 @@ import { formatDate, formatTimeRange } from '../../utils/dateTimeFormatter';
 import { Modal } from './index';
 import { CouponCheckboxContainer, CouponStyledCheckbox } from '../../pages/OrderConfirmPage';
 import { Coupon } from '../../types/coupon';
+import { isCouponAvailable } from '../../utils/couponAvailability';
 
 interface CouponModalProps {
   onClose: () => void;
   onToggleCoupon: (coupon: Coupon) => void;
   onApply: () => void;
-  isCouponAvailable: (coupon: Coupon) => boolean;
   isCouponSelected: (couponId: number) => boolean;
   tempSelectedCoupons: Coupon[];
   tempCouponDiscount: number;
@@ -21,7 +21,6 @@ function CouponModal({
   onClose,
   onToggleCoupon,
   onApply,
-  isCouponAvailable,
   isCouponSelected,
   tempSelectedCoupons,
   tempCouponDiscount,

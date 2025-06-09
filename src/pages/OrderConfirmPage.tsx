@@ -13,13 +13,12 @@ import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { Coupon } from '../types/coupon';
 import { calculateCouponDiscount } from '../utils/couponCalculations';
 import { useShippingFee } from '../hooks/useShippingFee';
+import { isCouponAvailable } from '../utils/couponAvailability';
 
 function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
-
   const { products, price, count, totalCount } = location.state;
-
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
@@ -45,38 +44,6 @@ function OrderConfirmPage() {
   });
 
   const finalTotal = price - couponDiscount + totalShippingFee;
-
-  const isCouponAvailable = (coupon: Coupon): boolean => {
-    const today = new Date();
-    const expirationDate = new Date(coupon.expirationDate);
-
-    if (expirationDate < today) {
-      return false;
-    }
-
-    if (coupon.availableTime) {
-      const currentHour = today.getHours();
-      const currentMinute = today.getMinutes();
-      const currentTime = currentHour * 60 + currentMinute;
-
-      const startTimeParts = coupon.availableTime.start.split(':');
-      const startHour = Number(startTimeParts[0]);
-      const startMinute = Number(startTimeParts[1]);
-
-      const endTimeParts = coupon.availableTime.end.split(':');
-      const endHour = Number(endTimeParts[0]);
-      const endMinute = Number(endTimeParts[1]);
-
-      const startTime = startHour * 60 + startMinute;
-      const endTime = endHour * 60 + endMinute;
-
-      if (currentTime < startTime || currentTime > endTime) {
-        return false;
-      }
-    }
-
-    return true;
-  };
 
   const toggleCouponSelection = (coupon: Coupon) => {
     if (!isCouponAvailable(coupon)) {
@@ -152,7 +119,6 @@ function OrderConfirmPage() {
           onClose={closeCouponModal}
           onToggleCoupon={toggleCouponSelection}
           onApply={applyCoupons}
-          isCouponAvailable={isCouponAvailable}
           isCouponSelected={isCouponSelected}
           tempSelectedCoupons={tempSelectedCoupons}
           tempCouponDiscount={tempCouponDiscount}
