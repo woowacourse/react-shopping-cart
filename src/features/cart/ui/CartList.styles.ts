@@ -25,7 +25,7 @@ export const AllSelectInputBox = styled.input`
 
 export const CartItemCardContainer = styled.div`
   width: 100%;
-  height: 350px;
+  height: 384px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

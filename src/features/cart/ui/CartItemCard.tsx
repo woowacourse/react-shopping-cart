@@ -1,4 +1,3 @@
-import * as S from './CartItemCard.styles';
 import CartItemQuantitySelector from './CartItemQuantitySelector';
 import { CartItem } from '../types/cart';
 import CartItemInfo from './CartItemInfo';
@@ -10,12 +9,12 @@ interface CartItemCardProps {
 
 export default function CartItemCard({ cartItem }: CartItemCardProps) {
   return (
-    <S.CartItemContainer data-testid="cart-item-card">
+    <div data-testid="cart-item-card">
       <CartItemInfo
         header={<CartItemHeader cartItem={cartItem} />}
         cartItem={cartItem}
         quantityContent={<CartItemQuantitySelector cartItem={cartItem} />}
       />
-    </S.CartItemContainer>
+    </div>
   );
 }

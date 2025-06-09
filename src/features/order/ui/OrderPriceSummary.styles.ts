@@ -5,6 +5,7 @@ export const OrderPriceSummaryContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 8px;
 `;
 
 const baseStyle = `
@@ -45,4 +46,7 @@ export const CalaculateList = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 `;
