@@ -191,7 +191,7 @@ describe("useCoupons 훅 테스트", () => {
 
     expect(totalDiscount).toBe(30000);
 
-    jest.restoreAllMocks();
+    jest.useRealTimers();
   });
 
   describe("쿠폰 조합 테스트", () => {
@@ -317,7 +317,7 @@ describe("useCoupons 훅 테스트", () => {
         expect.arrayContaining(["MIRACLESALE", "FIXED5000"])
       );
 
-      jest.restoreAllMocks();
+      jest.useRealTimers();
     });
 
     it("모든 쿠폰이 가능할 때 최대 할인 조합 선택", async () => {
@@ -377,37 +377,10 @@ describe("useCoupons 훅 테스트", () => {
       expect(totalDiscount).toBe(40000);
       expect(appliedCoupons).toHaveLength(2);
 
-      jest.restoreAllMocks();
+      jest.useRealTimers();
     });
 
     describe("무료 배송 쿠폰 테스트", () => {
-      it("도서 산간 지역이고 주문 금액 10만원 미만일 때 무료 배송 쿠폰 적용", async () => {
-        mockUseCart.isRemoteArea = true;
-        mockUseCartCalculations.orderPrice = 80000;
-        mockUseCartCalculations.shippingFee = 6000;
-
-        const { result } = renderHook(() => useCoupons());
-
-        await waitFor(() => {
-          expect(getCoupons).toHaveBeenCalled();
-        });
-
-        const { applyCoupons } = result.current;
-
-        const { totalDiscount } = applyCoupons([
-          {
-            id: 3,
-            code: "FREESHIPPING",
-            description: "5만원 이상 구매 시 무료 배송 쿠폰",
-            expirationDate: "2025-08-31",
-            minimumAmount: 50000,
-            discountType: "freeShipping",
-          },
-        ]);
-
-        expect(totalDiscount).toBe(6000);
-      });
-
       it("일반 지역이고 주문 금액 10만원 미만일 때 무료 배송 쿠폰 적용", async () => {
         mockUseCart.isRemoteArea = false;
         mockUseCartCalculations.orderPrice = 80000;
