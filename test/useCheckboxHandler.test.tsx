@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { CartItemType, ProductItemType } from "../src/types/response";
-import useCheckboxHandler from "../src/hooks/useCheckboxHandler";
+import useCheckboxHandler from "../src/hooks/checkbox/useCheckboxHandler";
 
 const MOCK_PRODUCTS: ProductItemType[] = Array.from(
   { length: 20 },
@@ -30,7 +30,7 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
       initialProps: { items: MOCK_CART_ITEMS },
     });
 
-    expect(result.current.selectedCartIds).toEqual([1, 2, 3]);
+    expect(result.current.selectedIds).toEqual([1, 2, 3]);
     expect(result.current.isAllSelected()).toBe(true);
   });
 
@@ -38,19 +38,19 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
     const { result } = renderHook(() => useCheckboxHandler(MOCK_CART_ITEMS));
 
     expect(result.current.isAllSelected()).toBe(true);
-    expect(result.current.selectedCartIds).toEqual([1, 2, 3]);
+    expect(result.current.selectedIds).toEqual([1, 2, 3]);
 
     act(() => {
       result.current.toggleAllSelect();
     });
     expect(result.current.isAllSelected()).toBe(false);
-    expect(result.current.selectedCartIds).toEqual([]);
+    expect(result.current.selectedIds).toEqual([]);
 
     act(() => {
       result.current.toggleAllSelect();
     });
     expect(result.current.isAllSelected()).toBe(true);
-    expect(result.current.selectedCartIds).toEqual([1, 2, 3]);
+    expect(result.current.selectedIds).toEqual([1, 2, 3]);
   });
 
   it("전체선택된 상태에서 개별 아이템의 선택을 해제하면 전체선택과 해당 아이템의 선택이 해제된다.", () => {
@@ -64,7 +64,7 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
     act(() => {
       result.current.toggleSelect(1);
     });
-    expect(result.current.selectedCartIds).toEqual([2, 3]);
+    expect(result.current.selectedIds).toEqual([2, 3]);
     expect(result.current.isAllSelected()).toBe(false);
     expect(result.current.isSelected(1)).toBe(false);
     expect(result.current.isSelected(2)).toBe(true);
@@ -88,7 +88,7 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
       result.current.toggleSelect(2);
       result.current.toggleSelect(3);
     });
-    expect(result.current.selectedCartIds).toEqual([1, 2, 3]);
+    expect(result.current.selectedIds).toEqual([1, 2, 3]);
     expect(result.current.isAllSelected()).toBe(true);
     expect(result.current.isSelected(1)).toBe(true);
     expect(result.current.isSelected(2)).toBe(true);
@@ -104,14 +104,14 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
     );
 
     expect(result.current.isAllSelected()).toBe(true);
-    expect(result.current.selectedCartIds).toEqual([1, 2, 3]);
+    expect(result.current.selectedIds).toEqual([1, 2, 3]);
 
     const updatedItems = MOCK_CART_ITEMS.filter((item) => item.id !== 2);
     rerender({ items: updatedItems });
 
     expect(result.current.isAllSelected()).toBe(true);
-    expect(result.current.selectedCartIds).toEqual([1, 3]);
-    expect(result.current.selectedCartIds).not.toContain(2);
+    expect(result.current.selectedIds).toEqual([1, 3]);
+    expect(result.current.selectedIds).not.toContain(2);
   });
 
   it("일부 아이템이 선택된 상태에서 선택되지 않은 아이템을 삭제하면 전체선택이 활성화된다.", () => {
@@ -126,13 +126,13 @@ describe("useCheckboxHandler 내부의 장바구니 아이템 선택 로직 테�
       result.current.toggleSelect(2);
     });
 
-    expect(result.current.selectedCartIds).toEqual([1, 3]);
+    expect(result.current.selectedIds).toEqual([1, 3]);
     expect(result.current.isAllSelected()).toBe(false);
 
     const updatedItems = MOCK_CART_ITEMS.filter((item) => item.id !== 2);
     rerender({ items: updatedItems });
 
-    expect(result.current.selectedCartIds).toEqual([1, 3]);
+    expect(result.current.selectedIds).toEqual([1, 3]);
     expect(result.current.isAllSelected()).toBe(true);
   });
 });
