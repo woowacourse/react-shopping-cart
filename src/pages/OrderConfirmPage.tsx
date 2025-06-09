@@ -2,6 +2,7 @@ import Header from '../components/Header/Header';
 import CartInfo from '../components/Cart/CartInfo';
 import CartHeader from '../components/Cart/CartHeader';
 import CartOrderItem from '../components/Cart/CartOrderItem';
+import DeliveryOptions from '../components/Cart/DeliveryOptions';
 import CartFooter from '../components/Cart/CartFooter';
 import Button from '../components/Button/Button';
 import styled from '@emotion/styled';
@@ -147,16 +148,7 @@ function OrderConfirmPage() {
         <CartOrderItem products={products} />
         <CouponSelectButton onClick={openCouponModal}>쿠폰 적용</CouponSelectButton>
 
-        <DeliverySection>
-          <SectionTitle>배송 정보</SectionTitle>
-          <DeliveryItem>
-            <CouponCheckboxContainer>
-              <HiddenCheckbox type="checkbox" checked={remoteArea} onChange={toggleRemoteArea} />
-              <CouponStyledCheckbox checked={remoteArea} />
-            </CouponCheckboxContainer>
-            <DeliveryText>제주도 및 도서 산간 지역</DeliveryText>
-          </DeliveryItem>
-        </DeliverySection>
+        <DeliveryOptions checked={remoteArea} onToggle={toggleRemoteArea} />
 
         <CartInfo
           style={{ marginTop: '32px' }}
@@ -254,27 +246,6 @@ const Container = styled.div`
   overflow-y: auto;
 `;
 
-const DeliverySection = styled.div`
-  margin-top: 12px;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 16px;
-`;
-
-const DeliveryItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-`;
-
-const DeliveryText = styled.p`
-  font-size: 14px;
-`;
-
 const CouponButton = styled.button`
   display: flex;
   flex-direction: row;
@@ -307,7 +278,7 @@ const CouponListContainer = styled.div`
   overflow-y: auto;
 `;
 
-const CouponCheckboxContainer = styled.label`
+export const CouponCheckboxContainer = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -315,7 +286,7 @@ const CouponCheckboxContainer = styled.label`
   position: relative;
 `;
 
-const CouponStyledCheckbox = styled.div<{ checked: boolean; disabled?: boolean }>`
+export const CouponStyledCheckbox = styled.div<{ checked: boolean; disabled?: boolean }>`
   width: 24px;
   height: 24px;
   border-radius: 6px;
