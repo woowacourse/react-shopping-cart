@@ -25,7 +25,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     }
 
     updateTotalPurchasePrice(totalPrice + deliveryFee);
-  }, [selectedCartItems]);
+  }, [selectedCartItems, deliveryFee]);
 
   const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.discountType === 'freeShipping');
 
