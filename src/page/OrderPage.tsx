@@ -1,39 +1,21 @@
 import { STEP_NAME } from "@/constants/steps";
 
-import { useMemo, useState } from "react";
-
-import { useCouponFetch } from "@/hooks/Coupon/useCouponFetch";
-import { useBestCouponCombo } from "@/hooks/Coupon/useBestCouponCombo";
-import { useCouponSelection } from "@/hooks/Coupon/useCouponSelection";
-import { useCouponDiscount } from "@/hooks/Coupon/useCouponDiscount";
 import { useFunnelContext } from "@/contexts/FunnelContext";
 
 import CartLayout from "@/layout/CartLayout";
 import CartHeader from "@/components/Cart/CartHeader/CartHeader";
-import {
-  CartContentRoot,
-  CartContentLoading,
-  CartContentHeader,
-  CartContentItems,
-} from "@/components/Cart/CartContent/CartContent";
 import CartContentActions from "@/components/Cart/CartContentActions/CartContentActions";
-import {
-  OrderConfirmationDetailsHeader,
-  OrderConfirmationItemList,
-  OrderConfirmationCouponSelection,
-  OrderConfirmationShippingIsland,
-  OrderConfirmationPriceDetails,
-  BOGOOfferNotice,
-  OrderConfirmation,
-} from "./OrderConfirmation/OrderConfirmation";
 import OrderConfirmationActions from "./OrderConfirmation/Actions/OrderConfirmationActions";
-import Spinner from "@/components/common/Spinner";
 import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirmationHeader/OrderConfirmationHeader";
 import { CartDataProvider } from "@/components/Cart/contexts/CartDataContext";
 import {
   CartSelectionProvider,
   useCartSelectionContext,
 } from "@/components/Cart/contexts/CartSelectionContext";
+
+import ProductSelectionStep from "./OrderPage/ProductSelectionStep";
+import CouponPaymentStep from "./OrderPage/CouponPaymentStep";
+import { useOrderPageLogic } from "./OrderPage/hooks/useOrderPageLogic";
 
 function OrderPage() {
   return (
@@ -50,35 +32,14 @@ function OrderPageContent() {
     useFunnelContext();
   const { selectedCartItems } = useCartSelectionContext();
 
-  const [isInIsland, setIsInIsland] = useState(false);
-
-  const { couponsData, couponsFetchLoading } = useCouponFetch();
-
-  const allCouponsResult = useBestCouponCombo({
-    coupons: couponsData || [],
-    selectedShoppingCartItems: selectedCartItems,
-    isIsland: isInIsland,
-  });
-
-  const initialOptimalCouponIds = useMemo(() => {
-    return new Set(allCouponsResult.appliedCoupons.map((coupon) => coupon.id));
-  }, [allCouponsResult.appliedCoupons]);
-
-  const couponSelection = useCouponSelection(initialOptimalCouponIds);
-
-  const selectedCoupons = useMemo(
-    () =>
-      couponsData?.filter((coupon) =>
-        couponSelection.selectedCouponIds?.has(coupon.id)
-      ),
-    [couponsData, couponSelection.selectedCouponIds]
-  );
-
-  const result = useCouponDiscount({
-    selectedCoupons,
-    selectedShoppingCartItems: selectedCartItems,
-    isIsland: isInIsland,
-  });
+  const {
+    couponsData,
+    couponsFetchLoading,
+    couponSelection,
+    result,
+    isInIsland,
+    setIsInIsland,
+  } = useOrderPageLogic(selectedCartItems);
 
   return (
     <CartLayout>
@@ -90,34 +51,18 @@ function OrderPageContent() {
       )}
       <Funnel>
         <Step name="구매품 선택">
-          <CartContentRoot>
-            <CartContentLoading />
-            <CartContentHeader />
-            <CartContentItems />
-          </CartContentRoot>
+          <ProductSelectionStep />
         </Step>
         <Step name="쿠폰 적용 및 결제">
-          <OrderConfirmation
+          <CouponPaymentStep
             selectedCartItems={selectedCartItems}
             couponsData={couponsData}
+            couponsFetchLoading={couponsFetchLoading}
             couponSelection={couponSelection}
             result={result}
             isInIsland={isInIsland}
             setIsInIsland={setIsInIsland}
-          >
-            {couponsFetchLoading ? (
-              <Spinner />
-            ) : (
-              <>
-                <OrderConfirmationDetailsHeader />
-                <OrderConfirmationItemList />
-                <OrderConfirmationCouponSelection />
-                <OrderConfirmationShippingIsland />
-                <OrderConfirmationPriceDetails />
-                <BOGOOfferNotice />
-              </>
-            )}
-          </OrderConfirmation>
+          />
         </Step>
       </Funnel>
 

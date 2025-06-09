@@ -9,7 +9,7 @@ export interface CouponDiscountResult {
   finalTotal: number;
 }
 
-interface Props {
+interface useCouponDiscountProps {
   selectedCoupons: Coupon[] | undefined;
   selectedShoppingCartItems: CartItem[];
   isIsland?: boolean;
@@ -19,7 +19,7 @@ const useCouponDiscount = ({
   selectedCoupons = [],
   selectedShoppingCartItems,
   isIsland = false,
-}: Props): CouponDiscountResult => {
+}: useCouponDiscountProps): CouponDiscountResult => {
   const calculationResult = useCouponCalculation({
     coupons: selectedCoupons,
     selectedShoppingCartItems,
