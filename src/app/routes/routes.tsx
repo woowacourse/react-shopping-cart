@@ -16,6 +16,6 @@ export const router = createBrowserRouter(
     </Route>
   ),
   {
-    basename: '/react-shopping-cart',
+    basename: import.meta.env.MODE === 'production' ? '/react-shopping-cart' : '/',
   }
 );
