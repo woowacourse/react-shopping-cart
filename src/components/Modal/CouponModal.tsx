@@ -7,7 +7,7 @@ import { Coupon } from '../../types/response';
 import CheckBox from '../common/CheckBox';
 import { getLocalStorage } from '../../utils/localStorage';
 
-export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
   const [selectedCoupons, setSelectedCoupons] = useState<number[]>([]);
 
@@ -20,31 +20,18 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
   };
 
   const isCouponDisabled = (coupon: Coupon) => {
-    if (coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount) {
-      return true;
-    }
-    if (coupon.availableTime && !isInAvailableTimeRange(coupon.availableTime)) {
-      return true;
-    }
-    if (isExpired(coupon.expirationDate)) {
-      return true;
-    }
+    if (coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount) return true;
+    if (coupon.availableTime && !isInAvailableTimeRange(coupon.availableTime)) return true;
+    if (isExpired(coupon.expirationDate)) return true;
     return false;
   };
 
   const formatCouponDescription = (coupon: Coupon) => {
     const desc: string[] = [];
-
     desc.push(`만료일: ${coupon.expirationDate}`);
-
-    if (coupon.minimumAmount) {
-      desc.push(`최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`);
-    }
-
-    if (coupon.availableTime) {
+    if (coupon.minimumAmount) desc.push(`최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`);
+    if (coupon.availableTime)
       desc.push(`사용 가능 시간 ${formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}`);
-    }
-
     return desc.join('\n');
   };
 
@@ -56,12 +43,10 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
       <Modal.Content>
         <Modal.Title>쿠폰을 선택해 주세요</Modal.Title>
         <p css={styles.descStyle}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
-
         <ul css={styles.couponListStyle}>
           {coupons?.map((coupon) => {
             const isSelected = selectedCoupons.includes(coupon.id);
             const disabled = isCouponDisabled(coupon);
-
             return (
               <li
                 key={coupon.id}
@@ -89,9 +74,13 @@ export default function CouponModal({ isOpen, onClose }: { isOpen: boolean; onCl
       </Modal.Content>
     </Modal>
   );
-}
+};
 
-function calculateTotalDiscount(coupons: Coupon[] | undefined, selectedCoupons: number[], orderAmount: number): number {
+const calculateTotalDiscount = (
+  coupons: Coupon[] | undefined,
+  selectedCoupons: number[],
+  orderAmount: number
+): number => {
   const shippingInfo = getShippingInfoFromStorage();
   const baseFee = orderAmount >= 100000 ? 0 : 3000;
   const extraFee = shippingInfo.isRemoteArea ? 3000 : 0;
@@ -100,7 +89,6 @@ function calculateTotalDiscount(coupons: Coupon[] | undefined, selectedCoupons: 
     (c) => selectedCoupons.includes(c.id) && c.discountType === 'freeShipping'
   );
   const discountedDeliveryFee = isFreeShippingCouponApplied ? 0 : originalDeliveryFee;
-
   const bogoDiscount = coupons?.filter((c) => selectedCoupons.includes(c.id) && c.discountType === 'buyXgetY').length
     ? calculateBogoDiscount()
     : 0;
@@ -112,9 +100,9 @@ function calculateTotalDiscount(coupons: Coupon[] | undefined, selectedCoupons: 
     (originalDeliveryFee - discountedDeliveryFee) +
     bogoDiscount
   );
-}
+};
 
-function formatTimeRange(start: string, end: string): string {
+const formatTimeRange = (start: string, end: string): string => {
   const format = (time: string) => {
     const [hourStr] = time.split(':');
     const hour = parseInt(hourStr, 10);
@@ -122,48 +110,45 @@ function formatTimeRange(start: string, end: string): string {
     const displayHour = hour % 12 === 0 ? 12 : hour % 12;
     return `${period} ${displayHour}시`;
   };
-
   return `${format(start)}부터 ${format(end)}까지`;
-}
+};
 
-function getOrderAmountFromStorage(): number {
+const getOrderAmountFromStorage = () => {
   const items = getLocalStorage<{ price: number }[]>('selectedItems', []);
   return items.reduce((sum, item) => sum + item.price, 0);
-}
+};
 
-function getOrderItemsFromStorage(): { price: number; quantity: number }[] {
+const getOrderItemsFromStorage = () => {
   return getLocalStorage<{ price: number; quantity: number }[]>('selectedItems', []);
-}
+};
 
-function calculateBogoDiscount(): number {
+const calculateBogoDiscount = () => {
   const items = getOrderItemsFromStorage();
   const eligibleItems = items.filter((item) => item.quantity >= 2);
   if (eligibleItems.length === 0) return 0;
-
   const mostExpensiveItem = eligibleItems.reduce((prev, curr) => (curr.price > prev.price ? curr : prev));
   return mostExpensiveItem.price;
-}
+};
 
-function getShippingInfoFromStorage(): { isRemoteArea: boolean } {
+const getShippingInfoFromStorage = () => {
   const value = getLocalStorage<boolean>('isRemoteArea', false);
   return { isRemoteArea: value === true };
-}
+};
 
-function isInAvailableTimeRange({ start, end }: { start: string; end: string }): boolean {
+const isInAvailableTimeRange = ({ start, end }: { start: string; end: string }) => {
   const now = new Date();
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
-
   const [startHour, startMinute] = start.split(':').map(Number);
   const [endHour, endMinute] = end.split(':').map(Number);
   const startMinutes = startHour * 60 + startMinute;
   const endMinutes = endHour * 60 + endMinute;
-
   return nowMinutes >= startMinutes && nowMinutes <= endMinutes;
-}
+};
 
-function isExpired(expirationDate: string): boolean {
+const isExpired = (expirationDate: string) => {
   const now = new Date();
   const expiration = new Date(expirationDate);
-
   return now > expiration;
-}
+};
+
+export default CouponModal;
