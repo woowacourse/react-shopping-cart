@@ -1,18 +1,21 @@
 import { MemoryRouter } from 'react-router';
 import App from '../src/pages/CartPage/CartPage';
 import { CartItemsProvider } from '../src/features/cart/context/CartItemsProvider';
-import { SelectedCartItemsProvider } from '../src/features/cart/context/SelectedCartItemsProvider';
+import { CouponsProvider } from '../src/features/coupon/context/CouponsProvider';
+import { CartWithOrderProvider } from '../src/shared/context/CartWithOrderProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it } from 'vitest';
+import { describe, it, beforeEach, expect } from 'vitest';
 
 function renderApp() {
   return render(
     <MemoryRouter initialEntries={['/']}>
       <CartItemsProvider>
-        <SelectedCartItemsProvider>
-          <App />
-        </SelectedCartItemsProvider>
+        <CouponsProvider>
+          <CartWithOrderProvider>
+            <App />
+          </CartWithOrderProvider>
+        </CouponsProvider>
       </CartItemsProvider>
     </MemoryRouter>
   );
