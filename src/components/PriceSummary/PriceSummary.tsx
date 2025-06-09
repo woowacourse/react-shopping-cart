@@ -1,5 +1,6 @@
 import useCartCalculations from "../../hooks/useCartCalculations";
-import { useCouponContext } from "../../hooks/useCouponContext";
+import CouponDiscount from "../PriceInfo/CouponDiscount";
+import CouponTotalPrice from "../PriceInfo/CouponTotalPrice";
 import PriceInfo from "../PriceInfo/PriceInfo";
 import * as S from "./PriceSummary.styles";
 
@@ -10,20 +11,16 @@ interface PriceSummaryProps {
 const PriceSummary = ({ showDiscount = false }: PriceSummaryProps) => {
   const { orderPrice, shippingFee, totalPrice } = useCartCalculations();
 
-  const { totalDiscount } = useCouponContext();
-
   return (
     <S.PriceSummary>
       <S.PriceInfoWrapper>
         <PriceInfo label="주문 금액" price={orderPrice} />
-        {showDiscount && (
-          <PriceInfo label="쿠폰 할인 금액" price={-totalDiscount} />
-        )}
+        {showDiscount && <CouponDiscount />}
         <PriceInfo label="배송비" price={shippingFee} />
       </S.PriceInfoWrapper>
       <S.PriceInfoWrapper>
         {showDiscount ? (
-          <PriceInfo label="총 결제 금액" price={totalPrice - totalDiscount} />
+          <CouponTotalPrice totalPrice={totalPrice} />
         ) : (
           <PriceInfo label="총 결제 금액" price={totalPrice} />
         )}
