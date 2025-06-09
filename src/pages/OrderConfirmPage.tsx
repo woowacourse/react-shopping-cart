@@ -13,6 +13,7 @@ import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartCo
 import { formatDate, formatTimeRange } from '../utils/dateTimeFormatter';
 import { CartProduct } from '../types/cart';
 import { Coupon } from '../types/coupon';
+import { calculateCouponDiscount } from '../utils/couponCalculations';
 
 function OrderConfirmPage() {
   const location = useLocation();
@@ -25,49 +26,19 @@ function OrderConfirmPage() {
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
-  const calculateCouponDiscount = (coupons: Coupon[] = selectedCoupons) => {
-    return coupons.reduce((total, coupon) => {
-      if (coupon.discountType === 'fixed' && coupon.discount) {
-        return total + coupon.discount;
-      }
+  const couponDiscount = calculateCouponDiscount({
+    coupons: selectedCoupons,
+    products: products || [],
+    total: price,
+    shippingFee: shippingFee,
+  });
 
-      if (coupon.discountType === 'percentage' && coupon.discount) {
-        const discountAmount = (price * coupon.discount) / 100;
-        return total + discountAmount;
-      }
-
-      if (coupon.discountType === 'buyXgetY' && coupon.buyQuantity && coupon.getQuantity) {
-        const requiredQuantity = coupon.buyQuantity + coupon.getQuantity;
-
-        const discountableItems = products
-          .filter((item: CartProduct) => item.quantity >= requiredQuantity)
-          .map((item: CartProduct) => {
-            const numberOfSets = Math.floor(item.quantity / requiredQuantity);
-            return {
-              productId: item.id,
-              unitPrice: item.product.price,
-              discountSets: numberOfSets,
-              totalDiscount: item.product.price * numberOfSets * (coupon.getQuantity as number),
-            };
-          })
-          .sort((a, b) => b.totalDiscount - a.totalDiscount);
-
-        const maxDiscount = discountableItems[0]?.totalDiscount || 0;
-        return total + maxDiscount;
-      }
-
-      if (coupon.discountType === 'freeShipping' && coupon.minimumAmount) {
-        if (price > coupon.minimumAmount) {
-          return total + shippingFee;
-        }
-      }
-
-      return total;
-    }, 0);
-  };
-
-  const couponDiscount = calculateCouponDiscount();
-  const tempCouponDiscount = calculateCouponDiscount(tempSelectedCoupons);
+  const tempCouponDiscount = calculateCouponDiscount({
+    coupons: tempSelectedCoupons,
+    products: products || [],
+    total: price,
+    shippingFee: shippingFee,
+  });
 
   const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
   const totalShippingFee = shippingFee + remoteAreaFee;
