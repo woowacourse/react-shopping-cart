@@ -1,7 +1,8 @@
-import { http, HttpResponse } from "msw";
-import mockCartItemResponse from "./shoppingCart.json";
-import mockProductResponse from "./product.json";
-import { CartItemTypes } from "../types/cartItem";
+import { http, HttpResponse } from 'msw';
+import mockCartItemResponse from './shoppingCart.json';
+import mockProductResponse from './product.json';
+import mockCoupons from './coupon.json';
+import { CartItemTypes } from '../types/cartItem';
 
 const products = structuredClone(mockProductResponse.content);
 
@@ -53,8 +54,8 @@ function createCartHandlers() {
 
         if (!product)
           return errorResponse(
-            "PRODUCT_NOT_FOUND",
-            "존재하지 않는 상품입니다.",
+            'PRODUCT_NOT_FOUND',
+            '존재하지 않는 상품입니다.',
             404
           );
 
@@ -91,8 +92,8 @@ function createCartHandlers() {
 
         if (!item)
           return errorResponse(
-            "CART_NOT_FOUND",
-            "존재하지 않는 장바구니 상품입니다.",
+            'CART_NOT_FOUND',
+            '존재하지 않는 장바구니 상품입니다.',
             404
           );
 
@@ -112,4 +113,9 @@ function createCartHandlers() {
 
 const { cartHandlers, resetCartItems } = createCartHandlers();
 export { resetCartItems };
-export const handlers = [...cartHandlers];
+export const handlers = [
+  ...cartHandlers,
+  http.get(`${import.meta.env.VITE_BASE_URL}/coupons`, () => {
+    return HttpResponse.json([...mockCoupons]);
+  }),
+];
