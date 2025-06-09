@@ -120,7 +120,7 @@ describe("OrderService 테스트", () => {
         [fixedCoupon, mockFreeShippingCoupon]
       );
 
-      expect(result.orderAmount).toBe(95000);
+      expect(result.orderAmount).toBe(100000);
       expect(result.deliveryFee).toBe(0);
       expect(result.couponDiscount).toBe(5000);
       expect(result.totalPrice).toBe(95000);
@@ -159,10 +159,16 @@ describe("OrderService 테스트", () => {
 
       const result = OrderService.convertCouponResultToOrderBreakdown(
         mockCartItems,
-        couponResult
+        couponResult,
+        {
+          cartItems: mockCartItems,
+          originalOrderAmount: 100000,
+          originalDeliveryFee: 3000,
+          isRemoteArea: true,
+        }
       );
 
-      expect(result.orderAmount).toBe(95000);
+      expect(result.orderAmount).toBe(100000);
       expect(result.deliveryFee).toBe(0);
       expect(result.couponDiscount).toBe(5000);
       expect(result.totalPrice).toBe(95000);
