@@ -5,7 +5,6 @@ import { isValidOrderConfirmState } from "./validation/isValidOrderConfirmState"
 import { ROUTES } from "@/shared/config/routes";
 import Fallback from "@/shared/components/Fallback/Fallback";
 import OrderConfirmContent from "./OrderConfirmContent/OrderConfirmContent";
-import { getOrderQuantity } from "@/domains/utils/getOrderQuantity";
 
 export default function OrderConfirmPage() {
   const { state, isValidating } = useValidateLocationState({
@@ -25,11 +24,7 @@ export default function OrderConfirmPage() {
       <Header>
         <BackButton />
       </Header>
-      <OrderConfirmContent
-        orderList={orderList}
-        orderListCount={orderList.length}
-        orderQuantity={getOrderQuantity(orderList)}
-      />
+      <OrderConfirmContent orderList={orderList} />
     </>
   );
 }
