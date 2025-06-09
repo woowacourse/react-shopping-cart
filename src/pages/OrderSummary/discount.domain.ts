@@ -61,7 +61,7 @@ function getDiscountAmount(
   coupon: CouponType,
   price: number,
   cartItems: CartItemType[],
-  shippingCost: number
+  deliveryCost: number
 ): number {
   switch (coupon.discountType) {
     case "fixed":
@@ -71,7 +71,7 @@ function getDiscountAmount(
       return calculatePercentageDiscount(coupon as PercentageCoupon, price);
 
     case "freeShipping":
-      return calculateFreeShippingDiscount(shippingCost);
+      return calculateFreeDeliveryCostDiscount(deliveryCost);
 
     case "buyXgetY":
       return calculateBuyXGetYDiscount(coupon as BuyXGetYCoupon, cartItems);
@@ -92,8 +92,8 @@ function calculatePercentageDiscount(
   return Math.floor(price * (coupon.discount / 100));
 }
 
-function calculateFreeShippingDiscount(shippingCost: number): number {
-  return Math.max(0, shippingCost);
+function calculateFreeDeliveryCostDiscount(deliveryCost: number): number {
+  return Math.max(0, deliveryCost);
 }
 
 function calculateBuyXGetYDiscount(
