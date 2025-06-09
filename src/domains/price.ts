@@ -34,9 +34,9 @@ export const getDiscountPriceByType = ({
   selectedCartItem,
 }: {
   coupon: CouponType;
-  orderPrice?: number;
-  deliveryPrice?: number;
-  selectedCartItem?: ResponseCartItem[];
+  orderPrice: number;
+  deliveryPrice: number;
+  selectedCartItem: ResponseCartItem[];
 }) => {
   if (coupon.discountType === "fixed") {
     return coupon.discount;
@@ -69,10 +69,12 @@ export const getDiscountPrice = ({
   selectedCoupon,
   orderPrice,
   selectedCartItem,
+  deliveryPrice,
 }: {
   selectedCoupon: CouponType[];
   orderPrice: number;
-  selectedCartItem?: ResponseCartItem[];
+  selectedCartItem: ResponseCartItem[];
+  deliveryPrice: number;
 }) => {
   if (selectedCoupon.length === 0) return 0;
 
@@ -80,6 +82,7 @@ export const getDiscountPrice = ({
     return getDiscountPriceByType({
       coupon: selectedCoupon[0],
       orderPrice,
+      deliveryPrice,
       selectedCartItem,
     });
   }
@@ -91,20 +94,28 @@ export const getDiscountPrice = ({
     const applyFirstCoupon = getDiscountPriceByType({
       coupon: firstCoupon,
       orderPrice,
+      deliveryPrice,
+      selectedCartItem,
     });
 
     const applySecondCoupon = getDiscountPriceByType({
       coupon: secondCoupon,
       orderPrice: orderPrice - applyFirstCoupon,
+      deliveryPrice,
+      selectedCartItem,
     });
 
     const applyFirstCouponReverse = getDiscountPriceByType({
       coupon: secondCoupon,
       orderPrice,
+      deliveryPrice,
+      selectedCartItem,
     });
     const applySecondCouponReverse = getDiscountPriceByType({
       coupon: firstCoupon,
       orderPrice: orderPrice - applyFirstCouponReverse,
+      deliveryPrice,
+      selectedCartItem,
     });
 
     return Math.max(

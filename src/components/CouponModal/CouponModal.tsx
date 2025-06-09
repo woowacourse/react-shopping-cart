@@ -25,12 +25,15 @@ export default function CouponModal({
   const prevSelectedCoupon = useRef(selectedCoupon);
   const { setCoupons } = useCouponAction();
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).id === "modal-overlay") {
-      onClose();
-      setCoupons(prevSelectedCoupon.current);
-    }
-  };
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if ((e.target as HTMLElement).id === "modal-overlay") {
+        onClose();
+        setCoupons(prevSelectedCoupon.current);
+      }
+    },
+    [onClose, setCoupons]
+  );
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {

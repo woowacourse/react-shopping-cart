@@ -28,13 +28,14 @@ function OrderCheckPage() {
   const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
   const selectedCoupon = useSelectedCouponContext();
 
+  const deliveryPrice = calcDeliveryPrice(totalPrice, isSelectJejuChecked);
+
   const discountPrice = getDiscountPrice({
     selectedCoupon,
     orderPrice: totalPrice,
     selectedCartItem,
+    deliveryPrice,
   });
-
-  const deliveryPrice = calcDeliveryPrice(totalPrice, isSelectJejuChecked);
 
   const handlePay = () => {
     navigate("/complete", {
