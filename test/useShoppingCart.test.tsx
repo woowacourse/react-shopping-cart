@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import useShoppingCart from "../src/hooks/useShoppingCart/useShoppingCart";
 import { CartItemsProvider } from "../src/contexts/CartItemsProvider";
 import { ErrorToastContextProvider } from "../src/contexts/ErrorToastContext";
