@@ -20,10 +20,10 @@ function reducer<K>(state: Map<K, boolean>, action: Action<K>): Map<K, boolean> 
   }
 }
 
-export function useCheckList<T, K>(items: T[], getKey: (item: T) => K) {
-  const initialState = new Map<K, boolean>(items.map((item) => [getKey(item), true]));
+export function useCheckList<T, K>(items: T[], getKey: (item: T) => K, initialState?: Map<K, boolean>) {
+  const defaultState = new Map<K, boolean>(items.map((item) => [getKey(item), true]));
 
-  const [state, dispatch] = useReducer(reducer<K>, initialState);
+  const [state, dispatch] = useReducer(reducer<K>, initialState ?? defaultState);
 
   const toggle = (id: K) => dispatch({ type: 'TOGGLE', id });
   const checkAll = () => dispatch({ type: 'CHECK_ALL' });

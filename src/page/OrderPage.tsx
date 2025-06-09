@@ -7,6 +7,7 @@ import { useState } from 'react';
 import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import PriceRow from '../components/PriceArea/PriceRow';
 
 type SelectedItem = {
   id: number;
@@ -72,9 +73,9 @@ function OrderPage() {
         </section>
         {isOpen && <CouponModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
         <div css={styles.summaryCss}>
-          <p css={styles.priceCss}>총 주문 금액: {totalPrice.toLocaleString()}원</p>
-          <p css={styles.priceCss}>배송비: {deliveryFee.toLocaleString()}원</p>
-          <p css={styles.priceCss}>총 결제 금액: {totalPrice.toLocaleString()}원</p>
+          <PriceRow label="총 주문 금액" amount={totalPrice} />
+          <PriceRow label="배송비" amount={deliveryFee} />
+          <PriceRow label="총 결제 금액" amount={totalPrice} />
         </div>
         <Button>결제하기</Button>
       </main>

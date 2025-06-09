@@ -7,22 +7,27 @@ import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
 import { calculateDeliveryFee, calculateOrderAmount } from './calculate';
-import { setLocalStorage } from '../../utils/localStorage';
+import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
+import { useEffect } from 'react';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
 }
 
 export default function CartItemList({ cartItems }: CartItemListProps) {
-  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(cartItems, (item) => item.id);
   const navigate = useNavigate();
+  const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(
+    cartItems,
+    (item) => item.id,
+    getLocalStorageCheckedState(cartItems)
+  );
 
   const checkedItems = getCheckedItems(cartItems, state);
   const orderAmount = calculateOrderAmount(checkedItems);
   const deliveryFee = calculateDeliveryFee(orderAmount);
   const totalAmount = orderAmount + deliveryFee;
 
-  const handleConfirmButtonClick = () => {
+  useEffect(() => {
     const selectedItems = checkedItems.map((item) => ({
       id: item.id,
       name: item.product.name,
@@ -30,9 +35,9 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
       price: item.product.price,
       imageUrl: item.product.imageUrl
     }));
-
     setLocalStorage('selectedItems', selectedItems);
-  };
+  }, [checkedItems]);
+
   return (
     <div css={styles.cartItemsAreaCss}>
       {cartItems.length === 0 ? (
@@ -56,13 +61,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
         </>
       )}
-      <Button
-        disabled={!Array.from(state.values()).some(Boolean)}
-        onClick={() => {
-          handleConfirmButtonClick();
-          navigate('/order');
-        }}
-      >
+      <Button disabled={!Array.from(state.values()).some(Boolean)} onClick={() => navigate('/order')}>
         주문 확인
       </Button>
     </div>
@@ -71,4 +70,11 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
 
 const getCheckedItems = (cartItems: CartItemType[], state: Map<number, boolean>): CartItemType[] => {
   return cartItems.filter((item) => state.get(item.id));
+};
+
+const getLocalStorageCheckedState = (cartItems: CartItemType[]): Map<number, boolean> => {
+  const selectedItems = getLocalStorage<CartItemType[]>('selectedItems', []);
+  const selectedIds = new Set(selectedItems.map((item) => item.id));
+
+  return new Map(cartItems.map((item) => [item.id, selectedIds.has(item.id)]));
 };
