@@ -32,19 +32,17 @@ function OrderCheckPage() {
   const navigate = useNavigate();
   const cart = useCartContext();
   const couponList = useCouponList();
-
-  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
-  const [checkedCoupons, setCheckedCoupons] = useState<number[]>([]);
-
   const validatedCouponList = validateCoupons(
     couponList.data,
     cart.subTotal,
     cart.selectedCartItems
   );
 
-  const availableCouponList = getAvailableCoupons(validatedCouponList);
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
+  const [checkedCoupons, setCheckedCoupons] = useState<number[] | null>(null);
 
+  const availableCouponList = getAvailableCoupons(validatedCouponList);
   const result = getBestCouponCombo(
     checkedCoupons,
     cart.selectedCartItems,
@@ -59,7 +57,6 @@ function OrderCheckPage() {
     hasFreeShipping,
     isRemotedAreaChecked
   );
-
   const finalPrice = calculateFinalPrice(
     result?.PriceWithDiscount ?? 0,
     deliveryFee
@@ -132,10 +129,11 @@ function OrderCheckPage() {
         <Text varient="body">결제하기</Text>
       </Button>
       <CouponModal
+        isLoading={couponList.isLoading}
         isOpen={isCouponModalOpen}
         onClose={handleCouponModalClose}
         validatedCouponList={validatedCouponList}
-        checkedCoupon={checkedCoupons}
+        checkedCoupon={checkedCoupons ?? []}
         onCouponAccept={handleCouponAccept}
       />
     </>
