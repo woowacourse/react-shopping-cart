@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import Header from "../../components/Common/Header/Header";
+import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
 import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
 import { CartItemType } from "../../types/response";
 import { getAllQuantity } from "../../domains/quantity";

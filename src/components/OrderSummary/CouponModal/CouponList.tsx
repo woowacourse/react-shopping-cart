@@ -1,5 +1,5 @@
-import { useCouponContext } from "../../contexts/CouponProvider";
-import { CartItemType } from "../../types/response";
+import { useCouponContext } from "../../../contexts/CouponProvider";
+import { CartItemType } from "../../../types/response";
 import CouponItem from "./CouponItem/CouponItem";
 
 interface CouponListProps {

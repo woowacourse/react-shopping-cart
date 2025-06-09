@@ -1,16 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
+
 import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
 import { BackIcon } from "../../constants/images";
 import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
-import Description from "../../components/Description/Description";
-import OrderItemList from "../../components/OrderItemList/OrderItemList";
-import CouponButton from "../../components/CouponButton/CouponButton";
-import CheckBox from "../../components/CheckBox/CheckBox";
-import Receipt from "../../components/Receipt/Receipt";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import CouponModal from "../../components/CouponModal/CouponModal";
+
+import OrderItemList from "../../components/OrderSummary/OrderItemList/OrderItemList";
+import CouponButton from "../../components/OrderSummary/CouponButton/CouponButton";
+
+import CouponModal from "../../components/OrderSummary/CouponModal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { useState } from "react";
@@ -18,6 +16,11 @@ import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
 import useResetCouponOnUnmount from "../../hooks/orderSummary/useResetCouponOnUnmount";
 import { calculateDiscountAmount } from "./discount.domain";
 import { getAllQuantity } from "../../domains/quantity";
+import Header from "../../components/Common/Header/Header";
+import Description from "../../components/Common/Description/Description";
+import CheckBox from "../../components/Common/CheckBox/CheckBox";
+import Receipt from "../../components/Common/Receipt/Receipt";
+import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
 
 function OrderSummary() {
   useResetCouponOnUnmount();

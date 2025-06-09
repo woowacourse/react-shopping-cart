@@ -1,7 +1,7 @@
-import { useCouponManagerProvider } from "../../../contexts/CouponManagerProvider";
-import { CouponType, DiscountType } from "../../../types/coupon";
-import { CartItemType } from "../../../types/response";
-import CheckBox from "../../CheckBox/CheckBox";
+import { useCouponManagerProvider } from "../../../../contexts/CouponManagerProvider";
+import { CouponType, DiscountType } from "../../../../types/coupon";
+import { CartItemType } from "../../../../types/response";
+import CheckBox from "../../../Common/CheckBox/CheckBox";
 import { Container, CouponText } from "./CouponItem.styles";
 import { isCouponDisabled } from "./couponDisabled.domain";
 import {

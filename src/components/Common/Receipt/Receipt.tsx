@@ -1,5 +1,5 @@
 import { InfoText, Table } from "./Receipt.styles";
-import { Info } from "../../constants/images";
+import { Info } from "../../../constants/images";
 
 interface ReceiptProps {
   orderCost: number;

@@ -1,5 +1,5 @@
-import { CartItemType } from "../../types/response";
-import { Container } from "../CartItemList/CartItemList.styles";
+import { CartItemType } from "../../../types/response";
+import { Container } from "../../Cart/CartItemList/CartItemList.styles";
 import OrderItem from "../OrderItem/OrderItem";
 
 interface OrderItemListProps {

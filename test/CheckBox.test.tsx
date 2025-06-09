@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import CheckBox from "../src/components/CheckBox/CheckBox";
+import CheckBox from "../src/components/Common/CheckBox/CheckBox";
 
 function CheckBoxWrapper() {
   const [selected, setSelected] = useState(true);

@@ -1,4 +1,4 @@
-import { CartItemType } from "../../types/response";
+import { CartItemType } from "../../../types/response";
 import CartItem from "../CartItem/CartItem/CartItem";
 import { Container } from "./CartItemList.styles";
 

@@ -1,4 +1,4 @@
-import { DefaultCartImg } from "../../../constants/images";
+import { DefaultCartImg } from "../../../../constants/images";
 import { ProductImage } from "./CartItemImage.styles";
 
 interface CartItemImageProps {

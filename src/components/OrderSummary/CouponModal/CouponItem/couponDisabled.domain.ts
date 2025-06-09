@@ -1,5 +1,5 @@
-import { CouponType, DiscountType } from "../../../types/coupon";
-import { CartItemType } from "../../../types/response";
+import { CouponType, DiscountType } from "../../../../types/coupon";
+import { CartItemType } from "../../../../types/response";
 import {
   isBuyXGetYCoupon,
   isFixedCoupon,

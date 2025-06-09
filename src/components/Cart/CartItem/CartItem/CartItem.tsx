@@ -1,6 +1,6 @@
-import useQuantityControl from "../../../hooks/cart/useQuantityControl";
-import { CartItemType } from "../../../types/response";
-import CheckBox from "../../CheckBox/CheckBox";
+import useQuantityControl from "../../../../hooks/cart/useQuantityControl";
+import { CartItemType } from "../../../../types/response";
+import CheckBox from "../../../Common/CheckBox/CheckBox";
 import QuantityControlButton from "../../QuantityControlButton/QuantityControlButton";
 import {
   CountContainer,

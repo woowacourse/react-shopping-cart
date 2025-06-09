@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useCouponManagerProvider } from "../../../contexts/CouponManagerProvider";
+import { useCouponManagerProvider } from "../../../../contexts/CouponManagerProvider";
 import { isFreeShippingCoupon } from "./utils";
-import { CouponType } from "../../../types/coupon";
+import { CouponType } from "../../../../types/coupon";
 
 interface UseRemoveDisabledFreeShippingCouponProps {
   disabled: boolean;

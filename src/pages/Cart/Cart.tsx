@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import CartItemList from "../../components/CartItemList/CartItemList";
-import CheckBox from "../../components/CheckBox/CheckBox";
-import Description from "../../components/Description/Description";
-import Header from "../../components/Header/Header";
-import Receipt from "../../components/Receipt/Receipt";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import CartItemList from "../../components/Cart/CartItemList/CartItemList";
+
 import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/common/useFetch";
@@ -15,6 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { CartLogo } from "../../constants/images";
 import { NoCartItemText, Wrap } from "./Cart.styles";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
+import Header from "../../components/Common/Header/Header";
+import Description from "../../components/Common/Description/Description";
+import CheckBox from "../../components/Common/CheckBox/CheckBox";
+import Receipt from "../../components/Common/Receipt/Receipt";
+import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],

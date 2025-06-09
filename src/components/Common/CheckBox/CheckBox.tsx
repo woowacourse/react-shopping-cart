@@ -1,4 +1,4 @@
-import { DisabledCheck, EnabledCheck } from "../../constants/images";
+import { DisabledCheck, EnabledCheck } from "../../../constants/images";
 import { BigText, Button, Container, SmallText } from "./\bCheckBox.styles";
 
 interface CheckBoxProps {
