@@ -32,6 +32,9 @@ import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
 import { getDeliveryFee } from '../../utils/getDeliveryFee';
 import { Coupon } from '../../types/coupon';
 import { CartItemTypes } from '../../types/cartItem';
+import { useCouponSelection } from '../../hooks/useCouponSelection';
+
+const MAX_SELECTED_COUPON_COUNT = 2;
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
@@ -39,7 +42,7 @@ export function OrderConfirm() {
 
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
-  const [selectedCouponIds, setSelectedCouponIds] = useState<string[]>([]);
+
   const [finalSelectedCouponIds, setFinalSelectedCouponIds] = useState<
     string[]
   >([]);
@@ -52,41 +55,22 @@ export function OrderConfirm() {
     selectedCartItemIds.includes(cartItem.id.toString())
   );
 
-  const handleCouponIdsChange = (id: string) => {
-    const index = selectedCouponIds.findIndex((e) => e === id);
-
-    const copy = [...selectedCouponIds];
-    if (index === -1) {
-      if (selectedCouponIds.length === 2) {
-        alert('쿠폰은 2개까지만 선택 가능합니다.');
-        return;
-      }
-
-      copy.push(id);
-      setSelectedCouponIds(copy);
-    } else {
-      copy.splice(index, 1);
-      setSelectedCouponIds(copy);
-    }
-
-    const forward = calculateCouponPrice({
-      couponIds: copy,
-      coupons,
-      selectedCartItems,
-      deliveryFee,
-      nowDate: new Date(),
-    });
-    const reverse = calculateCouponPrice({
-      couponIds: copy.reverse(),
-      coupons,
-      selectedCartItems,
-      deliveryFee,
-      nowDate: new Date(),
-    });
-    if (forward < reverse) {
-      setSelectedCouponIds(copy.reverse());
-    }
+  const handleExceed = () => {
+    alert('쿠폰은 2개까지만 선택 가능합니다.');
   };
+
+  const { selectedCouponIds, toggleCouponId } = useCouponSelection({
+    maxCoupons: MAX_SELECTED_COUPON_COUNT,
+    onExceed: handleExceed,
+    calculatePrice: (couponIds) =>
+      calculateCouponPrice({
+        couponIds,
+        coupons,
+        selectedCartItems,
+        deliveryFee,
+        nowDate: new Date(),
+      }),
+  });
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
@@ -220,7 +204,7 @@ export function OrderConfirm() {
           <CouponModalContent
             handleClose={handleClose}
             handleUseClick={handleUseClick}
-            handleCouponIdsChange={handleCouponIdsChange}
+            handleCouponIdsChange={toggleCouponId}
             coupons={coupons}
             selectedCouponIds={selectedCouponIds}
             couponPrice={couponPrice}
