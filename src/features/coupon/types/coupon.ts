@@ -7,6 +7,8 @@ export interface Coupon {
   availableTime?: AvailableTime;
   discount?: number;
   minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
 }
 
 export type CouponType = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
