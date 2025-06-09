@@ -49,6 +49,11 @@ export const validateCoupons = ({
     case CouponType.PERCENTAGE: {
       return validatePercentageDiscountCoupon({
         coupon,
+        time: {
+          hour: today.getHours(),
+          min: today.getMinutes(),
+          sec: today.getSeconds(),
+        },
       });
     }
     case CouponType.BUY_X_GET_Y: {

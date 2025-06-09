@@ -3,17 +3,14 @@ import { getTimes } from "./getTimes";
 
 export const validatePercentageDiscountCoupon = ({
   coupon,
+  time: { hour: currentHour, min: currentMin, sec: currentSec },
 }: {
   coupon: PercentageDiscountCoupon;
+  time: { hour: number; min: number; sec: number };
 }) => {
   const {
     availableTime: { start, end },
   } = coupon;
-
-  const currentDate = new Date();
-  const currentHour = currentDate.getHours();
-  const currentMin = currentDate.getMinutes();
-  const currentSec = currentDate.getSeconds();
 
   const { hour: startHour, min: startMin, sec: startSec } = getTimes(start);
   const { hour: endHour, min: endMin, sec: endSec } = getTimes(end);
