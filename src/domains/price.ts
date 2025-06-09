@@ -68,9 +68,11 @@ export const getDiscountPriceByType = ({
 export const getDiscountPrice = ({
   selectedCoupon,
   orderPrice,
+  selectedCartItem,
 }: {
   selectedCoupon: CouponType[];
   orderPrice: number;
+  selectedCartItem?: ResponseCartItem[];
 }) => {
   if (selectedCoupon.length === 0) return 0;
 
@@ -78,6 +80,7 @@ export const getDiscountPrice = ({
     return getDiscountPriceByType({
       coupon: selectedCoupon[0],
       orderPrice,
+      selectedCartItem,
     });
   }
 

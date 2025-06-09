@@ -31,6 +31,7 @@ function OrderCheckPage() {
   const discountPrice = getDiscountPrice({
     selectedCoupon,
     orderPrice: totalPrice,
+    selectedCartItem,
   });
 
   const deliveryPrice = calcDeliveryPrice(totalPrice, isSelectJejuChecked);
