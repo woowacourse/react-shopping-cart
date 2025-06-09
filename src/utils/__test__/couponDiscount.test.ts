@@ -7,6 +7,7 @@ import {
   hasFreeShippingCoupon,
   calculateFinalPrice,
   simulateCombo,
+  getBestCouponCombo,
 } from '../couponDiscount';
 import { CartItemProps } from '../../types/cartItem';
 
@@ -103,6 +104,58 @@ describe('단독 쿠폰 적용 테스트', () => {
     expect(result.PriceWithDiscount).toEqual(35000);
     expect(result.finalShipping).toEqual(3000);
     expect(result.finalPayable).toEqual(38000);
+  });
+});
+
+describe('할인률 가장 높은 쿠폰 적용 테스트', () => {
+  let couponList: Coupon[];
+  let cartItems: CartItemProps[];
+  beforeEach(() => {
+    couponList = mockCoupon as Coupon[];
+    cartItems = [
+      {
+        id: 1,
+        quantity: 5,
+        product: {
+          id: 1,
+          name: '상품 1',
+          price: 10000,
+          imageUrl: 'https://via.placeholder.com/150',
+          category: '카테고리 1',
+        },
+      },
+      {
+        id: 2,
+        quantity: 2,
+        product: {
+          id: 2,
+          name: '상품 1',
+          price: 20000,
+          imageUrl: 'https://via.placeholder.com/150',
+          category: '카테고리 1',
+        },
+      },
+    ];
+  });
+  it('cartItems에 대해 미라클모닝 + (2+1) 할인 쿠폰 조합 테스트 ', () => {
+    const result = getBestCouponCombo(null, cartItems, couponList, 90000, 0);
+
+    expect(result.totalDiscount).toEqual(47000);
+    expect(result.breakdown).toEqual({ MIRACLESALE: 63000, BOGO: 43000 });
+    expect(result.PriceWithDiscount).toEqual(43000);
+    expect(result.finalShipping).toEqual(0);
+    expect(result.finalPayable).toEqual(43000);
+  });
+
+  it('미라클모닝 쿠폰 비활성와 상태에서 cartItems에 대해 ', () => {
+    couponList.pop();
+    const result = getBestCouponCombo(null, cartItems, couponList, 90000, 0);
+
+    expect(result.totalDiscount).toEqual(25000);
+    expect(result.breakdown).toEqual({ FIXED5000: 85000, BOGO: 65000 });
+    expect(result.PriceWithDiscount).toEqual(65000);
+    expect(result.finalShipping).toEqual(0);
+    expect(result.finalPayable).toEqual(65000);
   });
 });
 
