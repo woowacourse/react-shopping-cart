@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export type CartPriceVariant = 'default' | 'shipping' | 'total';
+export type CartPriceVariant = 'default' | 'shipping' | 'total' | 'coupon';
 interface CartPriceProps {
   title: string;
   price: number;
@@ -11,7 +11,9 @@ function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
   return (
     <StyledTotalContainer variant={variant}>
       <Title>{title}</Title>
-      <TotalPrice>{price.toLocaleString()}원</TotalPrice>
+      <TotalPrice>
+        {variant === 'coupon' ? '-' + price.toLocaleString() : price.toLocaleString()}원
+      </TotalPrice>
     </StyledTotalContainer>
   );
 }
