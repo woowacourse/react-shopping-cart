@@ -4,7 +4,7 @@ import { Coupon } from '../../types/coupon';
 import Button from '../common/Button';
 import CouponItem from './CouponItem';
 import Modal from './Modal';
-import { calculateCouponDiscount } from './calculateCouponDiscount';
+import { calculateCouponDiscount } from './utils/calculateCouponDiscount';
 import { css } from '@emotion/react';
 
 interface CouponModalProps {

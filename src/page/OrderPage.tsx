@@ -6,15 +6,15 @@ import * as styles from '../styles/page.style';
 import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
 import { CartItemType } from '../types/cartItem';
-import { css } from '@emotion/react';
 import CheckBox from '../components/common/CheckBox';
 import { useCoupons } from '../hooks/useCoupons';
 import { useToggle } from '../hooks/useToggle';
-import { getBestCoupons } from '../components/Modal/getBestCoupons';
+import { getBestCoupons } from '../components/Modal/utils/getBestCoupons';
 import { Coupon } from '../types/coupon';
-import { calculateCouponDiscount } from '../components/Modal/calculateCouponDiscount';
+import { calculateCouponDiscount } from '../components/Modal/utils/calculateCouponDiscount';
 import CouponModal from '../components/Modal/CouponModal';
-import { isCouponDisabled } from '../components/Modal/isCouponDisabled';
+import { isCouponDisabled } from '../components/Modal/utils/isCouponDisabled';
+import { css } from '@emotion/react';
 
 function OrderPage() {
   const navigate = useNavigate();

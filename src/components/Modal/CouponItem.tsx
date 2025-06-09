@@ -3,7 +3,7 @@ import { Coupon } from '../../types/coupon';
 import CheckBox from '../common/CheckBox';
 import { formatToKoreanDate } from '../../utils/formatToKoreanDate';
 import { formatTime } from '../../utils/formatTime';
-import { isCouponDisabled } from './isCouponDisabled';
+import { isCouponDisabled } from './utils/isCouponDisabled';
 import { CartItemType } from '../../types/cartItem';
 
 interface CouponItemProps {

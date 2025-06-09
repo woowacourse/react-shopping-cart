@@ -1,5 +1,5 @@
-import { Coupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon, BuyXGetYCoupon } from '../../types/coupon';
-import { CartItemType } from '../../types/cartItem';
+import { Coupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon, BuyXGetYCoupon } from '../../../types/coupon';
+import { CartItemType } from '../../../types/cartItem';
 
 function isFixedCoupon(c: Coupon): c is FixedCoupon {
   return c.discountType === 'fixed';

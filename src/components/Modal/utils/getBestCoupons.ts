@@ -1,5 +1,5 @@
-import { Coupon } from '../../types/coupon';
-import { CartItemType } from '../../types/cartItem';
+import { Coupon } from '../../../types/coupon';
+import { CartItemType } from '../../../types/cartItem';
 import { isCouponDisabled } from './isCouponDisabled';
 import { calculateCouponDiscount } from './calculateCouponDiscount';
 
