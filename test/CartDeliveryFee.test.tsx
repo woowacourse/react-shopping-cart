@@ -10,13 +10,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   </ToastContext.Provider>
 );
 
-const makeCartItem = ({
-  price,
-  quantity,
-}: {
-  price: number;
-  quantity: number;
-}) => ({
+const makeCartItem = ({ price, quantity }: { price: number; quantity: number }) => ({
   id: 1,
   quantity,
   isChecked: true,
@@ -35,9 +29,12 @@ describe('배송비 정책 계산', () => {
     const cartItems = [makeCartItem({ price: 30000, quantity: 3 })];
     const { result: ctx } = renderHook(() => useCartContext(), { wrapper });
 
-    const { result: price } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }), {
-      wrapper,
-    });
+    const { result: price } = renderHook(
+      () => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }),
+      {
+        wrapper,
+      }
+    );
 
     expect(ctx.current.isRemoteArea).toBe(false);
     expect(price.current.deliveryFee).toBe(3000);
@@ -51,9 +48,12 @@ describe('배송비 정책 계산', () => {
       ctx.current.toggleIsRemoteArea();
     });
 
-    const { result: price } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }), {
-      wrapper,
-    });
+    const { result: price } = renderHook(
+      () => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }),
+      {
+        wrapper,
+      }
+    );
 
     expect(ctx.current.isRemoteArea).toBe(true);
     expect(price.current.deliveryFee).toBe(6000);
@@ -63,9 +63,12 @@ describe('배송비 정책 계산', () => {
     const cartItems = [makeCartItem({ price: 50000, quantity: 2 })];
     const { result: ctx } = renderHook(() => useCartContext(), { wrapper });
 
-    const { result: price } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }), {
-      wrapper,
-    });
+    const { result: price } = renderHook(
+      () => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }),
+      {
+        wrapper,
+      }
+    );
 
     expect(ctx.current.isRemoteArea).toBe(false);
     expect(price.current.deliveryFee).toBe(0);
@@ -79,9 +82,12 @@ describe('배송비 정책 계산', () => {
       ctx.current.toggleIsRemoteArea();
     });
 
-    const { result: price } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }), {
-      wrapper,
-    });
+    const { result: price } = renderHook(
+      () => usePriceInfo({ cartItems, isRemoteArea: ctx.current.isRemoteArea }),
+      {
+        wrapper,
+      }
+    );
 
     expect(ctx.current.isRemoteArea).toBe(true);
     expect(price.current.deliveryFee).toBe(0);

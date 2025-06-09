@@ -6,12 +6,7 @@ type CheckBoxProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & ComponentProps<'input'>;
 
-export const CheckBox = ({
-  id: customId,
-  checked = false,
-  onChange,
-  ...props
-}: CheckBoxProps) => {
+export const CheckBox = ({ id: customId, checked = false, onChange, ...props }: CheckBoxProps) => {
   const autoId = useId();
   const id = customId ?? autoId;
 

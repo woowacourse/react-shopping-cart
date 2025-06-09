@@ -43,14 +43,14 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
       const stored = localStorage.getItem(CHECKED_KEY);
       const parsed: Record<number, boolean> = stored ? JSON.parse(stored) : {};
-  
+
       const initialChecked = new Set<number>();
       cart.data.forEach((item) => {
         if (parsed[item.id]) {
           initialChecked.add(item.id);
         }
       });
-  
+
       setCheckedItems(initialChecked);
       hasInitialized.current = true;
     }
@@ -62,7 +62,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
       map[id] = true;
     });
     localStorage.setItem(CHECKED_KEY, JSON.stringify(map));
-  };  
+  };
 
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
@@ -128,7 +128,15 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem, isRemoteArea, toggleIsRemoteArea }}
+      value={{
+        cartItems,
+        toggleCheck,
+        toggleAllCheck,
+        updateQuantity,
+        removeCartItem,
+        isRemoteArea,
+        toggleIsRemoteArea,
+      }}
     >
       {children}
     </CartContext.Provider>

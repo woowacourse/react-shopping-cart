@@ -80,19 +80,24 @@ describe('getBestCouponCombination', () => {
     ]);
 
     vi.spyOn(useCartInfoHook, 'useCartInfo').mockReturnValue({
-        allChecked: true,
-        cartItemCount: cartItems.length,
-        selectedCartItems: cartItems,
-        selectedCartItemCount: cartItems.length,
-        selectedTotalAmount: cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
-        progressValue: 50, 
-        remainingForFreeShipping: 0, 
-      });
-      
+      allChecked: true,
+      cartItemCount: cartItems.length,
+      selectedCartItems: cartItems,
+      selectedCartItemCount: cartItems.length,
+      selectedTotalAmount: cartItems.reduce(
+        (sum, item) => sum + item.product.price * item.quantity,
+        0
+      ),
+      progressValue: 50,
+      remainingForFreeShipping: 0,
+    });
 
     vi.spyOn(discountUtils, 'calculateTotalDiscount').mockImplementation(
       (_items, combo: Coupon[]) => {
-        const key = combo.map((c) => c.id).sort().join(',');
+        const key = combo
+          .map((c) => c.id)
+          .sort()
+          .join(',');
         return mockDiscounts.get(key) ?? 0;
       }
     );
@@ -113,13 +118,16 @@ describe('getBestCouponCombination', () => {
   it('할인 금액이 같은 조합이 여러 개일 경우 먼저 나온 조합을 선택한다.', () => {
     vi.spyOn(discountUtils, 'calculateTotalDiscount').mockImplementation(
       (_items, combo: Coupon[]) => {
-        const key = combo.map((c) => c.id).sort().join(',');
+        const key = combo
+          .map((c) => c.id)
+          .sort()
+          .join(',');
         return key === '1,3' || key === '2,3' ? 40000 : 0;
       }
     );
 
     const best = getBestCouponCombination(coupons, cartItems, priceContext);
     const bestIds = best.map((c) => c.id).sort();
-    expect(bestIds).toEqual([1, 3]); 
+    expect(bestIds).toEqual([1, 3]);
   });
 });

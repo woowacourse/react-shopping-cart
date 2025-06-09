@@ -80,7 +80,9 @@ describe('usePriceInfo', () => {
       },
     ];
 
-    const { result } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: false }), { wrapper });
+    const { result } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: false }), {
+      wrapper,
+    });
 
     const expectedOrderPrice = 10000 * 2 + 30000;
     expect(result.current.orderPrice).toBe(expectedOrderPrice);
@@ -105,7 +107,10 @@ describe('usePriceInfo', () => {
       },
     ];
 
-    const { result } = renderHook(() => usePriceInfo({ cartItems: expensiveItems, isRemoteArea: false }), { wrapper });
+    const { result } = renderHook(
+      () => usePriceInfo({ cartItems: expensiveItems, isRemoteArea: false }),
+      { wrapper }
+    );
 
     const expectedOrderPrice = 40000 * 3;
     expect(result.current.orderPrice).toBe(expectedOrderPrice);

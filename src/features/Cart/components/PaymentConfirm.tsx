@@ -22,7 +22,9 @@ export const PaymentConfirm = ({ cartItems, selectedCoupons, onPrev }: PaymentCo
   return (
     <>
       <Flex direction="column" justifyContent="center" alignItems="center" gap="30px" height="100%">
-        <Text type="Heading" weight="bold">결제 확인</Text>
+        <Text type="Heading" weight="bold">
+          결제 확인
+        </Text>
         <Text type="Caption" weight="regular">
           {`총 ${hasCheckCartLength}종류의 상품 ${totalQuantity}개를 주문했습니다.\n최종 결제 금액을 확인해 주세요.`}
         </Text>

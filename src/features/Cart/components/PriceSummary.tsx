@@ -8,12 +8,16 @@ import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
 import { useCartContext } from '../context/CartProvider';
 
 type PriceSummaryProps = {
-  variant?: "cart" | "review";
+  variant?: 'cart' | 'review';
   cartItems: CartItem[];
   discountAmount?: number;
 };
 
-export const PriceSummary = ({ variant = "cart", cartItems, discountAmount = 0}: PriceSummaryProps) => {
+export const PriceSummary = ({
+  variant = 'cart',
+  cartItems,
+  discountAmount = 0,
+}: PriceSummaryProps) => {
   const isCartMode = variant === 'cart';
   const { isRemoteArea } = useCartContext();
   const { orderPrice, deliveryFee, totalPrice } = usePriceInfo({ cartItems, isRemoteArea });
@@ -25,7 +29,7 @@ export const PriceSummary = ({ variant = "cart", cartItems, discountAmount = 0}:
       alignItems="flex-start"
       gap="10px"
       width="100%"
-      padding={isCartMode ? "20px" : "0px"}
+      padding={isCartMode ? '20px' : '0px'}
     >
       <Text type="Caption" weight="regular">
         🛍️ 총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
@@ -62,7 +66,9 @@ export const PriceSummary = ({ variant = "cart", cartItems, discountAmount = 0}:
         padding="0 10px"
       >
         <Text type="Body">배송비</Text>
-        <Text type="Heading" data-testid="delivery-fee">{deliveryFee.toLocaleString()}원</Text>
+        <Text type="Heading" data-testid="delivery-fee">
+          {deliveryFee.toLocaleString()}원
+        </Text>
       </Flex>
       <StyledSpacing />
       <Flex
