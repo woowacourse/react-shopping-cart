@@ -3,7 +3,6 @@ import { getCoupons } from "../apis/coupons/getCoupons";
 import { Coupon } from "../types/response";
 import useCartCalculations from "./useCartCalculations";
 import useCart from "./useCart";
-import { CartItemCheckType } from "./useCartAPI";
 import {
   isCouponAvailable,
   isFreeShippingAvailable,
@@ -42,43 +41,15 @@ const useCoupons = () => {
     setCouponsWithAvailability(updatedCoupons);
   }, [coupons, orderPrice]);
 
-  const getSingleCouponDiscount = useCallback(
-    (coupon: Coupon, currentShippingFee: number): number => {
-      switch (coupon.discountType) {
-        case "fixed":
-          return coupon.discount || 0;
-        case "percentage":
-          return (orderPrice * (coupon.discount || 0)) / 100;
-        case "buyXgetY":
-          return getBuyXGetYDiscount(coupon, cartItemsCheckData);
-        case "freeShipping":
-          return isFreeShippingAvailable(coupon, orderPrice)
-            ? currentShippingFee
-            : 0;
-        default:
-          return 0;
-      }
-    },
-    [orderPrice, cartItemsCheckData]
-  );
-
-  const getTotalCombinedDiscount = (
-    coupon1: Coupon,
-    coupon2: Coupon,
-    orderPrice: number,
-    cartItems: CartItemCheckType[]
-  ): number => {
-    const getDiscountAmount = (
-      coupon: Coupon,
-      currentPrice: number
-    ): number => {
+  const getDiscountAmount = useCallback(
+    (coupon: Coupon, currentPrice: number): number => {
       switch (coupon.discountType) {
         case "fixed":
           return coupon.discount || 0;
         case "percentage":
           return (currentPrice * (coupon.discount || 0)) / 100;
         case "buyXgetY":
-          return getBuyXGetYDiscount(coupon, cartItems);
+          return getBuyXGetYDiscount(coupon, cartItemsCheckData);
         case "freeShipping":
           return isFreeShippingAvailable(coupon, currentPrice)
             ? shippingFee
@@ -86,8 +57,14 @@ const useCoupons = () => {
         default:
           return 0;
       }
-    };
-
+    },
+    [cartItemsCheckData, shippingFee]
+  );
+  const getTotalCombinedDiscount = (
+    coupon1: Coupon,
+    coupon2: Coupon,
+    orderPrice: number
+  ): number => {
     const firstDiscount = getDiscountAmount(coupon1, orderPrice);
     const afterFirst =
       coupon1.discountType === "buyXgetY"
@@ -126,15 +103,13 @@ const useCoupons = () => {
         const discountA = getTotalCombinedDiscount(
           coupon1,
           coupon2,
-          orderPrice,
-          cartItemsCheckData
+          orderPrice
         );
 
         const discountB = getTotalCombinedDiscount(
           coupon2,
           coupon1,
-          orderPrice,
-          cartItemsCheckData
+          orderPrice
         );
 
         if (discountA > maxDiscount) {
@@ -178,14 +153,12 @@ const useCoupons = () => {
         const discountA = getTotalCombinedDiscount(
           coupon1,
           coupon2,
-          orderPrice,
-          cartItemsCheckData
+          orderPrice
         );
         const discountB = getTotalCombinedDiscount(
           coupon2,
           coupon1,
-          orderPrice,
-          cartItemsCheckData
+          orderPrice
         );
 
         if (discountA >= discountB) {
@@ -201,7 +174,7 @@ const useCoupons = () => {
         }
       } else {
         const coupon = selectedCoupons[0];
-        const discount = getSingleCouponDiscount(coupon, shippingFee);
+        const discount = getDiscountAmount(coupon, orderPrice);
         return {
           appliedCoupons: [coupon],
           totalDiscount: discount,
