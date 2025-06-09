@@ -73,28 +73,3 @@ export function useCouponManagerProvider() {
   }
   return context;
 }
-
-// function useDiscount(price, cartList, 배송비, discountType[]: [CouponType, number]) {
-//   const { isSelected } = useCouponManagerProvider();
-
-//   // 1일 때는 순서대로 계산 한번만 하고 리턴
-
-//   // 배열을 순서대로 한번 계산 and 거꾸로 한번 계산
-//   // 더 큰 값을 리턴
-
-//   if (!isSelected(couponType)) {
-//     return 0;
-//   }
-
-//   switch (discountType) {
-//     case "FIXED5000":
-//       return 5000;
-//     case "PERCENT30":
-//       return Math.floor(price * 0.3);
-//     case
-//     default:
-//       return 0;
-//   }
-
-//   return
-// }
