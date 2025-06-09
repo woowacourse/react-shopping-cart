@@ -12,6 +12,11 @@ export const calculateBuyXGetYCoupon = ({
   const availableCartItems = cartItems.filter(
     (item) => item.quantity >= buyQuantity + getQuantity
   );
+
+  if (availableCartItems.length === 0) {
+    return 0;
+  }
+
   const mostExpensiveItemPrice = Math.max(
     ...availableCartItems.map((cartItem) => cartItem.product.price)
   );
