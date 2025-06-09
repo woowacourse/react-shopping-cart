@@ -1,7 +1,7 @@
 import { Coupon } from '../types/coupon';
 import { apiClient } from './apiClient';
 
-export const getCoupons = async (): Promise<Coupon[]> => {
+export const getCoupons = async () => {
   try {
     return await apiClient<Coupon[]>('/coupons');
   } catch (error) {

@@ -1,7 +1,7 @@
 import { CartProduct, CartItemsResponse } from '../types/cart';
 import { apiClient } from './apiClient';
 
-export const getCartItems = async (): Promise<CartItemsResponse> => {
+export const getCartItems = async () => {
   try {
     return await apiClient<CartItemsResponse>('/cart-items?page=0&size=20');
   } catch (error) {
