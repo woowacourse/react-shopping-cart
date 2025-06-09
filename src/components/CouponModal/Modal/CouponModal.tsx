@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
-import { useModalClose } from "../../hooks/modal/useModalClose";
-import { CartItemType } from "../../types/response";
-import CouponList from "./CouponList";
+import { useCouponManagerProvider } from "../../../contexts/CouponManagerProvider";
+import { useModalClose } from "../../../hooks/modal/useModalClose";
+import { CartItemType } from "../../../types/response";
+import CouponList from "../CouponItemList/CouponList";
 import {
   CloseButton,
   ModalContainer,

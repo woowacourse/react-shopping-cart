@@ -5,7 +5,7 @@ import { BackIcon } from "../../constants/images";
 import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
 import OrderItemList from "../../components/OrderSummary/OrderItemList/OrderItemList";
 import CouponButton from "../../components/OrderSummary/CouponButton/CouponButton";
-import CouponModal from "../../components/CouponModal/CouponModal";
+import CouponModal from "../../components/CouponModal/Modal/CouponModal";
 import useModal from "../../hooks/modal/useModal";
 import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { useState } from "react";

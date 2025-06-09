@@ -1,6 +1,6 @@
-import { useCouponContext } from "../../contexts/CouponProvider";
-import { CartItemType } from "../../types/response";
-import CouponItem from "./CouponItem/CouponItem";
+import { useCouponContext } from "../../../contexts/CouponProvider";
+import { CartItemType } from "../../../types/response";
+import CouponItem from "../CouponItem/ui/CouponItem";
 
 interface CouponListProps {
   orderCost: number;

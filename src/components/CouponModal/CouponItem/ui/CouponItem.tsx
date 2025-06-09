@@ -1,17 +1,17 @@
-import { useCouponManagerProvider } from "../../../contexts/CouponManagerProvider";
-import { CouponType, DiscountType } from "../../../types/coupon";
-import { CartItemType } from "../../../types/response";
-import CheckBox from "../../Common/CheckBox/CheckBox";
+import { useCouponManagerProvider } from "../../../../contexts/CouponManagerProvider";
+import { CouponType, DiscountType } from "../../../../types/coupon";
+import { CartItemType } from "../../../../types/response";
+import CheckBox from "../../../Common/CheckBox/CheckBox";
 import { Container, CouponText } from "./CouponItem.styles";
-import { isCouponDisabled } from "./domain/couponDisabled.domain";
-import { formatDate, formatTimeRange } from "./utils";
-import useRemoveDisabledFreeShippingCoupon from "./useRemoveDisabledFreeShippingCoupon";
+import { isCouponDisabled } from "../domain/couponDisabled.domain";
+import { formatDate, formatTimeRange } from "../util/utils";
+import useRemoveDisabledFreeShippingCoupon from "../useRemoveDisabledFreeShippingCoupon";
 import {
   isBuyXGetYCoupon,
   isFixedCoupon,
   isFreeShippingCoupon,
   isPercentageCoupon,
-} from "./domain/couponTypeGuards.domain";
+} from "../domain/couponTypeGuards.domain";
 
 interface CouponItemProps {
   type: DiscountType;
