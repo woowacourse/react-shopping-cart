@@ -1,6 +1,6 @@
 import { CartItem } from "@/type/CartItem";
 import { Coupon } from "@/type/Coupon";
-import { useCouponCalculation } from "./useCouponCalculation";
+import { calculateFinalTotal } from "@/util/coupon";
 
 export interface CouponDiscountResult {
   orderTotal: number;
@@ -20,11 +20,11 @@ const useCouponDiscount = ({
   selectedShoppingCartItems,
   isIsland = false,
 }: useCouponDiscountProps): CouponDiscountResult => {
-  const calculationResult = useCouponCalculation({
-    coupons: selectedCoupons,
+  const calculationResult = calculateFinalTotal(
+    selectedCoupons,
     selectedShoppingCartItems,
-    isIsland,
-  });
+    isIsland
+  );
 
   return {
     orderTotal: calculationResult.orderTotal,

@@ -7,18 +7,18 @@ export interface FunnelProps {
   children: Array<ReactElement<StepProps>>;
 }
 
-const TRANSITION_MS = 300; // CSS 타이밍과 반드시 맞추기
+const TRANSITION_MS = 300;
 
 export const useFunnel = (defaultStep: string) => {
-  const [step, setStep] = useState(defaultStep); // 현재 단계
-  const [prev, setPrev] = useState<string | null>(null); // 나가는 단계
+  const [step, setStep] = useState(defaultStep);
+  const [prev, setPrev] = useState<string | null>(null);
 
   const Step = ({ children }: StepProps) => <>{children}</>;
 
   const Funnel = ({ children }: FunnelProps) => {
     useEffect(() => {
-      if (!prev && step) return; // 초기 렌더는 건너뜀
-      setPrev(step); // 나갈 대상 지정
+      if (!prev && step) return;
+      setPrev(step);
       const id = setTimeout(() => setPrev(null), TRANSITION_MS);
       return () => clearTimeout(id);
     }, [step]);
