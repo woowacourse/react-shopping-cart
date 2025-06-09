@@ -185,7 +185,6 @@ export const calculateOptimalCouponCombination = (
     discountBreakdown: [],
   };
 
-  // 단일 쿠폰 적용 테스트
   for (const coupon of availableCoupons) {
     const discountAmount = applySingleCoupon(originalAmount, coupon, cartItems);
     const appliedCoupons = discountAmount > 0 ? [coupon] : [];
@@ -209,7 +208,6 @@ export const calculateOptimalCouponCombination = (
     }
   }
 
-  // 두 쿠폰 조합 테스트
   for (let i = 0; i < availableCoupons.length; i++) {
     for (let j = i + 1; j < availableCoupons.length; j++) {
       const coupon1 = availableCoupons[i];
@@ -246,7 +244,6 @@ export const calculateOptimalCouponCombination = (
   return bestResult;
 };
 
-// 선택된 쿠폰들을 직접 적용하는 함수
 export const calculateSelectedCoupons = (
   cartItems: CartItem[],
   selectedCoupons: Coupon[],
@@ -283,7 +280,6 @@ export const calculateSelectedCoupons = (
       discountBreakdown.push({ coupon, discountAmount });
     }
 
-    // FREESHIPPING 쿠폰의 경우 할인 금액은 0이지만 적용된 것으로 처리
     if (coupon.discountType === 'freeShipping') {
       discountBreakdown.push({ coupon, discountAmount: 0 });
     }

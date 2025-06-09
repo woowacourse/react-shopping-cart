@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const HeaderStyle = css`
   display: flex;
@@ -8,7 +8,6 @@ export const HeaderStyle = css`
   justify-content: space-between;
   align-items: center;
 
-  // position: fixed;
   z-index: 5;
   background: var(--color-black);
 `;
