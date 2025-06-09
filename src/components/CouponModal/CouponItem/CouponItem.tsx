@@ -61,7 +61,7 @@ export function CouponItem({
           onChange={onChange}
           dataTestId={couponData.code}
         />
-        <label htmlFor={couponData.code} css={labelText}>
+        <label htmlFor={couponData.id.toString()} css={labelText}>
           {couponData.description}
         </label>
       </div>
