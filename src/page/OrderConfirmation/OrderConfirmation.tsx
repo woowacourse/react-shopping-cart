@@ -14,6 +14,7 @@ import {
   createContext,
   useContext,
   PropsWithChildren,
+  useEffect,
 } from "react";
 import Modal from "@/components/common/Modal/Modal";
 
@@ -27,6 +28,7 @@ import {
   ISLAND_ADDITIONAL_SHIPPING_FEE,
 } from "@/constants/priceSetting";
 import noticeIcon from "/notice.svg";
+import { useErrorToast } from "@/contexts/ErrorToastContext";
 
 interface OrderConfirmationContextValue {
   selectedCartItems: CartItem[];
@@ -175,8 +177,16 @@ function OrderConfirmationCouponSelection({ children }: PropsWithChildren) {
     invalidCoupons,
   } = useOrderConfirmationContext();
 
-  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit } =
+  const { handleSelectCoupon, selectedCouponIds, isSelectedToLimit, isError } =
     couponSelection;
+
+  const { showError } = useErrorToast();
+
+  useEffect(() => {
+    if (isError) {
+      showError(new Error("최대 쿠폰 선택 수를 초과했습니다."));
+    }
+  }, [isError, showError]);
 
   return (
     <>
