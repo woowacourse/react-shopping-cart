@@ -25,8 +25,11 @@ export function calculateCouponDiscount(
       return Math.floor((cartTotal * (coupon.discount ?? 0)) / 100);
     }
     case 'buyXgetY': {
+      const requiredQuantity =
+        (coupon.buyQuantity ?? 0) + (coupon.getQuantity ?? 0);
+
       const eligibleItems = products.filter(
-        (item) => item.quantity >= (coupon.buyQuantity ?? 0)
+        (item) => item.quantity >= requiredQuantity
       );
 
       if (eligibleItems.length > 0) {
