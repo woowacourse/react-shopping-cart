@@ -22,6 +22,19 @@ function CartItemList({ cartItems }: CartItemListProps) {
   const checkedItems = cartItems.filter((item) => state.get(item.id));
   const { orderAmount, deliveryFee, totalQuantity, totalAmount, countOfItemType } = useCartSummary(checkedItems);
 
+  const navigateToOrder = () => {
+    navigate('/order', {
+      state: {
+        totalQuantity,
+        countOfItemType,
+        totalAmount,
+        checkedItems,
+        deliveryFee,
+        orderAmount
+      }
+    });
+  };
+
   return (
     <div css={styles.cartItemsAreaCss}>
       <div css={styles.allSelectCss}>
@@ -40,21 +53,7 @@ function CartItemList({ cartItems }: CartItemListProps) {
         ))}
       </div>
       <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
-      <Button
-        disabled={!Array.from(state.values()).some(Boolean)}
-        onClick={() => {
-          navigate('/order', {
-            state: {
-              totalQuantity,
-              countOfItemType,
-              totalAmount,
-              checkedItems,
-              deliveryFee,
-              orderAmount
-            }
-          });
-        }}
-      >
+      <Button disabled={!Array.from(state.values()).some(Boolean)} onClick={navigateToOrder}>
         주문 확인
       </Button>
     </div>
