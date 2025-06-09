@@ -21,6 +21,8 @@ export interface DefaultCouponType {
 
 export interface FixedCouponType extends DefaultCouponType {
   discountType: "fixed";
+  discount: number;
+  minimumAmount: number;
 }
 
 export interface BuyXGetYCouponType extends DefaultCouponType {
