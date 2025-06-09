@@ -162,3 +162,42 @@ describe('오후 시간 사용자 쿠폰 사용 시나리오 테스트', () => {
     expect(within(totalPurchasePrice).getByText('228,000원')).toBeInTheDocument();
   });
 });
+
+describe('오전 시간 사용자 쿠폰 사용 시나리오 테스트', () => {
+  beforeAll(() => {
+    vi.useRealTimers();
+    vi.setSystemTime(new Date('2025-06-06T05:00:00'));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it(`오전 시간에 도시 외곽에 사는 사용자가  30,000원 상품 1개, 100,000원 상품 3개를 담고 "2개 구매 시 1개 무료 쿠폰"와
+    "미라클모닝 30% 할인 쿠폰"를 받아서 199,000원 할인 받고 배송비 3,000을 포함하여 총 결제 금액 228,000원 지불한다.`, async () => {
+    (getSelectedCartItemsFromLocalStorage as Mock).mockReturnValue(mockCartItem_2);
+    renderWithRoutes();
+
+    const user = userEvent.setup();
+
+    const checkbox = screen.getByTestId('suburb-checkbox');
+    await user.click(checkbox);
+
+    const couponButton = await screen.findByRole('button', { name: '쿠폰 적용' });
+    await user.click(couponButton);
+
+    const couponUseButton = await screen.findByRole('button', {
+      name: '총 199,000원 할인 쿠폰 사용하기',
+    });
+    await user.click(couponUseButton);
+
+    const totalPrice = await screen.findByTestId('total-order-price');
+    expect(within(totalPrice).getByText('330,000원')).toBeInTheDocument();
+    const totalDiscountPrice = await screen.findByTestId('coupon-discount-amount');
+    expect(within(totalDiscountPrice).getByText('-199,000원')).toBeInTheDocument();
+    const deliveryFee = await screen.findByTestId('delivery-fee');
+    expect(within(deliveryFee).getByText('3,000원')).toBeInTheDocument();
+    const totalPurchasePrice = await screen.findByTestId('total-purchase-price');
+    expect(within(totalPurchasePrice).getByText('134,000원')).toBeInTheDocument();
+  });
+});
