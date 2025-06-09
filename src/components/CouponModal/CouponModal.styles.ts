@@ -85,3 +85,8 @@ export const TotalPriceWrapper = styled.div`
   font-size: 15px;
   border-top: 1px solid #eee;
 `;
+
+export const disabledText = styled.p`
+  color: #f00;
+  font-size: 10px;
+`;

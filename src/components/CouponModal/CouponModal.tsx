@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "@kaori-killer/modal-component";
 
-import * as CartListStyled from "../ShoppingCart/cartList/CartList.styles";
+import * as CartListStyled from "../ShoppingCart/CartList/CartList.styles";
 import * as ItemStyled from "../ShoppingCart/Item/Item.styles";
 import WarningBox from "../common/WarningBox/WarningBox";
 import Hr from "../common/Hr/Hr";
@@ -10,6 +10,7 @@ import Hr from "../common/Hr/Hr";
 import useCoupons from "../../hooks/useCoupons";
 
 import { calculateAllCouponCombos } from "../../utils/calculateAllCouponCombos";
+import { isCouponValid } from "../../utils/isCouponValid";
 import { formatAvailableTime } from "../../utils/formatAvailableTime";
 
 import CartItem from "../../types/CartItem";
@@ -47,10 +48,12 @@ function CouponModal({
     isIslandArea,
   });
 
-  const bestCombo = combos.reduce(
-    (max, current) => (current.discount > max.discount ? current : max),
-    { discount: 0, combo: [] as string[] }
-  );
+  const bestCombo = combos
+    .filter((combo) => combo.isValid)
+    .reduce(
+      (max, current) => (current.discount > max.discount ? current : max),
+      { discount: 0, combo: [], isValid: false }
+    );
 
   useEffect(() => {
     if (isInitial && bestCombo.combo.length > 0) {
@@ -82,14 +85,20 @@ function CouponModal({
     selectedCoupons.has(c.id)
   );
 
-  const selectedCombo = calculateAllCouponCombos({
+  const selectedCombos = calculateAllCouponCombos({
     coupons: selectedCouponObjects,
     cartItemList,
     orderAmount,
     isIslandArea,
-  })[0];
+  });
 
-  const selectedDiscount = selectedCombo?.discount ?? 0;
+  const selectedCombo = selectedCombos.find((c) => c.isValid) ?? {
+    discount: 0,
+    combo: [],
+    isValid: false,
+  };
+
+  const selectedDiscount = selectedCombo.discount;
 
   const handleApply = () => {
     handleApplyCouponPrice(selectedDiscount);
@@ -114,41 +123,50 @@ function CouponModal({
           {coupons.length === 0 ? (
             <p>사용 가능한 쿠폰이 없습니다.</p>
           ) : (
-            coupons.map((coupon) => (
-              <Styled.CouponContainer key={coupon.id}>
-                <Hr />
-                <CartListStyled.Checkbox key={coupon.id}>
-                  <CartListStyled.Input
-                    type="checkbox"
-                    id={`coupon-${coupon.id}`}
-                    checked={!!selectedCoupons.get(coupon.id)}
-                    disabled={
-                      !selectedCoupons.get(coupon.id) &&
-                      selectedCoupons.size >= 2
-                    }
-                    onChange={() => handleCheckboxChange(coupon.id)}
-                  />
-                  <label htmlFor={`coupon-${coupon.id}`}>
-                    {coupon.description}
-                  </label>
-                </CartListStyled.Checkbox>
-                <Styled.CouponDescribe>
-                  <p>만료일: {formatDate(coupon.expirationDate)}</p>
-                  {"minimumAmount" in coupon && (
-                    <p>최소 주문 금액: {coupon.minimumAmount}</p>
-                  )}
-                  {"availableTime" in coupon && (
-                    <p>
-                      사용 가능 시간:
-                      {formatAvailableTime(
-                        coupon.availableTime.start,
-                        coupon.availableTime.end
-                      )}
-                    </p>
-                  )}
-                </Styled.CouponDescribe>
-              </Styled.CouponContainer>
-            ))
+            coupons.map((coupon) => {
+              const unavailableCoupon = !isCouponValid(coupon, orderAmount);
+              const disabled =
+                unavailableCoupon ||
+                (!selectedCoupons.get(coupon.id) && selectedCoupons.size >= 2);
+
+              return (
+                <Styled.CouponContainer key={coupon.id}>
+                  <Hr />
+                  <CartListStyled.Checkbox>
+                    <CartListStyled.Input
+                      type="checkbox"
+                      id={`coupon-${coupon.id}`}
+                      checked={!!selectedCoupons.get(coupon.id)}
+                      disabled={disabled}
+                      onChange={() => handleCheckboxChange(coupon.id)}
+                    />
+                    <label htmlFor={`coupon-${coupon.id}`}>
+                      {coupon.description}
+                    </label>
+                  </CartListStyled.Checkbox>
+                  <Styled.CouponDescribe>
+                    <p>만료일: {formatDate(coupon.expirationDate)}</p>
+                    {"minimumAmount" in coupon && (
+                      <p>최소 주문 금액: {coupon.minimumAmount}</p>
+                    )}
+                    {"availableTime" in coupon && (
+                      <p>
+                        사용 가능 시간:{" "}
+                        {formatAvailableTime(
+                          coupon.availableTime.start,
+                          coupon.availableTime.end
+                        )}
+                      </p>
+                    )}
+                    {unavailableCoupon && (
+                      <Styled.disabledText>
+                        사용 불가: 기간이 지났거나 시간 조건에 맞지 않아요.
+                      </Styled.disabledText>
+                    )}
+                  </Styled.CouponDescribe>
+                </Styled.CouponContainer>
+              );
+            })
           )}
         </Modal.Body>
 

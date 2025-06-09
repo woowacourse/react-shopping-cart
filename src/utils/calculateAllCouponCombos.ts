@@ -2,43 +2,57 @@ import {
   DEFAULT_SHIPPING_FEE,
   LAND_AREA_DEFAULT_SHIPPING_FEE,
 } from "../constants/shipping";
-import CartItem from "../types/CartItem";
+import type CartItem from "../types/CartItem";
 import type { Coupon } from "../types/Coupon";
+
+import { isCouponValid } from "./isCouponValid";
 
 export function calculateAllCouponCombos({
   coupons,
   cartItemList,
   orderAmount,
   isIslandArea,
+  now = new Date(),
 }: {
   coupons: Coupon[];
   cartItemList: CartItem[];
   orderAmount: number;
   isIslandArea: boolean;
+  now?: Date;
 }): {
   combo: string[];
   discount: number;
+  isValid: boolean;
 }[] {
   return getAllCouponCombos(coupons).map((combo) => {
-    const discount = combo.reduce((total, coupon) => {
-      switch (coupon.discountType.toLowerCase()) {
-        case "fixed":
-          return total + calcFixedDiscount(coupon, orderAmount);
-        case "buyxgety":
-          return total + calcBuyXGetYDiscount(cartItemList);
-        case "freeshipping":
-          return total + calcFreeShipping(coupon, orderAmount, isIslandArea);
-        case "percentage":
-          return total + calcPercentageDiscount(coupon, orderAmount);
-        default:
-          console.warn("Unrecognized coupon type:", coupon.discountType);
-          return total;
-      }
-    }, 0);
+    const isValid = combo.every((coupon) =>
+      isCouponValid(coupon, orderAmount, now)
+    );
+
+    const discount = isValid
+      ? combo.reduce((total, coupon) => {
+          switch (coupon.discountType.toLowerCase()) {
+            case "fixed":
+              return total + calcFixedDiscount(coupon, orderAmount);
+            case "buyxgety":
+              return total + calcBuyXGetYDiscount(cartItemList);
+            case "freeshipping":
+              return (
+                total + calcFreeShipping(coupon, orderAmount, isIslandArea)
+              );
+            case "percentage":
+              return total + calcPercentageDiscount(coupon, orderAmount);
+            default:
+              console.warn("Unrecognized coupon type:", coupon.discountType);
+              return total;
+          }
+        }, 0)
+      : 0;
 
     return {
       combo: combo.map((c) => c.code),
       discount,
+      isValid,
     };
   });
 }
@@ -62,17 +76,14 @@ function calcFreeShipping(
   orderAmount: number,
   isIslandArea: boolean
 ): number {
-  let shippingCost;
-  shippingCost = isIslandArea
+  const shippingCost = isIslandArea
     ? LAND_AREA_DEFAULT_SHIPPING_FEE
     : DEFAULT_SHIPPING_FEE;
 
-  if (orderAmount >= 100000) {
-    shippingCost -= 3000;
-  }
+  const policyFreeShipping = orderAmount >= 100000 ? 3000 : 0;
 
   return "minimumAmount" in coupon && orderAmount >= coupon.minimumAmount
-    ? shippingCost
+    ? shippingCost - policyFreeShipping
     : 0;
 }
 
@@ -83,7 +94,11 @@ function calcPercentageDiscount(coupon: Coupon, orderAmount: number): number {
 }
 
 function getAllCouponCombos(coupons: Coupon[]): Coupon[][] {
-  return coupons
-    .flatMap((c1, i) => coupons.slice(i + 1).map((c2) => [c1, c2]))
-    .concat(coupons.map((c) => [c]));
+  const singleCombos = coupons.map((c) => [c]);
+
+  const pairCombos = coupons.flatMap((c1) =>
+    coupons.filter((c2) => c2 !== c1).map((c2) => [c1, c2])
+  );
+
+  return [...singleCombos, ...pairCombos];
 }

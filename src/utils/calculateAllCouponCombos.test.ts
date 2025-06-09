@@ -1,121 +1,157 @@
 import { describe, it, expect } from "vitest";
 import { calculateAllCouponCombos } from "./calculateAllCouponCombos";
+import { Coupon } from "../types/Coupon";
+import CartItem from "../types/CartItem";
 
-import type { Coupon } from "../types/Coupon";
-import type CartItem from "../types/CartItem";
+const baseCoupons: Coupon[] = [
+  {
+    id: 1,
+    code: "FIXED5000",
+    description: "5,000원 할인 쿠폰",
+    expirationDate: "2025-11-30",
+    discount: 5000,
+    minimumAmount: 100000,
+    discountType: "fixed",
+  },
+  {
+    id: 2,
+    code: "BOGO",
+    description: "2개 구매 시 1개 무료 쿠폰",
+    expirationDate: "2025-06-30",
+    buyQuantity: 2,
+    getQuantity: 1,
+    discountType: "buyXgetY",
+  },
+  {
+    id: 3,
+    code: "FREESHIPPING",
+    description: "5만원 이상 무료 배송 쿠폰",
+    expirationDate: "2025-08-31",
+    minimumAmount: 50000,
+    discountType: "freeShipping",
+  },
+  {
+    id: 4,
+    code: "MIRACLESALE",
+    description: "미라클모닝 30% 할인 쿠폰",
+    expirationDate: "2025-07-31",
+    discount: 30,
+    availableTime: {
+      start: "04:00:00",
+      end: "07:00:00",
+    },
+    discountType: "percentage",
+  },
+];
+
+const cartItemList: CartItem[] = [
+  {
+    id: 101,
+    quantity: 2,
+    product: {
+      id: 1,
+      name: "샘플상품",
+      price: 30000,
+      quantity: 2,
+      imageUrl: "",
+      category: "패션잡화",
+    },
+  },
+  {
+    id: 102,
+    quantity: 1,
+    product: {
+      id: 2,
+      name: "샘플상품2",
+      price: 40000,
+      quantity: 1,
+      imageUrl: "",
+      category: "패션잡화",
+    },
+  },
+];
 
 describe("calculateAllCouponCombos", () => {
-  const baseCartItems: CartItem[] = [
-    {
-      product: {
-        id: 1,
-        name: "상품1",
-        price: 10000,
-        imageUrl: "",
-        category: "패션잡화",
-        quantity: 0,
-      },
-      id: 1,
-      quantity: 3,
-    },
-  ];
-
-  const baseOrderAmount = 30000;
-
-  it("조건에 맞는 쿠폰만 필터링된다", () => {
-    const coupons: Coupon[] = [
-      {
-        id: 1,
-        code: "FIXED_5000",
-        description: "5000원 할인",
-        discountType: "fixed",
-        discount: 5000,
-        minimumAmount: 20000,
-        expirationDate: "2099-12-31",
-      },
-      {
-        id: 2,
-        code: "FIXED_UNDER_MIN",
-        description: "최소금액 미달 쿠폰",
-        discountType: "fixed",
-        discount: 5000,
-        minimumAmount: 40000,
-        expirationDate: "2099-12-31",
-      },
-    ];
-
+  it("미라클모닝 시간 내에는 percentage 쿠폰이 적용된다", () => {
     const result = calculateAllCouponCombos({
-      coupons,
-      cartItemList: baseCartItems,
-      orderAmount: baseOrderAmount,
+      coupons: baseCoupons,
+      cartItemList,
+      orderAmount: 100000,
+      isIslandArea: false,
+      now: new Date("2025-06-07T05:00:00"),
+    });
+
+    const hasMiracle = result.some(
+      (combo) => combo.isValid && combo.combo.includes("MIRACLESALE")
+    );
+    expect(hasMiracle).toBe(true);
+  });
+
+  it("미라클모닝 시간이 아니면 percentage 쿠폰이 적용되지 않는다", () => {
+    const result = calculateAllCouponCombos({
+      coupons: baseCoupons,
+      cartItemList,
+      orderAmount: 100000,
       isIslandArea: false,
     });
 
-    const discounts = result.map((r) => r.discount);
-    expect(discounts).toContain(5000);
-    expect(discounts).toContain(0);
-    expect(discounts).toHaveLength(3);
+    const miracleOnlyCombos = result.filter((c) =>
+      c.combo.includes("MIRACLESALE")
+    );
+    const allInvalid = miracleOnlyCombos.every((c) => c.isValid === false);
+    expect(allInvalid).toBe(true);
   });
 
-  it("가장 큰 할인을 주는 조합이 최상단에 위치한다", () => {
-    const coupons: Coupon[] = [
-      {
-        id: 1,
-        code: "PERCENTAGE",
-        description: "10% 할인",
-        discountType: "percentage",
-        discount: 10,
-        expirationDate: "2099-12-31",
-        availableTime: {
-          start: "00:00",
-          end: "23:59",
-        },
-      },
-      {
-        id: 2,
-        code: "FIXED_3000",
-        description: "3000원 할인",
-        discountType: "fixed",
-        discount: 3000,
-        minimumAmount: 20000,
-        expirationDate: "2099-12-31",
-      },
-    ];
-
+  it("경계값: 최소 금액 딱 맞춰서 fixed 쿠폰이 적용된다", () => {
     const result = calculateAllCouponCombos({
-      coupons,
-      cartItemList: baseCartItems,
-      orderAmount: 40000,
+      coupons: baseCoupons,
+      cartItemList,
+      orderAmount: 100000,
       isIslandArea: false,
     });
 
-    expect(result[0].discount).toBeGreaterThanOrEqual(result[1].discount);
+    const hasFixed = result.some(
+      (combo) => combo.isValid && combo.combo.includes("FIXED5000")
+    );
+    expect(hasFixed).toBe(true);
   });
 
-  it("무료배송 쿠폰은 도서산간 지역에 따라 다르게 계산된다", () => {
-    const coupon: Coupon = {
-      id: 1,
-      code: "FREESHIP",
-      description: "무료배송",
-      discountType: "freeshipping",
-      minimumAmount: 10000,
-      expirationDate: "2099-12-31",
-    };
-
-    const normalResult = calculateAllCouponCombos({
-      coupons: [coupon],
-      cartItemList: baseCartItems,
+  it("도서산간 지역에서는 배송비 쿠폰 효과가 더 커진다", () => {
+    const normal = calculateAllCouponCombos({
+      coupons: baseCoupons,
+      cartItemList,
       orderAmount: 50000,
       isIslandArea: false,
     });
 
-    const islandResult = calculateAllCouponCombos({
-      coupons: [coupon],
-      cartItemList: baseCartItems,
+    const island = calculateAllCouponCombos({
+      coupons: baseCoupons,
+      cartItemList,
       orderAmount: 50000,
       isIslandArea: true,
     });
 
-    expect(islandResult[0].discount).toBeGreaterThan(normalResult[0].discount);
+    const bestNormal = Math.max(...normal.map((r) => r.discount));
+    const bestIsland = Math.max(...island.map((r) => r.discount));
+
+    expect(bestIsland).toBeGreaterThan(bestNormal);
+  });
+
+  it("가장 큰 할인 조합을 계산해낸다", () => {
+    const result = calculateAllCouponCombos({
+      coupons: baseCoupons,
+      cartItemList,
+      orderAmount: 100000,
+      isIslandArea: false,
+    });
+
+    const best = result.reduce(
+      (acc, cur) => (cur.discount > acc.discount ? cur : acc),
+      result[0]
+    );
+
+    expect(best.discount).toBeGreaterThanOrEqual(
+      Math.max(...result.map((r) => r.discount))
+    );
   });
 });

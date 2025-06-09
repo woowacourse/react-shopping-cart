@@ -17,7 +17,7 @@ import CartItem from "../../types/CartItem";
 
 import * as Styled from "./PaymentAmountCheck.styles";
 import * as ShoppingStyled from "../ShoppingCartPage/ShoppingCartPage.styles";
-import * as CartListStyled from "../../components/ShoppingCart/cartList/CartList.styles";
+import * as CartListStyled from "../../components/ShoppingCart/CartList/CartList.styles";
 import * as ItemStyled from "../../components/ShoppingCart/Item/Item.styles";
 
 import { DEFAULT_SHIPPING_FEE } from "../../constants/shipping";
