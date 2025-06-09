@@ -26,7 +26,10 @@ const CouponInfo = ({
   const expirationDate = coupon.expirationDate.split('-');
 
   return (
-    <CouponInfoWrapper>
+    <CouponInfoWrapper
+      data-testid={`coupon-${coupon.id}`}
+      data-disabled={disabled}
+    >
       <CouponInfoTitle>
         <CheckBox
           isChecked={disabled ? false : checked}

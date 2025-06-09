@@ -72,7 +72,12 @@ const CouponModal = ({
   ]);
 
   return (
-    <Modal show={show} onHide={onHide} position='center'>
+    <Modal
+      data-testid='coupon-modal'
+      show={show}
+      onHide={onHide}
+      position='center'
+    >
       <Modal.Header closeButton>
         <Modal.Title>쿠폰을 선택해주세요</Modal.Title>
       </Modal.Header>
