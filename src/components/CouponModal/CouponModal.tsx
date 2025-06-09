@@ -5,22 +5,20 @@ import InfoMessage from '../InfoMessage/InfoMessage';
 import Text from '../common/Text/Text';
 import { validatedCouponList } from '../../types/coupon';
 import { useEffect, useState } from 'react';
-import useCouponCombos from '../../hooks/useCouponCombos';
 import { useCartContext } from '../../context/CartContext';
+import { getBestCouponCombo } from '../../utils/couponDiscount';
 
 function CouponModal({
   isOpen,
   onClose,
   validatedCouponList,
   checkedCoupon,
-  totalDiscount,
   onCouponAccept,
 }: {
   isOpen: boolean;
   onClose: () => void;
   validatedCouponList: validatedCouponList[];
-  checkedCoupon: number[];
-  totalDiscount: number;
+  checkedCoupon: number[] | null;
   onCouponAccept: (couponIds: number[]) => void;
 }) {
   const {
@@ -30,9 +28,9 @@ function CouponModal({
     deliveryFee,
   } = useCartContext();
 
-  const [tempCoupon, setTempCoupon] = useState<number[]>(checkedCoupon);
+  const [tempCoupon, setTempCoupon] = useState<number[] | null>(checkedCoupon);
 
-  const modalResult = useCouponCombos(
+  const modalResult = getBestCouponCombo(
     tempCoupon,
     cartItems.filter((item) => selectedItems.includes(item.id)),
     validatedCouponList,
@@ -47,6 +45,10 @@ function CouponModal({
   }, [isOpen, checkedCoupon]);
 
   const handleToggle = (id: number) => {
+    if (tempCoupon === null) {
+      setTempCoupon([id]);
+      return;
+    }
     const newTempCoupons = tempCoupon.includes(id)
       ? tempCoupon.filter((x) => x !== id)
       : [...tempCoupon, id];
@@ -65,7 +67,7 @@ function CouponModal({
         <CouponItem
           key={coupon.id}
           coupon={coupon}
-          isChecked={tempCoupon.includes(coupon.id)}
+          isChecked={tempCoupon?.includes(coupon.id) ?? false}
           onCheck={handleToggle}
           isDisabled={coupon.isExpired}
         />
@@ -73,9 +75,9 @@ function CouponModal({
       <Button
         color="gray"
         variant="secondary"
-        onClick={() => onCouponAccept(tempCoupon)}
+        onClick={() => onCouponAccept(tempCoupon ?? [])}
       >
-        <Text varient="body">{`총 ${modalResult?.totalDiscount.toLocaleString()} 할인 쿠폰 사용하기`}</Text>
+        <Text varient="body">{`총 ${modalResult?.totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}</Text>
       </Button>
     </Modal>
   );
