@@ -4,7 +4,7 @@
     "description": "5,000원 할인 쿠폰",
     "discount": 5000,
     "discountType": "fixed",
-    "expirationDate": "2025-11-30",
+    "expirationDate": "2025-07-01",
     "id": 1,
     "minimumAmount": 100000
   },
