@@ -13,8 +13,6 @@ interface CouponState {
   coupon: CouponData;
   isSelected: boolean;
   isUsable: boolean;
-  reason?: string;
-  warningMessage?: string;
 }
 
 export const useCouponModal = ({
@@ -42,8 +40,6 @@ export const useCouponModal = ({
         coupon,
         isSelected,
         isUsable: validation.isValid,
-        reason: validation.reason,
-        warningMessage: validation.warningMessage,
       };
     });
   }, [coupons, orderItems, orderAmount, isIsolatedAreaSelected, selectedCouponIds]);
