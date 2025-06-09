@@ -15,64 +15,67 @@ export function calculateCouponDiscounts(
 ) {
   const { couponList } = useCouponListContext();
 
-  let fixed = 0;
-  let bogo = 0;
-  let freeShipping = 0;
-  let timeSale = 0;
+  function applyOrder(ids: number[]): number {
+    let fixed = 0;
+    let bogo = 0;
+    let freeShipping = 0;
+    let timeSale = 0;
 
-  const notExpired = (coupon: CouponResponse) => {
-    return now.getTime() <= new Date(coupon.expirationDate).getTime();
-  };
+    const notExpired = (coupon: CouponResponse) =>
+      now.getTime() <= new Date(coupon.expirationDate).getTime();
+    const meetsMin = (c: FixedCoupon | FreeShippingCoupon) =>
+      c.minimumAmount == null || orderAmount >= c.minimumAmount;
 
-  const meetsMin = (couponId: FixedCoupon | FreeShippingCoupon) =>
-    couponId.minimumAmount !== undefined
-      ? orderAmount >= couponId.minimumAmount
-      : true;
+    for (const id of ids) {
+      const coupon = couponList.find((c) => c.id === id)!;
+      if (!notExpired(coupon)) continue;
 
-  for (const couponId of couponsId) {
-    const coupon = couponList.find((coupon) => coupon.id === couponId)!;
-    if (!notExpired(coupon)) continue;
+      switch (coupon.discountType) {
+        case "fixed":
+          if (meetsMin(coupon)) fixed += coupon.discount;
+          break;
 
-    switch (coupon.discountType) {
-      case "fixed":
-        if (meetsMin(coupon)) {
-          fixed += coupon.discount;
-        }
-        break;
-
-      case "buyXgetY":
-        const eligible = cartItems.filter(
-          (i) => i.quantity > coupon.buyQuantity!
-        );
-        if (eligible.length > 0) {
-          const maxItem = eligible.reduce((prev, cur) =>
-            cur.product.price > prev.product.price ? cur : prev
+        case "buyXgetY": {
+          const eligible = cartItems.filter(
+            (i) => i.quantity > coupon.buyQuantity!
           );
-          bogo += maxItem.product.price * coupon.getQuantity!;
+          if (eligible.length > 0) {
+            const maxItem = eligible.reduce((prev, cur) =>
+              cur.product.price > prev.product.price ? cur : prev
+            );
+            bogo += maxItem.product.price * coupon.getQuantity!;
+          }
+          break;
         }
 
-        break;
+        case "freeShipping":
+          if (meetsMin(coupon)) freeShipping += shippingFee;
+          break;
 
-      case "freeShipping":
-        if (meetsMin(coupon)) {
-          freeShipping += shippingFee;
+        case "percentage": {
+          const [startHourStr] = coupon.availableTime.start.split(":");
+          const [endHourStr] = coupon.availableTime.end.split(":");
+
+          const startHour = parseInt(startHourStr, 10);
+          const endHour = parseInt(endHourStr, 10);
+          const h = now.getHours();
+          if (h >= startHour && h < endHour) {
+            timeSale += Math.floor(orderAmount * coupon.discount);
+          }
+          break;
         }
-        break;
-
-      case "percentage":
-        const [startHourStr] = coupon.availableTime.start.split(":");
-        const [endHourStr] = coupon.availableTime.end.split(":");
-
-        const startHour = parseInt(startHourStr, 10);
-        const endHour = parseInt(endHourStr, 10);
-        const h = now.getHours();
-        if (h >= startHour && h < endHour) {
-          timeSale += Math.floor(orderAmount * coupon.discount);
-        }
-
-        break;
+      }
     }
+
+    return fixed + bogo + freeShipping + timeSale;
   }
 
-  return fixed + bogo + freeShipping + timeSale;
+  if (couponsId.length === 2) {
+    const [a, b] = couponsId;
+    const discount1 = applyOrder([a, b]);
+    const discount2 = applyOrder([b, a]);
+    return Math.max(discount1, discount2);
+  }
+
+  return applyOrder(couponsId);
 }
