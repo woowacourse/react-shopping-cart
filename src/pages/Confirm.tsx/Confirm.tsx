@@ -8,28 +8,23 @@ import {
   subtitleText,
   titleText,
   totalPriceBox,
-  backButton,
-  backImg,
   bodyTextBox,
 } from './Confirm.style';
 import Button from '../../components/Common/Button/Button';
 import { css } from '@emotion/react';
+import { Footer } from '../../components/layout/Footer/Footer';
 
 export function Confirm() {
   const { state } = useLocation();
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   return (
     <PageLayout>
-      <Header>
-        <button css={backButton} onClick={handleBackClick}>
-          <img css={backImg} src="./back.png" />
-        </button>
-      </Header>
+      <Header></Header>
       <Main>
         <div css={confirmLayout}>
           {state ? (
@@ -65,6 +60,16 @@ export function Confirm() {
           )}
         </div>
       </Main>
+      <Footer>
+        <Button
+          onClick={handleBackClick}
+          type="submit"
+          size="full"
+          style="primary"
+        >
+          장바구니로 돌아가기
+        </Button>
+      </Footer>
     </PageLayout>
   );
 }
