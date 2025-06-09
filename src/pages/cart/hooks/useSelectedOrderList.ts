@@ -1,25 +1,25 @@
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import useSelectedIds from "@/shared/hooks/useSelectedItem";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useOrderIdsStorage } from "./useOrderIdsStorage";
 
 export const useSelectedOrderList = (cartItems: CartItemType[]) => {
-  const allIds = useMemo(() => cartItems.map(({ id }) => id), [cartItems]);
-
-  const {
-    setOrderIdsStorage,
-    clearOrderIdsStorage,
-    addOrderIdStorage,
-    removeOrderIdStorage,
-  } = useOrderIdsStorage(allIds);
+  const { getOrderIdsStorage, setOrderIdsStorage } = useOrderIdsStorage();
   const {
     addSelectedId,
     removeSelectedId,
     clearSelectedIds,
     getIsSelectedId,
     addSelectedIds,
-  } = useSelectedIds(new Set(allIds));
+    getSelectedIds,
+  } = useSelectedIds(new Set(getOrderIdsStorage()));
 
+  const selectedIds = useMemo(() => getSelectedIds(), [getSelectedIds]);
+  useEffect(() => {
+    setOrderIdsStorage(selectedIds);
+  }, [setOrderIdsStorage, selectedIds]);
+
+  const allIds = useMemo(() => cartItems.map(({ id }) => id), [cartItems]);
   const isAllSelected = useMemo(
     () => allIds.every((id) => getIsSelectedId(id)),
     [allIds, getIsSelectedId]
@@ -27,28 +27,24 @@ export const useSelectedOrderList = (cartItems: CartItemType[]) => {
   const toggleAllSelection = () => {
     if (isAllSelected) {
       clearSelectedIds();
-      clearOrderIdsStorage();
       return;
     }
 
     addSelectedIds(allIds);
-    setOrderIdsStorage(allIds);
   };
 
   const addSelectedItem = useCallback(
     (id: number) => {
       addSelectedId(id);
-      addOrderIdStorage(id);
     },
-    [addSelectedId, addOrderIdStorage]
+    [addSelectedId]
   );
 
   const removeSelectedItem = useCallback(
     (id: number) => {
       removeSelectedId(id);
-      removeOrderIdStorage(id);
     },
-    [removeSelectedId, removeOrderIdStorage]
+    [removeSelectedId]
   );
 
   return {
