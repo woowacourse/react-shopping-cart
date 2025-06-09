@@ -82,10 +82,6 @@ function CouponModal({
   };
 
   const handleClose = () => {
-    couponSelectDispatch({
-      type: "CLEAR_COUPON_SELECT",
-      payload: {},
-    });
     onClose();
   };
 

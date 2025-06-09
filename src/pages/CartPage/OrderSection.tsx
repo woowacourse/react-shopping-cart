@@ -29,7 +29,8 @@ const OrderSection = () => {
 
     const breakdown = OrderService.calculateOrderBreakdownWithCoupons(
       selectedCartData,
-      false
+      false,
+      selectedCoupons
     );
 
     return {
