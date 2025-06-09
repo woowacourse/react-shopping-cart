@@ -22,7 +22,7 @@ export const findCanApplyCoupon = (
 
   filteredCoupons = coupons.filter((coupon) => {
     if (coupon.code === 'FREESHIPPING')
-      return deliveryPrice > 0
+      return deliveryPrice > 0 && coupon.minimumAmount
         ? filterByPrice(price, coupon.minimumAmount)
         : false;
     if (coupon.minimumAmount) return filterByPrice(price, coupon.minimumAmount);
