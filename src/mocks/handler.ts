@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import rawCartItems from './cartItems.json';
+import coupons from './coupons.json';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -8,6 +9,10 @@ let cartItems = [...rawCartItems];
 export const handlers = [
   http.get(`${BASE_URL}/cart-items*`, () => {
     return HttpResponse.json({ content: cartItems });
+  }),
+
+  http.get(`${BASE_URL}/coupons*`, () => {
+    return HttpResponse.json(coupons);
   }),
 
   http.patch(`${BASE_URL}/cart-items/:id`, async ({ params, request }) => {

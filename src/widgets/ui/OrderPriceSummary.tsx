@@ -5,14 +5,8 @@ import * as S from './OrderPriceSummary.styles';
 import SelectInput from '../../shared/ui/SelectInput';
 
 export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: boolean }) {
-  const {
-    selectedCartItems,
-    totalDiscountPrice,
-    deliveryFee,
-    updateDeliveryFee,
-    totalPurchasePrice,
-    updateTotalPurchasePrice,
-  } = useCartContext();
+  const { selectedCartItems, totalDiscountPrice, updateDeliveryFee, totalPurchasePrice, updateTotalPurchasePrice } =
+    useCartContext();
 
   const [suburbExtraFee, setSuburbExtraFee] = useState(0);
 
