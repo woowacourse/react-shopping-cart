@@ -25,18 +25,49 @@ function OrderConfirmPage() {
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
-  const calculateCouponDiscount = () => {
-    return selectedCoupons.reduce((total, coupon) => {
+  const calculateCouponDiscount = (coupons: Coupon[] = selectedCoupons) => {
+    return coupons.reduce((total, coupon) => {
       if (coupon.discountType === 'fixed' && coupon.discount) {
         return total + coupon.discount;
       }
 
-      // TODO: MIRACLESALE, BOGO, FREESHIPPING 쿠폰 처리할것
+      if (coupon.discountType === 'percentage' && coupon.discount) {
+        const discountAmount = (price * coupon.discount) / 100;
+        return total + discountAmount;
+      }
+
+      if (coupon.discountType === 'buyXgetY' && coupon.buyQuantity && coupon.getQuantity) {
+        const requiredQuantity = coupon.buyQuantity + coupon.getQuantity;
+
+        const discountableItems = products
+          .filter((item: CartProduct) => item.quantity >= requiredQuantity)
+          .map((item: CartProduct) => {
+            const numberOfSets = Math.floor(item.quantity / requiredQuantity);
+            return {
+              productId: item.id,
+              unitPrice: item.product.price,
+              discountSets: numberOfSets,
+              totalDiscount: item.product.price * numberOfSets * (coupon.getQuantity as number),
+            };
+          })
+          .sort((a, b) => b.totalDiscount - a.totalDiscount);
+
+        const maxDiscount = discountableItems[0]?.totalDiscount || 0;
+        return total + maxDiscount;
+      }
+
+      if (coupon.discountType === 'freeShipping' && coupon.minimumAmount) {
+        if (price > coupon.minimumAmount) {
+          return total + shippingFee;
+        }
+      }
+
       return total;
     }, 0);
   };
 
   const couponDiscount = calculateCouponDiscount();
+  const tempCouponDiscount = calculateCouponDiscount(tempSelectedCoupons);
 
   const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
   const totalShippingFee = shippingFee + remoteAreaFee;
@@ -225,7 +256,9 @@ function OrderConfirmPage() {
                 );
               })}
             </CouponListContainer>
-            <CouponButton onClick={applyCoupons}>총 5,000원 할인 쿠폰 사용하기</CouponButton>
+            <CouponButton onClick={applyCoupons}>
+              총 {tempCouponDiscount.toLocaleString()}원 할인 쿠폰 사용하기
+            </CouponButton>
           </>
         </Modal>
       )}
