@@ -14,12 +14,10 @@ function useCouponSelection(
       const isTryingToAdd =
         !isCurrentlySelected && selectedCouponIds.size >= MAX_COUPON_COUNT;
 
-      // 추가하려는데 한도에 도달한 경우 실패
       if (isTryingToAdd) {
         return false;
       }
 
-      // 성공 케이스 - 상태 업데이트
       setSelectedCouponIds((prev) => {
         const next = new Set(prev);
         if (isCurrentlySelected) {

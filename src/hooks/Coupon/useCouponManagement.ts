@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef } from "react";
+import { useMemo, useEffect } from "react";
 import { useCouponFetch } from "./useCouponFetch";
 import { useBestCouponCombo } from "./useBestCouponCombo";
 import { useCouponSelection } from "./useCouponSelection";
@@ -16,8 +16,6 @@ export function useCouponManagement({
 }: UseCouponManagementParams) {
   const { couponsData, couponsFetchLoading } = useCouponFetch();
 
-  const isInitialized = useRef(false);
-
   const allCouponsResult = useBestCouponCombo({
     coupons: couponsData || [],
     selectedShoppingCartItems,
@@ -31,20 +29,18 @@ export function useCouponManagement({
     if (
       couponsData &&
       !couponsFetchLoading &&
-      allCouponsResult.appliedCoupons.length > 0 &&
-      !isInitialized.current
+      allCouponsResult.appliedCoupons.length > 0
     ) {
       const optimalIds = allCouponsResult.appliedCoupons.map(
         (coupon) => coupon.id
       );
       resetToOptimal(optimalIds);
-      isInitialized.current = true;
     }
   }, [
+    selectedShoppingCartItems,
     couponsData,
     couponsFetchLoading,
     allCouponsResult.appliedCoupons,
-    resetToOptimal,
   ]);
 
   const selectedCoupons = useMemo(
