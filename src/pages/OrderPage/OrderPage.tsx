@@ -11,7 +11,7 @@ import Checkbox from "../../components/@common/Checkbox/Checkbox";
 import Description from "../../components/@common/Description/Description";
 import InfoIcon from "/Info.svg";
 import { useState } from "react";
-import CouponModal from "../../CouponModal/CouponModal";
+import CouponModal from "../../components/CouponModal/CouponModal";
 import Title from "../../components/@common/Title/Title";
 import useToast from "../../hooks/useToast";
 

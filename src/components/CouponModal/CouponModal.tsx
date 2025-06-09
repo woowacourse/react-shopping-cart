@@ -1,12 +1,12 @@
-import Checkbox from "../components/@common/Checkbox/Checkbox";
-import Description from "../components/@common/Description/Description";
-import InfoMessage from "../components/InfoMessage/InfoMessage";
-import Modal from "../components/Modal/Modal";
-import { Coupon } from "../types/response";
+import Checkbox from "../@common/Checkbox/Checkbox";
+import Description from "../@common/Description/Description";
+import InfoMessage from "../InfoMessage/InfoMessage";
+import Modal from "../Modal/Modal";
+import { Coupon } from "../../types/response";
 import * as S from "./CouponModal.styles";
 import InfoIcon from "/Info.svg";
-import useCoupons from "../hooks/useCoupons";
-import { useCouponContext } from "../hooks/useCouponContext";
+import useCoupons from "../../hooks/useCoupons";
+import { useCouponContext } from "../../hooks/useCouponContext";
 import CloseImage from "/close-button.svg";
 
 interface CouponModalProps {
