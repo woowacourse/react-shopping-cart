@@ -3,33 +3,16 @@ import Header from "./Header";
 import PriceSection from "./PriceSection";
 import CartList from "./CartList";
 import { CartProduct } from "../../../type/cart";
-import { useState } from "react";
+import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
 
 type Props = {
   cartItems: CartProduct[];
   refetch: () => void;
 };
 
-const LOCAL_STORAGE_KEY = "selectedCartIds";
-
 const CartSection = ({ cartItems, refetch }: Props) => {
-  const getInitialSelectedIds = (): number[] => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-
-    return cartItems.map((item) => item.id);
-  };
-
-  const [selectedCartIds, setSelectedCartIds] = useState<number[]>(
-    getInitialSelectedIds
-  );
-
-  const handleSetSelectedCartIds = (newSelectedCartIds: number[]) => {
-    setSelectedCartIds(newSelectedCartIds);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newSelectedCartIds));
-  };
+  const { selectedCartIds, handleSelectedCartIds } =
+    useSelectedCartIds(cartItems);
 
   return (
     <S.Container>
@@ -48,7 +31,7 @@ const CartSection = ({ cartItems, refetch }: Props) => {
             <CartList
               cartItems={cartItems}
               selectedCartIds={selectedCartIds}
-              onSelectCartItem={handleSetSelectedCartIds}
+              onSelectCartItem={handleSelectedCartIds}
               refetch={refetch}
             />
 
