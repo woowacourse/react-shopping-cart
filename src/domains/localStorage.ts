@@ -1,7 +1,7 @@
 import {
   getLocalStorageItem,
   setLocalStorageItem,
-} from "../utils/localstorage";
+} from "../utils/localStorage";
 
 const key = "selectedCartItem";
 

@@ -1,7 +1,7 @@
-import useQuantityControl from "../../hooks/cart/useQuantityControl";
-import { CartItemType } from "../../types/response";
-import CheckBox from "../CheckBox/CheckBox";
-import QuantityControlButton from "../QuantityControlButton/QuantityControlButton";
+import useQuantityControl from "../../../hooks/cart/useQuantityControl";
+import { CartItemType } from "../../../types/response";
+import CheckBox from "../../CheckBox/CheckBox";
+import QuantityControlButton from "../../QuantityControlButton/QuantityControlButton";
 import {
   CountContainer,
   DeleteButton,
@@ -10,8 +10,8 @@ import {
   ItemController,
   ItemInfo,
 } from "./CartItem.styles";
-import CartItemImage from "./CartItemImage/CartItemImage";
-import CartItemInfo from "./CartItemInfo/CartItemInfo";
+import CartItemImage from "../CartItemImage/CartItemImage";
+import CartItemInfo from "../CartItemInfo/CartItemInfo";
 
 interface CartItemProps {
   cartItem: CartItemType;

@@ -1,5 +1,5 @@
 import { CartItemType } from "../../types/response";
-import CartItem from "../CartItem/CartItem";
+import CartItem from "../CartItem/CartItem/CartItem";
 import { Container } from "./CartItemList.styles";
 
 interface CartItemListProps {
