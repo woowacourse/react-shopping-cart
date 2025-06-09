@@ -25,7 +25,7 @@ import { DEFAULT_SHIPPING_FEE } from "../../constants/shipping";
 import emptyIcon from "../../assets/emptyIcon.png";
 
 export default function PaymentAmountCheckPage() {
-  const [couponPrice, setApplyCouponPrice] = useState<number>(0);
+  const [couponPrice, setCouponPrice] = useState<number>(0);
   const [isIslandArea, setIsIslandArea] = useState<boolean>(false);
   const { isOpen, handleOpen, handleClose } = Modal.useModal();
   const { cartItemList } = useCartItemList();
@@ -62,7 +62,7 @@ export default function PaymentAmountCheckPage() {
   };
 
   const handleApplyCouponPrice = (price: number) => {
-    setApplyCouponPrice(price);
+    setCouponPrice(price);
   };
 
   function CartItemList({ cartItemList }: { cartItemList: CartItem[] }) {

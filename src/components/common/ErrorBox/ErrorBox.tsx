@@ -1,6 +1,6 @@
 import { useErrorContext } from "../../../contexts/ErrorContext";
 
-import { Container, StyledSpan } from "./ErrorBox.styles";
+import { Container } from "./ErrorBox.styles";
 
 export default function ErrorBox() {
   const { errorMessage } = useErrorContext();
