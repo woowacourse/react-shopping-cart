@@ -21,7 +21,7 @@ export const calculateBuyXGetYDiscount = (coupon: Coupon, items: CartItem[]): nu
   if (eligibleItems.length === 0) return 0;
 
   const highestPriceItem = eligibleItems[0];
-  const freeItemCount = Math.floor(highestPriceItem.quantity / setSize);
+  const freeItemCount = Math.floor(highestPriceItem.quantity / setSize) * getQuantity;
 
   return highestPriceItem.product.price * freeItemCount;
 };
