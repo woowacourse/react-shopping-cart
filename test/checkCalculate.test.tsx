@@ -8,10 +8,10 @@ const server = setupServer(...handlers);
 
 beforeAll(() => server.listen());
 afterEach(() => {
-  server.resetHandlers();
   cleanup();
-  server.close();
+  server.resetHandlers();
 });
+afterAll(() => server.close());
 
 describe('체크박스, 주문 결제 금액 변동 테스트', () => {
   it('체크 박스가 선택됨에 따라 총 결제 금액이 변경된다.', async () => {
@@ -30,6 +30,8 @@ describe('체크박스, 주문 결제 금액 변동 테스트', () => {
     const after = parseInt(afterText.replaceAll(',', '').replace('원', ''));
 
     expect(after).toBeLessThan(before);
+
+    act(() => checkBoxList[1].click());
   });
 
   it('체크 박스가 선택됨에 따라 총 주문 금액이 변경된다.', async () => {
@@ -48,6 +50,8 @@ describe('체크박스, 주문 결제 금액 변동 테스트', () => {
     const after = parseInt(afterText.replaceAll(',', '').replace('원', ''));
 
     expect(after).toBeLessThan(before);
+
+    act(() => checkBoxList[1].click());
   });
 });
 
@@ -93,9 +97,9 @@ it('페이지가 넘어가면, 주문 수량, 상품 종류, 총 금액이 화�
     orderButton.click();
   });
 
-  const orderInformation = await screen.findByText('총 14종류의 상품 16개를 주문합니다.', { exact: false });
+  const orderInformation = await screen.findByText('총 13종류의 상품 13개를 주문합니다.', { exact: false });
   expect(orderInformation).toBeInTheDocument();
 
-  const totalAmountElement = await screen.findByText('1,088,054,867원');
+  const totalAmountElement = await screen.findByText('188,054,867원');
   expect(totalAmountElement).toBeInTheDocument();
 });

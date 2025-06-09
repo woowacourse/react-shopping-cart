@@ -11,8 +11,8 @@ beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
   cleanup();
-  server.close();
 });
+afterAll(() => server.close());
 
 describe('Cart List Rendering', () => {
   it('장바구니 아이템이 올바르게 fetch 되는지 확인한다.', async () => {
@@ -38,7 +38,7 @@ describe('Cart Item Delete', () => {
 });
 
 describe('Cart Item Quantity', () => {
-  it('플러스 버튼 클릭 시 수량이 1 증가해야 한다.', async () => {
+  it('+ 버튼 클릭 시 수량이 1 증가해야 한다.', async () => {
     render(<App />);
 
     const steppers = await screen.findAllByTestId('stepper');
@@ -47,14 +47,14 @@ describe('Cart Item Quantity', () => {
     const quantitySpan = within(stepper).getByText(/\d+/);
     const initialQuantity = Number(quantitySpan.textContent);
 
-    const plusButton = within(stepper).getByRole('button', { name: /플러스 버튼/i });
+    const plusButton = within(stepper).getByRole('button', { name: '+' });
     plusButton.click();
 
     const updatedQuantity = await within(stepper).findByText(String(initialQuantity + 1));
     expect(updatedQuantity).toBeInTheDocument();
   });
 
-  it('플러스 버튼 클릭 시 수량이 1 증가해야 한다.', async () => {
+  it('- 버튼 클릭 시 수량이 1 감소해야 한다.', async () => {
     render(<App />);
 
     const steppers = await screen.findAllByTestId('stepper');
@@ -63,7 +63,7 @@ describe('Cart Item Quantity', () => {
     const quantitySpan = within(stepper).getByText(/\d+/);
     const initialQuantity = Number(quantitySpan.textContent);
 
-    const plusButton = within(stepper).getByRole('button', { name: /마이너스 버튼/i });
+    const plusButton = within(stepper).getByRole('button', { name: '-' });
     plusButton.click();
 
     const updatedQuantity = await within(stepper).findByText(String(initialQuantity - 1));
