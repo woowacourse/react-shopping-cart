@@ -10,12 +10,11 @@ import { css } from '@emotion/react';
 import CheckBox from '../components/common/CheckBox';
 import { useCoupons } from '../hooks/useCoupons';
 import { useToggle } from '../hooks/useToggle';
-import Modal from '../components/Modal/Modal';
-import CouponItem from '../components/Modal/CouponItem';
 import { getBestCoupons } from '../components/Modal/getBestCoupons';
 import { Coupon } from '../types/coupon';
-import { isCouponDisabled } from '../components/Modal/isCouponDisabled';
 import { calculateCouponDiscount } from '../components/Modal/calculateCouponDiscount';
+import CouponModal from '../components/Modal/CouponModal';
+import { isCouponDisabled } from '../components/Modal/isCouponDisabled';
 
 function OrderPage() {
   const navigate = useNavigate();
@@ -24,26 +23,9 @@ function OrderPage() {
   const { value: includeSpecialRegions, toggle: toggleRegion } = useToggle(false);
   const totalDeliveryFee = includeSpecialRegions ? deliveryFee + 3000 : deliveryFee;
   const { data: coupons } = useCoupons();
-  const { value: isOpen, on, off } = useToggle(false);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempCoupons, setTempCoupons] = useState<Coupon[]>([]);
-
-  const totalDiscount = useMemo(
-    () =>
-      selectedCoupons.reduce(
-        (sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee),
-        0
-      ),
-    [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]
-  );
-
-  const tempTotalDiscount = useMemo(
-    () =>
-      tempCoupons.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee), 0),
-    [tempCoupons, orderAmount, checkedItems, totalDeliveryFee]
-  );
-
-  const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
+  const { value: isOpen, on, off } = useToggle(false);
 
   const handleOpenModal = () => {
     setTempCoupons(selectedCoupons);
@@ -52,7 +34,7 @@ function OrderPage() {
 
   const handleTempToggle = (coupon: Coupon) => {
     if (isCouponDisabled(coupon, orderAmount, checkedItems)) return;
-    setTempCoupons((prev) => {
+    setTempCoupons((prev: Coupon[]) => {
       const exists = prev.find((c) => c.id === coupon.id);
       if (exists) return prev.filter((c) => c.id !== coupon.id);
       if (prev.length < 2) return [...prev, coupon];
@@ -65,9 +47,20 @@ function OrderPage() {
     off();
   };
 
+  const totalDiscount = useMemo(
+    () =>
+      selectedCoupons.reduce(
+        (sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee),
+        0
+      ),
+    [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]
+  );
+
+  const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
+
   useEffect(() => {
-    if (coupons) setSelectedCoupons(getBestCoupons(coupons, orderAmount, checkedItems, totalDeliveryFee));
-  }, [coupons, orderAmount, checkedItems, totalDeliveryFee]);
+    if (coupons) setSelectedCoupons(getBestCoupons(coupons, orderAmount, checkedItems, deliveryFee));
+  }, [coupons, orderAmount, checkedItems, deliveryFee]);
 
   useEffect(() => {
     if (
@@ -138,25 +131,17 @@ function OrderPage() {
           </Button>
         </div>
       </main>
-      <Modal isOpen={isOpen} handleClose={off}>
-        <div css={styles.infoCss}>
-          <img src="./assets/info.svg" alt="info icon" />
-          <p css={styles.fontSize12}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
-        </div>
-        {coupons?.map((coupon) => (
-          <CouponItem
-            key={coupon.id}
-            coupon={coupon}
-            orderAmount={orderAmount}
-            items={checkedItems}
-            selectedCoupons={tempCoupons}
-            handleCouponToggle={() => handleTempToggle(coupon)}
-          />
-        ))}
-        <Button css={buttonCss} onClick={handleApplyCoupons}>
-          총 {tempTotalDiscount.toLocaleString()}원 할인쿠폰 사용하기
-        </Button>
-      </Modal>
+      <CouponModal
+        isOpen={isOpen}
+        off={off}
+        coupons={coupons ?? []}
+        orderAmount={orderAmount}
+        checkedItems={checkedItems}
+        totalDeliveryFee={totalDeliveryFee}
+        tempCoupons={tempCoupons}
+        handleTempToggle={handleTempToggle}
+        handleApplyCoupons={handleApplyCoupons}
+      />
     </>
   );
 }
@@ -197,18 +182,4 @@ const couponApplyCss = css({
   borderRadius: '5px',
   margin: '16px 0',
   cursor: 'pointer'
-});
-
-const buttonCss = css({
-  all: 'unset',
-  borderRadius: '5px',
-  backgroundColor: '#333333',
-  textAlign: 'center',
-  width: '100%',
-  cursor: 'pointer',
-  border: 'none',
-  minHeight: '44px',
-  color: 'white',
-  fontSize: '15px',
-  fontWeight: 'bold'
 });

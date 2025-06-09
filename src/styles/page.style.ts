@@ -29,12 +29,4 @@ const allSelectCss = css(fontSize12, {
   marginBottom: '16px'
 });
 
-const infoCss = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-  width: '100%',
-  marginBottom: '16px'
-});
-
-export { layoutCss, titleCss, descriptionCss, allSelectCss, infoCss, fontSize12 };
+export { layoutCss, titleCss, descriptionCss, allSelectCss, fontSize12 };
