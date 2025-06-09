@@ -24,7 +24,7 @@ const useAllSelect = <T extends CheckboxItemType>({
   }, [autoSelectAll, items, toggleSelect]);
 
   const isAllSelected = useCallback(() => {
-    return selectedIds.length === items.length;
+    return items.every((item) => selectedIds.includes(item.id));
   }, [items, selectedIds]);
 
   const toggleAllSelect = useCallback(() => {
