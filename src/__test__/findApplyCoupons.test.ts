@@ -1,6 +1,6 @@
 import {findCanApplyCoupon} from '../feature/findApplyCoupon';
 import {coupons} from './mockData/coupons';
-import {selectedItems, XbutygetYselectedItems} from './mockData/selectedItems';
+import {selectedItems, bogoSelectedItems} from './mockData/selectedItems';
 
 describe('가격을 기준으로 올바른 쿠폰 항목을 찾는다.', () => {
   const NOW = {
@@ -177,7 +177,7 @@ describe('2+1 상품이 있는 경우 올바른 쿠폰 항목을 찾는다.', ()
     const filteredCoupons = findCanApplyCoupon(
       coupons,
       price,
-      XbutygetYselectedItems,
+      bogoSelectedItems,
       deliveryPrice,
       NOW
     );
