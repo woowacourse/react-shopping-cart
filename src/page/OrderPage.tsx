@@ -26,33 +26,47 @@ function OrderPage() {
   const { data: coupons } = useCoupons();
   const { value: isOpen, on, off } = useToggle(false);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
-  const handleCouponToggle = (coupon: Coupon) => {
+  const [tempCoupons, setTempCoupons] = useState<Coupon[]>([]);
+
+  const totalDiscount = useMemo(
+    () =>
+      selectedCoupons.reduce(
+        (sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee),
+        0
+      ),
+    [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]
+  );
+
+  const tempTotalDiscount = useMemo(
+    () =>
+      tempCoupons.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee), 0),
+    [tempCoupons, orderAmount, checkedItems, totalDeliveryFee]
+  );
+
+  const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
+
+  const handleOpenModal = () => {
+    setTempCoupons(selectedCoupons);
+    on();
+  };
+
+  const handleTempToggle = (coupon: Coupon) => {
     if (isCouponDisabled(coupon, orderAmount, checkedItems)) return;
-
-    setSelectedCoupons((prev) => {
+    setTempCoupons((prev) => {
       const exists = prev.find((c) => c.id === coupon.id);
-      if (exists) {
-        return prev.filter((c) => c.id !== coupon.id);
-      } else if (prev.length < 2) {
-        return [...prev, coupon];
-      }
-
+      if (exists) return prev.filter((c) => c.id !== coupon.id);
+      if (prev.length < 2) return [...prev, coupon];
       return prev;
     });
   };
 
-  const totalDiscount = useMemo(() => {
-    return selectedCoupons.reduce(
-      (sum, coupon) => sum + calculateCouponDiscount(coupon, orderAmount, checkedItems, totalDeliveryFee),
-      0
-    );
-  }, [selectedCoupons, orderAmount, checkedItems, totalDeliveryFee]);
-
-  const realTotalAmount = orderAmount + totalDeliveryFee - totalDiscount;
+  const handleApplyCoupons = () => {
+    setSelectedCoupons(tempCoupons);
+    off();
+  };
 
   useEffect(() => {
-    if (!coupons) return;
-    setSelectedCoupons(getBestCoupons(coupons, orderAmount, checkedItems, totalDeliveryFee));
+    if (coupons) setSelectedCoupons(getBestCoupons(coupons, orderAmount, checkedItems, totalDeliveryFee));
   }, [coupons, orderAmount, checkedItems, totalDeliveryFee]);
 
   useEffect(() => {
@@ -95,7 +109,7 @@ function OrderPage() {
               <OrderItem key={item.id} item={item} />
             ))}
           </div>
-          <Button css={couponApplyCss} onClick={on}>
+          <Button css={couponApplyCss} onClick={handleOpenModal}>
             쿠폰 적용
           </Button>
           <div css={priceTitleCss}>배송 정보</div>
@@ -135,12 +149,12 @@ function OrderPage() {
             coupon={coupon}
             orderAmount={orderAmount}
             items={checkedItems}
-            selectedCoupons={selectedCoupons}
-            handleCouponToggle={() => handleCouponToggle(coupon)}
+            selectedCoupons={tempCoupons}
+            handleCouponToggle={() => handleTempToggle(coupon)}
           />
         ))}
-        <Button css={buttonCss} onClick={off}>
-          총 {totalDiscount.toLocaleString()}원 할인쿠폰 사용하기
+        <Button css={buttonCss} onClick={handleApplyCoupons}>
+          총 {tempTotalDiscount.toLocaleString()}원 할인쿠폰 사용하기
         </Button>
       </Modal>
     </>
