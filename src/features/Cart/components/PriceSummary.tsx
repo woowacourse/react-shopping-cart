@@ -9,9 +9,10 @@ import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
 type PriceSummaryProps = {
   variant?: "cart" | "review";
   cartItems: CartItem[];
+  discountAmount?: number;
 };
 
-export const PriceSummary = ({ variant = "cart", cartItems }: PriceSummaryProps) => {
+export const PriceSummary = ({ variant = "cart", cartItems, discountAmount = 0}: PriceSummaryProps) => {
   const isCartMode = variant === 'cart';
   const { orderPrice, deliveryFee, totalPrice } = usePriceInfo(cartItems);
 
@@ -48,7 +49,7 @@ export const PriceSummary = ({ variant = "cart", cartItems }: PriceSummaryProps)
         padding="0 10px"
       >
         <Text type="Body">쿠폰 할인 금액</Text>
-        <Text type="Heading">0원</Text>
+        <Text type="Heading">{discountAmount.toLocaleString()}원</Text>
       </Flex>
       <Flex
         direction="row"
@@ -71,7 +72,7 @@ export const PriceSummary = ({ variant = "cart", cartItems }: PriceSummaryProps)
         padding="0 10px"
       >
         <Text type="Body">총 결제 금액</Text>
-        <Text type="Heading">{totalPrice.toLocaleString()}원</Text>
+        <Text type="Heading">{(totalPrice - discountAmount).toLocaleString()}원</Text>
       </Flex>
     </Flex>
   );

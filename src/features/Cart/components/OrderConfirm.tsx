@@ -25,6 +25,7 @@ import { isCouponValid } from '@/features/Coupon/utils/validateCoupon';
 import { getBestCouponCombination } from '@/features/Coupon/utils/combinations';
 import { useCartContext } from '../context/CartProvider';
 import { usePriceInfo } from '../hooks/usePriceInfo';
+import { calculateTotalDiscount } from '@/features/Coupon/utils/calculateTotalDiscount';
 
 type OrderConfirmProps = {
   cartItems: CartItem[];
@@ -38,6 +39,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
   const { isRemoteArea } = useCartContext();
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [showCouponList, setShowCouponList] = useState(false);
+  const [discountAmount, setDiscountAmount] = useState(0); 
   const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
 
   useEffect(() => {
@@ -89,6 +91,18 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
     });
   };
 
+  const onApplyCoupons = () => {
+    const selected = coupons.filter((c) => c.checked && !c.disabled);
+    const discount = calculateTotalDiscount(selectedCartItems, selected, {
+      totalPrice,
+      deliveryFee,
+      isRemoteArea,
+    });
+  
+    setDiscountAmount(discount);
+    setShowCouponList(false);
+  };
+
   return (
     <>
       <Header
@@ -135,7 +149,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
           쿠폰 적용
         </Button>
         <RemoteAreaCheckBox />
-        <PriceSummary variant="review" cartItems={cartItems} />
+        <PriceSummary variant="review" cartItems={cartItems} discountAmount={discountAmount}/>
       </Flex>
       <Button
         width="100%"
@@ -154,9 +168,7 @@ export const OrderConfirm = ({ cartItems, onPrev }: OrderConfirmProps) => {
           coupons={coupons}
           onClose={() => setShowCouponList(false)}
           onToggleCoupon={onToggleCoupon}
-          onApply={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          onApply={onApplyCoupons}
         />
       )}
     </>

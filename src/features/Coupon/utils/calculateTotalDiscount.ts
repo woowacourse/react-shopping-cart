@@ -1,6 +1,6 @@
 import { CartItem } from '@/features/Cart/types/Cart.types';
 import { Coupon } from '../types/Coupon.types';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
+import { FREE_DELIVERY_THRESHOLD } from '@/features/Cart/constants/price';
 
 export const calculateTotalDiscount = (
   selectedCartItems: CartItem[],
@@ -30,7 +30,7 @@ export const calculateTotalDiscount = (
         return acc + mostExpensive.product.price;
       }
       case 'freeShipping':
-        if (deliveryFee > 0) {
+        if (totalPrice < FREE_DELIVERY_THRESHOLD) {
           return acc + (isRemoteArea ? 6000 : 3000);
         }
         return acc;
