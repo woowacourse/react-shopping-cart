@@ -9,7 +9,7 @@ type RemoveProductParams = {
 };
 
 const RemoveProduct = async ({ method, params }: RemoveProductParams) => {
-  const url = new URL(`${BASE_URL}/${params.productId}`);
+  const url = new URL(BASE_URL + "/cart-items/" + params.productId);
 
   const options = {
     method,
