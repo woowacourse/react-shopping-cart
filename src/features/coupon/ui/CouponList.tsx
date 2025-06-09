@@ -83,24 +83,16 @@ export default function CouponList({ onClose }: CouponListProps) {
     updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
   }, [coupons, deliveryFee]);
 
-  console.log('totalDiscountPrice', totalDiscountPrice);
-  console.log('totalPrice', totalPrice);
-  console.log('deliveryFee', deliveryFee);
-  console.log('totalPurchasePrice', totalPrice + deliveryFee - totalDiscountPrice);
-  console.log('invalidCouponIds', invalidCouponIds);
-
   useEffect(() => {
     updateTotalDiscountPrice(
       calculateTotalDiscountPrice({
-        selectedCoupons: selectedCoupons,
+        selectedCoupons,
         highestPriceCartItem,
         totalPrice,
         deliveryFee,
       })
     );
   }, [selectedCoupons]);
-
-  console.log('selected Coupons', selectedCoupons);
 
   const handleCloseModal = () => {
     onClose();

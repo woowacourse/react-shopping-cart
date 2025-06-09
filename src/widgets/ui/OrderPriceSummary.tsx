@@ -1,8 +1,8 @@
+import { useEffect, useState, ChangeEvent } from 'react';
 import { useCartContext } from '../../shared/context/useCartContext';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../features/cart/constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
 import SelectInput from '../../shared/ui/SelectInput';
-import { useEffect } from 'react';
 
 export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: boolean }) {
   const {
@@ -11,38 +11,24 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     deliveryFee,
     updateDeliveryFee,
     totalPurchasePrice,
-    selectedCoupons,
     updateTotalPurchasePrice,
   } = useCartContext();
 
+  const [suburbExtraFee, setSuburbExtraFee] = useState(0);
+
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
+  const baseDeliveryFee = totalPrice < DELIVERY_FEE_THRESHOLD ? DELIVERY_FEE : 0;
+  const finalDeliveryFee = baseDeliveryFee + suburbExtraFee;
+
   useEffect(() => {
-    if (deliveryFee === 0 && totalPrice < DELIVERY_FEE_THRESHOLD) {
-      updateDeliveryFee(DELIVERY_FEE);
-    } else {
-      if (deliveryFee > 0) {
-        updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
-        return;
-      }
+    updateDeliveryFee(finalDeliveryFee);
+    updateTotalPurchasePrice(totalPrice + finalDeliveryFee - totalDiscountPrice);
+  }, [totalPrice, suburbExtraFee, totalDiscountPrice]);
 
-      updateDeliveryFee(0);
-    }
-
-    updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
-  }, [selectedCartItems, deliveryFee]);
-
-  const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.discountType === 'freeShipping');
-
-  const handleSuburbExtraFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e?.target.checked;
-    console.log('isChecked', isChecked);
-    if (isChecked) {
-      console.log("'제주도 및 도서 산간 지역' 체크박스가 선택되었습니다.", deliveryFee + DELIVERY_FEE);
-      updateDeliveryFee(deliveryFee + DELIVERY_FEE);
-    } else {
-      updateDeliveryFee(Math.max(deliveryFee - DELIVERY_FEE, 0));
-    }
+  const handleSuburbExtraFeeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setSuburbExtraFee(isChecked ? DELIVERY_FEE : 0);
   };
 
   return (
@@ -56,24 +42,29 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
           </S.SuburbExtraFeeContainer>
         </>
       )}
+
       <S.DeliveryFeeLabel>
         <S.DeliveryFeeIcon src='./infoLabelIcon.svg' alt='Delivery Fee Label Icon' />총 주문 금액이 100,000원 이상일
         경우 무료 배송됩니다.
       </S.DeliveryFeeLabel>
+
       <S.TotalOrderPrice>
         주문 금액
         <S.PriceBox>{totalPrice.toLocaleString()}원</S.PriceBox>
       </S.TotalOrderPrice>
+
       {useCoupon && (
         <S.CouponDiscountAmount data-testid='coupon-discount-amount'>
           쿠폰 할인 금액
           <S.PriceBox>-{totalDiscountPrice.toLocaleString()}원</S.PriceBox>
         </S.CouponDiscountAmount>
       )}
+
       <S.DeliveryFee data-testid='delivery-fee'>
         배송비
-        <S.PriceBox>{deliveryFeeDiscountCoupon ? '0' : deliveryFee.toLocaleString()}원</S.PriceBox>
+        <S.PriceBox>{finalDeliveryFee.toLocaleString()}원</S.PriceBox>
       </S.DeliveryFee>
+
       <S.TotalPurchasePrice data-testid='total-purchase-price'>
         총 결제 금액
         <S.PriceBox>{totalPurchasePrice.toLocaleString()}원</S.PriceBox>
