@@ -15,7 +15,7 @@ import { getDeliveryPrice } from "@/domains/utils/getDeliveryPrice";
  * @property {boolean} isRegionDelivery - 지역 배송 여부 상태
  * @property {function} toggleRegionDelivery - 지역 배송 옵션 토글 함수
  */
-export const useDeliveryPrice = (orderTotalPrice: number) => {
+export const useRegionDeliveryPrice = (orderTotalPrice: number) => {
   const [isRegionDelivery, setIsRegionDelivery] = useState(false);
 
   const toggleRegionDelivery = useCallback(() => {

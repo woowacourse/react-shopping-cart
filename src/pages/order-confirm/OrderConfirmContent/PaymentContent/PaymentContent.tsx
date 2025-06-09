@@ -5,7 +5,7 @@ import { getOrderTotalPrice } from "@/domains/utils/getOrderTotalPrice";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { usePaymentPrice } from "../../hooks/usePaymentPrice";
 import { useCouponModal } from "../../hooks/useCouponModal";
-import { useDeliveryPrice } from "../../hooks/useDeliveryPrice";
+import { useRegionDeliveryPrice } from "../../hooks/useRegionDeliveryPrice";
 import PaymentPriceContainer from "./PaymentPriceContainer/PaymentPriceContainer";
 import { ApplyCouponModalContainer } from "./ApplyCouponModal/ApplyCouponModalContainer";
 
@@ -18,7 +18,7 @@ export default function PaymentContent({ orderList }: PaymentContentProps) {
     useCouponModal();
 
   const { deliveryPrice, isRegionDelivery, toggleRegionDelivery } =
-    useDeliveryPrice(getOrderTotalPrice(orderList));
+    useRegionDeliveryPrice(getOrderTotalPrice(orderList));
   const { couponDiscount, paymentPrice, applyCouponDiscount } = usePaymentPrice(
     { orderTotalPrice: getOrderTotalPrice(orderList), deliveryPrice }
   );
