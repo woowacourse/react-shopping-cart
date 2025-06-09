@@ -10,6 +10,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     totalPrice,
     totalDiscountPrice,
     totalPurchasePrice,
+    selectedCartItems,
     updateTotalPrice,
     updateDeliveryFee,
     updateTotalPurchasePrice,
@@ -20,6 +21,11 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
   const baseDeliveryFee = totalPrice < DELIVERY_FEE_THRESHOLD ? DELIVERY_FEE : 0;
   const finalDeliveryFee = baseDeliveryFee + suburbExtraFee;
 
+  console.log('??????????또잉 스토리지<', getSelectedCartItemsFromLocalStorage());
+  console.log('토털프라이스', totalPrice);
+  console.log('ㅇㅇ렄리너ㅏㅣㄷㄹ', totalPrice + finalDeliveryFee - totalDiscountPrice);
+  console.log('totalPurchasePrice', totalPurchasePrice);
+
   useEffect(() => {
     const calculatedTotalPrice = getSelectedCartItemsFromLocalStorage().reduce(
       (acc, item) => acc + item.product.price * item.quantity,
@@ -28,7 +34,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     updateTotalPrice(calculatedTotalPrice);
     updateDeliveryFee(finalDeliveryFee);
     updateTotalPurchasePrice(totalPrice + finalDeliveryFee - totalDiscountPrice);
-  }, [suburbExtraFee, totalDiscountPrice]);
+  }, [totalPrice, suburbExtraFee, totalDiscountPrice]);
 
   const handleSuburbExtraFeeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;

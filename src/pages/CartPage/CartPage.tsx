@@ -56,7 +56,9 @@ function CartPage() {
     });
 
     saveSelectedCartItemsToLocalStorage(selectedCartItems);
-  }, [cartItems]);
+  }, [cartItems, selectedCartItems]);
+
+  console.log('selectedCartItems:', selectedCartItems);
 
   return (
     <S.CartPageContainer>
