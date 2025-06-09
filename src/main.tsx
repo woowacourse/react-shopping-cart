@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { CartItemsProvider } from './features/cart/context/CartItemsProvider.tsx';
-import { SelectedCartItemsProvider } from './features/cart/context/SelectedCartItemsProvider.tsx';
+import { CartWithOrderProvider } from './shared/context/CartWithOrderProvider.tsx';
 import { CouponsProvider } from './features/coupon/context/CouponsProvider.tsx';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
@@ -14,12 +14,13 @@ async function enableMocking() {
     return Promise.resolve();
   }
 
-  const isLocalhost = location.hostname === 'localhost';
-
   const { worker } = await import('./mocks/browser');
   return worker.start({
     serviceWorker: {
-      url: isLocalhost ? '/mockServiceWorker.js' : '/react-shopping-cart/mockServiceWorker.js',
+      url:
+        import.meta.env.NODE_ENV === 'production'
+          ? '/react-shopping-cart/mockServiceWorker.js'
+          : '/mockServiceWorker.js',
     },
     onUnhandledRequest: 'bypass',
   });
@@ -30,9 +31,9 @@ enableMocking().then(() => {
     <React.StrictMode>
       <CartItemsProvider>
         <CouponsProvider>
-          <SelectedCartItemsProvider>
+          <CartWithOrderProvider>
             <RouterProvider router={router} />
-          </SelectedCartItemsProvider>
+          </CartWithOrderProvider>
         </CouponsProvider>
       </CartItemsProvider>
     </React.StrictMode>
