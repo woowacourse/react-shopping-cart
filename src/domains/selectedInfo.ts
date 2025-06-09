@@ -1,6 +1,6 @@
 import { SelectState } from "../stores/SelectReducer";
 import { CouponType, DiscountType } from "../types/types";
-import { setLocalStorage } from "../utils/storage";
+import { getLocalStorage, setLocalStorage } from "../utils/storage";
 
 export const SELECTED_INFO_KEY = "selectedInfo";
 
@@ -53,5 +53,14 @@ export const setSelectedInfo = (
 
       return state;
     })
+  );
+};
+
+export const deleteSelectInfo = (id: number) => {
+  const selectedState = getLocalStorage<SelectState[]>(SELECTED_INFO_KEY) || [];
+
+  setLocalStorage(
+    SELECTED_INFO_KEY,
+    selectedState.filter((state) => state.id !== id)
   );
 };

@@ -3,6 +3,7 @@ import QuantityButton from "../QuantityButton/QuantityButton";
 import CheckBox from "../CheckBox/CheckBox";
 import { ResponseCartItem } from "../../types/types";
 import useCartItemManager from "../../hooks/useCartItemManager";
+import formatPrice from "../../utils/formatPrice";
 
 interface CartItemProps {
   cart: ResponseCartItem;
@@ -39,7 +40,7 @@ const CartItem = ({ cart, type }: CartItemProps) => {
           <S.ProductImage src={imageUrl} alt={name} />
           <S.ItemContent>
             <S.ItemTitle>{name}</S.ItemTitle>
-            <S.ItemPrice>{price}원</S.ItemPrice>
+            <S.ItemPrice>{formatPrice(price)}원</S.ItemPrice>
             {type === "cart" ? (
               <QuantityButton
                 quantity={cart.quantity}

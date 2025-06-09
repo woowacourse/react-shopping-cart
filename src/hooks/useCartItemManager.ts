@@ -4,7 +4,7 @@ import { ResponseCartItem } from "../types/types";
 import useSelectAction from "./useSelectAction";
 import useCartAction from "./useCartAction";
 import { useCartContext } from "../stores/CartContext";
-import { setSelectedInfo } from "../domains/selectedInfo";
+import { deleteSelectInfo, setSelectedInfo } from "../domains/selectedInfo";
 
 interface UseCartItemManagerProps {
   cart: ResponseCartItem;
@@ -67,6 +67,7 @@ function useCartItemManager({ cart }: UseCartItemManagerProps) {
       removeCartItem({ id: cart.id });
       removeSelect({ id: cart.id });
       updateCartItem(cart.id, 0);
+      deleteSelectInfo(cart.id);
     } catch (error) {
       setCartInfo({ items: cartData });
     }

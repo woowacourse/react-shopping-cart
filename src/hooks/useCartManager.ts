@@ -40,7 +40,7 @@ function useCartManager(): UseCartManagerReturn {
         };
       });
 
-      if (!selectedInfo) {
+      if (!selectedInfo || selectedInfo.length !== cartItemRes.length) {
         setSelectInfo({
           items: initialState,
         });
