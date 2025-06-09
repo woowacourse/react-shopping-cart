@@ -8,6 +8,8 @@ import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
 import * as Card from '../components/Card/Card';
+import { calculateDeliveryFee } from '../components/CartItemList/calculate';
+
 export type SelectedItem = {
   id: number;
   name: string;
@@ -27,7 +29,7 @@ function OrderPage() {
   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const baseDeliveryFee = totalPrice >= 100000 ? 0 : 3000;
+  const baseDeliveryFee = calculateDeliveryFee(totalPrice);
   const extraRemoteFee = isRemoteArea ? 3000 : 0;
   const deliveryFee = baseDeliveryFee + extraRemoteFee;
 
@@ -94,7 +96,6 @@ function SelectedItemCard({ item }: { item: SelectedItem }) {
         <Card.Price>{(item.price * item.quantity).toLocaleString()}원</Card.Price>
         <p>{item.quantity}개</p>
       </Card.Content>
-      {/* </div> */}
     </Card.Root>
   );
 }

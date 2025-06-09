@@ -8,6 +8,11 @@ import CheckBox from '../common/CheckBox';
 import { getLocalStorage } from '../../utils/localStorage';
 import { SelectedItem } from '../../page/OrderPage';
 
+const MAX_COUPON_COUNT = 2;
+const FREE_DELIVERY_THRESHOLD = 100000;
+const DELIVERY_FEE = 3000;
+const EXTRA_REMOTE_FEE = 3000;
+
 const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
@@ -18,7 +23,7 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
     setSelectedCoupons((prev) => {
       const exists = prev.find((c) => c.id === coupon.id);
       if (exists) return prev.filter((c) => c.id !== coupon.id);
-      return prev.length < 2 ? [...prev, coupon] : prev;
+      return prev.length < MAX_COUPON_COUNT ? [...prev, coupon] : prev;
     });
   };
 
@@ -36,7 +41,7 @@ const CouponModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
       <Modal.BackDrop css={styles.backdropCss} />
       <Modal.Content>
         <Modal.Title>쿠폰을 선택해 주세요</Modal.Title>
-        <p css={styles.descStyle}>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
+        <p css={styles.descStyle}>쿠폰은 최대 {MAX_COUPON_COUNT}개까지 사용할 수 있습니다.</p>
         <ul css={styles.couponListStyle}>
           {coupons?.map((coupon) => {
             const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
@@ -82,8 +87,8 @@ const getCouponInfo = (coupon: Coupon): string => {
 
 const calculateTotalDiscount = (selectedCoupons: Coupon[], orderAmount: number) => {
   const { isRemoteArea } = getShippingInfoFromStorage();
-  const baseFee = orderAmount >= 100000 ? 0 : 3000;
-  const extraFee = isRemoteArea ? 3000 : 0;
+  const baseFee = orderAmount >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
+  const extraFee = isRemoteArea ? EXTRA_REMOTE_FEE : 0;
   const originalDeliveryFee = baseFee + extraFee;
   const isFreeShippingCouponApplied = selectedCoupons.find((c) => c.discountType === 'freeShipping');
   const discountedDeliveryFee = isFreeShippingCouponApplied ? 0 : originalDeliveryFee;
