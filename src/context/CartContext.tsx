@@ -10,9 +10,9 @@ type CartContextType = {
   data: CartItemProps[];
   error: string;
   isLoading: boolean;
-  increaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  decreaseCartItem: (cartItem: CartItemProps) => Promise<void>;
-  deleteCartItem: (cartItemId: number) => Promise<void>;
+  increaseCartItem: (cartItem: CartItemProps) => void;
+  decreaseCartItem: (cartItem: CartItemProps) => void;
+  deleteCartItem: (cartItemId: number) => void;
   clearCart: () => void;
 
   selectedItems: number[];
@@ -70,6 +70,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       items.map((item) => item.id)
     );
     setLocalStorage('cartList', items);
+    selectedItems.forEach((id) => {
+      deleteCartItem(id);
+    });
   };
 
   return (
