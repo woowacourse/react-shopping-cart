@@ -15,7 +15,7 @@ const OrderProviderWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const CartWithOrderProvider = ({ children }: { children: React.ReactNode }) => {
+export const SelectedCartWithOrderProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <SelectedCartItemsProvider>
       <OrderProviderWrapper>{children}</OrderProviderWrapper>
