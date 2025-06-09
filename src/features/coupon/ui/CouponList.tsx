@@ -53,9 +53,16 @@ interface CouponListProps {
 }
 
 export default function CouponList({ onClose }: CouponListProps) {
-  const { selectedCoupons, updateSelectedCoupons, totalDiscountPrice, deliveryFee, updateTotalDiscountPrice } =
-    useCartContext();
-  const { coupons, getInvalidCouponIds, getBestTwoCoupons } = useCoupons();
+  const {
+    selectedCoupons,
+    updateSelectedCoupons,
+    totalDiscountPrice,
+    deliveryFee,
+    updateTotalDiscountPrice,
+    totalPurchasePrice,
+    updateTotalPurchasePrice,
+  } = useCartContext();
+  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading } = useCoupons();
 
   const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
@@ -63,23 +70,25 @@ export default function CouponList({ onClose }: CouponListProps) {
   const highestPrice = Math.max(...selectedCartItems.map((i) => i.product.price));
   const highestPriceCartItem = selectedCartItems.filter((item) => item.product.price === highestPrice)[0];
 
-  const bestTwoCoupons = getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee);
   const invalidCouponIds = getInvalidCouponIds(totalPrice);
 
   useEffect(() => {
-    bestTwoCoupons.forEach((coupon) => {
-      updateSelectedCoupons(coupon);
-    });
+    if (coupons.length === 0) return;
+
+    const bestTwo = getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee);
+    updateSelectedCoupons(bestTwo);
 
     updateTotalDiscountPrice(
       calculateTotalDiscountPrice({
-        selectedCoupons: bestTwoCoupons,
+        selectedCoupons: bestTwo,
         highestPriceCartItem,
         totalPrice,
         deliveryFee,
       })
     );
-  }, []);
+
+    updateTotalPurchasePrice(totalPurchasePrice - totalDiscountPrice);
+  }, [coupons]);
 
   useEffect(() => {
     updateTotalDiscountPrice(
@@ -102,7 +111,15 @@ export default function CouponList({ onClose }: CouponListProps) {
       return;
     }
 
-    updateSelectedCoupons(selectedCoupon);
+    const existingCoupon = selectedCoupons.some((coupon) => coupon.id === selectedCoupon.id);
+    if (existingCoupon) {
+      updateSelectedCoupons(selectedCoupons.filter((coupon) => coupon.id !== selectedCoupon.id));
+      return;
+    }
+
+    if (selectedCoupons.length === 1) {
+      updateSelectedCoupons([selectedCoupons[0], selectedCoupon]);
+    }
   };
 
   const handleCouponUsage = () => {
@@ -121,29 +138,32 @@ export default function CouponList({ onClose }: CouponListProps) {
         쿠폰은 최대 2개까지 사용할 수 있습니다.
       </S.CouponLabel>
       <S.CouponListContent>
-        {coupons.map((coupon) => (
-          <S.CouponContainer key={coupon.id} isInvalid={invalidCouponIds.includes(coupon.id)}>
-            <S.CouponHeader>
-              <SelectInput
-                type='checkbox'
-                onChange={() => handleCouponSelection(coupon)}
-                // checked={selectedCoupons.some((selectedCoupon) => selectedCoupon.id === coupon.id)}
-                checked={bestTwoCoupons.some((c) => c.id === coupon.id)}
-                disabled={invalidCouponIds.includes(coupon.id)}
-              />
-              {coupon.description}
-            </S.CouponHeader>
-            <S.CouponInfo>
-              <span>만료일: {coupon.expirationDate}</span>
-              {coupon.minimumAmount && <span>최소 주문 금액: {coupon.minimumAmount.toLocaleString()}</span>}
-              {coupon.availableTime && (
-                <span>
-                  사용 가능 시간: 오전 {coupon.availableTime.start[1]}시부터 {coupon.availableTime.end[1]}까지
-                </span>
-              )}
-            </S.CouponInfo>
-          </S.CouponContainer>
-        ))}
+        {isCouponLoading ? (
+          <span>쿠폰 목록 불러오는 중...</span>
+        ) : (
+          coupons.map((coupon) => (
+            <S.CouponContainer key={coupon.id} isInvalid={invalidCouponIds.includes(coupon.id)}>
+              <S.CouponHeader>
+                <SelectInput
+                  type='checkbox'
+                  onChange={() => handleCouponSelection(coupon)}
+                  checked={selectedCoupons.some((selectedCoupon) => selectedCoupon.id === coupon.id)}
+                  disabled={invalidCouponIds.includes(coupon.id)}
+                />
+                {coupon.description}
+              </S.CouponHeader>
+              <S.CouponInfo>
+                <span>만료일: {coupon.expirationDate}</span>
+                {coupon.minimumAmount && <span>최소 주문 금액: {coupon.minimumAmount.toLocaleString()}</span>}
+                {coupon.availableTime && (
+                  <span>
+                    사용 가능 시간: 오전 {coupon.availableTime.start[1]}시부터 {coupon.availableTime.end[1]}까지
+                  </span>
+                )}
+              </S.CouponInfo>
+            </S.CouponContainer>
+          ))
+        )}
       </S.CouponListContent>
       <S.CouponListFooterContainer>
         <S.UseCouponButton onClick={handleCouponUsage} disabled={selectedCoupons.length === 0} css={CouponButtonCSS}>

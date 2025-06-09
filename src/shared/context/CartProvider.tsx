@@ -14,7 +14,7 @@ interface CartContextType {
   updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
-  updateSelectedCoupons: (coupons: Coupon) => void;
+  updateSelectedCoupons: (coupons: Coupon[]) => void;
   updateTotalDiscountPrice: (totalDiscountPrice: number) => void;
   updateTotalPurchasePrice: (totalPurchasePrice: number) => void;
   updateDeliveryFee: (deliveryFee: number) => void;
@@ -66,14 +66,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setSelectedCartItems(cartItems);
   };
 
-  const updateSelectedCoupons = (coupon: Coupon) => {
-    setSelectedCoupons((prevItem) => {
-      const existing = prevItem.some((item) => item.id === coupon.id);
-      if (existing) {
-        return prevItem.filter((item) => item.id !== coupon.id);
-      }
-      return [...prevItem, coupon];
-    });
+  const updateSelectedCoupons = (coupons: Coupon[]) => {
+    setSelectedCoupons(coupons);
   };
 
   const updateTotalDiscountPrice = (totalDiscountPrice: number) => {

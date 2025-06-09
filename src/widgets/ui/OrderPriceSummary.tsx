@@ -12,27 +12,31 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
     updateDeliveryFee,
     totalPurchasePrice,
     updateTotalPurchasePrice,
+    selectedCoupons,
   } = useCartContext();
 
   const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   useEffect(() => {
-    const newTotalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-    if (newTotalPrice < DELIVERY_FEE_THRESHOLD) {
+    if (totalPrice < DELIVERY_FEE_THRESHOLD) {
       updateDeliveryFee(DELIVERY_FEE);
     } else {
       updateDeliveryFee(0);
     }
 
-    updateTotalPurchasePrice(newTotalPrice + deliveryFee);
+    updateTotalPurchasePrice(totalPrice + deliveryFee);
   }, [selectedCartItems]);
+
+  const deliveryFeeDiscountCoupon = selectedCoupons.some((coupon) => coupon.code === 'FREESHIPPING');
 
   const handleSuburbExtraFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e?.target.checked;
     if (isChecked) {
       updateDeliveryFee(deliveryFee + DELIVERY_FEE);
+      updateTotalPurchasePrice(totalPrice + deliveryFee + DELIVERY_FEE);
     } else {
       updateDeliveryFee(Math.max(deliveryFee - DELIVERY_FEE, 0));
+      updateTotalPurchasePrice(totalPrice + deliveryFee - DELIVERY_FEE);
     }
   };
 
@@ -63,7 +67,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
       )}
       <S.DeliveryFee data-testid='delivery-fee'>
         배송비
-        <S.PriceBox>{deliveryFee.toLocaleString()}원</S.PriceBox>
+        <S.PriceBox>{deliveryFeeDiscountCoupon ? '0' : deliveryFee.toLocaleString()}원</S.PriceBox>
       </S.DeliveryFee>
       <S.TotalPurchasePrice data-testid='total-purchase-price'>
         총 결제 금액
