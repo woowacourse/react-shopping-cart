@@ -1,20 +1,19 @@
 import styled from '@emotion/styled';
-import { CartProduct } from '../../types/cart';
 import { CheckboxContainer, HiddenCheckbox, ModifyRow, StyledCheckbox } from './SelectBox.styles';
 
 interface SelectBoxProps {
-  cartItem: CartProduct;
+  id: number;
   checked: boolean;
   onChange: (checked: boolean) => void;
   onDeleteClick: () => void;
 }
 
-function SelectBox({ cartItem, checked, onChange, onDeleteClick }: SelectBoxProps) {
+function SelectBox({ id, checked, onChange, onDeleteClick }: SelectBoxProps) {
   return (
     <ModifyRow>
       <CheckboxContainer>
         <HiddenCheckbox
-          data-id={cartItem.id}
+          data-id={id}
           type="checkbox"
           checked={checked}
           onChange={() => onChange(!checked)}
