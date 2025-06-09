@@ -1,10 +1,7 @@
 import { act, cleanup, render, screen } from '@testing-library/react';
 import App from '../src/App';
 import { describe, it, expect } from 'vitest';
-import { setupServer } from 'msw/node';
-import { handlers } from '../src/mocks/handler';
-
-const server = setupServer(...handlers);
+import { server } from './setupTests';
 
 beforeAll(() => server.listen());
 afterEach(() => {

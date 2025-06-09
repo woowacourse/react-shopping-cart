@@ -26,6 +26,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["src", "test"],
+  "include": ["src", "__tests__"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

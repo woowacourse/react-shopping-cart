@@ -2,10 +2,7 @@ import { cleanup, render, screen, within } from '@testing-library/react';
 import App from '../src/App';
 import cartItems from '../src/mocks/data/cartItems.json';
 import { describe, it, expect } from 'vitest';
-import { setupServer } from 'msw/node';
-import { handlers } from '../src/mocks/handler';
-
-const server = setupServer(...handlers);
+import { server } from './setupTests';
 
 beforeAll(() => server.listen());
 afterEach(() => {
