@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { isCouponDisabled } from "../src/components/CouponModal/CouponItem/discount.domain";
 import { CouponType } from "../src/types/coupon";
 import { CartItemType, CategoryType } from "../src/types/response";
@@ -99,8 +100,8 @@ describe("쿠폰 비활성화 조건 테스트", () => {
   });
 
   it("시간 조건이 맞지 않는 퍼센트 쿠폰인 경우 true를 반환해야 한다", () => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date("2025-06-04T12:00:00"));
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-06-04T12:00:00"));
 
     const coupon: CouponType = {
       ...baseCoupon,
@@ -122,8 +123,8 @@ describe("쿠폰 비활성화 조건 테스트", () => {
   });
 
   it("시간 조건이 맞는 퍼센트 쿠폰인 경우 false를 반환해야 한다", () => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date("2025-06-04T11:30:00"));
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-06-04T11:30:00"));
 
     const coupon: CouponType = {
       ...baseCoupon,
