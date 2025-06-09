@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import CartItemList from "../../components/Cart/CartItemList/CartItemList";
-
 import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/common/useFetch";
@@ -16,6 +15,7 @@ import Description from "../../components/Common/Description/Description";
 import CheckBox from "../../components/Common/CheckBox/CheckBox";
 import Receipt from "../../components/Common/Receipt/Receipt";
 import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
+
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -66,13 +66,12 @@ function Cart() {
   const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
   const orderCost = getOrderCost(selectedCartItems);
   const deliveryCost = getDeliveryCost(orderCost);
-
+  
   return (
     <>
       <Header icon={CartLogo} handleIconClick={() => navigate("/")} />
       <section css={Container}>
         <Description title="장바구니" subTitle={subTitle} />
-
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (

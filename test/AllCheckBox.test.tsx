@@ -79,6 +79,7 @@ describe("Cart 전체선택 동기화", () => {
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
       expect(img).toHaveAttribute("src", DisabledCheck);
+
     });
   });
 });
