@@ -9,16 +9,20 @@ import { validateMinimumAmount } from '../utils/validateMinimumAmount';
 
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [isCouponLoading, setIsCouponLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
+        setIsCouponLoading(true);
         const response = await getCoupons();
         setCoupons(response);
       } catch (error) {
         if (error instanceof Error) {
           console.error('쿠폰 목록을 가져오는 중 오류 발생:', error.message);
         }
+      } finally {
+        setIsCouponLoading(false);
       }
     };
 
@@ -51,7 +55,7 @@ const useCoupons = () => {
     return couponsWithDiscountPrice.slice(0, 2).map((item) => item.coupon);
   };
 
-  return { coupons, getBestTwoCoupons, getInvalidCouponIds };
+  return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading };
 };
 
 export default useCoupons;
