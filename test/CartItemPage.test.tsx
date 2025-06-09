@@ -4,7 +4,7 @@ import cartItemsApi from "../src/apis/cartItems";
 import { fireEvent, screen } from "@testing-library/react";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../src/constants";
 import { setupCartPageTest } from "./utils/setupCartItemPageTest";
-import { createMockCartItem } from "./utils/mockData";
+import { createMockCartItem } from "./utils/mockCartItems";
 
 vi.mock("../apis/cartItems");
 

@@ -2,7 +2,7 @@ import { vi } from "vitest";
 import CartItemCardList from "../src/components/CartItemList/CartItemList";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { useCartItemContext } from "../src/contexts/CartItemContext";
-import { defaultMockCartItems } from "./utils/mockData";
+import { defaultMockCartItems } from "./utils/mockCartItems";
 
 const mockHandleSelectedItem = vi.fn();
 
