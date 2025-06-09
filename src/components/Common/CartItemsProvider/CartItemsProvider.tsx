@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import useFetchCartItems from '../../../hooks/useFetchCartItems';
 import { CartItemTypes } from '../../../types/cartItem';
 
-const Context = createContext<{
+export const Context = createContext<{
   cartItems: CartItemTypes[];
   error: string;
   isLoading: boolean;
