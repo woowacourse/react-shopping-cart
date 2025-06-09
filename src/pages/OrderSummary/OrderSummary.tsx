@@ -1,12 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import {
-  Container,
-  RedeemCouponButton,
-  TotalCost,
-  TotalCostLabel,
-} from "./OrderSummary.styles";
+import { Container, RedeemCouponButton } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost } from "../../utils/cost";
 import Description from "../../components/Description/Description";
@@ -16,6 +11,8 @@ import { createPortal } from "react-dom";
 import { useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
 import ExtraShipping from "../../components/ExtraShipping/ExtraShipping";
+import Receipt from "../../components/Receipt/Receipt";
+import { CouponType } from "../../components/Coupon/types";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -27,9 +24,6 @@ function OrderSummary() {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  const orderCost = getOrderCost(cartItems);
-  const totalCost = orderCost + getDeliveryCost(orderCost);
-
   const [openModal, setOpenModal] = useState(false);
   const modalRoot = document.getElementById("root")!;
 
@@ -37,6 +31,14 @@ function OrderSummary() {
   const toggleExtraShipping = () => {
     setIsExtraShipping((prev) => !prev);
   };
+
+  const [redeemedCoupons, setRedeemedCoupons] = useState<CouponType[]>([]);
+  const redeemCoupons = (coupons: CouponType[]) => {
+    setRedeemedCoupons(coupons);
+  };
+
+  const orderCost = getOrderCost(cartItems);
+  const totalCost = orderCost + getDeliveryCost(orderCost);
 
   return (
     <>
@@ -64,13 +66,18 @@ function OrderSummary() {
           isSelected={isExtraShipping}
           toggleSelect={toggleExtraShipping}
         />
-        <p css={TotalCostLabel}>총 결제 금액</p>
-        <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
+        <Receipt selectedCartItems={cartItems} />
       </main>
       <SubmitButton enabled={false} label="결제하기" />
       {openModal &&
         createPortal(
-          <CouponModal openModal={openModal} setOpenModal={setOpenModal} />,
+          <CouponModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            redeemCoupons={redeemCoupons}
+            selectedCartItems={cartItems}
+            orderCost={orderCost}
+          />,
           modalRoot
         )}
     </>
