@@ -4,7 +4,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import useShoppingCart from "../src/hooks/useShoppingCart/useShoppingCart";
 import { CartItemsProvider } from "../src/contexts/CartItemsProvider";
 import { ErrorToastContextProvider } from "../src/contexts/ErrorToastContext";
-import { testStateStore } from "../src/mock/handlers";
+import { testStateStore } from "../src/mock/handlers/cartItems";
 import { cartItems } from "../src/mock/data/cartItems";
 
 // 테스트용 래퍼 컴포넌트

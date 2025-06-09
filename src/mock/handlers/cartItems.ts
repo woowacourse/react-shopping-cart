@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { cartItems, products } from "./data/cartItems";
+import { cartItems, products } from "../data/cartItems";
 
 export const testStateStore = {
   shouldFailCart: false,
@@ -104,4 +104,4 @@ const patchCartItems = http.patch(
   }
 );
 
-export const handlers = [getCartItems, deleteCartItems, patchCartItems];
+export const cartItemsHandler = [getCartItems, deleteCartItems, patchCartItems];
