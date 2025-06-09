@@ -139,7 +139,11 @@ describe("장바구니 구매 상품 선택 테스트", () => {
     );
     await userEvent.click(checkbox);
 
-    const price = getPrice([mockCartItems.content[1]]);
+    const price = getPrice({
+      items: mockCartItems.content,
+      isRemoteArea: true,
+      discount: 5000,
+    });
 
     waitFor(() => {
       const totalPriceEl = screen.getByTestId("total-amount");
@@ -173,7 +177,11 @@ describe("주문확인 페이지 로딩 테스트", () => {
 
   it("주문 확인 버튼 클릭 후 설명 문구 표시", async () => {
     const sort = mockCartItems.content.length;
-    const price = getPrice(mockCartItems.content);
+    const price = getPrice({
+      items: mockCartItems.content,
+      isRemoteArea: true,
+      discount: 5000,
+    });
 
     const routes = [
       {
