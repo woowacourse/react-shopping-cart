@@ -33,7 +33,7 @@ export function CouponManagerProvider({ children }: PropsWithChildren) {
     });
   }
 
-  function removeCoupon(coupon: CouponType) {
+  const removeCoupon = useCallback((coupon: CouponType) => {
     setSelectedCoupon((prev) => {
       const index = prev.indexOf(coupon);
       if (index > -1) {
@@ -41,7 +41,7 @@ export function CouponManagerProvider({ children }: PropsWithChildren) {
       }
       return [...prev];
     });
-  }
+  }, []);
 
   const changeSelectedCoupon = useCallback((coupons: CouponType[]) => {
     setSelectedCoupon(coupons);
