@@ -39,6 +39,8 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[], ba
 
   useEffect(() => {
     setSelected(getBestCoupons(coupons, orderAmount, items, baseDeliveryFee));
+    // baseDeliveryFee는 bestCoupon 계산에 필요하지만, 쿠폰 선택 시에는 필요하지 않음
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coupons, orderAmount, items]);
 
   return {
