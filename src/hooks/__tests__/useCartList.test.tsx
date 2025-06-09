@@ -14,6 +14,10 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe('useCartList 훅 테스트', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+
   it('초기 cartList의 상태 값은 목 데이터를 받아오고, isError의 상태 값은 "", isLoading의 상태 값은 false', async () => {
     const { result } = renderHook(() => useCartList(), { wrapper });
 
@@ -87,6 +91,10 @@ describe('useCartList 훅 테스트', () => {
 });
 
 describe('useCartList 훅 예외 테스트', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+
   it('장바구니 상품 목록을 불러올 때 에러가 발생하면 error 상태 값이 변경된다.', async () => {
     vi.spyOn(cart, 'getCartList').mockRejectedValueOnce(
       new Error('장바구니 목록 조회 실패')
@@ -98,6 +106,7 @@ describe('useCartList 훅 예외 테스트', () => {
       expect(result.current.isLoading).toBe(false);
     });
 
+    console.log(result.current);
     expect(result.current.error).toBe(ERROR_MESSAGE.CART_LIST);
   });
 
