@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { isCouponDisabled } from "../src/components/CouponModal/CouponItem/discount.domain";
+import { isCouponDisabled } from "../src/components/CouponModal/CouponItem/couponDisabled.domain";
 import { CouponType } from "../src/types/coupon";
 import { CartItemType, CategoryType } from "../src/types/response";
 

@@ -3,7 +3,7 @@ import { CouponType, DiscountType } from "../../../types/coupon";
 import { CartItemType } from "../../../types/response";
 import CheckBox from "../../CheckBox/CheckBox";
 import { Container, CouponText } from "./CouponItem.styles";
-import { isCouponDisabled } from "./discount.domain";
+import { isCouponDisabled } from "./couponDisabled.domain";
 import {
   formatDate,
   formatTimeRange,
