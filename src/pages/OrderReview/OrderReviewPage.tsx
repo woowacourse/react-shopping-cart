@@ -36,7 +36,7 @@ export default function OrderReviewPage() {
   return (
     <S.OrderPageContainer>
       <Navbar title={'◀'} url={ROUTES.ROOT} />
-      <S.OrderPageContent>
+      <S.OrderPageContent data-testid='order-page-content'>
         <CartHeader cartTypeQuantity={selectedCartItems.length} />
         {selectedCartItems.length > 0 ? (
           <>

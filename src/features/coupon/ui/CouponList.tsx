@@ -58,6 +58,7 @@ export default function CouponList({ onClose }: CouponListProps) {
     updateSelectedCoupons,
     totalDiscountPrice,
     deliveryFee,
+    totalPrice,
     updateTotalDiscountPrice,
     updateTotalPurchasePrice,
   } = useCartContext();
@@ -65,7 +66,6 @@ export default function CouponList({ onClose }: CouponListProps) {
 
   const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
-  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   const highestPrice = Math.max(...selectedCartItems.map((i) => i.product.price));
   const highestPriceCartItem = selectedCartItems.filter((item) => item.product.price === highestPrice)[0];
 

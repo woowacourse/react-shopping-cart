@@ -3,22 +3,32 @@ import { useCartContext } from '../../shared/context/useCartContext';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../features/cart/constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
 import SelectInput from '../../shared/ui/SelectInput';
+import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 
 export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: boolean }) {
-  const { selectedCartItems, totalDiscountPrice, updateDeliveryFee, totalPurchasePrice, updateTotalPurchasePrice } =
-    useCartContext();
+  const {
+    totalPrice,
+    totalDiscountPrice,
+    totalPurchasePrice,
+    updateTotalPrice,
+    updateDeliveryFee,
+    updateTotalPurchasePrice,
+  } = useCartContext();
 
   const [suburbExtraFee, setSuburbExtraFee] = useState(0);
-
-  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   const baseDeliveryFee = totalPrice < DELIVERY_FEE_THRESHOLD ? DELIVERY_FEE : 0;
   const finalDeliveryFee = baseDeliveryFee + suburbExtraFee;
 
   useEffect(() => {
+    const calculatedTotalPrice = getSelectedCartItemsFromLocalStorage().reduce(
+      (acc, item) => acc + item.product.price * item.quantity,
+      0
+    );
+    updateTotalPrice(calculatedTotalPrice);
     updateDeliveryFee(finalDeliveryFee);
     updateTotalPurchasePrice(totalPrice + finalDeliveryFee - totalDiscountPrice);
-  }, [totalPrice, suburbExtraFee, totalDiscountPrice]);
+  }, [suburbExtraFee, totalDiscountPrice]);
 
   const handleSuburbExtraFeeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
@@ -42,7 +52,7 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
         경우 무료 배송됩니다.
       </S.DeliveryFeeLabel>
 
-      <S.TotalOrderPrice>
+      <S.TotalOrderPrice data-testid='total-order-price'>
         주문 금액
         <S.PriceBox>{totalPrice.toLocaleString()}원</S.PriceBox>
       </S.TotalOrderPrice>
