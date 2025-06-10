@@ -10,7 +10,7 @@ import { PriceSummary } from "../components/PriceSummary/PriceSummary";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
 import { getOrderPrice } from "../utils/prices/getOrderPrice";
-import { getShippingFee } from "../utils/getShippingFee";
+import { getShippingFee } from "../utils/prices/getShippingFee";
 
 const CartItemPage = () => {
   const { cartItems, loadingStatus, fetchCartItems, handleLoadingStatus } =

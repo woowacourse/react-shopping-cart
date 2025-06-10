@@ -1,4 +1,4 @@
-import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
+import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../../constants";
 
 export const getShippingFee = (
   orderPrice: number,
