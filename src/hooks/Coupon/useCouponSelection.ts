@@ -1,12 +1,14 @@
 import { MAX_COUPON_COUNT } from "@/constants/priceSetting";
 import { useState, useCallback } from "react";
 
-function useCouponSelection(
-  initialSelectedIds: string[] = []
-): [Set<string>, (id: string) => boolean, (optimalIds: string[]) => void] {
-  const [selectedCouponIds, setSelectedCouponIds] = useState(
-    () => new Set(initialSelectedIds)
-  );
+interface UseCouponSelectionReturn {
+  selectedCouponIds: Set<string>;
+  toggleCoupon: (id: string) => boolean;
+  resetToOptimal: (optimalIds: string[]) => void;
+}
+
+function useCouponSelection(): UseCouponSelectionReturn {
+  const [selectedCouponIds, setSelectedCouponIds] = useState(new Set<string>());
 
   const toggleCoupon = useCallback(
     (id: string): boolean => {
@@ -37,7 +39,7 @@ function useCouponSelection(
     setSelectedCouponIds(new Set(optimalIds));
   }, []);
 
-  return [selectedCouponIds, toggleCoupon, resetToOptimal];
+  return { selectedCouponIds, toggleCoupon, resetToOptimal };
 }
 
 export { useCouponSelection };

@@ -32,7 +32,6 @@ export const useCartSelection = (cartItems: CartItem[]) => {
     });
   };
 
-  /* ★ 처음 로드 시 localStorage에 아무것도 없으면 전체 선택 */
   useEffect(() => {
     if (!hadStoredValue && !didAutoSelectRef.current && cartItems.length > 0) {
       const all = new Set(cartItems.map((i) => i.id));
@@ -48,7 +47,10 @@ export const useCartSelection = (cartItems: CartItem[]) => {
     persist(selectedIds);
   }, [selectedIds, persist]);
 
-  const selectedItems = cartItems.filter((i) => selectedIds.has(i.id));
+  const selectedItems = useMemo(
+    () => cartItems.filter((i) => selectedIds.has(i.id)),
+    [cartItems, selectedIds]
+  );
 
   return {
     selectedIds,

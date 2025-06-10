@@ -16,36 +16,31 @@ export function useCouponManagement({
 }: UseCouponManagementParams) {
   const { couponsData, couponsFetchLoading } = useCouponFetch();
 
-  const allCouponsResult = useBestCouponCombo({
-    coupons: couponsData || [],
+  const { appliedCoupons } = useBestCouponCombo({
+    coupons: couponsData ?? [],
     selectedShoppingCartItems,
     isIsland,
   });
 
-  const [selectedCouponIds, toggleCoupon, resetToOptimal] =
+  const appliedCouponIds = useMemo(
+    () => appliedCoupons.map((c) => c.id),
+    [appliedCoupons]
+  );
+
+  const { selectedCouponIds, toggleCoupon, resetToOptimal } =
     useCouponSelection();
 
-  useEffect(() => {
-    if (
-      couponsData &&
-      !couponsFetchLoading &&
-      allCouponsResult.appliedCoupons.length > 0
-    ) {
-      const optimalIds = allCouponsResult.appliedCoupons.map(
-        (coupon) => coupon.id
-      );
-      resetToOptimal(optimalIds);
-    }
-  }, [
-    selectedShoppingCartItems,
-    couponsData,
-    couponsFetchLoading,
-    allCouponsResult.appliedCoupons,
-  ]);
+  const couponsReady =
+    !!couponsData &&
+    !couponsFetchLoading &&
+    selectedShoppingCartItems.length > 0;
 
-  const selectedCoupons = useMemo(
-    () => couponsData?.filter((coupon) => selectedCouponIds?.has(coupon.id)),
-    [couponsData, selectedCouponIds]
+  useEffect(() => {
+    if (couponsReady) resetToOptimal(appliedCouponIds);
+  }, [couponsReady, appliedCouponIds, resetToOptimal]);
+
+  const selectedCoupons = couponsData?.filter((c) =>
+    selectedCouponIds.has(c.id)
   );
 
   const result = useCouponDiscount({
@@ -54,19 +49,10 @@ export function useCouponManagement({
     isIsland,
   });
 
-  const couponSelection = useMemo(
-    () => ({
-      selectedCouponIds,
-      toggleCoupon,
-      resetToOptimal,
-    }),
-    [selectedCouponIds, toggleCoupon, resetToOptimal]
-  );
-
   return {
     couponsData,
     couponsFetchLoading,
-    couponSelection,
+    couponSelection: { selectedCouponIds, toggleCoupon, resetToOptimal },
     result,
   };
 }
