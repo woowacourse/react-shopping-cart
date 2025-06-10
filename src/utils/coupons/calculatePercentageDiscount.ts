@@ -1,4 +1,5 @@
 import { PercentageDiscountCoupon } from "../../types/type";
+import { splitByDelimiter } from "../splitByDelimiter";
 import { isValidExpiration } from "./isValidExpiration";
 
 export const calculatePercentageDiscount = (
@@ -8,13 +9,16 @@ export const calculatePercentageDiscount = (
   if (!isValidExpiration(coupon.expirationDate)) return 0;
 
   const now = new Date();
+  const availableTime = coupon.availableTime;
 
-  const [startHour, startMin, startSec] = coupon.availableTime.start
-    .split(":")
-    .map(Number);
-  const [endHour, endMin, endSec] = coupon.availableTime.end
-    .split(":")
-    .map(Number);
+  const [startHour, startMin, startSec] = splitByDelimiter(
+    availableTime.start,
+    ":"
+  ).map(Number);
+  const [endHour, endMin, endSec] = splitByDelimiter(
+    availableTime.end,
+    ":"
+  ).map(Number);
 
   const today = new Date();
   const startTime = new Date(today.setHours(startHour, startMin, startSec, 0));

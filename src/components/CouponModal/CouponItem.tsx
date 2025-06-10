@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
 import { AvailableTime } from "../../types/type";
+import { splitByDelimiter } from "../../utils/splitByDelimiter";
 
 interface CouponItemProps {
   name: string;
@@ -21,11 +22,7 @@ export const CouponItem = ({
   disabled = false,
   onClick,
 }: CouponItemProps) => {
-  const parsedExpiration = (expiration: string) => {
-    return expiration.split("-");
-  };
-
-  const [year, month, date] = parsedExpiration(expiration);
+  const [year, month, date] = splitByDelimiter(expiration, "-");
 
   return (
     <div className={CouponItemStyle}>
@@ -54,8 +51,8 @@ export const CouponItem = ({
         <div className={RowStyle}>
           <Text text="사용 가능 시간:" />
           <Text
-            text={`${availableTime.start.split(":")[0]}부터 ${
-              availableTime.end.split(":")[0]
+            text={`${splitByDelimiter(availableTime.start, ":")[0]}부터 ${
+              splitByDelimiter(availableTime.end, ":")[0]
             }까지`}
           />
         </div>
