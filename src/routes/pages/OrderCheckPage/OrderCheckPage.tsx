@@ -16,7 +16,7 @@ import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
 import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
 
-import { Back } from '../../../assets';
+import { Back, Default } from '../../../assets';
 import { TEXT } from '../../../constants/text';
 import { CartItemProps } from '../../../types/cartItem';
 import { validateCoupons } from '../../../utils/couponValidate';
@@ -94,7 +94,15 @@ function OrderCheckPage() {
         />
         <ul css={OrderCheckCartListStyle}>
           {cart.selectedCartItems.map((item: CartItemProps) => (
-            <OrderCartItem key={item.id} item={item} />
+            <OrderCartItem
+              key={item.id}
+              quantity={item.quantity}
+              product={{
+                imageUrl: item.product.imageUrl || Default,
+                name: item.product.name,
+                price: item.product.price,
+              }}
+            />
           ))}
         </ul>
         <Button

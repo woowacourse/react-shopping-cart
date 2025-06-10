@@ -1,5 +1,3 @@
-import { Default } from '../../assets';
-import { CartItemProps } from '../../types/cartItem';
 import Text from '../common/Text/Text';
 import {
   CartInfo,
@@ -9,15 +7,17 @@ import {
   ImageStyle,
 } from './CartItem.styles';
 
-function OrderCartItem({ item }: { item: CartItemProps }) {
-  const {
-    quantity,
-    product: { imageUrl, name, price },
-  } = item;
+function OrderCartItem({
+  quantity,
+  product: { imageUrl, name, price },
+}: {
+  quantity: number;
+  product: { imageUrl: string; name: string; price: number };
+}) {
   return (
     <li css={CartItemStyle}>
       <div css={CartItemBodyStyle}>
-        <img css={ImageStyle} src={imageUrl || Default} alt={name} />
+        <img css={ImageStyle} src={imageUrl} alt={name} />
 
         <div css={CartInfo}>
           <Text varient="caption">{name}</Text>
