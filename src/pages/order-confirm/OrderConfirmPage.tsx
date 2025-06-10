@@ -1,24 +1,18 @@
 import BackButton from "@/shared/components/BackButton/BackButton";
 import { Header } from "@/shared/components/Header/Header.styled";
-import useValidateLocationState from "@/shared/hooks/useValidateLocationState";
-import { isValidOrderConfirmState } from "./validation/isValidOrderConfirmState";
-import { ROUTES } from "@/shared/config/routes";
 import Fallback from "@/shared/components/Fallback/Fallback";
 import OrderConfirmContent from "./OrderConfirmContent/OrderConfirmContent";
+import { useOrderConfirmPageState } from "./hooks/useOrderConfirmPageState";
 
 export default function OrderConfirmPage() {
-  const { state, isValidating } = useValidateLocationState({
-    validationFn: isValidOrderConfirmState,
-    redirectPath: ROUTES.CART,
-  });
+  const { orderList, isLoading } = useOrderConfirmPageState();
 
-  if (isValidating) {
+  if (isLoading) {
     return (
       <Fallback type="loading" message="주문 확인 페이지로 이동 중입니다.." />
     );
   }
 
-  const { orderList } = state;
   return (
     <>
       <Header>
