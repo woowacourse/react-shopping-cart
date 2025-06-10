@@ -19,7 +19,9 @@ const CartDataContext = createContext<CartDataContextValue | null>(null);
 export const useCartDataContext = () => {
   const context = useContext(CartDataContext);
   if (!context) {
-    throw new Error("useCartDataContext must be used within CartDataProvider");
+    throw new Error(
+      "useCartDataContext는 CartDataProvider 내에서 사용되어야 합니다."
+    );
   }
   return context;
 };
@@ -37,7 +39,6 @@ export const CartDataProvider = ({ children }: CartDataProviderProps) => {
     handleOrderCartItem,
   } = useShoppingCart();
 
-  // 로딩 상태 관리를 포함한 핸들러들
   const handleCartItemQuantity = async (params: {
     id: string;
     quantity: number;
