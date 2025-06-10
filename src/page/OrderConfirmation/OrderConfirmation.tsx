@@ -314,14 +314,9 @@ function getShippingNotice({
         배송됩니다.
       </CartListStyled.FreeShippingNotice>
     );
-  } else {
-    return (
-      <CartListStyled.FreeShippingNotice>
-        총 주문 금액이 {FREE_SHIPPING_OVER.toLocaleString()}원 이상일 경우 무료
-        배송됩니다.
-      </CartListStyled.FreeShippingNotice>
-    );
   }
+
+  return null;
 }
 
 function OrderConfirmationPriceDetails() {
