@@ -78,6 +78,14 @@ describe('쿠폰 조합 테스트', () => {
 });
 
 describe('오후 시간 사용자 쿠폰 사용 시나리오 테스트', () => {
+  beforeAll(() => {
+    vi.setSystemTime(new Date('2025-06-11T09:00'));
+  });
+
+  afterEach(() => {
+    vi.setSystemTime(new Date());
+  });
+
   it(`오후 시간에 도시에 사는 사용자가 30,000원 동일 상품을 3개 담고 
   "2개 구매 시 1개 무료 쿠폰"와 "5만원 이상 구매 시 무료 배송 쿠폰"를 받아서 
   33,000 할인 받고 배송비 3,000을 포함하여 총 결제 금액 60,000원 지불한다.`, async () => {
@@ -139,8 +147,7 @@ describe('오후 시간 사용자 쿠폰 사용 시나리오 테스트', () => {
 
 describe('오전 시간 사용자 쿠폰 사용 시나리오 테스트', () => {
   beforeAll(() => {
-    vi.useRealTimers();
-    vi.setSystemTime(new Date('2025-06-06T05:00:00'));
+    vi.setSystemTime(new Date('2025-06-06T05:00'));
   });
 
   afterEach(() => {
