@@ -9,7 +9,7 @@ import type { Coupon } from '../types/coupon';
 import type { CartItemType } from '../types/cartItem';
 import { MAX_COUPON_LENGTH } from '../constants/maxCouponLength';
 
-export function useCouponSelector(orderAmount: number, items: CartItemType[], baseDeliveryFee: number) {
+export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   const { data: coupons = [] } = useCoupons();
   const [selected, setSelected] = useState<Coupon[]>([]);
   const [temp, setTemp] = useState<Coupon[]>([]);
@@ -38,14 +38,12 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[], ba
   };
 
   const totalDiscount = useMemo(
-    () => selected.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, items, baseDeliveryFee), 0),
-    [selected, orderAmount, items, baseDeliveryFee]
+    () => selected.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, items), 0),
+    [selected, orderAmount, items]
   );
 
   useEffect(() => {
-    setSelected(getBestCoupons(coupons, orderAmount, items, baseDeliveryFee));
-    // baseDeliveryFee는 bestCoupon 계산에 필요하지만, 쿠폰 선택 시에는 필요하지 않음
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setSelected(getBestCoupons(coupons, orderAmount, items));
   }, [coupons, orderAmount, items]);
 
   return {

@@ -1,18 +1,10 @@
 import { Coupon } from '../../../types/coupon';
 import { CartItemType } from '../../../types/cartItem';
 
-export function calculateCouponDiscount(
-  coupon: Coupon,
-  orderAmount: number,
-  items: CartItemType[],
-  deliveryFee: number
-): number {
+export function calculateCouponDiscount(coupon: Coupon, orderAmount: number, items: CartItemType[]): number {
   switch (coupon.discountType) {
     case 'fixed':
       return coupon.discount;
-
-    case 'freeShipping':
-      return deliveryFee;
 
     case 'percentage':
       return Math.floor(orderAmount * (coupon.discount / 100));

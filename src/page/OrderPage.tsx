@@ -16,11 +16,11 @@ function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
-  const { isSpecialDelivery, toggleSpecialDelivery, totalFee } = useDeliveryFee(deliveryFee);
-  const { coupons, temp, isOpen, totalDiscount, handleOpen, handleClose, toggleCoupon, apply } = useCouponSelector(
-    orderAmount,
-    checkedItems,
-    totalFee
+  const { coupons, selected, temp, isOpen, totalDiscount, handleOpen, handleClose, toggleCoupon, apply } =
+    useCouponSelector(orderAmount, checkedItems);
+  const { isSpecialDelivery, toggleSpecialDelivery, totalFee } = useDeliveryFee(
+    deliveryFee,
+    selected.some((c) => c.discountType === 'freeShipping')
   );
   const totalAmountAfterDiscount = orderAmount + totalFee - totalDiscount;
 

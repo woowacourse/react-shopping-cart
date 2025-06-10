@@ -26,14 +26,13 @@ const CouponModal = ({
   coupons,
   orderAmount,
   checkedItems,
-  totalDeliveryFee,
   temp,
   toggleCoupon,
   apply
 }: CouponModalProps) => {
   const tempTotalDiscount = useMemo(
-    () => temp.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems, totalDeliveryFee), 0),
-    [temp, orderAmount, checkedItems, totalDeliveryFee]
+    () => temp.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems), 0),
+    [temp, orderAmount, checkedItems]
   );
 
   return (
