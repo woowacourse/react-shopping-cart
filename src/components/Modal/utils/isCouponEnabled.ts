@@ -1,9 +1,6 @@
 import { Coupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon, BuyXGetYCoupon } from '../../../types/coupon';
 import { CartItemType } from '../../../types/cartItem';
-
-function createCouponTypeGuard<T extends Coupon['discountType']>(type: T) {
-  return (c: Coupon): c is Extract<Coupon, { discountType: T }> => c.discountType === type;
-}
+import { createCouponTypeGuard } from './createCouponTypeGuard';
 
 const isFixedCoupon = createCouponTypeGuard('fixed');
 const isFreeShippingCoupon = createCouponTypeGuard('freeShipping');
