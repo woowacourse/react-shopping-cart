@@ -3,9 +3,7 @@ import { Coupon } from '../types/coupon';
 import { getCoupons } from '../api/getCoupons';
 import { CartItem } from '../../cart/api/types/cart';
 import { getCouponDiscountPrice } from '../utils/getCouponDiscountPrice';
-import { validateExpirationDate } from '../utils/validateExpirationDate';
-import { validateAvailableTime } from '../utils/validateAvailableTime';
-import { validateMinimumAmount } from '../utils/validateMinimumAmount';
+import { validateCoupon } from '../utils/validateCoupon';
 
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
@@ -32,14 +30,7 @@ const useCoupons = () => {
   const getInvalidCouponIds = (totalPrice: number): number[] => {
     const currentDate = new Date();
 
-    return coupons
-      .filter(
-        (coupon) =>
-          !validateExpirationDate(currentDate, coupon.expirationDate) ||
-          (coupon.availableTime && !validateAvailableTime(currentDate, coupon.availableTime)) ||
-          (coupon.minimumAmount && !validateMinimumAmount(totalPrice, coupon))
-      )
-      .map((coupon) => coupon.id);
+    return coupons.filter((coupon) => !validateCoupon(coupon, totalPrice, currentDate)).map((coupon) => coupon.id);
   };
 
   const getBestTwoCoupons = (cartItem: CartItem, totalPrice: number, deliveryFee: number) => {
