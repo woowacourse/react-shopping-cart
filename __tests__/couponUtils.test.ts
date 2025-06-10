@@ -13,28 +13,30 @@ const baseDate = new Date(2025, 5, 15, 5, 0, 0);
 
 describe('calculateCouponDiscount()', () => {
   it('fixed 타입은 discount 값을 그대로 반환한다.', () => {
-    const c = coupons[0] as FixedCoupon;
-    expect(calculateCouponDiscount(c, 200_000, sampleItems)).toBe(5000);
+    const coupon = coupons[0] as FixedCoupon;
+    expect(calculateCouponDiscount({ coupon, orderAmount: 200_000, items: sampleItems })).toBe(5000);
   });
 
   it('freeShipping 타입은 deliveryFee를 반환한다.', () => {
-    const c = coupons[2] as FreeShippingCoupon;
-    expect(calculateCouponDiscount(c, 60_000, sampleItems)).toBe(6000);
+    const coupon = coupons[2] as FreeShippingCoupon;
+    expect(calculateCouponDiscount({ coupon, orderAmount: 60_000, items: sampleItems })).toBe(6000);
   });
 
   it('percentage 타입은 주문금액 * (discount/100)을 내림한다.', () => {
-    const c = coupons[3] as PercentageCoupon;
-    expect(calculateCouponDiscount(c, 123_456, sampleItems)).toBe(Math.floor(123_456 * 0.3));
+    const coupon = coupons[3] as PercentageCoupon;
+    expect(calculateCouponDiscount({ coupon, orderAmount: 123_456, items: sampleItems })).toBe(
+      Math.floor(123_456 * 0.3)
+    );
   });
 
   it('buyXgetY 타입은 최고가 상품 가격 * getQuantity를 반환한다.', () => {
-    const c = coupons[1] as BuyXGetYCoupon;
-    expect(calculateCouponDiscount(c, 0, sampleItems)).toBe(300_000_000 * 1);
+    const coupon = coupons[1] as BuyXGetYCoupon;
+    expect(calculateCouponDiscount({ coupon, orderAmount: 0, items: sampleItems })).toBe(300_000_000 * 1);
   });
 
   it('items가 비어있으면 buyXgetY 는 0을 반환한다.', () => {
-    const c = coupons[1] as BuyXGetYCoupon;
-    expect(calculateCouponDiscount(c, 0, [])).toBe(0);
+    const coupon = coupons[1] as BuyXGetYCoupon;
+    expect(calculateCouponDiscount({ coupon, orderAmount: 0, items: [] })).toBe(0);
   });
 });
 

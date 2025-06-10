@@ -38,7 +38,7 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   };
 
   const totalDiscount = useMemo(
-    () => selected.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, items), 0),
+    () => selected.reduce((sum, coupon) => sum + calculateCouponDiscount({ coupon, orderAmount, items }), 0),
     [selected, orderAmount, items]
   );
 

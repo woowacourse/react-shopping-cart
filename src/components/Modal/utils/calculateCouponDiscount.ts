@@ -1,7 +1,13 @@
 import { Coupon } from '../../../types/coupon';
 import { CartItemType } from '../../../types/cartItem';
 
-export function calculateCouponDiscount(coupon: Coupon, orderAmount: number, items: CartItemType[]): number {
+interface CalculateCouponDiscountProps {
+  coupon: Coupon;
+  orderAmount: number;
+  items: CartItemType[];
+}
+
+export function calculateCouponDiscount({ coupon, orderAmount, items }: CalculateCouponDiscountProps): number {
   switch (coupon.discountType) {
     case 'fixed':
       return coupon.discount;
