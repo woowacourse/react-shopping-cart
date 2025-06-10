@@ -58,9 +58,7 @@ export const CouponModal = ({
                       ? coupon.minimumAmount
                       : undefined
                   }
-                  disabled={
-                    isAvailableCoupon(coupon, orderPrice) ? false : true
-                  }
+                  disabled={isAvailableCoupon(coupon, orderPrice)}
                 />
               );
             })}
