@@ -126,4 +126,4 @@ useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
 - [ ] useCartResource 내부 useEffect 역할 상위로 뺴기
 - [ ] 서버 상태 데이터 캐싱
 - [ ] useEffect 사용 -> 이벤트 핸들러로 처리
-  - [ ] localStorage 사용 훅에서의 useEffect 제거
+  - [x] localStorage 사용 훅에서의 useEffect 제거

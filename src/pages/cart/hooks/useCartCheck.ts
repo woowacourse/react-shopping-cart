@@ -1,28 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useLocalStorage } from "../../../shared/hooks/common/useLocalStorage";
+import { CART_ITEM_IDS_STORAGE_KEY, INITIALIZED_KEY } from "../constants";
 
 type HandleCheckChangeType = ({ action, id }: { action: "all" | "each"; id?: number }) => void;
 
-const STORAGE_KEY = "cartItemIds";
-
 const useCartCheck = (cartItemIds: number[]) => {
-  const [checkedIds, setCheckedIds] = useLocalStorage<number[]>(STORAGE_KEY, []);
-  const [isInitialized, setIsInitialized] = useLocalStorage<boolean>("isInitialized", true);
-  const prevCartItemIds = useRef<number[]>([]);
+  const [checkedIds, setCheckedIds] = useLocalStorage<number[]>(CART_ITEM_IDS_STORAGE_KEY, []);
+  const [isInitialized, setIsInitialized] = useLocalStorage<boolean>(INITIALIZED_KEY, true);
+  const prevCartItemIds = useRef<number[]>(cartItemIds);
 
   const isAllChecked = checkedIds.length === cartItemIds.length;
 
-  const allCheck = () => {
-    setCheckedIds((prev) => (prev.length === cartItemIds.length ? [] : [...cartItemIds]));
-  };
-
-  const eachCheck = (id: number) => {
-    setCheckedIds((prev) => (prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]));
-  };
-
   const handleCheckChange: HandleCheckChangeType = ({ action, id }) => {
-    if (action === "all") allCheck();
-    if (action === "each" && id) eachCheck(id);
+    if (action === "all") {
+      setCheckedIds((prev) => (prev.length === cartItemIds.length ? [] : [...cartItemIds]));
+    }
+    if (action === "each" && id) {
+      setCheckedIds((prev) => (prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]));
+    }
   };
 
   useEffect(() => {
