@@ -4,6 +4,6 @@ export interface ModalPropsType {
   position?: 'center' | 'bottom';
   title?: string;
   showCloseButton?: boolean;
-  onClose: () => void;
+  onCloseButtonClick: () => void;
   onBackdropClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }

@@ -13,11 +13,11 @@ const Modal = ({
   position = 'center',
   title,
   showCloseButton = true,
-  onClose,
+  onCloseButtonClick,
 }: ModalPropsType) => {
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      onCloseButtonClick();
     }
   };
 
@@ -32,7 +32,10 @@ const Modal = ({
             <Text varient="subtitle" textAlign="left">
               {title}
             </Text>
-            <button css={CloseButtonStyle(showCloseButton)} onClick={onClose}>
+            <button
+              css={CloseButtonStyle(showCloseButton)}
+              onClick={onCloseButtonClick}
+            >
               X
             </button>
           </div>

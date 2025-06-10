@@ -139,7 +139,7 @@ function OrderCheckPage() {
       <CouponModal
         isLoading={couponList.isLoading}
         isOpen={isCouponModalOpen}
-        onClose={handleCouponModalClose}
+        onCloseButtonClick={handleCouponModalClose}
         validatedCouponList={validatedCouponList}
         checkedCoupon={checkedCoupons ?? []}
         onCouponAccept={handleCouponAccept}

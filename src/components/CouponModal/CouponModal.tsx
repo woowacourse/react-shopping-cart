@@ -12,14 +12,14 @@ import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinning';
 function CouponModal({
   isLoading,
   isOpen,
-  onClose,
+  onCloseButtonClick,
   validatedCouponList,
   checkedCoupon,
   onCouponAccept,
 }: {
   isLoading: boolean;
   isOpen: boolean;
-  onClose: () => void;
+  onCloseButtonClick: () => void;
   validatedCouponList: validatedCouponList[];
   checkedCoupon: number[] | null;
   onCouponAccept: (couponIds: number[]) => void;
@@ -64,7 +64,11 @@ function CouponModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="쿠폰을 선택해 주세요">
+    <Modal
+      isOpen={isOpen}
+      onCloseButtonClick={onCloseButtonClick}
+      title="쿠폰을 선택해 주세요"
+    >
       {isLoading && <LoadingSpinner />}
       {!isLoading && (
         <>
