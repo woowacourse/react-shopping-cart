@@ -16,7 +16,7 @@ function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
-  const { includeSpecial, toggle, totalFee } = useDeliveryFee(deliveryFee);
+  const { isSpecialDelivery, toggleSpecialDelivery, totalFee } = useDeliveryFee(deliveryFee);
   const { coupons, temp, isOpen, totalDiscount, handleOpen, handleClose, toggleCoupon, apply } = useCouponSelector(
     orderAmount,
     checkedItems,
@@ -79,7 +79,7 @@ function OrderPage() {
           </Button>
           <div css={priceTitleCss}>배송 정보</div>
           <div css={styles.allSelectCss}>
-            <CheckBox checked={includeSpecial} onChange={toggle} />
+            <CheckBox checked={isSpecialDelivery} onChange={toggleSpecialDelivery} />
             <p>제주도 및 도서 산간 지역</p>
           </div>
           <PriceArea
