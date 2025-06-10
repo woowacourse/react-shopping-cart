@@ -49,10 +49,7 @@ export type FreeShippingCoupon = BaseCoupon & {
 export type PercentageDiscountCoupon = BaseCoupon & {
   discountType: "percentage";
   discount: number;
-  availableTime: {
-    start: string;
-    end: string;
-  };
+  availableTime: AvailableTime;
 };
 
 export type Coupon =
