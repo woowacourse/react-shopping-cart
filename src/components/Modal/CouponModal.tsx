@@ -1,12 +1,12 @@
-import { useMemo } from 'react';
 import { CartItemType } from '../../types/cartItem';
 import { Coupon } from '../../types/coupon';
 import Button from '../common/Button';
 import CouponItem from './CouponItem';
 import Modal from './Modal';
-import { calculateCouponDiscount } from './utils/calculateCouponDiscount';
 import { css } from '@emotion/react';
 import { MAX_COUPON_LENGTH } from '../../constants/maxCouponLength';
+import { useTotalDiscount } from '../../hooks/useTotalDiscount';
+import { isCouponEnabled } from './utils/isCouponEnabled';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface CouponModalProps {
   orderAmount: number;
   checkedItems: CartItemType[];
   totalDeliveryFee: number;
-  temp: Coupon[];
+  draftCoupons: Coupon[];
   toggleCoupon: (coupon: Coupon) => void;
   apply: () => void;
 }
@@ -26,14 +26,11 @@ const CouponModal = ({
   coupons,
   orderAmount,
   checkedItems,
-  temp,
+  draftCoupons,
   toggleCoupon,
   apply
 }: CouponModalProps) => {
-  const tempTotalDiscount = useMemo(
-    () => temp.reduce((sum, coupon) => sum + calculateCouponDiscount({ coupon, orderAmount, items: checkedItems }), 0),
-    [temp, orderAmount, checkedItems]
-  );
+  const tempTotalDiscount = useTotalDiscount(draftCoupons, orderAmount, checkedItems);
 
   return (
     <Modal isOpen={isOpen} handleClose={handleClose}>
@@ -41,16 +38,21 @@ const CouponModal = ({
         <img src="./assets/info.svg" alt="info icon" />
         <p css={fontSize12}>쿠폰은 최대 {MAX_COUPON_LENGTH}개까지 사용할 수 있습니다.</p>
       </div>
-      {coupons?.map((coupon) => (
-        <CouponItem
-          key={coupon.id}
-          coupon={coupon}
-          orderAmount={orderAmount}
-          items={checkedItems}
-          selectedCoupons={temp}
-          handleCouponToggle={() => toggleCoupon(coupon)}
-        />
-      ))}
+      {coupons?.map((coupon) => {
+        const isChecked = draftCoupons.includes(coupon);
+        const isEnabled =
+          (isCouponEnabled({ coupon, orderAmount, items: checkedItems }) && draftCoupons.length < MAX_COUPON_LENGTH) ||
+          isChecked;
+        return (
+          <CouponItem
+            key={coupon.id}
+            coupon={coupon}
+            isEnabled={isEnabled}
+            isChecked={isChecked}
+            handleCouponToggle={() => toggleCoupon(coupon)}
+          />
+        );
+      })}
       <Button css={buttonCss} onClick={apply}>
         총 {tempTotalDiscount.toLocaleString()}원 할인쿠폰 사용하기
       </Button>

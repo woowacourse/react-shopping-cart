@@ -1,9 +1,8 @@
 // src/hooks/useCouponSelector.ts
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useCoupons } from './useCoupons';
 import { useToggle } from './useToggle';
 import { getBestCoupons } from '../components/Modal/utils/getBestCoupons';
-import { calculateCouponDiscount } from '../components/Modal/utils/calculateCouponDiscount';
 import { isCouponEnabled } from '../components/Modal/utils/isCouponEnabled';
 import type { Coupon } from '../types/coupon';
 import type { CartItemType } from '../types/cartItem';
@@ -38,11 +37,6 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
     close();
   };
 
-  const totalDiscount = useMemo(
-    () => selectedCoupons.reduce((sum, coupon) => sum + calculateCouponDiscount({ coupon, orderAmount, items }), 0),
-    [selectedCoupons, orderAmount, items]
-  );
-
   useEffect(() => {
     setSelectedCoupons(getBestCoupons({ coupons, orderAmount, items }));
   }, [coupons, orderAmount, items]);
@@ -52,7 +46,6 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
     selectedCoupons,
     draftCoupons,
     isOpen,
-    totalDiscount,
     handleOpen,
     handleClose,
     toggleCoupon,

@@ -11,16 +11,18 @@ import CouponModal from '../components/Modal/CouponModal';
 import { css } from '@emotion/react';
 import { useDeliveryFee } from '../hooks/useDeliveryFee';
 import { useCouponSelector } from '../hooks/useCouponSelector';
+import { useTotalDiscount } from '../hooks/useTotalDiscount';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
-  const { coupons, selected, temp, isOpen, totalDiscount, handleOpen, handleClose, toggleCoupon, apply } =
+  const { coupons, selectedCoupons, draftCoupons, isOpen, handleOpen, handleClose, toggleCoupon, apply } =
     useCouponSelector(orderAmount, checkedItems);
+  const totalDiscount = useTotalDiscount(selectedCoupons, orderAmount, checkedItems);
   const { isSpecialDelivery, toggleSpecialDelivery, totalFee } = useDeliveryFee(
     deliveryFee,
-    selected.some((c) => c.discountType === 'freeShipping')
+    selectedCoupons.some((c) => c.discountType === 'freeShipping')
   );
   const totalAmountAfterDiscount = orderAmount + totalFee - totalDiscount;
 
@@ -98,7 +100,7 @@ function OrderPage() {
         orderAmount={orderAmount}
         checkedItems={checkedItems}
         totalDeliveryFee={totalFee}
-        temp={temp}
+        draftCoupons={draftCoupons}
         toggleCoupon={toggleCoupon}
         apply={apply}
       />

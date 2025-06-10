@@ -3,25 +3,19 @@ import { Coupon } from '../../types/coupon';
 import CheckBox from '../common/CheckBox';
 import { formatToKoreanDate } from '../../utils/formatToKoreanDate';
 import { formatTime } from '../../utils/formatTime';
-import { isCouponEnabled } from './utils/isCouponEnabled';
-import { CartItemType } from '../../types/cartItem';
-import { MAX_COUPON_LENGTH } from '../../constants/maxCouponLength';
 
 interface CouponItemProps {
   coupon: Coupon;
-  orderAmount: number;
-  items: CartItemType[];
-  selectedCoupons: Coupon[];
+  isEnabled: boolean;
+  isChecked: boolean;
   handleCouponToggle: () => void;
 }
 
-const CouponItem = ({ coupon, orderAmount, items, selectedCoupons, handleCouponToggle }: CouponItemProps) => {
-  const isDisabled = !isCouponEnabled({ coupon, orderAmount, items }) || selectedCoupons.length >= MAX_COUPON_LENGTH;
-
+const CouponItem = ({ coupon, isEnabled, isChecked, handleCouponToggle }: CouponItemProps) => {
   return (
-    <div css={couponItemCss(isDisabled)}>
+    <div css={couponItemCss(!isEnabled)}>
       <div css={TitleCss}>
-        <CheckBox disabled={isDisabled} checked={selectedCoupons.includes(coupon)} onChange={handleCouponToggle} />
+        <CheckBox disabled={!isEnabled} checked={isChecked} onChange={handleCouponToggle} />
         <p css={TitleTextCss}>{coupon.description}</p>
       </div>
       <p css={fontSize12}>만료일: {formatToKoreanDate(coupon.expirationDate)}</p>
