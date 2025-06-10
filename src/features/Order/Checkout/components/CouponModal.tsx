@@ -10,8 +10,8 @@ import { Text } from '@/shared/components/Text';
 
 import { useModalSelectCoupon } from '../hooks/useModalSelectCoupon';
 import { CouponItem } from '../type/coupon.type';
+import { formatDate } from '../utils/formatDate';
 import { parseHour } from '../utils/parseHour';
-import { splitDate } from '../utils/splitDate';
 
 type CouponModalProps = {
   isAutoMode: boolean;
@@ -86,7 +86,7 @@ export const CouponModal = ({
                 </Text>
               </Flex>
               <Text type="Caption" color={isGrayedOut ? 'gray' : 'black'}>
-                만료일: {splitDate(item.expirationDate)}
+                만료일: {formatDate(item.expirationDate)}
               </Text>
               {item.minimumAmount && (
                 <Text type="Caption" color={isGrayedOut ? 'gray' : 'black'}>
