@@ -19,7 +19,7 @@ export const useCouponLogic = ({
   checkedCoupons,
   isAutoMode,
 }: {
-  coupons: CouponResponse[] | undefined;
+  coupons: CouponResponse[];
   cartItems: CartItemList['cartItems'];
   totalPrice: number;
   specialDeliveryZone: boolean;
@@ -29,18 +29,14 @@ export const useCouponLogic = ({
   const optimalCoupons = useMemo(() => {
     if (!coupons) return [];
 
-    const available = getAvailableCoupons({
-      coupons: coupons.map((item) => ({
-        ...item,
-        isChecked: false,
-        isDisabled: false,
-      })),
+    const availableCoupons = getAvailableCoupons({
+      coupons,
       totalPrice,
       cartItems,
     });
 
     return getOptimalCoupons({
-      availableCoupons: available,
+      availableCoupons: availableCoupons,
       totalPrice,
       cartItems,
       specialDeliveryZone,
