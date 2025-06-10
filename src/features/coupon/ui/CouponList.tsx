@@ -139,7 +139,11 @@ export default function CouponList({ onClose }: CouponListProps) {
                   type='checkbox'
                   onChange={() => handleCouponSelection(coupon)}
                   checked={selectedCoupons.some((selectedCoupon) => selectedCoupon.id === coupon.id)}
-                  disabled={invalidCouponIds.includes(coupon.id)}
+                  disabled={
+                    invalidCouponIds.includes(coupon.id) ||
+                    (coupon.discountType === 'buyXgetY' &&
+                      getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee).message !== '')
+                  }
                 />
                 {coupon.description}
               </S.CouponHeader>
