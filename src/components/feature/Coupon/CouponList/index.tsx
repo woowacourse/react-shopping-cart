@@ -15,7 +15,7 @@ interface Props {
   cartItems: CartProduct[];
   selectedCartIds: number[];
   onApplyDiscount: (discount: number) => void;
-  selectedIds: number[];
+  appliedCouponIds: number[];
   onSelect: (id: number) => void;
 }
 
@@ -26,12 +26,12 @@ const CouponList = ({
   cartItems,
   selectedCartIds,
   onApplyDiscount,
-  selectedIds,
+  appliedCouponIds,
   onSelect,
 }: Props) => {
   const totalDiscount = getTotalDiscount({
     coupons,
-    selectedIds,
+    appliedCouponIds,
     cartItems,
     selectedCartIds,
     totalPrice,
@@ -48,7 +48,7 @@ const CouponList = ({
         <Coupon
           key={coupon.id}
           coupon={coupon}
-          isChecked={selectedIds.includes(coupon.id)}
+          isChecked={appliedCouponIds.includes(coupon.id)}
           onSelect={() => onSelect(coupon.id)}
           isValid={getValidCoupons({
             coupons,

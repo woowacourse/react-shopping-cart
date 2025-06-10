@@ -11,11 +11,12 @@ import useGetCoupons from "../../hooks/useGetCoupons";
 import CouponList from "../../components/feature/Coupon/CouponList";
 import { useState } from "react";
 import { getSelectedCartItems } from "../../components/feature/CartSection/utils/getSelectedCartItems";
-import useSelectedCoupon from "../../hooks/useSelectedCoupon";
+import useAppliedCoupons from "../../hooks/useAppliedCoupons";
 import { getTotalDiscount } from "../../components/feature/Coupon/CouponList/utils/calculate";
 
 const OrderConfirm = () => {
-  const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
+  // const { selectedIds, handleApplyCoupon} = useSelectedCoupon();
+  const { appliedCouponIds, handleApplyCoupon } = useAppliedCoupons();
   const location = useLocation();
   const {
     totalKindCount,
@@ -32,7 +33,7 @@ const OrderConfirm = () => {
 
   const discount = getTotalDiscount({
     coupons,
-    selectedIds,
+    appliedCouponIds,
     cartItems,
     selectedCartIds,
     totalPrice,
@@ -93,8 +94,8 @@ const OrderConfirm = () => {
             cartItems={cartItems}
             selectedCartIds={selectedCartIds}
             onApplyDiscount={() => setIsModalOpen(false)}
-            selectedIds={selectedIds}
-            onSelect={handleSelectCoupon}
+            appliedCouponIds={appliedCouponIds}
+            onSelect={handleApplyCoupon}
           />
         )}
       </Modal>

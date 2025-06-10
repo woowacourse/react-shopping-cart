@@ -6,27 +6,30 @@ import { getSelectedCoupons } from "./getSelectedCoupons";
 
 export const getTotalDiscount = ({
   coupons,
-  selectedIds,
+  appliedCouponIds,
   cartItems,
   selectedCartIds,
   totalPrice,
   isRemoteArea,
 }: {
   coupons: CouponResponse[];
-  selectedIds: number[];
+  appliedCouponIds: number[];
   cartItems: CartProduct[];
   selectedCartIds: number[];
   totalPrice: number;
   isRemoteArea: boolean;
 }) => {
-  return getSelectedCoupons(coupons, selectedIds).reduce((total, current) => {
-    return (total += calculateDiscount(
-      getSelectedCartItems(cartItems, selectedCartIds),
-      current,
-      totalPrice,
-      isRemoteArea
-    ));
-  }, 0);
+  return getSelectedCoupons(coupons, appliedCouponIds).reduce(
+    (total, current) => {
+      return (total += calculateDiscount(
+        getSelectedCartItems(cartItems, selectedCartIds),
+        current,
+        totalPrice,
+        isRemoteArea
+      ));
+    },
+    0
+  );
 };
 
 export const calculateDiscount = (
