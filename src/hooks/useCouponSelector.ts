@@ -23,13 +23,14 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
 
   const toggleCoupon = (coupon: Coupon) => {
     if (!isCouponEnabled({ coupon, orderAmount, items })) return;
-    setTemp((prev) =>
-      prev.some((x) => x.id === coupon.id)
-        ? prev.filter((x) => x.id !== coupon.id)
-        : prev.length < MAX_COUPON_LENGTH
-        ? [...prev, coupon]
-        : prev
-    );
+
+    if (temp.some((x) => x.id === coupon.id)) {
+      setTemp((prev) => prev.filter((x) => x.id !== coupon.id));
+      return;
+    }
+
+    if (temp.length >= MAX_COUPON_LENGTH) return;
+    setTemp((prev) => [...prev, coupon]);
   };
 
   const apply = () => {
