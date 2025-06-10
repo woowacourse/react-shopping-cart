@@ -1,7 +1,7 @@
 import EmptyCartContainer from '../EmptyCartContainer/EmptyCartContainer';
 import PriceContainer from '../PriceContainer';
-import CartList from '@/features/cart/ui/CartList/CartList';
-import CheckBox from '@/shared/components/CheckBox';
+import CartList from '@features/cart/ui/CartList/CartList';
+import CheckBox from '@shared/components/CheckBox';
 import * as S from './CartContent.styled';
 import LoadingContainer from '@shared/components/LoadingContainer/LoadingContainer';
 import ErrorContainer from '@shared/components/ErrorContainer/ErrorContainer';
