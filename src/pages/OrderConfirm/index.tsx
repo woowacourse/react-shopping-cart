@@ -59,7 +59,7 @@ const OrderConfirm = () => {
           onClick={() => setIsModalOpen(true)}
           css={css`
             padding: 15px 0;
-            color:#333333BF
+            color: #333333bf;
             font-weight: 700;
             font-size: 15px;
           `}
