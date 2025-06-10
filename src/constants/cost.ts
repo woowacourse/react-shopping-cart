@@ -1,0 +1,5 @@
+export const FREE_SHIPPING_THRESHOLD = 10_000;
+
+export const DELIVERY_COST = 3000;
+
+export const EXTRA_SHIPPING_COST = 3000;

@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import SubmitButton from "../../components/SubmitButton/SubmitButton";
 import { Container, RedeemCouponButton } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../utils/cost";
+import { getDeliveryCost, getOrderCost, getTotalCost } from "../../utils/cost";
 import Description from "../../components/Description/Description";
 import CartItemList from "../../components/CartItemList/CartItemList";
 import CartItem from "../../components/CartItem/CartItem";
@@ -43,11 +43,11 @@ function OrderSummary() {
 
   const orderCost = getOrderCost(cartItems);
   const deliveryCost = getDeliveryCost(orderCost, isExtraShipping);
-  const totalCost = orderCost + deliveryCost;
-
   const getDiscount = (selectedCoupons: CouponType[]) => {
     return redeemAllCoupon(selectedCoupons, orderCost, cartItems, deliveryCost);
   };
+  const discount = getDiscount(redeemedCoupons);
+  const totalCost = getTotalCost(orderCost, deliveryCost, discount);
 
   const decideCanRedeem = (coupon: CouponType) => {
     return checkCanRedeem(coupon, orderCost, cartItems);
@@ -82,8 +82,8 @@ function OrderSummary() {
         <OrderReceipt
           orderCost={orderCost}
           deliveryCost={deliveryCost}
-          discount={getDiscount(redeemedCoupons)}
-          totalCost={totalCost - getDiscount(redeemedCoupons)}
+          discount={discount}
+          totalCost={totalCost}
         />
       </main>
       <SubmitButton
