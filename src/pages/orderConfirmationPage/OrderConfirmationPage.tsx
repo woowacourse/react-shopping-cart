@@ -1,5 +1,3 @@
-import { useLocation } from "react-router-dom";
-
 import Button from "../../components/@common/button/Button";
 import Checkbox from "../../components/@common/checkbox/Checkbox";
 import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
@@ -41,6 +39,9 @@ import type { CartItemType } from "../../types/response";
 import useCoupon from "../../hooks/features/useCoupon";
 import useModal from "../../hooks/@common/useModal";
 import type { BogoItemInfoType } from "../../types/bogo";
+import usePageState from "../../hooks/@common/usePageState";
+import type { OrderConfirmationState } from "../../types/pageState";
+import { isOrderConfirmationState } from "../../guards/isOrderConfirmationState";
 
 const OrderConfirmationPage = () => {
   const { ref: CartPriceRef, isVisible: isCartPriceVisible } =
@@ -49,8 +50,13 @@ const OrderConfirmationPage = () => {
     });
   const { isModalOpen, openModal, closeModal } = useModal();
   const { goOrderComplete } = useEasyNavigate();
-
-  const { orderItems, orderPrice, deliveryFee } = useLocation().state;
+  const { goHome } = useEasyNavigate();
+  const state = usePageState<OrderConfirmationState>({
+    validateFunc: isOrderConfirmationState,
+  });
+  const orderItems = state?.orderItems ?? [];
+  const orderPrice = state?.orderPrice ?? 0;
+  const deliveryFee = state?.deliveryFee ?? 0;
 
   const {
     isRemoteArea,
@@ -113,6 +119,11 @@ const OrderConfirmationPage = () => {
       );
     }
   };
+  if (!state) {
+    return (
+      <ErrorFallback callBack={goHome} errorButtonText="홈으로 돌아가기" />
+    );
+  }
 
   return (
     <div css={PageWrapper} data-testid="order-confirmation-page">

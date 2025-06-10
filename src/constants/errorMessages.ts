@@ -7,3 +7,7 @@ export const FETCH_ERROR_MESSAGE: Record<number, string> = {
 } as const;
 
 export const DEFAULT_ERROR_MESSAGE = "저런! 예기치 못한 문제가 발생했어요!";
+
+export const DEV_ERROR_MESSAGE = {
+  NO_STATE: "페이지 초기 상태가 존재하지 않습니다.",
+} as const;

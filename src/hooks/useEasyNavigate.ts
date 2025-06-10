@@ -5,6 +5,10 @@ import type { CartItemType } from "../types/response";
 const useEasyNavigate = () => {
   const navigate = useNavigate();
 
+  const goPrevPage = () => {
+    navigate(-1);
+  };
+
   const goHome = () => {
     navigate(ROUTE.CART);
   };
@@ -29,7 +33,7 @@ const useEasyNavigate = () => {
     });
   };
 
-  return { goHome, goOrderComplete, goOrderConfirmation };
+  return { goHome, goOrderComplete, goOrderConfirmation, goPrevPage };
 };
 
 export default useEasyNavigate;
