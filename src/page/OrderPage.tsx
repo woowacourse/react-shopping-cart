@@ -15,7 +15,8 @@ import {
 
 import ProductSelectionStep from "./OrderPage/ProductSelectionStep";
 import CouponPaymentStep from "./OrderPage/CouponPaymentStep";
-import { useOrderPageLogic } from "./OrderPage/hooks/useOrderPageLogic";
+import { useState } from "react";
+import { useCouponManagement } from "@/hooks/Coupon/useCouponManagement";
 
 function OrderPage() {
   return (
@@ -31,15 +32,12 @@ function OrderPageContent() {
   const { nextClickHandler, prevClickHandler, Funnel, Step, currentStep } =
     useFunnelContext();
   const { selectedCartItems } = useCartSelectionContext();
-
-  const {
-    couponsData,
-    couponsFetchLoading,
-    couponSelection,
-    result,
-    isInIsland,
-    setIsInIsland,
-  } = useOrderPageLogic(selectedCartItems);
+  const [isInIsland, setIsInIsland] = useState(false);
+  const { couponsData, couponsFetchLoading, couponSelection, result } =
+    useCouponManagement({
+      selectedShoppingCartItems: selectedCartItems,
+      isIsland: isInIsland,
+    });
 
   return (
     <CartLayout>
