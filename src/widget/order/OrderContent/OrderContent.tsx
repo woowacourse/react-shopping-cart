@@ -56,9 +56,7 @@ export default function OrderContent({ orderItems }: OrderContentProps) {
         <br />
         최종 결제 금액을 확인해주세요.
       </S.Text>
-      <S.ScrollContainer>
-        <OrderList orderItems={orderItems} />
-      </S.ScrollContainer>
+      <OrderList orderItems={orderItems} />
       <CommonButton colorType="white" buttonText="쿠폰 적용" onClick={handleModalOpen} />
       <CouponModal
         isOpen={isOpen}
