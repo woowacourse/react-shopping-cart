@@ -3,35 +3,49 @@ import DeliveryInfo from "./DeliveryInfo/DeliveryInfo";
 import PaymentButton from "./PaymentButton/PaymentButton";
 import { getOrderTotalPrice } from "@/domains/utils/getOrderTotalPrice";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { usePaymentPrice } from "../../hooks/usePaymentPrice";
+import { getPaymentPrice } from "../../utils/getPaymentPrice";
 import { useCouponModal } from "../../hooks/useCouponModal";
 import { useRegionDeliveryPrice } from "../../hooks/useRegionDeliveryPrice";
 import PaymentPriceContainer from "./PaymentPriceContainer/PaymentPriceContainer";
-import { ApplyCouponModalContainer } from "./ApplyCouponModal/ApplyCouponModalContainer";
+import { Coupon } from "@/apis/coupon/coupon.type";
+import ApplyCouponModal from "./ApplyCouponModal/ApplyCouponModal";
+import { useApplyCoupon } from "../../hooks/useApplyCoupon";
 
 type PaymentContentProps = {
   orderList: CartItemType[];
+  couponList: Coupon[];
 };
 
-export default function PaymentContent({ orderList }: PaymentContentProps) {
+export default function PaymentContent({
+  orderList,
+  couponList,
+}: PaymentContentProps) {
   const [isOpenCouponModal, openCouponModal, closeCouponModal] =
     useCouponModal();
 
   const { deliveryPrice, isRegionDelivery, toggleRegionDelivery } =
     useRegionDeliveryPrice(getOrderTotalPrice(orderList));
-  const { couponDiscount, paymentPrice, applyCouponDiscount } = usePaymentPrice(
-    { orderTotalPrice: getOrderTotalPrice(orderList), deliveryPrice }
-  );
+  const { couponDiscount, applyCouponIds } = useApplyCoupon({
+    deliveryPrice,
+    orderList,
+    couponList,
+  });
+  const paymentPrice = getPaymentPrice({
+    orderTotalPrice: getOrderTotalPrice(orderList),
+    deliveryPrice,
+    couponDiscount,
+  });
 
   return (
     <>
       <ApplyCouponButton onClick={openCouponModal} />
-      <ApplyCouponModalContainer
+      <ApplyCouponModal
         isOpen={isOpenCouponModal}
+        couponList={couponList}
         orderList={orderList}
         deliveryPrice={deliveryPrice}
         onRequestClose={closeCouponModal}
-        onApplyCoupon={applyCouponDiscount}
+        onApplyCoupon={applyCouponIds}
       />
       <DeliveryInfo
         isChecked={isRegionDelivery}

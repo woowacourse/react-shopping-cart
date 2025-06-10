@@ -1,31 +1,26 @@
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { Coupon } from "@/apis/coupon/coupon.type";
-import { getCouponDiscountAmount } from "./getCouponDiscountAmount";
+import { getAvailableCoupons } from "./getAvailableCoupons";
+import { calculateBestCoupons } from "./calculateBestCoupons";
 
 type GetBestCouponCombinationParams = {
-  availableCoupons: Coupon[];
+  couponList: Coupon[];
   orderList: CartItemType[];
   couponCount: number;
   deliveryPrice: number;
 };
 
 export const getBestCouponCombination = ({
-  availableCoupons,
+  couponList,
   orderList,
   couponCount,
   deliveryPrice,
 }: GetBestCouponCombinationParams) => {
-  const bestCombo = availableCoupons
-    .map((coupon) => ({
-      ...coupon,
-      discountAmount: getCouponDiscountAmount({
-        coupon,
-        orderList,
-        deliveryPrice,
-      }),
-    }))
-    .sort((a, b) => b.discountAmount - a.discountAmount)
-    .slice(0, couponCount);
-
-  return bestCombo;
+  const availableCoupons = getAvailableCoupons(couponList, orderList);
+  return calculateBestCoupons({
+    couponList: availableCoupons,
+    orderList,
+    couponCount,
+    deliveryPrice,
+  });
 };

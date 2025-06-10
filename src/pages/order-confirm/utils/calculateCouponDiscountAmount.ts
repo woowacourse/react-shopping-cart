@@ -2,17 +2,17 @@ import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { Coupon } from "@/apis/coupon/coupon.type";
 import { getMostExpensiveProductPrice } from "@/domains/utils/getMostExpensiveProductPrice";
 
-type GetCouponDiscountAmountParams = {
+type CalculateCouponDiscountAmountParams = {
   coupon: Coupon;
   orderList: CartItemType[];
   deliveryPrice: number;
 };
 
-export const getCouponDiscountAmount = ({
+export const calculateCouponDiscountAmount = ({
   coupon,
   orderList,
   deliveryPrice,
-}: GetCouponDiscountAmountParams): number => {
+}: CalculateCouponDiscountAmountParams): number => {
   switch (coupon.discountType) {
     case "fixed": {
       return coupon.discount;

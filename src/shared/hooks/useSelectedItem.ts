@@ -41,6 +41,10 @@ const useSelectedIds = (initialSelectedIds: Set<number>) => {
     setSelectedIds((prev) => new Set([...prev, ...ids]));
   }, []);
 
+  const updateSelectedIds = useCallback((ids: number[]) => {
+    setSelectedIds(new Set(ids));
+  }, []);
+
   const getSelectedIdsCount = useCallback(() => {
     return selectedIds.size;
   }, [selectedIds]);
@@ -58,6 +62,7 @@ const useSelectedIds = (initialSelectedIds: Set<number>) => {
     addSelectedIds,
     getSelectedIdsCount,
     getSelectedIds,
+    updateSelectedIds,
   };
 };
 

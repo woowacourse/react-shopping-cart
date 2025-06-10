@@ -4,9 +4,8 @@ import Modal from "@/shared/components/Modal/Modal";
 import * as S from "./ApplyCouponModal.styled";
 import CouponList from "./CouponList/CouponList";
 import CouponItem from "./CouponList/CouponItem/CouponItem";
-import { useCoupon } from "@/pages/order-confirm/hooks/useCoupon";
+import { useSelectedCoupon } from "@/pages/order-confirm/hooks/useSelectedCoupon";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import { useEffect } from "react";
 import { MAX_SELECTED_COUPON_COUNT } from "@/domains/constants/coupon";
 
 type ApplyCouponModalProps = {
@@ -15,7 +14,7 @@ type ApplyCouponModalProps = {
   couponList: Coupon[];
   deliveryPrice: number;
   onRequestClose: () => void;
-  onApplyCoupon: (discount: number) => void;
+  onApplyCoupon: (couponIds: number[]) => void;
 };
 
 export default function ApplyCouponModal({
@@ -27,26 +26,15 @@ export default function ApplyCouponModal({
   onApplyCoupon,
 }: ApplyCouponModalProps) {
   const {
+    getSelectedIds,
     getIsSelectedId,
     toggleSelectedId,
     getIsCouponIdDisabled,
-    discountAmount,
-  } = useCoupon({ orderList, couponList, deliveryPrice });
-
-  useEffect(
-    function autoApplyMaxDiscountCouponOnInitAndDeliveryChange() {
-      onApplyCoupon(discountAmount);
-    },
-    // 자동 적용은 처음 시점에만 이루어지며, 이후 사용자가 쿠폰을 선택할 수 있도록 함
-    // discountAmount를 의존성 배열에 넣으면 쿠폰을 적용하지 않아도 실제 할인 금액에 반영되기 때문에 포함하지 않음
-    // 배송비에 따라 쿠폰 할인 금액이 달라질 수 있으므로 의존성 배열에 배송비 추가
-    // ex) 지역 추가 배송비에 따라 freeShipping 쿠폰 할인 금액이 달라지기 때문에 동기화
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [deliveryPrice]
-  );
+    couponDiscount,
+  } = useSelectedCoupon({ orderList, couponList, deliveryPrice });
 
   const handleApplyCouponButtonClick = () => {
-    onApplyCoupon(discountAmount);
+    onApplyCoupon(getSelectedIds());
     onRequestClose();
   };
 
@@ -73,7 +61,7 @@ export default function ApplyCouponModal({
         </CouponList>
       </S.ApplyCouponModalContainer>
       <S.ApplyButton type="button" onClick={handleApplyCouponButtonClick}>
-        총 {discountAmount.toLocaleString()}원 할인 쿠폰 사용하기
+        총 {couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기
       </S.ApplyButton>
     </Modal>
   );

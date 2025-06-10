@@ -2,8 +2,8 @@ import OrderSummary from "@/domains/components/OrderSummary/OrderSummary";
 import * as S from "./OrderConfirmContent.styled";
 import OrderList from "./OrderList/OrderList";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
-import PaymentContent from "./PaymentContent/PaymentContent";
 import { getOrderQuantity } from "@/domains/utils/getOrderQuantity";
+import { PaymentContentContainer } from "./PaymentContent/PaymentContentContainer";
 
 type OrderConfirmContentProps = {
   orderList: CartItemType[];
@@ -20,7 +20,7 @@ export default function OrderConfirmContent({
         orderQuantity={getOrderQuantity(orderList)}
       />
       <OrderList orderList={orderList} />
-      <PaymentContent orderList={orderList} />
+      <PaymentContentContainer orderList={orderList} />
     </S.Container>
   );
 }

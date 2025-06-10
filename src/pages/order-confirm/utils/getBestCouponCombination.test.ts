@@ -33,7 +33,7 @@ describe("최적 쿠폰 조합 선택 로직", () => {
   };
 
   it("할인액이 가장 큰 순서로 쿠폰 선택", () => {
-    const coupons = [
+    const couponList = [
       createMockCoupon(30000),
       createMockCoupon(5000),
       createMockCoupon(20000),
@@ -41,7 +41,7 @@ describe("최적 쿠폰 조합 선택 로직", () => {
 
     const result = getBestCouponCombination({
       ...baseOptions,
-      availableCoupons: coupons,
+      couponList,
     });
 
     expect(result).toHaveLength(2);
@@ -50,14 +50,14 @@ describe("최적 쿠폰 조합 선택 로직", () => {
   });
 
   it("사용 가능 쿠폰보다 많은 수 요청 시 전체 반환", () => {
-    const coupons = [createMockCoupon(15000)];
+    const couponList = [createMockCoupon(15000)];
 
     const result = getBestCouponCombination({
       ...baseOptions,
       couponCount: 5,
-      availableCoupons: coupons,
+      couponList,
     });
 
-    expect(result).toHaveLength(coupons.length);
+    expect(result).toHaveLength(couponList.length);
   });
 });

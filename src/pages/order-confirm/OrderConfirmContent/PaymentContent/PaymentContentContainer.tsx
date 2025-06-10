@@ -1,19 +1,13 @@
+import { CartItemType } from "@/apis/cartItems/cartItem.type";
 import { useGetCoupon } from "@/pages/order-confirm/hooks/useGetCoupon";
 import Fallback from "@/shared/components/Fallback/Fallback";
-import ApplyCouponModal from "./ApplyCouponModal";
-import { CartItemType } from "@/apis/cartItems/cartItem.type";
+import PaymentContent from "./PaymentContent";
 
-type ApplyCouponModalContainerProps = {
-  isOpen: boolean;
+type PaymentContainerProps = {
   orderList: CartItemType[];
-  deliveryPrice: number;
-  onRequestClose: () => void;
-  onApplyCoupon: (discount: number) => void;
 };
 
-export function ApplyCouponModalContainer(
-  props: ApplyCouponModalContainerProps
-) {
+export function PaymentContentContainer({ orderList }: PaymentContainerProps) {
   const { couponList, isLoading, errorMessage } = useGetCoupon();
 
   if (isLoading) {
@@ -24,5 +18,5 @@ export function ApplyCouponModalContainer(
     return <Fallback type="error" message={errorMessage} />;
   }
 
-  return <ApplyCouponModal couponList={couponList} {...props} />;
+  return <PaymentContent orderList={orderList} couponList={couponList} />;
 }

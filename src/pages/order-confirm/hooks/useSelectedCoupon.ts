@@ -5,10 +5,9 @@ import { createCouponDisabledChecker } from "../utils/createCouponDisabledChecke
 import { getIsCouponDisabled } from "../utils/getCouponDisabled";
 import { getBestCouponCombination } from "../utils/getBestCouponCombination";
 import { MAX_SELECTED_COUPON_COUNT } from "@/domains/constants/coupon";
-import { getAvailableCoupons } from "../utils/getAvailableCoupons";
-import { getTotalCouponDiscountAmount } from "../utils/getTotalCouponDiscountAmount";
+import { getCouponsDiscountAmount } from "../utils/getCouponsDiscountAmount";
 
-type UseCouponPrams = {
+type UseSelectedCouponPrams = {
   orderList: CartItemType[];
   couponList: Coupon[];
   deliveryPrice: number;
@@ -33,21 +32,23 @@ type UseCouponPrams = {
  * @property {function} getIsCouponIdDisabled - 쿠폰 사용 불가 여부 확인 함수
  * @property {number} discountAmount - 총 할인 금액(실제 적용된 할인 금액이 아닌 선택된 쿠폰의 할인 금액 합계)
  */
-export const useCoupon = ({
+export const useSelectedCoupon = ({
   orderList,
   couponList,
   deliveryPrice,
-}: UseCouponPrams) => {
-  const availableCoupons = getAvailableCoupons(couponList, orderList);
-
+}: UseSelectedCouponPrams) => {
   const bestCombo = getBestCouponCombination({
-    availableCoupons,
+    couponList,
     orderList,
-    deliveryPrice,
     couponCount: MAX_SELECTED_COUPON_COUNT,
+    deliveryPrice,
   });
-  const { getIsSelectedId, toggleSelectedId, getSelectedIdsCount } =
-    useSelectedIds(new Set(bestCombo.map(({ id }) => id)));
+  const {
+    getIsSelectedId,
+    toggleSelectedId,
+    getSelectedIdsCount,
+    getSelectedIds,
+  } = useSelectedIds(new Set(bestCombo.map(({ id }) => id)));
 
   const getIsCouponIdDisabled = createCouponDisabledChecker({
     notAvailableCoupons: couponList.filter((coupon) =>
@@ -57,19 +58,18 @@ export const useCoupon = ({
     isMaxSelectedCoupon: getSelectedIdsCount() >= MAX_SELECTED_COUPON_COUNT,
   });
 
-  const selectedCoupons = availableCoupons.filter((coupon) =>
-    getIsSelectedId(coupon.id)
-  );
-  const discountAmount = getTotalCouponDiscountAmount({
-    couponList: selectedCoupons,
+  const couponDiscount = getCouponsDiscountAmount({
+    couponList,
     orderList,
     deliveryPrice,
+    getIsSelectedId,
   });
 
   return {
+    getSelectedIds,
     getIsSelectedId,
     toggleSelectedId,
     getIsCouponIdDisabled,
-    discountAmount,
+    couponDiscount,
   };
 };
