@@ -34,19 +34,12 @@ export function useCartSelection(cartItems: CartItem[]) {
     [cartItems, selectedIds]
   );
 
-  //해당 부분 useMemo를 쓰지 않으면, 무한 리렌더링 됩니다!
-  const selectedItems = useMemo(
-    () => cartItems.filter((i) => selectedIds.has(i.id)),
-    [cartItems, selectedIds]
-  );
-
   return {
     selectedIds,
     toggleOne,
     toggleAll,
     isAllSelected,
     selectedItemsLength: selectedIds.size,
-    selectedItems,
     setSelectedIds,
   };
 }

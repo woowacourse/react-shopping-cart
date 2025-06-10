@@ -1,8 +1,8 @@
-import { useCartSelectionContext } from "../contexts/CartSelectionContext";
+import { useSelectedCartItems } from "../contexts/CartSelectionContext";
 import * as Styled from "../CartContent/CartContent.style";
 
 const CartContentActions = ({ onNext }: { onNext: () => void }) => {
-  const { selectedCartItems } = useCartSelectionContext();
+  const selectedCartItems = useSelectedCartItems();
 
   return (
     <Styled.OrderConfirmButton

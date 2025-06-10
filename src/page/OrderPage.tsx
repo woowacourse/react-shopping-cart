@@ -10,7 +10,7 @@ import OrderConfirmationHeader from "@/components/OrderConfirmation/OrderConfirm
 import { CartDataProvider } from "@/components/Cart/contexts/CartDataContext";
 import {
   CartSelectionProvider,
-  useCartSelectionContext,
+  useSelectedCartItems,
 } from "@/components/Cart/contexts/CartSelectionContext";
 
 import ProductSelectionStep from "./OrderPage/ProductSelectionStep";
@@ -31,7 +31,7 @@ function OrderPage() {
 function OrderPageContent() {
   const { nextClickHandler, prevClickHandler, Funnel, Step, currentStep } =
     useFunnelContext();
-  const { selectedCartItems } = useCartSelectionContext();
+  const selectedCartItems = useSelectedCartItems();
   const [isInIsland, setIsInIsland] = useState(false);
   const { couponsData, couponsFetchLoading, couponSelection, result } =
     useCouponManagement({

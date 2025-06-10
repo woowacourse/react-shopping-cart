@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useContext } from "react";
+import { PropsWithChildren, createContext, useContext, useMemo } from "react";
 import { useCartSelection } from "@/hooks/Cart/useCartSelection";
 import { useCartDataContext } from "./CartDataContext";
 import { CartItem } from "@/type/CartItem";
@@ -9,7 +9,7 @@ interface CartSelectionContextValue {
   handleSelectAllCartItems: () => void;
   selectedCartItemsLength: number;
   isAllSelected: boolean;
-  selectedCartItems: CartItem[];
+  getSelectedCartItems: () => CartItem[];
 }
 
 const CartSelectionContext = createContext<CartSelectionContextValue | null>(
@@ -26,6 +26,16 @@ export const useCartSelectionContext = () => {
   return context;
 };
 
+export const useSelectedCartItems = () => {
+  const { selectedCartIds } = useCartSelectionContext();
+  const { cartItemsData } = useCartDataContext();
+
+  return useMemo(
+    () => cartItemsData.filter((item) => selectedCartIds.has(item.id)),
+    [cartItemsData, selectedCartIds]
+  );
+};
+
 interface CartSelectionProviderProps extends PropsWithChildren {}
 
 export const CartSelectionProvider = ({
@@ -39,7 +49,6 @@ export const CartSelectionProvider = ({
     toggleAll,
     selectedItemsLength,
     isAllSelected,
-    selectedItems,
   } = useCartSelection(cartItemsData);
 
   const contextValue: CartSelectionContextValue = {
@@ -48,7 +57,8 @@ export const CartSelectionProvider = ({
     handleSelectAllCartItems: toggleAll,
     selectedCartItemsLength: selectedItemsLength,
     isAllSelected,
-    selectedCartItems: selectedItems,
+    getSelectedCartItems: () =>
+      cartItemsData.filter((item) => selectedIds.has(item.id)),
   };
 
   return (
