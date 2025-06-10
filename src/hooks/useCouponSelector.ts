@@ -11,12 +11,12 @@ import { MAX_COUPON_LENGTH } from '../constants/maxCouponLength';
 
 export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   const { data: coupons = [] } = useCoupons();
-  const [selected, setSelected] = useState<Coupon[]>([]);
-  const [temp, setTemp] = useState<Coupon[]>([]);
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
+  const [draftCoupons, setDraftCoupons] = useState<Coupon[]>([]);
   const { value: isOpen, on: open, off: close } = useToggle(false);
 
   const handleOpen = () => {
-    setTemp(selected);
+    setDraftCoupons(selectedCoupons);
     open();
   };
   const handleClose = () => close();
@@ -24,33 +24,33 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   const toggleCoupon = (coupon: Coupon) => {
     if (!isCouponEnabled({ coupon, orderAmount, items })) return;
 
-    if (temp.some((x) => x.id === coupon.id)) {
-      setTemp((prev) => prev.filter((x) => x.id !== coupon.id));
+    if (draftCoupons.some((x) => x.id === coupon.id)) {
+      setDraftCoupons((prev) => prev.filter((x) => x.id !== coupon.id));
       return;
     }
 
-    if (temp.length >= MAX_COUPON_LENGTH) return;
-    setTemp((prev) => [...prev, coupon]);
+    if (draftCoupons.length >= MAX_COUPON_LENGTH) return;
+    setDraftCoupons((prev) => [...prev, coupon]);
   };
 
   const apply = () => {
-    setSelected(temp);
+    setSelectedCoupons(draftCoupons);
     close();
   };
 
   const totalDiscount = useMemo(
-    () => selected.reduce((sum, coupon) => sum + calculateCouponDiscount({ coupon, orderAmount, items }), 0),
-    [selected, orderAmount, items]
+    () => selectedCoupons.reduce((sum, coupon) => sum + calculateCouponDiscount({ coupon, orderAmount, items }), 0),
+    [selectedCoupons, orderAmount, items]
   );
 
   useEffect(() => {
-    setSelected(getBestCoupons({ coupons, orderAmount, items }));
+    setSelectedCoupons(getBestCoupons({ coupons, orderAmount, items }));
   }, [coupons, orderAmount, items]);
 
   return {
     coupons,
-    selected,
-    temp,
+    selectedCoupons,
+    draftCoupons,
     isOpen,
     totalDiscount,
     handleOpen,
