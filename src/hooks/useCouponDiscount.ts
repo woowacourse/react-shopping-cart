@@ -8,6 +8,7 @@ import {
   SHIPPING_FEE,
   REMOTE_AREA_SHIPPING_FEE,
 } from "../constants";
+import { CartItem } from "../types/type";
 
 export const useCouponDiscount = () => {
   const { appliedCoupons } = useCouponContext();
@@ -69,7 +70,7 @@ export const useCouponDiscount = () => {
 };
 
 const calculateBuyXGetYDiscount = (
-  selectedItems: any[],
+  selectedItems: CartItem[],
   coupon: Coupon
 ): number => {
   if (!coupon.buyQuantity || !coupon.getQuantity) {

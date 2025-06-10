@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import cartItemsApi from "../apis/cartItems";
+import { CartItem } from "../types/type";
 
 export const useFetchCartItems = (
-  setCartItems: React.Dispatch<React.SetStateAction<any[]>>
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>
 ) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string>("");
