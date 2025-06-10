@@ -1,4 +1,4 @@
-import { CartItem, CartItemList } from '@/features/Cart/types/Cart.types';
+import { CartItem } from '@/features/Cart/types/Cart.types';
 
 import {
   COUPON_CODES,
@@ -9,53 +9,51 @@ import {
   PRICE_THRESHOLDS,
   QUANTITY_LIMITS,
 } from '../constants/coupons';
-import { CouponResponse, Coupons } from '../type/coupon.type';
+import { CouponResponse } from '../type/coupon.type';
 
 type CalculateCouponsProps = {
   totalPrice: number;
-} & Coupons &
-  CartItemList;
+  coupons: CouponResponse[];
+  cartItems: CartItem[];
+};
 
 export const getAvailableCoupons = ({ coupons, totalPrice, cartItems }: CalculateCouponsProps) => {
   const today = new Date();
-  const selectedCoupons: CouponResponse[] = [];
 
-  const availableCoupons = coupons.filter((item) => {
-    return new Date(item.expirationDate) > today;
-  });
+  return coupons
+    .filter((item) => new Date(item.expirationDate) > today)
+    .filter((coupon) => {
+      if (
+        coupon.code === COUPON_CODES.MIRACLE_SALE &&
+        MIRACLE_MORNING_HOURS.includes(today.getHours())
+      ) {
+        return true;
+      }
 
-  availableCoupons.forEach((coupon) => {
-    if (
-      coupon.code === COUPON_CODES.MIRACLE_SALE &&
-      MIRACLE_MORNING_HOURS.includes(today.getHours())
-    ) {
-      selectedCoupons.push(coupon);
-    }
+      if (
+        coupon.code === COUPON_CODES.FIXED_5000 &&
+        totalPrice >= PRICE_THRESHOLDS.FIXED_DISCOUNT_MIN
+      ) {
+        return true;
+      }
 
-    if (
-      coupon.code === COUPON_CODES.FIXED_5000 &&
-      totalPrice >= PRICE_THRESHOLDS.FIXED_DISCOUNT_MIN
-    ) {
-      selectedCoupons.push(coupon);
-    }
+      if (
+        coupon.code === COUPON_CODES.FREE_SHIPPING &&
+        totalPrice < PRICE_THRESHOLDS.FREE_SHIPPING_MAX &&
+        totalPrice >= PRICE_THRESHOLDS.FREE_SHIPPING_MIN
+      ) {
+        return true;
+      }
 
-    if (
-      coupon.code === COUPON_CODES.FREE_SHIPPING &&
-      totalPrice < PRICE_THRESHOLDS.FREE_SHIPPING_MAX &&
-      totalPrice >= PRICE_THRESHOLDS.FREE_SHIPPING_MIN
-    ) {
-      selectedCoupons.push(coupon);
-    }
+      if (coupon.code === COUPON_CODES.BUY_ONE_GET_ONE) {
+        const hasEligibleItem = cartItems?.some(
+          (item) => item.quantity >= DISCOUNT_RATES.MIRACLE_SALE
+        );
+        return hasEligibleItem;
+      }
 
-    if (coupon.code === COUPON_CODES.BUY_ONE_GET_ONE) {
-      const hasEligibleItem = cartItems?.some(
-        (item) => item.quantity >= DISCOUNT_RATES.MIRACLE_SALE
-      );
-      if (hasEligibleItem) selectedCoupons.push(coupon);
-    }
-  });
-
-  return selectedCoupons;
+      return false;
+    });
 };
 
 export const getOptimalCoupons = ({
