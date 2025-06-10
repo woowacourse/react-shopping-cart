@@ -61,7 +61,7 @@ export default function CouponList({ onClose }: CouponListProps) {
     totalPrice,
     updateTotalDiscountPrice,
   } = useCartContext();
-  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading } = useCoupons();
+  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading, couponError } = useCoupons();
 
   const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
@@ -129,6 +129,7 @@ export default function CouponList({ onClose }: CouponListProps) {
         쿠폰은 최대 2개까지 사용할 수 있습니다.
       </S.CouponLabel>
       <S.CouponListContent>
+        {couponError && <span>쿠폰 목록을 불러오는 데 실패했습니다.</span>}
         {isCouponLoading ? (
           <span>쿠폰 목록 불러오는 중...</span>
         ) : (
