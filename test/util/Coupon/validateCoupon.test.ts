@@ -44,7 +44,7 @@ const baseValidCoupon: Coupon = {
   id: "base-coupon",
   code: "VALID_COUPON",
   description: "A perfectly valid coupon",
-  discountType: "amount",
+  discountType: "fixed",
   expirationDate: TOMORROW,
   discount: 1000,
   minimumAmount: undefined,
@@ -233,7 +233,7 @@ describe("validateCoupon 함수는", () => {
     it("✅ 할인 유형이 'buyXgetY'가 아닌 경우 이 검증을 통과해야 함", () => {
       const coupon: Coupon = {
         ...baseValidCoupon,
-        discountType: "rate",
+        discountType: "percentage",
         expirationDate: TOMORROW,
       };
       const items = [createCartItem(1000, 1)]; // BOGO 조건 미달이지만, BOGO 쿠폰이 아님
@@ -294,7 +294,7 @@ describe("validateCoupon 함수는", () => {
         id: "all-good-coupon",
         code: "ALL_GOOD",
         description: "Perfect coupon",
-        discountType: "rate",
+        discountType: "percentage",
         discount: 10,
         expirationDate: TOMORROW,
         minimumAmount: 5000,
@@ -310,7 +310,7 @@ describe("validateCoupon 함수는", () => {
         id: "expired-first-coupon",
         code: "EXPIRED_FIRST",
         description: "Expired and low amount",
-        discountType: "amount",
+        discountType: "fixed",
         discount: 100,
         expirationDate: YESTERDAY, // 만료됨 (가장 먼저 체크)
         minimumAmount: 100000, // 최소금액 미달
@@ -328,7 +328,7 @@ describe("validateCoupon 함수는", () => {
         id: "min-amount-fail-coupon",
         code: "MIN_AMOUNT_FAIL",
         description: "Valid date, but low amount",
-        discountType: "rate",
+        discountType: "percentage",
         discount: 10,
         expirationDate: TOMORROW, // 유효
         minimumAmount: 10000, // 최소금액 10000원

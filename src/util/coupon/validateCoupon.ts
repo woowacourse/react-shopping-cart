@@ -23,14 +23,9 @@ const isMinAmount = (coupon: Coupon, items: CartItem[]) => {
   return coupon.minimumAmount && orderTotal < coupon.minimumAmount;
 };
 const isValidType = (coupon: Coupon) => {
-  return [
-    "fixed",
-    "amount",
-    "percentage",
-    "rate",
-    "buyXgetY",
-    "freeShipping",
-  ].includes(coupon.discountType);
+  return ["fixed", "percentage", "buyXgetY", "freeShipping"].includes(
+    coupon.discountType
+  );
 };
 export const validateCoupon = (
   coupon: Coupon,

@@ -39,7 +39,7 @@ const VALID_COUPON_1: Coupon = {
   id: "1",
   code: "VALID1",
   description: "Valid coupon 1",
-  discountType: "amount",
+  discountType: "fixed",
 
   expirationDate: TOMORROW,
   minimumAmount: 5000,
@@ -50,7 +50,7 @@ const VALID_COUPON_2: Coupon = {
   id: "2",
   code: "VALID2",
   description: "Valid coupon 2",
-  discountType: "rate",
+  discountType: "percentage",
   expirationDate: NOW,
   // 조건 없음 - 모든 경우에 유효
 };
@@ -59,7 +59,7 @@ const EXPIRED_COUPON: Coupon = {
   id: "3",
   code: "EXPIRED",
   description: "Expired coupon",
-  discountType: "amount",
+  discountType: "fixed",
   expirationDate: YESTERDAY, // 만료됨
 };
 
@@ -67,7 +67,7 @@ const MIN_AMOUNT_FAIL_COUPON: Coupon = {
   id: "4",
   code: "MIN_AMOUNT_FAIL",
   description: "Minimum amount fail coupon",
-  discountType: "rate",
+  discountType: "percentage",
 
   expirationDate: TOMORROW,
   minimumAmount: 50000, // 높은 최소 금액
@@ -77,7 +77,7 @@ const TIME_RANGE_FAIL_COUPON: Coupon = {
   id: "5",
   code: "TIME_RANGE_FAIL",
   description: "Time range fail coupon",
-  discountType: "amount",
+  discountType: "fixed",
   expirationDate: TOMORROW,
   minimumAmount: 1000,
   availableTime: { start: "02:00", end: "05:00" }, // 현재 시간(12:00) 범위 밖
@@ -236,7 +236,7 @@ describe("partitionCoupons 함수 검증", () => {
         id: "1",
         code: "BOUNDARY",
         description: "Boundary test coupon",
-        discountType: "amount",
+        discountType: "fixed",
         expirationDate: NOW, // 현재 시간과 정확히 같음
         minimumAmount: 10000, // 정확히 같은 금액
         availableTime: { start: "12:00", end: "18:00" }, // 현재 시간이 시작 시간
@@ -305,7 +305,7 @@ describe("partitionCoupons 함수 검증", () => {
         id: "1",
         code: "TIME_SPECIFIC",
         description: "Time specific coupon",
-        discountType: "amount",
+        discountType: "fixed",
         expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24시간 후
       };
 

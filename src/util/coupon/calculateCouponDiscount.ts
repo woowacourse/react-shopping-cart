@@ -9,9 +9,6 @@ export interface CouponDiscountResult {
   totalDiscount: number;
 }
 
-/**
- * 개별 쿠폰의 할인 효과를 계산합니다.
- */
 export const calculateCouponDiscount = (
   coupon: Coupon,
   cartItems: CartItem[],
@@ -55,6 +52,7 @@ export const calculateCouponDiscount = (
     }
 
     default:
+      // 실제로는 sentry로 에러를 보내는 것이 좋지만, 여기서는 콘솔에 경고를 출력합니다.
       console.warn(`알 수 없는 쿠폰 타입: ${coupon.discountType}`);
       break;
   }
