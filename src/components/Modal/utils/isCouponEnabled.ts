@@ -1,18 +1,14 @@
 import { Coupon, FixedCoupon, FreeShippingCoupon, PercentageCoupon, BuyXGetYCoupon } from '../../../types/coupon';
 import { CartItemType } from '../../../types/cartItem';
 
-function isFixedCoupon(c: Coupon): c is FixedCoupon {
-  return c.discountType === 'fixed';
+function createCouponTypeGuard<T extends Coupon['discountType']>(type: T) {
+  return (c: Coupon): c is Extract<Coupon, { discountType: T }> => c.discountType === type;
 }
-function isFreeShippingCoupon(c: Coupon): c is FreeShippingCoupon {
-  return c.discountType === 'freeShipping';
-}
-function isPercentageCoupon(c: Coupon): c is PercentageCoupon {
-  return c.discountType === 'percentage';
-}
-function isBuyXGetYCoupon(c: Coupon): c is BuyXGetYCoupon {
-  return c.discountType === 'buyXgetY';
-}
+
+const isFixedCoupon = createCouponTypeGuard('fixed');
+const isFreeShippingCoupon = createCouponTypeGuard('freeShipping');
+const isPercentageCoupon = createCouponTypeGuard('percentage');
+const isBuyXGetYCoupon = createCouponTypeGuard('buyXgetY');
 
 function isExpired(coupon: Coupon, now: Date = new Date()): boolean {
   const today = now.toISOString().slice(0, 10);
