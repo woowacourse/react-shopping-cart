@@ -1,10 +1,10 @@
-import { Coupon } from '../types';
 import { isWithinTimeRange } from './isWithInTimeRange';
 import { CartItemType } from '../../cart/types';
 import { COUPON_MINIMUM } from '../../../../global/constants';
+import { CouponType } from '../types';
 
 export function isCouponUsableNow(
-  coupon: Coupon,
+  coupon: CouponType,
   cartItems: CartItemType[],
   orderPrice: number
 ) {
