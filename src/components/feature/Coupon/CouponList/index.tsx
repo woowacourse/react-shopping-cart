@@ -3,11 +3,11 @@ import Coupon from "../Coupon";
 import { CouponResponse } from "../../../../type/coupon";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
-import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 import { CartProduct } from "../../../../type/cart";
 import { getTotalDiscount } from "./utils/calculate";
 import { getValidCoupons } from "./utils/validate";
-import { useState } from "react";
+import useSelectedCouponIds from "../../../../hooks/useSelectedCouponIds";
+import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 
 interface Props {
   coupons: CouponResponse[];
@@ -26,21 +26,7 @@ const CouponList = ({
   selectedCartIds,
   onApplyDiscount,
 }: Props) => {
-  const MAX_COUPON_COUNT = 2;
-
-  const [selectedCouponIds, setselectedCouponIds] = useState<number[]>([]);
-  const handleSelectCoupon = (id: number) => {
-    const isSelected = selectedCouponIds.includes(id);
-
-    if (!isSelected && selectedCouponIds.length >= MAX_COUPON_COUNT) {
-      alert(`쿠폰은 ${MAX_COUPON_COUNT}개만 선택할 수 있습니다.`);
-      return;
-    }
-
-    setselectedCouponIds((prev) =>
-      isSelected ? prev.filter((prevId) => prevId !== id) : [...prev, id]
-    );
-  };
+  const { selectedCouponIds, handleSelectCoupon } = useSelectedCouponIds();
 
   const totalDiscount = getTotalDiscount({
     coupons,
