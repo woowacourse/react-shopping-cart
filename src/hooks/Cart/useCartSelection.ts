@@ -1,64 +1,51 @@
-import { useMemo, useCallback, useEffect, useRef } from "react";
+import { useMemo } from "react";
 import { CartItem } from "@/type/CartItem";
-import usePersistentSet from "./usePersistentSet";
+import { usePersistedSet } from "./usePersistedSet";
+import { useAutoSelectAll } from "./useAutoSelectAll";
 
 const STORAGE_KEY = "selectedCartIds";
 
 export const useCartSelection = (cartItems: CartItem[]) => {
-  const [selectedIds, setSelectedIds, persist, hadStoredValue] =
-    usePersistentSet(STORAGE_KEY);
+  const [selected, setSelected, hadStoredValue] = usePersistedSet(STORAGE_KEY);
 
-  const shouldPersistRef = useRef(false);
-  const didAutoSelectRef = useRef(false);
+  // 자동 전체 선택
+  useAutoSelectAll(cartItems, setSelected, hadStoredValue);
 
-  const isAllSelected = useMemo(
-    () => cartItems.length > 0 && cartItems.every((i) => selectedIds.has(i.id)),
-    [cartItems, selectedIds]
-  );
-
-  const toggleAll = useCallback(() => {
-    shouldPersistRef.current = true;
-    setSelectedIds(
-      isAllSelected ? new Set() : new Set(cartItems.map((i) => i.id))
-    );
-  }, [isAllSelected, cartItems]);
+  const cartItemIds = useMemo(() => cartItems.map((i) => i.id), [cartItems]);
 
   const toggleOne = (id: string) => {
-    shouldPersistRef.current = true;
-    setSelectedIds((prev) => {
+    setSelected((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   };
 
-  useEffect(() => {
-    if (!hadStoredValue && !didAutoSelectRef.current && cartItems.length > 0) {
-      const all = new Set(cartItems.map((i) => i.id));
-      setSelectedIds(all);
-      persist(all);
-      didAutoSelectRef.current = true;
-    }
-  }, [hadStoredValue, cartItems, setSelectedIds, persist]);
+  const toggleAll = () => {
+    const isCurrentlyAllSelected =
+      cartItems.length > 0 && cartItems.every((i) => selected.has(i.id));
+    setSelected(() =>
+      isCurrentlyAllSelected ? new Set() : new Set(cartItemIds)
+    );
+  };
 
-  useEffect(() => {
-    if (!shouldPersistRef.current) return;
-    shouldPersistRef.current = false;
-    persist(selectedIds);
-  }, [selectedIds, persist]);
+  const isAllSelected = useMemo(
+    () => cartItems.length > 0 && cartItems.every((i) => selected.has(i.id)),
+    [cartItems, selected]
+  );
 
   const selectedItems = useMemo(
-    () => cartItems.filter((i) => selectedIds.has(i.id)),
-    [cartItems, selectedIds]
+    () => cartItems.filter((i) => selected.has(i.id)),
+    [cartItems, selected]
   );
 
   return {
-    selectedIds,
+    selectedIds: selected,
     toggleOne,
     toggleAll,
     isAllSelected,
-    selectedItemsLength: selectedIds.size,
+    selectedItemsLength: selected.size,
     selectedItems,
-    setSelectedIds,
+    setSelectedIds: setSelected,
   };
 };
