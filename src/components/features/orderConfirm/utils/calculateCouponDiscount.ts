@@ -1,10 +1,10 @@
 import { DELIVERY_FEE } from '../../../../global/constants';
 import { CartItemType } from '../../cart/types';
-import { Coupon } from '../types';
+import { CouponType } from '../types';
 import { isWithinTimeRange } from './isWithInTimeRange';
 
 export function calculateCouponDiscount(
-  coupon: Coupon,
+  coupon: CouponType,
   products: CartItemType[],
   isIslandAreaSelected: boolean
 ): number {
