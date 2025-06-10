@@ -8,7 +8,7 @@ import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmBut
 import { useNavigate } from "react-router";
 import PageTitle from "../components/@common/PageTitle/PageTitle";
 import FullWidthButton from "../components/@common/Button/FullWidthButton/FullWidthButton";
-import LabeledCheckbox from "../components/@common/LabeledCheckbox/LabeledCheckbox";
+import LabeledSelectbox from "../components/@common/LabeledSelectbox/LabeledSelectbox";
 import SelectedItemCard from "../components/SelectedItemCard/SelectedItemCard";
 import { useSelectedItems } from "../hooks/useSelectedItems";
 import { useCartSummary } from "../hooks/useCartSummary";
@@ -65,7 +65,7 @@ const OrderConfirmPage = () => {
 
         <div className={ShippingInfo}>
           <Text text="배송 정보" type="medium" />
-          <LabeledCheckbox
+          <LabeledSelectbox
             labelText="제주도 및 도서 산간 지역"
             isSelected={isRemoteAreaShipping}
             onClick={handleRemoteAreaShippingToggle}

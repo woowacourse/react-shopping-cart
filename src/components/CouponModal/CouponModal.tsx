@@ -6,7 +6,7 @@ import { Coupon } from "../../apis/coupons";
 import { css } from "@emotion/css";
 import OrbitSpinner from "../@common/OrbitSpinner/OrbitSpinner";
 import FullWidthButton from "../@common/Button/FullWidthButton/FullWidthButton";
-import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
+import LabeledSelectbox from "../@common/LabeledSelectbox/LabeledSelectbox";
 import { MAX_COUPON_COUNT } from "../../constants";
 import { formatDate } from "../../utils/formatDate";
 import { formatTimeRange } from "../../utils/formatTimeRange";
@@ -102,7 +102,7 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
                   }`}
                   onClick={() => handleCouponToggle(coupon)}
                 >
-                  <LabeledCheckbox
+                  <LabeledSelectbox
                     labelText={coupon.description}
                     isSelected={isSelected && isAvailable}
                     textType="medium"

@@ -1,5 +1,5 @@
 import CartItemCard from "../CartItemCard/CartItemCard";
-import LabeledCheckbox from "../@common/LabeledCheckbox/LabeledCheckbox";
+import LabeledSelectbox from "../@common/LabeledSelectbox/LabeledSelectbox";
 import { useCartItemContext } from "../../contexts/CartItemContext";
 
 const CartItemCardList = () => {
@@ -29,7 +29,7 @@ const CartItemCardList = () => {
 
   return (
     <>
-      <LabeledCheckbox
+      <LabeledSelectbox
         labelText="전체선택"
         isSelected={allSelected}
         onClick={handleAllSelected}

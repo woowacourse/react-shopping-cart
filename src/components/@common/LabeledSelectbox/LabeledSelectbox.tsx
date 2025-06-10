@@ -1,8 +1,8 @@
 import { css } from "@emotion/css";
-import Checkbox from "../Checkbox/Checkbox";
+import Selectbox from "../Selectbox/Selectbox";
 import Text from "../Text/Text";
 
-interface LabeledCheckboxProps {
+interface LabeledSelectboxProps {
   labelText: string;
   isSelected: boolean;
   onClick: () => void;
@@ -10,22 +10,22 @@ interface LabeledCheckboxProps {
   testId?: string;
 }
 
-const LabeledCheckbox = ({
+const LabeledSelectbox = ({
   labelText,
   isSelected,
   onClick,
   textType = "small",
   testId,
-}: LabeledCheckboxProps) => {
+}: LabeledSelectboxProps) => {
   return (
     <div className={containerStyle}>
-      <Checkbox isSelected={isSelected} onClick={onClick} testId={testId} />
+      <Selectbox isSelected={isSelected} onClick={onClick} testId={testId} />
       <Text text={labelText} type={textType} />
     </div>
   );
 };
 
-export default LabeledCheckbox;
+export default LabeledSelectbox;
 
 const containerStyle = css`
   display: flex;
