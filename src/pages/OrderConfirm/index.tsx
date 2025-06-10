@@ -17,8 +17,13 @@ import { getTotalDiscount } from "../../components/feature/Coupon/CouponList/uti
 const OrderConfirm = () => {
   const { selectedIds, handleSelectCoupon } = useSelectedCoupon();
   const location = useLocation();
-  const { sort, totalAmount, cartItems, selectedCartIds, totalPrice } =
-    location.state;
+  const {
+    totalKindCount,
+    totalAmount,
+    cartItems,
+    selectedCartIds,
+    totalPrice,
+  } = location.state;
   const { coupons } = useGetCoupons();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRemoteAreaChecked, setRemoteAreaChecked] = useState(false);
@@ -41,7 +46,7 @@ const OrderConfirm = () => {
       <S.Container data-testid="order-confirm-description">
         <S.Title>주문 확인</S.Title>
         <S.Description>
-          총 {sort}종류의 상품 {totalAmount}개를 주문합니다.
+          총 {totalKindCount}종류의 상품 {totalAmount}개를 주문합니다.
           <br /> 최종 결제 금액을 확인해 주세요.
         </S.Description>
         <S.OrderList>

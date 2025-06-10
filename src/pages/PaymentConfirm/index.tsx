@@ -7,13 +7,13 @@ import { formatPrice } from "../../utils/formatPrice";
 const PaymentConfirm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { totalPrice, sort, totalAmount } = location.state;
+  const { totalPrice, totalKindCount, totalAmount } = location.state;
 
   return (
     <Container>
       <LargeText>결제 확인</LargeText>
       <SmallText>
-        총 {sort}종류의 상품 {totalAmount}개를 주문했습니다. <br />
+        총 {totalKindCount}종류의 상품 {totalAmount}개를 주문했습니다. <br />
         최종 결제 금액을 확인해 주세요.
       </SmallText>
       <MediumText>총 결제 금액</MediumText>

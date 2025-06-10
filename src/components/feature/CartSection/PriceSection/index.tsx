@@ -73,7 +73,7 @@ const PriceSection = ({
               state: {
                 totalPrice: totalPrice,
                 totalAmount: totalAmount,
-                sort: selectedCartIds.length,
+                totalKindCount: selectedCartIds.length,
               },
             })
           }
@@ -98,7 +98,7 @@ const PriceSection = ({
           onClick={() =>
             navigate("/orderConfirm", {
               state: {
-                sort: selectedCartIds.length,
+                totalKindCount: selectedCartIds.length,
                 totalAmount: totalAmount,
                 totalPrice: orderPrice,
                 cartItems: cartItems,

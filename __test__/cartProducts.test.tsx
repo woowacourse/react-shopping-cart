@@ -176,7 +176,7 @@ describe("주문확인 페이지 로딩 테스트", () => {
   });
 
   it("주문 확인 버튼 클릭 후 설명 문구 표시", async () => {
-    const sort = mockCartItems.content.length;
+    const totalKindCount = mockCartItems.content.length;
     const price = getPrice({
       items: mockCartItems.content,
       isRemoteArea: true,
@@ -204,7 +204,7 @@ describe("주문확인 페이지 로딩 테스트", () => {
     waitFor(() => {
       const description = screen.getByTestId("order-confirm-description");
       expect(description).toHaveTextContent(
-        `총 ${sort}종류의 상품 ${price.totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
+        `총 ${totalKindCount}종류의 상품 ${price.totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
       );
       expect(description).toHaveTextContent(formatPrice(price.totalPrice));
     });
