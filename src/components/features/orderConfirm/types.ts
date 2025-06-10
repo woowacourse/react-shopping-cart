@@ -6,24 +6,24 @@ interface BaseCouponType {
   discountType: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
 }
 
-interface FixedCouponType extends BaseCouponType {
+export interface FixedCouponType extends BaseCouponType {
   discountType: 'fixed';
   discount: number;
   minimumAmount: number;
 }
 
-interface BuyXGetYCouponType extends BaseCouponType {
+export interface BuyXGetYCouponType extends BaseCouponType {
   discountType: 'buyXgetY';
   buyQuantity: number;
   getQuantity: number;
 }
 
-interface FreeShippingCouponType extends BaseCouponType {
+export interface FreeShippingCouponType extends BaseCouponType {
   discountType: 'freeShipping';
   minimumAmount: number;
 }
 
-interface PercentageCouponType extends BaseCouponType {
+export interface PercentageCouponType extends BaseCouponType {
   discountType: 'percentage';
   discount: number;
   availableTime: {
