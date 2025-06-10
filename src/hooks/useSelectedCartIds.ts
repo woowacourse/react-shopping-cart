@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { CartProduct } from "../type/cart";
 
-const useSelectedCartIds = (cartItems: CartProduct[]) => {
-  const LOCAL_STORAGE_KEY = "selectedCartIds";
+const LOCAL_STORAGE_KEY = "selectedCartIds";
 
+const useSelectedCartIds = (cartItems: CartProduct[]) => {
   const getInitialSelectedIds = (): number[] => {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) {
