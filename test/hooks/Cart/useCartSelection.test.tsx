@@ -38,6 +38,11 @@ const createMockCartItem = (id: string): CartItem => ({
   },
 });
 
+// Helper function to get selected items
+const getSelectedItems = (cartItems: CartItem[], selectedIds: Set<string>) => {
+  return cartItems.filter((item) => selectedIds.has(item.id));
+};
+
 describe("useCartSelection", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -119,9 +124,13 @@ describe("useCartSelection", () => {
       // selectedIds에는 여전히 "2"가 있어야 함 (실제 토글하기 전까지)
       expect(result.current.selectedIds.has("2")).toBe(true);
 
-      // 하지만 selectedItems에는 실제 존재하는 아이템만 포함
-      expect(result.current.selectedItems.length).toBe(2);
-      expect(result.current.selectedItems.map((i) => i.id)).toEqual(["1", "3"]);
+      // 하지만 실제 존재하는 아이템만 포함하여 계산
+      const selectedItems = getSelectedItems(
+        itemsAfterRemoval,
+        result.current.selectedIds
+      );
+      expect(selectedItems.length).toBe(2);
+      expect(selectedItems.map((i) => i.id)).toEqual(["1", "3"]);
     });
   });
 
@@ -257,6 +266,80 @@ describe("useCartSelection", () => {
       expect(result.current.isAllSelected).toBe(false);
     });
   });
+
+  describe("6. selectedItemsLength 제공", () => {
+    it("선택된 아이템의 개수를 정확히 반환해야 한다", () => {
+      // localStorage를 명시적으로 초기화
+      localStorage.clear();
+
+      const cartItems = [
+        createMockCartItem("1"),
+        createMockCartItem("2"),
+        createMockCartItem("3"),
+      ];
+      const { result } = renderHook(() => useCartSelection(cartItems));
+
+      // 초기에는 전체 선택 (3개)
+      expect(result.current.selectedItemsLength).toBe(3);
+
+      // 하나 해제 (2개)
+      act(() => {
+        result.current.toggleOne("1");
+      });
+      expect(result.current.selectedItemsLength).toBe(2);
+
+      // 전체 선택 토글 (다시 전체 선택) - isCurrentlyAllSelected가 false였으므로 전체 선택됨
+      act(() => {
+        result.current.toggleAll();
+      });
+      expect(result.current.selectedItemsLength).toBe(3);
+      expect(result.current.isAllSelected).toBe(true);
+
+      // 다시 전체 선택 토글 (전체 해제) - 이제 isCurrentlyAllSelected가 true이므로 전체 해제됨
+      act(() => {
+        result.current.toggleAll();
+      });
+      expect(result.current.selectedItemsLength).toBe(0);
+      expect(result.current.isAllSelected).toBe(false);
+    });
+
+    it("selectedItemsLength는 selectedIds.size와 같다 (실제 cartItems와 무관)", () => {
+      const initialItems = [
+        createMockCartItem("1"),
+        createMockCartItem("2"),
+        createMockCartItem("3"),
+      ];
+      const { result, rerender } = renderHook(
+        ({ items }) => useCartSelection(items),
+        { initialProps: { items: initialItems } }
+      );
+
+      // 초기 상태: 3개 모두 선택
+      expect(result.current.selectedItemsLength).toBe(3);
+      expect(result.current.selectedIds.size).toBe(3);
+
+      // 일부 아이템을 선택 해제
+      act(() => {
+        result.current.toggleOne("2");
+      });
+      expect(result.current.selectedItemsLength).toBe(2);
+
+      // 장바구니에서 아이템 하나를 제거 (하지만 selectedIds에는 여전히 남아있음)
+      const reducedItems = [createMockCartItem("1"), createMockCartItem("3")];
+      rerender({ items: reducedItems });
+
+      // selectedItemsLength는 여전히 2 (selectedIds에 "1", "3"이 있음)
+      expect(result.current.selectedItemsLength).toBe(2);
+      expect(result.current.selectedIds.size).toBe(2);
+
+      // 실제 존재하는 선택된 아이템은 2개
+      const actualSelectedItems = getSelectedItems(
+        reducedItems,
+        result.current.selectedIds
+      );
+      expect(actualSelectedItems.length).toBe(2);
+    });
+  });
 });
 
 describe("useCartSelection - localStorage 클리어하지 않는 시나리오", () => {
@@ -334,12 +417,13 @@ describe("useCartSelection - localStorage 클리어하지 않는 시나리오", 
       // 삭제된 item5는 selectedIds에는 여전히 있어야 함 (토글되기 전까지)
       expect(result.current.selectedIds.has("item5")).toBe(true);
 
-      // 하지만 selectedItems에는 실제 존재하는 아이템만 포함되어야 함
-      expect(result.current.selectedItems.length).toBe(2);
-      expect(result.current.selectedItems.map((i) => i.id)).toEqual([
-        "item1",
-        "item3",
-      ]);
+      // 하지만 실제 존재하는 아이템만 포함하여 계산
+      const selectedItems = getSelectedItems(
+        currentItems,
+        result.current.selectedIds
+      );
+      expect(selectedItems.length).toBe(2);
+      expect(selectedItems.map((i) => i.id)).toEqual(["item1", "item3"]);
 
       // isAllSelected는 현재 보이는 아이템 기준으로 계산되어야 함
       expect(result.current.isAllSelected).toBe(false); // item2, item4가 선택되지 않았으므로
@@ -359,7 +443,7 @@ describe("useCartSelection - localStorage 클리어하지 않는 시나리오", 
       // 빈 상태를 유지해야 함 (자동 전체 선택하지 않음)
       expect(result.current.selectedIds.size).toBe(0);
       expect(result.current.isAllSelected).toBe(false);
-      expect(result.current.selectedItems.length).toBe(0);
+      expect(result.current.selectedItemsLength).toBe(0);
     });
   });
 
