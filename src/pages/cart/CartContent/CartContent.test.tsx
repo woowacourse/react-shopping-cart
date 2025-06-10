@@ -188,23 +188,10 @@ describe("CartPage의 CartContent", () => {
       );
     });
 
-    expectAllItemsCheckedAfterAllCheck("checked");
-  });
-
-  it("첫 렌더링 시 전체 선택이 되어있어 전체 선택 체크 박스를 클릭하면 모든 상품 선택 체크 해제된다.", async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={["/"]}>
-          <CartItemProvider>
-            <CartContent />
-          </CartItemProvider>
-        </MemoryRouter>
-      );
-    });
     const allCheckBox = screen.getByRole("button", { name: "전체 선택" });
     fireEvent.click(allCheckBox);
 
-    expectAllItemsCheckedAfterAllCheck("unchecked");
+    expectAllItemsCheckedAfterAllCheck("checked");
   });
 
   it("장바구니에 담긴 상품 목록이 렌더링된다.", async () => {
@@ -287,6 +274,10 @@ describe("CartPage의 CartContent", () => {
         </MemoryRouter>
       );
     });
+
+    const allCheckBox = screen.getByRole("button", { name: "전체 선택" });
+    fireEvent.click(allCheckBox);
+    expectAllItemsCheckedAfterAllCheck("checked");
 
     const mockTotalPrice = mockCartItems.reduce(
       (acc, { product: { price }, quantity }) => acc + price * quantity,
@@ -393,6 +384,9 @@ describe("CartPage의 CartContent", () => {
 
     const allCheckBox = screen.getByRole("button", { name: "전체 선택" });
     fireEvent.click(allCheckBox);
+    expectAllItemsCheckedAfterAllCheck("checked");
+    fireEvent.click(allCheckBox);
+    expectAllItemsCheckedAfterAllCheck("unchecked");
 
     await waitFor(() => {
       const orderConfirmButton = screen.getByRole("button", {
@@ -414,6 +408,9 @@ describe("CartPage의 CartContent", () => {
       );
     });
 
+    const allCheckBox = screen.getByRole("button", { name: "전체 선택" });
+    fireEvent.click(allCheckBox);
+
     const mockTotalPrice = mockCartItems.reduce(
       (acc, { product: { price }, quantity }) => acc + price * quantity,
       0
@@ -422,9 +419,7 @@ describe("CartPage의 CartContent", () => {
       `${mockTotalPrice.toLocaleString()}원`
     );
 
-    const allCheckBox = screen.getByRole("button", { name: "전체 선택" });
     fireEvent.click(allCheckBox);
-
     expectAllItemsCheckedAfterAllCheck("unchecked");
 
     await waitFor(() => {
