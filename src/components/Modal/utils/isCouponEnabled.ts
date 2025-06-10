@@ -36,27 +36,29 @@ function isInsufficientQuantity(coupon: BuyXGetYCoupon, items: CartItemType[]): 
   return !items.some((item) => item.quantity >= threshold);
 }
 
-export function isCouponDisabled(
-  coupon: Coupon,
-  orderAmount: number,
-  items: CartItemType[],
-  now: Date = new Date()
-): boolean {
+interface IsCouponEnabledProps {
+  coupon: Coupon;
+  orderAmount: number;
+  items: CartItemType[];
+  now?: Date;
+}
+
+export function isCouponEnabled({ coupon, orderAmount, items, now = new Date() }: IsCouponEnabledProps): boolean {
   if (isExpired(coupon, now)) {
-    return true;
+    return false;
   }
 
   if ((isFixedCoupon(coupon) || isFreeShippingCoupon(coupon)) && isBelowMinimum(coupon, orderAmount)) {
-    return true;
+    return false;
   }
 
   if (isPercentageCoupon(coupon) && isOutsideAvailableTime(coupon, now)) {
-    return true;
+    return false;
   }
 
   if (isBuyXGetYCoupon(coupon) && isInsufficientQuantity(coupon, items)) {
-    return true;
+    return false;
   }
 
-  return false;
+  return true;
 }

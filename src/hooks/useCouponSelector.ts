@@ -4,7 +4,7 @@ import { useCoupons } from './useCoupons';
 import { useToggle } from './useToggle';
 import { getBestCoupons } from '../components/Modal/utils/getBestCoupons';
 import { calculateCouponDiscount } from '../components/Modal/utils/calculateCouponDiscount';
-import { isCouponDisabled } from '../components/Modal/utils/isCouponDisabled';
+import { isCouponEnabled } from '../components/Modal/utils/isCouponEnabled';
 import type { Coupon } from '../types/coupon';
 import type { CartItemType } from '../types/cartItem';
 import { MAX_COUPON_LENGTH } from '../constants/maxCouponLength';
@@ -21,13 +21,13 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   };
   const handleClose = () => close();
 
-  const toggleCoupon = (c: Coupon) => {
-    if (isCouponDisabled(c, orderAmount, items)) return;
+  const toggleCoupon = (coupon: Coupon) => {
+    if (!isCouponEnabled({ coupon, orderAmount, items })) return;
     setTemp((prev) =>
-      prev.some((x) => x.id === c.id)
-        ? prev.filter((x) => x.id !== c.id)
+      prev.some((x) => x.id === coupon.id)
+        ? prev.filter((x) => x.id !== coupon.id)
         : prev.length < MAX_COUPON_LENGTH
-        ? [...prev, c]
+        ? [...prev, coupon]
         : prev
     );
   };

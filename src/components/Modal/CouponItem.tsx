@@ -3,7 +3,7 @@ import { Coupon } from '../../types/coupon';
 import CheckBox from '../common/CheckBox';
 import { formatToKoreanDate } from '../../utils/formatToKoreanDate';
 import { formatTime } from '../../utils/formatTime';
-import { isCouponDisabled } from './utils/isCouponDisabled';
+import { isCouponEnabled } from './utils/isCouponEnabled';
 import { CartItemType } from '../../types/cartItem';
 import { MAX_COUPON_LENGTH } from '../../constants/maxCouponLength';
 
@@ -16,9 +16,7 @@ interface CouponItemProps {
 }
 
 const CouponItem = ({ coupon, orderAmount, items, selectedCoupons, handleCouponToggle }: CouponItemProps) => {
-  const isDisabled =
-    isCouponDisabled(coupon, orderAmount, items) ||
-    (selectedCoupons.length >= MAX_COUPON_LENGTH && !selectedCoupons.includes(coupon));
+  const isDisabled = !isCouponEnabled({ coupon, orderAmount, items }) || selectedCoupons.length >= MAX_COUPON_LENGTH;
 
   return (
     <div css={couponItemCss(isDisabled)}>
