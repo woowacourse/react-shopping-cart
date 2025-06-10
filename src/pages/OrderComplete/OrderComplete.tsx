@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import SubmitButton from "../../components/commons/SubmitButton/SubmitButton";
 import {
   Container,
   Summary,
@@ -8,7 +8,7 @@ import {
   TotalCostLabel,
 } from "./OrderComplete.styles";
 import { CartItemType } from "../../types/response";
-import Header from "../../components/Header/Header";
+import Header from "../../components/commons/Header/Header";
 
 function OrderComplete() {
   const navigate = useNavigate();

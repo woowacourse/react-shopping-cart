@@ -1,4 +1,4 @@
-import CheckBox from "../CheckBox/CheckBox";
+import CheckBox from "../commons/CheckBox/CheckBox";
 import { Container, Title } from "./ExtraShipping.styles";
 
 interface ExtraShippingProps {

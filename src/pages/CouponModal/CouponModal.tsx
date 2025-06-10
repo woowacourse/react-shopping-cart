@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Coupon from "../../components/Coupon/Coupon";
 import CouponDetails from "../../components/Coupon/CouponDetails";
 import CouponList from "../../components/CouponList/CouponList";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/commons/Modal/Modal";
 import { CouponType } from "../../components/Coupon/types";
 import { CouponDataType } from "../../types/response";
 import useFetch from "../../hooks/useFetch";

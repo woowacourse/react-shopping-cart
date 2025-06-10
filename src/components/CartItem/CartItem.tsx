@@ -1,5 +1,5 @@
 import { CartItemType } from "../../types/response";
-import CheckBox from "../CheckBox/CheckBox";
+import CheckBox from "../commons/CheckBox/CheckBox";
 import QuantityControlButton from "../QuantityControlButton/QuantityControlButton";
 import {
   CountContainer,

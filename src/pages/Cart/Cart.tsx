@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import CartItemList from "../../components/CartItemList/CartItemList";
-import CheckBox from "../../components/CheckBox/CheckBox";
-import Description from "../../components/Description/Description";
-import Header from "../../components/Header/Header";
+import CheckBox from "../../components/commons/CheckBox/CheckBox";
+import Description from "../../components/commons/Description/Description";
+import Header from "../../components/commons/Header/Header";
 import Receipt from "../../components/Receipt/Receipt";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import SubmitButton from "../../components/commons/SubmitButton/SubmitButton";
 import { Container, NoCartItemText, Wrap } from "./Cart.styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/useFetch";

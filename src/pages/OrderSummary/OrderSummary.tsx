@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import Header from "../../components/commons/Header/Header";
+import SubmitButton from "../../components/commons/SubmitButton/SubmitButton";
 import { Container, RedeemCouponButton } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost, getTotalCost } from "../../utils/cost";
-import Description from "../../components/Description/Description";
+import Description from "../../components/commons/Description/Description";
 import CartItemList from "../../components/CartItemList/CartItemList";
 import CartItem from "../../components/CartItem/CartItem";
 import { createPortal } from "react-dom";

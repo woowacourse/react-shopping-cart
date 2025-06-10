@@ -1,4 +1,4 @@
-import CheckBox from "../CheckBox/CheckBox";
+import CheckBox from "../commons/CheckBox/CheckBox";
 import { Container, Description, Details, Header } from "./Coupon.styles";
 import { CouponType } from "./types";
 
