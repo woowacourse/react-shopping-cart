@@ -30,7 +30,7 @@ export const Price = styled.p`
 
 export const OrderList = styled.div`
   overflow: scroll;
-  height: 130px;
+  height: 240px;
   display: flex;
   flex-direction: column;
   gap: 15px;
