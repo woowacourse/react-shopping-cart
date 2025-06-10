@@ -3,13 +3,13 @@ import ModalHeader from './ModalHeader';
 import { useEscapeHandler } from '../../hooks/useEscapeHandler';
 import { css } from '@emotion/react';
 
-interface ShoppingCartModalProps {
+interface ModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   handleClose: () => void;
 }
 
-const ShoppingCartModal = ({ children, isOpen, handleClose }: ShoppingCartModalProps) => {
+const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
   useEscapeHandler(handleClose);
 
   if (!isOpen) return null;
@@ -31,7 +31,7 @@ const ShoppingCartModal = ({ children, isOpen, handleClose }: ShoppingCartModalP
   );
 };
 
-export default ShoppingCartModal;
+export default Modal;
 
 const ModalFrame = css({
   backgroundColor: 'white',
