@@ -10,14 +10,14 @@ export function getBestCoupons(
   items: CartItemType[],
   now: Date = new Date()
 ): Coupon[] {
-  const enabled = coupons.filter((coupon) => isCouponEnabled({ coupon, orderAmount, items, now }));
+  const enabledCoupons = coupons.filter((coupon) => isCouponEnabled({ coupon, orderAmount, items, now }));
 
-  const withValue = enabled.map((coupon) => ({
-    coupon,
-    value: calculateCouponDiscount(coupon, orderAmount, items)
-  }));
+  const enabledCouponsWithValue = enabledCoupons
+    .map((coupon) => ({
+      coupon,
+      value: calculateCouponDiscount(coupon, orderAmount, items)
+    }))
+    .sort((a, b) => b.value - a.value);
 
-  withValue.sort((a, b) => b.value - a.value);
-
-  return withValue.slice(0, MAX_COUPON_LENGTH).map(({ coupon }) => coupon);
+  return enabledCouponsWithValue.slice(0, MAX_COUPON_LENGTH).map(({ coupon }) => coupon);
 }
