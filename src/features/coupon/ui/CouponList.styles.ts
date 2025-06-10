@@ -101,6 +101,12 @@ export const UseCouponButton = styled.button`
   transition: background-color 0.2s ease;
 `;
 
+export const bestTwoCouponMessage = styled.div`
+  font-size: 14px;
+  color: blue;
+  font-weight: 500;
+`;
+
 export const messageContainer = styled.div`
   font-size: 14px;
   color: red;

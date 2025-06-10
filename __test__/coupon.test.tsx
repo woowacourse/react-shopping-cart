@@ -70,7 +70,7 @@ describe('쿠폰 조합 테스트', () => {
 
     await waitFor(() => expect(result.current.isCouponLoading).toBe(false));
 
-    const bestCoupons = result.current.getBestTwoCoupons(mockCartItem_2[1], 300000, 3000);
+    const bestCoupons = result.current.getBestTwoCoupons(mockCartItem_2[1], 300000, 3000).coupons;
 
     expect(bestCoupons.length).toBe(2);
     expect(bestCoupons[0].discountPrice).toBeGreaterThanOrEqual(bestCoupons[1].discountPrice);

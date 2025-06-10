@@ -60,9 +60,8 @@ export default function CouponList({ onClose }: CouponListProps) {
     deliveryFee,
     totalPrice,
     updateTotalDiscountPrice,
-    updateTotalPurchasePrice,
   } = useCartContext();
-  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading, message } = useCoupons();
+  const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading } = useCoupons();
 
   const selectedCartItems = getSelectedCartItemsFromLocalStorage();
 
@@ -75,12 +74,10 @@ export default function CouponList({ onClose }: CouponListProps) {
     if (coupons.length === 0) return;
 
     const bestTwo = getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee);
-    const totalDiscountPrice = bestTwo.reduce((acc, bestCoupon) => acc + bestCoupon.discountPrice, 0);
+    const totalDiscountPrice = bestTwo.coupons.reduce((acc, bestCoupon) => acc + bestCoupon.discountPrice, 0);
 
     updateTotalDiscountPrice(totalDiscountPrice);
-    updateSelectedCoupons(bestTwo.map((bestCoupon) => bestCoupon.coupon));
-
-    updateTotalPurchasePrice(totalPrice + deliveryFee - totalDiscountPrice);
+    updateSelectedCoupons(bestTwo.coupons.map((bestCoupon) => bestCoupon.coupon));
   }, [coupons, deliveryFee]);
 
   useEffect(() => {
@@ -154,9 +151,15 @@ export default function CouponList({ onClose }: CouponListProps) {
                     사용 가능 시간: 오전 {coupon.availableTime.start[1]}시부터 {coupon.availableTime.end[1]}까지
                   </span>
                 )}
-                {message.length !== 0 && coupon.discountType === 'buyXgetY' && (
-                  <S.messageContainer> {message} </S.messageContainer>
-                )}
+                <S.bestTwoCouponMessage>
+                  {getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee).coupons.map(
+                    (bestCoupon) => bestCoupon.coupon.discountType === coupon.discountType && '추천 Pick 쿠폰!'
+                  )}
+                </S.bestTwoCouponMessage>
+                <S.messageContainer>
+                  {coupon.discountType === 'buyXgetY' &&
+                    getBestTwoCoupons(highestPriceCartItem, totalPrice, deliveryFee).message}
+                </S.messageContainer>
               </S.CouponInfo>
             </S.CouponContainer>
           ))

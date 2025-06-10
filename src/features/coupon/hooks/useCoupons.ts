@@ -10,7 +10,6 @@ import { validateMinimumAmount } from '../utils/validateMinimumAmount';
 const useCoupons = () => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [isCouponLoading, setIsCouponLoading] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     const fetchCoupons = async () => {
@@ -47,24 +46,30 @@ const useCoupons = () => {
     const invalidCouponIds = getInvalidCouponIds(totalPrice);
     const validCoupons = coupons.filter((coupon) => !invalidCouponIds.includes(coupon.id));
 
-    const couponsWithDiscountPrice = validCoupons.map((coupon) => {
-      const discountPrice = getCouponDiscountPrice({
+    const couponsWithDiscountInfo = validCoupons.map((coupon) => {
+      const discountInfo = getCouponDiscountPrice({
         coupon,
         cartItem,
         totalPrice,
         deliveryFee,
-        updateMessage: setMessage,
       });
-      return { discountPrice, coupon };
+      return {
+        coupon,
+        discountPrice: discountInfo.price,
+        type: discountInfo.type,
+        message: discountInfo.message,
+      };
     });
 
-    couponsWithDiscountPrice.sort((a, b) => b.discountPrice - a.discountPrice);
-    const filteredCouponsWithDiscountPrice = couponsWithDiscountPrice.filter((coupon) => coupon.discountPrice > 0);
+    const buyXgetYMessages = couponsWithDiscountInfo.find((coupon) => coupon.type === 'buyXgetY')?.message;
 
-    return filteredCouponsWithDiscountPrice.slice(0, 2);
+    couponsWithDiscountInfo.sort((a, b) => b.discountPrice - a.discountPrice);
+    const filteredCouponsWithDiscountInfo = couponsWithDiscountInfo.filter((coupon) => coupon.discountPrice > 0);
+
+    return { coupons: filteredCouponsWithDiscountInfo.slice(0, 2), message: buyXgetYMessages || '' };
   };
 
-  return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading, message };
+  return { coupons, getBestTwoCoupons, getInvalidCouponIds, isCouponLoading };
 };
 
 export default useCoupons;

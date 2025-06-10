@@ -23,7 +23,7 @@ export const calculateTotalDiscountPrice = ({
         cartItem: highestPriceCartItem,
         totalPrice,
         deliveryFee,
-      }),
+      }).price,
     0
   );
 };
