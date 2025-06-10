@@ -43,7 +43,7 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   );
 
   useEffect(() => {
-    setSelected(getBestCoupons(coupons, orderAmount, items));
+    setSelected(getBestCoupons({ coupons, orderAmount, items }));
   }, [coupons, orderAmount, items]);
 
   return {

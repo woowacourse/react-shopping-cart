@@ -4,20 +4,21 @@ import { isCouponEnabled } from './isCouponEnabled';
 import { calculateCouponDiscount } from './calculateCouponDiscount';
 import { MAX_COUPON_LENGTH } from '../../../constants/maxCouponLength';
 
-export function getBestCoupons(
-  coupons: Coupon[],
-  orderAmount: number,
-  items: CartItemType[],
-  now: Date = new Date()
-): Coupon[] {
-  const enabledCoupons = coupons.filter((coupon) => isCouponEnabled({ coupon, orderAmount, items, now }));
+interface GetBestCouponsProps {
+  coupons: Coupon[];
+  orderAmount: number;
+  items: CartItemType[];
+  now?: Date;
+}
 
-  const enabledCouponsWithValue = enabledCoupons
+export function getBestCoupons({ coupons, orderAmount, items, now }: GetBestCouponsProps): Coupon[] {
+  return coupons
+    .filter((coupon) => isCouponEnabled({ coupon, orderAmount, items, now }))
     .map((coupon) => ({
       coupon,
       value: calculateCouponDiscount(coupon, orderAmount, items)
     }))
-    .sort((a, b) => b.value - a.value);
-
-  return enabledCouponsWithValue.slice(0, MAX_COUPON_LENGTH).map(({ coupon }) => coupon);
+    .sort((a, b) => b.value - a.value)
+    .slice(0, MAX_COUPON_LENGTH)
+    .map(({ coupon }) => coupon);
 }

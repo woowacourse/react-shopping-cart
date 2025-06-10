@@ -88,19 +88,29 @@ describe('isCouponDisabled()', () => {
 
 describe('getBestCoupons()', () => {
   it('유효한 쿠폰 중 가장 큰 할인 2개를 반환한다 (시간 내).', () => {
-    const best = getBestCoupons(coupons as Coupon[], 100_000, sampleItems, baseDate);
+    const best = getBestCoupons({
+      coupons: coupons as Coupon[],
+      orderAmount: 100_000,
+      items: sampleItems,
+      now: baseDate
+    });
     expect(best.map((c) => c.code)).toEqual(['BOGO', 'MIRACLESALE']);
   });
 
   it('시간 외 MIRACLESALE 은 제외되고, 그 다음 2개를 반환한다.', () => {
     const offTime = new Date(2025, 5, 15, 8, 0, 0);
-    const best = getBestCoupons(coupons as Coupon[], 100_000, sampleItems, offTime);
+    const best = getBestCoupons({
+      coupons: coupons as Coupon[],
+      orderAmount: 100_000,
+      items: sampleItems,
+      now: offTime
+    });
     expect(best.map((c) => c.code)).toEqual(['BOGO', 'FIXED5000']);
   });
 
   it('전체 쿠폰이 비활성화되면 빈 배열을 반환한다.', () => {
     const offTime = new Date(2025, 5, 15, 8, 0, 0);
-    const best = getBestCoupons(coupons as Coupon[], 10_000, [], offTime);
+    const best = getBestCoupons({ coupons: coupons as Coupon[], orderAmount: 10_000, items: [], now: offTime });
     expect(best).toEqual([]);
     expect(best).toHaveLength(0);
   });
