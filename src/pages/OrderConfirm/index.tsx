@@ -15,7 +15,6 @@ import useAppliedCoupons from "../../hooks/useAppliedCoupons";
 import { getTotalDiscount } from "../../components/feature/Coupon/CouponList/utils/calculate";
 
 const OrderConfirm = () => {
-  // const { selectedIds, handleApplyCoupon} = useSelectedCoupon();
   const { appliedCouponIds, handleApplyCoupon } = useAppliedCoupons();
   const location = useLocation();
   const {
@@ -33,7 +32,7 @@ const OrderConfirm = () => {
 
   const discount = getTotalDiscount({
     coupons,
-    appliedCouponIds,
+    selectedCouponIds: appliedCouponIds,
     cartItems,
     selectedCartIds,
     totalPrice,
@@ -93,9 +92,10 @@ const OrderConfirm = () => {
             isRemoteArea={isRemoteAreaChecked}
             cartItems={cartItems}
             selectedCartIds={selectedCartIds}
-            onApplyDiscount={() => setIsModalOpen(false)}
-            appliedCouponIds={appliedCouponIds}
-            onSelect={handleApplyCoupon}
+            onApplyDiscount={(selectedCouponIds: number[]) => {
+              setIsModalOpen(false);
+              handleApplyCoupon(selectedCouponIds);
+            }}
           />
         )}
       </Modal>

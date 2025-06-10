@@ -7,6 +7,7 @@ import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
 import { CartProduct } from "../../../../type/cart";
 import { getTotalDiscount } from "./utils/calculate";
 import { getValidCoupons } from "./utils/validate";
+import { useState } from "react";
 
 interface Props {
   coupons: CouponResponse[];
@@ -14,9 +15,7 @@ interface Props {
   isRemoteArea: boolean;
   cartItems: CartProduct[];
   selectedCartIds: number[];
-  onApplyDiscount: (discount: number) => void;
-  appliedCouponIds: number[];
-  onSelect: (id: number) => void;
+  onApplyDiscount: (selectedCouponIds: number[]) => void;
 }
 
 const CouponList = ({
@@ -26,12 +25,26 @@ const CouponList = ({
   cartItems,
   selectedCartIds,
   onApplyDiscount,
-  appliedCouponIds,
-  onSelect,
 }: Props) => {
+  const MAX_COUPON_COUNT = 2;
+
+  const [selectedCouponIds, setselectedCouponIds] = useState<number[]>([]);
+  const handleSelectCoupon = (id: number) => {
+    const isSelected = selectedCouponIds.includes(id);
+
+    if (!isSelected && selectedCouponIds.length >= MAX_COUPON_COUNT) {
+      alert(`쿠폰은 ${MAX_COUPON_COUNT}개만 선택할 수 있습니다.`);
+      return;
+    }
+
+    setselectedCouponIds((prev) =>
+      isSelected ? prev.filter((prevId) => prevId !== id) : [...prev, id]
+    );
+  };
+
   const totalDiscount = getTotalDiscount({
     coupons,
-    appliedCouponIds,
+    selectedCouponIds,
     cartItems,
     selectedCartIds,
     totalPrice,
@@ -48,8 +61,8 @@ const CouponList = ({
         <Coupon
           key={coupon.id}
           coupon={coupon}
-          isChecked={appliedCouponIds.includes(coupon.id)}
-          onSelect={() => onSelect(coupon.id)}
+          isChecked={selectedCouponIds.includes(coupon.id)}
+          onSelect={() => handleSelectCoupon(coupon.id)}
           isValid={getValidCoupons({
             coupons,
             totalPrice,
@@ -62,7 +75,7 @@ const CouponList = ({
       <Button
         title={`총 ${totalDiscount}원 할인 쿠폰 사용하기`}
         onClick={() => {
-          onApplyDiscount(totalDiscount);
+          onApplyDiscount(selectedCouponIds);
         }}
         css={css`
           width: 100%;
