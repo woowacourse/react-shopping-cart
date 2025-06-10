@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { PriceSummary } from "../components/PriceSummary/PriceSummary";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
-import { getOrderPrice } from "../utils/getOrderPrice";
+import { getOrderPrice } from "../utils/prices/getOrderPrice";
 import { getShippingFee } from "../utils/getShippingFee";
 
 const CartItemPage = () => {

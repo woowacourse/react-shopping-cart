@@ -13,8 +13,8 @@ import { useState } from "react";
 import { CouponModal } from "../components/CouponModal/CouponModal";
 import { useCoupon } from "../hooks/useCoupon";
 import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
-import { getShippingFee } from "../utils/getShippingFee";
-import { getTotalPrice } from "../utils/getTotalPrice";
+import { getTotalPrice } from "../utils/prices/getTotalPrice";
+import { getShippingFee } from "../utils/prices/getShippingFee";
 
 const OrderConfirmPage = () => {
   const { cartItems } = useCartItemContext();

@@ -1,4 +1,4 @@
-import { CartItem } from "../types/type";
+import { CartItem } from "../../types/type";
 
 export const getOrderPrice = (
   cartItems: CartItem[],
