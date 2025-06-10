@@ -8,7 +8,6 @@ const STORAGE_KEY = "selectedCartIds";
 export const useCartSelection = (cartItems: CartItem[]) => {
   const [selected, setSelected, hadStoredValue] = usePersistedSet(STORAGE_KEY);
 
-  // 자동 전체 선택
   useAutoSelectAll(cartItems, setSelected, hadStoredValue);
 
   const cartItemIds = useMemo(() => cartItems.map((i) => i.id), [cartItems]);
@@ -28,6 +27,8 @@ export const useCartSelection = (cartItems: CartItem[]) => {
       isCurrentlyAllSelected ? new Set() : new Set(cartItemIds)
     );
   };
+  // useMemo를 쓰지 않으면, 렌더링시마다 selected가 새로 생성되어
+  // 재렌더링 이슈가 있습니다!
 
   const isAllSelected = useMemo(
     () => cartItems.length > 0 && cartItems.every((i) => selected.has(i.id)),
