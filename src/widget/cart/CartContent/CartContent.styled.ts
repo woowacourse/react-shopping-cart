@@ -38,13 +38,3 @@ export const OrderConfirmButton = styled.button`
     background-color: #bebebe;
   }
 `;
-
-export const ScrollContainer = styled.div`
-  height: 350px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
-`;

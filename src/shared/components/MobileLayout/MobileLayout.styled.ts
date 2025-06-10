@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Container = styled.div`
   display: flex;
@@ -25,11 +25,6 @@ export const SidePanelText = styled.span`
 export const Content = styled.div`
   flex: 0 0 500px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow-y: auto;
-  height: 100vh;
-
-  &::-webkit-scrollbar {
-    width: 0;
-  }
+  overflow-y: hidden;
+  height: 100%;
 `;

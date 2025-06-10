@@ -43,14 +43,12 @@ export default function CartContent() {
         <CheckBox isChecked={isAllChecked} onClick={toggleAllSelection} aria-label="전체 선택" />
         <S.Text>전체 선택</S.Text>
       </S.AllCheckBox>
-      <S.ScrollContainer>
-        <CartList
-          cartItems={cartItems}
-          orderIdList={orderIdList}
-          addOrderItemId={addOrderItemId}
-          removeOrderItemId={removeOrderItemId}
-        />
-      </S.ScrollContainer>
+      <CartList
+        cartItems={cartItems}
+        orderIdList={orderIdList}
+        addOrderItemId={addOrderItemId}
+        removeOrderItemId={removeOrderItemId}
+      />
       <PriceContainer
         orderPrice={orderPrice}
         deliveryFee={deliveryFee}
