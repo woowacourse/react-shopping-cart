@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CartItemType } from '@entities/cart/type/cartItem.type';
-import { ROUTES } from '@shared/config/routes';
+import { CartItemType } from '@entities/cart';
+import { ROUTES } from '@app/config/routes';
 
 interface OrderSuccessState {
   orderItems: CartItemType[];

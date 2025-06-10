@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { usePageNavigation } from '@shared/hooks/usePageNavigation';
+import { usePageNavigation } from '@app/hooks/usePageNavigation';
 import * as S from './OrderContent.styled';
 import OrderList from '@features/order/ui/OrderList';
 import CommonButton from '@shared/components/CommonButton';

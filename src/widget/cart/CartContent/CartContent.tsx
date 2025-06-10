@@ -8,7 +8,7 @@ import ErrorContainer from '@shared/components/ErrorContainer/ErrorContainer';
 import { useCartContext } from '@features/cart/model/provider/CartProvider';
 import { useOrderSelection } from '@features/cart/model/useOrderSelection';
 import { useOrderCalculation } from '@features/cart/model/useOrderCalculation';
-import { usePageNavigation } from '@shared/hooks/usePageNavigation';
+import { usePageNavigation } from '@app/hooks/usePageNavigation';
 import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
 
 export default function CartContent() {

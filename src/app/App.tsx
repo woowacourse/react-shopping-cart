@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { ROUTES } from '../shared/config/routes';
+import { ROUTES } from '@app/config/routes';
 import CartPage from '@pages/cart/CartPage';
 import OrderPage from '@pages/order/OrderPage';
 import PaymentPage from '@pages/payment/PaymentPage';

@@ -1,5 +1,5 @@
 import BackButton from '@shared/components/BackButton/BackButton';
-import { usePageNavigation } from '@shared/hooks/usePageNavigation';
+import { usePageNavigation } from '@app/hooks/usePageNavigation';
 import Header from '@shared/components/Header/Header';
 import * as S from './OrderPage.styled';
 import OrderContent from '@widget/order/OrderContent/OrderContent';
