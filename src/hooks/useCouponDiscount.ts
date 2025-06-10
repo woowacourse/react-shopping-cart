@@ -45,7 +45,7 @@ export const useCouponDiscount = () => {
           totalDiscount += calculateBuyXGetYDiscount(selectedItems, coupon);
           break;
 
-        case "freeShipping":
+        case "freeShipping": {
           const currentShippingFee =
             orderPrice >= FREE_SHIPPING_MIN_AMOUNT
               ? isRemoteAreaShipping
@@ -55,6 +55,7 @@ export const useCouponDiscount = () => {
 
           totalDiscount += currentShippingFee;
           break;
+        }
       }
     });
 

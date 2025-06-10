@@ -38,12 +38,13 @@ export const useCouponValidation = () => {
           return true;
         case "percentage":
           return true;
-        case "buyXgetY":
+        case "buyXgetY": {
           if (!coupon.buyQuantity || !coupon.getQuantity) return false;
           const requiredQuantity = coupon.buyQuantity + coupon.getQuantity;
           return selectedItems.some(
             (item) => item.quantity >= requiredQuantity
           );
+        }
         default:
           return true;
       }
