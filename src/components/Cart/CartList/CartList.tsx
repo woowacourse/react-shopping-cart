@@ -11,7 +11,6 @@ interface CartListProps extends PropsWithChildren {
 }
 
 function CartList({ children, cartItemsData, selectedCartIds }: CartListProps) {
-  // 🎯 계산을 여기서 직접 수행 - props drilling 없이!
   const subtotalPrice = useMemo(() => {
     return cartItemsData
       .filter((item) => selectedCartIds.has(item.id))

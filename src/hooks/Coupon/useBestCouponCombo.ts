@@ -27,6 +27,11 @@ const useBestCouponCombo = ({
   selectedShoppingCartItems,
   isIsland = false,
 }: Props): CouponApplyResult => {
+  // 각각의 useMemo가 어디에 의존하고 있는지, 남겨둡니다.
+  // 이렇게 하면 서로간 의존을 최소화 하고, 렌더 사이클을 눈으로 따라갈수 있습니다.
+  // 각각의 의존이 상당히 긴밀하게 작동하기 때문에, 꼭 이런 필요가 있을까 하지만,
+  // 그래도 명시적으로 남겨두는 것이 코드의 가독성을 높일수 있을것 같습니다.
+
   /* 1. 주문 총액 계산 - selectedShoppingCartItems에만 의존 */
   const orderTotal = useMemo(() => {
     return calculateOrderTotal(selectedShoppingCartItems);
