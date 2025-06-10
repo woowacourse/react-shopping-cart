@@ -31,7 +31,7 @@ const CouponModal = ({
   apply
 }: CouponModalProps) => {
   const tempTotalDiscount = useMemo(
-    () => temp.reduce((sum, c) => sum + calculateCouponDiscount(c, orderAmount, checkedItems), 0),
+    () => temp.reduce((sum, coupon) => sum + calculateCouponDiscount({ coupon, orderAmount, items: checkedItems }), 0),
     [temp, orderAmount, checkedItems]
   );
 
