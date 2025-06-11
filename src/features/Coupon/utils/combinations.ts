@@ -1,4 +1,4 @@
-import { CartItem } from '@/features/Cart/types/Cart.types';
+import { CartItem } from '../../../features/Cart/types/Cart.types';
 import { Coupon } from '../types/Coupon.types';
 import { calculateTotalDiscount } from './calculateTotalDiscount';
 

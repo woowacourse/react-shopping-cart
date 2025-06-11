@@ -1,5 +1,5 @@
 import { CouponResponse } from '../types/Coupon.types';
-import { CartItem } from '@/features/Cart/types/Cart.types';
+import { CartItem } from '../../../features/Cart/types/Cart.types';
 
 export const isCouponValid = (
   coupon: CouponResponse,

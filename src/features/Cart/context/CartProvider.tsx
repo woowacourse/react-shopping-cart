@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useRef, useState, PropsWithChildren } from 'react';
 
-import { useFetchData } from '@/shared/hooks/useFetchData';
-import { deleteCartItem, getCartItemList, updateCartItem } from '@/features/Cart/api/cart';
-import { CartItem } from '@/features/Cart/types/Cart.types';
-import { ToastContext } from '@/shared/context/ToastProvider';
-import { isError } from '@/shared/utils/isError';
+import { useFetchData } from '../../../shared/hooks/useFetchData';
+import { deleteCartItem, getCartItemList, updateCartItem } from '../../../features/Cart/api/cart';
+import { CartItem } from '../../../features/Cart/types/Cart.types';
+import { ToastContext } from '../../../shared/context/ToastProvider';
+import { isError } from '../../../shared/utils/isError';
 
 type CartContextType = {
   cartItems: (CartItem & { isChecked: boolean })[];

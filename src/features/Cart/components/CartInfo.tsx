@@ -1,18 +1,18 @@
 import { css } from '@emotion/react';
 
-import { Button } from '@/shared/components/Button/Button';
-import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Header } from '@/shared/components/Header/Header';
-import { Progress } from '@/shared/components/Progress/Progress';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { CheckBox } from '../../../shared/components/CheckBox/CheckBox';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Header } from '../../../shared/components/Header/Header';
+import { Progress } from '../../../shared/components/Progress/Progress';
+import { Text } from '../../../shared/components/Text/Text';
 
-import { CartItemDetail } from '@/features/Cart/components/CartItemDetail';
-import { PriceSummary } from '@/features/Cart/components/PriceSummary';
+import { CartItemDetail } from '../../../features/Cart/components/CartItemDetail';
+import { PriceSummary } from '../../../features/Cart/components/PriceSummary';
 
-import { StepProps } from '@/shared/types/funnel';
-import { CartListContainer } from '@/features/Cart/container/CartListContainer';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
+import { StepProps } from '../../../shared/types/funnel';
+import { CartListContainer } from '../../../features/Cart/container/CartListContainer';
+import { useCartInfo } from '../../../features/Cart/hooks/useCartInfo';
 import { useCartContext } from '../context/CartProvider';
 
 export const CartInfo = ({ onNext }: StepProps) => {

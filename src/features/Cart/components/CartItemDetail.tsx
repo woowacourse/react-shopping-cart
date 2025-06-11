@@ -1,12 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { Button } from '@/shared/components/Button/Button';
-import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { CheckBox } from '../../../shared/components/CheckBox/CheckBox';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Text } from '../../../shared/components/Text/Text';
 
-import { QuantitySelector } from '@/features/Cart/components/QuantitySelector';
+import { QuantitySelector } from '../../../features/Cart/components/QuantitySelector';
 
 import NoImage from '../../../../public/NoImage.svg';
 import { CartItem } from '../types/Cart.types';
@@ -14,18 +14,19 @@ import { useCartContext } from '../context/CartProvider';
 
 type CartItemDetailProps = {
   variant: 'cart' | 'review';
-  checked?: boolean;
 } & CartItem;
 
 export const CartItemDetail = ({
   id,
-  checked,
   quantity,
   product,
   variant = 'cart',
 }: CartItemDetailProps) => {
-  const { toggleCheck, removeCartItem, updateQuantity } = useCartContext();
+  const { cartItems, toggleCheck, removeCartItem, updateQuantity } = useCartContext();
   const isCartMode = variant === 'cart';
+
+  const cartItem = cartItems.find((item) => item.id === id);
+  const checked = cartItem?.isChecked ?? false;
 
   const imgUrl =
     !product.imageUrl || product.imageUrl === '' || product.imageUrl.includes('kream')
@@ -53,7 +54,7 @@ export const CartItemDetail = ({
           gap="0"
           margin="10px 0 0 0 "
         >
-          <CheckBox role="checkbox" checked={checked} onClick={() => toggleCheck?.(id)} />
+          <CheckBox role="checkbox" checked={checked} onChange={() => toggleCheck?.(id)} />
           <Button
             variant="outlined"
             size="xs"

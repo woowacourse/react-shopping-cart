@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useFunnel } from '@/shared/hooks/useFunnel';
-import { useCartContext } from '../context/CartProvider';
+import { useFunnel } from '../../../shared/hooks/useFunnel';
 import { CartInfo } from '../components/CartInfo';
 import { OrderConfirm } from '../components/OrderConfirm';
 import { PaymentConfirm } from '../components/PaymentConfirm';
-import { Coupon } from '@/features/Coupon/types/Coupon.types';
+import { Coupon } from '../../../features/Coupon/types/Coupon.types';
 
 type STEPS = '장바구니' | '주문정보' | '결제확인';
 

@@ -1,16 +1,16 @@
 import { useEffect, useState, useContext } from 'react';
-import { useFetchData } from '@/shared/hooks/useFetchData';
-import { getCouponList } from '@/features/Coupon/api/coupon';
-import { Coupon, CouponResponse } from '@/features/Coupon/types/Coupon.types';
-import { isCouponValid } from '@/features/Coupon/utils/validateCoupon';
-import { getBestCouponCombination } from '@/features/Coupon/utils/combinations';
-import { calculateTotalDiscount } from '@/features/Coupon/utils/calculateTotalDiscount';
-import { ToastContext } from '@/shared/context/ToastProvider';
-import { isError } from '@/shared/utils/isError';
-import { useCartContext } from '@/features/Cart/context/CartProvider';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
-import { useOrderInfo } from '@/features/Cart/hooks/useOrderInfo';
-import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
+import { useFetchData } from '../../../shared/hooks/useFetchData';
+import { getCouponList } from '../../../features/Coupon/api/coupon';
+import { Coupon, CouponResponse } from '../../../features/Coupon/types/Coupon.types';
+import { isCouponValid } from '../../../features/Coupon/utils/validateCoupon';
+import { getBestCouponCombination } from '../../../features/Coupon/utils/combinations';
+import { calculateTotalDiscount } from '../../../features/Coupon/utils/calculateTotalDiscount';
+import { ToastContext } from '../../../shared/context/ToastProvider';
+import { isError } from '../../../shared/utils/isError';
+import { useCartContext } from '../../../features/Cart/context/CartProvider';
+import { useCartInfo } from '../../../features/Cart/hooks/useCartInfo';
+import { useOrderInfo } from '../../../features/Cart/hooks/useOrderInfo';
+import { usePriceInfo } from '../../../features/Cart/hooks/usePriceInfo';
 
 export const useCouponSelection = () => {
   const { cartItems } = useCartContext();

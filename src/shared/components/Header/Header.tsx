@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 
-import { StyledHeader } from '@/shared/components/Header/Header.styled';
+import { StyledHeader } from '../../../shared/components/Header/Header.styled';
 
 export type HeaderProps = {
   left: ReactNode;

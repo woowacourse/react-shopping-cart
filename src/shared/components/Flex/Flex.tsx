@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 
-import { StyledFlexBox } from '@/shared/components/Flex/Flex.styled';
+import { StyledFlexBox } from '../../../shared/components/Flex/Flex.styled';
 
 export type Props = {
   direction: 'row' | 'column';

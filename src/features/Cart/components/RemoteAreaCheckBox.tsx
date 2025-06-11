@@ -1,6 +1,6 @@
-import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Text';
+import { CheckBox } from '../../../shared/components/CheckBox/CheckBox';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Text } from '../../../shared/components/Text/Text';
 import { useCartContext } from '../context/CartProvider';
 
 export const RemoteAreaCheckBox = () => {

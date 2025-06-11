@@ -1,6 +1,6 @@
-import { Coupon } from '@/features/Coupon/types/Coupon.types';
+import { Coupon } from '../../../features/Coupon/types/Coupon.types';
 import { usePriceInfo } from './usePriceInfo';
-import { calculateTotalDiscount } from '@/features/Coupon/utils/calculateTotalDiscount';
+import { calculateTotalDiscount } from '../../../features/Coupon/utils/calculateTotalDiscount';
 import { useCartContext } from '../context/CartProvider';
 
 type Params = {

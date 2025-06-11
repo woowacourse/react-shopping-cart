@@ -2,21 +2,21 @@ import { css } from '@emotion/react';
 import { useCartInfo } from '../hooks/useCartInfo';
 import { useOrderInfo } from '../hooks/useOrderInfo';
 
-import { Button } from '@/shared/components/Button/Button';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Header } from '@/shared/components/Header/Header';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Header } from '../../../shared/components/Header/Header';
+import { Text } from '../../../shared/components/Text/Text';
 
 import Back from '../../../../public/Back.png';
-import { StepProps } from '@/shared/types/funnel';
+import { StepProps } from '../../../shared/types/funnel';
 import { CartListContainer } from '../container/CartListContainer';
 import { CartItemDetail } from './CartItemDetail';
 import { RemoteAreaCheckBox } from './RemoteAreaCheckBox';
 import { PriceSummary } from './PriceSummary';
-import { CouponModal } from '@/features/Coupon/components/CouponModal';
-import { useCouponSelection } from '@/features/Coupon/hooks/useCouponSelection';
+import { CouponModal } from '../../../features/Coupon/components/CouponModal';
+import { useCouponSelection } from '../../../features/Coupon/hooks/useCouponSelection';
 
-import { Coupon } from '@/features/Coupon/types/Coupon.types';
+import { Coupon } from '../../../features/Coupon/types/Coupon.types';
 
 type OrderConfirmProps = {
   onSelectCoupons: (selected: Coupon[]) => void;

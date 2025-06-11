@@ -1,6 +1,6 @@
-import { CartItem } from '@/features/Cart/types/Cart.types';
+import { CartItem } from '../../../features/Cart/types/Cart.types';
 import { Coupon } from '../types/Coupon.types';
-import { FREE_DELIVERY_THRESHOLD } from '@/features/Cart/constants/price';
+import { FREE_DELIVERY_THRESHOLD } from '../../../features/Cart/constants/price';
 
 export const calculateTotalDiscount = (
   selectedCartItems: CartItem[],

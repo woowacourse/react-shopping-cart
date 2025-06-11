@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { isError } from '@/shared/utils/isError';
+import { isError } from '../../shared/utils/isError';
 
 type DataState<T> = {
   data: T | null;

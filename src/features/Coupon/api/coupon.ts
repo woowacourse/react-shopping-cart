@@ -1,4 +1,4 @@
-import { fetcher } from '@/api/fetcher';
+import { fetcher } from '../../../api/fetcher';
 import { CouponResponse } from '../types/Coupon.types';
 
 export const getCouponList = async () => {

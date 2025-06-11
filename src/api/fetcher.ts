@@ -1,6 +1,6 @@
-import { buildQueryParams } from '@/shared/utils/url';
-import { ENV } from '@/api/env';
-import { HttpError } from '@/shared/errors/HttpError';
+import { buildQueryParams } from '../shared/utils/url';
+import { ENV } from '../api/env';
+import { HttpError } from '../shared/errors/HttpError';
 
 type FetcherOptions<T> = {
   path: string;

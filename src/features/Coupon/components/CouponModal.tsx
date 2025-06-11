@@ -1,17 +1,17 @@
 import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { Button } from '@/shared/components/Button/Button';
-import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { CheckBox } from '../../../shared/components/CheckBox/CheckBox';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Text } from '../../../shared/components/Text/Text';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Coupon } from '../types/Coupon.types';
-import { formatDate, formatTime } from '@/shared/utils/date';
+import { formatDate, formatTime } from '../../../shared/utils/date';
 import { calculateTotalDiscount } from '../utils/calculateTotalDiscount';
-import { useCartContext } from '@/features/Cart/context/CartProvider';
-import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
+import { useCartContext } from '../../../features/Cart/context/CartProvider';
+import { usePriceInfo } from '../../../features/Cart/hooks/usePriceInfo';
+import { useCartInfo } from '../../../features/Cart/hooks/useCartInfo';
 
 type CouponModalProps = {
   coupons: Coupon[];

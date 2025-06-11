@@ -1,13 +1,13 @@
 import { css } from '@emotion/react';
 
-import { Button } from '@/shared/components/Button/Button';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Text } from '../../../shared/components/Text/Text';
 
-import { StepProps } from '@/shared/types/funnel';
-import { Coupon } from '@/features/Coupon/types/Coupon.types';
-import { useOrderInfo } from '@/features/Cart/hooks/useOrderInfo';
-import { useFinalPriceInfo } from '@/features/Cart/hooks/useFinalPriceInfo';
+import { StepProps } from '../../../shared/types/funnel';
+import { Coupon } from '../../../features/Coupon/types/Coupon.types';
+import { useOrderInfo } from '../../../features/Cart/hooks/useOrderInfo';
+import { useFinalPriceInfo } from '../../../features/Cart/hooks/useFinalPriceInfo';
 
 type PaymentConfirmProps = {
   selectedCoupons: Coupon[];

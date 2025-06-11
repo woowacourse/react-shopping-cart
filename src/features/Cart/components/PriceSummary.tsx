@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Text';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Text } from '../../../shared/components/Text/Text';
 
-import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
+import { usePriceInfo } from '../../../features/Cart/hooks/usePriceInfo';
 
 type PriceSummaryProps = {
   variant?: 'cart' | 'review';
