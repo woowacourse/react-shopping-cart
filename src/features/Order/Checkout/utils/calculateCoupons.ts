@@ -47,7 +47,9 @@ export const getAvailableCoupons = ({ coupons, totalPrice, cartItems }: Calculat
 
       if (coupon.code === COUPON_CODES.BUY_ONE_GET_ONE) {
         const hasEligibleItem = cartItems?.some(
-          (item) => item.quantity >= DISCOUNT_RATES.MIRACLE_SALE
+          (item) =>
+            item.quantity >= QUANTITY_LIMITS.BOGO_MIN_QUANTITY &&
+            item.quantity % QUANTITY_LIMITS.BOGO_MIN_QUANTITY === 0
         );
         return hasEligibleItem;
       }
