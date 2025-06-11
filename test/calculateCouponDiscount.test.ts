@@ -14,14 +14,14 @@ describe('calculateCouponDiscount', () => {
         imageUrl: 'test.jpg',
         category: '음식',
       },
-      quantity: 2,
+      quantity: 3,
     },
     {
       id: 2,
       product: {
         id: 2,
         name: '상품2',
-        price: 20000,
+        price: 15000,
         imageUrl: 'test2.jpg',
         category: '음식',
       },
@@ -77,7 +77,7 @@ describe('calculateCouponDiscount', () => {
       };
 
       const discount = calculateCouponDiscount(coupon, mockProducts, false);
-      expect(discount).toBe(4000);
+      expect(discount).toBe(4500);
     });
 
     it('사용 가능 시간이 아닐 경우 0을 반환한다', () => {

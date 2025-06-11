@@ -3,9 +3,8 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 import { resetCartItems } from '../src/mocks/handlers';
 import CartPage from '../src/pages/cart/CartPage';
 import OrderConfirmPage from '../src/pages/orderConfirm/OrderConfirmPage';
-import { CartProvider } from '../src/global/contexts/CartContext';
 import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
-
+import { CartProvider } from '../src/components/features/cart/contexts/CartContext';
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(() => {
     resetCartItems();

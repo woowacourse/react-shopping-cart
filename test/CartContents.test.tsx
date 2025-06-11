@@ -2,8 +2,8 @@ import { fireEvent, render, screen, within, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import CartContents from '../src/components/features/cart/cartContents/CartContents';
 import { resetCartItems } from '../src/mocks/handlers';
-import { CartProvider } from '../src/global/contexts/CartContext';
 import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
+import { CartProvider } from '../src/components/features/cart/contexts/CartContext';
 
 describe('CartContents 테스트', () => {
   beforeEach(() => {
