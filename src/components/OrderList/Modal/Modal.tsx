@@ -30,6 +30,8 @@ export default function Modal({
   const { couponList, setCouponList, setCheckedCoupons } =
     useCouponListContext();
 
+  const now = new Date();
+
   useEffect(() => {
     (async () => {
       try {
@@ -44,7 +46,6 @@ export default function Modal({
   if (!isModalOpen) {
     return null;
   }
-  const now = new Date();
 
   return (
     <>
