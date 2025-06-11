@@ -2,11 +2,19 @@ import backButtonImage from '/assets/backButton.svg';
 import * as S from './Header.styles';
 import { useNavigate } from 'react-router';
 
-interface HeaderProps {
+interface HeaderWithBackButtonProps {
   title?: string;
-  showBackButton?: boolean;
+  showBackButton: true;
   onBackButtonClick?: () => void;
 }
+
+interface HeaderWithoutBackButtonProps {
+  title?: string;
+  showBackButton?: false;
+  onBackButtonClick?: never;
+}
+
+type HeaderProps = HeaderWithBackButtonProps | HeaderWithoutBackButtonProps;
 
 function Header({
   title = '',
