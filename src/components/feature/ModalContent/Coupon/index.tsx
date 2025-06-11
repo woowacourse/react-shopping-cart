@@ -5,13 +5,14 @@ import CheckBox from '../../../common/CheckBox';
 import Button from '../../../common/Button';
 import {formatPrice} from '../../../../utils/formatPrice';
 import {formatTime} from '../../../../utils/formatTime';
-import {CouponCode, CouponType} from '../../../../type/coupon';
+import {CouponCode, CouponKey, CouponType} from '../../../../type/coupon';
 import {ChangeEvent} from 'react';
+import {codeToCouponKey} from '../../../../constant/coupons';
 
 type Props = {
   couponInfo: CouponType[] | undefined;
   canApplyCouponCode: CouponCode[] | undefined;
-  isCouponChecked: Record<CouponCode, boolean>;
+  isCouponChecked: Record<CouponKey, boolean>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   discountPrice: number;
   onClose: () => void;
@@ -26,11 +27,11 @@ const Coupon = ({
   onClose,
 }: Props) => {
   const buttonTitle = () => {
-    if (discountPrice > 0 && isCouponChecked.FREESHIPPING)
+    if (discountPrice > 0 && isCouponChecked.freeShipping)
       return `총 ${formatPrice(discountPrice)} 할인 + 무료배달 쿠폰 사용하기`;
     if (discountPrice > 0)
       return `총 ${formatPrice(discountPrice)} 할인 쿠폰 사용하기`;
-    if (isCouponChecked.FREESHIPPING) return `무료배달 쿠폰 사용하기`;
+    if (isCouponChecked.freeShipping) return `무료배달 쿠폰 사용하기`;
     return `쿠폰 사용하기`;
   };
 
@@ -47,7 +48,7 @@ const Coupon = ({
         >
           <CheckBox
             label={coupon.description}
-            isChecked={isCouponChecked[coupon.code]}
+            isChecked={isCouponChecked[codeToCouponKey[coupon.code]]}
             onChange={onChange}
             name={coupon.code}
             disabled={!canApplyCouponCode?.find((code) => code === coupon.code)}

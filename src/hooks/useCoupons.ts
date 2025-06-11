@@ -1,17 +1,18 @@
 import {ChangeEvent, useEffect, useState} from 'react';
-import {CouponCode, CouponType} from '../type/coupon';
+import {CouponCode, CouponKey, CouponType} from '../type/coupon';
 import {useShowError} from '../provider/errorProvider';
 import {getCoupons} from '../api/coupon/getCoupon';
+import {codeToCouponKey} from '../constant/coupons';
 
 export const useCoupons = () => {
   const [coupons, setCoupons] = useState<CouponType[]>();
   const [isCouponChecked, setIsCouponChecked] = useState<
-    Record<CouponCode, boolean>
+    Record<CouponKey, boolean>
   >({
-    FIXED5000: false,
-    BOGO: false,
-    FREESHIPPING: false,
-    MIRACLESALE: false,
+    discount5000: false,
+    buy2get1: false,
+    freeShipping: false,
+    miracleSale: false,
   });
   const showError = useShowError();
 
@@ -29,10 +30,11 @@ export const useCoupons = () => {
   }, [showError]);
 
   const handleCouponsChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    if (isCouponChecked[e.target.name as keyof typeof isCouponChecked]) {
+    const couponKey = codeToCouponKey[e.target.name as CouponCode];
+    if (isCouponChecked[couponKey]) {
       setIsCouponChecked((prev) => ({
         ...prev,
-        [e.target.name]: false,
+        [couponKey]: false,
       }));
       return;
     }
@@ -44,7 +46,7 @@ export const useCoupons = () => {
     if (filteredCheckedNumber === 2) return;
     setIsCouponChecked((prev) => ({
       ...prev,
-      [e.target.name]: true,
+      [couponKey]: true,
     }));
   };
 

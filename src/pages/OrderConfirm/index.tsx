@@ -14,8 +14,9 @@ import {useCoupons} from '../../hooks/useCoupons';
 import {useNavigate} from 'react-router';
 import {ROUTE_PATHS} from '../../route/path';
 import {calcDiscountPrice} from '../../feature/calcDiscountPrice';
-import {CouponCode} from '../../type/coupon';
+import {CouponKey} from '../../type/coupon';
 import {css} from '@emotion/react';
+import {couponKeyToCode} from '../../constant/coupons';
 
 const ADDITIONAL_DELIVERY_PRICE = 3_000;
 
@@ -31,7 +32,7 @@ const OrderConfirm = () => {
   const {isCouponChecked, coupons, handleCouponsChecked} = useCoupons();
 
   const calcDeliveryPrice = () => {
-    if (isCouponChecked.FREESHIPPING) return 0;
+    if (isCouponChecked.freeShipping) return 0;
     if (isAdditionalDelivery) return deliveryPrice + ADDITIONAL_DELIVERY_PRICE;
     return deliveryPrice;
   };
@@ -45,9 +46,9 @@ const OrderConfirm = () => {
       : deliveryPrice
   );
 
-  const checkedCodes = Object.keys(isCouponChecked).filter(
-    (code) => isCouponChecked[code as CouponCode]
-  ) as CouponCode[];
+  const checkedCodes = Object.keys(isCouponChecked)
+    .filter((key) => isCouponChecked[key as CouponKey])
+    .map((key) => couponKeyToCode[key as CouponKey]);
 
   const totalPaymentPrice =
     calcDiscountPrice(
