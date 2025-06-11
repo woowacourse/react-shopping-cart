@@ -7,7 +7,7 @@ import {
 } from './mockData/selectedItems';
 
 describe('체크된 쿠폰의 최대 할인 가격 계산한다.', () => {
-  it('쿠폰이 한개 체크된 경우', () => {
+  it('쿠폰이 한개 체크된 경우 해당 할인만 고려해 가격을 계산한다.', () => {
     const orderPrice = 100000;
     const discount = 5000;
 
@@ -20,7 +20,7 @@ describe('체크된 쿠폰의 최대 할인 가격 계산한다.', () => {
     expect(bestPrice).toBe(orderPrice - discount);
   });
 
-  it('쿠폰이 두개 체크된 경우', () => {
+  it('쿠폰이 두개 체크된 경우 최대 할인 가격을 계산한다.', () => {
     const orderPrice = 100_000;
     const discount = orderPrice * 0.3 + 12000;
 
@@ -32,7 +32,7 @@ describe('체크된 쿠폰의 최대 할인 가격 계산한다.', () => {
     expect(bestPrice).toBe(orderPrice - discount);
   });
 
-  it('2+1 상품이 여러개인 경우 비싼 상품을 할인한다.', () => {
+  it('2+1 상품이 여러개인 경우 비싼 상품을 할인하여 최대 할인 가격을 계산한다.', () => {
     const orderPrice = 300_000;
     const discount = 50000;
 

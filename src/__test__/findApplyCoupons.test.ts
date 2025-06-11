@@ -2,7 +2,7 @@ import {findCanApplyCoupon} from '../feature/findApplyCoupon';
 import {coupons} from './mockData/coupons';
 import {selectedItems, bogoSelectedItems} from './mockData/selectedItems';
 
-describe('가격을 기준으로 올바른 쿠폰 항목을 찾는다.', () => {
+describe('가격을 기준으로 올바른 선택 가능한 쿠폰 항목이 포함된다.', () => {
   const NOW = {
     year: 2025,
     month: 6,
@@ -10,7 +10,7 @@ describe('가격을 기준으로 올바른 쿠폰 항목을 찾는다.', () => {
     hour: 18,
     minute: 0,
   };
-  it('5만원 이상 10만원 이하인 경우', () => {
+  it('5만원 이상 10만원 이하인 경우 무료배송 쿠폰이 포함된다.', () => {
     const price = 80000;
     const deliveryPrice = 3000;
 
@@ -27,7 +27,7 @@ describe('가격을 기준으로 올바른 쿠폰 항목을 찾는다.', () => {
     expect(filteredCouponsCode).toContain('FREESHIPPING');
   });
 
-  it('10만원 이상인 경우', () => {
+  it('10만원 이상인 경우 5000원 할인 쿠폰이 포함된다.', () => {
     const price = 100000;
     const deliveryPrice = 0;
 
@@ -44,7 +44,7 @@ describe('가격을 기준으로 올바른 쿠폰 항목을 찾는다.', () => {
     expect(filteredCouponsCode).toContain('FIXED5000');
   });
 
-  it('10만원 이상, 산간지역인 경우', () => {
+  it('10만원 이상, 산간지역인 경우 5000원 할인 쿠폰과 무료배송 쿠폰이 포함된다.', () => {
     const price = 100000;
     const deliveryPrice = 3000;
 
@@ -162,7 +162,7 @@ describe('시간을 기준으로 올바른 쿠폰 항목을 찾는다.', () => {
 });
 
 describe('2+1 상품이 있는 경우 올바른 쿠폰 항목을 찾는다.', () => {
-  it('2+1 상품이 있는 경우', () => {
+  it('2+1 상품이 있는 경우 2+1 쿠폰이 포함된다.', () => {
     const NOW = {
       year: 2025,
       month: 6,
