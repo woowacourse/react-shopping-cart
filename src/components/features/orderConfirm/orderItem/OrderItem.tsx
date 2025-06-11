@@ -1,8 +1,8 @@
 import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
+import FallbackImage from '../../../common/fallbackImage/FallbackImage';
 import Separator from '../../../common/separator/Separator';
 import { CartItemType } from '../../cart/types';
 import * as S from './OrderItem.styles';
-import defaultImage from '/assets/default_product.png';
 
 interface OrderItemProps extends CartItemType {}
 
@@ -12,14 +12,11 @@ function OrderItem({ id, quantity, product }: OrderItemProps) {
       <Separator />
       <S.InfoContainer>
         <S.PreviewBox>
-          <S.PreviewImage
-            src={
-              isValidImageUrl(product.imageUrl)
-                ? product.imageUrl
-                : defaultImage
-            }
-            alt="상품 이미지"
-          />
+          {isValidImageUrl(product.imageUrl) ? (
+            <S.PreviewImage src={product.imageUrl} alt="상품 이미지" />
+          ) : (
+            <FallbackImage />
+          )}
         </S.PreviewBox>
         <S.InfoBox>
           <S.CartProductInfo>
