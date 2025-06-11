@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CartItemType } from '@entities/cart/type/cartItem.type';
+import { CartItemType } from '@entities/cart';
 
 export interface CartData {
   items: CartItemType[];

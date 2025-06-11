@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
 import { ClientCouponType } from '@entities/coupon/type/coupon.type';
-import { validateCoupon } from '@features/coupon/utils/validateCoupon';
-import { useCoupon } from '@features/coupon/model/useCoupon';
-import { CartItemType } from '@entities/cart';
+import { validateCoupon } from '@entities/coupon/utils/validateCoupon';
+import { useCoupon } from '@entities/coupon/model/useCoupon';
 import {
   calculateCouponDiscount,
   recommendCouponComposition,
-} from '@features/coupon/utils/calculateCoupon';
-import { COUPON_RULE } from '@features/coupon/constants/couponRule';
-import {
-  calculateDeliveryFee,
-  calculateOrderPrice,
-} from '@features/cart/utils/cartPriceCalculator';
+} from '@entities/coupon/utils/calculateCoupon';
+import { COUPON_RULE } from '@entities/coupon/constants/couponRule';
+import { CartItemType, calculateDeliveryFee, calculateOrderPrice } from '@entities/cart';
 
 interface UseClientCouponProps {
   orderItems: CartItemType[];

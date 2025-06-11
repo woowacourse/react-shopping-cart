@@ -12,8 +12,6 @@ export interface CartItemType {
   product: ProductItemType;
 }
 
-export type OrderItemType = number[];
-
 export interface UpdateCartItemQuantity {
   id: number;
   quantity: number;

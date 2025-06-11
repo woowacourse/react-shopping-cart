@@ -1,6 +1,6 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { CartItemType } from '@entities/cart';
-import { useCart } from '@/features/cart/model/useCart';
+import { useCart } from '@entities/cart';
 
 interface CartContextType {
   cartItems: CartItemType[];

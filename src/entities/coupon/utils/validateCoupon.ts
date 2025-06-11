@@ -1,7 +1,7 @@
-import { CouponType } from '@/entities/coupon/type/coupon.type';
-import { CartItemType } from '@/entities/cart';
-import { formatTime } from './formatter';
-import { calculateOrderPrice } from '@features/cart/utils/cartPriceCalculator';
+import { CouponType } from '@entities/coupon/type/coupon.type';
+import { CartItemType } from '@entities/cart';
+import { formatTime } from '@entities/coupon/utils/formatter';
+import { calculateOrderPrice } from '@entities/cart';
 
 interface ValidateCouponProps {
   coupon: CouponType;

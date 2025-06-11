@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
-import { CartItemType, OrderItemType } from '@entities/cart';
-import { calculatePaymentInfo } from '@/features/cart/utils/cartPriceCalculator';
+import { CartItemType, calculatePaymentInfo } from '@entities/cart';
+import { OrderItemIdListType } from '@entities/order';
 
 export const useOrderCalculation = (
   cartItems: CartItemType[] | undefined,
-  orderIdList: OrderItemType,
+  orderIdList: OrderItemIdListType,
 ) => {
   return useMemo(() => {
     const orderPrice =

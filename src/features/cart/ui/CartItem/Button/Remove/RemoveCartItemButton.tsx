@@ -1,6 +1,6 @@
 import RemoveCartItemIcon from '@assets/icons/remove-cart-item.svg';
 import * as S from './RemoveCartItemButton.styled';
-import { useCartContext } from '@/features/cart/model/provider/CartProvider';
+import { useCartContext } from '@entities/cart';
 
 interface RemoveCartItemButtonProps {
   cartItemId: number;

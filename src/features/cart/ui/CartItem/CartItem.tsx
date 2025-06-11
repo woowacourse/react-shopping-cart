@@ -2,9 +2,8 @@ import * as S from './CartItem.styled';
 import CheckBox from '@shared/components/CheckBox';
 import DefaultItemIcon from '@assets/icons/default-item.svg';
 import CartItemQuantityButton from './Button/Quantity/CartItemQuantityButton';
-import { CartItemType } from '@entities/cart';
+import { CartItemType, useCartContext } from '@entities/cart';
 import { SyntheticEvent } from 'react';
-import { useCartContext } from '@/features/cart/model/provider/CartProvider';
 
 interface CartItemProps {
   cartItem: CartItemType;

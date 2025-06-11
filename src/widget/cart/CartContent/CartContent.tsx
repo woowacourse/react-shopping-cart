@@ -5,9 +5,8 @@ import CheckBox from '@shared/components/CheckBox';
 import * as S from './CartContent.styled';
 import LoadingContainer from '@shared/components/LoadingContainer/LoadingContainer';
 import ErrorContainer from '@shared/components/ErrorContainer/ErrorContainer';
-import { useCartContext } from '@features/cart/model/provider/CartProvider';
-import { useOrderSelection } from '@features/cart/model/useOrderSelection';
-import { useOrderCalculation } from '@features/cart/model/useOrderCalculation';
+import { useCartContext } from '@entities/cart';
+import { useOrderSelection, useOrderCalculation } from '@entities/order';
 import { usePageNavigation } from '@app/hooks/usePageNavigation';
 import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
 

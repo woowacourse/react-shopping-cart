@@ -4,7 +4,7 @@ import Modal from '@shared/components/Modal';
 import CancelIcon from '@assets/icons/cancel.svg';
 import CommonButton from '@shared/components/CommonButton';
 import CouponList from '@features/coupon/ui/CouponList';
-import { calculateCouponDiscountTotalPrice } from '@/features/coupon/utils/calculateCoupon';
+import { calculateCouponDiscountTotalPrice } from '@/entities/coupon/utils/calculateCoupon';
 
 interface CouponModalProps {
   isOpen: boolean;

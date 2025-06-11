@@ -2,7 +2,7 @@ import * as S from './CouponList.styled';
 import Description from '@shared/components/Description';
 import { ClientCouponType } from '@entities/coupon/type/coupon.type';
 import CouponItem from '@features/coupon/ui/CouponItem';
-import { COUPON_RULE } from '@features/coupon/constants/couponRule';
+import { COUPON_RULE } from '@/entities/coupon/constants/couponRule';
 
 interface CouponListProps {
   clientCoupons: ClientCouponType[];

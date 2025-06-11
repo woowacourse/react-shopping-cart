@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { CartItemType, OrderItemType } from '@entities/cart';
+import { CartItemType } from '@entities/cart';
+import { OrderItemIdListType } from '@entities/order';
 
 const STORAGE_KEY = 'cart_order_selection';
 
 export const useOrderSelection = (cartItems: CartItemType[] | undefined) => {
-  const [orderIdList, setOrderIdList] = useState<OrderItemType>(() => {
+  const [orderIdList, setOrderIdList] = useState<OrderItemIdListType>(() => {
     const savedSelection = localStorage.getItem(STORAGE_KEY);
     if (savedSelection) {
       return JSON.parse(savedSelection);

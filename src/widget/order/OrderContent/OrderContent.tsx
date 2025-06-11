@@ -6,15 +6,12 @@ import CommonButton from '@shared/components/CommonButton';
 import RemoteArea from '@features/order/ui/RemoteArea';
 import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
 import PriceContainer from '../PriceContainer';
-import {
-  calculateDeliveryFee,
-  calculateOrderPrice,
-} from '@features/cart/utils/cartPriceCalculator';
+import { calculateDeliveryFee, calculateOrderPrice } from '@entities/cart';
 import { CartItemType } from '@entities/cart';
 import CouponModal from '@widget/order/CouponModal';
-import { useClientCoupon } from '@features/coupon/model/useClientCoupon';
+import { useClientCoupon } from '@entities/coupon/model/useClientCoupon';
 import { useModal } from '@shared/components/Modal/hook/useModal';
-import { calculateCouponDiscountTotalPrice } from '@features/coupon/utils/calculateCoupon';
+import { calculateCouponDiscountTotalPrice } from '@entities/coupon/utils/calculateCoupon';
 
 interface OrderContentProps {
   orderItems: CartItemType[];

@@ -1,10 +1,11 @@
 import CartItem from '../CartItem/CartItem';
 import * as S from './CartList.styled';
-import { CartItemType, OrderItemType } from '@/entities/cart/type/cartItem.type';
+import { CartItemType } from '@entities/cart';
+import { OrderItemIdListType } from '@entities/order';
 
 interface CartListProps {
   cartItems: CartItemType[];
-  orderIdList: OrderItemType;
+  orderIdList: OrderItemIdListType;
   addOrderItemId: (id: number) => void;
   removeOrderItemId: (id: number) => void;
 }

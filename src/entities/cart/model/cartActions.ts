@@ -1,7 +1,6 @@
 import { CartData } from '@entities/cart/model/createCartData';
-import { getCartItems } from '@entities/cart/api/getCartItems';
-import { deleteCartItem } from '@entities/cart/api/deleteCartItem';
-import { updateCartItemQuantity } from '@entities/cart/api/updateCartItemQuantity';
+import { getCartItems, updateCartItemQuantity } from '@entities/cart';
+import { deleteCartItem } from '@entities/cart';
 
 export const cartActions = {
   async fetchItems(cartData: CartData) {

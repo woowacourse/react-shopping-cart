@@ -1,7 +1,7 @@
 import { CartItemType } from '@entities/cart';
 import { CouponType, ClientCouponType } from '@entities/coupon/type/coupon.type';
-import { calculateOrderPrice } from '@features/cart/utils/cartPriceCalculator';
-import { COUPON_RULE } from '@features/coupon/constants/couponRule';
+import { calculateOrderPrice } from '@entities/cart';
+import { COUPON_RULE } from '@entities/coupon/constants/couponRule';
 
 interface CalculateCouponDiscountProps {
   coupon: CouponType;

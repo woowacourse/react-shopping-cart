@@ -1,4 +1,4 @@
-import { FREE_DELIVERY_LIMIT } from '@features/cart/utils/cartPriceCalculator';
+import { FREE_DELIVERY_LIMIT } from '@/entities/cart/utils/cartPriceCalculator';
 import PriceBox from '@shared/components/PriceInfoContainer/PriceBox';
 import PriceInfoContainer from '@shared/components/PriceInfoContainer';
 

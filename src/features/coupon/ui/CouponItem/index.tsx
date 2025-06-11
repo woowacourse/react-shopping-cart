@@ -1,6 +1,6 @@
 import * as S from './CouponItem.styled';
 import CheckBox from '@shared/components/CheckBox';
-import { formatAvailableTime, formatTime } from '@features/coupon/utils/formatter';
+import { formatAvailableTime, formatTime } from '@/entities/coupon/utils/formatter';
 
 interface CouponItemProps {
   disabled: boolean;

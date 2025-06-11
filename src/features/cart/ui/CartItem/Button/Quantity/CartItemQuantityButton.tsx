@@ -2,7 +2,7 @@ import * as S from './CartItemQuantityButton.styled';
 import PlusIcon from '@assets/icons/plus.svg';
 import MinusIcon from '@assets/icons/minus.svg';
 import RemoveCartItemButton from '../Remove/RemoveCartItemButton';
-import { useCartContext } from '@/features/cart/model/provider/CartProvider';
+import { useCartContext } from '@entities/cart';
 
 interface CartItemQuantityButtonProps {
   cartItemId: number;
