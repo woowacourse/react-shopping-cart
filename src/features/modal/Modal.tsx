@@ -12,18 +12,16 @@ const Modal = ({ open, onClose, children }: Props) => {
     e.stopPropagation();
   };
 
+  if (!open) return null;
+
   return (
-    <>
-      {open && (
-        <Portal>
-          <S.ModalBackdrop onClick={onClose}>
-            <S.ModalContainer onClick={stopPropagation}>
-              <S.ModalContent>{children}</S.ModalContent>
-            </S.ModalContainer>
-          </S.ModalBackdrop>
-        </Portal>
-      )}
-    </>
+    <Portal>
+      <S.ModalBackdrop onClick={onClose}>
+        <S.ModalContainer onClick={stopPropagation}>
+          <S.ModalContent>{children}</S.ModalContent>
+        </S.ModalContainer>
+      </S.ModalBackdrop>
+    </Portal>
   );
 };
 
