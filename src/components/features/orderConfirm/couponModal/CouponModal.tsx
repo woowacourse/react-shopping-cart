@@ -4,8 +4,8 @@ import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
 import { useEscapeKey } from '../hooks/useEscapeKey';
 import { useCouponContext } from '../../../../global/contexts/CouponContext';
-import { isCouponUsableNow } from '../utils/couponStatus';
 import { useCartSelectionContext } from '../../../../global/contexts/CartSelectionContext';
+import { getCouponValidator } from '../utils/getCouponValidator';
 
 interface CouponModalProps {
   onClose: () => void;
@@ -53,7 +53,7 @@ function CouponModal({ onClose }: CouponModalProps) {
             const discount =
               couponDiscounts.find((d) => d.coupon.id === coupon.id)
                 ?.discount || 0;
-            const disabled = !isCouponUsableNow(
+            const disabled = !getCouponValidator(
               coupon,
               selectCartItems,
               orderPrice

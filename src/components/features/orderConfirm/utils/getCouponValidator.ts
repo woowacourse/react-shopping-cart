@@ -2,7 +2,7 @@ import { CartItemType } from '../../cart/types';
 import { CouponType } from '../types';
 import { couponUsableCalculators } from './couponUsableCalculators';
 
-export function isCouponUsableNow(
+export function getCouponValidator(
   coupon: CouponType,
   cartItems: CartItemType[],
   orderPrice: number
