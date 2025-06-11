@@ -20,7 +20,7 @@ function OrderCompletePage() {
 
   const { finalPrice } = location.state;
 
-  const handleNavigate = () => {
+  const goToHome = () => {
     clearCart();
     navigate('/');
   };
@@ -45,7 +45,7 @@ function OrderCompletePage() {
           </div>
         </div>
       </ContainerLayout>
-      <Button color="black" variant="primary" onClick={handleNavigate}>
+      <Button color="black" variant="primary" onClick={goToHome}>
         <Text varient="body">장바구니로 돌아가기</Text>
       </Button>
     </>
