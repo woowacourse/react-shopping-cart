@@ -16,8 +16,7 @@ export default function Toast({ id, variant, message, duration = 3000 }: ToastPr
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const showTimer = setTimeout(() => setIsVisible(true), 10);
-    return () => clearTimeout(showTimer);
+    setIsVisible(true);
   }, []);
 
   useEffect(() => {
