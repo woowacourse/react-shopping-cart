@@ -30,7 +30,7 @@ export default function OrderConfirm() {
   });
   const { isOpen, modalOpen, modalClose } = useModal();
 
-  const handlePressBack = () => {
+  const goHome = () => {
     navigate("/");
   };
 
@@ -52,7 +52,7 @@ export default function OrderConfirm() {
   return (
     <PageLayout>
       <Header>
-        <button css={pressBackButton} onClick={handlePressBack}>
+        <button css={pressBackButton} onClick={goHome}>
           <img src="/react-shopping-cart/arrowBack.png" alt="뒤로가기" />
         </button>
       </Header>
