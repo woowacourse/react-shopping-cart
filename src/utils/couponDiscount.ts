@@ -1,6 +1,33 @@
 import { CartItemProps } from '../types/cartItem';
 import { Coupon, validatedCouponList } from '../types/coupon';
 
+interface DiscountType {
+  discountAmount: number;
+  remainingPrice: number;
+  cartItems: CartItemProps[];
+}
+
+const fixedDiscount = ({ discountAmount }: DiscountType) => {
+  return discountAmount;
+};
+
+const percentageDiscount = ({
+  discountAmount,
+  remainingPrice,
+}: DiscountType) => {
+  return Math.floor(remainingPrice * (discountAmount / 100));
+};
+
+const buyXgetYDiscount = ({ cartItems }: DiscountType) => {
+  return Math.max(...cartItems.map((item) => item.product.price));
+};
+
+const discountStrategy = {
+  fixed: fixedDiscount,
+  percentage: percentageDiscount,
+  buyXgetY: buyXgetYDiscount,
+};
+
 export function simulateCombo(
   cartItem: CartItemProps[],
   combo: Coupon[],
@@ -19,20 +46,16 @@ export function simulateCombo(
   let shipping = baseShipping;
   const breakdown: Record<string, number> = {};
 
-  const maxUnitPrice = Math.max(...cartItem.map((item) => item.product.price));
-
   for (const c of combo) {
-    if (c.discountType === 'fixed') {
-      totalDiscount += c.discount;
-      remaining -= c.discount;
-    } else if (c.discountType === 'percentage') {
-      totalDiscount += Math.floor(remaining * (c.discount / 100));
-      remaining -= Math.floor(remaining * (c.discount / 100));
-    } else if (c.discountType === 'buyXgetY') {
-      totalDiscount += maxUnitPrice;
-      remaining -= maxUnitPrice;
-    }
-
+    const discountAmount = discountStrategy[
+      c.discountType as keyof typeof discountStrategy
+    ]({
+      discountAmount: c.discount,
+      remainingPrice: remaining,
+      cartItems: cartItem,
+    });
+    totalDiscount += discountAmount;
+    remaining -= discountAmount;
     breakdown[c.code] = remaining;
   }
 
