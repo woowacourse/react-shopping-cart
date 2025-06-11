@@ -9,21 +9,14 @@ import PriceSection from '../../components/feature/CartSection/PriceSection';
 import {useState} from 'react';
 import {Modal} from '@muffin2219/components';
 import Coupon from '../../components/feature/ModalContent/Coupon';
-import {css} from '@emotion/react';
 import {findCanApplyCoupon} from '../../feature/findApplyCoupon';
 import {useCoupons} from '../../hooks/useCoupons';
 import {useNavigate} from 'react-router';
 import {ROUTE_PATHS} from '../../route/path';
 import {calcDiscountPrice} from '../../feature/calcDiscountPrice';
 import {CouponCode} from '../../type/coupon';
+import {css} from '@emotion/react';
 
-const buttonStyle = css`
-  padding: 24px 0;
-  background-color: #000;
-  color: #fff;
-  font-weight: 700;
-  font-size: 16px;
-`;
 const ADDITIONAL_DELIVERY_PRICE = 3_000;
 
 const OrderConfirm = () => {
@@ -103,7 +96,10 @@ const OrderConfirm = () => {
       </Modal>
       <Button
         title="결제하기"
-        css={buttonStyle}
+        mode="dark"
+        css={css`
+          padding: 24px 0;
+        `}
         onClick={() => {
           navigate(ROUTE_PATHS.PAYMENT_CONFIRM, {
             state: {

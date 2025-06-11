@@ -13,17 +13,8 @@ import {deleteCartProduct} from '../../api/cart/deleteCartProduct';
 import {patchCartProduct} from '../../api/cart/patchCartProduct';
 
 import * as S from './index.styles';
-import {css} from '@emotion/react';
 import {useSelectedItems} from '../../provider/cartItemsProvider';
-
-const styleButton = css`
-  width: 100%;
-  padding: 24px 0;
-  background-color: #000;
-  color: #fff;
-  font-weight: 700;
-  font-size: 16px;
-`;
+import {css} from '@emotion/react';
 
 const CartList = () => {
   const navigate = useNavigate();
@@ -109,7 +100,10 @@ const CartList = () => {
         title="주문 확인"
         disabled={selectedItem?.length === 0}
         onClick={() => navigate(ROUTE_PATHS.ORDER_CONFIRM)}
-        css={styleButton}
+        mode="dark"
+        css={css`
+          padding: 24px 0;
+        `}
       />
     </S.Container>
   );

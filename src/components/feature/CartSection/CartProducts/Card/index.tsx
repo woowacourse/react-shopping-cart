@@ -5,6 +5,7 @@ import CheckBox from '../../../../common/CheckBox';
 import Line from '../../../../common/Line';
 import {CartProduct} from '../../../../../type/cart';
 import {formatPrice} from '../../../../../utils/formatPrice';
+import {css} from '@emotion/react';
 
 type Props = {
   cartItem: CartProduct;
@@ -33,7 +34,13 @@ const Card = ({
             isChecked={Boolean(isChecked)}
             onChange={() => onToggle?.(cartItem.id)}
           />
-          <Button onClick={() => onDelete?.(cartItem.id)} title="삭제" />
+          <Button
+            onClick={() => onDelete?.(cartItem.id)}
+            title="삭제"
+            css={css`
+              width: 50px;
+            `}
+          />
         </S.ButtonSection>
       )}
 

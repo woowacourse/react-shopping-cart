@@ -5,14 +5,8 @@ import CheckBox from '../../../common/CheckBox';
 import Button from '../../../common/Button';
 import {formatPrice} from '../../../../utils/formatPrice';
 import {formatTime} from '../../../../utils/formatTime';
-import {css} from '@emotion/react';
 import {CouponCode, CouponType} from '../../../../type/coupon';
 import {ChangeEvent} from 'react';
-
-const buttonStyle = css`
-  background-color: #333;
-  color: #fff;
-`;
 
 type Props = {
   couponInfo: CouponType[] | undefined;
@@ -73,7 +67,7 @@ const Coupon = ({
           <Line />
         </S.CouponList>
       ))}
-      <Button title={buttonTitle()} onClick={onClose} css={buttonStyle} />
+      <Button title={buttonTitle()} onClick={onClose} mode="dark" />
     </S.Container>
   );
 };
