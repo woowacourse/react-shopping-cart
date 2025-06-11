@@ -12,6 +12,12 @@ interface Props {
   selectedItems: Content[];
 }
 
+const MAX_SELECTED_COUPONS = 2;
+const STARTED_HOUR = 4;
+const ENDED_HOUR = 7;
+const MIN_ORDER_PRICE_FOR_COUPON = 100000;
+const MIN_ORDER_PRICE_FOR_Shipping_FEE = 50000;
+
 export default function CouponList({ selectedCoupons, setSelectedCoupons, orderPrice, selectedItems }: Props) {
   const {
     data: coupons,
@@ -28,13 +34,13 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons, orderP
     const currentHour = new Date().getHours();
     const isAlreadySelected = selectedIds.includes(coupon.id);
 
-    if (!isAlreadySelected && selectedCoupons.length >= 2) {
+    if (!isAlreadySelected && selectedCoupons.length >= MAX_SELECTED_COUPONS) {
       return true;
     }
 
     switch (coupon.id) {
       case 1:
-        return orderPrice < 100000;
+        return orderPrice < MIN_ORDER_PRICE_FOR_COUPON;
       case 2: {
         const sameProductCounts = new Map<number, number>();
         selectedItems.forEach((item) => {
@@ -45,10 +51,10 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons, orderP
       }
 
       case 3:
-        return orderPrice < 50000;
+        return orderPrice < MIN_ORDER_PRICE_FOR_Shipping_FEE;
 
       case 4:
-        return !(4 < currentHour && currentHour < 7);
+        return !(STARTED_HOUR < currentHour && currentHour < ENDED_HOUR);
 
       default:
         return false;
@@ -63,7 +69,7 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons, orderP
     let updated: CouponsResponse[];
     if (isSelected) {
       updated = selectedCoupons.filter((c) => c.id !== coupon.id);
-    } else if (selectedCoupons.length < 2) {
+    } else if (selectedCoupons.length < MAX_SELECTED_COUPONS) {
       updated = [...selectedCoupons, coupon];
     } else {
       updated = selectedCoupons;
