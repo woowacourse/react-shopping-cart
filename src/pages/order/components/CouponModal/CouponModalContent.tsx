@@ -38,7 +38,7 @@ const CouponModalContent = () => {
         <Modal.Footer>
           <Modal.Trigger>
             <Button variant="primary" size="full" onClick={applySelectedCoupons}>
-              총 {discountPrice}원 할인 쿠폰 사용하기
+              총 {discountPrice.toLocaleString()}원 할인 쿠폰 사용하기
             </Button>
           </Modal.Trigger>
         </Modal.Footer>

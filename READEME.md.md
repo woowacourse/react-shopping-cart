@@ -121,7 +121,7 @@ useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
 
 ### 피드백 기반 리팩토링 사항
 
-- [ ] 가격 및 수량 수량 천단위 포맷팅
+- [x] 가격 및 수량 수량 천단위 포맷팅
 - [ ] useCartCheck 훅 handleCheckChange 함수 조건문 이후, return
 - [x] useCartResource 내부 useEffect 역할 상위로 뺴기
 - [ ] 서버 상태 데이터 캐싱
