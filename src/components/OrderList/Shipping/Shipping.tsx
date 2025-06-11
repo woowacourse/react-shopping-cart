@@ -18,7 +18,6 @@ export default function Shipping({ isRemote, onRemoteChange }: ShippingProps) {
         />
         <S.Option>제주도 및 도서 산간 지역</S.Option>
       </S.CheckWrapper>
-      <></>
     </section>
   );
 }
