@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const CouponListContainer = styled.div`
@@ -111,4 +112,41 @@ export const messageContainer = styled.div`
   font-size: 14px;
   color: red;
   font-weight: 500;
+`;
+
+export const CloseButtonCSS = css`
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  border-radius: 3px;
+
+  transition: background-color 0.2s ease;
+  padding: 1px;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
+`;
+
+export const CouponButtonCSS = css`
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: #333;
+  }
+
+  &:disabled {
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
 `;
