@@ -39,10 +39,10 @@ export function validateCoupons(
   const validatedCouponList: validatedCouponList[] = [];
 
   couponList.forEach((coupon) => {
-    let expiredFlag = !isExpired(coupon.expirationDate);
+    let expired = !isExpired(coupon.expirationDate);
 
     if (coupon.description.includes('미라클모닝')) {
-      expiredFlag = !isCurrentTimeInRange(
+      expired = !isCurrentTimeInRange(
         coupon.availableTime?.start || '',
         coupon.availableTime?.end || ''
       );
@@ -52,14 +52,14 @@ export function validateCoupons(
       coupon.minimumAmount !== undefined &&
       !isMinimumAmount(coupon.minimumAmount, subTotal)
     ) {
-      expiredFlag = true;
+      expired = true;
     }
 
     if (coupon.buyQuantity !== undefined && coupon.getQuantity !== undefined) {
-      expiredFlag = !isQuantity(selectedItems);
+      expired = !isQuantity(selectedItems);
     }
 
-    validatedCouponList.push({ ...coupon, isExpired: expiredFlag });
+    validatedCouponList.push({ ...coupon, isExpired: expired });
   });
 
   return validatedCouponList;
