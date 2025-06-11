@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useCoupons } from './useCoupons';
-import { useToggle } from './useToggle';
 import { getBestCoupons } from '../components/Modal/utils/getBestCoupons';
 import { isCouponEnabled } from '../components/Modal/utils/isCouponEnabled';
 import type { Coupon } from '../types/coupon';
@@ -11,13 +10,10 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   const { data: coupons } = useCoupons();
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [draftCoupons, setDraftCoupons] = useState<Coupon[]>([]);
-  const { value: isOpen, on: open, off: close } = useToggle(false);
 
-  const handleOpen = () => {
+  const setCoupons = () => {
     setDraftCoupons(selectedCoupons);
-    open();
   };
-  const handleClose = () => close();
 
   const toggleCoupon = (coupon: Coupon) => {
     if (!isCouponEnabled({ coupon, orderAmount, items })) return;
@@ -33,7 +29,6 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
 
   const apply = () => {
     setSelectedCoupons(draftCoupons);
-    close();
   };
 
   useEffect(() => {
@@ -44,10 +39,8 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
     coupons,
     selectedCoupons,
     draftCoupons,
-    isOpen,
-    handleOpen,
-    handleClose,
     toggleCoupon,
+    setCoupons,
     apply
   };
 }

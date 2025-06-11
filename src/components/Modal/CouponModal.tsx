@@ -17,7 +17,7 @@ interface CouponModalProps {
   totalDeliveryFee: number;
   draftCoupons: Coupon[];
   toggleCoupon: (coupon: Coupon) => void;
-  apply: () => void;
+  handleApply: () => void;
 }
 
 const CouponModal = ({
@@ -28,7 +28,7 @@ const CouponModal = ({
   checkedItems,
   draftCoupons,
   toggleCoupon,
-  apply
+  handleApply
 }: CouponModalProps) => {
   const tempTotalDiscount = useTotalDiscount(draftCoupons, orderAmount, checkedItems);
 
@@ -60,7 +60,7 @@ const CouponModal = ({
           })
         )}
       </div>
-      <Button css={buttonCss} onClick={apply}>
+      <Button css={buttonCss} onClick={handleApply}>
         총 {tempTotalDiscount.toLocaleString()}원 할인쿠폰 사용하기
       </Button>
     </Modal>

@@ -12,6 +12,7 @@ import { useDeliveryFee } from '../hooks/useDeliveryFee';
 import { useCouponSelector } from '../hooks/useCouponSelector';
 import { useTotalDiscount } from '../hooks/useTotalDiscount';
 import { usePageStateGuard } from '../hooks/usePageStateGuard';
+import { useModalOpenClose } from '../hooks/useModalOpenClose';
 
 function OrderPage() {
   const navigate = useNavigate();
@@ -31,13 +32,16 @@ function OrderPage() {
     message: '비정상적인 접근입니다. 장바구니로 이동하시겠습니까?'
   });
 
-  const { coupons, selectedCoupons, draftCoupons, isOpen, handleOpen, handleClose, toggleCoupon, apply } =
-    useCouponSelector(orderAmount, checkedItems);
+  const { coupons, selectedCoupons, draftCoupons, toggleCoupon, apply, setCoupons } = useCouponSelector(
+    orderAmount,
+    checkedItems
+  );
   const totalDiscount = useTotalDiscount(selectedCoupons, orderAmount, checkedItems!);
   const { isSpecialDelivery, toggleSpecialDelivery, totalFee } = useDeliveryFee(
     deliveryFee,
     selectedCoupons.some((c) => c.discountType === 'freeShipping')
   );
+  const { isOpen, handleOpen, handleApply, close } = useModalOpenClose({ setCoupons, apply });
 
   const totalAmountAfterDiscount = orderAmount + totalFee - totalDiscount;
 
@@ -50,7 +54,6 @@ function OrderPage() {
       }
     });
   };
-
   return (
     <>
       <Header
@@ -92,14 +95,14 @@ function OrderPage() {
       </main>
       <CouponModal
         isOpen={isOpen}
-        handleClose={handleClose}
+        handleClose={close}
         coupons={coupons ?? []}
         orderAmount={orderAmount ?? 0}
         checkedItems={checkedItems ?? []}
         totalDeliveryFee={totalFee ?? 0}
         draftCoupons={draftCoupons}
         toggleCoupon={toggleCoupon}
-        apply={apply}
+        handleApply={handleApply}
       />
     </>
   );
