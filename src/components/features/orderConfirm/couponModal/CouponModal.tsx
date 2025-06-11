@@ -3,9 +3,9 @@ import Separator from '../../../common/separator/Separator';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
 import { useEscapeKey } from '../hooks/useEscapeKey';
-import { useCouponContext } from '../../../../global/contexts/CouponContext';
-import { useCartSelectionContext } from '../../../../global/contexts/CartSelectionContext';
+import { useCartSelectionContext } from '../../cart/contexts/CartSelectionContext';
 import { getCouponValidator } from '../utils/getCouponValidator';
+import { useCouponContext } from '../contexts/CouponContext';
 
 interface CouponModalProps {
   onClose: () => void;

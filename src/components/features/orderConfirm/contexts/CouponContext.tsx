@@ -5,13 +5,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { CartItemType } from '../../components/features/cart/types';
-import {
-  CouponType,
-  CouponDiscount,
-} from '../../components/features/orderConfirm/types';
-import fetchData from '../../components/features/cart/utils/fetchData';
-import { calculateCouponDiscount } from '../../components/features/orderConfirm/utils/calculateCouponDiscount';
+import { CartItemType } from '../../cart/types';
+import { CouponDiscount, CouponType } from '../types';
+import fetchData from '../../cart/utils/fetchData';
+import { calculateCouponDiscount } from '../utils/calculateCouponDiscount';
 
 interface CouponProviderProps {
   products: CartItemType[];

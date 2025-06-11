@@ -2,10 +2,10 @@ import { DELIVERY_FEE } from '../../../../global/constants';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
 import * as S from './OrderPrice.styles';
-import { useCouponContext } from '../../../../global/contexts/CouponContext';
 import usePaymentCalculation from '../hooks/usePaymentCalculation';
 import FooterButton from '../../../common/footerButton/FooterButton';
 import { useNavigate } from 'react-router';
+import { useCouponContext } from '../contexts/CouponContext';
 
 interface OrderPriceProps {
   order: {

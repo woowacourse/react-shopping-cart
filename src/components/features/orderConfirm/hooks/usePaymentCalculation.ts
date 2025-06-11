@@ -1,4 +1,4 @@
-import { useCouponContext } from '../../../../global/contexts/CouponContext';
+import { useCouponContext } from '../contexts/CouponContext';
 
 function usePaymentCalculation(price: number, totalDiscount: number) {
   const { isIslandAreaSelected, setIsIslandAreaSelected } = useCouponContext();

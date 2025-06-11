@@ -7,8 +7,8 @@ import {
   useEffect,
   ReactNode,
 } from 'react';
-import { calculateOrderPrice } from '../../components/features/cart/utils/cartCalculations';
-import { CartItemType } from '../../components/features/cart/types';
+import { calculateOrderPrice } from '../utils/cartCalculations';
+import { CartItemType } from '../types';
 import { useCartContext } from './CartContext';
 
 interface CartSelectionContextValue {

@@ -4,7 +4,7 @@ import { resetCartItems } from '../src/mocks/handlers';
 import CartPage from '../src/pages/cart/CartPage';
 import OrderConfirmPage from '../src/pages/orderConfirm/OrderConfirmPage';
 import { CartProvider } from '../src/global/contexts/CartContext';
-import { CartSelectionProvider } from '../src/global/contexts/CartSelectionContext';
+import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
 
 describe('OrderConfirmPage 테스트', () => {
   beforeEach(() => {

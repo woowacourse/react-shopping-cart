@@ -1,9 +1,9 @@
+import { CouponProvider } from '../contexts/CouponContext';
 import useOrderSummary from '../hooks/useOrderSummary';
 import OrderList from '../orderList/OrderList';
 import OrderPrice from '../orderPrice/OrderPrice';
 import OrderTitle from '../orderTitle/OrderTitle';
 import * as S from './OrderContents.styles';
-import { CouponProvider } from '../../../../global/contexts/CouponContext';
 function OrderContents() {
   const order = useOrderSummary();
 

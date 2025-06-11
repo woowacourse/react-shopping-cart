@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router';
 import CartContents from '../src/components/features/cart/cartContents/CartContents';
 import { resetCartItems } from '../src/mocks/handlers';
 import { CartProvider } from '../src/global/contexts/CartContext';
-import { CartSelectionProvider } from '../src/global/contexts/CartSelectionContext';
+import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
 
 describe('CartContents 테스트', () => {
   beforeEach(() => {
