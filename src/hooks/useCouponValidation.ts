@@ -48,7 +48,7 @@ export const useCouponValidation = () => {
           );
         }
         default:
-          return true;
+          throw new Error(`Unknown discount type: ${coupon.discountType}`);
       }
     },
     [selectedItems, orderPrice]
