@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { getShoppingCartData } from "../../../../../api/cart";
-import { Flex } from "../../../../../components/common";
-import CheckboxLabel from "../../../../../components/common/inputs/CheckboxLabel";
-import { useAPIDataContext } from "../../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../../context/OrderListProvider";
-import { useOrderCalculation } from "../../../hooks/useOrderCalculation";
-import OrderLabelPridce from "../OrderLabelPrice";
-import { useCouponContext } from "../../../../../pages/order-confirm/context/CouponProvider";
+import CheckboxLabel from "../../../../components/common/inputs/CheckboxLabel";
+import OrderLabelPridce from "../order-contents/OrderLabelPrice";
+import { useAPIDataContext } from "../../../../context/APIDataProvider";
+import { getShoppingCartData } from "../../../../api/cart";
+import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
+import { useOrderCalculation } from "../../hooks/useOrderCalculation";
+import { Flex } from "../../../../components/common";
 
 function DeliveryInfo() {
   const { data: cartListData } = useAPIDataContext({
