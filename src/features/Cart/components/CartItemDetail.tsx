@@ -10,13 +10,11 @@ import { QuantitySelector } from '@/features/Cart/components/QuantitySelector';
 
 import NoImage from '../../../../public/NoImage.svg';
 import { CartItem } from '../types/Cart.types';
+import { useCartContext } from '../context/CartProvider';
 
 type CartItemDetailProps = {
   variant: 'cart' | 'review';
   isChecked?: boolean;
-  onToggle?: (id: number) => void;
-  onRemove?: (id: number) => void;
-  onUpdateQuantity?: (cartId: number, newQuantity: number) => void;
 } & CartItem;
 
 export const CartItemDetail = ({
@@ -24,11 +22,9 @@ export const CartItemDetail = ({
   isChecked,
   quantity,
   product,
-  onToggle,
-  onRemove,
-  onUpdateQuantity,
   variant = 'cart',
 }: CartItemDetailProps) => {
+  const { toggleCheck, removeCartItem, updateQuantity } = useCartContext();
   const isCartMode = variant === 'cart';
 
   const imgUrl =
@@ -57,7 +53,7 @@ export const CartItemDetail = ({
           gap="0"
           margin="10px 0 0 0 "
         >
-          <CheckBox role="checkbox" checked={isChecked} onClick={() => onToggle?.(id)} />
+          <CheckBox role="checkbox" checked={isChecked} onClick={() => toggleCheck?.(id)} />
           <Button
             variant="outlined"
             size="xs"
@@ -66,7 +62,7 @@ export const CartItemDetail = ({
             css={css`
               margin-top: 8px;
             `}
-            onClick={() => onRemove?.(id)}
+            onClick={() => removeCartItem?.(id)}
           >
             삭제
           </Button>
@@ -103,8 +99,8 @@ export const CartItemDetail = ({
           {isCartMode ? (
             <QuantitySelector
               count={quantity}
-              onIncrease={() => onUpdateQuantity?.(id, quantity + 1)}
-              onDecrease={() => onUpdateQuantity?.(id, quantity - 1)}
+              onIncrease={() => updateQuantity?.(id, quantity + 1)}
+              onDecrease={() => updateQuantity?.(id, quantity - 1)}
             />
           ) : (
             <Text type="Caption">{quantity}개</Text>

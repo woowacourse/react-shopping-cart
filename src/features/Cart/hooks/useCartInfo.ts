@@ -1,7 +1,8 @@
-import { CartItem } from '@/features/Cart/types/Cart.types';
 import { FREE_DELIVERY_THRESHOLD } from '../constants/price';
+import { useCartContext } from '../context/CartProvider';
 
-export const useCartInfo = (cartItems: CartItem[]) => {
+export const useCartInfo = () => {
+  const { cartItems } = useCartContext();
   const allChecked = cartItems.every((item) => item.isChecked);
   const cartItemCount = cartItems.length;
   const selectedCartItems = cartItems.filter((item) => item.isChecked);

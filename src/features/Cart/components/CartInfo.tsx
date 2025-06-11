@@ -12,31 +12,19 @@ import { PriceSummary } from '@/features/Cart/components/PriceSummary';
 
 import { StepProps } from '@/shared/types/funnel';
 import { CartListContainer } from '@/features/Cart/container/CartListContainer';
-import { CartItem } from '@/features/Cart/types/Cart.types';
 import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
+import { useCartContext } from '../context/CartProvider';
 
-type CartInfoProps = {
-  cartItems: CartItem[];
-  onToggle: (id: number) => void;
-  onToggleAll: VoidFunction;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
-} & StepProps;
-export const CartInfo = ({
-  cartItems,
-  onNext,
-  onToggle,
-  onToggleAll,
-  onRemove,
-  onUpdateQuantity,
-}: CartInfoProps) => {
+export const CartInfo = ({ onNext }: StepProps) => {
+  const { cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem } =
+    useCartContext();
   const {
     allChecked,
     cartItemCount,
     selectedCartItemCount,
     progressValue,
     remainingForFreeShipping,
-  } = useCartInfo(cartItems);
+  } = useCartInfo();
 
   return (
     <>
@@ -110,7 +98,7 @@ export const CartInfo = ({
               gap="10px"
               margin="10px 0 0 0"
             >
-              <CheckBox checked={allChecked} onChange={onToggleAll} role="all-check" />
+              <CheckBox checked={allChecked} onChange={toggleAllCheck} role="all-check" />
               <Text type="Caption" weight="regular">
                 {`전체선택  (${selectedCartItemCount}/${cartItemCount})`}
               </Text>
@@ -121,14 +109,11 @@ export const CartInfo = ({
               <CartItemDetail
                 key={item.id}
                 variant="cart"
-                onToggle={onToggle}
-                onRemove={onRemove}
-                onUpdateQuantity={onUpdateQuantity}
                 {...item}
               />
             ))}
           </CartListContainer>
-          <PriceSummary cartItems={cartItems ?? []} />
+          <PriceSummary />
         </>
       )}
       <Button

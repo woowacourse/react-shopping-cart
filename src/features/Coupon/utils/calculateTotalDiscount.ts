@@ -7,11 +7,9 @@ export const calculateTotalDiscount = (
   coupons: Coupon[],
   {
     isRemoteArea,
-    deliveryFee,
     totalPrice,
   }: {
     isRemoteArea: boolean;
-    deliveryFee: number;
     totalPrice: number;
   }
 ): number => {

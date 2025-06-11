@@ -8,14 +8,12 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Coupon } from '../types/Coupon.types';
 import { formatDate, formatTime } from '@/shared/utils/date';
-import { CartItem } from '@/features/Cart/types/Cart.types';
 import { calculateTotalDiscount } from '../utils/calculateTotalDiscount';
 import { useCartContext } from '@/features/Cart/context/CartProvider';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
 import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 
 type CouponModalProps = {
-  cartItems: CartItem[];
   coupons: Coupon[];
   onClose: () => void;
   onToggleCoupon: (id: number) => void;
@@ -23,20 +21,18 @@ type CouponModalProps = {
 };
 
 export const CouponModal = ({
-  cartItems,
   coupons,
   onClose,
   onToggleCoupon,
   onApply,
 }: CouponModalProps) => {
   const { isRemoteArea } = useCartContext();
-  const { totalPrice, deliveryFee } = usePriceInfo({ cartItems, isRemoteArea });
-  const { selectedCartItems } = useCartInfo(cartItems);
+  const { totalPrice } = usePriceInfo();
+  const { selectedCartItems } = useCartInfo();
 
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
   const totalDiscount = calculateTotalDiscount(selectedCartItems, selectedCoupons, {
     isRemoteArea,
-    deliveryFee,
     totalPrice,
   });
 

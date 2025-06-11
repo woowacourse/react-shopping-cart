@@ -3,24 +3,20 @@ import styled from '@emotion/styled';
 import { Flex } from '@/shared/components/Flex/Flex';
 import { Text } from '@/shared/components/Text/Text';
 
-import { CartItem } from '@/features/Cart/types/Cart.types';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
 import { useCartContext } from '../context/CartProvider';
 
 type PriceSummaryProps = {
   variant?: 'cart' | 'review';
-  cartItems: CartItem[];
   discountAmount?: number;
 };
 
 export const PriceSummary = ({
   variant = 'cart',
-  cartItems,
   discountAmount = 0,
 }: PriceSummaryProps) => {
   const isCartMode = variant === 'cart';
-  const { isRemoteArea } = useCartContext();
-  const { orderPrice, deliveryFee, totalPrice } = usePriceInfo({ cartItems, isRemoteArea });
+  const { orderPrice, deliveryFee, totalPrice } = usePriceInfo();
 
   return (
     <Flex

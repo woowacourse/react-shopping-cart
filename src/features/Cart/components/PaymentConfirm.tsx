@@ -5,19 +5,17 @@ import { Flex } from '@/shared/components/Flex/Flex';
 import { Text } from '@/shared/components/Text/Text';
 
 import { StepProps } from '@/shared/types/funnel';
-import { CartItem } from '@/features/Cart/types/Cart.types';
 import { Coupon } from '@/features/Coupon/types/Coupon.types';
 import { useOrderInfo } from '@/features/Cart/hooks/useOrderInfo';
 import { useFinalPriceInfo } from '@/features/Cart/hooks/useFinalPriceInfo';
 
 type PaymentConfirmProps = {
-  cartItems: CartItem[];
   selectedCoupons: Coupon[];
 } & StepProps;
 
-export const PaymentConfirm = ({ cartItems, selectedCoupons, onPrev }: PaymentConfirmProps) => {
-  const { hasCheckCartLength, totalQuantity } = useOrderInfo(cartItems);
-  const { finalPrice } = useFinalPriceInfo({ cartItems, selectedCoupons });
+export const PaymentConfirm = ({ selectedCoupons, onPrev }: PaymentConfirmProps) => {
+  const { hasCheckCartLength, totalQuantity } = useOrderInfo();
+  const { finalPrice } = useFinalPriceInfo({ selectedCoupons });
 
   return (
     <>

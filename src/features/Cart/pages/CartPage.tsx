@@ -10,26 +10,16 @@ type STEPS = '장바구니' | '주문정보' | '결제확인';
 
 export const CartPage = () => {
   const { Funnel, setStep } = useFunnel<STEPS>('장바구니');
-  const { cartItems, toggleCheck, toggleAllCheck, removeCartItem, updateQuantity } =
-    useCartContext();
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
   return (
     <Funnel>
       <Funnel.Step name="장바구니">
-        <CartInfo
-          cartItems={cartItems ?? []}
-          onToggle={toggleCheck}
-          onToggleAll={toggleAllCheck}
-          onRemove={removeCartItem}
-          onUpdateQuantity={updateQuantity}
-          onNext={() => setStep('주문정보')}
-        />
+        <CartInfo onNext={() => setStep('주문정보')} />
       </Funnel.Step>
 
       <Funnel.Step name="주문정보">
         <OrderConfirm
-          cartItems={cartItems ?? []}
           onPrev={() => setStep('장바구니')}
           onNext={() => setStep('결제확인')}
           onSelectCoupons={setSelectedCoupons}
@@ -38,7 +28,6 @@ export const CartPage = () => {
 
       <Funnel.Step name="결제확인">
         <PaymentConfirm
-          cartItems={cartItems ?? []}
           selectedCoupons={selectedCoupons}
           onPrev={() => setStep('장바구니')}
         />

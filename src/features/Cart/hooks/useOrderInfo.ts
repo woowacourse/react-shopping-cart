@@ -1,6 +1,7 @@
-import { CartItem } from '@/features/Cart/types/Cart.types';
+import { useCartContext } from '../context/CartProvider';
 
-export const useOrderInfo = (cartItems: CartItem[] = []) => {
+export const useOrderInfo = () => {
+  const { cartItems } = useCartContext();
   const hasCheckCartLength = cartItems.filter((item) => item.isChecked).length;
 
   const totalQuantity = cartItems.reduce(

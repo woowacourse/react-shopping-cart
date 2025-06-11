@@ -28,16 +28,16 @@ import { usePriceInfo } from '../hooks/usePriceInfo';
 import { calculateTotalDiscount } from '@/features/Coupon/utils/calculateTotalDiscount';
 
 type OrderConfirmProps = {
-  cartItems: CartItem[];
   onSelectCoupons: (selected: Coupon[]) => void;
 } & StepProps;
 
-export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: OrderConfirmProps) => {
-  const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo(cartItems);
-  const { selectedCartItems } = useCartInfo(cartItems);
+export const OrderConfirm = ({ onSelectCoupons, onPrev, onNext }: OrderConfirmProps) => {
+  const {cartItems } = useCartContext();
+  const { hasCheckCartLength, totalQuantity, totalPrice } = useOrderInfo();
+  const { selectedCartItems } = useCartInfo();
   const { showToast } = useContext(ToastContext);
   const { isRemoteArea } = useCartContext();
-  const { deliveryFee } = usePriceInfo({ cartItems, isRemoteArea });
+  const { deliveryFee } = usePriceInfo();
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
   const [showCouponList, setShowCouponList] = useState(false);
@@ -97,7 +97,6 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
     const selected = coupons.filter((c) => c.checked && !c.disabled);
     const discount = calculateTotalDiscount(selectedCartItems, selected, {
       totalPrice,
-      deliveryFee,
       isRemoteArea,
     });
 
@@ -157,7 +156,7 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
           쿠폰 적용
         </Button>
         <RemoteAreaCheckBox />
-        <PriceSummary variant="review" cartItems={cartItems} discountAmount={discountAmount} />
+        <PriceSummary variant="review" discountAmount={discountAmount} />
       </Flex>
       <Button
         width="100%"
@@ -172,7 +171,6 @@ export const OrderConfirm = ({ cartItems, onSelectCoupons, onPrev, onNext }: Ord
       </Button>
       {showCouponList && (
         <CouponModal
-          cartItems={cartItems}
           coupons={coupons}
           onClose={() => setShowCouponList(false)}
           onToggleCoupon={onToggleCoupon}
