@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-interface useJaeOMutationProps<TVariable, TData> {
+interface UseJaeOMutationOptions<TVariable, TData> {
   mutationFn: (variables: TVariable) => Promise<TData>;
   options?: {
     onSuccess: (result: TData) => void;
@@ -11,7 +11,7 @@ interface useJaeOMutationProps<TVariable, TData> {
 export function useJaeOMutation<TVariable, TData>({
   mutationFn,
   options,
-}: useJaeOMutationProps<TVariable, TData>) {
+}: UseJaeOMutationOptions<TVariable, TData>) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 

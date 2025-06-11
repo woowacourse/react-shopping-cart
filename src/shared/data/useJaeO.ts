@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { getSnapshot, refetchData, subscribe } from './dataStore';
 
-interface useJaeOProps<T, R = T> {
+interface UseJaeOOptions<T, R = T> {
   fetchKey: string;
   fetchFn: () => Promise<T>;
   convertFn?: (raw: T) => R;
@@ -21,7 +21,7 @@ export function useJaeO<T, R = T>({
   convertFn,
   onError,
   onSuccess,
-}: useJaeOProps<T, R>) {
+}: UseJaeOOptions<T, R>) {
   const fetchFnRef = useRef(fetchFn);
   const convertFnRef = useRef(convertFn);
   const onErrorRef = useRef(onError);
