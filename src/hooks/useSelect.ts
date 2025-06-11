@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { CartItemProps } from '../types/cartItem';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { selectedItemsStorage } from '../utils/localStorage';
 
 function useSelect(cartList: CartItemProps[]) {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -14,22 +14,22 @@ function useSelect(cartList: CartItemProps[]) {
   const initialLoadRef = useRef(true);
 
   useEffect(() => {
-    const localSelectedItems = getLocalStorage('selectedItems');
+    const localSelectedItems = selectedItemsStorage.get();
     if (cartList.length > 0 && initialLoadRef.current) {
       if (localSelectedItems.length > 0) {
         setSelectedItems(localSelectedItems);
       } else {
         setSelectedItems(AllCartItems);
-        setLocalStorage('selectedItems', AllCartItems);
+        selectedItemsStorage.set(AllCartItems);
       }
       initialLoadRef.current = false;
     } else {
       if (checkCartItemIds.length > 0) {
         setSelectedItems(checkCartItemIds);
-        setLocalStorage('selectedItems', checkCartItemIds);
+        selectedItemsStorage.set(checkCartItemIds);
       } else {
         setSelectedItems(localSelectedItems);
-        setLocalStorage('selectedItems', localSelectedItems);
+        selectedItemsStorage.set(localSelectedItems);
       }
     }
   }, [cartList.length]);
@@ -38,21 +38,21 @@ function useSelect(cartList: CartItemProps[]) {
     if (selectedItems.includes(cartItemId)) {
       const filtered = selectedItems.filter((item) => item !== cartItemId);
       setSelectedItems(filtered);
-      setLocalStorage('selectedItems', filtered);
+      selectedItemsStorage.set(filtered);
     } else {
       const newSelectedItems = [...selectedItems, cartItemId];
       setSelectedItems(newSelectedItems);
-      setLocalStorage('selectedItems', newSelectedItems);
+      selectedItemsStorage.set(newSelectedItems);
     }
   };
 
   const selectAllItems = () => {
     if (isAllSelected) {
       setSelectedItems([]);
-      setLocalStorage('selectedItems', []);
+      selectedItemsStorage.set([]);
     } else {
       setSelectedItems(AllCartItems);
-      setLocalStorage('selectedItems', AllCartItems);
+      selectedItemsStorage.set(AllCartItems);
     }
   };
 

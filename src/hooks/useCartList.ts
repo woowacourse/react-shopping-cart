@@ -3,7 +3,7 @@ import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { useToastContext } from '../context/ToastContext';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { cartListStorage } from '../utils/localStorage';
 
 function useCartList() {
   const [cartList, setCartList] = useState<CartItemProps[]>([]);
@@ -18,13 +18,13 @@ function useCartList() {
   const loadCartList = async () => {
     setIsLoading(true);
     try {
-      const localCartList = getLocalStorage('cartList');
+      const localCartList = cartListStorage.get();
       if (localCartList.length > 0) {
         setCartList(localCartList);
       } else {
         const response = await cart.getCartList();
         setCartList(response);
-        setLocalStorage('cartList', response);
+        cartListStorage.set(response);
       }
     } catch (error) {
       setError(ERROR_MESSAGE.CART_LIST);
@@ -43,7 +43,7 @@ function useCartList() {
           : item
       );
       setCartList(increasedCartList);
-      setLocalStorage('cartList', increasedCartList);
+      cartListStorage.set(increasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.INCREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.INCREASE_CART_ITEM);
@@ -59,7 +59,7 @@ function useCartList() {
           : item
       );
       setCartList(decreasedCartList);
-      setLocalStorage('cartList', decreasedCartList);
+      cartListStorage.set(decreasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DECREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.DECREASE_CART_ITEM);
@@ -71,7 +71,7 @@ function useCartList() {
       await cart.deleteCartItem(cartItemId);
       const deletedCartList = cartList.filter((item) => item.id !== cartItemId);
       setCartList(deletedCartList);
-      setLocalStorage('cartList', deletedCartList);
+      cartListStorage.set(deletedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DELETE_CART_ITEM);
       showToast(ERROR_MESSAGE.DELETE_CART_ITEM);
