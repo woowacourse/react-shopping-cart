@@ -10,7 +10,7 @@ function PaymentContents() {
 
   const navigate = useNavigate();
 
-  const handleBackToCart = () => {
+  const goHome = () => {
     navigate('/');
   };
 
@@ -28,9 +28,7 @@ function PaymentContents() {
           <S.Price>{price.toLocaleString()}원</S.Price>
         </S.PriceBox>
       </S.InfoBox>
-      <FooterButton onClick={handleBackToCart}>
-        장바구니로 돌아가기
-      </FooterButton>
+      <FooterButton onClick={goHome}>장바구니로 돌아가기</FooterButton>
     </S.Container>
   );
 }
