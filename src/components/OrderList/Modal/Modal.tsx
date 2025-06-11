@@ -6,7 +6,7 @@ import { useCouponListContext } from "../../../contexts/CouponContext";
 import { useReceipt } from "../../../hooks/useReceipt";
 import { CouponResponse } from "../../../types/Coupon";
 import * as S from "./Modal.styles";
-import CouponItem from "../Coupon/CouponItem";
+import CouponItem from "../Coupon/CouponItem/CouponItem";
 import CartItemCheck from "../../../types/CartItemCheck";
 import calculateDisableCoupon from "../../../utils/calculateDisableCoupon";
 

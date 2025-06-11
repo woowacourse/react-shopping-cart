@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./CheckBocx.styles";
+import * as S from "./CheckBox.styles";
 
 interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 

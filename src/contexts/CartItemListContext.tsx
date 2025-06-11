@@ -8,13 +8,13 @@ import {
 
 import CartItem from "../types/CartItem";
 
-type CartItemsContextType = {
+type cartItemsContextType = {
   cartItemList: CartItem[];
   updateCartItemList: (value: CartItem[]) => void;
 };
 
 export const CartItemListContext = createContext<
-  CartItemsContextType | undefined
+  cartItemsContextType | undefined
 >(undefined);
 
 export const CartItemListProvider = ({ children }: { children: ReactNode }) => {

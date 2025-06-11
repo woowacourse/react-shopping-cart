@@ -9,7 +9,7 @@ type AddProductParams = {
   };
 };
 
-const PatchProduct = async ({ method, params }: AddProductParams) => {
+const patchProduct = async ({ method, params }: AddProductParams) => {
   const url = new URL(BASE_URL + "/cart-items/" + params.productId);
 
   const options = {
@@ -27,4 +27,4 @@ const PatchProduct = async ({ method, params }: AddProductParams) => {
   }
 };
 
-export default PatchProduct;
+export default patchProduct;

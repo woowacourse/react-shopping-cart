@@ -1,12 +1,12 @@
-import { CouponResponse } from "../../../types/Coupon";
+import { CouponResponse } from "../../../../types/Coupon";
 import {
   formatAvailableTime,
   formatCurrency,
   formatDate,
-} from "../../../utils/format";
-import CheckBox from "../../common/CheckBox/CheckBox";
-import Hr from "../../common/Hr/Hr";
-import * as S from "../Modal/Modal.styles";
+} from "../../../../utils/format";
+import CheckBox from "../../../common/CheckBox/CheckBox";
+import Hr from "../../../common/Hr/Hr";
+import * as S from "../../Modal/Modal.styles";
 
 interface Props {
   coupon: CouponResponse;
