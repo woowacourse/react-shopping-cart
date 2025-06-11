@@ -57,8 +57,8 @@ function OrderCheck() {
       </Header>
       <ContainerLayout>
         <PageTitle>
-          <Text varient="title">주문 확인</Text>
-          <Text varient="caption">
+          <Text variant="title">주문 확인</Text>
+          <Text variant="caption">
             총 {selectedCartData.length}종류의 상품 {totalProductQuantity}개를
             주문합니다.
           </Text>

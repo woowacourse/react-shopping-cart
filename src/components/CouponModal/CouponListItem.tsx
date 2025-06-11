@@ -32,17 +32,17 @@ function CouponListItem({
           onChange={() => onSelectCoupon(coupon.code)}
           disabled={!isAvailable}
         />
-        <Text varient="body">{coupon.description}</Text>
+        <Text variant="body">{coupon.description}</Text>
       </div>
       <div css={CouponModalListItemDescriptionStyle}>
-        <Text varient="caption">만료일자: {coupon.expirationDate}</Text>
+        <Text variant="caption">만료일자: {coupon.expirationDate}</Text>
         {coupon.minimumAmount ? (
-          <Text varient="caption">
+          <Text variant="caption">
             최소 주문 금액: {coupon.minimumAmount?.toLocaleString()}원
           </Text>
         ) : null}
         {coupon.availableTime ? (
-          <Text varient="caption">
+          <Text variant="caption">
             {`사용 가능 시간: 오전 ${getHourFromTime(
               coupon.availableTime?.start
             )}시부터 ${getHourFromTime(coupon.availableTime?.end)}시까지`}

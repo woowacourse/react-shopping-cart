@@ -24,7 +24,7 @@ function PayButton({
         })
       }
     >
-      <Text varient="body">결제하기</Text>
+      <Text variant="body">결제하기</Text>
     </button>
   );
 }

@@ -21,7 +21,7 @@ function OrderButton({
         navigate('/order-check', { state: { selectedCartData, totalPrice } })
       }
     >
-      <Text varient="body">주문 확인</Text>
+      <Text variant="body">주문 확인</Text>
     </button>
   );
 }

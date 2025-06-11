@@ -18,7 +18,7 @@ function OrderItem({ cartItem }: { cartItem: CartItemProps }) {
           price={cartItem.product.price}
         >
           <div css={OrderItemQuantityStyle}>
-            <Text varient="caption">{cartItem.quantity}개</Text>
+            <Text variant="caption">{cartItem.quantity}개</Text>
           </div>
         </ListItemInfo>
       </ListItemBody>

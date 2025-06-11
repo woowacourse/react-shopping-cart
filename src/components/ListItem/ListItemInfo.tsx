@@ -13,8 +13,8 @@ function ListItemInfo({
 }) {
   return (
     <div css={ItemInfo}>
-      <Text varient="caption">{name}</Text>
-      <Text varient="title">{price.toLocaleString()}원</Text>
+      <Text variant="caption">{name}</Text>
+      <Text variant="title">{price.toLocaleString()}원</Text>
       {children}
     </div>
   );

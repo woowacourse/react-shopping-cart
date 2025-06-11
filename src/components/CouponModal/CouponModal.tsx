@@ -37,7 +37,7 @@ function CouponModal({
   return createPortal(
     <div css={CouponModalContainerStyle}>
       <div css={CouponModalContentStyle}>
-        <Text varient="subTitle">쿠폰을 선택해 주세요</Text>
+        <Text variant="subTitle">쿠폰을 선택해 주세요</Text>
         <CouponModalCloseButton onClose={onClose} />
         <CouponSelectDescription>
           쿠폰은 최대 2개까지 사용할 수 있습니다.
@@ -57,7 +57,7 @@ function CouponModal({
           onConfirm={onConfirm}
           isAvailable={availableCoupons.length > 0}
         >
-          <Text varient="body">
+          <Text variant="body">
             {availableCoupons.length > 0 ? '쿠폰 적용하기' : '가능한 쿠폰 없음'}
           </Text>
         </CouponModalConfirmButton>

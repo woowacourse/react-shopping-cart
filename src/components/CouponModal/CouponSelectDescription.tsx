@@ -7,7 +7,7 @@ function CouponSelectDescription({ children }: { children: React.ReactNode }) {
   return (
     <div css={CouponSelectDescriptionStyle}>
       <img src={Info} alt="coupon-info" />
-      <Text varient="caption">{children}</Text>
+      <Text variant="caption">{children}</Text>
     </div>
   );
 }

@@ -17,7 +17,7 @@ function DeliveryInfo({
 }: DeliveryInfoProps) {
   return (
     <section css={DeliveryInfoStyle}>
-      <Text varient="body">배송 정보</Text>
+      <Text variant="body">배송 정보</Text>
       <div css={DeliveryInfoCheckboxContainerStyle}>
         <input
           type="checkbox"
@@ -25,7 +25,7 @@ function DeliveryInfo({
           checked={isFarDelivery}
           onChange={handleFarDeliverySelect}
         />
-        <Text varient="caption">제주도 및 도서 산간 지역</Text>
+        <Text variant="caption">제주도 및 도서 산간 지역</Text>
       </div>
     </section>
   );

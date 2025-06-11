@@ -22,7 +22,7 @@ function CartList({
           checked={isAllSelected}
           onChange={handleSelectedAllItems}
         />
-        <Text varient="caption">전체 선택</Text>
+        <Text variant="caption">전체 선택</Text>
       </div>
       <List>{children}</List>
     </ListContainer>

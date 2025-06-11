@@ -29,7 +29,7 @@ function CartItemHeader({
         css={DeleteButtonStyle}
         onClick={() => onDeleteCartItemClick(cartItemId)}
       >
-        <Text varient="caption">삭제</Text>
+        <Text variant="caption">삭제</Text>
       </button>
     </div>
   );

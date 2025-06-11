@@ -45,8 +45,8 @@ function CartPage() {
       </Header>
       <ContainerLayout>
         <PageTitle>
-          <Text varient="title">장바구니</Text>
-          <Text varient="caption">
+          <Text variant="title">장바구니</Text>
+          <Text variant="caption">
             현재 {cartList.length}종류의 상품이 담겨있습니다.
           </Text>
         </PageTitle>

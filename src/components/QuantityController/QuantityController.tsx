@@ -35,7 +35,7 @@ function QuantityController({
       >
         <img src={Minus} alt="수량 줄이기 버튼" />
       </button>
-      <Text varient="caption">{quantity}</Text>
+      <Text variant="caption">{quantity}</Text>
       <button
         css={ControllerButtonStyle}
         onClick={() =>
