@@ -20,13 +20,7 @@ import { Back, Default } from '../../../assets';
 import { TEXT } from '../../../constants/text';
 import { CartItemProps } from '../../../types/cartItem';
 import { validateCoupons } from '../../../utils/couponValidate';
-import {
-  calculateFinalPrice,
-  calculateShippingFee,
-  getAvailableCoupons,
-  getBestCouponCombo,
-  hasFreeShippingCoupon,
-} from '../../../utils/couponDiscount';
+import { computeOrderSummary } from '../../../utils/computeOrderSummary';
 
 function OrderCheckPage() {
   const navigate = useNavigate();
@@ -42,28 +36,14 @@ function OrderCheckPage() {
   const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
   const [checkedCoupons, setCheckedCoupons] = useState<number[] | null>(null);
 
-  const availableCouponList = getAvailableCoupons(validatedCouponList);
-  const result = getBestCouponCombo(
+  const { comboResult, deliveryFee, finalPrice } = computeOrderSummary({
+    validatedCouponList,
     checkedCoupons,
-    cart.selectedCartItems,
-    availableCouponList,
-    cart.subTotal,
-    cart.deliveryFee
-  );
-
-  const hasFreeShipping = hasFreeShippingCoupon(result?.combo ?? []);
-  const deliveryFee = calculateShippingFee(
-    cart.deliveryFee,
-    hasFreeShipping,
-    isRemotedAreaChecked
-  );
-  const finalPrice = calculateFinalPrice(
-    result?.PriceWithDiscount ?? 0,
-    deliveryFee
-  );
+    isRemotedAreaChecked,
+  });
 
   const handleCouponModalOpen = () => {
-    setCheckedCoupons(result.combo.map((coupon) => coupon.id));
+    setCheckedCoupons(comboResult?.combo.map((coupon) => coupon.id));
     setIsCouponModalOpen(true);
   };
 
@@ -119,7 +99,7 @@ function OrderCheckPage() {
         <CartPriceCouponInfo
           subTotal={cart.subTotal}
           deliveryFee={deliveryFee}
-          totalDiscount={result?.totalDiscount ?? 0}
+          totalDiscount={comboResult?.totalDiscount ?? 0}
           finalPrice={finalPrice}
         />
       </ContainerLayout>
