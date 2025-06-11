@@ -21,20 +21,24 @@ const useCartCheck = (cartItemIds: number[]) => {
     }
   };
 
+  // 삭제된 아이템의 체크 상태 제거 함수
+  const removeCheckedItem = (deletedId: number) => {
+    setCheckedIds((prev) => prev.filter((id) => id !== deletedId));
+  };
+
   useEffect(() => {
     if (isInitialized && cartItemIds.length !== 0) {
       setCheckedIds([...cartItemIds]);
       setIsInitialized(false);
       return;
     }
-
-    setCheckedIds((prev) => prev.filter((id) => cartItemIds.includes(id)));
   }, [cartItemIds]);
 
   return {
     checkedIds,
     isAllChecked,
     handleCheckChange,
+    removeCheckedItem,
   };
 };
 

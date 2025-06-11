@@ -129,3 +129,4 @@ useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
 - [x] useEffect 사용 -> 이벤트 핸들러로 처리
   - [x] localStorage 사용 훅에서의 useEffect 제거
   - [x] useTempCoupon 훅 useEffect 제거 + 컴포넌트 생명주기 활용
+- [x] 체크 상태 오류 기능 수정
