@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchCouponList } from "../../../api/fetchCouponList";
+import { getCouponList } from "../../../api/getCouponList";
 import Close from "../../../assets/Close.png";
 import Info from "../../../assets/Info.png";
 import { useCouponListContext } from "../../../contexts/CouponContext";
@@ -35,7 +35,7 @@ export default function Modal({
   useEffect(() => {
     (async () => {
       try {
-        const list = await fetchCouponList();
+        const list = await getCouponList();
         setCouponList(list);
       } catch (err: any) {
         console.error("쿠폰 조회 중 오류 발생:", err);

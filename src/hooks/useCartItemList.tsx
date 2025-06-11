@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 
-import cartItems from "../api/cartItemList";
+import getCartItemList from "../api/getCartItemList";
 import patchProduct from "../api/patchProduct";
 import removeProduct from "../api/removeProduct";
 
@@ -77,7 +77,7 @@ const useCartItemList = (): useCartItemListReturn => {
 
   const fetchData = async () => {
     try {
-      const { content } = await cartItems({
+      const { content } = await getCartItemList({
         method: "GET",
         params: {
           page: "0",
