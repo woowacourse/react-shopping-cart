@@ -32,8 +32,8 @@ export const OrderConfirm = ({ onSelectCoupons, onPrev, onNext }: OrderConfirmPr
     showCouponList,
     selectedCoupons,
     setShowCouponList,
-    onToggleCoupon,
-    onApplyCoupons,
+    ToggleCoupon,
+    ApplyCoupons,
   } = useCouponSelection();
 
   const handleApplyCoupons = () => {
@@ -108,8 +108,8 @@ export const OrderConfirm = ({ onSelectCoupons, onPrev, onNext }: OrderConfirmPr
         <CouponModal
           coupons={coupons}
           onClose={() => setShowCouponList(false)}
-          onToggleCoupon={onToggleCoupon}
-          onApply={onApplyCoupons}
+          onToggleCoupon={ToggleCoupon}
+          onApply={ApplyCoupons}
         />
       )}
     </>

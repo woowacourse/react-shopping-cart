@@ -63,7 +63,7 @@ export const useCouponSelection = () => {
     }
   }, [showCouponList]);
 
-  const onToggleCoupon = (id: number) => {
+  const ToggleCoupon = (id: number) => {
     setCoupons((prevCoupons) => {
       const selectCouponCount = prevCoupons.filter((c) => c.checked).length;
       const target = prevCoupons.find((c) => c.id === id);
@@ -76,7 +76,7 @@ export const useCouponSelection = () => {
     });
   };
 
-  const onApplyCoupons = () => {
+  const ApplyCoupons = () => {
     const selected = coupons.filter((c) => c.checked && !c.disabled);
     const discount = calculateTotalDiscount(selectedCartItems, selected, {
       totalPrice,
@@ -92,7 +92,7 @@ export const useCouponSelection = () => {
     selectedCoupons,
     showCouponList,
     setShowCouponList,
-    onToggleCoupon,
-    onApplyCoupons,
+    ToggleCoupon,
+    ApplyCoupons,
   };
 };
