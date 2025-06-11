@@ -1,5 +1,5 @@
 import * as S from './PriceBox.styled';
-import { PriceTextBox } from './PriceTextBox/PriceTextBox';
+import { PriceTextBox } from './PriceTextBox';
 
 interface PriceBoxProps {
   items: Array<{
