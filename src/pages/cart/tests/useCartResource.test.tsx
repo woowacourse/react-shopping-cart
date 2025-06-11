@@ -16,6 +16,9 @@ describe("useCartResource 훅 테스트", () => {
     it("장바구니 초기 목록을 불러올 수 있다.", async () => {
       const { result } = renderHook(() => useCartResource(), { wrapper });
 
+      await act(async () => {
+        result.current.fetchCartItems();
+      });
       await waitFor(() => {
         expect(result.current.cartItems).toEqual(MOCKING_CART_ITEMS_DATA.content);
       });
@@ -28,8 +31,8 @@ describe("useCartResource 훅 테스트", () => {
     it("상품 수량을 변경할 수 있다.", async () => {
       const { result } = renderHook(() => useCartResource(), { wrapper });
 
-      await waitFor(() => {
-        expect(result.current.cartItems[0]).toBeDefined();
+      await act(async () => {
+        result.current.fetchCartItems();
       });
 
       const cartItem = result.current.cartItems[0];
@@ -37,9 +40,8 @@ describe("useCartResource 훅 테스트", () => {
       const newQuantity = initialQuantity + 1;
 
       await act(async () => {
-        result.current.handleCartItemChange({
+        result.current.patchCartItem({
           id,
-          action: "patch",
           quantity: newQuantity,
         });
       });
@@ -54,17 +56,16 @@ describe("useCartResource 훅 테스트", () => {
     it("상품을 삭제할 수 있다.", async () => {
       const { result } = renderHook(() => useCartResource(), { wrapper });
 
-      await waitFor(() => {
-        expect(result.current.cartItems.length).toBeGreaterThan(0);
+      await act(async () => {
+        result.current.fetchCartItems();
       });
 
       const targetId = result.current.cartItems[0].id;
       const initialCount = result.current.cartItems.length;
 
       await act(async () => {
-        result.current.handleCartItemChange({
+        result.current.deleteCartItem({
           id: targetId,
-          action: "delete",
         });
       });
 
