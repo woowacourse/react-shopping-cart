@@ -12,8 +12,7 @@ import { useCartContext } from '../../../context/CartContext';
 import { useLocation, useNavigate } from 'react-router';
 
 function OrderCompletePage() {
-  const { clearCart } = useCartContext();
-  const { typeCount, totalCount } = useCartContext();
+  const { typeCount, totalCount, clearCart } = useCartContext();
 
   const location = useLocation();
   const navigate = useNavigate();
