@@ -124,8 +124,8 @@ useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
 - [x] 가격 및 수량 수량 천단위 포맷팅
 - [ ] useCartCheck 훅 handleCheckChange 함수 조건문 이후, return
 - [x] useCartResource 내부 useEffect 역할 상위로 뺴기
-- [ ] 서버 상태 데이터 캐싱
 - [x] 장바구니 아이템 삭제 시 체크 상태가 동기화 로직 단순화
+- [x] 페이지 이동시, cartItem 체크 상태만 전달
 - [x] useEffect 사용 -> 이벤트 핸들러로 처리
   - [x] localStorage 사용 훅에서의 useEffect 제거
   - [x] useTempCoupon 훅 useEffect 제거 + 컴포넌트 생명주기 활용

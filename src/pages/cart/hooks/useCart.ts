@@ -54,7 +54,7 @@ const useCart = (): UseCartReturnType => {
     cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
     cartItemListProps: { cartItems, checkedIds, handleCartItemChange, handleCheckChange, isAllChecked },
     orderConfirmPageData: {
-      cartItems,
+      cartItems: cartItems.filter((item) => checkedIds.includes(item.id)),
       orderPrice,
       deliveryPrice,
       totalPrice,
