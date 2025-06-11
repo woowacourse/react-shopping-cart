@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { useCartContext } from '../../context/CartContext';
 import { getBestCouponCombo } from '../../utils/couponDiscount';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinning';
+import { COUPON } from '../../constants/coupon';
+import { toggleArrayItems } from '../../utils/arrayUtils';
 
 function CouponModal({
   isLoading,
@@ -31,10 +33,12 @@ function CouponModal({
     deliveryFee,
   } = useCartContext();
 
-  const [tempCoupon, setTempCoupon] = useState<number[] | null>(checkedCoupon);
+  const [draftSelectedCouponIds, setDraftSelectedCouponIds] = useState<
+    number[] | null
+  >(checkedCoupon);
 
   const modalResult = getBestCouponCombo(
-    tempCoupon,
+    draftSelectedCouponIds,
     cartItems.filter((item) => selectedItems.includes(item.id)),
     validatedCouponList,
     subTotal,
@@ -43,24 +47,27 @@ function CouponModal({
 
   useEffect(() => {
     if (isOpen) {
-      setTempCoupon(checkedCoupon);
+      setDraftSelectedCouponIds(checkedCoupon);
     }
   }, [isOpen, checkedCoupon]);
 
-  const handleToggle = (id: number) => {
-    if (tempCoupon === null) {
-      setTempCoupon([id]);
+  const handleCouponCheck = (id: number) => {
+    if (draftSelectedCouponIds === null) {
+      setDraftSelectedCouponIds([id]);
       return;
     }
-    const newTempCoupons = tempCoupon.includes(id)
-      ? tempCoupon.filter((x) => x !== id)
-      : [...tempCoupon, id];
 
-    if (newTempCoupons.length > 2) {
+    const newDraftSelectedCouponIds = toggleArrayItems(
+      draftSelectedCouponIds,
+      id
+    );
+
+    if (newDraftSelectedCouponIds.length > COUPON.MAX_COUPON_COUNT) {
       alert('최대 2개의 쿠폰만 적용할 수 있습니다.');
       return;
     }
-    setTempCoupon(newTempCoupons);
+
+    setDraftSelectedCouponIds(newDraftSelectedCouponIds);
   };
 
   return (
@@ -77,15 +84,15 @@ function CouponModal({
             <CouponItem
               key={coupon.id}
               coupon={coupon}
-              isChecked={tempCoupon?.includes(coupon.id) ?? false}
-              onCheck={handleToggle}
+              isChecked={draftSelectedCouponIds?.includes(coupon.id) ?? false}
+              onCheck={handleCouponCheck}
               isDisabled={coupon.isExpired}
             />
           ))}
           <Button
             color="gray"
             variant="secondary"
-            onClick={() => onCouponAccept(tempCoupon ?? [])}
+            onClick={() => onCouponAccept(draftSelectedCouponIds ?? [])}
           >
             <Text varient="body">{`총 ${modalResult?.totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기`}</Text>
           </Button>
