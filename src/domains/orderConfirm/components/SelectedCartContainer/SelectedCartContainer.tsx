@@ -27,10 +27,10 @@ export function SelectedCartContainer({
         <p css={deliveryInfoText}>배송 정보</p>
         <div css={extraDetailLayout}>
           <CheckBox
-            isChecked={isExtraDeliveryArea}
+            checked={isExtraDeliveryArea}
             dataTestId="extra-delivery-area"
             id="extra-delivery-area"
-            handleCheckBox={handleCheckBox}
+            onChange={handleCheckBox}
           />
           <label htmlFor="extra-delivery-area">제주도 및 도서 산간 지역</label>
         </div>

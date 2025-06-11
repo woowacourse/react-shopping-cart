@@ -33,8 +33,8 @@ export default function CartProductContainer({
             <div css={CartItemHeader}>
               <CheckBox
                 dataTestId={`select-${item.id}`}
-                isChecked={selectedCartIds.includes(item.id.toString())}
-                handleCheckBox={handleCheckBox}
+                checked={selectedCartIds.includes(item.id.toString())}
+                onChange={handleCheckBox}
                 id={item.id.toString()}
               />
               <Button

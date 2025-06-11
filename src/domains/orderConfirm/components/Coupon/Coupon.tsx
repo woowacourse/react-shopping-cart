@@ -22,10 +22,10 @@ export function Coupon({
     <div css={couponLayout(isDisabled)} id={item.code}>
       <div css={checkBoxLayout}>
         <CheckBox
-          isChecked={isSelected}
+          checked={isSelected}
           dataTestId={`${item.code}`}
           id={`${item.code}`}
-          handleCheckBox={handleCouponSelect}
+          onChange={handleCouponSelect}
           disabled={isDisabled}
         />
         <p>{item.description}</p>

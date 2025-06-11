@@ -8,7 +8,6 @@ import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useCartContext } from "../../common/context/cartProvider";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
-
 import { useNavigate } from "react-router-dom";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";

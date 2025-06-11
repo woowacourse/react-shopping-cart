@@ -66,13 +66,13 @@ export function ShoppingCart() {
             <div css={CartProductContainerLayout}>
               <div css={SelectAllLayout}>
                 <CheckBox
-                  isChecked={
+                  checked={
                     selectedCartIds.length === cartItems.length &&
                     cartItems.length !== 0
                   }
                   dataTestId="select-all"
                   id="select-all"
-                  handleCheckBox={() => toggleSelectAll(cartItems)}
+                  onChange={() => toggleSelectAll(cartItems)}
                 />
                 <label htmlFor="select-all">전체 선택</label>
               </div>
