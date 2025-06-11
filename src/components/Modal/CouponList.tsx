@@ -32,10 +32,10 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons, orderP
       return true;
     }
 
-    switch (coupon.description) {
-      case '5,000원 할인 쿠폰':
+    switch (coupon.id) {
+      case 1:
         return orderPrice < 100000;
-      case '2개 구매 시 1개 무료 쿠폰': {
+      case 2: {
         const sameProductCounts = new Map<number, number>();
         selectedItems.forEach((item) => {
           const id = item.product.id;
@@ -44,10 +44,10 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons, orderP
         return !Array.from(sameProductCounts.values()).some((count) => count >= 2 && count % 2 === 0);
       }
 
-      case '5만원 이상 구매 시 무료 배송 쿠폰':
+      case 3:
         return orderPrice < 50000;
 
-      case '미라클모닝 30% 할인 쿠폰':
+      case 4:
         return !(4 < currentHour && currentHour < 7);
 
       default:
