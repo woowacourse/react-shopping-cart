@@ -13,39 +13,36 @@ export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
 
   const isAllChecked = selectedCartId?.length === cartItems?.length;
 
+  const handleUpdate = (cartIdList: number[]) => {
+    setSelectedCartId(cartIdList);
+    localStorage.setItem('selectedItem', JSON.stringify(cartIdList));
+  };
+
   const handleAllSelected = () => {
     if (isAllChecked) {
-      setSelectedCartId([]);
-      localStorage.clear();
+      handleUpdate([]);
       return;
     }
     const cartList = cartItems?.map((item) => item.id) || [];
-    setSelectedCartId(cartList);
-    localStorage.setItem('selectedItem', JSON.stringify(cartList));
+    handleUpdate(cartList);
   };
 
   const handleToggle = (id: number) => {
     // 선택이 안되어 있음 -> 선택됨
     if (!selectedCartId?.find((item) => item === id)) {
-      setSelectedCartId((prev) => [...prev, id]);
-      localStorage.setItem(
-        'selectedItem',
-        JSON.stringify([...selectedCartId, id])
-      );
+      handleUpdate([...selectedCartId, id]);
       return;
     }
     // 선택이 되어 있음 -> 선택안됨
     const filteredItem = selectedCartId?.filter((cartId) => cartId !== id);
-    setSelectedCartId(filteredItem);
-    localStorage.setItem('selectedItem', JSON.stringify(filteredItem));
+    handleUpdate(filteredItem);
   };
 
   const handleRemove = (id: number) => {
     if (!selectedCartId?.find((item) => item === id)) return;
 
     const filteredItem = selectedCartId?.filter((cartId) => cartId !== id);
-    setSelectedCartId(filteredItem);
-    localStorage.setItem('selectedItem', JSON.stringify(filteredItem));
+    handleUpdate(filteredItem);
   };
 
   useEffect(() => {
@@ -59,8 +56,7 @@ export const useSelectedCart = (cartItems: CartProduct[] | undefined) => {
       }
 
       const cartIdList = cartItems?.map((item) => item.id);
-      setSelectedCartId(cartIdList);
-      localStorage.setItem('selectedItem', JSON.stringify(cartIdList));
+      handleUpdate(cartIdList);
       isSetting.current = true;
     }
   }, [cartItems]);
