@@ -2,15 +2,14 @@ import { useCallback, useState } from 'react';
 
 interface UseJaeOMutationOptions<TVariable, TData> {
   mutationFn: (variables: TVariable) => Promise<TData>;
-  options?: {
-    onSuccess: (result: TData) => void;
-    onError: () => void;
-  };
+  onSuccess?: (result: TData) => void;
+  onError?: () => void;
 }
 
 export function useJaeOMutation<TVariable, TData>({
   mutationFn,
-  options,
+  onSuccess,
+  onError,
 }: UseJaeOMutationOptions<TVariable, TData>) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -23,20 +22,20 @@ export function useJaeOMutation<TVariable, TData>({
       try {
         const result = await mutationFn(variables);
 
-        if (options?.onSuccess) options.onSuccess(result);
+        onSuccess?.(result);
 
         return result;
       } catch (error) {
         setError(error as Error);
 
-        if (options?.onError) options.onError();
+        onError?.();
 
         throw error;
       } finally {
         setIsLoading(false);
       }
     },
-    [mutationFn, options]
+    [mutationFn, onSuccess, onError]
   );
 
   return { mutate, isLoading, error };
