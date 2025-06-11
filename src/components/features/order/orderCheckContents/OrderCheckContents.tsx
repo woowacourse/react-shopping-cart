@@ -50,15 +50,17 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
     );
     toggleRemoteArea();
   };
+  const orderItemQuantity = orderItems.length;
+  const totalProductQuantity = orderItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
 
   const moveToPaymentCheck = () => {
     navigate(ROUTE.paymentCheck, {
       state: {
-        orderItemQuantity: orderItems.length,
-        totalProductQuantity: orderItems.reduce(
-          (acc, item) => acc + item.quantity,
-          0
-        ),
+        orderItemQuantity,
+        totalProductQuantity,
         paymentPrice,
       },
     });
@@ -76,7 +78,10 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   return (
     <Modal>
       <S.Container>
-        <OrderCheckTitle />
+        <OrderCheckTitle
+          orderItemQuantity={orderItemQuantity}
+          totalProductQuantity={totalProductQuantity}
+        />
         <S.OrderItemList>
           {orderItems.map((item) => (
             <OrderItem key={item.id} cartItem={item} />
