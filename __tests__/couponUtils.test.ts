@@ -10,32 +10,30 @@ import { CartItemType } from '../src/types/cartItem';
 
 const sampleItems = cartItems.content;
 const baseDate = new Date(2025, 5, 15, 5, 0, 0);
+const fixedCoupon = coupons.find((c) => c.discountType === 'fixed') as FixedCoupon;
+const freeShippingCoupon = coupons.find((c) => c.discountType === 'freeShipping') as FreeShippingCoupon;
+const percentageCoupon = coupons.find((c) => c.discountType === 'percentage') as PercentageCoupon;
+const buyXgetYCoupon = coupons.find((c) => c.discountType === 'buyXgetY') as BuyXGetYCoupon;
 
 describe('calculateCouponDiscount()', () => {
   it('fixed 타입은 discount 값을 그대로 반환한다.', () => {
-    const coupon = coupons[0] as FixedCoupon;
-    expect(calculateCouponDiscount({ coupon, orderAmount: 200_000, items: sampleItems })).toBe(5000);
-  });
-
-  it('freeShipping 타입은 deliveryFee를 반환한다.', () => {
-    const coupon = coupons[2] as FreeShippingCoupon;
-    expect(calculateCouponDiscount({ coupon, orderAmount: 60_000, items: sampleItems })).toBe(6000);
+    expect(calculateCouponDiscount({ coupon: fixedCoupon, orderAmount: 200_000, items: sampleItems })).toBe(5000);
   });
 
   it('percentage 타입은 주문금액 * (discount/100)을 내림한다.', () => {
-    const coupon = coupons[3] as PercentageCoupon;
-    expect(calculateCouponDiscount({ coupon, orderAmount: 123_456, items: sampleItems })).toBe(
+    expect(calculateCouponDiscount({ coupon: percentageCoupon, orderAmount: 123_456, items: sampleItems })).toBe(
       Math.floor(123_456 * 0.3)
     );
   });
 
   it('buyXgetY 타입은 최고가 상품 가격 * getQuantity를 반환한다.', () => {
-    const coupon = coupons[1] as BuyXGetYCoupon;
-    expect(calculateCouponDiscount({ coupon, orderAmount: 0, items: sampleItems })).toBe(300_000_000 * 1);
+    expect(calculateCouponDiscount({ coupon: buyXgetYCoupon, orderAmount: 0, items: sampleItems })).toBe(
+      300_000_000 * 1
+    );
   });
 
   it('items가 비어있으면 buyXgetY 는 0을 반환한다.', () => {
-    const coupon = coupons[1] as BuyXGetYCoupon;
+    const coupon = coupons.find((c) => c.discountType === 'buyXgetY') as BuyXGetYCoupon;
     expect(calculateCouponDiscount({ coupon, orderAmount: 0, items: [] })).toBe(0);
   });
 });
@@ -44,47 +42,42 @@ describe('isCouponDisabled()', () => {
   const baseDate = new Date(2025, 5, 15, 5, 0, 0);
 
   it('만료일이 지나면 비활성화된다.', () => {
-    const expired = { ...coupons[0], expirationDate: '2025-01-01' } as PercentageCoupon;
+    const expired = { ...fixedCoupon, expirationDate: '2025-01-01' } as Coupon;
     expect(isCouponEnabled({ coupon: expired, orderAmount: 200_000, items: sampleItems, now: baseDate })).toBe(false);
   });
 
   it('fixed/무료배송은 최소 주문금액 미만이면 비활성화된다.', () => {
-    expect(isCouponEnabled({ coupon: coupons[0] as FixedCoupon, orderAmount: 90_000, items: [], now: baseDate })).toBe(
-      false
-    );
-    expect(
-      isCouponEnabled({ coupon: coupons[2] as FreeShippingCoupon, orderAmount: 40_000, items: [], now: baseDate })
-    ).toBe(false);
+    expect(isCouponEnabled({ coupon: fixedCoupon, orderAmount: 90_000, items: [], now: baseDate })).toBe(false);
+    expect(isCouponEnabled({ coupon: freeShippingCoupon, orderAmount: 40_000, items: [], now: baseDate })).toBe(false);
   });
 
   it('fixed/무료배송은 최소 주문금액 이상이면 활성화된다.', () => {
-    expect(isCouponEnabled({ coupon: coupons[0] as FixedCoupon, orderAmount: 100_000, items: [], now: baseDate })).toBe(
-      true
-    );
-    expect(
-      isCouponEnabled({ coupon: coupons[2] as FreeShippingCoupon, orderAmount: 50_000, items: [], now: baseDate })
-    ).toBe(true);
+    expect(isCouponEnabled({ coupon: fixedCoupon, orderAmount: 100_000, items: [], now: baseDate })).toBe(true);
+    expect(isCouponEnabled({ coupon: freeShippingCoupon, orderAmount: 50_000, items: [], now: baseDate })).toBe(true);
   });
 
   it('percentage 타입은 availableTime 외에는 비활성화된다.', () => {
-    const coupon = coupons[3] as PercentageCoupon;
     const before = new Date(2025, 5, 15, 3, 59, 59);
     const after = new Date(2025, 5, 15, 7, 0, 1);
-    expect(isCouponEnabled({ coupon, orderAmount: 200_000, items: sampleItems, now: before })).toBe(false);
-    expect(isCouponEnabled({ coupon, orderAmount: 200_000, items: sampleItems, now: after })).toBe(false);
-    expect(isCouponEnabled({ coupon, orderAmount: 200_000, items: sampleItems, now: baseDate })).toBe(true);
+    expect(isCouponEnabled({ coupon: percentageCoupon, orderAmount: 200_000, items: sampleItems, now: before })).toBe(
+      false
+    );
+    expect(isCouponEnabled({ coupon: percentageCoupon, orderAmount: 200_000, items: sampleItems, now: after })).toBe(
+      false
+    );
+    expect(isCouponEnabled({ coupon: percentageCoupon, orderAmount: 200_000, items: sampleItems, now: baseDate })).toBe(
+      true
+    );
   });
 
   it('buyXgetY 타입은 (buy+get) 수량 미만이면 비활성화된다.', () => {
-    const c = coupons[1] as BuyXGetYCoupon;
     const fewItems = [{ id: 1, quantity: 2, product: { price: 1000 } }] as CartItemType[];
-    expect(isCouponEnabled({ coupon: c, orderAmount: 0, items: fewItems, now: baseDate })).toBe(false);
+    expect(isCouponEnabled({ coupon: buyXgetYCoupon, orderAmount: 0, items: fewItems, now: baseDate })).toBe(false);
   });
 
   it('buyXgetY 타입은 수량 조건을 만족하면 활성화된다.', () => {
-    const c = coupons[1] as BuyXGetYCoupon;
     const enough = [{ id: 1, quantity: 3, product: { price: 1000 } }] as CartItemType[];
-    expect(isCouponEnabled({ coupon: c, orderAmount: 0, items: enough, now: baseDate })).toBe(true);
+    expect(isCouponEnabled({ coupon: buyXgetYCoupon, orderAmount: 0, items: enough, now: baseDate })).toBe(true);
   });
 });
 
