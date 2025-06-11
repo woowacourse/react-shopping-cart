@@ -7,7 +7,6 @@ import { Text } from '@/shared/components/Text/Text';
 
 import Back from '../../../../public/Back.png';
 import { StepProps } from '@/shared/types/funnel';
-import { CartItem } from '@/features/Cart/types/Cart.types';
 import { useOrderInfo } from '@/features/Cart/hooks/useOrderInfo';
 import { CartListContainer } from '../container/CartListContainer';
 import { CartItemDetail } from './CartItemDetail';

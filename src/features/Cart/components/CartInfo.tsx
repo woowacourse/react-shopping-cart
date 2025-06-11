@@ -16,7 +16,7 @@ import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
 import { useCartContext } from '../context/CartProvider';
 
 export const CartInfo = ({ onNext }: StepProps) => {
-  const { cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem } =
+  const { cartItems, toggleAllCheck } =
     useCartContext();
   const {
     allChecked,
