@@ -7,7 +7,7 @@ export function isExpired(expirationDate: string): boolean {
   return today <= new Date(y, m - 1, d);
 }
 
-export function isMiracleMorning(start: string, end: string): boolean {
+export function isCurrentTimeInRange(start: string, end: string): boolean {
   const now = new Date();
 
   const startDate = new Date(now);
@@ -45,7 +45,7 @@ export function validateCoupons(
     let expiredFlag = !isExpired(coupon.expirationDate);
 
     if (coupon.description.includes('미라클모닝')) {
-      expiredFlag = !isMiracleMorning(
+      expiredFlag = !isCurrentTimeInRange(
         coupon.availableTime?.start || '',
         coupon.availableTime?.end || ''
       );
