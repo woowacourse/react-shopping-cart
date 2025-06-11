@@ -1,7 +1,7 @@
 import { cartPrice } from '../../utils/cartPrice';
 
 describe('상품 금액 계산', () => {
-  it('개별 상품의 금액을 계산한다.', () => {
+  it('개별 상품의 수량에 맞는 금액을 계산한다.', () => {
     const cartItem = {
       id: 1,
       quantity: 2,
@@ -20,7 +20,7 @@ describe('상품 금액 계산', () => {
     expect(result).toBe(expectedPrice);
   });
 
-  it('장바구니 상품의 전체 금액을 계산한다.', () => {
+  it('장바구니에서 선택된 상품의 전체 금액을 계산한다.', () => {
     const cartList = [
       {
         id: 1,

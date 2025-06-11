@@ -1,7 +1,7 @@
 import {
   isExpired,
   isMinimumAmount,
-  isMiracleMorning,
+  isCurrentTimeInRange,
   isQuantity,
   validateCoupons,
 } from '../couponValidate.ts';
@@ -9,7 +9,7 @@ import mockCoupon from '../../mocks/mockCoupon.json';
 import { Coupon } from '../../types/coupon';
 
 describe('쿠폰 단위 유효성 검사 성공 테스트', () => {
-  it('날짜 유효성 검사', () => {
+  it('날짜가 유효한 쿠폰이라면 유효성 검사를 통과한다.', () => {
     const coupon = {
       code: 'FIXED5000',
       description: '5,000원 할인 쿠폰',
@@ -24,7 +24,7 @@ describe('쿠폰 단위 유효성 검사 성공 테스트', () => {
   });
 
   // 현재 시간에 따라 달라짐
-  // it('미라클모닝 쿠폰 유효성 검사', () => {
+  // it('미라클모닝 쿠폰이 유효한 시간에 적용되면 유효성 검사를 통과한다.', () => {
   //   const coupon = {
   //     availableTime: {
   //       start: '04:00:00',
@@ -44,7 +44,7 @@ describe('쿠폰 단위 유효성 검사 성공 테스트', () => {
   //   expect(result).toBe(true);
   // });
 
-  it('최소 주문 금액 검사', () => {
+  it('최소 주문 금액이 조건을 충족하면 유효성 검사를 통과한다.', () => {
     const coupon = {
       code: 'FIXED5000',
       description: '5,000원 할인 쿠폰',
@@ -58,7 +58,7 @@ describe('쿠폰 단위 유효성 검사 성공 테스트', () => {
     expect(result).toBe(true);
   });
 
-  it('상품 개수 검사', () => {
+  it('상품 개수가 조건을 충족하면 유효성 검사를 통과한다.', () => {
     const cartItems = [
       {
         id: 1,
@@ -78,7 +78,7 @@ describe('쿠폰 단위 유효성 검사 성공 테스트', () => {
 });
 
 describe('쿠폰 단위 유효성 검사 실패 테스트', () => {
-  it('쿠폰 만료 날짜 검사', () => {
+  it('쿠폰 만료 날짜가 오늘 날짜보다 이전이면 유효성 검사를 통과하지 못한다.', () => {
     const coupon = {
       code: 'FIXED5000',
       description: '5,000원 할인 쿠폰',
@@ -92,7 +92,7 @@ describe('쿠폰 단위 유효성 검사 실패 테스트', () => {
     expect(result).toBe(false);
   });
 
-  it('미라클모닝 쿠폰 유효성 검사', () => {
+  it('미라클모닝 쿠폰이 유효한 시간에 적용되지 않으면 유효성 검사를 통과하지 못한다.', () => {
     const coupon = {
       availableTime: {
         start: '07:00:00',
@@ -105,14 +105,14 @@ describe('쿠폰 단위 유효성 검사 실패 테스트', () => {
       expirationDate: '2025-07-31',
       id: 4,
     };
-    const result = isMiracleMorning(
+    const result = isCurrentTimeInRange(
       coupon.availableTime.start,
       coupon.availableTime.end
     );
     expect(result).toBe(false);
   });
 
-  it('최소 주문 금액 검사', () => {
+  it('최소 주문 금액이 조건을 충족하지 않으면 유효성 검사를 통과하지 못한다.', () => {
     const coupon = {
       code: 'FIXED5000',
       description: '5,000원 할인 쿠폰',
@@ -126,7 +126,7 @@ describe('쿠폰 단위 유효성 검사 실패 테스트', () => {
     expect(result).toBe(false);
   });
 
-  it('상품 개수 검사', () => {
+  it('상품 개수가 조건을 충족하지 않으면 유효성 검사를 통과하지 못한다.', () => {
     const cartItems = [
       {
         id: 1,
@@ -146,7 +146,7 @@ describe('쿠폰 단위 유효성 검사 실패 테스트', () => {
 });
 
 describe('쿠폰 조합 유효성 검사 성공 테스트', () => {
-  it('모든 유효성 검사 통과', () => {
+  it('모든 유효성 검사를 통과하면 유효성 검사를 통과한다.', () => {
     const couponList = mockCoupon as Coupon[];
     const selectedItems = [
       {
@@ -170,7 +170,7 @@ describe('쿠폰 조합 유효성 검사 성공 테스트', () => {
 });
 
 describe('쿠폰 조합 유효성 검사 실패 테스트', () => {
-  it('쿠폰 만료 날짜 검사', () => {
+  it('쿠폰 만료 날짜가 오늘 날짜보다 이전이면 유효성 검사를 통과하지 못한다.', () => {
     const couponList = mockCoupon as Coupon[];
     couponList[0].expirationDate = '2025-06-01';
     const selectedItems = [
@@ -193,7 +193,7 @@ describe('쿠폰 조합 유효성 검사 실패 테스트', () => {
     expect(result[3].isExpired).toBe(false);
   });
 
-  it('미라클모닝 쿠폰 유효성 검사', () => {
+  it('미라클모닝 쿠폰이 유효한 시간에 적용되지 않으면 유효성 검사를 통과하지 못한다.', () => {
     const couponList = mockCoupon as Coupon[];
     couponList[0].expirationDate = '2025-07-01';
     couponList[3].availableTime = {
@@ -220,7 +220,7 @@ describe('쿠폰 조합 유효성 검사 실패 테스트', () => {
     expect(result[3].isExpired).toBe(true);
   });
 
-  it('최소 주문 금액 검사', () => {
+  it('최소 주문 금액이 조건을 충족하지 않으면 유효성 검사를 통과하지 못한다.', () => {
     const couponList = mockCoupon as Coupon[];
     couponList[3].availableTime = {
       start: '04:00:00',
@@ -246,7 +246,7 @@ describe('쿠폰 조합 유효성 검사 실패 테스트', () => {
     expect(result[3].isExpired).toBe(true);
   });
 
-  it('상품 개수 검사', () => {
+  it('상품 개수가 조건을 충족하지 않으면 유효성 검사를 통과하지 못한다.', () => {
     const couponList = mockCoupon as Coupon[];
     const selectedItems = [
       {

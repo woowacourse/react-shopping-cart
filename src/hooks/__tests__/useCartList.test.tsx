@@ -18,7 +18,7 @@ describe('useCartList 훅 테스트', () => {
     window.localStorage.clear();
   });
 
-  it('초기 cartList의 상태 값은 목 데이터를 받아오고, isError의 상태 값은 "", isLoading의 상태 값은 false', async () => {
+  it('초기 cartList의 상태 값은 목 데이터를 받아오고, isError의 상태 값은 "", isLoading의 상태 값은 false로 세팅된다.', async () => {
     const { result } = renderHook(() => useCartList(), { wrapper });
 
     await waitFor(() => {
