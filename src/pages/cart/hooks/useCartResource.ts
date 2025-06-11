@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { CartItem } from "../../../shared/types/cartItem";
 import { useErrorMessage } from "../../../shared/contexts/ErrorContext";
 import cartApi from "../apis/cartApi";
@@ -52,11 +52,12 @@ const useCartResource = () => {
     if (action === "delete") deleteCartItem({ id });
   };
 
-  useEffect(() => {
-    getCartItems();
-  }, []);
-
-  return { cartItems, cartItemIds, handleCartItemChange };
+  return {
+    cartItems,
+    cartItemIds,
+    handleCartItemChange,
+    fetchCartItems: getCartItems,
+  };
 };
 
 export default useCartResource;

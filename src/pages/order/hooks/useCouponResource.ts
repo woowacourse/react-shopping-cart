@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useErrorMessage } from "../../../shared/contexts/ErrorContext";
 import { CouponResponse } from "../../../shared/types/coupon";
 import couponApi from "../apis/couponApi";
@@ -17,11 +17,7 @@ const useCouponResource = () => {
     }
   };
 
-  useEffect(() => {
-    getCoupons();
-  }, []);
-
-  return { coupons };
+  return { coupons, fetchCoupons: getCoupons };
 };
 
 export default useCouponResource;

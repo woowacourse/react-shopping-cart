@@ -3,6 +3,7 @@ import useCartResource from "./useCartResource";
 import { CartItem } from "../../../shared/types/cartItem";
 import calculateCartAmount from "../utils/calculateCartAmount";
 import calculateCartPrice from "../utils/calculateCartPrice";
+import { useEffect } from "react";
 
 type HandleCartItemChangeType = ({
   action,
@@ -39,11 +40,15 @@ export interface UseCartReturnType {
 }
 
 const useCart = (): UseCartReturnType => {
-  const { cartItems, cartItemIds, handleCartItemChange } = useCartResource();
+  const { cartItems, cartItemIds, handleCartItemChange, fetchCartItems } = useCartResource();
   const { checkedIds, isAllChecked, handleCheckChange } = useCartCheck(cartItemIds);
 
   const { cartItemsCount, cartItemsCheckedCount, cartItemsTotalQuantity } = calculateCartAmount(cartItems, checkedIds);
   const { orderPrice, deliveryPrice, totalPrice } = calculateCartPrice(cartItems, checkedIds);
+
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
 
   return {
     cartItemsInfo: { orderPrice, deliveryPrice, totalPrice, cartItemsCount, cartItemsCheckedCount },
