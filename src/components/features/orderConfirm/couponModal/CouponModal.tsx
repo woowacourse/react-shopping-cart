@@ -17,7 +17,7 @@ function CouponModal({ onClose }: CouponModalProps) {
 
   const { selectCartItems, orderPrice } = useCartSelectionContext();
 
-  const handleToggle = (id: number) => {
+  const toggle = (id: number) => {
     setSelected((prev) =>
       prev.includes(id)
         ? prev.filter((v) => v !== id)
@@ -64,7 +64,7 @@ function CouponModal({ onClose }: CouponModalProps) {
                 <S.CouponBox>
                   <SelectBox
                     selected={selected.includes(coupon.id)}
-                    onClick={() => handleToggle(coupon.id)}
+                    onClick={() => toggle(coupon.id)}
                   />
                   <S.Name>
                     {coupon.description}
