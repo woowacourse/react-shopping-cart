@@ -1,7 +1,7 @@
 import { Close } from '../../assets';
 import { CouponModalCloseButtonStyle } from './CouponModal.styles';
 
-function CouponCloseButton({ onClose }: { onClose: () => void }) {
+function CouponModalCloseButton({ onClose }: { onClose: () => void }) {
   return (
     <button css={CouponModalCloseButtonStyle} onClick={onClose}>
       <img src={Close} alt="close-button" />
@@ -9,4 +9,4 @@ function CouponCloseButton({ onClose }: { onClose: () => void }) {
   );
 }
 
-export default CouponCloseButton;
+export default CouponModalCloseButton;

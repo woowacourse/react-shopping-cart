@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 
 import Text from '../@common/Text/Text';
-import CouponCloseButton from './CouponCloseButton';
+import CouponModalCloseButton from './CouponModalCloseButton';
 import CouponSelectDescription from './CouponSelectDescription';
 import CouponList from './CouponList';
 import CouponListItem from './CouponListItem';
@@ -38,7 +38,7 @@ function CouponModal({
     <div css={CouponModalContainerStyle}>
       <div css={CouponModalContentStyle}>
         <Text varient="subTitle">쿠폰을 선택해 주세요</Text>
-        <CouponCloseButton onClose={onClose} />
+        <CouponModalCloseButton onClose={onClose} />
         <CouponSelectDescription>
           쿠폰은 최대 2개까지 사용할 수 있습니다.
         </CouponSelectDescription>
