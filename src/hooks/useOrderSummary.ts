@@ -1,5 +1,3 @@
-// src/hooks/useOrderSummary.ts (가상 코드)
-
 import { useMemo } from 'react';
 import { getDeliveryFee } from '../routes/pages/OrderCheckPage/utils/product';
 import {
