@@ -6,7 +6,7 @@ import { useCartContext } from '../contexts/CartContext';
 
 function CartList() {
   const selection = useCartSelectionContext();
-  const { cartItems, fetch } = useCartContext();
+  const { cartItems } = useCartContext();
 
   return (
     <S.Container>
@@ -24,7 +24,6 @@ function CartList() {
           {...cartItem}
           selected={selection.selectedList[index]}
           toggle={() => selection.toggle(index)}
-          onUpdate={fetch}
         />
       ))}
     </S.Container>

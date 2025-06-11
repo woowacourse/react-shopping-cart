@@ -2,8 +2,7 @@ import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
 import IconButton from '../../../common/iconButton/IconButton';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Separator from '../../../common/separator/Separator';
-import { deleteCartItem } from '../api/deleteCartItem';
-import { updateCartItem } from '../api/updateCartItem';
+import useCartMutations from '../hooks/useCartMutations';
 import { CartItemType } from '../types';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
@@ -11,17 +10,10 @@ import defaultImage from '/assets/default_product.png';
 interface CartItemProps extends CartItemType {
   selected: boolean;
   toggle: () => void;
-  onUpdate: () => Promise<void>;
 }
 
-function CartItem({
-  id,
-  product,
-  quantity,
-  selected,
-  toggle,
-  onUpdate,
-}: CartItemProps) {
+function CartItem({ id, product, quantity, selected, toggle }: CartItemProps) {
+  const { remove, increase, decrease } = useCartMutations(id);
   return (
     <S.Container data-testid={`CartItem-${id}`}>
       <Separator />
@@ -29,8 +21,7 @@ function CartItem({
         <SelectBox selected={selected} onClick={toggle} />
         <S.DeleteButton
           onClick={async () => {
-            await deleteCartItem(id);
-            onUpdate();
+            remove();
           }}
         >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
@@ -59,16 +50,14 @@ function CartItem({
               <IconButton
                 actionType="delete"
                 onClick={async () => {
-                  await deleteCartItem(id);
-                  onUpdate();
+                  remove();
                 }}
               />
             ) : (
               <IconButton
                 actionType="minus"
                 onClick={async () => {
-                  await updateCartItem(id, quantity - 1);
-                  onUpdate();
+                  decrease(quantity);
                 }}
               />
             )}
@@ -76,8 +65,7 @@ function CartItem({
             <IconButton
               actionType="plus"
               onClick={async () => {
-                await updateCartItem(id, quantity + 1);
-                onUpdate();
+                increase(quantity);
               }}
             />
           </S.UpdateCartBox>
