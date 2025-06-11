@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { theme } from '../../styles';
 
-export const CouponModalContainerStyle = css`
+export const CouponModalOverlayStyle = css`
   position: fixed;
   width: 100vw;
   height: 100vh;

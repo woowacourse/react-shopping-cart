@@ -9,7 +9,7 @@ import CouponModalConfirmButton from './CouponModalConfirmButton';
 
 import { Coupon } from '../../types/coupon';
 import {
-  CouponModalContainerStyle,
+  CouponModalOverlayStyle,
   CouponModalContentStyle,
 } from './CouponModal.styles';
 
@@ -35,7 +35,7 @@ function CouponModal({
   if (!isOpen) return null;
 
   return createPortal(
-    <div css={CouponModalContainerStyle}>
+    <div css={CouponModalOverlayStyle}>
       <div css={CouponModalContentStyle}>
         <Text variant="subTitle">쿠폰을 선택해 주세요</Text>
         <CouponModalCloseButton onClose={onClose} />
