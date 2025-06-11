@@ -1,10 +1,11 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import { ToastProvider } from '../../context/ToastContext';
 import useCouponList from '../useCouponList';
 import mockCoupon from '../../mocks/mockCoupon.json';
 import { vi } from 'vitest';
 import cart from '../../apis/cart';
 import { ERROR_MESSAGE } from '../../constants/errorMessage';
+import { act } from 'react';
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>{children}</ToastProvider>
@@ -14,8 +15,8 @@ describe('useCouponList 훅 테스트', () => {
   it('초기 couponList의 상태 값은 목 데이터를 받아오고, isError의 상태 값은 "", isLoading의 상태 값은 false로 세팅된다.', async () => {
     const { result } = renderHook(() => useCouponList(), { wrapper });
 
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     expect(result.current.data).toEqual(mockCoupon);
@@ -29,8 +30,8 @@ describe('useCouponList 훅 테스트', () => {
 
     const { result } = renderHook(() => useCouponList(), { wrapper });
 
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     expect(result.current.error).toEqual(ERROR_MESSAGE.CART_LIST);
