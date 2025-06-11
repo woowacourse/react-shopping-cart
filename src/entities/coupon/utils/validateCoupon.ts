@@ -12,13 +12,13 @@ const isExpired = (expirationDate: string) => {
   return new Date(expirationDate) < new Date();
 };
 
-export const validateFixed5000 = (coupon: CouponType, orderPrice: number) => {
+const validateFixed5000 = (coupon: CouponType, orderPrice: number) => {
   if (coupon.code !== 'FIXED5000') return false;
   if (isExpired(coupon.expirationDate)) return false;
   return coupon.minimumAmount <= orderPrice;
 };
 
-export const validateBogo = (coupon: CouponType, orderItems: CartItemType[]) => {
+const validateBogo = (coupon: CouponType, orderItems: CartItemType[]) => {
   if (coupon.code !== 'BOGO') return false;
   if (isExpired(coupon.expirationDate)) {
     return false;
@@ -27,13 +27,13 @@ export const validateBogo = (coupon: CouponType, orderItems: CartItemType[]) => 
   return coupon.buyQuantity <= maxBuyQuantity;
 };
 
-export const validateFreeShipping = (coupon: CouponType, orderPrice: number) => {
+const validateFreeShipping = (coupon: CouponType, orderPrice: number) => {
   if (coupon.code !== 'FREESHIPPING') return false;
   if (isExpired(coupon.expirationDate)) return false;
   return coupon.minimumAmount <= orderPrice;
 };
 
-export const validateMiracleSale = (coupon: CouponType) => {
+const validateMiracleSale = (coupon: CouponType) => {
   if (coupon.code !== 'MIRACLESALE') return false;
   if (isExpired(coupon.expirationDate)) return false;
   return (
