@@ -5,6 +5,7 @@ import { deleteCartItem, getCartItemList, updateCartItem } from '../../../featur
 import { CartItem } from '../../../features/Cart/types/Cart.types';
 import { useToastContext } from '../../../shared/context/ToastProvider';
 import { isError } from '../../../shared/utils/isError';
+import { loadCheckedCartMap, saveCheckedCartMap } from '../../../shared/utils/storage/cartCheckedStorage';
 
 type CartContextType = {
   cartItems: (CartItem & { isChecked: boolean })[];
@@ -41,17 +42,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
-      const stored = localStorage.getItem(CHECKED_KEY);
-      const parsed: Record<number, boolean> = stored ? JSON.parse(stored) : {};
-
-      const initialChecked = new Set<number>();
-      cart.data.forEach((item) => {
-        if (parsed[item.id]) {
-          initialChecked.add(item.id);
-        }
-      });
-
-      setCheckedItems(initialChecked);
+      setCheckedItems(loadCheckedCartMap());
       hasInitialized.current = true;
     }
   }, [cart.data]);
@@ -68,7 +59,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
       newSet.has(id) ? newSet.delete(id) : newSet.add(id);
-      saveToStorage(newSet);
+      saveCheckedCartMap(newSet);
       return newSet;
     });
   };

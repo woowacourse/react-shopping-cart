@@ -13,10 +13,9 @@ import { usePriceInfo } from '../../../features/Cart/hooks/usePriceInfo';
 import { useSelectedCart } from '@/features/Cart/hooks/useSelectedCart';
 
 export const useCouponSelection = () => {
-  const { cartItems } = useCartContext();
+  const { cartItems, isRemoteArea } = useCartContext();
   const selectedCartItems = useSelectedCart();
   const { totalPrice } = useOrderInfo();
-  const { isRemoteArea } = useCartContext();
   const { deliveryFee } = usePriceInfo();
   const { showToast } = useContext(ToastContext);
 
