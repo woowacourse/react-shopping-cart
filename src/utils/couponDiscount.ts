@@ -47,6 +47,10 @@ export function simulateCombo(
   const breakdown: Record<string, number> = {};
 
   for (const c of combo) {
+    if (c.discountType === 'freeShipping') {
+      shipping = 0;
+      continue;
+    }
     const discountAmount = discountStrategy[
       c.discountType as keyof typeof discountStrategy
     ]({
@@ -57,11 +61,6 @@ export function simulateCombo(
     totalDiscount += discountAmount;
     remaining -= discountAmount;
     breakdown[c.code] = remaining;
-  }
-
-  const fs = combo.find((c) => c.discountType === 'freeShipping');
-  if (fs) {
-    shipping = 0;
   }
 
   const PriceWithDiscount = Math.min(...Object.values(breakdown));
@@ -80,9 +79,14 @@ export type SimulationResult = ReturnType<typeof simulateCombo>;
 export function generateCombos(couponList: Coupon[]): Coupon[][] {
   const combos: Coupon[][] = [];
 
+  // const singleCombos = couponList.map((coupon) => [coupon]);
   for (const coupon of couponList) {
     combos.push([coupon]);
   }
+
+  // const doubleCombos = couponList.flatMap((c1, i) =>
+  //   couponList.slice(i + 1).map((c2) => [c1, c2])
+  // );
 
   for (let i = 0; i < couponList.length; i++) {
     for (let j = 0; j < couponList.length; j++) {
@@ -91,6 +95,8 @@ export function generateCombos(couponList: Coupon[]): Coupon[][] {
     }
   }
 
+  // console.log('combos', [...singleCombos, ...doubleCombos]);
+  // return [...singleCombos, ...doubleCombos];
   return combos;
 }
 
