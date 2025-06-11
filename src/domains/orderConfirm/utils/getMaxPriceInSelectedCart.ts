@@ -1,6 +1,6 @@
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
-interface getMaxPriceInSelectedCartProps {
+interface GetMaxPriceInSelectedCartProps {
   selectedCartItems: CartItemTypes[];
 }
 
@@ -14,7 +14,7 @@ interface getMaxPriceInSelectedCartProps {
  */
 export function getMaxPriceInSelectedCart({
   selectedCartItems,
-}: getMaxPriceInSelectedCartProps) {
+}: GetMaxPriceInSelectedCartProps) {
   if (selectedCartItems.length === 0) return 0;
 
   return Math.max(...selectedCartItems.map((item) => item.product.price));

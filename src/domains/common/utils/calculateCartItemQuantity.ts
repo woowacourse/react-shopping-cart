@@ -1,4 +1,4 @@
-interface calculateCartItemQuantityProps {
+interface CalculateCartItemQuantityProps {
   cartItems: { id: number; quantity: number }[];
   selectedCartIds: string[];
 }
@@ -6,7 +6,7 @@ interface calculateCartItemQuantityProps {
 export function calculateCartItemQuantity({
   cartItems,
   selectedCartIds,
-}: calculateCartItemQuantityProps) {
+}: CalculateCartItemQuantityProps) {
   return cartItems.reduce((totalQuantity, item) => {
     if (selectedCartIds.includes(item.id.toString()))
       return totalQuantity + item.quantity;
