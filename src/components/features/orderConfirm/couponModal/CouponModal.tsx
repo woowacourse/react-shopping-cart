@@ -2,7 +2,7 @@ import * as S from './CouponModal.styles';
 import Separator from '../../../common/separator/Separator';
 import SelectBox from '../../../common/selectBox/SelectBox';
 import Close from '/assets/Close.svg';
-import { useEscapeKey } from '../hooks/useEscapeKey';
+import { useEscapeKey } from '../../../../global/hooks/useEscapeKey';
 import { useCartSelectionContext } from '../../cart/contexts/CartSelectionContext';
 import { getCouponValidator } from '../utils/getCouponValidator';
 import { useCouponContext } from '../contexts/CouponContext';
