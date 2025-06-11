@@ -107,7 +107,7 @@ export const OrderConfirm = ({ onSelectCoupons, onPrev, onNext }: OrderConfirmPr
       {showCouponList && (
         <CouponModal
           coupons={coupons}
-          onClose={() => setShowCouponList(false)}
+          onRequestClose={() => setShowCouponList(false)}
           onToggleCoupon={ToggleCoupon}
           onApply={ApplyCoupons}
         />

@@ -15,14 +15,14 @@ import { useSelectedCart } from '@/features/Cart/hooks/useSelectedCart';
 
 type CouponModalProps = {
   coupons: Coupon[];
-  onClose: () => void;
+  onRequestClose: () => void;
   onToggleCoupon: (id: number) => void;
   onApply: () => void;
 };
 
 export const CouponModal = ({
   coupons,
-  onClose,
+  onRequestClose,
   onToggleCoupon,
   onApply,
 }: CouponModalProps) => {
@@ -36,9 +36,13 @@ export const CouponModal = ({
     totalPrice,
   });
 
+  const handleClose = () => {
+    onRequestClose();
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
 
     document.body.style.overflow = 'hidden';
@@ -48,15 +52,15 @@ export const CouponModal = ({
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [handleClose]);
 
   const handleOverlayClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (e.target === e.currentTarget) {
-        onClose();
+        handleClose();
       }
     },
-    [onClose]
+    [handleClose]
   );
 
   return createPortal(
@@ -75,7 +79,7 @@ export const CouponModal = ({
           <Button
             color="white"
             fontColor="black"
-            onClick={onClose}
+            onClick={handleClose}
             css={css`
               padding: 0 0 8px 16px;
             `}
