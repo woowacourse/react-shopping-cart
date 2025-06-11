@@ -1,3 +1,7 @@
+export interface CouponDiscount {
+  coupon: CouponType;
+  discount: number;
+}
 interface BaseCouponType {
   id: number;
   code: string;

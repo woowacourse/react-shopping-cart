@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { CartItemType } from '../../components/features/cart/types';
 import {
-  Coupon,
+  CouponType,
   CouponDiscount,
 } from '../../components/features/orderConfirm/types';
 import fetchData from '../../components/features/cart/utils/fetchData';
@@ -19,10 +19,10 @@ interface CouponProviderProps {
 }
 
 interface CouponContextValue {
-  coupons: Coupon[];
+  coupons: CouponType[];
   selected: number[];
   setSelected: React.Dispatch<React.SetStateAction<number[]>>;
-  couponDiscounts: { coupon: Coupon; discount: number }[];
+  couponDiscounts: { coupon: CouponType; discount: number }[];
   totalDiscount: number;
   fetchCoupons: () => Promise<void>;
   isIslandAreaSelected: boolean;
@@ -32,11 +32,11 @@ interface CouponContextValue {
 const CouponContext = createContext<CouponContextValue | null>(null);
 
 export function CouponProvider({ products, children }: CouponProviderProps) {
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [coupons, setCoupons] = useState<CouponType[]>([]);
   const [isIslandAreaSelected, setIsIslandAreaSelected] = useState(false);
 
   const fetchCoupons = async () => {
-    const data = await fetchData<Coupon[]>()('/coupons');
+    const data = await fetchData<CouponType[]>()('/coupons');
     setCoupons(data ?? []);
   };
 
