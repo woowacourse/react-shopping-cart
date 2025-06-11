@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const ModalBackDrop = styled.div<{ position: "center" | "bottom" }>`
+export const ModalBackDrop = styled.div<{ $position: "center" | "bottom" }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -11,21 +11,21 @@ export const ModalBackDrop = styled.div<{ position: "center" | "bottom" }>`
   display: flex;
   justify-content: center;
   align-items: ${(props) =>
-    props.position === "center" ? "center" : "flex-end"};
+    props.$position === "center" ? "center" : "flex-end"};
   z-index: 9998;
 `;
 
 export const ModalContainer = styled.div<{
-  position: "center" | "bottom";
-  size: "small" | "medium" | "large";
+  $position: "center" | "bottom";
+  $size: "small" | "medium" | "large";
 }>`
   z-index: 9999;
   position: relative;
   display: flex;
   flex-direction: column;
   width: ${(props) => {
-    if (props.position === "bottom") return "500px";
-    switch (props.size) {
+    if (props.$position === "bottom") return "500px";
+    switch (props.$size) {
       case "small":
         return "320px";
       case "medium":
@@ -72,10 +72,10 @@ export const ButtonWrap = styled.div`
 `;
 
 export const StyledCloseButton = styled.button<{
-  size?: "small" | "medium" | "large";
+  $size?: "small" | "medium" | "large";
 }>`
   width: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case "small":
         return "80px";
       case "medium":
@@ -98,10 +98,10 @@ export const StyledCloseButton = styled.button<{
 `;
 
 export const StyledConfirmButton = styled.button<{
-  size?: "small" | "medium" | "large";
+  $size?: "small" | "medium" | "large";
 }>`
   width: ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case "small":
         return "80px";
       case "medium":
