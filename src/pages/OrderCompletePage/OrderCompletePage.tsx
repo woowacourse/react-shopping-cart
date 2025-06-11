@@ -9,7 +9,6 @@ import CheckBox from "../../components/CheckBox/CheckBox";
 import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSection";
 import CouponModal from "../../components/CouponModal/CouponModal";
 import { Coupon } from "../../types/coupon";
-import { CouponSelectProvider } from "../../stores/CouponContext";
 import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 import { OrderCalculator } from "../../utils/orderCalculator";
 
@@ -83,63 +82,61 @@ const OrderCompletePage = () => {
   );
 
   return (
-    <CouponSelectProvider>
-      <S.Root>
-        <S.OrderCompletePageWrapper style={{ position: "relative" }}>
-          <Header showBackButton={true} onBackClick={handleBackToCart} />
-          <S.OrderResultWrapper>
-            <OrderResult
-              orderSummary={orderSummary}
-              totalPrice={finalTotalAmount}
-              orderStatus="order-complete"
-            />
-          </S.OrderResultWrapper>
-          <S.CartItemWrapper>
-            {state.selectedCartItems.map((item) => (
-              <CartItem key={item.id} cart={item} isReadOnly={true} />
-            ))}
-            <S.CouponButton onClick={handleCouponButtonClick}>
-              {appliedCoupons.length > 0
-                ? `쿠폰 적용됨 (${appliedCoupons.length}개)`
-                : "쿠폰 적용"}
-            </S.CouponButton>
-            <S.DeliveryInfo>
-              <S.DeliveryInfoTitle>배송 정보</S.DeliveryInfoTitle>
-              <CheckBox
-                isChecked={isRemoteArea}
-                text="제주도 및 도서 산간 지역"
-                onClick={() => {
-                  setIsRemoteArea(!isRemoteArea);
-                }}
-              />
-            </S.DeliveryInfo>
-            <OrderPriceSection
-              priceInfo={{
-                orderPrice: originalOrderAmount,
-                deliveryPrice: finalDeliveryFee,
-                couponDiscount: totalDiscount,
-                totalPrice: finalTotalAmount,
+    <S.Root>
+      <S.OrderCompletePageWrapper style={{ position: "relative" }}>
+        <Header showBackButton={true} onBackClick={handleBackToCart} />
+        <S.OrderResultWrapper>
+          <OrderResult
+            orderSummary={orderSummary}
+            totalPrice={finalTotalAmount}
+            orderStatus="order-complete"
+          />
+        </S.OrderResultWrapper>
+        <S.CartItemWrapper>
+          {state.selectedCartItems.map((item) => (
+            <CartItem key={item.id} cart={item} isReadOnly={true} />
+          ))}
+          <S.CouponButton onClick={handleCouponButtonClick}>
+            {appliedCoupons.length > 0
+              ? `쿠폰 적용됨 (${appliedCoupons.length}개)`
+              : "쿠폰 적용"}
+          </S.CouponButton>
+          <S.DeliveryInfo>
+            <S.DeliveryInfoTitle>배송 정보</S.DeliveryInfoTitle>
+            <CheckBox
+              isChecked={isRemoteArea}
+              text="제주도 및 도서 산간 지역"
+              onClick={() => {
+                setIsRemoteArea(!isRemoteArea);
               }}
             />
-          </S.CartItemWrapper>
-
-          <S.ButtonContainer>
-            <S.PaymentButton onClick={handleCheckPayment}>
-              결제하기
-            </S.PaymentButton>
-          </S.ButtonContainer>
-
-          <CouponModal
-            isOpen={isCouponModalOpen}
-            onClose={handleCloseCouponModal}
-            onApplyCoupons={handleApplyCoupons}
-            cartItems={state?.selectedCartItems || []}
-            isRemoteArea={isRemoteArea}
-            appliedCoupons={appliedCoupons}
+          </S.DeliveryInfo>
+          <OrderPriceSection
+            priceInfo={{
+              orderPrice: originalOrderAmount,
+              deliveryPrice: finalDeliveryFee,
+              couponDiscount: totalDiscount,
+              totalPrice: finalTotalAmount,
+            }}
           />
-        </S.OrderCompletePageWrapper>
-      </S.Root>
-    </CouponSelectProvider>
+        </S.CartItemWrapper>
+
+        <S.ButtonContainer>
+          <S.PaymentButton onClick={handleCheckPayment}>
+            결제하기
+          </S.PaymentButton>
+        </S.ButtonContainer>
+
+        <CouponModal
+          isOpen={isCouponModalOpen}
+          onClose={handleCloseCouponModal}
+          onApplyCoupons={handleApplyCoupons}
+          cartItems={state?.selectedCartItems || []}
+          isRemoteArea={isRemoteArea}
+          appliedCoupons={appliedCoupons}
+        />
+      </S.OrderCompletePageWrapper>
+    </S.Root>
   );
 };
 
