@@ -35,6 +35,10 @@ function CouponModal({
   orderAmount,
   isIslandArea,
 }: CouponModalProps) {
+  if (!isOpen) {
+    return;
+  }
+
   const { coupons } = useCoupons();
   const [selectedCoupons, setSelectedCoupons] = useState<Map<number, boolean>>(
     new Map()
