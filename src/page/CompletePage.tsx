@@ -2,25 +2,19 @@ import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
+import { usePageStateGuard } from '../hooks/usePageStateGuard';
 
 function CompletePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalQuantity, countOfItemType, totalAmountAfterDiscount } = location.state ?? {};
 
-  useEffect(() => {
-    if (!totalQuantity || !countOfItemType || !totalAmountAfterDiscount) {
-      const isConfirmed = confirm('비정상적인 접근입니다. 이전 페이지로 이동하시겠습니까?');
-      if (isConfirmed) {
-        navigate(-1);
-        return;
-      }
-      navigate('/');
-    }
-    // totalQuantity, countOfItemType, totalAmount가 모두 불변값이므로 useEffect의 의존성 배열에 포함하지 않음
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
+  const isPageStateValid =
+    totalQuantity !== undefined || countOfItemType !== undefined || totalAmountAfterDiscount !== undefined;
+
+  usePageStateGuard({
+    isValid: isPageStateValid
+  });
 
   return (
     <>

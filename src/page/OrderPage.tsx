@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { useEffect } from 'react';
 import * as styles from '../styles/page.style';
 import OrderItem from '../components/CartItem/OrderItem';
 import PriceArea from '../components/PriceArea/PriceArea';
@@ -12,18 +11,34 @@ import { css } from '@emotion/react';
 import { useDeliveryFee } from '../hooks/useDeliveryFee';
 import { useCouponSelector } from '../hooks/useCouponSelector';
 import { useTotalDiscount } from '../hooks/useTotalDiscount';
+import { usePageStateGuard } from '../hooks/usePageStateGuard';
 
 function OrderPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { totalQuantity, countOfItemType, totalAmount, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
+  const { totalQuantity, countOfItemType, checkedItems, deliveryFee, orderAmount } = location.state ?? {};
+
+  const isPageStateValid =
+    totalQuantity !== undefined ||
+    countOfItemType !== undefined ||
+    checkedItems !== undefined ||
+    orderAmount !== undefined ||
+    deliveryFee !== undefined;
+
+  usePageStateGuard({
+    isValid: isPageStateValid,
+    redirectTo: '/',
+    message: '비정상적인 접근입니다. 장바구니로 이동하시겠습니까?'
+  });
+
   const { coupons, selectedCoupons, draftCoupons, isOpen, handleOpen, handleClose, toggleCoupon, apply } =
     useCouponSelector(orderAmount, checkedItems);
-  const totalDiscount = useTotalDiscount(selectedCoupons, orderAmount, checkedItems);
+  const totalDiscount = useTotalDiscount(selectedCoupons, orderAmount, checkedItems!);
   const { isSpecialDelivery, toggleSpecialDelivery, totalFee } = useDeliveryFee(
     deliveryFee,
     selectedCoupons.some((c) => c.discountType === 'freeShipping')
   );
+
   const totalAmountAfterDiscount = orderAmount + totalFee - totalDiscount;
 
   const navigateToComplete = () => {
@@ -35,24 +50,6 @@ function OrderPage() {
       }
     });
   };
-
-  useEffect(() => {
-    if (
-      !totalQuantity ||
-      !countOfItemType ||
-      !totalAmount ||
-      !checkedItems ||
-      !orderAmount ||
-      deliveryFee === undefined
-    ) {
-      const isConfirmed = confirm('비정상적인 접근입니다. 장바구니로 이동하시겠습니까?');
-      if (isConfirmed) {
-        navigate('/');
-      }
-    }
-    // totalQuantity, countOfItemType, totalAmount가 모두 불변값이므로 useEffect의 의존성 배열에 포함하지 않음
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
 
   return (
     <>
@@ -72,7 +69,7 @@ function OrderPage() {
         </p>
         <div css={cartItemsAreaCss}>
           <div css={cartItemsListCss}>
-            {checkedItems.map((item: CartItemType) => (
+            {checkedItems?.map((item: CartItemType) => (
               <OrderItem key={item.id} item={item} />
             ))}
           </div>
@@ -85,10 +82,10 @@ function OrderPage() {
             <p>제주도 및 도서 산간 지역</p>
           </div>
           <PriceArea
-            orderAmount={orderAmount}
-            deliveryFee={totalFee}
-            totalAmount={totalAmountAfterDiscount}
-            couponDiscount={totalDiscount}
+            orderAmount={orderAmount ?? 0}
+            deliveryFee={totalFee ?? 0}
+            totalAmount={totalAmountAfterDiscount ?? 0}
+            couponDiscount={totalDiscount ?? 0}
           />
           <Button onClick={navigateToComplete}>결제하기</Button>
         </div>
@@ -97,9 +94,9 @@ function OrderPage() {
         isOpen={isOpen}
         handleClose={handleClose}
         coupons={coupons ?? []}
-        orderAmount={orderAmount}
-        checkedItems={checkedItems}
-        totalDeliveryFee={totalFee}
+        orderAmount={orderAmount ?? 0}
+        checkedItems={checkedItems ?? []}
+        totalDeliveryFee={totalFee ?? 0}
         draftCoupons={draftCoupons}
         toggleCoupon={toggleCoupon}
         apply={apply}

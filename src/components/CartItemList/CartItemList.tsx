@@ -27,7 +27,6 @@ function CartItemList({ cartItems }: CartItemListProps) {
       state: {
         totalQuantity,
         countOfItemType,
-        totalAmount,
         checkedItems,
         deliveryFee,
         orderAmount
