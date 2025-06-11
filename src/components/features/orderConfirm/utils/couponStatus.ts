@@ -1,7 +1,6 @@
-import { isWithinTimeRange } from './isWithInTimeRange';
 import { CartItemType } from '../../cart/types';
-import { COUPON_MINIMUM } from '../../../../global/constants';
 import { CouponType } from '../types';
+import { couponUsableCalculators } from './couponUsableCalculators';
 
 export function isCouponUsableNow(
   coupon: CouponType,
@@ -9,37 +8,9 @@ export function isCouponUsableNow(
   orderPrice: number
 ) {
   const now = new Date();
-  const expired = now > new Date(coupon.expirationDate);
+  if (now > new Date(coupon.expirationDate)) return false;
 
-  switch (coupon.discountType) {
-    case 'fixed': {
-      const meetsAmount =
-        orderPrice >= (coupon.minimumAmount ?? COUPON_MINIMUM.FIXED);
-      return !expired && meetsAmount;
-    }
-    case 'buyXgetY': {
-      const requiredQty = (coupon.buyQuantity ?? 0) + (coupon.getQuantity ?? 0);
-      const hasEligible = cartItems.some(
-        (item) => item.quantity >= requiredQty
-      );
-      return !expired && hasEligible;
-    }
-
-    case 'freeShipping': {
-      const meetsAmount =
-        orderPrice >= (coupon.minimumAmount ?? COUPON_MINIMUM.FREE_SHIPPING);
-      return !expired && meetsAmount;
-    }
-
-    case 'percentage': {
-      if (expired) return false;
-      if (coupon.availableTime) {
-        return isWithinTimeRange(
-          coupon.availableTime.start,
-          coupon.availableTime.end
-        );
-      }
-      return true;
-    }
-  }
+  const validate = couponUsableCalculators[coupon.discountType];
+  if (!validate) return false;
+  return validate(coupon, cartItems, orderPrice);
 }
