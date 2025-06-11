@@ -30,8 +30,8 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
     <Modal position="center" isOpen={isOpen} onClose={onClose}>
       <S.ModalHeader>
         <Modal.Title>쿠폰을 선택해 주세요</Modal.Title>
-        <S.CloseButton onClick={onClose}>
-          <S.CloseImage src={CloseImage} alt="close" />
+        <S.CloseButton aria-label="닫기" onClick={onClose}>
+          <S.CloseImage src={CloseImage} alt="close-icon" />
         </S.CloseButton>
       </S.ModalHeader>
 
@@ -45,8 +45,18 @@ const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
         {coupons.map((coupon) => {
           const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
           return (
-            <S.CouponItem key={coupon.id} $disabled={!coupon.isAvailable}>
-              <S.LabelContainer>
+            <S.CouponItem
+              key={coupon.id}
+              $disabled={!coupon.isAvailable}
+              aria-disabled={!coupon.isAvailable}
+              tabIndex={!coupon.isAvailable ? -1 : 0}
+            >
+              <S.LabelContainer
+                as="button"
+                aria-pressed={isSelected}
+                onClick={() => coupon.isAvailable && handleToggle(coupon)}
+                tabIndex={coupon.isAvailable ? 0 : -1}
+              >
                 <Checkbox
                   checked={isSelected}
                   onClick={() => coupon.isAvailable && handleToggle(coupon)}
