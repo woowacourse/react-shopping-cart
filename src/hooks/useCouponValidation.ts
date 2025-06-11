@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Coupon } from "../apis/coupons";
 import { isUnavailableTime, isCouponExpired } from "../utils/dateUtils";
 import { useSelectedItems } from "./useSelectedItems";
@@ -9,9 +9,11 @@ export const useCouponValidation = () => {
   const { selectedItems } = useSelectedItems();
   const { isRemoteAreaShipping } = useShippingContext();
 
-  const orderPrice = selectedItems.reduce((acc, cartItem) => {
-    return acc + cartItem.product.price * cartItem.quantity;
-  }, 0);
+  const orderPrice = useMemo(() => {
+    return selectedItems.reduce((acc, cartItem) => {
+      return acc + cartItem.product.price * cartItem.quantity;
+    }, 0);
+  }, [selectedItems]);
 
   const isCouponValid = useCallback(
     (coupon: Coupon): boolean => {
