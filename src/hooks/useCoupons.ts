@@ -1,20 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getCoupons } from "../apis/coupons/getCoupons";
 import { Coupon } from "../types/response";
 import useCartCalculations from "./useCartCalculations";
 import useCart from "./useCart";
-import {
-  isCouponAvailable,
-  isFreeShippingAvailable,
-} from "../utils/coupons/isCouponAvailable";
+import { isCouponAvailable } from "../utils/coupons/isCouponAvailable";
 import getBuyXGetYDiscount from "../utils/coupons/getBuyXGetYDiscount";
+import getDiscountAmount from "../utils/coupons/getDiscountAmount";
 
 type CouponWithAvailability = Coupon & {
   isAvailable: boolean;
 };
 
 const useCoupons = () => {
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const coupons = useRef<Coupon[]>([]);
   const [couponsWithAvailability, setCouponsWithAvailability] = useState<
     CouponWithAvailability[]
   >([]);
@@ -25,63 +23,57 @@ const useCoupons = () => {
     const fetchCoupons = async () => {
       try {
         const couponsData = await getCoupons();
-        setCoupons(couponsData);
+        coupons.current = couponsData;
+        const updatedCoupons = couponsData.map((coupon) => ({
+          ...coupon,
+          isAvailable: isCouponAvailable(
+            cartItemsCheckData,
+            coupon,
+            orderPrice
+          ),
+        }));
+        setCouponsWithAvailability(updatedCoupons);
       } catch (error) {
         console.error("Failed to fetch coupons:", error);
       }
     };
     fetchCoupons();
-  }, []);
-
-  useEffect(() => {
-    const updatedCoupons = coupons.map((coupon) => ({
-      ...coupon,
-      isAvailable: isCouponAvailable(cartItemsCheckData, coupon, orderPrice),
-    }));
-    setCouponsWithAvailability(updatedCoupons);
-  }, [coupons, orderPrice]);
-
-  const getDiscountAmount = useCallback(
-    (coupon: Coupon, currentPrice: number): number => {
-      switch (coupon.discountType) {
-        case "fixed":
-          return coupon.discount || 0;
-        case "percentage":
-          return (currentPrice * (coupon.discount || 0)) / 100;
-        case "buyXgetY":
-          return getBuyXGetYDiscount(coupon, cartItemsCheckData);
-        case "freeShipping":
-          return isFreeShippingAvailable(coupon, currentPrice)
-            ? shippingFee
-            : 0;
-        default:
-          return 0;
-      }
-    },
-    [cartItemsCheckData, shippingFee]
-  );
+  }, [orderPrice, cartItemsCheckData]);
   const getTotalCombinedDiscount = (
     coupon1: Coupon,
     coupon2: Coupon,
     orderPrice: number
   ): number => {
-    const firstDiscount = getDiscountAmount(coupon1, orderPrice);
+    const firstDiscount = getDiscountAmount(
+      coupon1,
+      orderPrice,
+      cartItemsCheckData,
+      shippingFee
+    );
     const afterFirst =
       coupon1.discountType === "buyXgetY"
         ? orderPrice
         : orderPrice - firstDiscount;
 
-    const secondDiscount = getDiscountAmount(coupon2, afterFirst);
+    const secondDiscount = getDiscountAmount(
+      coupon2,
+      afterFirst,
+      cartItemsCheckData,
+      shippingFee
+    );
 
     return firstDiscount + secondDiscount;
   };
 
-  const getBestCouponCombination = (coupons: Coupon[], orderPrice: number) => {
+  const getBestCouponCombination = (
+    couponsWithAvailability: Coupon[],
+    orderPrice: number
+  ) => {
     let maxDiscount = 0;
     let bestCombination: Coupon[] = [];
 
-    for (let i = 0; i < coupons.length; i++) {
-      const coupon1 = coupons[i];
+    for (let i = 0; i < couponsWithAvailability.length; i++) {
+      const coupon1 = couponsWithAvailability[i];
       const discount1 =
         coupon1.discountType === "fixed"
           ? coupon1.discount || 0
@@ -96,9 +88,9 @@ const useCoupons = () => {
         bestCombination = [coupon1];
       }
 
-      for (let j = 0; j < coupons.length; j++) {
+      for (let j = 0; j < couponsWithAvailability.length; j++) {
         if (i === j) continue;
-        const coupon2 = coupons[j];
+        const coupon2 = couponsWithAvailability[j];
 
         const discountA = getTotalCombinedDiscount(
           coupon1,
@@ -132,7 +124,7 @@ const useCoupons = () => {
     (selectedCoupons: Coupon[]) => {
       if (selectedCoupons.length === 0) {
         const { bestCombination, maxDiscount } = getBestCouponCombination(
-          coupons,
+          couponsWithAvailability,
           orderPrice
         );
         return {
@@ -174,7 +166,12 @@ const useCoupons = () => {
         }
       } else {
         const coupon = selectedCoupons[0];
-        const discount = getDiscountAmount(coupon, orderPrice);
+        const discount = getDiscountAmount(
+          coupon,
+          orderPrice,
+          cartItemsCheckData,
+          shippingFee
+        );
         return {
           appliedCoupons: [coupon],
           totalDiscount: discount,
@@ -185,7 +182,7 @@ const useCoupons = () => {
       orderPrice,
       cartItemsCheckData,
       getBestCouponCombination,
-      coupons,
+      couponsWithAvailability,
       shippingFee,
     ]
   );
