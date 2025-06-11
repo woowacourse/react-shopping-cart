@@ -14,11 +14,11 @@ import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQ
 import { usePaymentSummary } from "../hooks/usePaymentsummary";
 import { CouponModal } from "./couponModal";
 import { pressBackButton } from "./orderConfirm.style";
+import { useModal } from "../../../hooks/useModal";
 
 export default function OrderConfirm() {
   const navigate = useNavigate();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
   const [receivedDiscountedPrice, setReceivedDiscountedPrice] = useState(0);
 
@@ -28,16 +28,10 @@ export default function OrderConfirm() {
     isExtraDeliveryArea,
     receivedDiscountedPrice,
   });
+  const { isOpen, modalOpen, modalClose } = useModal();
 
   const handlePressBack = () => {
     navigate("/");
-  };
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-  const handleModalClose = () => {
-    setIsModalOpen(false);
   };
 
   const selectedCartItemCount = calculateCartItemQuantity({
@@ -72,7 +66,7 @@ export default function OrderConfirm() {
           </p>
         </div>
         <SelectedCartContainer
-          handleModalOpen={handleModalOpen}
+          handleModalOpen={modalOpen}
           isExtraDeliveryArea={isExtraDeliveryArea}
           handleCheckBox={() => setIsExtraDeliveryArea((prev) => !prev)}
         />
@@ -95,8 +89,8 @@ export default function OrderConfirm() {
       </Footer>
 
       <CouponModal
-        isModalOpen={isModalOpen}
-        handleModalClose={handleModalClose}
+        isModalOpen={isOpen}
+        handleModalClose={modalClose}
         deliveryFee={deliveryFee}
         orderPrice={orderPrice}
         setReceivedDiscountedPrice={setReceivedDiscountedPrice}
