@@ -8,13 +8,13 @@ import { calculateTotalDiscount } from '../../../features/Coupon/utils/calculate
 import { ToastContext } from '../../../shared/context/ToastProvider';
 import { isError } from '../../../shared/utils/isError';
 import { useCartContext } from '../../../features/Cart/context/CartProvider';
-import { useCartInfo } from '../../../features/Cart/hooks/useCartInfo';
 import { useOrderInfo } from '../../../features/Cart/hooks/useOrderInfo';
 import { usePriceInfo } from '../../../features/Cart/hooks/usePriceInfo';
+import { useSelectedCart } from '@/features/Cart/hooks/useSelectedCart';
 
 export const useCouponSelection = () => {
   const { cartItems } = useCartContext();
-  const { selectedCartItems } = useCartInfo();
+  const selectedCartItems = useSelectedCart();
   const { totalPrice } = useOrderInfo();
   const { isRemoteArea } = useCartContext();
   const { deliveryFee } = usePriceInfo();

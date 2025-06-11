@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { useCartInfo } from '../hooks/useCartInfo';
 import { useOrderInfo } from '../hooks/useOrderInfo';
 
 import { Button } from '../../../shared/components/Button/Button';
@@ -17,13 +16,14 @@ import { CouponModal } from '../../../features/Coupon/components/CouponModal';
 import { useCouponSelection } from '../../../features/Coupon/hooks/useCouponSelection';
 
 import { Coupon } from '../../../features/Coupon/types/Coupon.types';
+import { useSelectedCart } from '../hooks/useSelectedCart';
 
 type OrderConfirmProps = {
   onSelectCoupons: (selected: Coupon[]) => void;
 } & StepProps;
 
 export const OrderConfirm = ({ onSelectCoupons, onPrev, onNext }: OrderConfirmProps) => {
-  const { selectedCartItems } = useCartInfo();
+  const selectedCartItems = useSelectedCart();
   const { hasCheckCartLength, totalQuantity } = useOrderInfo();
 
   const {

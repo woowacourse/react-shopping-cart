@@ -11,7 +11,7 @@ import { formatDate, formatTime } from '../../../shared/utils/date';
 import { calculateTotalDiscount } from '../utils/calculateTotalDiscount';
 import { useCartContext } from '../../../features/Cart/context/CartProvider';
 import { usePriceInfo } from '../../../features/Cart/hooks/usePriceInfo';
-import { useCartInfo } from '../../../features/Cart/hooks/useCartInfo';
+import { useSelectedCart } from '@/features/Cart/hooks/useSelectedCart';
 
 type CouponModalProps = {
   coupons: Coupon[];
@@ -28,7 +28,7 @@ export const CouponModal = ({
 }: CouponModalProps) => {
   const { isRemoteArea } = useCartContext();
   const { totalPrice } = usePriceInfo();
-  const { selectedCartItems } = useCartInfo();
+  const selectedCartItems = useSelectedCart();
 
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
   const totalDiscount = calculateTotalDiscount(selectedCartItems, selectedCoupons, {

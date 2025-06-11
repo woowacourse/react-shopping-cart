@@ -12,19 +12,18 @@ import { PriceSummary } from '../../../features/Cart/components/PriceSummary';
 
 import { StepProps } from '../../../shared/types/funnel';
 import { CartListContainer } from '../../../features/Cart/container/CartListContainer';
-import { useCartInfo } from '../../../features/Cart/hooks/useCartInfo';
 import { useCartContext } from '../context/CartProvider';
+import { useCartCheckStatus } from '../hooks/useCartCheckStatus';
+import { useCartAmountCount } from '../hooks/useCartAmountCount';
+import { useFreeShippingProgress } from '../hooks/useFreeShippingProgress';
 
 export const CartInfo = ({ onNext }: StepProps) => {
-  const { cartItems, toggleAllCheck } =
-    useCartContext();
-  const {
-    allChecked,
-    cartItemCount,
-    selectedCartItemCount,
-    progressValue,
-    remainingForFreeShipping,
-  } = useCartInfo();
+  const { cartItems, toggleAllCheck } = useCartContext();
+  const { allChecked } = useCartCheckStatus();
+  const { selectedCartItemCount } = useCartAmountCount();
+  const { progressValue, remainingForFreeShipping } = useFreeShippingProgress();
+
+  const cartItemCount = cartItems.length;
 
   return (
     <>
@@ -106,11 +105,7 @@ export const CartInfo = ({ onNext }: StepProps) => {
           </Flex>
           <CartListContainer>
             {cartItems?.map((item) => (
-              <CartItemDetail
-                key={item.id}
-                variant="cart"
-                {...item}
-              />
+              <CartItemDetail key={item.id} variant="cart" {...item} />
             ))}
           </CartListContainer>
           <PriceSummary />
