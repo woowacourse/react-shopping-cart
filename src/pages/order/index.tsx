@@ -1,7 +1,7 @@
-import CouponModal from "./components/CouponModal";
 import { CouponModalProvider } from "./contexts/CouponModalContext";
 import { OrderProvider } from "./contexts/OrderContext";
 import OrderPageContent from "./OrderPageContent";
+import CouponModal from "./components/CouponModal";
 
 const OrderPage = () => {
   return (

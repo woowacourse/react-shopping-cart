@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { AvailableCouponType } from "../../../shared/types/coupon";
 
 interface UseTempCouponProps {
@@ -14,7 +14,7 @@ interface UseTempCouponReturn {
 }
 
 export const useTempCoupon = ({ availableCoupons, updateApplyCoupon }: UseTempCouponProps): UseTempCouponReturn => {
-  const [tempAvailableCoupons, setTempAvailableCoupons] = useState<AvailableCouponType[]>([]);
+  const [tempAvailableCoupons, setTempAvailableCoupons] = useState<AvailableCouponType[]>(availableCoupons);
 
   const discountPrice = useMemo(
     () =>
@@ -41,10 +41,6 @@ export const useTempCoupon = ({ availableCoupons, updateApplyCoupon }: UseTempCo
   };
 
   const applySelectedCoupons = () => updateApplyCoupon(tempAvailableCoupons);
-
-  useEffect(() => {
-    setTempAvailableCoupons(availableCoupons);
-  }, [availableCoupons]);
 
   return {
     tempAvailableCoupons,
