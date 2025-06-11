@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
 interface useSelectedProps {
-  enableStorage?: boolean;
+  enableLocalStorage?: boolean;
   storageKey?: string;
 }
 export const useSelected = ({
-  enableStorage = false,
+  enableLocalStorage = false,
   storageKey = "default",
 }: useSelectedProps) => {
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(() => {
-    if (!enableStorage) return new Set();
+    if (!enableLocalStorage) return new Set();
     const stored = localStorage.getItem(storageKey);
     if (stored) {
       try {

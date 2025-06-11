@@ -18,7 +18,10 @@ export const SelectedCartItemProvider = ({
   children,
 }: SelectedCartItemProviderProps) => {
   const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
-    useSelected({ enableStorage: true, storageKey: "selectedCartItemIds" });
+    useSelected({
+      enableLocalStorage: true,
+      storageKey: "selectedCartItemIds",
+    });
 
   return (
     <SelectedCartItemContext.Provider
