@@ -53,8 +53,8 @@
       "@shared/*": [
         "src/shared/*"
       ],
-      "@shared/components/*": [
-        "src/shared/components/*"
+      "@shared/ui/*": [
+        "src/shared/ui/*"
       ]
     }
   },

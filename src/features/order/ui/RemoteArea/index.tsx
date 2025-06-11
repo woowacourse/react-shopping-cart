@@ -1,5 +1,5 @@
 import * as S from './RemoteArea.styled';
-import CheckBox from '@/shared/components/CheckBox';
+import CheckBox from '@/shared/ui/CheckBox';
 
 interface RemoteAreaProps {
   isChecked: boolean;

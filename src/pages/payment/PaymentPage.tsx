@@ -1,7 +1,7 @@
 import * as S from './PaymentPage.styled';
-import Header from '@shared/components/Header/Header';
+import Header from '@/shared/ui/Header/Header';
 import { usePageNavigation } from '@app/hooks/usePageNavigation';
-import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
+import BottomConfirmButton from '@/shared/ui/BottomConfirmButton/BottomConfirmButton';
 
 export default function PaymentPage() {
   const { getPaymentSuccessState, navigateToCart } = usePageNavigation();

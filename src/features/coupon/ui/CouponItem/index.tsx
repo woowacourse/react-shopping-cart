@@ -1,5 +1,5 @@
 import * as S from './CouponItem.styled';
-import CheckBox from '@shared/components/CheckBox';
+import CheckBox from '@/shared/ui/CheckBox';
 import { formatAvailableTime, formatTime } from '@/entities/coupon/utils/formatter';
 
 interface CouponItemProps {

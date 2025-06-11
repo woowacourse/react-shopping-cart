@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { usePageNavigation } from '@app/hooks/usePageNavigation';
 import * as S from './OrderContent.styled';
 import OrderList from '@features/order/ui/OrderList';
-import CommonButton from '@shared/components/CommonButton';
+import CommonButton from '@/shared/ui/CommonButton';
 import RemoteArea from '@features/order/ui/RemoteArea';
-import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
+import BottomConfirmButton from '@/shared/ui/BottomConfirmButton/BottomConfirmButton';
 import PriceContainer from '../PriceContainer';
 import { calculateDeliveryFee, calculateOrderPrice } from '@entities/cart';
 import { CartItemType } from '@entities/cart';
 import CouponModal from '@widget/order/CouponModal';
 import { useClientCoupon } from '@entities/coupon/model/useClientCoupon';
-import { useModal } from '@shared/components/Modal/hook/useModal';
+import { useModal } from '@/shared/ui/Modal/hook/useModal';
 import { calculateCouponDiscountTotalPrice } from '@entities/coupon/utils/calculateCoupon';
 
 interface OrderContentProps {

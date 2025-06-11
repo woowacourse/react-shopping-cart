@@ -1,5 +1,5 @@
 import * as S from './CartPage.styled';
-import Header from '@/shared/components/Header/Header';
+import Header from '@/shared/ui/Header/Header';
 import CartContent from '@widget/cart/CartContent/CartContent';
 import { CartProvider } from '@entities/cart';
 

@@ -1,14 +1,14 @@
 import EmptyCartContainer from '../EmptyCartContainer/EmptyCartContainer';
 import PriceContainer from '../PriceContainer';
 import CartList from '@features/cart/ui/CartList/CartList';
-import CheckBox from '@shared/components/CheckBox';
+import CheckBox from '@/shared/ui/CheckBox';
 import * as S from './CartContent.styled';
-import LoadingContainer from '@shared/components/LoadingContainer/LoadingContainer';
-import ErrorContainer from '@shared/components/ErrorContainer/ErrorContainer';
+import LoadingContainer from '@/shared/ui/LoadingContainer/LoadingContainer';
+import ErrorContainer from '@/shared/ui/ErrorContainer/ErrorContainer';
 import { useCartContext } from '@entities/cart';
 import { useOrderSelection, useOrderCalculation } from '@entities/order';
 import { usePageNavigation } from '@app/hooks/usePageNavigation';
-import BottomConfirmButton from '@shared/components/BottomConfirmButton/BottomConfirmButton';
+import BottomConfirmButton from '@/shared/ui/BottomConfirmButton/BottomConfirmButton';
 
 export default function CartContent() {
   const { cartItems, isLoading, errorMessage } = useCartContext();

@@ -1,6 +1,6 @@
 import { FREE_DELIVERY_LIMIT } from '@/entities/cart/utils/cartPriceCalculator';
-import PriceBox from '@shared/components/PriceInfoContainer/PriceBox';
-import PriceInfoContainer from '@shared/components/PriceInfoContainer';
+import PriceBox from '@/shared/ui/PriceInfoContainer/PriceBox';
+import PriceInfoContainer from '@/shared/ui/PriceInfoContainer';
 
 interface PriceContainerProps {
   orderPrice: number;

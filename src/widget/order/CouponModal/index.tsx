@@ -1,8 +1,8 @@
 import * as S from './CouponModal.styled';
 import { ClientCouponType } from '@entities/coupon/type/coupon.type';
-import Modal from '@shared/components/Modal';
+import Modal from '@/shared/ui/Modal';
 import CancelIcon from '@assets/icons/cancel.svg';
-import CommonButton from '@shared/components/CommonButton';
+import CommonButton from '@/shared/ui/CommonButton';
 import CouponList from '@features/coupon/ui/CouponList';
 import { calculateCouponDiscountTotalPrice } from '@/entities/coupon/utils/calculateCoupon';
 
