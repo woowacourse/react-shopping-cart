@@ -75,7 +75,7 @@ export default function OrderConfirmSection({
           <Spacing size={16} />
           <S.CheckboxWrapper>
             <Checkbox checked={isIslandChecked} onClick={handleCheckboxChange}></Checkbox>
-            <Text variant="body-1">제주도 및 도서 산간 지역</Text>
+            <Text variant="title-3">제주도 및 도서 산간 지역</Text>
           </S.CheckboxWrapper>
           <Spacing size={32} />
           <p>
