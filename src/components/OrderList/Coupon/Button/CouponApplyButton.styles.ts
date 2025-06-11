@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Coupon = styled.button`
+export const Button = styled.button`
   width: 382px;
   height: 48px;
   border-radius: 5px;
