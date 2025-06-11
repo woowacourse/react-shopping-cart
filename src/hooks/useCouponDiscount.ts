@@ -3,12 +3,11 @@ import { useCouponContext } from "../contexts/CouponContext";
 import { useSelectedItems } from "./useSelectedItems";
 import { useShippingContext } from "../contexts/ShippingContext";
 import { Coupon } from "../apis/coupons";
+import { SHIPPING_FEE, REMOTE_AREA_SHIPPING_FEE } from "../constants";
 import {
-  FREE_SHIPPING_MIN_AMOUNT,
-  SHIPPING_FEE,
-  REMOTE_AREA_SHIPPING_FEE,
-} from "../constants";
-import { calculateBuyXGetYDiscount } from "../utils/discounts";
+  calculateBuyXGetYDiscount,
+  calculateFreeShippingDiscount,
+} from "../utils/discounts";
 
 export const useCouponDiscount = () => {
   const { appliedCoupons } = useCouponContext();
@@ -47,14 +46,10 @@ export const useCouponDiscount = () => {
           break;
 
         case "freeShipping": {
-          const currentShippingFee =
-            orderPrice >= FREE_SHIPPING_MIN_AMOUNT
-              ? isRemoteAreaShipping
-                ? REMOTE_AREA_SHIPPING_FEE
-                : 0
-              : actualShippingFee;
-
-          totalDiscount += currentShippingFee;
+          totalDiscount += calculateFreeShippingDiscount(
+            orderPrice,
+            isRemoteAreaShipping
+          );
           break;
         }
       }

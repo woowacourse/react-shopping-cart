@@ -1,5 +1,10 @@
 import { Coupon } from "../apis/coupons";
 import { CartItem } from "../types/type";
+import {
+  FREE_SHIPPING_MIN_AMOUNT,
+  REMOTE_AREA_SHIPPING_FEE,
+  SHIPPING_FEE,
+} from "../constants";
 
 export const calculateBuyXGetYDiscount = (
   selectedItems: CartItem[],
@@ -27,4 +32,14 @@ export const calculateBuyXGetYDiscount = (
   });
 
   return maxPrice;
+};
+
+export const calculateFreeShippingDiscount = (
+  orderPrice: number,
+  isRemoteAreaShipping: boolean
+): number => {
+  if (orderPrice >= FREE_SHIPPING_MIN_AMOUNT) {
+    return isRemoteAreaShipping ? REMOTE_AREA_SHIPPING_FEE : 0;
+  }
+  return SHIPPING_FEE + (isRemoteAreaShipping ? REMOTE_AREA_SHIPPING_FEE : 0);
 };
