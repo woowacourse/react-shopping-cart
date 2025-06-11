@@ -26,6 +26,11 @@ export default function CouponList({ selectedCoupons, setSelectedCoupons, orderP
 
   const isCouponDisabled = (coupon: CouponsResponse): boolean => {
     const currentHour = new Date().getHours();
+    const isAlreadySelected = selectedIds.includes(coupon.id);
+
+    if (!isAlreadySelected && selectedCoupons.length >= 2) {
+      return true;
+    }
 
     switch (coupon.description) {
       case '5,000원 할인 쿠폰':
