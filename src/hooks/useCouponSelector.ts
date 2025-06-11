@@ -1,4 +1,3 @@
-// src/hooks/useCouponSelector.ts
 import { useState, useEffect } from 'react';
 import { useCoupons } from './useCoupons';
 import { useToggle } from './useToggle';
@@ -9,7 +8,7 @@ import type { CartItemType } from '../types/cartItem';
 import { MAX_COUPON_LENGTH } from '../constants/maxCouponLength';
 
 export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
-  const { data: coupons = [] } = useCoupons();
+  const { data: coupons } = useCoupons();
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [draftCoupons, setDraftCoupons] = useState<Coupon[]>([]);
   const { value: isOpen, on: open, off: close } = useToggle(false);
@@ -38,7 +37,7 @@ export function useCouponSelector(orderAmount: number, items: CartItemType[]) {
   };
 
   useEffect(() => {
-    setSelectedCoupons(getBestCoupons({ coupons, orderAmount, items }));
+    setSelectedCoupons(getBestCoupons({ coupons: coupons ?? [], orderAmount, items }));
   }, [coupons, orderAmount, items]);
 
   return {

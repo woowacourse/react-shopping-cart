@@ -38,21 +38,28 @@ const CouponModal = ({
         <img src="./assets/info.svg" alt="info icon" />
         <p css={fontSize12}>쿠폰은 최대 {MAX_COUPON_LENGTH}개까지 사용할 수 있습니다.</p>
       </div>
-      {coupons?.map((coupon) => {
-        const isChecked = draftCoupons.includes(coupon);
-        const isEnabled =
-          (isCouponEnabled({ coupon, orderAmount, items: checkedItems }) && draftCoupons.length < MAX_COUPON_LENGTH) ||
-          isChecked;
-        return (
-          <CouponItem
-            key={coupon.id}
-            coupon={coupon}
-            isEnabled={isEnabled}
-            isChecked={isChecked}
-            handleCouponToggle={() => toggleCoupon(coupon)}
-          />
-        );
-      })}
+      <div css={couponListCss}>
+        {coupons.length <= 0 ? (
+          <p>적용 가능한 쿠폰이 없어요</p>
+        ) : (
+          coupons.map((coupon) => {
+            const isChecked = draftCoupons.includes(coupon);
+            const isEnabled =
+              (isCouponEnabled({ coupon, orderAmount, items: checkedItems }) &&
+                draftCoupons.length < MAX_COUPON_LENGTH) ||
+              isChecked;
+            return (
+              <CouponItem
+                key={coupon.id}
+                coupon={coupon}
+                isEnabled={isEnabled}
+                isChecked={isChecked}
+                handleCouponToggle={() => toggleCoupon(coupon)}
+              />
+            );
+          })
+        )}
+      </div>
       <Button css={buttonCss} onClick={apply}>
         총 {tempTotalDiscount.toLocaleString()}원 할인쿠폰 사용하기
       </Button>
@@ -86,4 +93,14 @@ const infoCss = css({
 
 const fontSize12 = css({
   fontSize: '12px'
+});
+
+const couponListCss = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '50dvh',
+  overflow: 'auto'
 });
