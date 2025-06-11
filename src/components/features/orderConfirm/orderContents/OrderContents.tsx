@@ -11,7 +11,7 @@ function OrderContents() {
     <S.Container>
       <CouponProvider products={order.products}>
         <OrderTitle
-          quantity={order.quantity}
+          uniqueProductCount={order.uniqueProductCount}
           productQuantity={order.productQuantity}
         />
         <OrderList products={order.products} />

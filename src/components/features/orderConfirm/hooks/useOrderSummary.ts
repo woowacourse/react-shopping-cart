@@ -9,14 +9,14 @@ export default function useOrderSummary() {
   const location = useLocation();
   const products = location.state.orderProducts;
 
-  const quantity = products.length;
+  const uniqueProductCount = products.length;
   const productQuantity = calculateTotalProductQuantity(products);
   const price = calculateOrderPrice(products);
   const { deliveryFee } = calculateTotalPrice(price);
 
   return {
     products,
-    quantity,
+    uniqueProductCount,
     productQuantity,
     price,
     deliveryFee,

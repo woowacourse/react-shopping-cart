@@ -9,7 +9,7 @@ import { useCouponContext } from '../contexts/CouponContext';
 
 interface OrderPriceProps {
   order: {
-    quantity: number;
+    uniqueProductCount: number;
     productQuantity: number;
     price: number;
     deliveryFee: number;
@@ -29,7 +29,7 @@ function OrderPrice({ order }: OrderPriceProps) {
   const moveToPayment = () => {
     navigate('/payment', {
       state: {
-        quantity: order.quantity,
+        quantity: order.uniqueProductCount,
         productQuantity: order.productQuantity,
         price: totalPrice,
       },

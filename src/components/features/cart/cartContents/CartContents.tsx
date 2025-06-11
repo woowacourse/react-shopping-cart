@@ -29,7 +29,7 @@ function CartContents() {
 
   return (
     <S.Container>
-      <CartTitle quantity={cartItems.length} />
+      <CartTitle uniqueProductCount={cartItems.length} />
       <CartList />
       <CartPrice value={selection.orderPrice} />
       <FooterButton disabled={selection.disabled} onClick={moveToOrderConfirm}>
