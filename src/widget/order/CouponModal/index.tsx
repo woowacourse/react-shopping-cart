@@ -1,10 +1,10 @@
 import * as S from './CouponModal.styled';
-import { ClientCouponType } from '@entities/coupon/type/coupon.type';
-import Modal from '@/shared/ui/Modal';
+import { ClientCouponType } from '@entities/coupon';
+import Modal from '@shared/ui/Modal';
 import CancelIcon from '@assets/icons/cancel.svg';
-import CommonButton from '@/shared/ui/CommonButton';
+import CommonButton from '@shared/ui/CommonButton';
 import CouponList from '@features/coupon/ui/CouponList';
-import { calculateCouponDiscountTotalPrice } from '@/entities/coupon/utils/calculateCoupon';
+import { calculateCouponDiscountTotalPrice } from '@entities/coupon';
 
 interface CouponModalProps {
   isOpen: boolean;
