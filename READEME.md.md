@@ -122,7 +122,7 @@ useCouponValidation과 useCouponDiscount가 훅일 필요가 있을까?
 ### 피드백 기반 리팩토링 사항
 
 - [x] 가격 및 수량 수량 천단위 포맷팅
-- [ ] useCartCheck 훅 handleCheckChange 함수 조건문 이후, return
+- [x] useCartCheck 훅 handleCheckChange 함수 조건문 이후, return
 - [x] useCartResource 내부 useEffect 역할 상위로 뺴기
 - [x] 장바구니 아이템 삭제 시 체크 상태가 동기화 로직 단순화
 - [x] 페이지 이동시, cartItem 체크 상태만 전달

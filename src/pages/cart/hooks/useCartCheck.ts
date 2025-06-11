@@ -13,9 +13,11 @@ const useCartCheck = (cartItemIds: number[]) => {
   const handleCheckChange: HandleCheckChangeType = ({ action, id }) => {
     if (action === "all") {
       setCheckedIds((prev) => (prev.length === cartItemIds.length ? [] : [...cartItemIds]));
+      return;
     }
     if (action === "each" && id) {
       setCheckedIds((prev) => (prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]));
+      return;
     }
   };
 
