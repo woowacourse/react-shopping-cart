@@ -6,8 +6,8 @@ export const validateCoupon = (
   currentDate: string = new Date().toISOString().split("T")[0],
   currentTime: string = new Date().toTimeString().substring(0, 8)
 ): boolean => {
-  const isNotExpired = coupon.expirationDate >= currentDate;
-  if (!isNotExpired) return false;
+  const isExpired = coupon.expirationDate < currentDate;
+  if (isExpired) return false;
 
   const meetsMinimumAmount =
     !coupon.minimumAmount || orderPrice >= coupon.minimumAmount;
