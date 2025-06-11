@@ -7,7 +7,7 @@ import CartItem from "../../../types/CartItem";
 import Footer from "../../layout/Footer/Footer";
 import ContentHeader from "../../shoppingCart/ContentHeader/ContentHeader";
 import Receipt from "../../shoppingCart/receipt/Receipt";
-import CouponButton from "../Coupon/Button/CouponButton";
+import CouponApplyButton from "../Coupon/Button/CouponApplyButton";
 import Modal from "../Modal/Modal";
 import OrderList from "../OrderList/OrderList";
 import Shipping from "../Shipping/Shipping";
@@ -64,7 +64,7 @@ export default function OrderListContent({
         description={`총 ${selectedItems.length}종류의 상품 ${cartItemCheckListTotalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
       />
       <OrderList items={selectedItems} />
-      <CouponButton onClick={handleOpenModal} />
+      <CouponApplyButton onClick={handleOpenModal} />
       <Modal
         isModalOpen={isModalOpen}
         onClose={handleCloseModal}
