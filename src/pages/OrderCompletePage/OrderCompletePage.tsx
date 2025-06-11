@@ -14,7 +14,7 @@ import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 import { OrderCalculator } from "../../utils/orderCalculator";
 
 interface OrderCompleteState {
-  selectedCartItem: ResponseCartItem[];
+  selectedCartItems: ResponseCartItem[];
   totalPrice: number;
   orderPrice: number;
   deliveryPrice: number;
@@ -32,12 +32,12 @@ const OrderCompletePage = () => {
 
   // 원래 주문 금액 계산 (쿠폰 적용 전)
   const originalOrderAmount = useMemo(() => {
-    return OrderCalculator.calculateOrderAmount(state?.selectedCartItem || []);
-  }, [state?.selectedCartItem]);
+    return OrderCalculator.calculateOrderAmount(state?.selectedCartItems || []);
+  }, [state?.selectedCartItems]);
 
   const { finalDeliveryFee, totalDiscount, finalTotalAmount } =
     useCouponCalculation({
-      cartItems: state?.selectedCartItem || [],
+      cartItems: state?.selectedCartItems || [],
       isRemoteArea,
       selectedCoupons: appliedCoupons,
     });
@@ -55,7 +55,7 @@ const OrderCompletePage = () => {
   const handleCheckPayment = (): void => {
     navigate("/check-payment", {
       state: {
-        selectedCartItem: state.selectedCartItem,
+        selectedCartItems: state.selectedCartItems,
         totalPrice: finalTotalAmount,
         orderPrice: originalOrderAmount,
         deliveryPrice: finalDeliveryFee,
@@ -79,7 +79,7 @@ const OrderCompletePage = () => {
   };
 
   const orderSummary = OrderCalculator.calculateOrderSummary(
-    state.selectedCartItem
+    state.selectedCartItems
   );
 
   return (
@@ -95,7 +95,7 @@ const OrderCompletePage = () => {
             />
           </S.OrderResultWrapper>
           <S.CartItemWrapper>
-            {state.selectedCartItem.map((item) => (
+            {state.selectedCartItems.map((item) => (
               <CartItem key={item.id} cart={item} isReadOnly={true} />
             ))}
             <S.CouponButton onClick={handleCouponButtonClick}>
@@ -133,7 +133,7 @@ const OrderCompletePage = () => {
             isOpen={isCouponModalOpen}
             onClose={handleCloseCouponModal}
             onApplyCoupons={handleApplyCoupons}
-            cartItems={state?.selectedCartItem || []}
+            cartItems={state?.selectedCartItems || []}
             isRemoteArea={isRemoteArea}
             appliedCoupons={appliedCoupons}
           />

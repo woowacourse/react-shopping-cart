@@ -7,7 +7,7 @@ import { ResponseCartItem } from "../../types/order";
 import { OrderCalculator } from "../../utils/orderCalculator";
 
 interface CheckPaymentState {
-  selectedCartItem: ResponseCartItem[];
+  selectedCartItems: ResponseCartItem[];
   totalPrice: number;
   orderPrice: number;
   deliveryPrice: number;
@@ -32,7 +32,7 @@ const CheckPaymentPage = () => {
   if (!state) return null;
 
   const orderSummary = OrderCalculator.calculateOrderSummary(
-    state.selectedCartItem
+    state.selectedCartItems
   );
 
   return (

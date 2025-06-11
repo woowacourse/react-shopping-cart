@@ -11,7 +11,7 @@ const OrderSection = () => {
   const cartData = useCartContext();
   const selectData = useSelectContext();
 
-  const { orderBreakdown, selectedCartItem } = useMemo(() => {
+  const { orderBreakdown, selectedCartItems } = useMemo(() => {
     const selectedCartData = cartData.filter(
       (_, idx) => selectData[idx]?.selected
     );
@@ -23,14 +23,14 @@ const OrderSection = () => {
 
     return {
       orderBreakdown: breakdown,
-      selectedCartItem: selectedCartData,
+      selectedCartItems: selectedCartData,
     };
   }, [selectData, cartData]);
 
   const handleOrderCheck = (): void => {
     navigate("/order-complete", {
       state: {
-        selectedCartItem,
+        selectedCartItems,
         totalPrice: orderBreakdown.totalPrice,
         orderPrice: orderBreakdown.orderAmount,
         deliveryPrice: orderBreakdown.deliveryFee,
