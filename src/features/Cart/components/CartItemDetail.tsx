@@ -14,12 +14,12 @@ import { useCartContext } from '../context/CartProvider';
 
 type CartItemDetailProps = {
   variant: 'cart' | 'review';
-  isChecked?: boolean;
+  checked?: boolean;
 } & CartItem;
 
 export const CartItemDetail = ({
   id,
-  isChecked,
+  checked,
   quantity,
   product,
   variant = 'cart',
@@ -53,7 +53,7 @@ export const CartItemDetail = ({
           gap="0"
           margin="10px 0 0 0 "
         >
-          <CheckBox role="checkbox" checked={isChecked} onClick={() => toggleCheck?.(id)} />
+          <CheckBox role="checkbox" checked={checked} onClick={() => toggleCheck?.(id)} />
           <Button
             variant="outlined"
             size="xs"
