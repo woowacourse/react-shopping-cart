@@ -1,4 +1,4 @@
-import { baseAPI } from '../../../../api/baseAPI';
+import { baseAPI } from '../api/baseAPI';
 
 function fetchData<T>() {
   const fetch = async (path: string) => {

@@ -8,8 +8,8 @@ import {
   useMemo,
 } from 'react';
 import { CartItemType } from '../types';
-import fetchData from '../utils/fetchData';
 import { PaginationResponse } from '../../../../api/type';
+import fetchData from '../../../../utils/fetchData';
 
 interface CartContextValue {
   cartItems: CartItemType[];

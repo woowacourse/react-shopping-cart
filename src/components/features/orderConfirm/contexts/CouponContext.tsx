@@ -7,8 +7,8 @@ import React, {
 } from 'react';
 import { CartItemType } from '../../cart/types';
 import { CouponDiscount, CouponType } from '../types';
-import fetchData from '../../cart/utils/fetchData';
 import { calculateCouponDiscount } from '../utils/calculateCouponDiscount';
+import fetchData from '../../../../utils/fetchData';
 
 interface CouponProviderProps {
   products: CartItemType[];
