@@ -56,7 +56,7 @@ const Coupon = ({
             isChecked={isCouponChecked[coupon.code]}
             onChange={onChange}
             name={coupon.code}
-            disabled={!canApplyCouponCode?.find((code) => code !== coupon.code)}
+            disabled={!canApplyCouponCode?.find((code) => code === coupon.code)}
           />
           <S.Description>만료일: {coupon.expirationDate}</S.Description>
           {coupon.minimumAmount && (

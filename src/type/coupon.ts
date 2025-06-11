@@ -1,8 +1,10 @@
 export type DiscountType = 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
 
+type TimeString = `${number}:${number}:${number}`;
+
 export type AvailableTime = {
-  start: string;
-  end: string;
+  start: TimeString;
+  end: TimeString;
 };
 
 export type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
