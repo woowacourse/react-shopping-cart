@@ -1,10 +1,16 @@
-import { createContext, PropsWithChildren, useMemo, useRef, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo, useRef, useState } from 'react';
 
 import { Toast } from '../../shared/components/Toast/Toast';
 
 export const ToastContext = createContext({
   showToast(_message: string, _duration: number = 3000) {},
 });
+
+export const useToastContext = () => {
+  const context = useContext(ToastContext);
+  if (!context) throw new Error('useToastContext는 ToastProvider 내에서 호출해주세요.');
+  return context;
+};
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
   const [toast, setToast] = useState('');

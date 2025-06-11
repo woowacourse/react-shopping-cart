@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useRef, useState, PropsWithChildr
 import { useFetchData } from '../../../shared/hooks/useFetchData';
 import { deleteCartItem, getCartItemList, updateCartItem } from '../../../features/Cart/api/cart';
 import { CartItem } from '../../../features/Cart/types/Cart.types';
-import { ToastContext } from '../../../shared/context/ToastProvider';
+import { useToastContext } from '../../../shared/context/ToastProvider';
 import { isError } from '../../../shared/utils/isError';
 
 type CartContextType = {
@@ -26,7 +26,7 @@ export const useCartContext = () => {
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
   const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
-  const { showToast } = useContext(ToastContext);
+  const { showToast } = useToastContext();
   const [checkedItems, setCheckedItems] = useState(new Set<number>());
   const hasInitialized = useRef(false);
   const [isRemoteArea, setIsRemoteArea] = useState(false);
