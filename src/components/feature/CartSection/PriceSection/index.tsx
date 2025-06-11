@@ -30,10 +30,10 @@ const PriceSection = ({
         <S.Price>{formatPrice(orderPrice)}</S.Price>
       </S.PriceInfo>
 
-      {discountPrice !== undefined && (
+      {discountPrice !== undefined && discountPrice >= 0 && (
         <S.PriceInfo>
           <S.Label>쿠폰 할인 금액</S.Label>
-          <S.Price>{formatPrice(discountPrice)}</S.Price>
+          <S.Price>-{formatPrice(discountPrice)}</S.Price>
         </S.PriceInfo>
       )}
 
