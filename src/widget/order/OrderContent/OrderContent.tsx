@@ -20,7 +20,7 @@ interface OrderContentProps {
 export default function OrderContent({ orderItems }: OrderContentProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
 
-  const { clientCoupons, handleCouponCheck } = useClientCoupon({
+  const { clientCoupons, toggleCouponWithinLimit } = useClientCoupon({
     orderItems,
     isRemoteArea,
     onError: (message) => {
@@ -59,7 +59,7 @@ export default function OrderContent({ orderItems }: OrderContentProps) {
         isOpen={isOpen}
         onClose={handleModalClose}
         clientCoupons={clientCoupons}
-        onCouponCheck={handleCouponCheck}
+        onCouponCheck={toggleCouponWithinLimit}
       />
       <RemoteArea isChecked={isRemoteArea} onClick={handleRemoteAreaClick} />
       <PriceContainer
