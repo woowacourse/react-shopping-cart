@@ -1,13 +1,13 @@
 import { CartItemProps } from '../types/cartItem';
 import { Coupon, validatedCouponList } from '../types/coupon';
 
-export function isExpired(expirationDate: string): boolean {
+export function isExpired(expirationDate: string) {
   const today = new Date();
   const [y, m, d] = expirationDate.split('-').map(Number);
   return today <= new Date(y, m - 1, d);
 }
 
-export function isCurrentTimeInRange(start: string, end: string): boolean {
+export function isCurrentTimeInRange(start: string, end: string) {
   const now = new Date();
 
   const startDate = new Date(now);
@@ -23,14 +23,11 @@ export function isCurrentTimeInRange(start: string, end: string): boolean {
   return now >= startDate && now <= endDate;
 }
 
-export function isMinimumAmount(
-  minimumAmount: number,
-  subTotal: number
-): boolean {
+export function isMinimumAmount(minimumAmount: number, subTotal: number) {
   return subTotal >= minimumAmount;
 }
 
-export function isQuantity(cartItems: CartItemProps[]): boolean {
+export function isQuantity(cartItems: CartItemProps[]) {
   return cartItems.some((item) => item.quantity >= 2);
 }
 
