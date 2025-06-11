@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { createContext, useContext, useRef } from 'react';
 
 import { useFocusTrap } from '@/components/hooks/useFocusTrap';
