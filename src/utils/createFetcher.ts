@@ -1,6 +1,6 @@
 import { baseAPI } from '../api/baseAPI';
 
-function fetchData<T>() {
+function createFetcher<T>() {
   const fetch = async (path: string) => {
     const data = await baseAPI<T>({
       method: 'GET',
@@ -12,4 +12,4 @@ function fetchData<T>() {
   return fetch;
 }
 
-export default fetchData;
+export default createFetcher;

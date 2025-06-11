@@ -8,7 +8,7 @@ import React, {
 import { CartItemType } from '../../cart/types';
 import { CouponDiscount, CouponType } from '../types';
 import { calculateCouponDiscount } from '../utils/calculateCouponDiscount';
-import fetchData from '../../../../utils/fetchData';
+import createFetcher from '../../../../utils/createFetcher';
 
 interface CouponProviderProps {
   products: CartItemType[];
@@ -33,7 +33,7 @@ export function CouponProvider({ products, children }: CouponProviderProps) {
   const [isIslandAreaSelected, setIsIslandAreaSelected] = useState(false);
 
   const fetchCoupons = async () => {
-    const data = await fetchData<CouponType[]>()('/coupons');
+    const data = await createFetcher<CouponType[]>()('/coupons');
     setCoupons(data ?? []);
   };
 
