@@ -49,6 +49,20 @@ const getPrevDaySafe = (dateStr: string) => {
   return formatDate(date);
 };
 
+export const getPriceBelowMinimum = (
+  minimumAmount: number,
+  quantity: number
+) => {
+  return Math.floor(minimumAmount / (quantity + 1));
+};
+
+export const getPriceEqualToMinimum = (
+  minimumAmount: number,
+  quantity: number
+) => {
+  return minimumAmount / quantity;
+};
+
 describe("쿠폰 적용 조건 테스트", () => {
   beforeEach(() => {
     vi.useRealTimers();
@@ -56,21 +70,26 @@ describe("쿠폰 적용 조건 테스트", () => {
 
   describe("FixedCoupon disabled 테스트", () => {
     const safeTestDate = generateSafeTestDate();
+    const MINIMUM_AMOUNT = 50000;
     const fixedCoupon = createMockCoupon<FixedCoupon>({
       ...baseCoupon,
       discountType: "fixed",
       discount: 5000,
-      minimumAmount: 50000,
+      minimumAmount: MINIMUM_AMOUNT,
       expirationDate: safeTestDate,
     });
 
     it("주문 금액이 최소 금액 미만일 때 비활성화", () => {
-      const cartItems = [createMockCartItem(10000, 4)];
+      const QUANTITY = 4;
+      const price = getPriceBelowMinimum(MINIMUM_AMOUNT, QUANTITY);
+      const cartItems = [createMockCartItem(price, QUANTITY)];
       expect(getIsCouponDisabled(fixedCoupon, cartItems)).toBe(true);
     });
 
     it("주문 금액이 최소 금액과 동일할 때 활성화", () => {
-      const cartItems = [createMockCartItem(25000, 2)];
+      const QUANTITY = 2;
+      const PRICE = getPriceEqualToMinimum(MINIMUM_AMOUNT, QUANTITY);
+      const cartItems = [createMockCartItem(PRICE, QUANTITY)];
       expect(getIsCouponDisabled(fixedCoupon, cartItems)).toBe(false);
     });
 
@@ -130,21 +149,26 @@ describe("쿠폰 적용 조건 테스트", () => {
   });
 
   describe("FreeShipping disabled 테스트", () => {
+    const MINIMUM_AMOUNT = 50000;
     const safeTestDate = generateSafeTestDate();
     const freeShipping = createMockCoupon<FreeShippingCoupon>({
       ...baseCoupon,
       discountType: "freeShipping",
-      minimumAmount: 50000,
+      minimumAmount: MINIMUM_AMOUNT,
       expirationDate: safeTestDate,
     });
 
     it("주문 금액이 최소 금액 미만일 때 비활성화", () => {
-      const cartItems = [createMockCartItem(10000, 4)];
+      const QUANTITY = 4;
+      const price = getPriceBelowMinimum(MINIMUM_AMOUNT, QUANTITY);
+      const cartItems = [createMockCartItem(price, QUANTITY)];
       expect(getIsCouponDisabled(freeShipping, cartItems)).toBe(true);
     });
 
     it("주문 금액이 최소 금액과 동일할 때 활성화", () => {
-      const cartItems = [createMockCartItem(25000, 2)];
+      const QUANTITY = 2;
+      const PRICE = getPriceEqualToMinimum(MINIMUM_AMOUNT, QUANTITY);
+      const cartItems = [createMockCartItem(PRICE, QUANTITY)];
       expect(getIsCouponDisabled(freeShipping, cartItems)).toBe(false);
     });
 
