@@ -22,7 +22,7 @@ function CompletePage() {
       <main css={layoutCss}>
         <h1 css={titleCss}>주문 확인</h1>
         <p css={descriptionCss}>
-          총 {countOfItemType}종류의 상품 {totalQuantity}개를 주문합니다.
+          총 {countOfItemType}종류의 상품 {totalQuantity}개를 주문했습니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </p>
