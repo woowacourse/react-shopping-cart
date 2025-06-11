@@ -8,10 +8,10 @@ import { getCouponValidator } from '../utils/getCouponValidator';
 import { useCouponContext } from '../contexts/CouponContext';
 
 interface CouponModalProps {
-  onClose: () => void;
+  onRequestClose: () => void;
 }
 
-function CouponModal({ onClose }: CouponModalProps) {
+function CouponModal({ onRequestClose }: CouponModalProps) {
   const { coupons, selected, setSelected, couponDiscounts, totalDiscount } =
     useCouponContext();
 
@@ -27,7 +27,7 @@ function CouponModal({ onClose }: CouponModalProps) {
     );
   };
 
-  useEscapeKey(onClose);
+  useEscapeKey(onRequestClose);
 
   return (
     <S.Overlay>
@@ -37,7 +37,7 @@ function CouponModal({ onClose }: CouponModalProps) {
           <img
             src={Close}
             alt="닫기"
-            onClick={onClose}
+            onClick={onRequestClose}
             style={{ cursor: 'pointer' }}
           />
         </S.Header>
@@ -105,7 +105,7 @@ function CouponModal({ onClose }: CouponModalProps) {
           })
         )}
 
-        <S.Button onClick={onClose}>
+        <S.Button onClick={onRequestClose}>
           총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
         </S.Button>
       </S.Container>
