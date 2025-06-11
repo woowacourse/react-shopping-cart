@@ -1,14 +1,14 @@
-import { CouponContent } from '@/api/type';
 import styled from '@emotion/styled';
-import { useMemo } from 'react';
 import { Flex, Header } from '../../components/common';
 import BackArrowButton from '../../components/common/BackArrowButton';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
 import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
+import { useCalculateTotalDiscount } from './hooks/useCalculateTotalDiscount';
 import { useModal } from './hooks/useModal';
 import { useNavigation } from './hooks/useNavigation';
 import { useOrderCoupons } from './hooks/useOrderCoupons';
 import { useOrderInfo } from './hooks/useOrderInfo';
+import { usePayment } from './hooks/usePayment';
 import { useShipping } from './hooks/useShipping';
 import CouponModal from './order-coupon/CouponModal';
 import CouponModalOpenButton from './order-coupon/CouponModalOpenButton';
@@ -16,7 +16,6 @@ import LabelCouponPrice from './order-coupon/LabelCouponPrice';
 import OrderItemList from './order-coupon/OrderItemList';
 import DeliveryRegionSection from './order-delivery/DeliveryRegionSection';
 import OrderPageInfo from './OrderPageInfo';
-import { getDiscountByCouponId } from './utils/getDiscountByCouponId';
 
 const OrderReviewPage = () => {
   const { typeCount, totalCount, isDisabled } = useOrderInfo();
@@ -32,39 +31,24 @@ const OrderReviewPage = () => {
     isLoading,
     availableCoupons,
     selectedCouponIds,
-    // bestCouponIds,
-
-    // 핸들러
+    bestCouponIds,
     handleSelectCoupons,
   } = useOrderCoupons(isJejuOrRemoteArea);
 
   const { selectedItems, orderPrice } = useOrderListContext();
-  const currentDiscount = useMemo(() => {
-    const selectedCoupons = selectedCouponIds
-      .map((id) => availableCoupons.find((c) => c.id === id))
-      .filter(Boolean) as CouponContent[];
-
-    return selectedCoupons.reduce((total, coupon) => {
-      return (
-        total +
-        getDiscountByCouponId(
-          coupon,
-          orderPrice,
-          selectedItems,
-          isJejuOrRemoteArea
-        )
-      );
-    }, 0);
-  }, [
+  const currentDiscount = useCalculateTotalDiscount({
     selectedCouponIds,
     availableCoupons,
     orderPrice,
     selectedItems,
     isJejuOrRemoteArea,
-  ]);
-
-  const payment = orderPrice + actualShippingFee - currentDiscount;
-
+  });
+  const payment = usePayment({
+    orderPrice,
+    shippingFee: actualShippingFee,
+    discount: currentDiscount,
+  });
+  
   const { showCouponModal, handleShowCouponModal } = useModal();
   const { handleBackClick, handleCheckout } = useNavigation(
     isDisabled,
@@ -95,7 +79,7 @@ const OrderReviewPage = () => {
           coupons={coupons ?? []}
           isLoading={isLoading}
           availableCoupons={availableCoupons}
-          // selectedCouponIds={selectedCouponIds}
+          bestCouponIds={bestCouponIds}
           totalDiscount={currentDiscount}
           handleApply={handleSelectCoupons}
           isJejuOrRemoteArea={isJejuOrRemoteArea}
