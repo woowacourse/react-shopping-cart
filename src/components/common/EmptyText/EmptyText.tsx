@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 
 export default function EmptyText({ text }: { text: string }) {
   return (
-    <div>
+    <Container>
       <p>{text}</p>
-    </div>
+    </Container>
   );
 }
 
