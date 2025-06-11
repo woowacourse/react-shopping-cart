@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useCouponContext } from "../../../pages/order-confirm/context/CouponProvider";
-import CheckboxLabel from "../CheckboxLabel";
-import Flex from "../Flex";
+import CheckboxLabel from "../inputs/CheckboxLabel";
+import Flex from "../styled/Flex";
 import LabelTextPair, { labelTextPairType } from "./LabelTextPair";
 import { Coupon } from "../../../api/coupon";
 

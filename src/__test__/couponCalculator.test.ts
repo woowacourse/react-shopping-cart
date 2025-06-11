@@ -1,6 +1,6 @@
 import { Cart, Category } from "../api/cart";
 import { Coupon } from "../api/coupon";
-import { calculateCouponDiscount } from "../pages/order-confirm/order-contents/pay-contents/coupon-modal-content/utils/couponCalculator";
+import { calculateCouponDiscount } from "../domain/coupon/utils/couponCalculator";
 
 jest.mock("../api/cart", () => ({
   Category: {
@@ -276,12 +276,7 @@ describe("쿠폰 할인 계산", () => {
         },
       ];
 
-      const result = calculateCouponDiscount(
-        [coupon],
-        30000,
-        3000,
-        cartItems
-      );
+      const result = calculateCouponDiscount([coupon], 30000, 3000, cartItems);
 
       expect(result.totalDiscount).toBe(10000);
       expect(result.finalDiscount).toBe(10000);
@@ -313,12 +308,7 @@ describe("쿠폰 할인 계산", () => {
         },
       ];
 
-      const result = calculateCouponDiscount(
-        [coupon],
-        20000,
-        3000,
-        cartItems
-      );
+      const result = calculateCouponDiscount([coupon], 20000, 3000, cartItems);
 
       expect(result.totalDiscount).toBe(0);
       expect(result.finalDiscount).toBe(0);
@@ -362,12 +352,7 @@ describe("쿠폰 할인 계산", () => {
         },
       ];
 
-      const result = calculateCouponDiscount(
-        [coupon],
-        90000,
-        3000,
-        cartItems
-      );
+      const result = calculateCouponDiscount([coupon], 90000, 3000, cartItems);
 
       expect(result.totalDiscount).toBe(20000);
       expect(result.finalDiscount).toBe(20000);
@@ -399,12 +384,7 @@ describe("쿠폰 할인 계산", () => {
         },
       ];
 
-      const result = calculateCouponDiscount(
-        [coupon],
-        40000,
-        3000,
-        cartItems
-      );
+      const result = calculateCouponDiscount([coupon], 40000, 3000, cartItems);
 
       expect(result.totalDiscount).toBe(10000);
       expect(result.finalDiscount).toBe(10000);

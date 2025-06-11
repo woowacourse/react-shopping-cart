@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getShoppingCartData } from "../../api/cart";
 import { Header } from "../../components/common";
 import { useAPIDataContext } from "../../context/APIDataProvider";
-import CartLayout from "./cart-layout/CartLayout";
+import CartLayout from "../../domain/cart/components/cart-layout/CartLayout";
 import { useOrderListContext } from "../../context/OrderListProvider";
 import { useScrollToTop } from "../../hooks/useScrollToTop";
 

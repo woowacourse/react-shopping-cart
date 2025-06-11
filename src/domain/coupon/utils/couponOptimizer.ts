@@ -1,0 +1,90 @@
+import { Cart } from "../../../api/cart";
+import { Coupon } from "../../../api/coupon";
+import { calculateCouponDiscount } from "./couponCalculator";
+import { isCouponAvailable } from "./couponValidation";
+
+export interface OptimizedCouponResult {
+  selectedCoupons: Coupon[];
+  totalDiscount: number;
+  finalShippingFee: number;
+  hasFreeShipping: boolean;
+  finalDiscount: number;
+}
+
+export function optimizeCouponSelection(
+  coupons: Coupon[],
+  totalCartPrice: number,
+  shippingFee: number,
+  selectedCartItems: Cart[] | undefined
+): OptimizedCouponResult {
+  // 사용 가능한 쿠폰만 필터링
+  const availableCoupons = coupons.filter((coupon) =>
+    isCouponAvailable(coupon, totalCartPrice, selectedCartItems)
+  );
+
+  // 쿠폰 타입별 우선순위 설정
+  const priorityMap: Record<Coupon["discountType"], number> = {
+    percentage: 1,
+    fixed: 2,
+    buyXgetY: 3,
+    freeShipping: 4,
+  };
+
+  // 우선순위에 따라 쿠폰 정렬
+  const sortedCoupons = [...availableCoupons].sort(
+    (a, b) => priorityMap[a.discountType] - priorityMap[b.discountType]
+  );
+
+  // 최적의 쿠폰 조합 찾기
+  let bestResult: OptimizedCouponResult = {
+    selectedCoupons: [],
+    totalDiscount: 0,
+    finalShippingFee: shippingFee,
+    hasFreeShipping: false,
+    finalDiscount: 0,
+  };
+
+  // 단일 쿠폰 최적화
+  for (const coupon of sortedCoupons) {
+    const result = calculateCouponDiscount(
+      [coupon],
+      totalCartPrice,
+      shippingFee,
+      selectedCartItems
+    );
+
+    if (result.finalDiscount > bestResult.finalDiscount) {
+      bestResult = {
+        selectedCoupons: [coupon],
+        totalDiscount: result.totalDiscount,
+        finalShippingFee: result.finalShippingFee,
+        hasFreeShipping: result.hasFreeShipping,
+        finalDiscount: result.finalDiscount,
+      };
+    }
+  }
+
+  // 두 개의 쿠폰 조합 최적화
+  for (let i = 0; i < sortedCoupons.length; i++) {
+    for (let j = i + 1; j < sortedCoupons.length; j++) {
+      const result = calculateCouponDiscount(
+        [sortedCoupons[i], sortedCoupons[j]],
+        totalCartPrice,
+        shippingFee,
+        selectedCartItems
+      );
+
+      if (result.finalDiscount > bestResult.finalDiscount) {
+        bestResult = {
+          selectedCoupons: [sortedCoupons[i], sortedCoupons[j]],
+          totalDiscount: result.totalDiscount,
+          finalShippingFee: result.finalShippingFee,
+          hasFreeShipping: result.hasFreeShipping,
+          finalDiscount: result.finalDiscount,
+        };
+      }
+    }
+  }
+
+  return bestResult;
+}

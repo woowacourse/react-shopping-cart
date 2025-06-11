@@ -8,7 +8,7 @@ import {
 } from "react";
 import { Cart } from "../../../api/cart";
 import { Coupon } from "../../../api/coupon";
-import { optimizeCouponSelection } from "../order-contents/pay-contents/coupon-modal-content/utils/couponOptimizer";
+import { optimizeCouponSelection } from "../../../domain/coupon/utils/couponOptimizer";
 
 interface CouponContextInterface {
   selectedCoupons: Coupon[];

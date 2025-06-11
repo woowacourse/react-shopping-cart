@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Flex from "../Flex";
+import Flex from "../styled/Flex";
 
 type MessageType = "error" | "info";
 
