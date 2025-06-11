@@ -1,5 +1,6 @@
 import Text from '../@common/Text/Text';
 
+import { getHourFromTime } from '../../routes/pages/OrderCheckPage/utils/hour';
 import {
   CouponModalListItemCheckboxStyle,
   CouponModalListItemDescriptionStyle,
@@ -25,12 +26,6 @@ function CouponListItem({
     coupon.code === 'FIXED5000' || coupon.code === 'FREESHIPPING';
 
   const isShowAvailableTime = coupon.code === 'MIRACLESALE';
-
-  const getHourFromTime = (time: string = '00:00:00') => {
-    const hour = time.split(':')[0].slice(1);
-
-    return hour;
-  };
 
   return (
     <li css={CouponModalListItemStyle(isAvailable)}>
