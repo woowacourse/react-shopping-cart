@@ -37,7 +37,7 @@ function CartPage() {
       <>
         <CartListHeader
           allSelected={cart.isAllSelected}
-          onAllSelectChange={cart.handleSelectAllItems}
+          onAllSelectChange={cart.selectAllItems}
         />
         <ul css={CartListStyle}>
           {cart.data.map((cartItem) => (

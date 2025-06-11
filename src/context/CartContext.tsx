@@ -17,8 +17,8 @@ type CartContextType = {
 
   selectedItems: number[];
   isAllSelected: boolean;
-  handleSelectItem: (cartItemId: number) => void;
-  handleSelectAllItems: () => void;
+  selectItem: (cartItemId: number) => void;
+  selectAllItems: () => void;
 
   subTotal: number;
   deliveryFee: number;
@@ -40,12 +40,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     decreaseCartItem,
     deleteCartItem,
   } = useCartList();
-  const {
-    selectedItems,
-    isAllSelected,
-    handleSelectItem,
-    handleSelectAllItems,
-  } = useSelect(data);
+  const { selectedItems, isAllSelected, selectItem, selectAllItems } =
+    useSelect(data);
 
   const subTotal = cartPrice.totalPrice(data, selectedItems);
   const deliveryFee =
@@ -88,8 +84,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
         selectedItems,
         isAllSelected,
-        handleSelectItem,
-        handleSelectAllItems,
+        selectItem,
+        selectAllItems,
 
         subTotal,
         deliveryFee,

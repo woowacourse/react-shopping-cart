@@ -31,7 +31,7 @@ function CartItem({
           type="checkbox"
           css={CheckboxStyle}
           checked={selected}
-          onChange={() => cart.handleSelectItem(cartItem.id)}
+          onChange={() => cart.selectItem(cartItem.id)}
         />
         <button
           css={DeleteButtonStyle}

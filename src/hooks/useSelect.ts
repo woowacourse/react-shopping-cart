@@ -34,7 +34,7 @@ function useSelect(cartList: CartItemProps[]) {
     }
   }, [cartList.length]);
 
-  const handleSelectItem = (cartItemId: number) => {
+  const selectItem = (cartItemId: number) => {
     if (selectedItems.includes(cartItemId)) {
       const filtered = selectedItems.filter((item) => item !== cartItemId);
       setSelectedItems(filtered);
@@ -46,7 +46,7 @@ function useSelect(cartList: CartItemProps[]) {
     }
   };
 
-  const handleSelectAllItems = () => {
+  const selectAllItems = () => {
     if (isAllSelected) {
       setSelectedItems([]);
       setLocalStorage('selectedItems', []);
@@ -59,8 +59,8 @@ function useSelect(cartList: CartItemProps[]) {
   return {
     selectedItems,
     isAllSelected,
-    handleSelectItem,
-    handleSelectAllItems,
+    selectItem,
+    selectAllItems,
   };
 }
 

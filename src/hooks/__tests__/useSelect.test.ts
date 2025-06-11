@@ -17,7 +17,7 @@ describe('useSelect 훅 테스트', () => {
     const { result } = renderHook(() => useSelect(mockCart));
 
     await act(async () => {
-      result.current.handleSelectItem(mockCart[0].id);
+      result.current.selectItem(mockCart[0].id);
     });
 
     expect(result.current.selectedItems).toEqual(
@@ -34,25 +34,25 @@ describe('useSelect 훅 테스트', () => {
     const { result } = renderHook(() => useSelect(newCart));
 
     await act(async () => {
-      result.current.handleSelectItem(mockCart[0].id);
+      result.current.selectItem(mockCart[0].id);
     });
 
     const newCartids = [...newCart.map((item) => item.id), mockCart[0].id];
     expect(result.current.selectedItems).toEqual(newCartids);
   });
 
-  it('전체 선택된 상태에서 handleSelectAllItems를 호출하면 모든 선택이 해제되고 다시 호출하면 전체가 선택된다.', async () => {
+  it('전체 선택된 상태에서 selectAllItems를 호출하면 모든 선택이 해제되고 다시 호출하면 전체가 선택된다.', async () => {
     const { result } = renderHook(() => useSelect(mockCart));
 
     await act(async () => {
-      result.current.handleSelectAllItems();
+      result.current.selectAllItems();
     });
 
     expect(result.current.selectedItems).toEqual([]);
     expect(result.current.isAllSelected).toBe(false);
 
     await act(async () => {
-      result.current.handleSelectAllItems();
+      result.current.selectAllItems();
     });
 
     expect(result.current.selectedItems).toEqual(
