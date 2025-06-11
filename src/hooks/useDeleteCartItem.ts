@@ -3,23 +3,23 @@ import cartItemsApi from "../apis/cartItems";
 import { useCartItemContext } from "../contexts/CartItemContext";
 
 export const useDeleteCartItem = () => {
-  const { cartItems, setCartItems, selectedItem, handleSelectedItem } =
+  const { cartItems, setCartItems, selectedItems, handleSelectedItems } =
     useCartItemContext();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<string>("");
 
   const deleteCartItem = async (cartItemId: number) => {
     const previousCartItems = [...cartItems];
-    const previousSelectedItems = new Set(selectedItem);
+    const previousSelectedItems = new Set(selectedItems);
 
     const optimisticCartItems = cartItems.filter(
       (item) => item.id !== cartItemId
     );
     setCartItems(optimisticCartItems);
 
-    const newSelectedItems = new Set(selectedItem);
+    const newSelectedItems = new Set(selectedItems);
     newSelectedItems.delete(cartItemId);
-    handleSelectedItem(newSelectedItems);
+    handleSelectedItems(newSelectedItems);
 
     setIsDeleting(true);
 
@@ -31,7 +31,7 @@ export const useDeleteCartItem = () => {
     } catch (error) {
       console.error("Failed to delete cart item:", error);
       setCartItems(previousCartItems);
-      handleSelectedItem(previousSelectedItems);
+      handleSelectedItems(previousSelectedItems);
       setDeleteError("장바구니 아이템을 삭제하는데 실패했습니다.");
     } finally {
       setIsDeleting(false);

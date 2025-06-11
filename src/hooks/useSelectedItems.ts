@@ -1,19 +1,21 @@
 import { useCartItemContext } from "../contexts/CartItemContext";
 
 export const useSelectedItems = () => {
-  const { cartItems, selectedItem } = useCartItemContext();
+  const { cartItems, selectedItems } = useCartItemContext();
 
-  const selectedItems = cartItems.filter((item) => selectedItem.has(item.id));
+  const selectedItemsArray = cartItems.filter((item) =>
+    selectedItems.has(item.id)
+  );
 
-  const totalQuantity = selectedItems.reduce(
+  const totalQuantity = selectedItemsArray.reduce(
     (sum, item) => sum + item.quantity,
     0
   );
 
-  const selectedItemCount = selectedItems.length;
+  const selectedItemCount = selectedItemsArray.length;
 
   return {
-    selectedItems,
+    selectedItems: selectedItemsArray,
     totalQuantity,
     selectedItemCount,
   };

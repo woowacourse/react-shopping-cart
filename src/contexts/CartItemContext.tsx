@@ -8,8 +8,8 @@ import { SELECTED_ITEMS_KEY } from "../constants";
 interface CartItemContextType {
   cartItems: CartItem[];
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
-  selectedItem: Set<number>;
-  handleSelectedItem: (newSet: Set<number>) => void;
+  selectedItems: Set<number>;
+  handleSelectedItems: (newSet: Set<number>) => void;
   isLoading: boolean;
   fetchError: string;
 }
@@ -33,20 +33,20 @@ export const useCartItemContext = () => {
 export const CartItemProvider = ({ children }: CartItemProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const { value: selectedItem, updateValue: handleSelectedItem } =
+  const { value: selectedItems, updateValue: handleSelectedItems } =
     useLocalStorageSet<number>(SELECTED_ITEMS_KEY, new Set<number>());
 
   const { isLoading, fetchError } = useFetchCartItems(setCartItems);
 
-  useCartItemValidation(cartItems, selectedItem, handleSelectedItem);
+  useCartItemValidation(cartItems, selectedItems, handleSelectedItems);
 
   return (
     <CartItemContext.Provider
       value={{
         cartItems,
         setCartItems,
-        selectedItem,
-        handleSelectedItem,
+        selectedItems,
+        handleSelectedItems,
         isLoading,
         fetchError,
       }}

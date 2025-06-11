@@ -4,10 +4,10 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { useCartItemContext } from "../src/contexts/CartItemContext";
 import { defaultMockCartItems } from "./utils/mockCartItems";
 
-const mockHandleSelectedItem = vi.fn();
+const mockHandleSelectedItems = vi.fn();
 
 vi.mock("../src/contexts/CartItemContext", async () => {
-  const actual = await vi.importActual;
+  const actual = vi.importActual;
   typeof import("../src/contexts/CartItemContext") >
     "../src/contexts/CartItemContext";
 
@@ -26,9 +26,9 @@ describe("CartItemCardList 컴포넌트", () => {
 
   it("아무것도 선택되지 않은 상태에서 전체선택 버튼을 클릭하면 모든 아이템이 선택된다", () => {
     mockUseCartItemContext.mockReturnValue({
-      handleSelectedItem: mockHandleSelectedItem,
+      handleSelectedItems: mockHandleSelectedItems,
       cartItems: defaultMockCartItems,
-      selectedItem: new Set(),
+      selectedItems: new Set(),
       setCartItems: vi.fn(),
       isLoading: false,
       fetchError: "",
@@ -39,15 +39,15 @@ describe("CartItemCardList 컴포넌트", () => {
     const allSelectToggle = screen.getByTestId("all-select-toggle");
     fireEvent.click(allSelectToggle);
 
-    expect(mockHandleSelectedItem).toHaveBeenCalledTimes(1);
-    expect(mockHandleSelectedItem).toHaveBeenCalledWith(new Set([1, 2]));
+    expect(mockHandleSelectedItems).toHaveBeenCalledTimes(1);
+    expect(mockHandleSelectedItems).toHaveBeenCalledWith(new Set([1, 2]));
   });
 
   it("모든 아이템이 선택된 상태에서 전체선택 버튼을 클릭하면 모든 선택이 해제된다", () => {
     mockUseCartItemContext.mockReturnValue({
-      handleSelectedItem: mockHandleSelectedItem,
+      handleSelectedItems: mockHandleSelectedItems,
       cartItems: defaultMockCartItems,
-      selectedItem: new Set([1, 2]),
+      selectedItems: new Set([1, 2]),
       setCartItems: vi.fn(),
       isLoading: false,
       fetchError: "",
@@ -58,7 +58,7 @@ describe("CartItemCardList 컴포넌트", () => {
     const allSelectToggle = screen.getByTestId("all-select-toggle");
     fireEvent.click(allSelectToggle);
 
-    expect(mockHandleSelectedItem).toHaveBeenCalledTimes(1);
-    expect(mockHandleSelectedItem).toHaveBeenCalledWith(new Set());
+    expect(mockHandleSelectedItems).toHaveBeenCalledTimes(1);
+    expect(mockHandleSelectedItems).toHaveBeenCalledWith(new Set());
   });
 });

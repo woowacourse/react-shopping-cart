@@ -4,7 +4,7 @@ import { CartItem } from "../types/type";
 export const useCartItemValidation = (
   cartItems: CartItem[],
   selectedItem: Set<number>,
-  handleSelectedItem: (newSet: Set<number>) => void
+  handleSelectedItems: (newSet: Set<number>) => void
 ) => {
   useEffect(() => {
     if (cartItems.length > 0 && selectedItem.size > 0) {
@@ -16,8 +16,8 @@ export const useCartItemValidation = (
       );
 
       if (validSelectedItems.size !== selectedItem.size) {
-        handleSelectedItem(validSelectedItems);
+        handleSelectedItems(validSelectedItems);
       }
     }
-  }, [cartItems, selectedItem, handleSelectedItem]);
+  }, [cartItems, selectedItem, handleSelectedItems]);
 };

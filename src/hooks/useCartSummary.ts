@@ -8,12 +8,12 @@ import {
 import { useCouponDiscount } from "./useCouponDiscount";
 
 export const useCartSummary = () => {
-  const { cartItems, selectedItem } = useCartItemContext();
+  const { cartItems, selectedItems } = useCartItemContext();
   const { isRemoteAreaShipping } = useShippingContext();
   const { couponDiscount } = useCouponDiscount();
 
   const orderPrice = cartItems.reduce((acc, cartItem) => {
-    if (selectedItem.has(cartItem.id)) {
+    if (selectedItems.has(cartItem.id)) {
       return acc + cartItem.product.price * cartItem.quantity;
     }
     return acc;

@@ -11,7 +11,7 @@ import { useCartSummary } from "../hooks/useCartSummary";
 import PageTitle from "../components/@common/PageTitle/PageTitle";
 
 const CartItemPage = () => {
-  const { cartItems, selectedItem, isLoading } = useCartItemContext();
+  const { cartItems, selectedItems, isLoading } = useCartItemContext();
   const { orderPrice, baseShippingFee, baseTotalPrice } = useCartSummary();
   const navigate = useNavigate();
 
@@ -60,7 +60,7 @@ const CartItemPage = () => {
           {cartItems.length > 0 && (
             <ConfirmButton
               text="주문하기"
-              disabled={selectedItem.size === 0}
+              disabled={selectedItems.size === 0}
               onClick={() => {
                 navigate("/order-confirm");
               }}
