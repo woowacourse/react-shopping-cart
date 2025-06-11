@@ -13,8 +13,8 @@ const Modal = ({ isOpen, children, position, size = "medium" }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   return isOpen ? (
-    <S.ModalBackDrop position={position}>
-      <S.ModalContainer ref={modalRef} size={size} position={position}>
+    <S.ModalBackDrop $position={position}>
+      <S.ModalContainer ref={modalRef} $size={size} $position={position}>
         {children}
       </S.ModalContainer>
     </S.ModalBackDrop>
@@ -29,8 +29,7 @@ const Description = ({ children }: { children: ReactNode }) => (
   <S.StyledDescription>{children}</S.StyledDescription>
 );
 
-const Input = () => <S.StyledInput />;
-
+const Input = ({ ...props }) => <S.StyledInput {...props} />;
 const Actions = ({ children }: { children: ReactNode }) => (
   <S.ButtonWrap>{children}</S.ButtonWrap>
 );
