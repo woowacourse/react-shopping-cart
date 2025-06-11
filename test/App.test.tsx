@@ -1,16 +1,17 @@
-import React, { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
-import { ErrorToastContextProvider } from "../src/contexts/ErrorToastContext";
-import { testStateStore } from "../src/mock/handlers";
-
 import { BrowserRouter } from "react-router";
-import App from "../src/App";
-
 import "@testing-library/jest-dom";
-import { CartItem } from "../src/type/CartItem";
-import { products } from "../src/mock/data";
+import { CartItem } from "@/type/CartItem";
+import { products } from "@/mock/data";
+import { ErrorToastContextProvider } from "@/contexts/ErrorToastContext";
+
+import { testStateStore } from "@/mock/handlers";
+import App from "@/App";
+import { CartDataProvider } from "@/components/Cart/contexts/CartDataContext";
+import { CartSelectionProvider } from "@/components/Cart/contexts/CartSelectionContext";
 
 const mockingCartItems: CartItem[] = [
   {
@@ -30,10 +31,14 @@ const mockingCartItems: CartItem[] = [
   },
 ];
 
-function TestWrapper({ children }: { children: ReactNode }) {
+function TestWrapper({ children }: PropsWithChildren) {
   return (
     <ErrorToastContextProvider>
-      <BrowserRouter>{children}</BrowserRouter>
+      <BrowserRouter>
+        <CartDataProvider>
+          <CartSelectionProvider>{children}</CartSelectionProvider>
+        </CartDataProvider>
+      </BrowserRouter>
     </ErrorToastContextProvider>
   );
 }

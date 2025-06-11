@@ -1,4 +1,4 @@
-import { apiDelete } from "../util/apiRequest";
+import { apiDelete } from "./apiRequest";
 
 interface DeleteCartItemParams {
   params: {

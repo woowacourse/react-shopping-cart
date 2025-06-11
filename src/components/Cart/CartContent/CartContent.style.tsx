@@ -7,7 +7,6 @@ export const CartContentContainer = styled.main`
   flex-direction: column;
   gap: 12px;
   padding: 24px;
-  margin-top: 64px;
   justify-content: flex-start;
 `;
 

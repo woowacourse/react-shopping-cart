@@ -20,10 +20,10 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     /* Testing */
-    "types": ["vitest", "@testing-library/jest-dom", "node"],
+    "types": ["vitest", "@testing-library/jest-dom", "node", "jest"],
     "esModuleInterop": true,
 
     "jsx": "react-jsx",

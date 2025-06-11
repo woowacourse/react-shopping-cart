@@ -3,29 +3,33 @@ import ProductQuantityControl from "../CartQuantityControl/CartQuantityControl";
 import * as Styled from "./CartCard.style";
 import CheckBox from "@/components/common/CheckBox";
 import CartCardImage from "@/components/common/CustomImage";
+import { useCartDataContext } from "../contexts/CartDataContext";
+import { useCartSelectionContext } from "../contexts/CartSelectionContext";
 
 interface CartCardProps {
   cartItem: CartItem;
-  handleDeleteCartItem: (id: string) => void;
-  handleCartItemQuantity: (params: { id: string; quantity: number }) => void;
-  handleSelectCartItem: (id: string) => void;
-  isDeleteItemLoading: boolean;
-  isQuantityUpdateLoading: boolean;
   isSelected: boolean;
 }
 
-function CartCard({
-  cartItem,
-  handleDeleteCartItem,
-  handleCartItemQuantity,
-  handleSelectCartItem,
-  isDeleteItemLoading,
-  isQuantityUpdateLoading,
-  isSelected,
-}: CartCardProps) {
-  const { product, quantity, id } = cartItem;
+function CartCard({ cartItem, isSelected }: CartCardProps) {
+  const { handleDeleteCartItem, handleCartItemQuantity, isItemLoading } =
+    useCartDataContext();
 
+  const { handleSelectCartItem } = useCartSelectionContext();
+
+  const { product, quantity, id } = cartItem;
   const { name, price, imageUrl } = product;
+
+  const isLoading = isItemLoading(id);
+
+  const handleIncreaseCartItemQuantity = () => {
+    handleCartItemQuantity({ id, quantity: quantity + 1 });
+  };
+
+  const handleDecreaseCartItemQuantity = () => {
+    handleCartItemQuantity({ id, quantity: quantity - 1 });
+  };
+
   return (
     <li>
       <Styled.Container>
@@ -39,7 +43,7 @@ function CartCard({
             hidden={true}
           />
           <Styled.DeleteButton
-            disabled={isDeleteItemLoading || isQuantityUpdateLoading}
+            disabled={isLoading}
             onClick={() => handleDeleteCartItem(id)}
             data-testid={`delete-button-${id}`}
           >
@@ -47,25 +51,15 @@ function CartCard({
           </Styled.DeleteButton>
         </Styled.ButtonWrapper>
         <Styled.Wrapper>
-          <CartCardImage imageUrl={imageUrl} />
+          <CartCardImage imageUrl={imageUrl} alt={name} />
           <Styled.ProductInfo>
             <Styled.ProductName>{name}</Styled.ProductName>
             <Styled.Price>{price.toLocaleString()}원</Styled.Price>
             <ProductQuantityControl
               quantity={quantity}
-              handleIncreaseCartItemQuantity={() =>
-                handleCartItemQuantity({
-                  id: cartItem.id,
-                  quantity: quantity + 1,
-                })
-              }
-              handleDecreaseCartItemQuantity={() =>
-                handleCartItemQuantity({
-                  id: cartItem.id,
-                  quantity: quantity - 1,
-                })
-              }
-              isQuantityUpdateLoading={isQuantityUpdateLoading}
+              handleIncreaseCartItemQuantity={handleIncreaseCartItemQuantity}
+              handleDecreaseCartItemQuantity={handleDecreaseCartItemQuantity}
+              isQuantityUpdateLoading={isLoading}
             />
           </Styled.ProductInfo>
         </Styled.Wrapper>

@@ -1,10 +1,10 @@
 import { http, HttpResponse } from "msw";
-import { cartItems, products } from "./data";
+import { cartItems, mockCouponData, products } from "./data";
 import { CartItem } from "../type/CartItem";
 
 export const testStateStore = {
   shouldFailCart: false,
-  customCartError: null as string | null,
+  shouldFailCoupons: false,
   mockCartData: cartItems,
   setCartItems(items: CartItem[]) {
     if (
@@ -23,7 +23,7 @@ export const testStateStore = {
   },
   reset() {
     this.shouldFailCart = false;
-    this.customCartError = null;
+    this.shouldFailCoupons = false;
     this.mockCartData = cartItems;
   },
 };
@@ -41,6 +41,16 @@ const getCartItems = http.get(CART_URL, () => {
     });
   }
 
+  return HttpResponse.json(response);
+});
+const getCoupons = http.get(`${BASE_URL}/coupons`, () => {
+  const response = { content: mockCouponData };
+  if (testStateStore.shouldFailCoupons) {
+    return new HttpResponse(null, {
+      status: 500,
+      statusText: "Coupons fetch Failed",
+    });
+  }
   return HttpResponse.json(response);
 });
 
@@ -121,5 +131,42 @@ const patchCartItems = http.patch(
     return new HttpResponse(null, { status: 200 });
   }
 );
+const orderCartItems = http.post(`${BASE_URL}/order`, async ({ request }) => {
+  const { cartItems } = (await request.json()) as { cartItems: CartItem[] };
 
-export const handlers = [getCartItems, deleteCartItems, patchCartItems];
+  for (const item of cartItems) {
+    const qty = Number(item.quantity);
+    const product = products.find((p) => p.id === item.product.id);
+
+    if (!product) {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: "Product Not Found",
+      });
+    }
+
+    if (product.quantity < qty) {
+      return new HttpResponse(null, {
+        status: 400,
+        statusText: "Insufficient Stock",
+      });
+    }
+
+    console.log(`Ordering ${qty} of ${product.name} (ID: ${product.id})`);
+    product.quantity -= qty;
+  }
+
+  // 4) 장바구니 비우기
+  cartItems.length = 0;
+
+  // 5) 성공 응답
+  return new HttpResponse(null, { status: 201 });
+});
+
+export const handlers = [
+  getCartItems,
+  deleteCartItems,
+  patchCartItems,
+  orderCartItems,
+  getCoupons,
+];

@@ -1,0 +1,51 @@
+import { CartItem } from "@/type/CartItem";
+import { Coupon, InvalidReason } from "@/type/Coupon";
+
+const inTimeRange = (now: Date, range: { start: string; end: string }) => {
+  const toMin = (t: string) => {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+  };
+  const cur = now.getHours() * 60 + now.getMinutes();
+  return cur >= toMin(range.start) && cur <= toMin(range.end);
+};
+const isBogoable = (coupon: Coupon, items: CartItem[]) => {
+  return items.some((item) => item.quantity > (coupon.buyQuantity ?? 0));
+};
+const isExpired = (coupon: Coupon, now: Date) => {
+  return !!coupon.expirationDate && now > coupon.expirationDate;
+};
+const isMinAmount = (coupon: Coupon, items: CartItem[]) => {
+  const orderTotal = items.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0
+  );
+  return coupon.minimumAmount && orderTotal < coupon.minimumAmount;
+};
+const isValidType = (coupon: Coupon) => {
+  return ["fixed", "percentage", "buyXgetY", "freeShipping"].includes(
+    coupon.discountType
+  );
+};
+export const validateCoupon = (
+  coupon: Coupon,
+  items: CartItem[],
+  now = new Date()
+): { isValid: boolean; invalidReason?: InvalidReason } => {
+  if (!isValidType(coupon)) {
+    return { isValid: false, invalidReason: "invalidType" };
+  }
+
+  if (isExpired(coupon, now))
+    return { isValid: false, invalidReason: "expired" };
+
+  if (coupon.minimumAmount && isMinAmount(coupon, items))
+    return { isValid: false, invalidReason: "minAmount" };
+  if (coupon.availableTime && !inTimeRange(now, coupon.availableTime))
+    return { isValid: false, invalidReason: "timeRange" };
+
+  if (coupon.discountType === "buyXgetY" && !isBogoable(coupon, items))
+    return { isValid: false, invalidReason: "bogoQty" };
+
+  return { isValid: true };
+};

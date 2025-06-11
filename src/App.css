@@ -230,12 +230,59 @@ button {
   cursor: pointer;
 }
 
-/*
-  9. Create a root stacking context
-*/
-#root,
-#__next {
-  isolation: isolate;
-  display: flex;
-  justify-content: center;
+/* ① 컨테이너 */
+.funnel-wrapper {
+  position: relative;
+  width: 100%;
+}
+.funnel-step {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 64px; /* footer 높이 */
+  display: flex; /* footer를 아래로 밀기 위해 */
+  flex-direction: column;
+  z-index: 1;
+}
+
+/* 실제로 움직일 내용만 래핑 */
+.funnel-step__body {
+  flex: 1;
+} /* 스크롤 되도록 필요시 overflow:auto */
+.funnel-step__body.enter {
+  animation: slideIn 300ms ease forwards;
+}
+.funnel-step__body.exit {
+  animation: slideOut 300ms ease forwards;
+}
+
+/* ③ 들어오는 화면 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.funnel-step.enter {
+  animation: slideIn 300ms ease forwards;
+}
+
+/* ④ 나가는 화면 */
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+.funnel-step.exit {
+  animation: slideOut 300ms ease forwards;
 }

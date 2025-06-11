@@ -1,10 +1,10 @@
-import { ComponentProps, useContext } from "react";
+import { ComponentProps, useContext, PropsWithChildren } from "react";
 import { ModalBackground } from "../styles/ModalBackground.style";
 import { ModalContext } from "@/contexts/ModalContext";
 
-interface ModalBackgroundProps extends ComponentProps<"div"> {
-  children: React.ReactNode;
-}
+interface ModalBackgroundProps
+  extends PropsWithChildren,
+    ComponentProps<"div"> {}
 
 function Background({ children, ...props }: ModalBackgroundProps) {
   const ctx = useContext(ModalContext);

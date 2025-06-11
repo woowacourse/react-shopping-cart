@@ -20,19 +20,82 @@ export const TotalPriceContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
+  margin-bottom: 96px;
 `;
 
-export const TotalPriceTitle = styled.p`
+export const TotalPriceTitle = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
 export const Notice = styled.div`
+  height: 63px;
   display: flex;
   width: 100%;
-  gap: 4px;
+  gap: 8px;
   align-items: center;
+  padding: 12px 16px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
 `;
+
+export const NoticeContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+`;
+
+export const NoticeIcon = styled.img`
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+`;
+
+export const FreeShippingText = styled.p`
+  color: #333333;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin: 0;
+  letter-spacing: -0.3px;
+`;
+
+export const FreeShippingCouponAppliedNotice = styled.p`
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin: 0;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #2f80ed;
+  font-weight: 600;
+  white-space: pre-line;
+`;
+
+export const FreeShippingNotice = styled.p`
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin: 0;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #666666;
+  font-weight: 400;
+`;
+
+export const AdditionalFeeNotice = styled.p`
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin: 0;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #e53935;
+  font-weight: 500;
+`;
+
 export const FreeShippingEligibilityNoticeContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,22 +104,12 @@ export const FreeShippingEligibilityNoticeContainer = styled.div`
   gap: 4px;
 `;
 
-export const NoticeIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-export const FreeShippingText = styled.p`
-  height: 16px;
-  color: #333333;
-  font-size: 12px;
-  font-weight: 600;
-`;
 export const FreeShippingEligibilityNotice = styled.p`
   color: #333333;
   font-size: 1.25rem;
   font-weight: 700;
 `;
+
 export const PriceWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,6 +128,7 @@ export const TitleText = styled.span`
   font-size: 16px;
   font-weight: 600;
 `;
+
 export const PriceText = styled.span`
   font-size: 20px;
   font-weight: 700;

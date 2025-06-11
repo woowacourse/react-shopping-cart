@@ -11,6 +11,7 @@ interface CheckboxProps extends ComponentProps<"input"> {
   label: string;
   boxSize?: Size;
   hidden?: boolean;
+  disabled?: boolean;
 }
 
 const CheckBox = ({
@@ -20,15 +21,17 @@ const CheckBox = ({
   label,
   boxSize = "medium",
   hidden = false,
+  disabled = false,
 }: CheckboxProps) => {
   return (
     <CheckboxWrapper>
       <HiddenCheckbox
         id={id}
         type="checkbox"
-        checked={checked}
+        checked={checked || false}
         onChange={onChange}
         aria-labelledby={`${id}-label`}
+        disabled={disabled}
       />
 
       <StyledLabel htmlFor={id} id={`${id}-label`}>
@@ -44,7 +47,8 @@ const CheckBox = ({
 export default CheckBox;
 
 const CheckboxWrapper = styled.div`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: relative;
 
   input:focus-visible + label > span:first-of-type {

@@ -2,7 +2,7 @@ import {
   createContext,
   useContext,
   useState,
-  ReactNode,
+  PropsWithChildren,
   useCallback,
   useRef,
 } from "react";
@@ -17,11 +17,11 @@ const ErrorToastContext = createContext<ErrorToastContextType | undefined>(
   undefined
 );
 
+interface ErrorToastContextProviderProps extends PropsWithChildren {}
+
 export const ErrorToastContextProvider = ({
   children,
-}: {
-  children: ReactNode;
-}) => {
+}: ErrorToastContextProviderProps) => {
   const [error, setError] = useState<{
     message: string;
     timestamp: number;

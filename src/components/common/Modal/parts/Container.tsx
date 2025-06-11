@@ -1,11 +1,10 @@
-import { ComponentProps, useContext } from "react";
+import { ComponentProps, useContext, PropsWithChildren } from "react";
 
 import { ModalContainer, CloseButton } from "../styles/ModalContainer.style";
 import { ModalContext } from "@/contexts/ModalContext";
 import closeIcon from "/closeIcon.png";
 
-interface ModalContainerProps extends ComponentProps<"div"> {
-  children: React.ReactNode;
+interface ModalContainerProps extends PropsWithChildren, ComponentProps<"div"> {
   size?: "small" | "medium" | "large";
   position?: "center" | "bottom";
 }
