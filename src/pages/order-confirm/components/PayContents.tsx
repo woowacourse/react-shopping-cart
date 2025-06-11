@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { Flex } from "../../../../../components/common";
-import CouponModalButton from "./CouponModalButton";
-import DeliveryInfo from "./DeliveryInfo";
-import PayButton from "./PayButton";
+import CouponModalButton from "../../../domain/order/components/pay-contents/CouponModalButton";
+import DeliveryInfo from "../../../domain/order/components/pay-contents/DeliveryInfo";
+import PayButton from "../../../domain/order/components/pay-contents/PayButton";
+import { Flex } from "../../../components/common";
 
 function PayContents() {
   return (
