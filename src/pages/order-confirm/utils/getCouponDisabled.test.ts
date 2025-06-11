@@ -82,7 +82,7 @@ describe("쿠폰 적용 조건 테스트", () => {
     });
 
     it("만료 기한이 넘지 않은 경우 활성화", () => {
-      const date = new Date(`${getPrevDaySafe(safeTestDate)}T23:59:59`);
+      const date = new Date(`${safeTestDate}T23:59:59`);
       vi.setSystemTime(date);
       const cartItems = [createMockCartItem(25000, 2)];
       expect(getIsCouponDisabled(fixedCoupon, cartItems)).toBe(false);
@@ -122,7 +122,7 @@ describe("쿠폰 적용 조건 테스트", () => {
     });
 
     it("만료 기한이 넘지 않은 경우 활성화", () => {
-      const date = new Date(`${getPrevDaySafe(safeTestDate)}T23:59:59`);
+      const date = new Date(`${safeTestDate}T23:59:59`);
       vi.setSystemTime(date);
       const cartItems = [createMockCartItem(25000, buyQuantity + getQuantity)];
       expect(getIsCouponDisabled(buyXGetYCoupon, cartItems)).toBe(false);
@@ -156,7 +156,7 @@ describe("쿠폰 적용 조건 테스트", () => {
     });
 
     it("만료 기한이 넘지 않은 경우 활성화", () => {
-      const date = new Date(`${getPrevDaySafe(safeTestDate)}T23:59:59`);
+      const date = new Date(`${safeTestDate}T23:59:59`);
       vi.setSystemTime(date);
       const cartItems = [createMockCartItem(25000, 2)];
       expect(getIsCouponDisabled(freeShipping, cartItems)).toBe(false);
@@ -183,9 +183,7 @@ describe("쿠폰 적용 조건 테스트", () => {
     });
 
     it("만료 기한이 넘지 않은 경우 활성화", () => {
-      const date = new Date(
-        `${getPrevDaySafe(safeTestDate)}T${availableTime.start}`
-      );
+      const date = new Date(`${safeTestDate}T${availableTime.start}`);
       vi.setSystemTime(date);
       expect(getIsCouponDisabled(miracleCoupon, [])).toBe(false);
     });
