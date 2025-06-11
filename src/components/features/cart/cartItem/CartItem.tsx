@@ -25,24 +25,20 @@ function CartItem({
 }: CartItemProps) {
   const { mutate: deleteCartItemMutate } = useJaeOMutation({
     mutationFn: deleteCartItem,
-    options: {
-      onSuccess: () => {
-        refetchData('cartItems');
-      },
-      onError: () => {
-        showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.');
-      },
+    onSuccess: () => {
+      refetchData('cartItems');
+    },
+    onError: () => {
+      showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.');
     },
   });
   const { mutate: updateCartItemMutate } = useJaeOMutation({
     mutationFn: updateCartItem,
-    options: {
-      onSuccess: () => {
-        refetchData('cartItems');
-      },
-      onError: () => {
-        showErrorToast('상품 수량 업데이트에 실패했습니다. 다시 시도해주세요.');
-      },
+    onSuccess: () => {
+      refetchData('cartItems');
+    },
+    onError: () => {
+      showErrorToast('상품 수량 업데이트에 실패했습니다. 다시 시도해주세요.');
     },
   });
 
