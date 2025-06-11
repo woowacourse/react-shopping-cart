@@ -3,17 +3,9 @@ import { useCartContext } from '../../shared/context/useCartContext';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../../features/cart/constants/orderPriceSummary';
 import * as S from './OrderPriceSummary.styles';
 import SelectInput from '../../shared/ui/SelectInput';
-import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 
 export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: boolean }) {
-  const {
-    totalPrice,
-    totalDiscountPrice,
-    totalPurchasePrice,
-    updateTotalPrice,
-    updateDeliveryFee,
-    updateTotalPurchasePrice,
-  } = useCartContext();
+  const { totalPrice, totalDiscountPrice, totalPurchasePrice, updateDeliveryFee } = useCartContext();
 
   const [suburbExtraFee, setSuburbExtraFee] = useState(0);
 
@@ -21,14 +13,8 @@ export default function OrderPriceSummary({ useCoupon = false }: { useCoupon?: b
   const finalDeliveryFee = baseDeliveryFee + suburbExtraFee;
 
   useEffect(() => {
-    const calculatedTotalPrice = getSelectedCartItemsFromLocalStorage().reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
-      0
-    );
-    updateTotalPrice(calculatedTotalPrice);
     updateDeliveryFee(finalDeliveryFee);
-    updateTotalPurchasePrice(totalPrice + finalDeliveryFee - totalDiscountPrice);
-  }, [totalPrice, suburbExtraFee, totalDiscountPrice]);
+  }, [suburbExtraFee]);
 
   const handleSuburbExtraFeeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;

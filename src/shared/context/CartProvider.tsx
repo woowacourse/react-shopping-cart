@@ -1,6 +1,7 @@
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { CartItem } from '../../features/cart/api/types/cart';
 import { Coupon } from '../../features/coupon/types/coupon';
+import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -16,9 +17,7 @@ interface CartContextType {
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
   updateSelectedCoupons: (coupons: Coupon[]) => void;
-  updateTotalPrice: (price: number) => void;
   updateTotalDiscountPrice: (totalDiscountPrice: number) => void;
-  updateTotalPurchasePrice: (totalPurchasePrice: number) => void;
   updateDeliveryFee: (deliveryFee: number) => void;
 }
 
@@ -32,10 +31,15 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalDiscountPrice, setTotalDiscountPrice] = useState<number>(0);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
-  const [totalPurchasePrice, setTotalPurchasePrice] = useState<number>(0);
+
+  useEffect(() => {
+    const savedSelectedCartItems = getSelectedCartItemsFromLocalStorage();
+    if (savedSelectedCartItems) {
+      setSelectedCartItems(savedSelectedCartItems);
+    }
+  }, []);
 
   const updateCartItems = (cartItems: CartItem[]) => {
     setCartItems(cartItems);
@@ -73,10 +77,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setSelectedCoupons(coupons);
   };
 
-  const updateTotalPrice = (price: number) => {
-    setTotalPrice(price);
-  };
-
   const updateTotalDiscountPrice = (totalDiscountPrice: number) => {
     setTotalDiscountPrice(totalDiscountPrice);
   };
@@ -85,9 +85,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setDeliveryFee(deliveryFee);
   };
 
-  const updateTotalPurchasePrice = (totalPurchasePrice: number) => {
-    setTotalPurchasePrice(totalPurchasePrice);
-  };
+  const totalPrice = selectedCartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
+
+  const totalPurchasePrice = totalPrice - totalDiscountPrice + deliveryFee;
 
   const value = useMemo(
     () => ({
@@ -104,9 +104,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       addAllCartItemsInSelected,
       removeSelectedCartItem,
       updateSelectedCoupons,
-      updateTotalPrice,
       updateTotalDiscountPrice,
-      updateTotalPurchasePrice,
       updateDeliveryFee,
     }),
     [cartItems, selectedCartItems, selectedCoupons, totalPrice, totalDiscountPrice, deliveryFee, totalPurchasePrice]

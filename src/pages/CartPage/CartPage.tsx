@@ -11,19 +11,11 @@ const CartList = React.lazy(() => import('../../features/cart/ui/CartList'));
 const OrderPriceSummary = React.lazy(() => import('../../widgets/ui/OrderPriceSummary'));
 
 function CartPage() {
-  const {
-    cartItems,
-    selectedCartItems,
-    updateTotalPrice,
-    updateCartItems,
-    updateSelectedCartItem,
-    removeSelectedCartItem,
-  } = useCartContext();
+  const { cartItems, selectedCartItems, updateCartItems, updateSelectedCartItem, removeSelectedCartItem } =
+    useCartContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const calculatedTotalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-    updateTotalPrice(calculatedTotalPrice);
     const fetchCartItems = async () => {
       try {
         const response = await getCartItems();
