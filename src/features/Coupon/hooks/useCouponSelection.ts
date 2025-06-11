@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useMemo } from 'react';
 import { useFetchData } from '../../../shared/hooks/useFetchData';
 import { getCouponList } from '../../../features/Coupon/api/coupon';
 import { Coupon, CouponResponse } from '../../../features/Coupon/types/Coupon.types';
@@ -22,11 +22,12 @@ export const useCouponSelection = () => {
 
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [showCouponList, setShowCouponList] = useState(false);
-  const [discountAmount, setDiscountAmount] = useState(0);
-
   const coupon = useFetchData<CouponResponse[]>({ autoFetch: getCouponList });
-
   const selectedCoupons = coupons.filter((c) => c.checked && !c.disabled);
+  const discountAmount = calculateTotalDiscount(selectedCartItems, selectedCoupons, {
+    totalPrice,
+    isRemoteArea,
+  });
 
   useEffect(() => {
     if (coupon.data) {
@@ -77,12 +78,6 @@ export const useCouponSelection = () => {
   };
 
   const ApplyCoupons = () => {
-    const selected = coupons.filter((c) => c.checked && !c.disabled);
-    const discount = calculateTotalDiscount(selectedCartItems, selected, {
-      totalPrice,
-      isRemoteArea,
-    });
-    setDiscountAmount(discount);
     setShowCouponList(false);
   };
 
