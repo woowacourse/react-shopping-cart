@@ -25,7 +25,7 @@ const fetchCoupons = async ({
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    throw new Error("에러 발생!");
+    throw new Error("쿠폰 정보를 가져오는데 실패했습니다.");
   }
 
   const data = await response.json();
