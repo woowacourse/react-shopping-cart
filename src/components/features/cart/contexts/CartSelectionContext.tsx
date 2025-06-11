@@ -32,7 +32,7 @@ export function CartSelectionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setSelectedList(Array.from({ length: cartItems.length }, () => true));
-  }, [cartItems]);
+  }, [cartItems.length]);
 
   const allSelected = useMemo(
     () => selectedList.length > 0 && selectedList.every(Boolean),
@@ -56,16 +56,28 @@ export function CartSelectionProvider({ children }: { children: ReactNode }) {
   );
   const disabled = !selectedList.some(Boolean);
 
-  const value: CartSelectionContextValue = {
-    selectedList,
-    allSelected,
-    selectCartItems,
-    orderPrice,
-    disabled,
-    setSelectedList,
-    toggle,
-    toggleAll,
-  };
+  const value = useMemo(
+    () => ({
+      selectedList,
+      allSelected,
+      selectCartItems,
+      orderPrice,
+      disabled,
+      setSelectedList,
+      toggle,
+      toggleAll,
+    }),
+    [
+      selectedList,
+      allSelected,
+      selectCartItems,
+      orderPrice,
+      disabled,
+      setSelectedList,
+      toggle,
+      toggleAll,
+    ]
+  );
 
   return (
     <CartSelectionContext.Provider value={value}>

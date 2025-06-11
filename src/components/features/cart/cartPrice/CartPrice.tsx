@@ -1,5 +1,6 @@
 import { DELIVERY_FEE } from '../../../../global/constants';
 import Separator from '../../../common/separator/Separator';
+import { calculateTotalPrice } from '../utils/cartCalculations';
 import * as S from './CartPrice.styles';
 
 interface CartPriceProps {
@@ -7,15 +8,13 @@ interface CartPriceProps {
 }
 
 function CartPrice({ value }: CartPriceProps) {
-  const deliveryFee =
-    value >= DELIVERY_FEE.MINIMUM ? DELIVERY_FEE.FREE : DELIVERY_FEE.STANDARD;
-  const totalPrice = value + deliveryFee;
+  const { deliveryFee, totalPrice } = calculateTotalPrice(value);
   return (
     <S.Container>
       <S.Description>
         <img src="./assets/Notification.svg" />
         <S.DescriptionText>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          {`총 주문 금액이 ${DELIVERY_FEE.MINIMUM.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
         </S.DescriptionText>
       </S.Description>
       <Separator />

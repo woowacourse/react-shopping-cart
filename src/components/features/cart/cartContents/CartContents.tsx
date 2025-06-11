@@ -8,7 +8,7 @@ import * as S from './CartContents.styles';
 import { useNavigate } from 'react-router';
 
 function CartContents() {
-  const { cartItems, fetch } = useCartContext();
+  const { cartItems } = useCartContext();
   const selection = useCartSelectionContext();
   const navigate = useNavigate();
 
@@ -29,8 +29,8 @@ function CartContents() {
 
   return (
     <S.Container>
-      <CartTitle quantity={cartItems.length} />
-      <CartList cartItems={cartItems} refetch={fetch} />
+      <CartTitle uniqueProductCount={cartItems.length} />
+      <CartList />
       <CartPrice value={selection.orderPrice} />
       <FooterButton disabled={selection.disabled} onClick={moveToOrderConfirm}>
         주문 확인

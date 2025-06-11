@@ -1,15 +1,9 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { fireEvent, render, screen, within, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import CartContents from '../src/components/features/cart/cartContents/CartContents';
 import { resetCartItems } from '../src/mocks/handlers';
-import { CartProvider } from '../src/components/features/cart/contexts/CartContext';
 import { CartSelectionProvider } from '../src/components/features/cart/contexts/CartSelectionContext';
+import { CartProvider } from '../src/components/features/cart/contexts/CartContext';
 
 describe('CartContents 테스트', () => {
   beforeEach(() => {
@@ -38,7 +32,9 @@ describe('CartContents 테스트', () => {
     const buttons = within(firstItem).getAllByRole('button');
     const checkBoxButton = buttons[0];
 
-    fireEvent.click(checkBoxButton);
+    await act(async () => {
+      fireEvent.click(checkBoxButton);
+    });
 
     expect(checkBoxButton).toHaveAttribute('aria-checked', 'false');
   });
@@ -49,9 +45,11 @@ describe('CartContents 테스트', () => {
     const buttons = within(firstItem).getAllByRole('button');
     const plusButton = buttons[3];
 
-    fireEvent.click(plusButton);
-    const quantity = await within(firstItem).findByText('2');
+    await act(async () => {
+      fireEvent.click(plusButton);
+    });
 
+    const quantity = await within(firstItem).findByText('2');
     expect(quantity).toHaveTextContent('2');
   });
 
@@ -61,9 +59,11 @@ describe('CartContents 테스트', () => {
     const buttons = within(secondItem).getAllByRole('button');
     const minusButton = buttons[2];
 
-    fireEvent.click(minusButton);
-    const quantity = await within(secondItem).findByText('1');
+    await act(async () => {
+      fireEvent.click(minusButton);
+    });
 
+    const quantity = await within(secondItem).findByText('1');
     expect(quantity).toHaveTextContent('1');
   });
 
@@ -73,12 +73,12 @@ describe('CartContents 테스트', () => {
     const buttons = within(firstItem).getAllByRole('button');
     const minusButton = buttons[2];
 
-    fireEvent.click(minusButton);
-
-    await waitFor(async () => {
-      const updatedCartItems = await screen.findAllByTestId(/CartItem/);
-      expect(updatedCartItems.length).toBe(3);
+    await act(async () => {
+      fireEvent.click(minusButton);
     });
+
+    const updatedCartItems = await screen.findAllByTestId(/CartItem/);
+    expect(updatedCartItems.length).toBe(3);
   });
 
   it('CartItem의 삭제 버튼을 누르면 상품이 삭제된다.', async () => {
@@ -87,19 +87,21 @@ describe('CartContents 테스트', () => {
     const buttons = within(firstItem).getAllByRole('button');
     const deleteButton = buttons[1];
 
-    fireEvent.click(deleteButton);
-
-    await waitFor(async () => {
-      const updatedCartItems = await screen.findAllByTestId(/CartItem/);
-      expect(updatedCartItems.length).toBe(3);
+    await act(async () => {
+      fireEvent.click(deleteButton);
     });
+
+    const updatedCartItems = await screen.findAllByTestId(/CartItem/);
+    expect(updatedCartItems.length).toBe(3);
   });
 
   it('전체 선택 버튼을 누르면 모든 상품의 선택이 해제된다.', async () => {
     const buttons = await screen.findAllByRole('button');
     const allSelectButton = buttons[0];
 
-    fireEvent.click(allSelectButton);
+    await act(async () => {
+      fireEvent.click(allSelectButton);
+    });
 
     const cartItems = await screen.findAllByTestId(/CartItem/);
     cartItems.forEach((item) => {
@@ -120,7 +122,9 @@ describe('CartContents 테스트', () => {
     const buttons = within(firstItem).getAllByRole('button');
     const checkBoxButton = buttons[0];
 
-    fireEvent.click(checkBoxButton);
+    await act(async () => {
+      fireEvent.click(checkBoxButton);
+    });
 
     const priceRows = await screen.findAllByTestId('price-row');
     const deliveryFee = priceRows[1];
@@ -132,10 +136,11 @@ describe('CartContents 테스트', () => {
     const buttons = await screen.findAllByRole('button');
     const allSelectButton = buttons[0];
 
-    fireEvent.click(allSelectButton);
+    await act(async () => {
+      fireEvent.click(allSelectButton);
+    });
 
     const orderConfirmButton = buttons[buttons.length - 1];
-
     expect(orderConfirmButton).toBeDisabled();
   });
 });
