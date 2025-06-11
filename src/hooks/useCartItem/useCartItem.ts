@@ -65,7 +65,6 @@ export default function useCartItem() {
     const cartItem = cartItems.content.find((item) => item.product.id === productId);
 
     if (!cartItem) return;
-    optimisticDecreaseCartItem;
 
     if (cartItem.quantity === 1) {
       await mutateDeleteCartItem(
