@@ -77,27 +77,13 @@ export function simulateCombo(
 export type SimulationResult = ReturnType<typeof simulateCombo>;
 
 export function generateCombos(couponList: Coupon[]): Coupon[][] {
-  const combos: Coupon[][] = [];
+  const singleCombos = couponList.map((coupon) => [coupon]);
 
-  // const singleCombos = couponList.map((coupon) => [coupon]);
-  for (const coupon of couponList) {
-    combos.push([coupon]);
-  }
+  const doubleCombos = couponList.flatMap((c1, i) =>
+    couponList.filter((_, j) => j !== i).map((c2) => [c1, c2])
+  );
 
-  // const doubleCombos = couponList.flatMap((c1, i) =>
-  //   couponList.slice(i + 1).map((c2) => [c1, c2])
-  // );
-
-  for (let i = 0; i < couponList.length; i++) {
-    for (let j = 0; j < couponList.length; j++) {
-      if (i === j) continue;
-      combos.push([couponList[i], couponList[j]]);
-    }
-  }
-
-  // console.log('combos', [...singleCombos, ...doubleCombos]);
-  // return [...singleCombos, ...doubleCombos];
-  return combos;
+  return [...singleCombos, ...doubleCombos];
 }
 
 export function getBestCouponCombo(
