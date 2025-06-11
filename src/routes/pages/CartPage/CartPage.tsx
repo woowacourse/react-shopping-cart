@@ -45,10 +45,6 @@ function CartPage() {
               key={cartItem.id}
               cartItem={cartItem}
               selected={cart.selectedItems.includes(cartItem.id)}
-              onSelectChange={cart.handleSelectItem}
-              onIncreaseClick={cart.increaseCartItem}
-              onDecreaseClick={cart.decreaseCartItem}
-              onDeleteClick={cart.deleteCartItem}
             />
           ))}
         </ul>
