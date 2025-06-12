@@ -10,7 +10,7 @@ export default function CartItemImage({ image }: CartItemImageProps) {
     <img
       css={ProductImage}
       src={image}
-      alt="상품 이미지"
+      alt="상품"
       onError={(error) => {
         error.currentTarget.src = DefaultCartImg;
       }}
