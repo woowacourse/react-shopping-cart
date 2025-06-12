@@ -9,47 +9,28 @@ import CouponModal from '../components/Modal/CouponModal';
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router';
 import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
-import { calculateCouponDiscount } from '../utils/couponCalculations';
-import { useShippingFee } from '../hooks/useShippingFee';
-import { useCouponSelection } from '../hooks/useCouponSelection';
+import { useOrderConfirm } from '../hooks/useOrderConfirm';
 
 function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { products, price, count, totalCount } = location.state;
+  const { products, price, count, totalCount } = location.state || {};
 
   const {
-    selectedCoupons,
-    tempSelectedCoupons,
     modalEnabled,
-    openModal: openCouponModal,
-    closeModal: closeCouponModal,
+    openCouponModal,
+    closeCouponModal,
     toggleCouponSelection,
     isCouponSelected,
     applyCoupons,
-  } = useCouponSelection();
-
-  const { remoteArea, toggleRemoteArea, baseShippingFee, remoteAreaFee, totalShippingFee } =
-    useShippingFee({
-      subtotal: price,
-      selectedCoupons,
-    });
-
-  const couponDiscount = calculateCouponDiscount({
-    coupons: selectedCoupons,
-    products: products || [],
-    total: price,
-    shippingFee: baseShippingFee + remoteAreaFee,
-  });
-
-  const tempCouponDiscount = calculateCouponDiscount({
-    coupons: tempSelectedCoupons || [],
-    products: products || [],
-    total: price,
-    shippingFee: baseShippingFee + remoteAreaFee,
-  });
-
-  const finalTotal = price - couponDiscount + totalShippingFee;
+    tempSelectedCoupons,
+    remoteArea,
+    toggleRemoteArea,
+    totalShippingFee,
+    couponDiscount,
+    tempCouponDiscount,
+    finalTotal,
+  } = useOrderConfirm();
 
   if (!location.state || !products || products.length === 0) {
     console.error('No products data received');
