@@ -1,6 +1,6 @@
 import { Cart } from '@/api/cart';
 import { CouponContent } from '@/api/type';
-import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
+import { getDiscountByCouponId } from './getDiscountByCouponId';
 
 interface calculateTotalDiscountInput {
   selectedCouponIds: number[];
@@ -10,7 +10,7 @@ interface calculateTotalDiscountInput {
   isJejuOrRemoteArea: boolean;
 }
 
-export const useCalculateTotalDiscount = ({
+export const calculateTotalDiscount = ({
   selectedCouponIds,
   availableCoupons,
   orderPrice,
