@@ -8,8 +8,9 @@ import { Coupon } from '../types';
 import calculateCouponDiscount from '../utils/calculateCouponDiscount';
 import calculateDeliveryPrice from '../utils/calculateDeliveryPrice';
 import { useShippingContext } from '../contexts/Shipping/ShippingContext';
-import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
 import { getCurrentDate } from '../utils/getCurrentDate';
+import { isCouponValid } from '../utils/isCouponValid';
+import getMaxQuantity from '../utils/getMaxQuantity';
 
 const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
@@ -37,47 +38,15 @@ const useCoupons = () => {
     [cartItems, checkedCartIds]
   );
   const maxQuantity = useMemo(
-    () => selectedCartItems.reduce((m, i) => Math.max(m, i.quantity), 0),
+    () => getMaxQuantity(selectedCartItems),
     [selectedCartItems]
   );
   const currentHour = getCurrentDate().getHours();
 
   const validCoupons = useMemo(() => {
-    const now = new Date();
-    return coupons.filter((c) => {
-      if (c.expirationDate) {
-        const expire = new Date(c.expirationDate + 'T23:59:59');
-
-        if (now > expire) {
-          return false;
-        }
-      }
-
-      switch (c.code) {
-        case 'FIXED5000':
-          return orderPrice >= (c.minimumAmount ?? 0);
-
-        case 'BOGO':
-          return maxQuantity >= (c.buyQuantity ?? 0) + (c.getQuantity ?? 0);
-
-        case 'FREESHIPPING':
-          return (
-            orderPrice >= (c.minimumAmount ?? 0) &&
-            orderPrice < DELIVERY_PRICE_THRESHOLD
-          );
-
-        case 'MIRACLESALE': {
-          const { start = '00:00:00', end = '00:00:00' } =
-            c.availableTime ?? {};
-          const startHour = parseInt(start.slice(0, 2), 10);
-          const endHour = parseInt(end.slice(0, 2), 10);
-          return currentHour >= startHour && currentHour < endHour;
-        }
-
-        default:
-          return false;
-      }
-    });
+    return coupons.filter((coupon) =>
+      isCouponValid(coupon, { orderPrice, maxQuantity, currentHour })
+    );
   }, [coupons, orderPrice, maxQuantity, currentHour]);
 
   const deliveryPrice = calculateDeliveryPrice(orderPrice, isRemoteArea);
