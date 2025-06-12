@@ -57,6 +57,7 @@ export function calcCouponDiscount(
       return totalShippingFee;
     }
     case 'buyXgetY': {
+      // console.log(hasMultipleSelectedItems(cart, selectedItems));
       const { buyQuantity = 0, getQuantity = 0 } = coupon;
       const groupSize = buyQuantity + getQuantity;
 
@@ -94,7 +95,15 @@ export function findBestCombo(combos: CouponType[][], cart: CartType, selectedIt
   return maxDisc;
 }
 
-export function checkCouponAvailability(coupon: CouponType, price: number): boolean {
+export function checkCouponAvailability(
+  coupon: CouponType,
+  price: number,
+  selectedCount: number,
+): boolean {
+  if (selectedCount < 3) {
+    return true;
+  }
+
   const now = new Date();
   const currentTime = now.toTimeString().slice(0, 8);
 

@@ -29,7 +29,11 @@ export function CouponProvider({ children }: { children: ReactNode }) {
 
   const totalDiscount = calculateTotalDiscount(selectedCoupons, cart);
   const checkCouponsDisable = (couponItem: CouponType, price: number) =>
-    checkCouponAvailability(couponItem, price);
+    checkCouponAvailability(
+      couponItem,
+      price,
+      selectedCartItems.reduce((sum, item) => sum + item.quantity, 0),
+    );
 
   return (
     <CouponContext.Provider
