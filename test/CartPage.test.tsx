@@ -68,7 +68,7 @@ describe('CartPage', () => {
     totalCount: 3,
     shippingFee: 0,
     totalPrice: 130000,
-    descriptionMessage: () => '총 2종류의 상품이 담겨있습니다.',
+    descriptionMessage: '총 2종류의 상품이 담겨있습니다.',
     isDisabled: false,
     selectedProducts: mockCartItemsWithData.content,
   };
@@ -101,7 +101,7 @@ describe('CartPage', () => {
       checkedItems: [],
       price: 0,
       totalCount: 0,
-      descriptionMessage: () => '장바구니가 비어있습니다.',
+      descriptionMessage: '장바구니가 비어있습니다.',
       isDisabled: true,
       selectedProducts: [],
     });
