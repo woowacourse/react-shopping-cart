@@ -1,8 +1,8 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import OrderListPage from "../../pages/OrderListPage/OrderListPage";
-
 import useCartItemList from "../../hooks/useCartItemList";
 import { useErrorContext } from "../../contexts/ErrorContext";
 
@@ -32,6 +32,18 @@ describe("OrderListPage", () => {
   const mockedUseCartItemList = vi.mocked(useCartItemList);
   const mockedUseErrorContext = vi.mocked(useErrorContext);
 
+  const mockSelectedCartItemList = [
+    { id: 1, quantity: 2, isChecked: true },
+    { id: 2, quantity: 1, isChecked: true },
+  ];
+
+  const renderWithRouter = (ui: React.ReactNode, state: any = {}) =>
+    render(
+      <MemoryRouter initialEntries={[{ pathname: "/order-check", state }]}>
+        {ui}
+      </MemoryRouter>
+    );
+
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -43,28 +55,30 @@ describe("OrderListPage", () => {
     });
     mockedUseErrorContext.mockReturnValue({
       errorMessage: "",
-      handleErrorMessage: function (value: string): void {
-        throw new Error("Function not implemented.");
-      },
+      handleErrorMessage: vi.fn(),
     });
 
-    render(<OrderListPage />);
+    renderWithRouter(<OrderListPage />, {
+      selectedCartItemList: mockSelectedCartItemList,
+    });
+
     expect(screen.getByText("로딩중..")).toBeInTheDocument();
   });
 
   it("로딩이 끝나면 OrderListContent를 보여준다", () => {
     mockedUseCartItemList.mockReturnValue({
       state: { isLoading: false },
-      cartItemList: [{ id: 1, quantity: 1, product: { price: 1000 } }],
+      cartItemList: [{ id: 1, quantity: 2, product: { price: 1000 } }],
     });
     mockedUseErrorContext.mockReturnValue({
       errorMessage: "",
-      handleErrorMessage: function (value: string): void {
-        throw new Error("Function not implemented.");
-      },
+      handleErrorMessage: vi.fn(),
     });
 
-    render(<OrderListPage />);
+    renderWithRouter(<OrderListPage />, {
+      selectedCartItemList: mockSelectedCartItemList,
+    });
+
     expect(screen.getByTestId("order-content")).toBeInTheDocument();
   });
 
@@ -74,13 +88,14 @@ describe("OrderListPage", () => {
       cartItemList: [],
     });
     mockedUseErrorContext.mockReturnValue({
-      errorMessage: "some error",
-      handleErrorMessage: function (value: string): void {
-        throw new Error("Function not implemented.");
-      },
+      errorMessage: "something went wrong",
+      handleErrorMessage: vi.fn(),
     });
 
-    render(<OrderListPage />);
+    renderWithRouter(<OrderListPage />, {
+      selectedCartItemList: mockSelectedCartItemList,
+    });
+
     expect(screen.getByTestId("error-box")).toBeInTheDocument();
   });
 });

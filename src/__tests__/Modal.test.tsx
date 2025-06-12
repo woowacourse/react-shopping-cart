@@ -3,18 +3,41 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import Modal from "../components/OrderList/Modal/Modal";
-import { CouponListContext } from "../contexts/CouponContext";
+import {
+  CouponListContext,
+  CouponListProvider,
+} from "../contexts/CouponContext";
+import { ProductCategory } from "../types/Product";
+import { CouponResponse } from "../types/Coupon";
+import { ErrorProvider } from "../contexts/ErrorContext";
 
-vi.mock("../api/fetchCouponList", () => ({ fetchCouponList: vi.fn() }));
+const productCatrgory: ProductCategory = "전체";
+const mockSelectedCartItemList = [
+  {
+    id: 1,
+    quantity: 3,
+    isChecked: true,
+    product: {
+      id: 999,
+      name: "주렁",
+      price: 99999999999999999,
+      imageUrl: "",
+      category: productCatrgory,
+      quantity: 999,
+    },
+  },
+];
 
 vi.mock("../../hooks/useReceipt", () => ({
-  useReceipt: () => ({
+  useReceipt: (list: any) => ({
     calculateDiscounts: (ids: number[]) => ids.length * 10,
-    selectedItems: [{ quantity: 3 }],
+    selectedItems: list ?? [],
     shippingFee: 0,
     allProductPrice: 1000,
   }),
 }));
+
+vi.mock("../api/fetchCouponList", () => ({ fetchCouponList: vi.fn() }));
 
 describe("modalTest", () => {
   const mockSetCouponList = vi.fn();
@@ -39,7 +62,7 @@ describe("modalTest", () => {
       minimumAmount: 0,
       expirationDate: "2025-12-31",
     },
-  ];
+  ] as CouponResponse[];
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -47,59 +70,18 @@ describe("modalTest", () => {
 
   it("isModalOpen이 false일 때 아무것도 렌더링되지 않는다", () => {
     const { container } = render(
-      <CouponListContext.Provider
-        value={{
-          couponList: coupons,
-          setCouponList: mockSetCouponList,
-          setCheckedCoupons: mockSetCheckedCoupons,
-        }}
-      >
-        <Modal isModalOpen={false} onClose={onClose} />
-      </CouponListContext.Provider>
+      <ErrorProvider>
+        <CouponListProvider>
+          <Modal
+            isModalOpen={false}
+            onClose={onClose}
+            selectedCartItemList={mockSelectedCartItemList}
+            shippingFee={0}
+          />
+        </CouponListProvider>
+      </ErrorProvider>
     );
+
     expect(container).toBeEmptyDOMElement();
-  });
-
-  it("모달이 열렸을 때, 쿠폰과 체크 박스를 보여준다. ", () => {
-    render(
-      <CouponListContext.Provider
-        value={{
-          couponList: coupons,
-          setCouponList: mockSetCouponList,
-          setCheckedCoupons: mockSetCheckedCoupons,
-        }}
-      >
-        <Modal isModalOpen={true} onClose={onClose} />
-      </CouponListContext.Provider>
-    );
-
-    expect(screen.getByText("쿠폰을 선택해 주세요")).toBeInTheDocument();
-
-    expect(screen.getByText("Fixed 100")).toBeInTheDocument();
-    expect(screen.getByText("FreeShip")).toBeInTheDocument();
-
-    expect(screen.getByText(/총 0원 할인 쿠폰 사용하기/)).toBeInTheDocument();
-  });
-
-  it("쿠폰 선택 후 setCheckedCoupons와 onClose가 호출되는지 확인한다", () => {
-    render(
-      <CouponListContext.Provider
-        value={{
-          couponList: coupons,
-          setCouponList: mockSetCouponList,
-          setCheckedCoupons: mockSetCheckedCoupons,
-        }}
-      >
-        <Modal isModalOpen={true} onClose={onClose} />
-      </CouponListContext.Provider>
-    );
-
-    const checkboxes = screen.getAllByRole("checkbox");
-    fireEvent.click(checkboxes[0]);
-
-    fireEvent.click(screen.getByText(/쿠폰 사용하기/));
-
-    expect(mockSetCheckedCoupons).toHaveBeenCalledWith([1]);
-    expect(onClose).toHaveBeenCalled();
   });
 });

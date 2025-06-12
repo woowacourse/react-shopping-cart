@@ -46,6 +46,10 @@ export default function Modal({
     })();
   }, [setCouponList, handleErrorMessage]);
 
+  if (!isModalOpen) {
+    return null;
+  }
+
   return (
     <>
       <S.ModalBackground isModalOpen={isModalOpen}>
