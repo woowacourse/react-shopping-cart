@@ -50,6 +50,7 @@ function useSelect(cartList: CartItemProps[]) {
 
   return {
     selectedItems,
+    setSelectedItems,
     isAllSelected,
     selectItem,
     selectAllItems,
