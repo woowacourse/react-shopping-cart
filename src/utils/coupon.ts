@@ -1,3 +1,4 @@
+import { BASE_SHIPPING_FEE } from '../constants/payments';
 import { CartProduct, CouponType } from '../types/cart';
 
 interface CartType {
@@ -51,7 +52,7 @@ export function calcCouponDiscount(
       return cart.total * ((coupon.discount ?? 0) / 100);
     }
     case 'freeShipping': {
-      const totalShippingFee = cart.shippingFee + (cart.isExtraShippingFee ? 3000 : 0);
+      const totalShippingFee = cart.shippingFee + (cart.isExtraShippingFee ? BASE_SHIPPING_FEE : 0);
       return totalShippingFee;
     }
     case 'buyXgetY': {
