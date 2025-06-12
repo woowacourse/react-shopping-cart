@@ -1,12 +1,13 @@
-import { useOrder } from '../../context/OrderContext';
 import styled from '@emotion/styled';
 import CartPrice from '../Cart/CartPrice';
 import { useCoupon } from '../../context/CouponContext';
 import { calculateShippingFee } from '../../utils/calculator';
 import { useShipping } from '../../context/ShippingContext';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 
 function OrderFooter() {
-  const { price } = useOrder();
+  const { price } = useOrderSummary();
+
   const { totalDiscount } = useCoupon();
   const { isExtraShippingFee } = useShipping();
 

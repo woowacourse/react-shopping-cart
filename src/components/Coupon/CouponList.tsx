@@ -2,15 +2,15 @@ import { useLocation } from 'react-router';
 import { CouponType } from '../../types/cart';
 import CouponItem from './CouponItem';
 import { useEffect } from 'react';
-import { useOrder } from '../../context/OrderContext';
 import { useCoupon } from '../../context/CouponContext';
 import { useShipping } from '../../context/ShippingContext';
 import { useCartData, useCouponData } from '../../utils/fetcher';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 
 function CouponList() {
   const { data: cartItems } = useCartData();
   const { data: coupons } = useCouponData();
-  const { price, shippingFee } = useOrder();
+  const { price, shippingFee } = useOrderSummary();
   const { selectedCoupons, handleCouponSelect, calculateTotalDiscount, checkCouponsDisable } =
     useCoupon();
   const { isExtraShippingFee } = useShipping();

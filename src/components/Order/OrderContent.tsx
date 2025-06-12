@@ -4,13 +4,12 @@ import styled from '@emotion/styled';
 import CartHeader from '../Cart/CartHeader';
 import { useNavigate } from 'react-router';
 import OrderMain from './OrderMain';
-import { useOrder } from '../../context/OrderContext';
 import { useCoupon } from '../../context/CouponContext';
 import { calculateShippingFee } from '../../utils/calculator';
-import { Fragment } from 'react/jsx-runtime';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 
 function OrderContent() {
-  const { selectedCartItems, price } = useOrder();
+  const { selectedCartItems, price } = useOrderSummary();
   const { totalDiscount } = useCoupon();
   const navigate = useNavigate();
 
@@ -31,7 +30,7 @@ function OrderContent() {
     }
   };
   return (
-    <Fragment data-testid="order-content">
+    <Wrapper data-testid="order-content">
       <Header variant="back" />
       <Container>
         <CartHeader title="주문 확인" description={descriptionMessage()} />
@@ -54,11 +53,17 @@ function OrderContent() {
       >
         결제하기
       </Button>
-    </Fragment>
+    </Wrapper>
   );
 }
 
 export default OrderContent;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 const Container = styled.div`
   padding: 0 24px;

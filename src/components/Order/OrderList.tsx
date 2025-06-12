@@ -1,10 +1,10 @@
-import { useOrder } from '../../context/OrderContext';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 import { CartProduct } from '../../types/cart';
 import OrderItem from './OrderItem';
 import styled from '@emotion/styled';
 
 function OrderList() {
-  const { selectedCartItems } = useOrder();
+  const { selectedCartItems } = useOrderSummary();
 
   return (
     <Container>

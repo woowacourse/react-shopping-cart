@@ -1,12 +1,10 @@
-import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { DataProvider } from '../src/context/DataContext';
 import { CouponProvider } from '../src/context/CouponContext';
 import { ShippingProvider } from '../src/context/ShippingContext';
-import { OrderProvider } from '../src/context/OrderContext';
 import OrderConfirmPage from '../src/pages/OrderConfirmPage';
-import * as cartApi from '../src/apis/cart';
 
 const mockNavigate = vi.fn();
 
@@ -18,19 +16,9 @@ vi.mock('react-router', async () => {
   };
 });
 
-vi.mock('../src/apis/cart', () => ({
-  getCartItems: vi.fn(),
-}));
-
-vi.mock('../src/components/Header/Header', () => ({
-  default: function MockHeader() {
-    return <div data-testid="header">Header</div>;
-  },
-}));
-
-describe('OrderConfirmPage', () => {
-  const mockCartItems = {
-    content: [
+vi.mock('../src/hooks/useOrderSummary', () => ({
+  useOrderSummary: () => ({
+    selectedCartItems: [
       {
         id: 1,
         quantity: 2,
@@ -54,8 +42,23 @@ describe('OrderConfirmPage', () => {
         },
       },
     ],
-  };
+    price: 130000,
+    shippingFee: 0,
+    totalPrice: 130000,
+  }),
+}));
 
+vi.mock('../src/apis/cart', () => ({
+  getCartItems: vi.fn(),
+}));
+
+vi.mock('../src/components/Header/Header', () => ({
+  default: function MockHeader() {
+    return <div data-testid="header">Header</div>;
+  },
+}));
+
+describe('OrderConfirmPage', () => {
   const renderComponent = () => {
     return render(
       <MemoryRouter
@@ -69,14 +72,7 @@ describe('OrderConfirmPage', () => {
         <DataProvider>
           <CouponProvider>
             <ShippingProvider>
-              <OrderProvider
-                selectedCartItems={mockCartItems.content}
-                price={130000}
-                shippingFee={0}
-                totalPrice={130000}
-              >
-                <OrderConfirmPage />
-              </OrderProvider>
+              <OrderConfirmPage />
             </ShippingProvider>
           </CouponProvider>
         </DataProvider>
@@ -86,7 +82,6 @@ describe('OrderConfirmPage', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (cartApi.getCartItems as Mock).mockResolvedValue(mockCartItems);
   });
 
   it('주문 확인 페이지가 올바르게 렌더링되어야 한다', async () => {
