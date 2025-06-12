@@ -15,17 +15,26 @@ import { useNavigate } from "react-router-dom";
 import useQuantityControl from "../../hooks/useQuantityControl";
 import CartItem from "../../components/CartItem/CartItem";
 import { getSelectedCartItems } from "../../utils/cartItem";
+import useAllCheckboxHandler from "../../hooks/checkbox/useAllCheckboxHandler";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>("cartItems");
   const {
     selectedIds: selectedCartIds,
-    toggleAllSelect,
     toggleSelect,
-    isAllSelected,
+    addSelectedId,
     isSelected,
+    selectedIds,
   } = useCheckboxHandler(cartItems, "cart");
+
+  const { toggleAllSelect, isAllSelected } = useAllCheckboxHandler({
+    items: cartItems,
+    storageKey: "cart",
+    toggleSelect,
+    addSelectedId,
+    selectedIds,
+  });
   const navigate = useNavigate();
 
   const updateCartItem = (cartId: number, newItem: CartItemType) => {

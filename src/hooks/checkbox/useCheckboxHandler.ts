@@ -1,5 +1,4 @@
 import { StorageKeyType } from "../../types/storage";
-import useAllSelect from "./useAllSelect";
 import useLimitSelect from "./useLimitSelect";
 import useSelect from "./useSelect";
 import { validateOptions } from "./validate";
@@ -21,22 +20,11 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
 ) => {
   validateOptions({ options, items });
 
-  const {
-    maxSelectableCount = null,
-    enableAllSelectBox = true,
-    autoSelectAll = true,
-  } = options;
+  const { maxSelectableCount = null } = options;
 
   const { selectedIds, toggleSelect, isSelected, addSelectedId } =
     useSelect(storageKey);
-  const allSelect = useAllSelect({
-    items,
-    addSelectedId,
-    toggleSelect,
-    selectedIds,
-    autoSelectAll,
-    storageKey,
-  });
+
   const limitSelect = useLimitSelect({
     selectedIds,
     toggleSelect,
@@ -47,21 +35,11 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
     ? limitSelect.limitedToggleSelect
     : toggleSelect;
 
-  const finalToggleAllSelect = enableAllSelectBox
-    ? allSelect.toggleAllSelect
-    : () => {};
-
-  const finalIsAllSelected = enableAllSelectBox
-    ? allSelect.isAllSelected
-    : () => false;
-
   return {
     selectedIds,
     isSelected,
     toggleSelect: finalToggleSelect,
-    toggleAllSelect: finalToggleAllSelect,
-    isAllSelected: finalIsAllSelected,
-    ...limitSelect,
+    addSelectedId,
   };
 };
 
