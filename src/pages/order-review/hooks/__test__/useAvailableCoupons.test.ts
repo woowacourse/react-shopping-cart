@@ -1,4 +1,3 @@
-// src/pages/order-review/hooks/__test__/useAvailableCoupons.test.ts
 import { couponMockData } from '@/__mocks__/couponData';
 import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest';
@@ -46,8 +45,6 @@ describe('useAvailableCoupons', () => {
     );
 
     const availableIds = result.current.availableCoupons.map((c) => c.id);
-    console.log('Mock 호출 횟수:', mockFn.mock.calls.length);
-    console.log('훅 결과:', availableIds);
 
     expect(availableIds).toContain(1);
     expect(availableIds).toContain(2);
@@ -87,8 +84,6 @@ describe('useAvailableCoupons', () => {
     expect(availableIds).not.toContain(1); // 5,000원 할인 불가 (5만원 < 10만원)
     expect(availableIds).not.toContain(2); // BOGO 불가 (1개 < 3개)
     expect(availableIds).toContain(3); // 무료배송 가능 (5만원 >= 5만원, 일반지역)
-
-    console.log('저액 주문 - 사용 가능한 쿠폰:', availableIds);
   });
 
   it('경계값 테스트 - 정확히 10만원일 때 고정할인 쿠폰이 사용 가능하다', async () => {
@@ -121,15 +116,13 @@ describe('useAvailableCoupons', () => {
 
     const availableIds = result.current.availableCoupons.map((c) => c.id);
 
-    expect(availableIds).toContain(1); // 10만원 정확히 = 사용 가능
-    console.log('경계값 테스트 - 사용 가능한 쿠폰:', availableIds);
+    expect(availableIds).toContain(1);
   });
 
   it('제주도 주문에서 무료배송 쿠폰 조건이 달라진다', async () => {
     const { useOrderListContext } = await import(
       '@/pages/shopping-cart/context/OrderListProvider'
     );
-    // 타입 캐스팅 후 mock 설정
     const mockFn = useOrderListContext as MockedFunction<
       typeof useOrderListContext
     >;
@@ -167,8 +160,5 @@ describe('useAvailableCoupons', () => {
 
     // 제주도: 8만원이지만 5만원 이상이므로 무료배송 가능
     expect(jejuIds).toContain(3);
-
-    console.log('일반 지역 쿠폰:', normalIds);
-    console.log('제주도 쿠폰:', jejuIds);
   });
 });
