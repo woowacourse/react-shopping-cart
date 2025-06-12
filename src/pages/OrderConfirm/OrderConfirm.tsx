@@ -34,6 +34,7 @@ import { useCouponSelection } from '../../hooks/useCouponSelection';
 import { isCouponDisabled } from '../../utils/isCouponDisabled';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
+const DELIVERY_FREE_COUPON_ID = '3';
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
@@ -55,7 +56,7 @@ export function OrderConfirm() {
   );
 
   const handleExceed = () => {
-    alert('쿠폰은 2개까지만 선택 가능합니다.');
+    alert(`쿠폰은 ${MAX_SELECTED_COUPON_COUNT}개까지만 선택 가능합니다.`);
   };
 
   const { selectedCouponIds, toggleCouponId } = useCouponSelection({
@@ -95,7 +96,9 @@ export function OrderConfirm() {
 
   const deliveryFee = getDeliveryFee(isChecked, totalPrice);
 
-  const deliveryFreeCoupon = finalSelectedCouponIds.find((e) => e === '3')
+  const deliveryFreeCoupon = finalSelectedCouponIds.find(
+    (e) => e === DELIVERY_FREE_COUPON_ID
+  )
     ? deliveryFee
     : 0;
 
