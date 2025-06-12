@@ -27,11 +27,7 @@ import {
   PageLayout,
 } from '../../components';
 import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
-import {
-  getCartItemSummary,
-  calculateCouponPrice,
-  getDeliveryFee,
-} from '../../utils';
+import { calculateCouponPrice } from '../../utils';
 
 import {
   useFetchCoupons,
@@ -39,9 +35,9 @@ import {
   useCouponUI,
   useSelectedCartItems,
 } from '../../hooks';
+import { getOrderCalculationData } from '../../domain/getOrderCalculationData';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
-const DELIVERY_FREE_COUPON_ID = '3';
 
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
@@ -106,29 +102,15 @@ export function OrderConfirm() {
     });
   };
 
-  const { totalPrice } = getCartItemSummary(
-    cartItems,
-    selectedCartItemIds.map(String)
-  );
-
-  const deliveryFee = getDeliveryFee(isChecked, totalPrice);
-
-  const deliveryFreeCoupon = finalSelectedCouponIds.find(
-    (e) => e === DELIVERY_FREE_COUPON_ID
-  )
-    ? deliveryFee
-    : 0;
-
-  const finalSelectedCoupons = coupons.filter((e) =>
-    finalSelectedCouponIds.includes(e.id.toString())
-  );
-
-  const couponDiscountAmount = calculateCouponPrice({
-    selectedCoupons: finalSelectedCoupons,
-    selectedCartItems,
-    deliveryFee: getDeliveryFee(isChecked, totalPrice),
-    nowDate: new Date(),
-  });
+  const { totalPrice, deliveryFee, deliveryFreeCoupon, couponDiscountAmount } =
+    getOrderCalculationData({
+      cartItems,
+      selectedCartItemIds,
+      coupons,
+      finalSelectedCouponIds,
+      selectedCartItems,
+      isChecked,
+    });
 
   const { couponPrice, couponWithDisabled } = useCouponUI({
     coupons,
