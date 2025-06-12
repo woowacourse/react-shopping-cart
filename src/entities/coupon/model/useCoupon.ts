@@ -1,17 +1,21 @@
 import { useEffect } from 'react';
-import { useCouponData } from '@entities/coupon/model/createCouponData';
-import { couponActions } from '@entities/coupon/model/couponActions';
+import { CouponType } from '@entities/coupon/type/coupon.type';
+import { useDataManager } from '@shared/model/useDataManager';
+import { getCoupons } from '../api/getCoupons';
 
 export const useCoupon = () => {
-  const couponData = useCouponData();
+  const { state, withErrorHandling } = useDataManager<CouponType[]>([]);
 
   useEffect(() => {
-    couponActions.fetchCoupons(couponData);
+    withErrorHandling(async () => {
+      const data = await getCoupons();
+      return data;
+    });
   }, []);
 
   return {
-    coupons: couponData.coupons,
-    isLoading: couponData.isLoading,
-    errorMessage: couponData.errorMessage,
+    coupons: state.data,
+    isLoading: state.isLoading,
+    errorMessage: state.error,
   };
 };

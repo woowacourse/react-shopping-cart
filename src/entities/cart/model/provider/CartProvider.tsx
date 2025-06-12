@@ -3,11 +3,11 @@ import { CartItemType } from '@entities/cart';
 import { useCart } from '@entities/cart';
 
 interface CartContextType {
-  cartItems: CartItemType[];
+  items: CartItemType[];
   isLoading: boolean;
-  errorMessage: string | null;
-  updateItemQuantity: (id: number, quantity: number) => Promise<void>;
-  removeItem: (id: number) => Promise<void>;
+  error: string | null;
+  updateItemQuantity: (id: number, quantity: number) => Promise<CartItemType[] | undefined>;
+  removeItem: (id: number) => Promise<CartItemType[] | undefined>;
 }
 
 const CartContext = createContext<CartContextType | null>(null);

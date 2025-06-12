@@ -11,7 +11,7 @@ import { usePageNavigation } from '@app/hooks/usePageNavigation';
 import BottomConfirmButton from '@/shared/ui/BottomConfirmButton/BottomConfirmButton';
 
 export default function CartContent() {
-  const { cartItems, isLoading, errorMessage } = useCartContext();
+  const { items: cartItems, isLoading, error: errorMessage } = useCartContext();
   const { orderIdList, isAllChecked, toggleAllSelection, addOrderItemId, removeOrderItemId } =
     useOrderSelection(cartItems);
   const { orderPrice, deliveryFee, orderTotalPrice } = useOrderCalculation(cartItems, orderIdList);
