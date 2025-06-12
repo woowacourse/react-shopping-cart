@@ -3,7 +3,12 @@ import { apiClient } from './apiClient';
 
 export const getCartItems = async () => {
   try {
-    return await apiClient<CartItemsResponse>('/cart-items?page=0&size=20');
+    return await apiClient<CartItemsResponse>('/cart-items', {
+      query: {
+        page: 0,
+        size: 20,
+      },
+    });
   } catch (error) {
     throw new Error('장바구니 목록을 불러오는 중 에러 발생');
   }
