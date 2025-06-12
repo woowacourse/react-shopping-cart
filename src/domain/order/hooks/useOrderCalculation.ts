@@ -34,15 +34,13 @@ export function useOrderCalculation(
       baseShippingFee + (isIsland ? ISLAND_SHIPPING_FEE : 0);
 
     // 3. 쿠폰 할인 계산 (전략 패턴 적용)
-    const { totalDiscount, finalShippingFee, finalDiscount } =
-      calculateCouponDiscount(
-        selectedCoupons,
-        totalCartPrice,
-        initialShippingFee,
-        selectedCartItems
-      );
+    const { finalShippingFee, finalDiscount } = calculateCouponDiscount(
+      selectedCoupons,
+      totalCartPrice,
+      initialShippingFee,
+      selectedCartItems
+    );
 
-    // 4. 최종 결제 금액 계산
     const totalPrice = totalCartPrice + finalShippingFee - finalDiscount;
 
     return {
