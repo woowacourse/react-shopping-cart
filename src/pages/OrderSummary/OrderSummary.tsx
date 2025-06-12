@@ -41,7 +41,7 @@ function OrderSummary() {
 
   const orderCost = getOrderCost(cartItems);
   const deliveryCost = getDeliveryCost(orderCost, isExtraShipping);
-  const discount = couponService.redeemAll({
+  const discount = couponService.calculateBestCouponDiscount({
     selectedCoupons: redeemedCoupons,
     selectedItems: cartItems,
     orderCost,
@@ -50,7 +50,7 @@ function OrderSummary() {
   const totalCost = getTotalCost(orderCost, deliveryCost, discount);
 
   const getExpectedDiscount = (selectedCoupons: CouponType[]) => {
-    return couponService.redeemAll({
+    return couponService.calculateBestCouponDiscount({
       selectedCoupons,
       selectedItems: cartItems,
       orderCost,

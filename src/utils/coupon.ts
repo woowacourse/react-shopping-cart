@@ -14,3 +14,29 @@ export const filterNonExpiredCoupons = (coupons: CouponType[]) => {
     return expiredDate >= today;
   });
 };
+
+export const makeCouponPermutation = (
+  coupons: CouponType[],
+  couponsCount: number
+) => {
+  const results: CouponType[][] = [];
+  if (couponsCount === 1) {
+    return [coupons];
+  }
+
+  coupons.forEach((coupon, index, prevCoupons) => {
+    const restCoupons = [
+      ...prevCoupons.slice(0, index),
+      ...prevCoupons.slice(index + 1),
+    ];
+    const restPermutations = makeCouponPermutation(
+      restCoupons,
+      couponsCount - 1
+    );
+    restPermutations.forEach((permutation) => {
+      results.push([coupon, ...permutation]);
+    });
+  });
+
+  return results;
+};

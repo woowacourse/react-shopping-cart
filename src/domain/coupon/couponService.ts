@@ -1,5 +1,6 @@
 import { CouponType } from "../../components/Coupon/types";
 import { CartItemType } from "../../types/response";
+import { makeCouponPermutation } from "../../utils/coupon";
 import getCouponHandler from "./couponHandler";
 
 interface DecideCanRedeemProps {
@@ -52,6 +53,29 @@ const couponService = {
         })
       );
     }, 0);
+  },
+
+  calculateBestCouponDiscount: ({
+    selectedCoupons,
+    orderCost,
+    selectedItems,
+    deliveryCost,
+  }: RedeemAllProps) => {
+    const permutations = makeCouponPermutation(
+      selectedCoupons,
+      selectedCoupons.length
+    );
+
+    return Math.max(
+      ...permutations.map((coupons) =>
+        couponService.redeemAll({
+          selectedCoupons: coupons,
+          orderCost,
+          selectedItems,
+          deliveryCost,
+        })
+      )
+    );
   },
 };
 
