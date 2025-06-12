@@ -65,39 +65,22 @@ export const useClientCoupon = ({ orderItems, isRemoteArea, onError }: UseClient
     );
   }, [isRemoteArea]);
 
-  const toggleCouponSelection = (couponId: number) => {
-    setClientCoupons((prev) =>
-      prev.map((clientCoupon) =>
-        clientCoupon.coupon.id === couponId
-          ? { ...clientCoupon, checked: !clientCoupon.checked }
-          : clientCoupon,
-      ),
-    );
-  };
-
-  const checkMaxCouponCount = () => {
-    const checkedCouponsCount = clientCoupons.filter((coupon) => coupon.checked).length;
-    if (checkedCouponsCount >= COUPON_RULE.MAX_COUPON_COUNT) {
+  const validateCouponsCount = (selectedCoupons: ClientCouponType[]) => {
+    const checkedCouponsCount = selectedCoupons.filter((coupon) => coupon.checked).length;
+    if (checkedCouponsCount > COUPON_RULE.MAX_COUPON_COUNT) {
       onError?.(`쿠폰은 최대 ${COUPON_RULE.MAX_COUPON_COUNT}개까지만 사용 가능합니다.`);
-      return true;
+      return false;
     }
-    return false;
+    return true;
   };
 
-  const toggleCouponWithinLimit = (couponId: number) => {
-    const targetCoupon = clientCoupons.find((coupon) => coupon.coupon.id === couponId);
-    if (!targetCoupon || targetCoupon.disabled) return;
-
-    if (targetCoupon.checked) {
-      toggleCouponSelection(couponId);
-      return;
-    }
-    if (checkMaxCouponCount()) return;
-    toggleCouponSelection(couponId);
+  const updateClientCoupons = (selectedCoupons: ClientCouponType[]) => {
+    if (!validateCouponsCount(selectedCoupons)) return;
+    setClientCoupons(selectedCoupons);
   };
 
   return {
     clientCoupons,
-    toggleCouponWithinLimit,
+    updateClientCoupons,
   };
 };

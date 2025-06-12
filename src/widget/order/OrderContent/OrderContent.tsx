@@ -8,7 +8,11 @@ import BottomConfirmButton from '@shared/ui/BottomConfirmButton/BottomConfirmBut
 import PriceContainer from '../PriceContainer';
 import { CartItemType, calculateDeliveryFee, calculateOrderPrice } from '@entities/cart';
 import CouponModal from '@widget/order/CouponModal';
-import { useClientCoupon, calculateCouponDiscountTotalPrice } from '@entities/coupon';
+import {
+  useClientCoupon,
+  calculateCouponDiscountTotalPrice,
+  ClientCouponType,
+} from '@entities/coupon';
 import { useModal } from '@shared/ui/Modal/hook/useModal';
 
 interface OrderContentProps {
@@ -18,7 +22,7 @@ interface OrderContentProps {
 export default function OrderContent({ orderItems }: OrderContentProps) {
   const [isRemoteArea, setIsRemoteArea] = useState(false);
 
-  const { clientCoupons, toggleCouponWithinLimit } = useClientCoupon({
+  const { clientCoupons, updateClientCoupons } = useClientCoupon({
     orderItems,
     isRemoteArea,
     onError: (message) => {
@@ -44,6 +48,10 @@ export default function OrderContent({ orderItems }: OrderContentProps) {
     navigateToPayment({ orderItems, orderTotalPrice });
   };
 
+  const handleCouponConfirm = (selectedCoupons: ClientCouponType[]) => {
+    updateClientCoupons(selectedCoupons);
+  };
+
   return (
     <S.Container>
       <S.Text>
@@ -57,7 +65,7 @@ export default function OrderContent({ orderItems }: OrderContentProps) {
         isOpen={isOpen}
         onClose={handleModalClose}
         clientCoupons={clientCoupons}
-        onCouponCheck={toggleCouponWithinLimit}
+        onConfirm={handleCouponConfirm}
       />
       <RemoteArea isChecked={isRemoteArea} onClick={handleRemoteAreaClick} />
       <PriceContainer
