@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import CartItemList from "../../components/CartItemList/CartItemList";
+import ProductItemList from "../../components/ProductItemList/ProductItemList";
 import CheckBox from "../../components/commons/CheckBox/CheckBox";
 import Description from "../../components/commons/Description/Description";
 import Header from "../../components/commons/Header/Header";
@@ -90,7 +90,7 @@ function Cart() {
               isSelected={isAllSelected()}
               onClick={toggleAllSelect}
             />
-            <CartItemList>
+            <ProductItemList>
               {cartItems.map((cartItem) => (
                 <CartItem
                   key={cartItem.id}
@@ -102,7 +102,7 @@ function Cart() {
                   deleteCartItem={deleteCartItem}
                 />
               ))}
-            </CartItemList>
+            </ProductItemList>
             <Receipt
               selectedCartItems={getSelectedCartItems(
                 cartItems,

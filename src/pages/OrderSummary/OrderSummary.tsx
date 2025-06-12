@@ -5,8 +5,7 @@ import { Container, RedeemCouponButton } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
 import { getDeliveryCost, getOrderCost, getTotalCost } from "../../utils/cost";
 import Description from "../../components/commons/Description/Description";
-import CartItemList from "../../components/CartItemList/CartItemList";
-import CartItem from "../../components/CartItem/CartItem";
+import ProductItemList from "../../components/ProductItemList/ProductItemList";
 import { createPortal } from "react-dom";
 import { useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
@@ -15,6 +14,7 @@ import { CouponType } from "../../components/Coupon/types";
 import OrderReceipt from "../../components/OrderReceipt/OrderReceipt";
 import couponService from "../../domain/coupon/couponService";
 import { filterNonExpiredCoupons } from "../../utils/coupon";
+import OrderItem from "../../components/OrderItem/OrderItem";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -77,11 +77,11 @@ function OrderSummary() {
             cartItems
           )}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
-        <CartItemList>
+        <ProductItemList>
           {cartItems.map((cartItem: CartItemType) => (
-            <CartItem key={cartItem.id} cartItem={cartItem} />
+            <OrderItem key={cartItem.id} orderItem={cartItem} />
           ))}
-        </CartItemList>
+        </ProductItemList>
         <button
           css={RedeemCouponButton}
           type="button"
