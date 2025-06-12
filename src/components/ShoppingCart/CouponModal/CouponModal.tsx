@@ -80,6 +80,8 @@ function CouponModal({
     handleClose();
   };
 
+  console.log(selectedCoupons.size);
+
   return createPortal(
     <Modal isOpen={isOpen} onClose={handleClose}>
       <Modal.Content position="center" size="small">
@@ -102,6 +104,7 @@ function CouponModal({
                 coupon={coupon}
                 orderAmount={orderAmount}
                 isSelected={isSelected(coupon.id)}
+                selectedCouponsSize={selectedCoupons.size}
                 onToggle={() => toggleCoupon(coupon.id)}
               />
             ))

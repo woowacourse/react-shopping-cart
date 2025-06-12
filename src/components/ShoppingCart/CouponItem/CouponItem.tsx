@@ -14,6 +14,7 @@ interface CouponItemProps {
   orderAmount: number;
   isSelected: boolean;
   onToggle: () => void;
+  selectedCouponsSize: number;
 }
 
 export default function CouponItem({
@@ -21,9 +22,11 @@ export default function CouponItem({
   orderAmount,
   isSelected,
   onToggle,
+  selectedCouponsSize,
 }: CouponItemProps) {
   const unavailableCoupon = !isCouponValid(coupon, orderAmount);
-  const disabled = unavailableCoupon;
+  const disabled =
+    (selectedCouponsSize >= 2 && !isSelected) || unavailableCoupon;
 
   return (
     <Styled.CouponContainer>
