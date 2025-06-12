@@ -2,19 +2,19 @@ import styled from '@emotion/styled';
 import { CartProduct } from '../../types/cart';
 
 interface CartOrderItemProps {
-  products: CartProduct[];
+  cart: CartProduct[];
 }
 
-function CartOrderItem({ products }: CartOrderItemProps) {
+function CartOrderItem({ cart }: CartOrderItemProps) {
   return (
     <Container>
-      {products.map((product: CartProduct) => (
-        <ProductSection key={product.id}>
-          <ProductImage src={product.product.imageUrl} alt={product.product.name} />
+      {cart.map((cartItem: CartProduct) => (
+        <ProductSection key={cartItem.id}>
+          <ProductImage src={cartItem.product.imageUrl} alt={cartItem.product.name} />
           <ProductInfo>
-            <ProductName>{product.product.name}</ProductName>
-            <ProductPrice>{product.product.price.toLocaleString()}원</ProductPrice>
-            <ProductQuantity>{product.quantity}개</ProductQuantity>
+            <ProductName>{cartItem.product.name}</ProductName>
+            <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
+            <ProductQuantity>{cartItem.quantity}개</ProductQuantity>
           </ProductInfo>
         </ProductSection>
       ))}

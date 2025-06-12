@@ -47,7 +47,7 @@ function OrderConfirmPage() {
           title="주문 확인"
           description={`총 ${count}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
-        <CartOrderItem products={products} />
+        <CartOrderItem cart={products} />
         <CouponSelectButton onClick={openCouponModal}>쿠폰 적용</CouponSelectButton>
         <DeliveryOptions checked={remoteArea} onToggle={toggleRemoteArea} />
         <CartInfo
