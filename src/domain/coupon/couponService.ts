@@ -61,6 +61,10 @@ const couponService = {
     selectedItems,
     deliveryCost,
   }: RedeemAllProps) => {
+    if (selectedCoupons.length === 0) {
+      return 0;
+    }
+
     const permutations = makeCouponPermutation(
       selectedCoupons,
       selectedCoupons.length
