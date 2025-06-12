@@ -8,6 +8,7 @@ import { CartItemTypes } from "../types/cartItem";
 import { resetCartItems } from "../mocks/handlers";
 import { getOrderPrice } from "../../common/utils/getOrderPrice";
 import { SelectedCartProvider } from "../../common/context/selectedCartProvider";
+import { ErrorProvider } from "../../../context/errorProvider";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
@@ -20,11 +21,13 @@ describe("장바구니 페이지 테스트", () => {
 
   it("장바구니 삭제 버튼을 누르면 해당 제품이 삭제된다.", async () => {
     render(
-      <SelectedCartProvider>
-        <MemoryRouter>
-          <ShoppingCart />
-        </MemoryRouter>
-      </SelectedCartProvider>
+      <ErrorProvider>
+        <SelectedCartProvider>
+          <MemoryRouter>
+            <ShoppingCart />
+          </MemoryRouter>
+        </SelectedCartProvider>
+      </ErrorProvider>
     );
 
     await waitFor(() => {
@@ -41,11 +44,13 @@ describe("장바구니 페이지 테스트", () => {
 
   it("장바구니에 담긴 아이템의 수량을 감소시키면 주문 금액이 감소한다.", async () => {
     render(
-      <SelectedCartProvider>
-        <MemoryRouter>
-          <ShoppingCart />
-        </MemoryRouter>
-      </SelectedCartProvider>
+      <ErrorProvider>
+        <SelectedCartProvider>
+          <MemoryRouter>
+            <ShoppingCart />
+          </MemoryRouter>
+        </SelectedCartProvider>
+      </ErrorProvider>
     );
 
     const selectedId = mockShoppingCartResponse.content.map((e) =>
@@ -79,11 +84,13 @@ describe("장바구니 페이지 테스트", () => {
 
   it("장바구니에 담긴 아이템의 수량을 증가시키면 주문 금액이 증가한다.", async () => {
     render(
-      <SelectedCartProvider>
-        <MemoryRouter>
-          <ShoppingCart />
-        </MemoryRouter>
-      </SelectedCartProvider>
+      <ErrorProvider>
+        <SelectedCartProvider>
+          <MemoryRouter>
+            <ShoppingCart />
+          </MemoryRouter>
+        </SelectedCartProvider>
+      </ErrorProvider>
     );
 
     const selectedId = mockShoppingCartResponse.content.map((e) =>
@@ -117,11 +124,13 @@ describe("장바구니 페이지 테스트", () => {
 
   it("첫 렌더링시 전체 선택이 활성화 되어있고, 주문 금액이 모든 상품에 대한 주문금액이다.", async () => {
     render(
-      <SelectedCartProvider>
-        <MemoryRouter>
-          <ShoppingCart />
-        </MemoryRouter>
-      </SelectedCartProvider>
+      <ErrorProvider>
+        <SelectedCartProvider>
+          <MemoryRouter>
+            <ShoppingCart />
+          </MemoryRouter>
+        </SelectedCartProvider>
+      </ErrorProvider>
     );
 
     await waitFor(() => {
@@ -147,11 +156,13 @@ describe("장바구니 페이지 테스트", () => {
 
   it("체크박스 선택해제시, 주문 금액에서 해당 아이템의 금액이 차감된다.", async () => {
     render(
-      <SelectedCartProvider>
-        <MemoryRouter>
-          <ShoppingCart />
-        </MemoryRouter>
-      </SelectedCartProvider>
+      <ErrorProvider>
+        <SelectedCartProvider>
+          <MemoryRouter>
+            <ShoppingCart />
+          </MemoryRouter>
+        </SelectedCartProvider>
+      </ErrorProvider>
     );
 
     const checkbox = (await screen.findByTestId(
