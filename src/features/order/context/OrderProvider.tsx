@@ -1,8 +1,8 @@
 import { createContext, useState } from 'react';
-import { CartItem } from '../../cart/types/cart';
-import { Coupon } from '../../coupon/types/coupon';
 import { calculateOrderTotal } from '../utils/orderCalculations';
 import { OrderCalculation, OrderOptions } from '../types/order';
+import { useCouponsContext } from '../../coupon/context/useCouponsContext';
+import { useSelectedCartItemsContext } from '../../cart/context/useSelectedCartItemsContext';
 
 interface OrderContextType extends OrderCalculation, OrderOptions {
   updateRemoteArea: (isRemote: boolean) => void;
@@ -12,11 +12,11 @@ export const OrderContext = createContext<OrderContextType | undefined>(undefine
 
 interface OrderProviderProps {
   children: React.ReactNode;
-  selectedCartItems: CartItem[];
-  selectedCoupons: Coupon[];
 }
 
-export const OrderProvider = ({ children, selectedCartItems, selectedCoupons }: OrderProviderProps) => {
+export const OrderProvider = ({ children }: OrderProviderProps) => {
+  const { selectedCoupons } = useCouponsContext();
+  const { selectedCartItems } = useSelectedCartItemsContext();
   const [isRemoteArea, setIsRemoteArea] = useState(false);
 
   const orderCalculation = calculateOrderTotal({

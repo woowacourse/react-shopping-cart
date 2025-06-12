@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { CartItemsProvider } from './features/cart/context/CartItemsProvider.tsx';
-import { SelectedCartWithOrderProvider } from './shared/context/SelectedCartWithOrderProvider.tsx';
+import { SelectedCartItemsProvider } from './features/cart/context/SelectedCartItemsProvider.tsx';
+import { OrderProvider } from './features/order/context/OrderProvider.tsx';
 import { CouponsProvider } from './features/coupon/context/CouponsProvider.tsx';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
@@ -31,9 +32,11 @@ enableMocking().then(() => {
     <React.StrictMode>
       <CartItemsProvider>
         <CouponsProvider>
-          <SelectedCartWithOrderProvider>
-            <RouterProvider router={router} />
-          </SelectedCartWithOrderProvider>
+          <SelectedCartItemsProvider>
+            <OrderProvider>
+              <RouterProvider router={router} />
+            </OrderProvider>
+          </SelectedCartItemsProvider>
         </CouponsProvider>
       </CartItemsProvider>
     </React.StrictMode>
