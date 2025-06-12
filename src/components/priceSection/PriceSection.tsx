@@ -1,21 +1,13 @@
 import styled from '@emotion/styled';
-import { useCartItemsContext } from '../../contexts/CartItemsContext';
 import PriceRow from './PriceRow';
-import { getOrderPrice } from '../../utils';
-import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../../constants/config';
 
 interface PriceSectionProps {
-  orderPrice?: number;
+  orderPrice: number;
   discountPrice?: number;
-  deliveryPrice?: number;
+  deliveryPrice: number;
 }
 
 const PriceSection = ({ orderPrice, discountPrice, deliveryPrice }: PriceSectionProps) => {
-  const { cartItems, checkedCartIds } = useCartItemsContext();
-  if (!orderPrice) orderPrice = getOrderPrice(cartItems, checkedCartIds);
-  if (!deliveryPrice)
-    deliveryPrice = orderPrice >= DELIVERY_PRICE_THRESHOLD || orderPrice === 0 ? 0 : DELIVERY_PRICE;
-
   return (
     <>
       <S.CalculationContainer>

@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import AllCheckSection from '../components/AllCheckSection';
 import CartItemCountMessage from '../components/CartItemCountMessage';
 import ConfirmButton from '../components/ConfirmButton';
@@ -6,13 +5,11 @@ import ItemCard from '../components/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
 import styled from '@emotion/styled';
-import { BASE_URL, URL_LOCATION } from '../constants/url';
+import useCartPage from '../hooks/useCartPage';
 
 const CartPage = () => {
-  const { cartItems } = useCartItemsContext();
-  const navigate = useNavigate();
+  const { cartItems, orderPrice, deliveryPrice, handleBottomButton } = useCartPage();
 
   return (
     <>
@@ -41,11 +38,11 @@ const CartPage = () => {
                 배송됩니다.
               </p>
             </S.infoContainer>
-            <PriceSection />
+            <PriceSection orderPrice={orderPrice} deliveryPrice={deliveryPrice} />
           </>
         )}
       </S.content>
-      <ConfirmButton title="주문 확인" onClick={() => navigate(BASE_URL + URL_LOCATION.ORDER)} />
+      <ConfirmButton title="주문 확인" onClick={handleBottomButton} />
     </>
   );
 };
