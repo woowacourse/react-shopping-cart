@@ -3,6 +3,7 @@ import { infoIcon } from '../../assets/index';
 import CouponList from '../Coupon/CouponList';
 import { useOrder } from '../../context/OrderContext';
 import { useCoupon } from '../../context/CouponContext';
+import { MAX_COUPON_COUNT } from '../../constants/coupon';
 
 function CouponModal() {
   const { toggleModal } = useOrder();
@@ -17,7 +18,7 @@ function CouponModal() {
         </ModalHeader>
         <CartInfo>
           <InfoIconImage src={infoIcon} alt="infoIcon" />
-          <p>쿠폰은 최대 2개까지 사용할 수 있습니다.</p>
+          <p>쿠폰은 최대 {MAX_COUPON_COUNT}개까지 사용할 수 있습니다.</p>
         </CartInfo>
         <div>
           <CouponList />

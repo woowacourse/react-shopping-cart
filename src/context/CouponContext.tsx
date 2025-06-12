@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { CartProduct, CouponType } from '../types/cart';
 import { findBestCombo, generateCombos } from '../utils/coupon';
+import { MAX_COUPON_COUNT } from '../constants/coupon';
 
 interface CouponContextType {
   selectedCoupons: CouponType[];
@@ -53,7 +54,7 @@ export function CouponProvider({ children }: { children: ReactNode }) {
       if (isSelected) {
         return prev.filter((c) => c.id !== coupon.id);
       }
-      if (prev.length >= 2) {
+      if (prev.length >= MAX_COUPON_COUNT) {
         return prev;
       }
       return [...prev, coupon];
@@ -76,7 +77,7 @@ export function CouponProvider({ children }: { children: ReactNode }) {
         totalCount: cartItems.reduce((sum, item) => sum + item.quantity, 0),
       };
 
-      const combos = generateCombos(selectedCoupons, 2);
+      const combos = generateCombos(selectedCoupons, MAX_COUPON_COUNT);
       const discount = findBestCombo(combos, cart, checkedItems);
       setTotalDiscount(discount);
     } else {
