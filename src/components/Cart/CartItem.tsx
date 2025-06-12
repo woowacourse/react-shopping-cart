@@ -1,24 +1,16 @@
 import { CartProduct } from '../../types/cart';
 import { woowaLogo } from '../../assets/index';
-import {
-  getCartItems,
-  patchDecreaseQuantity,
-  patchIncreaseQuantity,
-  removeCartItem,
-} from '../../apis/cart';
-import { useData } from '../../context/DataContext';
+import { patchDecreaseQuantity, patchIncreaseQuantity, removeCartItem } from '../../apis/cart';
 import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
+import { useCartData } from '../../utils/fetcher';
 
 interface CartItemProps {
   cartItem: CartProduct;
 }
 
 function CartItem({ cartItem }: CartItemProps) {
-  const { refetch, isLoading } = useData({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
+  const { refetch, isLoading } = useCartData();
 
   const handleRemoveCartItem = async () => {
     await removeCartItem(cartItem);

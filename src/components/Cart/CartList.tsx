@@ -1,14 +1,10 @@
 import CartItem from './CartItem';
-import { useData } from '../../context/DataContext';
-import { getCartItems } from '../../apis/cart';
 import { CartProduct } from '../../types/cart';
 import styled from '@emotion/styled';
+import { useCartData } from '../../utils/fetcher';
 
 function CartList() {
-  const { data: cartItems } = useData({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
+  const { data: cartItems } = useCartData();
 
   return (
     <Container>

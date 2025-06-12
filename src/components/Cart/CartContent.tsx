@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router';
-import { getCartItems } from '../../apis/cart';
-import { useData } from '../../context/DataContext';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 import CartHeader from './CartHeader';
@@ -8,12 +6,10 @@ import CartMain from './CartMain';
 import styled from '@emotion/styled';
 import { useCartSelectContext } from '../../context/CartSelectContext';
 import { calculateCartPrice } from '../../utils/calculator';
+import { useCartData } from '../../utils/fetcher';
 
 function CartContent() {
-  const { data: cartItems } = useData({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
+  const { data: cartItems } = useCartData();
   const navigate = useNavigate();
   const { checkedItems } = useCartSelectContext();
   const { price, shippingFee, totalPrice, hasItems, totalCount } = calculateCartPrice(

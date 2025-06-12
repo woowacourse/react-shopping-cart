@@ -12,7 +12,6 @@ interface CouponItemProps {
 
 function CouponItem({ coupon, isSelected, disabled = false, onSelect }: CouponItemProps) {
   const { description, availableTime, expirationDate, minimumAmount } = coupon;
-
   return (
     <Container disabled={disabled}>
       <CouponHeader>

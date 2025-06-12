@@ -73,9 +73,11 @@ export const getCoupons = async () => {
       method: 'GET',
       headers: CART_HEADER,
     });
+
     if (!response.ok) {
       handleHttpError(response);
     }
+
     return await response.json();
   } catch (error) {
     throw new Error('쿠폰 목록을 불러오는 중 에러 발생');

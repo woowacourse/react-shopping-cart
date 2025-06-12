@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 import { useCartSelection } from '../hooks/useCartSelection';
-import { useData } from './DataContext';
-import { getCartItems } from '../apis/cart';
+import { useCartData } from '../utils/fetcher';
 
 interface CartSelectionContextType {
   checkedItems: number[];
@@ -13,10 +12,8 @@ interface CartSelectionContextType {
 const CartSelectionContext = createContext<CartSelectionContextType | null>(null);
 
 export function CartSelectionProvider({ children }: { children: React.ReactNode }) {
-  const { data: cartItems } = useData({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
+  const { data: cartItems } = useCartData();
+
   const { checkedItems, isAllChecked, handleAllCheck, toggleItem } = useCartSelection(cartItems);
 
   return (
