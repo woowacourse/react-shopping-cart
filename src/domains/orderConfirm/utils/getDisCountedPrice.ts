@@ -30,8 +30,8 @@ interface CouponCalculatorParams {
 export function getDisCountedPrice(props: GetDisCountedPriceParams) {
   if (props.selectedCoupons.length === 0) return 0;
 
-  const firstDiscount = getTotalDiscount(props.selectedCoupons, props);
-  const secondDiscount = getTotalDiscount(
+  const firstDiscount = applyCouponDiscounts(props.selectedCoupons, props);
+  const secondDiscount = applyCouponDiscounts(
     props.selectedCoupons.reverse(),
     props
   );
@@ -48,7 +48,7 @@ export function getDisCountedPrice(props: GetDisCountedPriceParams) {
  * @returns {number} - 총 할인 금액
  */
 
-function getTotalDiscount(
+function applyCouponDiscounts(
   selectedCoupons: CouponCode[],
   props: GetDisCountedPriceParams
 ) {
