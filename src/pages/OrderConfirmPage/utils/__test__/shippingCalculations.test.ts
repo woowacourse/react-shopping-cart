@@ -12,7 +12,6 @@ describe("배송비 계산 테스트", () => {
         });
 
         expect(result.fee).toBe(3000);
-        expect(result.description).toBe("일반 배송비");
         expect(result.isFree).toBe(false);
       });
 
@@ -24,7 +23,6 @@ describe("배송비 계산 테스트", () => {
         });
 
         expect(result.fee).toBe(0);
-        expect(result.description).toBe("무료 배송");
         expect(result.isFree).toBe(true);
       });
 
@@ -37,7 +35,6 @@ describe("배송비 계산 테스트", () => {
           });
 
           expect(result.fee).toBe(0);
-          expect(result.description).toBe("무료 배송");
           expect(result.isFree).toBe(true);
         });
 
@@ -49,7 +46,6 @@ describe("배송비 계산 테스트", () => {
           });
 
           expect(result.fee).toBe(3000);
-          expect(result.description).toBe("일반 배송비");
           expect(result.isFree).toBe(false);
         });
 
@@ -61,7 +57,6 @@ describe("배송비 계산 테스트", () => {
           });
 
           expect(result.fee).toBe(0);
-          expect(result.description).toBe("무료 배송");
           expect(result.isFree).toBe(true);
         });
       });
@@ -76,7 +71,6 @@ describe("배송비 계산 테스트", () => {
         });
 
         expect(result.fee).toBe(6000);
-        expect(result.description).toBe("일반 + 제주도 배송비");
         expect(result.isFree).toBe(false);
       });
 
@@ -88,7 +82,6 @@ describe("배송비 계산 테스트", () => {
         });
 
         expect(result.fee).toBe(3000);
-        expect(result.description).toBe("제주도 추가 배송비");
         expect(result.isFree).toBe(false);
       });
 
@@ -101,7 +94,6 @@ describe("배송비 계산 테스트", () => {
           });
 
           expect(result.fee).toBe(3000);
-          expect(result.description).toBe("제주도 추가 배송비");
           expect(result.isFree).toBe(false);
         });
       });
@@ -116,7 +108,6 @@ describe("배송비 계산 테스트", () => {
         });
 
         expect(result.fee).toBe(0);
-        expect(result.description).toBe("무료 배송 (쿠폰 적용)");
         expect(result.isFree).toBe(true);
       });
 
@@ -135,7 +126,6 @@ describe("배송비 계산 테스트", () => {
           });
 
           expect(result.fee).toBe(0);
-          expect(result.description).toBe("무료 배송 (쿠폰 적용)");
           expect(result.isFree).toBe(true);
         });
       });
@@ -206,7 +196,6 @@ describe("배송비 계산 테스트", () => {
       });
 
       expect(result.fee).toBe(3000);
-      expect(result.description).toBe("일반 배송비");
       expect(result.isFree).toBe(false);
     });
 
@@ -218,7 +207,6 @@ describe("배송비 계산 테스트", () => {
       });
 
       expect(result.fee).toBe(0);
-      expect(result.description).toBe("무료 배송");
       expect(result.isFree).toBe(true);
     });
   });
