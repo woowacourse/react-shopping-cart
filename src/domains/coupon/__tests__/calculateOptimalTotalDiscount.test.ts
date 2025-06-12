@@ -115,21 +115,19 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee
     );
 
-    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
-      1,
-      [fixedCoupon, percentCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(1, {
+      coupons: [fixedCoupon, percentCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
-    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
-      2,
-      [percentCoupon, fixedCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(2, {
+      coupons: [percentCoupon, fixedCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
     expect(result).toBe(25000);
   });
@@ -146,21 +144,19 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee
     );
 
-    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
-      1,
-      [fixedCoupon, percentCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(1, {
+      coupons: [fixedCoupon, percentCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
-    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
-      2,
-      [percentCoupon, fixedCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(2, {
+      coupons: [percentCoupon, fixedCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
     expect(result).toBe(23000);
   });

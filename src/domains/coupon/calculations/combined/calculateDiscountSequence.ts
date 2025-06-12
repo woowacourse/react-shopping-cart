@@ -2,12 +2,19 @@ import { CartItemWithSelection } from "../../../cart/types/response";
 import { Coupon } from "../../types/response";
 import { calculateCouponDiscount } from "./calculateCouponDiscount";
 
-export const calculateDiscountSequence = (
-  coupons: Coupon[],
-  orderItems: CartItemWithSelection[],
-  initialOrderPrice: number,
-  initialShippingFee: number
-): number => {
+interface Props {
+  coupons: Coupon[];
+  orderItems: CartItemWithSelection[];
+  initialOrderPrice: number;
+  initialShippingFee: number;
+}
+
+export const calculateDiscountSequence = ({
+  coupons,
+  orderItems,
+  initialOrderPrice,
+  initialShippingFee,
+}: Props): number => {
   return coupons.reduce(
     (acc, coupon) => {
       const discount = calculateCouponDiscount({

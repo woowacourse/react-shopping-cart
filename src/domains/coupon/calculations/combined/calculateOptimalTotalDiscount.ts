@@ -21,18 +21,18 @@ export const calculateOptimalTotalDiscount = (
   if (coupons.length === 2) {
     const [couponA, couponB] = coupons;
 
-    const discountAB = calculateDiscountSequence(
-      [couponA, couponB],
+    const discountAB = calculateDiscountSequence({
+      coupons: [couponA, couponB],
       orderItems,
-      orderPrice,
-      shippingFee
-    );
-    const discountBA = calculateDiscountSequence(
-      [couponB, couponA],
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
+    const discountBA = calculateDiscountSequence({
+      coupons: [couponB, couponA],
       orderItems,
-      orderPrice,
-      shippingFee
-    );
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
     return Math.max(discountAB, discountBA);
   }

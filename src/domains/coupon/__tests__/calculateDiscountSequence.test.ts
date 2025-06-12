@@ -73,12 +73,12 @@ describe("calculateDiscountSequence 함수 테스트", () => {
       .mockReturnValueOnce(10000) // 첫 번째 호출에서 10000원 할인
       .mockReturnValueOnce(18000); // 두 번째 호출에서 18000원 할인 (90000원의 20%)
 
-    const totalDiscount = calculateDiscountSequence(
-      [fixedCoupon, percentCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    const totalDiscount = calculateDiscountSequence({
+      coupons: [fixedCoupon, percentCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
     // fixed 쿠폰 적용
     expect(calculateCouponDiscount).toHaveBeenNthCalledWith(1, {
@@ -104,12 +104,12 @@ describe("calculateDiscountSequence 함수 테스트", () => {
       .mockReturnValueOnce(3000) // 첫 번째 호출에서 3000원(배송비) 할인
       .mockReturnValueOnce(20000); // 두 번째 호출에서 20000원 할인
 
-    const totalDiscount = calculateDiscountSequence(
-      [shippingCoupon, percentCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    const totalDiscount = calculateDiscountSequence({
+      coupons: [shippingCoupon, percentCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
     // shippping 쿠폰 적용
     expect(calculateCouponDiscount).toHaveBeenNthCalledWith(1, {
@@ -144,12 +144,12 @@ describe("calculateDiscountSequence 함수 테스트", () => {
       .mockReturnValueOnce(100000) // 첫 번째 호출에서 주문 금액 전체 할인
       .mockReturnValueOnce(0); // 두 번째 호출에서 0원 할인
 
-    const totalDiscount = calculateDiscountSequence(
-      [hugeCoupon, percentCoupon],
-      mockItems,
-      orderPrice,
-      shippingFee
-    );
+    const totalDiscount = calculateDiscountSequence({
+      coupons: [hugeCoupon, percentCoupon],
+      orderItems: mockItems,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
+    });
 
     // hugeCoupon 쿠폰 적용
     expect(calculateCouponDiscount).toHaveBeenNthCalledWith(1, {
