@@ -1,4 +1,5 @@
-import { Button } from "./CouponButton.styles";
+import Button from "../../Common/Button/Button";
+import { Button as couponButtonStyle } from "./CouponButton.styles";
 
 interface CouponButtonProps {
   onClick: () => void;
@@ -6,8 +7,8 @@ interface CouponButtonProps {
 
 export default function CouponButton({ onClick }: CouponButtonProps) {
   return (
-    <button css={Button} onClick={onClick}>
+    <Button cssStyle={couponButtonStyle} onClick={onClick}>
       쿠폰 적용
-    </button>
+    </Button>
   );
 }

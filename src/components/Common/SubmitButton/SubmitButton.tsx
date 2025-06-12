@@ -1,4 +1,9 @@
-import { Button, disabledButton, enabledButton } from "./SubmitButton.styles";
+import Button from "../Button/Button";
+import {
+  Button as baseStyle,
+  enabledButton,
+  disabledButton,
+} from "./SubmitButton.styles";
 
 interface SubmitButtonProps {
   label: string;
@@ -7,15 +12,12 @@ interface SubmitButtonProps {
 }
 
 function SubmitButton({ label, enabled, onClick }: SubmitButtonProps) {
+  const combinedStyle = [baseStyle, enabled ? enabledButton : disabledButton];
+
   return (
-    <button
-      css={[Button, enabled ? enabledButton : disabledButton]}
-      type="button"
-      disabled={!enabled}
-      onClick={onClick}
-    >
+    <Button cssStyle={combinedStyle} disabled={!enabled} onClick={onClick}>
       {label}
-    </button>
+    </Button>
   );
 }
 
