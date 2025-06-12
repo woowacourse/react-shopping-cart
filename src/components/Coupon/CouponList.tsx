@@ -1,38 +1,13 @@
-import { useLocation } from 'react-router';
 import { CouponType } from '../../types/cart';
 import CouponItem from './CouponItem';
-import { useEffect } from 'react';
 import { useCoupon } from '../../context/CouponContext';
-import { useShipping } from '../../context/ShippingContext';
-import { useCartData, useCouponData } from '../../utils/fetcher';
+import { useCouponData } from '../../utils/fetcher';
 import { useOrderSummary } from '../../hooks/useOrderSummary';
 
 function CouponList() {
-  const { data: cartItems } = useCartData();
   const { data: coupons } = useCouponData();
-  const { price, shippingFee } = useOrderSummary();
-  const { selectedCoupons, handleCouponSelect, calculateTotalDiscount, checkCouponsDisable } =
-    useCoupon();
-  const { isExtraShippingFee } = useShipping();
-  const { state } = useLocation();
-
-  useEffect(() => {
-    calculateTotalDiscount(
-      cartItems?.content || [],
-      state.checkedItems,
-      price,
-      shippingFee,
-      isExtraShippingFee,
-    );
-  }, [
-    selectedCoupons,
-    cartItems,
-    state.checkedItems,
-    calculateTotalDiscount,
-    price,
-    shippingFee,
-    isExtraShippingFee,
-  ]);
+  const { price } = useOrderSummary();
+  const { selectedCoupons, handleCouponSelect, checkCouponsDisable } = useCoupon();
 
   return (
     <>

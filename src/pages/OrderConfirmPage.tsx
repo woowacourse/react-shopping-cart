@@ -6,11 +6,11 @@ import { ShippingProvider } from '../context/ShippingContext';
 function OrderConfirmPage() {
   return (
     <DataProvider>
-      <CouponProvider>
-        <ShippingProvider>
+      <ShippingProvider>
+        <CouponProvider>
           <OrderContent />
-        </ShippingProvider>
-      </CouponProvider>
+        </CouponProvider>
+      </ShippingProvider>
     </DataProvider>
   );
 }
