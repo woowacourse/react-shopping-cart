@@ -85,7 +85,17 @@ const useCoupons = () => {
     fetchCoupons();
   }, []);
 
-  return {
+  const value = useMemo(() => {
+    return {
+      coupons,
+      validCoupons,
+      selectedCoupons,
+      couponDiscount,
+      selectCoupon,
+      unselectCoupon,
+      init,
+    };
+  }, [
     coupons,
     validCoupons,
     selectedCoupons,
@@ -93,7 +103,9 @@ const useCoupons = () => {
     selectCoupon,
     unselectCoupon,
     init,
-  };
+  ]);
+
+  return value;
 };
 
 export default useCoupons;
