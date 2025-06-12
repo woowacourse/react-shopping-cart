@@ -69,7 +69,8 @@ export const CouponProvider = ({ children }: PropsWithChildren) => {
           coupons,
           totalCartPrice,
           shippingFee,
-          selectedCartItems
+          selectedCartItems,
+          3
         );
         setSelectedCoupons(result.selectedCoupons);
         setIsInitialized(true);
