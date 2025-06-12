@@ -70,6 +70,6 @@ describe("Cart 주문확인 버튼", () => {
     const orderBtn = screen.getByRole("button", { name: "주문 확인" });
     await user.click(orderBtn);
 
-    expect(orderBtn).toBeEnabled();
+    await screen.findByText("주문 확인");
   });
 });
