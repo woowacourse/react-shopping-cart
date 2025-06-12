@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { CouponData, OrderItem } from "../../../types";
 import { findOptimalCouponCombination } from "../../../utils/couponCalculations";
 import { COUPON_LIMIT } from "../../../constants";
@@ -11,20 +11,19 @@ interface UseCouponSelectionParams {
 
 export const useCouponSelection = ({ coupons, orderItems, isIsolatedAreaSelected }: UseCouponSelectionParams) => {
   const [selectedCouponIds, setSelectedCouponIds] = useState<number[]>([]);
-  const [isOptimized, setIsOptimized] = useState(true);
 
   const optimalCouponIds = useMemo(() => {
     const orderAmount = orderItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
     return findOptimalCouponCombination(coupons, orderItems, orderAmount, isIsolatedAreaSelected);
   }, [coupons, orderItems, isIsolatedAreaSelected]);
 
-  const selectOptimalCoupons = useCallback(() => {
-    setSelectedCouponIds(optimalCouponIds);
-    setIsOptimized(true);
+  useEffect(() => {
+    if (optimalCouponIds.length > 0 && selectedCouponIds.length === 0) {
+      setSelectedCouponIds(optimalCouponIds);
+    }
   }, [optimalCouponIds]);
 
   const toggleCoupon = useCallback((couponId: number) => {
-    setIsOptimized(false);
     setSelectedCouponIds((prev) => {
       if (prev.includes(couponId)) {
         return prev.filter((id) => id !== couponId);
@@ -36,9 +35,18 @@ export const useCouponSelection = ({ coupons, orderItems, isIsolatedAreaSelected
     });
   }, []);
 
+  const selectOptimalCoupons = useCallback(() => {
+    setSelectedCouponIds(optimalCouponIds);
+  }, [optimalCouponIds]);
+
+  const isOptimalSelection = useMemo(() => {
+    if (optimalCouponIds.length === 0 && selectedCouponIds.length === 0) return true;
+    return JSON.stringify([...selectedCouponIds].sort()) === JSON.stringify([...optimalCouponIds].sort());
+  }, [selectedCouponIds, optimalCouponIds]);
+
   return {
     selectedCouponIds,
-    isOptimized,
+    isOptimalSelection,
     canSelectMore: selectedCouponIds.length < COUPON_LIMIT,
     toggleCoupon,
     selectOptimalCoupons,
