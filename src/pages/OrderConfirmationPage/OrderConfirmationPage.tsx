@@ -24,7 +24,7 @@ export default function OrderConfirmationPage() {
     handleClose: handleCloseCouponModal,
   } = useModal();
 
-  const handleRemoteArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpdateRemoteArea = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateRemoteArea(e.target.checked);
   };
 
@@ -50,7 +50,7 @@ export default function OrderConfirmationPage() {
             ))}
           </S.CartListContainer>
           <Button onClick={handleOpenCouponModal} title="쿠폰 적용" css={S.ButtonCSS} />
-          <DeliveryInfo onChange={handleRemoteArea} />
+          <DeliveryInfo onChange={handleUpdateRemoteArea} />
           <OrderPriceSummary couponPriceItem={true} />
         </S.OrderConfirmationPageContent>
         <NavFooter title="결제하기" onClick={handleGoOrderSuccessPage} />
