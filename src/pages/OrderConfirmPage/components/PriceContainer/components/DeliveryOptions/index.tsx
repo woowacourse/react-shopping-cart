@@ -1,6 +1,6 @@
 import * as S from "./DeliveryOptions.styled";
-import CheckBox from "../../../../components/common/CheckBox";
-import Text from "../../../../components/common/Text";
+import CheckBox from "../../../../../../components/common/CheckBox";
+import Text from "../../../../../../components/common/Text";
 
 interface DeliveryOptionsProps {
   isIsolatedAreaSelected: boolean;

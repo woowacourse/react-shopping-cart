@@ -1,12 +1,12 @@
 import * as S from "./CouponModal.styled";
-import Text from "../../../../components/common/Text";
-import CloseSign from "../../../../components/icons/CloseSign";
-import GuideSign from "../../../../components/icons/GuideSign";
-import CheckBox from "../../../../components/common/CheckBox";
-import Button from "../../../../components/common/Button";
-import CouponSummary from "../../utils/CouponSummary";
+import Text from "../../../../../../components/common/Text";
+import CloseSign from "../../../../../../components/icons/CloseSign";
+import GuideSign from "../../../../../../components/icons/GuideSign";
+import CheckBox from "../../../../../../components/common/CheckBox";
+import Button from "../../../../../../components/common/Button";
+import CouponSummary from "../../../../utils/CouponSummary";
 import { Modal } from "@seo_dev/react-modal";
-import { OrderPageState } from "../../types";
+import { OrderPageState } from "../../../../types";
 import { useCouponModal } from "./hooks/useCouponModal";
 
 interface orderStateProps {

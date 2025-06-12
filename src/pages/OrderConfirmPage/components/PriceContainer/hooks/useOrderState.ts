@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { OrderItem } from "../types";
 import { useCoupons } from "./useCoupons";
 import { useCouponSelection } from "./useCouponSelection";
 import { useOrderCalculation } from "./useOrderCalculation";
+import { OrderItem } from "../../../types";
 
 interface UseOrderStateParams {
   orderItems: OrderItem[];
@@ -35,14 +35,7 @@ export const useOrderState = ({ orderItems }: UseOrderStateParams) => {
     }
   }, [isOptimized, selectOptimalCoupons]);
 
-  const navigateState = {
-    orderItemsKind: orderItems.length,
-    totalOrderItemsCount: orderItems.reduce((acc, item) => acc + item.quantity, 0),
-    totalPrice: calculation.finalAmount,
-  };
-
   return {
-    orderItems,
     isLoading,
     availableCoupons: coupons,
     isIsolatedAreaSelected,
@@ -52,6 +45,5 @@ export const useOrderState = ({ orderItems }: UseOrderStateParams) => {
     canSelectMore,
     toggleCoupon,
     calculation,
-    navigateState,
   };
 };

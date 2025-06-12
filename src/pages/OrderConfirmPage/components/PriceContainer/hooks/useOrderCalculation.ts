@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { OrderItem, CouponData, OrderCalculationResult } from "../types";
-import { calculateOrderTotal } from "../utils/couponCalculations";
+import { OrderItem, CouponData, OrderCalculationResult } from "../../../types";
+import { calculateOrderTotal } from "../../../utils/couponCalculations";
 
 interface UseOrderCalculationParams {
   orderItems: OrderItem[];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useCouponApi } from "../../../hooks/useCouponApi";
-import { CouponData } from "../types";
+import { CouponData } from "../../../types";
+import { useCouponApi } from "../../../../../hooks/useCouponApi";
 
 export const useCoupons = () => {
   const [coupons, setCoupons] = useState<CouponData[]>([]);

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { CouponData, OrderItem } from "../../../types";
-import { validateCouponUsage } from "../../../utils/couponValidation";
+import { CouponData, OrderItem } from "../../../../../types";
+import { validateCouponUsage } from "../../../../../utils/couponValidation";
 
 interface UseCouponModalParams {
   coupons: CouponData[];

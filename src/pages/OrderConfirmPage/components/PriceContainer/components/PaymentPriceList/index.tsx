@@ -1,5 +1,5 @@
-import { PaymentPrice } from "../../../../components/PaymentPrice";
-import { OrderCalculationResult } from "../../types";
+import { PaymentPrice } from "../../../../../../components/PaymentPrice";
+import { OrderCalculationResult } from "../../../../types";
 
 function PaymentPriceList({ calculation }: { calculation: OrderCalculationResult }) {
   const { orderAmount, couponDiscount, shippingFee, finalAmount } = calculation;

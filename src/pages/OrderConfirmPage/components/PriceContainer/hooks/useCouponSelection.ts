@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
-import { CouponData, OrderItem } from "../types";
-import { findOptimalCouponCombination } from "../utils/couponCalculations";
-import { COUPON_LIMIT } from "../constants";
+import { CouponData, OrderItem } from "../../../types";
+import { findOptimalCouponCombination } from "../../../utils/couponCalculations";
+import { COUPON_LIMIT } from "../../../constants";
 
 interface UseCouponSelectionParams {
   coupons: CouponData[];
