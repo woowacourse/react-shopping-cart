@@ -6,7 +6,7 @@ import {
 } from '@/components/common';
 import { ROUTE, useJaeO, useToggle } from '@/shared';
 import { Modal } from '@jae-o/modal-component-module';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { OrderCheckTitle, OrderItem, OrderPriceSummary } from '..';
 import { CartItemType } from '../../cart';
@@ -17,9 +17,9 @@ import {
   getCoupons,
   selectTopDiscountCoupons,
   useAppliedCoupons,
-  useOrderPriceSummary,
 } from '../../coupon';
 import * as S from './OrderCheckContents.styles';
+import { getOrderPriceSummary } from '../../coupon/utils/getOrderPriceSummary';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
@@ -35,13 +35,16 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   });
   const { appliedCouponIds, applyCouponIds, isCouponApplied } =
     useAppliedCoupons();
-  const { orderPrice, discountAmount, deliveryFee, paymentPrice } =
-    useOrderPriceSummary({
-      orderItems,
-      isRemoteArea,
-      coupons,
-      isCouponApplied,
-    });
+  const { orderPrice, discountAmount, deliveryFee, paymentPrice } = useMemo(
+    () =>
+      getOrderPriceSummary({
+        orderItems,
+        isRemoteArea,
+        coupons,
+        isCouponApplied,
+      }),
+    [coupons, isCouponApplied, isRemoteArea, orderItems]
+  );
   const navigate = useNavigate();
 
   const handleShippingOptionChange = () => {
