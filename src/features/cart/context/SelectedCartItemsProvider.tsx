@@ -1,26 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { CartItem } from '../types/cart';
 import { useCartItemsContext } from './useCartItemsContext';
-
-const SELECTED_CART_ITEMS_KEY = 'selectedCartItems';
-
-const loadSelectedCartItemsFromStorage = (): CartItem[] | null => {
-  try {
-    const stored = localStorage.getItem(SELECTED_CART_ITEMS_KEY);
-    return stored ? JSON.parse(stored) : null;
-  } catch (error) {
-    console.error('localStorage에서 데이터를 불러오는데 실패했습니다:', error);
-    return null;
-  }
-};
-
-const saveSelectedCartItemsToStorage = (items: CartItem[]) => {
-  try {
-    localStorage.setItem(SELECTED_CART_ITEMS_KEY, JSON.stringify(items));
-  } catch (error) {
-    console.error('localStorage에 데이터를 저장하는데 실패했습니다:', error);
-  }
-};
+import { loadSelectedCartItemsFromStorage, saveSelectedCartItemsToStorage } from '../storage';
 
 interface SelectedCartItemsContextType {
   selectedCartItems: CartItem[];
