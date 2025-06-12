@@ -13,7 +13,6 @@ interface CouponModalProps {
   isLoading: boolean;
   availableCoupons: CouponContent[];
   bestCouponIds: number[];
-  totalDiscount: number;
   handleApply: (couponIds: number[]) => void;
   isJejuOrRemoteArea: boolean;
 }

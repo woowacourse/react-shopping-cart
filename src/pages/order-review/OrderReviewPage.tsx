@@ -79,7 +79,6 @@ const OrderReviewPage = () => {
           isLoading={isLoading}
           availableCoupons={availableCoupons}
           bestCouponIds={bestCouponIds}
-          totalDiscount={currentDiscount}
           handleApply={handleSelectCoupons}
           isJejuOrRemoteArea={isJejuOrRemoteArea}
         />
