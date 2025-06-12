@@ -3,20 +3,19 @@ import { Coupon, CartItemTypes } from '../types';
 
 interface useCouponUIProps {
   coupons: Coupon[];
-  selectedCouponIds: string[];
+  selectedCoupons: Coupon[];
   selectedCartItems: CartItemTypes[];
   deliveryFee: number;
 }
 
 export function useCouponUI({
   coupons,
-  selectedCouponIds,
+  selectedCoupons,
   selectedCartItems,
   deliveryFee,
 }: useCouponUIProps) {
   const couponPrice = calculateCouponPrice({
-    couponIds: selectedCouponIds,
-    coupons,
+    selectedCoupons,
     selectedCartItems,
     deliveryFee,
     nowDate: new Date(),

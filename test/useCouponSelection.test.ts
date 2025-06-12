@@ -8,16 +8,17 @@ import { Coupon } from '../src/types/coupon';
 describe('useCouponSelection 훅 테스트', () => {
   it('여러 쿠폰을 선택하면 가장 할인금액이 큰 조합으로 정렬된다.', () => {
     const expected = ['4', '1'];
+    const couponsData = [...coupons] as Coupon[];
 
     const onExceed = vi.fn();
     const { result } = renderHook(() =>
       useCouponSelection({
+        coupons: couponsData,
         maxCoupons: 2,
         onExceed,
-        calculatePrice: (ids: string[]) =>
+        calculatePrice: (couponSelectionCandidate) =>
           calculateCouponPrice({
-            couponIds: ids,
-            coupons: coupons as Coupon[],
+            selectedCoupons: couponSelectionCandidate,
             selectedCartItems: [
               {
                 id: 15992,
@@ -71,14 +72,15 @@ describe('useCouponSelection 훅 테스트', () => {
 
   it('최대 개수를 넘으면 onExceed 콜백을 호출하고 선택을 취소한다', () => {
     const onExceed = vi.fn();
+    const couponsData = [...coupons] as Coupon[];
     const { result } = renderHook(() =>
       useCouponSelection({
+        coupons: couponsData,
         maxCoupons: 2,
         onExceed,
-        calculatePrice: (ids: string[]) =>
+        calculatePrice: (couponSelectionCandidate) =>
           calculateCouponPrice({
-            couponIds: ids,
-            coupons: coupons as Coupon[],
+            selectedCoupons: couponSelectionCandidate,
             selectedCartItems: [
               {
                 id: 15992,

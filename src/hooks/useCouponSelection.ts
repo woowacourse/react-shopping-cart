@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import { Coupon } from '../types';
 
 interface useCouponSelectionProps {
+  coupons: Coupon[];
   maxCoupons: number;
   onExceed: () => void;
-  calculatePrice: (couponIds: string[]) => void;
+  calculatePrice: (couponSelectionCandidate: Coupon[]) => void;
 }
 
 export function useCouponSelection({
+  coupons,
   maxCoupons,
   onExceed,
   calculatePrice,
@@ -26,11 +29,23 @@ export function useCouponSelection({
       order = [...selectedCouponIds, id];
     }
 
-    const forwardPrice = calculatePrice(order);
+    const selectedCoupons = coupons.filter((e) =>
+      order.includes(e.id.toString())
+    );
+    const forwardPrice = calculatePrice(selectedCoupons);
+
     const reversed = [...order].reverse();
-    const reversePrice = calculatePrice(reversed);
+    const selectedCouponsReverse = coupons.filter((e) =>
+      reversed.includes(e.id.toString())
+    );
+    const reversePrice = calculatePrice(selectedCouponsReverse);
+
     setSelectedCouponIds(forwardPrice <= reversePrice ? reversed : order);
   };
 
-  return { selectedCouponIds, toggleCouponId };
+  const selectedCoupons = coupons.filter((e) =>
+    selectedCouponIds.includes(e.id.toString())
+  );
+
+  return { selectedCouponIds, toggleCouponId, selectedCoupons };
 }

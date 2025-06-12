@@ -2,16 +2,14 @@ import { CartItemTypes } from '../types/cartItem';
 import { Coupon } from '../types/coupon';
 
 interface calculateCouponPriceProps {
-  couponIds: string[];
-  coupons: Coupon[];
+  selectedCoupons: Coupon[];
   selectedCartItems: CartItemTypes[];
   deliveryFee: number;
   nowDate: Date;
 }
 
 export const calculateCouponPrice = ({
-  couponIds,
-  coupons,
+  selectedCoupons,
   selectedCartItems,
   deliveryFee,
   nowDate,
@@ -24,10 +22,7 @@ export const calculateCouponPrice = ({
   let sum = 0;
   let discountedPrice = totalPrice;
 
-  couponIds.forEach((id) => {
-    const coupon = coupons.find((e) => e.id === Number(id));
-    if (!coupon) return;
-
+  selectedCoupons.forEach((coupon) => {
     if (getIsExpired(coupon.expirationDate, nowDate)) return;
 
     if (

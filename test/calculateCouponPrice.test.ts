@@ -83,8 +83,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
       },
     ];
     const result = calculateCouponPrice({
-      couponIds: ['1'],
-      coupons: coupons,
+      selectedCoupons: [coupons[0]],
       selectedCartItems,
       deliveryFee: 3000,
       nowDate: new Date('2010-02-10'),
@@ -120,8 +119,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
       },
     ];
     const result = calculateCouponPrice({
-      couponIds: ['2', '3'],
-      coupons: coupons,
+      selectedCoupons: [coupons[1], coupons[2]],
       selectedCartItems,
       deliveryFee: 3000,
       nowDate: new Date(),
@@ -171,8 +169,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
         },
       ];
       const result = calculateCouponPrice({
-        couponIds: ['1'],
-        coupons: coupons,
+        selectedCoupons: [coupons[0]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -221,8 +218,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
         },
       ];
       const result = calculateCouponPrice({
-        couponIds: ['1'],
-        coupons: coupons,
+        selectedCoupons: [coupons[0]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -273,8 +269,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
         },
       ];
       const result = calculateCouponPrice({
-        couponIds: ['2'],
-        coupons: coupons,
+        selectedCoupons: [coupons[1]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -323,8 +318,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
         },
       ];
       const result = calculateCouponPrice({
-        couponIds: ['2'],
-        coupons: coupons,
+        selectedCoupons: [coupons[1]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -374,8 +368,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
       ];
 
       const result = calculateCouponPrice({
-        couponIds: ['2'],
-        coupons: coupons,
+        selectedCoupons: [coupons[1]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -403,8 +396,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
       ];
 
       const result = calculateCouponPrice({
-        couponIds: ['3'],
-        coupons: coupons,
+        selectedCoupons: [coupons[2]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -441,8 +433,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
         },
       ];
       const result = calculateCouponPrice({
-        couponIds: ['3'],
-        coupons: coupons,
+        selectedCoupons: [coupons[2]],
         selectedCartItems,
         deliveryFee: 3000,
         nowDate: new Date(),
@@ -478,8 +469,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
         },
       ];
       const result = calculateCouponPrice({
-        couponIds: ['3'],
-        coupons: coupons,
+        selectedCoupons: [coupons[2]],
         selectedCartItems,
         deliveryFee: 6000,
         nowDate: new Date(),
@@ -523,8 +513,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
           },
         ];
         const result = calculateCouponPrice({
-          couponIds: ['4'],
-          coupons: coupons,
+          selectedCoupons: [coupons[3]],
           selectedCartItems,
           deliveryFee: 3000,
           nowDate,
@@ -571,8 +560,7 @@ describe('calculateCouponPrice 함수 테스트', () => {
           0
         );
         const result = calculateCouponPrice({
-          couponIds: ['4'],
-          coupons: coupons,
+          selectedCoupons: [coupons[3]],
           selectedCartItems,
           deliveryFee: 3000,
           nowDate,

@@ -64,18 +64,20 @@ export function OrderConfirm() {
     alert(`쿠폰은 ${MAX_SELECTED_COUPON_COUNT}개까지만 선택 가능합니다.`);
   };
 
-  const { selectedCouponIds, toggleCouponId } = useCouponSelection({
-    maxCoupons: MAX_SELECTED_COUPON_COUNT,
-    onExceed: handleExceed,
-    calculatePrice: (couponIds) =>
-      calculateCouponPrice({
-        couponIds,
-        coupons,
-        selectedCartItems,
-        deliveryFee,
-        nowDate: new Date(),
-      }),
-  });
+  const { selectedCouponIds, toggleCouponId, selectedCoupons } =
+    useCouponSelection({
+      coupons,
+      maxCoupons: MAX_SELECTED_COUPON_COUNT,
+      onExceed: handleExceed,
+      calculatePrice: (couponSelectionCandidate) => {
+        calculateCouponPrice({
+          selectedCoupons: couponSelectionCandidate,
+          selectedCartItems,
+          deliveryFee,
+          nowDate: new Date(),
+        });
+      },
+    });
 
   const handleCheckBoxChange = () => {
     setIsChecked((prev) => !prev);
@@ -117,9 +119,12 @@ export function OrderConfirm() {
     ? deliveryFee
     : 0;
 
+  const finalSelectedCoupons = coupons.filter((e) =>
+    finalSelectedCouponIds.includes(e.id.toString())
+  );
+
   const couponDiscountAmount = calculateCouponPrice({
-    couponIds: finalSelectedCouponIds,
-    coupons,
+    selectedCoupons: finalSelectedCoupons,
     selectedCartItems,
     deliveryFee: getDeliveryFee(isChecked, totalPrice),
     nowDate: new Date(),
@@ -127,7 +132,7 @@ export function OrderConfirm() {
 
   const { couponPrice, couponWithDisabled } = useCouponUI({
     coupons,
-    selectedCouponIds,
+    selectedCoupons,
     selectedCartItems,
     deliveryFee,
   });

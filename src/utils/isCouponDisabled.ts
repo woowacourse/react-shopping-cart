@@ -8,8 +8,7 @@ export const isCouponDisabled = (
   deliveryFee: number
 ) =>
   calculateCouponPrice({
-    couponIds: [coupon.id.toString()],
-    coupons: [coupon],
+    selectedCoupons: [coupon],
     selectedCartItems: cartItems,
     deliveryFee,
     nowDate: new Date(),
