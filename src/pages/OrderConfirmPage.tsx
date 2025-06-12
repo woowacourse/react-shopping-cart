@@ -7,6 +7,7 @@ import CartFooter from '../components/Cart/CartFooter';
 import Button from '../components/Button/Button';
 import CouponModal from '../components/Modal/CouponModal';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router';
 import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { useOrderConfirm } from '../hooks/useOrderConfirm';
@@ -51,7 +52,7 @@ function OrderConfirmPage() {
         <CouponSelectButton onClick={openCouponModal}>쿠폰 적용</CouponSelectButton>
         <DeliveryOptions checked={remoteArea} onToggle={toggleRemoteArea} />
         <CartInfo
-          style={{ marginTop: '32px' }}
+          customCss={css`margin-top: 32px;`}
           description={`총 주문 금액이 ${SHIPPING_FEE_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
         />
         <CartFooter

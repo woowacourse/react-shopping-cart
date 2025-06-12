@@ -1,14 +1,16 @@
+/** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
+import { SerializedStyles } from '@emotion/react';
 import { infoIcon } from '../../assets';
 
 interface CartInfoProps {
   description?: string;
-  style?: React.CSSProperties;
+  customCss?: SerializedStyles;
 }
 
-function CartInfo({ description, style }: CartInfoProps) {
+function CartInfo({ description, customCss }: CartInfoProps) {
   return (
-    <Container style={style}>
+    <Container css={customCss}>
       <InfoIconImage src={infoIcon} alt="infoIcon" />
       <p>{description}</p>
     </Container>
