@@ -4,7 +4,6 @@ import useCartList from '../hooks/useCartList';
 import useSelect from '../hooks/useSelect';
 import { cartPrice } from '../utils/cartPrice';
 import { CART } from '../constants/cart';
-import { cartListStorage, selectedItemsStorage } from '../utils/localStorage';
 
 type CartContextType = {
   data: CartItemProps[];
@@ -61,8 +60,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const clearCart = () => {
     const items = data.filter((item) => !selectedItems.includes(item.id));
     setCartList(items);
-    selectedItemsStorage.set(items.map((item) => item.id));
-    cartListStorage.set(items);
     selectedItems.forEach((id) => {
       deleteCartItem(id);
     });

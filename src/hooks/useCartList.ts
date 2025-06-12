@@ -3,10 +3,13 @@ import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { useToastContext } from '../context/ToastContext';
-import { cartListStorage } from '../utils/localStorage';
+import useStorageState from './useStorageState';
 
 function useCartList() {
-  const [cartList, setCartList] = useState<CartItemProps[]>([]);
+  const [cartList, setCartList] = useStorageState<CartItemProps[]>(
+    'cartList',
+    []
+  );
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -18,13 +21,9 @@ function useCartList() {
   const loadCartList = async () => {
     setIsLoading(true);
     try {
-      const localCartList = cartListStorage.get();
-      if (localCartList.length > 0) {
-        setCartList(localCartList);
-      } else {
+      if (cartList.length === 0) {
         const response = await cart.getCartList();
         setCartList(response);
-        cartListStorage.set(response);
       }
     } catch (error) {
       setError(ERROR_MESSAGE.CART_LIST);
@@ -43,7 +42,6 @@ function useCartList() {
           : item
       );
       setCartList(increasedCartList);
-      cartListStorage.set(increasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.INCREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.INCREASE_CART_ITEM);
@@ -59,7 +57,6 @@ function useCartList() {
           : item
       );
       setCartList(decreasedCartList);
-      cartListStorage.set(decreasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DECREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.DECREASE_CART_ITEM);
@@ -71,7 +68,6 @@ function useCartList() {
       await cart.deleteCartItem(cartItemId);
       const deletedCartList = cartList.filter((item) => item.id !== cartItemId);
       setCartList(deletedCartList);
-      cartListStorage.set(deletedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DELETE_CART_ITEM);
       showToast(ERROR_MESSAGE.DELETE_CART_ITEM);

@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { CartItemProps } from '../types/cartItem';
-import { selectedItemsStorage } from '../utils/localStorage';
+import useStorageState from './useStorageState';
 
 function useSelect(cartList: CartItemProps[]) {
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectedItems, setSelectedItems] = useStorageState<number[]>(
+    'selectedItems',
+    []
+  );
 
   const checkCartItemIds = cartList
     .filter((cartItem) => selectedItems.includes(cartItem.id))
@@ -14,22 +17,15 @@ function useSelect(cartList: CartItemProps[]) {
   const initialLoadRef = useRef(true);
 
   useEffect(() => {
-    const localSelectedItems = selectedItemsStorage.get();
-    if (cartList.length > 0 && initialLoadRef.current) {
-      if (localSelectedItems.length > 0) {
-        setSelectedItems(localSelectedItems);
-      } else {
+    if (cartList.length === 0) return;
+    if (initialLoadRef.current) {
+      if (selectedItems.length === 0) {
         setSelectedItems(AllCartItems);
-        selectedItemsStorage.set(AllCartItems);
       }
       initialLoadRef.current = false;
     } else {
       if (checkCartItemIds.length > 0) {
         setSelectedItems(checkCartItemIds);
-        selectedItemsStorage.set(checkCartItemIds);
-      } else {
-        setSelectedItems(localSelectedItems);
-        selectedItemsStorage.set(localSelectedItems);
       }
     }
   }, [cartList.length]);
@@ -38,21 +34,17 @@ function useSelect(cartList: CartItemProps[]) {
     if (selectedItems.includes(cartItemId)) {
       const filtered = selectedItems.filter((item) => item !== cartItemId);
       setSelectedItems(filtered);
-      selectedItemsStorage.set(filtered);
     } else {
       const newSelectedItems = [...selectedItems, cartItemId];
       setSelectedItems(newSelectedItems);
-      selectedItemsStorage.set(newSelectedItems);
     }
   };
 
   const selectAllItems = () => {
     if (isAllSelected) {
       setSelectedItems([]);
-      selectedItemsStorage.set([]);
     } else {
       setSelectedItems(AllCartItems);
-      selectedItemsStorage.set(AllCartItems);
     }
   };
 
