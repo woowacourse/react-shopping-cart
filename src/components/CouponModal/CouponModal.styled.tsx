@@ -100,15 +100,6 @@ export const CouponDivider = styled.hr`
   border-top: 1px solid #eee;
 `;
 
-export const CouponItem = styled.div<{ selected: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 12px 0 24px 0;
-`;
-
 export const CouponCheckbox = styled.input`
   margin-right: 12px;
   margin-top: 2px;
@@ -127,21 +118,32 @@ export const CouponCheckboxWrapper = styled.div`
   gap: 8px;
 `;
 
-export const CouponName = styled.div`
+export const CouponItem = styled.div<{ selected: boolean; disabled: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  transition: all 0.2s ease;
+  margin: 12px 0 24px 0;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+`;
+
+export const CouponName = styled.div<{ disabled?: boolean }>`
   font-weight: bold;
   margin-bottom: 4px;
   font-size: 14px;
+  color: ${({ disabled }) => (disabled ? "#999" : "#000")};
 `;
 
-export const CouponExpiry = styled.div`
+export const CouponExpiry = styled.div<{ disabled?: boolean }>`
   font-size: 12px;
-  color: #000;
+  color: ${({ disabled }) => (disabled ? "#999" : "#000")};
   margin-bottom: 2px;
 `;
 
-export const CouponDetail = styled.div`
+export const CouponDetail = styled.div<{ disabled?: boolean }>`
   font-size: 12px;
-  color: #000;
+  color: ${({ disabled }) => (disabled ? "#999" : "#000")};
   margin-bottom: 2px;
 `;
 

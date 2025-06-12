@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Coupon } from "../../types/coupon";
 import useCoupon from "../../hooks/useCoupon";
 import * as S from "./CouponModal.styled";
@@ -11,6 +11,8 @@ import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 import { ResponseCartItem } from "../../types/order";
 import { CouponFormatter } from "../../utils/couponFormatter";
 import { formatDate } from "../../utils/formatters";
+import { CouponCalculator } from "../../utils/couponCalculator";
+import { OrderCalculator } from "../../utils/orderCalculator";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -27,7 +29,7 @@ function CouponModal({
   onApplyCoupons,
   cartItems,
   isRemoteArea,
-  appliedCoupons, // 추가
+  appliedCoupons,
 }: CouponModalProps) {
   const { couponList, isLoading, error } = useCoupon();
   const couponSelectState = useCouponSelectContext();
@@ -46,6 +48,49 @@ function CouponModal({
     selectedCoupons: selectedCoupons as unknown as Coupon[],
   });
 
+  const orderInfo = useMemo(() => {
+    const originalOrderAmount = cartItems.reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0
+    );
+
+    const originalDeliveryFee = OrderCalculator.calculateBaseDeliveryFee(
+      originalOrderAmount,
+      isRemoteArea
+    );
+
+    return {
+      cartItems,
+      originalOrderAmount,
+      originalDeliveryFee,
+      isRemoteArea,
+    };
+  }, [cartItems, isRemoteArea]);
+
+  const couponAvailability = useMemo(() => {
+    return couponList.reduce(
+      (acc, coupon) => {
+        const isCurrentlySelected = selectedCoupons.some(
+          (selectedCoupon) => selectedCoupon.id === coupon.id
+        );
+
+        if (isCurrentlySelected) {
+          acc[coupon.id] = true;
+          return acc;
+        }
+
+        const discount = CouponCalculator.calculateSingleCouponDiscount(
+          coupon as unknown as Coupon,
+          orderInfo,
+          []
+        );
+        acc[coupon.id] = discount > 0;
+        return acc;
+      },
+      {} as Record<number, boolean>
+    );
+  }, [couponList, orderInfo, selectedCoupons]);
+
   useEffect(() => {
     if (couponList.length > 0) {
       couponSelectDispatch({
@@ -63,6 +108,10 @@ function CouponModal({
   }, [couponList, couponSelectDispatch, appliedCoupons]);
 
   const handleCouponSelect = (couponId: number) => {
+    if (!couponAvailability[couponId]) {
+      return;
+    }
+
     const currentItem = couponSelectState.find((item) => item.id === couponId);
     const selectedCount = couponSelectState.filter(
       (item) => item.selected
@@ -80,7 +129,7 @@ function CouponModal({
       onApplyCoupons(newSelectedCoupons as unknown as Coupon[]);
     } else {
       if (selectedCount >= 2) {
-        alert("쿠폰은 최대 2개까지만 사용할 수 있습니다.");
+        alert("쿠폰은 최대 2개까지만 사용할 수 있습니다. 쿠폰을 선택해주세요.");
         return;
       }
 
@@ -140,31 +189,42 @@ function CouponModal({
                     (item) => item.id === coupon.id
                   );
                   const isSelected = selectState?.selected || false;
+                  const isAvailable = couponAvailability[coupon.id];
 
                   return (
                     <div key={coupon.id}>
                       <S.CouponDivider />
-
                       <S.CouponItem
                         selected={isSelected}
+                        disabled={!isAvailable}
                         onClick={() => handleCouponSelect(coupon.id)}
                       >
                         <S.CouponCheckboxWrapper>
                           <CheckBox
                             isChecked={isSelected}
+                            disabled={!isAvailable}
                             onClick={() => handleCouponSelect(coupon.id)}
                           />
-                          <S.CouponName>{coupon.description}</S.CouponName>
+                          <S.CouponName disabled={!isAvailable}>
+                            {coupon.description}
+                          </S.CouponName>
                         </S.CouponCheckboxWrapper>
                         <S.CouponContent>
-                          <S.CouponExpiry>
+                          <S.CouponExpiry disabled={!isAvailable}>
                             만료일: {formatDate(coupon.expirationDate)}
                           </S.CouponExpiry>
                           {CouponFormatter.getCouponDetails(
                             coupon as unknown as Coupon
                           ).map((detail, idx) => (
-                            <S.CouponDetail key={idx}>{detail}</S.CouponDetail>
+                            <S.CouponDetail key={idx} disabled={!isAvailable}>
+                              {detail}
+                            </S.CouponDetail>
                           ))}
+                          {!isAvailable && (
+                            <S.CouponDetail disabled={true}>
+                              사용 조건을 만족하지 않습니다.
+                            </S.CouponDetail>
+                          )}
                         </S.CouponContent>
                       </S.CouponItem>
                     </div>
