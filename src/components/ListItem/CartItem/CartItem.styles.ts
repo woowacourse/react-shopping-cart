@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { borderRadius } from '../../../styles/common';
 
 export const CartItemHeaderStyle = css`
   display: flex;
@@ -11,7 +12,7 @@ export const CheckboxStyle = css`
   width: 2.4rem;
   height: 2.4rem;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  ${borderRadius}
   background-color: #fff;
   cursor: pointer;
   accent-color: #000000;
@@ -25,7 +26,7 @@ export const DeleteButtonStyle = css`
   align-items: center;
   justify-content: center;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  ${borderRadius}
   background-color: transparent;
   cursor: pointer;
 `;

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { theme } from '../../styles';
+import { borderRadius, clickable } from '../../styles/common';
 
 export const CouponModalOverlayStyle = css`
   position: fixed;
@@ -18,7 +19,7 @@ export const CouponModalContentStyle = css`
   min-height: 20rem;
   padding: 2.4rem 3.2rem;
   width: 90%;
-  border-radius: 8px;
+  ${borderRadius}
   background-color: #fff;
 `;
 
@@ -54,7 +55,7 @@ export const CouponModalListItemStyle = (isAvailable: boolean) => css`
   flex-direction: column;
   gap: 1.2rem;
   opacity: ${isAvailable ? 1 : 0.5};
-  cursor: ${isAvailable ? 'pointer' : 'not-allowed'};
+  ${clickable(isAvailable)}
 `;
 
 export const CouponModalListItemHeaderStyle = css`
@@ -68,7 +69,7 @@ export const CouponModalListItemCheckboxStyle = (isAvailable: boolean) => css`
   width: 2.4rem;
   height: 2.4rem;
   accent-color: ${theme.color.black};
-  cursor: ${isAvailable ? 'pointer' : 'not-allowed'};
+  ${clickable(isAvailable)}
 `;
 
 export const CouponModalListItemDescriptionStyle = css`
@@ -85,6 +86,6 @@ export const CouponModalConfirmButtonStyle = (isAvailable: boolean) => css`
   margin-top: 3.2rem;
   background-color: ${isAvailable ? theme.color.black : theme.color.gray2};
   color: ${theme.color.white};
-  border-radius: 8px;
-  cursor: ${isAvailable ? 'pointer' : 'not-allowed'};
+  ${borderRadius}
+  ${clickable(isAvailable)}
 `;
