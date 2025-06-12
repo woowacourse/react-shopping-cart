@@ -43,6 +43,8 @@ vi.mock("../src/hooks/useFetch", () => {
 
 describe("Cart 전체선택 동기화", () => {
   beforeEach(async () => {
+    localStorage.clear();
+
     render(
       <MemoryRouter>
         <Cart />
