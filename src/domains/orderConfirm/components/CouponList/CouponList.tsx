@@ -23,7 +23,7 @@ export function CouponList({
       {coupons.map((coupon: CouponType) => {
         return (
           <>
-            <Line key="line" />
+            <Line key={`${coupon.code}-line`} />
             <Coupon
               key={coupon.code}
               item={coupon}

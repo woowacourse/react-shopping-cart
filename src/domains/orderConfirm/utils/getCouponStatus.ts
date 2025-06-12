@@ -6,13 +6,7 @@ import {
 } from "../hooks/utils/validateCoupons";
 import { CouponCode, CouponCodes, CouponType } from "../types/coupon";
 
-/**
- * 쿠폰이 유효한지 확인하는 함수
- * @param orderPrice 주문 금액
- * @param twoPlusOneApplicableItems 2+1 적용 가능한 아이템 목록
- * @returns <Record<CouponCode, boolean>> 쿠폰 코드와 유효성 여부를 매핑한 객체
- */
-export const getValidCoupon = ({
+export const getCouponStatus = ({
   orderPrice,
   twoPlusOneApplicableItems,
   coupons,
