@@ -3,18 +3,7 @@ import { Coupon } from '../types/coupon';
 import { isCouponAvailable } from '../utils/couponAvailability';
 import { MAX_COUPONS } from '../constants/couponConfig';
 
-interface UseCouponSelectionReturn {
-  selectedCoupons: Coupon[];
-  tempSelectedCoupons: Coupon[];
-  isModalOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
-  toggleCouponSelection: (coupon: Coupon) => void;
-  isCouponSelected: (couponId: number) => boolean;
-  applyCoupons: () => void;
-}
-
-export const useCouponSelection = (): UseCouponSelectionReturn => {
+export const useCouponSelection = () => {
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
