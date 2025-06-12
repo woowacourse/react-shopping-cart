@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { CartProduct, CartItemsResponse } from '../types/cart';
+import { CartProduct } from '../types/cart';
+import { useCartItemsData } from './useCartItemsData';
 
-export const useCartSelection = (cartItems: CartItemsResponse | undefined) => {
+export const useCartSelection = () => {
+  const cartItems = useCartItemsData();
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
   useEffect(() => {

@@ -1,27 +1,16 @@
 import CartItem from './CartItem';
-import { useData } from '../../context/DataContext';
-import { getCartItems } from '../../apis/cart';
-import { CartProduct, CartItemsResponse } from '../../types/cart';
+import { useCartItemsData } from '../../hooks/useCartItemsData';
+import { useCartSelection } from '../../hooks/useCartSelection';
+import { CartProduct } from '../../types/cart';
 import styled from '@emotion/styled';
 
-interface CartListProps {
-  checkedItems: number[];
-  setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>;
-}
-
-function CartList({ checkedItems, setCheckedItems }: CartListProps) {
-  const { data: cartItems } = useData<CartItemsResponse>({
-    fetcher: getCartItems,
-    name: 'cartItems',
-  });
+function CartList() {
+  const cartItems = useCartItemsData();
+  const { checkedItems, toggleItem } = useCartSelection();
 
   if (!cartItems) {
     return null;
   }
-
-  const handleItemCheck = (itemId: number, checked: boolean) => {
-    setCheckedItems((prev) => (checked ? [...prev, itemId] : prev.filter((id) => id !== itemId)));
-  };
 
   return (
     <Container>
@@ -30,7 +19,7 @@ function CartList({ checkedItems, setCheckedItems }: CartListProps) {
           key={item.id}
           data={item}
           checked={checkedItems.includes(item.id)}
-          onCheckChange={(checked) => handleItemCheck(item.id, checked)}
+          onCheckChange={() => toggleItem(item.id)}
         />
       ))}
     </Container>

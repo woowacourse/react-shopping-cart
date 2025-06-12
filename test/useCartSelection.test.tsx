@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useCartSelection } from '../src/hooks/useCartSelection';
 import { CartProduct } from '../src/types/cart';
+import React from 'react';
+import { DataContext } from '../src/context/DataContext';
 
 describe('useCartSelection', () => {
   const mockCartItems = {
@@ -24,15 +26,28 @@ describe('useCartSelection', () => {
     ] as CartProduct[],
   };
 
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <DataContext.Provider value={{ data: { cartItems: mockCartItems }, setData: vi.fn() }}>
+      {children}
+    </DataContext.Provider>
+  );
+
   it('초기 상태에서 모든 아이템이 선택되어야 한다', () => {
-    const { result } = renderHook(() => useCartSelection(mockCartItems));
+    const { result } = renderHook(() => useCartSelection(), { wrapper });
+
+    // useEffect가 실행될 때까지 기다림
+    act(() => {
+      // force re-render
+    });
 
     expect(result.current.checkedItems).toEqual([1, 2, 3]);
     expect(result.current.isAllChecked).toBe(true);
   });
 
   it('개별 아이템 토글이 정상적으로 동작해야 한다', () => {
-    const { result } = renderHook(() => useCartSelection(mockCartItems));
+    const { result } = renderHook(() => useCartSelection(), { wrapper });
+
+    act(() => {});
 
     act(() => {
       result.current.toggleItem(2);
@@ -43,9 +58,10 @@ describe('useCartSelection', () => {
   });
 
   it('전체 선택/해제가 정상적으로 동작해야 한다', () => {
-    const { result } = renderHook(() => useCartSelection(mockCartItems));
+    const { result } = renderHook(() => useCartSelection(), { wrapper });
 
-    // 전체 선택 해제
+    act(() => {});
+
     act(() => {
       result.current.checkAll(false);
     });
@@ -53,7 +69,6 @@ describe('useCartSelection', () => {
     expect(result.current.checkedItems).toEqual([]);
     expect(result.current.isAllChecked).toBe(false);
 
-    // 다시 전체 선택
     act(() => {
       result.current.checkAll(true);
     });
@@ -63,7 +78,7 @@ describe('useCartSelection', () => {
   });
 
   it('전체 선택 해제가 정상적으로 동작해야 한다', () => {
-    const { result } = renderHook(() => useCartSelection(mockCartItems));
+    const { result } = renderHook(() => useCartSelection(), { wrapper });
 
     act(() => {
       result.current.checkAll(false);
