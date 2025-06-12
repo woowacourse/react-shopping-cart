@@ -77,20 +77,25 @@ export default function OrderConfirmPage() {
     <>
       <Header title="🔙" handleTitleClick={onTitleClick} />
       <OrderConfirmSection
-        items={fakeCartItemsResponse}
-        refetch={() => {}}
-        selectedItemIds={selectedItemIds}
-        setSelectedItemIds={() => {}}
-        setIsModalOpen={setIsModalOpen}
-        isIslandChecked={isIslandChecked}
-        setIsIslandChecked={setIsIslandChecked}
-        orderPrice={orderPrice}
-        shippingFee={shippingFee}
-        orderTotalPrice={orderTotalPrice}
-        totalDiscount={totalDiscount}
-        totalQuantity={totalQuantity}
-        totalPrice={totalPrice}
+        itemsData={{
+          items: fakeCartItemsResponse,
+          selectedItemIds,
+        }}
+        stateHandlers={{
+          setIsModalOpen,
+          setIsIslandChecked,
+          isIslandChecked,
+        }}
+        priceInfo={{
+          orderPrice,
+          shippingFee,
+          orderTotalPrice,
+          totalDiscount,
+          totalQuantity,
+          totalPrice,
+        }}
       />
+
       <S.ButtonWrapper>
         <Button
           css={css`

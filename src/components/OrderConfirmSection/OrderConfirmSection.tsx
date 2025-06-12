@@ -8,40 +8,32 @@ import OrderConfirmItem from '../OrderConfirmItem/OrderConfirmItem';
 import Checkbox from '../Checkbox/Checkbox';
 
 interface OrderConfirmSectionProps {
-  items: CartItemsResponse;
-  refetch: () => void;
-  selectedItemIds: number[];
-  setSelectedItemIds: Dispatch<SetStateAction<number[]>>;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-  isIslandChecked: boolean;
-  setIsIslandChecked: Dispatch<SetStateAction<boolean>>;
-  orderPrice: number;
-  shippingFee: number;
-  orderTotalPrice: number;
-  totalDiscount: number;
-  totalQuantity: number;
-  totalPrice: number;
+  itemsData: {
+    items: CartItemsResponse;
+    selectedItemIds: number[];
+  };
+  stateHandlers: {
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+    setIsIslandChecked: Dispatch<SetStateAction<boolean>>;
+    isIslandChecked: boolean;
+  };
+  priceInfo: {
+    orderPrice: number;
+    shippingFee: number;
+    orderTotalPrice: number;
+    totalDiscount: number;
+    totalQuantity: number;
+    totalPrice: number;
+  };
 }
 
-export default function OrderConfirmSection({
-  items,
-  selectedItemIds,
-  setIsModalOpen,
-  isIslandChecked,
-  setIsIslandChecked,
-  orderPrice,
-  shippingFee,
-  totalDiscount,
-  totalQuantity,
-  totalPrice,
-}: OrderConfirmSectionProps) {
-  const handleCheckboxChange = () => {
-    setIsIslandChecked((prev) => !prev);
-  };
+export default function OrderConfirmSection({ itemsData, stateHandlers, priceInfo }: OrderConfirmSectionProps) {
+  const { items, selectedItemIds } = itemsData;
+  const { setIsModalOpen, setIsIslandChecked, isIslandChecked } = stateHandlers;
+  const { orderPrice, shippingFee, totalDiscount, totalQuantity, totalPrice } = priceInfo;
 
-  const handleCouponButtonClick = () => {
-    setIsModalOpen(true);
-  };
+  const handleCheckboxChange = () => setIsIslandChecked((prev) => !prev);
+  const handleCouponButtonClick = () => setIsModalOpen(true);
 
   return (
     <S.OrderConfirmSection>
