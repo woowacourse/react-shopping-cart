@@ -17,16 +17,12 @@ import DeliveryInfo from '../../features/order/ui/DeliveryInfo';
 
 export default function OrderConfirmationPage() {
   const { selectedCartItems } = useSelectedCartItemsContext();
-  const { cartTypeQuantity, updateRemoteArea } = useOrderContext();
+  const { cartTypeQuantity } = useOrderContext();
   const {
     isOpen: isCouponModalOpen,
     handleOpen: handleOpenCouponModal,
     handleClose: handleCloseCouponModal,
   } = useModal();
-
-  const handleUpdateRemoteArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateRemoteArea(e.target.checked);
-  };
 
   const navigate = useNavigate();
 
@@ -50,7 +46,7 @@ export default function OrderConfirmationPage() {
             ))}
           </S.CartListContainer>
           <Button onClick={handleOpenCouponModal} title="쿠폰 적용" css={S.ButtonCSS} />
-          <DeliveryInfo onChange={handleUpdateRemoteArea} />
+          <DeliveryInfo />
           <OrderPriceSummary couponPriceItem={true} />
         </S.OrderConfirmationPageContent>
         <NavFooter title="결제하기" onClick={handleGoOrderSuccessPage} />
