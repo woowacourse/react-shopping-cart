@@ -30,6 +30,19 @@ export function calcCouponDiscount(
   cart: CartType,
   selectedIds: number[],
 ): number {
+  if (coupon.availableTime) {
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 8);
+    const { start, end } = coupon.availableTime;
+    if (currentTime < start || currentTime >= end) {
+      return 0;
+    }
+  }
+
+  if (coupon.minimumAmount != null && cart.total < coupon.minimumAmount) {
+    return 0;
+  }
+
   switch (coupon.discountType) {
     case 'fixed':
       return coupon.discount ?? 0;
@@ -45,11 +58,8 @@ export function calcCouponDiscount(
     case 'buyXgetY': {
       const { buyQuantity = 0, getQuantity = 0 } = coupon;
       const groupSize = buyQuantity + getQuantity;
-
       const selectedItems = cart.items.filter((item) => selectedIds.includes(item.id));
-      // 가장 비싼 상품 순으로 정렬
       const sorted = [...selectedItems].sort((a, b) => b.product.price - a.product.price);
-
       const freeSets = Math.floor(sorted[0].quantity / groupSize);
       return freeSets * getQuantity * sorted[0].product.price;
     }

@@ -70,11 +70,11 @@ describe('OrderConfirmPage', () => {
         ]}
       >
         <DataProvider>
-          <CouponProvider>
-            <ShippingProvider>
+          <ShippingProvider>
+            <CouponProvider>
               <OrderConfirmPage />
-            </ShippingProvider>
-          </CouponProvider>
+            </CouponProvider>
+          </ShippingProvider>
         </DataProvider>
       </MemoryRouter>,
     );
