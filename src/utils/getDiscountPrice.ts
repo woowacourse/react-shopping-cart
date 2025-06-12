@@ -25,13 +25,10 @@ export default getDiscountPrice;
 const getBogoDiscountPrice = (checkedItems: CartItem[], coupon: Coupon) => {
   const minimumQuantity = (coupon.buyQuantity ?? 0) + (coupon.getQuantity ?? 0);
   if (minimumQuantity === 0) return 0;
-  const expensiveItem = checkedItems
-    .filter(({ quantity }) => quantity >= minimumQuantity)
-    .reduce((acc, item) => (item.product.price > acc.product.price ? item : acc), {
-      id: 0,
-      product: { id: 0, category: '', imageUrl: '', name: '', price: 0 },
-      quantity: 0,
-    });
 
-  return expensiveItem.product.price;
+  const maxPrice = checkedItems
+    .filter(({ quantity }) => quantity >= minimumQuantity)
+    .reduce((max, item) => Math.max(max, item.product.price), 0);
+
+  return maxPrice;
 };
