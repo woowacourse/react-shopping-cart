@@ -15,10 +15,10 @@ export const Footer = styled.footer<FooterProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${({ active }) => ButtonVariants[active]};
+  ${({ active }) => ButtonVariants[String(active) as "true" | "false"]};
   height: 64px;
-  cursor: pointer;
   position: fixed;
+  cursor: pointer;
 
   span {
     color: #ffffff;
@@ -30,4 +30,5 @@ export const Footer = styled.footer<FooterProps>`
 export const Button = styled.button`
   width: 100%;
   height: 100%;
+  cursor: pointer;
 `;

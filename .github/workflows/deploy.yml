@@ -1,0 +1,16 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+      VITE_TOKEN: ${{ secrets.VITE_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build

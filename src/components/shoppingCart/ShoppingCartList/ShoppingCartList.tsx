@@ -1,9 +1,8 @@
-import Item from "../Item/Item";
-
-import * as Styled from "./ShoppingCartList.styles";
-
 import CartItem from "../../../types/CartItem";
 import { CheckedMap } from "../../../types/CheckMap";
+
+import CartList from "../CartList/CartList";
+import Receipt from "../Receipt/Receipt";
 
 interface ShoppingCartListProps {
   cartItemList: CartItem[];
@@ -11,6 +10,8 @@ interface ShoppingCartListProps {
   allChecked: boolean;
   toggleAll: () => void;
   handleSelectedCartItem: (id: number) => void;
+  allProductPrice: number;
+  shippingFee: number;
 }
 
 export default function ShoppingCartList({
@@ -19,35 +20,23 @@ export default function ShoppingCartList({
   allChecked,
   toggleAll,
   handleSelectedCartItem,
+  allProductPrice,
+  shippingFee,
 }: ShoppingCartListProps) {
   return (
-    <section>
-      <Styled.Checkbox>
-        <Styled.Input
-          id="check-all"
-          type="checkbox"
-          checked={allChecked}
-          onChange={toggleAll}
-        />
-        <label htmlFor="check-all">전체 선택</label>
-      </Styled.Checkbox>
-
-      {cartItemList.map((cart) => {
-        const isChecked = checkedMap.get(cart.id) ?? true;
-
-        return (
-          <Item
-            key={cart.id}
-            id={cart.id}
-            isChecked={isChecked}
-            handleSelectedCartItem={handleSelectedCartItem}
-            imageUrl={cart.product.imageUrl}
-            name={cart.product.name}
-            price={cart.product.price}
-            quantity={cart.quantity}
-          />
-        );
-      })}
-    </section>
+    <div>
+      <CartList
+        cartItemList={cartItemList}
+        checkedMap={checkedMap}
+        allChecked={allChecked}
+        toggleAll={toggleAll}
+        handleSelectedCartItem={handleSelectedCartItem}
+      />
+      <Receipt
+        totalPrice={allProductPrice + shippingFee}
+        allProductPrice={allProductPrice}
+        shippingFee={shippingFee}
+      />
+    </div>
   );
 }

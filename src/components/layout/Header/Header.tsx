@@ -7,7 +7,7 @@ interface HeaderProps {
 export default function Header({ children }: HeaderProps) {
   return (
     <Styled.Header>
-      <p>{children}</p>
+      <span>{children}</span>
     </Styled.Header>
   );
 }
