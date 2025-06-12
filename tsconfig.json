@@ -35,8 +35,26 @@
       "@assets/*": [
         "src/assets/*"
       ],
-      "@shared/components/*": [
-        "src/shared/components/*"
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@widget/*": [
+        "src/widget/*"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@shared/ui/*": [
+        "src/shared/ui/*"
       ]
     }
   },

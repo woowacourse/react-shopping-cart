@@ -1,7 +1,7 @@
 import * as S from './CartPage.styled';
-import Header from '@/shared/components/Header/Header';
-import CartContent from './CartContent/CartContent';
-import { CartProvider } from './contexts/CartContext';
+import Header from '@/shared/ui/Header/Header';
+import CartContent from '@widget/cart/CartContent/CartContent';
+import { CartProvider } from '@entities/cart';
 
 const CartPageContent = () => {
   return (
