@@ -16,7 +16,6 @@ export const useOrderCoupons = (isJejuOrRemoteArea: boolean) => {
   return {
     coupons,
     isLoading,
-
     availableCoupons,
     bestCouponIds,
     totalDiscount,
