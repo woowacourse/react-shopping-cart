@@ -4,32 +4,32 @@ import { getNowInMinutes, getTimeInMinutes } from "../../utils/getDateInfo";
 
 // =============== Validation interface ===============
 
-interface ValidateDateProps {
+interface ValidateDateParams {
   expirationDate: string;
   today: Date;
 }
 
-interface ValidateTimeProps {
+interface ValidateTimeParams {
   availableTime: AvailableTime;
   today: Date;
 }
 
-interface ValidateMinimumAmountProps {
+interface ValidateMinimumAmountParams {
   minimumAmount: number;
   orderPrice: number;
 }
 
-interface ValidateTwoPlusOneProps {
+interface ValidateTwoPlusOneParams {
   twoPlusOneApplicableItems: CartItemTypes[];
 }
 
 // =============== Validation Functions ===============
 
-function validateDate({ expirationDate, today }: ValidateDateProps) {
+function validateDate({ expirationDate, today }: ValidateDateParams) {
   return new Date(expirationDate) >= today;
 }
 
-function validateTime({ availableTime, today }: ValidateTimeProps) {
+function validateTime({ availableTime, today }: ValidateTimeParams) {
   const { start, end } = availableTime;
 
   const startMinutes = getTimeInMinutes(start);
@@ -42,13 +42,13 @@ function validateTime({ availableTime, today }: ValidateTimeProps) {
 function validateMinimumAmount({
   minimumAmount,
   orderPrice,
-}: ValidateMinimumAmountProps) {
+}: ValidateMinimumAmountParams) {
   return orderPrice >= minimumAmount;
 }
 
 function validateTwoPlusOne({
   twoPlusOneApplicableItems,
-}: ValidateTwoPlusOneProps) {
+}: ValidateTwoPlusOneParams) {
   return twoPlusOneApplicableItems.length > 0;
 }
 

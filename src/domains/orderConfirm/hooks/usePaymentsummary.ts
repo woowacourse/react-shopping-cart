@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { getDeliveryFee } from "../utils/getDeliveryFee";
 
-interface UsePaymentSummaryProps {
+interface UsePaymentSummaryParams {
   isExtraDeliveryArea: boolean;
   receivedDiscountedPrice: number;
   orderPrice: number;
@@ -18,7 +18,7 @@ export function usePaymentSummary({
   isExtraDeliveryArea,
   receivedDiscountedPrice,
   orderPrice,
-}: UsePaymentSummaryProps) {
+}: UsePaymentSummaryParams) {
   const deliveryFee: number = useMemo(
     () => getDeliveryFee({ orderPrice, isExtraDeliveryArea }),
     [orderPrice, isExtraDeliveryArea]

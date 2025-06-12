@@ -1,6 +1,6 @@
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
-interface GetTotalPriceProps {
+interface GetTotalPriceParams {
   cartItems: CartItemTypes[];
   selectedCartIds: string[];
 }
@@ -8,7 +8,7 @@ interface GetTotalPriceProps {
 export function getOrderPrice({
   cartItems,
   selectedCartIds,
-}: GetTotalPriceProps) {
+}: GetTotalPriceParams) {
   return cartItems
     .filter((e) => selectedCartIds.includes(e.id.toString()))
     .reduce(

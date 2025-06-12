@@ -4,7 +4,7 @@ import { getDisCountedPrice } from "../utils/getDisCountedPrice";
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
 
-interface UseSelectedCouponsProps {
+interface UseSelectedCouponsParams {
   deliveryFee: number;
   orderPrice: number;
   twoPlusOneApplicableItems: CartItemTypes[];
@@ -13,7 +13,7 @@ export function useSelectedCoupons({
   deliveryFee,
   orderPrice,
   twoPlusOneApplicableItems,
-}: UseSelectedCouponsProps) {
+}: UseSelectedCouponsParams) {
   const [selectedCoupons, setSelectedCoupons] = useState<CouponCode[]>([]);
 
   /**

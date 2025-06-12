@@ -2,14 +2,14 @@ import { CouponCode } from "../types/coupon";
 
 // ================== 계산 관련 인터페이스 ==================
 
-interface GetDisCountedPriceProps {
+interface GetDisCountedPriceParams {
   deliveryFee: number;
   orderPrice: number;
   maxPriceInSelectedCart: number;
   selectedCoupons: CouponCode[];
 }
 
-interface CouponCalculatorProps {
+interface CouponCalculatorParams {
   deliveryFee: number;
   orderPrice: number;
   maxPriceInSelectedCart: number;
@@ -27,7 +27,7 @@ interface CouponCalculatorProps {
  * @returns {number} - 선택된 아이템들 중 최대 가격
  */
 
-export function getDisCountedPrice(props: GetDisCountedPriceProps) {
+export function getDisCountedPrice(props: GetDisCountedPriceParams) {
   if (props.selectedCoupons.length === 0) return 0;
   if (props.selectedCoupons.length === 1) return getTotalDiscount([0], props);
 
@@ -42,11 +42,11 @@ export function getDisCountedPrice(props: GetDisCountedPriceProps) {
 /**
  * 주어진 인덱스 배열에 따라 할인 금액을 계산합니다.
  * @param {number[]} index - 할인 코드 인덱스 배열
- * @param {GetDisCountedPriceProps} props - 할인 계산에 필요한 속성들
+ * @param {GetDisCountedPriceParams } props - 할인 계산에 필요한 속성들
  * @returns {number} - 총 할인 금액
  */
 
-function getTotalDiscount(index: number[], props: GetDisCountedPriceProps) {
+function getTotalDiscount(index: number[], props: GetDisCountedPriceParams) {
   const firstDiscount = couponCalculator({
     ...props,
     code: props.selectedCoupons[index[0]],
@@ -79,7 +79,7 @@ function couponCalculator({
   orderPrice,
   maxPriceInSelectedCart,
   code,
-}: CouponCalculatorProps) {
+}: CouponCalculatorParams) {
   switch (code) {
     case "FIXED5000":
       return 5_000;
