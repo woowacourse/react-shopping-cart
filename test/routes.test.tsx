@@ -1,20 +1,19 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
-import App from "../src/App";
 import { CartItemProvider } from "../src/contexts/CartItemContext";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import cartItemsApi from "../src/apis/cartItems";
 import PaymentConfirmPage from "../src/pages/PaymentConfirmPage";
-import { ShippingProvider } from "../src/contexts/ShippingContext";
 import { CouponProvider } from "../src/contexts/CouponContext";
+import CartItemPage from "../src/pages/CartItemPage";
 
 vi.mock("../src/apis/cartItems");
 
 const routes = [
   {
     path: "/",
-    element: <App />,
+    element: <CartItemPage />,
   },
   {
     path: "/order-confirm",
@@ -35,11 +34,9 @@ describe("라우팅 테스트", () => {
 
     render(
       <CartItemProvider>
-        <ShippingProvider>
-          <CouponProvider>
-            <RouterProvider router={router} />
-          </CouponProvider>
-        </ShippingProvider>
+        <CouponProvider>
+          <RouterProvider router={router} />
+        </CouponProvider>
       </CartItemProvider>
     );
 

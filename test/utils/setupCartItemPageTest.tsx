@@ -5,7 +5,6 @@ import { CartItem } from "../../src/types/type";
 import { MemoryRouter } from "react-router";
 import CartItemPage from "../../src/pages/CartItemPage";
 import { CartItemProvider } from "../../src/contexts/CartItemContext";
-import { ShippingProvider } from "../../src/contexts/ShippingContext";
 import { CouponProvider } from "../../src/contexts/CouponContext";
 
 export const setupCartPageTest = (mockItems: CartItem[]) => {
@@ -14,11 +13,9 @@ export const setupCartPageTest = (mockItems: CartItem[]) => {
   return render(
     <MemoryRouter>
       <CartItemProvider>
-        <ShippingProvider>
-          <CouponProvider>
-            <CartItemPage />
-          </CouponProvider>
-        </ShippingProvider>
+        <CouponProvider>
+          <CartItemPage />
+        </CouponProvider>
       </CartItemProvider>
     </MemoryRouter>
   );

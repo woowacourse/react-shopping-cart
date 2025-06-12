@@ -4,12 +4,12 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { useCartItemContext } from "../src/contexts/CartItemContext";
 import { defaultMockCartItems } from "./utils/mockCartItems";
 
-const mockHandleSelectedItems = vi.fn();
+const mockSelectAllItems = vi.fn();
+const mockClearSelectedItems = vi.fn();
+const mockToggleSelectedItem = vi.fn();
 
 vi.mock("../src/contexts/CartItemContext", async () => {
-  const actual = vi.importActual;
-  typeof import("../src/contexts/CartItemContext") >
-    "../src/contexts/CartItemContext";
+  const actual = await vi.importActual("../src/contexts/CartItemContext");
 
   return {
     ...actual,
@@ -26,9 +26,13 @@ describe("CartItemCardList 컴포넌트", () => {
 
   it("아무것도 선택되지 않은 상태에서 전체선택 버튼을 클릭하면 모든 아이템이 선택된다", () => {
     mockUseCartItemContext.mockReturnValue({
-      handleSelectedItems: mockHandleSelectedItems,
       cartItems: defaultMockCartItems,
       selectedItems: new Set(),
+      selectAllItems: mockSelectAllItems,
+      clearSelectedItems: mockClearSelectedItems,
+      toggleSelectedItem: mockToggleSelectedItem,
+      addSelectedItem: vi.fn(),
+      removeSelectedItem: vi.fn(),
       setCartItems: vi.fn(),
       isLoading: false,
       fetchError: "",
@@ -39,15 +43,18 @@ describe("CartItemCardList 컴포넌트", () => {
     const allSelectToggle = screen.getByTestId("all-select-toggle");
     fireEvent.click(allSelectToggle);
 
-    expect(mockHandleSelectedItems).toHaveBeenCalledTimes(1);
-    expect(mockHandleSelectedItems).toHaveBeenCalledWith(new Set([1, 2]));
+    expect(mockSelectAllItems).toHaveBeenCalledTimes(1);
   });
 
   it("모든 아이템이 선택된 상태에서 전체선택 버튼을 클릭하면 모든 선택이 해제된다", () => {
     mockUseCartItemContext.mockReturnValue({
-      handleSelectedItems: mockHandleSelectedItems,
       cartItems: defaultMockCartItems,
       selectedItems: new Set([1, 2]),
+      selectAllItems: mockSelectAllItems,
+      clearSelectedItems: mockClearSelectedItems,
+      toggleSelectedItem: mockToggleSelectedItem,
+      addSelectedItem: vi.fn(),
+      removeSelectedItem: vi.fn(),
       setCartItems: vi.fn(),
       isLoading: false,
       fetchError: "",
@@ -58,7 +65,6 @@ describe("CartItemCardList 컴포넌트", () => {
     const allSelectToggle = screen.getByTestId("all-select-toggle");
     fireEvent.click(allSelectToggle);
 
-    expect(mockHandleSelectedItems).toHaveBeenCalledTimes(1);
-    expect(mockHandleSelectedItems).toHaveBeenCalledWith(new Set());
+    expect(mockClearSelectedItems).toHaveBeenCalledTimes(1);
   });
 });

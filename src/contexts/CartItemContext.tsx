@@ -9,7 +9,11 @@ interface CartItemContextType {
   cartItems: CartItem[];
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   selectedItems: Set<number>;
-  handleSelectedItems: (newSet: Set<number>) => void;
+  addSelectedItem: (itemId: number) => void;
+  removeSelectedItem: (itemId: number) => void;
+  toggleSelectedItem: (itemId: number) => void;
+  selectAllItems: () => void;
+  clearSelectedItems: () => void;
   isLoading: boolean;
   fetchError: string;
 }
@@ -40,13 +44,48 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
 
   useCartItemValidation(cartItems, selectedItems, handleSelectedItems);
 
+  const addSelectedItem = (itemId: number) => {
+    const newSet = new Set(selectedItems);
+    newSet.add(itemId);
+    handleSelectedItems(newSet);
+  };
+
+  const removeSelectedItem = (itemId: number) => {
+    const newSet = new Set(selectedItems);
+    newSet.delete(itemId);
+    handleSelectedItems(newSet);
+  };
+
+  const toggleSelectedItem = (itemId: number) => {
+    const newSet = new Set(selectedItems);
+    if (newSet.has(itemId)) {
+      newSet.delete(itemId);
+    } else {
+      newSet.add(itemId);
+    }
+    handleSelectedItems(newSet);
+  };
+
+  const selectAllItems = () => {
+    const allItemIds = cartItems.map((item) => item.id);
+    handleSelectedItems(new Set(allItemIds));
+  };
+
+  const clearSelectedItems = () => {
+    handleSelectedItems(new Set());
+  };
+
   return (
     <CartItemContext.Provider
       value={{
         cartItems,
         setCartItems,
         selectedItems,
-        handleSelectedItems,
+        addSelectedItem,
+        removeSelectedItem,
+        toggleSelectedItem,
+        selectAllItems,
+        clearSelectedItems,
         isLoading,
         fetchError,
       }}

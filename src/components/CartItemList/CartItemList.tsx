@@ -3,28 +3,26 @@ import LabeledSelectbox from "../@common/LabeledSelectbox/LabeledSelectbox";
 import { useCartItemContext } from "../../contexts/CartItemContext";
 
 const CartItemCardList = () => {
-  const { cartItems, selectedItems, handleSelectedItems } =
-    useCartItemContext();
-
-  const toggleCartItemChecked = (cartItemId: number) => {
-    const newSet = new Set(selectedItems);
-    if (newSet.has(cartItemId)) newSet.delete(cartItemId);
-    else newSet.add(cartItemId);
-    handleSelectedItems(newSet);
-  };
+  const {
+    cartItems,
+    selectedItems,
+    toggleSelectedItem,
+    selectAllItems,
+    clearSelectedItems,
+  } = useCartItemContext();
 
   const isSelectedItem = (cartItemId: number) => {
     return selectedItems.has(cartItemId);
   };
 
-  const allSelected = selectedItems.size === cartItems.length;
+  const allSelected =
+    selectedItems.size === cartItems.length && cartItems.length > 0;
 
   const handleAllSelected = () => {
     if (allSelected) {
-      handleSelectedItems(new Set());
+      clearSelectedItems();
     } else {
-      const cartItemIds = cartItems.map((item) => item.id);
-      handleSelectedItems(new Set(cartItemIds));
+      selectAllItems();
     }
   };
 
@@ -45,7 +43,7 @@ const CartItemCardList = () => {
           price={item.product.price}
           quantity={item.quantity}
           isSelected={isSelectedItem(item.id)}
-          toggleCartItemChecked={toggleCartItemChecked}
+          toggleCartItemChecked={toggleSelectedItem}
         />
       ))}
     </>
