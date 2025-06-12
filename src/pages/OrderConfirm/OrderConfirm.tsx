@@ -1,7 +1,5 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/layout/Header/Header';
-import Main from '../../components/layout/Main/Main';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
 import {
   backButton,
   backImg,
@@ -14,24 +12,33 @@ import {
   labelText,
   deliveryText,
 } from './OrderConfirm.style';
-import Button from '../../components/Common/Button/Button';
-import { Footer } from '../../components/layout/Footer/Footer';
-import { SelectedCartProductContainer } from '../../components/CartItem/SelectedCartProductContainer/SelectedCartProductContainer';
-import { CheckBox } from '../../components/Common/CheckBox/CheckBox';
-import { useState } from 'react';
-import { PaymentSummary } from '../../components/Payment/PaymentSummary/PaymentSummary';
+import {
+  Button,
+  Footer,
+  Header,
+  Main,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  CheckBox,
+  PaymentSummary,
+  CouponModalContent,
+  SelectedCartProductContainer,
+  PageLayout,
+} from '../../components';
 import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
-import { getCartItemSummary } from '../../utils/getCartItemSummary';
-import { Modal } from '../../components/Common/Modal/Modal';
-import ModalContent from '../../components/Common/ModalContent/ModalContent';
-import { ModalOverlay } from '../../components/Common/ModalOverlay/ModalOverlay';
-import { CouponModalContent } from '../../components/CouponModal/CouponModalContent/CouponModalContent';
-import useFetchCoupons from '../../hooks/useFetchCoupons';
-import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
-import { getDeliveryFee } from '../../utils/getDeliveryFee';
-import { useCouponSelection } from '../../hooks/useCouponSelection';
-import useCouponUI from '../../hooks/useCouponUI';
-import useSelectedCartItems from '../../hooks/useSelectedCartItems';
+import {
+  getCartItemSummary,
+  calculateCouponPrice,
+  getDeliveryFee,
+} from '../../utils';
+
+import {
+  useFetchCoupons,
+  useCouponSelection,
+  useCouponUI,
+  useSelectedCartItems,
+} from '../../hooks';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
 const DELIVERY_FREE_COUPON_ID = '3';

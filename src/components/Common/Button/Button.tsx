@@ -14,7 +14,7 @@ interface ButtonProps
   customCss?: SerializedStyles;
 }
 
-export default function Button({
+export function Button({
   onClick,
   children,
   style = 'primary',

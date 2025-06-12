@@ -6,11 +6,9 @@ interface ModalContentProps {
   customCss?: SerializedStyles;
 }
 
-function ModalContent({
+export function ModalContent({
   children,
   customCss,
 }: PropsWithChildren<ModalContentProps>) {
   return <div css={[contentLayout, customCss]}>{children}</div>;
 }
-
-export default ModalContent;

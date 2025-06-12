@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import Header from '../../components/layout/Header/Header';
-import Main from '../../components/layout/Main/Main';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
+import { css } from '@emotion/react';
+import { Button, Footer, Header, Main, PageLayout } from '../../components';
 import {
   bodyText,
   confirmLayout,
@@ -10,9 +9,6 @@ import {
   totalPriceBox,
   bodyTextBox,
 } from './Confirm.style';
-import Button from '../../components/Common/Button/Button';
-import { css } from '@emotion/react';
-import { Footer } from '../../components/layout/Footer/Footer';
 
 export function Confirm() {
   const { state } = useLocation();

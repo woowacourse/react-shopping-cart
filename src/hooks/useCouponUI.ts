@@ -1,7 +1,5 @@
-import { calculateCouponPrice } from '../utils/calculateCouponPrice';
-import { isCouponDisabled } from '../utils/isCouponDisabled';
-import { Coupon } from '../types/coupon';
-import { CartItemTypes } from '../types/cartItem';
+import { calculateCouponPrice, isCouponDisabled } from '../utils';
+import { Coupon, CartItemTypes } from '../types';
 
 interface useCouponUIProps {
   coupons: Coupon[];
@@ -10,7 +8,7 @@ interface useCouponUIProps {
   deliveryFee: number;
 }
 
-function useCouponUI({
+export function useCouponUI({
   coupons,
   selectedCouponIds,
   selectedCartItems,
@@ -33,5 +31,3 @@ function useCouponUI({
     couponWithDisabled,
   };
 }
-
-export default useCouponUI;

@@ -1,17 +1,13 @@
 import deleteShoppingCart from '../../../api/deleteShoppingCart';
 import { CartItemTypes } from '../../../types/cartItem';
-import Button from '../../Common/Button/Button';
-import { CartProduct } from '../CartProduct/CartProduct';
-import { CheckBox } from '../../Common/CheckBox/CheckBox';
-import { Line } from '../../Common/Line/Line';
+import { Button, CheckBox, Line, CartProduct } from '../../../components';
+import { CartItemHeader, SelectAllLayout } from './CartProductContainer.style';
+import { SELECTED_CART_ITEM_IDS, setItem } from '../../../utils/localStorage';
 import {
   CartItemBox,
-  CartItemHeader,
   CartProductContainerLayout,
   CartProductList,
-  SelectAllLayout,
-} from './CartProductContainer.style';
-import { SELECTED_CART_ITEM_IDS, setItem } from '../../../utils/localStorage';
+} from '../SelectedCartProductContainer';
 
 interface CartProductContainerProps {
   cartItems: CartItemTypes[];
@@ -22,7 +18,7 @@ interface CartProductContainerProps {
   isFetching: boolean;
 }
 
-export default function CartProductContainer({
+export function CartProductContainer({
   cartItems,
   onChange,
   onError,

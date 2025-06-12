@@ -1,5 +1,5 @@
-import { bodyLayout } from "./Main.style";
+import { bodyLayout } from './Main.style';
 
-export default function Main({ children }: { children: React.ReactNode }) {
+export function Main({ children }: { children: React.ReactNode }) {
   return <main css={bodyLayout}>{children}</main>;
 }

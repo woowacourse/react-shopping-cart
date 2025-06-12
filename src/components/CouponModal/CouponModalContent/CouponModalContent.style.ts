@@ -5,23 +5,6 @@ const title = css`
   font-size: 18px;
 `;
 
-const imgLayout = css`
-  width: 16px;
-  height: 16px;
-`;
-
-const deliveryInfo = css`
-  font-weight: 500;
-  font-size: 12px;
-`;
-
-const deliveryInfoBox = css`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 32px;
-`;
-
 const couponList = css`
   margin-top: 16px;
 `;
@@ -44,13 +27,4 @@ const closeImgLayout = css`
   height: 14px;
 `;
 
-export {
-  title,
-  imgLayout,
-  deliveryInfo,
-  deliveryInfoBox,
-  couponList,
-  headLayout,
-  closeButton,
-  closeImgLayout,
-};
+export { title, couponList, headLayout, closeButton, closeImgLayout };

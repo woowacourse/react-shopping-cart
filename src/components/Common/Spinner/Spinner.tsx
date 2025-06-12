@@ -5,6 +5,6 @@ interface SpinnerProps {
   color?: string;
 }
 
-export default function Spinner({ size = 24, color = 'black' }: SpinnerProps) {
+export function Spinner({ size = 24, color = 'black' }: SpinnerProps) {
   return <div css={spinnerLayout(size, color)} />;
 }

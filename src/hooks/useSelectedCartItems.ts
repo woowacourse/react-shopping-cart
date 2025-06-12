@@ -1,7 +1,7 @@
 import { useCartItemsContext } from '../components/Common/CartItemsProvider/CartItemsProvider';
-import { getItem, SELECTED_CART_ITEM_IDS } from '../utils/localStorage';
+import { getItem, SELECTED_CART_ITEM_IDS } from '../utils';
 
-function useSelectedCartItems() {
+export function useSelectedCartItems() {
   const { cartItems } = useCartItemsContext();
 
   const selectedCartItemIds = getItem<string[]>(SELECTED_CART_ITEM_IDS, []);
@@ -21,5 +21,3 @@ function useSelectedCartItems() {
     selectedCartItemsTotalQuantity,
   };
 }
-
-export default useSelectedCartItems;

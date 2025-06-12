@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Coupon } from '../types/coupon';
 import getCoupons from '../api/getCoupon';
 
-function useFetchCoupons() {
+export function useFetchCoupons() {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,5 +31,3 @@ function useFetchCoupons() {
 
   return { coupons, error, isLoading, isFetching, setError };
 }
-
-export default useFetchCoupons;

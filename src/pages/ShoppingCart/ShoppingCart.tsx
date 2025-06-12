@@ -1,26 +1,30 @@
 import { useEffect, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Common/Button/Button';
-import CartProductContainer from '../../components/CartItem/CartProductContainer/CartProductContainer';
-import { EmptyShoppingCart } from '../../components/CartItem/EmptyShoppingCart/EmptyShoppingCart';
-import Header from '../../components/layout/Header/Header';
-import Main from '../../components/layout/Main/Main';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PaymentSummary } from '../../components/Payment/PaymentSummary/PaymentSummary';
-import Toast from '../../components/Common/Toast/Toast';
+import {
+  Button,
+  CartProductContainer,
+  EmptyShoppingCart,
+  Header,
+  Main,
+  PageLayout,
+  PaymentSummary,
+  Toast,
+  Spinner,
+  Footer,
+} from '../../components';
 import {
   subTitleStyle,
   titleBox,
   titleStyle,
   spinnerWrapper,
 } from './ShoppingCart.style';
-import { Footer } from '../../components/layout/Footer/Footer';
-import { getCartItemSummary } from '../../utils/getCartItemSummary';
-import Spinner from '../../components/Common/Spinner/Spinner';
-import { setItem, SELECTED_CART_ITEM_IDS } from '../../utils/localStorage';
+import {
+  getCartItemSummary,
+  setItem,
+  SELECTED_CART_ITEM_IDS,
+  getDeliveryFee,
+} from '../../utils';
 import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
-import { getDeliveryFee } from '../../utils/getDeliveryFee';
 
 export function ShoppingCart() {
   const navigate = useNavigate();

@@ -1,17 +1,14 @@
 import {
   title,
-  imgLayout,
-  deliveryInfo,
-  deliveryInfoBox,
   couponList,
   headLayout,
   closeButton,
   closeImgLayout,
 } from './CouponModalContent.style';
-import Button from '../../Common/Button/Button';
+import { Button, CouponItem } from '../../../components';
 import { css } from '@emotion/react';
-import { CouponItem } from '../CouponItem/CouponItem';
 import { Coupon } from '../../../types/coupon';
+import { deliveryInfo, deliveryInfoBox, imgLayout } from '../../Payment';
 
 interface CouponModalContentProps {
   handleUseClick: () => void;
