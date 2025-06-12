@@ -1,17 +1,4 @@
-// export const getLocalStorage = (key: string) => {
-//   const data = localStorage.getItem(key);
-//   return data ? JSON.parse(data) : [];
-// };
-
 import { CartItemProps } from '../types/cartItem';
-
-// export const setLocalStorage = (key: string, value: any) => {
-//   localStorage.setItem(key, JSON.stringify(value));
-// };
-
-// export const removeLocalStorage = (key: string) => {
-//   localStorage.removeItem(key);
-// };
 
 export const createStorage = <T>(
   key: string,
