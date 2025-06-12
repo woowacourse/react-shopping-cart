@@ -1,11 +1,11 @@
 import { CartItemWithSelection } from "../../cart/types/response";
 import { Coupon } from "../types/response";
-import { calculateDiscountChain } from "../calculations/combined/calculateDiscountChain";
+import { calculateDiscountSequence } from "../calculations/combined/calculateDiscountSequence";
 import { calculateCouponDiscount } from "../calculations/combined/calculateCouponDiscount";
 
 jest.mock("../calculations/combined/calculateCouponDiscount");
 
-describe("calculateDiscountChain 함수 테스트", () => {
+describe("calculateDiscountSequence 함수 테스트", () => {
   const orderPrice = 100000;
   const shippingFee = 3000;
 
@@ -73,9 +73,8 @@ describe("calculateDiscountChain 함수 테스트", () => {
       .mockReturnValueOnce(10000) // 첫 번째 호출에서 10000원 할인
       .mockReturnValueOnce(18000); // 두 번째 호출에서 18000원 할인 (90000원의 20%)
 
-    const totalDiscount = calculateDiscountChain(
-      fixedCoupon,
-      percentCoupon,
+    const totalDiscount = calculateDiscountSequence(
+      [fixedCoupon, percentCoupon],
       mockItems,
       orderPrice,
       shippingFee
@@ -107,9 +106,8 @@ describe("calculateDiscountChain 함수 테스트", () => {
       .mockReturnValueOnce(3000) // 첫 번째 호출에서 3000원(배송비) 할인
       .mockReturnValueOnce(20000); // 두 번째 호출에서 20000원 할인
 
-    const totalDiscount = calculateDiscountChain(
-      shippingCoupon,
-      percentCoupon,
+    const totalDiscount = calculateDiscountSequence(
+      [shippingCoupon, percentCoupon],
       mockItems,
       orderPrice,
       shippingFee
@@ -150,9 +148,8 @@ describe("calculateDiscountChain 함수 테스트", () => {
       .mockReturnValueOnce(100000) // 첫 번째 호출에서 주문 금액 전체 할인
       .mockReturnValueOnce(0); // 두 번째 호출에서 0원 할인
 
-    const totalDiscount = calculateDiscountChain(
-      hugeCoupon,
-      percentCoupon,
+    const totalDiscount = calculateDiscountSequence(
+      [hugeCoupon, percentCoupon],
       mockItems,
       orderPrice,
       shippingFee

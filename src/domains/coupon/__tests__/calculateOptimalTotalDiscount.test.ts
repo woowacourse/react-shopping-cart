@@ -1,11 +1,11 @@
 import { CartItemWithSelection } from "../../cart/types/response";
 import { calculateCouponDiscount } from "../calculations/combined/calculateCouponDiscount";
-import { calculateDiscountChain } from "../calculations/combined/calculateDiscountChain";
+import { calculateDiscountSequence } from "../calculations/combined/calculateDiscountSequence";
 import { calculateOptimalTotalDiscount } from "../calculations/combined/calculateOptimalTotalDiscount";
 import { Coupon } from "../types/response";
 
 jest.mock("../calculations/combined/calculateCouponDiscount");
-jest.mock("../calculations/combined/calculateDiscountChain");
+jest.mock("../calculations/combined/calculateDiscountSequence");
 
 describe("calculateOptimalTotalDiscount 함수 테스트", () => {
   const orderPrice = 100000;
@@ -80,7 +80,7 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
 
     expect(result).toBe(0);
     expect(calculateCouponDiscount).not.toHaveBeenCalled();
-    expect(calculateDiscountChain).not.toHaveBeenCalled();
+    expect(calculateDiscountSequence).not.toHaveBeenCalled();
   });
 
   it("쿠폰이 1개인 경우 calculateCouponDiscount를 호출한다", () => {
@@ -99,12 +99,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       orderPrice,
       shippingFee
     );
-    expect(calculateDiscountChain).not.toHaveBeenCalled();
+    expect(calculateDiscountSequence).not.toHaveBeenCalled();
     expect(result).toBe(10000);
   });
 
-  it("쿠폰이 2개인 경우 두 가지 순서로 calculateDiscountChain을 호출하고 더 큰 할인을 선택한다 (AB > BA)", () => {
-    (calculateDiscountChain as jest.Mock)
+  it("쿠폰이 2개인 경우 두 가지 순서로 calculateDiscountSequence을 호출하고 더 큰 할인을 선택한다 (AB > BA)", () => {
+    (calculateDiscountSequence as jest.Mock)
       .mockReturnValueOnce(25000) // A -> B 순서 (25000원 할인)
       .mockReturnValueOnce(20000); // B -> A 순서 (20000원 할인)
 
@@ -115,19 +115,17 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee
     );
 
-    expect(calculateDiscountChain).toHaveBeenNthCalledWith(
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
       1,
-      fixedCoupon,
-      percentCoupon,
+      [fixedCoupon, percentCoupon],
       mockItems,
       orderPrice,
       shippingFee
     );
 
-    expect(calculateDiscountChain).toHaveBeenNthCalledWith(
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
       2,
-      percentCoupon,
-      fixedCoupon,
+      [percentCoupon, fixedCoupon],
       mockItems,
       orderPrice,
       shippingFee
@@ -136,8 +134,8 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
     expect(result).toBe(25000);
   });
 
-  it("쿠폰이 2개인 경우 두 가지 순서로 calculateDiscountChain을 호출하고 더 큰 할인을 선택한다 (BA > AB)", () => {
-    (calculateDiscountChain as jest.Mock)
+  it("쿠폰이 2개인 경우 두 가지 순서로 calculateDiscountSequence을 호출하고 더 큰 할인을 선택한다 (BA > AB)", () => {
+    (calculateDiscountSequence as jest.Mock)
       .mockReturnValueOnce(18000) // A -> B 순서 (18000원 할인)
       .mockReturnValueOnce(23000); // B -> A 순서 (23000원 할인)
 
@@ -148,19 +146,17 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee
     );
 
-    expect(calculateDiscountChain).toHaveBeenNthCalledWith(
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
       1,
-      fixedCoupon,
-      percentCoupon,
+      [fixedCoupon, percentCoupon],
       mockItems,
       orderPrice,
       shippingFee
     );
 
-    expect(calculateDiscountChain).toHaveBeenNthCalledWith(
+    expect(calculateDiscountSequence).toHaveBeenNthCalledWith(
       2,
-      percentCoupon,
-      fixedCoupon,
+      [percentCoupon, fixedCoupon],
       mockItems,
       orderPrice,
       shippingFee
@@ -170,7 +166,7 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
   });
 
   it("쿠폰이 2개이고 할인 금액이 같은 경우 해당 할인 금액을 반환한다", () => {
-    (calculateDiscountChain as jest.Mock)
+    (calculateDiscountSequence as jest.Mock)
       .mockReturnValueOnce(15000) // A -> B 순서 (15000원 할인)
       .mockReturnValueOnce(15000); // B -> A 순서 (15000원 할인)
 
@@ -181,7 +177,7 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee
     );
 
-    expect(calculateDiscountChain).toHaveBeenCalledTimes(2);
+    expect(calculateDiscountSequence).toHaveBeenCalledTimes(2);
     expect(result).toBe(15000);
   });
 
@@ -194,7 +190,7 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
     );
 
     expect(calculateCouponDiscount).not.toHaveBeenCalled();
-    expect(calculateDiscountChain).not.toHaveBeenCalled();
+    expect(calculateDiscountSequence).not.toHaveBeenCalled();
     expect(result).toBe(0);
   });
 });

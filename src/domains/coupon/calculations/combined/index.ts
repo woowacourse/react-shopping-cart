@@ -1,3 +1,3 @@
 export * from "./calculateCouponDiscount";
-export * from "./calculateDiscountChain";
+export * from "./calculateDiscountSequence";
 export * from "./calculateOptimalTotalDiscount";

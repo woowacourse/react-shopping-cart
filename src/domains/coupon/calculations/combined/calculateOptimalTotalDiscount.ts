@@ -1,7 +1,7 @@
 import { CartItemWithSelection } from "../../../cart/types/response";
 import { Coupon } from "../../types/response";
 import { calculateCouponDiscount } from "./calculateCouponDiscount";
-import { calculateDiscountChain } from "./calculateDiscountChain";
+import { calculateDiscountSequence } from "./calculateDiscountSequence";
 
 export const calculateOptimalTotalDiscount = (
   coupons: Coupon[],
@@ -21,16 +21,14 @@ export const calculateOptimalTotalDiscount = (
   if (coupons.length === 2) {
     const [couponA, couponB] = coupons;
 
-    const discountAB = calculateDiscountChain(
-      couponA,
-      couponB,
+    const discountAB = calculateDiscountSequence(
+      [couponA, couponB],
       orderItems,
       orderPrice,
       shippingFee
     );
-    const discountBA = calculateDiscountChain(
-      couponB,
-      couponA,
+    const discountBA = calculateDiscountSequence(
+      [couponB, couponA],
       orderItems,
       orderPrice,
       shippingFee
