@@ -7,6 +7,7 @@ import { useCoupons } from "../hooks/useCoupons";
 import { useSelectedCoupons } from "../hooks/useSelectedCoupons";
 import { useTwoPlusOneApplicableItems } from "../hooks/useTwoPlusOneApplicableItems";
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
+import { getValidCoupon } from "../utils/getValidCoupon";
 
 interface CouponModalProps {
   isModalOpen: boolean;
@@ -25,7 +26,7 @@ export function CouponModal({
   cartItems,
   setReceivedDiscountedPrice,
 }: CouponModalProps) {
-  const { isValidCoupon, coupons } = useCoupons();
+  const { coupons } = useCoupons();
   const twoPlusOneApplicableItems = useTwoPlusOneApplicableItems({ cartItems });
   const { selectedCoupons, handleCouponSelect, discountedPrice } =
     useSelectedCoupons({
@@ -51,9 +52,10 @@ export function CouponModal({
         <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
         <CouponList
           handleCouponSelect={handleCouponSelect}
-          isValidCoupon={isValidCoupon({
+          isValidCoupon={getValidCoupon({
             orderPrice,
             twoPlusOneApplicableItems,
+            coupons,
           })}
           selectedCoupons={selectedCoupons}
           coupons={coupons}
