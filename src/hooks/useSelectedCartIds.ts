@@ -28,10 +28,10 @@ const useSelectedCartIds = (cartItemsData: CartItem[]) => {
   const handleSelectAllCartItems = useCallback(
     (isAllSelected: boolean) => {
       if (isAllSelected) {
-        setSelectedCartIds([]);
-      } else {
         const allIds = cartItemsData.map((item) => item.id);
         setSelectedCartIds(allIds);
+      } else {
+        setSelectedCartIds([]);
       }
     },
     [cartItemsData]

@@ -15,7 +15,7 @@ function AllCheckBox({
   return (
     <Styled.AllSelectWrapper>
       <Styled.SelectButton
-        onClick={() => handleToggleAllSelection(isAllSelected)}
+        onClick={() => handleToggleAllSelection(!isAllSelected)}
         type="button"
         aria-label={isAllSelected ? "전체 선택 해제" : "전체 선택"}
       >
