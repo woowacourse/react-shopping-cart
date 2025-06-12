@@ -1,106 +1,94 @@
 import { CartItemCheckType } from "../../hooks/useCartAPI";
 import { Coupon } from "../../types/response";
-import getCurrentTime, { CurrentTime } from "../getCurrentTIme";
+import getCurrentTime from "../getCurrentTime";
 
-const isExpired = (
-  expirationDate: string,
-  currentTime: Omit<CurrentTime, "currentHour">
-): boolean => {
-  const { currentYear, currentMonth, currentDate } = currentTime;
-
-  const [yearStr, monthStr, dayStr] = expirationDate.split("-");
-  const year = Number(yearStr);
-  const month = Number(monthStr);
-  const day = Number(dayStr);
-
-  if (year < currentYear) return true;
-  if (year === currentYear && month < currentMonth) return true;
-  if (year === currentYear && month === currentMonth && day < currentDate)
-    return true;
-
-  return false;
+const isExpired = (expirationDate: string, now: Date): boolean => {
+  return new Date(expirationDate) < now;
 };
 
-const isMorningTime = (
-  availableTime: { start: string; end: string },
+const isValidTime = (
+  availableTime: { start: string; end: string } | undefined,
   currentHour: number
-) => {
+): boolean => {
+  if (!availableTime) return true;
+
   const [startHour] = availableTime.start.split(":").map(Number);
   const [endHour] = availableTime.end.split(":").map(Number);
 
   return currentHour >= startHour && currentHour < endHour;
 };
 
-const isMoreThanMinimumAmount = (minimumAmount: number, orderPrice: number) => {
+const isValidMinAmount = (
+  minimumAmount: number | undefined,
+  orderPrice: number
+): boolean => {
   if (!minimumAmount) return true;
-
   return minimumAmount <= orderPrice;
+};
+
+const isValidFreeShipping = (coupon: Coupon, orderPrice: number): boolean => {
+  if (coupon.discountType !== "freeShipping") return false;
+  return isValidMinAmount(coupon.minimumAmount, orderPrice);
+};
+
+const isValidBuyXGetY = (
+  coupon: Coupon,
+  cartItemsCheckData: CartItemCheckType[]
+): boolean => {
+  const { buyQuantity, getQuantity } = coupon;
+
+  if (!buyQuantity || !getQuantity) return false;
+
+  return cartItemsCheckData.some(
+    (item) => item.quantity === buyQuantity + getQuantity
+  );
+};
+
+const isValidDiscountType = (
+  coupon: Coupon,
+  orderPrice: number,
+  cartItemsCheckData: CartItemCheckType[]
+): boolean => {
+  const { discountType } = coupon;
+
+  switch (discountType) {
+    case "fixed":
+    case "percentage":
+      return isValidMinAmount(coupon.minimumAmount, orderPrice);
+
+    case "freeShipping":
+      return isValidFreeShipping(coupon, orderPrice);
+
+    case "buyXgetY":
+      return isValidBuyXGetY(coupon, cartItemsCheckData);
+
+    default:
+      return false;
+  }
 };
 
 export const isFreeShippingAvailable = (
   coupon: Coupon,
   orderPrice: number
 ): boolean => {
-  if (coupon.discountType !== "freeShipping") return false;
-
-  const { minimumAmount } = coupon;
-  return minimumAmount ? orderPrice >= minimumAmount : true;
+  return isValidFreeShipping(coupon, orderPrice);
 };
 
 export const isCouponAvailable = (
   cartItemsCheckData: CartItemCheckType[],
   coupon: Coupon,
   orderPrice: number
-) => {
-  const {
-    expirationDate,
-    availableTime,
-    discountType,
-    buyQuantity,
-    getQuantity,
-  } = coupon;
+): boolean => {
+  const { expirationDate, availableTime } = coupon;
+  const { currentHour } = getCurrentTime();
+  const now = new Date();
 
-  const { currentYear, currentMonth, currentDate, currentHour } =
-    getCurrentTime();
+  if (isExpired(expirationDate, now)) return false;
 
-  const notExpired = !isExpired(expirationDate, {
-    currentYear,
-    currentMonth,
-    currentDate,
-  });
+  if (!isValidTime(availableTime, currentHour)) return false;
 
-  if (!notExpired) return false;
-
-  switch (discountType) {
-    case "fixed":
-    case "percentage":
-      if (
-        coupon.minimumAmount !== undefined &&
-        !isMoreThanMinimumAmount(Number(coupon.minimumAmount), orderPrice)
-      ) {
-        return false;
-      }
-      break;
-
-    case "freeShipping":
-      if (!isFreeShippingAvailable(coupon, orderPrice)) return false;
-      break;
-    case "buyXgetY": {
-      if (!buyQuantity || !getQuantity) return false;
-
-      const hasEligibleItems = cartItemsCheckData.some(
-        (item) => item.quantity === buyQuantity + getQuantity
-      );
-
-      if (!hasEligibleItems) return false;
-      break;
-    }
-    default:
-      return false;
-  }
-
-  if (availableTime && !isMorningTime(availableTime, currentHour)) {
+  if (!isValidDiscountType(coupon, orderPrice, cartItemsCheckData))
     return false;
-  }
+
   return true;
 };
