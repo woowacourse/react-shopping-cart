@@ -1,43 +1,32 @@
 import { CouponResponse } from "../../../../../type/coupon";
 import { CartProduct } from "../../../../../type/cart";
 import { getDeliveryPrice } from "../../../CartSection/PriceSection/utils";
-import { getSelectedCartItems } from "../../../CartSection/utils/getSelectedCartItems";
-import { getSelectedCoupons } from "./getSelectedCoupons";
+import { getPrice } from "../../../CartSection/PriceSection/utils";
 
 export const getTotalDiscount = ({
-  coupons,
-  selectedCouponIds,
-  cartItems,
-  selectedCartIds,
-  totalPrice,
+  appliedCoupons,
+  orderItems,
   isRemoteArea,
 }: {
-  coupons: CouponResponse[];
-  selectedCouponIds: number[];
-  cartItems: CartProduct[];
-  selectedCartIds: number[];
-  totalPrice: number;
+  appliedCoupons: CouponResponse[];
+  orderItems: CartProduct[];
   isRemoteArea: boolean;
 }) => {
-  return getSelectedCoupons(coupons, selectedCouponIds).reduce(
-    (total, current) => {
-      return (total += calculateDiscount(
-        getSelectedCartItems(cartItems, selectedCartIds),
-        current,
-        totalPrice,
-        isRemoteArea
-      ));
-    },
-    0
-  );
+  return appliedCoupons.reduce((total, current) => {
+    return (total += calculateDiscount(orderItems, current, isRemoteArea));
+  }, 0);
 };
 
 export const calculateDiscount = (
   selectedCartItems: CartProduct[],
   coupon: CouponResponse,
-  totalPrice: number,
   isRemoteArea: boolean
 ) => {
+  const { totalPrice } = getPrice({
+    items: selectedCartItems,
+    isRemoteArea,
+    discount: 0,
+  });
   switch (coupon.discountType) {
     case "fixed":
       return coupon.discount;

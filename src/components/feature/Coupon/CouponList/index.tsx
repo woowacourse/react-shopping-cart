@@ -8,6 +8,8 @@ import { getTotalDiscount } from "./utils/calculate";
 import { getValidCoupons } from "./utils/validate";
 import useSelectedCouponIds from "../../../../hooks/useSelectedCouponIds";
 import { MAX_COUPON_COUNT } from "../../../../pages/OrderConfirm/constant";
+import { getSelectedCoupons } from "./utils/getSelectedCoupons";
+import { getSelectedCartItems } from "../../CartSection/utils/getSelectedCartItems";
 
 interface Props {
   coupons: CouponResponse[];
@@ -27,13 +29,12 @@ const CouponList = ({
   onApplyDiscount,
 }: Props) => {
   const { selectedCouponIds, handleSelectCoupon } = useSelectedCouponIds();
+  const appliedCoupons = getSelectedCoupons(coupons, selectedCouponIds);
+  const orderItems = getSelectedCartItems(cartItems, selectedCartIds);
 
   const totalDiscount = getTotalDiscount({
-    coupons,
-    selectedCouponIds,
-    cartItems,
-    selectedCartIds,
-    totalPrice,
+    appliedCoupons,
+    orderItems,
     isRemoteArea,
   });
 

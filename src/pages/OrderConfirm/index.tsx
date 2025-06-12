@@ -13,6 +13,7 @@ import { useState } from "react";
 import { getSelectedCartItems } from "../../components/feature/CartSection/utils/getSelectedCartItems";
 import useAppliedCoupons from "../../hooks/useAppliedCoupons";
 import { getTotalDiscount } from "../../components/feature/Coupon/CouponList/utils/calculate";
+import { getSelectedCoupons } from "../../components/feature/Coupon/CouponList/utils/getSelectedCoupons";
 
 const OrderConfirm = () => {
   const { appliedCouponIds, handleApplyCoupon } = useAppliedCoupons();
@@ -30,16 +31,14 @@ const OrderConfirm = () => {
 
   if (!coupons) return null;
 
+  const appliedCoupons = getSelectedCoupons(coupons, appliedCouponIds);
+  const orderItems = getSelectedCartItems(cartItems, selectedCartIds);
+
   const discount = getTotalDiscount({
-    coupons,
-    selectedCouponIds: appliedCouponIds,
-    cartItems,
-    selectedCartIds,
-    totalPrice,
+    appliedCoupons,
+    orderItems,
     isRemoteArea: isRemoteAreaChecked,
   });
-
-  const orderItems = getSelectedCartItems(cartItems, selectedCartIds);
 
   return (
     <>
