@@ -4,7 +4,7 @@ import { useCartItemsContext } from './useCartItemsContext';
 
 interface SelectedCartItemsContextType {
   selectedCartItems: CartItem[];
-  addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
+  addSelectedCartItem: (item: CartItem) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
 }
@@ -36,8 +36,8 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
     );
   }, [cartItems]);
 
-  const addSelectedCartItem = (cartItem: CartItem, updatedQuantity: number) => {
-    setSelectedCartItems((prevItems) => [...prevItems, { ...cartItem, quantity: updatedQuantity }]);
+  const addSelectedCartItem = (cartItem: CartItem) => {
+    setSelectedCartItems((prevItems) => [...prevItems, cartItem]);
   };
 
   const removeSelectedCartItem = (cartItem: CartItem) => {

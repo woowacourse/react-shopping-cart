@@ -15,7 +15,7 @@ export const useCartItemActions = (cartItem: CartItem) => {
       removeSelectedCartItem(cartItem);
       return;
     }
-    addSelectedCartItem(cartItem, cartItem.quantity);
+    addSelectedCartItem(cartItem);
   };
 
   const handleCartItemDelete = async () => {
