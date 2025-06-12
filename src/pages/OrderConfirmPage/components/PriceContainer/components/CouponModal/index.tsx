@@ -6,20 +6,35 @@ import CheckBox from "../../../../../../components/common/CheckBox";
 import Button from "../../../../../../components/common/Button";
 import CouponSummary from "../../../../utils/CouponSummary";
 import { Modal } from "@seo_dev/react-modal";
-import { OrderPageState } from "../../../../types";
 import { useCouponModal } from "./hooks/useCouponModal";
+import { CouponData, OrderCalculationResult, OrderItem } from "../../../../types";
 
 interface orderStateProps {
-  orderState: OrderPageState;
+  isIsolatedAreaSelected: boolean;
+  selectedCouponIds: number[];
+  orderItems: OrderItem[];
+  availableCoupons: CouponData[];
+  canSelectMore: boolean;
+  toggleCoupon: (couponId: number) => void;
+  calculation: OrderCalculationResult;
   onClose: () => void;
 }
 
-const CouponModal = ({ onClose, orderState }: orderStateProps) => {
+const CouponModal = ({
+  onClose,
+  isIsolatedAreaSelected,
+  selectedCouponIds,
+  orderItems,
+  availableCoupons,
+  canSelectMore,
+  toggleCoupon,
+  calculation,
+}: orderStateProps) => {
   const { couponStates } = useCouponModal({
-    coupons: orderState.availableCoupons,
-    orderItems: orderState.orderItems,
-    selectedCouponIds: orderState.selectedCouponIds,
-    isIsolatedAreaSelected: orderState.isIsolatedAreaSelected,
+    coupons: availableCoupons,
+    orderItems: orderItems,
+    selectedCouponIds: selectedCouponIds,
+    isIsolatedAreaSelected: isIsolatedAreaSelected,
   });
   return (
     <Modal onClose={onClose}>
@@ -41,12 +56,12 @@ const CouponModal = ({ onClose, orderState }: orderStateProps) => {
           <S.CouponList>
             {couponStates.map(({ coupon, isSelected, isUsable }) => {
               const { id, description } = coupon;
-              const canSelect = orderState.canSelectMore || isSelected;
+              const canSelect = canSelectMore || isSelected;
               const finalEnabled = isUsable && canSelect;
 
               return (
                 <S.CouponCard key={id} isUsable={finalEnabled}>
-                  <CheckBox isChecked={isSelected} onClick={() => finalEnabled && orderState.toggleCoupon(id)}>
+                  <CheckBox isChecked={isSelected} onClick={() => finalEnabled && toggleCoupon(id)}>
                     <Text variant="title-2">{description}</Text>
                   </CheckBox>
                   <CouponSummary coupon={coupon} />
@@ -56,8 +71,8 @@ const CouponModal = ({ onClose, orderState }: orderStateProps) => {
           </S.CouponList>
         </S.ModalMiddle>
         <Button variant="primary" size="full" radius={8} onClick={onClose}>
-          {orderState.calculation.couponDiscount > 0
-            ? `총 ${orderState.calculation.couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`
+          {calculation.couponDiscount > 0
+            ? `총 ${calculation.couponDiscount.toLocaleString()}원 할인 쿠폰 사용하기`
             : "쿠폰 선택하기"}
         </Button>
       </S.StyledModalContent>

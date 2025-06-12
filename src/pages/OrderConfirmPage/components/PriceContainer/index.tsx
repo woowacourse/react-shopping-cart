@@ -8,17 +8,16 @@ import { useOrderState } from "./hooks/useOrderState";
 import { OrderItem } from "../../types";
 
 const PriceContainer = ({ orderItems }: { orderItems: OrderItem[] }) => {
-  const { isIsolatedAreaSelected, toggleIsolatedArea, calculation, availableCoupons, selectedCouponIds, toggleCoupon } =
-    useOrderState({ orderItems });
-  const [isOpen, setIsOpen] = useState(false);
-  const orderState = {
+  const {
     isIsolatedAreaSelected,
-    selectedCouponIds,
-    orderItems,
-    availableCoupons,
+    toggleIsolatedArea,
     calculation,
+    availableCoupons,
+    selectedCouponIds,
     toggleCoupon,
-  };
+    canSelectMore,
+  } = useOrderState({ orderItems });
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Button variant="secondary" size="full" onClick={() => setIsOpen((prev) => !prev)}>
@@ -27,7 +26,18 @@ const PriceContainer = ({ orderItems }: { orderItems: OrderItem[] }) => {
       <DeliveryOptions isIsolatedAreaSelected={isIsolatedAreaSelected} onToggleIsolatedArea={toggleIsolatedArea} />
       <PaymentPriceList calculation={calculation} />
       <PaymentButton orderItems={orderItems} />
-      {isOpen && <CouponModal onClose={() => setIsOpen(false)} orderState={orderState} />}
+      {isOpen && (
+        <CouponModal
+          onClose={() => setIsOpen(false)}
+          orderItems={orderItems}
+          isIsolatedAreaSelected={isIsolatedAreaSelected}
+          selectedCouponIds={selectedCouponIds}
+          availableCoupons={availableCoupons}
+          canSelectMore={canSelectMore}
+          toggleCoupon={toggleCoupon}
+          calculation={calculation}
+        />
+      )}
     </>
   );
 };
