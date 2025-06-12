@@ -31,7 +31,7 @@ import useFetchCoupons from '../../hooks/useFetchCoupons';
 import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
 import { getDeliveryFee } from '../../utils/getDeliveryFee';
 import { useCouponSelection } from '../../hooks/useCouponSelection';
-import { isCouponDisabled } from '../../utils/isCouponDisabled';
+import useCouponUI from '../../hooks/useCouponUI';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
 const DELIVERY_FREE_COUPON_ID = '3';
@@ -89,6 +89,16 @@ export function OrderConfirm() {
     setFinalSelectedCouponIds(selectedCouponIds);
   };
 
+  const handlePaymentClick = () => {
+    navigate('/payment-confirm', {
+      state: {
+        selectedItemGroupCount: selectedCartItemIds.length,
+        selectedCartItem: selectedCartItems.reduce((a, b) => a + b.quantity, 0),
+        totalPrice: totalPrice - couponDiscountAmount + deliveryFee,
+      },
+    });
+  };
+
   const { totalPrice } = getCartItemSummary(
     cartItems,
     selectedCartItemIds.map(String)
@@ -110,27 +120,12 @@ export function OrderConfirm() {
     nowDate: new Date(),
   });
 
-  const couponPrice = calculateCouponPrice({
-    couponIds: selectedCouponIds,
+  const { couponPrice, couponWithDisabled } = useCouponUI({
     coupons,
+    selectedCouponIds,
     selectedCartItems,
     deliveryFee,
-    nowDate: new Date(),
   });
-
-  const couponWithDisabled = coupons.map((coupon) =>
-    isCouponDisabled(coupon, selectedCartItems, deliveryFee)
-  );
-
-  const handlePaymentClick = () => {
-    navigate('/payment-confirm', {
-      state: {
-        selectedItemGroupCount: selectedCartItemIds.length,
-        selectedCartItem: selectedCartItems.reduce((a, b) => a + b.quantity, 0),
-        totalPrice: totalPrice - couponDiscountAmount + deliveryFee,
-      },
-    });
-  };
 
   return (
     <>
