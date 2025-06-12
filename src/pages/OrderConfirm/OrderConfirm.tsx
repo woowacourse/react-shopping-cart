@@ -33,6 +33,7 @@ import {
   useFetchCoupons,
   useCouponSelection,
   useSelectedCartItems,
+  useModal,
 } from '../../hooks';
 import { getOrderCalculationData, getCouponUIData } from '../../domain';
 
@@ -46,9 +47,9 @@ export function OrderConfirm() {
     selectedCartItems,
     selectedCartItemsTotalQuantity,
   } = useSelectedCartItems();
+  const { isOpen, handleOpen, handleClose } = useModal();
 
   const [isChecked, setIsChecked] = useState(false);
-  const [open, setOpen] = useState(false);
   const [finalSelectedCouponIds, setFinalSelectedCouponIds] = useState<
     string[]
   >([]);
@@ -82,12 +83,8 @@ export function OrderConfirm() {
     navigate(-1);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleUseClick = () => {
-    setOpen(false);
+    handleClose();
     setFinalSelectedCouponIds(selectedCouponIds);
   };
 
@@ -139,7 +136,7 @@ export function OrderConfirm() {
             </div>
           </div>
           <SelectedCartProductContainer cartItems={selectedCartItems} />
-          <button css={applyButton} onClick={() => setOpen(true)}>
+          <button css={applyButton} onClick={() => handleOpen()}>
             쿠폰 적용
           </button>
           <div>
@@ -173,8 +170,8 @@ export function OrderConfirm() {
           </Button>
         </Footer>
       </PageLayout>
-      <Modal open={open}>
-        <ModalOverlay setOpen={setOpen} />
+      <Modal open={isOpen}>
+        <ModalOverlay handleOpen={handleClose} />
         <ModalContent>
           <CouponModalContent
             handleClose={handleClose}

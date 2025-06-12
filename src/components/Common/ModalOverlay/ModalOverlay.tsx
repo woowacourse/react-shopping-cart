@@ -2,14 +2,10 @@ import { SerializedStyles } from '@emotion/react';
 import { overlayLayout } from './ModalOverlay.style';
 
 interface ModalOverlayProps {
-  setOpen: (open: boolean) => void;
+  handleOpen: () => void;
   customCss?: SerializedStyles;
 }
 
-export function ModalOverlay({ setOpen, customCss }: ModalOverlayProps) {
-  const handleClick = () => {
-    setOpen(false);
-  };
-
-  return <div onClick={handleClick} css={[overlayLayout, customCss]}></div>;
+export function ModalOverlay({ handleOpen, customCss }: ModalOverlayProps) {
+  return <div onClick={handleOpen} css={[overlayLayout, customCss]}></div>;
 }
