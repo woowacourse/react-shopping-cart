@@ -34,7 +34,6 @@ function CouponModal({
   const [selectedCoupons, setSelectedCoupons] = useState<Map<number, boolean>>(
     new Map()
   );
-  const [isInitial, setIsInitial] = useState(true);
 
   const combos = calculateAllCouponCombos({
     coupons,
@@ -51,16 +50,17 @@ function CouponModal({
     );
 
   useEffect(() => {
-    if (isInitial && bestCombo.combo.length > 0) {
-      const initialMap = new Map<number, boolean>();
-      bestCombo.combo.forEach((code) => {
-        const match = coupons.find((c) => c.code === code);
-        if (match) initialMap.set(match.id, true);
-      });
-      setSelectedCoupons(initialMap);
-      setIsInitial(false);
+    if (bestCombo.combo.length <= 0 || selectedCoupons.size > 0) {
+      return;
     }
-  }, [coupons, bestCombo, isInitial]);
+
+    const initialMap = new Map<number, boolean>();
+    bestCombo.combo.forEach((code) => {
+      const match = coupons.find((c) => c.code === code);
+      if (match) initialMap.set(match.id, true);
+    });
+    setSelectedCoupons(initialMap);
+  }, [coupons, bestCombo, selectedCoupons.size]);
 
   const handleCheckboxChange = (couponId: number) => {
     setSelectedCoupons((prev) => {
@@ -98,7 +98,6 @@ function CouponModal({
   const handleApply = () => {
     handleApplyCouponPrice(selectedDiscount);
     setSelectedCoupons(new Map());
-    setIsInitial(true);
     handleClose();
   };
 
