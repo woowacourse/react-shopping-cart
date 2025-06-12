@@ -49,15 +49,22 @@ function ApplyCoupon({
     hasRemoteAreaShipping: isRemoteAreaShipping,
   });
 
+  const handleRollbackSelectedCouponsWithCloseModal = () => {
+    handleRollbackSelectedCoupons();
+    handleCloseModal();
+  };
+
+  const handleUseCouponsWithCloseModal = () => {
+    handleUseCoupons(selectedCouponIds);
+    handleCloseModal();
+  };
+
   return (
     <article>
       <ApplyCouponButton onClick={handleOpenModal} />
       <Modal
         isOpen={isOpen}
-        onClose={() => {
-          handleRollbackSelectedCoupons();
-          handleCloseModal();
-        }}
+        onClose={handleRollbackSelectedCouponsWithCloseModal}
       >
         <Modal.Container
           position="center"
@@ -89,13 +96,7 @@ function ApplyCoupon({
               />
             ))}
           </CouponList>
-          <Styled.Button
-            type="button"
-            onClick={() => {
-              handleUseCoupons(selectedCouponIds);
-              handleCloseModal();
-            }}
-          >
+          <Styled.Button type="button" onClick={handleUseCouponsWithCloseModal}>
             총 {maxDiscountedPrice.toLocaleString()}원 할인 쿠폰 사용하기
           </Styled.Button>
         </Modal.Container>
