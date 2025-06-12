@@ -2,6 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import useSelect from '../useSelect';
 import { CartItemProps } from '../../types/cartItem';
+import { SELECTED_ITEMS_KEY } from '../useSelect';
 
 const MOCK_CART_LIST: CartItemProps[] = [
   {
@@ -111,7 +112,7 @@ describe('useSelect', () => {
 
   it('localStorage에 저장된 선택 상태를 초기값으로 사용해야 한다.', () => {
     localStorage.setItem(
-      'selectedItems',
+      SELECTED_ITEMS_KEY,
       JSON.stringify([MOCK_CART_LIST[0].id, MOCK_CART_LIST[2].id])
     );
 
@@ -133,7 +134,7 @@ describe('useSelect', () => {
 
     const expectedIds = [MOCK_CART_LIST[1].id, MOCK_CART_LIST[2].id];
     expect(setItemSpy).toHaveBeenLastCalledWith(
-      'selectedItems',
+      SELECTED_ITEMS_KEY,
       JSON.stringify(expectedIds)
     );
   });

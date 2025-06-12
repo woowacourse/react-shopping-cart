@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { CartItemProps } from '../types/cartItem';
 import { getStorage, setStorage } from '../utils/storage';
 
-const SELECTED_ITEMS_KEY = 'selectedItems';
+export const SELECTED_ITEMS_KEY = 'selectedItems';
 
 function useSelect(cartList: CartItemProps[]) {
   const [selectedItems, setSelectedItems] = useState<Set<number>>(() => {
