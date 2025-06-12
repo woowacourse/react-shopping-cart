@@ -6,6 +6,7 @@ import {
   ISLAND_SHIPPING_FEE,
   SHIPPING_FEE,
 } from "./OrderConstants";
+import { calculateCouponDiscount } from "../../coupon/utils/couponCalculator";
 
 export function useOrderCalculation(
   selectedCartItems: Cart[],
@@ -13,6 +14,7 @@ export function useOrderCalculation(
   selectedCoupons: Coupon[] = []
 ) {
   return useMemo(() => {
+    // 1. 장바구니 기본 정보 계산
     const typeCount = selectedCartItems.length;
     const totalCount = selectedCartItems.reduce(
       (acc, cart) => acc + cart.quantity,
@@ -23,68 +25,31 @@ export function useOrderCalculation(
       0
     );
 
-    let totalDiscount = 0;
-    let hasFreeShipping = false;
-
-    selectedCoupons.forEach((coupon) => {
-      switch (coupon.discountType) {
-        case "fixed":
-          if (totalCartPrice >= coupon.minimumAmount) {
-            totalDiscount += coupon.discount;
-          }
-          break;
-
-        case "percentage":
-          totalDiscount += totalCartPrice * (coupon.discount / 100);
-          break;
-
-        case "buyXgetY":
-          if (selectedCartItems.length > 0) {
-            const eligibleItems = selectedCartItems.filter(
-              (item) =>
-                item.quantity >= coupon.buyQuantity &&
-                item.quantity >= coupon.buyQuantity + coupon.getQuantity
-            );
-            if (eligibleItems.length > 0) {
-              const highestPriceItem = eligibleItems.reduce((prev, current) =>
-                prev.product.price > current.product.price ? prev : current
-              );
-              const freeQuantity =
-                Math.floor(
-                  highestPriceItem.quantity /
-                    (coupon.buyQuantity + coupon.getQuantity)
-                ) * coupon.getQuantity;
-              totalDiscount += highestPriceItem.product.price * freeQuantity;
-            }
-          }
-          break;
-
-        case "freeShipping":
-          if (totalCartPrice >= coupon.minimumAmount) {
-            hasFreeShipping = true;
-          }
-          break;
-      }
-    });
-
+    // 2. 배송비 계산
     const baseShippingFee =
       totalCartPrice >= FREE_SHIPPING_STANDARD || totalCartPrice === 0
         ? 0
         : SHIPPING_FEE;
+    const initialShippingFee =
+      baseShippingFee + (isIsland ? ISLAND_SHIPPING_FEE : 0);
 
-    const additionalShippingFee = isIsland ? ISLAND_SHIPPING_FEE : 0;
+    // 3. 쿠폰 할인 계산 (전략 패턴 적용)
+    const { totalDiscount, finalShippingFee, finalDiscount } =
+      calculateCouponDiscount(
+        selectedCoupons,
+        totalCartPrice,
+        initialShippingFee,
+        selectedCartItems
+      );
 
-    const shippingFee = baseShippingFee + additionalShippingFee;
-
-    const finalDiscount = totalDiscount + (hasFreeShipping ? shippingFee : 0);
-
-    const totalPrice = totalCartPrice + shippingFee - finalDiscount;
+    // 4. 최종 결제 금액 계산
+    const totalPrice = totalCartPrice + finalShippingFee - finalDiscount;
 
     return {
       typeCount,
       totalCount,
       totalCartPrice,
-      shippingFee,
+      shippingFee: finalShippingFee,
       totalPrice,
       finalDiscount,
     };

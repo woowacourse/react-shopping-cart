@@ -8,66 +8,110 @@ export interface CouponCalculationResult {
   finalDiscount: number;
 }
 
+interface PartialResult {
+  totalDiscount: number;
+  finalShippingFee: number;
+  hasFreeShipping: boolean;
+}
+
+const applyFixedDiscount = (
+  coupon: Coupon,
+  totalCartPrice: number,
+  acc: PartialResult
+): PartialResult => {
+  if (totalCartPrice >= coupon.minimumAmount) {
+    return { ...acc, totalDiscount: acc.totalDiscount + coupon.discount };
+  }
+  return acc;
+};
+
+const applyPercentageDiscount = (
+  coupon: Coupon,
+  totalCartPrice: number,
+  acc: PartialResult
+): PartialResult => ({
+  ...acc,
+  totalDiscount: acc.totalDiscount + totalCartPrice * (coupon.discount / 100),
+});
+
+const applyBuyXgetYDiscount = (
+  coupon: Coupon,
+  items: Cart[] | undefined,
+  acc: PartialResult
+): PartialResult => {
+  if (!items?.length) return acc;
+
+  const eligibleItems = items.filter(
+    (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+  );
+  if (!eligibleItems.length) return acc;
+
+  const highestItem = eligibleItems.reduce((a, b) =>
+    a.product.price > b.product.price ? a : b
+  );
+  const freeQty =
+    Math.floor(
+      highestItem.quantity / (coupon.buyQuantity + coupon.getQuantity)
+    ) * coupon.getQuantity;
+
+  return {
+    ...acc,
+    totalDiscount: acc.totalDiscount + highestItem.product.price * freeQty,
+  };
+};
+
+const applyFreeShippingDiscount = (
+  coupon: Coupon,
+  totalCartPrice: number,
+  acc: PartialResult
+): PartialResult => {
+  if (totalCartPrice >= coupon.minimumAmount) {
+    return { ...acc, finalShippingFee: 0, hasFreeShipping: true };
+  }
+  return acc;
+};
+
+const discountStrategies = {
+  fixed: applyFixedDiscount,
+  percentage: applyPercentageDiscount,
+  buyXgetY: applyBuyXgetYDiscount,
+  freeShipping: applyFreeShippingDiscount,
+} satisfies Record<
+  Coupon["discountType"],
+  (coupon: Coupon, ...args: any[]) => PartialResult
+>;
+
 export function calculateCouponDiscount(
   selectedCoupons: Coupon[],
   totalCartPrice: number,
   shippingFee: number,
   selectedCartItems: Cart[] | undefined
 ): CouponCalculationResult {
-  let totalDiscount = 0;
-  let finalShippingFee = shippingFee;
-  let hasFreeShipping = false;
+  const initial: PartialResult = {
+    totalDiscount: 0,
+    finalShippingFee: shippingFee,
+    hasFreeShipping: false,
+  };
 
-  selectedCoupons.forEach((coupon) => {
-    switch (coupon.discountType) {
-      case "fixed":
-        if (totalCartPrice >= coupon.minimumAmount) {
-          totalDiscount += coupon.discount;
-        }
-        break;
+  const result = selectedCoupons.reduce((acc, coupon) => {
+    const strategy = discountStrategies[coupon.discountType];
+    const args =
+      coupon.discountType === "buyXgetY"
+        ? [coupon, selectedCartItems, acc]
+        : [coupon, totalCartPrice, acc];
 
-      case "percentage":
-        totalDiscount += totalCartPrice * (coupon.discount / 100);
-        break;
+    return strategy(...(args as Parameters<typeof strategy>));
+  }, initial);
 
-      case "buyXgetY":
-        if (selectedCartItems && selectedCartItems.length > 0) {
-          const eligibleItems = selectedCartItems.filter(
-            (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
-          );
-          if (eligibleItems.length > 0) {
-            const highestPriceItem = eligibleItems.reduce((prev, current) =>
-              prev.product.price > current.product.price ? prev : current
-            );
-            const freeQuantity =
-              Math.floor(
-                highestPriceItem.quantity /
-                  (coupon.buyQuantity + coupon.getQuantity)
-              ) * coupon.getQuantity;
-            totalDiscount += highestPriceItem.product.price * freeQuantity;
-          }
-        }
-        break;
-
-      case "freeShipping":
-        if (totalCartPrice >= coupon.minimumAmount) {
-          finalShippingFee = 0;
-          hasFreeShipping = true;
-        }
-        break;
-    }
-  });
-
-  if (!hasFreeShipping && totalCartPrice >= 100000) {
-    finalShippingFee = 0;
-  }
-
-  const finalDiscount = totalDiscount + (hasFreeShipping ? shippingFee : 0);
+  const finalShippingFee =
+    !result.hasFreeShipping && totalCartPrice >= 100000
+      ? 0
+      : result.finalShippingFee;
 
   return {
-    totalDiscount,
+    ...result,
     finalShippingFee,
-    hasFreeShipping,
-    finalDiscount,
+    finalDiscount:
+      result.totalDiscount + (result.hasFreeShipping ? shippingFee : 0),
   };
 }
