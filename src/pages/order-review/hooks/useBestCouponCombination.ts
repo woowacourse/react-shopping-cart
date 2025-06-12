@@ -3,14 +3,15 @@ import { CouponContent } from '@/api/type';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
 import { useMemo } from 'react';
+import { getAllCouponCombinationIds } from '../utils/getAllCouponCombinationIds';
 
 export const useBestCouponCombination = (
   availableCoupons: CouponContent[],
-  allCouponCombinationIds: number[][],
   isJejuOrRemoteArea: boolean
 ) => {
   const { selectedItems, orderPrice } = useOrderListContext();
-
+  const allCouponCombinationIds = getAllCouponCombinationIds(availableCoupons);
+  
   const combinations = allCouponCombinationIds.map((couponIds) => {
     const selectedCoupons = couponIds
       .map((id) => availableCoupons.find((c) => c.id === id))
