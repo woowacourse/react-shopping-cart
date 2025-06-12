@@ -4,10 +4,11 @@ import { getSelectedCartItemsFromLocalStorage } from '../../cart/utils/localStor
 import { calculateTotalDiscountPrice } from '../utils/calculateTotalDiscountPrice';
 import useCoupons from './useCoupons';
 import { useCartContext } from '../../../shared/context/useCartContext';
+import { useCouponContext } from '../../../shared/context/useCouponContext';
 
 export default function useCouponSelection() {
-  const { selectedCoupons, updateSelectedCoupons, deliveryFee, totalPrice, updateTotalDiscountPrice } =
-    useCartContext();
+  const { deliveryFee, totalPrice, updateTotalDiscountPrice } = useCartContext();
+  const { selectedCoupons, updateSelectedCoupons } = useCouponContext();
 
   const { coupons, getInvalidCouponIds, getBestTwoCoupons, isCouponLoading, couponError } = useCoupons();
 

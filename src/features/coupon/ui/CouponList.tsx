@@ -5,13 +5,15 @@ import Button from '../../../shared/ui/Button';
 import useCouponSelection from '../hooks/useCouponSelection';
 import { useCartContext } from '../../../shared/context/useCartContext';
 import CouponItem from './CouponItem';
+import { useCouponContext } from '../../../shared/context/useCouponContext';
 
 interface CouponListProps {
   onClose: () => void;
 }
 
 export default function CouponList({ onClose }: CouponListProps) {
-  const { selectedCoupons, deliveryFee, totalPrice, totalDiscountPrice } = useCartContext();
+  const { deliveryFee, totalPrice, totalDiscountPrice } = useCartContext();
+  const { selectedCoupons } = useCouponContext();
   const {
     coupons,
     getBestTwoCoupons,

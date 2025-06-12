@@ -1,6 +1,5 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { CartItem } from '../../features/cart/api/types/cart';
-import { Coupon } from '../../features/coupon/types/coupon';
 import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 
 interface CartContextType {
@@ -8,7 +7,6 @@ interface CartContextType {
   updateCartItems: (item: CartItem[]) => void;
   updateCartItemQuantity: (item: CartItem, quantity: number) => void;
   selectedCartItems: CartItem[];
-  selectedCoupons: Coupon[];
   totalPrice: number;
   totalDiscountPrice: number;
   totalPurchasePrice: number;
@@ -16,7 +14,6 @@ interface CartContextType {
   updateSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
-  updateSelectedCoupons: (coupons: Coupon[]) => void;
   updateTotalDiscountPrice: (totalDiscountPrice: number) => void;
   updateDeliveryFee: (deliveryFee: number) => void;
 }
@@ -30,7 +27,6 @@ interface CartProviderProps {
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
-  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
   const [totalDiscountPrice, setTotalDiscountPrice] = useState<number>(0);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
 
@@ -73,10 +69,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setSelectedCartItems(cartItems);
   };
 
-  const updateSelectedCoupons = (coupons: Coupon[]) => {
-    setSelectedCoupons(coupons);
-  };
-
   const updateTotalDiscountPrice = (totalDiscountPrice: number) => {
     setTotalDiscountPrice(totalDiscountPrice);
   };
@@ -95,7 +87,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       updateCartItems,
       updateCartItemQuantity,
       selectedCartItems,
-      selectedCoupons,
       totalPrice,
       totalDiscountPrice,
       deliveryFee,
@@ -103,11 +94,10 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       updateSelectedCartItem,
       addAllCartItemsInSelected,
       removeSelectedCartItem,
-      updateSelectedCoupons,
       updateTotalDiscountPrice,
       updateDeliveryFee,
     }),
-    [cartItems, selectedCartItems, selectedCoupons, totalPrice, totalDiscountPrice, deliveryFee, totalPurchasePrice]
+    [cartItems, selectedCartItems, totalPrice, totalDiscountPrice, deliveryFee, totalPurchasePrice]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -10,6 +10,7 @@ import { getSelectedCartItemsFromLocalStorage } from '../src/features/cart/utils
 import { vi, Mock } from 'vitest';
 import { mockCartItem_1, mockCartItem_2 } from './data';
 import useCoupons from '../src/features/coupon/hooks/useCoupons';
+import { CouponProvider } from '../src/shared/context/CouponProvider';
 
 vi.mock('../src/features/cart/utils/localStorageService', () => ({
   getSelectedCartItemsFromLocalStorage: vi.fn(),
@@ -19,7 +20,9 @@ function renderWithRoutes() {
   return render(
     <MemoryRouter initialEntries={['/review']}>
       <CartProvider>
-        <OrderReviewPage />
+        <CouponProvider>
+          <OrderReviewPage />
+        </CouponProvider>
       </CartProvider>
     </MemoryRouter>
   );
