@@ -24,7 +24,7 @@ const validateBogo = (coupon: CouponType, orderItems: CartItemType[]) => {
     return false;
   }
   const maxBuyQuantity = Math.max(...orderItems.map((item) => item.quantity));
-  return coupon.buyQuantity <= maxBuyQuantity;
+  return coupon.buyQuantity + coupon.getQuantity <= maxBuyQuantity;
 };
 
 const validateFreeShipping = (coupon: CouponType, orderPrice: number) => {

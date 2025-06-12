@@ -9,8 +9,14 @@ interface CalculateCouponDiscountProps {
   deliveryFee: number;
 }
 
-const calculateBogoDiscount = (orderItems: CartItemType[]) => {
-  const itemsWithMultiples = orderItems.filter((item) => item.quantity >= 2);
+const calculateBogoDiscount = (
+  buyQuantity: number,
+  getQuantity: number,
+  orderItems: CartItemType[],
+) => {
+  const itemsWithMultiples = orderItems.filter(
+    (item) => item.quantity >= buyQuantity + getQuantity,
+  );
 
   if (itemsWithMultiples.length > 0) {
     const highestPricedItem = itemsWithMultiples.reduce((max, current) =>
@@ -33,7 +39,7 @@ export const calculateCouponDiscount = ({
     case 'FIXED5000':
       return coupon.discount;
     case 'BOGO':
-      return calculateBogoDiscount(orderItems);
+      return calculateBogoDiscount(coupon.buyQuantity, coupon.getQuantity, orderItems);
     case 'FREESHIPPING':
       return deliveryFee;
     case 'MIRACLESALE':
