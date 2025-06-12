@@ -22,7 +22,6 @@ vi.mock('../src/apis/cart', () => ({
   getCartItems: vi.fn(),
 }));
 
-// Header 컴포넌트 모킹
 vi.mock('../src/components/Header/Header', () => ({
   default: function MockHeader() {
     return <div data-testid="header">Header</div>;
@@ -114,7 +113,6 @@ describe('OrderConfirmPage', () => {
     renderComponent();
 
     await waitFor(() => {
-      // 주문 금액 확인
       const orderAmount = screen.getByText('주문 금액');
       expect(orderAmount).toBeInTheDocument();
       expect(orderAmount.nextSibling).toHaveTextContent('130,000원');
