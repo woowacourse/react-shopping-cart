@@ -1,5 +1,5 @@
-import { CouponResponse } from "../types/Coupon";
-import { BASE_URL } from "./config";
+import { CouponResponse } from "../../types/Coupon";
+import { BASE_URL } from "../config";
 
 export async function getCouponList(): Promise<CouponResponse[]> {
   const res = await fetch(`${BASE_URL}/coupons`, {

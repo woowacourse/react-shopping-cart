@@ -1,8 +1,8 @@
 import { useEffect, useReducer } from "react";
 
-import getCartItemList from "../api/getCartItemList";
-import patchProduct from "../api/patchProduct";
-import removeProduct from "../api/removeProduct";
+import getCartItemList from "../api/cart/getCartItemList";
+import patchProduct from "../api/cart/patchProduct";
+import deleteProduct from "../api/cart/deleteProduct";
 
 import { useCartItemListContext } from "../contexts/CartItemListContext";
 import { useErrorContext } from "../contexts/ErrorContext";
@@ -62,7 +62,7 @@ interface useCartItemListReturn {
   state: typeof INIT_STATE;
   cartItemList: CartItem[];
   patchCartItem: (id: number, quantity: number) => Promise<void>;
-  removeCartItem: (id: number) => Promise<void>;
+  deleteCartItem: (id: number) => Promise<void>;
 }
 
 const useCartItemList = (): useCartItemListReturn => {
@@ -78,11 +78,8 @@ const useCartItemList = (): useCartItemListReturn => {
   const fetchData = async () => {
     try {
       const { content } = await getCartItemList({
-        method: "GET",
-        params: {
-          page: "0",
-          size: "50",
-        },
+        page: "0",
+        size: "50",
       });
       updateCartItemList(content);
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
@@ -103,11 +100,8 @@ const useCartItemList = (): useCartItemListReturn => {
     try {
       dispatch({ type: ACTION_TYPE.FETCH_FETCHING });
       await patchProduct({
-        method: "PATCH",
-        params: {
-          productId: id,
-          quantity,
-        },
+        productId: id,
+        quantity,
       });
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
     } catch {
@@ -126,15 +120,12 @@ const useCartItemList = (): useCartItemListReturn => {
     dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
   };
 
-  const removeCartItem = async (id: number) => {
+  const deleteCartItem = async (id: number) => {
     try {
       dispatch({ type: ACTION_TYPE.FETCH_FETCHING });
 
-      await removeProduct({
-        method: "DELETE",
-        params: {
-          productId: id,
-        },
+      await deleteProduct({
+        productId: id,
       });
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
     } catch (error) {
@@ -156,7 +147,7 @@ const useCartItemList = (): useCartItemListReturn => {
     state,
     cartItemList,
     patchCartItem,
-    removeCartItem,
+    deleteCartItem,
   };
 };
 export default useCartItemList;

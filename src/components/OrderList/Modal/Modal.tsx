@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCouponList } from "../../../api/getCouponList";
+import { getCouponList } from "../../../api/coupon/getCouponList";
 import Close from "../../../assets/Close.png";
 import Info from "../../../assets/Info.png";
 import { useCouponListContext } from "../../../contexts/CouponContext";
