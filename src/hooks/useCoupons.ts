@@ -12,6 +12,8 @@ import { getCurrentDate } from '../utils/getCurrentDate';
 import { isCouponValid } from '../utils/isCouponValid';
 import getMaxQuantity from '../utils/getMaxQuantity';
 
+const MAX_SELECTABLE_COUPONS = 2;
+
 const useCoupons = () => {
   const { checkedCartIds } = useCheckCartIdsContext();
   const { cartItems } = useCartItemsContext();
@@ -62,7 +64,7 @@ const useCoupons = () => {
     (id: number) => {
       setSelectedCoupons((prev) => {
         if (prev.some((c) => c.id === id)) return prev;
-        if (prev.length >= 2) return prev;
+        if (prev.length >= MAX_SELECTABLE_COUPONS) return prev;
 
         const coupon = validCoupons.find((c) => c.id === id);
         return coupon ? [...prev, coupon] : prev;
