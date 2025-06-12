@@ -22,8 +22,10 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
 
   const { maxSelectableCount = null } = options;
 
-  const { selectedIds, toggleSelect, isSelected, addSelectedId } =
-    useSelect(storageKey);
+  const { selectedIds, toggleSelect, isSelected, addSelectedId } = useSelect(
+    storageKey,
+    items
+  );
 
   const limitSelect = useLimitSelect({
     selectedIds,

@@ -16,6 +16,7 @@ import useQuantityControl from "../../hooks/useQuantityControl";
 import CartItem from "../../components/CartItem/CartItem";
 import { getSelectedCartItems } from "../../utils/cartItem";
 import useAllCheckboxHandler from "../../hooks/checkbox/useAllCheckboxHandler";
+import { KEY } from "../../constants/storage";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -26,11 +27,11 @@ function Cart() {
     addSelectedId,
     isSelected,
     selectedIds,
-  } = useCheckboxHandler(cartItems, "cart");
+  } = useCheckboxHandler(cartItems, KEY.cart);
 
   const { toggleAllSelect, isAllSelected } = useAllCheckboxHandler({
     items: cartItems,
-    storageKey: "cart",
+    storageKey: KEY.cart,
     toggleSelect,
     addSelectedId,
     selectedIds,

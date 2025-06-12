@@ -40,7 +40,7 @@ const useAllSelect = <T extends CheckboxItemType>({
     if (autoSelectAll) {
       storeNewSelectedData(items);
     }
-  }, [autoSelectAll, items, toggleSelect, storageKey, storeNewSelectedData]);
+  }, [autoSelectAll, items, storeNewSelectedData]);
 
   const isAllSelected = useCallback(() => {
     return items.every((item) => selectedIds.includes(item.id));

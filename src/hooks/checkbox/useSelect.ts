@@ -1,8 +1,15 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StorageKeyType, StorageSelectDataType } from "../../types/storage";
 import storageService from "../../storage/storageService";
 
-const useSelect = (storageKey: StorageKeyType) => {
+interface CheckboxItemType {
+  id: number;
+}
+
+const useSelect = <T extends CheckboxItemType>(
+  storageKey: StorageKeyType,
+  items: T[]
+) => {
   const initialSelected = storageService
     .getStoredData<StorageSelectDataType>(storageKey)
     .filter((item) => item.isSelected)
@@ -15,7 +22,13 @@ const useSelect = (storageKey: StorageKeyType) => {
   };
 
   const addSelectedId = useCallback((itemId: number) => {
-    setSelectedIds((prev) => [...prev, itemId]);
+    setSelectedIds((prev) => {
+      if (prev.includes(itemId)) {
+        return prev;
+      }
+
+      return [...prev, itemId];
+    });
   }, []);
 
   const toggleSelect = useCallback(
@@ -35,6 +48,19 @@ const useSelect = (storageKey: StorageKeyType) => {
     },
     [storageKey]
   );
+
+  useEffect(() => {
+    const currentSet = new Set(items.map((item) => item.id));
+    setSelectedIds((prev) => prev.filter((id) => currentSet.has(id)));
+
+    const stored =
+      storageService.getStoredData<StorageSelectDataType>(storageKey);
+    stored.forEach((item) => {
+      if (!currentSet.has(item.id)) {
+        storageService.deleteData<StorageSelectDataType>(storageKey, item.id);
+      }
+    });
+  }, [items, storageKey]);
 
   return { selectedIds, toggleSelect, isSelected, addSelectedId };
 };
