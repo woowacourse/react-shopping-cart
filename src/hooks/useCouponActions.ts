@@ -1,22 +1,10 @@
 import { MAX_COUPON_AMOUNT } from '../constants/config';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
 import { useCouponContext } from '../contexts/CouponContext';
 import { useToastContext } from '../contexts/ToastContext';
-import { getAvailableCoupons, getCheckedItems } from '../utils';
 
-const useCouponActions = (id: number, deliveryPrice: number) => {
-  const { cartItems, checkedCartIds } = useCartItemsContext();
-  const { coupons, checkedCouponIds, addCheckedCouponIds, removeCheckedCouponIds } =
-    useCouponContext();
+const useCouponActions = (id: number) => {
+  const { checkedCouponIds, addCheckedCouponIds, removeCheckedCouponIds } = useCouponContext();
   const { showToast } = useToastContext();
-
-  const isEnable = getAvailableCoupons(
-    coupons,
-    getCheckedItems(cartItems, checkedCartIds),
-    deliveryPrice
-  )
-    .map((item) => item.id)
-    .includes(id);
 
   const isChecked = checkedCouponIds.includes(id);
 
@@ -34,7 +22,6 @@ const useCouponActions = (id: number, deliveryPrice: number) => {
   };
 
   return {
-    isEnable,
     isChecked,
     handleCheckBoxClick,
   };

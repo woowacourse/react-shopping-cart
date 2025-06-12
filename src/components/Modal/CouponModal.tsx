@@ -3,6 +3,8 @@ import CloseIconButton from './CloseIconButton';
 import { useCouponContext } from '../../contexts/CouponContext';
 import CouponCard from '../CouponCard';
 import { MAX_COUPON_AMOUNT } from '../../constants/config';
+import { getAvailableCoupons, getCheckedItems } from '../../utils';
+import { useCartItemsContext } from '../../contexts/CartItemsContext';
 
 interface ModalProps {
   isOpen: boolean;
@@ -12,6 +14,7 @@ interface ModalProps {
 }
 
 const CouponModal = ({ isOpen, handleClose, deliveryPrice, discountPrice }: ModalProps) => {
+  const { cartItems, checkedCartIds } = useCartItemsContext();
   const { coupons } = useCouponContext();
 
   return (
@@ -26,9 +29,16 @@ const CouponModal = ({ isOpen, handleClose, deliveryPrice, discountPrice }: Moda
             <p>쿠폰은 최대 {MAX_COUPON_AMOUNT}개까지 사용할 수 있습니다.</p>
           </S.infoContainer>
           <S.CouponContainer>
-            {coupons.map((coupon) => (
-              <CouponCard key={coupon.id} coupon={coupon} deliveryPrice={deliveryPrice} />
-            ))}
+            {coupons.map((coupon) => {
+              const isEnable = getAvailableCoupons(
+                coupons,
+                getCheckedItems(cartItems, checkedCartIds),
+                deliveryPrice
+              )
+                .map((item) => item.id)
+                .includes(coupon.id);
+              return <CouponCard key={coupon.id} coupon={coupon} isEnable={isEnable} />;
+            })}
           </S.CouponContainer>
           <S.closeButton onClick={handleClose}>
             총 {discountPrice.toLocaleString()}원 할인 쿠폰 사용하기
