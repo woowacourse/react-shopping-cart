@@ -3,12 +3,19 @@ import { Coupon } from "../../types/response";
 import { calculateCouponDiscount } from "./calculateCouponDiscount";
 import { calculateDiscountSequence } from "./calculateDiscountSequence";
 
-export const calculateOptimalTotalDiscount = (
-  coupons: Coupon[],
-  orderItems: CartItemWithSelection[],
-  orderPrice: number,
-  shippingFee: number
-) => {
+interface Props {
+  coupons: Coupon[];
+  orderItems: CartItemWithSelection[];
+  orderPrice: number;
+  shippingFee: number;
+}
+
+export const calculateOptimalTotalDiscount = ({
+  coupons,
+  orderItems,
+  orderPrice,
+  shippingFee,
+}: Props) => {
   if (coupons.length === 0) return 0;
   if (coupons.length === 1) {
     return calculateCouponDiscount({

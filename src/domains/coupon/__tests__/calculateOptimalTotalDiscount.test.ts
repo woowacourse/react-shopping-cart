@@ -71,12 +71,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
   });
 
   it("쿠폰이 없는 경우 0을 반환한다", () => {
-    const result = calculateOptimalTotalDiscount(
-      [],
-      mockItems,
+    const result = calculateOptimalTotalDiscount({
+      coupons: [],
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(result).toBe(0);
     expect(calculateCouponDiscount).not.toHaveBeenCalled();
@@ -86,12 +86,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
   it("쿠폰이 1개인 경우 calculateCouponDiscount를 호출한다", () => {
     (calculateCouponDiscount as jest.Mock).mockReturnValue(10000);
 
-    const result = calculateOptimalTotalDiscount(
-      [fixedCoupon],
-      mockItems,
+    const result = calculateOptimalTotalDiscount({
+      coupons: [fixedCoupon],
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(calculateCouponDiscount).toHaveBeenCalledWith({
       coupon: fixedCoupon,
@@ -108,12 +108,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       .mockReturnValueOnce(25000) // A -> B 순서 (25000원 할인)
       .mockReturnValueOnce(20000); // B -> A 순서 (20000원 할인)
 
-    const result = calculateOptimalTotalDiscount(
-      [fixedCoupon, percentCoupon],
-      mockItems,
+    const result = calculateOptimalTotalDiscount({
+      coupons: [fixedCoupon, percentCoupon],
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(calculateDiscountSequence).toHaveBeenNthCalledWith(1, {
       coupons: [fixedCoupon, percentCoupon],
@@ -137,12 +137,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       .mockReturnValueOnce(18000) // A -> B 순서 (18000원 할인)
       .mockReturnValueOnce(23000); // B -> A 순서 (23000원 할인)
 
-    const result = calculateOptimalTotalDiscount(
-      [fixedCoupon, percentCoupon],
-      mockItems,
+    const result = calculateOptimalTotalDiscount({
+      coupons: [fixedCoupon, percentCoupon],
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(calculateDiscountSequence).toHaveBeenNthCalledWith(1, {
       coupons: [fixedCoupon, percentCoupon],
@@ -166,24 +166,24 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       .mockReturnValueOnce(15000) // A -> B 순서 (15000원 할인)
       .mockReturnValueOnce(15000); // B -> A 순서 (15000원 할인)
 
-    const result = calculateOptimalTotalDiscount(
-      [fixedCoupon, shippingCoupon],
-      mockItems,
+    const result = calculateOptimalTotalDiscount({
+      coupons: [fixedCoupon, shippingCoupon],
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(calculateDiscountSequence).toHaveBeenCalledTimes(2);
     expect(result).toBe(15000);
   });
 
   it("쿠폰이 3개 이상인 경우 0을 반환한다", () => {
-    const result = calculateOptimalTotalDiscount(
-      [fixedCoupon, percentCoupon, shippingCoupon],
-      mockItems,
+    const result = calculateOptimalTotalDiscount({
+      coupons: [fixedCoupon, percentCoupon, shippingCoupon],
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(calculateCouponDiscount).not.toHaveBeenCalled();
     expect(calculateDiscountSequence).not.toHaveBeenCalled();

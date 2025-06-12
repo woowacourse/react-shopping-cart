@@ -27,12 +27,12 @@ const useOrderSummary = () => {
 
   const totalDiscount = useMemo(
     () =>
-      calculateOptimalTotalDiscount(
-        selectedCoupons,
+      calculateOptimalTotalDiscount({
+        coupons: selectedCoupons,
         orderItems,
         orderPrice,
-        finalShippingFee
-      ),
+        shippingFee: finalShippingFee,
+      }),
     [selectedCoupons, orderItems, orderPrice, finalShippingFee]
   );
 
