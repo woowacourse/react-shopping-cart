@@ -20,7 +20,7 @@ const CouponCard = ({ coupon, deliveryPrice }: CouponCardProps) => {
         <S.Container data-testid="coupon-card">
           <S.TitleContainer>
             <CheckBox checked={isChecked} onChange={handleCheckBoxClick} />
-            <p>{coupon.description}</p>
+            <S.CouponDescription>{coupon.description}</S.CouponDescription>
           </S.TitleContainer>
           <S.Content>
             {coupon.expirationDate && (
@@ -42,7 +42,7 @@ const CouponCard = ({ coupon, deliveryPrice }: CouponCardProps) => {
         <S.DisabledContainer data-testid="coupon-card">
           <S.TitleContainer>
             <CheckBox onChange={() => showToast('만료된 쿠폰입니다.')} />
-            <p>{coupon.description}</p>
+            <S.CouponDescription>{coupon.description}</S.CouponDescription>
           </S.TitleContainer>
           <S.Content>
             {coupon.expirationDate && (
@@ -77,6 +77,9 @@ const S = {
     display: flex;
     align-items: center;
     gap: 8px;
+  `,
+
+  CouponDescription: styled.p`
     font-size: 16px;
     font-weight: 700;
   `,

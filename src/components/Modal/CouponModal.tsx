@@ -98,6 +98,7 @@ const S = {
     background: #333;
     color: white;
     font-weight: bold;
+    font-size: 16px;
     border: none;
     transition: 0.3s background;
 
