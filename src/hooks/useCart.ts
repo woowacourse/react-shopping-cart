@@ -1,7 +1,7 @@
 import { useCartData } from './useCartData';
 import { useCartSelection } from './useCartSelection';
 import { useCartCalculations } from './useCartCalculations';
-import { useCartUI } from './useCartUI';
+import { getCartDescription } from '../utils/cartCalculations';
 
 export const useCart = () => {
   const cartItems = useCartData();
@@ -13,10 +13,9 @@ export const useCart = () => {
     checkedIds: checkedItems,
   });
 
-  const { descriptionMessage, isDisabled } = useCartUI({
-    itemCount: cartItems?.content?.length ?? 0,
-    checkedItemsCount: checkedItems.length,
-  });
+  const descriptionMessage = getCartDescription(cartItems?.content?.length ?? 0);
+
+  const isDisabled = checkedItems.length === 0;
 
   const selectedProducts =
     cartItems?.content?.filter((item) => checkedItems.includes(item.id)) || [];
