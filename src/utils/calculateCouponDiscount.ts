@@ -17,41 +17,44 @@ const calculateCouponDiscount = ({
 
   // 단일 순서로 쿠폰을 적용해 할인액 계산
   const applySequence = (sequence: Coupon[]): number => {
-    let remainingPrice = orderPrice;
-    let remainingDelivery = deliveryPrice;
-    let totalDiscount = 0;
+    const { totalDiscount } = sequence.reduce(
+      (state, coupon) => {
+        const { remainingPrice, remainingDelivery, totalDiscount } = state;
 
-    for (const coupon of sequence) {
-      switch (coupon.discountType) {
-        case 'fixed': {
-          const discount = coupon.discount ?? 0;
-          totalDiscount += discount;
-          remainingPrice -= discount;
-          break;
-        }
+        switch (coupon.discountType) {
+          case 'fixed': {
+            const discount = coupon.discount ?? 0;
+            return {
+              ...state,
+              remainingPrice: remainingPrice - discount,
+              totalDiscount: totalDiscount + discount,
+            };
+          }
 
-        case 'percentage': {
-          const rate = (coupon.discount ?? 0) / 100;
-          const discount = Math.floor(remainingPrice * rate);
-          totalDiscount += discount;
-          remainingPrice -= discount;
-          break;
-        }
+          case 'percentage': {
+            const rate = (coupon.discount ?? 0) / 100;
+            const discount = Math.floor(remainingPrice * rate);
+            return {
+              ...state,
+              remainingPrice: remainingPrice - discount,
+              totalDiscount: totalDiscount + discount,
+            };
+          }
 
-        case 'buyXgetY': {
-          const buyQ = coupon.buyQuantity ?? 0;
-          const getQ = coupon.getQuantity ?? 0;
-          const threshold = buyQ + getQ;
+          case 'buyXgetY': {
+            const buyQ = coupon.buyQuantity ?? 0;
+            const getQ = coupon.getQuantity ?? 0;
+            const threshold = buyQ + getQ;
 
-          const eligible = checkedCartItems
-            .map((item) => ({
-              item,
-              freeCount: Math.floor(item.quantity / threshold) * getQ,
-            }))
-            .filter((x) => x.freeCount > 0);
+            const eligible = checkedCartItems
+              .map((item) => ({
+                item,
+                freeCount: Math.floor(item.quantity / threshold) * getQ,
+              }))
+              .filter((x) => x.freeCount > 0);
 
-          if (eligible.length > 0) {
-            // 단가가 가장 높은 상품부터 할인 적용
+            if (eligible.length === 0) return state;
+
             const best = eligible.reduce((prev, curr) => {
               const prevDisc = prev.freeCount * prev.item.product.price;
               const currDisc = curr.freeCount * curr.item.product.price;
@@ -59,20 +62,31 @@ const calculateCouponDiscount = ({
             });
 
             const discount = best.freeCount * best.item.product.price;
-            totalDiscount += discount;
-            remainingPrice -= discount;
+            return {
+              ...state,
+              remainingPrice: remainingPrice - discount,
+              totalDiscount: totalDiscount + discount,
+            };
           }
-          break;
-        }
 
-        case 'freeShipping': {
-          // 남은 배송비 전액 할인
-          totalDiscount += remainingDelivery;
-          remainingDelivery = 0;
-          break;
+          case 'freeShipping': {
+            return {
+              ...state,
+              remainingDelivery: 0,
+              totalDiscount: totalDiscount + remainingDelivery,
+            };
+          }
+
+          default:
+            return state;
         }
+      },
+      {
+        remainingPrice: orderPrice,
+        remainingDelivery: deliveryPrice,
+        totalDiscount: 0,
       }
-    }
+    );
 
     return totalDiscount;
   };
