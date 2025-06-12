@@ -3,11 +3,15 @@ import { infoIcon } from '../../assets';
 import OrderList from './OrderList';
 import ShippingInfo from './ShippingInfo';
 import CouponModal from '../Modal/CouponModal';
-import { useOrder } from '../../context/OrderContext';
 import OrderFooter from './OrderFooter';
+import { useState } from 'react';
 
 function OrderMain() {
-  const { isOpenModal, toggleModal } = useOrder();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpenModal((prev) => !prev);
+  };
 
   return (
     <>
@@ -19,7 +23,7 @@ function OrderMain() {
         <p>총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.</p>
       </CartInfo>
       <OrderFooter />
-      {isOpenModal && <CouponModal />}
+      {isOpenModal && <CouponModal toggleModal={toggleModal} />}
     </>
   );
 }

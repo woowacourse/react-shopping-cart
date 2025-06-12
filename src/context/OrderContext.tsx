@@ -1,13 +1,11 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { CartProduct } from '../types/cart';
 
 interface OrderContextType {
-  isOpenModal: boolean;
   selectedCartItems: CartProduct[];
   price: number;
   shippingFee: number;
   totalPrice: number;
-  toggleModal: () => void;
 }
 
 const OrderContext = createContext<OrderContextType | null>(null);
@@ -25,18 +23,13 @@ export function OrderProvider({
   shippingFee: number;
   totalPrice: number;
 }) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const toggleModal = () => setIsOpenModal((prev) => !prev);
-
   return (
     <OrderContext.Provider
       value={{
-        isOpenModal,
         selectedCartItems,
         price,
         shippingFee,
         totalPrice,
-        toggleModal,
       }}
     >
       {children}

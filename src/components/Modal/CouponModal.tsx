@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import { infoIcon } from '../../assets/index';
 import CouponList from '../Coupon/CouponList';
-import { useOrder } from '../../context/OrderContext';
 import { useCoupon } from '../../context/CouponContext';
 import { MAX_COUPON_COUNT } from '../../constants/coupon';
 
-function CouponModal() {
-  const { toggleModal } = useOrder();
+interface CouponModalProps {
+  toggleModal: () => void;
+}
+function CouponModal({ toggleModal }: CouponModalProps) {
   const { totalDiscount } = useCoupon();
 
   return (
