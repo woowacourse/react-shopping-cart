@@ -5,40 +5,40 @@ import Hr from "../../common/Hr/Hr";
 
 import { isCouponValid } from "../../../utils/isCouponValid";
 import { formatAvailableTime } from "../../../utils/formatAvailableTime";
-
 import { formatDate } from "../../../utils/formatDate";
 
 import { Coupon } from "../../../types/Coupon";
 
+interface CouponItemProps {
+  coupon: Coupon;
+  orderAmount: number;
+  isSelected: boolean;
+  onToggle: () => void;
+}
+
 export default function CouponItem({
   coupon,
   orderAmount,
-  selectedCoupons,
-  handleCheckboxChange,
-}: {
-  coupon: Coupon;
-  orderAmount: number;
-  selectedCoupons: Map<number, boolean>;
-  handleCheckboxChange: (couponId: number) => void;
-}) {
+  isSelected,
+  onToggle,
+}: CouponItemProps) {
   const unavailableCoupon = !isCouponValid(coupon, orderAmount);
-  const disabled =
-    unavailableCoupon ||
-    (!selectedCoupons.get(coupon.id) && selectedCoupons.size >= 2);
+  const disabled = unavailableCoupon || (!isSelected && false);
 
   return (
-    <Styled.CouponContainer key={coupon.id}>
+    <Styled.CouponContainer>
       <Hr />
       <CartListStyled.Checkbox>
         <CartListStyled.Input
           type="checkbox"
           id={`coupon-${coupon.id}`}
-          checked={!!selectedCoupons.get(coupon.id)}
+          checked={isSelected}
           disabled={disabled}
-          onChange={() => handleCheckboxChange(coupon.id)}
+          onChange={onToggle}
         />
         <label htmlFor={`coupon-${coupon.id}`}>{coupon.description}</label>
       </CartListStyled.Checkbox>
+
       <Styled.CouponDescribe>
         <p>만료일: {formatDate(coupon.expirationDate)}</p>
         {"minimumAmount" in coupon && (

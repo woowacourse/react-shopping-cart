@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "@kaori-killer/modal-component";
 
+import CouponItem from "../CouponItem/CouponItem";
 import * as ItemStyled from "../Item/Item.styles";
 import WarningBox from "../../common/WarningBox/WarningBox";
 
 import useCoupons from "../../../hooks/useCoupons";
+import useSelectedCoupons from "../../../hooks/useSelectedCoupons";
 
 import { calculateAllCouponCombos } from "../../../utils/calculateAllCouponCombos";
 
 import CartItem from "../../../types/CartItem";
-
-import CouponItem from "../CouponItem/CouponItem";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -31,9 +31,13 @@ function CouponModal({
   isIslandArea,
 }: CouponModalProps) {
   const { coupons } = useCoupons();
-  const [selectedCoupons, setSelectedCoupons] = useState<Map<number, boolean>>(
-    new Map()
-  );
+  const {
+    selectedCoupons,
+    initializeSelectedCoupons,
+    toggleCoupon,
+    resetCoupons,
+    isSelected,
+  } = useSelectedCoupons();
 
   const combos = calculateAllCouponCombos({
     coupons,
@@ -50,31 +54,16 @@ function CouponModal({
     );
 
   useEffect(() => {
-    if (bestCombo.combo.length <= 0 || selectedCoupons.size > 0) {
-      return;
-    }
+    if (bestCombo.combo.length === 0 || selectedCoupons.size > 0) return;
 
     const initialMap = new Map<number, boolean>();
     bestCombo.combo.forEach((code) => {
       const match = coupons.find((c) => c.code === code);
       if (match) initialMap.set(match.id, true);
     });
-    setSelectedCoupons(initialMap);
-  }, [coupons, bestCombo, selectedCoupons.size]);
 
-  const handleCheckboxChange = (couponId: number) => {
-    setSelectedCoupons((prev) => {
-      const newMap = new Map(prev);
-      if (newMap.get(couponId)) {
-        newMap.delete(couponId);
-      } else {
-        if (newMap.size < 2) {
-          newMap.set(couponId, true);
-        }
-      }
-      return newMap;
-    });
-  };
+    initializeSelectedCoupons(initialMap);
+  }, [coupons, bestCombo, selectedCoupons.size, initializeSelectedCoupons]);
 
   const selectedCouponObjects = coupons.filter((c) =>
     selectedCoupons.has(c.id)
@@ -97,7 +86,7 @@ function CouponModal({
 
   const handleApply = () => {
     handleApplyCouponPrice(selectedDiscount);
-    setSelectedCoupons(new Map());
+    resetCoupons();
     handleClose();
   };
 
@@ -122,8 +111,8 @@ function CouponModal({
                 key={coupon.id}
                 coupon={coupon}
                 orderAmount={orderAmount}
-                selectedCoupons={selectedCoupons}
-                handleCheckboxChange={handleCheckboxChange}
+                isSelected={isSelected(coupon.id)}
+                onToggle={() => toggleCoupon(coupon.id)}
               />
             ))
           )}
