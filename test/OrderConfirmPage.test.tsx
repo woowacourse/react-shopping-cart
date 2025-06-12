@@ -119,4 +119,69 @@ describe('OrderConfirmPage 페이지 테스트', () => {
       expect(couponText).toBeInTheDocument();
     }
   });
+
+  it('쿠폰을 선택하면 사용하기 버튼의 가격이 변경된다.', async () => {
+    renderComponent({
+      cartItems: defaultCartItemsDummy,
+    });
+
+    const prevTotalPrice = screen.getByTestId('totalPrice');
+    expect(prevTotalPrice).toHaveTextContent('54,600원');
+
+    const triggerButton = screen.getByText('쿠폰 적용');
+    fireEvent.click(triggerButton);
+
+    expect(screen.getByText('쿠폰을 선택해 주세요')).toBeInTheDocument();
+
+    const buyXgetYInput = await screen.findByText('2개 구매 시 1개 무료 쿠폰');
+    fireEvent.click(buyXgetYInput);
+
+    const button = screen.getByText('총 7,600원 할인 쿠폰 사용하기');
+    expect(button).toBeInTheDocument();
+  });
+
+  it('쿠폰을 선택하면 사용하고 버튼을 누르면 쿠폰 할인 금액과 총 결제 금액이 변경된다.', async () => {
+    renderComponent({
+      cartItems: defaultCartItemsDummy,
+    });
+
+    const prevTotalPrice = screen.getByTestId('totalPrice');
+    expect(prevTotalPrice).toHaveTextContent('54,600원');
+
+    const triggerButton = screen.getByText('쿠폰 적용');
+    fireEvent.click(triggerButton);
+
+    expect(screen.getByText('쿠폰을 선택해 주세요')).toBeInTheDocument();
+
+    const buyXgetYInput = await screen.findByText('2개 구매 시 1개 무료 쿠폰');
+    fireEvent.click(buyXgetYInput);
+
+    const useButton = screen.getByText('총 7,600원 할인 쿠폰 사용하기');
+    fireEvent.click(useButton);
+
+    const CouponDiscountAmount = screen.getByTestId('CouponDiscountAmount');
+    expect(CouponDiscountAmount).toHaveTextContent('-7,600원');
+  });
+
+  it('배송비 무료 쿠폰을 선택하고 사용하기 버튼을 누르면 배송비가 0원이 된다.', async () => {
+    renderComponent({
+      cartItems: defaultCartItemsDummy,
+    });
+
+    const prevDeliveryFee = screen.getByTestId('deliveryFee');
+    expect(prevDeliveryFee).toHaveTextContent('3,000원');
+
+    const triggerButton = screen.getByText('쿠폰 적용');
+    fireEvent.click(triggerButton);
+
+    expect(screen.getByText('쿠폰을 선택해 주세요')).toBeInTheDocument();
+
+    const freeDeliveryInput = await screen.findByText(
+      '5만원 이상 구매 시 무료 배송 쿠폰'
+    );
+    fireEvent.click(freeDeliveryInput);
+
+    const deliveryFee = screen.getByTestId('deliveryFee');
+    expect(deliveryFee).toHaveTextContent('3,000원');
+  });
 });
