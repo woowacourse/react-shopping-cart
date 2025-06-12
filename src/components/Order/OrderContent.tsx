@@ -11,7 +11,7 @@ import { useShipping } from '../../context/ShippingContext';
 function OrderContent() {
   const { selectedCartItems, price } = useOrder();
   const { totalDiscount } = useCoupon();
-  const { calculateShippingFee } = useShipping();
+  const { calculateCouponShippingFee } = useShipping();
   const navigate = useNavigate();
 
   const descriptionMessage = () => {
@@ -47,7 +47,7 @@ function OrderContent() {
                 (sum, selectedCartItem) => sum + selectedCartItem.quantity,
                 0,
               ),
-              price: price - totalDiscount + calculateShippingFee(price, false),
+              price: price - totalDiscount + calculateCouponShippingFee(price, false),
             },
           })
         }

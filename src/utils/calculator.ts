@@ -31,7 +31,7 @@ const calculateTotalCount = (selectedItems: CartProduct[]): number => {
   return selectedItems.reduce((sum, item) => sum + item.quantity, 0);
 };
 
-export const calculateShippingFee = (price: number, hasItems: boolean): number => {
+export const calculateStandardShippingFee = (price: number, hasItems: boolean): number => {
   const needsShippingFee = price < SHIPPING_FEE_THRESHOLD;
   return hasItems && needsShippingFee ? SHIPPING_FEE : 0;
 };
@@ -44,7 +44,7 @@ export const calculateCartPrice = (
   const price = calculateTotalPrice(selectedItems);
   const totalCount = calculateTotalCount(selectedItems);
   const hasItems = checkedItems.length > 0;
-  const shippingFee = calculateShippingFee(price, hasItems);
+  const shippingFee = calculateStandardShippingFee(price, hasItems);
   const totalPrice = price + shippingFee;
 
   return {

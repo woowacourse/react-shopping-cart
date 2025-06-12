@@ -7,7 +7,7 @@ import { useShipping } from '../../context/ShippingContext';
 function OrderFooter() {
   const { price } = useOrder();
   const { totalDiscount } = useCoupon();
-  const { calculateShippingFee } = useShipping();
+  const { calculateCouponShippingFee } = useShipping();
 
   const cartPriceItems = [
     { title: '주문 금액', price, variant: 'default' as const },
@@ -22,12 +22,12 @@ function OrderFooter() {
       : []),
     {
       title: '배송비',
-      price: calculateShippingFee(price, false),
+      price: calculateCouponShippingFee(price, false),
       variant: 'shipping' as const,
     },
     {
       title: '총 결제 금액',
-      price: price - totalDiscount + calculateShippingFee(price, false),
+      price: price - totalDiscount + calculateCouponShippingFee(price, false),
       variant: 'total' as const,
     },
   ];
