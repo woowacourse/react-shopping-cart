@@ -19,12 +19,15 @@ function DeliveryInfo({
     <section css={DeliveryInfoStyle}>
       <Text variant="body">배송 정보</Text>
       <div css={DeliveryInfoCheckboxContainerStyle}>
-        <input
-          type="checkbox"
-          css={DeliveryInfoCheckboxStyle}
-          checked={isFarDelivery}
-          onChange={handleFarDeliverySelect}
-        />
+        <label htmlFor="farDelivery">
+          <input
+            type="checkbox"
+            css={DeliveryInfoCheckboxStyle}
+            checked={isFarDelivery}
+            onChange={handleFarDeliverySelect}
+            id="farDelivery"
+          />
+        </label>
         <Text variant="caption">제주도 및 도서 산간 지역</Text>
       </div>
     </section>
