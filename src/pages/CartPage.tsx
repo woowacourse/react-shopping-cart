@@ -1,17 +1,25 @@
 import AllCheckSection from '../components/AllCheckSection';
-import CartItemCountMessage from '../components/CartItemCountMessage';
-import ConfirmButton from '../components/ConfirmButton';
-import ItemCard from '../components/ItemCard';
+import CartItemCountMessage from '../components/messages/CartItemCountMessage';
+import ConfirmButton from '../components/buttons/ConfirmButton';
+import ItemCard from '../components/itemCards/ItemCard';
 import NoCartItems from '../components/NoCartItems';
 import PriceSection from '../components/priceSection/PriceSection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
-import { usePageContext } from '../contexts/PageContext';
-import styled from '@emotion/styled';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
+import { usePageContext } from '../contexts/Page/PageContext';
+import S from './page.Style';
+import InlineNotice from '../components/InlineNotice';
+import { useCouponsContext } from '../contexts/Coupons/CouponsContext';
+import { useEffect } from 'react';
 
 const CartPage = () => {
   const { cartItems } = useCartItemsContext();
   const { setPage } = usePageContext();
+  const { init: initCoupon } = useCouponsContext();
+
+  useEffect(() => {
+    initCoupon();
+  }, [initCoupon]);
 
   return (
     <>
@@ -33,13 +41,11 @@ const CartPage = () => {
                 />
               ))}
             </S.itemCardList>
-            <S.infoContainer>
-              <img src="./info.svg" />
-              <p>
-                총 주문 금액이 {DELIVERY_PRICE_THRESHOLD.toLocaleString()}{' '}
-                이상인 경우 무료 배송됩니다.
-              </p>
-            </S.infoContainer>
+            <InlineNotice
+              text={`총 주문 금액이 ${DELIVERY_PRICE_THRESHOLD.toLocaleString()}
+                이상인 경우 무료 배송됩니다.`}
+            />
+
             <PriceSection />
           </>
         )}
@@ -53,30 +59,3 @@ const CartPage = () => {
 };
 
 export default CartPage;
-
-const S = {
-  title: styled.p`
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 12px;
-  `,
-
-  content: styled.div`
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 64px - 64px);
-  `,
-
-  itemCardList: styled.ul`
-    overflow-y: auto;
-  `,
-
-  infoContainer: styled.div`
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #e6e6e6;
-  `,
-};

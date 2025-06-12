@@ -1,23 +1,21 @@
 import styled from '@emotion/styled';
-import { useCartItemsContext } from '../../contexts/CartItemsContext';
+import { useCartItemsContext } from '../../contexts/CartItems/CartItemsContext';
 import getOrderPrice from '../../utils/getOrderPrice';
 import PriceRow from './PriceRow';
-import {
-  DELIVERY_PRICE,
-  DELIVERY_PRICE_THRESHOLD,
-} from '../../constants/config';
-import { useCheckedCartItemsContext } from '../../contexts/CheckedCartItemContext';
+import { useCheckCartIdsContext } from '../../contexts/CheckedCartIds/CheckedCartIdsContext';
+import calculateDeliveryPrice from '../../utils/calculateDeliveryPrice';
+import { useCouponsContext } from '../../contexts/Coupons/CouponsContext';
+import { useShippingContext } from '../../contexts/Shipping/ShippingContext';
 
 const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
-  const { checkedCartIds } = useCheckedCartItemsContext();
+  const { checkedCartIds } = useCheckCartIdsContext();
+  const { couponDiscount } = useCouponsContext();
+  const { isRemoteArea } = useShippingContext();
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
 
-  const deliveryPrice =
-    orderPrice >= DELIVERY_PRICE_THRESHOLD || orderPrice === 0
-      ? 0
-      : DELIVERY_PRICE;
+  const deliveryPrice = calculateDeliveryPrice(orderPrice, isRemoteArea);
 
   return (
     <>
@@ -27,6 +25,13 @@ const PriceSection = () => {
           price={orderPrice}
           data-testid="orderPrice"
         />
+        {couponDiscount > 0 && (
+          <PriceRow
+            title="쿠폰 할인 금액"
+            price={-couponDiscount}
+            data-testid="couponDiscount"
+          />
+        )}
         <PriceRow
           title="배송비"
           price={deliveryPrice}
@@ -36,7 +41,7 @@ const PriceSection = () => {
 
       <PriceRow
         title="총 결제 금액"
-        price={orderPrice + deliveryPrice}
+        price={orderPrice + deliveryPrice - couponDiscount}
         data-testid="totalPrice"
       />
     </>

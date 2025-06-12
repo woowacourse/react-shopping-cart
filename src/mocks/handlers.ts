@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { fetchedData } from '../../test/mocks';
+import { mockCoupons, fetchedData } from '../../test/mocks';
 
 export const handlers = [
   http.get('*/cart-items', () => {
@@ -26,5 +26,25 @@ export const handlers = [
       quantity,
     };
     return HttpResponse.json({ ok: true }, { status: 200 });
+  }),
+
+  http.get('*/cart-items-error', () => {
+    return HttpResponse.json(
+      { message: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }),
+
+  http.delete('*/cart-items/:id-error', async () => {
+    return HttpResponse.json({ message: 'Bad Request' }, { status: 400 });
+  }),
+
+  http.patch('*/cart-items/:id-error', async () => {
+    return HttpResponse.json({ message: 'Bad Request' }, { status: 400 });
+  }),
+  http.get('*/coupons', () => {
+    return HttpResponse.json({
+      content: mockCoupons,
+    });
   }),
 ];

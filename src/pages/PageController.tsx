@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import { usePageContext } from '../contexts/PageContext';
+import { usePageContext } from '../contexts/Page/PageContext';
 import CartPage from './CartPage';
-import OrderConfirmPage from './OrderConfirmPage';
+import OrderPriceConfirmPage from './OrderPriceConfirmPage';
 import Header from '../components/Header';
+import OrderConfirmPage from './OrderConfirmPage';
 
 const PageController = () => {
   const { page } = usePageContext();
@@ -10,8 +11,9 @@ const PageController = () => {
   return (
     <S.container>
       <Header />
-        {page === 'cart' && <CartPage />}
-        {page === 'orderConfirm' && <OrderConfirmPage />}
+      {page === 'cart' && <CartPage />}
+      {page === 'orderConfirm' && <OrderConfirmPage />}
+      {page === 'orderPriceConfirm' && <OrderPriceConfirmPage />}
     </S.container>
   );
 };

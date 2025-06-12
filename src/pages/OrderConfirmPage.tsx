@@ -1,81 +1,70 @@
+import ConfirmButton from '../components/buttons/ConfirmButton';
+import PriceSection from '../components/priceSection/PriceSection';
+import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
+import { usePageContext } from '../contexts/Page/PageContext';
+import BaseS from './page.Style';
+import CartItemConfirmMessage from '../components/messages/CartItemConfirmMessage';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
+import ConfirmItemCard from '../components/itemCards/ConfirmItemCard';
+import OpenCouponModalButton from '../components/buttons/OpenCouponModalButton';
 import styled from '@emotion/styled';
-import BottomButton from '../components/BottomButton';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
-import getOrderPrice from '../utils/getOrderPrice';
-import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
-import { useCheckedCartItemsContext } from '../contexts/CheckedCartItemContext';
+import { useState } from 'react';
+import CouponModal from '../components/CouponModal';
+import InlineNotice from '../components/InlineNotice';
+import DeliveryInfo from '../components/DeliveryInfo';
 
 const OrderConfirmPage = () => {
   const { cartItems } = useCartItemsContext();
-  const { checkedCartIds } = useCheckedCartItemsContext();
-  const orderPrice = getOrderPrice(cartItems, checkedCartIds);
-  const deliveryPrice =
-    orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;
-  const totalPrice = orderPrice + deliveryPrice;
-  const totalQuantity = cartItems
-    .filter(({ id }) => checkedCartIds.includes(id))
-    .reduce((acc, item) => acc + item.quantity, 0);
+  const { checkedCartIds } = useCheckCartIdsContext();
+  const { setPage } = usePageContext();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const selectedCartItems = cartItems.filter((item) =>
+    checkedCartIds.includes(item.id)
+  );
 
   return (
     <>
-      <S.content data-testid="orderConfirmPage">
+      <S.content>
         <S.title>주문 확인</S.title>
-        <S.middleContainer>
-          <p>
-            총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를
-            주문합니다.
-          </p>
-          <p>최종 결제 금액을 확인해 주세요.</p>
-        </S.middleContainer>
-        <S.bottomContainer>
-          <S.totalPriceText>총 결제 금액</S.totalPriceText>
-          <S.totalPrice>{totalPrice.toLocaleString()}원</S.totalPrice>
-        </S.bottomContainer>
+
+        <CartItemConfirmMessage />
+        <S.itemCardList>
+          {selectedCartItems.map((item) => (
+            <ConfirmItemCard
+              product={item.product}
+              quantity={item.quantity}
+              key={item.id}
+            />
+          ))}
+        </S.itemCardList>
+        <DeliveryInfo />
+        <OpenCouponModalButton onClick={handleOpenModal} />
+        <InlineNotice
+          text={`총 주문 금액이 ${DELIVERY_PRICE_THRESHOLD.toLocaleString()}
+                이상인 경우 무료 배송됩니다.`}
+        />
+        <PriceSection />
       </S.content>
-      <BottomButton disabled title="결제하기" />
+      <ConfirmButton
+        title="결제하기"
+        onClick={() => setPage('orderPriceConfirm')}
+      />
+      <CouponModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
 
-export default OrderConfirmPage;
-
 const S = {
-  content: styled.div`
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 24px;
-    height: calc(100vh - 64px - 64px);
-  `,
-
-  title: styled.p`
-    font-size: 24px;
-    font-weight: 700;
-  `,
-
-  middleContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  `,
-
-  bottomContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  ...BaseS,
+  content: styled(BaseS.content)`
     gap: 12px;
   `,
-
-  totalPriceText: styled.p`
-    font-size: 16px;
-    font-weight: 700;
-  `,
-
-  totalPrice: styled.p`
-    font-size: 24px;
-    font-weight: 700;
-  `,
 };
+
+export default OrderConfirmPage;

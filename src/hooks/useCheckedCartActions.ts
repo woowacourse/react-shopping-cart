@@ -1,14 +1,15 @@
 import { useCallback } from 'react';
 import { CartItem } from '../types';
 import getIdsFromCartItems from '../utils/getIdsFromCartItems';
-import { useCheckedCartItemsContext } from '../contexts/CheckedCartItemContext';
+import { useCheckCartIdsContext } from '../contexts/CheckedCartIds/CheckedCartIdsContext';
 import useCartActions from './useCartItemsActions';
-import { useCartItemsContext } from '../contexts/CartItemsContext';
+import { useCartItemsContext } from '../contexts/CartItems/CartItemsContext';
 
 const useCheckedCartActions = () => {
   const { cartItems } = useCartItemsContext();
+  const { checkedCartIds, setCheckedCartIds, isAllChecked } =
+    useCheckCartIdsContext();
   const { deleteCartItem } = useCartActions();
-  const { checkedCartIds, setCheckedCartIds } = useCheckedCartItemsContext();
 
   const addCheckedCartItem = useCallback(
     (id: number) => {
@@ -32,9 +33,6 @@ const useCheckedCartActions = () => {
     },
     [setCheckedCartIds]
   );
-
-  const isAllChecked =
-    cartItems.length > 0 && checkedCartIds.length === cartItems.length;
 
   const toggleAllChecked = useCallback(() => {
     if (isAllChecked) init([]);

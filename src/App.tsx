@@ -1,19 +1,28 @@
 import styled from '@emotion/styled';
-import CartItemsProvider from './contexts/CartItemsProvider';
-import PageProvider from './contexts/PageProvider';
+import CartItemsProvider from './contexts/CartItems/CartItemsProvider';
+import PageProvider from './contexts/Page/PageProvider';
 import PageController from './pages/PageController';
-import CheckedCartItemsProvider from './contexts/CheckedCartItemsProvider';
+import { ErrorToastProvider } from './contexts/ErrorToast/ErrorToastProvider';
+import CheckCartIdsProvider from './contexts/CheckedCartIds/CheckedCartIdsProvider';
+import { ShippingProvider } from './contexts/Shipping/ShippingProvider';
+import CouponsProvider from './contexts/Coupons/CouponsProvider';
 
 function App() {
   return (
     <S.layout>
-      <PageProvider>
-        <CartItemsProvider>
-          <CheckedCartItemsProvider>
-            <PageController />
-          </CheckedCartItemsProvider>
-        </CartItemsProvider>
-      </PageProvider>
+      <ErrorToastProvider>
+        <PageProvider>
+          <CartItemsProvider>
+            <CheckCartIdsProvider>
+              <ShippingProvider>
+                <CouponsProvider>
+                  <PageController />
+                </CouponsProvider>
+              </ShippingProvider>
+            </CheckCartIdsProvider>
+          </CartItemsProvider>
+        </PageProvider>
+      </ErrorToastProvider>
     </S.layout>
   );
 }
