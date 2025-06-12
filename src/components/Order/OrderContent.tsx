@@ -7,6 +7,7 @@ import OrderMain from './OrderMain';
 import { useOrder } from '../../context/OrderContext';
 import { useCoupon } from '../../context/CouponContext';
 import { calculateShippingFee } from '../../utils/calculator';
+import { Fragment } from 'react/jsx-runtime';
 
 function OrderContent() {
   const { selectedCartItems, price } = useOrder();
@@ -30,7 +31,7 @@ function OrderContent() {
     }
   };
   return (
-    <div data-testid="order-content">
+    <Fragment data-testid="order-content">
       <Header variant="back" />
       <Container>
         <CartHeader title="주문 확인" description={descriptionMessage()} />
@@ -53,7 +54,7 @@ function OrderContent() {
       >
         결제하기
       </Button>
-    </div>
+    </Fragment>
   );
 }
 
