@@ -89,15 +89,15 @@ function findBestCouponCombination(
         const currentResult = calculateBestCombination(combination);
         return currentResult.finalDiscount > bestResult.finalDiscount
           ? {
-              selectedCoupons: currentResult.selectedCoupons,
-              totalDiscount: currentResult.totalDiscount,
-              finalShippingFee: currentResult.finalShippingFee,
-              hasFreeShipping: currentResult.hasFreeShipping,
-              finalDiscount: currentResult.finalDiscount,
-            }
+            selectedCoupons: currentResult.selectedCoupons,
+            totalDiscount: currentResult.totalDiscount,
+            finalShippingFee: currentResult.finalShippingFee,
+            hasFreeShipping: currentResult.hasFreeShipping,
+            finalDiscount: currentResult.finalDiscount,
+          }
           : bestResult;
       } catch (error) {
-        console.error("Error calculating combination:", error);
+        console.error("combination 도중 오류:", error);
         return bestResult;
       }
     },
@@ -143,7 +143,7 @@ export function optimizeCouponSelection(
       selectedCartItems
     );
   } catch (error) {
-    console.error("Error in coupon optimization:", error);
+    console.error("coupon optimization 도중 오류:", error);
     return {
       selectedCoupons: [],
       totalDiscount: 0,

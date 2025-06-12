@@ -2,6 +2,7 @@ import { Global } from "@emotion/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { MobileLayout } from "./components/common";
+import { ScrollToTopOnRouteChange } from "./components/common/layout/ScrollToTopOnRouteChange";
 import { APIDataProvider } from "./context/APIDataProvider";
 import reset from "./style/reset";
 import OrderConfirmPage from "./pages/order-confirm/OrderConfirmPage";
@@ -21,6 +22,7 @@ function App() {
           <APIDataProvider>
             <OrderListProvider>
               <BrowserRouter basename={getBrowserBaseUrl()}>
+                <ScrollToTopOnRouteChange />
                 <Routes>
                   <Route
                     path="/"

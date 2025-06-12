@@ -4,14 +4,12 @@ import BackArrowButton from "../../components/common/assets/BackArrowButton";
 import OrderContents from "./components/OrderContents";
 import PayContents from "./components/PayContents";
 import { CouponProvider } from "./context/CouponProvider";
-import { useScrollToTop } from "../../hooks/useScrollToTop";
 
 const OrderConfirmPage = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
   };
-  useScrollToTop();
 
   return (
     <CouponProvider>
