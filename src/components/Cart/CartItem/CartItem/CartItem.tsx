@@ -6,12 +6,11 @@ import {
   CountContainer,
   DeleteButton,
   ItemContainer,
-  ItemContent,
   ItemController,
-  ItemInfo,
 } from "./CartItem.styles";
 import CartItemImage from "../CartItemImage/CartItemImage";
 import CartItemInfo from "../CartItemInfo/CartItemInfo";
+import { ItemContent, ItemInfo } from "../../../../styles";
 
 interface CartItemProps {
   cartItem: CartItemType;

@@ -19,18 +19,6 @@ export const ItemController = css`
   justify-content: space-between;
 `;
 
-export const ItemInfo = css`
-  display: flex;
-  gap: 24px;
-`;
-
-export const ItemContent = css`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  justify-content: center;
-`;
-
 export const CountContainer = css`
   display: flex;
   gap: 4.5px;

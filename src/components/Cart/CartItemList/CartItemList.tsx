@@ -1,6 +1,6 @@
 import { CartItemType } from "../../../types/response";
 import CartItem from "../CartItem/CartItem/CartItem";
-import { Container } from "./CartItemList.styles";
+import { ItemContainer } from "../CartItem/CartItem/CartItem.styles";
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -16,7 +16,7 @@ function CartItemList({
   toggleSelect,
 }: CartItemListProps) {
   return (
-    <section css={Container}>
+    <section css={ItemContainer}>
       {cartItems.map((cartItem) => {
         return (
           <CartItem

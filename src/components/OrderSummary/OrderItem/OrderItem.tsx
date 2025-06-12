@@ -1,8 +1,5 @@
+import { ItemContent, ItemInfo } from "../../../styles";
 import { CartItemType } from "../../../types/response";
-import {
-  ItemContent,
-  ItemInfo,
-} from "../../Cart/CartItem/CartItem/CartItem.styles";
 import CartItemImage from "../../Cart/CartItem/CartItemImage/CartItemImage";
 import CartItemInfo from "../../Cart/CartItem/CartItemInfo/CartItemInfo";
 import { ItemContainer, ItemQuantity } from "./OrderItem.styles";
