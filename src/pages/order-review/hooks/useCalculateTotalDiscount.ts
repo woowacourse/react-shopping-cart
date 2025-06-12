@@ -1,7 +1,6 @@
+import { Cart } from '@/api/cart';
 import { CouponContent } from '@/api/type';
 import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
-import { useMemo } from 'react';
-import { Cart } from '@/api/cart';
 
 interface calculateTotalDiscountInput {
   selectedCouponIds: number[];
@@ -18,29 +17,21 @@ export const useCalculateTotalDiscount = ({
   selectedItems,
   isJejuOrRemoteArea,
 }: calculateTotalDiscountInput) => {
-  const totalDiscount = useMemo(() => {
-    const selectedCoupons = selectedCouponIds
-      .map((id) => availableCoupons.find((c) => c.id === id))
-      .filter(Boolean) as CouponContent[];
+  const selectedCoupons = selectedCouponIds
+    .map((id) => availableCoupons.find((c) => c.id === id))
+    .filter(Boolean) as CouponContent[];
 
-    return selectedCoupons.reduce((total, coupon) => {
-      return (
-        total +
-        getDiscountByCouponId(
-          coupon,
-          orderPrice,
-          selectedItems,
-          isJejuOrRemoteArea
-        )
-      );
-    }, 0);
-  }, [
-    selectedCouponIds,
-    availableCoupons,
-    orderPrice,
-    selectedItems,
-    isJejuOrRemoteArea,
-  ]);
+  const totalDiscount = selectedCoupons.reduce((total, coupon) => {
+    return (
+      total +
+      getDiscountByCouponId(
+        coupon,
+        orderPrice,
+        selectedItems,
+        isJejuOrRemoteArea
+      )
+    );
+  }, 0);
 
   return totalDiscount;
 };

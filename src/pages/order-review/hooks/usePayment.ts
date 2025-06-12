@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 interface usePaymentInput {
   orderPrice: number;
   shippingFee: number;
@@ -11,7 +9,5 @@ export const usePayment = ({
   shippingFee,
   discount,
 }: usePaymentInput) => {
-  return useMemo(() => {
-    return orderPrice + shippingFee - discount;
-  }, [orderPrice, shippingFee, discount]);
+  return orderPrice + shippingFee - discount;
 };

@@ -1,9 +1,8 @@
 // hooks/useBestCouponCombination.ts
 import { CouponContent } from '@/api/type';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
-import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
-import { useMemo } from 'react';
 import { getAllCouponCombinationIds } from '../utils/getAllCouponCombinationIds';
+import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
 
 export const useBestCouponCombination = (
   availableCoupons: CouponContent[],
@@ -11,7 +10,7 @@ export const useBestCouponCombination = (
 ) => {
   const { selectedItems, orderPrice } = useOrderListContext();
   const allCouponCombinationIds = getAllCouponCombinationIds(availableCoupons);
-  
+
   const combinations = allCouponCombinationIds.map((couponIds) => {
     const selectedCoupons = couponIds
       .map((id) => availableCoupons.find((c) => c.id === id))
@@ -33,13 +32,12 @@ export const useBestCouponCombination = (
     };
   });
 
-  const bestCombination = useMemo(() => {
-    return combinations.length > 0
+  const bestCombination =
+    combinations.length > 0
       ? combinations.reduce((prev, curr) =>
           curr.discount > prev.discount ? curr : prev
         )
       : { couponIds: [], discount: 0 };
-  }, [combinations]);
 
   return {
     bestCouponIds: bestCombination.couponIds,
