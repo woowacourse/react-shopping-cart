@@ -46,30 +46,13 @@ const CouponModal = ({
 
   const { selectedItems, orderPrice } = useOrderListContext();
 
-  // useBestCouponCombination 대신 직접 계산
-  const modalDiscount = useMemo(() => {
-    const selectedCoupons = selectedCouponIds
-      .map((id) => availableCoupons.find((c) => c.id === id))
-      .filter(Boolean) as CouponContent[];
-
-    return selectedCoupons.reduce((total, coupon) => {
-      return (
-        total +
-        getDiscountByCouponId(
-          coupon,
-          orderPrice,
-          selectedItems,
-          isJejuOrRemoteArea
-        )
-      );
-    }, 0);
-  }, [
+  const modalDiscount = useCalculateTotalDiscount({
     selectedCouponIds,
     availableCoupons,
     orderPrice,
     selectedItems,
     isJejuOrRemoteArea,
-  ]);
+  });
 
   return (
     <Modal
