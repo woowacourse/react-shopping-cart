@@ -9,6 +9,7 @@ import {
 import { useEffect } from "react";
 import { getMaxDiscountCombinations } from "../../domains/coupon/calculateCoupon";
 import { COUPON_LIMIT } from "../../constants/systemConstants";
+import { useMapState } from "../@common/useMapState";
 
 interface UseCouponProps {
   orderPrice: number;
@@ -18,9 +19,13 @@ interface UseCouponProps {
 
 const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
   const [couponList, setCouponList] = useState<CouponType[]>([]);
-  const [checkedCoupons, setCheckedCoupons] = useState<Map<number, CouponType>>(
-    new Map()
-  );
+  const {
+    map: checkedCoupons,
+    add,
+    remove,
+  } = useMapState<number, CouponType>({
+    initialValue: new Map(),
+  });
 
   const { callApi, loadingState } = useApiHandler();
 
@@ -49,37 +54,25 @@ const useCoupon = ({ orderPrice, deliveryFee, orderItems }: UseCouponProps) => {
         }
       );
 
-      setCheckedCoupons(
-        new Map(maxDiscountCombination.map((coupon) => [coupon.id, coupon]))
-      );
+      maxDiscountCombination.forEach((coupon) => {
+        add(coupon.id, coupon);
+      });
     };
 
     fetchData();
   }, []);
 
+  const addCheckedCoupon = (couponInfo: CouponType) => {
+    if (checkedCoupons.size >= COUPON_LIMIT) return;
+    add(couponInfo.id, couponInfo);
+  };
+
   const toggleCheckedCoupon = (couponInfo: CouponType) => {
     if (checkedCoupons.has(couponInfo.id)) {
-      removeCheckedCoupon(couponInfo);
+      remove(couponInfo.id);
       return;
     }
     addCheckedCoupon(couponInfo);
-  };
-
-  const addCheckedCoupon = (couponInfo: CouponType) => {
-    if (checkedCoupons.size >= COUPON_LIMIT) return;
-    setCheckedCoupons((prev: Map<number, CouponType>) => {
-      const newCheckedCoupons = new Map(prev);
-      newCheckedCoupons.set(couponInfo.id, couponInfo);
-      return newCheckedCoupons;
-    });
-  };
-
-  const removeCheckedCoupon = (couponInfo: CouponType) => {
-    setCheckedCoupons((prev: Map<number, CouponType>) => {
-      const newCheckedCoupons = new Map(prev);
-      newCheckedCoupons.delete(couponInfo.id);
-      return newCheckedCoupons;
-    });
   };
 
   return {
