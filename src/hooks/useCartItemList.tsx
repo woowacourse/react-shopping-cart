@@ -1,8 +1,8 @@
 import { useEffect, useReducer } from "react";
 
-import fetchCartItems from "../api/fetchCartItemList";
-import fetchPatchProduct from "../api/fetchPatchProduct";
-import fetchRemoveProduct from "../api/fetchRemoveProduct";
+import getCartItemList from "../api/cart/getCartItemList";
+import patchProduct from "../api/cart/patchProduct";
+import deleteProduct from "../api/cart/deleteProduct";
 
 import { useCartItemListContext } from "../contexts/CartItemListContext";
 import { useErrorContext } from "../contexts/ErrorContext";
@@ -62,12 +62,12 @@ interface useCartItemListReturn {
   state: typeof INIT_STATE;
   cartItemList: CartItem[];
   patchCartItem: (id: number, quantity: number) => Promise<void>;
-  removeCartItem: (id: number) => Promise<void>;
+  deleteCartItem: (id: number) => Promise<void>;
 }
 
 const useCartItemList = (): useCartItemListReturn => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const { cartItemList, handleCartItemList } = useCartItemListContext();
+  const { cartItemList, updateCartItemList } = useCartItemListContext();
   const { handleErrorMessage } = useErrorContext();
 
   useEffect(() => {
@@ -77,14 +77,11 @@ const useCartItemList = (): useCartItemListReturn => {
 
   const fetchData = async () => {
     try {
-      const { content } = await fetchCartItems({
-        method: "GET",
-        params: {
-          page: "0",
-          size: "50",
-        },
+      const { content } = await getCartItemList({
+        page: "0",
+        size: "50",
       });
-      handleCartItemList(content);
+      updateCartItemList(content);
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
     } catch (error) {
       dispatch({ type: ACTION_TYPE.FETCH_FAIL });
@@ -102,12 +99,9 @@ const useCartItemList = (): useCartItemListReturn => {
 
     try {
       dispatch({ type: ACTION_TYPE.FETCH_FETCHING });
-      await fetchPatchProduct({
-        method: "PATCH",
-        params: {
-          productId: id,
-          quantity,
-        },
+      await patchProduct({
+        productId: id,
+        quantity,
       });
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
     } catch {
@@ -126,15 +120,12 @@ const useCartItemList = (): useCartItemListReturn => {
     dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
   };
 
-  const removeCartItem = async (id: number) => {
+  const deleteCartItem = async (id: number) => {
     try {
       dispatch({ type: ACTION_TYPE.FETCH_FETCHING });
 
-      await fetchRemoveProduct({
-        method: "DELETE",
-        params: {
-          productId: id,
-        },
+      await deleteProduct({
+        productId: id,
       });
       dispatch({ type: ACTION_TYPE.FETCH_SUCCESS });
     } catch (error) {
@@ -156,7 +147,7 @@ const useCartItemList = (): useCartItemListReturn => {
     state,
     cartItemList,
     patchCartItem,
-    removeCartItem,
+    deleteCartItem,
   };
 };
 export default useCartItemList;
