@@ -20,6 +20,7 @@ import { getCartItemSummary } from '../../utils/getCartItemSummary';
 import Spinner from '../../components/Common/Spinner/Spinner';
 import { setItem, SELECTED_CART_ITEM_IDS } from '../../utils/localStorage';
 import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
+import { getDeliveryFee } from '../../utils/getDeliveryFee';
 
 export function ShoppingCart() {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ export function ShoppingCart() {
                 />
                 <PaymentSummary
                   price={totalPrice}
-                  deliveryFee={10_0000 <= totalPrice ? 0 : 3000}
+                  deliveryFee={getDeliveryFee(false, totalPrice)}
                 />
               </>
             )}
