@@ -12,8 +12,9 @@ import { useState } from "react";
 import CouponModal from "../CouponModal/CouponModal";
 import ExtraShipping from "../../components/ExtraShipping/ExtraShipping";
 import { CouponType } from "../../components/Coupon/types";
-import useCoupon from "../../hooks/useCoupon";
 import OrderReceipt from "../../components/OrderReceipt/OrderReceipt";
+import couponService from "../../domain/coupon/couponService";
+import { filterNonExpiredCoupons } from "../../utils/coupon";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -38,19 +39,32 @@ function OrderSummary() {
     setRedeemedCoupons(coupons);
   };
 
-  const { filterNonExpiredCoupons, checkCanRedeem, redeemAllCoupon } =
-    useCoupon();
-
   const orderCost = getOrderCost(cartItems);
   const deliveryCost = getDeliveryCost(orderCost, isExtraShipping);
-  const getDiscount = (selectedCoupons: CouponType[]) => {
-    return redeemAllCoupon(selectedCoupons, orderCost, cartItems, deliveryCost);
-  };
-  const discount = getDiscount(redeemedCoupons);
+  const discount = couponService.redeemAll({
+    selectedCoupons: redeemedCoupons,
+    selectedItems: cartItems,
+    orderCost,
+    deliveryCost,
+  });
   const totalCost = getTotalCost(orderCost, deliveryCost, discount);
 
-  const decideCanRedeem = (coupon: CouponType) => {
-    return checkCanRedeem(coupon, orderCost, cartItems);
+  const getExpectedDiscount = (selectedCoupons: CouponType[]) => {
+    return couponService.redeemAll({
+      selectedCoupons,
+      selectedItems: cartItems,
+      orderCost,
+      deliveryCost,
+    });
+  };
+
+  const decideSelectedCouponCanRedeem = (coupon: CouponType) => {
+    return couponService.decideCanRedeem({
+      coupon,
+      selectedItems: cartItems,
+      orderCost,
+      deliveryCost,
+    });
   };
 
   return (
@@ -101,9 +115,9 @@ function OrderSummary() {
             openModal={openModal}
             setOpenModal={setOpenModal}
             redeemCoupons={redeemCoupons}
-            getDiscount={getDiscount}
+            getDiscount={getExpectedDiscount}
             filterNonExpiredCoupons={filterNonExpiredCoupons}
-            decideCanRedeem={decideCanRedeem}
+            decideCanRedeem={decideSelectedCouponCanRedeem}
           />,
           modalRoot
         )}
