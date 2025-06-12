@@ -1,6 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import useCoupons from '../../src/hooks/useCoupons';
-import * as checkedCtx from '../../src/contexts/CheckedCartIds/CheckedCartIdsContext';
 import * as shippingCtx from '../../src/contexts/Shipping/ShippingContext';
 import { ErrorToastProvider } from '../../src/contexts/ErrorToast/ErrorToastProvider';
 import CartItemsProvider from '../../src/contexts/CartItems/CartItemsProvider';
@@ -9,6 +8,7 @@ import { act } from 'react';
 import { mockCoupons } from '../mocks';
 import { ShippingProvider } from '../../src/contexts/Shipping/ShippingProvider';
 import { resetMockDate, setMockDate } from '../../src/utils/getCurrentDate';
+import { mockCheckedCartIds } from './mockCheckedCartIds';
 type ProvidersProps = {
   children: React.ReactNode;
 };
@@ -28,11 +28,7 @@ describe('useCoupons 테스트', () => {
   describe('현재 유효한 쿠폰 목록을 반환한다', () => {
     describe('FIXED5000 -  고정 5000원 할인, 최소 주문 금액: 100,000원', () => {
       test('주문 금액이 100,000원 이상일 때 쿠폰이 적용된다', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([1]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -46,11 +42,7 @@ describe('useCoupons 테스트', () => {
       });
 
       test('주문 금액이 100,000원 미만일 때 쿠폰이 적용되지 않는다', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [6],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([6]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -71,11 +63,7 @@ describe('useCoupons 테스트', () => {
 
     describe('BOGO - 2+1, 단가가 더 높은 상품에 적용', () => {
       test('3개 이상인 경우에만 쿠폰이 적용된다', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [3],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([3]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -88,11 +76,7 @@ describe('useCoupons 테스트', () => {
         });
       });
       test('3개 미만인 경우 쿠폰이 적용되지 않는다', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([1]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -112,11 +96,7 @@ describe('useCoupons 테스트', () => {
 
     describe('FREESHIPPING - 배송비 무료, 최소 주문 금액: 50,000원', () => {
       test('주문 금액이 50,000원 이상일 때 쿠폰이 적용된다', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [6],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([6]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -130,11 +110,7 @@ describe('useCoupons 테스트', () => {
       });
 
       test('주문 금액이 50,000원 미만일 때 쿠폰이 적용되지 않는다', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [3, 4],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([3, 4]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -152,12 +128,7 @@ describe('useCoupons 테스트', () => {
       });
 
       test('주문 금액이 100,000원 이상일 때 쿠폰이 적용되지 않는다(기본 무료 배송)', async () => {
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
-
+        mockCheckedCartIds([1]);
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
         });
@@ -225,11 +196,7 @@ describe('useCoupons 테스트', () => {
         jest.useFakeTimers();
         // 시스템 시각을 2025-08-01T12:00:00+09:00 으로 고정
         jest.setSystemTime(new Date('2025-08-01T12:00:00+09:00'));
-        jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-          checkedCartIds: [1, 2, 3, 4, 5, 6],
-          setCheckedCartIds: jest.fn(),
-          isAllChecked: false,
-        });
+        mockCheckedCartIds([1, 2, 3, 4, 5, 6]);
 
         const { result } = renderHook(() => useCoupons(), {
           wrapper: ({ children }) => <Providers>{children}</Providers>,
@@ -319,11 +286,7 @@ describe('useCoupons 테스트', () => {
       });
     });
     test('제주도 및 도서산간 지역일때 배송비 할인은 6000원', async () => {
-      jest.spyOn(checkedCtx, 'useCheckCartIdsContext').mockReturnValue({
-        checkedCartIds: [6],
-        setCheckedCartIds: jest.fn(),
-        isAllChecked: false,
-      });
+      mockCheckedCartIds([6]);
       jest.spyOn(shippingCtx, 'useShippingContext').mockReturnValue({
         isRemoteArea: true,
         setIsRemoteArea: jest.fn(),
