@@ -12,13 +12,13 @@ function renderApp() {
   return render(
     <MemoryRouter initialEntries={['/']}>
       <CartItemsProvider>
-        <CouponsProvider>
-          <SelectedCartItemsProvider>
+        <SelectedCartItemsProvider>
+          <CouponsProvider>
             <OrderProvider>
               <App />
             </OrderProvider>
-          </SelectedCartItemsProvider>
-        </CouponsProvider>
+          </CouponsProvider>
+        </SelectedCartItemsProvider>
       </CartItemsProvider>
     </MemoryRouter>
   );

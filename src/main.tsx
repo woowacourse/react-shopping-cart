@@ -31,13 +31,13 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <CartItemsProvider>
-        <CouponsProvider>
-          <SelectedCartItemsProvider>
+        <SelectedCartItemsProvider>
+          <CouponsProvider>
             <OrderProvider>
               <RouterProvider router={router} />
             </OrderProvider>
-          </SelectedCartItemsProvider>
-        </CouponsProvider>
+          </CouponsProvider>
+        </SelectedCartItemsProvider>
       </CartItemsProvider>
     </React.StrictMode>
   );
