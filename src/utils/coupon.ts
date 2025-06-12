@@ -28,47 +28,32 @@ export function generateCombos<T>(items: T[], maxLen: number): T[][] {
 export function calcCouponDiscount(
   coupon: CouponType,
   cart: CartType,
-  selectedItems: number[],
+  selectedIds: number[],
 ): number {
-  if (coupon.availableTime) {
-    const now = new Date();
-    const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}:00`;
-
-    if (currentTime < coupon.availableTime.start || currentTime >= coupon.availableTime.end) {
-      return 0;
-    }
-  }
-
-  if (coupon.minimumAmount && cart.total < coupon.minimumAmount) {
-    return 0;
-  }
-
   switch (coupon.discountType) {
     case 'fixed':
       return coupon.discount ?? 0;
-    case 'percentage': {
+
+    case 'percentage':
       return cart.total * ((coupon.discount ?? 0) / 100);
-    }
+
     case 'freeShipping': {
-      const totalShippingFee = cart.shippingFee + (cart.isExtraShippingFee ? BASE_SHIPPING_FEE : 0);
-      return totalShippingFee;
+      const totalShipping = cart.shippingFee + (cart.isExtraShippingFee ? BASE_SHIPPING_FEE : 0);
+      return totalShipping;
     }
+
     case 'buyXgetY': {
-      // console.log(hasMultipleSelectedItems(cart, selectedItems));
       const { buyQuantity = 0, getQuantity = 0 } = coupon;
       const groupSize = buyQuantity + getQuantity;
 
-      const selectedCartItems = cart.items.filter((item) => selectedItems.includes(item.id));
-      const sortedItems = [...selectedCartItems].sort((a, b) => b.product.price - a.product.price);
+      const selectedItems = cart.items.filter((item) => selectedIds.includes(item.id));
+      // 가장 비싼 상품 순으로 정렬
+      const sorted = [...selectedItems].sort((a, b) => b.product.price - a.product.price);
 
-      const freeCount = Math.floor(selectedCartItems[0].quantity / groupSize) * getQuantity;
-      const totalDiscount = freeCount * sortedItems[0].product.price;
-
-      return totalDiscount;
+      const freeSets = Math.floor(sorted[0].quantity / groupSize);
+      return freeSets * getQuantity * sorted[0].product.price;
     }
+
     default:
       return 0;
   }
@@ -77,60 +62,70 @@ export function calcCouponDiscount(
 export function calcComboDiscount(
   combo: CouponType[],
   cart: CartType,
-  selectedItems: number[],
+  selectedIds: number[],
 ): number {
-  return combo
-    .map((c) => calcCouponDiscount(c, cart, selectedItems))
-    .reduce((sum, v) => sum + v, 0);
+  return combo.map((c) => calcCouponDiscount(c, cart, selectedIds)).reduce((sum, v) => sum + v, 0);
 }
 
-export function findBestCombo(combos: CouponType[][], cart: CartType, selectedItems: number[]) {
+export function findBestCombo(
+  combos: CouponType[][],
+  cart: CartType,
+  selectedIds: number[],
+): number {
   let maxDisc = 0;
   combos.forEach((combo) => {
-    const d = calcComboDiscount(combo, cart, selectedItems);
-    if (d > maxDisc) {
-      maxDisc = d;
-    }
+    const disc = calcComboDiscount(combo, cart, selectedIds);
+    if (disc > maxDisc) maxDisc = disc;
   });
   return maxDisc;
 }
+
+type Validator = (
+  coupon: CouponType,
+  cart: CartType,
+  price: number,
+  selectedCount: number,
+) => boolean;
+
+const couponValidators: Record<CouponType['discountType'], Validator> = {
+  fixed: (coupon, cart, price) => !(coupon.minimumAmount != null && price < coupon.minimumAmount),
+
+  percentage: (coupon, cart, price) =>
+    !(coupon.minimumAmount != null && price < coupon.minimumAmount),
+
+  freeShipping: (_, cart) =>
+    cart.shippingFee + (cart.isExtraShippingFee ? BASE_SHIPPING_FEE : 0) > 0,
+
+  buyXgetY: (coupon, cart, _, selectedCount) => selectedCount >= (coupon.buyQuantity ?? 0),
+};
 
 export function checkCouponAvailability(
   coupon: CouponType,
   price: number,
   selectedCount: number,
+  cart: CartType,
 ): boolean {
-  if (selectedCount < 3) {
-    return true;
-  }
-
   const now = new Date();
-  const currentTime = now.toTimeString().slice(0, 8);
+  const timeStr = now.toTimeString().slice(0, 8);
 
   if (coupon.expirationDate) {
-    const expirationDate = new Date(coupon.expirationDate);
-    if (now > expirationDate) {
-      return true;
-    }
+    const expires = new Date(coupon.expirationDate);
+    if (now > expires) return true;
   }
 
   if (coupon.availableTime) {
     const { start, end } = coupon.availableTime;
-    if (currentTime < start || currentTime > end) {
-      return true;
-    }
+    if (timeStr < start || timeStr >= end) return true;
   }
 
-  if (coupon.minimumAmount && coupon.minimumAmount > price) {
-    return true;
-  }
+  if (coupon.minimumAmount && price < coupon.minimumAmount) return true;
 
-  return false;
+  const canApply = couponValidators[coupon.discountType](coupon, cart, price, selectedCount);
+  return !canApply;
 }
 
 export function calculateTotalDiscount(selectedCoupons: CouponType[], cart: CartType): number {
   if (selectedCoupons.length === 0) return 0;
-
   const combos = generateCombos(selectedCoupons, MAX_COUPON_COUNT);
   return findBestCombo(
     combos,

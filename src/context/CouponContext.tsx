@@ -33,6 +33,7 @@ export function CouponProvider({ children }: { children: ReactNode }) {
       couponItem,
       price,
       selectedCartItems.reduce((sum, item) => sum + item.quantity, 0),
+      cart,
     );
 
   return (
