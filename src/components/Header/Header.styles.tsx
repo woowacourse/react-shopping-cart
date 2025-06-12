@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const headerLayout = styled.header`
   position: relative;
@@ -10,7 +10,7 @@ export const headerLayout = styled.header`
   width: 100%;
   height: 64px;
   background-color: black;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   font-family: "Noto Sans";
   font-size: 20px;
   font-weight: 800;

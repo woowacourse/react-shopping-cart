@@ -1,9 +1,13 @@
-export { default as Button } from "./Button/Button";
-export { default as CartItem } from "./CartItem/CartItem";
-export { default as Checkbox } from "./Checkbox/Checkbox";
-export { default as Header } from "./Header/Header";
-export { default as PlusMinusButton } from "./PlusMinusButton/PlusMinusButton";
-export { default as Spacing } from "./Spacing/Spacing";
-export { default as Text } from "./Text/Text";
-
+export * from "./Button";
+export * from "./Checkbox";
+export * from "./Flex";
+export * from "./Header";
+export * from "./PlusMinusButton";
+export * from "./Spacing";
+export * from "./Text";
+export * from "./Modal";
+export * from "./Card";
+export * from "./ErrorBoundary";
+export * from "./ErrorFallback";
+export * from "./LoadingFallback";
 export * from "./icons";

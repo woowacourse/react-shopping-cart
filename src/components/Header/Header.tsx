@@ -1,9 +1,8 @@
+import { PropsWithChildren } from "react";
 import * as S from "./Header.styles";
 
-interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-}
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function Header({ children, ...props }: HeaderProps) {
+export default function Header({ children, ...props }: PropsWithChildren<HeaderProps>) {
   return <S.headerLayout {...props}>{children}</S.headerLayout>;
 }

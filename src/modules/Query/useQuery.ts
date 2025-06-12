@@ -1,23 +1,40 @@
 import { useEffect } from "react";
-import { useQueryClient } from "./QueryProvider";
-import { getQueryPromise, setQueryPromise, clearQueryPromise } from "./QueryPromises";
+import { clearQueryPromise, getQueryPromise, setQueryPromise } from "./QueryPromises";
+import { getQueryData, setQueryData, setQueryStatus } from "./QueryStore";
+import { useQueryData, useQueryStatus } from "./useQueryData";
+import { Status } from "./type";
 
 interface UseQueryProps<T> {
   queryKey: string;
   queryFn: () => Promise<T>;
+  initialData?: Partial<T>;
 }
 
-export default function useQuery<T>({ queryKey, queryFn }: UseQueryProps<T>) {
-  const { getQueryData, setQueryData, getQueryStatus, setQueryStatus } = useQueryClient();
+const AUTO_REFETCH_INTERVAL = 5 * 60 * 1000; // 5분
+
+interface UseQueryCommonResult {
+  status: Status;
+  fetchData: () => void;
+  refetch: () => void;
+}
+
+export default function useQuery<T>(props: UseQueryProps<T> & { initialData: Partial<T> }): UseQueryCommonResult & {
+  data: T;
+};
+export default function useQuery<T>(props: UseQueryProps<T> & { initialData?: undefined }): UseQueryCommonResult & {
+  data: T | undefined;
+};
+export default function useQuery<T>({ queryKey, queryFn, initialData }: UseQueryProps<T>) {
+  const data = useQueryData<T | undefined>(queryKey);
+  const status = useQueryStatus(queryKey);
 
   const fetchData = async (forceFetch = false) => {
     setQueryStatus(queryKey, "loading");
     try {
-      if (getQueryData(queryKey) && !forceFetch) {
+      if (data && !forceFetch) {
         setQueryStatus(queryKey, "success");
         return;
       }
-
       let promise = getQueryPromise(queryKey);
       if (!promise || forceFetch) {
         promise = queryFn();
@@ -30,19 +47,25 @@ export default function useQuery<T>({ queryKey, queryFn }: UseQueryProps<T>) {
       clearQueryPromise(queryKey);
     } catch (error) {
       setQueryStatus(queryKey, "error");
+      setQueryData(queryKey, error);
       clearQueryPromise(queryKey);
     }
   };
 
   useEffect(() => {
     fetchData();
+
+    const interval = setInterval(() => fetchData(true), AUTO_REFETCH_INTERVAL);
+    return () => clearInterval(interval);
   }, []);
 
   const refetch = () => fetchData(true);
 
+  if (status === "error") throw getQueryData(queryKey);
+  if (status === "loading") throw getQueryPromise(queryKey);
   return {
-    data: getQueryData(queryKey) as T,
-    status: getQueryStatus(queryKey),
+    data: data ?? initialData,
+    status,
     fetchData,
     refetch,
   };
