@@ -36,14 +36,14 @@ const getCouponCombos = (coupons: Coupon[]) => {
 const getDiscountAmount = ({
   coupon,
   totalPrice,
-  initialTotalPrice,
   cartItems,
+  hasDefaultShipping,
   hasRemoteAreaShipping,
 }: {
   coupon: Coupon;
   totalPrice: number;
-  initialTotalPrice: number;
   cartItems: CartItem[];
+  hasDefaultShipping: boolean;
   hasRemoteAreaShipping: boolean;
 }) => {
   switch (coupon.discountType) {
@@ -51,7 +51,7 @@ const getDiscountAmount = ({
       return calculateFixedDiscountCoupon({ coupon });
     case CouponType.FREE_SHIPPING:
       return calculateFreeShippingCoupon({
-        hasDefaultShipping: calculateShippingFee(initialTotalPrice) !== 0,
+        hasDefaultShipping,
         hasRemoteAreaShipping,
       });
     case CouponType.PERCENTAGE:
@@ -74,6 +74,7 @@ export const calculateCoupons = ({
 }) => {
   const couponCombos = getCouponCombos(coupons);
   const initialTotalPrice = calculateTotalPrice(cartItems);
+  const hasDefaultShipping = calculateShippingFee(initialTotalPrice) !== 0;
 
   const getTotalDiscountForCombo = (combo: Coupon[]) => {
     return combo.reduce(
@@ -81,8 +82,8 @@ export const calculateCoupons = ({
         const discount = getDiscountAmount({
           coupon,
           totalPrice,
-          initialTotalPrice,
           cartItems,
+          hasDefaultShipping,
           hasRemoteAreaShipping,
         });
         return {
