@@ -27,7 +27,7 @@ function OrderReceipt({
           </tr>
           <tr>
             <td>쿠폰 할인 금액</td>
-            <td>{discount.toLocaleString()}원</td>
+            <td>{`-${discount.toLocaleString()}`}원</td>
           </tr>
           <tr>
             <td>배송비</td>
