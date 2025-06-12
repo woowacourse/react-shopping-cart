@@ -17,12 +17,16 @@ import useModal from '../../../hooks/useModal';
 import useCoupon from '../../../hooks/useCoupon';
 import useSelectCoupon from '../../../hooks/useSelectCoupon';
 import useFarDeliverySelect from '../../../hooks/useFarDeliverySelect';
-import useOrderSummary from '../../../hooks/useOrderSummary';
 
 import { CartItemProps } from '../../../types/cartItem';
 import { Back } from '../../../assets';
-import { COUPONS, getAvailableCoupons } from './utils/coupon';
-import { getTotalProductQuantity } from './utils/product';
+import {
+  calculateTotalDiscount,
+  COUPONS,
+  getAvailableCoupons,
+} from './utils/coupon';
+import { getDeliveryFee, getTotalProductQuantity } from './utils/product';
+import { getOrderPrice, getPaymentAmount } from './utils/order';
 
 function OrderCheck() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -38,8 +42,19 @@ function OrderCheck() {
 
   const selectedCouponObjects = COUPONS.filter((c) => selectedCoupon.has(c.id));
 
-  const { orderPrice, deliveryFee, totalDiscount, paymentAmount } =
-    useOrderSummary(selectedCartData, selectedCouponObjects, isFarDelivery);
+  const orderPrice = getOrderPrice(selectedCartData);
+  const deliveryFee = getDeliveryFee(orderPrice, isFarDelivery);
+  const totalDiscount = calculateTotalDiscount(
+    selectedCouponObjects,
+    orderPrice,
+    deliveryFee,
+    selectedCartData
+  );
+  const paymentAmount = getPaymentAmount(
+    orderPrice,
+    deliveryFee,
+    totalDiscount
+  );
 
   const availableCouponObjects = getAvailableCoupons(
     totalPrice,
