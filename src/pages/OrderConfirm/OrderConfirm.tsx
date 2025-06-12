@@ -32,10 +32,9 @@ import { calculateCouponPrice } from '../../utils';
 import {
   useFetchCoupons,
   useCouponSelection,
-  useCouponUI,
   useSelectedCartItems,
 } from '../../hooks';
-import { getOrderCalculationData } from '../../domain/getOrderCalculationData';
+import { getOrderCalculationData, getCouponUIData } from '../../domain';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
 
@@ -112,7 +111,7 @@ export function OrderConfirm() {
       isChecked,
     });
 
-  const { couponPrice, couponWithDisabled } = useCouponUI({
+  const { couponPrice, couponWithDisabled } = getCouponUIData({
     coupons,
     selectedCoupons,
     selectedCartItems,
