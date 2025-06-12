@@ -95,7 +95,7 @@ describe('OrderConfirmPage 페이지 테스트', () => {
   afterEach(() => {
     localStorage.clear();
   });
-  it('주문 확인 안내 문구 테스트', () => {
+  it('주문 확인 페이지에 들어오면 주문할 상품의 종류와 상품 개수를 알려주는 문구가 나타난다.', () => {
     renderComponent({
       cartItems: defaultCartItemsDummy,
     });
@@ -105,7 +105,7 @@ describe('OrderConfirmPage 페이지 테스트', () => {
     ).toBeInTheDocument();
   });
 
-  it('쿠폰 목록 테스트', async () => {
+  it('쿠폰 적용 버튼을 클릭하면 목록이 나타난다.', async () => {
     renderComponent({
       cartItems: defaultCartItemsDummy,
     });
