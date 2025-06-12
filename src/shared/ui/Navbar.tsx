@@ -9,12 +9,12 @@ interface NavbarProps {
 export default function Navbar({ title, url }: NavbarProps) {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleGoUrl = () => {
     if (!url) return;
     navigate(url);
   };
 
-  return <NavbarContainer onClick={handleClick}>{title}</NavbarContainer>;
+  return <NavbarContainer onClick={handleGoUrl}>{title}</NavbarContainer>;
 }
 
 const NavbarContainer = styled.nav`

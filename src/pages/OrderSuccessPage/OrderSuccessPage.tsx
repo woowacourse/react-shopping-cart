@@ -11,7 +11,7 @@ export default function OrderSuccessPage() {
   const navigate = useNavigate();
   const { cartTypeQuantity, totalQuantity, totalPurchasePrice } = useOrderContext();
 
-  const handleClick = () => {
+  const handleGoCartPage = () => {
     navigate(ROUTES.ROOT);
   };
 
@@ -27,7 +27,7 @@ export default function OrderSuccessPage() {
         <S.OrderSuccessTotalPurchasePriceLabel>총 결제 금액</S.OrderSuccessTotalPurchasePriceLabel>
         <S.OrderSuccessTotalPurchasePrice>{totalPurchasePrice.toLocaleString()}원</S.OrderSuccessTotalPurchasePrice>
       </S.OrderSuccessSection>
-      <NavFooter title="장바구니로 돌아가기" onClick={handleClick} />
+      <NavFooter title="장바구니로 돌아가기" onClick={handleGoCartPage} />
     </S.OrderSuccessContainer>
   );
 }

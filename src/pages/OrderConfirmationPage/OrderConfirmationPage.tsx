@@ -30,7 +30,7 @@ export default function OrderConfirmationPage() {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleGoOrderSuccessPage = () => {
     navigate(ROUTES.ORDER_SUCCESS);
   };
 
@@ -53,7 +53,7 @@ export default function OrderConfirmationPage() {
           <DeliveryInfo onChange={handleRemoteArea} />
           <OrderPriceSummary couponPriceItem={true} />
         </S.OrderConfirmationPageContent>
-        <NavFooter title="결제하기" onClick={handleClick} />
+        <NavFooter title="결제하기" onClick={handleGoOrderSuccessPage} />
       </S.OrderConfirmationPageContainer>
       <CouponModal isOpen={isCouponModalOpen} onClose={handleCloseCouponModal} />
     </>

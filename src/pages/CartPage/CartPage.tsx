@@ -14,7 +14,7 @@ function CartPage() {
   const { cartItems } = useCartItemsContext();
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleGoOrderConfirmationPage = () => {
     navigate(ROUTES.ORDER_CONFIRMATION);
   };
 
@@ -40,7 +40,7 @@ function CartPage() {
       <NavFooter
         title="주문 확인"
         isDisabled={cartItems.length === 0 || selectedCartItems.length === 0}
-        onClick={handleClick}
+        onClick={handleGoOrderConfirmationPage}
       />
     </S.CartPageContainer>
   );
