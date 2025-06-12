@@ -127,7 +127,7 @@ describe('할인률 가장 높은 쿠폰 적용 테스트', () => {
       },
     ];
   });
-  it('cartItems에 대해 미라클모닝 + (2+1) 할인 쿠폰 조합 테스트 ', () => {
+  it('cartItems에 대해 미라클모닝 + (2+1) 할인 쿠폰이 조합된다. ', () => {
     const result = getBestCouponCombo(null, cartItems, couponList, 90000, 0);
 
     expect(result.totalDiscount).toEqual(47000);
