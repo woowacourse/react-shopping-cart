@@ -2,10 +2,9 @@ import { CouponContent } from '@/api/type';
 import InfoNotice from '@/components/common/InfoNotice';
 import { Modal } from '@/components/common/Modal';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { getDiscountByCouponId } from '../utils/getDiscountByCouponId';
+import { useEffect, useRef, useState } from 'react';
+import { useCalculateTotalDiscount } from '../hooks/useCalculateTotalDiscount';
 import CouponInfo from './CouponInfo';
-import { useOrderCoupons } from '../hooks/useOrderCoupons';
 
 interface CouponModalProps {
   show: boolean;
@@ -13,7 +12,7 @@ interface CouponModalProps {
   coupons: CouponContent[];
   isLoading: boolean;
   availableCoupons: CouponContent[];
-  // bestCouponIds: number[];
+  bestCouponIds: number[];
   totalDiscount: number;
   handleApply: (couponIds: number[]) => void;
   isJejuOrRemoteArea: boolean;
@@ -25,11 +24,10 @@ const CouponModal = ({
   coupons,
   isLoading,
   availableCoupons,
-  // bestCouponIds,
+  bestCouponIds,
   handleApply,
   isJejuOrRemoteArea,
 }: CouponModalProps) => {
-  const { bestCouponIds } = useOrderCoupons(isJejuOrRemoteArea);
   const [selectedCouponIds, setSelectedCouponIds] =
     useState<number[]>(bestCouponIds);
   const isManual = useRef(false);
@@ -87,12 +85,10 @@ const CouponModal = ({
                 onSelectionChange={(isChecked) => {
                   isManual.current = true;
                   if (isChecked) {
-                    // 체크: 추가 (최대 2개까지)
                     if (selectedCouponIds.length < 2) {
                       setSelectedCouponIds([...selectedCouponIds, coupon.id]);
                     }
                   } else {
-                    // 해제: 제거
                     setSelectedCouponIds(
                       selectedCouponIds.filter((id) => id !== coupon.id)
                     );
