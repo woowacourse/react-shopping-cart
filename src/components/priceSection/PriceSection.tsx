@@ -11,7 +11,6 @@ const PriceSection = () => {
   const { cartItems } = useCartItemsContext();
   const { checkedCartIds } = useCheckCartIdsContext();
   const { couponDiscount } = useCouponsContext();
-  console.log(couponDiscount);
   const { isRemoteArea } = useShippingContext();
 
   const orderPrice = getOrderPrice(cartItems, checkedCartIds);
