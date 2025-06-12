@@ -104,9 +104,9 @@ describe('isCouponValid', () => {
         end: '07:00:00',
       },
     };
-  
+
     vi.useFakeTimers();
-  
+
     // 유효 시간대
     vi.setSystemTime(new Date('2025-06-10T05:30:00'));
     expect(
@@ -115,7 +115,7 @@ describe('isCouponValid', () => {
         totalPrice: 120000,
       })
     ).toBe(true);
-  
+
     // 비유효 시간대
     vi.setSystemTime(new Date('2025-06-10T07:30:00'));
     expect(
@@ -124,10 +124,9 @@ describe('isCouponValid', () => {
         totalPrice: 120000,
       })
     ).toBe(false);
-  
+
     vi.useRealTimers();
   });
-  
 
   it('만료된 쿠폰은 무효하다', () => {
     vi.setSystemTime(new Date('2025-12-01T12:00:00'));

@@ -1,6 +1,6 @@
-import { CartContext } from "@/features/Cart/context/CartProvider";
-import { PropsWithChildren, useState } from "react";
-import { CartItem } from "@/features/Cart/types/Cart.types";
+import { CartContext } from '@/features/Cart/context/CartProvider';
+import { PropsWithChildren, useState } from 'react';
+import { CartItem } from '@/features/Cart/types/Cart.types';
 
 type MockCartProviderProps = PropsWithChildren<{
   cartItems: CartItem[];

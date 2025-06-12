@@ -12,7 +12,7 @@ describe('배송비 정책 계산', () => {
         {children}
       </MockCartProvider>
     );
-useCartContext
+    useCartContext;
     const { result } = renderHook(() => usePriceInfo(), { wrapper });
     expect(result.current.deliveryFee).toBe(3000);
   });

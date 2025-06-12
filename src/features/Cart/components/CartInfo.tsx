@@ -104,9 +104,7 @@ export const CartInfo = ({ onNext }: StepProps) => {
             </Flex>
           </Flex>
           <CartListContainer>
-            {cartItems?.map((item) => (
-              <CartItemDetail key={item.id} variant="cart" {...item} />
-            ))}
+            {cartItems?.map((item) => <CartItemDetail key={item.id} variant="cart" {...item} />)}
           </CartListContainer>
           <PriceSummary />
         </>

@@ -26,10 +26,7 @@ export const CartPage = () => {
       </Funnel.Step>
 
       <Funnel.Step name="결제확인">
-        <PaymentConfirm
-          selectedCoupons={selectedCoupons}
-          onPrev={() => setStep('장바구니')}
-        />
+        <PaymentConfirm selectedCoupons={selectedCoupons} onPrev={() => setStep('장바구니')} />
       </Funnel.Step>
     </Funnel>
   );

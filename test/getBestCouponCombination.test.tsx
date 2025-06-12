@@ -28,4 +28,3 @@ describe('getBestCouponCombination', () => {
     expect(bestIds).toEqual([1, 3]);
   });
 });
-

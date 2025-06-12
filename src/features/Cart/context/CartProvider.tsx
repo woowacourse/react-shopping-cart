@@ -5,7 +5,10 @@ import { deleteCartItem, getCartItemList, updateCartItem } from '../../../featur
 import { CartItem } from '../../../features/Cart/types/Cart.types';
 import { useToastContext } from '../../../shared/context/ToastProvider';
 import { isError } from '../../../shared/utils/isError';
-import { loadCheckedCartMap, saveCheckedCartMap } from '../../../shared/utils/storage/cartCheckedStorage';
+import {
+  loadCheckedCartMap,
+  saveCheckedCartMap,
+} from '../../../shared/utils/storage/cartCheckedStorage';
 
 type CartContextType = {
   cartItems: (CartItem & { isChecked: boolean })[];

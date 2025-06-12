@@ -60,7 +60,9 @@ export const OrderConfirm = ({ onSelectCoupons, onPrev, onNext }: OrderConfirmPr
         width="100%"
         padding="40px 20px"
       >
-        <Text type="Heading" weight="bold">주문 확인</Text>
+        <Text type="Heading" weight="bold">
+          주문 확인
+        </Text>
         <Text type="Caption" weight="regular">
           {`총 ${hasCheckCartLength}종류의 상품 ${totalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         </Text>

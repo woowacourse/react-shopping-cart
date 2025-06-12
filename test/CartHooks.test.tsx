@@ -8,9 +8,7 @@ import { MockCartProvider } from './MockCartProvider';
 import { mockCartItems } from './Cart.data';
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockCartProvider cartItems={mockCartItems}>
-    {children}
-  </MockCartProvider>
+  <MockCartProvider cartItems={mockCartItems}>{children}</MockCartProvider>
 );
 
 describe('useCartAmountCount', () => {

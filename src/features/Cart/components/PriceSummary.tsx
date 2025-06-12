@@ -10,10 +10,7 @@ type PriceSummaryProps = {
   discountAmount?: number;
 };
 
-export const PriceSummary = ({
-  variant = 'cart',
-  discountAmount = 0,
-}: PriceSummaryProps) => {
+export const PriceSummary = ({ variant = 'cart', discountAmount = 0 }: PriceSummaryProps) => {
   const isCartMode = variant === 'cart';
   const { orderPrice, deliveryFee, totalPrice } = usePriceInfo();
 
