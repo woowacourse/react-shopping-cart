@@ -83,8 +83,8 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
     expect(calculateDiscountSequence).not.toHaveBeenCalled();
   });
 
-  it("쿠폰이 1개인 경우 calculateCouponDiscount를 호출한다", () => {
-    (calculateCouponDiscount as jest.Mock).mockReturnValue(10000);
+  it("쿠폰이 1개인 경우 calculateDiscountSequence를 호출한다", () => {
+    (calculateDiscountSequence as jest.Mock).mockReturnValue(10000);
 
     const result = calculateOptimalTotalDiscount({
       coupons: [fixedCoupon],
@@ -93,13 +93,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee,
     });
 
-    expect(calculateCouponDiscount).toHaveBeenCalledWith({
-      coupon: fixedCoupon,
+    expect(calculateDiscountSequence).toHaveBeenCalledWith({
+      coupons: [fixedCoupon],
       orderItems: mockItems,
-      orderPrice,
-      shippingFee,
+      initialOrderPrice: orderPrice,
+      initialShippingFee: shippingFee,
     });
-    expect(calculateDiscountSequence).not.toHaveBeenCalled();
     expect(result).toBe(10000);
   });
 
@@ -177,7 +176,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
     expect(result).toBe(15000);
   });
 
-  it("쿠폰이 3개 이상인 경우 0을 반환한다", () => {
+  it("쿠폰이 3개인 경우 모든 순열 조합 중에 가장 큰 할인 값을 반환한다", () => {
+    // 3개의 쿠폰의 가능한 순열은 총 6가지(3!): ABC, ACB, BAC, BCA, CAB, CBA
+    [18000, 15000, 20000, 17000, 16000, 14000].forEach((value) => {
+      (calculateDiscountSequence as jest.Mock).mockReturnValueOnce(value);
+    });
+
     const result = calculateOptimalTotalDiscount({
       coupons: [fixedCoupon, percentCoupon, shippingCoupon],
       orderItems: mockItems,
@@ -185,8 +189,7 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee,
     });
 
-    expect(calculateCouponDiscount).not.toHaveBeenCalled();
-    expect(calculateDiscountSequence).not.toHaveBeenCalled();
-    expect(result).toBe(0);
+    expect(calculateDiscountSequence).toHaveBeenCalledTimes(6);
+    expect(result).toBe(20000);
   });
 });

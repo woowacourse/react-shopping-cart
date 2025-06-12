@@ -1,6 +1,5 @@
 import { CartItemWithSelection } from "../../../cart/types/response";
 import { Coupon } from "../../types/response";
-import { calculateCouponDiscount } from "./calculateCouponDiscount";
 import { calculateDiscountSequence } from "./calculateDiscountSequence";
 
 interface Props {
@@ -10,6 +9,20 @@ interface Props {
   shippingFee: number;
 }
 
+const getPermutations = <T>(arr: T[]): T[][] => {
+  if (arr.length <= 1) return [arr];
+
+  const permutations: T[][] = [];
+  for (let i = 0; i < arr.length; i++) {
+    const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
+    const permutationsOfRest = getPermutations(rest);
+    for (const permutation of permutationsOfRest) {
+      permutations.push([arr[i], ...permutation]);
+    }
+  }
+  return permutations;
+};
+
 export const calculateOptimalTotalDiscount = ({
   coupons,
   orderItems,
@@ -17,32 +30,16 @@ export const calculateOptimalTotalDiscount = ({
   shippingFee,
 }: Props) => {
   if (coupons.length === 0) return 0;
-  if (coupons.length === 1) {
-    return calculateCouponDiscount({
-      coupon: coupons[0],
-      orderItems,
-      orderPrice,
-      shippingFee,
-    });
-  }
-  if (coupons.length === 2) {
-    const [couponA, couponB] = coupons;
 
-    const discountAB = calculateDiscountSequence({
-      coupons: [couponA, couponB],
+  const allPermutations = getPermutations(coupons);
+
+  return allPermutations.reduce((maxDiscount, permutation) => {
+    const currentDiscount = calculateDiscountSequence({
+      coupons: permutation,
       orderItems,
       initialOrderPrice: orderPrice,
       initialShippingFee: shippingFee,
     });
-    const discountBA = calculateDiscountSequence({
-      coupons: [couponB, couponA],
-      orderItems,
-      initialOrderPrice: orderPrice,
-      initialShippingFee: shippingFee,
-    });
-
-    return Math.max(discountAB, discountBA);
-  }
-
-  return 0;
+    return Math.max(maxDiscount, currentDiscount);
+  }, 0);
 };
