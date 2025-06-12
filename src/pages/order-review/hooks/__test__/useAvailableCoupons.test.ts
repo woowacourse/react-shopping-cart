@@ -7,158 +7,75 @@ vi.mock('@/pages/shopping-cart/context/OrderListProvider', () => ({
   useOrderListContext: vi.fn(),
 }));
 
+const coupons = [...couponMockData];
+
+const setupOrderContext = async (orderPrice: number, quantity: number = 1) => {
+  const { useOrderListContext } = await import(
+    '@/pages/shopping-cart/context/OrderListProvider'
+  );
+  const mockFn = useOrderListContext as MockedFunction<
+    typeof useOrderListContext
+  >;
+
+  mockFn.mockReturnValue({
+    selectedItems: [
+      {
+        id: '1',
+        quantity,
+        product: {
+          id: '42',
+          name: '테스트 상품',
+          price: Math.floor(orderPrice / quantity),
+        },
+      },
+    ],
+    orderPrice,
+  } as ReturnType<typeof useOrderListContext>);
+};
+
+const getAvailableCouponIds = (isJeju = false) => {
+  const { result } = renderHook(() => useAvailableCoupons(coupons, isJeju));
+  return result.current.availableCoupons.map((c) => c.id);
+};
+
 describe('useAvailableCoupons', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // 미라클모닝 시간대로 설정 (오전 5시)
-    vi.setSystemTime(new Date('2025-06-09T05:00:00'));
+    vi.setSystemTime(new Date('2025-06-09T05:00:00')); // 미라클모닝 시간
   });
 
   it('고액 주문(20만원, 5개)에서 해당 쿠폰들이 사용 가능하다', async () => {
-    // 테스트 내에서 모킹된 함수 가져오기
-    const { useOrderListContext } = await import(
-      '@/pages/shopping-cart/context/OrderListProvider'
-    );
+    await setupOrderContext(200000, 5);
+    const ids = getAvailableCouponIds();
 
-    // 타입 캐스팅 후 mock 설정
-    const mockFn = useOrderListContext as MockedFunction<
-      typeof useOrderListContext
-    >;
-
-    mockFn.mockReturnValue({
-      selectedItems: [
-        {
-          id: '1',
-          quantity: 5,
-          product: {
-            id: '42',
-            name: '테스트 상품',
-            price: 40000,
-          },
-        },
-      ],
-      orderPrice: 200000,
-    } as ReturnType<typeof useOrderListContext>);
-
-    const { result } = renderHook(() =>
-      useAvailableCoupons(couponMockData, false)
-    );
-
-    const availableIds = result.current.availableCoupons.map((c) => c.id);
-
-    expect(availableIds).toContain(1);
-    expect(availableIds).toContain(2);
-    expect(availableIds).toContain(4);
+    expect(ids).toContain(1); // 고정 할인
+    expect(ids).toContain(2); // BOGO
+    expect(ids).toContain(4); // 미라클모닝 30%
   });
 
-  it('저액 주문(5만원, 1개)에서 일부 쿠폰만 사용 가능하다', async () => {
-    const { useOrderListContext } = await import(
-      '@/pages/shopping-cart/context/OrderListProvider'
-    );
-    // 타입 캐스팅 후 mock 설정
-    const mockFn = useOrderListContext as MockedFunction<
-      typeof useOrderListContext
-    >;
+  it('저액 주문(5.5만원, 1개)에서 일부 쿠폰만 사용 가능하다', async () => {
+    await setupOrderContext(55000, 1);
+    const ids = getAvailableCouponIds();
 
-    mockFn.mockReturnValue({
-      selectedItems: [
-        {
-          id: '1',
-          quantity: 1,
-          product: {
-            id: '42',
-            name: '테스트 상품',
-            price: 55000,
-          },
-        },
-      ],
-      orderPrice: 55000,
-    } as ReturnType<typeof useOrderListContext>);
-
-    const { result } = renderHook(() =>
-      useAvailableCoupons(couponMockData, false)
-    );
-
-    const availableIds = result.current.availableCoupons.map((c) => c.id);
-
-    expect(availableIds).not.toContain(1); // 5,000원 할인 불가 (5만원 < 10만원)
-    expect(availableIds).not.toContain(2); // BOGO 불가 (1개 < 3개)
-    expect(availableIds).toContain(3); // 무료배송 가능 (5만원 >= 5만원, 일반지역)
+    expect(ids).not.toContain(1); // 고정 할인 불가
+    expect(ids).not.toContain(2); // BOGO 불가
+    expect(ids).toContain(3); // 무료배송 가능
   });
 
   it('경계값 테스트 - 정확히 10만원일 때 고정할인 쿠폰이 사용 가능하다', async () => {
-    const { useOrderListContext } = await import(
-      '@/pages/shopping-cart/context/OrderListProvider'
-    );
-    // 타입 캐스팅 후 mock 설정
-    const mockFn = useOrderListContext as MockedFunction<
-      typeof useOrderListContext
-    >;
+    await setupOrderContext(100000, 1);
+    const ids = getAvailableCouponIds();
 
-    mockFn.mockReturnValue({
-      selectedItems: [
-        {
-          id: '1',
-          quantity: 1,
-          product: {
-            id: '42',
-            name: '테스트 상품',
-            price: 100000,
-          },
-        },
-      ],
-      orderPrice: 100000,
-    } as ReturnType<typeof useOrderListContext>);
-
-    const { result } = renderHook(() =>
-      useAvailableCoupons(couponMockData, false)
-    );
-
-    const availableIds = result.current.availableCoupons.map((c) => c.id);
-
-    expect(availableIds).toContain(1);
+    expect(ids).toContain(1); // 고정 할인 가능
   });
 
   it('제주도 주문에서 무료배송 쿠폰 조건이 달라진다', async () => {
-    const { useOrderListContext } = await import(
-      '@/pages/shopping-cart/context/OrderListProvider'
-    );
-    const mockFn = useOrderListContext as MockedFunction<
-      typeof useOrderListContext
-    >;
+    await setupOrderContext(80000, 1);
 
-    mockFn.mockReturnValue({
-      selectedItems: [
-        {
-          id: '1',
-          quantity: 1,
-          product: {
-            id: '42',
-            name: '테스트 상품',
-            price: 80000,
-          },
-        },
-      ],
-      orderPrice: 80000, // 5만원 이상이지만 10만원 미만
-    } as ReturnType<typeof useOrderListContext>);
+    const normalIds = getAvailableCouponIds(false);
+    const jejuIds = getAvailableCouponIds(true);
 
-    // 일반 지역
-    const { result: normalResult } = renderHook(() =>
-      useAvailableCoupons(couponMockData, false)
-    );
-
-    // 제주도
-    const { result: jejuResult } = renderHook(() =>
-      useAvailableCoupons(couponMockData, true)
-    );
-
-    const normalIds = normalResult.current.availableCoupons.map((c) => c.id);
-    const jejuIds = jejuResult.current.availableCoupons.map((c) => c.id);
-
-    // 일반 지역: 8만원이고 10만원 미만이므로 무료배송 가능
-    expect(normalIds).toContain(3);
-
-    // 제주도: 8만원이지만 5만원 이상이므로 무료배송 가능
-    expect(jejuIds).toContain(3);
+    expect(normalIds).toContain(3); // 일반지역: 무료배송 가능
+    expect(jejuIds).toContain(3); // 제주도: 무료배송 가능
   });
 });
