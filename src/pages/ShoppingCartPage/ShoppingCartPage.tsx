@@ -8,7 +8,7 @@ import { useErrorContext } from "../../contexts/ErrorContext";
 import ShoppingCartContent from "../../components/ShoppingCart/ShoppingCartContent/ShoppingCartContent";
 
 export default function ShoppingCartPage() {
-  const { state, cartItemList, patchCartItem, removeCartItem } =
+  const { state, cartItemList, patchCartItem, deleteCartItem } =
     useCartItemList();
   const { errorMessage } = useErrorContext();
 
@@ -24,7 +24,7 @@ export default function ShoppingCartPage() {
         <ShoppingCartContent
           cartItemList={cartItemList}
           patchCartItem={patchCartItem}
-          removeCartItem={removeCartItem}
+          removeCartItem={deleteCartItem}
         />
       </S.ShoppingCart>
     </>
