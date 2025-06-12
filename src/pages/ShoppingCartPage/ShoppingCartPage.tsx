@@ -12,7 +12,7 @@ import Text from '../../components/Text/Text';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export default function ShoppingCartPage() {
-  const { data, isLoading, refetch } = useAPI<CartItemsResponse>({ fetcher: getCartItem, name: 'cartItem' });
+  const { data, refetch } = useAPI<CartItemsResponse>({ fetcher: getCartItem, name: 'cartItem' });
   const navigate = useNavigate();
 
   const [selectedItemIds, setSelectedItemIds] = useLocalStorage<number[]>('selectedCartItemIds', []);
@@ -36,7 +36,6 @@ export default function ShoppingCartPage() {
     navigate('/confirm', { state: { selectedItems } });
   };
 
-  if (isLoading) return <Text variant="title-1">로딩중입니다</Text>;
   if (!data) return <Text variant="title-1">데이터가 없습니다</Text>;
   return (
     <>
