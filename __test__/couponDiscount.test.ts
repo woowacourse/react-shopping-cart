@@ -129,12 +129,29 @@ describe("쿠폰 할인 금액 계산 테스트", () => {
     expect(discount).toBe(6000);
   });
 
-  test("미라클모닝 30% 할인 쿠폰", () => {
+  test("미라클모닝 30% 할인 쿠폰 금액 계산 테스트", () => {
     const discount = getTotalDiscount({
       appliedCoupons: [coupons.MIRACLESALE],
       orderItems: [PRODUCT["150000"]],
       isRemoteArea: true,
     });
     expect(discount).toBe(45000);
+  });
+
+  test("percentage 쿠폰을 포함한 쿠폰 적용시 percentage 쿠폰을 우선 적용", () => {
+    const testCases = [
+      [coupons.FIXED5000, coupons.MIRACLESALE],
+      [coupons.MIRACLESALE, coupons.FIXED5000],
+    ];
+
+    testCases.forEach((appliedCoupons) => {
+      const discount = getTotalDiscount({
+        appliedCoupons,
+        orderItems: [PRODUCT["150000"]],
+        isRemoteArea: true,
+      });
+
+      expect(discount).toBe(50000);
+    });
   });
 });
