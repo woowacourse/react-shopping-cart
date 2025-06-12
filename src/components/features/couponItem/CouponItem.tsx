@@ -11,6 +11,7 @@ import {
 } from "../../../constants/systemMessages";
 import type { AvailableTime } from "../../../types/response";
 import { parseHour } from "../../../utils/parseTime";
+import { safeParseISODate } from "../../../utils/safeParseDate";
 
 interface CouponItemInfo {
   dueDate?: string;
@@ -33,7 +34,9 @@ const CouponItem = ({
   isValid,
   onSelectCoupon,
 }: CouponItemProps) => {
-  const parsedDate = couponInfo?.dueDate ? new Date(couponInfo.dueDate) : null;
+  const parsedDate = couponInfo?.dueDate
+    ? safeParseISODate(couponInfo.dueDate)
+    : null;
   const formattedDate =
     parsedDate &&
     getFormattedDueDateMessage(

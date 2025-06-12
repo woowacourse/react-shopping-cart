@@ -82,7 +82,6 @@ export const getTotalDiscountPrice = (
   { originOrderPrice, deliveryFee }: CouponCalculateContext
 ) => {
   const checkedCouponsArray = Array.from(checkedCoupons.values());
-  console.log(checkedCouponsArray);
   const discountPrices = checkedCouponsArray.map((coupon) =>
     getDiscountAmountByType(coupon, { originOrderPrice, deliveryFee })
   );

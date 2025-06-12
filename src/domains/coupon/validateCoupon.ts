@@ -5,11 +5,13 @@ import type {
   BogoCoupon,
   AvailableTime,
 } from "../../types/response";
+import { safeParseISODate } from "../../utils/safeParseDate";
 
 const validateExpirationDate = (expirationDate: string) => {
+  const expirationDateObj = safeParseISODate(expirationDate);
+  if (!expirationDateObj) return false;
+
   const today = new Date();
-  const expirationDateObj = new Date(expirationDate);
-  console.log(expirationDateObj > today);
 
   return expirationDateObj >= today;
 };
@@ -23,8 +25,10 @@ const validateMinimumAmount = (
 
 const validateMiracleHour = (availableTime: AvailableTime) => {
   const now = new Date();
-  const start = new Date(availableTime.start);
-  const end = new Date(availableTime.end);
+  const start = safeParseISODate(availableTime.start);
+  const end = safeParseISODate(availableTime.end);
+
+  if (!start || !end) return false;
 
   return now >= start && now <= end;
 };
