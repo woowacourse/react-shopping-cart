@@ -1,15 +1,11 @@
 import { CartItem } from '../types';
 
 const getOrderPrice = (cartItems: CartItem[], checkedCartIds: number[]) => {
-  let orderPrice = 0;
-
-  cartItems.forEach((cartItem) => {
-    if (checkedCartIds.includes(cartItem.id)) {
-      orderPrice += cartItem.quantity * cartItem.product.price;
-    }
-  });
-
-  return orderPrice;
+  return cartItems.reduce((total, cartItem) => {
+    return checkedCartIds.includes(cartItem.id)
+      ? total + cartItem.quantity * cartItem.product.price
+      : total;
+  }, 0);
 };
 
 export default getOrderPrice;
