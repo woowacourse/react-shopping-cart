@@ -17,7 +17,7 @@ const Checkbox = ({ selected, onClick, disabled = false, ...props }: Props) => {
       onClick={() => !disabled && onClick()}
       {...props}
     >
-      {selected && !disabled ? (
+      {selected ? (
         <img src={FilledCheckbox} alt="filled-checkbox" />
       ) : (
         <img src={EmptyCheckbox} alt="empty-checkbox" />
