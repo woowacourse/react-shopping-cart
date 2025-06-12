@@ -26,8 +26,7 @@ const CouponModal = ({
   isRemoteAreaShipping,
 }: CouponModalProps) => {
   const { coupons, isLoading, fetchError, fetchCoupons } = useFetchCoupons();
-  const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
-    useCouponContext();
+  const { selectedCoupons, applyCoupons, previewCoupons } = useCouponContext();
   const { isCouponValid } = useCouponValidation(isRemoteAreaShipping);
   const { couponDiscount } = useCouponDiscount(isRemoteAreaShipping);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
@@ -41,9 +40,9 @@ const CouponModal = ({
 
   useEffect(() => {
     if (isOpen) {
-      setAppliedCoupons(tempSelectedCoupons);
+      previewCoupons(tempSelectedCoupons);
     }
-  }, [tempSelectedCoupons, isOpen, setAppliedCoupons]);
+  }, [tempSelectedCoupons, isOpen]);
 
   const handleCouponToggle = (coupon: Coupon) => {
     if (!isCouponValid(coupon)) {
@@ -64,13 +63,12 @@ const CouponModal = ({
   };
 
   const handleConfirm = () => {
-    setSelectedCoupons(tempSelectedCoupons);
-    setAppliedCoupons(tempSelectedCoupons);
+    applyCoupons(tempSelectedCoupons);
     onClose();
   };
 
   const handleClose = () => {
-    setAppliedCoupons(selectedCoupons);
+    previewCoupons(selectedCoupons);
     onClose();
   };
 

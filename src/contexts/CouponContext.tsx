@@ -1,12 +1,13 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { Coupon } from "../apis/coupons";
 import { useCouponValidation } from "../hooks/useCouponValidation";
 
 interface CouponContextType {
   selectedCoupons: Coupon[];
-  setSelectedCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
   appliedCoupons: Coupon[];
-  setAppliedCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
+  selectCoupons: (coupons: Coupon[]) => void;
+  applyCoupons: (coupons: Coupon[]) => void;
+  previewCoupons: (coupons: Coupon[]) => void;
 }
 
 interface CouponProviderProps {
@@ -28,24 +29,28 @@ export const CouponProvider = ({ children }: CouponProviderProps) => {
   const [appliedCoupons, setAppliedCoupons] = useState<Coupon[]>([]);
   const { getValidCoupons } = useCouponValidation();
 
-  useEffect(() => {
-    if (appliedCoupons.length > 0) {
-      const validCoupons = getValidCoupons(appliedCoupons);
+  const selectCoupons = (coupons: Coupon[]) => {
+    setSelectedCoupons(coupons);
+  };
 
-      if (validCoupons.length !== appliedCoupons.length) {
-        setAppliedCoupons(validCoupons);
-        setSelectedCoupons(validCoupons);
-      }
-    }
-  }, [appliedCoupons, getValidCoupons]);
+  const applyCoupons = (coupons: Coupon[]) => {
+    const validCoupons = getValidCoupons(coupons);
+    setAppliedCoupons(validCoupons);
+    setSelectedCoupons(validCoupons);
+  };
+
+  const previewCoupons = (coupons: Coupon[]) => {
+    setAppliedCoupons(coupons);
+  };
 
   return (
     <CouponContext.Provider
       value={{
         selectedCoupons,
-        setSelectedCoupons,
         appliedCoupons,
-        setAppliedCoupons,
+        selectCoupons,
+        applyCoupons,
+        previewCoupons,
       }}
     >
       {children}
