@@ -13,14 +13,52 @@ interface CheckPaymentState {
   deliveryPrice: number;
 }
 
+const isCheckPaymentState = (state: unknown): state is CheckPaymentState => {
+  if (!state || typeof state !== "object") {
+    return false;
+  }
+
+  const obj = state as Record<string, unknown>;
+
+  if (!Array.isArray(obj.selectedCartItems)) {
+    return false;
+  }
+
+  const isValidCartItems = obj.selectedCartItems.every((item: unknown) => {
+    if (!item || typeof item !== "object") {
+      return false;
+    }
+
+    const cartItem = item as Record<string, unknown>;
+
+    return (
+      typeof cartItem.quantity === "number" &&
+      cartItem.product &&
+      typeof cartItem.product === "object" &&
+      typeof (cartItem.product as Record<string, unknown>).price === "number"
+    );
+  });
+
+  if (!isValidCartItems) {
+    return false;
+  }
+
+  return (
+    typeof obj.totalPrice === "number" &&
+    typeof obj.orderPrice === "number" &&
+    typeof obj.deliveryPrice === "number"
+  );
+};
+
 const CheckPaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const state = location.state as CheckPaymentState;
+  const state = location.state;
 
   useEffect(() => {
-    if (!state) {
+    if (!isCheckPaymentState(state)) {
+      console.error("Invalid state passed to CheckPaymentPage:", state);
       navigate("/", { replace: true });
     }
   }, [state, navigate]);
@@ -29,7 +67,9 @@ const CheckPaymentPage = () => {
     navigate("/", { replace: true });
   };
 
-  if (!state) return null;
+  if (!isCheckPaymentState(state)) {
+    return null;
+  }
 
   const orderSummary = OrderCalculator.calculateOrderSummary(
     state.selectedCartItems
