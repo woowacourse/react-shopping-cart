@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "@kaori-killer/modal-component";
 
@@ -13,6 +13,16 @@ import { calculateAllCouponCombos } from "../../../utils/calculateAllCouponCombo
 import { getSelectedCouponDiscount } from "../../../utils/getSelectedCouponObjects";
 
 import CartItem from "../../../types/CartItem";
+import { Combo } from "../../../types/Combo";
+
+function getBestCombo(combos: Combo[]) {
+  return combos
+    .filter((combo) => combo.isValid)
+    .reduce(
+      (max, current) => (current.discount > max.discount ? current : max),
+      { discount: 0, combo: [], isValid: false }
+    );
+}
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -31,6 +41,8 @@ function CouponModal({
   orderAmount,
   isIslandArea,
 }: CouponModalProps) {
+  const hasInitializedRef = useRef(false);
+
   const { coupons } = useCoupons();
   const {
     selectedCoupons,
@@ -47,15 +59,11 @@ function CouponModal({
     isIslandArea,
   });
 
-  const bestCombo = combos
-    .filter((combo) => combo.isValid)
-    .reduce(
-      (max, current) => (current.discount > max.discount ? current : max),
-      { discount: 0, combo: [], isValid: false }
-    );
+  const bestCombo = getBestCombo(combos);
 
   useEffect(() => {
     if (bestCombo.combo.length === 0 || selectedCoupons.size > 0) return;
+    if (hasInitializedRef.current) return;
 
     const initialMap = new Map<number, boolean>();
     bestCombo.combo.forEach((code) => {
@@ -64,7 +72,13 @@ function CouponModal({
     });
 
     initializeSelectedCoupons(initialMap);
-  }, [coupons, bestCombo, selectedCoupons.size, initializeSelectedCoupons]);
+    hasInitializedRef.current = true;
+  }, [
+    bestCombo.combo,
+    coupons,
+    initializeSelectedCoupons,
+    selectedCoupons.size,
+  ]);
 
   const selectedDiscount = getSelectedCouponDiscount({
     coupons,
@@ -80,7 +94,7 @@ function CouponModal({
     handleClose();
   };
 
-  console.log(selectedCoupons.size);
+  console.log(selectedCoupons);
 
   return createPortal(
     <Modal isOpen={isOpen} onClose={handleClose}>
