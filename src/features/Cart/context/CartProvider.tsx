@@ -17,7 +17,7 @@ type CartContextType = {
   toggleIsRemoteArea: () => void;
 };
 
-const CartContext = createContext<CartContextType | null>(null);
+export const CartContext = createContext<CartContextType | null>(null);
 
 export const useCartContext = () => {
   const context = useContext(CartContext);

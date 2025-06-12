@@ -1,120 +1,52 @@
 import { describe, it, expect } from 'vitest';
+import { renderHook } from '@testing-library/react';
+import { useCartAmountCount } from '@/features/Cart/hooks/useCartAmountCount';
+import { useSelectedCart } from '@/features/Cart/hooks/useSelectedCart';
 import { useOrderInfo } from '@/features/Cart/hooks/useOrderInfo';
 import { usePriceInfo } from '@/features/Cart/hooks/usePriceInfo';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
-import { cartItems } from './Cart.data';
-import { CartProvider } from '@/features/Cart/context/CartProvider';
-import { renderHook } from '@testing-library/react';
-
-const mutableCartItems = cartItems.map((item) => ({
-  ...item,
-  product: { ...item.product },
-}));
+import { MockCartProvider } from './MockCartProvider';
+import { mockCartItems } from './Cart.data';
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <CartProvider>{children}</CartProvider>
+  <MockCartProvider cartItems={mockCartItems}>
+    {children}
+  </MockCartProvider>
 );
 
-describe('useCartInfo', () => {
-  it('장바구니 정보를 계산한다', () => {
-    const { result } = renderHook(() => useCartInfo(mutableCartItems), { wrapper });
+describe('useCartAmountCount', () => {
+  it('선택된 수량을 반환한다', () => {
+    const { result } = renderHook(() => useCartAmountCount(), { wrapper });
+    expect(result.current.selectedCartItemCount).toBe(1);
+  });
+});
 
-    expect(result.current.allChecked).toBe(true);
-    expect(result.current.cartItemCount).toBe(2);
-    expect(result.current.selectedCartItemCount).toBe(2);
-    expect(result.current.selectedTotalAmount).toBe(10000 * 2 + 30000 * 1);
+describe('useSelectedCart', () => {
+  it('선택된 상품만 반환한다', () => {
+    const { result } = renderHook(() => useSelectedCart(), { wrapper });
+
+    expect(result.current.length).toBe(1);
+    expect(result.current.every((item) => item.isChecked)).toBe(true);
+    expect(result.current.some((item) => !item.isChecked)).toBe(false);
   });
 });
 
 describe('useOrderInfo', () => {
   it('선택된 상품의 수량과 총액을 계산한다', () => {
-    const { result } = renderHook(() => useOrderInfo(mutableCartItems), { wrapper });
+    const { result } = renderHook(() => useOrderInfo(), { wrapper });
 
-    expect(result.current.hasCheckCartLength).toBe(2);
-    expect(result.current.totalQuantity).toBe(3);
-    expect(result.current.totalPrice).toBe(10000 * 2 + 30000 * 1);
-  });
-
-  it('선택된 상품이 없으면 0을 반환한다', () => {
-    const uncheckedItems = mutableCartItems.map((item) => ({
-      ...item,
-      isChecked: false,
-    }));
-
-    const { result } = renderHook(() => useOrderInfo(uncheckedItems), { wrapper });
-
-    expect(result.current.totalQuantity).toBe(0);
-    expect(result.current.totalPrice).toBe(0);
-    expect(result.current.hasCheckCartLength).toBe(0);
+    expect(result.current.hasCheckCartLength).toBe(1);
+    expect(result.current.totalQuantity).toBe(2);
+    expect(result.current.totalPrice).toBe(10000 * 2);
   });
 });
 
 describe('usePriceInfo', () => {
   it('주문 금액, 배송비, 총액을 계산한다', () => {
-    const cartItems = [
-      {
-        id: 1,
-        quantity: 2,
-        isChecked: true,
-        product: {
-          id: 1,
-          name: '상품1',
-          price: 10000,
-          quantity: 10,
-          imageUrl: '/image1.jpg',
-          category: '식료품',
-        },
-      },
-      {
-        id: 2,
-        quantity: 1,
-        isChecked: true,
-        product: {
-          id: 2,
-          name: '상품2',
-          price: 30000,
-          quantity: 10,
-          imageUrl: '/image2.jpg',
-          category: '식료품',
-        },
-      },
-    ];
+    const { result } = renderHook(() => usePriceInfo(), { wrapper });
 
-    const { result } = renderHook(() => usePriceInfo({ cartItems, isRemoteArea: false }), {
-      wrapper,
-    });
-
-    const expectedOrderPrice = 10000 * 2 + 30000;
+    const expectedOrderPrice = 10000 * 2;
     expect(result.current.orderPrice).toBe(expectedOrderPrice);
     expect(result.current.deliveryFee).toBe(3000);
     expect(result.current.totalPrice).toBe(expectedOrderPrice + 3000);
-  });
-
-  it('무료배송 기준을 초과하면 배송비는 0원이다', () => {
-    const expensiveItems = [
-      {
-        id: 3,
-        quantity: 3,
-        isChecked: true,
-        product: {
-          id: 3,
-          name: '상품 C',
-          price: 40000,
-          quantity: 10,
-          imageUrl: '/image3.jpg',
-          category: '식료품',
-        },
-      },
-    ];
-
-    const { result } = renderHook(
-      () => usePriceInfo({ cartItems: expensiveItems, isRemoteArea: false }),
-      { wrapper }
-    );
-
-    const expectedOrderPrice = 40000 * 3;
-    expect(result.current.orderPrice).toBe(expectedOrderPrice);
-    expect(result.current.deliveryFee).toBe(0);
-    expect(result.current.totalPrice).toBe(expectedOrderPrice);
   });
 });

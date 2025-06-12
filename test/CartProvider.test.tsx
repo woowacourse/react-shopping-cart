@@ -2,13 +2,13 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { CartProvider, useCartContext } from '@/features/Cart/context/CartProvider';
 import { ToastContext } from '@/shared/context/ToastProvider';
-import { cartItems } from './Cart.data';
+import { mockCartItems } from './Cart.data';
 
 const mutateMock = vi.fn();
 
 vi.mock('@/shared/hooks/useFetchData', () => ({
   useFetchData: () => ({
-    data: cartItems,
+    data: mockCartItems,
     error: null,
     mutate: mutateMock,
   }),

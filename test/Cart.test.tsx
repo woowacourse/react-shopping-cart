@@ -4,11 +4,12 @@ import { vi, beforeEach, describe, it, expect } from 'vitest';
 
 import * as cartApi from '@/features/Cart/api/cart';
 import { CartPage } from '@/features/Cart/pages/CartPage';
-import { cartItems } from './Cart.data';
+import { mockCartItems } from './Cart.data';
 import { CartProvider } from '@/features/Cart/context/CartProvider';
+import { expensiveCartItems, twoQtyCartItems } from './Cart.data';
 
-export const createTestCartItems = (): typeof cartItems => {
-  return cartItems.map((item) => ({
+export const createTestCartItems = (): typeof mockCartItems => {
+  return mockCartItems.map((item) => ({
     ...item,
     product: { ...item.product },
   }));
@@ -26,7 +27,7 @@ const mockCartApi = vi.mocked(cartApi);
 
 describe('장바구니 테스트', () => {
   let user: ReturnType<typeof userEvent.setup>;
-  let currentCartItems: typeof cartItems;
+  let currentCartItems: typeof mockCartItems;
 
   beforeEach(() => {
     user = userEvent.setup();
@@ -63,35 +64,6 @@ describe('장바구니 테스트', () => {
     });
 
     it('금액이 10만원 이상이면 배송비 0원을 보여준다.', async () => {
-      const expensiveCartItems = [
-        {
-          id: 1,
-          isChecked: true,
-          quantity: 1,
-          product: {
-            id: 1,
-            name: '고가상품1',
-            price: 60000,
-            imageUrl: '',
-            category: '고가',
-            quantity: 10,
-          },
-        },
-        {
-          id: 2,
-          isChecked: true,
-          quantity: 1,
-          product: {
-            id: 2,
-            name: '고가상품2',
-            price: 50000,
-            imageUrl: '',
-            category: '고가',
-            quantity: 10,
-          },
-        },
-      ];
-
       mockCartApi.getCartItemList.mockResolvedValue(expensiveCartItems);
       renderCartPage();
 
@@ -127,22 +99,6 @@ describe('장바구니 테스트', () => {
     });
 
     it('- 버튼 클릭 시 수량이 감소한다.', async () => {
-      const twoQtyCartItems = [
-        {
-          id: 999,
-          isChecked: true,
-          quantity: 2,
-          product: {
-            id: 999,
-            name: '테스트상품',
-            price: 10000,
-            imageUrl: '',
-            category: '테스트',
-            quantity: 99,
-          },
-        },
-      ];
-
       mockCartApi.getCartItemList.mockResolvedValue(twoQtyCartItems);
 
       mockCartApi.updateCartItem.mockImplementation(async ({ cartId, newQuantity }) => {
@@ -183,7 +139,7 @@ describe('장바구니 테스트', () => {
     });
 
     it('전체 선택 해제 시 총 금액이 0원이 된다.', async () => {
-      mockCartApi.getCartItemList.mockResolvedValue([...cartItems]);
+      mockCartApi.getCartItemList.mockResolvedValue([...mockCartItems]);
 
       renderCartPage();
 
