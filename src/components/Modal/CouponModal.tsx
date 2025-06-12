@@ -1,42 +1,99 @@
 import CartInfo from '../Cart/CartInfo';
 import styled from '@emotion/styled';
-import { COUPONS } from '../../constants/couponConfig';
+import { useState, useEffect } from 'react';
+import { COUPONS, MAX_COUPONS } from '../../constants/couponConfig';
 import { HiddenCheckbox } from '../SelectBox/SelectBox.styles';
 import { formatDate, formatTimeRange } from '../../utils/dateTimeFormatter';
 import { Modal } from './index';
 import { CouponCheckboxContainer, CouponStyledCheckbox } from '../../pages/OrderConfirmPage';
 import { Coupon } from '../../types/coupon';
 import { isCouponAvailable } from '../../utils/couponAvailability';
+import { css } from '@emotion/react';
+import { calculateCouponDiscount } from '../../utils/couponCalculations';
+import { CartProduct } from '../../types/cart';
 
 interface CouponModalProps {
+  isOpen: boolean;
   onClose: () => void;
-  onToggleCoupon: (coupon: Coupon) => void;
-  onApply: () => void;
-  isCouponSelected: (couponId: number) => boolean;
-  tempSelectedCoupons: Coupon[];
-  tempCouponDiscount: number;
+  onConfirm: (selectedCoupons: Coupon[]) => void;
+  initialCoupons?: Coupon[];
+  products: CartProduct[];
+  subtotal: number;
+  shippingFee: number;
 }
 
 function CouponModal({
+  isOpen,
   onClose,
-  onToggleCoupon,
-  onApply,
-  isCouponSelected,
-  tempSelectedCoupons,
-  tempCouponDiscount,
+  onConfirm,
+  initialCoupons = [],
+  products,
+  subtotal,
+  shippingFee,
 }: CouponModalProps) {
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>(initialCoupons);
+
+  const tempCouponDiscount = calculateCouponDiscount({
+    coupons: selectedCoupons,
+    products,
+    total: subtotal,
+    shippingFee,
+  });
+
+  const toggleCouponSelection = (coupon: Coupon) => {
+    if (!isCouponAvailable(coupon)) {
+      return;
+    }
+
+    setSelectedCoupons((prev) => {
+      const isSelected = prev.some((item) => item.id === coupon.id);
+
+      if (isSelected) {
+        return prev.filter((item) => item.id !== coupon.id);
+      }
+
+      if (prev.length >= MAX_COUPONS) {
+        alert(`쿠폰은 최대 ${MAX_COUPONS}개까지 선택 가능합니다.`);
+        return prev;
+      }
+
+      return [...prev, coupon];
+    });
+  };
+
+  const isCouponSelected = (couponId: number) => {
+    return selectedCoupons.some((coupon) => coupon.id === couponId);
+  };
+
+  const applyCoupons = () => {
+    onConfirm(selectedCoupons);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedCoupons(initialCoupons);
+    }
+  }, [isOpen, initialCoupons]);
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <Modal position="center" width="90%" title="쿠폰을 선택해 주세요" onClose={onClose}>
       <>
         <CartInfo
           description="쿠폰은 최대 2개까지 사용할 수 있습니다."
-          style={{ marginTop: '32px' }}
+          customCss={css`
+            margin-top: 32px;
+          `}
         />
         <CouponListContainer>
           {COUPONS.map((coupon) => {
             const isAvailable = isCouponAvailable(coupon);
             const isSelected = isCouponSelected(coupon.id);
-            const isSelectable = isAvailable && (tempSelectedCoupons.length < 2 || isSelected);
+            const isSelectable =
+              isAvailable && (selectedCoupons.length < MAX_COUPONS || isSelected);
 
             return (
               <CouponContainer key={coupon.id}>
@@ -45,7 +102,7 @@ function CouponModal({
                     data-id={coupon.id}
                     type="checkbox"
                     checked={isSelected}
-                    onChange={() => isSelectable && onToggleCoupon(coupon)}
+                    onChange={() => isSelectable && toggleCouponSelection(coupon)}
                     disabled={!isSelectable}
                   />
                   <CouponStyledCheckbox checked={isSelected} disabled={!isAvailable} />
@@ -73,7 +130,7 @@ function CouponModal({
             );
           })}
         </CouponListContainer>
-        <CouponButton onClick={onApply}>
+        <CouponButton onClick={applyCoupons}>
           총 {tempCouponDiscount.toLocaleString()}원 할인 쿠폰 사용하기
         </CouponButton>
       </>

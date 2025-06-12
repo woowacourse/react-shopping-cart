@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from '../components/Header/Header';
 import CartInfo from '../components/Cart/CartInfo';
 import CartHeader from '../components/Cart/CartHeader';
@@ -11,27 +12,40 @@ import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router';
 import { SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
 import { useOrderConfirm } from '../hooks/useOrderConfirm';
+import { Coupon } from '../types/coupon';
 
 function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { products, price, count, totalCount } = location.state || {};
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
-    modalEnabled,
-    openCouponModal,
-    closeCouponModal,
-    toggleCouponSelection,
-    isCouponSelected,
-    applyCoupons,
-    tempSelectedCoupons,
+    selectedCoupons,
+    setSelectedCoupons,
     remoteArea,
     toggleRemoteArea,
     totalShippingFee,
+    baseShippingFee,
+    remoteAreaFee,
     couponDiscount,
-    tempCouponDiscount,
     finalTotal,
+    products: orderProducts,
+    price: orderPrice,
   } = useOrderConfirm();
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmCoupon = (coupons: Coupon[]) => {
+    setSelectedCoupons(coupons);
+    setIsModalOpen(false);
+  };
 
   if (!location.state || !products || products.length === 0) {
     console.error('No products data received');
@@ -49,10 +63,12 @@ function OrderConfirmPage() {
           description={`총 ${count}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
         <CartOrderItem cart={products} />
-        <CouponSelectButton onClick={openCouponModal}>쿠폰 적용</CouponSelectButton>
+        <CouponSelectButton onClick={handleModalOpen}>쿠폰 적용</CouponSelectButton>
         <DeliveryOptions checked={remoteArea} onToggle={toggleRemoteArea} />
         <CartInfo
-          customCss={css`margin-top: 32px;`}
+          customCss={css`
+            margin-top: 32px;
+          `}
           description={`총 주문 금액이 ${SHIPPING_FEE_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
         />
         <CartFooter
@@ -62,14 +78,15 @@ function OrderConfirmPage() {
           totalPrice={finalTotal}
         />
       </Container>
-      {modalEnabled && (
+      {isModalOpen && (
         <CouponModal
-          onClose={closeCouponModal}
-          onToggleCoupon={toggleCouponSelection}
-          onApply={applyCoupons}
-          isCouponSelected={isCouponSelected}
-          tempSelectedCoupons={tempSelectedCoupons || []}
-          tempCouponDiscount={tempCouponDiscount}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          onConfirm={handleConfirmCoupon}
+          initialCoupons={selectedCoupons}
+          products={orderProducts || []}
+          subtotal={orderPrice || 0}
+          shippingFee={baseShippingFee + remoteAreaFee}
         />
       )}
       <Button

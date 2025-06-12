@@ -1,22 +1,14 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router';
-import { useCouponSelection } from './useCouponSelection';
 import { useShippingFee } from './useShippingFee';
 import { calculateCouponDiscount } from '../utils/couponCalculations';
+import { Coupon } from '../types/coupon';
 
 export const useOrderConfirm = () => {
   const location = useLocation();
   const { products, price } = location.state || {};
 
-  const {
-    selectedCoupons,
-    tempSelectedCoupons,
-    modalEnabled,
-    openModal: openCouponModal,
-    closeModal: closeCouponModal,
-    toggleCouponSelection,
-    isCouponSelected,
-    applyCoupons,
-  } = useCouponSelection();
+  const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
   const { remoteArea, toggleRemoteArea, baseShippingFee, remoteAreaFee, totalShippingFee } =
     useShippingFee({
@@ -27,38 +19,30 @@ export const useOrderConfirm = () => {
   const couponDiscount = calculateCouponDiscount({
     coupons: selectedCoupons,
     products: products || [],
-    total: price,
+    total: price || 0,
     shippingFee: baseShippingFee + remoteAreaFee,
   });
 
-  const tempCouponDiscount = calculateCouponDiscount({
-    coupons: tempSelectedCoupons || [],
-    products: products || [],
-    total: price,
-    shippingFee: baseShippingFee + remoteAreaFee,
-  });
-
-  const finalTotal = price - couponDiscount + totalShippingFee;
+  const finalTotal = (price || 0) - couponDiscount + totalShippingFee;
 
   return {
-    // 쿠폰 관련 로직
+    // 쿠폰 관련
     selectedCoupons,
-    tempSelectedCoupons,
-    modalEnabled,
-    openCouponModal,
-    closeCouponModal,
-    toggleCouponSelection,
-    isCouponSelected,
-    applyCoupons,
+    setSelectedCoupons,
 
     // 배송 관련
     remoteArea,
     toggleRemoteArea,
     totalShippingFee,
+    baseShippingFee,
+    remoteAreaFee,
 
     // 가격 계산
     couponDiscount,
-    tempCouponDiscount,
     finalTotal,
+
+    // 데이터
+    products,
+    price,
   };
 };
