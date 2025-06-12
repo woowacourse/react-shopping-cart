@@ -27,9 +27,11 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
     autoSelectAll = true,
   } = options;
 
-  const { selectedIds, toggleSelect, isSelected } = useSelect(storageKey);
+  const { selectedIds, toggleSelect, isSelected, addSelectedId } =
+    useSelect(storageKey);
   const allSelect = useAllSelect({
     items,
+    addSelectedId,
     toggleSelect,
     selectedIds,
     autoSelectAll,

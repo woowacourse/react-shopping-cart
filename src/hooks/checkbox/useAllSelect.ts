@@ -9,6 +9,7 @@ interface CheckboxItemType {
 interface UseAllSelectProps<T> {
   items: T[];
   toggleSelect: (itemId: number) => void;
+  addSelectedId: (itemId: number) => void;
   selectedIds: number[];
   autoSelectAll: boolean;
   storageKey: StorageKeyType;
@@ -17,6 +18,7 @@ interface UseAllSelectProps<T> {
 const useAllSelect = <T extends CheckboxItemType>({
   items,
   toggleSelect,
+  addSelectedId,
   selectedIds,
   autoSelectAll,
   storageKey,
@@ -27,10 +29,11 @@ const useAllSelect = <T extends CheckboxItemType>({
         const { id: itemId } = item;
         if (!storageService.isDataInStorage(storageKey, itemId)) {
           storageService.addData(storageKey, { id: itemId, isSelected: true });
+          addSelectedId(itemId);
         }
       });
     },
-    [storageKey]
+    [storageKey, addSelectedId]
   );
 
   useEffect(() => {

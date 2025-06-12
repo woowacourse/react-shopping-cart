@@ -14,11 +14,14 @@ const useSelect = (storageKey: StorageKeyType) => {
     return selectedIds.includes(itemId);
   };
 
+  const addSelectedId = useCallback((itemId: number) => {
+    setSelectedIds((prev) => [...prev, itemId]);
+  }, []);
+
   const toggleSelect = useCallback(
     (itemId: number) => {
       setSelectedIds((prev) => {
         const isAlreadySelected = prev.includes(itemId);
-
         if (isAlreadySelected) {
           storageService.updateData(storageKey, {
             id: itemId,
@@ -26,7 +29,6 @@ const useSelect = (storageKey: StorageKeyType) => {
           });
           return prev.filter((id) => id !== itemId);
         }
-
         storageService.updateData(storageKey, { id: itemId, isSelected: true });
         return [...prev, itemId];
       });
@@ -34,7 +36,7 @@ const useSelect = (storageKey: StorageKeyType) => {
     [storageKey]
   );
 
-  return { selectedIds, toggleSelect, isSelected };
+  return { selectedIds, toggleSelect, isSelected, addSelectedId };
 };
 
 export default useSelect;
