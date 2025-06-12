@@ -12,22 +12,22 @@ interface CouponCardProps {
 }
 
 export default function CouponCard({ coupon }: CouponCardProps) {
-  const { selectedCoupons, addCoupon, removeCoupon, canAddCoupon } = useCouponsContext();
+  const { selectedCoupons, selectCoupon, unSelectedCoupon, canSelectCoupon } = useCouponsContext();
   const { selectedCartItems } = useSelectedCartItemsContext();
   const { totalPrice } = useOrderContext();
   const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
 
   const isCouponUsable = isCouponApplicable(coupon, selectedCartItems, totalPrice);
 
-  const isDisabled = (!isSelected && !canAddCoupon) || !isCouponUsable;
+  const isDisabled = (!isSelected && !canSelectCoupon) || !isCouponUsable;
 
   const handleCouponToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      if (canAddCoupon && isCouponUsable) {
-        addCoupon(coupon);
+      if (canSelectCoupon && isCouponUsable) {
+        selectCoupon(coupon);
       }
     } else {
-      removeCoupon(coupon.id);
+      unSelectedCoupon(coupon.id);
     }
   };
 

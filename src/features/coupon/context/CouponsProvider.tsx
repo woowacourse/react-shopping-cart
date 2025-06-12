@@ -3,9 +3,9 @@ import { Coupon } from '../types/coupon';
 
 interface CouponsContextType {
   selectedCoupons: Coupon[];
-  addCoupon: (coupon: Coupon) => void;
-  removeCoupon: (couponId: number) => void;
-  canAddCoupon: boolean;
+  selectCoupon: (coupon: Coupon) => void;
+  unSelectedCoupon: (couponId: number) => void;
+  canSelectCoupon: boolean;
 }
 
 export const CouponsContext = createContext<CouponsContextType | undefined>(undefined);
@@ -17,26 +17,26 @@ interface CouponsProviderProps {
 export const CouponsProvider = ({ children }: CouponsProviderProps) => {
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
-  const addCoupon = (coupon: Coupon) => {
+  const selectCoupon = (coupon: Coupon) => {
     setSelectedCoupons((prev) => {
       if (prev.length >= 2 || prev.some((c) => c.id === coupon.id)) return prev;
       return [...prev, coupon];
     });
   };
 
-  const removeCoupon = (couponId: number) => {
+  const unSelectedCoupon = (couponId: number) => {
     setSelectedCoupons((prev) => prev.filter((coupon) => coupon.id !== couponId));
   };
 
-  const canAddCoupon = selectedCoupons.length < 2;
+  const canSelectCoupon = selectedCoupons.length < 2;
 
   return (
     <CouponsContext.Provider
       value={{
         selectedCoupons,
-        addCoupon,
-        removeCoupon,
-        canAddCoupon,
+        selectCoupon,
+        unSelectedCoupon,
+        canSelectCoupon,
       }}
     >
       {children}
