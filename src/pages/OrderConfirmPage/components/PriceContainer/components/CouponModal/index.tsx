@@ -36,6 +36,7 @@ const CouponModal = ({
     selectedCouponIds: selectedCouponIds,
     isIsolatedAreaSelected: isIsolatedAreaSelected,
   });
+
   return (
     <Modal onClose={onClose}>
       <Modal.BackDrop />

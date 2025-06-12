@@ -40,6 +40,7 @@ export function calculateSingleCouponDiscount(
       return calculateBogoDiscount(orderItems);
 
     case "freeShipping":
+      // 배송비 쿠폰의 할인 금액은 별도로 계산
       return 0;
 
     default:
@@ -52,7 +53,8 @@ function calculateCombinationDiscount(
   coupons: CouponData[],
   orderItems: OrderItem[],
   orderAmount: number,
-): { productDiscount: number; hasShippingCoupon: boolean } {
+  isIsolatedAreaSelected: boolean,
+): { productDiscount: number; shippingDiscount: number; hasShippingCoupon: boolean } {
   const selectedCoupons = coupons.filter((c) => couponIds.includes(c.id));
 
   const productCoupons = selectedCoupons
@@ -67,18 +69,38 @@ function calculateCombinationDiscount(
       return order[a.discountType] - order[b.discountType];
     });
 
-  const hasShippingCoupon = selectedCoupons.some((c) => c.discountType === "freeShipping");
+  const shippingCoupons = selectedCoupons.filter((c) => c.discountType === "freeShipping");
+  const hasShippingCoupon = shippingCoupons.length > 0;
 
-  let totalDiscount = 0;
+  // 상품 할인 계산
+  let productDiscount = 0;
   let currentAmount = orderAmount;
 
   for (const coupon of productCoupons) {
     const discount = calculateSingleCouponDiscount(coupon, orderItems, currentAmount);
-    totalDiscount += discount;
+    productDiscount += discount;
     currentAmount = Math.max(0, currentAmount - discount);
   }
 
-  return { productDiscount: totalDiscount, hasShippingCoupon };
+  // 배송비 할인 계산
+  let shippingDiscount = 0;
+  if (hasShippingCoupon) {
+    const originalShipping = calculateShippingFee({
+      orderAmount,
+      isIsolatedAreaSelected,
+      hasShippingCoupon: false,
+    });
+
+    const discountedShipping = calculateShippingFee({
+      orderAmount,
+      isIsolatedAreaSelected,
+      hasShippingCoupon: true,
+    });
+
+    shippingDiscount = originalShipping.fee - discountedShipping.fee;
+  }
+
+  return { productDiscount, shippingDiscount, hasShippingCoupon };
 }
 
 export function findOptimalCouponCombination(
@@ -100,27 +122,15 @@ export function findOptimalCouponCombination(
   let maxTotalSaving = 0;
 
   combinations.forEach((combination) => {
-    const { productDiscount, hasShippingCoupon } = calculateCombinationDiscount(
+    const { productDiscount, shippingDiscount } = calculateCombinationDiscount(
       combination,
       coupons,
       orderItems,
       orderAmount,
+      isIsolatedAreaSelected,
     );
 
-    const originalShipping = calculateShippingFee({
-      orderAmount,
-      isIsolatedAreaSelected,
-      hasShippingCoupon: false,
-    });
-
-    const newShipping = calculateShippingFee({
-      orderAmount,
-      isIsolatedAreaSelected,
-      hasShippingCoupon,
-    });
-
-    const shippingSaving = originalShipping.fee - newShipping.fee;
-    const totalSaving = productDiscount + shippingSaving;
+    const totalSaving = productDiscount + shippingDiscount;
 
     if (totalSaving > maxTotalSaving) {
       maxTotalSaving = totalSaving;
@@ -155,11 +165,12 @@ export function calculateOrderTotal(
 ) {
   const orderAmount = orderItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
-  const { productDiscount, hasShippingCoupon } = calculateCombinationDiscount(
+  const { productDiscount, shippingDiscount, hasShippingCoupon } = calculateCombinationDiscount(
     selectedCouponIds,
     coupons,
     orderItems,
     orderAmount,
+    isIsolatedAreaSelected,
   );
 
   const subtotal = Math.max(0, orderAmount - productDiscount);
@@ -172,12 +183,14 @@ export function calculateOrderTotal(
 
   const finalAmount = subtotal + shippingCalculation.fee;
 
+  // 총 쿠폰 할인 금액에 배송비 할인도 포함
+  const totalCouponDiscount = productDiscount + shippingDiscount;
+
   return {
     orderAmount,
-    couponDiscount: productDiscount,
+    couponDiscount: totalCouponDiscount, // 상품 할인 + 배송비 할인
     subtotal,
     shippingFee: shippingCalculation.fee,
-    shippingDescription: shippingCalculation.description,
     finalAmount,
     selectedCoupons: selectedCouponIds,
   };
