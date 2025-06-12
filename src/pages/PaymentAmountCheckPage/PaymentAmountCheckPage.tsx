@@ -102,16 +102,18 @@ export default function PaymentAmountCheckPage() {
           ))}
 
         <div>
-          <CouponModal
-            isOpen={isOpen}
-            handleClose={handleClose}
-            handleApplyCouponPrice={handleApplyCouponPrice}
-            cartItemList={cartItemList.filter((cart) =>
-              checkedMap.get(cart.id)
-            )}
-            orderAmount={allProductPrice}
-            isIslandArea={isIslandArea}
-          />
+          {isOpen && (
+            <CouponModal
+              isOpen={isOpen}
+              handleClose={handleClose}
+              handleApplyCouponPrice={handleApplyCouponPrice}
+              cartItemList={cartItemList.filter((cart) =>
+                checkedMap.get(cart.id)
+              )}
+              orderAmount={allProductPrice}
+              isIslandArea={isIslandArea}
+            />
+          )}
           <ItemStyled.Button width="382" height="48" onClick={handleOpen}>
             쿠폰 적용
           </ItemStyled.Button>
