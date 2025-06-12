@@ -1,11 +1,16 @@
 import { useMemo } from "react";
 
+import { CartItemTypes } from "../../shopping-cart/types/cartItem";
+import { CouponCode } from "../types/coupon";
 import { getDeliveryFee } from "../utils/getDeliveryFee";
+import { getDisCountedPrice } from "../utils/getDisCountedPrice";
+import { getMaxPriceInCart } from "../utils/getMaxPriceInCart";
 
 interface UsePaymentSummaryParams {
   isExtraDeliveryArea: boolean;
-  receivedDiscountedPrice: number;
   orderPrice: number;
+  twoPlusOneItems: CartItemTypes[];
+  selectedCoupons: CouponCode[];
 }
 
 /**
@@ -16,20 +21,35 @@ interface UsePaymentSummaryParams {
  */
 export function usePaymentSummary({
   isExtraDeliveryArea,
-  receivedDiscountedPrice,
   orderPrice,
+  twoPlusOneItems,
+  selectedCoupons,
 }: UsePaymentSummaryParams) {
   const deliveryFee: number = useMemo(
     () => getDeliveryFee({ orderPrice, isExtraDeliveryArea }),
     [orderPrice, isExtraDeliveryArea]
   );
 
+  const discountedPrice = useMemo(
+    () =>
+      getDisCountedPrice({
+        deliveryFee,
+        orderPrice,
+        maxPriceInSelectedCart: getMaxPriceInCart({
+          selectedCartItems: twoPlusOneItems,
+        }),
+        selectedCoupons,
+      }),
+    [deliveryFee, orderPrice, twoPlusOneItems, selectedCoupons]
+  );
+
   const totalPrice: number = useMemo(() => {
-    return orderPrice + deliveryFee - (receivedDiscountedPrice || 0);
-  }, [orderPrice, deliveryFee, receivedDiscountedPrice]);
+    return orderPrice + deliveryFee - (discountedPrice || 0);
+  }, [orderPrice, deliveryFee, discountedPrice]);
 
   return {
     deliveryFee,
     totalPrice,
+    discountedPrice,
   };
 }

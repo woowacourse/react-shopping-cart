@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ShoppingCart } from "../domains/shopping-cart/page/shoppingCart";
-import { PaymentComplete } from "../domains/paymentComplete/page/PaymentComplete";
-import NotFoundPage from "../page/NotFoundPage";
 import OrderConfirm from "../domains/orderConfirm/page/orderConfirm";
+import { PaymentComplete } from "../domains/paymentComplete/page/PaymentComplete";
+import { ShoppingCart } from "../domains/shopping-cart/page/shoppingCart";
+import NotFoundPage from "../page/NotFoundPage";
 
 export const shoppingCartRoute = createBrowserRouter(
   [

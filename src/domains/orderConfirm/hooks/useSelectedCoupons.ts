@@ -1,19 +1,7 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { CouponCode } from "../types/coupon";
-import { getDisCountedPrice } from "../utils/getDisCountedPrice";
-import { CartItemTypes } from "../../shopping-cart/types/cartItem";
-import { getMaxPriceInCart } from "../utils/getMaxPriceInCart";
 
-interface UseSelectedCouponsParams {
-  deliveryFee: number;
-  orderPrice: number;
-  twoPlusOneApplicableItems: CartItemTypes[];
-}
-export function useSelectedCoupons({
-  deliveryFee,
-  orderPrice,
-  twoPlusOneApplicableItems,
-}: UseSelectedCouponsParams) {
+export function useSelectedCoupons() {
   const [selectedCoupons, setSelectedCoupons] = useState<CouponCode[]>([]);
 
   const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,22 +17,8 @@ export function useSelectedCoupons({
     });
   };
 
-  const discountedPrice = useMemo(
-    () =>
-      getDisCountedPrice({
-        deliveryFee,
-        orderPrice,
-        maxPriceInSelectedCart: getMaxPriceInCart({
-          selectedCartItems: twoPlusOneApplicableItems,
-        }),
-        selectedCoupons,
-      }),
-    [deliveryFee, orderPrice, twoPlusOneApplicableItems, selectedCoupons]
-  );
-
   return {
     handleCouponSelect,
     selectedCoupons,
-    discountedPrice,
   };
 }

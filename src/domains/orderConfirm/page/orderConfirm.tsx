@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
+import { InfoText } from "../../../components/InfoText/InfoText";
 import { useModal } from "../../../hooks/useModal";
 import { Footer } from "../../../layout/Footer/Footer";
 import Header from "../../../layout/Header/Header";
@@ -9,22 +10,31 @@ import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
+import { getOrderPrice } from "../../common/utils/getOrderPrice";
 import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
 import { useCartItems } from "../../shopping-cart/hooks/shoppingCart/useCartItem";
+import { CouponList } from "../components/CouponList/CouponList";
 import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
+import { useCoupons } from "../hooks/useCoupons";
 import { usePaymentSummary } from "../hooks/usePaymentsummary";
+import { useSelectedCoupons } from "../hooks/useSelectedCoupons";
+import { useTwoPlusOneItems } from "../hooks/useTwoPlusOneItems";
+import { getCouponStatus } from "../utils/getCouponStatus";
 import { CouponModal } from "./couponModal";
 import { pressBackButton } from "./orderConfirm.style";
-import { getOrderPrice } from "../../common/utils/getOrderPrice";
 
 export default function OrderConfirm() {
   const navigate = useNavigate();
 
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
-  const [receivedDiscountedPrice, setReceivedDiscountedPrice] = useState(0);
 
   const { cartItems } = useCartItems();
   const { selectedCartIds } = useSelectedCartContext();
+  const { coupons } = useCoupons();
+  const { isOpen, modalOpen, modalClose } = useModal();
+
+  const twoPlusOneItems = useTwoPlusOneItems({ cartItems });
+  const { selectedCoupons, handleCouponSelect } = useSelectedCoupons();
 
   const orderPrice = useMemo(
     () =>
@@ -35,12 +45,12 @@ export default function OrderConfirm() {
     [cartItems, selectedCartIds]
   );
 
-  const { deliveryFee, totalPrice } = usePaymentSummary({
+  const { deliveryFee, totalPrice, discountedPrice } = usePaymentSummary({
     isExtraDeliveryArea,
-    receivedDiscountedPrice,
     orderPrice,
+    twoPlusOneItems,
+    selectedCoupons,
   });
-  const { isOpen, modalOpen, modalClose } = useModal();
 
   const goHome = () => {
     navigate("/");
@@ -85,7 +95,7 @@ export default function OrderConfirm() {
         />
         <PaymentSummary
           orderPrice={orderPrice}
-          couponSale={receivedDiscountedPrice}
+          couponSale={discountedPrice}
           deliveryFee={deliveryFee}
           totalPrice={totalPrice}
         />
@@ -104,11 +114,20 @@ export default function OrderConfirm() {
       <CouponModal
         isModalOpen={isOpen}
         handleModalClose={modalClose}
-        deliveryFee={deliveryFee}
-        orderPrice={orderPrice}
-        cartItems={cartItems}
-        setReceivedDiscountedPrice={setReceivedDiscountedPrice}
-      />
+        discountedPrice={discountedPrice}
+      >
+        <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
+        <CouponList
+          handleCouponSelect={handleCouponSelect}
+          couponStatus={getCouponStatus({
+            orderPrice,
+            twoPlusOneItems,
+            coupons,
+          })}
+          selectedCoupons={selectedCoupons}
+          coupons={coupons}
+        />
+      </CouponModal>
     </PageLayout>
   );
 }

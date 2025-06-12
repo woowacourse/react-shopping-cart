@@ -1,45 +1,19 @@
 import Modal from "compoents-modal-test-kangoll";
-import { useEffect } from "react";
 import Button from "../../../components/Button/Button";
-import { InfoText } from "../../../components/InfoText/InfoText";
-import { CouponList } from "../components/CouponList/CouponList";
-import { useCoupons } from "../hooks/useCoupons";
-import { useSelectedCoupons } from "../hooks/useSelectedCoupons";
-
-import { CartItemTypes } from "../../shopping-cart/types/cartItem";
-import { getCouponStatus } from "../utils/getCouponStatus";
-import { useTwoPlusOneItems } from "../hooks/useTwoPlusOneItems";
 
 interface CouponModalProps {
   isModalOpen: boolean;
   handleModalClose: () => void;
-  deliveryFee: number;
-  orderPrice: number;
-  cartItems: CartItemTypes[];
-  setReceivedDiscountedPrice?: (price: number) => void;
+  discountedPrice: number;
+  children: React.ReactNode;
 }
 
 export function CouponModal({
   isModalOpen,
   handleModalClose,
-  deliveryFee,
-  orderPrice,
-  cartItems,
-  setReceivedDiscountedPrice,
+  discountedPrice,
+  children,
 }: CouponModalProps) {
-  const { coupons } = useCoupons();
-  const twoPlusOneApplicableItems = useTwoPlusOneItems({ cartItems });
-  const { selectedCoupons, handleCouponSelect, discountedPrice } =
-    useSelectedCoupons({
-      deliveryFee,
-      orderPrice,
-      twoPlusOneApplicableItems,
-    });
-
-  useEffect(() => {
-    if (setReceivedDiscountedPrice) setReceivedDiscountedPrice(discountedPrice);
-  }, [discountedPrice, setReceivedDiscountedPrice]);
-
   return (
     <Modal
       position="center"
@@ -49,19 +23,7 @@ export function CouponModal({
       backdropClosable
     >
       <Modal.Header hasCloseButton>쿠폰을 선택해주세요</Modal.Header>
-      <Modal.Content>
-        <InfoText showImg>쿠폰은 최대 2개까지 사용할 수 있습니다.</InfoText>
-        <CouponList
-          handleCouponSelect={handleCouponSelect}
-          isValidCoupon={getCouponStatus({
-            orderPrice,
-            twoPlusOneApplicableItems,
-            coupons,
-          })}
-          selectedCoupons={selectedCoupons}
-          coupons={coupons}
-        />
-      </Modal.Content>
+      <Modal.Content>{children}</Modal.Content>
       <Modal.Footer>
         <Button onClick={handleModalClose} size="full">
           총 {discountedPrice.toLocaleString()}원 할인 쿠폰 사용하기

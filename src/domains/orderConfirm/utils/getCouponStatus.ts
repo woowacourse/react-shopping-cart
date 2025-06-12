@@ -8,22 +8,17 @@ import { CouponCode, CouponCodes, CouponType } from "../types/coupon";
 
 export const getCouponStatus = ({
   orderPrice,
-  twoPlusOneApplicableItems,
+  twoPlusOneItems,
   coupons,
 }: {
   orderPrice: number;
-  twoPlusOneApplicableItems: CartItemTypes[];
+  twoPlusOneItems: CartItemTypes[];
   coupons: CouponType[];
 }): Record<CouponCode, boolean> => {
   return Object.values(CouponCodes).reduce((acc, code) => {
     return {
       ...acc,
-      [code]: validateCoupon(
-        code,
-        orderPrice,
-        twoPlusOneApplicableItems,
-        coupons
-      ),
+      [code]: validateCoupon(code, orderPrice, twoPlusOneItems, coupons),
     };
   }, {} as Record<CouponCode, boolean>);
 };
