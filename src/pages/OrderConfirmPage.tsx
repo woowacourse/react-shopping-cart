@@ -11,7 +11,7 @@ import { PriceSummary } from "../components/PriceSummary/PriceSummary";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { useState } from "react";
 import { CouponModal } from "../components/CouponModal/CouponModal";
-import { useCoupon } from "../hooks/useCoupon";
+import { useCoupon } from "../hooks/coupons/useCoupon";
 import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
 import { getTotalPrice } from "../utils/prices/getTotalPrice";
 import { getShippingFee } from "../utils/prices/getShippingFee";

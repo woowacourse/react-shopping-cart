@@ -1,13 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import { CartItem, Coupon } from "../types/type";
-import { LoadingStatus } from "./useCartItems";
-import couponsApi from "../apis/couponsApi";
-import { useSelected } from "./useSelected";
-import { MAX_COUPON_COUNT } from "../constants";
-import { calculateFixedDiscount } from "../utils/coupons/calculateFixedDiscount";
-import { calculatePercentageDiscount } from "../utils/coupons/calculatePercentageDiscount";
-import { calculateFreeShippingDiscount } from "../utils/coupons/calculateFreeShippingDiscount";
-import { calculateBuyXgetYDiscount } from "../utils/coupons/calulateBuyXgetYDiscount";
+import { useEffect, useMemo } from "react";
+import { CartItem, Coupon } from "../../types/type";
+import { calculateFixedDiscount } from "../../utils/coupons/calculateFixedDiscount";
+import { calculatePercentageDiscount } from "../../utils/coupons/calculatePercentageDiscount";
+import { calculateFreeShippingDiscount } from "../../utils/coupons/calculateFreeShippingDiscount";
+import { calculateBuyXgetYDiscount } from "../../utils/coupons/calulateBuyXgetYDiscount";
+import { useCouponApi } from "./useCouponApi";
+import { useCouponSelection } from "./useCouponSelection";
 
 interface useCouponProps {
   orderPrice: number;
@@ -19,39 +17,18 @@ export const useCoupon = ({
   isRemoteArea,
   selectedItems,
 }: useCouponProps) => {
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("loading");
-  const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const {
-    selectedItemIds: selectedCouponIds,
-    toggleSelectedItemId,
-    replaceSelectedItemIds,
-  } = useSelected({});
+  const { coupons, loadingStatus, errorMessage, refetch } = useCouponApi();
+  const { selectedCouponIds, toggleCouponSelection, replaceSelectedItemIds } =
+    useCouponSelection();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchCoupons();
+      const data = await refetch();
       const { bestA, bestB } = bestCouponCombinationSuggestion(data);
       replaceSelectedItemIds([bestA, bestB]);
     };
     fetchData();
   }, []);
-
-  const fetchCoupons = async () => {
-    setLoadingStatus("fetching");
-    try {
-      const data = await couponsApi.get();
-      setCoupons(data);
-      setErrorMessage("");
-      setLoadingStatus("success");
-      return data;
-    } catch (e) {
-      setErrorMessage("Fail to Fetch Error");
-      setLoadingStatus("error");
-      return [];
-    }
-  };
 
   const bestCouponCombinationSuggestion = (coupons: Coupon[]) => {
     let bestCombinationAmount = 0;
@@ -111,16 +88,6 @@ export const useCoupon = ({
         return calculateBuyXgetYDiscount(coupon, selectedItems);
       default:
         return 0;
-    }
-  };
-
-  const toggleCouponSelection = (id: number) => {
-    const newSet = new Set(selectedCouponIds);
-    const isAlreadySelected = newSet.has(id);
-    if (isAlreadySelected || newSet.size < MAX_COUPON_COUNT) {
-      toggleSelectedItemId(id);
-    } else {
-      alert(`쿠폰은 최대 ${MAX_COUPON_COUNT}개까지만 선택할 수 있습니다.`);
     }
   };
 

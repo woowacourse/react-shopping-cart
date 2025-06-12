@@ -1,5 +1,7 @@
+import { splitByDelimiter } from "../splitByDelimiter";
+
 export const isValidExpiration = (expiration: string): boolean => {
-  const [year, month, date] = expiration.split("-").map(Number);
+  const [year, month, date] = splitByDelimiter(expiration, "-").map(Number);
 
   const today = new Date();
   const expirationDate = new Date(year, month - 1, date);
