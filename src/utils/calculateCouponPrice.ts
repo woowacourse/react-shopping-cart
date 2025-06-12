@@ -89,15 +89,12 @@ export const calculateCouponPrice = ({
   return sum;
 };
 
-export const getIsExpired = (
-  expirationDateString: string,
-  nowDate = new Date()
-) => {
+const getIsExpired = (expirationDateString: string, nowDate = new Date()) => {
   const expirationDate = new Date(expirationDateString);
   return expirationDate < nowDate;
 };
 
-export const isWithinAvailableTime = (
+const isWithinAvailableTime = (
   availableTime: { start: string; end: string },
   nowDate: Date
 ) => {
