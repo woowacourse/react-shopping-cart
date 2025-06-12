@@ -9,21 +9,13 @@ interface CartFooterProps {
 }
 
 function CartFooter({ price, shippingFee, totalPrice, couponDiscount = 0 }: CartFooterProps) {
-  const isZero = (value: number) => {
-    if (value === 0) {
-      return 0;
-    }
-
-    if (value > 0) {
-      return `-${couponDiscount}`;
-    }
-  };
+  const adjustedDiscount = couponDiscount !== 0 ? -couponDiscount : 0;
 
   const renderCartPrice = [
     { title: '주문 금액', price, variant: 'default' as const },
     {
       title: '쿠폰 할인 금액',
-      price: isZero(couponDiscount),
+      price: adjustedDiscount,
       variant: 'coupon' as const,
     },
     { title: '배송비', price: shippingFee, variant: 'shipping' as const },
