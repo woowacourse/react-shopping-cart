@@ -3,11 +3,9 @@ import { Coupon } from "../apis/coupons";
 import { isUnavailableTime, isCouponExpired } from "../utils/dateUtils";
 import { useSelectedItems } from "./useSelectedItems";
 import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
-import { useShippingContext } from "../contexts/ShippingContext";
 
-export const useCouponValidation = () => {
+export const useCouponValidation = (isRemoteAreaShipping: boolean) => {
   const { selectedItems } = useSelectedItems();
-  const { isRemoteAreaShipping } = useShippingContext();
 
   const orderPrice = useMemo(() => {
     return selectedItems.reduce((acc, cartItem) => {
@@ -51,7 +49,7 @@ export const useCouponValidation = () => {
           throw new Error(`Unknown discount type: ${coupon.discountType}`);
       }
     },
-    [selectedItems, orderPrice]
+    [selectedItems, orderPrice, isRemoteAreaShipping]
   );
 
   const getValidCoupons = useCallback(

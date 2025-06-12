@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useCouponContext } from "../contexts/CouponContext";
 import { useSelectedItems } from "./useSelectedItems";
-import { useShippingContext } from "../contexts/ShippingContext";
 import { Coupon } from "../apis/coupons";
 import { SHIPPING_FEE, REMOTE_AREA_SHIPPING_FEE } from "../constants";
 import {
@@ -9,10 +8,9 @@ import {
   calculateFreeShippingDiscount,
 } from "../utils/discounts";
 
-export const useCouponDiscount = () => {
+export const useCouponDiscount = (isRemoteAreaShipping: boolean) => {
   const { appliedCoupons } = useCouponContext();
   const { selectedItems } = useSelectedItems();
-  const { isRemoteAreaShipping } = useShippingContext();
 
   const orderPrice = useMemo(() => {
     return selectedItems.reduce((acc, cartItem) => {

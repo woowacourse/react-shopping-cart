@@ -2,23 +2,18 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { useCouponValidation } from "../src/hooks/useCouponValidation";
 import { useSelectedItems } from "../src/hooks/useSelectedItems";
-import { useShippingContext } from "../src/contexts/ShippingContext";
 import { createMockCoupon } from "./utils/mockCoupons";
 import { createMockCartItem } from "./utils/mockCartItems";
 
 vi.mock("../src/hooks/useSelectedItems");
-vi.mock("../src/contexts/ShippingContext");
 
 const mockUseSelectedItems = vi.mocked(useSelectedItems);
-const mockUseShippingContext = vi.mocked(useShippingContext);
+
+const isRemoteAreaShipping = false;
 
 describe("쿠폰 유효성 검증", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockUseShippingContext.mockReturnValue({
-      isRemoteAreaShipping: false,
-      setIsRemoteAreaShipping: vi.fn(),
-    });
   });
 
   afterEach(() => {
@@ -38,7 +33,9 @@ describe("쿠폰 유효성 검증", () => {
         expirationDate: "2020-01-01",
       });
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(expiredCoupon)).toBe(false);
     });
 
@@ -52,7 +49,9 @@ describe("쿠폰 유효성 검증", () => {
 
       const validCoupon = createMockCoupon(1, "VALID", "fixed", 1000);
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(validCoupon)).toBe(true);
     });
   });
@@ -76,7 +75,9 @@ describe("쿠폰 유효성 검증", () => {
         availableTime: { start: "05:00", end: "17:00" },
       });
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(timeLimitedCoupon)).toBe(false);
     });
 
@@ -94,7 +95,9 @@ describe("쿠폰 유효성 검증", () => {
         availableTime: { start: "05:00", end: "17:00" },
       });
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(timeLimitedCoupon)).toBe(true);
     });
   });
@@ -112,7 +115,9 @@ describe("쿠폰 유효성 검증", () => {
         minimumAmount: 5000,
       });
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(fixedCoupon)).toBe(false);
     });
 
@@ -128,7 +133,9 @@ describe("쿠폰 유효성 검증", () => {
         minimumAmount: 5000,
       });
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(fixedCoupon)).toBe(true);
     });
   });
@@ -152,7 +159,9 @@ describe("쿠폰 유효성 검증", () => {
         }
       );
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(freeShippingCoupon)).toBe(false);
     });
 
@@ -174,7 +183,9 @@ describe("쿠폰 유효성 검증", () => {
         }
       );
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(freeShippingCoupon)).toBe(true);
     });
   });
@@ -199,7 +210,9 @@ describe("쿠폰 유효성 검증", () => {
         }
       );
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(buyXGetYCoupon)).toBe(false);
     });
 
@@ -222,7 +235,9 @@ describe("쿠폰 유효성 검증", () => {
         }
       );
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       expect(result.current.isCouponValid(buyXGetYCoupon)).toBe(true);
     });
   });
@@ -244,7 +259,9 @@ describe("쿠폰 유효성 검증", () => {
         }),
       ];
 
-      const { result } = renderHook(() => useCouponValidation());
+      const { result } = renderHook(() =>
+        useCouponValidation(isRemoteAreaShipping)
+      );
       const validCoupons = result.current.getValidCoupons(coupons);
 
       expect(validCoupons).toHaveLength(1);

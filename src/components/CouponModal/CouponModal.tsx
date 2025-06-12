@@ -17,14 +17,19 @@ import { useCouponDiscount } from "../../hooks/useCouponDiscount";
 interface CouponModalProps {
   isOpen: boolean;
   onClose: () => void;
+  isRemoteAreaShipping: boolean;
 }
 
-const CouponModal = ({ isOpen, onClose }: CouponModalProps) => {
+const CouponModal = ({
+  isOpen,
+  onClose,
+  isRemoteAreaShipping,
+}: CouponModalProps) => {
   const { coupons, isLoading, fetchError, fetchCoupons } = useFetchCoupons();
   const { selectedCoupons, setSelectedCoupons, setAppliedCoupons } =
     useCouponContext();
-  const { isCouponValid } = useCouponValidation();
-  const { couponDiscount } = useCouponDiscount();
+  const { isCouponValid } = useCouponValidation(isRemoteAreaShipping);
+  const { couponDiscount } = useCouponDiscount(isRemoteAreaShipping);
   const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
 
   useEffect(() => {
