@@ -28,8 +28,7 @@ export function CouponManagerProvider({ children }: PropsWithChildren) {
 
   function addCoupon(coupon: CouponType) {
     setSelectedCoupon((prev) => {
-      prev.push(coupon);
-      return [...prev];
+      return [...prev, coupon];
     });
   }
 
