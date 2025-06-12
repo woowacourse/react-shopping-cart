@@ -1,9 +1,6 @@
 import { CartItemTypes, Coupon } from '../types';
-import {
-  calculateCouponPrice,
-  getCartItemSummary,
-  getDeliveryFee,
-} from '../utils';
+import { getCartItemSummary, getDeliveryFee } from '../utils';
+import { calculateCouponPrice } from './calculateCouponPrice';
 
 const DELIVERY_FREE_COUPON_ID = '3';
 

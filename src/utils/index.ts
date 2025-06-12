@@ -1,4 +1,3 @@
-export * from './calculateCouponPrice';
 export * from './formatDate';
 export * from './getAvailableTimeText';
 export * from './getCartItemSummary';

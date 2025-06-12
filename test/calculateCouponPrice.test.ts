@@ -1,5 +1,5 @@
 import { Coupon } from '../src/types/coupon';
-import { calculateCouponPrice } from '../src/utils/calculateCouponPrice';
+import { calculateCouponPrice } from '../src/domain/calculateCouponPrice';
 
 describe('calculateCouponPrice 함수 테스트', () => {
   const coupons: Coupon[] = [

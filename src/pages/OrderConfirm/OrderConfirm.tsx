@@ -27,7 +27,7 @@ import {
   PageLayout,
 } from '../../components';
 import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
-import { calculateCouponPrice } from '../../utils';
+import { calculateCouponPrice } from '../../domain';
 
 import {
   useFetchCoupons,

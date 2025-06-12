@@ -1,6 +1,6 @@
 import { CartItemTypes } from '../types/cartItem';
 import { Coupon } from '../types/coupon';
-import { calculateCouponPrice } from './calculateCouponPrice';
+import { calculateCouponPrice } from '../domain';
 
 export const isCouponDisabled = (
   coupon: Coupon,

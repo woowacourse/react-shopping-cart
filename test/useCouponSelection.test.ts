@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { useCouponSelection } from '../src/hooks/useCouponSelection';
-import { calculateCouponPrice } from '../src/utils/calculateCouponPrice';
+import { calculateCouponPrice } from '../src/domain/calculateCouponPrice';
 import coupons from '../src/mocks/coupon.json';
 import { vi } from 'vitest';
 import { Coupon } from '../src/types/coupon';
