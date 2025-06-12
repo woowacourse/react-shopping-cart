@@ -8,6 +8,57 @@ interface calculateCouponPriceProps {
   nowDate: Date;
 }
 
+type CouponCode = 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
+
+type CouponHandler = (args: {
+  coupon: Coupon;
+  selectedCartItems: CartItemTypes[];
+  deliveryFee: number;
+  nowDate: Date;
+  totalPrice: number;
+  discountedPrice: number;
+}) => number;
+
+const couponHandlers: Record<CouponCode, CouponHandler> = {
+  FIXED5000: ({ coupon, totalPrice }) => {
+    if (
+      coupon.minimumAmount &&
+      coupon.discount &&
+      totalPrice >= coupon.minimumAmount
+    ) {
+      return coupon.discount;
+    }
+    return 0;
+  },
+  BOGO: ({ coupon, selectedCartItems }) => {
+    const { buyQuantity, getQuantity } = coupon;
+    if (!buyQuantity || !getQuantity) return 0;
+
+    const over = selectedCartItems.filter(
+      (item) => item.quantity >= buyQuantity + getQuantity
+    );
+
+    if (over.length === 0) return 0;
+
+    const prices = over.map(
+      (e) =>
+        Math.floor(e.quantity / (buyQuantity + getQuantity)) *
+        e.product.price *
+        getQuantity
+    );
+    return Math.max(...prices);
+  },
+  FREESHIPPING: ({ coupon, totalPrice, deliveryFee }) => {
+    if (coupon.minimumAmount && totalPrice >= coupon.minimumAmount) {
+      return deliveryFee;
+    }
+    return 0;
+  },
+  MIRACLESALE: ({ coupon, discountedPrice }) => {
+    return coupon.discount ? (discountedPrice * coupon.discount) / 100 : 0;
+  },
+};
+
 export const calculateCouponPrice = ({
   selectedCoupons,
   selectedCartItems,
@@ -31,54 +82,20 @@ export const calculateCouponPrice = ({
     )
       return;
 
-    switch (coupon.code) {
-      case 'FIXED5000':
-        if (
-          coupon.minimumAmount &&
-          coupon.discount &&
-          totalPrice >= coupon.minimumAmount
-        ) {
-          sum += coupon.discount;
-          discountedPrice -= coupon.discount;
-        }
-        break;
-      case 'BOGO': {
-        const { buyQuantity, getQuantity } = coupon;
+    const handler = couponHandlers[coupon.code];
+    if (!handler) return;
 
-        if (!buyQuantity || !getQuantity) return;
+    const discount = handler({
+      coupon,
+      selectedCartItems,
+      deliveryFee,
+      nowDate,
+      totalPrice,
+      discountedPrice,
+    });
 
-        const over = selectedCartItems.filter(
-          (item) => item.quantity >= buyQuantity + getQuantity
-        );
-
-        if (over.length > 0) {
-          const prices = over.map(
-            (e) =>
-              Math.floor(e.quantity / (buyQuantity + getQuantity)) *
-              e.product.price *
-              getQuantity
-          );
-          const maxPrice = Math.max(...prices);
-          sum += maxPrice;
-          discountedPrice -= maxPrice;
-        }
-        break;
-      }
-      case 'FREESHIPPING':
-        if (coupon.minimumAmount && totalPrice >= coupon.minimumAmount) {
-          sum += deliveryFee;
-          discountedPrice -= deliveryFee;
-        }
-        break;
-      case 'MIRACLESALE':
-        if (coupon.discount) {
-          sum += (discountedPrice * coupon.discount) / 100;
-          discountedPrice -= (discountedPrice * coupon.discount) / 100;
-        }
-        break;
-      default:
-        break;
-    }
+    sum += discount;
+    discountedPrice -= discount;
   });
 
   return sum;
