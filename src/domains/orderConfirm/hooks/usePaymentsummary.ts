@@ -1,13 +1,11 @@
 import { useMemo } from "react";
-import { useCartContext } from "../../common/context/cartProvider";
-import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 
-import { getOrderPrice } from "../../common/utils/getOrderPrice";
 import { getDeliveryFee } from "../utils/getDeliveryFee";
 
 interface UsePaymentSummaryProps {
   isExtraDeliveryArea: boolean;
   receivedDiscountedPrice: number;
+  orderPrice: number;
 }
 
 /**
@@ -19,19 +17,8 @@ interface UsePaymentSummaryProps {
 export function usePaymentSummary({
   isExtraDeliveryArea,
   receivedDiscountedPrice,
+  orderPrice,
 }: UsePaymentSummaryProps) {
-  const { cartItems } = useCartContext();
-  const { selectedCartIds } = useSelectedCartContext();
-
-  const orderPrice = useMemo(
-    () =>
-      getOrderPrice({
-        cartItems: cartItems,
-        selectedCartIds,
-      }),
-    [cartItems, selectedCartIds]
-  );
-
   const deliveryFee: number = useMemo(
     () => getDeliveryFee({ orderPrice, isExtraDeliveryArea }),
     [orderPrice, isExtraDeliveryArea]
@@ -43,7 +30,6 @@ export function usePaymentSummary({
 
   return {
     deliveryFee,
-    orderPrice,
     totalPrice,
   };
 }

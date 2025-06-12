@@ -1,11 +1,14 @@
 import { Line } from "../../../../components/Line/Line";
-import { CartProduct } from "../../../shopping-cart/components/CartProduct/CartProduct";
-import { useCartContext } from "../../../common/context/cartProvider";
-import { cartListLayout } from "./SelectedCartList.style";
 import { useSelectedCartContext } from "../../../common/context/selectedCartProvider";
+import { CartProduct } from "../../../shopping-cart/components/CartProduct/CartProduct";
+import { CartItemTypes } from "../../../shopping-cart/types/cartItem";
+import { cartListLayout } from "./SelectedCartList.style";
 
-export function SelectedCartList() {
-  const { cartItems } = useCartContext();
+export function SelectedCartList({
+  cartItems,
+}: {
+  cartItems: CartItemTypes[];
+}) {
   const { selectedCartIds } = useSelectedCartContext();
 
   return (

@@ -1,10 +1,12 @@
 import { useMemo } from "react";
-import { CartItemTypes } from "../../shopping-cart/types/cartItem";
-import { useCartContext } from "../../common/context/cartProvider";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
+import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
-export function useTwoPlusOneApplicableItems(): CartItemTypes[] {
-  const { cartItems } = useCartContext();
+export function useTwoPlusOneApplicableItems({
+  cartItems,
+}: {
+  cartItems: CartItemTypes[];
+}): CartItemTypes[] {
   const { selectedCartIds } = useSelectedCartContext();
   const twoPlusOneApplicableItems = useMemo(() => {
     return cartItems.filter(

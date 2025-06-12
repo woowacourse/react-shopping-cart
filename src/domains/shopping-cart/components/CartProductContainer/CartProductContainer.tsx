@@ -2,28 +2,30 @@ import React from "react";
 import Button from "../../../../components/Button/Button";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
 import { Line } from "../../../../components/Line/Line";
-import { useCartContext } from "../../../common/context/cartProvider";
+import { CartItemTypes } from "../../types/cartItem";
 import { CartProduct } from "../CartProduct/CartProduct";
+import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 import {
   CartItemBox,
   CartItemHeader,
   CartProductList,
 } from "./CartProductContainer.style";
-import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
 
 interface CartProductContainerProps {
   selectedCartIds: string[];
   onDelete: (id: string) => Promise<void>;
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  cartItems: CartItemTypes[];
+  refetchCartItems: (response: Response) => Promise<void>;
 }
 
 export default function CartProductContainer({
   selectedCartIds,
   onDelete,
   handleCheckBox,
+  cartItems,
+  refetchCartItems,
 }: CartProductContainerProps) {
-  const { getCartItemData, cartItems } = useCartContext();
-
   return (
     <section css={CartProductList}>
       {cartItems.map((item) => {
@@ -40,7 +42,6 @@ export default function CartProductContainer({
               <Button
                 onClick={async () => {
                   await onDelete(item.id.toString());
-                  getCartItemData();
                 }}
                 style="ghost"
               >
@@ -57,6 +58,7 @@ export default function CartProductContainer({
               <QuantitySelector
                 quantity={item.quantity}
                 cartId={item.id.toString()}
+                refetchCartItems={refetchCartItems}
               />
             </CartProduct>
           </div>

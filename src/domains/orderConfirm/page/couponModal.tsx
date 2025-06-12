@@ -6,12 +6,14 @@ import { CouponList } from "../components/CouponList/CouponList";
 import { useCoupons } from "../hooks/useCoupons";
 import { useSelectedCoupons } from "../hooks/useSelectedCoupons";
 import { useTwoPlusOneApplicableItems } from "../hooks/useTwoPlusOneApplicableItems";
+import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
 interface CouponModalProps {
   isModalOpen: boolean;
   handleModalClose: () => void;
   deliveryFee: number;
   orderPrice: number;
+  cartItems: CartItemTypes[];
   setReceivedDiscountedPrice?: (price: number) => void;
 }
 
@@ -20,10 +22,11 @@ export function CouponModal({
   handleModalClose,
   deliveryFee,
   orderPrice,
+  cartItems,
   setReceivedDiscountedPrice,
 }: CouponModalProps) {
   const { isValidCoupon, coupons } = useCoupons();
-  const twoPlusOneApplicableItems = useTwoPlusOneApplicableItems();
+  const twoPlusOneApplicableItems = useTwoPlusOneApplicableItems({ cartItems });
   const { selectedCoupons, handleCouponSelect, discountedPrice } =
     useSelectedCoupons({
       deliveryFee,

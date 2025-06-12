@@ -1,5 +1,6 @@
 import Button from "../../../../components/Button/Button";
 import { CheckBox } from "../../../../components/CheckBox/CheckBox";
+import { CartItemTypes } from "../../../shopping-cart/types/cartItem";
 import { SelectedCartList } from "../SelectedCartList/SelectedCartList";
 import {
   deliveryInfoText,
@@ -12,14 +13,16 @@ export function SelectedCartContainer({
   handleModalOpen,
   isExtraDeliveryArea,
   handleCheckBox,
+  cartItems,
 }: {
   handleModalOpen: () => void;
   isExtraDeliveryArea: boolean;
   handleCheckBox: () => void;
+  cartItems: CartItemTypes[];
 }) {
   return (
     <section css={selectedCartContainerLayout}>
-      <SelectedCartList />
+      <SelectedCartList cartItems={cartItems} />
       <Button onClick={handleModalOpen} style="ghost" size="full">
         쿠폰 적용
       </Button>

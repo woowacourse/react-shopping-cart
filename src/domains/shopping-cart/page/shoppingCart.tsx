@@ -3,29 +3,32 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import { CheckBox } from "../../../components/CheckBox/CheckBox";
 import Toast from "../../../components/Toast/Toast";
+import { useErrorContext } from "../../../context/errorProvider";
 import { Footer } from "../../../layout/Footer/Footer";
 import Header from "../../../layout/Header/Header";
 import Main from "../../../layout/Main/Main";
 import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
-import { useCartContext } from "../../common/context/cartProvider";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
+import { getOrderPrice } from "../../common/utils/getOrderPrice";
+import { getDeliveryFee } from "../../orderConfirm/utils/getDeliveryFee";
 import CartProductContainer from "../components/CartProductContainer/CartProductContainer";
 import { EmptyShoppingCart } from "../components/EmptyShoppingCart/EmptyShoppingCart";
 import { PaymentSummary } from "../components/PaymentSummary/PaymentSummary";
-import { getOrderPrice } from "../../common/utils/getOrderPrice";
+import { useCartItems } from "../hooks/shoppingCart/useCartItem";
+import { useDeleteCartItem } from "../hooks/shoppingCart/useDeleteCartItem";
 import {
   CartProductContainerLayout,
   SelectAllLayout,
 } from "./shoppingCart.style";
-import { getDeliveryFee } from "../../orderConfirm/utils/getDeliveryFee";
-import { useErrorContext } from "../../../context/errorProvider";
 
 export function ShoppingCart() {
   const isFirstMount = useRef(true);
   const navigate = useNavigate();
 
-  const { deleteCartItem, cartItems } = useCartContext();
+  const { cartItems, refetchCartItems } = useCartItems();
+  const { deleteCartItem } = useDeleteCartItem();
+
   const { error } = useErrorContext();
   const {
     toggleSelectAll,
@@ -81,13 +84,15 @@ export function ShoppingCart() {
                 selectedCartIds={selectedCartIds}
                 onDelete={async (id: string) => {
                   const response = await deleteCartItem(id);
-                  if (response?.ok) {
-                    removeFromSelection(id);
-                  }
+                  if (!response || !response.ok) return;
+                  await refetchCartItems();
+                  removeFromSelection(id);
                 }}
                 handleCheckBox={(e: React.ChangeEvent<HTMLInputElement>) =>
                   toggleCartItem(e.target.id)
                 }
+                cartItems={cartItems}
+                refetchCartItems={refetchCartItems}
               />
             </div>
             <PaymentSummary

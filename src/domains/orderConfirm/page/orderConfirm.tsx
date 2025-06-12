@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
+import { useModal } from "../../../hooks/useModal";
 import { Footer } from "../../../layout/Footer/Footer";
 import Header from "../../../layout/Header/Header";
 import Main from "../../../layout/Main/Main";
 import { PageLayout } from "../../../layout/PageLayout/PageLayout";
 import { subTitleStyle, titleBox, titleStyle } from "../../common/common.style";
-import { useCartContext } from "../../common/context/cartProvider";
-import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
-import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
-import { useNavigate } from "react-router-dom";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import { calculateCartItemQuantity } from "../../common/utils/calculateCartItemQuantity";
+import { PaymentSummary } from "../../shopping-cart/components/PaymentSummary/PaymentSummary";
+import { useCartItems } from "../../shopping-cart/hooks/shoppingCart/useCartItem";
+import { SelectedCartContainer } from "../components/SelectedCartContainer/SelectedCartContainer";
 import { usePaymentSummary } from "../hooks/usePaymentsummary";
 import { CouponModal } from "./couponModal";
 import { pressBackButton } from "./orderConfirm.style";
-import { useModal } from "../../../hooks/useModal";
+import { getOrderPrice } from "../../common/utils/getOrderPrice";
 
 export default function OrderConfirm() {
   const navigate = useNavigate();
@@ -22,11 +23,22 @@ export default function OrderConfirm() {
   const [isExtraDeliveryArea, setIsExtraDeliveryArea] = useState(false);
   const [receivedDiscountedPrice, setReceivedDiscountedPrice] = useState(0);
 
-  const { cartItems } = useCartContext();
+  const { cartItems } = useCartItems();
   const { selectedCartIds } = useSelectedCartContext();
-  const { deliveryFee, orderPrice, totalPrice } = usePaymentSummary({
+
+  const orderPrice = useMemo(
+    () =>
+      getOrderPrice({
+        cartItems,
+        selectedCartIds,
+      }),
+    [cartItems, selectedCartIds]
+  );
+
+  const { deliveryFee, totalPrice } = usePaymentSummary({
     isExtraDeliveryArea,
     receivedDiscountedPrice,
+    orderPrice,
   });
   const { isOpen, modalOpen, modalClose } = useModal();
 
@@ -69,6 +81,7 @@ export default function OrderConfirm() {
           handleModalOpen={modalOpen}
           isExtraDeliveryArea={isExtraDeliveryArea}
           handleCheckBox={() => setIsExtraDeliveryArea((prev) => !prev)}
+          cartItems={cartItems}
         />
         <PaymentSummary
           orderPrice={orderPrice}
@@ -93,6 +106,7 @@ export default function OrderConfirm() {
         handleModalClose={modalClose}
         deliveryFee={deliveryFee}
         orderPrice={orderPrice}
+        cartItems={cartItems}
         setReceivedDiscountedPrice={setReceivedDiscountedPrice}
       />
     </PageLayout>
