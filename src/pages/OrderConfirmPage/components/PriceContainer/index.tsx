@@ -25,7 +25,11 @@ const PriceContainer = ({ orderItems }: { orderItems: OrderItem[] }) => {
       </Button>
       <DeliveryOptions isIsolatedAreaSelected={isIsolatedAreaSelected} onToggleIsolatedArea={toggleIsolatedArea} />
       <PaymentPriceList calculation={calculation} />
-      <PaymentButton orderItems={orderItems} />
+      <PaymentButton
+        orderItemsKind={orderItems.length}
+        totalOrderItemsCount={orderItems.reduce((acc, item) => acc + item.quantity, 0)}
+        totalPrice={calculation.finalAmount}
+      />
       {isOpen && (
         <CouponModal
           onClose={() => setIsOpen(false)}
