@@ -16,18 +16,17 @@ export function getSelectedCouponDiscount({
   orderAmount: number;
   isIslandArea: boolean;
 }): number {
-  const selectedCouponObjects = coupons.filter((c) =>
-    selectedCoupons.has(c.id)
-  );
+  return coupons.reduce((totalDiscount, coupon) => {
+    if (!selectedCoupons.get(coupon.id)) return totalDiscount;
 
-  const selectedCombos = calculateAllCouponCombos({
-    coupons: selectedCouponObjects,
-    cartItemList,
-    orderAmount,
-    isIslandArea,
-  });
+    const discount =
+      calculateAllCouponCombos({
+        coupons: [coupon],
+        cartItemList,
+        orderAmount,
+        isIslandArea,
+      }).find((combo) => combo.isValid)?.discount ?? 0;
 
-  const selectedCombo = selectedCombos.find((c) => c.isValid);
-
-  return selectedCombo?.discount ?? 0;
+    return totalDiscount + discount;
+  }, 0);
 }

@@ -10,7 +10,7 @@ import useCoupons from "../../../hooks/useCoupons";
 import useSelectedCoupons from "../../../hooks/useSelectedCoupons";
 
 import { calculateAllCouponCombos } from "../../../utils/calculateAllCouponCombos";
-import { getSelectedCouponDiscount } from "../../../utils/getSelectedCouponObjects";
+import { getSelectedCouponDiscount } from "../../../utils/getSelectedCouponDiscount";
 
 import CartItem from "../../../types/CartItem";
 import { Combo } from "../../../types/Combo";
