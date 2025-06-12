@@ -5,7 +5,7 @@ import { describe, it, expect } from "vitest";
 import TestProvider from "../utils/TestProvider.tsx";
 import Receipt from "../components/shoppingCart/receipt/Receipt";
 
-describe("ReceiptTest", () => {
+describe("receiptTest", () => {
   it("주문 금액이 100,000원 미만인 경우 배송비는 3,000원으로 설정된다.", () => {
     const allProductPrice = 10000;
     const shippingFee = allProductPrice < 100000 ? 3000 : 0;

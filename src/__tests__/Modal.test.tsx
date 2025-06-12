@@ -16,7 +16,7 @@ vi.mock("../../hooks/useReceipt", () => ({
   }),
 }));
 
-describe("Modal component", () => {
+describe("modalTest", () => {
   const mockSetCouponList = vi.fn();
   const mockSetCheckedCoupons = vi.fn();
   const onClose = vi.fn();

@@ -9,6 +9,7 @@ import * as S from "./Modal.styles";
 import CouponItem from "../Coupon/CouponItem/CouponItem";
 import CartItemCheck from "../../../types/CartItemCheck";
 import calculateDisableCoupon from "../../../utils/calculateDisableCoupon";
+import { useErrorContext } from "../../../contexts/ErrorContext";
 
 interface ModalProps {
   isModalOpen: boolean;
@@ -30,6 +31,8 @@ export default function Modal({
   const { couponList, setCouponList, setCheckedCoupons } =
     useCouponListContext();
 
+  const { handleErrorMessage } = useErrorContext();
+
   const now = new Date();
 
   useEffect(() => {
@@ -38,14 +41,10 @@ export default function Modal({
         const list = await getCouponList();
         setCouponList(list);
       } catch (err: any) {
-        console.error("쿠폰 조회 중 오류 발생:", err);
+        handleErrorMessage("쿠폰 목록을 불러오지 못했습니다.");
       }
     })();
-  }, [setCouponList]);
-
-  if (!isModalOpen) {
-    return null;
-  }
+  }, [setCouponList, handleErrorMessage]);
 
   return (
     <>
