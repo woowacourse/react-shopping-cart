@@ -47,14 +47,14 @@ export function getDisCountedPrice(props: GetDisCountedPriceParams) {
  */
 
 function getTotalDiscount(index: number[], props: GetDisCountedPriceParams) {
-  const firstDiscount = couponCalculator({
+  const firstDiscount = getCouponDiscountAmount({
     ...props,
     code: props.selectedCoupons[index[0]],
   });
 
   if (index.length === 1) return firstDiscount;
 
-  const secondDiscount = couponCalculator({
+  const secondDiscount = getCouponDiscountAmount({
     ...props,
     orderPrice: props.orderPrice - firstDiscount,
     code: props.selectedCoupons[index[1]],
@@ -74,7 +74,7 @@ function getTotalDiscount(index: number[], props: GetDisCountedPriceParams) {
  * @returns {number} - 쿠폰에 따른 할인 금액
  */
 
-function couponCalculator({
+function getCouponDiscountAmount({
   deliveryFee,
   orderPrice,
   maxPriceInSelectedCart,
