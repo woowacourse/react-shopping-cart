@@ -16,6 +16,7 @@ import LabelCouponPrice from './order-coupon/LabelCouponPrice';
 import OrderItemList from './order-coupon/OrderItemList';
 import DeliveryRegionSection from './order-delivery/DeliveryRegionSection';
 import OrderPageInfo from './OrderPageInfo';
+import { useCouponSelection } from './hooks/useCouponSelection';
 
 const OrderReviewPage = () => {
   const { typeCount, totalCount, isDisabled } = useOrderInfo();
@@ -26,14 +27,12 @@ const OrderReviewPage = () => {
     handleJejuOrRemoteAreaToggle,
   } = useShipping();
 
-  const {
-    coupons,
-    isLoading,
-    availableCoupons,
-    selectedCouponIds,
-    bestCouponIds,
-    handleSelectCoupons,
-  } = useOrderCoupons(isJejuOrRemoteArea);
+  const { coupons, isLoading, availableCoupons, bestCouponIds } =
+    useOrderCoupons(isJejuOrRemoteArea);
+
+  const { selectedCouponIds, handleSelectCoupons } = useCouponSelection({
+    initialCouponIds: bestCouponIds,
+  });
 
   const { selectedItems, orderPrice } = useOrderListContext();
   const currentDiscount = useCalculateTotalDiscount({
@@ -48,7 +47,7 @@ const OrderReviewPage = () => {
     shippingFee: actualShippingFee,
     discount: currentDiscount,
   });
-  
+
   const { showCouponModal, handleShowCouponModal } = useModal();
   const { handleBackClick, handleCheckout } = useNavigation(
     isDisabled,
