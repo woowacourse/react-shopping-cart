@@ -22,7 +22,7 @@ export const calculateDiscount = (
   coupon: CouponResponse,
   isRemoteArea: boolean
 ) => {
-  const { totalPrice } = getPrice({
+  const { orderPrice } = getPrice({
     items: selectedCartItems,
     isRemoteArea,
     discount: 0,
@@ -37,13 +37,13 @@ export const calculateDiscount = (
 
     case "freeShipping": {
       return getDeliveryPrice({
-        orderPrice: totalPrice,
+        orderPrice,
         isRemoteArea,
       });
     }
 
     case "percentage":
-      return (totalPrice * coupon.discount) / 100;
+      return (orderPrice * coupon.discount) / 100;
 
     default:
       return 0;
