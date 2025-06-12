@@ -1,6 +1,5 @@
 interface CheckboxOptions {
   maxSelectableCount?: number | null;
-  enableAllSelectBox?: boolean;
   autoSelectAll?: boolean;
 }
 
@@ -10,9 +9,9 @@ interface ValidateProps<T> {
 }
 
 const checkConflicts = <T>({ options, items }: ValidateProps<T>) => {
-  const { maxSelectableCount, enableAllSelectBox, autoSelectAll } = options;
+  const { maxSelectableCount, autoSelectAll } = options;
   if (maxSelectableCount && maxSelectableCount < items.length) {
-    return Boolean(enableAllSelectBox || autoSelectAll);
+    return Boolean(autoSelectAll);
   }
 
   return false;

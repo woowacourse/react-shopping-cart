@@ -11,6 +11,7 @@ import { getCoupons } from "../../api/coupon";
 import { adaptCoupon } from "../../utils/dataAdapter";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import { ModalContentContainer, RedeemInfo } from "./CouponModal.styles";
+import { KEY } from "../../constants/storage";
 
 interface CouponModalProps {
   openModal: boolean;
@@ -54,9 +55,8 @@ function CouponModal({
   }, [fetchCoupons]);
 
   const { selectedIds, toggleSelect, isSelected, isMaxSelected } =
-    useCheckboxHandler(coupons, {
+    useCheckboxHandler(coupons, KEY.coupon, {
       maxSelectableCount: 2,
-      enableAllSelectBox: false,
       autoSelectAll: false,
     });
 

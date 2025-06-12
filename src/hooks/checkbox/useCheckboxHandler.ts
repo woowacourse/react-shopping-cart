@@ -9,7 +9,6 @@ interface CheckboxItemType {
 
 interface CheckboxOptions {
   maxSelectableCount?: number | null;
-  enableAllSelectBox?: boolean;
   autoSelectAll?: boolean;
 }
 
@@ -42,6 +41,7 @@ const useCheckboxHandler = <T extends CheckboxItemType>(
     isSelected,
     toggleSelect: finalToggleSelect,
     addSelectedId,
+    ...limitSelect,
   };
 };
 
