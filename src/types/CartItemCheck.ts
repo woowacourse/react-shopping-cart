@@ -1,7 +1,7 @@
 import CartItem from "./CartItem";
 
 type CartItemCheck = CartItem & {
-  isClicked: boolean;
+  isChecked: boolean;
 };
 
 export default CartItemCheck;

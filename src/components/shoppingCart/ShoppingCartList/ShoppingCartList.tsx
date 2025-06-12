@@ -41,7 +41,7 @@ export default function ShoppingCartList({
           <Item
             key={cart.id}
             id={cart.id}
-            isChecked={!!selected?.isClicked}
+            isChecked={!!selected?.isChecked}
             handleSelectedCartItem={handleSelectedCartItem}
             imageUrl={cart.product.imageUrl}
             name={cart.product.name}

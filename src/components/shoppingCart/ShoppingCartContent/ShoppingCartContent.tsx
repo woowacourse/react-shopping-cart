@@ -21,7 +21,7 @@ export default function ShoppingCartContent({
   const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
     cartItemList.map((item) => ({
       ...item,
-      isClicked: true,
+      isChecked: true,
     }))
   );
   localStorage.setItem(
@@ -29,7 +29,7 @@ export default function ShoppingCartContent({
     JSON.stringify(
       cartItemList.map((item) => ({
         ...item,
-        isClicked: true,
+        isChecked: true,
       }))
     )
   );
@@ -44,7 +44,7 @@ export default function ShoppingCartContent({
   const handleSelectedCartItem = (id: number) => {
     setCartItemCheckList((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, isClicked: !item.isClicked } : item
+        item.id === id ? { ...item, isChecked: !item.isChecked } : item
       )
     );
   };
@@ -64,17 +64,17 @@ export default function ShoppingCartContent({
     );
   };
 
-  const allChecked = cartItemCheckList.every((item) => item.isClicked);
+  const allChecked = cartItemCheckList.every((item) => item.isChecked);
   const toggleAll = () => {
     setCartItemCheckList((prev) =>
-      prev.map((item) => ({ ...item, isClicked: !allChecked }))
+      prev.map((item) => ({ ...item, isChecked: !allChecked }))
     );
   };
 
   const cartItemListLength = cartItemList.length;
 
   const selectedCartItemList = cartItemCheckList.filter(
-    ({ isClicked }) => isClicked
+    ({ isChecked }) => isChecked
   );
 
   const allProductPrice = selectedCartItemList.reduce(

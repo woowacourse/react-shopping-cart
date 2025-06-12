@@ -7,7 +7,7 @@ export const useReceipt = (cartItemCheckList: CartItemCheck[]) => {
   const [isRemote, setIsRemote] = useState<boolean>(false);
 
   const cartItemCheckListTotalQuantity = selectedItems
-    .filter((item) => item.isClicked)
+    .filter((item) => item.isChecked)
     .reduce((acc, item) => acc + item.quantity, 0);
 
   const allProductPrice = selectedItems.reduce(

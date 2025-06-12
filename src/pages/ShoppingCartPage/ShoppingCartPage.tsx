@@ -5,7 +5,7 @@ import useCartItemList from "../../hooks/useCartItemList";
 
 import * as S from "./ShoppingCartPage.styles";
 import { useErrorContext } from "../../contexts/ErrorContext";
-import ShoppingCartContent from "../../components/shoppingCart/ShoppingCartContent/ShoppingCartContent";
+import ShoppingCartContent from "../../components/ShoppingCart/ShoppingCartContent/ShoppingCartContent";
 
 export default function ShoppingCartPage() {
   const { state, cartItemList, patchCartItem, removeCartItem } =
