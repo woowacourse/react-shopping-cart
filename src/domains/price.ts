@@ -42,12 +42,18 @@ export const getDiscountPriceByType = ({
 }) => {
   if (coupon.discountType === "fixed") {
     return coupon.discount;
-  } else if (coupon.discountType === "percentage") {
+  }
+
+  if (coupon.discountType === "percentage") {
     if (!orderPrice) return 0;
     return Math.floor((orderPrice * coupon.discount) / 100);
-  } else if (coupon.discountType === "freeShipping") {
+  }
+
+  if (coupon.discountType === "freeShipping") {
     return deliveryPrice || 0;
-  } else if (coupon.discountType === "buyXgetY") {
+  }
+
+  if (coupon.discountType === "buyXgetY") {
     if (!selectedCartItem.length) return 0;
 
     const moreThanMinimumQuantity = selectedCartItem
