@@ -24,7 +24,13 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
   useEffect(() => {
     if (!init && cartItems.length > 0) {
       const storedItems = loadSelectedCartItemsFromStorage();
-      storedItems ? setSelectedCartItems(storedItems) : setSelectedCartItems(cartItems);
+
+      if (storedItems) {
+        setSelectedCartItems(storedItems);
+      } else {
+        setSelectedCartItems(cartItems);
+        saveSelectedCartItemsToStorage(cartItems);
+      }
 
       setInit(true);
     }
