@@ -2,19 +2,25 @@ import styled from '@emotion/styled';
 import router from './router/router';
 import { RouterProvider } from 'react-router-dom';
 import ToastProvider from './contexts/ToastProvider';
+import CartItemsProvider from './contexts/CartItemsProvider';
+import CouponProvider from './contexts/CouponProvider';
 
 function App() {
   return (
-    <S.layout>
+    <S.Layout>
       <ToastProvider>
-        <RouterProvider router={router} />
+        <CartItemsProvider>
+          <CouponProvider>
+            <RouterProvider router={router} />
+          </CouponProvider>
+        </CartItemsProvider>
       </ToastProvider>
-    </S.layout>
+    </S.Layout>
   );
 }
 
 const S = {
-  layout: styled.div`
+  Layout: styled.div`
     position: relative;
     width: 430px;
     height: 100vh;

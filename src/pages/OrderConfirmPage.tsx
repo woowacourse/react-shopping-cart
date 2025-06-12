@@ -1,29 +1,30 @@
 import styled from '@emotion/styled';
 import BottomButton from '../components/BottomButton';
-import getOrderPrice from '../utils/getOrderPrice';
-import { DELIVERY_PRICE, DELIVERY_PRICE_THRESHOLD } from '../constants/config';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CartItem } from '../types';
+import { BASE_URL, URL_LOCATION } from '../constants/url';
 
 const OrderConfirmPage = () => {
   const { state } = useLocation();
-  const { cartItems, checkedCartIds }: { cartItems: CartItem[]; checkedCartIds: number[] } = state;
-  const orderPrice = getOrderPrice(cartItems, checkedCartIds);
-  const deliveryPrice = orderPrice >= DELIVERY_PRICE_THRESHOLD ? 0 : DELIVERY_PRICE;
-  const totalPrice = orderPrice + deliveryPrice;
+  const {
+    cartItems,
+    checkedCartIds,
+    totalPrice,
+  }: { cartItems: CartItem[]; checkedCartIds: number[]; totalPrice: number } = state;
   const checkedSet = new Set(checkedCartIds);
   const totalQuantity = cartItems.reduce(
     (acc, item) => (checkedSet.has(item.id) ? acc + item.quantity : acc),
     0
   );
+  const navigate = useNavigate();
 
   return (
     <>
       <S.content data-testid="orderConfirmPage">
-        <S.title>주문 확인</S.title>
+        <S.title>결제 확인</S.title>
         <S.middleContainer>
           <p>
-            총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를 주문합니다.
+            총 {checkedCartIds.length}종류의 상품 {totalQuantity}개를 주문했습니다.
           </p>
           <p>최종 결제 금액을 확인해 주세요.</p>
         </S.middleContainer>
@@ -32,7 +33,10 @@ const OrderConfirmPage = () => {
           <S.totalPrice>{totalPrice.toLocaleString()}원</S.totalPrice>
         </S.bottomContainer>
       </S.content>
-      <BottomButton disabled title="결제하기" />
+      <BottomButton
+        title="장바구니로 돌아가기"
+        onClick={() => navigate(BASE_URL + URL_LOCATION.BASE)}
+      />
     </>
   );
 };

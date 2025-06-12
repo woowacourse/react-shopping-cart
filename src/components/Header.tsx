@@ -6,24 +6,28 @@ const Header = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const headerContent =
-    pathname === '/react-shopping-cart/' ? (
-      <S.title>SHOP</S.title>
-    ) : (
-      <button>
-        <img
-          src="./go-back.svg"
-          alt="goBack"
-          onClick={() => navigate(BASE_URL + URL_LOCATION.BASE)}
-        />
-      </button>
-    );
+  const getHeaderContent = () => {
+    if (pathname === BASE_URL + URL_LOCATION.BASE) return <S.Title>SHOP</S.Title>;
+    if (pathname === BASE_URL + URL_LOCATION.ORDER)
+      return (
+        <button>
+          <img
+            src="./go-back.svg"
+            alt="goBack"
+            onClick={() => navigate(BASE_URL + URL_LOCATION.BASE)}
+          />
+        </button>
+      );
+    return <></>;
+  };
 
-  return <S.container>{headerContent}</S.container>;
+  const headerContent = getHeaderContent();
+
+  return <S.Container>{headerContent}</S.Container>;
 };
 
 const S = {
-  container: styled.header`
+  Container: styled.header`
     display: flex;
     align-items: center;
     width: 100%;
@@ -32,7 +36,8 @@ const S = {
     background-color: black;
   `,
 
-  title: styled.p`
+  Title: styled.p`
+    user-select: none;
     color: white;
     font-size: 20px;
     font-weight: 800;

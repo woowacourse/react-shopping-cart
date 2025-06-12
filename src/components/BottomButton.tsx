@@ -18,8 +18,7 @@ const S = {
     color: #ffffff;
     font-size: 16px;
     font-weight: 700;
-    background-color: ${({ disabled }) =>
-      disabled ? '#BEBEBE;' : ' #000000;'};
+    background-color: ${({ disabled }) => (disabled ? '#BEBEBE;' : ' #000000;')};
     cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   `,
 };

@@ -1,6 +1,9 @@
 import { CartItem } from '../types';
 
-const getOrderPrice = (cartItems: CartItem[], checkedCartIds: number[]) => {
+const getOrderPrice = (
+  cartItems: CartItem[],
+  checkedCartIds: number[] = cartItems.map(({ id }) => id)
+) => {
   let orderPrice = 0;
 
   cartItems.forEach((cartItem) => {

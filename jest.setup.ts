@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom';
 
 import { server } from './src/mocks/server';
-import { initFetchedData } from './test/mocks';
+import { initFetchedData, mockCartItems } from './test/mocks';
 beforeEach(() => {
   initFetchedData();
+  localStorage.setItem('checkedCartIds', JSON.stringify(mockCartItems.map((item) => item.id)));
 });
 
 beforeAll(() => {
