@@ -46,7 +46,7 @@ const useCheckboxCombined = (items: CartItemType[]) => {
 
 describe("useCheckboxHandler + useAllCheckboxHandler 통합 테스트", () => {
   beforeEach(() => {
-    (storageService.getStoredData as vi.Mock).mockReturnValue([]);
+    (storageService.getStoredData as jest.Mock).mockReturnValue([]);
   });
 
   it("첫 렌더링에서 selectedCartIds의 상태로 모든 장바구니 아이템의 id가 설정되고, 전체선택이 true가 된다.", () => {
