@@ -42,7 +42,9 @@ describe("쿠폰 할인 계산", () => {
   ];
 
   it("FIXED 쿠폰일 경우 정해진 금액만큼 할인된다", () => {
-    const checkedCoupons = new Map([[fixedCoupon.id, fixedCoupon]]);
+    const checkedCoupons = new Map([
+      [fixedCoupon.id, fixedCoupon as CouponType],
+    ]);
     const discount = getTotalDiscountPrice(checkedCoupons, {
       originOrderPrice: 20000,
       deliveryFee: 3000,
@@ -51,7 +53,9 @@ describe("쿠폰 할인 계산", () => {
   });
 
   it("PERCENT 쿠폰일 경우 정해진 퍼센트만큼 할인된다", () => {
-    const checkedCoupons = new Map([[percentCoupon.id, percentCoupon]]);
+    const checkedCoupons = new Map([
+      [percentCoupon.id, percentCoupon as CouponType],
+    ]);
     const discount = getTotalDiscountPrice(checkedCoupons, {
       originOrderPrice: 20000,
       deliveryFee: 3000,
@@ -67,12 +71,65 @@ describe("쿠폰 할인 계산", () => {
     });
     expect(valid).toHaveLength(1);
     const checkedCoupons = new Map([
-      [freeShippingCoupon.id, freeShippingCoupon],
+      [freeShippingCoupon.id, freeShippingCoupon as CouponType],
     ]);
     const discount = getTotalDiscountPrice(checkedCoupons, {
       originOrderPrice: 20000,
       deliveryFee: 3000,
     });
     expect(discount).toBe(3000);
+  });
+
+  it("FIXED + PERCENT 쿠폰을 함께 적용하면 합산 할인된다", () => {
+    const checkedCoupons = new Map([
+      [fixedCoupon.id, fixedCoupon as CouponType],
+      [percentCoupon.id, percentCoupon as CouponType],
+    ]);
+    const discount = getTotalDiscountPrice(checkedCoupons, {
+      originOrderPrice: 20000,
+      deliveryFee: 3000,
+    });
+
+    expect(discount).toBe(7000);
+  });
+
+  it("FIXED + FREESHIPPING 쿠폰을 함께 적용하면 합산 할인된다", () => {
+    const checkedCoupons = new Map([
+      [fixedCoupon.id, fixedCoupon as CouponType],
+      [freeShippingCoupon.id, freeShippingCoupon as CouponType],
+    ]);
+    const discount = getTotalDiscountPrice(checkedCoupons, {
+      originOrderPrice: 20000,
+      deliveryFee: 3000,
+    });
+
+    expect(discount).toBe(8000);
+  });
+
+  it("PERCENT + FREESHIPPING 쿠폰을 함께 적용하면 합산 할인된다", () => {
+    const checkedCoupons = new Map([
+      [percentCoupon.id, percentCoupon as CouponType],
+      [freeShippingCoupon.id, freeShippingCoupon as CouponType],
+    ]);
+    const discount = getTotalDiscountPrice(checkedCoupons, {
+      originOrderPrice: 20000,
+      deliveryFee: 3000,
+    });
+
+    expect(discount).toBe(5000);
+  });
+
+  it("FIXED + PERCENT + FREESHIPPING 쿠폰을 함께 적용하면 합산 할인된다", () => {
+    const checkedCoupons = new Map([
+      [fixedCoupon.id, fixedCoupon as CouponType],
+      [percentCoupon.id, percentCoupon as CouponType],
+      [freeShippingCoupon.id, freeShippingCoupon as CouponType],
+    ]);
+    const discount = getTotalDiscountPrice(checkedCoupons, {
+      originOrderPrice: 20000,
+      deliveryFee: 3000,
+    });
+
+    expect(discount).toBe(10000);
   });
 });

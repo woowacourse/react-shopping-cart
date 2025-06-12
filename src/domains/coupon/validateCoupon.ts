@@ -9,8 +9,9 @@ import type {
 const validateExpirationDate = (expirationDate: string) => {
   const today = new Date();
   const expirationDateObj = new Date(expirationDate);
+  console.log(expirationDateObj > today);
 
-  return expirationDateObj > today;
+  return expirationDateObj >= today;
 };
 
 const validateMinimumAmount = (
