@@ -31,7 +31,7 @@ function CartPage() {
     <>
       <Header title="SHOP" />
       <Container>
-        <CartHeader title="장바구니" description={descriptionMessage()} />
+        <CartHeader title="장바구니" description={descriptionMessage} />
         {cartItems.content.length > 0 ? (
           <>
             <CartMain

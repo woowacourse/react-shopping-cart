@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { REMOTE_SHIPPING_FEE, SHIPPING_FEE_THRESHOLD } from '../constants/cartConfig';
+import {
+  FREE_SHIPPING_FEE,
+  REMOTE_SHIPPING_FEE,
+  SHIPPING_FEE_THRESHOLD,
+} from '../constants/cartConfig';
 import { Coupon } from '../types/coupon';
 
 interface UseShippingFeeProps {
@@ -22,9 +26,10 @@ export const useShippingFee = ({
 }: UseShippingFeeProps): UseShippingFeeReturn => {
   const [remoteArea, setRemoteArea] = useState(false);
 
-  const baseShippingFee = subtotal >= SHIPPING_FEE_THRESHOLD ? 0 : 3000;
+  const baseShippingFee =
+    subtotal >= SHIPPING_FEE_THRESHOLD ? FREE_SHIPPING_FEE : REMOTE_SHIPPING_FEE;
 
-  const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : 0;
+  const remoteAreaFee = remoteArea ? REMOTE_SHIPPING_FEE : FREE_SHIPPING_FEE;
 
   const hasFreeShippingCoupon = selectedCoupons.some(
     (coupon) =>
@@ -32,7 +37,9 @@ export const useShippingFee = ({
       (!coupon.minimumAmount || subtotal >= coupon.minimumAmount),
   );
 
-  const totalShippingFee = hasFreeShippingCoupon ? 0 : baseShippingFee + remoteAreaFee;
+  const totalShippingFee = hasFreeShippingCoupon
+    ? FREE_SHIPPING_FEE
+    : baseShippingFee + remoteAreaFee;
 
   const toggleRemoteArea = () => {
     setRemoteArea((prev) => !prev);
