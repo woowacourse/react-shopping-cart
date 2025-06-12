@@ -1,4 +1,6 @@
 import { useCallback, useEffect } from "react";
+import storageService from "../../storage/storageService";
+import { StorageKeyType } from "../../types/storage";
 
 interface CheckboxItemType {
   id: number;
@@ -9,6 +11,7 @@ interface UseAllSelectProps<T> {
   toggleSelect: (itemId: number) => void;
   selectedIds: number[];
   autoSelectAll: boolean;
+  storageKey: StorageKeyType;
 }
 
 const useAllSelect = <T extends CheckboxItemType>({
@@ -16,12 +19,25 @@ const useAllSelect = <T extends CheckboxItemType>({
   toggleSelect,
   selectedIds,
   autoSelectAll,
+  storageKey,
 }: UseAllSelectProps<T>) => {
+  const storeNewSelectedData = useCallback(
+    (itemList: T[]) => {
+      itemList.forEach((item) => {
+        const { id: itemId } = item;
+        if (!storageService.isDataInStorage(storageKey, itemId)) {
+          storageService.addData(storageKey, { id: itemId, isSelected: true });
+        }
+      });
+    },
+    [storageKey]
+  );
+
   useEffect(() => {
     if (autoSelectAll) {
-      items.forEach((item) => toggleSelect(item.id));
+      storeNewSelectedData(items);
     }
-  }, [autoSelectAll, items, toggleSelect]);
+  }, [autoSelectAll, items, toggleSelect, storageKey, storeNewSelectedData]);
 
   const isAllSelected = useCallback(() => {
     return items.every((item) => selectedIds.includes(item.id));

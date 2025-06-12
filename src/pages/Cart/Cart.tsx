@@ -25,7 +25,7 @@ function Cart() {
     toggleSelect,
     isAllSelected,
     isSelected,
-  } = useCheckboxHandler(cartItems);
+  } = useCheckboxHandler(cartItems, "cart");
   const navigate = useNavigate();
 
   const updateCartItem = (cartId: number, newItem: CartItemType) => {
