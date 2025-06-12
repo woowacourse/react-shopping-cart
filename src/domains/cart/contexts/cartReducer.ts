@@ -14,10 +14,9 @@ const cartReducer = (state: State, action: Action): State => {
       };
 
     case CART_ACTION_TYPES.TOGGLE_ALL_SELECTED: {
-      const newSelected = !state.allSelected;
       return {
-        items: state.items.map((i) => ({ ...i, selected: newSelected })),
-        allSelected: newSelected,
+        items: state.items.map((i) => ({ ...i, selected: !state.allSelected })),
+        allSelected: !state.allSelected,
       };
     }
 
