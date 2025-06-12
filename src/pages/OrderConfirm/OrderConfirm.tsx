@@ -15,7 +15,6 @@ import {
   deliveryText,
 } from './OrderConfirm.style';
 import Button from '../../components/Common/Button/Button';
-import { getItem, SELECTED_CART_ITEM_IDS } from '../../utils/localStorage';
 import { Footer } from '../../components/layout/Footer/Footer';
 import { SelectedCartProductContainer } from '../../components/CartItem/SelectedCartProductContainer/SelectedCartProductContainer';
 import { CheckBox } from '../../components/Common/CheckBox/CheckBox';
@@ -32,6 +31,7 @@ import { calculateCouponPrice } from '../../utils/calculateCouponPrice';
 import { getDeliveryFee } from '../../utils/getDeliveryFee';
 import { useCouponSelection } from '../../hooks/useCouponSelection';
 import useCouponUI from '../../hooks/useCouponUI';
+import useSelectedCartItems from '../../hooks/useSelectedCartItems';
 
 const MAX_SELECTED_COUPON_COUNT = 2;
 const DELIVERY_FREE_COUPON_ID = '3';
@@ -39,21 +39,19 @@ const DELIVERY_FREE_COUPON_ID = '3';
 export function OrderConfirm() {
   const { cartItems } = useCartItemsContext();
   const { coupons } = useFetchCoupons();
+  const {
+    selectedCartItemIds,
+    selectedCartItems,
+    selectedCartItemsTotalQuantity,
+  } = useSelectedCartItems();
 
   const [isChecked, setIsChecked] = useState(false);
   const [open, setOpen] = useState(false);
-
   const [finalSelectedCouponIds, setFinalSelectedCouponIds] = useState<
     string[]
   >([]);
 
   const navigate = useNavigate();
-
-  const selectedCartItemIds = getItem<string[]>(SELECTED_CART_ITEM_IDS, []);
-
-  const selectedCartItems = cartItems.filter((cartItem) =>
-    selectedCartItemIds.includes(cartItem.id.toString())
-  );
 
   const handleExceed = () => {
     alert(`쿠폰은 ${MAX_SELECTED_COUPON_COUNT}개까지만 선택 가능합니다.`);
@@ -93,7 +91,7 @@ export function OrderConfirm() {
     navigate('/payment-confirm', {
       state: {
         selectedItemGroupCount: selectedCartItemIds.length,
-        selectedCartItem: selectedCartItems.reduce((a, b) => a + b.quantity, 0),
+        selectedCartItem: selectedCartItemsTotalQuantity,
         totalPrice: totalPrice - couponDiscountAmount + deliveryFee,
       },
     });
