@@ -5,11 +5,11 @@ import { Coupon } from "../../../../api/coupon";
 import CouponCheckItem from "../../../../components/common/coupon/CouponCheckItem";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
-import { useOrderCalculation } from "../../../order/hooks/useOrderCalculation";
-import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
-import { getCouponDetails } from "../../utils/getCouponDetails";
-import { isCouponAvailable } from "../../utils/couponValidation";
 import { useToastContext } from "../../../../context/ToastProvider";
+import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
+import { calculateOrders } from "../../../order/utils/calculateOrders";
+import { isCouponAvailable } from "../../utils/couponValidation";
+import { getCouponDetails } from "../../utils/getCouponDetails";
 
 function CouponCheckList({
   couponsResource,
@@ -24,10 +24,8 @@ function CouponCheckList({
   const { selectedCartItems, isIsland } = useOrderListContext(cartListData);
   const hasShownToast = useRef(false);
 
-  const { totalCartPrice, shippingFee } = useOrderCalculation(
-    selectedCartItems,
-    isIsland
-  );
+  const { totalCartPrice, shippingFee } =
+    calculateOrders(selectedCartItems).getBasicOrderPrice(isIsland);
 
   const { initializeCoupons } = useCouponContext();
   const { showToast } = useToastContext();

@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import CheckboxLabel from "../../../../components/common/inputs/CheckboxLabel";
-import OrderLabelPridce from "../order-contents/OrderLabelPrice";
-import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { getShoppingCartData } from "../../../../api/cart";
+import { Flex } from "../../../../components/common";
+import CheckboxLabel from "../../../../components/common/inputs/CheckboxLabel";
+import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
-import { useOrderCalculation } from "../../hooks/useOrderCalculation";
-import { Flex } from "../../../../components/common";
+import { calculateOrders } from "../../utils/calculateOrders";
+import OrderLabelPridce from "../order-contents/OrderLabelPrice";
 
 function DeliveryInfo() {
   const { data: cartListData } = useAPIDataContext({
@@ -17,8 +17,11 @@ function DeliveryInfo() {
     useOrderListContext(cartListData);
   const { selectedCoupons } = useCouponContext();
 
-  const { totalCartPrice, shippingFee, totalPrice, finalDiscount } =
-    useOrderCalculation(selectedCartItems, isIsland, selectedCoupons);
+  const { totalCartPrice, finalShippingFee, totalPrice, finalDiscount } =
+    calculateOrders(selectedCartItems).getOrderPriceWithCoupon(
+      selectedCoupons,
+      isIsland
+    );
 
   return (
     <Container alignItems="flex-start" gap="xs">
@@ -28,7 +31,7 @@ function DeliveryInfo() {
       </CheckboxLabel>
       <OrderLabelPridce
         totalCartPrice={totalCartPrice}
-        shippingFee={shippingFee}
+        shippingFee={finalShippingFee}
         totalPrice={totalPrice}
         couponDiscount={-finalDiscount}
       />

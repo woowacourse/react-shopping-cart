@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
+import { getShoppingCartData } from "../../../../api/cart";
 import Flex from "../../../../components/common/styled/Flex";
+import InfoText from "../../../../components/common/text/InfoText";
 import LabelPrice from "../../../../components/common/text/LabelPrice";
+import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
 import { formatKRWString } from "../../../../utils/formatKRWString";
-import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { getShoppingCartData } from "../../../../api/cart";
-import { useOrderCalculation } from "../../../order/hooks/useOrderCalculation";
 import { FREE_SHIPPING_STANDARD } from "../../../order/hooks/OrderConstants";
-import InfoText from "../../../../components/common/text/InfoText";
+import { calculateOrders } from "../../../order/utils/calculateOrders";
 
 const LabelPriceContainer = () => {
   const { data: cartListData } = useAPIDataContext({
@@ -15,8 +15,9 @@ const LabelPriceContainer = () => {
     name: "cart",
   });
   const { selectedCartItems } = useOrderListContext(cartListData);
+
   const { shippingFee, totalPrice, totalCartPrice } =
-    useOrderCalculation(selectedCartItems);
+    calculateOrders(selectedCartItems).getBasicOrderPrice();
 
   const InfoTextContent = ` 총 주문 금액이 ${formatKRWString(
     FREE_SHIPPING_STANDARD

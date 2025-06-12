@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
+import { getShoppingCartData } from "../../../../api/cart";
 import { Flex } from "../../../../components/common";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { getShoppingCartData } from "../../../../api/cart";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
-import { useOrderCalculation } from "../../hooks/useOrderCalculation";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
+import { calculateOrders } from "../../utils/calculateOrders";
 
 function OrderInfoTitle() {
   const { data: cartListData } = useAPIDataContext({
@@ -13,11 +13,9 @@ function OrderInfoTitle() {
   });
   const { selectedCartItems } = useOrderListContext(cartListData);
   const { selectedCoupons } = useCouponContext();
-  const { typeCount, totalCount } = useOrderCalculation(
-    selectedCartItems,
-    false,
-    selectedCoupons
-  );
+  const { typeCount, totalCount } =
+    calculateOrders(selectedCartItems).getOrderPriceWithCoupon(selectedCoupons);
+
   return (
     <Flex justifyContent="flex-start" alignItems="flex-start" gap="xs">
       <InfoTitle>주문 확인</InfoTitle>

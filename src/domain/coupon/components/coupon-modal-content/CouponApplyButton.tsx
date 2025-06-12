@@ -5,8 +5,8 @@ import Button from "../../../../components/common/inputs/Button";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
 import { useToastContext } from "../../../../context/ToastProvider";
-import { useOrderCalculation } from "../../../order/hooks/useOrderCalculation";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
+import { calculateOrders } from "../../../order/utils/calculateOrders";
 
 function CouponApplyButton({
   onClose,
@@ -21,11 +21,9 @@ function CouponApplyButton({
   const { selectedCartItems, isIsland, handleDiscountSetting } =
     useOrderListContext(cartListData);
   const { selectedCoupons } = useCouponContext();
-  const { finalDiscount } = useOrderCalculation(
-    selectedCartItems,
-    isIsland,
-    selectedCoupons
-  );
+  const { finalDiscount } = calculateOrders(
+    selectedCartItems
+  ).getOrderPriceWithCoupon(selectedCoupons, isIsland);
 
   const { showToast } = useToastContext();
 

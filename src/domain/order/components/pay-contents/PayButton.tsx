@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { getShoppingCartData } from "../../../../api/cart";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
 import { useOrderListContext } from "../../../../context/OrderListProvider";
-import { useOrderCalculation } from "../../hooks/useOrderCalculation";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
+import { calculateOrders } from "../../utils/calculateOrders";
 
 function PayButton() {
   const { data: cartListData } = useAPIDataContext({
@@ -13,11 +13,10 @@ function PayButton() {
   });
   const { selectedCartItems, isIsland } = useOrderListContext(cartListData);
   const { selectedCoupons } = useCouponContext();
-  const { totalPrice, typeCount, totalCount } = useOrderCalculation(
-    selectedCartItems,
-    isIsland,
-    selectedCoupons
-  );
+  const { totalPrice, typeCount, totalCount } = calculateOrders(
+    selectedCartItems
+  ).getOrderPriceWithCoupon(selectedCoupons, isIsland);
+
   const navigate = useNavigate();
   const navigateToSuccessPage = () => {
     navigate("/success-confirm", {
