@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 
 type Action<K> =
   | { type: 'TOGGLE'; id: K }
@@ -27,10 +27,19 @@ function reducer<K>(state: Map<K, boolean>, action: Action<K>): Map<K, boolean> 
   }
 }
 
-export function useCheckList<T, K>(items: T[], getKey: (item: T) => K) {
-  const initialState = new Map<K, boolean>(items.map((item) => [getKey(item), true]));
+const STORAGE_KEY = 'check-list';
 
-  const [state, dispatch] = useReducer(reducer<K>, initialState);
+export function useCheckList<T, K>(items: T[], getKey: (item: T) => K) {
+  const loadInitialState = useCallback((): Map<K, boolean> => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const entries: Array<[K, boolean]> = JSON.parse(stored);
+      return new Map(entries);
+    }
+    return new Map(items.map((item) => [getKey(item), true]));
+  }, [items, getKey]);
+
+  const [state, dispatch] = useReducer(reducer<K>, loadInitialState());
 
   const toggle = (id: K) => dispatch({ type: 'TOGGLE', id });
   const checkAll = () => dispatch({ type: 'CHECK_ALL' });
@@ -38,6 +47,11 @@ export function useCheckList<T, K>(items: T[], getKey: (item: T) => K) {
   const deleteCheckedItems = (id: K) => dispatch({ type: 'DELETE_CHECKED_ITEMS', id });
 
   const isAllChecked = Array.from(state.values()).every(Boolean);
+
+  useEffect(() => {
+    const serialized = JSON.stringify(Array.from(state.entries()));
+    localStorage.setItem(STORAGE_KEY, serialized);
+  }, [state]);
 
   return {
     state,

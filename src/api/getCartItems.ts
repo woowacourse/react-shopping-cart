@@ -2,7 +2,7 @@ import { CartItemResponse } from '../types/response';
 import { URLS } from '../constants/url';
 import { headers } from './headers';
 
-const getCartItems = async (): Promise<CartItemResponse> => {
+export const getCartItems = async (): Promise<CartItemResponse> => {
   const res = await fetch(URLS.CART_ITEMS, {
     headers
   });
@@ -13,5 +13,3 @@ const getCartItems = async (): Promise<CartItemResponse> => {
 
   return res.json();
 };
-
-export default getCartItems;

@@ -38,3 +38,13 @@ export const cartItemPriceCss = css({
   fontSize: '24px',
   fontWeight: 'bold'
 });
+
+export const cartItemQuantityCss = css({
+  fontSize: '12px'
+});
+
+export const cartItemInfoTextCss = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px'
+});

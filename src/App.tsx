@@ -4,9 +4,10 @@ import { css } from '@emotion/react';
 import OrderPage from './page/OrderPage';
 import { ApiProvider } from './contexts/ApiContext';
 import { ToastProvider } from './contexts/ToastContext';
+import CompletePage from './page/CompletePage';
 
 const isTest = import.meta.env.MODE === 'test';
-const basename = isTest ? '' : '/react-shopping-cart';
+const basename = isTest ? '' : '/react-shopping-cart/';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
               <Route path="/" element={<CartPage />} />
               <Route path="/order" element={<OrderPage />} />
+              <Route path="/complete" element={<CompletePage />} />
             </Routes>
           </Router>
         </div>
