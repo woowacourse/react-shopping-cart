@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import BottomButton from '../components/BottomButton';
-import { useNavigate } from 'react-router-dom';
-import { BASE_URL, URL_LOCATION } from '../constants/url';
 import OrderPageMessage from '../components/OrderPageMessage';
 import DeliverySection from '../components/DeliverySection';
 import { DELIVERY_PRICE_THRESHOLD } from '../constants/config';
@@ -14,10 +12,15 @@ import { useCartItemsContext } from '../contexts/CartItemsContext';
 import useOrderPage from '../hooks/useOrderPage';
 
 const OrderPage = () => {
-  const navigate = useNavigate();
   const { cartItems, checkedCartIds } = useCartItemsContext();
-  const { deliveryChecked, handleClickDeliveryCheckbox, orderPrice, deliveryPrice, discountPrice } =
-    useOrderPage();
+  const {
+    deliveryChecked,
+    handleClickDeliveryCheckbox,
+    orderPrice,
+    deliveryPrice,
+    discountPrice,
+    handleBottomButton,
+  } = useOrderPage();
 
   const checkedSet = new Set(checkedCartIds);
   const totalQuantity = cartItems.reduce(
@@ -62,18 +65,7 @@ const OrderPage = () => {
           />
         </>
       </S.content>
-      <BottomButton
-        title="결제하기"
-        onClick={() =>
-          navigate(BASE_URL + URL_LOCATION.CONFIRM, {
-            state: {
-              cartItems,
-              checkedCartIds,
-              totalPrice: orderPrice + deliveryPrice - discountPrice,
-            },
-          })
-        }
-      />
+      <BottomButton title="결제하기" onClick={handleBottomButton} />
     </>
   );
 };

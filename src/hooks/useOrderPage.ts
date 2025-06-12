@@ -8,8 +8,11 @@ import {
   DISTANCE_DELIVERY_PRICE,
   MAX_COUPON_AMOUNT,
 } from '../constants/config';
+import { BASE_URL, URL_LOCATION } from '../constants/url';
+import { useNavigate } from 'react-router-dom';
 
 const useOrderPage = () => {
+  const navigate = useNavigate();
   const [deliveryChecked, setDeliveryChecked] = useState(false);
   const { cartItems, checkedCartIds } = useCartItemsContext();
   const { coupons, checkedCouponIds, initCheckedCouponIds } = useCouponContext();
@@ -23,6 +26,14 @@ const useOrderPage = () => {
     applyCouponsToItems(checkedCartItems, deliveryPrice, checkedCoupons),
     0
   );
+  const handleBottomButton = () =>
+    navigate(BASE_URL + URL_LOCATION.CONFIRM, {
+      state: {
+        cartItems,
+        checkedCartIds,
+        totalPrice: orderPrice + deliveryPrice - discountPrice,
+      },
+    });
 
   useEffect(() => {
     initCheckedCouponIds(
@@ -35,7 +46,14 @@ const useOrderPage = () => {
 
   const handleClickDeliveryCheckbox = () => setDeliveryChecked((prev) => !prev);
 
-  return { deliveryChecked, handleClickDeliveryCheckbox, orderPrice, deliveryPrice, discountPrice };
+  return {
+    deliveryChecked,
+    handleClickDeliveryCheckbox,
+    orderPrice,
+    deliveryPrice,
+    discountPrice,
+    handleBottomButton,
+  };
 };
 
 export default useOrderPage;
