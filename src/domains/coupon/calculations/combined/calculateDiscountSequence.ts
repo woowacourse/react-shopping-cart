@@ -10,12 +10,12 @@ export const calculateDiscountSequence = (
 ): number => {
   return coupons.reduce(
     (acc, coupon) => {
-      const discount = calculateCouponDiscount(
+      const discount = calculateCouponDiscount({
         coupon,
         orderItems,
-        acc.remainingPrice,
-        acc.currentShippingFee
-      );
+        orderPrice: acc.remainingPrice,
+        shippingFee: acc.currentShippingFee,
+      });
 
       const updatedOrderPrice = Math.max(0, acc.remainingPrice - discount);
       const updatedShippingFee =

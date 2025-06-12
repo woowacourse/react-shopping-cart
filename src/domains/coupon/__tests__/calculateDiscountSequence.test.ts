@@ -1,7 +1,7 @@
 import { CartItemWithSelection } from "../../cart/types/response";
-import { Coupon } from "../types/response";
-import { calculateDiscountSequence } from "../calculations/combined/calculateDiscountSequence";
 import { calculateCouponDiscount } from "../calculations/combined/calculateCouponDiscount";
+import { calculateDiscountSequence } from "../calculations/combined/calculateDiscountSequence";
+import { Coupon } from "../types/response";
 
 jest.mock("../calculations/combined/calculateCouponDiscount");
 
@@ -81,22 +81,20 @@ describe("calculateDiscountSequence 함수 테스트", () => {
     );
 
     // fixed 쿠폰 적용
-    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(
-      1,
-      fixedCoupon,
-      mockItems,
+    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(1, {
+      coupon: fixedCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     // percentage 쿠폰 적용
-    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(
-      2,
-      percentCoupon,
-      mockItems,
-      90000, // 100000 - 10000
-      shippingFee
-    );
+    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(2, {
+      coupon: percentCoupon,
+      orderItems: mockItems,
+      orderPrice: 90000, // 100000 - 10000
+      shippingFee,
+    });
 
     expect(totalDiscount).toBe(28000); // 10000 + 18000
   });
@@ -114,22 +112,20 @@ describe("calculateDiscountSequence 함수 테스트", () => {
     );
 
     // shippping 쿠폰 적용
-    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(
-      1,
-      shippingCoupon,
-      mockItems,
+    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(1, {
+      coupon: shippingCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     // percentage 쿠폰 적용
-    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(
-      2,
-      percentCoupon,
-      mockItems,
-      97000, // 100000 - 3000
-      0 // 배송비가 이미 할인되었으므로 0
-    );
+    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(2, {
+      coupon: percentCoupon,
+      orderItems: mockItems,
+      orderPrice: 97000, // 100000 - 3000
+      shippingFee: 0, // 배송비가 이미 할인되었으므로 0
+    });
 
     expect(totalDiscount).toBe(23000); // 3000 + 20000
   });
@@ -156,22 +152,20 @@ describe("calculateDiscountSequence 함수 테스트", () => {
     );
 
     // hugeCoupon 쿠폰 적용
-    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(
-      1,
-      hugeCoupon,
-      mockItems,
+    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(1, {
+      coupon: hugeCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     // percentage 쿠폰 적용
-    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(
-      2,
-      percentCoupon,
-      mockItems,
-      0, // remainingPrice는 0
-      shippingFee
-    );
+    expect(calculateCouponDiscount).toHaveBeenNthCalledWith(2, {
+      coupon: percentCoupon,
+      orderItems: mockItems,
+      orderPrice: 0, // remainingPrice는 0
+      shippingFee,
+    });
 
     expect(totalDiscount).toBe(100000); // 100000 + 0
   });

@@ -11,12 +11,12 @@ export const calculateOptimalTotalDiscount = (
 ) => {
   if (coupons.length === 0) return 0;
   if (coupons.length === 1) {
-    return calculateCouponDiscount(
-      coupons[0],
+    return calculateCouponDiscount({
+      coupon: coupons[0],
       orderItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
   }
   if (coupons.length === 2) {
     const [couponA, couponB] = coupons;

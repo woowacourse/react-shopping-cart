@@ -7,12 +7,19 @@ import {
   calculateShippingDiscount,
 } from "../basic";
 
-export const calculateCouponDiscount = (
-  coupon: Coupon,
-  orderItems: CartItemWithSelection[],
-  orderPrice: number,
-  shippingFee: number
-): number => {
+interface Props {
+  coupon: Coupon;
+  orderItems: CartItemWithSelection[];
+  orderPrice: number;
+  shippingFee: number;
+}
+
+export const calculateCouponDiscount = ({
+  coupon,
+  orderItems,
+  orderPrice,
+  shippingFee,
+}: Props): number => {
   switch (coupon.discountType) {
     case "fixed":
       return calculateFixedDiscount(coupon, orderPrice);

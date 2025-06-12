@@ -93,12 +93,12 @@ describe("calculateOptimalTotalDiscount 함수 테스트", () => {
       shippingFee
     );
 
-    expect(calculateCouponDiscount).toHaveBeenCalledWith(
-      fixedCoupon,
-      mockItems,
+    expect(calculateCouponDiscount).toHaveBeenCalledWith({
+      coupon: fixedCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
     expect(calculateDiscountSequence).not.toHaveBeenCalled();
     expect(result).toBe(10000);
   });

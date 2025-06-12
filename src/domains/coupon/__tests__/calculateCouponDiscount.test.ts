@@ -1,7 +1,7 @@
 import { CartItemWithSelection } from "../../cart/types/response";
-import { Coupon, CouponType } from "../types/response";
-import { calculateCouponDiscount } from "../calculations/combined/calculateCouponDiscount";
 import * as basicCalculations from "../calculations/basic";
+import { calculateCouponDiscount } from "../calculations/combined/calculateCouponDiscount";
+import { Coupon, CouponType } from "../types/response";
 
 jest.mock("../calculations/basic", () => ({
   calculateFixedDiscount: jest.fn().mockReturnValue(5000),
@@ -57,12 +57,12 @@ describe("calculateCouponDiscount 함수 테스트", () => {
       discount: 5000,
     };
 
-    const result = calculateCouponDiscount(
-      fixedCoupon,
-      mockItems,
+    const result = calculateCouponDiscount({
+      coupon: fixedCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(basicCalculations.calculateFixedDiscount).toHaveBeenCalledWith(
       fixedCoupon,
@@ -81,12 +81,12 @@ describe("calculateCouponDiscount 함수 테스트", () => {
       discount: 10,
     };
 
-    const result = calculateCouponDiscount(
-      percentageCoupon,
-      mockItems,
+    const result = calculateCouponDiscount({
+      coupon: percentageCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(basicCalculations.calculatePercentageDiscount).toHaveBeenCalledWith(
       percentageCoupon,
@@ -106,12 +106,12 @@ describe("calculateCouponDiscount 함수 테스트", () => {
       getQuantity: 1,
     };
 
-    const result = calculateCouponDiscount(
-      buyXGetYCoupon,
-      mockItems,
+    const result = calculateCouponDiscount({
+      coupon: buyXGetYCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(basicCalculations.calculateBuyXGetYDiscount).toHaveBeenCalledWith(
       buyXGetYCoupon,
@@ -130,12 +130,12 @@ describe("calculateCouponDiscount 함수 테스트", () => {
       minimumAmount: 30000,
     };
 
-    const result = calculateCouponDiscount(
-      shippingCoupon,
-      mockItems,
+    const result = calculateCouponDiscount({
+      coupon: shippingCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(basicCalculations.calculateShippingDiscount).toHaveBeenCalledWith(
       shippingCoupon,
@@ -154,12 +154,12 @@ describe("calculateCouponDiscount 함수 테스트", () => {
       discountType: "unknown" as CouponType,
     };
 
-    const result = calculateCouponDiscount(
-      unknownCoupon,
-      mockItems,
+    const result = calculateCouponDiscount({
+      coupon: unknownCoupon,
+      orderItems: mockItems,
       orderPrice,
-      shippingFee
-    );
+      shippingFee,
+    });
 
     expect(basicCalculations.calculateFixedDiscount).not.toHaveBeenCalled();
     expect(
