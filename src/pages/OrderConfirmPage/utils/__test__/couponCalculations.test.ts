@@ -5,16 +5,16 @@ describe("쿠폰 계산 로직 테스트 (수정됨)", () => {
   const mockOrderItems: OrderItem[] = [
     {
       id: 1,
-      quantity: 2,
+      quantity: 3,
       product: { id: 1, name: "Product 1", price: 50000, imageUrl: "img1.jpg" },
     },
     {
       id: 2,
-      quantity: 1,
+      quantity: 2,
       product: { id: 2, name: "Product 2", price: 80000, imageUrl: "img2.jpg" },
     },
   ];
-  const orderAmount = 180000;
+  const orderAmount = 310000;
 
   describe("단일 쿠폰 할인 계산", () => {
     describe("고정 할인 쿠폰", () => {
@@ -33,7 +33,7 @@ describe("쿠폰 계산 로직 테스트 (수정됨)", () => {
       });
 
       it("고정 할인 금액이 주문 금액보다 클 경우 주문 금액만큼만 할인되어야 한다", () => {
-        const largeCoupon = { ...fixedCoupon, discount: 200000 };
+        const largeCoupon = { ...fixedCoupon, discount: 310000 };
         const discount = calculateSingleCouponDiscount(largeCoupon, mockOrderItems, orderAmount);
         expect(discount).toBe(orderAmount);
       });
@@ -51,13 +51,13 @@ describe("쿠폰 계산 로직 테스트 (수정됨)", () => {
 
       it("비율 할인이 정상적으로 적용되어야 한다", () => {
         const discount = calculateSingleCouponDiscount(percentageCoupon, mockOrderItems, orderAmount);
-        expect(discount).toBe(36000); // 180000 * 0.2
+        expect(discount).toBe(62000); // 180000 * 0.2
       });
 
       it("소수점 할인 시 내림 처리가 되어야 한다", () => {
         const fractionalCoupon = { ...percentageCoupon, discount: 15.5 };
         const discount = calculateSingleCouponDiscount(fractionalCoupon, mockOrderItems, orderAmount);
-        expect(discount).toBe(Math.floor(180000 * 0.155)); // 27900
+        expect(discount).toBe(Math.floor(310000 * 0.155)); // 27900
       });
     });
 
@@ -123,19 +123,19 @@ describe("쿠폰 계산 로직 테스트 (수정됨)", () => {
     it("쿠폰을 적용하지 않은 경우 올바른 계산이 되어야 한다", () => {
       const result = calculateOrderTotal(mockOrderItems, [], coupons, false);
 
-      expect(result.orderAmount).toBe(180000);
+      expect(result.orderAmount).toBe(310000);
       expect(result.couponDiscount).toBe(0);
       expect(result.shippingFee).toBe(0); // 18만원이므로 무료배송
-      expect(result.finalAmount).toBe(180000);
+      expect(result.finalAmount).toBe(310000);
     });
 
     it("고정 할인 쿠폰 적용 시 올바른 계산이 되어야 한다", () => {
       const result = calculateOrderTotal(mockOrderItems, [1], coupons, false);
 
-      expect(result.orderAmount).toBe(180000);
+      expect(result.orderAmount).toBe(310000);
       expect(result.couponDiscount).toBe(5000);
       expect(result.shippingFee).toBe(0);
-      expect(result.finalAmount).toBe(175000);
+      expect(result.finalAmount).toBe(305000);
     });
 
     it("소액 주문에서 무료배송 쿠폰 적용 시 배송비가 0원이어야 한다", () => {
@@ -154,7 +154,7 @@ describe("쿠폰 계산 로직 테스트 (수정됨)", () => {
       const result = calculateOrderTotal(mockOrderItems, [2], coupons, true);
 
       expect(result.shippingFee).toBe(0);
-      expect(result.finalAmount).toBe(180000);
+      expect(result.finalAmount).toBe(310000);
     });
   });
 });

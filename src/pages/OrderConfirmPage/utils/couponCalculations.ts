@@ -17,7 +17,7 @@ function calculateBogoDiscount(orderItems: OrderItem[]): number {
 
   const totalDiscount = Object.values(productGroups).reduce((acc, product) => {
     const { price, totalQuantity } = product;
-    if (totalQuantity >= 2) return (acc += price);
+    if (totalQuantity >= 3) return (acc += price);
 
     return acc;
   }, 0);

@@ -5,12 +5,12 @@ describe("쿠폰 유효성 검증 테스트", () => {
   const mockOrderItems: OrderItem[] = [
     {
       id: 1,
-      quantity: 2,
+      quantity: 3,
       product: { id: 1, name: "Product 1", price: 50000, imageUrl: "img1.jpg" },
     },
     {
       id: 2,
-      quantity: 1,
+      quantity: 2,
       product: { id: 2, name: "Product 2", price: 80000, imageUrl: "img2.jpg" },
     },
   ];
@@ -85,11 +85,11 @@ describe("쿠폰 유효성 검증 테스트", () => {
       getQuantity: 1,
     };
 
-    it("2개 이상 구매한 상품이 있는 경우 통과해야 한다", () => {
+    it("3개 이상 구매한 상품이 있는 경우 통과해야 한다", () => {
       const result = validateCouponUsage({
         coupon: bogoCoupon,
         orderItems: mockOrderItems, // Product 1이 2개
-        orderAmount: 180000,
+        orderAmount: 310000,
         isIsolatedAreaSelected: false,
       });
       expect(result.isValid).toBe(true);

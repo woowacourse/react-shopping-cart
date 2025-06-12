@@ -5,7 +5,7 @@ describe("최적 쿠폰 조합 찾기 테스트", () => {
   const mockOrderItems: OrderItem[] = [
     {
       id: 1,
-      quantity: 2,
+      quantity: 3,
       product: { id: 1, name: "Product 1", price: 50000, imageUrl: "img1.jpg" },
     },
     {

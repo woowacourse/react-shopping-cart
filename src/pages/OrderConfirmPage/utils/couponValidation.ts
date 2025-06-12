@@ -57,7 +57,7 @@ function validateBogoCondition(orderItems: OrderItem[]): CouponValidationResult 
     {} as Record<number, number>,
   );
 
-  const hasEligibleProducts = Object.values(productQuantities).some((quantity) => quantity >= 2);
+  const hasEligibleProducts = Object.values(productQuantities).some((quantity) => quantity >= 3);
 
   if (!hasEligibleProducts) {
     return { isValid: false };
