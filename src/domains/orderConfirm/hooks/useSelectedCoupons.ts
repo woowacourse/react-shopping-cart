@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { CouponCode } from "../types/coupon";
 import { getDisCountedPrice } from "../utils/getDisCountedPrice";
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
-import { getMaxPriceInSelectedCart } from "../utils/getMaxPriceInSelectedCart";
+import { getMaxPriceInCart } from "../utils/getMaxPriceInCart";
 
 interface UseSelectedCouponsParams {
   deliveryFee: number;
@@ -16,10 +16,6 @@ export function useSelectedCoupons({
 }: UseSelectedCouponsParams) {
   const [selectedCoupons, setSelectedCoupons] = useState<CouponCode[]>([]);
 
-  /**
-   * 쿠폰 선택 핸들러 - 최대 2개의 쿠폰을 선택할 수 있도록 관리
-   * @param e 이벤트 객체
-   */
   const handleCouponSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const couponCode = e.target.id as CouponCode;
 
@@ -38,7 +34,7 @@ export function useSelectedCoupons({
       getDisCountedPrice({
         deliveryFee,
         orderPrice,
-        maxPriceInSelectedCart: getMaxPriceInSelectedCart({
+        maxPriceInSelectedCart: getMaxPriceInCart({
           selectedCartItems: twoPlusOneApplicableItems,
         }),
         selectedCoupons,

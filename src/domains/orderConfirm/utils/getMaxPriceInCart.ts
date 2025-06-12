@@ -12,7 +12,7 @@ interface GetMaxPriceInSelectedCartParams {
  * @parm {selectedCartIds} - 선택된 아이템들의 ID 배열
  * @returns {number} - 선택된 아이템들의 최대 가격. 선택된 아이템이 없으면 0을 반환합니다.
  */
-export function getMaxPriceInSelectedCart({
+export function getMaxPriceInCart({
   selectedCartItems,
 }: GetMaxPriceInSelectedCartParams) {
   if (selectedCartItems.length === 0) return 0;
