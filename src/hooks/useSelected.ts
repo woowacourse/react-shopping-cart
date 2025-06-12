@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 
 interface useSelectedProps {
   enableLocalStorage?: boolean;
-  storageKey?: string;
+  localStorageKey?: string;
 }
 export const useSelected = ({
   enableLocalStorage = false,
-  storageKey = "default",
+  localStorageKey = "default",
 }: useSelectedProps) => {
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(() => {
     if (!enableLocalStorage) return new Set();
-    const stored = localStorage.getItem(storageKey);
+    const stored = localStorage.getItem(localStorageKey);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
@@ -23,7 +23,7 @@ export const useSelected = ({
   });
 
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify([...selectedItemIds]));
+    localStorage.setItem(localStorageKey, JSON.stringify([...selectedItemIds]));
   }, [selectedItemIds]);
 
   const toggleSelectedItemId = (id: number) => {

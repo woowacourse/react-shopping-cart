@@ -20,7 +20,7 @@ export const SelectedCartItemProvider = ({
   const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
     useSelected({
       enableLocalStorage: true,
-      storageKey: "selectedCartItemIds",
+      localStorageKey: "selectedCartItemIds",
     });
 
   return (
