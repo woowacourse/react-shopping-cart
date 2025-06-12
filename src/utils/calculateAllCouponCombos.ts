@@ -43,7 +43,6 @@ export function calculateAllCouponCombos({
             case "percentage":
               return total + calcPercentageDiscount(coupon, orderAmount);
             default:
-              console.warn("Unrecognized coupon type:", coupon.discountType);
               return total;
           }
         }, 0)

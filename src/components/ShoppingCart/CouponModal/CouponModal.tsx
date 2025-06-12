@@ -94,8 +94,6 @@ function CouponModal({
     handleClose();
   };
 
-  console.log(selectedCoupons);
-
   return createPortal(
     <Modal isOpen={isOpen} onClose={handleClose}>
       <Modal.Content position="center" size="small">
