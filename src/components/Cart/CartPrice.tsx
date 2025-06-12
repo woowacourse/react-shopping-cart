@@ -8,14 +8,8 @@ interface CartPriceProps {
   variant: CartPriceVariant;
 }
 
-function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
-  if (typeof price === 'string') {
-    price = parseInt(price.replace(/,/g, ''), 10);
-  }
-
-  if (typeof price === 'undefined') {
-    price = 0;
-  }
+function CartPrice({ title, price: originPrice = 0, variant = 'default' }: CartPriceProps) {
+  const price = Number(String(originPrice));
 
   return (
     <StyledTotalContainer variant={variant}>
