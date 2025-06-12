@@ -30,7 +30,7 @@ function OrderContent() {
     }
   };
   return (
-    <>
+    <div data-testid="order-content">
       <Header variant="back" />
       <Container>
         <CartHeader title="주문 확인" description={descriptionMessage()} />
@@ -53,7 +53,7 @@ function OrderContent() {
       >
         결제하기
       </Button>
-    </>
+    </div>
   );
 }
 
