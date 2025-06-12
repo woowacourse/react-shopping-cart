@@ -13,11 +13,11 @@ interface CouponCardProps {
 
 export default function CouponCard({ coupon }: CouponCardProps) {
   const { selectedCoupons, addCoupon, removeCoupon, canAddCoupon } = useCouponsContext();
-  const { SelectedCartItems } = useSelectedCartItemsContext();
+  const { selectedCartItems } = useSelectedCartItemsContext();
   const { totalPrice } = useOrderContext();
   const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
 
-  const isCouponUsable = isCouponApplicable(coupon, SelectedCartItems, totalPrice);
+  const isCouponUsable = isCouponApplicable(coupon, selectedCartItems, totalPrice);
 
   const isDisabled = (!isSelected && !canAddCoupon) || !isCouponUsable;
 

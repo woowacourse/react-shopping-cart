@@ -6,10 +6,10 @@ import { useCouponsContext } from '../../features/coupon/context/useCouponsConte
 
 const OrderProviderWrapper = ({ children }: { children: React.ReactNode }) => {
   const { selectedCoupons } = useCouponsContext();
-  const { SelectedCartItems } = useSelectedCartItemsContext();
+  const { selectedCartItems } = useSelectedCartItemsContext();
 
   return (
-    <OrderProvider selectedCartItems={SelectedCartItems} selectedCoupons={selectedCoupons}>
+    <OrderProvider selectedCartItems={selectedCartItems} selectedCoupons={selectedCoupons}>
       {children}
     </OrderProvider>
   );

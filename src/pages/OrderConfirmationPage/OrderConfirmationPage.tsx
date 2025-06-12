@@ -16,7 +16,7 @@ import { useModal } from '@sanghee01/modal';
 import DeliveryInfo from '../../features/order/ui/DeliveryInfo';
 
 export default function OrderConfirmationPage() {
-  const { SelectedCartItems } = useSelectedCartItemsContext();
+  const { selectedCartItems } = useSelectedCartItemsContext();
   const { cartTypeQuantity, updateRemoteArea } = useOrderContext();
   const {
     isOpen: isCouponModalOpen,
@@ -41,7 +41,7 @@ export default function OrderConfirmationPage() {
         <S.OrderConfirmationPageContent>
           <CartHeader title="주문 확인" cartTypeQuantity={cartTypeQuantity} content={<OrderConfirmationText />} />
           <S.CartListContainer>
-            {SelectedCartItems.map((cartItem) => (
+            {selectedCartItems.map((cartItem) => (
               <CartItemInfo
                 key={cartItem.id}
                 cartItem={cartItem}

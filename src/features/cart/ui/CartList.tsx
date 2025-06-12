@@ -11,9 +11,9 @@ interface CartListProps {
 
 export default function CartList({ addAllCartItemsInSelected }: CartListProps) {
   const { cartItems } = useCartItemsContext();
-  const { SelectedCartItems } = useSelectedCartItemsContext();
+  const { selectedCartItems } = useSelectedCartItemsContext();
 
-  const isAllSelected = cartItems.length > 0 && SelectedCartItems.length === cartItems.length;
+  const isAllSelected = cartItems.length > 0 && selectedCartItems.length === cartItems.length;
 
   const handleAllCartItemsInSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;

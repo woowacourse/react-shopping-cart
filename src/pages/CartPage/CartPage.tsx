@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 import NavFooter from '../../shared/ui/NavFooter';
 
 function CartPage() {
-  const { addAllCartItemsInSelected, SelectedCartItems } = useSelectedCartItemsContext();
+  const { addAllCartItemsInSelected, selectedCartItems } = useSelectedCartItemsContext();
   const { cartItems } = useCartItemsContext();
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function CartPage() {
 
       <NavFooter
         title="주문 확인"
-        isDisabled={cartItems.length === 0 || SelectedCartItems.length === 0}
+        isDisabled={cartItems.length === 0 || selectedCartItems.length === 0}
         onClick={handleClick}
       />
     </S.CartPageContainer>

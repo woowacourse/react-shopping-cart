@@ -3,7 +3,7 @@ import { CartItem } from '../types/cart';
 import { useCartItemsContext } from './useCartItemsContext';
 
 interface SelectedCartItemsContextType {
-  SelectedCartItems: CartItem[];
+  selectedCartItems: CartItem[];
   addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
@@ -17,7 +17,7 @@ interface SelectedCartItemsProviderProps {
 
 export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProviderProps) => {
   const { cartItems } = useCartItemsContext();
-  const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
+  const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [init, setInit] = useState(false);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
   return (
     <SelectedCartItemsContext.Provider
       value={{
-        SelectedCartItems,
+        selectedCartItems,
         addSelectedCartItem,
         addAllCartItemsInSelected,
         removeSelectedCartItem,

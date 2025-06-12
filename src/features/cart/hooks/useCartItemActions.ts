@@ -5,9 +5,9 @@ import { CartItem } from '../types/cart';
 
 export const useCartItemActions = (cartItem: CartItem) => {
   const { fetchCartItems } = useCartItemsContext();
-  const { SelectedCartItems, addSelectedCartItem, removeSelectedCartItem } = useSelectedCartItemsContext();
+  const { selectedCartItems, addSelectedCartItem, removeSelectedCartItem } = useSelectedCartItemsContext();
 
-  const isSelected = SelectedCartItems.find((item) => item.id === cartItem.id) !== undefined;
+  const isSelected = selectedCartItems.find((item) => item.id === cartItem.id) !== undefined;
 
   const handleSelectedCartItemsItemUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
