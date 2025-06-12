@@ -3,7 +3,7 @@ import InfoNotice from '@/components/common/InfoNotice';
 import { Modal } from '@/components/common/Modal';
 import { useOrderListContext } from '@/pages/shopping-cart/context/OrderListProvider';
 import { useEffect, useRef, useState } from 'react';
-import { useCalculateTotalDiscount } from '../hooks/useCalculateTotalDiscount';
+import { calculateTotalDiscount } from '../utils/calculateTotalDiscount';
 import CouponInfo from './CouponInfo';
 
 interface CouponModalProps {
@@ -43,7 +43,7 @@ const CouponModal = ({
 
   const { selectedItems, orderPrice } = useOrderListContext();
 
-  const modalDiscount = useCalculateTotalDiscount({
+  const modalDiscount = calculateTotalDiscount({
     selectedCouponIds,
     availableCoupons,
     orderPrice,

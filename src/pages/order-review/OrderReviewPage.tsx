@@ -3,7 +3,7 @@ import { Flex, Header } from '../../components/common';
 import BackArrowButton from '../../components/common/BackArrowButton';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
 import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
-import { useCalculateTotalDiscount } from './hooks/useCalculateTotalDiscount';
+import { calculateTotalDiscount } from './utils/calculateTotalDiscount';
 import { useModal } from './hooks/useModal';
 import { useNavigation } from './hooks/useNavigation';
 import { useOrderCoupons } from './hooks/useOrderCoupons';
@@ -19,6 +19,7 @@ import OrderPageInfo from './OrderPageInfo';
 import { useCouponSelection } from './hooks/useCouponSelection';
 
 const OrderReviewPage = () => {
+  const { selectedItems, orderPrice } = useOrderListContext();
   const { typeCount, totalCount, isDisabled } = useOrderInfo();
 
   const {
@@ -26,16 +27,12 @@ const OrderReviewPage = () => {
     actualShippingFee,
     handleJejuOrRemoteAreaToggle,
   } = useShipping();
-
   const { coupons, isLoading, availableCoupons, bestCouponIds } =
     useOrderCoupons(isJejuOrRemoteArea);
-
   const { selectedCouponIds, handleSelectCoupons } = useCouponSelection({
     initialCouponIds: bestCouponIds,
   });
-
-  const { selectedItems, orderPrice } = useOrderListContext();
-  const currentDiscount = useCalculateTotalDiscount({
+  const currentDiscount = calculateTotalDiscount({
     selectedCouponIds,
     availableCoupons,
     orderPrice,
