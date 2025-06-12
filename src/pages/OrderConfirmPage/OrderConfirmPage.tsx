@@ -7,8 +7,10 @@ import OrderConfirmSection from '../../components/OrderConfirmSection/OrderConfi
 import Text from '../../components/Text/Text';
 import CouponModal from '../../components/Modal/Modal';
 import { useMemo } from 'react';
-import { useOrderConfirm } from '../../hooks/useOrderConfirm';
 import { Content } from '../../types/cartItems';
+import { useOrderSelections } from '../../hooks/useOrderSelection';
+import { useOrderPrice } from '../../hooks/useOrderPrice';
+import { useOrderDiscount } from '../../hooks/useOrderDiscount';
 
 export default function OrderConfirmPage() {
   const navigate = useNavigate();
@@ -24,13 +26,11 @@ export default function OrderConfirmPage() {
     selectedCoupons,
     setSelectedCoupons,
     selectedItemIds,
-    orderPrice,
-    shippingFee,
-    orderTotalPrice,
-    totalQuantity,
-    totalDiscount,
-    totalPrice,
-  } = useOrderConfirm(selectedItems);
+  } = useOrderSelections(selectedItems);
+
+  const { orderPrice, shippingFee, orderTotalPrice, totalQuantity } = useOrderPrice(selectedItems, isIslandChecked);
+
+  const { totalDiscount, totalPrice } = useOrderDiscount(selectedCoupons, selectedItems, orderPrice, shippingFee);
 
   const fakeCartItemsResponse = {
     content: selectedItems,
