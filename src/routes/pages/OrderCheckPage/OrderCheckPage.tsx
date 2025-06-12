@@ -42,20 +42,20 @@ function OrderCheckPage() {
     isRemotedAreaChecked,
   });
 
-  const handleCouponModalOpen = () => {
+  const couponModalOpen = () => {
     setCheckedCoupons(comboResult?.combo.map((coupon) => coupon.id));
     setIsCouponModalOpen(true);
   };
 
-  const handleCouponModalClose = () => {
+  const couponModalClose = () => {
     setIsCouponModalOpen(false);
   };
 
-  const handleRemotedAreaChange = () => {
+  const remotedAreaChange = () => {
     setIsRemotedAreaChecked(!isRemotedAreaChecked);
   };
 
-  const handleCouponAccept = (couponIds: number[]) => {
+  const couponAccept = (couponIds: number[]) => {
     setCheckedCoupons(couponIds);
     setIsCouponModalOpen(false);
   };
@@ -85,16 +85,12 @@ function OrderCheckPage() {
             />
           ))}
         </ul>
-        <Button
-          color="white"
-          variant="secondary"
-          onClick={handleCouponModalOpen}
-        >
+        <Button color="white" variant="secondary" onClick={couponModalOpen}>
           <Text varient="body">쿠폰 적용</Text>
         </Button>
         <DeliverInfo
           isChecked={isRemotedAreaChecked}
-          onCheckboxChange={handleRemotedAreaChange}
+          onCheckboxChange={remotedAreaChange}
         />
         <CartPriceCouponInfo
           subTotal={cart.subTotal}
@@ -119,10 +115,10 @@ function OrderCheckPage() {
       <CouponModal
         isLoading={couponList.isLoading}
         isOpen={isCouponModalOpen}
-        onCloseButtonClick={handleCouponModalClose}
+        onCloseButtonClick={couponModalClose}
         validatedCouponList={validatedCouponList}
         checkedCoupon={checkedCoupons ?? []}
-        onCouponAccept={handleCouponAccept}
+        onCouponAccept={couponAccept}
       />
     </>
   );
