@@ -6,10 +6,15 @@ import {
 } from '@/components/common';
 import { ROUTE, useJaeO, useToggle } from '@/shared';
 import { Modal } from '@jae-o/modal-component-module';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { OrderCheckTitle, OrderItem, OrderPriceSummary } from '..';
-import { CartItemType } from '../../cart';
+import {
+  calculateDeliveryFee,
+  calculateDiscountAmount,
+  calculateOrderPrice,
+  CartItemType,
+} from '../../cart';
 import {
   Coupon,
   CouponModal,
@@ -19,13 +24,13 @@ import {
   useAppliedCoupons,
 } from '../../coupon';
 import * as S from './OrderCheckContents.styles';
-import { getOrderPriceSummary } from '../../coupon/utils/getOrderPriceSummary';
 
 interface OrderCheckContentsProps {
   orderItems: CartItemType[];
 }
 
 function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
+  const navigate = useNavigate();
   const [isRemoteArea, toggleRemoteArea] = useToggle(false);
   const { data: coupons, isLoading } = useJaeO<CouponType[], Coupon[]>({
     fetchKey: 'coupons',
@@ -35,17 +40,11 @@ function OrderCheckContents({ orderItems }: OrderCheckContentsProps) {
   });
   const { appliedCouponIds, applyCouponIds, isCouponApplied } =
     useAppliedCoupons();
-  const { orderPrice, discountAmount, deliveryFee, paymentPrice } = useMemo(
-    () =>
-      getOrderPriceSummary({
-        orderItems,
-        isRemoteArea,
-        coupons,
-        isCouponApplied,
-      }),
-    [coupons, isCouponApplied, isRemoteArea, orderItems]
-  );
-  const navigate = useNavigate();
+
+  const orderPrice = calculateOrderPrice(orderItems);
+  const discountAmount = calculateDiscountAmount(coupons, isCouponApplied);
+  const deliveryFee = calculateDeliveryFee(orderPrice, isRemoteArea);
+  const paymentPrice = orderPrice - discountAmount + deliveryFee;
 
   const handleShippingOptionChange = () => {
     coupons?.forEach((coupon) =>

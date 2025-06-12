@@ -1,6 +1,6 @@
-import backButtonImage from '/assets/backButton.svg';
-import * as S from './Header.styles';
 import { useNavigate } from 'react-router';
+import * as S from './Header.styles';
+import backButtonImage from '/assets/backButton.svg';
 
 interface HeaderWithBackButtonProps {
   title?: string;
