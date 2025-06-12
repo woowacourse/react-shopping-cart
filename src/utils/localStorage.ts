@@ -5,9 +5,13 @@ const isQuotaExceededError = (err: unknown): boolean => {
 
   const code = (err as DOMException & { code?: number }).code;
   return (
+    // Chrome 및 대부분의 브라우저: QuotaExceededError의 code는 22
     code === 22 ||
+    // Firefox: code는 1014이며 name은 NS_ERROR_DOM_QUOTA_REACHED
     code === 1014 ||
+    // 표준 명칭: name이 QuotaExceededError
     err.name === 'QuotaExceededError' ||
+    // Firefox 구버전 등에서 발생하는 name 값
     err.name === 'NS_ERROR_DOM_QUOTA_REACHED'
   );
 };
