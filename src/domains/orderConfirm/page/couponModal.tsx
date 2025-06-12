@@ -5,9 +5,10 @@ import { InfoText } from "../../../components/InfoText/InfoText";
 import { CouponList } from "../components/CouponList/CouponList";
 import { useCoupons } from "../hooks/useCoupons";
 import { useSelectedCoupons } from "../hooks/useSelectedCoupons";
-import { useTwoPlusOneApplicableItems } from "../hooks/useTwoPlusOneApplicableItems";
+
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 import { getCouponStatus } from "../utils/getCouponStatus";
+import { useTwoPlusOneItems } from "../hooks/useTwoPlusOneItems";
 
 interface CouponModalProps {
   isModalOpen: boolean;
@@ -27,7 +28,7 @@ export function CouponModal({
   setReceivedDiscountedPrice,
 }: CouponModalProps) {
   const { coupons } = useCoupons();
-  const twoPlusOneApplicableItems = useTwoPlusOneApplicableItems({ cartItems });
+  const twoPlusOneApplicableItems = useTwoPlusOneItems({ cartItems });
   const { selectedCoupons, handleCouponSelect, discountedPrice } =
     useSelectedCoupons({
       deliveryFee,

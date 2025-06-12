@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useSelectedCartContext } from "../../common/context/selectedCartProvider";
 import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 
-export function useTwoPlusOneApplicableItems({
+export function useTwoPlusOneItems({
   cartItems,
 }: {
   cartItems: CartItemTypes[];
