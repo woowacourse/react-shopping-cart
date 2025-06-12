@@ -29,10 +29,12 @@ interface CouponCalculatorParams {
 
 export function getDisCountedPrice(props: GetDisCountedPriceParams) {
   if (props.selectedCoupons.length === 0) return 0;
-  if (props.selectedCoupons.length === 1) return getTotalDiscount([0], props);
 
-  const firstDiscount = getTotalDiscount([0, 1], props);
-  const secondDiscount = getTotalDiscount([1, 0], props);
+  const firstDiscount = getTotalDiscount(props.selectedCoupons, props);
+  const secondDiscount = getTotalDiscount(
+    props.selectedCoupons.reverse(),
+    props
+  );
 
   return Math.max(firstDiscount, secondDiscount);
 }
@@ -41,26 +43,25 @@ export function getDisCountedPrice(props: GetDisCountedPriceParams) {
 
 /**
  * 주어진 인덱스 배열에 따라 할인 금액을 계산합니다.
- * @param {number[]} index - 할인 코드 인덱스 배열
+ * @param {CouponCode[]} selectedCoupons - 선택된 쿠폰 코드 배열
  * @param {GetDisCountedPriceParams } props - 할인 계산에 필요한 속성들
  * @returns {number} - 총 할인 금액
  */
 
-function getTotalDiscount(index: number[], props: GetDisCountedPriceParams) {
-  const firstDiscount = getCouponDiscountAmount({
-    ...props,
-    code: props.selectedCoupons[index[0]],
-  });
-
-  if (index.length === 1) return firstDiscount;
-
-  const secondDiscount = getCouponDiscountAmount({
-    ...props,
-    orderPrice: props.orderPrice - firstDiscount,
-    code: props.selectedCoupons[index[1]],
-  });
-
-  return firstDiscount + secondDiscount;
+function getTotalDiscount(
+  selectedCoupons: CouponCode[],
+  props: GetDisCountedPriceParams
+) {
+  return selectedCoupons.reduce((acc, couponCode) => {
+    return (
+      acc +
+      getCouponDiscountAmount({
+        ...props,
+        orderPrice: props.orderPrice - acc,
+        code: couponCode,
+      })
+    );
+  }, 0);
 }
 
 // ================== 쿠폰 계산 함수 ==================
