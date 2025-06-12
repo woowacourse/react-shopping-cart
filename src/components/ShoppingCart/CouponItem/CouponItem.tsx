@@ -23,7 +23,7 @@ export default function CouponItem({
   onToggle,
 }: CouponItemProps) {
   const unavailableCoupon = !isCouponValid(coupon, orderAmount);
-  const disabled = unavailableCoupon || (!isSelected && false);
+  const disabled = unavailableCoupon;
 
   return (
     <Styled.CouponContainer>

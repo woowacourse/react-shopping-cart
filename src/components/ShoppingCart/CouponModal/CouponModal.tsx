@@ -10,6 +10,7 @@ import useCoupons from "../../../hooks/useCoupons";
 import useSelectedCoupons from "../../../hooks/useSelectedCoupons";
 
 import { calculateAllCouponCombos } from "../../../utils/calculateAllCouponCombos";
+import { getSelectedCouponDiscount } from "../../../utils/getSelectedCouponObjects";
 
 import CartItem from "../../../types/CartItem";
 
@@ -65,24 +66,13 @@ function CouponModal({
     initializeSelectedCoupons(initialMap);
   }, [coupons, bestCombo, selectedCoupons.size, initializeSelectedCoupons]);
 
-  const selectedCouponObjects = coupons.filter((c) =>
-    selectedCoupons.has(c.id)
-  );
-
-  const selectedCombos = calculateAllCouponCombos({
-    coupons: selectedCouponObjects,
+  const selectedDiscount = getSelectedCouponDiscount({
+    coupons,
+    selectedCoupons,
     cartItemList,
     orderAmount,
     isIslandArea,
   });
-
-  const selectedCombo = selectedCombos.find((c) => c.isValid) ?? {
-    discount: 0,
-    combo: [],
-    isValid: false,
-  };
-
-  const selectedDiscount = selectedCombo.discount;
 
   const handleApply = () => {
     handleApplyCouponPrice(selectedDiscount);
