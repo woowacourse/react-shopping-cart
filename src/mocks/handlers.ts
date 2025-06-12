@@ -1,5 +1,5 @@
 import { http, delay } from "msw";
-import { mockCartData } from "./mockData";
+import { mockCartData, mockCouponData } from "./mockData";
 
 interface CartItemProps {
   productId: number;
@@ -70,6 +70,13 @@ export const handlers = [
 
     return new Response(null, {
       status: 204,
+      headers: { "Content-Type": "application/json" },
+    });
+  }),
+
+  http.get(getRequestURL("/coupons"), async () => {
+    return new Response(JSON.stringify([...mockCouponData]), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   }),

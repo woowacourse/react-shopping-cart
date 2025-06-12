@@ -1,6 +1,22 @@
-import { render } from '@testing-library/react';
-import App from '../src/App';
-import { ReactNode } from 'react';
+import { render } from "@testing-library/react";
+import App from "../src/App";
+import type { ReactNode } from "react";
+
+// React Router DOM 모킹
+jest.mock("react-router-dom", () => ({
+  RouterProvider: ({ children }: { children: ReactNode }) => <>{children}</>,
+}));
+
+// apiClient 모킹
+jest.mock("../src/services/apiClient", () => ({
+  apiClient: jest.fn(),
+}));
+
+// router 모킹
+jest.mock("../src/router/routes", () => ({
+  __esModule: true,
+  default: {},
+}));
 
 // React Router DOM 모킹
 jest.mock('react-router-dom', () => ({

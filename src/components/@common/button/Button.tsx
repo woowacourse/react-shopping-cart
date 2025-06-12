@@ -1,7 +1,6 @@
 import { buttonSize, buttonColor, buttonDefaultStyle } from "./Button.styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "smallBlack" | "largeBlack";
   size?: "small" | "large";
   color?: "black" | "white";
 }

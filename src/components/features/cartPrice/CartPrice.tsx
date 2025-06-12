@@ -1,56 +1,51 @@
-import { Subtitle, Title } from "../../../styles/@common/title/Title.styles";
-import {
-  calculateTotalCartItemPrice,
-  calculateTotalPrice,
-} from "../../../utils/calculate";
+import { Title, Subtitle } from "../../../styles/@common/title/Title.styles";
 import * as S from "./CartPrice.styles";
-import infoIcon from "/public/icon/ic_info.svg";
+import { InfoMessage } from "../../@common/infoMessage/InfoMessage";
 import { FREE_DELIVERY_MESSAGE } from "../../../constants/systemMessages";
-import { FEE } from "../../../constants/systemConstants";
+
 interface CartPriceProps {
-  cartItemNamePrice: { name: string; price: number; quantity: number }[];
+  orderPrice: number;
+  deliveryFee: number;
+  discountPrice?: number;
+  totalPrice: number;
 }
 
-const CartPrice = ({ cartItemNamePrice }: CartPriceProps) => {
-  const totalCartItemPrice = calculateTotalCartItemPrice(cartItemNamePrice);
-  const totalPrice = calculateTotalPrice(cartItemNamePrice);
-
+const CartPrice = ({
+  orderPrice,
+  deliveryFee,
+  discountPrice,
+  totalPrice,
+}: CartPriceProps) => {
   return (
     <div css={S.CartPriceWrapper}>
-      <div css={S.InfoMessageContainer}>
-        <img src={infoIcon} alt="info" />
-        <p css={Subtitle}>{FREE_DELIVERY_MESSAGE}</p>
-      </div>
+      <InfoMessage message={FREE_DELIVERY_MESSAGE} />
       <div css={S.CartPriceDetailContainer}>
-        {cartItemNamePrice.map((item) => {
-          return (
-            <div key={item.name} css={S.CartPriceInfoContainer}>
-              <div css={S.CartPriceSubtitle}>{item.name}</div>
-              <div css={Title}>
-                {(item.price * item.quantity).toLocaleString()}원
-              </div>
-            </div>
-          );
-        })}
         <div>
-          {totalCartItemPrice !== FEE.DELIVERY_FEE_FREE && (
+          <div css={S.CartPriceInfoContainer}>
+            <div css={S.CartPriceSubtitle}>주문금액</div>
+            <div css={S.CartPriceTitle}>{orderPrice.toLocaleString()}원</div>
+          </div>
+          <div css={S.CartPriceInfoContainer}>
+            <div css={S.CartPriceSubtitle}>배송비</div>
+            <div css={S.CartPriceTitle} data-testid="delivery-fee">
+              {deliveryFee.toLocaleString()}원
+            </div>
+          </div>
+          {discountPrice != null && discountPrice > 0 && (
             <div css={S.CartPriceInfoContainer}>
-              <div css={S.CartPriceSubtitle}>배송비</div>
-              <div css={Title}>
-                {totalCartItemPrice > FEE.DELIVERY_FEE_STANDARD
-                  ? FEE.DELIVERY_FEE_FREE
-                  : FEE.DELIVERY_FEE.toLocaleString()}
-                원
+              <div css={S.CartPriceSubtitle}>쿠폰 할인 금액</div>
+              <div css={S.CartPriceTitle}>
+                -{discountPrice.toLocaleString()}원
               </div>
             </div>
           )}
         </div>
       </div>
       <div css={S.CartPriceInfoContainer}>
-        <div css={S.CartPriceSubtitle}>총 결제 금액</div>
-        {totalCartItemPrice !== 0 && (
-          <div css={Title}>{totalPrice.toLocaleString()}원</div>
-        )}
+        <div css={Subtitle}>총 결제 금액</div>
+        <div css={Title} data-testid="total-price">
+          {totalPrice.toLocaleString()}원
+        </div>
       </div>
     </div>
   );

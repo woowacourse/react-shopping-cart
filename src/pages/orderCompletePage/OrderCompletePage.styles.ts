@@ -22,6 +22,8 @@ export const OrderCompleteDescription = css`
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
   color: var(--color-dark-grey);
+  text-align: center;
+  line-height: 1.5;
 `;
 
 export const OrderCompleteSubtitle = css`

@@ -27,14 +27,6 @@ export const cartTitleContainer = css`
   gap: 1.2rem;
 `;
 
-export const cartContentContainer = css`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const cartList = css`
   width: 100%;
   display: flex;
@@ -42,14 +34,4 @@ export const cartList = css`
   align-items: center;
   justify-content: center;
   gap: 2rem;
-`;
-
-export const cartCheckboxContainer = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
-
-  width: 100%;
-  gap: 0.45rem;
 `;

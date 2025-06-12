@@ -41,6 +41,9 @@ const GlobalStyle = css`
 
     --header-height: 6.4rem;
     --layout-width: 42.9rem;
+
+    --z-index-modal-background: 1000;
+    --z-index-modal-content: 1001;
   }
   html,
   body {
@@ -52,7 +55,6 @@ const GlobalStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    scroll-behavior: smooth;
   }
   a {
     text-decoration: none;

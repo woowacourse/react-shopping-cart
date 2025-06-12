@@ -9,7 +9,7 @@ export const errorFallbackContainer = css`
 `;
 
 export const errorFallbackImage = css`
-  width: 10rem;
+  width: 5rem;
 `;
 
 export const errorFallbackMessage = css`

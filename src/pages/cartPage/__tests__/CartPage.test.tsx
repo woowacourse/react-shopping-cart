@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import CartPage from "../CartPage";
-import useData from "../../../hooks/@common/useData";
+import useApiHandler from "../../../hooks/@common/useApiHandler";
 import useCartData from "../../../hooks/useCartData";
 import useCheckedSet from "../../../hooks/useCheckedSet";
 import useEasyNavigate from "../../../hooks/useEasyNavigate";
 
-jest.mock("../../../hooks/@common/useData");
+jest.mock("../../../hooks/@common/useApiHandler");
 jest.mock("../../../hooks/useCartData");
 jest.mock("../../../hooks/useCheckedSet");
 jest.mock("../../../hooks/useEasyNavigate");
@@ -21,7 +21,7 @@ describe("장바구니 페이지", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useData as jest.Mock).mockReturnValue({
+    (useApiHandler as jest.Mock).mockReturnValue({
       callApi: mockCallApi,
       loadingState: "success",
     });
@@ -30,14 +30,16 @@ describe("장바구니 페이지", () => {
       updateCartItem: jest.fn(),
       increaseCartItem: jest.fn(),
       removeCartItem: jest.fn(),
-      updateCartData: jest.fn(),
+      initCartData: jest.fn(),
+      isProcessing: false,
     });
     (useCheckedSet as jest.Mock).mockReturnValue({
       isCheckedSet: new Set(),
       justifyIsChecked: jest.fn(),
       controlCheckBox: jest.fn(),
       controlAllCheckBox: jest.fn(),
-      updateIsCheckedSet: jest.fn(),
+      syncIsCheckedSet: jest.fn(),
+      initIsCheckedSet: jest.fn(),
     });
     (useEasyNavigate as jest.Mock).mockReturnValue({
       goOrderComplete: jest.fn(),
@@ -45,7 +47,7 @@ describe("장바구니 페이지", () => {
   });
 
   it("로딩 중일 때 스켈레톤이 표시되어야 한다", () => {
-    (useData as jest.Mock).mockReturnValue({
+    (useApiHandler as jest.Mock).mockReturnValue({
       callApi: mockCallApi,
       loadingState: "initialLoading",
     });
@@ -55,7 +57,7 @@ describe("장바구니 페이지", () => {
   });
 
   it("에러 발생 시 에러 폴백이 표시되어야 한다", () => {
-    (useData as jest.Mock).mockReturnValue({
+    (useApiHandler as jest.Mock).mockReturnValue({
       callApi: mockCallApi,
       loadingState: "error",
     });
@@ -65,7 +67,7 @@ describe("장바구니 페이지", () => {
   });
 
   it("업데이트 중일 때 dimmed 스타일이 적용되어야 한다", () => {
-    (useData as jest.Mock).mockReturnValue({
+    (useApiHandler as jest.Mock).mockReturnValue({
       callApi: mockCallApi,
       loadingState: "updating",
     });
