@@ -3,6 +3,8 @@ import { CartItemProps } from '../../../../types/cartItem';
 export interface Coupon {
   id: 'FIXED5000' | 'FREESHIPPING' | 'BOGO' | 'MIRACLESALE';
   name: string;
+  applyOrder: number;
+  discountType: 'rate' | 'amount';
   isValid: (
     totalPrice: number,
     deliveryFee: number,
@@ -21,12 +23,16 @@ export const COUPONS: Coupon[] = [
   {
     id: 'FIXED5000',
     name: '5,000원 할인 쿠폰',
+    applyOrder: 2,
+    discountType: 'amount',
     isValid: (totalPrice) => totalPrice >= 100000,
     calculateDiscount: () => 5000,
   },
   {
     id: 'FREESHIPPING',
     name: '무료 배송 쿠폰',
+    applyOrder: 3,
+    discountType: 'amount',
     isValid: (totalPrice, deliveryFee) =>
       totalPrice >= 50000 && deliveryFee > 0,
     calculateDiscount: (_, deliveryFee) => deliveryFee,
@@ -34,6 +40,8 @@ export const COUPONS: Coupon[] = [
   {
     id: 'BOGO',
     name: '2+1 쿠폰',
+    applyOrder: 2,
+    discountType: 'amount',
     isValid: (_, __, cart) => cart.some((item) => item.quantity >= 3),
     calculateDiscount: (_, __, cart) => {
       const bogoCandidates = cart.filter((item) => item.quantity >= 3);
@@ -44,6 +52,8 @@ export const COUPONS: Coupon[] = [
   {
     id: 'MIRACLESALE',
     name: '30% 시간제 할인 쿠폰',
+    applyOrder: 1,
+    discountType: 'rate',
     isValid: (_, __, ___, date) => {
       const hours = date.getHours();
       return hours >= 4 && hours <= 7;
@@ -72,8 +82,8 @@ export function calculateTotalDiscount(
   cart: CartItemProps[]
 ): number {
   let discount = 0;
-  const sortedCombination = [...combination].sort((a) =>
-    a.id === 'MIRACLESALE' ? -1 : 1
+  const sortedCombination = [...combination].sort(
+    (a, b) => a.applyOrder - b.applyOrder
   );
 
   let currentPrice = totalPrice;
@@ -85,7 +95,7 @@ export function calculateTotalDiscount(
       cart
     );
     discount += discountAmount;
-    if (coupon.id === 'MIRACLESALE') {
+    if (coupon.discountType === 'rate') {
       currentPrice -= discountAmount;
     }
   }
