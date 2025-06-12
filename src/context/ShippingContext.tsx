@@ -1,10 +1,8 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { BASE_SHIPPING_FEE, EXTRA_SHIPPING_FEE, SHIPPING_FREE_PRICE } from '../constants/payments';
 
 interface ShippingContextType {
   isExtraShippingFee: boolean;
   toggleExtraShippingFee: () => void;
-  calculateCouponShippingFee: (price: number, hasFreeShippingCoupon: boolean) => number;
 }
 
 const ShippingContext = createContext<ShippingContextType | null>(null);
@@ -14,24 +12,11 @@ export function ShippingProvider({ children }: { children: ReactNode }) {
 
   const toggleExtraShippingFee = () => setIsExtraShippingFee((prev) => !prev);
 
-  const calculateCouponShippingFee = (price: number, hasFreeShippingCoupon: boolean) => {
-    if (price >= SHIPPING_FREE_PRICE) {
-      return 0;
-    }
-
-    if (hasFreeShippingCoupon) {
-      return isExtraShippingFee ? EXTRA_SHIPPING_FEE : BASE_SHIPPING_FEE;
-    }
-
-    return isExtraShippingFee ? EXTRA_SHIPPING_FEE : BASE_SHIPPING_FEE;
-  };
-
   return (
     <ShippingContext.Provider
       value={{
         isExtraShippingFee,
         toggleExtraShippingFee,
-        calculateCouponShippingFee,
       }}
     >
       {children}

@@ -6,12 +6,11 @@ import { useNavigate } from 'react-router';
 import OrderMain from './OrderMain';
 import { useOrder } from '../../context/OrderContext';
 import { useCoupon } from '../../context/CouponContext';
-import { useShipping } from '../../context/ShippingContext';
+import { calculateShippingFee } from '../../utils/calculator';
 
 function OrderContent() {
   const { selectedCartItems, price } = useOrder();
   const { totalDiscount } = useCoupon();
-  const { calculateCouponShippingFee } = useShipping();
   const navigate = useNavigate();
 
   const descriptionMessage = () => {
@@ -47,7 +46,7 @@ function OrderContent() {
                 (sum, selectedCartItem) => sum + selectedCartItem.quantity,
                 0,
               ),
-              price: price - totalDiscount + calculateCouponShippingFee(price, false),
+              price: price - totalDiscount + calculateShippingFee({ price, hasItems: false }),
             },
           })
         }

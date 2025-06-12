@@ -2,12 +2,13 @@ import { useOrder } from '../../context/OrderContext';
 import styled from '@emotion/styled';
 import CartPrice from '../Cart/CartPrice';
 import { useCoupon } from '../../context/CouponContext';
+import { calculateShippingFee } from '../../utils/calculator';
 import { useShipping } from '../../context/ShippingContext';
 
 function OrderFooter() {
   const { price } = useOrder();
   const { totalDiscount } = useCoupon();
-  const { calculateCouponShippingFee } = useShipping();
+  const { isExtraShippingFee } = useShipping();
 
   const cartPriceItems = [
     { title: '주문 금액', price, variant: 'default' as const },
@@ -15,19 +16,22 @@ function OrderFooter() {
       ? [
           {
             title: '쿠폰 할인 금액',
-            price: totalDiscount,
+            price: isExtraShippingFee ? totalDiscount + 3000 : totalDiscount,
             variant: 'coupon' as const,
           },
         ]
       : []),
     {
       title: '배송비',
-      price: calculateCouponShippingFee(price, false),
+      price: calculateShippingFee({ price, hasItems: true, isExtraShippingFee }),
       variant: 'shipping' as const,
     },
     {
       title: '총 결제 금액',
-      price: price - totalDiscount + calculateCouponShippingFee(price, false),
+      price:
+        price -
+        totalDiscount +
+        calculateShippingFee({ price, hasItems: false, isExtraShippingFee }),
       variant: 'total' as const,
     },
   ];
