@@ -48,7 +48,7 @@ export const getDiscountPriceByType = ({
   } else if (coupon.discountType === "freeShipping") {
     return deliveryPrice || 0;
   } else if (coupon.discountType === "buyXgetY") {
-    if (!selectedCartItem) return 0;
+    if (!selectedCartItem.length) return 0;
 
     const moreThanMinimumQuantity = selectedCartItem
       .filter(
