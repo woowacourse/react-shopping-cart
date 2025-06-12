@@ -21,41 +21,33 @@ export const ConfirmButtonStyle = (disabled?: boolean) => css`
   cursor: ${disabled ? 'not-allowed' : 'pointer'};
 `;
 
-export const CancelButtonStyle = (
-  variation: 'primary' | 'secondary' = 'secondary',
-  widthSize: string
-) => {
-  const base = css`
-    border: 1px solid #ccc;
-    padding-left: 18px;
-    padding-right: 18px;
-    height: 36px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: ${widthSize};
-  `;
-
-  if (variation === 'primary') {
-    return css`
-      ${base};
-      background-color: black;
-      color: white;
-      border: none;
-
-      &:hover {
-        background-color: #222;
-      }
-    `;
-  }
-
-  return css`
-    ${base};
+const variationStyles = {
+  primary: css`
+    background-color: black;
+    color: white;
+    border: none;
+    &:hover {
+      background-color: #222;
+    }
+  `,
+  secondary: css`
     background-color: white;
     color: #333;
     border: 1px solid #ccc;
-
     &:hover {
       background-color: #f5f5f5;
     }
-  `;
+  `,
 };
+
+export const CancelButtonStyle = (
+  variation: 'primary' | 'secondary' = 'secondary',
+  widthSize: string
+) => css`
+  padding: 0 18px;
+  height: 36px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: ${widthSize};
+  ${variationStyles[variation]};
+`;
