@@ -36,8 +36,8 @@ export const calculateCouponPrice = ({
     )
       return;
 
-    switch (coupon.id) {
-      case 1:
+    switch (coupon.code) {
+      case 'FIXED5000':
         if (
           coupon.minimumAmount &&
           coupon.discount &&
@@ -47,7 +47,7 @@ export const calculateCouponPrice = ({
           discountedPrice -= coupon.discount;
         }
         break;
-      case 2: {
+      case 'BOGO': {
         const { buyQuantity, getQuantity } = coupon;
 
         if (!buyQuantity || !getQuantity) return;
@@ -69,13 +69,13 @@ export const calculateCouponPrice = ({
         }
         break;
       }
-      case 3:
+      case 'FREESHIPPING':
         if (coupon.minimumAmount && totalPrice >= coupon.minimumAmount) {
           sum += deliveryFee;
           discountedPrice -= deliveryFee;
         }
         break;
-      case 4:
+      case 'MIRACLESALE':
         if (coupon.discount) {
           sum += (discountedPrice * coupon.discount) / 100;
           discountedPrice -= (discountedPrice * coupon.discount) / 100;
