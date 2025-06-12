@@ -10,7 +10,7 @@ import CouponModal from "../../components/CouponModal/CouponModal";
 import { ResponseCartItem } from "../../types/types";
 import { useSelectedCouponContext } from "../../stores/SelectedCouponContext";
 import {
-  calcDeliveryPrice,
+  calculateAdditionalDeliveryPrice,
   calcTotalQuantity,
   getDiscountPrice,
 } from "../../domains/price";
@@ -28,7 +28,10 @@ function OrderCheckPage() {
   const [isOpenCouponModal, setIsOpenCouponModal] = useState(false);
   const selectedCoupon = useSelectedCouponContext();
 
-  const deliveryPrice = calcDeliveryPrice(totalPrice, isSelectJejuChecked);
+  const deliveryPrice = calculateAdditionalDeliveryPrice(
+    totalPrice,
+    isSelectJejuChecked
+  );
 
   const discountPrice = getDiscountPrice({
     selectedCoupon,

@@ -22,10 +22,12 @@ export const calcTotalQuantity = (selectedCartItem: ResponseCartItem[]) => {
   return selectedCartItem.reduce((count, cart) => count + cart.quantity, 0);
 };
 
-export const calcDeliveryPrice = (
+export const calculateAdditionalDeliveryPrice = (
   totalPrice: number,
   isSelectJejuChecked: boolean
-) => (totalPrice >= 100000 ? 0 : 3000) + (isSelectJejuChecked ? 3000 : 0);
+) =>
+  (totalPrice >= 100000 || totalPrice === 0 ? 0 : 3000) +
+  (isSelectJejuChecked ? 3000 : 0);
 
 export const getDiscountPriceByType = ({
   coupon,
