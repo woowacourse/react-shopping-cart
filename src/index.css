@@ -142,3 +142,9 @@ input:focus {
 * {
   box-sizing: border-box;
 }
+
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}

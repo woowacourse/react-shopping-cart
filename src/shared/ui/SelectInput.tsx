@@ -12,4 +12,8 @@ const SelectInputBox = styled.input`
   height: 24px;
   cursor: pointer;
   accent-color: black;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;

@@ -4,6 +4,7 @@ import './index.css';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
 import { CartProvider } from './shared/context/CartProvider.tsx';
+import { CouponProvider } from './shared/context/CouponProvider.tsx';
 
 async function enableMocking() {
   // if (process.env.NODE_ENV === 'development') {
@@ -24,7 +25,9 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <CartProvider>
-        <RouterProvider router={router} />
+        <CouponProvider>
+          <RouterProvider router={router} />
+        </CouponProvider>
       </CartProvider>
     </React.StrictMode>
   );

@@ -2,10 +2,10 @@
 
 import { css } from '@emotion/react';
 import Button from '../../shared/ui/Button';
-import Navbar from '../../shared/ui/Navbar';
 import * as S from './ConfirmationPage.styles';
 import { ROUTES } from '../../shared/constants/routeConstants';
 import { useNavigate } from 'react-router';
+import { getSelectedCartItemsFromLocalStorage } from '../../features/cart/utils/localStorageService';
 import { useCartContext } from '../../shared/context/useCartContext';
 
 const ButtonCSS = css`
@@ -27,7 +27,8 @@ const ButtonCSS = css`
 `;
 
 export default function ConfirmationPage() {
-  const { selectedCartItems } = useCartContext();
+  const selectedCartItems = getSelectedCartItemsFromLocalStorage();
+  const { totalPurchasePrice } = useCartContext();
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -36,11 +37,9 @@ export default function ConfirmationPage() {
 
   const cartTypeQuantity = selectedCartItems.length;
   const totalQuantity = selectedCartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = selectedCartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   return (
     <S.ConfirmationContainer>
-      <Navbar title='◀' url={ROUTES.CART} />
       <S.ConfirmationSection>
         <S.ConfirmationTitle>주문 확인</S.ConfirmationTitle>
         <S.ConfirmationQuantity>
@@ -48,7 +47,7 @@ export default function ConfirmationPage() {
         </S.ConfirmationQuantity>
         <S.ConfirmationQuantity>최종 결제 금액을 확인해 주세요.</S.ConfirmationQuantity>
         <S.ConfirmationTotalPurchasePriceLabel>총 결제 금액</S.ConfirmationTotalPurchasePriceLabel>
-        <S.ConfirmationTotalPurchasePrice>{totalPrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
+        <S.ConfirmationTotalPurchasePrice>{totalPurchasePrice.toLocaleString()}원</S.ConfirmationTotalPurchasePrice>
       </S.ConfirmationSection>
       <S.ConfirmationFooterContainer>
         <Button onClick={handleClick} title='결제하기' css={ButtonCSS} disabled={selectedCartItems.length === 0} />

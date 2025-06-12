@@ -7,6 +7,7 @@ import { describe, it } from 'vitest';
 import { DELIVERY_FEE, DELIVERY_FEE_THRESHOLD } from '../src/features/cart/constants/orderPriceSummary';
 import { server } from '../src/mocks/server';
 import { http, HttpResponse } from 'msw';
+import { CouponProvider } from '../src/shared/context/CouponProvider';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -14,7 +15,9 @@ function renderCartPage() {
   return render(
     <MemoryRouter initialEntries={['/']}>
       <CartProvider>
-        <CartPage />
+        <CouponProvider>
+          <CartPage />
+        </CouponProvider>
       </CartProvider>
     </MemoryRouter>
   );
