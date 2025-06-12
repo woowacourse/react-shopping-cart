@@ -58,7 +58,8 @@ export const COUPONS: Coupon[] = [
       const hours = date.getHours();
       return hours >= 4 && hours <= 7;
     },
-    calculateDiscount: (totalPrice) => totalPrice * 0.3,
+    calculateDiscount: (totalPrice) =>
+      totalPrice > 0 ? Math.floor(totalPrice * 0.3) : 0,
   },
 ];
 
