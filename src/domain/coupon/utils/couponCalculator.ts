@@ -15,7 +15,7 @@ interface PartialResult {
 }
 
 const applyFixedDiscount = (
-  coupon: Coupon,
+  coupon: Extract<Coupon, { discountType: "fixed" }>,
   totalCartPrice: number,
   acc: PartialResult
 ): PartialResult => {
@@ -26,16 +26,18 @@ const applyFixedDiscount = (
 };
 
 const applyPercentageDiscount = (
-  coupon: Coupon,
+  coupon: Extract<Coupon, { discountType: "percentage" }>,
   totalCartPrice: number,
   acc: PartialResult
-): PartialResult => ({
-  ...acc,
-  totalDiscount: acc.totalDiscount + totalCartPrice * (coupon.discount / 100),
-});
+): PartialResult => {
+  return {
+    ...acc,
+    totalDiscount: acc.totalDiscount + totalCartPrice * (coupon.discount / 100),
+  };
+};
 
 const applyBuyXgetYDiscount = (
-  coupon: Coupon,
+  coupon: Extract<Coupon, { discountType: "buyXgetY" }>,
   items: Cart[] | undefined,
   acc: PartialResult
 ): PartialResult => {
@@ -61,7 +63,7 @@ const applyBuyXgetYDiscount = (
 };
 
 const applyFreeShippingDiscount = (
-  coupon: Coupon,
+  coupon: Extract<Coupon, { discountType: "freeShipping" }>,
   totalCartPrice: number,
   acc: PartialResult
 ): PartialResult => {
@@ -70,16 +72,6 @@ const applyFreeShippingDiscount = (
   }
   return acc;
 };
-
-const discountStrategies = {
-  fixed: applyFixedDiscount,
-  percentage: applyPercentageDiscount,
-  buyXgetY: applyBuyXgetYDiscount,
-  freeShipping: applyFreeShippingDiscount,
-} satisfies Record<
-  Coupon["discountType"],
-  (coupon: Coupon, ...args: any[]) => PartialResult
->;
 
 export function calculateCouponDiscount(
   selectedCoupons: Coupon[],
@@ -94,13 +86,34 @@ export function calculateCouponDiscount(
   };
 
   const result = selectedCoupons.reduce((acc, coupon) => {
-    const strategy = discountStrategies[coupon.discountType];
-    const args =
-      coupon.discountType === "buyXgetY"
-        ? [coupon, selectedCartItems, acc]
-        : [coupon, totalCartPrice, acc];
-
-    return strategy(...(args as Parameters<typeof strategy>));
+    switch (coupon.discountType) {
+      case "buyXgetY":
+        return applyBuyXgetYDiscount(
+          coupon as Extract<Coupon, { discountType: "buyXgetY" }>,
+          selectedCartItems,
+          acc
+        );
+      case "fixed":
+        return applyFixedDiscount(
+          coupon as Extract<Coupon, { discountType: "fixed" }>,
+          totalCartPrice,
+          acc
+        );
+      case "percentage":
+        return applyPercentageDiscount(
+          coupon as Extract<Coupon, { discountType: "percentage" }>,
+          totalCartPrice,
+          acc
+        );
+      case "freeShipping":
+        return applyFreeShippingDiscount(
+          coupon as Extract<Coupon, { discountType: "freeShipping" }>,
+          totalCartPrice,
+          acc
+        );
+      default:
+        return acc;
+    }
   }, initial);
 
   const finalShippingFee =
