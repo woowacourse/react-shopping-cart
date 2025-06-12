@@ -1,3 +1,4 @@
+import { BASE_SHIPPING_FEE, SHIPPING_FREE_PRICE } from '../constants/payments';
 import { CartProduct } from '../types/cart';
 
 interface CartItemsResponse {
@@ -11,9 +12,6 @@ interface CartSummary {
   totalPrice: number;
   hasItems: boolean;
 }
-
-const SHIPPING_FEE_THRESHOLD = 100000;
-const SHIPPING_FEE = 3000;
 
 const getSelectedItems = (
   cartItems: CartItemsResponse | undefined,
@@ -32,8 +30,8 @@ const calculateTotalCount = (selectedItems: CartProduct[]): number => {
 };
 
 export const calculateStandardShippingFee = (price: number, hasItems: boolean): number => {
-  const needsShippingFee = price < SHIPPING_FEE_THRESHOLD;
-  return hasItems && needsShippingFee ? SHIPPING_FEE : 0;
+  const needsShippingFee = price < SHIPPING_FREE_PRICE;
+  return hasItems && needsShippingFee ? BASE_SHIPPING_FEE : 0;
 };
 
 export const calculateCartPrice = (
