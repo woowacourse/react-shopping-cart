@@ -25,7 +25,7 @@ export const Table = css`
   & tr td {
   }
 
-  & tr td:first-child {
+  & tr td:first-of-type {
     font-size: var(--font-size-medium);
     font-weight: var(--font-weight-normal);
   }
@@ -36,7 +36,7 @@ export const Table = css`
     text-align: end;
   }
 
-  & tr:nth-child(3) td {
+  & tr:nth-of-type(3) td {
     border-top: 1px solid var(--color-gray);
   }
 `;
