@@ -1,19 +1,14 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-import { CartProduct, CouponType } from '../types/cart';
+import { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
+import { CouponType } from '../types/cart';
 import { findBestCombo, generateCombos } from '../utils/coupon';
 import { MAX_COUPON_COUNT } from '../constants/coupon';
+import { useOrderSummary } from '../hooks/useOrderSummary';
+import { useShipping } from './ShippingContext';
 
 interface CouponContextType {
   selectedCoupons: CouponType[];
   totalDiscount: number;
   handleCouponSelect: (coupon: CouponType) => void;
-  calculateTotalDiscount: (
-    cartItems: CartProduct[],
-    checkedItems: number[],
-    price: number,
-    shippingFee: number,
-    isExtraShippingFee: boolean,
-  ) => void;
   checkCouponsDisable: (couponItem: CouponType, price: number) => boolean;
 }
 
@@ -21,7 +16,9 @@ const CouponContext = createContext<CouponContextType | null>(null);
 
 export function CouponProvider({ children }: { children: ReactNode }) {
   const [selectedCoupons, setSelectedCoupons] = useState<CouponType[]>([]);
-  const [totalDiscount, setTotalDiscount] = useState(0);
+  const { selectedCartItems, price, shippingFee } = useOrderSummary();
+  const { isExtraShippingFee } = useShipping();
+  // const [totalDiscount, setTotalDiscount] = useState(0);
 
   const checkCouponsDisable = useCallback((couponItem: CouponType, price: number) => {
     const now = new Date();
@@ -61,29 +58,24 @@ export function CouponProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const calculateTotalDiscount = (
-    cartItems: CartProduct[],
-    checkedItems: number[],
-    price: number,
-    shippingFee: number,
-    isExtraShippingFee: boolean,
-  ) => {
-    if (selectedCoupons.length > 0) {
-      const cart = {
-        total: price,
-        items: cartItems,
-        shippingFee,
-        isExtraShippingFee,
-        totalCount: cartItems.reduce((sum, item) => sum + item.quantity, 0),
-      };
+  const totalDiscount = useMemo(() => {
+    if (selectedCoupons.length === 0) return 0;
 
-      const combos = generateCombos(selectedCoupons, MAX_COUPON_COUNT);
-      const discount = findBestCombo(combos, cart, checkedItems);
-      setTotalDiscount(discount);
-    } else {
-      setTotalDiscount(0);
-    }
-  };
+    const cart = {
+      total: price,
+      items: selectedCartItems,
+      shippingFee,
+      isExtraShippingFee,
+      totalCount: selectedCartItems.reduce((sum, item) => sum + item.quantity, 0),
+    };
+
+    const combos = generateCombos(selectedCoupons, MAX_COUPON_COUNT);
+    return findBestCombo(
+      combos,
+      cart,
+      selectedCartItems.map((item) => item.id),
+    );
+  }, [selectedCoupons, selectedCartItems, price, shippingFee, isExtraShippingFee]);
 
   return (
     <CouponContext.Provider
@@ -91,7 +83,6 @@ export function CouponProvider({ children }: { children: ReactNode }) {
         selectedCoupons,
         totalDiscount,
         handleCouponSelect,
-        calculateTotalDiscount,
         checkCouponsDisable,
       }}
     >
