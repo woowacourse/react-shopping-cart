@@ -14,11 +14,11 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item, checked, onToggle, onQuantityChange, onRemove }: CartItemProps) {
-  const { id, product, quantity } = item;
+  const { product, quantity } = item;
   const { name, price, imageUrl } = product;
 
   return (
-    <div key={id} css={styles.cartItemFrameCss}>
+    <div css={styles.cartItemFrameCss}>
       <div css={styles.cartItemHeaderCss}>
         <CheckBox onChange={onToggle} checked={checked} />
         <RemoveButton onClick={onRemove} />

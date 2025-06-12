@@ -10,6 +10,7 @@ import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
 import { PATH } from '../../constants/path';
 import CartItemContainer from '../CartItem/CartItemContainer';
+import { STORAGE_KEYS } from '../../constants/localStorageKey';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -36,7 +37,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
       price: item.product.price,
       imageUrl: item.product.imageUrl
     }));
-    setLocalStorage('selectedItems', selectedItems);
+    setLocalStorage(STORAGE_KEYS.SELECTED_ITEMS, selectedItems);
   }, [checkedItems]);
 
   return (

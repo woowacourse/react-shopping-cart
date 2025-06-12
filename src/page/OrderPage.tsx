@@ -9,6 +9,7 @@ import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
 import * as Card from '../components/Card/Card';
 import { calculateDeliveryFee } from '../utils/coupon/calculate';
+import { STORAGE_KEYS } from '../constants/localStorageKey';
 
 export type SelectedItem = {
   id: number;
@@ -73,7 +74,7 @@ function OrderPage() {
             onChange={(e) => {
               const checked = e.target.checked;
               setIsRemoteArea((prev: boolean) => !prev);
-              setLocalStorage('isRemoteArea', checked);
+              setLocalStorage(STORAGE_KEYS.IS_REMOTE_AREA, checked);
             }}
           />
           <label> 제주도 및 도서 산간 지역 </label>
