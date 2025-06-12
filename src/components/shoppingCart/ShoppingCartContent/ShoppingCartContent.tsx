@@ -7,6 +7,7 @@ import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
 import ContentHeader from "../ContentHeader/ContentHeader";
 import ShoppingCartList from "../ShoppingCartList/ShoppingCartList";
 import CartItem from "../../../types/CartItem";
+
 interface ShoppingCartContentProps {
   cartItemList: CartItem[];
   patchCartItem: (id: number, quantity: number) => Promise<void>;
@@ -19,20 +20,18 @@ export default function ShoppingCartContent({
   removeCartItem,
 }: ShoppingCartContentProps) {
   const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
-    cartItemList.map((item) => ({
+    []
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const initialized = cartItemList.map((item) => ({
       ...item,
       isChecked: true,
-    }))
-  );
-  localStorage.setItem(
-    "selectedCartItemList",
-    JSON.stringify(
-      cartItemList.map((item) => ({
-        ...item,
-        isChecked: true,
-      }))
-    )
-  );
+    }));
+    setCartItemCheckList(initialized);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(initialized));
+  }, [cartItemList]);
 
   useEffect(() => {
     localStorage.setItem(
@@ -84,7 +83,6 @@ export default function ShoppingCartContent({
 
   const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
 
-  const navigate = useNavigate();
   const handleOrderListButtonClick = () => {
     localStorage.setItem(
       "selectedCartItemList",
