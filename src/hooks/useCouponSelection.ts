@@ -5,8 +5,9 @@ import { MAX_COUPONS } from '../constants/couponConfig';
 
 export const useCouponSelection = () => {
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
-  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tempSelectedCoupons, setTempSelectedCoupons] = useState<Coupon[] | null>(null);
+
+  const modalEnabled = tempSelectedCoupons !== null;
 
   const toggleCouponSelection = (coupon: Coupon) => {
     if (!isCouponAvailable(coupon)) {
@@ -14,6 +15,10 @@ export const useCouponSelection = () => {
     }
 
     setTempSelectedCoupons((prev) => {
+      if (!prev) {
+        return prev;
+      }
+
       const isSelected = prev.some((couponItem) => couponItem.id === coupon.id);
 
       if (isSelected) {
@@ -30,28 +35,28 @@ export const useCouponSelection = () => {
   };
 
   const isCouponSelected = (couponId: number) => {
-    return tempSelectedCoupons.some((coupon) => coupon.id === couponId);
+    return tempSelectedCoupons?.some((coupon) => coupon.id === couponId) || false;
   };
 
   const openModal = () => {
     setTempSelectedCoupons(selectedCoupons);
-    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setTempSelectedCoupons([]);
-    setIsModalOpen(false);
+    setTempSelectedCoupons(null);
   };
 
   const applyCoupons = () => {
-    setSelectedCoupons(tempSelectedCoupons);
-    setIsModalOpen(false);
+    if (tempSelectedCoupons) {
+      setSelectedCoupons(tempSelectedCoupons);
+    }
+    setTempSelectedCoupons(null);
   };
 
   return {
     selectedCoupons,
     tempSelectedCoupons,
-    isModalOpen,
+    modalEnabled,
     openModal,
     closeModal,
     toggleCouponSelection,

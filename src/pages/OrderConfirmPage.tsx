@@ -21,7 +21,7 @@ function OrderConfirmPage() {
   const {
     selectedCoupons,
     tempSelectedCoupons,
-    isModalOpen,
+    modalEnabled,
     openModal: openCouponModal,
     closeModal: closeCouponModal,
     toggleCouponSelection,
@@ -43,7 +43,7 @@ function OrderConfirmPage() {
   });
 
   const tempCouponDiscount = calculateCouponDiscount({
-    coupons: tempSelectedCoupons,
+    coupons: tempSelectedCoupons || [],
     products: products || [],
     total: price,
     shippingFee: baseShippingFee + remoteAreaFee,
@@ -80,13 +80,13 @@ function OrderConfirmPage() {
           totalPrice={finalTotal}
         />
       </Container>
-      {isModalOpen && (
+      {modalEnabled && (
         <CouponModal
           onClose={closeCouponModal}
           onToggleCoupon={toggleCouponSelection}
           onApply={applyCoupons}
           isCouponSelected={isCouponSelected}
-          tempSelectedCoupons={tempSelectedCoupons}
+          tempSelectedCoupons={tempSelectedCoupons || []}
           tempCouponDiscount={tempCouponDiscount}
         />
       )}
