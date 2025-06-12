@@ -5,11 +5,12 @@ import {
   getShoppingCart,
   patchShoppingCart,
 } from "../api/shoppingCart";
+import { useErrorContext } from "../../../context/errorProvider";
 
 export function useShoppingCartApi() {
   const [cartItems, setCartItem] = useState<CartItemTypes[]>([]);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { setError } = useErrorContext();
 
   async function withErrorHandling(
     fetchFunction: () => Promise<Response>,
@@ -62,6 +63,5 @@ export function useShoppingCartApi() {
     patchCartItem,
     cartItems,
     loading,
-    error,
   };
 }

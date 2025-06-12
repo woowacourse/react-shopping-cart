@@ -5,7 +5,6 @@ import { CartItemTypes } from "../../shopping-cart/types/cartItem";
 interface CartContextType {
   cartItems: CartItemTypes[];
   loading: boolean;
-  error: string;
   getCartItemData: () => Promise<Response | undefined>;
   deleteCartItem: (id: string) => Promise<Response | undefined>;
   patchCartItem: (
@@ -17,25 +16,18 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const {
-    getCartItemData,
-    deleteCartItem,
-    patchCartItem,
-    cartItems,
-    loading,
-    error,
-  } = useShoppingCartApi();
+  const { getCartItemData, deleteCartItem, patchCartItem, cartItems, loading } =
+    useShoppingCartApi();
 
   const contextValue: CartContextType = useMemo(
     () => ({
       cartItems,
       loading,
-      error,
       getCartItemData,
       deleteCartItem,
       patchCartItem,
     }),
-    [cartItems, loading, error, getCartItemData, deleteCartItem, patchCartItem]
+    [cartItems, loading, getCartItemData, deleteCartItem, patchCartItem]
   );
 
   return (

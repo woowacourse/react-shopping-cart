@@ -19,13 +19,14 @@ import {
   SelectAllLayout,
 } from "./shoppingCart.style";
 import { getDeliveryFee } from "../../orderConfirm/utils/getDeliveryFee";
+import { useErrorContext } from "../../../context/errorProvider";
 
 export function ShoppingCart() {
   const isFirstMount = useRef(true);
   const navigate = useNavigate();
 
-  const { deleteCartItem, cartItems, error } = useCartContext();
-
+  const { deleteCartItem, cartItems } = useCartContext();
+  const { error } = useErrorContext();
   const {
     toggleSelectAll,
     toggleCartItem,
