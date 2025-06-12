@@ -1,10 +1,12 @@
+import { AMPM_STANDARD } from '../constants/couponConfig';
+
 export const formatDate = (date: string): string => {
   const [year, month, day] = date.split('-');
   return `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
 };
 
 export const formatAMPM = (time: number): string => {
-  return time < 12 ? '오전' : '오후';
+  return time < AMPM_STANDARD ? '오전' : '오후';
 };
 
 export const formatTimeRange = (start: string, end: string): string => {
@@ -15,11 +17,11 @@ export const formatTimeRange = (start: string, end: string): string => {
   const endAMPM = formatAMPM(endHour);
 
   if (startAMPM === endAMPM) {
-    return `${startAMPM} ${startHour % 12 || 12}시부터 ${endHour % 12 || 12}시까지`;
+    return `${startAMPM} ${startHour % AMPM_STANDARD || AMPM_STANDARD}시부터 ${endHour % AMPM_STANDARD || AMPM_STANDARD}시까지`;
   }
 
-  const startFormatted = `${startAMPM} ${startHour % 12 || 12}시부터`;
-  const endFormatted = `${endAMPM} ${endHour % 12 || 12}시`;
+  const startFormatted = `${startAMPM} ${startHour % AMPM_STANDARD || AMPM_STANDARD}시부터`;
+  const endFormatted = `${endAMPM} ${endHour % AMPM_STANDARD || AMPM_STANDARD}시`;
 
   return `${startFormatted} ${endFormatted}까지`;
 };
