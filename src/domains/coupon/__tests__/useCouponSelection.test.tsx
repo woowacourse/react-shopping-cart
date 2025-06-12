@@ -1,9 +1,10 @@
-import { renderHook, act } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { PropsWithChildren } from "react";
 import { MemoryRouter } from "react-router-dom";
+import { ToastProvider } from "../../../features/toast/ToastContext";
 import { MAX_COUPON_SELECTION } from "../constants";
 import useCouponSelection from "../hooks/useCouponSelection";
-import { ToastProvider } from "../../../features/toast/ToastContext";
+import { Coupon } from "../types/response";
 
 jest.mock("../../../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -21,7 +22,7 @@ jest.mock("../../../features/toast/useToast", () => ({
   }),
 }));
 
-const mockCoupons = [
+const mockCoupons: Coupon[] = [
   {
     id: 1,
     code: "FIXED5000",

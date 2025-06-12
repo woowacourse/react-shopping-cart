@@ -1,5 +1,5 @@
 import { CartItemWithSelection } from "../../cart/types/response";
-import { Coupon } from "../types/response";
+import { Coupon, CouponType } from "../types/response";
 import { calculateCouponDiscount } from "../calculations/combined/calculateCouponDiscount";
 import * as basicCalculations from "../calculations/basic";
 
@@ -151,7 +151,7 @@ describe("calculateCouponDiscount 함수 테스트", () => {
       code: "UNKNOWN",
       description: "알 수 없는 타입의 쿠폰",
       expirationDate: "2025-12-31",
-      discountType: "unknown",
+      discountType: "unknown" as CouponType,
     };
 
     const result = calculateCouponDiscount(

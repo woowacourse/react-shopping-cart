@@ -1,16 +1,18 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
+import { getCartItems } from "../domains/cart/apis/getCartItems";
 import { CartProvider } from "../domains/cart/contexts/CartContext";
+import { CartItemContent } from "../domains/cart/types/response";
+import { getCoupons } from "../domains/coupon/apis/getCoupons";
 import { CouponProvider } from "../domains/coupon/contexts/CouponContext";
+import { Coupon } from "../domains/coupon/types/response";
 import { OrderProvider } from "../domains/order/contexts/OrderContext";
 import { ModalProvider } from "../features/modal/ModalContext";
 import { ToastProvider } from "../features/toast/ToastContext";
 import CartPage from "../pages/CartPage/CartPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
-import { getCartItems } from "../domains/cart/apis/getCartItems";
-import { getCoupons } from "../domains/coupon/apis/getCoupons";
 
 jest.mock("../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -24,7 +26,7 @@ jest.mock("../domains/cart/apis/deleteCartItem");
 jest.mock("../domains/cart/apis/patchCartItem");
 jest.mock("../domains/coupon/apis/getCoupons");
 
-const mockCartItems = [
+const mockCartItems: CartItemContent[] = [
   {
     id: 101,
     quantity: 1,
@@ -51,7 +53,7 @@ const mockCartItems = [
   },
 ];
 
-const mockCoupons = [
+const mockCoupons: Coupon[] = [
   {
     id: 1,
     code: "FIXED5000",

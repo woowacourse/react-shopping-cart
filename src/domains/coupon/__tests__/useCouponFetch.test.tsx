@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { ToastProvider } from "../../../features/toast/ToastContext";
 import { getCoupons } from "../apis/getCoupons";
 import useCouponFetch from "../hooks/useCouponFetch";
+import { Coupon } from "../types/response";
 
 jest.mock("../../../apis/httpClient", () => ({
   API_KEY: "mock-api-key",
@@ -14,7 +15,7 @@ jest.mock("../../../apis/config", () => ({
 }));
 jest.mock("../apis/getCoupons");
 
-const mockCoupons = [
+const mockCoupons: Coupon[] = [
   {
     id: 1,
     code: "FIXED5000",
