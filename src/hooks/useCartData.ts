@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CartItemType } from "../types/response";
 import { getCartItemById } from "../utils/getCartItemById";
 import {
@@ -6,20 +6,33 @@ import {
   getCart,
   modifyCartItem,
 } from "../services/cartService";
-import type { LoadingType } from "../types/loading";
+import useApiHandler from "./@common/useApiHandler";
 
 interface UseCartDataProps {
-  callApi: <T>(
-    apiFn: () => Promise<T>,
-    successMessage: string,
-    loadingType: LoadingType
-  ) => Promise<T | undefined>;
   syncIsCheckedSet: (updateData: CartItemType["id"][]) => void;
 }
 
-const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
+const useCartData = ({ syncIsCheckedSet }: UseCartDataProps) => {
+  const { callApi, loadingState } = useApiHandler();
   const [cartData, setCartData] = useState<CartItemType[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      const initialCartData = await callApi<CartItemType[]>(
+        () => getCart(),
+        "장바구니 데이터를 불러왔습니다.",
+        "initialLoading"
+      );
+      if (!initialCartData) {
+        return;
+      }
+      initCartData(initialCartData);
+      syncIsCheckedSet(initialCartData.map((item: CartItemType) => item.id));
+    };
+
+    fetchCartData();
+  }, []);
 
   const updateCartItem = async (cartId: number) => {
     const cartItem = getCartItemById(cartData, cartId);
@@ -83,6 +96,7 @@ const useCartData = ({ callApi, syncIsCheckedSet }: UseCartDataProps) => {
 
   return {
     cartData,
+    loadingState,
     updateCartItem,
     increaseCartItem,
     removeCartItem,

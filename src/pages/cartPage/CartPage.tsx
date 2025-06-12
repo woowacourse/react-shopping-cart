@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import Button from "../../components/@common/button/Button";
 import Checkbox from "../../components/@common/checkbox/Checkbox";
 import ErrorFallback from "../../components/@common/errorFallBack/ErrorFallBack";
@@ -12,12 +10,10 @@ import { Title, Description } from "../../styles/@common/title/Title.styles";
 import { buttonFixedContainer } from "../../styles/@common/button/ButtonFixedContainer.styles";
 import { CheckboxContainer } from "../../styles/@common/checkBox/CheckBox.styles";
 
-import useApiHandler from "../../hooks/@common/useApiHandler";
 import useCheckedSet from "../../hooks/useCheckedSet";
 import useCartData from "../../hooks/useCartData";
 import useEasyNavigate from "../../hooks/useEasyNavigate";
 
-import { getCart } from "../../services/cartService";
 import { getCartItemById } from "../../utils/getCartItemById";
 import { getPriceSummary } from "../../domains/price";
 
@@ -29,24 +25,21 @@ import {
 import type { CartItemType } from "../../types/response";
 
 const CartPage = () => {
-  const { callApi, loadingState } = useApiHandler();
-
   const {
     isCheckedSet,
     justifyIsChecked,
     controlCheckBox,
     controlAllCheckBox,
-    initIsCheckedSet,
     syncIsCheckedSet,
   } = useCheckedSet();
 
   const {
     cartData,
+    loadingState,
     updateCartItem,
     increaseCartItem,
     removeCartItem,
-    initCartData,
-  } = useCartData({ callApi, syncIsCheckedSet });
+  } = useCartData({ syncIsCheckedSet });
 
   const { goOrderConfirmation, goHome } = useEasyNavigate();
 
@@ -57,23 +50,6 @@ const CartPage = () => {
   const orderItems = Array.from(isCheckedSet)
     .map((id) => getCartItemById(cartData, id))
     .filter((item): item is CartItemType => item !== undefined);
-
-  useEffect(() => {
-    const fetchCartData = async () => {
-      const initialCartData = await callApi<CartItemType[]>(
-        () => getCart(),
-        "장바구니 데이터를 불러왔습니다.",
-        "initialLoading"
-      );
-      if (!initialCartData) {
-        return;
-      }
-      initCartData(initialCartData);
-      initIsCheckedSet(initialCartData.map((item: CartItemType) => item.id));
-    };
-
-    fetchCartData();
-  }, []);
 
   if (loadingState === "initialLoading") {
     return <CartPageSkeleton data-testid="cart-page-skeleton" />;
