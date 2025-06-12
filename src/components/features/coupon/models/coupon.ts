@@ -5,13 +5,7 @@ import {
 } from '../../cart';
 import { convertTimeToSecond } from '../utils';
 import { CouponType } from './coupon.types';
-import {
-  createCoupon,
-  isBOGOCoupon,
-  isFixedCoupon,
-  isFreeShippingCoupon,
-  isMiracleCoupon,
-} from './coupon.utils';
+import { createCoupon } from './coupon.utils';
 
 class Coupon {
   #data: CouponType;
@@ -50,36 +44,40 @@ class Coupon {
   #evaluateDisable(orderItems: CartItemType[]): boolean {
     const orderPrice = calculateOrderPrice(orderItems);
 
-    const now = new Date();
-    if (this.#data.expirationDate < now) return true;
+    if (this.#isExpired()) return true;
 
-    if (isBOGOCoupon(this.#data)) {
-      const totalQuantity = this.#data.buyQuantity + this.#data.getQuantity;
-      const eligibleItemsByPrice = orderItems.filter(
-        (item) => item.quantity >= totalQuantity
-      );
+    switch (this.#data.discountType) {
+      case 'fixed': {
+        return this.#data.minimumAmount > orderPrice;
+      }
+      case 'buyXgetY': {
+        const totalQuantity = this.#data.buyQuantity + this.#data.getQuantity;
+        const eligibleItemsByPrice = orderItems.filter(
+          (item) => item.quantity >= totalQuantity
+        );
 
-      return eligibleItemsByPrice.length === 0;
+        return eligibleItemsByPrice.length === 0;
+      }
+      case 'freeShipping': {
+        return this.#data.minimumAmount > orderPrice;
+      }
+      case 'percentage': {
+        const now = new Date();
+        const { start, end } = this.#data.availableTime;
+        const nowSecond = convertTimeToSecond(
+          `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+        );
+        const startSecond = convertTimeToSecond(start);
+        const endSecond = convertTimeToSecond(end);
+        return nowSecond < startSecond || nowSecond > endSecond;
+      }
+      default:
+        return false;
     }
+  }
 
-    if ('availableTime' in this.#data) {
-      const { start, end } = this.#data.availableTime;
-      const nowSecond = convertTimeToSecond(
-        `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
-      );
-      const startSecond = convertTimeToSecond(start);
-      const endSecond = convertTimeToSecond(end);
-      if (nowSecond < startSecond || nowSecond > endSecond) return true;
-    }
-
-    if (
-      'minimumAmount' in this.#data &&
-      this.#data.minimumAmount > orderPrice
-    ) {
-      return true;
-    }
-
-    return false;
+  #isExpired() {
+    return this.#data.expirationDate < new Date();
   }
 
   #calculateDiscount(
@@ -88,30 +86,29 @@ class Coupon {
   ): number {
     const orderPrice = calculateOrderPrice(orderItems);
 
-    if (isFixedCoupon(this.#data)) {
-      return this.#data.discount;
+    switch (this.#data.discountType) {
+      case 'fixed': {
+        return this.#data.discount;
+      }
+      case 'buyXgetY': {
+        const totalQuantity = this.#data.buyQuantity + this.#data.getQuantity;
+        const eligibleItemsByPrice = orderItems
+          .filter((item) => item.quantity >= totalQuantity)
+          .sort((a, b) => b.product.price - a.product.price);
+
+        if (eligibleItemsByPrice.length === 0) return 0;
+
+        return eligibleItemsByPrice[0].product.price;
+      }
+      case 'freeShipping': {
+        return calculateDeliveryFee(orderPrice, isRemoteArea);
+      }
+      case 'percentage': {
+        return (this.#data.discount / 100) * orderPrice;
+      }
+      default:
+        return 0;
     }
-
-    if (isMiracleCoupon(this.#data)) {
-      return (this.#data.discount / 100) * orderPrice;
-    }
-
-    if (isBOGOCoupon(this.#data)) {
-      const totalQuantity = this.#data.buyQuantity + this.#data.getQuantity;
-      const eligibleItemsByPrice = orderItems
-        .filter((item) => item.quantity >= totalQuantity)
-        .sort((a, b) => b.product.price - a.product.price);
-
-      if (eligibleItemsByPrice.length === 0) return 0;
-
-      return eligibleItemsByPrice[0].product.price;
-    }
-
-    if (isFreeShippingCoupon(this.#data)) {
-      return calculateDeliveryFee(orderPrice, isRemoteArea);
-    }
-
-    return 0;
   }
 
   updateDiscountAmount(orderItems: CartItemType[], isRemoteArea: boolean) {
