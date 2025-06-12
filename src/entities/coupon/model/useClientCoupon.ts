@@ -44,7 +44,26 @@ export const useClientCoupon = ({ orderItems, isRemoteArea, onError }: UseClient
     }));
 
     setClientCoupons(finalClientCoupons);
-  }, [coupons, isRemoteArea]);
+  }, [coupons]);
+
+  useEffect(() => {
+    if (clientCoupons.length === 0) return;
+
+    setClientCoupons((prevCoupons) =>
+      prevCoupons.map((clientCoupon) => {
+        const discountPrice = calculateCouponDiscount({
+          coupon: clientCoupon.coupon,
+          orderItems,
+          deliveryFee,
+        });
+
+        return {
+          ...clientCoupon,
+          discountPrice,
+        };
+      }),
+    );
+  }, [isRemoteArea]);
 
   const toggleCouponSelection = (couponId: number) => {
     setClientCoupons((prev) =>
