@@ -1,3 +1,4 @@
+import { MAX_COUPON_COUNT } from '../constants/coupon';
 import { BASE_SHIPPING_FEE } from '../constants/payments';
 import { CartProduct, CouponType } from '../types/cart';
 
@@ -91,4 +92,40 @@ export function findBestCombo(combos: CouponType[][], cart: CartType, selectedIt
     }
   });
   return maxDisc;
+}
+
+export function checkCouponAvailability(coupon: CouponType, price: number): boolean {
+  const now = new Date();
+  const currentTime = now.toTimeString().slice(0, 8);
+
+  if (coupon.expirationDate) {
+    const expirationDate = new Date(coupon.expirationDate);
+    if (now > expirationDate) {
+      return true;
+    }
+  }
+
+  if (coupon.availableTime) {
+    const { start, end } = coupon.availableTime;
+    if (currentTime < start || currentTime > end) {
+      return true;
+    }
+  }
+
+  if (coupon.minimumAmount && coupon.minimumAmount > price) {
+    return true;
+  }
+
+  return false;
+}
+
+export function calculateTotalDiscount(selectedCoupons: CouponType[], cart: CartType): number {
+  if (selectedCoupons.length === 0) return 0;
+
+  const combos = generateCombos(selectedCoupons, MAX_COUPON_COUNT);
+  return findBestCombo(
+    combos,
+    cart,
+    cart.items.map((item) => item.id),
+  );
 }
