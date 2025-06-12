@@ -7,7 +7,6 @@ import {
   useCouponSelectContext,
   useCouponSelectDispatch,
 } from "../../stores/CouponContext";
-import { useCouponCalculation } from "../../hooks/useCouponCalculation";
 import { ResponseCartItem } from "../../types/order";
 import { CouponFormatter } from "../../utils/couponFormatter";
 import { formatDate } from "../../utils/formatters";
@@ -42,12 +41,6 @@ function CouponModal({
     selectedCouponIds.includes(coupon.id)
   );
 
-  const { totalDiscount } = useCouponCalculation({
-    cartItems,
-    isRemoteArea,
-    selectedCoupons: selectedCoupons as unknown as Coupon[],
-  });
-
   const orderInfo = useMemo(() => {
     const originalOrderAmount = cartItems.reduce(
       (total, item) => total + item.product.price * item.quantity,
@@ -66,6 +59,30 @@ function CouponModal({
       isRemoteArea,
     };
   }, [cartItems, isRemoteArea]);
+
+  const optimalCouponResult = useMemo(() => {
+    if (selectedCoupons.length === 0) {
+      return {
+        totalDiscount: 0,
+        deliveryDiscount: 0,
+        optimalCoupons: [],
+      };
+    }
+
+    const optimalResult = CouponCalculator.findOptimalCouponCombination(
+      selectedCoupons as unknown as Coupon[],
+      orderInfo
+    );
+
+    return {
+      totalDiscount:
+        optimalResult.totalDiscount + optimalResult.deliveryDiscount,
+      deliveryDiscount: optimalResult.deliveryDiscount,
+      optimalCoupons: optimalResult.appliedCoupons,
+    };
+  }, [selectedCoupons, orderInfo]);
+
+  const { totalDiscount } = optimalCouponResult;
 
   const couponAvailability = useMemo(() => {
     return couponList.reduce(
@@ -90,6 +107,38 @@ function CouponModal({
       {} as Record<number, boolean>
     );
   }, [couponList, orderInfo, selectedCoupons]);
+
+  useEffect(() => {
+    if (optimalCouponResult.optimalCoupons.length > 0) {
+      const currentSelectedIds = selectedCouponIds.sort();
+      const optimalIds = optimalCouponResult.optimalCoupons
+        .map((c) => c.id)
+        .sort();
+
+      const isDifferent =
+        currentSelectedIds.length !== optimalIds.length ||
+        currentSelectedIds.some((id, index) => id !== optimalIds[index]);
+
+      if (isDifferent && selectedCoupons.length > 0) {
+        couponSelectDispatch({ type: "CLEAR_COUPON_SELECT", payload: {} });
+
+        optimalCouponResult.optimalCoupons.forEach((coupon) => {
+          couponSelectDispatch({
+            type: "ADD_COUPON_SELECT",
+            payload: { id: coupon.id },
+          });
+        });
+
+        onApplyCoupons(optimalCouponResult.optimalCoupons);
+      }
+    }
+  }, [
+    optimalCouponResult.optimalCoupons,
+    selectedCouponIds,
+    selectedCoupons.length,
+    couponSelectDispatch,
+    onApplyCoupons,
+  ]);
 
   useEffect(() => {
     if (couponList.length > 0) {
@@ -129,7 +178,7 @@ function CouponModal({
       onApplyCoupons(newSelectedCoupons as unknown as Coupon[]);
     } else {
       if (selectedCount >= 2) {
-        alert("쿠폰은 최대 2개까지만 사용할 수 있습니다. 쿠폰을 선택해주세요.");
+        alert("쿠폰은 최대 2개까지만 사용할 수 있습니다.");
         return;
       }
 
