@@ -7,7 +7,7 @@ import { Modal } from "@kaori-killer/modal-component";
 import Header from "../../components/common/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
 import Receipt from "../../components/ShoppingCart/Receipt/Receipt";
-import CouponModal from "../../components/CouponModal/CouponModal";
+import CouponModal from "../../components/ShoppingCart/CouponModal/CouponModal";
 import EmptyText from "../../components/common/EmptyText/EmptyText";
 import Hr from "../../components/common/Hr/Hr";
 

@@ -2,21 +2,16 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "@kaori-killer/modal-component";
 
-import * as CartListStyled from "../ShoppingCart/CartList/CartList.styles";
-import * as ItemStyled from "../ShoppingCart/Item/Item.styles";
-import WarningBox from "../common/WarningBox/WarningBox";
-import Hr from "../common/Hr/Hr";
+import * as ItemStyled from "../Item/Item.styles";
+import WarningBox from "../../common/WarningBox/WarningBox";
 
-import useCoupons from "../../hooks/useCoupons";
+import useCoupons from "../../../hooks/useCoupons";
 
-import { calculateAllCouponCombos } from "../../utils/calculateAllCouponCombos";
-import { isCouponValid } from "../../utils/isCouponValid";
-import { formatAvailableTime } from "../../utils/formatAvailableTime";
+import { calculateAllCouponCombos } from "../../../utils/calculateAllCouponCombos";
 
-import CartItem from "../../types/CartItem";
+import CartItem from "../../../types/CartItem";
 
-import * as Styled from "./CouponModal.styles";
-import { formatDate } from "../../utils/formatDate";
+import CouponItem from "../CouponItem/CouponItem";
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -123,50 +118,15 @@ function CouponModal({
           {coupons.length === 0 ? (
             <p>사용 가능한 쿠폰이 없습니다.</p>
           ) : (
-            coupons.map((coupon) => {
-              const unavailableCoupon = !isCouponValid(coupon, orderAmount);
-              const disabled =
-                unavailableCoupon ||
-                (!selectedCoupons.get(coupon.id) && selectedCoupons.size >= 2);
-
-              return (
-                <Styled.CouponContainer key={coupon.id}>
-                  <Hr />
-                  <CartListStyled.Checkbox>
-                    <CartListStyled.Input
-                      type="checkbox"
-                      id={`coupon-${coupon.id}`}
-                      checked={!!selectedCoupons.get(coupon.id)}
-                      disabled={disabled}
-                      onChange={() => handleCheckboxChange(coupon.id)}
-                    />
-                    <label htmlFor={`coupon-${coupon.id}`}>
-                      {coupon.description}
-                    </label>
-                  </CartListStyled.Checkbox>
-                  <Styled.CouponDescribe>
-                    <p>만료일: {formatDate(coupon.expirationDate)}</p>
-                    {"minimumAmount" in coupon && (
-                      <p>최소 주문 금액: {coupon.minimumAmount}</p>
-                    )}
-                    {"availableTime" in coupon && (
-                      <p>
-                        사용 가능 시간:{" "}
-                        {formatAvailableTime(
-                          coupon.availableTime.start,
-                          coupon.availableTime.end
-                        )}
-                      </p>
-                    )}
-                    {unavailableCoupon && (
-                      <Styled.disabledText>
-                        사용 불가: 기간이 지났거나 시간 조건에 맞지 않아요.
-                      </Styled.disabledText>
-                    )}
-                  </Styled.CouponDescribe>
-                </Styled.CouponContainer>
-              );
-            })
+            coupons.map((coupon) => (
+              <CouponItem
+                key={coupon.id}
+                coupon={coupon}
+                orderAmount={orderAmount}
+                selectedCoupons={selectedCoupons}
+                handleCheckboxChange={handleCheckboxChange}
+              />
+            ))
           )}
         </Modal.Body>
 
