@@ -6,94 +6,59 @@ export interface ValidationResult {
   message?: string;
 }
 
+type CouponValidators = {
+  fixed: (totalCartPrice: number) => boolean;
+  freeShipping: (totalCartPrice: number) => boolean;
+  buyXgetY: (selectedCartItems: Cart[] | undefined) => boolean;
+  percentage: () => boolean;
+};
+
+const validateCoupons = (coupon: Coupon): CouponValidators => ({
+  fixed: (totalCartPrice: number) => {
+    if (coupon.discountType !== "fixed") return false;
+    return totalCartPrice >= coupon.minimumAmount;
+  },
+
+  freeShipping: (totalCartPrice: number) => {
+    if (coupon.discountType !== "freeShipping") return false;
+    return totalCartPrice >= coupon.minimumAmount;
+  },
+
+  buyXgetY: (selectedCartItems: Cart[] | undefined) => {
+    if (coupon.discountType !== "buyXgetY") return false;
+    return (selectedCartItems ?? []).some(
+      (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+    );
+  },
+
+  percentage: () => {
+    if (coupon.discountType !== "percentage") return false;
+    if (!coupon.availableTime) return true;
+    const now = new Date();
+    const currentHour = now.getHours();
+    const startHour = parseInt(coupon.availableTime.start, 10);
+    const endHour = parseInt(coupon.availableTime.end, 10);
+    return currentHour >= startHour && currentHour < endHour;
+  },
+});
+
 export function isCouponAvailable(
   coupon: Coupon,
   totalCartPrice: number,
   selectedCartItems: Cart[] | undefined
 ): boolean {
+  const validators = validateCoupons(coupon);
+
   switch (coupon.discountType) {
     case "fixed":
+      return validators.fixed(totalCartPrice);
     case "freeShipping":
-      return totalCartPrice >= coupon.minimumAmount;
+      return validators.freeShipping(totalCartPrice);
     case "buyXgetY":
-      return (selectedCartItems ?? []).some(
-        (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
-      );
+      return validators.buyXgetY(selectedCartItems);
     case "percentage":
-      if (coupon.availableTime) {
-        const now = new Date();
-        const currentHour = now.getHours();
-        const startHour = parseInt(coupon.availableTime.start);
-        const endHour = parseInt(coupon.availableTime.end);
-        return currentHour >= startHour && currentHour < endHour;
-      }
-      return true;
+      return validators.percentage();
     default:
       return false;
   }
-}
-
-export function validateCoupon(
-  coupon: Coupon,
-  totalCartPrice: number,
-  cartItems: Cart[] | undefined
-): ValidationResult {
-  const now = new Date();
-  const expirationDate = new Date(
-    coupon.expirationDate[0],
-    coupon.expirationDate[1] - 1,
-    coupon.expirationDate[2]
-  );
-
-  if (now > expirationDate) {
-    return {
-      isValid: false,
-      message: "만료된 쿠폰입니다.",
-    };
-  }
-
-  switch (coupon.discountType) {
-    case "fixed":
-    case "freeShipping":
-      if (totalCartPrice < coupon.minimumAmount) {
-        return {
-          isValid: false,
-          message: `최소 주문 금액 ${coupon.minimumAmount.toLocaleString()}원 이상 구매 시 사용 가능합니다.`,
-        };
-      }
-      break;
-
-    case "buyXgetY":
-      if (cartItems) {
-        const hasEligibleItems = cartItems.some(
-          (item) =>
-            item.quantity >= coupon.buyQuantity &&
-            item.quantity >= coupon.buyQuantity + coupon.getQuantity
-        );
-        if (!hasEligibleItems) {
-          return {
-            isValid: false,
-            message: `동일 상품 ${coupon.buyQuantity}개 이상 구매 시 ${coupon.getQuantity}개가 증정됩니다.`,
-          };
-        }
-      }
-      break;
-
-    case "percentage":
-      if (coupon.availableTime) {
-        const currentHour = now.getHours();
-        const startHour = parseInt(coupon.availableTime.start);
-        const endHour = parseInt(coupon.availableTime.end);
-
-        if (currentHour < startHour || currentHour >= endHour) {
-          return {
-            isValid: false,
-            message: `사용 가능 시간: ${startHour}시 ~ ${endHour}시`,
-          };
-        }
-      }
-      break;
-  }
-
-  return { isValid: true };
 }
