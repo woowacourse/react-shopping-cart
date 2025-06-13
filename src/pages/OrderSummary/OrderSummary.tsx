@@ -1,45 +1,95 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import {
-  Container,
-  Summary,
-  Title,
-  TotalCost,
-  TotalCostLabel,
-} from "./OrderSummary.styles";
+import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../domains/cost";
 import { BackIcon } from "../../constants/images";
 import useSafeLocationState from "../../hooks/common/\buseSafeLocation";
+import OrderItemList from "../../components/OrderSummary/OrderItemList/OrderItemList";
+import CouponButton from "../../components/OrderSummary/CouponButton/CouponButton";
+import CouponModal from "../../components/CouponModal/Modal/CouponModal";
+import useModal from "../../hooks/modal/useModal";
+import { getDeliveryCost, getOrderCost } from "../../domains/cost";
+import { useState } from "react";
+import { useCouponManagerProvider } from "../../contexts/CouponManagerProvider";
+import useResetCouponOnUnmount from "../../hooks/orderSummary/useResetCouponOnUnmount";
+import { calculateDiscountAmount } from "./discount.domain";
+import { getAllQuantity } from "../../domains/quantity";
+import Header from "../../components/Common/Header/Header";
+import Description from "../../components/Common/Description/Description";
+import CheckBox from "../../components/Common/CheckBox/CheckBox";
+import Receipt from "../../components/Common/Receipt/Receipt";
+import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
+import { BACK, ORDER_COMPLETE } from "../../constants/path";
 
 function OrderSummary() {
-  const navigate = useNavigate();
+  useResetCouponOnUnmount();
+  const [isJejuOrIslandSelected, setIsJejuOrIslandSelected] = useState(false);
 
+  const { isOpen, modalClose, modalOpen } = useModal();
+  const navigate = useNavigate();
+  const { selectedCoupon } = useCouponManagerProvider();
   const cartItems = useSafeLocationState<CartItemType[]>();
 
-  const getAllQuantity = (cartItems: CartItemType[]) => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
-  };
-
   const orderCost = getOrderCost(cartItems);
-  const totalCost = orderCost + getDeliveryCost(orderCost);
+  const deliveryCost =
+    getDeliveryCost(orderCost) + (isJejuOrIslandSelected ? 3000 : 0);
+
+  const discountAmount = calculateDiscountAmount({
+    price: orderCost,
+    cartItems,
+    deliveryCost,
+    selectedCoupon,
+  });
 
   return (
     <>
-      <Header icon={BackIcon} handleIconClick={() => navigate(-1)} />
+      <Header icon={BackIcon} handleIconClick={() => navigate(BACK)} />
       <section css={Container}>
-        <h2 css={Title}>주문 확인</h2>
-        <p css={Summary}>
-          {`총 ${cartItems.length}종류의 상품 ${getAllQuantity(
+        <Description
+          title="주문 확인"
+          subTitle={`총 ${cartItems.length}종류의 상품 ${getAllQuantity(
             cartItems
-          )}개를 주문합니다.`}
-        </p>
-        <p css={Summary}> 최종 결제 금액을 확인해 주세요.</p>
-        <p css={TotalCostLabel}>총 결제 금액</p>
-        <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
+          )}개를 주문합니다.\n
+최종 결제 금액을 확인해 주세요.
+          `}
+        />
+        <OrderItemList cartItems={cartItems} />
+        <CouponButton onClick={modalOpen} />
+        <div>
+          <p>배송 정보</p>
+          <CheckBox
+            id="delivery"
+            isSelected={isJejuOrIslandSelected}
+            onClick={() => setIsJejuOrIslandSelected((prev) => !prev)}
+            label="제주도 및 도서 산간 지역"
+          />
+        </div>
+        <Receipt
+          orderCost={orderCost}
+          deliveryCost={deliveryCost}
+          discount={discountAmount}
+        />
       </section>
-      <SubmitButton enabled={false} label="결제하기" />
+      <SubmitButton
+        enabled={true}
+        label="결제하기"
+        onClick={() =>
+          navigate(ORDER_COMPLETE, {
+            state: {
+              cartItems,
+              totalCost: orderCost + deliveryCost - discountAmount,
+            },
+          })
+        }
+      />
+      {isOpen && (
+        <CouponModal
+          onClose={modalClose}
+          orderCost={orderCost}
+          cartItems={cartItems}
+          discount={discountAmount}
+          deliveryCost={deliveryCost}
+        />
+      )}
     </>
   );
 }

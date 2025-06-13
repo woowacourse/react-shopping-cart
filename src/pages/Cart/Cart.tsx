@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import CartItemList from "../../components/CartItemList/CartItemList";
-import CheckBox from "../../components/CheckBox/CheckBox";
-import Description from "../../components/Description/Description";
-import Header from "../../components/Header/Header";
-import Receipt from "../../components/Receipt/Receipt";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import { Container, NoCartItemText, Wrap } from "./Cart.styles";
+import CartItemList from "../../components/Cart/CartItemList/CartItemList";
+import { Container } from "../../styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/common/useFetch";
 import { getCartItems } from "../../api/cartItem";
@@ -13,6 +8,15 @@ import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
 import useCheckboxHandler from "../../hooks/cart/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import { CartLogo } from "../../constants/images";
+import { NoCartItemText, Wrap } from "./Cart.styles";
+import { getDeliveryCost, getOrderCost } from "../../domains/cost";
+import Header from "../../components/Common/Header/Header";
+import Description from "../../components/Common/Description/Description";
+import CheckBox from "../../components/Common/CheckBox/CheckBox";
+import Receipt from "../../components/Common/Receipt/Receipt";
+import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
+import { HOME, SUMMARY } from "../../constants/path";
+
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -55,12 +59,20 @@ function Cart() {
     fetchCartItem();
   }, [fetchCartItem]);
 
+  const subTitle =
+    cartItems.length !== 0
+      ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.`
+      : "";
+
+  const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
+  const orderCost = getOrderCost(selectedCartItems);
+  const deliveryCost = getDeliveryCost(orderCost);
+  
   return (
     <>
-      <Header icon={CartLogo} handleIconClick={() => navigate("/")} />
+      <Header icon={CartLogo} handleIconClick={() => navigate(HOME)} />
       <section css={Container}>
-        <Description cartItemCount={cartItems.length} />
-
+        <Description title="장바구니" subTitle={subTitle} />
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
         ) : (
@@ -77,12 +89,7 @@ function Cart() {
               isSelected={isSelected}
               toggleSelect={toggleSelect}
             />
-            <Receipt
-              selectedCartItems={getSelectedCartItems(
-                cartItems,
-                selectedCartIds
-              )}
-            />
+            <Receipt deliveryCost={deliveryCost} orderCost={orderCost} />
           </div>
         )}
       </section>
@@ -90,7 +97,7 @@ function Cart() {
         label="주문 확인"
         enabled={selectedCartIds.length !== 0}
         onClick={() =>
-          navigate("/summary", {
+          navigate(SUMMARY, {
             state: getSelectedCartItems(cartItems, selectedCartIds),
           })
         }

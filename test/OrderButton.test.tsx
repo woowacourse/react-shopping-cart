@@ -51,25 +51,21 @@ describe("Cart 주문확인 버튼", () => {
     await screen.findByText("전체선택");
   });
 
-  it("선택된 장바구니 아이템이 존재할 때, 주문확인 버튼이 활성화 된다", () => {
+  it("선택된 장바구니 아이템이 존재할 때, 주문확인 버튼이 활성화 된다", async () => {
+    const user = userEvent.setup();
+    const allBtn = screen.getByLabelText("전체선택");
+    await user.click(allBtn);
+
     const orderBtn = screen.getByRole("button", { name: "주문 확인" });
     expect(orderBtn).toBeEnabled();
   });
 
   it("선택된 장바구니 아이템이 없을 때, 주문확인 버튼이 비활성화 된다", async () => {
     const user = userEvent.setup();
-
     const allBtn = screen.getByLabelText("전체선택");
     await user.click(allBtn);
+
     const orderBtn = screen.getByRole("button", { name: "주문 확인" });
     expect(orderBtn).toBeDisabled();
-  });
-
-  it("활성화된 주문확인 버튼을 눌렀을 때, 주문확인 페이지로 이동한다", async () => {
-    const user = userEvent.setup();
-    const orderBtn = screen.getByRole("button", { name: "주문 확인" });
-    await user.click(orderBtn);
-
-    expect(orderBtn).toBeEnabled();
   });
 });

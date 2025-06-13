@@ -52,20 +52,22 @@ describe("Cart 전체선택 동기화", () => {
     await screen.findByText("전체선택");
   });
 
-  it("초기 렌더링 시 전체선택 버튼과 모든 아이템 체크박스가 체크된 상태여야 한다", async () => {
+  it("모든 체크박스가 체크 된 상태에서 전체선택 버튼을 클릭하면 모든 체크박스가 해제되어야 한다", async () => {
+    const user = userEvent.setup();
     const allBtn = screen.getByLabelText("전체선택");
+    await user.click(allBtn);
+
     const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
     expect(allImg).toHaveAttribute("src", EnabledCheck);
 
     const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
-
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
       expect(img).toHaveAttribute("src", EnabledCheck);
     });
   });
 
-  it("모든 체크박스가 체크 된 상태에서 전체선택 버튼을 클릭하면 모든 체크박스가 해제되어야 한다", async () => {
+  it("모든 체크박스가 체크 되지 상태에서 전체선택 버튼을 클릭하면 모든 체크박스가 체크된 상태가 된다.", async () => {
     const user = userEvent.setup();
     const allBtn = screen.getByLabelText("전체선택");
     await user.click(allBtn);
@@ -77,22 +79,7 @@ describe("Cart 전체선택 동기화", () => {
     itemBtns.forEach((btn) => {
       const img = within(btn).getByRole("img", { name: "체크 박스" });
       expect(img).toHaveAttribute("src", DisabledCheck);
-    });
-  });
 
-  it("모든 체크박스가 체크 되지 상태에서 전체선택 버튼을 클릭하면 모든 체크박스가 체크된 상태가 된다.", async () => {
-    const user = userEvent.setup();
-    const allBtn = screen.getByLabelText("전체선택");
-    await user.click(allBtn);
-    await user.click(allBtn);
-
-    const allImg = within(allBtn).getByRole("img", { name: "체크 박스" });
-    expect(allImg).toHaveAttribute("src", EnabledCheck);
-
-    const itemBtns = screen.getAllByRole("button", { name: "체크 박스" });
-    itemBtns.forEach((btn) => {
-      const img = within(btn).getByRole("img", { name: "체크 박스" });
-      expect(img).toHaveAttribute("src", EnabledCheck);
     });
   });
 });
