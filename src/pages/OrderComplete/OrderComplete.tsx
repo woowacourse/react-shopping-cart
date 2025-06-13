@@ -11,6 +11,7 @@ import {
   TotalCost,
   TotalCostLabel,
 } from "./OrderComplete.styles";
+import { HOME } from "../../constants/path";
 
 interface navigateState {
   cartItems: CartItemType[];
@@ -38,7 +39,7 @@ export default function OrderComplete() {
       <SubmitButton
         enabled={true}
         label="장바구니로 돌아가기"
-        onClick={() => navigate("/")}
+        onClick={() => navigate(HOME)}
       />
     </>
   );

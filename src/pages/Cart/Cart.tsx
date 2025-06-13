@@ -16,6 +16,7 @@ import Description from "../../components/Common/Description/Description";
 import CheckBox from "../../components/Common/CheckBox/CheckBox";
 import Receipt from "../../components/Common/Receipt/Receipt";
 import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
+import { HOME, SUMMARY } from "../../constants/path";
 
 const getSelectedCartItems = (
   cartItems: CartItemType[],
@@ -69,7 +70,7 @@ function Cart() {
 
   return (
     <>
-      <Header icon={CartLogo} handleIconClick={() => navigate("/")} />
+      <Header icon={CartLogo} handleIconClick={() => navigate(HOME)} />
       <section css={Container}>
         <Description title="장바구니" subTitle={subTitle} />
 
@@ -97,7 +98,7 @@ function Cart() {
         label="주문 확인"
         enabled={selectedCartIds.length !== 0}
         onClick={() =>
-          navigate("/summary", {
+          navigate(SUMMARY, {
             state: getSelectedCartItems(cartItems, selectedCartIds),
           })
         }

@@ -18,6 +18,7 @@ import Description from "../../components/Common/Description/Description";
 import CheckBox from "../../components/Common/CheckBox/CheckBox";
 import Receipt from "../../components/Common/Receipt/Receipt";
 import SubmitButton from "../../components/Common/SubmitButton/SubmitButton";
+import { BACK, ORDER_COMPLETE } from "../../constants/path";
 
 function OrderSummary() {
   useResetCouponOnUnmount();
@@ -41,7 +42,7 @@ function OrderSummary() {
 
   return (
     <>
-      <Header icon={BackIcon} handleIconClick={() => navigate(-1)} />
+      <Header icon={BackIcon} handleIconClick={() => navigate(BACK)} />
       <section css={Container}>
         <Description
           title="주문 확인"
@@ -72,7 +73,7 @@ function OrderSummary() {
         enabled={true}
         label="결제하기"
         onClick={() =>
-          navigate("/orderComplete", {
+          navigate(ORDER_COMPLETE, {
             state: {
               cartItems,
               totalCost: orderCost + deliveryCost - discountAmount,
