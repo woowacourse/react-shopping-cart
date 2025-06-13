@@ -10,6 +10,7 @@ const useCheckboxHandler = (cartItems: CartItemType[]) => {
     () => [...cartItems].map((item) => item.id),
     [cartItems]
   );
+
   const [selectedCartIds, setSelectedCartIds] = useState<number[]>([]);
 
   useEffect(() => {
