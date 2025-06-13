@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import "./styles/reset.css";
 
 async function enableMocking() {
-  const { worker } = await import("./apis/mocks/browser");
+  const { worker } = await import("./shared/apis/mocks/browser");
 
   return worker.start({
     serviceWorker: {
