@@ -6,11 +6,11 @@ import OrderList from "../OrderList/OrderList";
 import OrderCard from "../OrderCard/OrderCard";
 import ApplyCoupon from "../Coupon/ApplyCoupon/ApplyCoupon";
 import useCoupons from "../../../hooks/useCoupons/useCoupons";
-import useSelectedCoupons from "../../../hooks/useCoupons/useSelectedCoupons";
 import ShippingInformation from "../ShippingInformation/ShippingInformation";
 import useRemoteAreaShipping from "../../../hooks/useRemoteAreaShipping";
 import { calculateCoupons } from "../../../util/coupons/calculateCoupons";
 import OrderConfirmationOrderSummary from "../OrderConfirmationOrderSummary/OrderConfirmationOrderSummary";
+import useAppliedCoupons from "../../../hooks/useCoupons/useAppliedCoupons";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];
@@ -21,7 +21,7 @@ function OrderConfirmationContent({
 }: OrderConfirmationContentProps) {
   const selectedCartItemsCount = getSelectedCartItemsCount(selectedCartItems);
   const { coupons } = useCoupons();
-  const { selectedCouponIds, handleUseCoupons } = useSelectedCoupons();
+  const { selectedCouponIds, handleUseCoupons } = useAppliedCoupons();
   const { isRemoteAreaShipping, handleToggle } = useRemoteAreaShipping();
 
   const { maxDiscountedPrice } = calculateCoupons({

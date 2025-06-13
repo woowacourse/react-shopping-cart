@@ -19,15 +19,10 @@ const useSelectedCoupons = (initialSelectedCouponIds: number[] = []) => {
     setSelectedCouponIds(initialSelectedCouponIds);
   }, [initialSelectedCouponIds]);
 
-  const handleUseCoupons = useCallback((idList: number[]) => {
-    setSelectedCouponIds(idList);
-  }, []);
-
   return {
     selectedCouponIds,
     handleToggleSelectedCouponId,
     handleRollbackSelectedCoupons,
-    handleUseCoupons,
   };
 };
 
