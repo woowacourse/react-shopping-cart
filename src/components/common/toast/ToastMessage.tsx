@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Flex from "../styled/Flex";
+import { useEffect } from "react";
 
 type MessageType = "error" | "info";
 
@@ -10,11 +11,16 @@ interface ToastMeesageProps {
 }
 
 function ToastMessage({ message, type, onClose }: ToastMeesageProps) {
-  setTimeout(() => {
-    if (onClose) {
-      onClose();
-    }
-  }, 3000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (onClose) {
+        onClose();
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
   return (
     <Container>
       <Wrapper type={type}>
