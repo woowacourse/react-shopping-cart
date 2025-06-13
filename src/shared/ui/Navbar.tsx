@@ -2,19 +2,19 @@ import { useNavigate } from 'react-router';
 import styled from '@emotion/styled';
 
 interface NavbarProps {
-  title: string;
+  title?: string;
   url?: string;
 }
 
 export default function Navbar({ title, url }: NavbarProps) {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleGoUrl = () => {
     if (!url) return;
     navigate(url);
   };
 
-  return <NavbarContainer onClick={handleClick}>{title}</NavbarContainer>;
+  return <NavbarContainer onClick={handleGoUrl}>{title}</NavbarContainer>;
 }
 
 const NavbarContainer = styled.nav`

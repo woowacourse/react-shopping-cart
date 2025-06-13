@@ -1,4 +1,5 @@
 export const ROUTES = {
   ROOT: '/',
-  CONFIRMATION: '/confirmation',
+  ORDER_CONFIRMATION: '/order-confirmation',
+  ORDER_SUCCESS: '/order-success',
 } as const;

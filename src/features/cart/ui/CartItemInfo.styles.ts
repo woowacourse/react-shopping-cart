@@ -1,32 +1,19 @@
 import styled from '@emotion/styled';
 
-export const CartItemContainer = styled.div`
+export const CartItemInfoContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding: 12px 0;
-
-  transition: background-color 0.2s ease;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-`;
-
-export const CartItemHeader = styled.div`
-  width: 100%;
-  height: 24px;
-  display: flex;
-  justify-content: space-between;
-  margin: 12px 0;
 `;
 
 export const CartItemContent = styled.div`
   width: 100%;
-  flex: 1;
   display: flex;
   gap: 25px;
+  padding: 12px 0;
 `;
 
 export const CartItemImage = styled.img`

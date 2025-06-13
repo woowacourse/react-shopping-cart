@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect } from 'react';
-import { CartItem } from '../type/cart';
+import { CartItem } from '../types/cart';
 import { useCartItemsContext } from './useCartItemsContext';
+import { loadSelectedCartItemsFromStorage, saveSelectedCartItemsToStorage } from '../storage';
 
 interface SelectedCartItemsContextType {
-  SelectedCartItems: CartItem[];
-  addSelectedCartItem: (item: CartItem, updatedQuantity: number) => void;
+  selectedCartItems: CartItem[];
+  addSelectedCartItem: (item: CartItem) => void;
   addAllCartItemsInSelected: (items: CartItem[]) => void;
   removeSelectedCartItem: (item: CartItem) => void;
 }
@@ -17,12 +18,20 @@ interface SelectedCartItemsProviderProps {
 
 export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProviderProps) => {
   const { cartItems } = useCartItemsContext();
-  const [SelectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
+  const [selectedCartItems, setSelectedCartItems] = useState<CartItem[]>([]);
   const [init, setInit] = useState(false);
 
   useEffect(() => {
     if (!init && cartItems.length > 0) {
-      setSelectedCartItems(cartItems);
+      const storedItems = loadSelectedCartItemsFromStorage();
+
+      if (storedItems) {
+        setSelectedCartItems(storedItems);
+      } else {
+        setSelectedCartItems(cartItems);
+        saveSelectedCartItemsToStorage(cartItems);
+      }
+
       setInit(true);
     }
   }, [cartItems, init]);
@@ -37,21 +46,26 @@ export const SelectedCartItemsProvider = ({ children }: SelectedCartItemsProvide
   }, [cartItems]);
 
   const addSelectedCartItem = (cartItem: CartItem) => {
-    setSelectedCartItems((prevItems) => [...prevItems, cartItem]);
+    const newItems = [...selectedCartItems, cartItem];
+    setSelectedCartItems(newItems);
+    saveSelectedCartItemsToStorage(newItems);
   };
 
   const removeSelectedCartItem = (cartItem: CartItem) => {
-    setSelectedCartItems((prevItems) => prevItems.filter((item) => item.id !== cartItem.id));
+    const newItems = selectedCartItems.filter((item) => item.id !== cartItem.id);
+    setSelectedCartItems(newItems);
+    saveSelectedCartItemsToStorage(newItems);
   };
 
   const addAllCartItemsInSelected = (cartItems: CartItem[]) => {
     setSelectedCartItems(cartItems);
+    saveSelectedCartItemsToStorage(cartItems);
   };
 
   return (
     <SelectedCartItemsContext.Provider
       value={{
-        SelectedCartItems,
+        selectedCartItems,
         addSelectedCartItem,
         addAllCartItemsInSelected,
         removeSelectedCartItem,

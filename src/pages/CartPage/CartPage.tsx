@@ -1,21 +1,32 @@
 import * as S from './CartPage.styles';
-import { CartHeader, CartList, OrderPriceSummary } from '../../features/cart/ui';
+import { CartHeader, CartList } from '../../features/cart/ui';
+import { OrderPriceSummary } from '../../features/order/ui';
 import Navbar from '../../shared/ui/Navbar';
-import CartPageFooter from '../../features/cart/ui/CartPageFooter';
-import { useCartItemsContext } from '../../shared/context/useCartItemsContext';
-import { useSelectedCartItemsContext } from '../../shared/context/useSelectedCartItemsContext';
+import { useCartItemsContext } from '../../features/cart/context/useCartItemsContext';
+import { useSelectedCartItemsContext } from '../../features/cart/context/useSelectedCartItemsContext';
 import EmptyCartItemUI from '../../features/cart/ui/EmptyCartItemUI';
 import { ROUTES } from '../../shared/constants/routeConstants';
+import { useNavigate } from 'react-router';
+import NavFooter from '../../shared/ui/NavFooter';
 
 function CartPage() {
-  const { addAllCartItemsInSelected } = useSelectedCartItemsContext();
+  const { addAllCartItemsInSelected, selectedCartItems } = useSelectedCartItemsContext();
   const { cartItems } = useCartItemsContext();
+  const navigate = useNavigate();
+
+  const handleGoOrderConfirmationPage = () => {
+    navigate(ROUTES.ORDER_CONFIRMATION);
+  };
 
   return (
     <S.CartPageContainer>
       <Navbar title={'SHOP'} url={ROUTES.ROOT} />
       <S.CartPageContent>
-        <CartHeader cartTypeQuantity={cartItems.length} />
+        <CartHeader
+          title="장바구니"
+          cartTypeQuantity={cartItems.length}
+          content={`현재 ${cartItems.length}개의 상품이 담겨있습니다.`}
+        />
         {cartItems.length > 0 ? (
           <>
             <CartList addAllCartItemsInSelected={addAllCartItemsInSelected} />
@@ -26,7 +37,11 @@ function CartPage() {
         )}
       </S.CartPageContent>
 
-      <CartPageFooter cartItemQuantity={cartItems.length} />
+      <NavFooter
+        title="주문 확인"
+        isDisabled={cartItems.length === 0 || selectedCartItems.length === 0}
+        onClick={handleGoOrderConfirmationPage}
+      />
     </S.CartPageContainer>
   );
 }

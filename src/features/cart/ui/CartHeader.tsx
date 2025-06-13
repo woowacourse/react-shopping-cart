@@ -1,16 +1,16 @@
 import * as S from './CartHeader.styles';
 
 interface CartHeaderProps {
+  title: string;
   cartTypeQuantity: number;
+  content: React.ReactNode;
 }
 
-export default function CartHeader({ cartTypeQuantity }: CartHeaderProps) {
+export default function CartHeader({ title, cartTypeQuantity, content }: CartHeaderProps) {
   return (
     <S.CartHeaderContainer>
-      <S.CartHeaderTitle>장바구니</S.CartHeaderTitle>
-      {cartTypeQuantity > 0 && (
-        <S.CartHeaderContent>{`현재 ${cartTypeQuantity}종류의 상품이 담겨있습니다.`}</S.CartHeaderContent>
-      )}
+      <S.CartHeaderTitle>{title}</S.CartHeaderTitle>
+      {cartTypeQuantity > 0 && <S.CartHeaderContent>{content}</S.CartHeaderContent>}
     </S.CartHeaderContainer>
   );
 }

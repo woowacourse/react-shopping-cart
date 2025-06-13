@@ -1,17 +1,23 @@
 import { MemoryRouter } from 'react-router';
 import App from '../src/pages/CartPage/CartPage';
-import { CartItemsProvider } from '../src/shared/context/CartItemsProvider';
-import { SelectedCartItemsProvider } from '../src/shared/context/SelectedCartItemsProvider';
+import { CartItemsProvider } from '../src/features/cart/context/CartItemsProvider';
+import { CouponsProvider } from '../src/features/coupon/context/CouponsProvider';
+import { SelectedCartItemsProvider } from '../src/features/cart/context/SelectedCartItemsProvider';
+import { OrderProvider } from '../src/features/order/context/OrderProvider';
 import { screen, render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it } from 'vitest';
+import { describe, it, beforeEach, expect } from 'vitest';
 
 function renderApp() {
   return render(
     <MemoryRouter initialEntries={['/']}>
       <CartItemsProvider>
         <SelectedCartItemsProvider>
-          <App />
+          <CouponsProvider>
+            <OrderProvider>
+              <App />
+            </OrderProvider>
+          </CouponsProvider>
         </SelectedCartItemsProvider>
       </CartItemsProvider>
     </MemoryRouter>
@@ -22,7 +28,7 @@ describe('RTL Test', () => {
   beforeEach(() => {
     renderApp();
   });
-  it('장바구니에 상품이 하나도 없을 때 EmptyCartItemUI가 잘 보이는지', async () => {
+  it('장바구니에 상품이 하나도 없을 때 장바구니가 비어있음을 보이는 화면이 보인다.', async () => {
     const cartItemCards = await screen.findAllByTestId('cart-item-card');
     if (cartItemCards.length !== 0) return;
     const emptyMessage = await screen.findByText('장바구니에 담은 상품이 없습니다.');

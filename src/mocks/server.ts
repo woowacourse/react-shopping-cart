@@ -1,4 +1,4 @@
 import { setupServer } from 'msw/node';
-import { handlers } from './handler';
+import { mockGetCartItems, mockPatchCartItem, mockDeleteCartItem, mockGetCoupons } from './handler';
 
-export const server = setupServer(...handlers);
+export const server = setupServer(mockGetCartItems, mockPatchCartItem, mockDeleteCartItem, mockGetCoupons);

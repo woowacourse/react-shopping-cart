@@ -1,28 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { CartItemsProvider } from './shared/context/CartItemsProvider.tsx';
-import { SelectedCartItemsProvider } from './shared/context/SelectedCartItemsProvider.tsx';
+import { CartItemsProvider } from './features/cart/context/CartItemsProvider.tsx';
+import { SelectedCartItemsProvider } from './features/cart/context/SelectedCartItemsProvider.tsx';
+import { OrderProvider } from './features/order/context/OrderProvider.tsx';
+import { CouponsProvider } from './features/coupon/context/CouponsProvider.tsx';
 import { RouterProvider } from 'react-router';
 import { router } from './app/routes/routes.tsx';
 
 async function enableMocking() {
-  const isLocalhost = location.hostname === 'localhost';
+  const shouldUseMSW = import.meta.env.VITE_USE_MSW === 'true';
+
+  if (!shouldUseMSW) {
+    return Promise.resolve();
+  }
 
   const { worker } = await import('./mocks/browser');
   return worker.start({
     serviceWorker: {
-      url: isLocalhost ? '/mockServiceWorker.js' : '/react-shopping-cart/mockServiceWorker.js',
+      url:
+        import.meta.env.NODE_ENV === 'production'
+          ? '/react-shopping-cart/mockServiceWorker.js'
+          : '/mockServiceWorker.js',
     },
     onUnhandledRequest: 'bypass',
   });
 }
+
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <CartItemsProvider>
         <SelectedCartItemsProvider>
-          <RouterProvider router={router} />
+          <CouponsProvider>
+            <OrderProvider>
+              <RouterProvider router={router} />
+            </OrderProvider>
+          </CouponsProvider>
         </SelectedCartItemsProvider>
       </CartItemsProvider>
     </React.StrictMode>
