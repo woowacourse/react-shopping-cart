@@ -139,7 +139,10 @@ const OrderCompletePage = () => {
                   )}
                 </div>
 
-                <CouponList onCouponSelect={handleCouponSelect} />
+                <CouponList
+                  onCouponSelect={handleCouponSelect}
+                  selectedCoupons={selectedCoupons}
+                />
 
                 <div css={S.DialogActions}>
                   <Dialog.CloseButton>

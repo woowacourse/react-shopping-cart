@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useCoupons } from '../../../hooks/useCoupons';
 import { CouponItem } from '../couponItem/CouponItem';
 import { Coupon } from '../../../types/coupon';
@@ -6,22 +5,20 @@ import { couponListStyles } from './CouponList.styles';
 
 interface CouponListProps {
   onCouponSelect?: (coupon: Coupon | null) => void;
-  selectedCouponId?: number;
+  selectedCoupons?: Coupon[];
 }
 
 export const CouponList = ({
   onCouponSelect,
-  selectedCouponId,
+  selectedCoupons = [],
 }: CouponListProps) => {
   const { coupons, isLoading, error, refetch } = useCoupons();
-  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
 
   const handleCouponSelect = (coupon: Coupon) => {
-    const newSelectedCoupon = selectedCoupon?.id === coupon.id ? null : coupon;
-    setSelectedCoupon(newSelectedCoupon);
+    const isAlreadySelected = selectedCoupons.some((c) => c.id === coupon.id);
 
     if (onCouponSelect) {
-      onCouponSelect(newSelectedCoupon);
+      onCouponSelect(isAlreadySelected ? null : coupon);
     }
   };
 
@@ -67,9 +64,7 @@ export const CouponList = ({
             key={coupon.id}
             coupon={coupon}
             onSelect={handleCouponSelect}
-            isSelected={
-              selectedCoupon?.id === coupon.id || selectedCouponId === coupon.id
-            }
+            isSelected={selectedCoupons.some((c) => c.id === coupon.id)}
           />
         ))}
       </div>
