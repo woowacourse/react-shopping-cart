@@ -1,7 +1,9 @@
 import * as S from "./CartPage.styled";
 import { useCartContext } from "../../stores/CartContext";
+
 import TitleSection from "../../components/TitleSection/TitleSection";
 import CartItem from "../../components/CartItem/CartItem";
+import { OrderCalculator } from "../../utils/orderCalculator";
 
 const CartItemList = () => {
   const cartData = useCartContext();
@@ -10,12 +12,14 @@ const CartItemList = () => {
     return <S.EmptyCart>장바구니에 담은 상품이 없습니다.</S.EmptyCart>;
   }
 
+  const orderSummary = OrderCalculator.calculateOrderSummary(cartData);
+
   return (
     <S.Content>
-      <TitleSection />
+      <TitleSection itemTypeCount={orderSummary.itemTypeCount} />
       <S.CartItemList>
         {cartData.map((cart) => (
-          <CartItem key={cart.product.id} cart={cart} />
+          <CartItem key={cart.product.id} cart={cart} isReadOnly={false} />
         ))}
       </S.CartItemList>
       <S.Description>

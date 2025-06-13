@@ -1,35 +1,34 @@
 import styled from "@emotion/styled";
 
 export const CheckBoxWrapper = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
-  gap: 4.5px;
-  margin: 10px 0px;
 `;
 
-export const Input = styled.input<{ checked: boolean }>`
+export const Input = styled.input<{ checked: boolean; disabled?: boolean }>`
   width: 24px;
   height: 24px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: ${({ checked }) => (checked ? "#000" : "transparent")};
+  background-color: ${({ checked, disabled }) =>
+    disabled ? "#f5f5f5" : checked ? "#000" : "transparent"};
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 
   &:checked {
-    background-color: #000;
+    background-color: ${({ disabled }) => (disabled ? "#ccc" : "#000")};
   }
 
   &:checked::after {
     content: "✓";
-    color: white;
+    color: ${({ disabled }) => (disabled ? "#999" : "white")};
     font-size: 16px;
     line-height: 1;
   }

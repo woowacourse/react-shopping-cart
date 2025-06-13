@@ -1,32 +1,38 @@
-import { ResponseCartItem } from "../../types/types";
 import * as S from "./OrderResult.styled";
+import { OrderSummary } from "../../types/order";
+
+interface OrderResultProps {
+  orderSummary: OrderSummary;
+  totalPrice: number;
+  orderStatus: "order" | "order-complete" | "check-payment";
+}
 
 function OrderResult({
-  selectedCartItem,
+  orderSummary,
   totalPrice,
-}: {
-  selectedCartItem: ResponseCartItem[];
-  totalPrice: number;
-}) {
-  const totalCount = selectedCartItem.reduce(
-    (count, cart) => count + cart.quantity,
-    0
-  );
+  orderStatus,
+}: OrderResultProps) {
+  const titleText =
+    orderStatus === "order-complete" ? "주문 확인" : "결제 확인";
 
   return (
-    <S.OrderResultWrapper>
-      <S.OrderResultTitle>주문 확인</S.OrderResultTitle>
+    <>
+      <S.OrderResultTitle>{titleText}</S.OrderResultTitle>
       <S.OrderResultDescription>
-        총 {selectedCartItem.length}종류의 상품 {totalCount}개를 주문합니다.
+        {orderSummary.summaryText}를 주문합니다.
       </S.OrderResultDescription>
       <S.OrderResultDescription>
         최종 결제 금액을 확인해 주세요.
       </S.OrderResultDescription>
-      <S.OrderResultPriceTitle>총 결제 금액</S.OrderResultPriceTitle>
-      <S.OrderResultPrice>
-        {totalPrice.toLocaleString("kr")}원
-      </S.OrderResultPrice>
-    </S.OrderResultWrapper>
+      {orderStatus === "check-payment" && (
+        <>
+          <S.OrderResultPriceTitle>총 결제 금액</S.OrderResultPriceTitle>
+          <S.OrderResultPrice>
+            {totalPrice.toLocaleString("kr")}원
+          </S.OrderResultPrice>
+        </>
+      )}
+    </>
   );
 }
 

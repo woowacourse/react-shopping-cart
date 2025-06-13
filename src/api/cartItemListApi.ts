@@ -1,4 +1,4 @@
-import { ResponseCartItem } from "../types/types";
+import { ResponseCartItem } from "../types/order";
 import { fetcher } from "./fetcher";
 interface CarItemListProps {
   page?: number;
