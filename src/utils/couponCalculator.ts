@@ -19,22 +19,57 @@ export interface CalculationResult {
   }>;
 }
 
+// 시간 유틸리티 함수들
+const parseTimeString = (timeString: string): number => {
+  return parseInt(timeString.replace(':', ''));
+};
+
+const getCurrentTimeAsNumber = (): number => {
+  const now = new Date();
+  return now.getHours() * 100 + now.getMinutes();
+};
+
+const isCurrentTimeInRange = (
+  startTime: number,
+  endTime: number,
+  currentTime: number
+): boolean => {
+  return isCrossingMidnight(startTime, endTime)
+    ? isTimeInCrossingMidnightRange(startTime, endTime, currentTime)
+    : isTimeInNormalRange(startTime, endTime, currentTime);
+};
+
+const isCrossingMidnight = (startTime: number, endTime: number): boolean => {
+  return startTime > endTime;
+};
+
+//  22:00 ~ 04:00
+const isTimeInCrossingMidnightRange = (
+  startTime: number,
+  endTime: number,
+  currentTime: number
+): boolean => {
+  return currentTime >= startTime || currentTime <= endTime;
+};
+
+const isTimeInNormalRange = (
+  startTime: number,
+  endTime: number,
+  currentTime: number
+): boolean => {
+  return currentTime >= startTime && currentTime <= endTime;
+};
+
 // 시간대 체크 함수
 const isTimeInRange = (availableTime: {
   start: string;
   end: string;
 }): boolean => {
-  const now = new Date();
-  const currentTime = now.getHours() * 100 + now.getMinutes();
+  const currentTime = getCurrentTimeAsNumber();
+  const startTime = parseTimeString(availableTime.start);
+  const endTime = parseTimeString(availableTime.end);
 
-  const startTime = parseInt(availableTime.start.replace(':', ''));
-  const endTime = parseInt(availableTime.end.replace(':', ''));
-
-  if (startTime > endTime) {
-    return currentTime >= startTime || currentTime <= endTime;
-  }
-
-  return currentTime >= startTime && currentTime <= endTime;
+  return isCurrentTimeInRange(startTime, endTime, currentTime);
 };
 
 // 단일 쿠폰 적용 함수
@@ -62,7 +97,7 @@ const applySingleCoupon = (
 
     case 'buyXgetY': {
       // 간단화: 가장 비싼 상품에 대해 적용
-      const sortedItems = cartItems.sort((a, b) => b.price - a.price);
+      const sortedItems = [...cartItems].sort((a, b) => b.price - a.price);
       const applicableItem = sortedItems[0];
       if (!applicableItem) return 0;
 
@@ -162,6 +197,85 @@ const calculateShippingFee = (
   return shippingFee;
 };
 
+const createInitialBestResult = (
+  originalAmount: number,
+  isRemoteArea: boolean
+): CalculationResult => {
+  const shippingFee = calculateShippingFee(originalAmount, [], isRemoteArea);
+  return {
+    originalAmount,
+    discountAmount: 0,
+    shippingFee,
+    finalAmount: originalAmount + shippingFee,
+    appliedCoupons: [],
+    discountBreakdown: [],
+  };
+};
+
+const evaluateSingleCoupon = (
+  originalAmount: number,
+  coupon: Coupon,
+  cartItems: CartItem[],
+  isRemoteArea: boolean
+): CalculationResult => {
+  const discountAmount = applySingleCoupon(originalAmount, coupon, cartItems);
+  const appliedCoupons = discountAmount > 0 ? [coupon] : [];
+  const shippingFee = calculateShippingFee(
+    originalAmount,
+    appliedCoupons,
+    isRemoteArea
+  );
+  const finalAmount = originalAmount - discountAmount + shippingFee;
+
+  return {
+    originalAmount,
+    discountAmount,
+    shippingFee,
+    finalAmount,
+    appliedCoupons,
+    discountBreakdown: discountAmount > 0 ? [{ coupon, discountAmount }] : [],
+  };
+};
+
+const evaluateTwoCoupons = (
+  originalAmount: number,
+  coupon1: Coupon,
+  coupon2: Coupon,
+  cartItems: CartItem[],
+  isRemoteArea: boolean
+): CalculationResult => {
+  const { discountAmount, breakdown } = applyTwoCoupons(
+    originalAmount,
+    coupon1,
+    coupon2,
+    cartItems
+  );
+
+  const appliedCoupons = breakdown.map((item) => item.coupon);
+  const shippingFee = calculateShippingFee(
+    originalAmount,
+    appliedCoupons,
+    isRemoteArea
+  );
+  const finalAmount = originalAmount - discountAmount + shippingFee;
+
+  return {
+    originalAmount,
+    discountAmount,
+    shippingFee,
+    finalAmount,
+    appliedCoupons,
+    discountBreakdown: breakdown,
+  };
+};
+
+const isBetterResult = (
+  candidate: CalculationResult,
+  current: CalculationResult
+): boolean => {
+  return candidate.finalAmount < current.finalAmount;
+};
+
 export const calculateOptimalCouponCombination = (
   cartItems: CartItem[],
   availableCoupons: Coupon[],
@@ -172,68 +286,35 @@ export const calculateOptimalCouponCombination = (
     0
   );
 
-  let bestResult: CalculationResult = {
-    originalAmount,
-    discountAmount: 0,
-    shippingFee: calculateShippingFee(originalAmount, [], isRemoteArea),
-    finalAmount:
-      originalAmount + calculateShippingFee(originalAmount, [], isRemoteArea),
-    appliedCoupons: [],
-    discountBreakdown: [],
-  };
+  let bestResult = createInitialBestResult(originalAmount, isRemoteArea);
 
+  // 단일 쿠폰 최적화
   for (const coupon of availableCoupons) {
-    const discountAmount = applySingleCoupon(originalAmount, coupon, cartItems);
-    const appliedCoupons = discountAmount > 0 ? [coupon] : [];
-    const shippingFee = calculateShippingFee(
+    const singleCouponResult = evaluateSingleCoupon(
       originalAmount,
-      appliedCoupons,
+      coupon,
+      cartItems,
       isRemoteArea
     );
-    const finalAmount = originalAmount - discountAmount + shippingFee;
 
-    if (finalAmount < bestResult.finalAmount) {
-      bestResult = {
-        originalAmount,
-        discountAmount,
-        shippingFee,
-        finalAmount,
-        appliedCoupons,
-        discountBreakdown:
-          discountAmount > 0 ? [{ coupon, discountAmount }] : [],
-      };
+    if (isBetterResult(singleCouponResult, bestResult)) {
+      bestResult = singleCouponResult;
     }
   }
 
+  // 두 쿠폰 조합 최적화
   for (let i = 0; i < availableCoupons.length; i++) {
     for (let j = i + 1; j < availableCoupons.length; j++) {
-      const coupon1 = availableCoupons[i];
-      const coupon2 = availableCoupons[j];
-
-      const { discountAmount, breakdown } = applyTwoCoupons(
+      const twoCouponsResult = evaluateTwoCoupons(
         originalAmount,
-        coupon1,
-        coupon2,
-        cartItems
-      );
-
-      const appliedCoupons = breakdown.map((item) => item.coupon);
-      const shippingFee = calculateShippingFee(
-        originalAmount,
-        appliedCoupons,
+        availableCoupons[i],
+        availableCoupons[j],
+        cartItems,
         isRemoteArea
       );
-      const finalAmount = originalAmount - discountAmount + shippingFee;
 
-      if (finalAmount < bestResult.finalAmount) {
-        bestResult = {
-          originalAmount,
-          discountAmount,
-          shippingFee,
-          finalAmount,
-          appliedCoupons,
-          discountBreakdown: breakdown,
-        };
+      if (isBetterResult(twoCouponsResult, bestResult)) {
+        bestResult = twoCouponsResult;
       }
     }
   }
