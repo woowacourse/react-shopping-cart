@@ -6,11 +6,17 @@ type Props = {
   orderPrice: number;
   deliveryPrice: number;
   totalPrice: number;
+  discountPrice?: number;
 };
 
 const FREE_ORDER_PRICE = 100000;
 
-const PriceSection = ({orderPrice, deliveryPrice, totalPrice}: Props) => {
+const PriceSection = ({
+  orderPrice,
+  deliveryPrice,
+  totalPrice,
+  discountPrice,
+}: Props) => {
   return (
     <S.Container>
       <S.Description>
@@ -23,6 +29,13 @@ const PriceSection = ({orderPrice, deliveryPrice, totalPrice}: Props) => {
         <S.Label>주문 금액</S.Label>
         <S.Price>{formatPrice(orderPrice)}</S.Price>
       </S.PriceInfo>
+
+      {discountPrice !== undefined && discountPrice >= 0 && (
+        <S.PriceInfo>
+          <S.Label>쿠폰 할인 금액</S.Label>
+          <S.Price>-{formatPrice(discountPrice)}</S.Price>
+        </S.PriceInfo>
+      )}
 
       <S.PriceInfo>
         <S.Label>배송비</S.Label>

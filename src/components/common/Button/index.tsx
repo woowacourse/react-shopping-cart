@@ -1,5 +1,5 @@
-import { SerializedStyles } from "@emotion/react";
-import * as S from "./Button.styles";
+import {SerializedStyles} from '@emotion/react';
+import * as S from './Button.styles';
 
 interface Props {
   iconUrl?: string;
@@ -7,14 +7,24 @@ interface Props {
   css?: SerializedStyles;
   disabled?: boolean;
   testId?: string;
+  mode?: 'light' | 'dark';
   onClick: () => void;
 }
 
-const Button = ({ iconUrl, title, onClick, css, disabled, testId }: Props) => {
+const Button = ({
+  iconUrl,
+  title,
+  css,
+  mode = 'light',
+  disabled,
+  testId,
+  onClick,
+}: Props) => {
   return (
     <S.Button
-      onClick={onClick}
       css={css}
+      mode={mode}
+      onClick={onClick}
       disabled={disabled}
       data-testid={testId}
     >

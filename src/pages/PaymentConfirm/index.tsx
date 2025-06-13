@@ -1,21 +1,12 @@
 import * as S from './confirm.styles';
 import {formatPrice} from '../../utils/formatPrice';
 import Button from '../../components/common/Button';
+import {useLocation, useNavigate} from 'react-router';
 import {css} from '@emotion/react';
-import {useLocation} from 'react-router';
+import {ROUTE_PATHS} from '../../route/path';
 
-const buttonStyle = css`
-  width: 100%;
-  padding: 24px 0;
-  background-color: #bebebe;
-  color: #fff;
-  font-weight: 700;
-  font-size: 16px;
-  position: absolute;
-  bottom: 0;
-`;
-
-const Confirm = () => {
+const PaymentConfirm = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   if (!location.state)
     return (
@@ -29,8 +20,8 @@ const Confirm = () => {
   const {sort, totalAmount, totalPrice} = location.state;
 
   return (
-    <>
-      <S.Container data-testid="order-confirm-description">
+    <S.Container data-testid="order-confirm-description">
+      <S.Wrapper>
         <S.Title>주문 확인</S.Title>
         <S.Description>
           총 {sort}종류의 상품 {totalAmount}개를 주문합니다.
@@ -40,11 +31,18 @@ const Confirm = () => {
           <S.PriceSection>총 결제 금액</S.PriceSection>
           <S.Price>{formatPrice(totalPrice)}</S.Price>
         </S.PriceSection>
-      </S.Container>
+      </S.Wrapper>
 
-      <Button title="결제하기" onClick={() => {}} css={buttonStyle} />
-    </>
+      <Button
+        title="장바구니로 돌아가기"
+        onClick={() => navigate(ROUTE_PATHS.MAIN)}
+        mode="dark"
+        css={css`
+          padding: 24px 0;
+        `}
+      />
+    </S.Container>
   );
 };
 
-export default Confirm;
+export default PaymentConfirm;

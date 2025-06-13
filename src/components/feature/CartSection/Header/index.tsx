@@ -1,9 +1,15 @@
-import * as S from "./Header.styles";
+import * as S from './Header.styles';
 
-const Header = () => {
+type Props = {
+  title: string;
+  description: string;
+};
+
+const Header = ({title, description}: Props) => {
   return (
     <S.Container>
-      <S.Title>장바구니</S.Title>
+      <S.Title>{title}</S.Title>
+      <S.Description>{description}</S.Description>
     </S.Container>
   );
 };

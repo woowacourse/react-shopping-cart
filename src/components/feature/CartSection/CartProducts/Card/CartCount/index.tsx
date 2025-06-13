@@ -36,4 +36,5 @@ const CartCountSection = styled.div`
   display: flex;
   gap: 13px;
   align-items: center;
+  width: 80px;
 `;

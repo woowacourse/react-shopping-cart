@@ -17,10 +17,7 @@ const NavBar = () => {
         {pathname === ROUTE_PATHS.MAIN ? (
           <S.Logo>SHOP</S.Logo>
         ) : (
-          <S.BackIcon
-            src="./back-icon.svg"
-            onClick={() => navigate(ROUTE_PATHS.MAIN)}
-          />
+          <S.BackIcon src="./back-icon.svg" onClick={() => navigate(-1)} />
         )}
       </S.Container>
       {error && <Toast message={error} status="error" />}

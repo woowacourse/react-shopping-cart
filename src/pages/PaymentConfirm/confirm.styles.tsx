@@ -9,12 +9,18 @@ export const ErrorDescription = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  height: calc(100vh - 64px);
+  flex-direction: column;
+`;
+
+export const Wrapper = styled.div`
+  flex: 1;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 27px;
   text-align: center;
-  height: calc(100vh - 100px);
 `;
 
 export const Title = styled.p`
