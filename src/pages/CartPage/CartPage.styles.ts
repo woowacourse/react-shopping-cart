@@ -26,7 +26,7 @@ export const ContentContainer = styled.div`
 export const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 32px 0;
+  margin: 32px 0;
   flex-grow: 1;
   gap: 20px;
   min-height: 0;

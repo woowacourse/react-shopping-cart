@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import useToast from "./contexts/useToast";
-import { TOAST_TYPES } from "../components/@common/Toast/type";
+import { TOAST_TYPES } from "../features/toast/type";
+import useToast from "../features/toast/useToast";
 
 const useErrorHandler = () => {
   const { showToast } = useToast();
@@ -8,7 +8,9 @@ const useErrorHandler = () => {
   const handleError = useCallback(
     (error: unknown) => {
       const message =
-        error instanceof Error ? error.message : "알 수 없는 오류";
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 오류가 발생했습니다.";
       showToast({ message, type: TOAST_TYPES.ERROR });
     },
     [showToast]

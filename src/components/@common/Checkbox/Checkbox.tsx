@@ -4,13 +4,20 @@ import * as S from "./Checkbox.styles";
 import { ComponentProps } from "react";
 
 interface Props extends ComponentProps<"div"> {
-  checked: boolean;
+  selected: boolean;
+  onClick: () => void;
+  disabled?: boolean;
 }
 
-const Checkbox = ({ checked, onClick, ...props }: Props) => {
+const Checkbox = ({ selected, onClick, disabled = false, ...props }: Props) => {
   return (
-    <S.Checkbox onClick={onClick} {...props}>
-      {checked ? (
+    <S.Checkbox
+      $disabled={disabled}
+      tabIndex={disabled ? -1 : 0}
+      onClick={() => !disabled && onClick()}
+      {...props}
+    >
+      {selected ? (
         <img src={FilledCheckbox} alt="filled-checkbox" />
       ) : (
         <img src={EmptyCheckbox} alt="empty-checkbox" />

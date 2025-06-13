@@ -1,18 +1,28 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { CLIENT_BASE_PATH } from "./apis/config.ts";
-import MobileLayout from "./components/MobileLayout/MobileLayout.tsx";
+import MobileLayout from "./components/@common/MobileLayout/MobileLayout.tsx";
 import { ROUTES } from "./constants/routes.ts";
-import { CartProvider } from "./contexts/CartContext.tsx";
-import { ToastProvider } from "./contexts/ToastContext.tsx";
+import { CartProvider } from "./domains/cart/contexts/CartContext.tsx";
+import { ModalProvider } from "./features/modal/ModalContext.tsx";
+import { ToastProvider } from "./features/toast/ToastContext.tsx";
 import CartPage from "./pages/CartPage/CartPage.tsx";
 import OrderPage from "./pages/OrderPage/OrderPage.tsx";
+import PaymentPage from "./pages/PaymentPage/PaymentPage.tsx";
+import { CouponProvider } from "./domains/coupon/contexts/CouponContext.tsx";
+import { OrderProvider } from "./domains/order/contexts/OrderContext.tsx";
 
 const Layout = () => {
   return (
     <MobileLayout>
       <ToastProvider>
         <CartProvider>
-          <Outlet />
+          <CouponProvider>
+            <OrderProvider>
+              <ModalProvider>
+                <Outlet />
+              </ModalProvider>
+            </OrderProvider>
+          </CouponProvider>
         </CartProvider>
       </ToastProvider>
     </MobileLayout>
@@ -22,11 +32,12 @@ const Layout = () => {
 const router = createBrowserRouter(
   [
     {
-      path: ROUTES.HOME,
+      path: ROUTES.CART,
       element: <Layout />,
       children: [
-        { path: ROUTES.HOME, element: <CartPage /> },
+        { path: ROUTES.CART, element: <CartPage /> },
         { path: ROUTES.ORDER, element: <OrderPage /> },
+        { path: ROUTES.PAYMENT, element: <PaymentPage /> },
       ],
     },
   ],

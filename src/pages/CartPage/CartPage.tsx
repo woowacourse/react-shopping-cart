@@ -2,26 +2,25 @@ import { useNavigate } from "react-router-dom";
 import { CLIENT_BASE_PATH } from "../../apis/config";
 import Description from "../../components/@common/Description/Description";
 import EmptyFallback from "../../components/@common/Fallback/Empty/EmptyFallback";
+import { FooterButton } from "../../components/@common/FooterButton/FooterButton.styles";
 import { Header } from "../../components/@common/Header/Header.styles";
 import Title from "../../components/@common/Title/Title";
-import AllSelector from "../../components/AllSelector/AlllSelector";
-import CartItem from "../../components/CartItem/CartItem";
-import { FooterButton } from "../../components/FooterButton/FooterButton.styles";
-import PriceInfo from "../../components/PriceInfo/PriceInfo";
+import PriceInfo from "../../components/@shared/PriceInfo/PriceInfo";
+import AllSelector from "../../components/cart/AllSelector/AllSelector";
+import CartItem from "../../components/cart/CartItem/CartItem";
 import { ROUTES } from "../../constants/routes";
-import useCart from "../../hooks/contexts/useCart";
+import CartInitializer from "../../domains/cart/contexts/CartInitializer";
+import { useCartState } from "../../domains/cart/hooks/useCartState";
+import { FREE_SHIPPING_THRESHOLD } from "../../domains/order/constants";
+import useOrderSummary from "../../domains/order/hooks/useOrderSummary";
+import { formatCurrency } from "../../utils/formatters";
 import * as S from "./CartPage.styles";
 import InfoIcon from "/info.svg";
 
 const CartPage = () => {
-  const {
-    cartItemsData,
-    hasCheckedItem,
-    cartItemCount,
-    orderPrice,
-    shippingFee,
-    totalPrice,
-  } = useCart();
+  const { items, cartItemCount } = useCartState();
+  const { hasSelectedItem, orderPrice, baseShippingFee, baseTotalPrice } =
+    useOrderSummary();
 
   const navigate = useNavigate();
   const navigateToOrderPage = () => {
@@ -30,6 +29,7 @@ const CartPage = () => {
 
   return (
     <>
+      <CartInitializer />
       <Header>
         <S.Logo href={CLIENT_BASE_PATH}>SHOP</S.Logo>
       </Header>
@@ -43,24 +43,25 @@ const CartPage = () => {
             <S.CartContainer>
               <AllSelector />
               <S.CartItemsContainer>
-                {cartItemsData.map((cartItem) => (
-                  <CartItem key={cartItem.id} cartItem={cartItem} />
+                {items.map((item) => (
+                  <CartItem key={item.id} item={item} />
                 ))}
               </S.CartItemsContainer>
             </S.CartContainer>
             <S.InfoContainer>
               <img src={InfoIcon} alt="info" />
               <Description>
-                총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+                총 주문 금액이 {formatCurrency(FREE_SHIPPING_THRESHOLD)}
+                이상일 경우 무료 배송됩니다.
               </Description>
             </S.InfoContainer>
             <S.PriceSummary>
               <S.PriceInfoWrapper>
                 <PriceInfo label="주문 금액" price={orderPrice} />
-                <PriceInfo label="배송비" price={shippingFee} />
+                <PriceInfo label="배송비" price={baseShippingFee} />
               </S.PriceInfoWrapper>
               <S.PriceInfoWrapper>
-                <PriceInfo label="총 결제 금액" price={totalPrice} />
+                <PriceInfo label="총 결제 금액" price={baseTotalPrice} />
               </S.PriceInfoWrapper>
             </S.PriceSummary>
           </S.ContentContainer>
@@ -69,7 +70,7 @@ const CartPage = () => {
         )}
       </S.Main>
       <FooterButton
-        disabled={cartItemCount === 0 || !hasCheckedItem}
+        disabled={cartItemCount === 0 || !hasSelectedItem}
         onClick={navigateToOrderPage}
         tabIndex={0}
       >
