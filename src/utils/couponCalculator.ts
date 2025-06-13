@@ -30,6 +30,10 @@ const isTimeInRange = (availableTime: {
   const startTime = parseInt(availableTime.start.replace(':', ''));
   const endTime = parseInt(availableTime.end.replace(':', ''));
 
+  if (startTime > endTime) {
+    return currentTime >= startTime || currentTime <= endTime;
+  }
+
   return currentTime >= startTime && currentTime <= endTime;
 };
 
