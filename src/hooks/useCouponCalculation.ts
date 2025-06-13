@@ -4,8 +4,8 @@ import { CartItemType } from '../types/response';
 import {
   calculateOptimalCouponCombination,
   calculateSelectedCoupons,
-  CartItem,
 } from '../utils/couponCalculator';
+import { CartItem, mapToCartItems } from '../utils/cartMapper';
 
 interface UseCouponCalculationProps {
   cartData: CartItemType[];
@@ -21,11 +21,7 @@ export const useCouponCalculation = ({
 
   // 장바구니 데이터를 CartItem 형태로 변환
   const cartItems: CartItem[] = useMemo(() => {
-    return cartData.map((item) => ({
-      id: item.id,
-      price: item.product.price,
-      quantity: item.quantity,
-    }));
+    return mapToCartItems(cartData);
   }, [cartData]);
 
   // 자동 최적화 결과

@@ -1,12 +1,7 @@
 import { FEE } from '../constants/systemConstants';
 import { Coupon, FreeShippingCoupon } from '../types/coupon';
 import { isExpired, meetsTimeCondition } from './couponValidator';
-
-export interface CartItem {
-  id: number;
-  price: number;
-  quantity: number;
-}
+import { CartItem } from './cartMapper';
 
 export interface CalculationResult {
   originalAmount: number;
