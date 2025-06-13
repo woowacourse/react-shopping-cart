@@ -6,7 +6,7 @@ import { getCartDescription } from '../utils/cartCalculations';
 export const useCart = () => {
   const cartItems = useCartItemsData();
   const { checkedItems, setCheckedItems, isAllChecked, checkAll } = useCartSelection();
-  const { checkedCartItems, price, totalCount, shippingFee, totalPrice } = useCartCalculations({
+  const { price, totalCount, shippingFee, totalPrice } = useCartCalculations({
     checkedIds: checkedItems,
   });
 
@@ -26,6 +26,5 @@ export const useCart = () => {
     totalPrice,
     descriptionMessage,
     isDisabled,
-    selectedProducts: checkedCartItems,
   };
 };

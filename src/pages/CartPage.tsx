@@ -17,7 +17,6 @@ function CartPage() {
     totalPrice,
     descriptionMessage,
     isDisabled,
-    selectedProducts,
   } = useCart();
 
   if (!cartItems) {
@@ -40,7 +39,7 @@ function CartPage() {
         onClick={() =>
           navigate('/orderConfirm', {
             state: {
-              products: selectedProducts,
+              checkedItemIds: checkedItems,
               price: price,
               count: checkedItems.length,
               totalCount: totalCount,

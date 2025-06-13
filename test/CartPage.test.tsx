@@ -70,7 +70,6 @@ describe('CartPage', () => {
     totalPrice: 130000,
     descriptionMessage: '총 2종류의 상품이 담겨있습니다.',
     isDisabled: false,
-    selectedProducts: mockCartItemsWithData.content,
   };
 
   const renderComponent = () => {
@@ -103,7 +102,6 @@ describe('CartPage', () => {
       totalCount: 0,
       descriptionMessage: '장바구니가 비어있습니다.',
       isDisabled: true,
-      selectedProducts: [],
     });
 
     renderComponent();
@@ -160,7 +158,7 @@ describe('CartPage', () => {
 
     expect(mockNavigate).toHaveBeenCalledWith('/orderConfirm', {
       state: {
-        products: mockCartItemsWithData.content,
+        checkedItemIds: [1, 2],
         price: 130000,
         count: 2,
         totalCount: 3,
@@ -178,7 +176,6 @@ describe('CartPage', () => {
       price: 0,
       totalCount: 0,
       isDisabled: true,
-      selectedProducts: [],
     });
 
     renderComponent();

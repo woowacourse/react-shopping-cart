@@ -17,7 +17,7 @@ import { Coupon } from '../types/coupon';
 function OrderConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { products, price, count, totalCount } = location.state || {};
+  const { checkedItemIds, price, count, totalCount } = location.state || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
@@ -47,8 +47,8 @@ function OrderConfirmPage() {
     setIsModalOpen(false);
   };
 
-  if (!location.state || !products || products.length === 0) {
-    console.error('No products data received');
+  if (!location.state || !checkedItemIds || checkedItemIds.length === 0) {
+    console.error('No selected items');
     navigate('/');
 
     return;
@@ -62,7 +62,7 @@ function OrderConfirmPage() {
           title="주문 확인"
           description={`총 ${count}종류의 상품 ${totalCount}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
-        <CartOrderItem cart={products} />
+        <CartOrderItem cart={orderProducts} />
         <CouponSelectButton onClick={handleModalOpen}>쿠폰 적용</CouponSelectButton>
         <DeliveryOptions checked={remoteArea} onToggle={toggleRemoteArea} />
         <CartInfo

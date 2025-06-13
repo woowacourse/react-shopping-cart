@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 import { useShippingFee } from './useShippingFee';
+import { useCartItemsData } from './useCartItemsData';
 import { calculateCouponDiscount } from '../utils/couponCalculations';
 import { Coupon } from '../types/coupon';
 
 export const useOrderConfirm = () => {
   const location = useLocation();
-  const { products, price } = location.state || {};
+  const { checkedItemIds, price } = location.state || {};
+  
+  const cartItems = useCartItemsData();
+  const products = cartItems?.content?.filter(item => checkedItemIds?.includes(item.id)) || [];
 
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
