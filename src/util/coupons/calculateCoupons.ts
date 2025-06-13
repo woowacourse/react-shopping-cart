@@ -3,7 +3,7 @@ import { Coupon } from "../../type/Coupons";
 import { calculateShippingFee } from "../cart/calculateShippingFee";
 import { calculateTotalPrice } from "../cart/calculateTotalPrice";
 import { getCouponCombos } from "./getCouponCombos";
-import { getDiscountAmount } from "./getDiscountAmount";
+import { getTotalDiscountForCombo } from "./getTotalDiscountForCombo";
 
 export const calculateCoupons = ({
   cartItems,
@@ -18,30 +18,16 @@ export const calculateCoupons = ({
   const initialTotalPrice = calculateTotalPrice(cartItems);
   const hasDefaultShipping = calculateShippingFee(initialTotalPrice) !== 0;
 
-  const getTotalDiscountForCombo = (combo: Coupon[]) => {
-    return combo.reduce(
-      ({ totalPrice, totalDiscount }, coupon) => {
-        const discount = getDiscountAmount({
-          coupon,
-          totalPrice,
-          cartItems,
-          hasDefaultShipping,
-          hasRemoteAreaShipping,
-        });
-        return {
-          totalPrice: totalPrice - discount,
-          totalDiscount: totalDiscount + discount,
-        };
-      },
-      {
-        totalPrice: initialTotalPrice,
-        totalDiscount: 0,
-      }
-    ).totalDiscount;
-  };
-
   const maxDiscountedPrice = Math.max(
-    ...couponCombos.map(getTotalDiscountForCombo)
+    ...couponCombos.map((coupons) =>
+      getTotalDiscountForCombo({
+        coupons,
+        cartItems,
+        hasDefaultShipping,
+        hasRemoteAreaShipping,
+        initialTotalPrice,
+      })
+    )
   );
 
   return { maxDiscountedPrice };
