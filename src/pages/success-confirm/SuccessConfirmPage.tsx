@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Flex, Header } from "../../components/common";
 import { formatKRWString } from "../../utils/formatKRWString";
+import { useEffect } from "react";
 
 const SuccessConfirmPage = () => {
   const navigate = useNavigate();
@@ -11,6 +12,17 @@ const SuccessConfirmPage = () => {
   const navigateToCart = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    if (!location.state) {
+      alert("잘못된 접근입니다. 장바구니 페이지로 돌아갑니다.");
+      navigate("/", { replace: true });
+    }
+  }, [location.state, navigate]);
+
+  if (!location.state) {
+    return null;
+  }
 
   return (
     <>
