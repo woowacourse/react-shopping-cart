@@ -1,5 +1,4 @@
 import {
-  checkIsAllSelected,
   setSelectedInfoAllDeSelect,
   setSelectedInfoAllSelect,
 } from "../../domains/selectedInfo";
@@ -11,10 +10,9 @@ import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CartList.styled";
 
 function CartList() {
-  const selectState = useSelectContext();
+  const { selectedState, isAllSelected } = useSelectContext();
   const { selectAll, deselectAll } = useSelectAction();
   const { cartData, isLoading } = useCartManager();
-  const isAllSelected = checkIsAllSelected(selectState);
 
   if (isLoading || !cartData) {
     return <S.LoadingContent>장바구니를 불러오는 중입니다...</S.LoadingContent>;
@@ -23,10 +21,10 @@ function CartList() {
   const handlerSelectAll = () => {
     if (isAllSelected) {
       deselectAll();
-      setSelectedInfoAllDeSelect(selectState);
+      setSelectedInfoAllDeSelect(selectedState);
     } else {
       selectAll();
-      setSelectedInfoAllSelect(selectState);
+      setSelectedInfoAllSelect(selectedState);
     }
   };
 

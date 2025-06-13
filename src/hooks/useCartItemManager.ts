@@ -12,7 +12,7 @@ interface UseCartItemManagerProps {
 
 function useCartItemManager({ cart }: UseCartItemManagerProps) {
   const cartData = useCartContext();
-  const selectState = useSelectContext();
+  const { selectedState } = useSelectContext();
 
   const {
     increaseItemQuantity,
@@ -23,15 +23,15 @@ function useCartItemManager({ cart }: UseCartItemManagerProps) {
   const { addSelect, removeSelect } = useSelectAction();
 
   const isSelected =
-    selectState.find((item) => item.id === cart.id)?.selected || false;
+    selectedState.find((item) => item.id === cart.id)?.selected || false;
 
   const handleSelect = (): void => {
     if (isSelected) {
       removeSelect({ id: cart.id });
-      setSelectedInfo(selectState, cart.id, false);
+      setSelectedInfo(selectedState, cart.id, false);
     } else {
       addSelect({ id: cart.id });
-      setSelectedInfo(selectState, cart.id, true);
+      setSelectedInfo(selectedState, cart.id, true);
     }
   };
 
