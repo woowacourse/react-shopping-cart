@@ -76,13 +76,17 @@ const CartPage = () => {
       <Button
         variant="largeBlack"
         disabled={isCheckedArray.length === 0}
-        onClick={() =>
+        onClick={() => {
+          const selectedItems = cartData.filter((item) =>
+            isCheckedArray.includes(item.id)
+          );
           goOrderComplete(
-            cartData.length,
+            selectedItems.length,
             calculateTotalPrice(getCartItemNamePrice(isCheckedArray, cartData)),
-            calculateTotalProductCount(cartData, isCheckedArray)
-          )
-        }
+            calculateTotalProductCount(cartData, isCheckedArray),
+            selectedItems
+          );
+        }}
       >
         주문 확인
       </Button>

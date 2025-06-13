@@ -7,9 +7,9 @@ interface CartItemProps {
   cartData: CartItemType;
   updateCartItem: (cartId: number) => void;
   increaseCartItem: (cartId: number, quantity: number) => void;
-  justifyIsChecked: (cartId: number) => boolean;
-  controlCheckBox: (cartId: number) => void;
-  removeCartItem: (cartId: number) => void;
+  justifyIsChecked?: (cartId: number) => boolean;
+  controlCheckBox?: (cartId: number) => void;
+  removeCartItem?: (cartId: number) => void;
 }
 
 const CartItem = ({
@@ -25,10 +25,10 @@ const CartItem = ({
       <div css={S.cartItemWrapper}>
         <div css={S.cartItemController}>
           <Checkbox
-            checked={justifyIsChecked(cartData.id)}
-            onChange={() => controlCheckBox(cartData.id)}
+            checked={justifyIsChecked?.(cartData.id) ?? false}
+            onChange={() => controlCheckBox?.(cartData.id)}
           />
-          <button onClick={() => removeCartItem(cartData.id)}>삭제</button>
+          <button onClick={() => removeCartItem?.(cartData.id)}>삭제</button>
         </div>
         <div key={cartData.id} css={S.cartItemStyle}>
           <img src={cartData.product.imageUrl} alt={cartData.product.name} />

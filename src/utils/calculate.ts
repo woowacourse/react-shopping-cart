@@ -1,9 +1,6 @@
 import type { CartItemType } from '../types/response';
 import { getCartItemById } from './getCartItemById';
 
-// Set 기반 계산 함수 (더 효율적)
-
-// 기존 배열 기반 함수 (호환성 유지)
 export const getCartItemNamePrice = (
   isCheckedArray: number[],
   cartData: CartItemType[]
