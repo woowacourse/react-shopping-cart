@@ -5,12 +5,12 @@ import { getSelectedCartItemsCount } from "../../../util/cart/getSelectedCartIte
 import OrderList from "../OrderList/OrderList";
 import OrderCard from "../OrderCard/OrderCard";
 import ApplyCoupon from "../Coupon/ApplyCoupon/ApplyCoupon";
-import useCoupons from "../../../hooks/useCoupons/useCoupons";
+import useCoupons from "../../../hooks/orderConfirmation/useCoupons/useCoupons";
 import ShippingInformation from "../ShippingInformation/ShippingInformation";
-import useRemoteAreaShipping from "../../../hooks/useRemoteAreaShipping";
+import useRemoteAreaShipping from "../../../hooks/orderConfirmation/useRemoteAreaShipping";
 import { calculateCoupons } from "../../../util/coupons/calculateCoupons";
 import OrderConfirmationOrderSummary from "../OrderConfirmationOrderSummary/OrderConfirmationOrderSummary";
-import useAppliedCoupons from "../../../hooks/useCoupons/useAppliedCoupons";
+import useAppliedCoupons from "../../../hooks/orderConfirmation/useCoupons/useAppliedCoupons";
 
 interface OrderConfirmationContentProps {
   selectedCartItems: CartItem[];

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import { CartItem } from "../type/CartItem";
-import { getOrderSummaryWithCoupon } from "../util/cart/getOrderSummaryWithCoupon";
+import { CartItem } from "../../type/CartItem";
+import { getOrderSummaryWithCoupon } from "../../util/cart/getOrderSummaryWithCoupon";
 import { useCallback } from "react";
-import { OrderConfirmationLocationState } from "../type/OrderConfirmation";
-import { PAGE_URL } from "../constants/PageUrl";
+import { OrderConfirmationLocationState } from "../../type/OrderConfirmation";
+import { PAGE_URL } from "../../constants/PageUrl";
 
 interface UsePaymentConfirmParams {
   selectedCartItems: CartItem[];

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { CartItem } from "../../type/CartItem";
-import { Coupon } from "../../type/Coupons";
-import { validateCoupons } from "../../util/coupons/validateCoupons";
+import { CartItem } from "../../../type/CartItem";
+import { Coupon } from "../../../type/Coupons";
+import { validateCoupons } from "../../../util/coupons/validateCoupons";
 
 const useAvailableCoupons = ({
   cartItems,

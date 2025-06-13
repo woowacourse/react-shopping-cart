@@ -1,4 +1,4 @@
-import usePaymentConfirm from "../../../hooks/usePaymentConfirm";
+import usePaymentConfirm from "../../../hooks/orderConfirmation/usePaymentConfirm";
 import { CartItem } from "../../../type/CartItem";
 
 import * as Styled from "./PaymentConfirmButton.style";

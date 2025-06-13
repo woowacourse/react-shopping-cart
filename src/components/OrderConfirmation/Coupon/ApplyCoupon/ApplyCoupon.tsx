@@ -7,8 +7,8 @@ import CouponList from "../CouponList/CouponList";
 import CouponCard from "../CouponCard/CouponCard";
 import { Coupon } from "../../../../type/Coupons";
 import { CartItem } from "../../../../type/CartItem";
-import useSelectedCoupons from "../../../../hooks/useCoupons/useSelectedCoupons";
-import useAvailableCoupons from "../../../../hooks/useCoupons/useAvailableCoupons";
+import useSelectedCoupons from "../../../../hooks/orderConfirmation/useCoupons/useSelectedCoupons";
+import useAvailableCoupons from "../../../../hooks/orderConfirmation/useCoupons/useAvailableCoupons";
 import { calculateCoupons } from "../../../../util/coupons/calculateCoupons";
 
 const COUPON_RULE = {
