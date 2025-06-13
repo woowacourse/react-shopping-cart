@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-interface MutateOptions<_, TData> {
+type MutateOptions<_, TData> = {
   onSuccess?: (result: TData) => void;
   onError?: (error: Error) => void;
-}
+};
 
 const useMutation = <TVariables, TData>(
   mutationFn: (variables: TVariables) => Promise<TData>

@@ -27,9 +27,13 @@ const useFetchData = <T>({ fetchFn }: UseFetchDataParam<T>) => {
   }, [fetchFn]);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchData();
-    setIsLoading(false);
+    const firstFetchData = async () => {
+      setIsLoading(true);
+      await fetchData();
+      setIsLoading(false);
+    };
+
+    firstFetchData();
   }, [fetchData]);
 
   return {

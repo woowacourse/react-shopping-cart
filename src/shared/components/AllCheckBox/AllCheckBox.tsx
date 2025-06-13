@@ -16,8 +16,9 @@ export default function AllCheckBox({
         isChecked={isAllSelected}
         onClick={toggleAllSelection}
         aria-label="전체 선택"
-      />
-      <S.Text>전체 선택</S.Text>
+      >
+        <S.Text>전체 선택</S.Text>
+      </CheckBox>
     </S.AllCheckBox>
   );
 }

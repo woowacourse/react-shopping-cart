@@ -7,6 +7,11 @@
 - 클라이언트 상태를 효과적으로 모델링하고 관리할 수 있다.
 - Jest, React Testing Library(RTL)를 활용하여 주요 기능에 대한 테스트를 작성할 수 있다.
 
+### 2단계
+
+- 상태를 중복 없이 구성하고, 계산이 가능한 값은 파생 상태로 도출하여 관리할 수 있다.
+- 함수(컴포넌트, 훅, util)가 단일한 책임만 갖도록 분리하고, 그 책임에 맞는 명확한 인터페이스를 정의할 수 있다.
+
 ## 🕵️ 셀프 리뷰(Self-Review)
 
 ### 제출 전 체크 리스트
@@ -16,20 +21,6 @@
 - [ ] 배포한 데모 페이지에 정상적으로 접근할 수 있나요?
 
   - 배포 링크 기입: **\_\_**
-
-- [ ] 리뷰어가 장바구니 추가를 쉽게 할 수 있도록 Curl 명령어를 전달해주세요. (토큰을 채워주세요)
-
-  ```
-  curl -X 'POST' \
-  'http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com/cart-items' \
-  -H 'accept: */*' \
-  -H 'Authorization: Basic <토큰>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "productId": 1,
-  "quantity": 1
-  }'
-  ```
 
 ### 리뷰 요청 & 논의하고 싶은 내용
 

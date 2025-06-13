@@ -2,7 +2,7 @@ import EmptyCartContainer from "./OrderContent/EmptyCartContainer/EmptyCartConta
 import * as S from "./CartContent.styled";
 import OrderContent from "./OrderContent/OrderContent";
 import { useCartItemContext } from "../contexts/CartItemProvider";
-import Fallback from "@/shared/components/Fallback";
+import Fallback from "@/shared/components/Fallback/Fallback";
 
 export default function CartContent() {
   const { cartItems, isLoading, errorMessage } = useCartItemContext();

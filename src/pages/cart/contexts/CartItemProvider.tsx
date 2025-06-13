@@ -17,9 +17,9 @@ const CartItemContext = createContext<CartItemContextType>({
   errorMessage: "",
 });
 
-interface CartItemProviderProps {
+type CartItemProviderProps = {
   children: ReactNode;
-}
+};
 
 export function CartItemProvider({ children }: CartItemProviderProps) {
   const { cartItems, refetchCartItems, isLoading, isFetching, errorMessage } =

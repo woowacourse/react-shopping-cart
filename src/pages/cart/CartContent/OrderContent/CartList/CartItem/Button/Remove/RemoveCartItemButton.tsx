@@ -3,16 +3,13 @@ import * as S from "./RemoveCartItemButton.styled";
 
 type RemoveCartItemButtonProps = {
   id: number;
-  removeCartItem: (id: number) => Promise<void>;
+  onClick: (id: number) => Promise<void>;
 };
 
-function RemoveCartItemButton({
-  id,
-  removeCartItem,
-}: RemoveCartItemButtonProps) {
+function RemoveCartItemButton({ id, onClick }: RemoveCartItemButtonProps) {
   return (
     <>
-      <S.Button type="button" onClick={() => removeCartItem(id)}>
+      <S.Button type="button" onClick={() => onClick(id)}>
         <img src={RemoveCartItemIcon} alt="장바구니에서 제거" />
       </S.Button>
     </>

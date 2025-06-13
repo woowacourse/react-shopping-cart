@@ -3,10 +3,10 @@ import { ToastInfo, ToastService } from "./ToastService";
 import * as S from "./Toast.styled";
 import ToastContent from "./ToastContent";
 
-interface ToastProps {
+type ToastProps = {
   limit?: number; // 토스트 개수, 기본 값 3
   duration?: number; // 자동으로 토스트가 제거되는 시간, 기본 값 3000ms
-}
+};
 
 function Toast({ limit = 3, duration = 3000 }: ToastProps) {
   const [toastInfos, setToastInfos] = useState<ToastInfo[]>([]);

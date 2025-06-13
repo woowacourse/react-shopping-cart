@@ -1,5 +1,6 @@
-import useSelectedItem from "./useSelectedItem";
+import { getOrderTotalPrice } from "@/domains/utils/getOrderTotalPrice";
 import { CartItemType } from "@/apis/cartItems/cartItem.type";
+import { useSelectedOrderList } from "./useSelectedOrderList";
 
 export const useOrderList = (cartItems: CartItemType[]) => {
   const {
@@ -8,12 +9,10 @@ export const useOrderList = (cartItems: CartItemType[]) => {
     addSelectedItem,
     removeSelectedItem,
     getIsSelected,
-  } = useSelectedItem(cartItems);
+  } = useSelectedOrderList(cartItems);
 
   const orderList = cartItems.filter(({ id }) => getIsSelected(id)) ?? [];
-  const orderTotalPrice = orderList.reduce((sum, { product, quantity }) => {
-    return sum + product.price * quantity;
-  }, 0);
+  const orderTotalPrice = getOrderTotalPrice(orderList);
 
   return {
     isAllSelected,
