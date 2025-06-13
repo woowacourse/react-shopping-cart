@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import CheckBox from "../../../../../components/common/inputs/CheckBox";
-import { useOrderListContext } from "../../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../../../order/context/OrderListProvider";
 import EmptyCartBox from "./EmptyCartBox";
 import CartCheckItem from "./cart-check-item/CartCheckItem";
 import { useAPIDataContext } from "../../../../../context/APIDataProvider";

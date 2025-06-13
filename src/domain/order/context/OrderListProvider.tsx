@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Cart } from "../api/cart";
+import { Cart } from "../../../api/cart";
 
 const STORAGE_KEY = "selected-cart-items";
 
@@ -21,12 +21,12 @@ const OrderListContext = createContext<{
   handleDiscountSetting: (discountAmount: number) => void;
 }>({
   selectedCartItems: [],
-  setSelectedCartItems: () => { },
+  setSelectedCartItems: () => {},
   orderIdList: [],
   isIsland: false,
-  handleIsIslandToggle: () => { },
+  handleIsIslandToggle: () => {},
   discount: 0,
-  handleDiscountSetting: () => { },
+  handleDiscountSetting: () => {},
 });
 
 export const OrderListProvider = ({ children }: PropsWithChildren) => {
@@ -87,13 +87,13 @@ export const useOrderListContext = (cartListData: Cart[] | undefined) => {
     if (!cartListData) return;
 
     // 현재 선택된 아이템 중에서 cartListData에 없는 아이템을 제거
-    setSelectedCartItems(prev =>
-      prev.filter(item => cartListData.some(cart => cart.id === item.id))
+    setSelectedCartItems((prev) =>
+      prev.filter((item) => cartListData.some((cart) => cart.id === item.id))
     );
   }, [cartListData, setSelectedCartItems]);
 
   const orderIdList = useMemo(
-    () => selectedCartItems.map(item => item.id),
+    () => selectedCartItems.map((item) => item.id),
     [selectedCartItems]
   );
 

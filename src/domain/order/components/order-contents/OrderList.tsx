@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { getShoppingCartData } from "../../../../api/cart";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../context/OrderListProvider";
 import Image from "../../../../components/common/assets/Image";
 import { formatKRWString } from "../../../../utils/formatKRWString";
 

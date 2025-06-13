@@ -5,7 +5,7 @@ import {
 } from "../../../../../../api/cart";
 import Counter from "../../../../../../components/common/inputs/Counter";
 import { useAPIDataContext } from "../../../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../../../../order/context/OrderListProvider";
 import { useToastContext } from "../../../../../../context/ToastProvider";
 
 interface CartItemCounterProps {

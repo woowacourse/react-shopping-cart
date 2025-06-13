@@ -4,7 +4,7 @@ import Flex from "../../../../components/common/styled/Flex";
 import InfoText from "../../../../components/common/text/InfoText";
 import LabelPrice from "../../../../components/common/text/LabelPrice";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../../order/context/OrderListProvider";
 import { formatKRWString } from "../../../../utils/formatKRWString";
 import { FREE_SHIPPING_STANDARD } from "../../../order/hooks/OrderConstants";
 import { calculateOrders } from "../../../order/utils/calculateOrders";

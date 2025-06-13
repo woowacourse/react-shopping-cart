@@ -4,7 +4,7 @@ import { getShoppingCartData } from "../../../../api/cart";
 import { Coupon } from "../../../../api/coupon";
 import CouponCheckItem from "../../../../components/common/coupon/CouponCheckItem";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../../order/context/OrderListProvider";
 import { useToastContext } from "../../../../context/ToastProvider";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
 import { calculateOrders } from "../../../order/utils/calculateOrders";

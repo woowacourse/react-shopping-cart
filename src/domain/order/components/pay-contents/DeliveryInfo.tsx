@@ -3,7 +3,7 @@ import { getShoppingCartData } from "../../../../api/cart";
 import { Flex } from "../../../../components/common";
 import CheckboxLabel from "../../../../components/common/inputs/CheckboxLabel";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../context/OrderListProvider";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
 import { calculateOrders } from "../../utils/calculateOrders";
 import OrderLabelPridce from "../order-contents/OrderLabelPrice";

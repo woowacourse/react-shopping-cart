@@ -3,7 +3,7 @@ import { getShoppingCartData } from "../../../../api/cart";
 import { Coupon } from "../../../../api/coupon";
 import Button from "../../../../components/common/inputs/Button";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../../order/context/OrderListProvider";
 import { useToastContext } from "../../../../context/ToastProvider";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
 import { calculateOrders } from "../../../order/utils/calculateOrders";

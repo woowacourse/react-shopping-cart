@@ -6,7 +6,7 @@ import { ScrollToTopOnRouteChange } from "./components/common/layout/ScrollToTop
 import { APIDataProvider } from "./context/APIDataProvider";
 import reset from "./style/reset";
 import OrderConfirmPage from "./pages/order-confirm/OrderConfirmPage";
-import { OrderListProvider } from "./context/OrderListProvider";
+import { OrderListProvider } from "./domain/order/context/OrderListProvider";
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
 import { getBrowserBaseUrl } from "./utils/getBrowserBaseUrl";
 import ErrorBoundary from "./components/features/error-boundary/ErrorBoundary";

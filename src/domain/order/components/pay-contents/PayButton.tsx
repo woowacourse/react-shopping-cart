@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { getShoppingCartData } from "../../../../api/cart";
 import { useAPIDataContext } from "../../../../context/APIDataProvider";
-import { useOrderListContext } from "../../../../context/OrderListProvider";
+import { useOrderListContext } from "../../context/OrderListProvider";
 import { useCouponContext } from "../../../../pages/order-confirm/context/CouponProvider";
 import { calculateOrders } from "../../utils/calculateOrders";
 
