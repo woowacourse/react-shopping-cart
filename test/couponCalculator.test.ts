@@ -43,7 +43,7 @@ const createMockCoupons = () => {
     description: '특별 할인 30%',
     expirationDate: '2024-12-31',
     discountType: 'percentage',
-    discount: 30, // 실제로는 30%로 강제 적용됨
+    discount: 30,
   };
 
   const fixed5000Coupon: FixedCoupon = {

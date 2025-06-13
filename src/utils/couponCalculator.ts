@@ -39,13 +39,6 @@ const applySingleCoupon = (
   coupon: Coupon,
   cartItems: CartItem[]
 ): number => {
-  // MIRACLESALE 쿠폰 디버깅
-  if (coupon.code === 'MIRACLESALE') {
-    const discountAmount = Math.floor(amount * 0.3);
-
-    return discountAmount;
-  }
-
   switch (coupon.discountType) {
     case 'fixed': {
       if (amount >= coupon.minimumAmount) {
