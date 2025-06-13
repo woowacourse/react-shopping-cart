@@ -9,14 +9,14 @@ import { useShowError } from "../../../../provider/errorProvider";
 type Props = {
   cartItems: CartProduct[] | undefined;
   selectedCartIds: number[];
-  setSelectedCartIds: React.Dispatch<React.SetStateAction<number[]>>;
+  onSelectCartItem: (newSelectedCartIds: number[]) => void;
   refetch: () => void;
 };
 
 const CartList = ({
   cartItems,
   selectedCartIds,
-  setSelectedCartIds,
+  onSelectCartItem,
   refetch,
 }: Props) => {
   const showError = useShowError();
@@ -29,25 +29,26 @@ const CartList = ({
   const handleAllSelected = () => {
     const isAllChecked = selectedCartIds?.length === cartItems?.length;
     if (isAllChecked) {
-      setSelectedCartIds([]);
+      onSelectCartItem([]);
       return;
     }
-    setSelectedCartIds(cartItems?.map((item) => item.id) || []);
+
+    onSelectCartItem(cartItems?.map((item) => item.id) || []);
   };
 
   const handleToggle = (id: number) => {
     // 선택이 안되어 있음 -> 선택됨
     if (!selectedCartIds?.find((item: number) => item === id)) {
-      setSelectedCartIds((prev) => [...prev, id]);
+      onSelectCartItem([...selectedCartIds, id]);
       return;
     }
     // 선택이 되어 있음 -> 선택안됨
-    setSelectedCartIds(selectedCartIds?.filter((cartId) => cartId !== id));
+    onSelectCartItem(selectedCartIds?.filter((cartId) => cartId !== id));
   };
 
   const handleDelete = async (id: number) => {
     if (!selectedCartIds?.find((item: number) => item === id)) return;
-    setSelectedCartIds(selectedCartIds?.filter((cartId) => cartId !== id));
+    onSelectCartItem(selectedCartIds?.filter((cartId) => cartId !== id));
     try {
       await deleteCartProduct(id);
       refetch();

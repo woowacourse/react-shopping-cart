@@ -3,7 +3,7 @@ import Header from "./Header";
 import PriceSection from "./PriceSection";
 import CartList from "./CartList";
 import { CartProduct } from "../../../type/cart";
-import { useState } from "react";
+import useSelectedCartIds from "../../../hooks/useSelectedCartIds";
 
 type Props = {
   cartItems: CartProduct[];
@@ -11,9 +11,8 @@ type Props = {
 };
 
 const CartSection = ({ cartItems, refetch }: Props) => {
-  const [selectedCartIds, setSelectedCartIds] = useState<number[]>(
-    cartItems.map((item) => item.id)
-  );
+  const { selectedCartIds, handleSelectedCartIds } =
+    useSelectedCartIds(cartItems);
 
   return (
     <S.Container>
@@ -32,7 +31,7 @@ const CartSection = ({ cartItems, refetch }: Props) => {
             <CartList
               cartItems={cartItems}
               selectedCartIds={selectedCartIds}
-              setSelectedCartIds={setSelectedCartIds}
+              onSelectCartItem={handleSelectedCartIds}
               refetch={refetch}
             />
 

@@ -5,11 +5,11 @@ import * as cartUpdateAPI from "../src/api/cart/updateCartProduct";
 import { createMemoryRouter, MemoryRouter, RouterProvider } from "react-router";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import Confirm from "../src/pages/Confirm";
+import OrderConfirm from "../src/pages/OrderConfirm";
 import NavBar from "../src/components/layout/NavBar";
 import Main from "../src/pages/Main";
 import { formatPrice } from "../src/utils/formatPrice";
-import { getPrice } from "../src/components/feature/CartSection/PriceSection";
+import { getPrice } from "../src/components/feature/CartSection/PriceSection/utils";
 
 vi.mock("../src/api/cart/getCartProduct", () => ({
   getCartProduct: vi.fn(),
@@ -139,7 +139,11 @@ describe("장바구니 구매 상품 선택 테스트", () => {
     );
     await userEvent.click(checkbox);
 
-    const price = getPrice([mockCartItems.content[1]]);
+    const price = getPrice({
+      items: mockCartItems.content,
+      isRemoteArea: true,
+      discount: 5000,
+    });
 
     waitFor(() => {
       const totalPriceEl = screen.getByTestId("total-amount");
@@ -172,8 +176,12 @@ describe("주문확인 페이지 로딩 테스트", () => {
   });
 
   it("주문 확인 버튼 클릭 후 설명 문구 표시", async () => {
-    const sort = mockCartItems.content.length;
-    const price = getPrice(mockCartItems.content);
+    const totalKindCount = mockCartItems.content.length;
+    const price = getPrice({
+      items: mockCartItems.content,
+      isRemoteArea: true,
+      discount: 5000,
+    });
 
     const routes = [
       {
@@ -181,7 +189,7 @@ describe("주문확인 페이지 로딩 테스트", () => {
         element: <NavBar />,
         children: [
           { path: "", element: <Main /> },
-          { path: "confirm", element: <Confirm /> },
+          { path: "orderConfirm", element: <OrderConfirm /> },
         ],
       },
     ];
@@ -196,7 +204,7 @@ describe("주문확인 페이지 로딩 테스트", () => {
     waitFor(() => {
       const description = screen.getByTestId("order-confirm-description");
       expect(description).toHaveTextContent(
-        `총 ${sort}종류의 상품 ${price.totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
+        `총 ${totalKindCount}종류의 상품 ${price.totalAmount}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
       );
       expect(description).toHaveTextContent(formatPrice(price.totalPrice));
     });

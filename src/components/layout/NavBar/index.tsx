@@ -13,9 +13,8 @@ const NavBar = () => {
   return (
     <>
       <S.Container>
-        {pathname === PATH.MAIN ? (
-          <S.Logo>SHOP</S.Logo>
-        ) : (
+        {pathname === PATH.MAIN && <S.Logo>SHOP</S.Logo>}
+        {pathname === PATH.ORDER_CONFIRM && (
           <S.BackIcon
             src="./back-icon.svg"
             onClick={() => navigate(PATH.MAIN)}

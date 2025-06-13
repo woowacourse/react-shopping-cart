@@ -4,42 +4,33 @@ import { formatPrice } from "../../../../utils/formatPrice";
 import { CartProduct } from "../../../../type/cart";
 import Button from "../../../common/Button";
 import { css } from "@emotion/react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import { getPrice } from "./utils";
+import { getSelectedCartItems } from "../utils/getSelectedCartItems";
 
 type Props = {
-  cartItems: CartProduct[] | undefined;
+  cartItems: CartProduct[];
   selectedCartIds: number[];
+  discount?: number;
+  isRemoteArea?: boolean;
 };
 
-export const getPrice = (items: CartProduct[] | undefined) => {
-  const getOrderPrice = () => {
-    return (
-      items?.reduce(
-        (total: number, current: CartProduct) =>
-          current.product.price * current.quantity + total,
-        0
-      ) ?? 0
-    );
-  };
-
-  const orderPrice = getOrderPrice();
-  const deliveryPrice = orderPrice >= 100_000 ? 0 : 3000;
-  const totalPrice = orderPrice + deliveryPrice;
-  const totalAmount = items?.reduce(
-    (total: number, current: CartProduct) => total + current.quantity,
-    0
-  );
-
-  return { orderPrice, deliveryPrice, totalPrice, totalAmount };
-};
-
-const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
+const PriceSection = ({
+  cartItems,
+  selectedCartIds,
+  discount,
+  isRemoteArea,
+}: Props) => {
   const navigate = useNavigate();
-  const selectedItems = cartItems?.filter(
-    (item: CartProduct) => selectedCartIds.indexOf(item.id) > -1
-  );
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
+  const isOrderConfirmPage = pathname === "/orderConfirm";
 
-  const price = getPrice(selectedItems);
+  const { orderPrice, deliveryPrice, totalPrice, totalAmount } = getPrice({
+    items: getSelectedCartItems(cartItems, selectedCartIds),
+    isRemoteArea,
+    discount,
+  });
 
   return (
     <>
@@ -51,47 +42,83 @@ const PriceSection = ({ cartItems, selectedCartIds }: Props) => {
 
         <S.PriceInfo>
           <S.Label>주문 금액</S.Label>
-          <S.Price>{formatPrice(price.orderPrice)}</S.Price>
+          <S.Price>{formatPrice(orderPrice)}</S.Price>
         </S.PriceInfo>
+
+        {discount !== undefined && (
+          <S.PriceInfo>
+            <S.Label>쿠폰 할인 금액</S.Label>
+            <S.Price>-{formatPrice(discount)}</S.Price>
+          </S.PriceInfo>
+        )}
 
         <S.PriceInfo>
           <S.Label>배송비</S.Label>
-          <S.Price>{formatPrice(price.deliveryPrice)}</S.Price>
+          <S.Price>{formatPrice(deliveryPrice)}</S.Price>
         </S.PriceInfo>
         <Line />
 
         <S.PriceInfo>
           <S.Label>총 결제 금액</S.Label>
           <S.Price data-testid={"total-amount"}>
-            {formatPrice(price.totalPrice)}
+            {formatPrice(totalPrice)}
           </S.Price>
         </S.PriceInfo>
       </S.Container>
-      <Button
-        testId="order-confirm-button"
-        title="주문 확인"
-        disabled={selectedCartIds.length === 0}
-        onClick={() =>
-          navigate("/confirm", {
-            state: {
-              sort: selectedCartIds.length,
-              totalAmount: price.totalAmount,
-              totalPrice: price.totalPrice,
-            },
-          })
-        }
-        css={css`
-          width: 100%;
-          height: 50px;
-          background-color: #000;
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-        `}
-      />
+      {isOrderConfirmPage && (
+        <Button
+          title="결제하기"
+          onClick={() =>
+            navigate("/paymentConfirm", {
+              state: {
+                totalPrice: totalPrice,
+                totalAmount: totalAmount,
+                totalKindCount: selectedCartIds.length,
+              },
+            })
+          }
+          css={css`
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+          `}
+        />
+      )}
+      {isHomePage && (
+        <Button
+          testId="order-confirm-button"
+          title="주문 확인"
+          disabled={selectedCartIds.length === 0}
+          onClick={() =>
+            navigate("/orderConfirm", {
+              state: {
+                totalKindCount: selectedCartIds.length,
+                totalAmount: totalAmount,
+                totalPrice: orderPrice,
+                cartItems: cartItems,
+                selectedCartIds: selectedCartIds,
+              },
+            })
+          }
+          css={css`
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+          `}
+        />
+      )}
     </>
   );
 };

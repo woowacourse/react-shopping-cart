@@ -25,7 +25,7 @@ export interface ProductsResponse<T> {
   sort: {
     empty: boolean;
     sorted: boolean;
-    unsorted: boolean;
+    uned: boolean;
   };
   totalElements: number;
   totalPages: number;
@@ -34,7 +34,7 @@ export interface ProductsResponse<T> {
 interface Pageable {
   pageNumber: number;
   pageSize: number;
-  sort: {
+  : {
     empty: boolean;
     sorted: boolean;
     unsorted: boolean;
