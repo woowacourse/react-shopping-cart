@@ -1,6 +1,6 @@
-import { useCartItemsContext } from "../../contexts/CartItemsProvider"
-import useHandleCartItemQuantity from "./useHandleCartItemQuantity"
-import useHandleDeleteCartItem from "./useHandleDeleteCartItem"
+import { useCartItemsContext } from "../../../contexts/CartItemsProvider";
+import useHandleCartItemQuantity from "./useHandleCartItemQuantity";
+import useHandleDeleteCartItem from "./useHandleDeleteCartItem";
 
 function useShoppingCart() {
   const {
@@ -9,13 +9,13 @@ function useShoppingCart() {
     isLoading: isCartItemsLoading,
     isFetching: isCartItemsFetching,
     refetch: refetchCartItems,
-  } = useCartItemsContext()
+  } = useCartItemsContext();
 
   const { isLoading: isQuantityUpdateLoading, handleCartItemQuantity } =
-    useHandleCartItemQuantity(refetchCartItems)
+    useHandleCartItemQuantity(refetchCartItems);
 
   const { isLoading: isDeleteItemLoading, handleDeleteCartItem } =
-    useHandleDeleteCartItem(refetchCartItems)
+    useHandleDeleteCartItem(refetchCartItems);
 
   return {
     cartItemsData,
@@ -27,7 +27,7 @@ function useShoppingCart() {
     handleCartItemQuantity,
     isDeleteItemLoading,
     handleDeleteCartItem,
-  }
+  };
 }
 
-export default useShoppingCart
+export default useShoppingCart;

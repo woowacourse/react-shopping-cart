@@ -7,7 +7,7 @@ import CartOrderSummary from "../CartOrderSummary/CartOrderSummary";
 import OrderConfirmButton from "../OrderConfirmButton/OrderConfirmButton";
 import { CartItem } from "../../../type/CartItem";
 
-import useSelectedCartIds from "../../../hooks/useShoppingCart/useSelectedCartIds";
+import useSelectedCartIds from "../../../hooks/cart/useShoppingCart/useSelectedCartIds";
 import { getSelectedCartItems } from "../../../util/cart/getSelectedCartItems";
 
 interface OrderContentProps {

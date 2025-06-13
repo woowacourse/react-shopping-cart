@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { CartItem } from "../../type/CartItem";
+import { CartItem } from "../../../type/CartItem";
 import useSelectedCartIdsLocalStorage from "./useSelectedCartIdsLocalStorage";
 
 const useSelectedCartIds = (cartItemsData: CartItem[]) => {

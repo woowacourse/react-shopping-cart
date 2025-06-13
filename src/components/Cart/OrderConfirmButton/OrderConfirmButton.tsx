@@ -1,4 +1,4 @@
-import useOrderConfirm from "../../../hooks/useOrderConfirm";
+import useOrderConfirm from "../../../hooks/cart/useOrderConfirm";
 import { CartItem } from "../../../type/CartItem";
 
 import * as Styled from "./OrderConfirmButton.style";

@@ -1,5 +1,5 @@
 import * as Styled from "./CartContent.style";
-import useShoppingCart from "../../../hooks/useShoppingCart/useShoppingCart";
+import useShoppingCart from "../../../hooks/cart/useShoppingCart/useShoppingCart";
 import OrderContent from "../OrderContent/OrderContent";
 import EmptyCartContent from "../EmptyCartContent/EmptyCartContent";
 
