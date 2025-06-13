@@ -1,3 +1,5 @@
+import styled from "@emotion/styled";
+
 export type labelTextPairType = [string, string] | null;
 
 function LabelTextPair({
@@ -8,10 +10,14 @@ function LabelTextPair({
   if (!labelTextPairArray) return null;
   const [label, text] = labelTextPairArray;
   return (
-    <p style={{ fontSize: "14px" }}>
+    <Text>
       {label}: {text}
-    </p>
+    </Text>
   );
 }
 
 export default LabelTextPair;
+
+const Text = styled.p`
+  font-size: 14px;
+`;
