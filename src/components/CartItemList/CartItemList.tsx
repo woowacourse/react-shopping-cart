@@ -24,6 +24,8 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     getLocalStorageCheckedState(cartItems)
   );
 
+  console.log(state);
+
   const checkedItems = getCheckedItems(cartItems, state);
   const orderAmount = calculateOrderAmount(checkedItems);
   const deliveryFee = calculateDeliveryFee(orderAmount);
@@ -75,7 +77,7 @@ const getCheckedItems = (cartItems: CartItemType[], state: Map<number, boolean>)
 };
 
 const getLocalStorageCheckedState = (cartItems: CartItemType[]): Map<number, boolean> => {
-  const selectedItems = getLocalStorage<CartItemType[]>('selectedItems', []);
+  const selectedItems = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
   const selectedIds = new Set(selectedItems.map((item) => item.id));
 
   return new Map(cartItems.map((item) => [item.id, selectedIds.has(item.id)]));
