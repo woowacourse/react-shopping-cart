@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import useLocalStorage from "./useLocalStorage";
+import useLocalStorage from "../useLocalStorage";
 
 const SELECTED_CART_IDS_KEY = "selectedCartIds";
 
