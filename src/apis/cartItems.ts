@@ -15,8 +15,7 @@ const cartItemsApi = {
         endpoint: `/cart-items?${query}`,
         method: "GET",
       });
-
-      return response;
+      return response.content;
     } catch (error) {
       console.error("Failed to fetch cart items:", error);
       throw error;

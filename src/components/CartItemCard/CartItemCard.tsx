@@ -4,7 +4,7 @@ import Text from "../@common/Text/Text";
 import QuantityStepper from "../QuantityStepper/QuantityStepper";
 import { useDeleteCartItem } from "../../hooks/useDeleteCartItem";
 import { useUpdateCartItem } from "../../hooks/useUpdateCartItem";
-import CartItemCheckbox from "../CartItemCheckbox/CartItemCheckbox";
+import Selectbox from "../@common/Selectbox/Selectbox";
 
 interface CartItemCardProps {
   cartItemId: number;
@@ -33,7 +33,7 @@ const CartItemCard = ({
       <div className={CartItemStyled}>
         <hr className={Divider} />
         <div className={CartItemTop}>
-          <CartItemCheckbox
+          <Selectbox
             isSelected={isSelected}
             onClick={() => toggleCartItemChecked(cartItemId)}
             testId="item-toggle"
@@ -104,7 +104,6 @@ const CartItemContent = css`
 
 const CartItemDetails = css`
   display: flex;
-  gap: 4px;
   flex-direction: column;
 `;
 
@@ -117,4 +116,5 @@ const CartItemImage = css`
   height: 112px;
   border: none;
   object-fit: cover;
+  border-radius: 8px;
 `;

@@ -1,81 +1,127 @@
 import { css } from "@emotion/css";
-import Header from "../components/@common/Header/Header";
+import { useState } from "react";
+import { FREE_SHIPPING_MIN_AMOUNT } from "../constants";
+import PriceRow from "../components/PriceRow/PriceRow";
 import Text from "../components/@common/Text/Text";
-import { useLocation, useNavigate } from "react-router";
+import Header from "../components/@common/Header/Header";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
+import { useNavigate } from "react-router";
+import PageTitle from "../components/@common/PageTitle/PageTitle";
+import FullWidthButton from "../components/@common/Button/FullWidthButton/FullWidthButton";
+import LabeledSelectbox from "../components/@common/LabeledSelectbox/LabeledSelectbox";
+import SelectedItemCard from "../components/SelectedItemCard/SelectedItemCard";
+import { useSelectedItems } from "../hooks/useSelectedItems";
+import { useCartSummary } from "../hooks/useCartSummary";
+import InvalidAccessPage from "./InvalidAccessPage";
+import CouponModal from "../components/CouponModal/CouponModal";
+import { useRemoteAreaShipping } from "../hooks/useRemoteAreaShipping";
 
 const OrderConfirmPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const { selectedItems, totalQuantity, selectedItemCount } =
+    useSelectedItems();
+  const { isRemoteAreaShipping, setIsRemoteAreaShipping } =
+    useRemoteAreaShipping();
+  const { orderPrice, shippingFee, totalPrice, couponDiscount } =
+    useCartSummary(isRemoteAreaShipping);
 
-  const isInvalidAccess =
-    !location.state ||
-    !location.state.selectedItemCount ||
-    !location.state.totalPrice;
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+
+  const isInvalidAccess = selectedItemCount === 0;
 
   if (isInvalidAccess) {
-    return (
-      <div className={OrderConfirmPageStyles}>
-        <Header
-          leading="./back-icon.svg"
-          onLeadingClick={() => {
-            navigate("/");
-          }}
-        />
-        <section className={ContentStyle}>
-          <Text text="잘못된 접근입니다" type="large" />
-          <Text text="장바구니에서 다시 주문해 주세요." />
-        </section>
-        <ConfirmButton text="장바구니로 이동" onClick={() => navigate("/")} />
-      </div>
-    );
+    return <InvalidAccessPage />;
   }
 
-  const { selectedItemCount, totalPrice } = location.state;
+  const handleCouponModalClose = () => {
+    setIsCouponModalOpen(false);
+  };
+
+  const handleRemoteAreaShippingToggle = () => {
+    setIsRemoteAreaShipping(!isRemoteAreaShipping);
+  };
 
   return (
     <>
-      <div className={OrderConfirmPageStyles}>
-        <Header
-          leading="./back-icon.svg"
-          onLeadingClick={() => {
-            navigate("/");
-          }}
+      <Header leading={"back-icon.svg"} onLeadingClick={() => navigate("/")} />
+      <div className={CartItemPageStyles}>
+        <PageTitle
+          title="주문 확인"
+          description={`총 ${selectedItemCount}종류의 상품 ${totalQuantity}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
         />
-        <section className={ContentStyle}>
-          <Text text="주문 확인" type="large" />
-          <section className={Description}>
-            <Text text={`총 ${selectedItemCount}개의 상품을 주문합니다.`} />
-            <Text text="최종 결제 금액을 확인해 주세요." />
-          </section>
-          <Text text="총 결제 금액" type="medium" />
-          <Text text={`${totalPrice.toLocaleString()}원`} type="large" />
-        </section>
+        {selectedItems.map((item) => (
+          <SelectedItemCard
+            key={item.id}
+            imgUrl={item.product.imageUrl}
+            name={item.product.name}
+            price={item.product.price}
+            quantity={item.quantity}
+          />
+        ))}
+
+        <FullWidthButton
+          text="쿠폰 적용"
+          onClick={() => setIsCouponModalOpen(true)}
+        />
+
+        <div className={ShippingInfo}>
+          <Text text="배송 정보" type="medium" />
+          <LabeledSelectbox
+            labelText="제주도 및 도서 산간 지역"
+            isSelected={isRemoteAreaShipping}
+            onClick={handleRemoteAreaShippingToggle}
+          />
+        </div>
+        <div className={InfoRow}>
+          <img src="./info-icon.svg" alt="info" />
+          <Text
+            text={`총 주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
+          />
+        </div>
+
+        <hr className={Divider} />
+        <PriceRow title="주문 금액" price={orderPrice} testId="order-price" />
+        <PriceRow title="쿠폰 할인 금액" price={-couponDiscount} />
+        <PriceRow title="배송비" price={shippingFee} testId="shipping-fee" />
+        <hr className={Divider} />
+        <PriceRow title="총 결제 금액" price={totalPrice} />
       </div>
-      <ConfirmButton text="주문하기" onClick={() => {}} disabled={true} />
+      <ConfirmButton
+        text="결제하기"
+        onClick={() => navigate("/payment-confirm")}
+      />
+
+      {isCouponModalOpen && (
+        <CouponModal
+          isOpen={isCouponModalOpen}
+          onClose={handleCouponModalClose}
+          isRemoteAreaShipping={isRemoteAreaShipping}
+        />
+      )}
     </>
   );
 };
 
 export default OrderConfirmPage;
 
-const OrderConfirmPageStyles = css`
-  min-height: 100dvh;
+const CartItemPageStyles = css`
+  padding: 24px;
+  min-height: calc(100vh - 128px);
+  justify-content: center;
   background-color: #ffffff;
 `;
 
-const ContentStyle = css`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 128px);
+const Divider = css`
+  border: 0.5px solid #e0e0e0;
 `;
 
-const Description = css`
+const InfoRow = css`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  margin: 13px 0;
+`;
+
+const ShippingInfo = css`
+  margin: 28px 0;
 `;

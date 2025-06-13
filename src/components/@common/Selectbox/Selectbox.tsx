@@ -1,20 +1,16 @@
 import { css } from "@emotion/css";
 
-interface CartItemCheckboxProps {
+interface SelectboxProps {
   isSelected: boolean;
   onClick?: () => void;
   testId?: string;
 }
 
-const CartItemCheckbox = ({
-  isSelected,
-  onClick,
-  testId,
-}: CartItemCheckboxProps) => {
+const Selectbox = ({ isSelected, onClick, testId }: SelectboxProps) => {
   return (
     <button
       onClick={onClick}
-      className={CartItemCheckboxStyle(isSelected)}
+      className={SelectboxStyle(isSelected)}
       data-testid={testId}
     >
       <img src={isSelected ? "./checked-icon.svg" : "./unchecked-icon.svg"} />
@@ -22,9 +18,9 @@ const CartItemCheckbox = ({
   );
 };
 
-export default CartItemCheckbox;
+export default Selectbox;
 
-const CartItemCheckboxStyle = (isSelected: boolean) => css`
+const SelectboxStyle = (isSelected: boolean) => css`
   width: 24px;
   height: 24px;
   background-color: ${isSelected ? "#000000" : "#ffffff"};

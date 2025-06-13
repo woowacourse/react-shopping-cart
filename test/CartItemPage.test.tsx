@@ -4,46 +4,19 @@ import cartItemsApi from "../src/apis/cartItems";
 import { fireEvent, screen } from "@testing-library/react";
 import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../src/constants";
 import { setupCartPageTest } from "./utils/setupCartItemPageTest";
+import { createMockCartItem } from "./utils/mockCartItems";
 
 vi.mock("../apis/cartItems");
 
 describe("장바구니 페이지 테스트", () => {
   it("페이지에 장바구니 상품이 렌더링이 된다.", async () => {
-    const mockCartItems = [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          category: "식료품" as const,
-          imageUrl: "https://example.com/image1.jpg",
-          name: "콜라",
-          price: 1500,
-        },
-        quantity: 2,
-        isSelected: true,
-      },
-    ];
-
+    const mockCartItems = [createMockCartItem(1, "콜라", 1500, "식료품", 2)];
     setupCartPageTest(mockCartItems);
-
     expect(await screen.findByText("콜라")).toBeInTheDocument();
   });
 
   it("페이지에 장바구니 상품이 렌더링되고 삭제할 수 있다", async () => {
-    const mockCartItems = [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          category: "식료품" as const,
-          imageUrl: "https://example.com/image1.jpg",
-          name: "콜라",
-          price: 1500,
-        },
-        quantity: 2,
-        isSelected: true,
-      },
-    ];
+    const mockCartItems = [createMockCartItem(1, "콜라", 1500, "식료품", 2)];
 
     cartItemsApi.delete = vi.fn(async (id: number) => {
       const index = mockCartItems.findIndex((item) => item.id === id);
@@ -51,7 +24,6 @@ describe("장바구니 페이지 테스트", () => {
     });
 
     setupCartPageTest(mockCartItems);
-
     expect(await screen.findByText("콜라")).toBeInTheDocument();
 
     const deleteButton = await screen.findByTestId("delete-cart-item-button");
@@ -63,20 +35,7 @@ describe("장바구니 페이지 테스트", () => {
   });
 
   it("수량 조절 버튼을 클릭해 수량을 조절 할 수 있다", async () => {
-    const mockCartItems = [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          category: "식료품" as const,
-          imageUrl: "https://example.com/image1.jpg",
-          name: "콜라",
-          price: 1500,
-        },
-        quantity: 2,
-        isSelected: true,
-      },
-    ];
+    const mockCartItems = [createMockCartItem(1, "콜라", 1500, "식료품", 2)];
 
     cartItemsApi.patch = vi.fn(async (id: number, quantity: number) => {
       const index = mockCartItems.findIndex((item) => item.id === id);
@@ -93,42 +52,20 @@ describe("장바구니 페이지 테스트", () => {
 
   it(`주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT}원 이상이면 배송비는 0원이다.`, async () => {
     const mockCartItems = [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          category: "패션잡화" as const,
-          imageUrl: "https://example.com/image1.jpg",
-          name: "맥북",
-          price: 1500000,
-        },
-        quantity: 2,
-        isSelected: true,
-      },
+      createMockCartItem(1, "맥북", 1500000, "패션잡화", 2),
     ];
-
     setupCartPageTest(mockCartItems);
 
     const shippingFee = await screen.findByTestId("shipping-fee");
+    const toggleButton = screen.getByTestId("item-toggle");
+    fireEvent.click(toggleButton);
     expect(shippingFee.textContent).toBe("0원");
   });
 
   it(`주문 금액이 ${FREE_SHIPPING_MIN_AMOUNT}원 미만이면 배송비는 ${SHIPPING_FEE}원이다.`, async () => {
     const mockCartItems = [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          category: "패션잡화" as const,
-          imageUrl: "https://example.com/image1.jpg",
-          name: "텀블러",
-          price: 5000,
-        },
-        quantity: 2,
-        isSelected: true,
-      },
+      createMockCartItem(1, "텀블러", 5000, "패션잡화", 2),
     ];
-
     setupCartPageTest(mockCartItems);
 
     const shippingFee = await screen.findByTestId("shipping-fee");

@@ -1,50 +1,39 @@
-import { css } from "@emotion/css";
-import Text from "../@common/Text/Text";
 import CartItemCard from "../CartItemCard/CartItemCard";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
-import { useEffect } from "react";
-import CartItemCheckbox from "../CartItemCheckbox/CartItemCheckbox";
+import LabeledSelectbox from "../@common/LabeledSelectbox/LabeledSelectbox";
+import { useCartItemContext } from "../../contexts/CartItemContext";
 
 const CartItemCardList = () => {
-  const { cartItems, selectedItem, handleSelectedItem } = useCartItemContext();
-
-  const toggleCartItemChecked = (cartItemId: number) => {
-    const newSet = new Set(selectedItem);
-    if (newSet.has(cartItemId)) newSet.delete(cartItemId);
-    else newSet.add(cartItemId);
-    handleSelectedItem(newSet);
-  };
+  const {
+    cartItems,
+    selectedItems,
+    toggleSelectedItem,
+    selectAllItems,
+    clearSelectedItems,
+  } = useCartItemContext();
 
   const isSelectedItem = (cartItemId: number) => {
-    return selectedItem.has(cartItemId);
+    return selectedItems.has(cartItemId);
   };
 
-  const allSelected = selectedItem.size === cartItems.length;
+  const allSelected =
+    selectedItems.size === cartItems.length && cartItems.length > 0;
 
   const handleAllSelected = () => {
     if (allSelected) {
-      handleSelectedItem(new Set());
+      clearSelectedItems();
     } else {
-      const cartItemIds = cartItems.map((item) => item.id);
-      handleSelectedItem(new Set(cartItemIds));
+      selectAllItems();
     }
   };
 
-  useEffect(() => {
-    const cartItemIds = cartItems.map((item) => item.id);
-    handleSelectedItem(new Set(cartItemIds));
-  }, []);
-
   return (
     <>
-      <div className={AllSelectContainer}>
-        <CartItemCheckbox
-          isSelected={allSelected}
-          onClick={handleAllSelected}
-          testId="all-select-toggle"
-        />
-        <Text text="전체선택" />
-      </div>
+      <LabeledSelectbox
+        labelText="전체선택"
+        isSelected={allSelected}
+        onClick={handleAllSelected}
+        testId="all-select-toggle"
+      />
       {cartItems.map((item) => (
         <CartItemCard
           cartItemId={item.id}
@@ -54,7 +43,7 @@ const CartItemCardList = () => {
           price={item.product.price}
           quantity={item.quantity}
           isSelected={isSelectedItem(item.id)}
-          toggleCartItemChecked={toggleCartItemChecked}
+          toggleCartItemChecked={toggleSelectedItem}
         />
       ))}
     </>
@@ -62,10 +51,3 @@ const CartItemCardList = () => {
 };
 
 export default CartItemCardList;
-
-const AllSelectContainer = css`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 20px;
-`;
