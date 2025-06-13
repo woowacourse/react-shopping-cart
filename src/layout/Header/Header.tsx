@@ -1,7 +1,7 @@
 import { headerLayout } from "./Header.style";
 
 interface HeaderProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export default function Header({ children }: HeaderProps) {

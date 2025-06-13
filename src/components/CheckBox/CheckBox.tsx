@@ -1,26 +1,25 @@
 import { CheckBoxLayout } from "./CheckBox.style";
 
-interface CheckBoxProps {
-  isChecked: boolean;
-  handleCheckBox: (id: string) => void;
-  id: string;
+interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   dataTestId: string;
 }
 
 export function CheckBox({
-  isChecked = false,
+  checked = false,
   id,
-  handleCheckBox,
+  onChange,
   dataTestId,
+  disabled = false,
 }: CheckBoxProps) {
   return (
     <input
       type="checkbox"
       css={CheckBoxLayout}
       id={id}
-      checked={isChecked}
-      onChange={() => handleCheckBox(id)}
+      checked={checked}
+      onChange={onChange}
       data-testid={dataTestId}
+      disabled={disabled}
     />
   );
 }

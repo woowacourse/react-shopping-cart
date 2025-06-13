@@ -1,7 +1,6 @@
-import { QuantitySelector } from "../QuantitySelector/QuantitySelector";
-
 import {
   CartProductLayout,
+  ProductBox,
   ProductImg,
   ProductName,
   ProductPrice,
@@ -13,7 +12,7 @@ interface CartProductProps {
   imageUrl: string;
   name: string;
   price: number;
-  quantity: number;
+  children?: React.ReactNode;
 }
 
 export function CartProduct({
@@ -21,7 +20,7 @@ export function CartProduct({
   imageUrl,
   name,
   price,
-  quantity,
+  children,
 }: CartProductProps) {
   return (
     <div
@@ -32,9 +31,11 @@ export function CartProduct({
     >
       <div css={ProductImg(imageUrl)} />
       <div css={TitleLayout}>
-        <p css={ProductName}>{name}</p>
-        <p css={ProductPrice}>{price.toLocaleString()}원</p>
-        <QuantitySelector quantity={quantity} cartId={id.toString()} />
+        <div css={ProductBox}>
+          <p css={ProductName}>{name}</p>
+          <p css={ProductPrice}>{price.toLocaleString()}원</p>
+        </div>
+        {children}
       </div>
     </div>
   );

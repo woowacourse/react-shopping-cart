@@ -1,31 +1,41 @@
+import { InfoText } from "../../../../components/InfoText/InfoText";
 import { Line } from "../../../../components/Line/Line";
 import { SummaryRow } from "../SummaryRow/SummaryRow";
-import {
-  deliveryInfo,
-  deliveryInfoBox,
-  imgLayout,
-  paymentSummaryLayout,
-  summaryRowBox,
-} from "./PaymentSummary.style";
+import { paymentSummaryLayout, summaryRowBox } from "./PaymentSummary.style";
 
 interface PaymentSummaryProps {
-  price: number;
+  orderPrice: number;
+  couponSale?: number;
+  deliveryFee: number;
+  totalPrice: number;
 }
 
-export function PaymentSummary({ price }: PaymentSummaryProps) {
-  const deliveryFee = 10_0000 <= price ? 0 : 3000;
-
+export function PaymentSummary({
+  orderPrice,
+  couponSale,
+  deliveryFee,
+  totalPrice,
+}: PaymentSummaryProps) {
   return (
     <div css={paymentSummaryLayout}>
-      <div css={deliveryInfoBox}>
-        <img src="./react-shopping-cart/info.png" css={imgLayout} />
-        <p css={deliveryInfo}>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
-        </p>
-      </div>
+      <InfoText showImg>
+        총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+      </InfoText>
+
       <Line />
       <div css={summaryRowBox}>
-        <SummaryRow text="주문 금액" price={price} dataTestId="orderPrice" />
+        <SummaryRow
+          text="주문 금액"
+          price={orderPrice}
+          dataTestId="orderPrice"
+        />
+        {couponSale !== undefined && (
+          <SummaryRow
+            text="쿠폰 할인 금액"
+            price={-couponSale}
+            dataTestId="couponSale"
+          />
+        )}
         <SummaryRow
           text="배송비"
           price={deliveryFee}
@@ -34,7 +44,7 @@ export function PaymentSummary({ price }: PaymentSummaryProps) {
         <Line />
         <SummaryRow
           text="총 결제 금액"
-          price={price + deliveryFee}
+          price={totalPrice}
           dataTestId="totalPrice"
         />
       </div>

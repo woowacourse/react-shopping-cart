@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
 import { CartItemTypes } from "../types/cartItem";
 
-export function useSelectedCartIds(cartItem: CartItemTypes[]) {
-  const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
+export function useSelectedCartIds() {
+  const [selectedCartIds, setSelectedCartIds] = useState<string[]>(
+    getLocalStorage("selectedCartIds", [])
+  );
 
-  const toggleSelectAll = () => {
-    if (cartItem && selectedCartIds.length === 0) {
-      setSelectedCartIds(cartItem.map((item) => item.id.toString()));
-    } else if (selectedCartIds.length !== 0) setSelectedCartIds([]);
+  useEffect(() => {
+    setLocalStorage("selectedCartIds", selectedCartIds);
+  }, [selectedCartIds]);
+
+  const toggleSelectAll = (cartItems: CartItemTypes[], init?: boolean) => {
+    if (cartItems && selectedCartIds.length === 0) {
+      setSelectedCartIds(cartItems.map((item) => item.id.toString()));
+    } else if (selectedCartIds.length !== 0 && !init) {
+      setSelectedCartIds([]);
+    }
   };
 
   const toggleCartItem = (id: string) => {

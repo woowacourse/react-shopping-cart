@@ -12,37 +12,14 @@ const getRequestHeaders = (method: string, body?: object) => {
   };
 };
 
-const tryFetchData = (fetchFunction: Promise<Response>, parseJson: boolean) => {
-  return fetchFunction
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`잘못된 접근입니다: ${response.status}`);
-      if (!parseJson) return response;
-      return response.json();
-    })
-    .then((data) => data.content || data)
-    .catch((error) => {
-      throw new Error("API 통신중 오류가 발생했습니다 : " + error.message);
-    });
-};
-
 export const apiClient = {
   delete: (url: string, id: string) =>
-    tryFetchData(
-      fetch(`${baseUrl}/${url}/${id}`, getRequestHeaders("DELETE")),
-      false
-    ),
+    fetch(`${baseUrl}/${url}/${id}`, getRequestHeaders("DELETE")),
+
   get: (url: string, params?: URLSearchParams) => {
     const queryParams = params ? `?${params.toString()}` : "";
-    return tryFetchData(
-      fetch(`${baseUrl}/${url}${queryParams}`, getRequestHeaders("GET")),
-      true
-    );
+    return fetch(`${baseUrl}/${url}${queryParams}`, getRequestHeaders("GET"));
   },
-  patch: (url: string, id: string, body?: object) => {
-    return tryFetchData(
-      fetch(`${baseUrl}/${url}/${id}`, getRequestHeaders("PATCH", body)),
-      false
-    );
-  },
+  patch: (url: string, id: string, body?: object) =>
+    fetch(`${baseUrl}/${url}/${id}`, getRequestHeaders("PATCH", body)),
 };
