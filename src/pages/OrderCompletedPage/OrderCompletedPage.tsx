@@ -9,13 +9,13 @@ export default function OrderCompletePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const onTitleClick = () => {
+  const onButtonClick = () => {
     navigate('/');
   };
 
   return (
     <>
-      <Header title="🔙" handleTitleClick={onTitleClick} />
+      <Header />
 
       <S.OrderCompletedSection>
         <Text variant="title-1">주문 확인</Text>
@@ -31,7 +31,7 @@ export default function OrderCompletePage() {
       </S.OrderCompletedSection>
 
       <S.ButtonWrapper>
-        <Button isDisabled>결제하기</Button>
+        <Button onClick={onButtonClick}>장바구니로 돌아가기</Button>
       </S.ButtonWrapper>
     </>
   );

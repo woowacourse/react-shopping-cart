@@ -6,6 +6,7 @@ import InfoIcon from '../icons/Info';
 import Spacing from '../Spacing/Spacing';
 import Text from '../Text/Text';
 import * as S from './ShoppingCartSection.styles';
+import { calculateOrderPriceAndShipping } from '../../utils/orderCalculate';
 
 interface ShoppingCartSectionProps {
   items: CartItemsResponse;
@@ -21,21 +22,16 @@ export default function ShoppingCartSection({
   selectedItemIds,
   setSelectedItemIds,
 }: ShoppingCartSectionProps) {
+  const selectedItems = items.content.filter((item) => selectedItemIds.includes(item.id));
+
   const isAllSelected = useMemo(() => {
     return items?.content.length > 0 && selectedItemIds.length === items.content.length;
   }, [items, selectedItemIds]);
 
-  const { orderPrice, shippingFee, totalPrice } = useMemo(() => {
-    const orderPrice =
-      items?.content.reduce((total, item) => {
-        return selectedItemIds.includes(item.id) ? total + item.product.price * item.quantity : total;
-      }, 0) || 0;
-
-    const shippingFee = orderPrice >= 100000 ? 0 : 3000;
-    const totalPrice = orderPrice + shippingFee;
-
-    return { orderPrice, shippingFee, totalPrice };
-  }, [items, selectedItemIds]);
+  const { orderPrice, shippingFee, orderTotalPrice } = useMemo(
+    () => calculateOrderPriceAndShipping(selectedItems, false),
+    [selectedItems]
+  );
 
   const handleCheckboxClick = (itemId: number) => {
     setSelectedItemIds((prev) => (prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]));
@@ -94,7 +90,7 @@ export default function ShoppingCartSection({
           </S.ReceiptTextWrapper>
           <S.ReceiptTextWrapper>
             <Text variant="title-2">총 결제 금액</Text>
-            <Text variant="title-1">{totalPrice}원</Text>
+            <Text variant="title-1">{orderTotalPrice}원</Text>
           </S.ReceiptTextWrapper>
         </>
       )}

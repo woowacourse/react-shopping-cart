@@ -1,7 +1,7 @@
 import * as S from './Header.styles';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   handleTitleClick?: () => void;
 }
 
