@@ -1,0 +1,71 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { Button, Footer, Header, Main, PageLayout } from '../../components';
+import {
+  bodyText,
+  confirmLayout,
+  subtitleText,
+  titleText,
+  totalPriceBox,
+  bodyTextBox,
+} from './Confirm.style';
+
+export function Confirm() {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate('/');
+  };
+
+  return (
+    <PageLayout>
+      <Header></Header>
+      <Main>
+        <div css={confirmLayout}>
+          {state ? (
+            <>
+              <p css={titleText}>결제 확인</p>
+              <div css={bodyTextBox}>
+                <p css={bodyText}>
+                  총 {state.selectedItemGroupCount}종류의 상품{' '}
+                  {state.selectedCartItem}
+                  개를 주문합니다.
+                </p>
+                <p css={bodyText}>최종 결제 금액을 확인해 주세요.</p>
+              </div>
+              <div css={totalPriceBox}>
+                <p css={subtitleText}>총 결제금액</p>
+                <p css={titleText}>
+                  {Number(state.totalPrice).toLocaleString('ko')}원
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <p>잘못된 접근입니다.</p>
+              <Button
+                onClick={handleBackClick}
+                customCss={css`
+                  padding: 10px;
+                `}
+              >
+                장바구니 페이지로 돌아가기
+              </Button>
+            </>
+          )}
+        </div>
+      </Main>
+      <Footer>
+        <Button
+          onClick={handleBackClick}
+          type="submit"
+          size="full"
+          style="primary"
+        >
+          장바구니로 돌아가기
+        </Button>
+      </Footer>
+    </PageLayout>
+  );
+}

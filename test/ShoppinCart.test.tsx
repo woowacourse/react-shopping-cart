@@ -6,6 +6,7 @@ import shoppingCart from '../src/mocks/shoppingCart.json';
 import { getCartItemSummary } from '../src/utils/getCartItemSummary';
 import { CartItemTypes } from '../src/types/cartItem';
 import { resetCartItems } from '../src/mocks/handlers';
+import { CartItemsProvider } from '../src/components/Common/CartItemsProvider/CartItemsProvider';
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
@@ -14,7 +15,9 @@ afterEach(() => server.resetHandlers());
 const renderComponent = () => {
   return render(
     <MemoryRouter>
-      <ShoppingCart />
+      <CartItemsProvider>
+        <ShoppingCart />
+      </CartItemsProvider>
     </MemoryRouter>
   );
 };

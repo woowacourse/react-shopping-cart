@@ -1,30 +1,36 @@
 import { useEffect, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import CartProductContainer from '../../components/CartProductContainer/CartProductContainer';
-import { EmptyShoppingCart } from '../../components/EmptyShoppingCart/EmptyShoppingCart';
-import Header from '../../components/layout/Header/Header';
-import Main from '../../components/layout/Main/Main';
-import { PageLayout } from '../../components/layout/PageLayout/PageLayout';
-import { PaymentSummary } from '../../components/PaymentSummary/PaymentSummary';
-import Toast from '../../components/Toast/Toast';
+import {
+  Button,
+  CartProductContainer,
+  EmptyShoppingCart,
+  Header,
+  Main,
+  PageLayout,
+  PaymentSummary,
+  Toast,
+  Spinner,
+  Footer,
+} from '../../components';
 import {
   subTitleStyle,
   titleBox,
   titleStyle,
   spinnerWrapper,
 } from './ShoppingCart.style';
-import { Footer } from '../../components/layout/Footer/Footer';
-import useFetchCartItems from '../../hooks/useFetchCartItems';
-import { getCartItemSummary } from '../../utils/getCartItemSummary';
-import Spinner from '../../components/Splinner/Splinner';
+import {
+  getCartItemSummary,
+  setItem,
+  SELECTED_CART_ITEM_IDS,
+  getDeliveryFee,
+} from '../../utils';
+import { useCartItemsContext } from '../../components/Common/CartItemsProvider/CartItemsProvider';
 
 export function ShoppingCart() {
   const navigate = useNavigate();
 
   const { cartItems, error, isLoading, isFetching, getCartItemData, setError } =
-    useFetchCartItems();
+    useCartItemsContext();
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([]);
 
   const { totalPrice, totalQuantity } = getCartItemSummary(
@@ -47,12 +53,18 @@ export function ShoppingCart() {
   };
 
   useEffect(() => {
+    setItem(
+      SELECTED_CART_ITEM_IDS,
+      cartItems.map((e) => e.id.toString())
+    );
+  }, [cartItems]);
+
+  useEffect(() => {
     if (!isLoading && cartItems.length > 0) {
       setSelectedCartIds(cartItems.map((item) => item.id.toString()));
     }
   }, [isLoading]);
 
-  // 예시
   const shouldDisableButton =
     cartItems.length === 0 || selectedCartIds.length === 0;
 
@@ -89,7 +101,10 @@ export function ShoppingCart() {
                   setSelectedCartIds={setSelectedCartIds}
                   isFetching={isFetching}
                 />
-                <PaymentSummary price={totalPrice} />
+                <PaymentSummary
+                  price={totalPrice}
+                  deliveryFee={getDeliveryFee(false, totalPrice)}
+                />
               </>
             )}
           </>
