@@ -1,9 +1,9 @@
 import { css } from "@emotion/css";
 import ToggleButton from "../@common/Button/ToggleButton/ToggleButton";
 import Text from "../@common/Text/Text";
-import CartItemCard from "../CartItemCard/CartItemCard";
 import { CartItem } from "../../types/type";
-import { useCartItemContext } from "../../contexts/useCartItemContext";
+import EditableCartItemCard from "../CartItemCard/EditableCartItemCard";
+import { useSelectedCartItemContext } from "../../contexts/selectedCartItem/useSelectedCartItemContext";
 import { useEffect } from "react";
 
 interface CartItemCardListProps {
@@ -12,7 +12,13 @@ interface CartItemCardListProps {
 
 const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
   const { selectedItemIds, toggleSelectedItemId, replaceSelectedItemIds } =
-    useCartItemContext();
+    useSelectedCartItemContext();
+
+  useEffect(() => {
+    if (selectedItemIds.size === 0 && cartItems.length > 0) {
+      replaceSelectedItemIds(cartItems.map((item) => item.id));
+    }
+  }, [cartItems]);
 
   const isSelectedItem = (cartItemId: number) => {
     return selectedItemIds.has(cartItemId);
@@ -28,10 +34,6 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
     replaceSelectedItemIds(allSelected ? [] : cartItems.map((item) => item.id));
   };
 
-  useEffect(() => {
-    replaceSelectedItemIds(cartItems.map((item) => item.id));
-  }, []);
-
   return (
     <>
       <div className={AllSelectContainer}>
@@ -43,13 +45,9 @@ const CartItemCardList = ({ cartItems }: CartItemCardListProps) => {
         <Text text="전체선택" />
       </div>
       {cartItems.map((item) => (
-        <CartItemCard
-          cartItemId={item.id}
+        <EditableCartItemCard
           key={item.id}
-          imgUrl={item.product.imageUrl}
-          name={item.product.name}
-          price={item.product.price}
-          quantity={item.quantity}
+          cartItem={item}
           isSelected={isSelectedItem(item.id)}
           handleToggle={handleToggle}
         />

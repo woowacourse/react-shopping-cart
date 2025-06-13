@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
-import { CartItem } from "../types/type";
-import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../constants";
-import { LoadingStatus, useCartItems } from "../hooks/useCartItems";
-
+import { createContext } from "react";
+import { CartItem } from "../../types/type";
+import { FREE_SHIPPING_MIN_AMOUNT, SHIPPING_FEE } from "../../constants";
+import { LoadingStatus, useCartItems } from "../../hooks/useCartItems";
+// import { useSelected } from "../hooks/useSelected";
 interface CartItemContext {
   cartItems: CartItem[];
   loadingStatus: LoadingStatus;
@@ -13,9 +13,6 @@ interface CartItemContext {
   orderPrice: number;
   shippingFee: number;
   totalPrice: number;
-  selectedItemIds: Set<number>;
-  toggleSelectedItemId: (id: number) => void;
-  replaceSelectedItemIds: (ids: number[]) => void;
   handleLoadingStatus: (status: LoadingStatus) => void;
 }
 
@@ -35,26 +32,7 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
     errorMessage,
     handleLoadingStatus,
   } = useCartItems();
-  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(
-    new Set()
-  );
-
-  const toggleSelectedItemId = (id: number) => {
-    const newSet = new Set(selectedItemIds);
-    newSet.has(id) ? newSet.delete(id) : newSet.add(id);
-    setSelectedItemIds(newSet);
-  };
-
-  const replaceSelectedItemIds = (ids: number[]) => {
-    setSelectedItemIds(new Set(ids));
-  };
-
-  const orderPrice = cartItems.reduce((acc, cartItem) => {
-    if (selectedItemIds.has(cartItem.id)) {
-      return acc + cartItem.product.price * cartItem.quantity;
-    }
-    return acc;
-  }, 0);
+  const orderPrice = 0;
 
   const shippingFee = orderPrice >= FREE_SHIPPING_MIN_AMOUNT ? 0 : SHIPPING_FEE;
 
@@ -72,9 +50,6 @@ export const CartItemProvider = ({ children }: CartItemProviderProps) => {
         orderPrice,
         shippingFee,
         totalPrice,
-        selectedItemIds,
-        toggleSelectedItemId,
-        replaceSelectedItemIds,
         handleLoadingStatus,
       }}
     >

@@ -4,8 +4,10 @@ import { describe, it, expect, vi } from "vitest";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import App from "../src/App";
 import OrderConfirmPage from "../src/pages/OrderConfirmPage";
-import { CartItemProvider } from "../src/contexts/CartItemProvider";
-import cartItemsApi from "../src/apis/cartItems";
+import { CartItemProvider } from "../src/contexts/carItem/CartItemProvider";
+import cartItemsApi from "../src/apis/cartItemsApi";
+import { SelectedCartItemProvider } from "../src/contexts/selectedCartItem/SelectedCartItemProvider";
+import PaymentConfirmPage from "../src/pages/PaymentConfirmPage";
 const routes = [
   {
     path: "/",
@@ -14,6 +16,10 @@ const routes = [
   {
     path: "/order-confirm",
     element: <OrderConfirmPage />,
+  },
+  {
+    path: "/payment-confirm",
+    element: <PaymentConfirmPage />,
   },
 ];
 
@@ -45,7 +51,9 @@ describe("라우팅 & 네비게이션 테스트", () => {
 
     render(
       <CartItemProvider>
-        <RouterProvider router={router} />
+        <SelectedCartItemProvider>
+          <RouterProvider router={router} />
+        </SelectedCartItemProvider>
       </CartItemProvider>
     );
 
@@ -54,19 +62,47 @@ describe("라우팅 & 네비게이션 테스트", () => {
 
   it("’/order-confirm’로 진입하면 주문 확인이 보인다", () => {
     const router = createMemoryRouter(routes, {
-      initialEntries: ["/order-confirm"],
+      initialEntries: [
+        {
+          pathname: "/order-confirm",
+          state: { orderPrice: 3000 },
+        },
+      ],
     });
 
     render(
       <CartItemProvider>
-        <RouterProvider router={router} />
+        <SelectedCartItemProvider>
+          <RouterProvider router={router} />
+        </SelectedCartItemProvider>
       </CartItemProvider>
     );
 
     expect(screen.getByText("주문 확인")).toBeInTheDocument();
   });
 
-  it("’/’로 진입하면 장바구니가 보이고, ‘주문하기’ 버튼 클릭 시 ‘/order-confirm’이 보이고, 다시 뒤로가기를 누르면 장바구니가 보인다.", async () => {
+  it("’/payment-confirm’로 진입하면 결제 확인이 보인다", () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: [
+        {
+          pathname: "/payment-confirm",
+          state: { totalPrice: 3000 },
+        },
+      ],
+    });
+
+    render(
+      <CartItemProvider>
+        <SelectedCartItemProvider>
+          <RouterProvider router={router} />
+        </SelectedCartItemProvider>
+      </CartItemProvider>
+    );
+
+    expect(screen.getByText("결제 확인")).toBeInTheDocument();
+  });
+
+  it("’/’로 진입하면 장바구니가 보이고, ‘주문하기’ 버튼 클릭 시 ‘/order-confirm’이 보이고, '결제하기' 버튼 클릭 시 '/payment-confirm'이 보인다.", async () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/"],
     });
@@ -91,22 +127,25 @@ describe("라우팅 & 네비게이션 테스트", () => {
 
     render(
       <CartItemProvider>
-        <RouterProvider router={router} />
+        <SelectedCartItemProvider>
+          <RouterProvider router={router} />
+        </SelectedCartItemProvider>
       </CartItemProvider>
     );
 
     expect(await screen.findByText("장바구니")).toBeInTheDocument();
 
     const orderButton = screen.getByRole("button", { name: "주문하기" });
+
     expect(orderButton).toBeEnabled();
 
     fireEvent.click(orderButton);
 
     expect(await screen.findByText("주문 확인")).toBeInTheDocument();
 
-    const backIcon = await screen.findByTestId("header-leading");
-    fireEvent.click(backIcon);
+    const paymentButton = screen.getByRole("button", { name: "결제하기" });
+    fireEvent.click(paymentButton);
 
-    expect(await screen.findByText("장바구니")).toBeInTheDocument();
+    expect(await screen.findByText("결제 확인")).toBeInTheDocument();
   });
 });

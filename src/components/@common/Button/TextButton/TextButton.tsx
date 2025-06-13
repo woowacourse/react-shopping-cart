@@ -4,12 +4,24 @@ import Text from "../../Text/Text";
 interface TextButtonProps {
   text: string;
   onClick: () => void;
+  buttonStyled?: React.CSSProperties;
+  textStyled?: React.CSSProperties;
 }
 
-const TextButton = ({ text, onClick }: TextButtonProps) => {
+const TextButton = ({
+  text,
+  onClick,
+  buttonStyled,
+  textStyled,
+}: TextButtonProps) => {
   return (
-    <button type="button" onClick={onClick} className={TextButtonStyle}>
-      <Text text={text}></Text>
+    <button
+      type="button"
+      onClick={onClick}
+      className={TextButtonStyle}
+      style={buttonStyled}
+    >
+      <Text text={text} styled={textStyled}></Text>
     </button>
   );
 };

@@ -1,58 +1,125 @@
 import { css } from "@emotion/css";
 import Header from "../components/@common/Header/Header";
 import Text from "../components/@common/Text/Text";
-import { useCartItemContext } from "../contexts/useCartItemContext";
-import { useNavigate } from "react-router";
+import { useCartItemContext } from "../contexts/carItem/useCartItemContext";
+import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
+import TextButton from "../components/@common/Button/TextButton/TextButton";
+import ConfirmCartItemCard from "../components/CartItemCard/ConfirmCartItemCard";
+import { PriceSummary } from "../components/PriceSummary/PriceSummary";
+import PageTitle from "../components/PageTitle/PageTitle";
+import { useState } from "react";
+import { CouponModal } from "../components/CouponModal/CouponModal";
+import { useCoupon } from "../hooks/coupons/useCoupon";
+import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
+import { getTotalPrice } from "../utils/prices/getTotalPrice";
+import { getShippingFee } from "../utils/prices/getShippingFee";
+import { RemoteAreaToggle } from "../components/RemoteAreaToggle/RemoteAreaToggle";
 
 const OrderConfirmPage = () => {
-  const { selectedItemIds, totalPrice } = useCartItemContext();
+  const { cartItems } = useCartItemContext();
+  const { selectedItemIds } = useSelectedCartItemContext();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { orderPrice = 0 } = state;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isRemoteArea, setIsRemoteArea] = useState<boolean>(false);
+  const selectedItems = cartItems.filter((cartItem) =>
+    selectedItemIds.has(cartItem.id)
+  );
+  const {
+    coupons,
+    totalCouponDiscountAmount,
+    selectedCouponIds,
+    toggleCouponSelection,
+    isAvailableCoupon,
+  } = useCoupon({ orderPrice, isRemoteArea, selectedItems });
+  const shippingFee = getShippingFee(orderPrice, isRemoteArea);
+  const totalPrice = getTotalPrice(
+    orderPrice,
+    shippingFee,
+    totalCouponDiscountAmount
+  );
+  const handleToggle = () => {
+    setIsRemoteArea((prev: boolean) => !prev);
+  };
 
   return (
-    <>
+    <div className={OrderConfirmLayout}>
+      <Header
+        leadingIcon="./back-icon.svg"
+        onLeadingClick={() => {
+          navigate("/");
+        }}
+      />
       <div className={OrderConfirmPageStyles}>
-        <Header
-          leadingIcon="./back-icon.svg"
-          onLeadingClick={() => {
-            navigate("/");
-          }}
+        <PageTitle
+          title="주문 확인"
+          titleCaption={
+            <>
+              <Text text={`총 ${selectedItemIds.size}개를 주문합니다.`} />
+              <Text text="최종 결제 금액을 확인해 주세요." />
+            </>
+          }
         />
-        <section className={ContentStyle}>
-          <Text text="주문 확인" type="large" />
-          <section className={Description}>
-            <Text text={`총 ${selectedItemIds.size}개의 상품을 주문합니다.`} />
-            <Text text="최종 결제 금액을 확인해 주세요." />
-          </section>
-          <Text text="총 결제 금액" type="medium" />
-          <Text text={`${totalPrice.toLocaleString()}원`} type="large" />
-        </section>
-        <ConfirmButton text="주문하기" onClick={() => {}} disabled={true} />
+        {selectedItems.map((item) => (
+          <ConfirmCartItemCard key={item.id} cartItem={item} />
+        ))}
+        <TextButton
+          text="쿠폰 적용"
+          onClick={() => {
+            setIsOpen(true);
+          }}
+          buttonStyled={{ width: "100%", height: "48px" }}
+          textStyled={{ color: "#666666", fontSize: "15px" }}
+        />
+        <RemoteAreaToggle
+          isRemoteArea={isRemoteArea}
+          handleToggle={handleToggle}
+        />
+        <PriceSummary
+          orderPrice={orderPrice}
+          shippingFee={shippingFee}
+          couponDiscount={totalCouponDiscountAmount}
+          totalPrice={totalPrice}
+        />
+        <CouponModal
+          isOpen={isOpen}
+          onModalClose={() => {
+            setIsOpen(false);
+          }}
+          coupons={coupons}
+          couponDiscountAmount={totalCouponDiscountAmount}
+          selectedCouponIds={selectedCouponIds}
+          toggleCouponSelection={toggleCouponSelection}
+          isAvailableCoupon={isAvailableCoupon}
+          orderPrice={orderPrice}
+        />
       </div>
-    </>
+      <ConfirmButton
+        text="결제하기"
+        onClick={() => {
+          navigate("/payment-confirm", {
+            state: {
+              totalPrice,
+            },
+          });
+        }}
+      />
+    </div>
   );
 };
 
 export default OrderConfirmPage;
 
-const OrderConfirmPageStyles = css`
+const OrderConfirmLayout = css`
   min-height: 100dvh;
   background-color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
 `;
 
-const ContentStyle = css`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-`;
-
-const Description = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+const OrderConfirmPageStyles = css`
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  justify-content: center;
 `;

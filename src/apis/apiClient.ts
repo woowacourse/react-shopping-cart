@@ -32,7 +32,7 @@ export async function apiClient({
 
     if (method === "GET") {
       const data = await response.json();
-      return data.content;
+      return data;
     }
   } catch (error) {
     console.error("API request failed:", error);

@@ -16,7 +16,7 @@ const cartItemsApi = {
         method: "GET",
       });
 
-      return response;
+      return response.content;
     } catch (error) {
       console.error("Failed to fetch cart items:", error);
       throw error;
