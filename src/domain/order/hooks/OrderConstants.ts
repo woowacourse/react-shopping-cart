@@ -1,0 +1,3 @@
+export const FREE_SHIPPING_STANDARD = 100000;
+export const SHIPPING_FEE = 3000;
+export const ISLAND_SHIPPING_FEE = 3000;

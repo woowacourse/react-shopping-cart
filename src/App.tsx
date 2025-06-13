@@ -2,14 +2,16 @@ import { Global } from "@emotion/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { MobileLayout } from "./components/common";
+import { ScrollToTopOnRouteChange } from "./components/common/layout/ScrollToTopOnRouteChange";
 import { APIDataProvider } from "./context/APIDataProvider";
-import { ToastProvider } from "./context/ToastProvider";
-import reset from "./global/style/reset";
+import reset from "./style/reset";
 import OrderConfirmPage from "./pages/order-confirm/OrderConfirmPage";
-import { OrderListProvider } from "./pages/shopping-cart/context/OrderListProvider";
+import { OrderListProvider } from "./domain/order/context/OrderListProvider";
 import ShoppingCartPage from "./pages/shopping-cart/ShoppingCartPage";
 import { getBrowserBaseUrl } from "./utils/getBrowserBaseUrl";
 import ErrorBoundary from "./components/features/error-boundary/ErrorBoundary";
+import SuccessConfirmPage from "./pages/success-confirm/SuccessConfirmPage";
+import { ToastProvider } from "./context/ToastProvider";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <APIDataProvider>
             <OrderListProvider>
               <BrowserRouter basename={getBrowserBaseUrl()}>
+                <ScrollToTopOnRouteChange />
                 <Routes>
                   <Route
                     path="/"
@@ -33,7 +36,6 @@ function App() {
                     path="/order-confirm"
                     element={
                       <ErrorBoundary>
-                        {" "}
                         <OrderConfirmPage />
                       </ErrorBoundary>
                     }
@@ -44,6 +46,14 @@ function App() {
                       <div>
                         <h1>Page Not Found</h1>
                       </div>
+                    }
+                  />
+                  <Route
+                    path="/success-confirm"
+                    element={
+                      <ErrorBoundary>
+                        <SuccessConfirmPage />
+                      </ErrorBoundary>
                     }
                   />
                 </Routes>

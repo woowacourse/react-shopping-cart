@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { getShoppingCartData } from "../../api/cart";
 import { Header } from "../../components/common";
 import { useAPIDataContext } from "../../context/APIDataProvider";
-import CartLayout from "./cart-layout/CartLayout";
-import { useOrderListContext } from "./context/OrderListProvider";
+import { useOrderListContext } from "../../domain/order/context/OrderListProvider";
+import CartLayout from "../../domain/cart/components/cart-layout/CartLayout";
 
 const ShoppingCartPage = () => {
   const { data: cartListData } = useAPIDataContext({
@@ -12,10 +12,8 @@ const ShoppingCartPage = () => {
     name: "cart",
   });
 
-  const { selectionMap } = useOrderListContext(cartListData);
-  const isDisabled = !Object.values(selectionMap).some(
-    (isSelected) => isSelected
-  );
+  const { selectedCartItems } = useOrderListContext(cartListData);
+  const isDisabled = selectedCartItems.length === 0;
   const navigate = useNavigate();
   const handleCheckout = () => {
     if (!isDisabled) {
