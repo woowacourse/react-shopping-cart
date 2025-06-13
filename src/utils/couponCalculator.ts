@@ -1,6 +1,10 @@
 import { FEE } from '../constants/systemConstants';
 import { Coupon, FreeShippingCoupon } from '../types/coupon';
-import { isExpired, meetsTimeCondition } from './couponValidator';
+import {
+  isExpired,
+  meetsTimeCondition,
+  meetsMinimumAmount,
+} from './couponValidator';
 import { CartItem } from './cartMapper';
 
 export interface CalculationResult {
@@ -29,12 +33,13 @@ const applySingleCoupon = (
     return 0;
   }
 
+  if (!meetsMinimumAmount(coupon, amount)) {
+    return 0;
+  }
+
   switch (coupon.discountType) {
     case 'fixed': {
-      if (amount >= coupon.minimumAmount) {
-        return Math.min(coupon.discount, amount);
-      }
-      return 0;
+      return Math.min(coupon.discount, amount);
     }
 
     case 'percentage': {

@@ -20,6 +20,10 @@ const mockCoupons: Coupon[] = [
     expirationDate: '2025-12-31',
     discountType: 'percentage',
     discount: 30,
+    availableTime: {
+      start: '09:00',
+      end: '18:00',
+    },
   },
   {
     id: 2,

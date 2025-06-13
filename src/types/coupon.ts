@@ -4,6 +4,10 @@ export interface BaseCoupon {
   description: string;
   expirationDate: string;
   discountType: 'fixed' | 'percentage' | 'buyXgetY' | 'freeShipping';
+  availableTime?: {
+    start: string;
+    end: string;
+  };
 }
 
 export interface FixedCoupon extends BaseCoupon {
@@ -15,10 +19,6 @@ export interface FixedCoupon extends BaseCoupon {
 export interface PercentageCoupon extends BaseCoupon {
   discountType: 'percentage';
   discount: number;
-  availableTime?: {
-    start: string;
-    end: string;
-  };
 }
 
 export interface BuyXGetYCoupon extends BaseCoupon {

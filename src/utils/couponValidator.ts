@@ -15,6 +15,10 @@ const isTimeInRange = (availableTime: {
   const startTime = parseInt(availableTime.start.replace(':', ''));
   const endTime = parseInt(availableTime.end.replace(':', ''));
 
+  if (startTime > endTime) {
+    return currentTime >= startTime || currentTime <= endTime;
+  }
+
   return currentTime >= startTime && currentTime <= endTime;
 };
 
@@ -44,7 +48,7 @@ export const meetsMinimumAmount = (
 };
 
 export const meetsTimeCondition = (coupon: Coupon): boolean => {
-  if (coupon.discountType === 'percentage' && coupon.availableTime) {
+  if (coupon.availableTime) {
     return isTimeInRange(coupon.availableTime);
   }
   return true;
@@ -74,10 +78,9 @@ export const validateCoupon = (
   }
 
   if (!meetsTimeCondition(coupon)) {
-    const timeCondition =
-      coupon.discountType === 'percentage' && coupon.availableTime
-        ? `${coupon.availableTime.start}~${coupon.availableTime.end}`
-        : '';
+    const timeCondition = coupon.availableTime
+      ? `${coupon.availableTime.start}~${coupon.availableTime.end}`
+      : '';
     return {
       isValid: false,
       reason: `${timeCondition} 시간에만 사용 가능`,
