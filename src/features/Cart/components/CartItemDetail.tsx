@@ -1,32 +1,33 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { Button } from '@/shared/components/Button/Button';
-import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { CheckBox } from '../../../shared/components/CheckBox/CheckBox';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Text } from '../../../shared/components/Text/Text';
 
-import { QuantitySelector } from '@/features/Cart/components/QuantitySelector';
+import { QuantitySelector } from '../../../features/Cart/components/QuantitySelector';
 
 import NoImage from '../../../../public/NoImage.svg';
-import { CartItem } from '@/features/Cart/types/Cart.types';
+import { CartItem } from '../types/Cart.types';
+import { useCartContext } from '../context/CartProvider';
 
 type CartItemDetailProps = {
-  isChecked: boolean;
-  onToggle: (id: number) => void;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
+  variant: 'cart' | 'review';
 } & CartItem;
 
 export const CartItemDetail = ({
   id,
-  isChecked,
   quantity,
   product,
-  onToggle,
-  onRemove,
-  onUpdateQuantity,
+  variant = 'cart',
 }: CartItemDetailProps) => {
+  const { cartItems, toggleCheck, removeCartItem, updateQuantity } = useCartContext();
+  const isCartMode = variant === 'cart';
+
+  const cartItem = cartItems.find((item) => item.id === id);
+  const checked = cartItem?.isChecked ?? false;
+
   const imgUrl =
     !product.imageUrl || product.imageUrl === '' || product.imageUrl.includes('kream')
       ? NoImage
@@ -44,28 +45,31 @@ export const CartItemDetail = ({
         margin-top: 16px;
       `}
     >
-      <Flex
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        gap="0"
-        margin="10px 0 0 0 "
-      >
-        <CheckBox role="checkbox" checked={isChecked} onClick={() => onToggle(id)} />
-        <Button
-          variant="outlined"
-          size="xs"
-          color="#e5e5e5"
-          fontColor="black"
-          css={css`
-            margin-top: 8px;
-          `}
-          onClick={() => onRemove(id)}
+      {isCartMode && (
+        <Flex
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+          gap="0"
+          margin="10px 0 0 0 "
         >
-          삭제
-        </Button>
-      </Flex>
+          <CheckBox role="checkbox" checked={checked} onChange={() => toggleCheck?.(id)} />
+          <Button
+            variant="outlined"
+            size="xs"
+            color="#e5e5e5"
+            fontColor="black"
+            css={css`
+              margin-top: 8px;
+            `}
+            onClick={() => removeCartItem?.(id)}
+          >
+            삭제
+          </Button>
+        </Flex>
+      )}
+
       <Flex
         direction="row"
         justifyContent="flex-start"
@@ -93,11 +97,15 @@ export const CartItemDetail = ({
               {product.price.toLocaleString()}원
             </Text>
           </Flex>
-          <QuantitySelector
-            count={quantity}
-            onIncrease={() => onUpdateQuantity(id, quantity + 1)}
-            onDecrease={() => onUpdateQuantity(id, quantity - 1)}
-          />
+          {isCartMode ? (
+            <QuantitySelector
+              count={quantity}
+              onIncrease={() => updateQuantity?.(id, quantity + 1)}
+              onDecrease={() => updateQuantity?.(id, quantity - 1)}
+            />
+          ) : (
+            <Text type="Caption">{quantity}개</Text>
+          )}
         </Flex>
       </Flex>
     </Flex>

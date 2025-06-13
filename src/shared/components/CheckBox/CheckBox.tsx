@@ -1,27 +1,44 @@
 import { ComponentProps, useId } from 'react';
 
 type CheckBoxProps = {
+  id?: string;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & ComponentProps<'input'>;
 
-export const CheckBox = ({ checked = true, onChange, ...props }: CheckBoxProps) => {
-  const id = useId();
+const labelStyle: React.CSSProperties = {
+  display: 'inline-block',
+  position: 'relative',
+  width: 23,
+  height: 23,
+  cursor: 'pointer',
+};
+
+const inputStyle: React.CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  opacity: 0,
+  margin: 0,
+  cursor: 'pointer',
+  zIndex: 1,
+};
+
+export const CheckBox = ({ id: customId, checked = false, onChange, ...props }: CheckBoxProps) => {
+  const autoId = useId();
+  const id = customId ?? autoId;
 
   return (
-    <label htmlFor={id} style={{ display: 'inline-block', cursor: 'pointer' }}>
+    <label htmlFor={id} style={labelStyle}>
       <input
         id={id}
         type="checkbox"
         checked={checked}
         onChange={onChange}
         {...props}
-        style={{
-          position: 'absolute',
-          opacity: 0,
-          width: 0,
-          height: 0,
-        }}
+        style={inputStyle}
       />
       <svg
         width="23"

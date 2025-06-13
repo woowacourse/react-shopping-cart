@@ -1,42 +1,29 @@
 import { css } from '@emotion/react';
 
-import { Button } from '@/shared/components/Button/Button';
-import { CheckBox } from '@/shared/components/CheckBox/CheckBox';
-import { Flex } from '@/shared/components/Flex/Flex';
-import { Header } from '@/shared/components/Header/Header';
-import { Progress } from '@/shared/components/Progress/Progress';
-import { Text } from '@/shared/components/Text/Text';
+import { Button } from '../../../shared/components/Button/Button';
+import { CheckBox } from '../../../shared/components/CheckBox/CheckBox';
+import { Flex } from '../../../shared/components/Flex/Flex';
+import { Header } from '../../../shared/components/Header/Header';
+import { Progress } from '../../../shared/components/Progress/Progress';
+import { Text } from '../../../shared/components/Text/Text';
 
-import { CartItemDetail } from '@/features/Cart/components/CartItemDetail';
-import { PriceSummary } from '@/features/Cart/components/PriceSummary';
+import { CartItemDetail } from '../../../features/Cart/components/CartItemDetail';
+import { PriceSummary } from '../../../features/Cart/components/PriceSummary';
 
-import { StepProps } from '@/shared/types/funnel';
-import { CartListContainer } from '@/features/Cart/container/CartListContainer';
-import { CartItem } from '@/features/Cart/types/Cart.types';
-import { useCartInfo } from '@/features/Cart/hooks/useCartInfo';
+import { StepProps } from '../../../shared/types/funnel';
+import { CartListContainer } from '../../../features/Cart/container/CartListContainer';
+import { useCartContext } from '../context/CartProvider';
+import { useCartCheckStatus } from '../hooks/useCartCheckStatus';
+import { useCartAmountCount } from '../hooks/useCartAmountCount';
+import { useFreeShippingProgress } from '../hooks/useFreeShippingProgress';
 
-type CartInfoProps = {
-  cartItems: CartItem[];
-  onToggle: (id: number) => void;
-  onToggleAll: VoidFunction;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (cartId: number, newQuantity: number) => void;
-} & StepProps;
-export const CartInfo = ({
-  cartItems,
-  onNext,
-  onToggle,
-  onToggleAll,
-  onRemove,
-  onUpdateQuantity,
-}: CartInfoProps) => {
-  const {
-    allChecked,
-    cartItemCount,
-    selectedCartItemCount,
-    progressValue,
-    remainingForFreeShipping,
-  } = useCartInfo(cartItems);
+export const CartInfo = ({ onNext }: StepProps) => {
+  const { cartItems, toggleAllCheck } = useCartContext();
+  const { allChecked } = useCartCheckStatus();
+  const { selectedCartItemCount } = useCartAmountCount();
+  const { progressValue, remainingForFreeShipping } = useFreeShippingProgress();
+
+  const cartItemCount = cartItems.length;
 
   return (
     <>
@@ -110,24 +97,16 @@ export const CartInfo = ({
               gap="10px"
               margin="10px 0 0 0"
             >
-              <CheckBox checked={allChecked} onChange={onToggleAll} role="all-check" />
+              <CheckBox checked={allChecked} onChange={toggleAllCheck} role="all-check" />
               <Text type="Caption" weight="regular">
                 {`전체선택  (${selectedCartItemCount}/${cartItemCount})`}
               </Text>
             </Flex>
           </Flex>
           <CartListContainer>
-            {cartItems?.map((item) => (
-              <CartItemDetail
-                key={item.id}
-                onToggle={onToggle}
-                onRemove={onRemove}
-                onUpdateQuantity={onUpdateQuantity}
-                {...item}
-              />
-            ))}
+            {cartItems?.map((item) => <CartItemDetail key={item.id} variant="cart" {...item} />)}
           </CartListContainer>
-          <PriceSummary cartItems={cartItems ?? []} />
+          <PriceSummary />
         </>
       )}
       <Button
@@ -139,6 +118,7 @@ export const CartInfo = ({
         `}
         onClick={onNext}
         disabled={cartItems?.length === 0 || selectedCartItemCount === 0}
+        data-testid="order-confirm-button"
       >
         주문확인
       </Button>

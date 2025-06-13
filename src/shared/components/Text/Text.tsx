@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 
-import { StyledTextContainer } from '@/shared/components/Text/Text.styled';
+import { StyledTextContainer } from '../../../shared/components/Text/Text.styled';
 
 export type Props = {
   type: 'Heading' | 'Title' | 'Body' | 'Caption';

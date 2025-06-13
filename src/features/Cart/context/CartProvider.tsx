@@ -1,10 +1,14 @@
 import { createContext, useContext, useEffect, useRef, useState, PropsWithChildren } from 'react';
 
-import { useFetchData } from '@/shared/hooks/useFetchData';
-import { deleteCartItem, getCartItemList, updateCartItem } from '@/features/Cart/api/cart';
-import { CartItem } from '@/features/Cart/types/Cart.types';
-import { ToastContext } from '@/shared/context/ToastProvider';
-import { isError } from '@/shared/utils/isError';
+import { useFetchData } from '../../../shared/hooks/useFetchData';
+import { deleteCartItem, getCartItemList, updateCartItem } from '../../../features/Cart/api/cart';
+import { CartItem } from '../../../features/Cart/types/Cart.types';
+import { useToastContext } from '../../../shared/context/ToastProvider';
+import { isError } from '../../../shared/utils/isError';
+import {
+  loadCheckedCartMap,
+  saveCheckedCartMap,
+} from '../../../shared/utils/storage/cartCheckedStorage';
 
 type CartContextType = {
   cartItems: (CartItem & { isChecked: boolean })[];
@@ -12,9 +16,11 @@ type CartContextType = {
   toggleAllCheck: () => void;
   updateQuantity: (id: number, qty: number) => Promise<void>;
   removeCartItem: (id: number) => Promise<void>;
+  isRemoteArea: boolean;
+  toggleIsRemoteArea: () => void;
 };
 
-const CartContext = createContext<CartContextType | null>(null);
+export const CartContext = createContext<CartContextType | null>(null);
 
 export const useCartContext = () => {
   const context = useContext(CartContext);
@@ -24,9 +30,12 @@ export const useCartContext = () => {
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
   const cart = useFetchData<CartItem[]>({ autoFetch: getCartItemList });
-  const { showToast } = useContext(ToastContext);
+  const { showToast } = useToastContext();
   const [checkedItems, setCheckedItems] = useState(new Set<number>());
   const hasInitialized = useRef(false);
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
+
+  const CHECKED_KEY = 'cart-checked-map';
 
   useEffect(() => {
     if (cart.error && isError(cart.error)) {
@@ -36,25 +45,42 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (cart.data && cart.data.length > 0 && !hasInitialized.current) {
-      setCheckedItems(new Set(cart.data.map((item) => item.id)));
+      setCheckedItems(loadCheckedCartMap());
       hasInitialized.current = true;
     }
   }, [cart.data]);
+
+  const saveToStorage = (checkedSet: Set<number>) => {
+    const map: Record<number, boolean> = {};
+    checkedSet.forEach((id) => {
+      map[id] = true;
+    });
+    localStorage.setItem(CHECKED_KEY, JSON.stringify(map));
+  };
 
   const toggleCheck = (id: number) => {
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
       newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      saveCheckedCartMap(newSet);
       return newSet;
     });
   };
 
   const toggleAllCheck = () => {
     setCheckedItems((prev) => {
-      if (prev.size === cart.data?.length) return new Set();
-      return new Set(cart.data?.map((item) => item.id));
+      let newSet;
+      if (prev.size === cart.data?.length) {
+        newSet = new Set<number>();
+      } else {
+        newSet = new Set(cart.data?.map((item) => item.id));
+      }
+      saveToStorage(newSet);
+      return newSet;
     });
   };
+
+  const toggleIsRemoteArea = () => setIsRemoteArea((prev) => !prev);
 
   const updateQuantity = async (cartId: number, newQuantity: number) => {
     const cartItem = cart.data?.find((item) => item.id === cartId);
@@ -96,7 +122,15 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, toggleCheck, toggleAllCheck, updateQuantity, removeCartItem }}
+      value={{
+        cartItems,
+        toggleCheck,
+        toggleAllCheck,
+        updateQuantity,
+        removeCartItem,
+        isRemoteArea,
+        toggleIsRemoteArea,
+      }}
     >
       {children}
     </CartContext.Provider>

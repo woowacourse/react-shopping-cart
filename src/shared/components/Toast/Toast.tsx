@@ -1,7 +1,10 @@
 import { ComponentProps } from 'react';
 import { createPortal } from 'react-dom';
 
-import { StyledModalContainer, StyledModalContent } from '@/shared/components/Toast/Toast.styled';
+import {
+  StyledModalContainer,
+  StyledModalContent,
+} from '../../../shared/components/Toast/Toast.styled';
 
 export type ModalProps = {
   children: React.ReactNode;

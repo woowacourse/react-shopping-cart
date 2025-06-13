@@ -1,4 +1,4 @@
-import { Product } from '@/features/Cart/types/Product.types';
+import { Product } from '../../../features/Cart/types/Product.types';
 
 export type CartResponse = {
   totalElements: number;

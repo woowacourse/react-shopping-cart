@@ -1,15 +1,23 @@
 import { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 
-export const CartListContainer = ({ children }: PropsWithChildren) => {
-  return <StyledCartListContainer>{children}</StyledCartListContainer>;
+type StyledCartListContainerProps = {
+  variant?: 'cart' | 'review';
 };
 
-const StyledCartListContainer = styled.div`
+export const CartListContainer = ({
+  children,
+  variant = 'cart',
+}: PropsWithChildren<StyledCartListContainerProps>) => {
+  return <StyledCartListContainer variant={variant}>{children}</StyledCartListContainer>;
+};
+
+const StyledCartListContainer = styled.div<StyledCartListContainerProps>`
   position: relative;
   width: 100%;
-  min-height: 350px;
+  min-height: ${({ variant = 'cart' }) => variant === 'cart' && '350px'};
+  max-height: ${({ variant = 'cart' }) => variant === 'review' && '150px'};
   overflow-y: auto;
-  padding: 0px 20px;
+  padding: ${({ variant = 'cart' }) => (variant === 'cart' ? '0px 20px' : '0')};
   flex: 2;
 `;
