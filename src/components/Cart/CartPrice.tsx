@@ -1,13 +1,16 @@
 import styled from '@emotion/styled';
 
-export type CartPriceVariant = 'default' | 'shipping' | 'total';
+export type CartPriceVariant = 'default' | 'coupon' | 'shipping' | 'total';
+
 interface CartPriceProps {
   title: string;
-  price: number;
+  price: number | string | undefined;
   variant: CartPriceVariant;
 }
 
-function CartPrice({ title, price, variant = 'default' }: CartPriceProps) {
+function CartPrice({ title, price: originPrice = 0, variant = 'default' }: CartPriceProps) {
+  const price = Number(String(originPrice));
+
   return (
     <StyledTotalContainer variant={variant}>
       <Title>{title}</Title>
@@ -41,11 +44,19 @@ const StyledTotalContainer = styled(TotalContainer)<{ variant?: string }>`
         border-top: 1px solid #0000001A;
       `;
     }
+
+    if (variant === 'coupon') {
+      return `
+        border: none;
+      `;
+    }
+
     if (variant === 'shipping') {
       return `
         border-bottom: 1px solid #0000001A;
       `;
     }
+
     return '';
   }}
 `;

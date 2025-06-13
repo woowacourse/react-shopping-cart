@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 
 interface CartHeaderProps {
-  description?: string | undefined;
+  title?: string;
+  description?: string;
 }
 
-function CartHeader({ description }: CartHeaderProps) {
+function CartHeader({ title, description }: CartHeaderProps) {
   return (
     <Container>
-      <Title>장바구니</Title>
+      <Title>{title}</Title>
       {description && <Description>{description}</Description>}
     </Container>
   );
@@ -31,9 +32,9 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p`
-  text-align: center;
   font-size: 12px;
   font-weight: 500;
   line-height: 150%;
   color: #0a0d13;
+  white-space: pre-line;
 `;

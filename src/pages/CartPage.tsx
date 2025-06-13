@@ -11,9 +11,6 @@ function CartPage() {
   const {
     cartItems,
     checkedItems,
-    setCheckedItems,
-    isAllChecked,
-    checkAll,
     price,
     totalCount,
     shippingFee,
@@ -30,20 +27,9 @@ function CartPage() {
     <>
       <Header title="SHOP" />
       <Container>
-        <CartHeader description={descriptionMessage()} />
-
+        <CartHeader title="장바구니" description={descriptionMessage} />
         {cartItems.content.length > 0 ? (
-          <>
-            <CartMain
-              checked={isAllChecked}
-              checkedItems={checkedItems}
-              setCheckedItems={setCheckedItems}
-              price={price}
-              shippingFee={shippingFee}
-              totalPrice={totalPrice}
-              onChange={checkAll}
-            />
-          </>
+          <CartMain />
         ) : (
           <EmptyCart>장바구니에 담은 상품이 없습니다.</EmptyCart>
         )}
@@ -52,7 +38,14 @@ function CartPage() {
         disabled={isDisabled}
         onClick={() =>
           navigate('/orderConfirm', {
-            state: { price: totalPrice, count: checkedItems.length, totalCount: totalCount },
+            state: {
+              checkedItemIds: checkedItems,
+              price: price,
+              count: checkedItems.length,
+              totalCount: totalCount,
+              shippingFee: shippingFee,
+              totalPrice: totalPrice,
+            },
           })
         }
       >

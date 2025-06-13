@@ -3,6 +3,10 @@ import { BASE_URL, USER_TOKEN } from './env';
 interface ApiClientOptions {
   method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   body?: unknown;
+  query?: {
+    page: number;
+    size: number;
+  };
 }
 
 export const apiClient = async <T = unknown>(

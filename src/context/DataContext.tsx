@@ -7,7 +7,7 @@ import {
   type PropsWithChildren,
 } from 'react';
 
-const DataContext = createContext<{
+export const DataContext = createContext<{
   data: Record<string, unknown>;
   setData: React.Dispatch<React.SetStateAction<Record<string, unknown>>>;
 }>({

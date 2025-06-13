@@ -1,17 +1,19 @@
-import { CartProduct } from '../types/cart';
 import {
   filterCheckedItems,
   calculateTotalPrice,
   calculateTotalQuantity,
   calculateShippingFee,
 } from '../utils/cartCalculations';
+import { useCartItemsData } from './useCartItemsData';
 
 interface UseCartCalculationsProps {
-  items: CartProduct[] | undefined;
   checkedIds: number[];
 }
 
-export const useCartCalculations = ({ items, checkedIds }: UseCartCalculationsProps) => {
+export const useCartCalculations = ({ checkedIds }: UseCartCalculationsProps) => {
+  const cartItems = useCartItemsData();
+  const items = cartItems?.content;
+
   const checkedCartItems = items ? filterCheckedItems(items, checkedIds) : [];
   const price = calculateTotalPrice(checkedCartItems);
   const totalCount = calculateTotalQuantity(checkedCartItems);

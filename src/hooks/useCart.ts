@@ -1,22 +1,18 @@
-import { useCartData } from './useCartData';
+import { useCartItemsData } from './useCartItemsData';
 import { useCartSelection } from './useCartSelection';
 import { useCartCalculations } from './useCartCalculations';
-import { useCartUI } from './useCartUI';
+import { getCartDescription } from '../utils/cartCalculations';
 
 export const useCart = () => {
-  const cartItems = useCartData();
-
-  const { checkedItems, setCheckedItems, isAllChecked, checkAll } = useCartSelection(cartItems);
-
+  const cartItems = useCartItemsData();
+  const { checkedItems, setCheckedItems, isAllChecked, checkAll } = useCartSelection();
   const { price, totalCount, shippingFee, totalPrice } = useCartCalculations({
-    items: cartItems?.content,
     checkedIds: checkedItems,
   });
 
-  const { descriptionMessage, isDisabled } = useCartUI({
-    itemCount: cartItems?.content?.length ?? 0,
-    checkedItemsCount: checkedItems.length,
-  });
+  const descriptionMessage = getCartDescription(cartItems?.content?.length ?? 0);
+
+  const isDisabled = checkedItems.length === 0;
 
   return {
     cartItems,

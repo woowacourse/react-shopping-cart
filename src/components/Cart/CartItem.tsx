@@ -16,7 +16,7 @@ function CartItem({ data, checked, onCheckChange }: CartItemProps) {
   return (
     <CartItemContainer>
       <SelectBox
-        cartItem={data}
+        id={data.id}
         checked={checked}
         onChange={onCheckChange}
         onDeleteClick={removeItem}
