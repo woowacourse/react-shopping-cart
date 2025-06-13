@@ -1,10 +1,10 @@
+import { CartItemType } from '@/components/features/cart';
 import { http, HttpResponse } from 'msw';
-import { CartItemType } from '../components/features/cart/types';
 import cartItemsMockData from './data/mock-cart-items.json';
+import couponsMockData from './data/mock-coupons.json';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-// 메모리 내에서 변경 가능한 배열로 복사
 let inMemoryCartItems: CartItemType[] = [...cartItemsMockData];
 
 export function resetCartItems() {
@@ -71,5 +71,8 @@ export const handlers = [
     );
 
     return new HttpResponse(null, { status: 200 });
+  }),
+  http.get(`${baseURL}/coupons`, () => {
+    return HttpResponse.json(couponsMockData);
   }),
 ];

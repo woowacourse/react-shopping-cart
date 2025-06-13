@@ -1,25 +1,22 @@
-import { getCartItems } from '@/components/features/cart/api/getCartItems';
-import CartContents from '@/components/features/cart/cartContents/CartContents';
-import { createResource } from '@/components/features/cart/utils/createResource';
-import { Suspense, useState } from 'react';
-import Header from '../../components/common/header/Header';
-import LoadingContents from './components/loadingContents/LoadingContents';
+import { Header } from '@/components/common';
+import { CartContents, getCartItems } from '@/components/features/cart';
+import { useJaeO } from '@/shared';
+import LoadingPage from './CartLoadingPage';
 
 function CartPage() {
-  const [resource, setResource] = useState(() =>
-    createResource(getCartItems())
-  );
+  const { data: cartItems } = useJaeO({
+    fetchKey: 'cartItems',
+    fetchFn: getCartItems,
+  });
 
-  const refetch = () => {
-    setResource(createResource(getCartItems()));
-  };
+  if (!cartItems) {
+    return <LoadingPage />;
+  }
 
   return (
     <>
       <Header title="SHOP" />
-      <Suspense fallback={<LoadingContents />}>
-        <CartContents resource={resource} refetch={refetch} />
-      </Suspense>
+      <CartContents cartItems={cartItems} />
     </>
   );
 }

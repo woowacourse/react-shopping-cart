@@ -1,22 +1,18 @@
 import { ErrorToastMessage, FooterButton } from '@/components/common';
+import { ROUTE } from '@/shared';
 import { useNavigate } from 'react-router';
-import CartList from '../cartList/CartList';
-import CartPrice from '../cartPrice/CartPrice';
-import CartTitle from '../cartTitle/CartTitle';
-import useCartSelection from '../hooks/useCartSelection';
-import { CartItemType } from '../types';
-import { calculateOrderPrice } from '../utils/cartCalculations';
+import {
+  CartList,
+  CartPriceSummary,
+  CartTitle,
+  useCartSelection,
+  CartItemType,
+  calculateOrderPrice,
+} from '..';
 import * as S from './CartContents.styles';
 import CartEmptyContent from './CartEmptyContent';
 
-function CartContents({
-  resource,
-  refetch,
-}: {
-  resource: { read: () => CartItemType[] };
-  refetch: () => void;
-}) {
-  const cartItems = resource.read();
+function CartContents({ cartItems }: { cartItems: CartItemType[] }) {
   const cartSelection = useCartSelection(cartItems);
   const navigate = useNavigate();
 
@@ -25,8 +21,8 @@ function CartContents({
 
   const disabled = !cartSelection.states.isSomeItemSelected;
 
-  const onOrderConfirm = () => {
-    navigate('/order-confirmation', {
+  const moveToOrderCheck = () => {
+    navigate(ROUTE.orderCheck, {
       state: { orderProducts: selectCartItems },
     });
   };
@@ -37,17 +33,17 @@ function CartContents({
 
   return (
     <S.Container>
-      <CartTitle cartItemsQuantity={cartItems.length} />
+      <CartTitle quantity={cartItems.length} />
       <CartList
         cartItems={cartItems}
         selectedCartItemIds={cartSelection.states.selectedItemIds}
         isAllItemSelected={cartSelection.states.isAllItemSelected}
         toggleSelect={cartSelection.actions.toggle}
+        deleteSelect={cartSelection.actions.delete}
         toggleAllSelect={cartSelection.actions.toggleAll}
-        refetch={refetch}
       />
-      <CartPrice orderPrice={orderPrice} />
-      <FooterButton disabled={disabled} onClick={onOrderConfirm}>
+      <CartPriceSummary value={orderPrice} />
+      <FooterButton disabled={disabled} onClick={moveToOrderCheck}>
         주문 확인
       </FooterButton>
       <ErrorToastMessage />

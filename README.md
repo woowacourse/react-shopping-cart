@@ -35,4 +35,4 @@ RTL - 컴포넌트 테스트
   - [x] CartPrice에서 주문 금액, 배송비, 총 결제 금액
     - [x] 10만원 미만
     - [x] 10만원 이상
-  - [x] OrderConfirmationButton disabled
+  - [x] OrderCheckButton disabled

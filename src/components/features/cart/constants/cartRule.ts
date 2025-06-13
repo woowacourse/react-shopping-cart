@@ -1,4 +1,5 @@
 export const CART_RULE = {
-  FREE_DELIVERY_THRESHOLD: 100_000,
-  DEFAULT_DELIVERY_FEE: 3_000,
+  freeDeliveryThreshold: 100_000,
+  defaultDeliveryFee: 3_000,
+  remoteAreaDeliveryFee: 3_000,
 } as const;

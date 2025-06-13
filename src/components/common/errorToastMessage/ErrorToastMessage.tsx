@@ -1,4 +1,4 @@
-import { useErrorToast } from '@/hooks/useErrorToast';
+import { useErrorToast } from '@/shared/toast/useErrorToast';
 import * as S from './ErrorToastMessage.styles';
 
 function ErrorToastMessage() {

@@ -1,12 +1,12 @@
-import { showErrorToast } from '@/services/toastStore';
-import { isValidImageUrl } from '../../../../utils/isValidImageUrl';
-import SelectBox from '../../../common/selectBox/SelectBox';
-import Separator from '../../../common/separator/Separator';
-import { deleteCartItem } from '../api/deleteCartItem';
-import { updateCartItem } from '../api/updateCartItem';
-import CartQuantityControlButton from '../cartQuantityControlButton/CartQuantityControlButton';
+import { SelectBox, Separator } from '@/components/common';
+import {
+  isValidImageUrl,
+  refetchData,
+  showErrorToast,
+  useJaeOMutation,
+} from '@/shared';
+import { CartQuantityControlButton, deleteCartItem, updateCartItem } from '..';
 import { CartItemType } from '../types';
-import { handleCartActions } from '../utils/handleCartActions';
 import * as S from './CartItem.styles';
 import defaultImage from '/assets/default_product.png';
 
@@ -14,28 +14,43 @@ interface CartItemProps {
   cartItem: CartItemType;
   isSelected: boolean;
   toggleSelect: () => void;
-  refetch: () => void;
+  deleteSelect: () => void;
 }
 
 function CartItem({
   cartItem,
   isSelected,
   toggleSelect,
-  refetch,
+  deleteSelect,
 }: CartItemProps) {
+  const { mutate: deleteCartItemMutate } = useJaeOMutation({
+    mutationFn: deleteCartItem,
+    onSuccess: () => {
+      refetchData('cartItems');
+    },
+    onError: () => {
+      showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
+  const { mutate: updateCartItemMutate } = useJaeOMutation({
+    mutationFn: updateCartItem,
+    onSuccess: () => {
+      refetchData('cartItems');
+    },
+    onError: () => {
+      showErrorToast('상품 수량 업데이트에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
+
   return (
     <S.Container data-testid={`CartItem-${cartItem.id}`}>
       <Separator />
       <S.ActionContainer>
-        <SelectBox isSelected={isSelected} onClick={toggleSelect} />
+        <SelectBox selected={isSelected} onClick={toggleSelect} />
         <S.DeleteButton
           onClick={() => {
-            handleCartActions(
-              () => deleteCartItem(cartItem.id),
-              refetch,
-              () =>
-                showErrorToast('상품 삭제에 실패했습니다. 다시 시도해주세요.')
-            );
+            deleteCartItemMutate(cartItem.id);
+            deleteSelect();
           }}
         >
           <S.DeleteButtonText>삭제</S.DeleteButtonText>
@@ -66,25 +81,18 @@ function CartItem({
               <CartQuantityControlButton
                 actionType="delete"
                 onClick={() => {
-                  handleCartActions(
-                    () => deleteCartItem(cartItem.id),
-                    refetch,
-                    () =>
-                      showErrorToast(
-                        '상품 삭제에 실패했습니다. 다시 시도해주세요.'
-                      )
-                  );
+                  deleteCartItemMutate(cartItem.id);
+                  deleteSelect();
                 }}
               />
             ) : (
               <CartQuantityControlButton
                 actionType="minus"
                 onClick={() => {
-                  handleCartActions(
-                    () => updateCartItem(cartItem.id, cartItem.quantity - 1),
-                    refetch,
-                    () => showErrorToast('상품 수량을 줄이는 데 실패했습니다.')
-                  );
+                  updateCartItemMutate({
+                    id: cartItem.id,
+                    quantity: cartItem.quantity - 1,
+                  });
                 }}
               />
             )}
@@ -92,11 +100,10 @@ function CartItem({
             <CartQuantityControlButton
               actionType="plus"
               onClick={() => {
-                handleCartActions(
-                  () => updateCartItem(cartItem.id, cartItem.quantity + 1),
-                  refetch,
-                  () => showErrorToast('상품 수량을 늘리는 데 실패했습니다.')
-                );
+                updateCartItemMutate({
+                  id: cartItem.id,
+                  quantity: cartItem.quantity + 1,
+                });
               }}
             />
           </S.UpdateCartBox>

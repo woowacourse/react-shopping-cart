@@ -1,15 +1,14 @@
-import SelectBox from '../../../common/selectBox/SelectBox';
-import CartItem from '../cartItem/CartItem';
+import { SelectBox } from '@/components/common';
+import { CartItem, CartItemType } from '..';
 import * as S from './CartList.styles';
-import { CartItemType } from '../types';
 
 interface CartListProps {
   cartItems: CartItemType[];
   selectedCartItemIds: number[];
   isAllItemSelected: boolean;
-  toggleSelect: (index: number) => void;
+  toggleSelect: (id: number) => void;
+  deleteSelect: (id: number) => void;
   toggleAllSelect: () => void;
-  refetch: () => void;
 }
 
 function CartList({
@@ -17,15 +16,15 @@ function CartList({
   selectedCartItemIds,
   isAllItemSelected,
   toggleSelect,
+  deleteSelect,
   toggleAllSelect,
-  refetch,
 }: CartListProps) {
   return (
     <S.Container>
       <S.AllSelectBox>
         <SelectBox
           id="allSelect"
-          isSelected={isAllItemSelected}
+          selected={isAllItemSelected}
           onClick={toggleAllSelect}
         />
         <S.AllSelectText htmlFor="allSelect">전체선택</S.AllSelectText>
@@ -36,7 +35,7 @@ function CartList({
           cartItem={cartItem}
           isSelected={selectedCartItemIds.includes(cartItem.id)}
           toggleSelect={() => toggleSelect(cartItem.id)}
-          refetch={refetch}
+          deleteSelect={() => deleteSelect(cartItem.id)}
         />
       ))}
     </S.Container>
