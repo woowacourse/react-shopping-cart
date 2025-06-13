@@ -12,6 +12,7 @@ import useOverlay from '../../../hooks/useOverlay';
 import { closeButton, content, header, overlay } from './Dialog.styles';
 import useMergeRefs from '../../../hooks/useMergeRefs';
 import useFocusRef from '../../../hooks/useFocusRef';
+import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 
 interface DialogContextType {
   open: () => void;
@@ -27,6 +28,8 @@ export const DialogContext = createContext<DialogContextType>({
 
 const Root = ({ children }: { children: React.ReactNode }) => {
   const { value: isOpen, setTrue: open, setFalse: close } = useBoolean(false);
+
+  useBodyScrollLock(isOpen);
 
   return (
     <DialogContext.Provider value={{ isOpen, open, close }}>
