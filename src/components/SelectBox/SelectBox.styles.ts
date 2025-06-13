@@ -39,10 +39,10 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
     content: '';
     width: 5px;
     height: 9px;
-    border: solid white;
+    border: solid ${(props) => (props.checked ? 'white' : '#ddd')};
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
-    display: ${(props) => (props.checked ? 'block' : 'none')};
+    display: block;
     margin-bottom: 2px;
   }
 `;

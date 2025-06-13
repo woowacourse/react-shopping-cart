@@ -1,3 +1,4 @@
+import { BASE_SHIPPING_FEE, EXTRA_SHIPPING_FEE, SHIPPING_FREE_PRICE } from '../constants/payments';
 import { CartProduct } from '../types/cart';
 
 interface CartItemsResponse {
@@ -12,8 +13,12 @@ interface CartSummary {
   hasItems: boolean;
 }
 
-const SHIPPING_FEE_THRESHOLD = 100000;
-const SHIPPING_FEE = 3000;
+interface ShippingFeeParams {
+  price: number;
+  hasItems: boolean;
+  isExtraShippingFee?: boolean;
+  hasFreeShippingCoupon?: boolean;
+}
 
 const getSelectedItems = (
   cartItems: CartItemsResponse | undefined,
@@ -31,9 +36,21 @@ const calculateTotalCount = (selectedItems: CartProduct[]): number => {
   return selectedItems.reduce((sum, item) => sum + item.quantity, 0);
 };
 
-const calculateShippingFee = (price: number, hasItems: boolean): number => {
-  const needsShippingFee = price < SHIPPING_FEE_THRESHOLD;
-  return hasItems && needsShippingFee ? SHIPPING_FEE : 0;
+export const calculateShippingFee = ({
+  price,
+  hasItems,
+  isExtraShippingFee = false,
+  hasFreeShippingCoupon = false,
+}: ShippingFeeParams): number => {
+  if (!hasItems || price >= SHIPPING_FREE_PRICE) {
+    return 0;
+  }
+
+  if (hasFreeShippingCoupon) {
+    return isExtraShippingFee ? EXTRA_SHIPPING_FEE : BASE_SHIPPING_FEE;
+  }
+
+  return isExtraShippingFee ? EXTRA_SHIPPING_FEE : BASE_SHIPPING_FEE;
 };
 
 export const calculateCartPrice = (
@@ -44,7 +61,7 @@ export const calculateCartPrice = (
   const price = calculateTotalPrice(selectedItems);
   const totalCount = calculateTotalCount(selectedItems);
   const hasItems = checkedItems.length > 0;
-  const shippingFee = calculateShippingFee(price, hasItems);
+  const shippingFee = calculateShippingFee({ price, hasItems });
   const totalPrice = price + shippingFee;
 
   return {

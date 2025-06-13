@@ -1,21 +1,20 @@
-import CartItem from './CartItem';
+import { useOrderSummary } from '../../hooks/useOrderSummary';
 import { CartProduct } from '../../types/cart';
+import OrderItem from './OrderItem';
 import styled from '@emotion/styled';
-import { useCartData } from '../../utils/fetcher';
 
-function CartList() {
-  const { data: cartItems } = useCartData();
+function OrderList() {
+  const { selectedCartItems } = useOrderSummary();
 
   return (
     <Container>
-      {cartItems.content.map((item: CartProduct) => (
-        <CartItem key={item.id} cartItem={item} />
+      {selectedCartItems.map((item: CartProduct) => (
+        <OrderItem key={item.id} cartItem={item} />
       ))}
     </Container>
   );
 }
-
-export default CartList;
+export default OrderList;
 
 export const Container = styled.div`
   display: flex;

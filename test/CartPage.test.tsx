@@ -207,8 +207,7 @@ describe('CartPage', () => {
 
     expect(mockNavigate).toHaveBeenCalledWith('/orderConfirm', {
       state: {
-        price: 130000,
-        count: 2,
+        checkedItems: [1, 2],
         totalCount: 3,
       },
     });

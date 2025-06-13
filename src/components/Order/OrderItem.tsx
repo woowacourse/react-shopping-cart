@@ -1,40 +1,13 @@
 import { CartProduct } from '../../types/cart';
 import { woowaLogo } from '../../assets/index';
-import { patchDecreaseQuantity, patchIncreaseQuantity, removeCartItem } from '../../apis/cart';
-import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
-import { useCartData } from '../../utils/fetcher';
 
 interface CartItemProps {
   cartItem: CartProduct;
 }
-
-function CartItem({ cartItem }: CartItemProps) {
-  const { refetch, isLoading } = useCartData();
-
-  const handleRemoveCartItem = async () => {
-    await removeCartItem(cartItem);
-    refetch();
-  };
-
-  const handleIncreaseQuantity = async () => {
-    await patchIncreaseQuantity(cartItem);
-    refetch();
-  };
-
-  const handleDecreaseQuantity = async () => {
-    if (cartItem.quantity === 1) {
-      handleRemoveCartItem();
-      return;
-    }
-
-    await patchDecreaseQuantity(cartItem);
-    refetch();
-  };
-
+function OrderItem({ cartItem }: CartItemProps) {
   return (
     <CartItemContainer>
-      <SelectBox cartItem={cartItem} onRemove={handleRemoveCartItem} isLoading={isLoading} />
       <ProductRow>
         <CartProductImage
           src={cartItem.product.imageUrl}
@@ -47,29 +20,14 @@ function CartItem({ cartItem }: CartItemProps) {
           <ProductTitle>{cartItem.product.name}</ProductTitle>
           <ProductPrice>{cartItem.product.price.toLocaleString()}원</ProductPrice>
           <StepperContainer>
-            <StepperButton
-              disabled={isLoading}
-              data-testid="decrease-quantity-button"
-              onClick={handleDecreaseQuantity}
-            >
-              −
-            </StepperButton>
-            <StepperQuantity data-testid="item-quantity">{cartItem.quantity}</StepperQuantity>
-            <StepperButton
-              disabled={isLoading}
-              data-testid="increase-quantity-button"
-              onClick={handleIncreaseQuantity}
-            >
-              ＋
-            </StepperButton>
+            <StepperQuantity data-testid="item-quantity">{cartItem.quantity}개</StepperQuantity>
           </StepperContainer>
         </CartContent>
       </ProductRow>
     </CartItemContainer>
   );
 }
-
-export default CartItem;
+export default OrderItem;
 
 export const ProductTitle = styled.h2`
   font-weight: 700;
@@ -126,12 +84,10 @@ export const StepperButton = styled.button`
 `;
 
 export const StepperQuantity = styled.span`
-  min-width: 40px;
   text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  user-select: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: #0a0d13;
 `;
 
 export const CartItemContainer = styled.div`
