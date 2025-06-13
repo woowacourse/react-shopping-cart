@@ -1,9 +1,13 @@
-import { useContext } from 'react';
-import { DataContext } from '../context/DataContext';
+import { useData } from '../context/DataContext';
+import { getCartItems } from '../apis/cart';
 import { CartItemsResponse } from '../types/cart';
 
-// 단순히 context에서 cart 데이터만 가져오는 훅
+// context에서 cart 데이터를 가져오고, 없으면 fetch하는 훅
 export const useCartItemsData = () => {
-  const { data } = useContext(DataContext);
-  return data.cartItems as CartItemsResponse | undefined;
+  const { data: cartItems } = useData<CartItemsResponse>({
+    fetcher: getCartItems,
+    name: 'cartItems',
+  });
+  
+  return cartItems;
 };
