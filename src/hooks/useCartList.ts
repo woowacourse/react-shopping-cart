@@ -3,11 +3,16 @@ import { CartItemProps } from '../types/cartItem';
 import cart from '../apis/cart';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { useToastContext } from '../context/ToastContext';
+import useStorageState from './useStorageState';
 
 function useCartList() {
-  const [cartList, setCartList] = useState<CartItemProps[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [cartList, setCartList] = useStorageState<CartItemProps[]>(
+    'cartList',
+    []
+  );
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { showToast } = useToastContext();
   useEffect(() => {
     loadCartList();
@@ -16,8 +21,10 @@ function useCartList() {
   const loadCartList = async () => {
     setIsLoading(true);
     try {
-      const response = await cart.getCartList();
-      setCartList(response);
+      if (cartList.length === 0) {
+        const response = await cart.getCartList();
+        setCartList(response);
+      }
     } catch (error) {
       setError(ERROR_MESSAGE.CART_LIST);
       showToast(ERROR_MESSAGE.CART_LIST);
@@ -29,13 +36,12 @@ function useCartList() {
   const increaseCartItem = async (cartItem: CartItemProps) => {
     try {
       await cart.increaseCartItem(cartItem);
-      setCartList(
-        cartList.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
+      const increasedCartList = cartList.map((item) =>
+        item.id === cartItem.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
+      setCartList(increasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.INCREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.INCREASE_CART_ITEM);
@@ -45,13 +51,12 @@ function useCartList() {
   const decreaseCartItem = async (cartItem: CartItemProps) => {
     try {
       await cart.decreaseCartItem(cartItem);
-      setCartList(
-        cartList.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
+      const decreasedCartList = cartList.map((item) =>
+        item.id === cartItem.id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
       );
+      setCartList(decreasedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DECREASE_CART_ITEM);
       showToast(ERROR_MESSAGE.DECREASE_CART_ITEM);
@@ -61,7 +66,8 @@ function useCartList() {
   const deleteCartItem = async (cartItemId: number) => {
     try {
       await cart.deleteCartItem(cartItemId);
-      setCartList(cartList.filter((item) => item.id !== cartItemId));
+      const deletedCartList = cartList.filter((item) => item.id !== cartItemId);
+      setCartList(deletedCartList);
     } catch (error) {
       setError(ERROR_MESSAGE.DELETE_CART_ITEM);
       showToast(ERROR_MESSAGE.DELETE_CART_ITEM);
@@ -70,6 +76,7 @@ function useCartList() {
 
   return {
     data: cartList,
+    setCartList,
     error,
     isLoading,
     increaseCartItem,

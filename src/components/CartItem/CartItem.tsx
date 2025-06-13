@@ -13,22 +13,17 @@ import {
   ListItemHeaderStyle,
 } from './CartItem.styles';
 import { TEXT } from '../../constants/text';
+import { useCartContext } from '../../context/CartContext';
 
 function CartItem({
   cartItem,
   selected,
-  onSelectChange,
-  onIncreaseClick,
-  onDecreaseClick,
-  onDeleteClick,
 }: {
   cartItem: CartItemProps;
   selected: boolean;
-  onSelectChange: (cartItemId: number) => void;
-  onIncreaseClick: (cartItem: CartItemProps) => Promise<void>;
-  onDecreaseClick: (cartItem: CartItemProps) => Promise<void>;
-  onDeleteClick: (cartItemId: number) => Promise<void>;
 }) {
+  const cart = useCartContext();
+
   return (
     <li css={CartItemStyle}>
       <div css={ListItemHeaderStyle}>
@@ -36,11 +31,11 @@ function CartItem({
           type="checkbox"
           css={CheckboxStyle}
           checked={selected}
-          onChange={() => onSelectChange(cartItem.id)}
+          onChange={() => cart.selectItem(cartItem.id)}
         />
         <button
           css={DeleteButtonStyle}
-          onClick={() => onDeleteClick(cartItem.id)}
+          onClick={() => cart.deleteCartItem(cartItem.id)}
         >
           <Text varient="caption">{TEXT.DELETE}</Text>
         </button>
@@ -62,8 +57,8 @@ function CartItem({
               css={ControllerButton}
               onClick={
                 cartItem.quantity === 1
-                  ? () => onDeleteClick(cartItem.id)
-                  : () => onDecreaseClick(cartItem)
+                  ? () => cart.deleteCartItem(cartItem.id)
+                  : () => cart.decreaseCartItem(cartItem)
               }
             >
               <img src={Minus} alt="마이너스 버튼" />
@@ -71,7 +66,7 @@ function CartItem({
             <Text varient="caption">{cartItem.quantity}</Text>
             <button
               css={ControllerButton}
-              onClick={() => onIncreaseClick(cartItem)}
+              onClick={() => cart.increaseCartItem(cartItem)}
             >
               <img src={Plus} alt="플러스 버튼" />
             </button>

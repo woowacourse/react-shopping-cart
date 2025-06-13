@@ -1,7 +1,9 @@
-export const Logo = `./icons/logo.svg`;
-export const Minus = `./icons/minus.svg`;
-export const Plus = `./icons/plus.svg`;
-export const Info = `./icons/info.svg`;
-export const Back = `./icons/back.svg`;
+import { baseUrl } from '../constants/api';
 
-export const Default = `./images/default.png`;
+export const Logo = baseUrl + `icons/logo.svg`;
+export const Minus = baseUrl + `icons/minus.svg`;
+export const Plus = baseUrl + 'icons/plus.svg';
+export const Info = baseUrl + 'icons/info.svg';
+export const Back = baseUrl + 'icons/back.svg';
+
+export const Default = baseUrl + `images/default.png`;

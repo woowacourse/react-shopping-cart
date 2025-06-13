@@ -5,4 +5,5 @@ export const CartListTitleStyle = css`
   gap: 1.2rem;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 3.2rem;
 `;

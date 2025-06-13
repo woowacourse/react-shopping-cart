@@ -1,44 +1,35 @@
-import Text from '../common/Text/Text';
-import { Info } from '../../assets';
 import {
   CartPriceContainerStyle,
   CartPriceInfoContainerStyle,
-  CartPriceInfoHeaderStyle,
-  CartPriceInfoStyle,
 } from './CartPriceInfo.styles';
 import { CART } from '../../constants/cart';
 import { TEXT } from '../../constants/text';
+import InfoMessage from '../InfoMessage/InfoMessage';
+import CartPriceInfoRow from '../PriceInfoRow/CartPriceInfoRow';
 
-function CartPriceInfo({ totalPrice }: { totalPrice: number }) {
-  const deliveryFee =
-    totalPrice >= CART.FREE_DELIVERY_THRESHOLD ? 0 : CART.DELIVERY_FEE;
-  const totalPriceWithDeliveryFee = totalPrice + deliveryFee;
-
+function CartPriceInfo({
+  subTotal,
+  deliveryFee,
+  totalBeforeDiscount,
+}: {
+  subTotal: number;
+  deliveryFee: number;
+  totalBeforeDiscount: number;
+}) {
   return (
     <div css={CartPriceInfoContainerStyle}>
-      <div css={CartPriceInfoHeaderStyle}>
-        <img src={Info} alt="info" />
-        <Text varient="caption">
-          {`총 주문 금액이 ${CART.FREE_DELIVERY_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
-        </Text>
+      <InfoMessage
+        message={`총 주문 금액이 ${CART.FREE_DELIVERY_THRESHOLD.toLocaleString()}원 이상일 경우 무료 배송됩니다.`}
+      />
+      <div css={CartPriceContainerStyle}>
+        <CartPriceInfoRow title={TEXT.ORDER_PRICE} price={subTotal} />
+        <CartPriceInfoRow title={TEXT.DELIVERY_FEE} price={deliveryFee} />
       </div>
       <div css={CartPriceContainerStyle}>
-        <div css={CartPriceInfoStyle}>
-          <Text varient="body">{TEXT.ORDER_PRICE}</Text>
-          <Text varient="title">{totalPrice.toLocaleString()}원</Text>
-        </div>
-        <div css={CartPriceInfoStyle}>
-          <Text varient="body">{TEXT.DELIVERY_FEE}</Text>
-          <Text varient="title">{deliveryFee.toLocaleString()}원</Text>
-        </div>
-      </div>
-      <div css={CartPriceContainerStyle}>
-        <div css={CartPriceInfoStyle}>
-          <Text varient="body">{TEXT.TOTAL_PRICE}</Text>
-          <Text varient="title">
-            {totalPriceWithDeliveryFee.toLocaleString()}원
-          </Text>
-        </div>
+        <CartPriceInfoRow
+          title={TEXT.TOTAL_PRICE}
+          price={totalBeforeDiscount}
+        />
       </div>
     </div>
   );

@@ -3,16 +3,8 @@ import { css } from '@emotion/react';
 export const CartPriceInfoContainerStyle = css`
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-`;
-
-export const CartPriceInfoHeaderStyle = css`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.4rem;
-
-  width: 100%;
+  margin-bottom: 1.6rem;
+  padding: 1.2rem 0;
 `;
 
 export const CartPriceContainerStyle = css`

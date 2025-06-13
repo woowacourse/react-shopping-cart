@@ -1,27 +1,64 @@
-import { CartItemProps } from '../../../types/cartItem';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import { useCartContext } from '../../../context/CartContext';
+import useCouponList from '../../../hooks/useCouponList';
+
 import Header from '../../../components/common/Header/Header';
 import HeaderButton from '../../../components/common/Header/HeaderButton';
-import { Back } from '../../../assets';
+import CartListTitle from '../../../components/CartListTitle/CartListTitle';
+import OrderCartItem from '../../../components/CartItem/OrderCartItem';
+import CouponModal from '../../../components/CouponModal/CouponModal';
+import DeliverInfo from '../../../components/DeliverInfo/DeliverInfo';
+import CartPriceCouponInfo from '../../../components/CartPriceInfo/CartPriceCouponInfo';
 import ContainerLayout from '../../../components/common/ContainerLayout/ContainerLayout';
+import Button from '../../../components/common/Button/Button';
 import Text from '../../../components/common/Text/Text';
-import { useLocation, useNavigate } from 'react-router';
-import {
-  OrderCheckContainerStyle,
-  orderPriceContainerStyle,
-} from './OrderCheckPage.styles';
-import PayButton from '../../../components/PayButton/PayButton';
-import { TEXT } from '../../../constants/text';
+import { OrderCheckCartListStyle } from './OrderCheckPage.styles';
 
-function OrderCheck() {
+import { Back, Default } from '../../../assets';
+import { TEXT } from '../../../constants/text';
+import { CartItemProps } from '../../../types/cartItem';
+import { validateCoupons } from '../../../utils/couponValidate';
+import { computeOrderSummary } from '../../../utils/computeOrderSummary';
+
+function OrderCheckPage() {
   const navigate = useNavigate();
-  const { selectedCartData, totalPrice } = useLocation().state as {
-    selectedCartData: CartItemProps[];
-    totalPrice: number;
-  };
-  const totalProductQuantity = selectedCartData.reduce(
-    (acc, curr) => acc + curr.quantity,
-    0
+  const cart = useCartContext();
+  const couponList = useCouponList();
+  const validatedCouponList = validateCoupons(
+    couponList.data,
+    cart.subTotal,
+    cart.selectedCartItems
   );
+
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isRemotedAreaChecked, setIsRemotedAreaChecked] = useState(false);
+  const [checkedCoupons, setCheckedCoupons] = useState<number[] | null>(null);
+
+  const { comboResult, deliveryFee, finalPrice } = computeOrderSummary({
+    validatedCouponList,
+    checkedCoupons,
+    isRemotedAreaChecked,
+  });
+
+  const couponModalOpen = () => {
+    setCheckedCoupons(comboResult?.combo.map((coupon) => coupon.id));
+    setIsCouponModalOpen(true);
+  };
+
+  const couponModalClose = () => {
+    setIsCouponModalOpen(false);
+  };
+
+  const remotedAreaChange = () => {
+    setIsRemotedAreaChecked(!isRemotedAreaChecked);
+  };
+
+  const couponAccept = (couponIds: number[]) => {
+    setCheckedCoupons(couponIds);
+    setIsCouponModalOpen(false);
+  };
 
   return (
     <>
@@ -31,24 +68,60 @@ function OrderCheck() {
         </HeaderButton>
       </Header>
       <ContainerLayout>
-        <div css={OrderCheckContainerStyle}>
-          <Text varient="title">{TEXT.ORDER_CHECK}</Text>
-          <div>
-            <Text varient="caption">
-              총 {selectedCartData.length}종류의 상품 {totalProductQuantity}개를
-              주문합니다.
-            </Text>
-            <Text varient="caption">{TEXT.TOTAL_PRICE_CHECK_MESSAGE}</Text>
-          </div>
-          <div css={orderPriceContainerStyle}>
-            <Text varient="body">{TEXT.TOTAL_PRICE}</Text>
-            <Text varient="title">{totalPrice.toLocaleString()}원</Text>
-          </div>
-        </div>
+        <CartListTitle
+          title={TEXT.ORDER_CHECK}
+          description={`총 ${cart.typeCount}종류의 상품 ${cart.totalCount}개를 주문합니다.\n최종 결제 금액을 확인해주세요.`}
+        />
+        <ul css={OrderCheckCartListStyle}>
+          {cart.selectedCartItems.map((item: CartItemProps) => (
+            <OrderCartItem
+              key={item.id}
+              quantity={item.quantity}
+              product={{
+                imageUrl: item.product.imageUrl || Default,
+                name: item.product.name,
+                price: item.product.price,
+              }}
+            />
+          ))}
+        </ul>
+        <Button color="white" variant="secondary" onClick={couponModalOpen}>
+          <Text varient="body">쿠폰 적용</Text>
+        </Button>
+        <DeliverInfo
+          isChecked={isRemotedAreaChecked}
+          onCheckboxChange={remotedAreaChange}
+        />
+        <CartPriceCouponInfo
+          subTotal={cart.subTotal}
+          deliveryFee={deliveryFee}
+          totalDiscount={comboResult?.totalDiscount ?? 0}
+          finalPrice={finalPrice}
+        />
       </ContainerLayout>
-      <PayButton />
+      <Button
+        color="black"
+        variant="primary"
+        onClick={() =>
+          navigate('/order-complete', {
+            state: {
+              finalPrice: finalPrice,
+            },
+          })
+        }
+      >
+        <Text varient="body">결제하기</Text>
+      </Button>
+      <CouponModal
+        isLoading={couponList.isLoading}
+        isOpen={isCouponModalOpen}
+        onCloseButtonClick={couponModalClose}
+        validatedCouponList={validatedCouponList}
+        checkedCoupon={checkedCoupons ?? []}
+        onCouponAccept={couponAccept}
+      />
     </>
   );
 }
 
-export default OrderCheck;
+export default OrderCheckPage;

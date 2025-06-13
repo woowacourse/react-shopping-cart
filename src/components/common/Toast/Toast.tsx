@@ -1,13 +1,13 @@
 import { ToastContainer, Message } from './Toast.styles';
 
 interface ToastProps {
-  message: string | null;
+  children: React.ReactNode;
 }
 
-function Toast({ message }: ToastProps) {
+function Toast({ children }: ToastProps) {
   return (
     <div css={ToastContainer}>
-      <span css={Message}>{message}</span>
+      <span css={Message}>{children}</span>
     </div>
   );
 }

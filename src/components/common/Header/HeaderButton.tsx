@@ -1,7 +1,7 @@
 import { HeaderButtonStyle } from './Header.styles';
 
 interface HeaderButtonProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
 }
 

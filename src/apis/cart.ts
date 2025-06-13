@@ -39,6 +39,15 @@ const cart = {
       method: 'DELETE',
     });
   },
+
+  getCouponList: async () => {
+    const response = await apiRequest({
+      url: `/coupons`,
+      method: 'GET',
+    });
+
+    return response.content;
+  },
 };
 
 export default cart;

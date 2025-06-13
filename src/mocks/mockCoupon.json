@@ -1,0 +1,40 @@
+[
+  {
+    "code": "FIXED5000",
+    "description": "5,000원 할인 쿠폰",
+    "discount": 5000,
+    "discountType": "fixed",
+    "expirationDate": "2025-07-01",
+    "id": 1,
+    "minimumAmount": 100000
+  },
+  {
+    "buyQuantity": 2,
+    "code": "BOGO",
+    "description": "2개 구매 시 1개 무료 쿠폰",
+    "discountType": "buyXgetY",
+    "expirationDate": "2025-06-30",
+    "getQuantity": 1,
+    "id": 2
+  },
+  {
+    "code": "FREESHIPPING",
+    "description": "5만원 이상 구매 시 무료 배송 쿠폰",
+    "discountType": "freeShipping",
+    "expirationDate": "2025-08-31",
+    "id": 3,
+    "minimumAmount": 50000
+  },
+  {
+    "availableTime": {
+      "start": "04:00:00",
+      "end": "07:00:00"
+    },
+    "code": "MIRACLESALE",
+    "description": "미라클모닝 30% 할인 쿠폰",
+    "discount": 30,
+    "discountType": "percentage",
+    "expirationDate": "2025-07-31",
+    "id": 4
+  }
+]

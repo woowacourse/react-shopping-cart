@@ -13,6 +13,10 @@ const theme = {
       fontSize: '2.4rem',
       fontWeight: '700',
     },
+    subtitle: {
+      fontSize: '1.8rem',
+      fontWeight: '700',
+    },
     body: {
       fontSize: '1.6rem',
       fontWeight: '700',

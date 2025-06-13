@@ -6,63 +6,53 @@ import ContainerLayout from '../../../components/common/ContainerLayout/Containe
 import CartListTitle from '../../../components/CartListTitle/CartListTitle';
 import CartItem from '../../../components/CartItem/CartItem';
 import CartPriceInfo from '../../../components/CartPriceInfo/CartPriceInfo';
-import OrderButton from '../../../components/OrderButton/OrderButton';
 import EmptyCart from '../../../components/EmptyCart/EmptyCart';
-import Toast from '../../../components/common/Toast/Toast';
-
 import { Logo } from '../../../assets';
 
-import useCartList from '../../../hooks/useCartList';
-import useSelect from '../../../hooks/useSelect';
 import LoadingSpinner from '../../../components/common/LoadingSpinner/LoadingSpinning';
-import { cartPrice } from '../../../utils/cartPrice';
-import { useToastContext } from '../../../context/ToastContext';
 import { useNavigate } from 'react-router';
 import { CartListStyle } from '../../../components/CartList/CartList.styles';
 import CartListHeader from '../../../components/CartList/CartList';
+import { TEXT } from '../../../constants/text';
+import { useCartContext } from '../../../context/CartContext';
+import Button from '../../../components/common/Button/Button';
+import Text from '../../../components/common/Text/Text';
 
 function CartPage() {
-  const cartList = useCartList();
-  const selectedList = useSelect(cartList.data);
-  const { isVisible } = useToastContext();
+  const cart = useCartContext();
   const navigate = useNavigate();
 
-  const totalPrice = cartPrice.totalPrice(
-    cartList.data,
-    selectedList.selectedItems
-  );
-
-  const selectedCartData = cartList.data.filter((item) =>
-    selectedList.selectedItems.includes(item.id)
+  const selectedCartData = cart.data.filter((item) =>
+    cart.selectedItems.includes(item.id)
   );
 
   const handleOrderButtonClick = () => {
-    navigate('/order-check', { state: { selectedCartData, totalPrice } });
+    navigate('/order-check');
   };
 
   const renderCartList = () => {
-    return cartList.data.length === 0 ? (
+    return cart.data.length === 0 ? (
       <EmptyCart />
     ) : (
       <>
         <CartListHeader
-          allSelected={selectedList.isAllSelected}
-          onAllSelectChange={selectedList.handleSelectAllItems}
+          allSelected={cart.isAllSelected}
+          onAllSelectChange={cart.selectAllItems}
         />
         <ul css={CartListStyle}>
-          {cartList.data.map((cartItem) => (
+          {cart.data.map((cartItem) => (
             <CartItem
               key={cartItem.id}
               cartItem={cartItem}
-              selected={selectedList.selectedItems.includes(cartItem.id)}
-              onSelectChange={selectedList.handleSelectItem}
-              onIncreaseClick={cartList.increaseCartItem}
-              onDecreaseClick={cartList.decreaseCartItem}
-              onDeleteClick={cartList.deleteCartItem}
+              selected={cart.selectedItems.includes(cartItem.id)}
             />
           ))}
         </ul>
-        <CartPriceInfo totalPrice={totalPrice} />
+        <CartPriceInfo
+          subTotal={cart.subTotal}
+          deliveryFee={cart.deliveryFee}
+          totalBeforeDiscount={cart.totalBeforeDiscount}
+        />
       </>
     );
   };
@@ -75,14 +65,20 @@ function CartPage() {
         </HeaderButton>
       </Header>
       <ContainerLayout>
-        {isVisible && <Toast message={cartList.error} />}
-        <CartListTitle count={cartList.data.length} />
-        {cartList.isLoading ? <LoadingSpinner /> : renderCartList()}
+        <CartListTitle
+          title={TEXT.CART_TITLE}
+          description={`현재 ${cart.data.length}종류의 상품이 담겨있습니다.`}
+        />
+        {cart.isLoading ? <LoadingSpinner /> : renderCartList()}
       </ContainerLayout>
-      <OrderButton
+      <Button
+        color="black"
+        variant="primary"
         onClick={handleOrderButtonClick}
-        canOrder={selectedCartData.length > 0}
-      />
+        disabled={selectedCartData.length <= 0}
+      >
+        <Text varient="body">주문 확인</Text>
+      </Button>
     </>
   );
 }

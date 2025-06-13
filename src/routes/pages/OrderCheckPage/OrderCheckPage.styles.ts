@@ -6,12 +6,18 @@ export const OrderCheckContainerStyle = css`
   justify-content: center;
   min-height: calc(100dvh - 25rem);
   align-items: center;
-  // height: 100%;
   gap: 2.4rem;
 `;
 
-export const orderPriceContainerStyle = css`
+export const OrderPriceContainerStyle = css`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+`;
+
+export const OrderCheckCartListStyle = css`
+  display: flex;
+  flex-direction: column;
+  max-height: 39rem;
+  overflow-y: auto;
 `;

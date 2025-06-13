@@ -1,0 +1,31 @@
+import { TEXT } from '../../constants/text';
+import { CheckboxStyle } from '../CartItem/CartItem.styles';
+import Text from '../common/Text/Text';
+import { CheckboxContainerStyle, DeliverInfoStyle } from './DeliverInfo.styles';
+
+function DeliverInfo({
+  isChecked,
+  onCheckboxChange,
+}: {
+  isChecked: boolean;
+  onCheckboxChange: () => void;
+}) {
+  return (
+    <div css={DeliverInfoStyle}>
+      <Text varient="body" textAlign="left">
+        {TEXT.DELIVERY_INFO}
+      </Text>
+      <div css={CheckboxContainerStyle}>
+        <input
+          type="checkbox"
+          css={CheckboxStyle}
+          checked={isChecked}
+          onChange={onCheckboxChange}
+        />
+        <Text varient="caption">{TEXT.DELIVERY_INFO_DESCRIPTION}</Text>
+      </div>
+    </div>
+  );
+}
+
+export default DeliverInfo;

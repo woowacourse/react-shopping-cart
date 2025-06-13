@@ -1,42 +1,59 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { CartItemProps } from '../types/cartItem';
+import useStorageState from './useStorageState';
 
 function useSelect(cartList: CartItemProps[]) {
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const isAllSelected = selectedItems.length === cartList.length;
+  const [selectedItems, setSelectedItems] = useStorageState<number[]>(
+    'selectedItems',
+    []
+  );
+
+  const checkCartItemIds = cartList
+    .filter((cartItem) => selectedItems.includes(cartItem.id))
+    .map((cartItem) => cartItem.id);
+  const isAllSelected = checkCartItemIds.length === cartList.length;
+  const AllCartItems = cartList.map((cartItem) => cartItem.id);
+
   const initialLoadRef = useRef(true);
 
-  const cartItemIds = cartList.map((cartItem) => cartItem.id);
-
   useEffect(() => {
-    if (cartList.length > 0 && initialLoadRef.current) {
-      setSelectedItems(cartItemIds);
+    if (cartList.length === 0) return;
+    if (initialLoadRef.current) {
+      if (selectedItems.length === 0) {
+        setSelectedItems(AllCartItems);
+      }
       initialLoadRef.current = false;
+    } else {
+      if (checkCartItemIds.length > 0) {
+        setSelectedItems(checkCartItemIds);
+      }
     }
-  }, [cartList]);
+  }, [cartList.length]);
 
-  const handleSelectItem = (cartItemId: number) => {
+  const selectItem = (cartItemId: number) => {
     if (selectedItems.includes(cartItemId)) {
       const filtered = selectedItems.filter((item) => item !== cartItemId);
       setSelectedItems(filtered);
     } else {
-      setSelectedItems((prev) => [...prev, cartItemId]);
+      const newSelectedItems = [...selectedItems, cartItemId];
+      setSelectedItems(newSelectedItems);
     }
   };
 
-  const handleSelectAllItems = () => {
+  const selectAllItems = () => {
     if (isAllSelected) {
       setSelectedItems([]);
     } else {
-      setSelectedItems(cartItemIds);
+      setSelectedItems(AllCartItems);
     }
   };
 
   return {
     selectedItems,
+    setSelectedItems,
     isAllSelected,
-    handleSelectItem,
-    handleSelectAllItems,
+    selectItem,
+    selectAllItems,
   };
 }
 
