@@ -1,5 +1,6 @@
 import { FEE } from '../constants/systemConstants';
 import { Coupon, FreeShippingCoupon } from '../types/coupon';
+import { isExpired, meetsTimeCondition } from './couponValidator';
 
 export interface CartItem {
   id: number;
@@ -19,65 +20,20 @@ export interface CalculationResult {
   }>;
 }
 
-// 시간 유틸리티 함수들
-const parseTimeString = (timeString: string): number => {
-  return parseInt(timeString.replace(':', ''));
-};
-
-const getCurrentTimeAsNumber = (): number => {
-  const now = new Date();
-  return now.getHours() * 100 + now.getMinutes();
-};
-
-const isCurrentTimeInRange = (
-  startTime: number,
-  endTime: number,
-  currentTime: number
-): boolean => {
-  return isCrossingMidnight(startTime, endTime)
-    ? isTimeInCrossingMidnightRange(startTime, endTime, currentTime)
-    : isTimeInNormalRange(startTime, endTime, currentTime);
-};
-
-const isCrossingMidnight = (startTime: number, endTime: number): boolean => {
-  return startTime > endTime;
-};
-
-//  22:00 ~ 04:00
-const isTimeInCrossingMidnightRange = (
-  startTime: number,
-  endTime: number,
-  currentTime: number
-): boolean => {
-  return currentTime >= startTime || currentTime <= endTime;
-};
-
-const isTimeInNormalRange = (
-  startTime: number,
-  endTime: number,
-  currentTime: number
-): boolean => {
-  return currentTime >= startTime && currentTime <= endTime;
-};
-
-// 시간대 체크 함수
-const isTimeInRange = (availableTime: {
-  start: string;
-  end: string;
-}): boolean => {
-  const currentTime = getCurrentTimeAsNumber();
-  const startTime = parseTimeString(availableTime.start);
-  const endTime = parseTimeString(availableTime.end);
-
-  return isCurrentTimeInRange(startTime, endTime, currentTime);
-};
-
 // 단일 쿠폰 적용 함수
 const applySingleCoupon = (
   amount: number,
   coupon: Coupon,
   cartItems: CartItem[]
 ): number => {
+  if (isExpired(coupon.expirationDate)) {
+    return 0;
+  }
+
+  if (!meetsTimeCondition(coupon)) {
+    return 0;
+  }
+
   switch (coupon.discountType) {
     case 'fixed': {
       if (amount >= coupon.minimumAmount) {
@@ -87,10 +43,6 @@ const applySingleCoupon = (
     }
 
     case 'percentage': {
-      if (coupon.availableTime && !isTimeInRange(coupon.availableTime)) {
-        return 0;
-      }
-
       const discountAmount = Math.floor(amount * (coupon.discount / 100));
       return discountAmount;
     }
