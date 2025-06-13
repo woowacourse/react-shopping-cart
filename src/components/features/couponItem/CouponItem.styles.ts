@@ -1,24 +1,27 @@
 import { css } from '@emotion/react';
 
 export const couponItemStyles = {
-  container: (isSelected: boolean) => css`
+  container: (isSelected: boolean, isDisabled: boolean = false) => css`
     padding: 16px;
     border: 1px solid ${isSelected ? 'var(--color-black)' : 'var(--color-grey)'};
     border-radius: 8px;
     background-color: ${isSelected
       ? 'var(--color-light-grey)'
+      : isDisabled
+      ? '#f5f5f5'
       : 'var(--color-white)'};
-    cursor: pointer;
+    cursor: ${isDisabled ? 'not-allowed' : 'pointer'};
     transition: all 0.2s ease;
     margin-bottom: 12px;
+    opacity: ${isDisabled ? 0.6 : 1};
 
     &:hover {
-      border-color: var(--color-black);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-color: ${isDisabled ? 'var(--color-grey)' : 'var(--color-black)'};
+      box-shadow: ${isDisabled ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.1)'};
     }
 
     &:focus {
-      outline: 2px solid var(--color-black);
+      outline: ${isDisabled ? 'none' : '2px solid var(--color-black)'};
       outline-offset: 2px;
     }
   `,
@@ -39,15 +42,17 @@ export const couponItemStyles = {
     border-radius: 4px;
   `,
 
-  discount: css`
+  discount: (isDisabled: boolean = false) => css`
     font-size: 16px;
     font-weight: bold;
-    color: var(--color-primary, #007bff);
+    color: ${isDisabled
+      ? 'var(--color-grey)'
+      : 'var(--color-primary, #007bff)'};
   `,
 
-  description: css`
+  description: (isDisabled: boolean = false) => css`
     font-size: 14px;
-    color: var(--color-black);
+    color: ${isDisabled ? 'var(--color-grey)' : 'var(--color-black)'};
     margin-bottom: 8px;
     line-height: 1.4;
   `,
@@ -58,8 +63,16 @@ export const couponItemStyles = {
     margin-bottom: 8px;
   `,
 
-  expiration: css`
+  disabledReason: css`
+    font-size: 12px;
+    color: var(--color-red, #dc3545);
+    margin-bottom: 8px;
+    font-weight: 500;
+  `,
+
+  expiration: (isDisabled: boolean = false) => css`
     font-size: 12px;
     color: var(--color-grey);
+    opacity: ${isDisabled ? 0.7 : 1};
   `,
 };
