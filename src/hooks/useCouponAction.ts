@@ -8,7 +8,7 @@ function useCouponAction() {
   const addCoupon = useCallback(
     (data: CouponType) => {
       selectedCouponDispatch({
-        type: "ADD_COUPON",
+        type: "SELECT_COUPON",
         payload: { coupon: data },
       });
     },
@@ -18,7 +18,7 @@ function useCouponAction() {
   const removeCoupon = useCallback(
     (data: CouponType) => {
       selectedCouponDispatch({
-        type: "REMOVE_COUPON",
+        type: "DESELECT_COUPON",
         payload: { coupon: data },
       });
     },
