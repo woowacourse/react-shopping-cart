@@ -142,6 +142,7 @@ const OrderCompletePage = () => {
                 <CouponList
                   onCouponSelect={handleCouponSelect}
                   selectedCoupons={selectedCoupons}
+                  cartAmount={calculationResult.originalAmount}
                 />
 
                 <div css={S.DialogActions}>

@@ -5,15 +5,19 @@ interface CouponItemProps {
   coupon: Coupon;
   onSelect?: (coupon: Coupon) => void;
   isSelected?: boolean;
+  isDisabled?: boolean;
+  disabledReason?: string;
 }
 
 export const CouponItem = ({
   coupon,
   onSelect,
   isSelected = false,
+  isDisabled = false,
+  disabledReason,
 }: CouponItemProps) => {
   const handleClick = () => {
-    if (onSelect) {
+    if (onSelect && !isDisabled) {
       onSelect(coupon);
     }
   };
@@ -50,23 +54,32 @@ export const CouponItem = ({
 
   return (
     <div
-      css={couponItemStyles.container(isSelected)}
+      css={couponItemStyles.container(isSelected, isDisabled)}
       onClick={handleClick}
       role="button"
-      tabIndex={0}
+      tabIndex={isDisabled ? -1 : 0}
+      aria-disabled={isDisabled}
     >
       <div css={couponItemStyles.header}>
         <span css={couponItemStyles.code}>{coupon.code}</span>
-        <span css={couponItemStyles.discount}>{formatDiscount(coupon)}</span>
+        <span css={couponItemStyles.discount(isDisabled)}>
+          {formatDiscount(coupon)}
+        </span>
       </div>
 
-      <div css={couponItemStyles.description}>{coupon.description}</div>
+      <div css={couponItemStyles.description(isDisabled)}>
+        {coupon.description}
+      </div>
 
-      {formatCondition(coupon) && (
-        <div css={couponItemStyles.condition}>{formatCondition(coupon)}</div>
+      {isDisabled && disabledReason ? (
+        <div css={couponItemStyles.disabledReason}>{disabledReason}</div>
+      ) : (
+        formatCondition(coupon) && (
+          <div css={couponItemStyles.condition}>{formatCondition(coupon)}</div>
+        )
       )}
 
-      <div css={couponItemStyles.expiration}>
+      <div css={couponItemStyles.expiration(isDisabled)}>
         만료일: {new Date(coupon.expirationDate).toLocaleDateString('ko-KR')}
       </div>
     </div>

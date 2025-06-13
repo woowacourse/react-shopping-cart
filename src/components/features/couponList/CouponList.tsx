@@ -2,15 +2,18 @@ import { useCoupons } from '../../../hooks/useCoupons';
 import { CouponItem } from '../couponItem/CouponItem';
 import { Coupon } from '../../../types/coupon';
 import { couponListStyles } from './CouponList.styles';
+import { validateCoupon } from '../../../utils/couponValidator';
 
 interface CouponListProps {
   onCouponSelect?: (coupon: Coupon | null) => void;
   selectedCoupons?: Coupon[];
+  cartAmount?: number;
 }
 
 export const CouponList = ({
   onCouponSelect,
   selectedCoupons = [],
+  cartAmount = 0,
 }: CouponListProps) => {
   const { coupons, isLoading, error, refetch } = useCoupons();
 
@@ -59,14 +62,19 @@ export const CouponList = ({
       </div>
 
       <div css={couponListStyles.list}>
-        {coupons.map((coupon) => (
-          <CouponItem
-            key={coupon.id}
-            coupon={coupon}
-            onSelect={handleCouponSelect}
-            isSelected={selectedCoupons.some((c) => c.id === coupon.id)}
-          />
-        ))}
+        {coupons.map((coupon) => {
+          const validation = validateCoupon(coupon, cartAmount);
+          return (
+            <CouponItem
+              key={coupon.id}
+              coupon={coupon}
+              onSelect={handleCouponSelect}
+              isSelected={selectedCoupons.some((c) => c.id === coupon.id)}
+              isDisabled={!validation.isValid}
+              disabledReason={validation.reason}
+            />
+          );
+        })}
       </div>
     </div>
   );
