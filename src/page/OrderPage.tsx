@@ -10,6 +10,7 @@ import PriceRow from '../components/PriceArea/PriceRow';
 import * as Card from '../components/Card/Card';
 import { calculateDeliveryFee } from '../utils/coupon/calculate';
 import { STORAGE_KEYS } from '../constants/localStorageKey';
+import { PATH } from '../constants/path';
 
 export type SelectedItem = {
   id: number;
@@ -36,7 +37,7 @@ function OrderPage() {
   const finalPaymentAmount = totalOrderAmount + totalDeliveryFee - totalCouponDiscount;
 
   const handlePaymentButtonClick = () => {
-    navigate('/payment', {
+    navigate(PATH.PAYMENT, {
       state: {
         totalPaymentAmount: finalPaymentAmount
       }
