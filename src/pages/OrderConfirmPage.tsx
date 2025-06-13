@@ -4,7 +4,6 @@ import Text from "../components/@common/Text/Text";
 import { useCartItemContext } from "../contexts/carItem/useCartItemContext";
 import { useLocation, useNavigate } from "react-router";
 import ConfirmButton from "../components/@common/Button/ConfirmButton/ConfirmButton";
-import ToggleButton from "../components/@common/Button/ToggleButton/ToggleButton";
 import TextButton from "../components/@common/Button/TextButton/TextButton";
 import ConfirmCartItemCard from "../components/CartItemCard/ConfirmCartItemCard";
 import { PriceSummary } from "../components/PriceSummary/PriceSummary";
@@ -15,6 +14,7 @@ import { useCoupon } from "../hooks/coupons/useCoupon";
 import { useSelectedCartItemContext } from "../contexts/selectedCartItem/useSelectedCartItemContext";
 import { getTotalPrice } from "../utils/prices/getTotalPrice";
 import { getShippingFee } from "../utils/prices/getShippingFee";
+import { RemoteAreaToggle } from "../components/RemoteAreaToggle/RemoteAreaToggle";
 
 const OrderConfirmPage = () => {
   const { cartItems } = useCartItemContext();
@@ -41,6 +41,9 @@ const OrderConfirmPage = () => {
     shippingFee,
     totalCouponDiscountAmount
   );
+  const handleToggle = () => {
+    setIsRemoteArea((prev: boolean) => !prev);
+  };
 
   return (
     <div className={OrderConfirmLayout}>
@@ -71,23 +74,16 @@ const OrderConfirmPage = () => {
           buttonStyled={{ width: "100%", height: "48px" }}
           textStyled={{ color: "#666666", fontSize: "15px" }}
         />
-        <section className={PriceInfoStyle}>
-          <Text text="배송 정보" type="medium" />
-          <div className={ShippingToggleStyle}>
-            <ToggleButton
-              isSelected={isRemoteArea}
-              onClick={() => setIsRemoteArea((prev: boolean) => !prev)}
-            />
-            <Text text="제주도 및 도서 산간 지역" />
-          </div>
-          <PriceSummary
-            orderPrice={orderPrice}
-            shippingFee={shippingFee}
-            couponDiscount={totalCouponDiscountAmount}
-            totalPrice={totalPrice}
-          />
-        </section>
-
+        <RemoteAreaToggle
+          isRemoteArea={isRemoteArea}
+          handleToggle={handleToggle}
+        />
+        <PriceSummary
+          orderPrice={orderPrice}
+          shippingFee={shippingFee}
+          couponDiscount={totalCouponDiscountAmount}
+          totalPrice={totalPrice}
+        />
         <CouponModal
           isOpen={isOpen}
           onModalClose={() => {
@@ -126,15 +122,4 @@ const OrderConfirmPageStyles = css`
   padding: 24px;
   min-height: calc(100vh - 64px);
   justify-content: center;
-`;
-
-const ShippingToggleStyle = css`
-  margin-top: 10px;
-  display: flex;
-  gap: 5px;
-  align-items: center;
-`;
-
-const PriceInfoStyle = css`
-  padding: 32px 0;
 `;
