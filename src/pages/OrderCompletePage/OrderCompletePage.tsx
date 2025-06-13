@@ -10,10 +10,10 @@ interface LocationState {
   totalPrice: number;
 }
 
-const OrderCompletePage = () => {
+function OrderCompletePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as LocationState;
+  const { selectedCartItem, totalPrice }: LocationState = location.state;
 
   return (
     <S.Root>
@@ -26,13 +26,15 @@ const OrderCompletePage = () => {
           </S.HeaderTitle>
         </Header>
         <OrderResult
-          selectedCartItem={state.selectedCartItem}
-          totalPrice={state.totalPrice}
+          selectedCartItem={selectedCartItem}
+          totalPrice={totalPrice}
         />
-        <S.OrderButton disabled={true}>주문 완료</S.OrderButton>
+        <S.OrderButton onClick={() => navigate("/")}>
+          장바구니로 돌아가기
+        </S.OrderButton>
       </S.CartPageWrapper>
     </S.Root>
   );
-};
+}
 
 export default OrderCompletePage;

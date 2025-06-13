@@ -1,3 +1,7 @@
+import {
+  setSelectedInfoAllDeSelect,
+  setSelectedInfoAllSelect,
+} from "../../domains/selectedInfo";
 import useCartManager from "../../hooks/useCartManager";
 import useSelectAction from "../../hooks/useSelectAction";
 import { useSelectContext } from "../../stores/SelectContext";
@@ -6,9 +10,8 @@ import CheckBox from "../CheckBox/CheckBox";
 import * as S from "./CartList.styled";
 
 function CartList() {
-  const selectState = useSelectContext();
+  const { selectedState, isAllSelected } = useSelectContext();
   const { selectAll, deselectAll } = useSelectAction();
-
   const { cartData, isLoading } = useCartManager();
 
   if (isLoading || !cartData) {
@@ -16,8 +19,13 @@ function CartList() {
   }
 
   const handlerSelectAll = () => {
-    if (selectState.every((item) => item.selected)) selectAll();
-    else deselectAll();
+    if (isAllSelected) {
+      deselectAll();
+      setSelectedInfoAllDeSelect(selectedState);
+    } else {
+      selectAll();
+      setSelectedInfoAllSelect(selectedState);
+    }
   };
 
   return (
@@ -27,12 +35,12 @@ function CartList() {
       </S.Description>
       <CheckBox
         text={"전체선택"}
-        isChecked={selectState.every((item) => item.selected)}
+        isChecked={isAllSelected}
         onChange={handlerSelectAll}
       />
       <S.CartItemList>
         {cartData.map((cart) => (
-          <CartItem key={cart.product.id} cart={cart} />
+          <CartItem key={cart.product.id} cart={cart} type="cart" />
         ))}
       </S.CartItemList>
     </>

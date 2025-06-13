@@ -1,5 +1,3 @@
-import { ResponseCartItem } from "../types/types";
-
 export type SelectState = {
   id: number;
   selected: boolean;
@@ -18,7 +16,7 @@ export interface SelectAction {
   type: ActionType;
   payload: {
     id?: number;
-    items?: ResponseCartItem[];
+    items?: SelectState[];
   };
 }
 
@@ -28,7 +26,7 @@ export const selectReducer = (state: SelectState[], action: SelectAction) => {
       return action.payload.items?.length
         ? action.payload.items.map((item) => ({
             id: item.id,
-            selected: true,
+            selected: item.selected,
           }))
         : [];
     case "ADD_SELECT":

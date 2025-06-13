@@ -3,9 +3,11 @@ import * as S from "./OrderPriceSection.styled";
 function OrderPriceSection({
   orderPrice,
   deliveryPrice,
+  couponPrice,
 }: {
   orderPrice: number;
   deliveryPrice: number;
+  couponPrice?: number;
 }) {
   return (
     <div>
@@ -17,6 +19,14 @@ function OrderPriceSection({
         <S.OrderText>주문 금액</S.OrderText>
         <S.OrderPrice>{orderPrice.toLocaleString("kr")}원</S.OrderPrice>
       </S.PriceWrapper>
+      {couponPrice !== undefined && (
+        <S.PriceWrapper>
+          <S.OrderText>쿠폰 할인 금액</S.OrderText>
+          <S.OrderPrice>
+            {couponPrice === 0 ? 0 : `-${couponPrice.toLocaleString("kr")}`}원
+          </S.OrderPrice>
+        </S.PriceWrapper>
+      )}
       <S.PriceWrapper>
         <S.OrderText>배송비</S.OrderText>
         <S.OrderPrice>{deliveryPrice.toLocaleString("kr")}원</S.OrderPrice>
@@ -25,7 +35,10 @@ function OrderPriceSection({
       <S.PriceWrapper>
         <S.OrderText>총 결제 금액</S.OrderText>
         <S.OrderPrice>
-          {(orderPrice + deliveryPrice).toLocaleString("kr")}원
+          {(orderPrice + deliveryPrice - (couponPrice || 0)).toLocaleString(
+            "kr"
+          )}
+          원
         </S.OrderPrice>
       </S.PriceWrapper>
     </div>

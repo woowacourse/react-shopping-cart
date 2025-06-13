@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useSelectDispatch } from "../stores/SelectContext";
-import { ResponseCartItem } from "../types/types";
+import { SelectState } from "../stores/SelectReducer";
 
 function useSelectAction() {
   const selectDispatch = useSelectDispatch();
@@ -34,7 +34,7 @@ function useSelectAction() {
   };
 
   const setSelectInfo = useCallback(
-    ({ items }: { items: ResponseCartItem[] }) => {
+    ({ items }: { items: SelectState[] }) => {
       selectDispatch({
         type: "SET_SELECT",
         payload: { items },

@@ -1,26 +1,34 @@
-import { useId } from "react";
 import * as S from "./CheckBox.styled";
 
 function CheckBox({
+  id = 0,
   isChecked,
   text,
   onChange,
+  size = "small",
+  disabled = false,
 }: {
+  id?: number;
   isChecked: boolean;
   text?: string;
-  onChange?: () => void;
+  onChange: () => void;
+  size?: "small" | "large";
+  disabled?: boolean;
 }) {
-  const id = useId();
-
   return (
     <S.CheckBoxWrapper>
       <S.Input
         checked={isChecked}
         type="checkbox"
-        id={id}
+        id={String(id)}
         onChange={onChange}
+        disabled={disabled}
       />
-      {text && <S.Label htmlFor={id}>{text}</S.Label>}
+      {text && (
+        <S.Label size={size} htmlFor={String(id)}>
+          {text}
+        </S.Label>
+      )}
     </S.CheckBoxWrapper>
   );
 }

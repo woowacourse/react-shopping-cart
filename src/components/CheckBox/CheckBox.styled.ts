@@ -5,7 +5,6 @@ export const CheckBoxWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4.5px;
-  margin: 10px 0px;
 `;
 
 export const Input = styled.input<{ checked: boolean }>`
@@ -35,7 +34,7 @@ export const Input = styled.input<{ checked: boolean }>`
   }
 `;
 
-export const Label = styled.label`
-  font-size: 12px;
-  font-weight: 400;
+export const Label = styled.label<{ size: "small" | "large" }>`
+  font-size: ${({ size }) => (size === "large" ? "16px" : "14px")};
+  font-weight: ${({ size }) => (size === "large" ? "800" : "400")};
 `;

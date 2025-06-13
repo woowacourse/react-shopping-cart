@@ -1,31 +1,29 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import App from "../src/App";
 import { CartProvider } from "../src/stores/CartContext";
 
-jest.mock("../src/api/getCartList", () => ({
-  __esModule: true,
-  default: jest.fn(),
+vi.mock("../src/api/getCartList", () => ({
+  default: vi.fn(),
 }));
 
-jest.mock("../src/api/removeProductItem", () => ({
-  __esModule: true,
-  default: jest.fn(),
+vi.mock("../src/api/removeProductItem", () => ({
+  default: vi.fn(),
 }));
 
-jest.mock("../src/api/updateCartItem", () => ({
-  __esModule: true,
-  default: jest.fn(),
+vi.mock("../src/api/updateCartItem", () => ({
+  default: vi.fn(),
 }));
 
 import getCartList from "../src/api/getCartList";
 import removeProductItem from "../src/api/removeProductItem";
 import updateCartItem from "../src/api/updateCartItem";
 
-const mockgetCartList = getCartList as jest.MockedFunction<typeof getCartList>;
-const mockremoveProductItem = removeProductItem as jest.MockedFunction<
+const mockgetCartList = getCartList as vi.MockedFunction<typeof getCartList>;
+const mockremoveProductItem = removeProductItem as vi.MockedFunction<
   typeof removeProductItem
 >;
-const mockupdateCartItem = updateCartItem as jest.MockedFunction<
+const mockupdateCartItem = updateCartItem as vi.MockedFunction<
   typeof updateCartItem
 >;
 
@@ -46,7 +44,7 @@ const mockCartItems = [
 
 describe("RTL Test", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockgetCartList.mockResolvedValue({ content: mockCartItems });
     mockremoveProductItem.mockResolvedValue(undefined);
     mockupdateCartItem.mockResolvedValue(undefined);
@@ -67,7 +65,7 @@ describe("RTL Test", () => {
 
 describe("장바구니 기능 테스트", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockgetCartList.mockResolvedValue({ content: mockCartItems });
     mockremoveProductItem.mockResolvedValue(undefined);
     mockupdateCartItem.mockResolvedValue(undefined);
@@ -163,10 +161,6 @@ describe("장바구니 기능 테스트", () => {
         screen.getByText("장바구니에 담은 상품이 없습니다.")
       ).toBeInTheDocument();
     });
-  });
-
-  it("10만원 이상 구매 시 배송비가 무료가 된다", async () => {
-    expect(true).toBe(true);
   });
 
   it("장바구니가 비어있을 때 적절한 메시지가 표시된다", async () => {

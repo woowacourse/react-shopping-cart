@@ -5,14 +5,14 @@ import OrderPriceSection from "../../components/OrderPriceSection/OrderPriceSect
 import { useNavigate } from "react-router-dom";
 import CartList from "../../components/CartList/CartList";
 
-const CartPage = () => {
+function CartPage() {
   const { selectedCartItem, orderPrice, deliveryPrice, isCartEmpty } =
     useCartManager();
 
   const navigate = useNavigate();
 
   const handleOrderCheck = (): void => {
-    navigate("/complete", {
+    navigate("/check", {
       state: {
         selectedCartItem,
         totalPrice: orderPrice + deliveryPrice,
@@ -49,6 +49,6 @@ const CartPage = () => {
       </S.CartPageWrapper>
     </S.Root>
   );
-};
+}
 
 export default CartPage;

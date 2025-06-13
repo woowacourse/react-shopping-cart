@@ -7,10 +7,12 @@ import { ResponseCartItem } from "../types/types";
 import { SelectState } from "../stores/SelectReducer";
 import useCartAction from "./useCartAction";
 import useSelectAction from "./useSelectAction";
+import { getLocalStorage, setLocalStorage } from "../utils/storage";
+import { SELECTED_INFO_KEY } from "../domains/selectedInfo";
 
 interface UseCartManagerReturn {
   cartData: ResponseCartItem[];
-  selectData: SelectState[];
+  selectedState: SelectState[];
   selectedCartItem: ResponseCartItem[];
   orderPrice: number;
   deliveryPrice: number;
@@ -19,7 +21,7 @@ interface UseCartManagerReturn {
 }
 
 function useCartManager(): UseCartManagerReturn {
-  const selectData = useSelectContext();
+  const { selectedState } = useSelectContext();
   const cartData = useCartContext();
 
   const { setCartInfo } = useCartAction();
@@ -29,17 +31,37 @@ function useCartManager(): UseCartManagerReturn {
   useEffect(() => {
     if (cartItemRes.length > 0) {
       setCartInfo({ items: cartItemRes });
-      setSelectInfo({ items: cartItemRes });
+
+      const selectedInfo = getLocalStorage<SelectState[]>(SELECTED_INFO_KEY);
+      const initialState = cartItemRes.map((item) => {
+        return {
+          id: item.id,
+          selected: false,
+        };
+      });
+
+      if (!selectedInfo || selectedInfo.length !== cartItemRes.length) {
+        setSelectInfo({
+          items: initialState,
+        });
+
+        setLocalStorage<SelectState[]>(SELECTED_INFO_KEY, initialState);
+        return;
+      }
+
+      setSelectInfo({
+        items: selectedInfo,
+      });
     }
   }, [cartItemRes, setCartInfo, setSelectInfo]);
 
   const selectedCartItem = useMemo((): ResponseCartItem[] => {
-    return cartData?.filter((_, idx) => selectData[idx]?.selected) || [];
-  }, [cartData, selectData]);
+    return cartData?.filter((_, idx) => selectedState[idx]?.selected) || [];
+  }, [cartData, selectedState]);
 
   const { orderPrice, deliveryPrice } = useMemo(() => {
     const selectedCartData = cartData.filter(
-      (_, idx) => selectData[idx]?.selected
+      (_, idx) => selectedState[idx]?.selected
     );
     const calculatedOrderPrice = calculateTotalPrice(selectedCartData);
     const calculatedDeliveryPrice = calculateShippingFee(calculatedOrderPrice);
@@ -48,13 +70,13 @@ function useCartManager(): UseCartManagerReturn {
       orderPrice: calculatedOrderPrice,
       deliveryPrice: calculatedDeliveryPrice,
     };
-  }, [selectData, cartData]);
+  }, [selectedState, cartData]);
 
   const isCartEmpty: boolean = cartData.length === 0;
 
   return {
     cartData,
-    selectData,
+    selectedState,
     selectedCartItem,
     orderPrice,
     deliveryPrice,

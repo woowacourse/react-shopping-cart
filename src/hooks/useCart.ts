@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ResponseCartItem } from "../types/types";
-import getCartItemList from "../api/getCartList";
+import getCartList from "../api/getCartList";
 
 function useCart() {
   const [cartItemList, setCartItemList] = useState<ResponseCartItem[]>([]);
@@ -8,7 +8,7 @@ function useCart() {
 
   useEffect(() => {
     setIsLoading(true);
-    getCartItemList({
+    getCartList({
       page: 0,
       size: 20,
       sort: "asc",
