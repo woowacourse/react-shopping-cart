@@ -1,17 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import mockCart from './mockCart.json';
-
-// const baseUrl =
-//   'http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com';
-
-// const cartItems: Array<{
-//   id: number;
-//   productId: number;
-//   quantity: number;
-//   product: typeof mockCart | null;
-// }> = [];
-
-// const cartItemIdCounter = 1;
+import mockCoupon from './mockCoupon.json';
 
 export const handlers = [
   http.get(`/cart-items`, () => {
@@ -20,42 +9,11 @@ export const handlers = [
     });
   }),
 
-  // http.post(
-  //   `${import.meta.env.VITE_API_BASE_URL}/cart-items`,
-  //   async ({ request }) => {
-  //     const body = (await request.json()) as {
-  //       productId: number;
-  //       quantity: number;
-  //     };
-
-  //     const existingItem = cartItems.find(
-  //       (item) => item.productId === body.productId
-  //     );
-
-  //     if (existingItem) {
-  //       existingItem.quantity += body.quantity;
-  //       const product = mockProducts.find(
-  //         (p) => p.id === existingItem.productId
-  //       );
-
-  //       return HttpResponse.json({
-  //         ...existingItem,
-  //         product: product || null,
-  //       });
-  //     } else {
-  //       const newCartItem = {
-  //         id: cartItemIdCounter++,
-  //         productId: body.productId,
-  //         quantity: body.quantity,
-  //         product: mockProducts.find((p) => p.id === body.productId) || null,
-  //       };
-
-  //       cartItems.push(newCartItem);
-
-  //       return HttpResponse.json(newCartItem);
-  //     }
-  //   }
-  // ),
+  http.get(`/coupons`, () => {
+    return HttpResponse.json({
+      content: mockCoupon,
+    });
+  }),
 
   http.delete(`/cart-items/:cartItemId`, ({ params }) => {
     const cartItemId = parseInt(params.cartItemId as string);

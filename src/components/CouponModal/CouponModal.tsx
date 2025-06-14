@@ -1,0 +1,70 @@
+import { createPortal } from 'react-dom';
+
+import Text from '../@common/Text/Text';
+import CouponModalCloseButton from './CouponModalCloseButton';
+import CouponSelectDescription from './CouponSelectDescription';
+import CouponList from './CouponList';
+import CouponListItem from './CouponListItem';
+import CouponModalConfirmButton from './CouponModalConfirmButton';
+
+import { Coupon } from '../../types/coupon';
+import {
+  CouponModalOverlayStyle,
+  CouponModalContentStyle,
+} from './CouponModal.styles';
+
+interface CouponModalProps {
+  isOpen: boolean;
+  couponList: Coupon[];
+  selectedCoupon: Set<string>;
+  onClose: () => void;
+  onSelectCoupon: (couponId: string) => void;
+  onConfirm: () => void;
+  availableCoupons: string[];
+}
+
+function CouponModal({
+  isOpen,
+  onClose,
+  couponList,
+  selectedCoupon,
+  onSelectCoupon,
+  onConfirm,
+  availableCoupons,
+}: CouponModalProps) {
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div css={CouponModalOverlayStyle}>
+      <div css={CouponModalContentStyle}>
+        <Text variant="subTitle">쿠폰을 선택해 주세요</Text>
+        <CouponModalCloseButton onClose={onClose} />
+        <CouponSelectDescription>
+          쿠폰은 최대 2개까지 사용할 수 있습니다.
+        </CouponSelectDescription>
+        <CouponList>
+          {couponList.map((coupon) => (
+            <CouponListItem
+              key={coupon.id}
+              coupon={coupon}
+              isSelected={selectedCoupon.has(coupon.code)}
+              onSelectCoupon={onSelectCoupon}
+              isAvailable={availableCoupons.includes(coupon.code)}
+            />
+          ))}
+        </CouponList>
+        <CouponModalConfirmButton
+          onConfirm={onConfirm}
+          isAvailable={availableCoupons.length > 0}
+        >
+          <Text variant="body">
+            {availableCoupons.length > 0 ? '쿠폰 적용하기' : '가능한 쿠폰 없음'}
+          </Text>
+        </CouponModalConfirmButton>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+export default CouponModal;

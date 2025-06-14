@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import Text from '../common/Text/Text';
+import Text from '../@common/Text/Text';
 import { CartItemProps } from '../../types/cartItem';
 import { ButtonStyle } from './OrderButton.styles';
 
@@ -21,7 +21,7 @@ function OrderButton({
         navigate('/order-check', { state: { selectedCartData, totalPrice } })
       }
     >
-      <Text varient="body">주문 확인</Text>
+      <Text variant="body">주문 확인</Text>
     </button>
   );
 }

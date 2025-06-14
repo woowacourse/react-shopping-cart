@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import OrderCheckPage from './pages/OrderCheckPage/OrderCheck';
 import CartPage from './pages/CartPage/CartPage';
+import PriceCheckPage from './pages/PriceCheckPage/PriceCheck';
 
 const router = createBrowserRouter(
   [
@@ -12,6 +13,10 @@ const router = createBrowserRouter(
     {
       path: '/order-check',
       element: <OrderCheckPage />,
+    },
+    {
+      path: '/price-check',
+      element: <PriceCheckPage />,
     },
   ],
   {

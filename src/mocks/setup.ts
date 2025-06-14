@@ -1,9 +1,5 @@
 import { beforeAll, afterEach, afterAll } from 'vitest';
-import { setupServer } from 'msw/node';
-import { handlers } from './handler';
-
-// MSW 서버 설정
-export const server = setupServer(...handlers);
+import { server } from './node';
 
 // 모든 테스트 시작 전에 서버 시작
 beforeAll(() => server.listen());

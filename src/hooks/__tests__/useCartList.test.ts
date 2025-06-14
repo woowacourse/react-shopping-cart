@@ -2,6 +2,10 @@ import { act, renderHook } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import useCartList from '../useCartList';
 import mockCart from '../../mocks/mockCart.json';
+import { server } from '../../mocks/node';
+import { http, HttpResponse } from 'msw';
+
+const NON_EXISTENT_CART_ITEM_ID = 999999;
 
 describe('useCartList 훅 테스트', () => {
   const targetId = mockCart[0].id;
@@ -41,7 +45,7 @@ describe('useCartList 훅 테스트', () => {
 
     await act(async () => {
       await result.current.handleIncreaseCartItem({
-        cartItemId: 1000000000,
+        cartItemId: NON_EXISTENT_CART_ITEM_ID,
         quantity: 1,
       });
     });
@@ -75,7 +79,7 @@ describe('useCartList 훅 테스트', () => {
 
     await act(async () => {
       await result.current.handleDecreaseCartItem({
-        cartItemId: 100000000,
+        cartItemId: NON_EXISTENT_CART_ITEM_ID,
         quantity: 0,
       });
     });
@@ -117,6 +121,28 @@ describe('useCartList 훅 테스트', () => {
 
     await act(async () => {
       await result.current.handleDeleteCartItem(targetId);
+    });
+
+    expect(result.current.isError).not.toBeNull();
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it('장바구니 상품의 수량을 변경할 때 오류가 발생하면 상태 값이 변경되지 않는다', async () => {
+    server.use(
+      http.patch(`/cart-items/:cartItemId`, () => {
+        return new HttpResponse(null, {
+          status: 500,
+        });
+      })
+    );
+
+    const { result } = renderHook(() => useCartList());
+
+    await act(async () => {
+      await result.current.handleIncreaseCartItem({
+        cartItemId: targetId,
+        quantity: 1,
+      });
     });
 
     expect(result.current.isError).not.toBeNull();
