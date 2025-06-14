@@ -6,9 +6,9 @@ interface ButtonProps extends ButtonStyleProps {
   children: React.ReactNode;
 }
 
-const Button = ({ variant = "primary", size = "full", onClick, children }: ButtonProps) => {
+const Button = ({ variant = "primary", size = "full", radius, onClick, children }: ButtonProps) => {
   return (
-    <S.Button styles={{ variant, size }} onClick={onClick} disabled={variant === "disabled"}>
+    <S.Button styles={{ variant, size, radius }} onClick={onClick} disabled={variant === "disabled"}>
       {children}
     </S.Button>
   );

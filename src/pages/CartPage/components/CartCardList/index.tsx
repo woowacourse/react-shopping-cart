@@ -3,24 +3,34 @@ import Button from "../../../../components/common/Button";
 import CheckBox from "../../../../components/common/CheckBox";
 import QuantityRegulator from "../../../../components/QuantityRegulator";
 import CartCard from "../../../../components/CartCard";
-import { UseCartReturnType } from "../../../../types/cartItem";
+import { useCartItems } from "../../contexts/CartItemsContext";
+import { useCartActions } from "../../hooks/useCartActions";
 
-const CartCardList = ({ cartItemListProps }: { cartItemListProps: UseCartReturnType["cartItemListProps"] }) => {
-  const { cartItems, handleCartItemChange, isAllChecked, handleCheckChange } = cartItemListProps;
+export interface CartCardListSectionProps {
+  checkedIds: number[];
+  handleCheckChange: ({ action, id }: { action: "all" | "each"; id?: number }) => void;
+}
+
+const CartCardList = ({ checkedIds, handleCheckChange }: CartCardListSectionProps) => {
+  const { cartItems } = useCartItems();
+  const { handleCartItemChange } = useCartActions();
 
   return (
     <S.Container>
-      <CheckBox isChecked={isAllChecked} onClick={() => handleCheckChange({ action: "all" })}>
+      <CheckBox isChecked={checkedIds.length === cartItems.length} onClick={() => handleCheckChange({ action: "all" })}>
         전체선택
       </CheckBox>
 
       <S.List>
         {cartItems.map((item) => {
-          const { id, isChecked, quantity, product } = item;
+          const { id, quantity, product } = item;
           return (
             <CartCard gap={12} key={id}>
               <CartCard.Top>
-                <CheckBox isChecked={isChecked} onClick={() => handleCheckChange({ id, action: "each" })} />
+                <CheckBox
+                  isChecked={checkedIds.includes(id)}
+                  onClick={() => handleCheckChange({ id, action: "each" })}
+                />
                 <Button variant="secondary" size="auto" onClick={() => handleCartItemChange({ id, action: "delete" })}>
                   삭제
                 </Button>

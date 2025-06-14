@@ -1,0 +1,49 @@
+import Button from "../../../../components/common/Button";
+import DeliveryOptions from "./components/DeliveryOptions";
+import PaymentPriceList from "./components/PaymentPriceList";
+import CouponModal from "./components/CouponModal";
+import PaymentButton from "./components/PaymentButton";
+import { useState } from "react";
+import { useOrderState } from "./hooks/useOrderState";
+import { OrderItem } from "../../types";
+
+const PriceContainer = ({ orderItems }: { orderItems: OrderItem[] }) => {
+  const {
+    isIsolatedAreaSelected,
+    toggleIsolatedArea,
+    calculation,
+    availableCoupons,
+    selectedCouponIds,
+    toggleCoupon,
+    canSelectMore,
+  } = useOrderState({ orderItems });
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button variant="secondary" size="full" onClick={() => setIsOpen((prev) => !prev)}>
+        쿠폰 적용
+      </Button>
+      <DeliveryOptions isIsolatedAreaSelected={isIsolatedAreaSelected} onToggleIsolatedArea={toggleIsolatedArea} />
+      <PaymentPriceList calculation={calculation} />
+      <PaymentButton
+        orderItemsKind={orderItems.length}
+        totalOrderItemsCount={orderItems.reduce((acc, item) => acc + item.quantity, 0)}
+        totalPrice={calculation.finalAmount}
+      />
+      {isOpen && (
+        <CouponModal
+          onClose={() => setIsOpen(false)}
+          orderItems={orderItems}
+          isIsolatedAreaSelected={isIsolatedAreaSelected}
+          selectedCouponIds={selectedCouponIds}
+          availableCoupons={availableCoupons}
+          canSelectMore={canSelectMore}
+          toggleCoupon={toggleCoupon}
+          calculation={calculation}
+        />
+      )}
+    </>
+  );
+};
+
+export default PriceContainer;
