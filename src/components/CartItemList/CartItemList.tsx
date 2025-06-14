@@ -41,6 +41,11 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     setLocalStorage(STORAGE_KEYS.SELECTED_ITEMS, selectedItems);
   }, [checkedItems]);
 
+  const isButtonDisabled = Array.from(state.values()).some(Boolean);
+
+  const handleButtonClick = () => {
+    navigate(PATH.ORDER);
+  };
   return (
     <div css={styles.cartItemsAreaCss}>
       {cartItems.length === 0 ? (
@@ -64,7 +69,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           <PriceArea orderAmount={orderAmount} deliveryFee={deliveryFee} totalAmount={totalAmount} />
         </>
       )}
-      <Button disabled={!Array.from(state.values()).some(Boolean)} onClick={() => navigate(PATH.ORDER)}>
+      <Button disabled={isButtonDisabled} onClick={handleButtonClick}>
         주문 확인
       </Button>
     </div>
