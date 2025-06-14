@@ -1,11 +1,12 @@
 import { Link } from 'react-router';
 import Header from '../components/common/Header';
 import { css } from '@emotion/react';
-import CartItemList from '../components/CartItemList/CartItemList';
+
 import { useApiContext } from '../contexts/ApiContext';
 import getCartItems from '../api/getCartItem';
 import { useEffect } from 'react';
 import { useErrorContext } from '../contexts/ErrorContext';
+import CartItemList from '../components/CartItemList/CartItemList';
 
 function CartPage() {
   const { data: cartItems, error } = useApiContext({ fetchFn: getCartItems, key: 'getCartItems' });

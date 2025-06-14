@@ -25,8 +25,6 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     getLocalStorageCheckedState(cartItems)
   );
 
-  console.log(state);
-
   const checkedItems = getCheckedItems(cartItems, state);
   const orderAmount = calculateOrderAmount(checkedItems);
   const deliveryFee = calculateDeliveryFee(orderAmount);
