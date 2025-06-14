@@ -16,6 +16,8 @@ export const CheckBox = ({ checked = true, ...props }: CheckBoxProps) => {
       viewBox="0 0 25 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="checkbox"
+      aria-disabled={checked ? 'false' : 'true'}
       {...props}
     >
       <rect

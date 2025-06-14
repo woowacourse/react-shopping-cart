@@ -1,35 +1,37 @@
 import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
+import { CartItemList } from '@/features/Cart/types/Cart.types';
 import { Button } from '@/shared/components/Button';
 import { Flex } from '@/shared/components/Flex';
 import { Header } from '@/shared/components/Header';
 import { Text } from '@/shared/components/Text';
 
-import Back from '../../../../public/Back.png';
-import { StepProps } from '../../../shared/types/funnel';
-import { CartItemList } from '../types/Cart.types';
-import { orderConfirm } from '../utils/orderConfirm';
+import { orderConfirm } from '../../../Cart/utils/orderConfirm';
 
-export const OrderConfirm = ({ cartItems, onPrev }: CartItemList & StepProps) => {
-  const { hasCheckCartLength, totalQuantity, totalPrice } = orderConfirm({ cartItems });
+export const OrderConfirm = ({
+  cartItems,
+  totalDiscountPrice,
+}: CartItemList & { totalDiscountPrice: number }) => {
+  const navigate = useNavigate();
+  const { hasCheckCartLength, totalQuantity } = orderConfirm({ cartItems });
+
+  const handleNavigateCartPage = () => {
+    navigate('/cart');
+  };
+
   return (
     <>
-      <Header
-        left={
-          <Button onClick={onPrev} size="xs">
-            <img src={Back} width="25px" height="25px" />
-          </Button>
-        }
-      />
+      <Header />
       <Flex direction="column" justifyContent="center" alignItems="center" gap="30px" height="100%">
         <Text type="Heading" weight="bold">
-          주문 확인
+          결제 확인
         </Text>
         <Text type="Caption" weight="regular">
           {`총 ${hasCheckCartLength}종류의 상품 ${totalQuantity}개를 주문합니다.\n 최종 결제 금액을 확인해 주세요.`}
         </Text>
         <Text type="Heading" weight="bold">
-          {`총 결제 금액 ${totalPrice?.toLocaleString()}원`}
+          {`총 결제 금액 ${totalDiscountPrice?.toLocaleString()}원`}
         </Text>
       </Flex>
       <Button
@@ -39,9 +41,9 @@ export const OrderConfirm = ({ cartItems, onPrev }: CartItemList & StepProps) =>
         css={css`
           position: sticky;
         `}
-        disabled
+        onClick={handleNavigateCartPage}
       >
-        결제하기
+        장바구니로 돌아가기
       </Button>
     </>
   );

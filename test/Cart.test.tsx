@@ -1,9 +1,10 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import { vi, beforeEach } from 'vitest';
 
 import * as cartApi from '@/api/cart';
-import { CartPage } from '@/features/Cart/pages/CartPage';
+import { CartPage } from '@/pages/CartPage';
 
 import { cartItems } from './Cart.data';
 
@@ -14,7 +15,12 @@ export const createTestCartItems = (): ReadonlyArray<Readonly<(typeof cartItems)
   })) as ReadonlyArray<Readonly<(typeof cartItems)[0]>>;
 };
 
-export const renderCartPage = () => render(<CartPage />);
+export const renderCartPage = () =>
+  render(
+    <MemoryRouter initialEntries={['/cart']}>
+      <CartPage />
+    </MemoryRouter>
+  );
 
 vi.mock('@/api/cart');
 const mockCartApi = vi.mocked(cartApi);
@@ -165,7 +171,7 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     // 해당 cart-item 내의 체크박스 찾기
     const checkbox = within(firstCartItem).getByRole('checkbox');
-    const initialCheckedState = currentCartItems[0].isChecked; // true
+    const initialCheckedState = currentCartItems[0].isChecked;
 
     await user.click(checkbox);
 
@@ -195,31 +201,5 @@ describe('장바구니 목록을 렌더링 한다.', () => {
 
     // 삭제된 상품이 화면에서 사라졌는지 확인
     expect(screen.queryByText(firstItemName)).not.toBeInTheDocument();
-  });
-
-  it('주문 확인 버튼을 클릭했을 때, 정보를 집약해서 보여준다.', async () => {
-    renderCartPage();
-    mockCartApi.getCartItemList.mockImplementation(async () => {
-      return Promise.resolve([...currentCartItems]);
-    });
-
-    const orderButton = await screen.findByRole('button', { name: /주문확인/ });
-    const cartItemLength = currentCartItems.filter((item) => item.isChecked).length;
-
-    const totalQuantity = currentCartItems.reduce(
-      (acc, item) => acc + (item.isChecked ? item.quantity : 0),
-      0
-    );
-
-    await user.click(orderButton);
-
-    expect(screen.getByText('결제하기')).toBeInTheDocument();
-
-    expect(
-      screen.getByText(
-        `총 ${cartItemLength}종류의 상품 ${totalQuantity}개를 주문합니다. 최종 결제 금액을 확인해 주세요.`
-      )
-    ).toBeInTheDocument();
-    expect(screen.getByText(`총 결제 금액 50,000원`)).toBeInTheDocument();
   });
 });

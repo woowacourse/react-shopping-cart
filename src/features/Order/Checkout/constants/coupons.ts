@@ -1,0 +1,30 @@
+export const COUPON_CODES = {
+  MIRACLE_SALE: 'MIRACLESALE',
+  FIXED_5000: 'FIXED5000',
+  FREE_SHIPPING: 'FREESHIPPING',
+  BUY_ONE_GET_ONE: 'BOGO',
+} as const;
+
+export const PRICE_THRESHOLDS = {
+  FREE_SHIPPING_MIN: 50000,
+  FREE_SHIPPING_MAX: 100000,
+  FIXED_DISCOUNT_MIN: 100000,
+} as const;
+
+export const DELIVERY_FEES = {
+  STANDARD: 3000,
+  SPECIAL_ZONE: 6000,
+} as const;
+
+export const MIRACLE_MORNING_HOURS = [4, 5, 6, 7];
+
+export const QUANTITY_LIMITS = {
+  BOGO_MIN_QUANTITY: 3,
+  MAX_COUPON_SELECTION: 2,
+} as const;
+
+export const DISCOUNT_RATES = {
+  MIRACLE_SALE: 0.3,
+} as const;
+
+export const FIXED_DISCOUNT_AMOUNT = 5000 as const;

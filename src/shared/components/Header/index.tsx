@@ -3,7 +3,7 @@ import { ComponentProps, ReactNode } from 'react';
 import { StyledHeader } from './Header.styled';
 
 export type HeaderProps = {
-  left: ReactNode;
+  left?: ReactNode;
   right?: ReactNode;
 } & ComponentProps<'header'>;
 
