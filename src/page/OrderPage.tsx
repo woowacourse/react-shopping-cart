@@ -7,10 +7,10 @@ import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
-import * as Card from '../components/Card/Card';
 import { calculateDeliveryFee } from '../utils/coupon/calculate';
 import { STORAGE_KEYS } from '../constants/localStorageKey';
 import { PATH } from '../constants/path';
+import SelectedItemCard from './SelectedItemCard';
 
 export type SelectedItem = {
   id: number;
@@ -105,16 +105,3 @@ function OrderPage() {
 }
 
 export default OrderPage;
-
-function SelectedItemCard({ item }: { item: SelectedItem }) {
-  return (
-    <Card.Root>
-      <Card.CardImage src={item.imageUrl} alt={item.name} />
-      <Card.Content>
-        <Card.Title>{item.name}</Card.Title>
-        <Card.Price>{(item.price * item.quantity).toLocaleString()}원</Card.Price>
-        <p>{item.quantity}개</p>
-      </Card.Content>
-    </Card.Root>
-  );
-}
