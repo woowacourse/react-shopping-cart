@@ -5,13 +5,12 @@ import { useApiContext } from '../../contexts/ApiContext';
 import getCoupons from '../../api/getCoupons';
 import { Coupon } from '../../types/response';
 import CheckBox from '../common/CheckBox';
-import { getOrderAmountFromStorage } from '../../utils/storage/storage';
+import { getOrderItemsFromStorage } from '../../utils/storage/storage';
 import { isCouponDisabled } from '../../domain/coupon/isCouponDisabled';
-
 import { calculateTotalDiscount } from '../../domain/coupon/calculateTotalDiscount';
 import { getBestCouponCombination } from '../../domain/coupon/getBestCouponCombination';
-
-const MAX_COUPON_COUNT = 2;
+import { calculateOrderAmount } from '../../domain/order/calculateOrderInfo';
+import { MAX_COUPON_COUNT } from '../../constants/domain';
 
 export default function CouponModal({
   isOpen,
@@ -25,7 +24,8 @@ export default function CouponModal({
   const { data: coupons } = useApiContext({ fetchFn: getCoupons, key: 'getCoupons' });
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
-  const orderAmount = getOrderAmountFromStorage();
+  const orderAmount = calculateOrderAmount(getOrderItemsFromStorage());
+
   const totalDiscount = calculateTotalDiscount(selectedCoupons, orderAmount);
 
   const toggleCoupon = (coupon: Coupon) => {

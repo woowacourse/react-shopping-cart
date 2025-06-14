@@ -7,12 +7,13 @@ import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
-import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from '../domain/coupon/calculate';
 import { STORAGE_KEYS } from '../constants/localStorageKey';
 import { PATH } from '../constants/path';
 import SelectedItemCard from './SelectedItemCard';
 import { CartItemType } from '../domain/mapper/cartItemMapper';
 import { usePersistedState } from '../hooks/usePersistedState';
+import calculateOrderInfo from '../domain/order/calculateOrderInfo';
+import { FREE_DELIVERY_THRESHOLD } from '../constants/domain';
 
 function OrderPage() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
@@ -21,14 +22,11 @@ function OrderPage() {
   const navigate = useNavigate();
   const items = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
 
-  const totalQuantity = calculateTotalQuantity(items);
-  const totalOrderAmount = calculateOrderAmount(items);
-
-  const basicDeliveryFee = calculateDeliveryFee(totalOrderAmount);
-  const remoteAreaExtraFee = isRemoteArea ? 3000 : 0;
-  const totalDeliveryFee = basicDeliveryFee + remoteAreaExtraFee;
-
-  const finalPaymentAmount = totalOrderAmount + totalDeliveryFee - totalCouponDiscount;
+  const { totalQuantity, totalOrderAmount, totalDeliveryFee, finalPaymentAmount } = calculateOrderInfo(
+    items,
+    isRemoteArea,
+    totalCouponDiscount
+  );
 
   const handlePaymentButtonClick = () => {
     navigate(PATH.PAYMENT, {
@@ -74,7 +72,7 @@ function OrderPage() {
           <label> 제주도 및 도서 산간 지역 </label>
           <p css={styles.shippingNoticeCss}>
             <img src="./assets/info.svg" alt="info icon" />
-            <span> 총 주문 금액 100,000원 이상 시 무료 배송 됩니다.</span>
+            <span> 총 주문 금액 ${FREE_DELIVERY_THRESHOLD}원 이상 시 무료 배송 됩니다.</span>
           </p>
         </section>
         {isCouponModalOpen && (

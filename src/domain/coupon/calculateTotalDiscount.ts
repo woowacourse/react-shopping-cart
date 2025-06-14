@@ -1,10 +1,6 @@
-import { calculateBogoDiscount } from './calculate';
 import { Coupon } from '../../types/response';
-import { getShippingInfoFromStorage } from '../../utils/storage/storage';
-
-const FREE_DELIVERY_THRESHOLD = 100000;
-const DELIVERY_FEE = 3000;
-const EXTRA_REMOTE_FEE = 3000;
+import { getOrderItemsFromStorage, getShippingInfoFromStorage } from '../../utils/storage/storage';
+import { DELIVERY_FEE, EXTRA_REMOTE_FEE, FREE_DELIVERY_THRESHOLD } from '../../constants/domain';
 
 export const calculateTotalDiscount = (selectedCoupons: Coupon[], orderAmount: number): number => {
   const { isRemoteArea } = getShippingInfoFromStorage();
@@ -45,4 +41,12 @@ export const calculateTotalDiscount = (selectedCoupons: Coupon[], orderAmount: n
 
   const deliveryDiscount = hasFreeShipping ? originalDeliveryFee : 0;
   return discountSum + deliveryDiscount;
+};
+
+export const calculateBogoDiscount = () => {
+  const items = getOrderItemsFromStorage();
+  const eligibleItems = items.filter((item) => item.quantity >= 2);
+  if (eligibleItems.length === 0) return 0;
+  const mostExpensiveItem = eligibleItems.reduce((prev, curr) => (curr.price > prev.price ? curr : prev));
+  return mostExpensiveItem.price;
 };

@@ -4,13 +4,14 @@ import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
-import { calculateDeliveryFee, calculateOrderAmount } from '../../domain/coupon/calculate';
+
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
 import { PATH } from '../../constants/path';
 import { STORAGE_KEYS } from '../../constants/localStorageKey';
 import CartItem from '../CartItem/CartItem';
 import { CartItemType } from '../../domain/mapper/cartItemMapper';
+import { calculateDeliveryFee, calculateOrderAmount } from '../../domain/order/calculateOrderInfo';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
