@@ -5,19 +5,18 @@ import Button from '../components/common/Button';
 import { useState } from 'react';
 import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { getLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
 import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from '../domain/coupon/calculate';
 import { STORAGE_KEYS } from '../constants/localStorageKey';
 import { PATH } from '../constants/path';
 import SelectedItemCard from './SelectedItemCard';
 import { CartItemType } from '../domain/mapper/cartItemMapper';
+import { usePersistedState } from '../hooks/usePersistedState';
 
 function OrderPage() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const [isRemoteArea, setIsRemoteArea] = useState(
-    () => getLocalStorage(STORAGE_KEYS.IS_REMOTE_AREA, 'true') === 'true'
-  );
+  const [isRemoteArea, setIsRemoteArea] = usePersistedState(STORAGE_KEYS.IS_REMOTE_AREA, false);
   const [totalCouponDiscount, setTotalCouponDiscount] = useState(0);
   const navigate = useNavigate();
   const items = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
@@ -69,8 +68,7 @@ function OrderPage() {
             checked={isRemoteArea}
             onChange={(e) => {
               const checked = e.target.checked;
-              setIsRemoteArea((prev: boolean) => !prev);
-              setLocalStorage(STORAGE_KEYS.IS_REMOTE_AREA, checked);
+              setIsRemoteArea(checked);
             }}
           />
           <label> 제주도 및 도서 산간 지역 </label>
