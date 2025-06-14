@@ -9,7 +9,7 @@ export function RemoveButton(props: ComponentProps<'button'>) {
   );
 }
 
-export const inCartCss = css({
+const inCartCss = css({
   color: 'black',
   border: ' 1px solid rgba(0, 0, 0, 0.10)',
   fontSize: '12px',

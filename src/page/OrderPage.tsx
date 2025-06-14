@@ -1,76 +1,98 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import * as styles from './OrderPage.styles';
 import Header from '../components/common/Header';
 import Button from '../components/common/Button';
-import { css } from '@emotion/react';
-import { useEffect } from 'react';
+import { useState } from 'react';
+import CouponModal from '../components/Modal/CouponModal';
+import CheckBox from '../components/common/CheckBox';
+import { getLocalStorage } from '../utils/localStorage';
+import PriceRow from '../components/PriceArea/PriceRow';
+import { STORAGE_KEYS } from '../constants/localStorageKey';
+import { PATH } from '../constants/path';
+import SelectedItemCard from './SelectedItemCard';
+import { CartItemType } from '../domain/mapper/cartItemMapper';
+import { usePersistedState } from '../hooks/usePersistedState';
+import calculateOrderInfo from '../domain/order/calculateOrderInfo';
+import { FREE_DELIVERY_THRESHOLD } from '../constants/domain';
 
 function OrderPage() {
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isRemoteArea, setIsRemoteArea] = usePersistedState(STORAGE_KEYS.IS_REMOTE_AREA, false);
+  const [totalCouponDiscount, setTotalCouponDiscount] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
-  const { countOfItem, countOfItemType, totalAmount } = location.state ?? {};
+  const items = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
 
-  useEffect(() => {
-    if (!countOfItem && !countOfItemType && !totalAmount) {
-      alert('비정상적인 접근입니다. 장바구니로 이동합니다.');
-      navigate('/');
-      return;
-    }
-  }, [countOfItem, countOfItemType, totalAmount, navigate]);
+  const { totalQuantity, totalOrderAmount, totalDeliveryFee, finalPaymentAmount } = calculateOrderInfo(
+    items,
+    isRemoteArea,
+    totalCouponDiscount
+  );
+
+  const handlePaymentButtonClick = () => {
+    navigate(PATH.PAYMENT, {
+      state: {
+        totalPaymentAmount: finalPaymentAmount
+      }
+    });
+  };
 
   return (
     <>
       <Header
         left={
           <button onClick={() => navigate(-1)}>
-            <img src="./assets/back.svg" />
+            <img src="./assets/back.svg" alt="뒤로가기" />
           </button>
         }
       />
-      <main css={layoutCss}>
-        <h1 css={titleCss}>주문 확인</h1>
-        <p css={descriptionCss}>
-          총 {countOfItemType}종류의 상품 {countOfItem}개를 주문합니다.
+      <main css={styles.layoutCss}>
+        <h1 css={styles.titleCss}>주문 확인</h1>
+        <p css={styles.descriptionCss}>
+          총 {items.length}종류의 상품 {totalQuantity}개를 주문합니다.
           <br />
           최종 결제 금액을 확인해 주세요.
         </p>
-        <p css={priceTitleCss}>총 결제 금액</p>
-        <p css={priceCss}>{totalAmount?.toLocaleString()}원</p>
+
+        {items.map((item) => (
+          <SelectedItemCard key={item.cartItemId} item={item} />
+        ))}
+
+        <button css={styles.buttonCss} onClick={() => setIsCouponModalOpen(true)}>
+          쿠폰 적용
+        </button>
+        <section css={styles.shippingCss}>
+          <CheckBox
+            type="checkbox"
+            checked={isRemoteArea}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              setIsRemoteArea(checked);
+            }}
+          />
+          <label> 제주도 및 도서 산간 지역 </label>
+          <p css={styles.shippingNoticeCss}>
+            <img src="./assets/info.svg" alt="info icon" />
+            <span> 총 주문 금액 ${FREE_DELIVERY_THRESHOLD}원 이상 시 무료 배송 됩니다.</span>
+          </p>
+        </section>
+        {isCouponModalOpen && (
+          <CouponModal
+            isOpen={isCouponModalOpen}
+            onClose={() => setIsCouponModalOpen(false)}
+            onApplyDiscount={(discount) => setTotalCouponDiscount(discount)}
+          />
+        )}
+        <div css={styles.summaryCss}>
+          <PriceRow label="총 주문 금액" amount={totalOrderAmount} />
+          <PriceRow label="배송비" amount={totalDeliveryFee} />
+
+          {totalCouponDiscount > 0 && <PriceRow minus={true} label="할인 금액" amount={totalCouponDiscount} />}
+          <PriceRow label="총 결제 금액" amount={finalPaymentAmount} />
+        </div>
+        <Button onClick={handlePaymentButtonClick}>결제하기</Button>
       </main>
-      <Button>결제하기</Button>
     </>
   );
 }
 
 export default OrderPage;
-
-const layoutCss = css({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '36px 24px',
-  height: '100%'
-});
-
-const titleCss = css({
-  fontSize: '24px',
-  fontWeight: 'bold',
-  marginBottom: '24px'
-});
-
-const descriptionCss = css({
-  fontSize: '12px',
-  marginBottom: '24px',
-  textAlign: 'center'
-});
-
-const priceTitleCss = css({
-  fontSize: '16px',
-  fontWeight: 'bold',
-  marginBottom: '12px'
-});
-
-const priceCss = css({
-  fontSize: '20px',
-  fontWeight: 'bold'
-});
