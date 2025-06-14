@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 import Header from '../components/common/Header';
 import { css } from '@emotion/react';
-
 import { useApiContext } from '../contexts/ApiContext';
 import getCartItems from '../api/getCartItem';
 import { useEffect } from 'react';

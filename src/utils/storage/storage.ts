@@ -1,9 +1,10 @@
 import { STORAGE_KEYS } from '../../constants/localStorageKey';
-import { SelectedItem } from '../../page/OrderPage';
+import { CartItemType } from '../../domain/mapper/cartItemMapper';
+
 import { getLocalStorage } from '../localStorage';
 
 export const getOrderItemsFromStorage = () => {
-  return getLocalStorage<SelectedItem[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
+  return getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
 };
 
 export const getOrderAmountFromStorage = () => {

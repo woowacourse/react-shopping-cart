@@ -7,18 +7,11 @@ import CouponModal from '../components/Modal/CouponModal';
 import CheckBox from '../components/common/CheckBox';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import PriceRow from '../components/PriceArea/PriceRow';
-import { calculateDeliveryFee } from '../domain/coupon/calculate';
+import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from '../domain/coupon/calculate';
 import { STORAGE_KEYS } from '../constants/localStorageKey';
 import { PATH } from '../constants/path';
 import SelectedItemCard from './SelectedItemCard';
-
-export type SelectedItem = {
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-  imageUrl: string;
-};
+import { CartItemType } from '../domain/mapper/cartItemMapper';
 
 function OrderPage() {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
@@ -27,10 +20,10 @@ function OrderPage() {
   );
   const [totalCouponDiscount, setTotalCouponDiscount] = useState(0);
   const navigate = useNavigate();
-  const items = getLocalStorage<SelectedItem[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
+  const items = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
 
-  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
-  const totalOrderAmount = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalQuantity = calculateTotalQuantity(items);
+  const totalOrderAmount = calculateOrderAmount(items);
 
   const basicDeliveryFee = calculateDeliveryFee(totalOrderAmount);
   const remoteAreaExtraFee = isRemoteArea ? 3000 : 0;
@@ -64,7 +57,7 @@ function OrderPage() {
         </p>
 
         {items.map((item) => (
-          <SelectedItemCard key={item.id} item={item} />
+          <SelectedItemCard key={item.cartItemId} item={item} />
         ))}
 
         <button css={styles.buttonCss} onClick={() => setIsCouponModalOpen(true)}>

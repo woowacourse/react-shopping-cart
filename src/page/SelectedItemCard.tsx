@@ -1,6 +1,7 @@
 import * as Card from '../components/Card/Card';
-import { SelectedItem } from './OrderPage';
-export default function SelectedItemCard({ item }: { item: SelectedItem }) {
+import { CartItemType } from '../domain/mapper/cartItemMapper';
+
+export default function SelectedItemCard({ item }: { item: CartItemType }) {
   return (
     <Card.Root>
       <Card.CardImage src={item.imageUrl} alt={item.name} />
