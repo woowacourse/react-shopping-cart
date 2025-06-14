@@ -3,12 +3,13 @@ import CheckBox from '../common/CheckBox';
 import { RemoveButton } from './RemoveButton';
 import * as Card from '../Card/Card';
 import Stepper from '../Stepper/Stepper';
-import { CartItemType } from '../../types/cartItem';
+
 import { useApiContext } from '../../contexts/ApiContext';
 import { useErrorContext } from '../../contexts/ErrorContext';
 import getCartItems from '../../api/getCartItem';
 import patchCartItem from '../../api/patchCartItem';
 import { deleteCartItem } from '../../api/deleteCartItem';
+import { CartItemType } from '../../domain/mapper/cartItemMapper';
 
 interface CartItemProps {
   item: CartItemType;
@@ -22,7 +23,7 @@ export default function CartItem({ item, checked, onToggle }: CartItemProps) {
 
   const handleQuantityChange = async (next: number) => {
     try {
-      await patchCartItem(item.id, next);
+      await patchCartItem(item.cartItemId, next);
       await refetchCart();
     } catch (e) {
       showError(e as Error);
@@ -31,15 +32,14 @@ export default function CartItem({ item, checked, onToggle }: CartItemProps) {
 
   const handleRemove = async () => {
     try {
-      await deleteCartItem(item.id);
+      await deleteCartItem(item.cartItemId);
       await refetchCart();
     } catch (e) {
       showError(e as Error);
     }
   };
 
-  const { product, quantity } = item;
-  const { name, price, imageUrl } = product;
+  const { name, price, imageUrl, quantity } = item;
 
   return (
     <div css={styles.cartItemFrameCss}>

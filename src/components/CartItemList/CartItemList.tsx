@@ -1,6 +1,5 @@
 import * as styles from './CartItemList.style';
 import CheckBox from '../common/CheckBox';
-import { CartItemType } from '../../types/cartItem';
 import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
@@ -9,9 +8,9 @@ import { calculateDeliveryFee, calculateOrderAmount } from '../../domain/coupon/
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
 import { PATH } from '../../constants/path';
-
 import { STORAGE_KEYS } from '../../constants/localStorageKey';
 import CartItem from '../CartItem/CartItem';
+import { CartItemType } from '../../domain/mapper/cartItemMapper';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -21,7 +20,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   const navigate = useNavigate();
   const { state, isAllChecked, toggle, checkAll, uncheckAll } = useCheckList(
     cartItems,
-    (item) => item.id,
+    (item) => item.cartItemId,
     getLocalStorageCheckedState(cartItems)
   );
 
@@ -31,14 +30,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   const totalAmount = orderAmount + deliveryFee;
 
   useEffect(() => {
-    const selectedItems = checkedItems.map((item) => ({
-      id: item.id,
-      name: item.product.name,
-      quantity: item.quantity,
-      price: item.product.price,
-      imageUrl: item.product.imageUrl
-    }));
-    setLocalStorage(STORAGE_KEYS.SELECTED_ITEMS, selectedItems);
+    setLocalStorage(STORAGE_KEYS.SELECTED_ITEMS, checkedItems);
   }, [checkedItems]);
 
   const isButtonDisabled = !Array.from(state.values()).some(Boolean);
@@ -59,10 +51,10 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           <div css={styles.cartItemsListCss} data-testid="cart-item-list">
             {cartItems.map((item) => (
               <CartItem
-                key={item.id}
+                key={item.cartItemId}
                 item={item}
-                checked={state.get(item.id) ?? false}
-                onToggle={() => toggle(item.id)}
+                checked={state.get(item.cartItemId) ?? false}
+                onToggle={() => toggle(item.cartItemId)}
               />
             ))}
           </div>
@@ -77,12 +69,12 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
 }
 
 const getCheckedItems = (cartItems: CartItemType[], state: Map<number, boolean>): CartItemType[] => {
-  return cartItems.filter((item) => state.get(item.id));
+  return cartItems.filter((item) => state.get(item.cartItemId));
 };
 
 const getLocalStorageCheckedState = (cartItems: CartItemType[]): Map<number, boolean> => {
   const selectedItems = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
-  const selectedIds = new Set(selectedItems.map((item) => item.id));
+  const selectedIds = new Set(selectedItems.map((item) => item.cartItemId));
 
-  return new Map(cartItems.map((item) => [item.id, selectedIds.has(item.id)]));
+  return new Map(cartItems.map((item) => [item.cartItemId, selectedIds.has(item.cartItemId)]));
 };

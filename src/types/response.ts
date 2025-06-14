@@ -1,8 +1,8 @@
-import { CartItemType } from './cartItem';
+import { RawCartItem } from '../domain/mapper/cartItemMapper';
 import { Product } from './product';
 
 export interface CartItemResponse {
-  content: CartItemType[];
+  content: RawCartItem[];
   pageable: Pageable;
   totalElements: number;
   totalPages: number;

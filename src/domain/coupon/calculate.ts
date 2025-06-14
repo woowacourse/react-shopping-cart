@@ -1,8 +1,8 @@
-import { CartItemType } from '../../types/cartItem';
 import { getOrderItemsFromStorage } from '../../utils/storage/storage';
+import { CartItemType } from '../mapper/cartItemMapper';
 
 export const calculateOrderAmount = (items: CartItemType[]): number => {
-  return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  return items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 };
 
 export const calculateDeliveryFee = (orderAmount: number): number => {
