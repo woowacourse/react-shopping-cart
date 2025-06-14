@@ -14,6 +14,7 @@
   "homepage": "https://dlsxjzld.github.io/react-shopping-cart",
   "dependencies": {
     "@emotion/styled": "^11.14.0",
+    "@sinjuk1/modal": "^0.0.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.6.1"

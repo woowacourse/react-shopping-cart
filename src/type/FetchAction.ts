@@ -5,6 +5,7 @@ export enum FetchActionType {
   EndFetch = "endFetch",
 }
 
-export enum FetchActionName {
-  CartItems = "cartItems",
+export enum InitialLoadingActionType {
+  StartInitialLoading = "startInitialLoading",
+  EndInitialLoading = "endInitialLoading",
 }

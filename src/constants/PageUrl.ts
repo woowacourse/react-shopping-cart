@@ -1,6 +1,7 @@
 export const PAGE_URL = {
   HOME: "/",
   ORDER_CONFIRMATION: "/order-confirmation",
+  PAYMENT_CONFIRMATION: "/payment-confirmation",
   NOT_FOUND: "*",
 };
 

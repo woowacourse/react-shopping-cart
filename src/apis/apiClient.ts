@@ -4,7 +4,7 @@ import { getErrorTypeByStatus } from "../util/getErrorTypeByStatus";
 
 type ApiClientGetType = {
   endpoint: string;
-  searchParams: Record<string, string>;
+  searchParams?: Record<string, string>;
   useToken?: boolean;
 };
 
