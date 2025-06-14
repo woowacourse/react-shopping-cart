@@ -9,8 +9,6 @@ import {
 import { CartItemContent } from "../types/response";
 import useCartAPI from "../hooks/useCartAPI";
 
-const INITIAL_CHECKED = true;
-
 interface CartContextType {
   cartItemsData: CartItemContent[];
   cartItemsCheckData: CartItemCheckType[];
@@ -38,10 +36,17 @@ interface CartContextType {
   orderItemCount: number;
 
   errorMessage: string;
+
+  isRemoteArea: boolean;
+  setIsRemoteArea: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface CartItemCheckType {
   id: number;
+  quantity: number;
+  name: string;
+  imageUrl: string;
+  price: number;
   checked: boolean;
 }
 
@@ -52,6 +57,8 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   const [cartItemsCheckData, setCartItemsCheckData] = useState<
     CartItemCheckType[]
   >([]);
+  const [isRemoteArea, setIsRemoteArea] = useState(false);
+
   const isCheckDataInitialized = useRef(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -62,28 +69,22 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     [cartItemsCheckData]
   );
 
+  const setLocalStorageCheckedItems = (checkedItemIds: number[]) => {
+    localStorage.setItem("checkedItems", JSON.stringify(checkedItemIds));
+  };
+
   const { fetchData, deleteItem, increaseItemQuantity, decreaseItemQuantity } =
     useCartAPI({
       setCartItemsData,
       setCartItemsCheckData,
       setErrorMessage,
+      setLocalStorageCheckedItems,
       isCheckDataInitialized,
     });
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  useEffect(() => {
-    if (cartItemsData.length > 0 && !isCheckDataInitialized.current) {
-      const data = cartItemsData.map(({ id }) => ({
-        id,
-        checked: INITIAL_CHECKED,
-      }));
-      setCartItemsCheckData(data);
-      isCheckDataInitialized.current = true;
-    }
-  }, [cartItemsData]);
 
   const toggleAllChecked = () => {
     setCartItemsCheckData((prev) =>
@@ -103,11 +104,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   };
 
   const toggleItemChecked = (cartId: number) => {
-    setCartItemsCheckData((prev) =>
-      prev.map((item) =>
+    setCartItemsCheckData((prev) => {
+      const updated = prev.map((item) =>
         item.id === cartId ? { ...item, checked: !item.checked } : item
-      )
-    );
+      );
+      const newCheckedIds = updated
+        .filter(({ checked }) => checked)
+        .map(({ id }) => id);
+      setLocalStorageCheckedItems(newCheckedIds);
+      return updated;
+    });
   };
 
   const checkedItemsId = cartItemsCheckData
@@ -136,6 +142,9 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
         checkedItemsId,
         errorMessage,
+
+        isRemoteArea,
+        setIsRemoteArea,
       }}
     >
       {children}

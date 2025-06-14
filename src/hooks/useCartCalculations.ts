@@ -5,7 +5,7 @@ const FREE_SHIPPING_THRESHOLD = 100_000;
 const DEFAULT_SHIPPING_FEE = 3_000;
 
 const useCartCalculations = () => {
-  const { cartItemsData, checkedItemsId } = useCart();
+  const { cartItemsData, checkedItemsId, isRemoteArea } = useCart();
 
   const orderQuantity = useMemo(() => {
     return cartItemsData
@@ -21,8 +21,13 @@ const useCartCalculations = () => {
 
   const shippingFee = useMemo(() => {
     if (orderPrice === 0) return 0;
-    return orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
-  }, [orderPrice]);
+
+    const baseShipping =
+      orderPrice >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_FEE;
+    const remoteFee = isRemoteArea ? 3000 : 0;
+
+    return baseShipping + remoteFee;
+  }, [orderPrice, isRemoteArea]);
 
   const totalPrice = useMemo(() => {
     return orderPrice + shippingFee;

@@ -1,6 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { API_BASE_URL } from "../apis/config";
 import cartItems from "./cartItems.json";
+import { mockCoupons } from "./coupons";
 
 const END_POINT = "/cart-items";
 
@@ -59,5 +60,12 @@ export const handlers = [
     item.quantity = quantity;
 
     return HttpResponse.json(item);
+  }),
+
+  /**
+   * Coupons API : GET
+   */
+  http.get(`${API_BASE_URL}/coupons`, async () => {
+    return HttpResponse.json(mockCoupons);
   }),
 ];
