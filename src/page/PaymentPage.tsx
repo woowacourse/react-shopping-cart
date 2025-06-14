@@ -3,16 +3,17 @@ import Header from '../components/common/Header';
 import Button from '../components/common/Button';
 import { css } from '@emotion/react';
 import { getLocalStorage } from '../utils/localStorage';
-import { SelectedItem } from './OrderPage';
+import { CartItemType } from '../domain/mapper/cartItemMapper';
+import { STORAGE_KEYS } from '../constants/localStorageKey';
+import { calculateTotalQuantity } from '../domain/order/calculateOrderInfo';
 
 export default function PaymentPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalPaymentAmount } = location.state ?? {};
-  const items = getLocalStorage<SelectedItem[]>('selectedItems', []);
+  const items = getLocalStorage<CartItemType[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
 
-  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
-
+  const totalQuantity = calculateTotalQuantity(items);
   return (
     <>
       <Header
