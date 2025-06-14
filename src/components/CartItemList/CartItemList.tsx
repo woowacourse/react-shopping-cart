@@ -9,8 +9,9 @@ import { calculateDeliveryFee, calculateOrderAmount } from '../../utils/coupon/c
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
 import { PATH } from '../../constants/path';
-import CartItemContainer from '../CartItem/CartItemContainer';
+
 import { STORAGE_KEYS } from '../../constants/localStorageKey';
+import CartItem from '../CartItem/CartItem';
 
 interface CartItemListProps {
   cartItems: CartItemType[];
@@ -54,7 +55,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
           </div>
           <div css={styles.cartItemsListCss} data-testid="cart-item-list">
             {cartItems.map((item) => (
-              <CartItemContainer
+              <CartItem
                 key={item.id}
                 item={item}
                 checked={state.get(item.id) ?? false}

@@ -3,7 +3,6 @@ import { CartItemResponse } from '../types/response';
 import { httpClient } from './httpClient';
 
 const getCartItems = async (): Promise<CartItemResponse> => {
-  console.log(API_END_POINTS.CART_ITEMS);
   const res = await httpClient.get(API_END_POINTS.CART_ITEMS);
 
   if (!res.ok) {
