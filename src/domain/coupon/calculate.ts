@@ -1,5 +1,5 @@
 import { CartItemType } from '../../types/cartItem';
-import { getOrderItemsFromStorage } from '../storage/storage';
+import { getOrderItemsFromStorage } from '../../utils/storage/storage';
 
 export const calculateOrderAmount = (items: CartItemType[]): number => {
   return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);

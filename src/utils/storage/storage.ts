@@ -1,8 +1,9 @@
+import { STORAGE_KEYS } from '../../constants/localStorageKey';
 import { SelectedItem } from '../../page/OrderPage';
 import { getLocalStorage } from '../localStorage';
 
 export const getOrderItemsFromStorage = () => {
-  return getLocalStorage<SelectedItem[]>('selectedItems', []);
+  return getLocalStorage<SelectedItem[]>(STORAGE_KEYS.SELECTED_ITEMS, []);
 };
 
 export const getOrderAmountFromStorage = () => {
@@ -11,6 +12,6 @@ export const getOrderAmountFromStorage = () => {
 };
 
 export const getShippingInfoFromStorage = () => {
-  const value = getLocalStorage<boolean>('isRemoteArea', false);
+  const value = getLocalStorage<boolean>(STORAGE_KEYS.IS_REMOTE_AREA, false);
   return { isRemoteArea: value === true };
 };

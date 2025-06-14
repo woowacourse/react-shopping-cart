@@ -5,7 +5,7 @@ import Button from '../common/Button';
 import { useCheckList } from '../../hooks/useCheckList';
 import { useNavigate } from 'react-router';
 import PriceArea from '../PriceArea/PriceArea';
-import { calculateDeliveryFee, calculateOrderAmount } from '../../utils/coupon/calculate';
+import { calculateDeliveryFee, calculateOrderAmount } from '../../domain/coupon/calculate';
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import { useEffect } from 'react';
 import { PATH } from '../../constants/path';
@@ -41,7 +41,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     setLocalStorage(STORAGE_KEYS.SELECTED_ITEMS, selectedItems);
   }, [checkedItems]);
 
-  const isButtonDisabled = Array.from(state.values()).some(Boolean);
+  const isButtonDisabled = !Array.from(state.values()).some(Boolean);
 
   const handleButtonClick = () => {
     navigate(PATH.ORDER);

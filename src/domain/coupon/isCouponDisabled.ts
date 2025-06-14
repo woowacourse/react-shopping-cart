@@ -1,5 +1,5 @@
 import { Coupon } from '../../types/response';
-import { isExpired, isInAvailableTimeRange } from '../time/time';
+import { isExpired, isInAvailableTimeRange } from '../../utils/time/time';
 
 export const isCouponDisabled = (coupon: Coupon, orderAmount: number): boolean => {
   if (coupon.minimumAmount !== undefined && orderAmount < coupon.minimumAmount) return true;

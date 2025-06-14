@@ -1,4 +1,4 @@
-import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from '../src/utils/coupon/calculate';
+import { calculateDeliveryFee, calculateOrderAmount, calculateTotalQuantity } from '../src/domain/coupon/calculate';
 import cartItems from '../src/mocks/data/cartItems.json';
 import { describe, it, expect } from 'vitest';
 

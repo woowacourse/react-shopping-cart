@@ -6,13 +6,14 @@ import getCoupons from '../../api/getCoupons';
 import { Coupon } from '../../types/response';
 import CheckBox from '../common/CheckBox';
 import { getOrderAmountFromStorage } from '../../utils/storage/storage';
-import { isCouponDisabled } from '../../utils/coupon/isCouponDisabled';
-import { getBestCouponCombination } from '../../utils/coupon/getBestCouponCombination';
-import { calculateTotalDiscount } from '../../utils/coupon/calculateTotalDiscount';
+import { isCouponDisabled } from '../../domain/coupon/isCouponDisabled';
+
+import { calculateTotalDiscount } from '../../domain/coupon/calculateTotalDiscount';
+import { getBestCouponCombination } from '../../domain/coupon/getBestCouponCombination';
 
 const MAX_COUPON_COUNT = 2;
 
-function CouponModal({
+export default function CouponModal({
   isOpen,
   onClose,
   onApplyDiscount
@@ -25,26 +26,22 @@ function CouponModal({
   const [selectedCoupons, setSelectedCoupons] = useState<Coupon[]>([]);
 
   const orderAmount = getOrderAmountFromStorage();
-
   const totalDiscount = calculateTotalDiscount(selectedCoupons, orderAmount);
 
   const toggleCoupon = (coupon: Coupon) => {
-    setSelectedCoupons((prev) => {
-      const exists = prev.find((c) => c.id === coupon.id);
-      if (exists) return prev.filter((c) => c.id !== coupon.id);
-      return prev.length < MAX_COUPON_COUNT ? [...prev, coupon] : prev;
-    });
+    setSelectedCoupons((prev) => toggleCouponSelection(prev, coupon));
   };
 
   const handleButtonClick = () => {
-    onClose();
+    if (totalDiscount === 0) return;
     onApplyDiscount(totalDiscount);
+    onClose();
   };
 
   useEffect(() => {
     if (!coupons) return;
-    const bestCombo = getBestCouponCombination(coupons, orderAmount, MAX_COUPON_COUNT);
-    setSelectedCoupons(bestCombo);
+    const { bestCoupons } = getBestCouponCombination(coupons, orderAmount, MAX_COUPON_COUNT);
+    setSelectedCoupons(bestCoupons);
   }, [coupons, orderAmount]);
 
   return (
@@ -57,6 +54,7 @@ function CouponModal({
           {coupons?.map((coupon) => {
             const isSelected = selectedCoupons.some((c) => c.id === coupon.id);
             const disabled = isCouponDisabled(coupon, orderAmount);
+
             return (
               <li
                 key={coupon.id}
@@ -79,7 +77,7 @@ function CouponModal({
           })}
         </ul>
         <Modal.Footer>
-          <button onClick={handleButtonClick} css={styles.confirmButtonStyle}>
+          <button onClick={handleButtonClick} disabled={totalDiscount === 0} css={styles.confirmButtonStyle}>
             총 {totalDiscount.toLocaleString()}원 할인 쿠폰 사용하기
           </button>
         </Modal.Footer>
@@ -88,14 +86,22 @@ function CouponModal({
   );
 }
 
+const toggleCouponSelection = (prev: Coupon[], coupon: Coupon): Coupon[] => {
+  const exists = prev.some((c) => c.id === coupon.id);
+  if (exists) return prev.filter((c) => c.id !== coupon.id);
+  return prev.length < MAX_COUPON_COUNT ? [...prev, coupon] : prev;
+};
+
 const getCouponInfo = (coupon: Coupon): string => {
-  return [
-    `만료일: ${coupon.expirationDate}`,
-    coupon.minimumAmount && `최소 주문 금액: ${coupon.minimumAmount.toLocaleString()}원`,
-    coupon.availableTime && `사용 가능 시간: ${formatTimeRange(coupon.availableTime.start, coupon.availableTime.end)}`
-  ]
-    .filter(Boolean)
-    .join('\n');
+  const { expirationDate, minimumAmount, availableTime } = coupon;
+
+  const parts = [
+    `만료일: ${expirationDate}`,
+    minimumAmount && `최소 주문 금액: ${minimumAmount.toLocaleString()}원`,
+    availableTime && `사용 가능 시간: ${formatTimeRange(availableTime.start, availableTime.end)}`
+  ];
+
+  return parts.filter(Boolean).join('\n');
 };
 
 const formatTimeRange = (start: string, end: string): string => {
@@ -108,5 +114,3 @@ const formatTimeRange = (start: string, end: string): string => {
   };
   return `${format(start)}부터 ${format(end)}까지`;
 };
-
-export default CouponModal;
