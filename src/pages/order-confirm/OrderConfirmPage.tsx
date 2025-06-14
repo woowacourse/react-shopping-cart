@@ -1,52 +1,53 @@
 import styled from '@emotion/styled';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Flex, Header } from '../../components/common';
-import BackArrowButton from '../../components/common/BackArrowButton';
-import { useNavigate } from 'react-router-dom';
-import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 import ErrorBoundary from '../../components/features/error-boundary/ErrorBoundary';
-import { calculateShippingFee } from '../../utils/calculateShippingFee';
-import { calculateTotalCartItemPrice } from '../../utils/calculateTotalCartItemPrice';
+import { useOrderListContext } from '../shopping-cart/context/OrderListProvider';
 
 const OrderConfirmPage = () => {
+  const location = useLocation();
+  const payment = location.state?.payment;
+
   const navigate = useNavigate();
-  const handleBackClick = () => {
-    navigate(-1);
+  const handleGoToShoppingCartClick = () => {
+    navigate('/');
   };
-  const { cartListData, selectionMap } = useOrderListContext();
-  const orderList = (cartListData ?? []).filter(
-    (cart) => selectionMap[cart.id] === true
+
+  const { selectedItems } = useOrderListContext();
+  const typeCount = selectedItems.length;
+  const totalCount = selectedItems.reduce(
+    (acc, cart) => acc + cart.quantity,
+    0
   );
-  const typeCount = orderList.length;
-  const totalCount = orderList.reduce((acc, cart) => acc + cart.quantity, 0);
-  const totalCartPrice = calculateTotalCartItemPrice(orderList);
-  const shippingFee = calculateShippingFee(totalCartPrice);
-  const totalPrice = totalCartPrice + shippingFee;
 
   return (
     <ErrorBoundary>
-      <Header left={<BackArrowButton onClick={handleBackClick} />} />
+      <Header />
       <Container>
         <Flex justifyContent='center' alignItems='center' gap='lg'>
-          <InfoTitle>주문 확인</InfoTitle>
+          <InfoTitle>결제 확인</InfoTitle>
           <div>
             <Description
-              aria-label={`총 ${typeCount}종류의 상품 ${totalCount}개를 주문합니다.`}
+              aria-label={`총 ${typeCount}종류의 상품 ${totalCount}개를 주문했습니다.`}
             >
-              총 {typeCount}종류의 상품 {totalCount}개를 주문합니다.
+              총 {typeCount}종류의 상품 {totalCount}개를 주문했습니다.
             </Description>
             <Description>최종 결제 금액을 확인해 확인해 주세요.</Description>
           </div>
           <Subtitle>총 결제 금액</Subtitle>
           <InfoTitle
-            aria-label={`총 결제 금액은 ${totalPrice.toLocaleString()}원 입니다.`}
+            aria-label={`총 결제 금액은 ${payment.toLocaleString()}원 입니다.`}
           >
-            {totalPrice.toLocaleString()}원
+            {payment.toLocaleString()}원
           </InfoTitle>
         </Flex>
       </Container>
-      <PayButton $isDisabled={true} disabled>
-        결제하기
-      </PayButton>
+      <GoToShoppingCart
+        $isDisabled={false}
+        onClick={handleGoToShoppingCartClick}
+      >
+        장바구니로 돌아가기
+      </GoToShoppingCart>
     </ErrorBoundary>
   );
 };
@@ -54,7 +55,7 @@ const OrderConfirmPage = () => {
 export default OrderConfirmPage;
 
 const Container = styled(Flex)`
-  padding: 36px 24px;
+  padding: 0 24px;
   height: calc(100vh - 116px);
 `;
 
@@ -72,7 +73,7 @@ const Description = styled.p`
   font-size: 12px;
 `;
 
-const PayButton = styled.button<{ $isDisabled: boolean }>`
+const GoToShoppingCart = styled.button<{ $isDisabled: boolean }>`
   position: sticky;
   bottom: 0;
   width: 100%;

@@ -24,7 +24,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Testing */
-    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "types": [
+      "node",
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "@emotion/react/types/css-prop"
+    ],
     "esModuleInterop": true,
 
     "jsx": "react-jsx"

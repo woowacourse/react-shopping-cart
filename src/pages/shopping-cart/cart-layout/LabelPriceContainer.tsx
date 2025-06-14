@@ -2,17 +2,9 @@ import styled from '@emotion/styled';
 import Flex from '../../../components/common/Flex';
 import LabelPrice from '../../../components/common/LabelPrice';
 import { useOrderListContext } from '../context/OrderListProvider';
-import { calculateShippingFee } from '../../../utils/calculateShippingFee';
-import { calculateTotalCartItemPrice } from '../../../utils/calculateTotalCartItemPrice';
 
 const LabelPriceContainer = () => {
-  const { cartListData, selectionMap } = useOrderListContext();
-  const selectedItems = (cartListData ?? []).filter(
-    (item) => selectionMap[item.id]
-  );
-  const orderPrice = calculateTotalCartItemPrice(selectedItems);
-  const shippingFee = calculateShippingFee(orderPrice);
-  const totalPrice = orderPrice + shippingFee;
+  const { orderPrice, shippingFee, totalPrice } = useOrderListContext();
 
   return (
     <Container>
@@ -52,6 +44,7 @@ const InfoIcon = styled.img`
   width: 14px;
   height: 14px;
 `;
+
 const Container = styled(Flex)`
   flex-direction: column;
   gap: 20px;

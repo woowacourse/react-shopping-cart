@@ -1,0 +1,53 @@
+import { css } from '@emotion/react';
+
+export const baseButtonStyle = css`
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+`;
+
+export const ConfirmButtonStyle = (disabled?: boolean) => css`
+  border: 0;
+  background-color: ${disabled ? '#ccc' : '#333333'};
+  color: ${disabled ? '#666' : '#ffffff'};
+  padding-left: 18px;
+  padding-right: 18px;
+  height: 36px;
+  border-radius: 5px;
+  cursor: ${disabled ? 'not-allowed' : 'pointer'};
+`;
+
+const variationStyles = {
+  primary: css`
+    background-color: black;
+    color: white;
+    border: none;
+    &:hover {
+      background-color: #222;
+    }
+  `,
+  secondary: css`
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  `,
+};
+
+export const CancelButtonStyle = (
+  variation: 'primary' | 'secondary' = 'secondary',
+  widthSize: string
+) => css`
+  padding: 0 18px;
+  height: 36px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: ${widthSize};
+  ${variationStyles[variation]};
+`;

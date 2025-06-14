@@ -88,7 +88,7 @@ function CartCheckList() {
           onToggle={() => handleSelectAll()}
           aria-label={'전체 선택 체크박스'}
           aria-checked={isSelectAll}
-        ></CheckBox>
+        />
         <p>전체 선택</p>
       </CheckedAll>
       <ItemList>
@@ -156,8 +156,8 @@ const LoadingCartItem = styled.div`
 `;
 
 const ItemList = styled.div`
-  height: 100%;
-  max-height: 380px;
+  /* height: 100%; */
+  height: 380px;
   display: flex;
   flex-direction: column;
   gap: 16px;

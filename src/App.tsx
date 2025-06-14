@@ -9,6 +9,7 @@ import OrderConfirmPage from './pages/order-confirm/OrderConfirmPage';
 import { OrderListProvider } from './pages/shopping-cart/context/OrderListProvider';
 import ShoppingCartPage from './pages/shopping-cart/ShoppingCartPage';
 import { getBrowserBaseUrl } from './utils/getBrowserBaseUrl';
+import OrderReviewPage from './pages/order-review/OrderReviewPage';
 
 // const isLocalhost = window.location.hostname === "localhost";
 // const basename = isLocalhost ? "/" : "/react-shopping-cart";
@@ -24,6 +25,7 @@ function App() {
               <BrowserRouter basename={getBrowserBaseUrl()}>
                 <Routes>
                   <Route path='/' element={<ShoppingCartPage />} />
+                  <Route path='/order-review' element={<OrderReviewPage />} />
                   <Route path='/order-confirm' element={<OrderConfirmPage />} />
                   <Route
                     path='*'

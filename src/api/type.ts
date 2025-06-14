@@ -26,3 +26,19 @@ export interface Sort {
   sorted: boolean;
   unsorted: boolean;
 }
+
+export interface CouponContent {
+  id: number;
+  code: string;
+  description: string;
+  expirationDate: string;
+  discount?: number;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: {
+    start: string;
+    end: string;
+  };
+  discountType: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+}
