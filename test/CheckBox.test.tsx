@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import CheckBox from "../src/components/CheckBox/CheckBox";
+import CheckBox from "../src/components/commons/CheckBox/CheckBox";
 
 function CheckBoxWrapper() {
   const [selected, setSelected] = useState(true);
@@ -15,6 +15,10 @@ function CheckBoxWrapper() {
 }
 
 describe("<CheckBox />", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("페이지에 접속했을 때 체크박스가 활성화된다.", () => {
     render(<CheckBoxWrapper />);
 

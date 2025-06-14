@@ -11,7 +11,10 @@ section,
 footer,
 nav,
 article,
-input {
+input,
+ul,
+li,
+aside {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

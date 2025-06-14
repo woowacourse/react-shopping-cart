@@ -1,36 +1,41 @@
 import { useCallback, useEffect, useState } from "react";
-import CartItemList from "../../components/CartItemList/CartItemList";
-import CheckBox from "../../components/CheckBox/CheckBox";
-import Description from "../../components/Description/Description";
-import Header from "../../components/Header/Header";
+import ProductItemList from "../../components/ProductItemList/ProductItemList";
+import CheckBox from "../../components/commons/CheckBox/CheckBox";
+import Description from "../../components/commons/Description/Description";
+import Header from "../../components/commons/Header/Header";
 import Receipt from "../../components/Receipt/Receipt";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
+import SubmitButton from "../../components/commons/SubmitButton/SubmitButton";
 import { Container, NoCartItemText, Wrap } from "./Cart.styles";
 import { CartItemType } from "../../types/response";
 import useFetch from "../../hooks/useFetch";
 import { getCartItems } from "../../api/cartItem";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/errorMessage";
-import useCheckboxHandler from "../../hooks/useCheckboxHandler";
+import useCheckboxHandler from "../../hooks/checkbox/useCheckboxHandler";
 import { useNavigate } from "react-router-dom";
 import useQuantityControl from "../../hooks/useQuantityControl";
-
-const getSelectedCartItems = (
-  cartItems: CartItemType[],
-  selectedCartIds: number[]
-) => {
-  return cartItems.filter((cartItem) => selectedCartIds.includes(cartItem.id));
-};
+import CartItem from "../../components/CartItem/CartItem";
+import { getSelectedCartItems } from "../../utils/cartItem";
+import useAllCheckboxHandler from "../../hooks/checkbox/useAllCheckboxHandler";
+import { KEY } from "../../constants/storage";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const { fetchData } = useFetch<CartItemType[]>("cartItems");
   const {
-    selectedCartIds,
-    toggleAllSelect,
+    selectedIds: selectedCartIds,
     toggleSelect,
-    isAllSelected,
+    addSelectedId,
     isSelected,
-  } = useCheckboxHandler(cartItems);
+    selectedIds,
+  } = useCheckboxHandler(cartItems, KEY.cart);
+
+  const { toggleAllSelect, isAllSelected } = useAllCheckboxHandler({
+    items: cartItems,
+    storageKey: KEY.cart,
+    toggleSelect,
+    addSelectedId,
+    selectedIds,
+  });
   const navigate = useNavigate();
 
   const updateCartItem = (cartId: number, newItem: CartItemType) => {
@@ -75,8 +80,15 @@ function Cart() {
   return (
     <>
       <Header icon="logo.svg" handleIconClick={() => navigate("/")} />
-      <section css={Container}>
-        <Description cartItemCount={cartItems.length} />
+      <main css={Container}>
+        <Description
+          title="장바구니"
+          subtitle={
+            cartItems.length !== 0
+              ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.`
+              : ""
+          }
+        />
 
         {cartItems.length === 0 ? (
           <p css={NoCartItemText}>장바구니에 담은 상품이 없습니다.</p>
@@ -88,14 +100,19 @@ function Cart() {
               isSelected={isAllSelected()}
               onClick={toggleAllSelect}
             />
-            <CartItemList
-              cartItems={cartItems}
-              isSelected={isSelected}
-              toggleSelect={toggleSelect}
-              increaseQuantity={increaseQuantity}
-              decreaseQuantity={decreaseQuantity}
-              deleteCartItem={deleteCartItem}
-            />
+            <ProductItemList>
+              {cartItems.map((cartItem) => (
+                <CartItem
+                  key={cartItem.id}
+                  cartItem={cartItem}
+                  isSelected={isSelected(cartItem.id)}
+                  toggleSelect={() => toggleSelect(cartItem.id)}
+                  increaseQuantity={increaseQuantity}
+                  decreaseQuantity={decreaseQuantity}
+                  deleteCartItem={deleteCartItem}
+                />
+              ))}
+            </ProductItemList>
             <Receipt
               selectedCartItems={getSelectedCartItems(
                 cartItems,
@@ -104,7 +121,7 @@ function Cart() {
             />
           </div>
         )}
-      </section>
+      </main>
       <SubmitButton
         label="주문 확인"
         enabled={selectedCartIds.length !== 0}

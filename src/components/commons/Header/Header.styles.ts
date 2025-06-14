@@ -4,7 +4,6 @@ export const Container = css`
   position: sticky;
   top: 0;
   width: var(--max-width);
-  height: 7vh;
   padding: 24px;
 
   display: flex;

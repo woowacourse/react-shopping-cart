@@ -1,15 +1,20 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import SubmitButton from "../../components/SubmitButton/SubmitButton";
-import {
-  Container,
-  Summary,
-  Title,
-  TotalCost,
-  TotalCostLabel,
-} from "./OrderSummary.styles";
+import Header from "../../components/commons/Header/Header";
+import SubmitButton from "../../components/commons/SubmitButton/SubmitButton";
+import { Container, RedeemCouponButton } from "./OrderSummary.styles";
 import { CartItemType } from "../../types/response";
-import { getDeliveryCost, getOrderCost } from "../../utils/cost";
+import { getDeliveryCost, getOrderCost, getTotalCost } from "../../utils/cost";
+import Description from "../../components/commons/Description/Description";
+import ProductItemList from "../../components/ProductItemList/ProductItemList";
+import { createPortal } from "react-dom";
+import { useState } from "react";
+import CouponModal from "../CouponModal/CouponModal";
+import ExtraShipping from "../../components/ExtraShipping/ExtraShipping";
+import { CouponType } from "../../components/Coupon/types";
+import OrderReceipt from "../../components/OrderReceipt/OrderReceipt";
+import couponService from "../../domain/coupon/couponService";
+import { filterNonExpiredCoupons } from "../../utils/coupon";
+import OrderItem from "../../components/OrderItem/OrderItem";
 
 function OrderSummary() {
   const navigate = useNavigate();
@@ -21,24 +26,101 @@ function OrderSummary() {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const [openModal, setOpenModal] = useState(false);
+  const modalRoot = document.getElementById("root")!;
+
+  const [isExtraShipping, setIsExtraShipping] = useState(false);
+  const toggleExtraShipping = () => {
+    setIsExtraShipping((prev) => !prev);
+  };
+
+  const [redeemedCoupons, setRedeemedCoupons] = useState<CouponType[]>([]);
+  const redeemCoupons = (coupons: CouponType[]) => {
+    setRedeemedCoupons(coupons);
+  };
+
   const orderCost = getOrderCost(cartItems);
-  const totalCost = orderCost + getDeliveryCost(orderCost);
+  const deliveryCost = getDeliveryCost(orderCost, isExtraShipping);
+  const discount = couponService.calculateBestCouponDiscount({
+    selectedCoupons: redeemedCoupons,
+    selectedItems: cartItems,
+    orderCost,
+    deliveryCost,
+  });
+  const totalCost = getTotalCost(orderCost, deliveryCost, discount);
+
+  const getExpectedDiscount = (selectedCoupons: CouponType[]) => {
+    return couponService.calculateBestCouponDiscount({
+      selectedCoupons,
+      selectedItems: cartItems,
+      orderCost,
+      deliveryCost,
+    });
+  };
+
+  const decideSelectedCouponCanRedeem = (coupon: CouponType) => {
+    return couponService.decideCanRedeem({
+      coupon,
+      selectedItems: cartItems,
+      orderCost,
+      deliveryCost,
+    });
+  };
 
   return (
     <>
       <Header icon="backIcon.svg" handleIconClick={() => navigate(-1)} />
-      <section css={Container}>
-        <h2 css={Title}>주문 확인</h2>
-        <p css={Summary}>
-          {`총 ${cartItems.length}종류의 상품 ${getAllQuantity(
+      <main css={Container}>
+        <Description
+          title="주문 확인"
+          subtitle={`총 ${cartItems.length}종류의 상품 ${getAllQuantity(
             cartItems
-          )}개를 주문합니다.`}
-        </p>
-        <p css={Summary}> 최종 결제 금액을 확인해 주세요.</p>
-        <p css={TotalCostLabel}>총 결제 금액</p>
-        <p css={TotalCost}>{totalCost.toLocaleString()}원</p>
-      </section>
-      <SubmitButton enabled={false} label="결제하기" />
+          )}개를 주문합니다.\n최종 결제 금액을 확인해 주세요.`}
+        />
+        <ProductItemList>
+          {cartItems.map((cartItem: CartItemType) => (
+            <OrderItem key={cartItem.id} orderItem={cartItem} />
+          ))}
+        </ProductItemList>
+        <button
+          css={RedeemCouponButton}
+          type="button"
+          onClick={() => setOpenModal(true)}
+        >
+          쿠폰 적용
+        </button>
+        <ExtraShipping
+          isSelected={isExtraShipping}
+          toggleSelect={toggleExtraShipping}
+        />
+        <OrderReceipt
+          orderCost={orderCost}
+          deliveryCost={deliveryCost}
+          discount={discount}
+          totalCost={totalCost}
+        />
+      </main>
+      <SubmitButton
+        enabled={true}
+        label="결제하기"
+        onClick={() =>
+          navigate("/order-complete", {
+            state: { totalCost, cartItems },
+          })
+        }
+      />
+      {openModal &&
+        createPortal(
+          <CouponModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            redeemCoupons={redeemCoupons}
+            getDiscount={getExpectedDiscount}
+            filterNonExpiredCoupons={filterNonExpiredCoupons}
+            decideCanRedeem={decideSelectedCouponCanRedeem}
+          />,
+          modalRoot
+        )}
     </>
   );
 }

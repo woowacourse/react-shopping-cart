@@ -10,3 +10,10 @@ export const findCartItemById = (cartId: number, cartItems: CartItemType[]) => {
 
   return target;
 };
+
+export const getSelectedCartItems = (
+  cartItems: CartItemType[],
+  selectedCartIds: number[]
+) => {
+  return cartItems.filter((cartItem) => selectedCartIds.includes(cartItem.id));
+};
