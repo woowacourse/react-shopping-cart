@@ -12,7 +12,9 @@ export default function Stepper({ value, onIncrement, onDecrement }: StepperProp
       <button onClick={onDecrement}>
         <img src="assets/minus.svg" alt="차감" />
       </button>
-      <span css={valueCss}>{value}</span>
+      <span data-testid="quantity" css={valueCss}>
+        {value}
+      </span>
       <button onClick={onIncrement}>
         <img src="assets/plus.svg" alt="증가" />
       </button>

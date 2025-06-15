@@ -5,6 +5,7 @@ import OrderPage from './page/OrderPage';
 import { ApiProvider } from './contexts/ApiContext';
 import { ErrorContextProvider } from './contexts/ErrorContext';
 import { PATH } from './constants/path';
+import PaymentPage from './page/PaymentPage';
 
 const isTest = import.meta.env.MODE === 'test';
 const basename = isTest ? '' : '/react-shopping-cart';
@@ -12,7 +13,8 @@ const basename = isTest ? '' : '/react-shopping-cart';
 const router = createBrowserRouter(
   [
     { path: PATH.CART, element: <CartPage /> },
-    { path: PATH.ORDER, element: <OrderPage /> }
+    { path: PATH.ORDER, element: <OrderPage /> },
+    { path: PATH.PAYMENT, element: <PaymentPage /> }
   ],
   {
     basename
