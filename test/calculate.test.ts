@@ -6,15 +6,24 @@ import {
 import cartItems from '../src/mocks/data/cartItems.json';
 import { describe, it, expect } from 'vitest';
 
+import { CartItemType } from '../src/domain/mapper/cartItemMapper';
+
+let items: CartItemType[];
+
+beforeEach(() => {
+  items = cartItems.content.map(
+    (item): CartItemType => ({
+      cartItemId: item.id,
+      productId: item.product.id,
+      name: item.product.name,
+      quantity: item.quantity,
+      price: item.product.price,
+      imageUrl: item.product.imageUrl
+    })
+  );
+});
+
 describe('주문 금액·배송비·결제 금액 계산 test', () => {
-  const items = cartItems.content.map((item) => ({
-    cartItemId: item.id,
-    productId: item.product.id,
-    name: item.product.name,
-    quantity: item.quantity,
-    price: item.product.price,
-    imageUrl: item.product.imageUrl
-  }));
   it('상품 금액을 합산한 총 주문 금액을 계산한다.', () => {
     const orderAmount = calculateOrderAmount(items);
     expect(orderAmount).toBe(1088054867);

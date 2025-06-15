@@ -39,7 +39,7 @@ export default function CartItem({ item, checked, onToggle }: CartItemProps) {
     }
   };
 
-  const { name, price, imageUrl, quantity } = item;
+  const { name, price, imageUrl, quantity = 1 } = item;
 
   return (
     <div css={styles.cartItemFrameCss}>

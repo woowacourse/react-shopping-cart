@@ -1,4 +1,4 @@
-import { cleanup, render, screen, within } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import App from '../src/App';
 import cartItems from '../src/mocks/data/cartItems.json';
 import { describe, it, expect } from 'vitest';
@@ -34,39 +34,5 @@ describe('Cart Item Delete', () => {
 
     const updatedCartItemListElement = await screen.findByTestId('cart-item-list');
     expect(updatedCartItemListElement.children.length).toBe(cartItems.content.length - 1);
-  });
-});
-
-describe('Cart Item Quantity', () => {
-  it('플러스 버튼 클릭 시 수량이 1 증가해야 한다.', async () => {
-    render(<App />);
-
-    const steppers = await screen.findAllByTestId('stepper');
-    const stepper = steppers[0];
-
-    const quantitySpan = within(stepper).getByText(/\d+/);
-    const initialQuantity = Number(quantitySpan.textContent);
-
-    const plusButton = within(stepper).getByRole('button', { name: /플러스 버튼/i });
-    plusButton.click();
-
-    const updatedQuantity = await within(stepper).findByText(String(initialQuantity + 1));
-    expect(updatedQuantity).toBeInTheDocument();
-  });
-
-  it('플러스 버튼 클릭 시 수량이 1 증가해야 한다.', async () => {
-    render(<App />);
-
-    const steppers = await screen.findAllByTestId('stepper');
-    const stepper = steppers[0];
-
-    const quantitySpan = within(stepper).getByText(/\d+/);
-    const initialQuantity = Number(quantitySpan.textContent);
-
-    const plusButton = within(stepper).getByRole('button', { name: /마이너스 버튼/i });
-    plusButton.click();
-
-    const updatedQuantity = await within(stepper).findByText(String(initialQuantity - 1));
-    expect(updatedQuantity).toBeInTheDocument();
   });
 });

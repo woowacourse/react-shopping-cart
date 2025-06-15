@@ -28,6 +28,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   const checkedItems = getCheckedItems(cartItems, state);
   const orderAmount = calculateOrderAmount(checkedItems);
   const deliveryFee = calculateDeliveryFee(orderAmount);
+
   const totalAmount = orderAmount + deliveryFee;
 
   useEffect(() => {
