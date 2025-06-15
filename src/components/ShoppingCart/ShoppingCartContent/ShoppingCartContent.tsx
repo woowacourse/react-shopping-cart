@@ -30,27 +30,21 @@ export default function ShoppingCartContent({
       isChecked: true,
     }));
     setCartItemCheckList(initialized);
-    localStorage.setItem("selectedCartItemList", JSON.stringify(initialized));
   }, [cartItemList]);
 
-  useEffect(() => {
-    localStorage.setItem(
-      "selectedCartItemList",
-      JSON.stringify(cartItemCheckList)
-    );
-  }, [cartItemCheckList]);
-
   const handleSelectedCartItem = (id: number) => {
-    setCartItemCheckList((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, isChecked: !item.isChecked } : item
-      )
+    const updated = cartItemCheckList.map((item) =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
     );
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
   };
 
   const handleSelectedCartItemRemove = async (id: number) => {
     await removeCartItem(id);
-    setCartItemCheckList((prev) => prev.filter((item) => item.id !== id));
+    const updated = cartItemCheckList.filter((item) => item.id !== id);
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
   };
 
   const handleSelectedCartItemQuantityUpdate = async (
@@ -58,16 +52,22 @@ export default function ShoppingCartContent({
     quantity: number
   ) => {
     await patchCartItem(id, quantity);
-    setCartItemCheckList((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
+    const updated = cartItemCheckList.map((item) =>
+      item.id === id ? { ...item, quantity } : item
     );
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
   };
 
   const allChecked = cartItemCheckList.every((item) => item.isChecked);
+
   const toggleAll = () => {
-    setCartItemCheckList((prev) =>
-      prev.map((item) => ({ ...item, isChecked: !allChecked }))
-    );
+    const updated = cartItemCheckList.map((item) => ({
+      ...item,
+      isChecked: !allChecked,
+    }));
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
   };
 
   const cartItemListLength = cartItemList.length;
