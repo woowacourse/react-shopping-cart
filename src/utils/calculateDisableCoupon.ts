@@ -2,7 +2,7 @@ import { CouponResponse } from "../types/Coupon";
 
 export default function calculateDisableCoupon(
   coupon: CouponResponse,
-  opts: {
+  options: {
     couponIds: number[];
     allProductPrice: number;
     shippingFee: number;
@@ -10,7 +10,8 @@ export default function calculateDisableCoupon(
     now: Date;
   }
 ) {
-  const { couponIds, allProductPrice, shippingFee, selectedItems, now } = opts;
+  const { couponIds, allProductPrice, shippingFee, selectedItems, now } =
+    options;
   const isChecked = couponIds.includes(coupon.id);
 
   if (!isChecked && couponIds.length >= 2) return true;
