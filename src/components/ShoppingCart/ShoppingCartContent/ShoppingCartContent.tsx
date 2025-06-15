@@ -1,0 +1,128 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import Receipt from "../receipt/Receipt";
+import Footer from "../../layout/Footer/Footer";
+import CartItemCheck from "../../../types/CartItemCheck";
+import * as S from "../../../pages/ShoppingCartPage/ShoppingCartPage.styles";
+import ContentHeader from "../ContentHeader/ContentHeader";
+import ShoppingCartList from "../ShoppingCartList/ShoppingCartList";
+import CartItem from "../../../types/CartItem";
+
+interface ShoppingCartContentProps {
+  cartItemList: CartItem[];
+  patchCartItem: (id: number, quantity: number) => Promise<void>;
+  removeCartItem: (id: number) => Promise<void>;
+}
+
+export default function ShoppingCartContent({
+  cartItemList,
+  patchCartItem,
+  removeCartItem,
+}: ShoppingCartContentProps) {
+  const [cartItemCheckList, setCartItemCheckList] = useState<CartItemCheck[]>(
+    []
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const initialized = cartItemList.map((item) => ({
+      ...item,
+      isChecked: true,
+    }));
+    setCartItemCheckList(initialized);
+  }, [cartItemList]);
+
+  const handleSelectedCartItem = (id: number) => {
+    const updated = cartItemCheckList.map((item) =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
+    );
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
+  };
+
+  const handleSelectedCartItemRemove = async (id: number) => {
+    await removeCartItem(id);
+    const updated = cartItemCheckList.filter((item) => item.id !== id);
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
+  };
+
+  const handleSelectedCartItemQuantityUpdate = async (
+    id: number,
+    quantity: number
+  ) => {
+    await patchCartItem(id, quantity);
+    const updated = cartItemCheckList.map((item) =>
+      item.id === id ? { ...item, quantity } : item
+    );
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
+  };
+
+  const allChecked = cartItemCheckList.every((item) => item.isChecked);
+
+  const toggleAll = () => {
+    const updated = cartItemCheckList.map((item) => ({
+      ...item,
+      isChecked: !allChecked,
+    }));
+    setCartItemCheckList(updated);
+    localStorage.setItem("selectedCartItemList", JSON.stringify(updated));
+  };
+
+  const cartItemListLength = cartItemList.length;
+
+  const selectedCartItemList = cartItemCheckList.filter(
+    ({ isChecked }) => isChecked
+  );
+
+  const allProductPrice = selectedCartItemList.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0
+  );
+
+  const shippingFee = allProductPrice >= 100000 ? 0 : 3000;
+
+  const handleOrderListButtonClick = () => {
+    localStorage.setItem(
+      "selectedCartItemList",
+      JSON.stringify(selectedCartItemList)
+    );
+
+    navigate("/order-check", {
+      state: {
+        selectedCartItemList,
+      },
+    });
+  };
+
+  if (!cartItemListLength) {
+    return <S.EmptyText>장바구니에 담은 상품이 없습니다.</S.EmptyText>;
+  }
+
+  return (
+    <>
+      <ContentHeader
+        title="장바구니"
+        description={`현재 ${selectedCartItemList.length}종류의 상품이 담겨있습니다.`}
+      />
+      <ShoppingCartList
+        cartItemList={cartItemList}
+        cartItemCheckList={cartItemCheckList}
+        allChecked={allChecked}
+        toggleAll={toggleAll}
+        handleSelectedCartItem={handleSelectedCartItem}
+        handleSelectedCartItemQuantityUpdate={
+          handleSelectedCartItemQuantityUpdate
+        }
+        handleSelectedCartItemRemove={handleSelectedCartItemRemove}
+      />
+      <Receipt allProductPrice={allProductPrice} shippingFee={shippingFee} />
+      <Footer
+        text="주문 확인"
+        active={cartItemListLength ? "true" : "false"}
+        handleClick={handleOrderListButtonClick}
+      />
+    </>
+  );
+}

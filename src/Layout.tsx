@@ -1,19 +1,16 @@
-import { Outlet, useLocation } from "react-router";
-import Header from "./components/layout/Header/Header";
-import BackButton from "./components/layout/Header/BackButton";
+import { Outlet } from "react-router";
 
 import { CartItemListProvider } from "./contexts/CartItemListContext";
 import { ErrorProvider } from "./contexts/ErrorContext";
+import { CouponListProvider } from "./contexts/CouponContext";
 
 export default function Layout() {
-  const location = useLocation();
-  const isShoppingCartPage = location.pathname === "/";
-
   return (
     <ErrorProvider>
       <CartItemListProvider>
-        <Header>{isShoppingCartPage ? "SHOP" : <BackButton />}</Header>
-        <Outlet />
+        <CouponListProvider>
+          <Outlet />
+        </CouponListProvider>
       </CartItemListProvider>
     </ErrorProvider>
   );
