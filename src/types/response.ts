@@ -1,8 +1,8 @@
-import { CartItemType } from './cartItem';
+import { RawCartItem } from '../domain/mapper/cartItemMapper';
 import { Product } from './product';
 
 export interface CartItemResponse {
-  content: CartItemType[];
+  content: RawCartItem[];
   pageable: Pageable;
   totalElements: number;
   totalPages: number;
@@ -43,3 +43,21 @@ interface Sort {
   sorted: boolean;
   unsorted: boolean;
 }
+
+type TimeRange = {
+  start: string;
+  end: string;
+};
+
+export type Coupon = {
+  id: number;
+  code: 'FIXED5000' | 'BOGO' | 'FREESHIPPING' | 'MIRACLESALE';
+  description: string;
+  expirationDate: string;
+  discountType: 'fixed' | 'buyXgetY' | 'freeShipping' | 'percentage';
+  discount?: number;
+  minimumAmount?: number;
+  buyQuantity?: number;
+  getQuantity?: number;
+  availableTime?: TimeRange;
+};

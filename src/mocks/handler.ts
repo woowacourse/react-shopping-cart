@@ -1,7 +1,9 @@
 import { http, HttpResponse } from 'msw';
 import cartItems from './data/cartItems.json';
 import { CartItemResponse } from '../types/response';
-import { URLS } from '../constants/url';
+import { API_END_POINTS } from '../constants/apiEndPoint';
+import { httpClient } from '../api/httpClient';
+
 const serverCartItems = JSON.parse(JSON.stringify(cartItems)) as CartItemResponse;
 
 type PatchProductRequestBody = {
@@ -10,12 +12,12 @@ type PatchProductRequestBody = {
 
 export const handlers = [
   // 장바구니 목록 조회
-  http.get(URLS.CART_ITEMS, () => {
+  http.get(httpClient.baseUrl + API_END_POINTS.CART_ITEMS, () => {
     return HttpResponse.json(serverCartItems);
   }),
 
   // 장바구니 개수 변경
-  http.patch(`${URLS.CART_ITEMS}/:cartItemId`, async ({ params, request }) => {
+  http.patch(`${httpClient.baseUrl + API_END_POINTS.CART_ITEMS}/:cartItemId`, async ({ params, request }) => {
     const idToPatch = Number(params.cartItemId);
     const { quantity } = (await request.json()) as PatchProductRequestBody;
 
@@ -31,7 +33,7 @@ export const handlers = [
   }),
 
   // 장바구니 아이템 삭제
-  http.delete(`${URLS.CART_ITEMS}/:cartItemId`, ({ params }) => {
+  http.delete(`${httpClient.baseUrl + API_END_POINTS.CART_ITEMS}/:cartItemId`, ({ params }) => {
     const idToDelete = Number(params.cartItemId);
 
     serverCartItems.content = serverCartItems.content.filter((item) => item.id !== idToDelete);
